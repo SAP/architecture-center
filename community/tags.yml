@@ -1,0 +1,13 @@
+# predefined tags
+
+demo:
+  label: "Demo"
+  description: "A demo page is a page designed to showcase features, functionality, or design of a product, service, or concept. It is often used for demonstrations, testing, or marketing purposes."
+
+ref-arch:
+  label: "Reference Architectures"
+  description: "Reference Architectures offer standardized, reusable templates for software architecture, providing best practices, guidelines, and blueprints to streamline design, development, and deployment."
+
+community:
+  label: "Community of Practice"
+  description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."

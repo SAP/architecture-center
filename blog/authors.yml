@@ -1,0 +1,22 @@
+jmsrpp:
+  name: James Rapp
+  title: SAP Architect
+  url: https://github.com/jmsrpp
+  image_url: https://github.com/jmsrpp.png
+  page: true
+  # valid socials are github, x, linkedin, stackoverflow
+  socials:
+    github: jmsrpp
+    linkedin: james-rapp-40a6311
+
+cernus76:
+  name: Pierre-Olivier Basseville
+  title: Program Manager
+  url: https://github.com/cernus76
+  image_url: https://github.com/cernus76.png
+  page: true
+  # valid socials are github, x, linkedin, stackoverflow
+  socials:
+    github: cernus76
+    linkedin: pierreolivierbasseville
+    

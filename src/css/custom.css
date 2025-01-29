@@ -1,0 +1,827 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+
+/* You can override the default Infima variables here. */
+:root {
+    --ifm-color-primary: #0070f2;
+    --ifm-color-primary-dark: #122664;
+    --ifm-color-primary-darker: #002a86;
+    --ifm-color-primary-darkest: #00144a;
+    --ifm-color-primary-light: #4d6ab2;
+    --ifm-color-primary-lighter: #8ea6d8;
+    --ifm-color-primary-lightest: #e8f0ff;
+    --ifm-color-secondary: #7858ff;
+    --ifm-color-secondary-dark: #a9b4be;
+    --ifm-background-color: #ffffff;
+    --ifm-link-color: #0057d2;
+    --ifm-sidebar-selected-item-background-color: #e3f2fd;
+    --ifm-navbar-link-hover-color: #556b82;
+    --ifm-breadcrumb-color-active: #0057d2;
+    --ifm-menu-color-active: #0057d2;
+    --ifm-code-font-size: 95%;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ifm-font-family-base: Arial, Helvetica;
+    --ifm-h1-font-size: 2rem !important;
+    --ifm-heading-font-weight: 900;
+    --ifm-footer-link-color: #0064d9;
+    --ifm-heading-font-family: '72Bold';
+    --doc-sidebar-width: 430px !important;
+    --ifm-table-cell-padding: 0.25rem 0.5rem;
+}
+
+/* General list item styling */
+.menu__list-item {
+    font-size: 14px; /* Adjust the font size as needed */
+    list-style: none; /* Remove bullet points */
+}
+
+.menu__list-item > .menu__link--active {
+    background-color: var(--ifm-sidebar-selected-item-background-color);
+}
+
+.menu__link {
+    /* Changed by PO: All pages should use the same colours */
+    color: #000;
+    font-size: 14px; /* Adjust the font size as needed */
+    /* Changed by PO to align the menu entries */
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.docusaurus-highlight-code-line {
+    background-color: rgb(72, 77, 91);
+    display: block;
+    margin: 0 calc(-1 * var(--ifm-pre-padding));
+    padding: 0 var(--ifm-pre-padding);
+}
+
+.banner {
+    padding: 4rem;
+}
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+    .heroBanner {
+        padding: 2rem;
+    }
+}
+
+@font-face {
+    font-family: '72Bold';
+    src: url('../css/font/72Brand-Bold.woff2');
+}
+
+@font-face {
+    font-family: '72Black';
+    src: url('../css/font/72Brand-Black.woff2');
+}
+
+@font-face {
+    font-family: '72Medium';
+    src: url('../css/font/72Brand-Medium.woff2');
+}
+
+@font-face {
+    font-family: '72Regular';
+    src: url('../css/font/72Brand-Regular.woff2');
+}
+
+.button_filled_overview {
+    /*display: inline-block;*/
+    display: flex;
+    flex-direction: row;
+    padding: 4px 25px;
+    padding-bottom: 4px;
+    padding-top: 6px;
+    width: 250px;
+    height: 35px;
+    background-color: #0070f2;
+    border: 1px solid #0070f2;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    /*margin-right: 10px;*/
+    font-size: 16px;
+    font-weight: 600;
+    font-family: '72Bold';
+}
+
+.button_filled_overview:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #002a86;
+    border: 1px solid #002a86;
+}
+
+.button_filled_guideline {
+    display: inline-block;
+    padding: 4px 18px;
+    padding-bottom: 30px;
+    padding-top: 6px;
+    width: 200px;
+    height: 30px;
+    background-color: #0070f2;
+    border: 1px solid #bcc3ca;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: '72Bold';
+    font-weight: 600;
+}
+
+.button_filled_guideline:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #002a86;
+    border: 1px solid #002a86;
+}
+
+.button_clean_guideline {
+    display: inline-block;
+    padding: 4px 18px;
+    padding-bottom: 30px;
+    padding-top: 6px;
+    width: 160px;
+    height: 35px;
+    background-color: #ffffff;
+    border: 1px solid #bcc3ca;
+    border-radius: 8px;
+    color: #0064d9;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: '72Bold';
+    font-weight: 600;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    padding: 5px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    /* padding: 2px 16px; */
+    padding: 32px;
+}
+
+.container-wrapper {
+    display: flex;
+    gap: 20px; /* Adjust the space between cards as needed */
+}
+
+.overview_body {
+    margin: 2rem 0rem;
+    font-size: 18px;
+    width: 600px;
+    font-family: '72Regular';
+}
+
+.overview_buttons {
+    padding: 0rem 0rem;
+    margin: 0rem 0rem;
+}
+
+.benefits_body {
+    margin: 15rem -0rem;
+    font-family: '72Regular';
+    /* width: 600px; */
+    height: 550.487px;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
+    font-family: '72Regular';
+    font-size: 16px;
+    /* font-style: italic; */
+    color: #ffffff !important;
+    --docusaurus-announcement-bar-height: 35px;
+    background-color: #002a86 !important;
+}
+
+/* Constrain the size of zoomed images */
+.medium-zoom-image--opened {
+    max-width: 80%; /* Ensure the image doesn't exceed the screen width */
+    max-height: 80%; /* Constrain the zoomed image to 80% of the viewport height */
+    object-fit: contain; /* Maintain the aspect ratio */
+    display: block; /* Center the image */
+    margin-left: auto; /* Center the image */
+    margin-right: auto; /* Center the image */
+}
+
+/* Fix the announcement bar at the top */
+.announcementBar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+/* Sidebar customization */
+.menu__list {
+    position: relative;
+    list-style: none;
+}
+
+.menu__list-item > a {
+    padding: 8px 8px;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+}
+
+.menu__list-item .menu__list {
+    margin-left: 10px; /* Indent the sub-list */
+    padding-left: 10px;
+    border-left: 1px solid #000; /* Vertical line */
+}
+
+.menu__link--active {
+    font-weight: bold;
+}
+
+.menu__list-item .menu__list .menu__link--active {
+    font-weight: bold;
+    background-color: var(--ifm-sidebar-selected-item-background-color);
+}
+
+.menu__list-item-collapsible--active {
+    background: var(--ifm-sidebar-selected-item-background-color);
+}
+
+.menu__list-item-collapsible--active > .menu__link {
+    background-color: var(--ifm-sidebar-selected-item-background-color);
+    color: var(--ifm-menu-color-active);
+}
+
+.menu__list-item > .menu__link--active {
+    color: var(--ifm-menu-color-active);
+}
+
+.menu__link:not(.menu__link--active):hover {
+    color: #000 !important;
+}
+
+/* Breadcrumbs customization*/
+.breadcrumbs__item--active .breadcrumbs__link {
+    background: var(--ifm-sidebar-selected-item-background-color);
+    color: var(--ifm-menu-color-active);
+    font-weight: bold;
+}
+
+/* Dropdown menu customization*/
+.dropdown__link--active {
+    font-weight: bold;
+    background-color: var(--ifm-sidebar-selected-item-background-color);
+}
+
+/* Highlight the currently targeted section in the right sidebar */
+.right-sidebar .table-of-contents a:target {
+    background-color: var(--ifm-sidebar-selected-item-background-color); /* Light blue background */
+    border-left: 4px solid #1976d2; /* Blue left border */
+    padding-left: 8px; /* Adjust padding */
+    color: #000; /* Ensure text color contrasts well with background */
+}
+
+/* Optional: add hover effect for links */
+.right-sidebar .table-of-contents a:hover {
+    background-color: #bbdefb; /* Slightly darker blue on hover */
+}
+
+#__docusaurus .theme-code-block-highlighted-line {
+    margin: 0;
+}
+
+#__docusaurus {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: '72REGULAR' !important;
+}
+
+.theme-code-block-added-line {
+    background-color: rgb(87 171 90 / 15%);
+    display: block;
+}
+
+.theme-code-block-removed-line {
+    background-color: rgb(229 83 75 / 15%);
+    display: block;
+}
+
+html[data-theme='dark'] .sourcecode-badge {
+    background-color: var(--ifm-color-secondary);
+    color: #24292f;
+}
+
+.code-block-hidden,
+.code-block-hidden.theme-code-block-highlighted-line {
+    display: none;
+}
+.required {
+    font-size: 13px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #fa5035;
+    color: #fa5035;
+    border-width: 1px;
+    letter-spacing: 0.02rem;
+    margin-right: 0;
+    padding: 0 6px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.markdown > h3 {
+    font-family: '72Regular';
+    font-size: 1.2rem;
+    padding-top: 10px;
+}
+
+.markdown > h2 {
+    font-family: '72Regular';
+    font-size: 1.5rem;
+    padding-top: 10px;
+}
+
+.markdown > h1 {
+    font-family: '72Regular';
+    font-size: 2rem;
+    padding-top: 10px;
+}
+
+.markdown h1:first-child {
+    font-family: '72Regular';
+    font-size: 2rem;
+}
+
+.markdown li {
+    word-wrap: break-word;
+    padding-bottom: 0.25rem;
+}
+
+.admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module {
+    text-transform: none !important;
+}
+
+.admonitionHeading_Gvgb {
+    text-transform: none !important;
+}
+
+.pagination-nav {
+    display: none;
+}
+
+.markdown > table th,
+table td,
+table tr,
+table thead {
+    font-family: '72Regular';
+    font-size: 15px;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+    --ifm-color-primary: #d1efff;
+    --ifm-color-primary-dark: #439ddd;
+    --ifm-color-primary-darker: #4684e8;
+    --ifm-color-primary-darkest: #0e85ca;
+    --ifm-color-primary-light: #71d6f5;
+    --ifm-color-primary-lighter: #7adcff;
+    --ifm-color-primary-lightest: #8dc2f7;
+    --ifm-background-color: #ffffff;
+    --ifm-link-color: #0057d2;
+    --ifm-background-color-selected-item: #0a6ed1;
+    --ifm-heading-font-family: '72Bold';
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='light'] .DocSearch {
+    /* --docsearch-primary-color: var(--ifm-color-primary); */
+    /* --docsearch-text-color: var(--ifm-font-color-base); */
+    --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+    --docsearch-container-background: rgba(94, 100, 112, 0.7);
+    /* Modal */
+    --docsearch-modal-background: var(--ifm-color-secondary-lighter);
+    /* Search box */
+    --docsearch-searchbox-background: var(--ifm-color-secondary);
+    --docsearch-searchbox-focus-background: var(--ifm-color-white);
+    /* Hit */
+    --docsearch-hit-color: var(--ifm-font-color-base);
+    --docsearch-hit-active-color: var(--ifm-color-white);
+    --docsearch-hit-background: var(--ifm-color-white);
+    /* Footer */
+    --docsearch-footer-background: var(--ifm-color-white);
+}
+
+[data-theme='dark'] .DocSearch {
+    --docsearch-text-color: var(--ifm-font-color-base);
+    --docsearch-muted-color: var(--ifm-color-secondary-darkest);
+    --docsearch-container-background: rgba(47, 55, 69, 0.7);
+    /* Modal */
+    --docsearch-modal-background: var(--ifm-background-color);
+    /* Search box */
+    --docsearch-searchbox-background: var(--ifm-background-color);
+    --docsearch-searchbox-focus-background: var(--ifm-color-black);
+    /* Hit */
+    --docsearch-hit-color: var(--ifm-font-color-base);
+    --docsearch-hit-active-color: var(--ifm-color-white);
+    --docsearch-hit-background: var(--ifm-color-emphasis-100);
+    /* Footer */
+    --docsearch-footer-background: var(--ifm-background-surface-color);
+    --docsearch-key-gradient: linear-gradient(
+        -26.5deg,
+        var(--ifm-color-emphasis-200) 0%,
+        var(--ifm-color-emphasis-100) 100%
+    );
+}
+
+.hero_banner {
+    background: linear-gradient(to right, #0070f2, #89d1ff);
+    max-width: 3480px;
+    height: 180px;
+    margin: 0 auto;
+    padding: 1rem 0rem;
+}
+
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+    .hero_banner {
+        padding: 2rem;
+        background-color: #ffffff;
+    }
+}
+
+.hero_image {
+    margin: -15rem 44rem;
+    width: 500px;
+    height: 301.487px;
+    flex-shrink: 0;
+}
+
+/* CardComponent.css */
+/* Grid layout */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    margin: 20px;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-content {
+    display: flex;
+    align-items: start;
+}
+
+.card-image {
+    margin-right: 20px;
+}
+
+.card-image img {
+    min-width: 100px;
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.card-text h3 {
+    font-size: 1rem;
+    color: #007bff;
+    margin-bottom: 10px;
+    font-family: '72Bold';
+    color: #0070f2;
+}
+
+[data-theme='dark'] .card-text h3 {
+    color: #0070f2;
+}
+.card-text p {
+    color: grey;
+    font-size: 0.9rem;
+    font-family: '72Regular';
+}
+
+[data-theme='dark'] .card p {
+    color: grey;
+}
+
+.welcome h1 {
+    font-size: 2.5rem;
+    font-family: '72Bold';
+    color: #ffffff;
+}
+
+.welcome p {
+    font-size: 1.2rem;
+    font-family: '72Regular';
+    color: #ffffff;
+}
+
+/* Remove default link styles */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-link:hover .card {
+    text-decoration: none;
+    transform: scale(1.05); /* Optional hover effect */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* When hovering over the card */
+.card:hover {
+    background-color: #eaecee; /* Light background on hover */
+    transform: scale(1.05); /* Slightly enlarge the card */
+}
+
+/* When the card is clicked (active state) */
+.card:active {
+    /* background-color: #0070f2; */
+    transform: scale(0.98); /* Slightly shrink the card */
+}
+
+.footer_div {
+    margin-top: 0rem 0rem;
+}
+
+.footer {
+    align-items: center;
+    margin-left: 0rem;
+    margin-right: 0px;
+    color: #000000;
+    height: 270px;
+}
+
+@media screen and (max-width: 996px) {
+    /* Force the background to match the footer */
+    html[data-theme='light'], 
+    body[data-theme='light'] {
+        background-color: #e0e0e0 !important;
+    }
+
+    html[data-theme='dark'], 
+    body[data-theme='dark'] {
+        background-color: #0e0f19 !important;
+    }
+
+    /* Ensure footer matches the background */
+    html[data-theme='light'] .footer {
+        background-color: #e0e0e0 !important;
+    }
+
+    html[data-theme='dark'] .footer {
+        background-color: #0e0f19 !important;
+        color: #1b90ff;
+    }
+}
+
+.footer__link-item:hover {
+    color: #0064d9;
+    text-decoration: none;
+    background-color: #eaecee;
+}
+
+.footer__item {
+    font-family: '72Regular';
+}
+
+.footer__copyright {
+    font-size: 14px;
+}
+
+[data-theme='dark'] .navbar {
+    background-color: #1a2733;
+}
+
+[data-theme='dark'] a,
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6,
+[data-theme='dark'] p,
+[data-theme='dark'] li {
+    color: #ffffff;
+}
+
+/* Sidebar styling in dark mode */
+[data-theme='dark'] .menu__link {
+    color: #fff !important;
+}
+
+[data-theme='dark'] .menu__link--active {
+    background-color: var(--ifm-background-color-selected-item) !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+[data-theme='dark'] .menu__list-item .menu__list {
+    border-left: 1px solid #fff !important; /* Vertical line */
+}
+
+[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link {
+    background-color: var(--ifm-background-color-selected-item) !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+[data-theme='dark'] .menu__list-item-collapsible--active {
+    background: var(--ifm-background-color-selected-item) !important;
+}
+
+[data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
+    background-color: transparent !important;
+    color: #fff !important;
+    font-weight: normal !important;
+}
+
+[data-theme='dark'] .menu__link:not(.menu__link--active) {
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+}
+
+/*Breadcrumbs customization*/
+[data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
+    background: var(--ifm-background-color-selected-item);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Dropdown menu customization*/
+[data-theme='dark'] .dropdown__link--active {
+    font-weight: bold;
+    background-color: var(--ifm-background-color-selected-item) !important;
+    color: #fff;
+}
+
+/** Added by PO **/
+.not-allowed {
+    cursor: not-allowed;
+}
+
+/** Added by PO **/
+.fontawesome {
+    margin: 1rem 1rem;
+    font-size: 2rem;
+    color: var(--ifm-color-primary-dark);
+}
+
+/** Added by PO: Changing the font size for the blog's title **/
+.title_f1Hy {
+    font-size: 2rem !important;
+}
+
+/** Added by PO: Changing font size for the technology domain pages **/
+.title__lw4 {
+    font-size: 2rem !important;
+}
+
+.navbar-item-github {
+    background: url('/img/github-mark.svg') no-repeat center;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* Dark mode styles */
+html[data-theme='dark'] .navbar-item-github {
+    background: url('/img/github-mark-white.svg') no-repeat center;
+    background-size: contain;
+}
+
+/* Custom styling for main content (excludes header, footer, sidebar) */
+html[data-theme='light'] .main-wrapper {
+    background-color: #f3f3f3; 
+  }
+
+html[data-theme='light'] .navbar {
+    background: linear-gradient(to bottom, #78baf5 0%, #d6ebfd 100%);
+    border-bottom: 2px solid #d0d2d4;
+    backdrop-filter: blur(10px);
+}
+
+html[data-theme='light'] .footer {
+    background-color: #e0e0e0;
+}
+
+html[data-theme='light'] .menu {
+    background-color: #f5f6f7;
+}
+
+html[data-theme='dark'] .footer {
+    background-color: #0e0f19;
+    color: #1b90ff;
+}
+
+html[data-theme='dark'] .navbar {
+    background: linear-gradient(to bottom, #0a6ed1 0%, #001848 100%);
+    border-bottom: 2px solid #003366 ;
+    backdrop-filter: blur(10px);
+}
+
+@media screen and (max-width: 996px) {
+    .navbar-sidebar {
+        position: fixed !important; /* Ensures it's always visible */
+        height: 100vh !important; /* Allows it to expand */
+    }
+}
+
+
+/* The following styles are for the iframes to fit in the container div with full height and width */
+/* For 16:9 aspect ratio */
+.video-container-16-9 {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  }
+
+/* For 4:3 aspect ratio */
+.video-container-4-3 {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    padding-top: 75%; /* 4:3 Aspect Ratio (divide 4 by 3 = 0.75) */
+}
+
+/* For 3:2 aspect ratio */
+.video-container-3-2 {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    padding-top: 66.66%; /* 3:2 Aspect Ratio (divide 3 by 2 = 0.6666) */
+}
+  
+/* This style allows the iframe to fit in the container div with full height and width */
+.video-responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
