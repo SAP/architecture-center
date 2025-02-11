@@ -219,6 +219,10 @@ const config = {
                         position: 'right',
                         items: [
                             {
+                                to: '/explore',
+                                label: 'Explore'
+                            },
+                            {
                                 type: 'html',
                                 value: '<strong>Partners</strong>',
                             },
