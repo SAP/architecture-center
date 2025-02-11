@@ -16,31 +16,17 @@ export default (options) => {
             // match by file extension
             if (node.url.endsWith('.drawio')) {
                 // inject import statement at the root
-                const drawioImport = {
-                    type: 'mdxjsEsm',
-                    value: `import drawio${counter} from '!!file-loader!./${node.url}';`,
-                    data: {
-                        estree: {
-                            type: 'Program',
-                            body: [
-                                {
-                                    type: 'ImportDeclaration',
-                                    specifiers: [
-                                        {
-                                            type: 'ImportDefaultSpecifier',
-                                            local: { type: 'Identifier', name: `drawio${counter}` },
-                                        },
-                                    ],
-                                    source: {
-                                        type: 'Literal',
-                                        value: `!!file-loader!./${node.url}`,
-                                        raw: `'!!file-loader!./${node.url}'`,
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                };
+                const drawioImport = defineImport(`drawio${counter}`, node.url);
+                // drawio/demo.drawio -> import the image from images/demo.svg
+                const imgPath = `images/${node.url.split('drawio/')[1].split('.drawio')[0]}.svg`;
+                const absPath = vfile.history.at(-1).split('readme.md')[0] + imgPath;
+                // eventually, the image won't be there locally. we'll generate it before deployment
+                const imgExists = fileExists(absPath);
+                if (imgPath.includes('demo.svg') && imgExists) {
+                    const imgImport = defineImport(`drawioImg${counter}`, imgPath);
+                    root.children.unshift(imgImport);
+                }
+
                 root.children.unshift(drawioImport);
                 // substitute <DrawioResources> JSX node for image node
                 node.type = 'mdxJsxFlowElement';
@@ -69,9 +55,54 @@ export default (options) => {
                         },
                     },
                 ];
+                // pass value to prop drawioImg
+                const prop = structuredClone(node.attributes[0]);
+                if (imgPath.includes('demo.svg') && imgExists) {
+                    prop.name = 'drawioImg';
+                    prop.value.value = `drawioImg${counter}`; // prop value
+                    prop.value.data.estree.body[0].expression.name = prop.value.value;
+                    node.attributes.push(prop);
+                }
                 counter++;
             }
         });
         return ast;
     };
 };
+
+function defineImport(name, path) {
+    return {
+        type: 'mdxjsEsm',
+        value: `import ${name} from '!!file-loader!./${path}';`,
+        data: {
+            estree: {
+                type: 'Program',
+                body: [
+                    {
+                        type: 'ImportDeclaration',
+                        specifiers: [
+                            {
+                                type: 'ImportDefaultSpecifier',
+                                local: { type: 'Identifier', name: name },
+                            },
+                        ],
+                        source: {
+                            type: 'Literal',
+                            value: `!!file-loader!./${path}`,
+                            raw: `'!!file-loader!./${path}'`,
+                        },
+                    },
+                ],
+            },
+        },
+    };
+}
+
+function fileExists(path) {
+    try {
+        readFileSync(path, 'utf8');
+        return true;
+    } catch {
+        return false;
+    }
+}
