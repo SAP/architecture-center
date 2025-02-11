@@ -85,7 +85,7 @@ const Explore = () => {
                                     });
                                 }}
                             />
-                            {category.label} {/* ✅ Show category label */}
+                            {category.label} {/* Show category label */}
                         </label>
                     ))}
                 </div>
