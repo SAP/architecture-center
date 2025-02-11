@@ -31,7 +31,7 @@ You are welcome to contribute content (code, documentation etc.) to this open so
 There are some important things to know:
 
 1. You must **comply to the license of this project**, **accept the Developer Certificate of Origin** (see below) before being able to contribute. The acknowledgement to the DCO will usually be requested from you as part of your first pull request to this project.
-2. Please **adhere to our [Code of Conduct](community/code-of-conduct.md)**.
+2. Please **adhere to our [Code of Conduct](../code-of-conduct.md)**.
 3. If you plan to use **generative AI for your contribution**, please see our guideline below.
 4. **Not all proposed contributions can be accepted**. Some features may fit another project better or doesn't fit the general direction of this project. Of course, this doesn't apply to most bug fixes, but a major feature implementation for instance needs to be discussed with one of the maintainers first. Possibly, one who touched the related code or module recently. The more effort you invest, the better you should clarify in advance whether the contribution will match the project's direction. The best way would be to just open an issue to discuss the feature you plan to implement (make it clear that you intend to contribute). We will then forward the proposal to the respective code owner. This avoids disappointment.
 
@@ -49,7 +49,7 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 
 1. Make sure the change is welcome (see [General Remarks](#general-remarks)).
 2. Create a branch by forking the repository.
-3. Navigate to the [Get started](community/Guidelines/get-started.md) section to know how to collaborate on reference architecture.
+3. Navigate to the [Get started](get-started.md) section to know how to collaborate on reference architecture.
 4. Apply & Save the changes.
 5. Commit and push your change on that branch.
 6. Sync your forked repository to get latest changes with the main repository to avoid merge conflicts.

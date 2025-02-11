@@ -40,11 +40,11 @@ Finally, you never know when good documentation might help you in another opport
 
 ## Requirements and Setup
 
-Refer to the [Contribution Guidelines](community/Guidelines/contribution.md) for the requirments & setup.
+Refer to the [Contribution Guidelines](Guidelines/contribution.md) for the requirments & setup.
 
 ## Support, Feedback, Contributing
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/architecture-center/issues/new/choose). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](community/Guidelines/contribution.md).
+This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/architecture-center/issues/new/choose). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](Guidelines/contribution.md).
 
 ❓ - If you have a *question* you can ask it here in [GitHub Discussions](https://github.com/SAP/architecture-center/discussions).
 
@@ -52,7 +52,7 @@ This project is open to feature requests/suggestions, bug reports etc. via [GitH
 
 💡 - If you have an idea for improvement or a feature request, please open a [feature request](https://github.com/SAP/architecture-center/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFEATURE%5D).
 
-For more information about how to contribute, the project structure, and additional contribution information, see our [Contribution Guidelines](community/Guidelines/contribution.md).
+For more information about how to contribute, the project structure, and additional contribution information, see our [Contribution Guidelines](Guidelines/contribution.md).
 
 
 ## Security / Disclosure
@@ -60,7 +60,7 @@ If you find any bug that may be a security problem, please follow our instructio
 
 ## Code of Conduct
 
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](community/code-of-conduct.md) at all times.
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](code-of-conduct.md) at all times.
 
 ## Licensing
 
