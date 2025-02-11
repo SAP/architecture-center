@@ -220,7 +220,8 @@ const config = {
                         items: [
                             {
                                 to: '/explore',
-                                label: 'Explore'
+                                label: 'Explore',
+                                sidebarId: 'explore'
                             },
                             {
                                 type: 'html',
