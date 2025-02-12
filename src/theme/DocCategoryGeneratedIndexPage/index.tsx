@@ -53,7 +53,7 @@ function DocCategoryGeneratedIndexPageContent({
           ? item.customProps.category_index
           : [];
 
-        return filters.some((filter) => categoryIndex.includes(filter)); // Change to OR logic
+        return filters.some((filter) => categoryIndex.includes(filter));
       })
     : category.items;
 
