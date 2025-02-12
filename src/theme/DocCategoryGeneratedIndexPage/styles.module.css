@@ -26,29 +26,34 @@
   }
 
   .generatedIndexPageContainer {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
   
   .contentWrapper {
     display: flex;
     align-items: flex-start;
     gap: 2rem;
+    flex-direction: row;
   }
   
   .filters {
-    margin-bottom: 20px;
     padding: 1rem;
     background: #f8f9fa; /* Light grey background */
     border-radius: 8px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     min-width: 250px;
+    align-self: flex-start;
+    margin-top: 30px;
   }
   
-  .filters label {
+  .filterLabel {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
+    font-size: 14px;
   }
 
   .filters input[type="checkbox"] {
@@ -58,4 +63,65 @@
   .mainContent {
     flex-grow: 1;
   }
-  
+
+  /* Section Title */
+  .filterGroupLabel {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+    color: #0073e6;
+  }
+
+  .resetButtonWrapper {
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+  }
+
+  /* Reset Button Styling */
+  .resetButton {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    background: #0073e6;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .resetButton:hover {
+    background: #eaf2fd;
+    color: #0073e6;
+  }
+
+  /* Dark Mode */
+  html[data-theme='dark'] .filters {
+    background: #1e1e1e;
+    box-shadow: 0px 2px 8px rgba(255, 255, 255, 0.1);
+    color: #f8f9fa;
+  }
+
+  html[data-theme='dark'] .filterLabel {
+    color: #e0e0e0;
+  }
+
+  html[data-theme='dark'] .filterGroupLabel {
+    color: #66aaff;
+  }
+
+  html[data-theme='dark'] .filters input[type="checkbox"] {
+    accent-color: #66aaff;
+  }
+
+  /* Reset Button - Dark Mode */
+  html[data-theme='dark'] .resetButton {
+    background: #0073e6;
+    color: #fff;
+  }
+
+  html[data-theme='dark'] .resetButton:hover {
+    background: #005bb5;
+    color: #eaf2fd;
+  }

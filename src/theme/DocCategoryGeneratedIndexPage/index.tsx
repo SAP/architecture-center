@@ -45,22 +45,31 @@ function DocCategoryGeneratedIndexPageContent({
   );
   console.log("Categories", categories);
 
-  // Filter items based on selected categories (only if on "explore" page)
+  // Define grouped categories
+  const partners = categories.slice(0, 3);
+  const techDomains = categories.slice(-4);
+
+  const preFilteredItems = category.items.filter((item) => {
+    const categoryIndex = Array.isArray(item.customProps?.category_index)
+      ? item.customProps.category_index
+      : [];
+
+    return categories.some((cat) => categoryIndex.includes(cat.id));
+  });
+
+  console.log("Pre-filtered Items", preFilteredItems);
+
   const filteredItems =
-  isExplorePage && filters.length > 0
-    ? category.items.filter((item) => {
-        const categoryIndex = Array.isArray(item.customProps?.category_index)
-          ? item.customProps.category_index
-          : [];
+    isExplorePage && filters.length > 0
+      ? preFilteredItems.filter((item) => {
+          const categoryIndex = Array.isArray(item.customProps?.category_index)
+            ? item.customProps.category_index
+            : [];
 
-        return filters.some((filter) => categoryIndex.includes(filter));
-      })
-    : category.items;
+          return filters.every((filter) => categoryIndex.includes(filter));
+        })
+      : preFilteredItems;
 
-  console.log("Filters", filters);
-  console.log("Filtered items", filteredItems);
-
-  // Handle checkbox toggle
   const toggleFilter = (categoryId: string) => {
     setFilters((prevFilters) =>
       prevFilters.includes(categoryId)
@@ -69,48 +78,80 @@ function DocCategoryGeneratedIndexPageContent({
     );
   };
 
+  const resetFilters = () => {
+    setFilters([]); // Clear all filters
+  };
+
   return (
     <div>
       <DocVersionBanner />
       <DocBreadcrumbs />
       <DocVersionBadge />
+  
+      {/* Title should be separate from filters & cards */}
       <div className={styles.generatedIndexPageContainer}>
+        <header className={styles.pageHeader}>
+          <Heading as="h1" className={styles.title}>
+            {categoryGeneratedIndex.title}
+          </Heading>
+          {categoryGeneratedIndex.description && (
+            <p>{categoryGeneratedIndex.description}</p>
+          )}
+        </header>
+  
+        {/* Flexbox Layout for Filters & Cards */}
         <div className={styles.contentWrapper}>
           {isExplorePage && (
-          <aside className={styles.filters}>
-            <h3>Filter by Category:</h3>
-            {categories.map((cat) => (
-              <label key={cat.id} className={styles.filterLabel}>
-                <input
-                  type="checkbox"
-                  checked={filters.includes(cat.id)}
-                  onChange={() => toggleFilter(cat.id)}
-                />
-                {cat.label}
-              </label>
-            ))}
-          </aside>
-        )}
-
-        <main className={styles.mainContent}>
-          <header>
-            <Heading as="h1" className={styles.title}>
-              {categoryGeneratedIndex.title}
-            </Heading>
-            {categoryGeneratedIndex.description && (
-              <p>{categoryGeneratedIndex.description}</p>
-            )}
-          </header>
-          <article className="margin-top--lg">
-            <DocCardList items={filteredItems} className={styles.list} />
-          </article>
-          <footer className="margin-top--lg">
-            <DocPaginator
-              previous={categoryGeneratedIndex.navigation.previous}
-              next={categoryGeneratedIndex.navigation.next}
-            />
-          </footer>
-        </main>
+            <aside className={styles.filters}>
+              <h3>Filter by Category:</h3>
+              
+              {/* Partners Section */}
+              <h4 className={styles.filterGroupLabel}>Partners</h4>
+              {partners.map((cat) => (
+                <label key={cat.id} className={styles.filterLabel}>
+                  <input
+                    type="checkbox"
+                    checked={filters.includes(cat.id)}
+                    onChange={() => toggleFilter(cat.id)}
+                  />
+                  {cat.label}
+                </label>
+              ))}
+  
+              {/* Technology Domains Section */}
+              <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
+              {techDomains.map((cat) => (
+                <label key={cat.id} className={styles.filterLabel}>
+                  <input
+                    type="checkbox"
+                    checked={filters.includes(cat.id)}
+                    onChange={() => toggleFilter(cat.id)}
+                  />
+                  {cat.label}
+                </label>
+              ))}
+  
+              {/* Reset Button */}
+              <div className={styles.resetButtonWrapper}>
+                <button className={styles.resetButton} onClick={resetFilters}>
+                  Reset Filters
+                </button>
+              </div>
+            </aside>
+          )}
+  
+          {/* Cards */}
+          <main className={styles.mainContent}>
+            <article className="margin-top--lg">
+              <DocCardList items={filteredItems} className={styles.list} />
+            </article>
+            <footer className="margin-top--lg">
+              <DocPaginator
+                previous={categoryGeneratedIndex.navigation.previous}
+                next={categoryGeneratedIndex.navigation.next}
+              />
+            </footer>
+          </main>
         </div>
       </div>
     </div>
