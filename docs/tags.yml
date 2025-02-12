@@ -44,6 +44,10 @@ eda:
   label: "Event-Driven Architecture"
   description: "An event-driven architecture (EDA) is an integration model built to publish, capture, process, and respond to events across distributed systems in real time. When an event occurs in one application, a message is automatically sent to all the other applications that need to know about it, so they can act on it in turn."
 
+eic:
+  label: "Edge Integration Cell"
+  description: "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.""
+
 # generic tags generally not used except for testing
 
 demo:
