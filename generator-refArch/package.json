@@ -1,21 +1,21 @@
 {
     "name": "genrefarch-cli",
     "version": "0.1.0",
-      "description": "",
-      "type": "module",
-      "preferGlobal": true,
-      "bin": {
-          "genrefarch": "./index.js"
-      },
-      "keywords": [
-          "yeoman-generator"
-      ],
-      "dependencies": {
-          "@github-docs/frontmatter": "^1.3.1",
-          "yeoman-environment": "^4.4.3",
-          "yeoman-generator": "^7.4.0"
-      },
-      "overrides": {
-          "whatwg-url": "^14.0.0"
-      }
-  }
+    "description": "",
+    "type": "module",
+    "preferGlobal": true,
+    "bin": {
+        "genrefarch": "./index.js"
+    },
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "dependencies": {
+        "@github-docs/frontmatter": "^1.3.1",
+        "yeoman-environment": "^4.4.3",
+        "yeoman-generator": "^7.4.0"
+    },
+    "overrides": {
+        "whatwg-url": "^14.0.0"
+    }
+}

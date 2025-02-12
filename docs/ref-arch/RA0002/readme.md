@@ -8,7 +8,7 @@ sidebar_custom_props:
     - integration
     - aws
     - azure
-title: Architecting multi-region resiliency for SAP BTP
+title: Architecting multi-region resiliency
 description: Learn how to architect multi-region resiliency for SAP BTP services to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.
 keywords:
   - sap
@@ -20,7 +20,7 @@ keywords:
   - resiliency
   - business continuity
   - failover
-sidebar_label: Architecting multi-region resiliency for SAP BTP
+sidebar_label: Architecting multi-region resiliency
 image: img/logo.svg
 tags:
   - aws
