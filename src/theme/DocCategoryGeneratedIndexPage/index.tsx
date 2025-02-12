@@ -103,8 +103,9 @@ function DocCategoryGeneratedIndexPageContent({
         <div className={styles.contentWrapper}>
           {isExplorePage && (
             <aside className={styles.filters}>
-              <h3>Filter by Category:</h3>
+              <h4>Filters:</h4>
               
+              <br></br>
               {/* Partners Section */}
               <h4 className={styles.filterGroupLabel}>Partners</h4>
               {partners.map((cat) => (
@@ -117,7 +118,9 @@ function DocCategoryGeneratedIndexPageContent({
                   {cat.label}
                 </label>
               ))}
-  
+
+              <br></br>
+
               {/* Technology Domains Section */}
               <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
               {techDomains.map((cat) => (
@@ -130,7 +133,9 @@ function DocCategoryGeneratedIndexPageContent({
                   {cat.label}
                 </label>
               ))}
-  
+
+              <br></br>
+
               {/* Reset Button */}
               <div className={styles.resetButtonWrapper}>
                 <button className={styles.resetButton} onClick={resetFilters}>

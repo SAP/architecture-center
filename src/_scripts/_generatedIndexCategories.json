@@ -2,7 +2,7 @@
     "generatedIndexes": [
         {
             "type": "category",
-            "label": "Microsoft Azure Architectures",
+            "label": "Microsoft Azure",
             "link": {
                 "type": "generated-index",
                 "title": "SAP / Azure Joint Reference Architectures",
@@ -18,7 +18,7 @@
         },
         {
             "type": "category",
-            "label": "Amazon Web Services Architectures",
+            "label": "Amazon Web Services",
             "link": {
                 "type": "generated-index",
                 "title": "SAP / AWS Joint Reference Architectures",
@@ -34,7 +34,7 @@
         },
         {
             "type": "category",
-            "label": "Google Cloud Platform Architectures",
+            "label": "Google Cloud Platform",
             "link": {
                 "type": "generated-index",
                 "title": "SAP / GCP Joint Reference Architectures",
@@ -85,7 +85,7 @@
             "label": "Data & Analytics",
             "link": {
                 "type": "generated-index",
-                "title": "SAP Reference Architectures | Data & Analytics",
+                "title": "Data & Analytics",
                 "description": "Discover SAP reference architectures for data and analytics. Leverage data-driven insights, optimize decision-making, and drive business growth with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/data",
                 "keywords": ["data", "analytics", "sap"],
@@ -101,7 +101,7 @@
             "label": "Integration",
             "link": {
                 "type": "generated-index",
-                "title": "SAP Reference Architectures | Integration",
+                "title": "Integration",
                 "description": "Explore SAP reference architectures for integration. Streamline business processes, enhance productivity, and drive innovation with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/integration",
                 "keywords": ["integration", "sap"],
@@ -117,7 +117,7 @@
             "label": "Security",
             "link": {
                 "type": "generated-index",
-                "title": "SAP Reference Architectures | Security",
+                "title": "Security",
                 "description": "Discover SAP reference architectures for security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/security",
                 "keywords": ["security", "sap"],
