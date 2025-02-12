@@ -39,7 +39,7 @@ function DocCategoryGeneratedIndexPageContent({
 
   const categories: { id: string; label: string }[] = jsonSchema.generatedIndexes.map(
     (cat: { customProps: { id?: string }; label: string }) => ({
-      id: cat.customProps.id ?? "unknown", // Ensure `id` is always a string
+      id: cat.customProps.id ?? "unknown",
       label: cat.label,
     })
   );
@@ -49,14 +49,15 @@ function DocCategoryGeneratedIndexPageContent({
   const filteredItems =
   isExplorePage && filters.length > 0
     ? category.items.filter((item) => {
-        const categoryIndex = item.customProps?.category_index;
+        const categoryIndex = Array.isArray(item.customProps?.category_index)
+          ? item.customProps.category_index
+          : [];
 
-        if (!Array.isArray(categoryIndex)) return false; // Ensure it's an array
-
-        return filters.every((filter) => categoryIndex.includes(filter)); // Match all filters
+        return filters.some((filter) => categoryIndex.includes(filter)); // Change to OR logic
       })
     : category.items;
 
+  console.log("Filters", filters);
   console.log("Filtered items", filteredItems);
 
   // Handle checkbox toggle
