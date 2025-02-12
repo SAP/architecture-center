@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 99
 slug: /team
 title: The SAP Architecture Center Team
 sidebar_label: The SAP Architecture Center Team
