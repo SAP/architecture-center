@@ -103,9 +103,7 @@ function DocCategoryGeneratedIndexPageContent({
         <div className={styles.contentWrapper}>
           {isExplorePage && (
             <aside className={styles.filters}>
-              <h4>Filters:</h4>
-              
-              <br></br>
+
               {/* Partners Section */}
               <h4 className={styles.filterGroupLabel}>Partners</h4>
               {partners.map((cat) => (
