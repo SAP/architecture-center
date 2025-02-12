@@ -1,8 +1,8 @@
 ---
 sidebar_position: 5
 slug: /team
-title: The SAP Architecture Center Team
-sidebar_label: The SAP Architecture Center Team
+title: The team
+sidebar_label: The team
 keywords:
  - sap
  - team
@@ -24,7 +24,7 @@ last_update:
   date: 2025-02-11
 ---
 
-The Team behind the SAP Architecture Center.
+The team behind the SAP Architecture Center.
 
 ## The core team
 
