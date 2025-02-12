@@ -33,8 +33,6 @@ Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via S
 
 ## Architecture
 
-![image](images/databricks-data-integration.svg)
-
 ![drawio](drawio/databricks-data-integration.drawio)
 
 ## 1. Integration with Databricks Delta Lake

@@ -44,8 +44,6 @@ FedML-GCP provides end-to-end integraton for training models in Google Vertex AI
 
 ## Architecture
 
-![image](images/fedml-gcp.svg)
-
 ![drawio](drawio/fedml-gcp.drawio)
 
 :::info Resources
