@@ -51,7 +51,7 @@ ref-arch/
 │  ├─ images/ 
 │  │  ├─ solution-diagram-1.svg 
 │  ├─ readme.md 
-```
+``` 
 
 ## Example explained
 The same example with some explanations:

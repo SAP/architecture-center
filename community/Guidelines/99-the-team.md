@@ -23,7 +23,7 @@ last_update:
   author: cernus76
   date: 2025-02-11
 ---
-
+ 
 The team behind the SAP Architecture Center.
 
 ## The core team
