@@ -58,7 +58,6 @@ export default function DocItemContent({ children }: Props): ReactNode {
                             editUrl={editUrl}
                         />
                         <br></br>
-                        <br></br>
                     </div>
                 )}
 
