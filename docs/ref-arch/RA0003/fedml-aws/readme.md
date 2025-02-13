@@ -43,8 +43,6 @@ FedML-AWS provides end-to-end integraton for training models in Amazon Sagemaker
 
 ## Architecture
 
-![image](images/fedml-aws.svg)
-
 ![drawio](drawio/fedml-aws.drawio)
 
 :::info Resources

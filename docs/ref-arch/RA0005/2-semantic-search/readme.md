@@ -39,7 +39,6 @@ Embeddings are powerful and dense numeric representations of data that capture t
 
 ## Architecture
 
-![image](images/reference-architecture-generative-ai-semantic-search.svg)
 ![drawio](./drawio/reference-architecture-generative-ai-semantic-search.drawio)
 
 In this architecture, the Cloud Application Programming (CAP) model serves as the central interface for managing application logic and executing searches. CAP natively supports embeddings as part of its data schema, allowing for seamless integration of vector representations. When user inputs are processed, they are converted into embeddings using Embedding Models via the [Generative AI Hub](./#generative-ai-hub). These vectors are then stored and indexed within SAP HANA Cloud's [Vector Engine](./#vector-engine), enabling fast similarity searches through methods like cosine similarity. Upon initiating a search, the CAP model communicates with the Vector Engine to retrieve results based on the semantic meaning of the inputs, leading to contextually relevant responses. Additionally, various SDKs and plugins, such as the [SAP Cloud SDK (for AI)](https://github.com/SAP/ai-sdk-js), [CAP LLM Plugin](https://github.com/SAP-samples/cap-llm-plugin-samples) and [LangChain](https://www.langchain.com/), enhance the embedding process and streamline integration with both, the Generative AI Hub and the Vector Engine.

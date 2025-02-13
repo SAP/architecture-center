@@ -39,8 +39,6 @@ Leveraging prompting with Foundation Models or Large Language Models (LLMs) is a
 
 ## Architecture
 
-![image](images/reference-architecture-generative-ai-basic-prompting.svg)
-
 ![drawio](./drawio/reference-architecture-generative-ai-basic.drawio)
 
 In this architecture, the Cloud Application Programming (CAP) model serves as the central point for managing application logic and sending prompts, either through well-designed, integrated prompt templates within the application itself or via a user interface like SAPUI5 for end-user interaction. CAP is connected to the Generative AI Hub via SAP AI Core and its [AI API](https://api.sap.com/api/AI_CORE_API/overview), enabling seamless communication with Foundation Models and Large Language Models (LLMs). Furthermore, various SDKs, frameworks, and plugins, such as [SAP Cloud SDK (for AI)](https://github.com/SAP/ai-sdk-js), [LangChain](https://www.langchain.com/), and [CAP LLM Plugin](https://github.com/SAP-samples/cap-llm-plugin-samples), can be leveraged within CAP to not only streamline interactions with the Generative AI Hub but also simplify implementation and enhance robustness by using features like [Output Parsing](https://js.langchain.com/docs/concepts/#output-parsers). The [Orchestration Service](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/orchestration) provides a harmonized API for content generation (e.g., LLM completions) and includes key functionalities such as prompt templating and content filtering, making it even easier and more efficient to work with these models.
