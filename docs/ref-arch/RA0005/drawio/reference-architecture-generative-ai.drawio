@@ -411,9 +411,6 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="2Z4klGmww0bCp1yyUpjY-1038" value="&lt;b style=&quot;color: rgb(0, 112, 242); font-size: 16px;&quot;&gt;Generative AI on SAP BTP&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=default;fontFamily=Arial;" parent="1" vertex="1">
-          <mxGeometry x="-1508" y="-2192.5" width="224" height="32" as="geometry" />
-        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
