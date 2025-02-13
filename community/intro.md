@@ -40,7 +40,7 @@ Finally, you never know when good documentation might help you in another opport
 
 ## Requirements and Setup
 
-Refer to the [Contribution Guidelines](Guidelines/contribution.md) for the requirments & setup.
+Refer to the [Contribution Guidelines](Guidelines/contribution.md) for the requirements & setup.
 
 ## Support, Feedback, Contributing
 
