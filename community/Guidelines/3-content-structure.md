@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 slug: /content-structure
 title: Content Structure
 sidebar_label: Content Structure
