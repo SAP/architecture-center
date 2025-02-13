@@ -36,8 +36,6 @@ FedML-Databricks provides end-to-end integraton for training models in Databrick
 
 ## Architecture
 
-![image](images/fedml-databricks.svg)
-
 ![drawio](drawio/fedml-databricks.drawio)
 
 :::info Resources

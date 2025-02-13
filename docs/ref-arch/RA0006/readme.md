@@ -57,8 +57,6 @@ More details about [SAP Private Link service](https://help.sap.com/docs/PRIVATE_
 
 ## Architecture
 
-![Private Link](images/generic-privatelink.svg)
-
 ![drawio](drawio/secure-connectivity-with-sap-private-link-service.drawio)
 
 ## Flow

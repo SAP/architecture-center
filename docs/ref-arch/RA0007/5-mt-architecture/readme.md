@@ -37,7 +37,6 @@ This reference architecture is a comprehensive architecture designed to guide de
 
 ## Architecture
 
-![image](images/susaas-app-architecture.svg)
 ![drawio](drawio/susaas-app-architecture.drawio)
 
 ### Key Services and Components

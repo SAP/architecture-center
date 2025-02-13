@@ -29,7 +29,6 @@ Agents are autonomous systems powered by Large Language Models (LLMs) that perfo
 
 ## Architecture
 
-![image](./images/reference-architecture-generative-ai-intelligent-data-apps.svg)
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
 The architecture illustrates how intellient data apps operate within the SAP Business Technology Platform (BTP) ecosystem, enabling

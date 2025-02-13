@@ -52,8 +52,6 @@ The SAP Federated Machine Learning Python library (FedML) applies the Data Feder
 
 ## Architecture
 
-![image](images/fedml-final.svg)
-
 ![drawio](drawio/fedml-final.drawio)
 
 :::info Resources

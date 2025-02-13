@@ -58,8 +58,6 @@ By integrating data from multiple sources and providing robust data management c
 
 ## Architecture
 
-![image](images/explore-hyperscaler-data.svg)
-
 ![drawio](drawio/explore-hyperscaler-data.drawio)
 
 ## Flow
