@@ -42,8 +42,6 @@ SAP Datasphere's data fabric architecture supports various modes of integration,
 
 ## Architecture
 
-![image](images/gcp-data-integration.svg)
-
 ![drawio](drawio/gcp-data-integration.drawio)
 
 ### Key Features:

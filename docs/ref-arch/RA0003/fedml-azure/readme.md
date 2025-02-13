@@ -42,8 +42,6 @@ FedML-Azure provides end-to-end integraton for training models in Azure Machine 
 
 ## Architecture
 
-![image](images/fedml-azure.svg)
-
 ![drawio](drawio/fedml-azure.drawio)
 
 :::info Resources

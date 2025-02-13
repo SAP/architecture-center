@@ -43,8 +43,6 @@ Furthermore, SAP Datasphere provides robust data governance and security feature
 
 ## Architecture
 
-![image](images/azure-data-integration.svg)
-
 ![drawio](drawio/azure-data-integration.drawio)
 
 
