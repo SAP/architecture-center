@@ -90,10 +90,6 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
 
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/demo.svg)
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/demo.drawio)
 
 ## Ut wisi enim ad minim veniam
