@@ -18,7 +18,6 @@ unlisted: false
 contributors:
   - navyakhurana
   - cernus76
-  - jmsrpp
 last_update:
   author: cernus76
   date: 2025-02-11
