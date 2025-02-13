@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 slug: /front-matter
 title: Front Matter
 sidebar_label: Front Matter
