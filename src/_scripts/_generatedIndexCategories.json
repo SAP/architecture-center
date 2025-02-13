@@ -50,22 +50,6 @@
         },
         {
             "type": "category",
-            "label": "Artificial Intelligence",
-            "link": {
-                "type": "generated-index",
-                "title": "SAP Reference Architectures | Artificial Intelligence (AI)",
-                "description": "Discover AI-powered SAP reference architectures designed to reinvent business processes and automate tasks. Optimize efficiency, drive innovation, and transform your enterprise operations effortlessly.",
-                "slug": "/sap/ai",
-                "keywords": ["ai", "sap"],
-                "image": "/img/sap_logo.png"
-            },
-            "customProps": {
-                "id": "ai"
-            },
-            "items": []
-        },
-        {
-            "type": "category",
             "label": "Application Development & Automation",
             "link": {
                 "type": "generated-index",
@@ -77,6 +61,22 @@
             },
             "customProps": {
                 "id": "appdev"
+            },
+            "items": []
+        },        
+        {
+            "type": "category",
+            "label": "Artificial Intelligence",
+            "link": {
+                "type": "generated-index",
+                "title": "SAP Reference Architectures | Artificial Intelligence (AI)",
+                "description": "Discover AI-powered SAP reference architectures designed to reinvent business processes and automate tasks. Optimize efficiency, drive innovation, and transform your enterprise operations effortlessly.",
+                "slug": "/sap/ai",
+                "keywords": ["ai", "sap"],
+                "image": "/img/sap_logo.png"
+            },
+            "customProps": {
+                "id": "ai"
             },
             "items": []
         },

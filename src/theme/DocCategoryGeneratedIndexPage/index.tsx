@@ -47,7 +47,7 @@ function DocCategoryGeneratedIndexPageContent({
 
   // Define grouped categories
   const partners = categories.slice(0, 3);
-  const techDomains = categories.slice(-4);
+  const techDomains = categories.slice(-5);
 
   const preFilteredItems = category.items.filter((item) => {
     const categoryIndex = Array.isArray(item.customProps?.category_index)
@@ -81,6 +81,8 @@ function DocCategoryGeneratedIndexPageContent({
   const resetFilters = () => {
     setFilters([]); // Clear all filters
   };
+
+  const isResetDisabled = filters.length === 0;
 
   return (
     <div>
@@ -116,9 +118,6 @@ function DocCategoryGeneratedIndexPageContent({
                   {cat.label}
                 </label>
               ))}
-
-              <br></br>
-
               {/* Technology Domains Section */}
               <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
               {techDomains.map((cat) => (
@@ -131,12 +130,9 @@ function DocCategoryGeneratedIndexPageContent({
                   {cat.label}
                 </label>
               ))}
-
-              <br></br>
-
               {/* Reset Button */}
               <div className={styles.resetButtonWrapper}>
-                <button className={styles.resetButton} onClick={resetFilters}>
+                <button className={`${styles.resetButton} ${isResetDisabled ? styles.disabled : ""}`} onClick={resetFilters}>
                   Reset Filters
                 </button>
               </div>
