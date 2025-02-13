@@ -60,7 +60,7 @@ function prepareCommand(input, out) {
     input = d + normalizePath(input).split(d)[1];
 
     // put path in quotes because there are spaces sometimes
-    const args = ` --export --embed-svg-images --output "${out}" "${input}"`;
+    const args = ` --export --embed-svg-images --svg-theme light --output "${out}" "${input}"`;
     const cmd =
         (!DOCKER ? DRAWIO_CLI_MAC_BINARY : 'docker run -w /data -v $(pwd):/data rlespinasse/drawio-desktop-headless') +
         args;
