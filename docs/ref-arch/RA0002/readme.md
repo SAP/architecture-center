@@ -55,10 +55,6 @@ In today's globally distributed business environment, ensuring high availability
 
 SAP BTP offers a global infrastructure that allows deployment across various regions which helps our customers achieve multi-region setup for their services. The following diagram presents a comprehensive reference architecture for multi-region deployment on SAP BTP:
 
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/architecting-multi-region-resiliency-for-sap-btp-use-cases.svg)
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/architecting-multi-region-resiliency-for-sap-btp-use-cases.drawio)
 
 

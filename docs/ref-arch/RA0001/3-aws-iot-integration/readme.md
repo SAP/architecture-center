@@ -67,8 +67,6 @@ In this event-driven scenario, based on the real-time data from IoT Devices gett
 
 The key services used by AWS are AWS IoT Core, Amazon SWS and Amazon EventBridge. The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite, advanced event mesh or SAP Event Mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service.
 
-![plot](images/aws-sqs.svg) **Figure-1: High-level architecture (with SAP S/4HANA on AWS)**
-
 ![drawio](drawio/e2b-awsiot-sqs.drawio)
 
 

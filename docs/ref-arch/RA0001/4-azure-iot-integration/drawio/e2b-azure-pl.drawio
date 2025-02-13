@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2025-01-28T11:09:39.839Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="rRQK5Ciy4DGDFJmrB5lf" version="24.6.4" type="device">
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
   <diagram name="Azure- PL" id="XgSTohmcJMfjqFn_gNEW">
-    <mxGraphModel dx="1020" dy="-704" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1761" dy="-168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="VGFBZKc0T2wKncAvaqgq-0" />
         <mxCell id="VGFBZKc0T2wKncAvaqgq-1" parent="VGFBZKc0T2wKncAvaqgq-0" />
@@ -69,9 +69,6 @@
             <mxPoint x="1448.94" y="2036.75" as="sourcePoint" />
             <Array as="points" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="VGFBZKc0T2wKncAvaqgq-156" value="&lt;font face=&quot;arial&quot; color=&quot;#0070f2&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;Events-to-business actions framework&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" parent="VGFBZKc0T2wKncAvaqgq-1" vertex="1">
-          <mxGeometry x="80" y="1290.0000000000002" width="311" height="31" as="geometry" />
         </mxCell>
         <mxCell id="VGFBZKc0T2wKncAvaqgq-157" value="" style="group" parent="VGFBZKc0T2wKncAvaqgq-1" vertex="1" connectable="0">
           <mxGeometry x="581.44" y="1729.75" width="105" height="112.21000000000004" as="geometry" />

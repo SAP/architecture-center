@@ -58,8 +58,6 @@ By integrating data from multiple sources and providing robust data management c
 
 ## Architecture
 
-![image](images/explore-hyperscaler-data.svg)
-
 ![drawio](drawio/explore-hyperscaler-data.drawio)
 
 ## Flow
@@ -147,7 +145,7 @@ Data federation in SAP Datasphere allows organizations to access and analyze dat
 
 ## Integration categorized by Sources
 
-- [Integration with AWS sources](aws-data-integration/readme.md)
-- [Integration with Google Cloud Platform Sources](gcp-data-integration/readme.md)
-- [Integration with Azure data sources](azure-data-integration/readme.md)
-- [Integration with Databricks](databricks-data-integration/readme.md)
+- [Integration with AWS sources](1-aws-data-integration/readme.md)
+- [Integration with Google Cloud Platform Sources](4-gcp-data-integration/readme.md)
+- [Integration with Azure data sources](2-azure-data-integration/readme.md)
+- [Integration with Databricks](3-databricks-data-integration/readme.md)

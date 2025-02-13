@@ -48,10 +48,6 @@ Before diving into multi-region architectures, let's understand how single regio
 
 ### What is an Availability Zone?
 
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/multi-az.svg)
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/multi-az.drawio)
 
 An Availability Zone is a physically separate data center within a cloud provider's region. Each AZ has independent power, cooling, and networking to ensure that failures in one AZ do not affect others. AZs are connected through high-speed, low-latency networks, allowing for synchronous data replication and seamless failover.

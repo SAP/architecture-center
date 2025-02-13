@@ -220,6 +220,19 @@ const config = {
                         items: [
                             {
                                 type: 'html',
+                                value: '<strong>Explore</strong>',
+                            },
+                            {
+                                to: '/explore',
+                                label: 'Explore all Reference Architectures',
+                                sidebarId: 'explore'
+                            },
+                            {
+                                type: 'html',
+                                value: '<hr style="margin: 0.3rem 0;">',
+                            },
+                            {
+                                type: 'html',
                                 value: '<strong>Partners</strong>',
                             },
                             {
@@ -269,15 +282,6 @@ const config = {
                                 type: 'docSidebar',
                                 sidebarId: 'security',
                                 label: 'Security',
-                            },
-                            {
-                                type: 'html',
-                                value: '<hr style="margin: 0.3rem 0;">',
-                            },
-                            {
-                                label: 'All Reference Architectures',
-                                to: '/',
-                                activeBaseRegex: '^/$'
                             },
                         ],
                     },

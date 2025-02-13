@@ -50,8 +50,6 @@ This reference architecture offers guidance for developing applications based on
 
 ## Reference Architecture
 
-![image](images/e2b-refarch-cc.svg)
-
 ![drawio](drawio/e2b-cc.drawio)
 
 This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication vis message broker.

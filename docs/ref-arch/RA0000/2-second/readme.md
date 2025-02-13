@@ -94,16 +94,9 @@ contributors:
   - navyakhurana
 ```
 
-## Calling the components in the page body of the `readme.md` file
+## Calling the draw.io component in the page body of the `readme.md` file
 
 ```yaml
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/demo.svg)
-```
-Note: In a future version of the Architecture Center, the SVG picture will be integrated in the drawio component.
-
-```yaml
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/demo.drawio)
 ```
 Note: Use the markdown image syntax for drawio files.

@@ -44,8 +44,6 @@ FedML's Connectivity Core component supports reading data from semantic models o
 
 ## Architecture
 
-![image](images/fedml-nvidia.svg)
-
 ![drawio](drawio/fedml-nvidia.drawio)
 
 :::info Resources
