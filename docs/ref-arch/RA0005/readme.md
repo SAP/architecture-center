@@ -49,8 +49,6 @@ It demonstrates how to seamlessly integrate various LLMs using the Generative AI
 
 ## Architecture
 
-![image](./images/reference-architecture-generative-ai.svg)
-
 ![drawio](./drawio/reference-architecture-generative-ai.drawio)
 
 Learn about the roles and interactions of the key services and components in the Reference Architecture to understand how they support the efficient use of Generative AI:

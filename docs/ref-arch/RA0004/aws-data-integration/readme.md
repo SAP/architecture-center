@@ -39,8 +39,6 @@ Data from AWS data sources can be harmonized with SAP and non-sap data via SAP D
 
 ## Architecture
 
-![image](images/aws-data-integration.svg)
-
 ![drawio](drawio/aws-data-integration.drawio)
 
 ## 1. Integration with Amazon Athena  

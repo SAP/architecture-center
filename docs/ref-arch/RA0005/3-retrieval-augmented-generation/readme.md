@@ -37,7 +37,6 @@ To gain more control over the prompting results of a Large Language Model (LLM) 
 
 ## Architecture
 
-![image](./images/reference-architecture-generative-ai-rag.svg)
 ![drawio](./drawio/reference-architecture-generative-ai-rag.drawio)
 
 Retrieval Augmented Generation (RAG) is a neural architecture that extends the capabilities of Foundation Models (FMs) or Large Language Models (LLMs) by integrating retrieval mechanisms. These mechanisms allow the model to access external data or text beyond its internal knowledge base, making it adaptable to specific use cases, such as tapping into a customer’s proprietary product database or a curated document set.
