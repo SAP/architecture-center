@@ -16,9 +16,6 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - navyakhurana
-  - cernus76
-  - jmsrpp
 last_update:
   author: navyakhurana
   date: 2025-01-31

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 slug: /content-structure
 title: Content Structure
 sidebar_label: Content Structure
@@ -16,9 +16,6 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - navyakhurana
-  - cernus76
-  - jmsrpp
 last_update:
   author: cernus76
   date: 2025-02-11

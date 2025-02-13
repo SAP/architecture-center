@@ -1,8 +1,8 @@
 ---
-sidebar_position: 5
+sidebar_position: 99
 slug: /team
-title: The SAP Architecture Center Team
-sidebar_label: The SAP Architecture Center Team
+title: The team
+sidebar_label: The team
 keywords:
  - sap
  - team
@@ -16,15 +16,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - navyakhurana
-  - cernus76
-  - jmsrpp
 last_update:
   author: cernus76
   date: 2025-02-11
 ---
 
-The Team behind the SAP Architecture Center.
+The team behind the SAP Architecture Center.
 
 ## The core team
 
