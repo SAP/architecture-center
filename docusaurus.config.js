@@ -302,7 +302,7 @@ const config = {
                         items: [
                             {
                                 label: 'GitHub Issues',
-                                href: 'https://github.com/SAP/architecture-center/issues',
+                                href: 'https://github.com/SAP/architecture-center/issues/new/choose',
                             },
                         ],
                     },
