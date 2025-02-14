@@ -7,7 +7,7 @@ sidebar_custom_props:
     - integration
     - appdev
 title: Reference Architecture for Event-Driven Applications
-description: Guidance for developing end-to-end integrated applications based on Event-Driven Architecture (EDA) in SAP BTP. Reference Architecture on how to implement using SAP's EDA Technonology options and CAP for building custom EDA extension application.
+description: Guidance for developing end-to-end integrated applications based on Event-Driven Architecture (EDA) patterns and CAP modeling framework.
 keywords:
   - sap
   - btp
@@ -19,7 +19,7 @@ keywords:
   - cloud application programming model
   - cap
   - eda
-sidebar_label: Event-Driven Architecture Application
+sidebar_label: Designing Event-Driven Applications 
 image: img/logo.svg
 tags:
   - azure
@@ -46,7 +46,7 @@ last_update:
 
 Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-drive architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
 
-This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) in SAP BTP. 
+This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
 
 ## Reference Architecture
 
