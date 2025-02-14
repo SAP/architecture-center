@@ -52,7 +52,7 @@ This reference architecture offers guidance for developing applications based on
 
 ![drawio](drawio/e2b-cc.drawio)
 
-This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication vis message broker.
+This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication via message broker.
 This features a CAP-based application framework (Events-To-Business Actions Framework) which allows you to configure set of actions for a particular business scenario. Based on the events category and type, respective actions are triggered in SAP Line of Business (LoB) applications. It also uses SAP Integration Suite, advanced event mesh / Event Mesh capability in SAP Integration Suite, SAP Build Process Automation, SAP HANA Cloud, SAP Destination Service, SAP Connectivity service with cloud connector. An alternative architecture can be considered with SAP Private Link service for integrating SAP BTP and SAP S/4HANA in scenarios where both SAP BTP and SAP S/4HANA run on the same Hyperscaler environment (Microsoft Azure or AWS).
 The reference applications with Microsoft Azure and AWS demonstrates and helps to build end-to-end event-based integration scenario.
 
@@ -79,7 +79,7 @@ The SAP Cloud Application Programming Model (CAP) is a framework of languages, l
 In this reference architecture, the events-to-business actions framework is developed as CAP application using Node.js. This serves as the central component and a reusable component. Below are the key characteristics and benefits of using the framework.
 
 - Provides comprehensive programming and configuration model for development of event-based integration scenario with SAP systems.
-- Flexible and generic framework that can be easily extended for any Line of Business (LoB) scenario, workflow, or process and any source system events.
+- Flexible and generic framework that can be easily extended for any Line of Business (LoB) scenario, workflow, or process, and any source system events.
 - Integrates with fully-managed cloud services for enabling application to communicate asynchronously through events.
 - Supports seamless integration for automation/workflow/business rules requirements.
 - Provides recommendations for chain of actions that needs to be executed for the subscribed events using Generative AI.
@@ -88,7 +88,7 @@ In this reference architecture, the events-to-business actions framework is deve
 
 SAP HANA Cloud offers a comprehensive platform combining advanced data management with AI-enhanced applications, each serving distinct but complementary roles in fostering sophisticated and intelligent business solutions.
 
-Along with using SAP HANA Cloud as persistence layer for the application data, the Vector Engine in SAP HANA Cloud manages unstructured data, such as text and images, in high-dimensional embeddings, enhancing AI models with long-term memory and better context. These features enable Retrieval Augmented Generation (RAG), combining LLMs with private business data to create intelligent applications that support automated decision-making and boost developer productivity. For the Generative AI assisted configuration, the vector engine capabilities can be leveraged.
+The Vector Engine in SAP HANA Cloud manages unstructured data, such as text and images, in high-dimensional embedding, enhancing AI models with long-term memory and better context. These features enable Retrieval Augmented Generation (RAG), combining LLMs with private business data to create intelligent applications that support automated decision-making and boost developer productivity. For the Generative AI assisted configuration, the vector engine capabilities can be leveraged.
 
 ### Private Link Service for secure connectivity
 
@@ -97,10 +97,11 @@ SAP Private Link service is a feature offered by cloud providers like Microsoft 
 ## Flow of events in this architecture
 
 Pre-requisites to be configured:
-- Extension application based on event-to-business actions framework has to be deployed in SAP Cloud Foundry Runtime with all the configurations for SAP Integration Suite, advanced event mesh, SAP HANA Cloud, SAP Destination Service, SAP Private Link Service/Cloud Connector, Generative AI Hub(optional).
+- Extension application based on event-to-business actions framework has to be deployed in SAP Cloud Foundry Runtime.
+- Configurations for SAP Integration Suite, advanced event mesh, SAP HANA Cloud, SAP Destination Service, SAP Private Link Service/Cloud Connector, Generative AI Hub(optional).
 - User with Application Admin role should log into the SAP BTP extension application to configure the business rules/decisions and the business actions that need to be triggered in the business systems.
 
-The following depicts the flow of events in an typical event based business scenario.
+The following depicts the flow of events in a typical event based business scenario.
 
 1. The events are triggered from source systems like Microsoft Azure, AWS, or Telco IoT Platforms (in the case of IoT scenarios).
 2. These events are published on to SAP Integration Suite, advanced event mesh / SAP Event Mesh. As the processor module's (part of the Events-to-Business-Action framework) endpoint subscribes to Event Mesh, the event is received.
@@ -137,7 +138,7 @@ Below are the list of services that are must-have to implement this architecture
 
 - **[SAP Continuous Integration and Delivery service](https://discovery-center.cloud.sap/serviceCatalog/continuous-integration--delivery?region=all)**: SAP Continuous Integration and Delivery lets you configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
 
-- **[SAP Cloud Transport Management](https://discovery-center.cloud.sap/serviceCatalog/cloud-transport-management?region=all)**: SAP Cloud Transport Management service lets you manage software deliverables between accounts of different environments (such as Cloud Foundry, ABAP, and Neo), by transporting them across various runtimes. This includes application artifacts as well as their respective application-specific content.
+- **[SAP Cloud Transport Management](https://discovery-center.cloud.sap/serviceCatalog/cloud-transport-management?region=all)**: SAP Cloud Transport Management service lets you manage software deliverables between accounts of different environments (such as Cloud Foundry, ABAP, and Neo), by transporting them across various runtime. This includes application artifacts as well as their respective application-specific content.
 
 - **[SAP HTML5 Application Repository Service for SAP BTP](https://discovery-center.cloud.sap/serviceCatalog/html5-application-repository-service?region=all)**: The HTML5 Application Repository service for SAP BTP enables central storage of HTML5 applications on SAP BTP. The service allows application developers to manage the lifecycle of their HTML5 applications. In runtime, the service enables the consuming application, typically the application router, to access HTML5 application static content in a secure and efficient manner.
 
