@@ -16,9 +16,9 @@ sidebar_custom_props: # [DO NOT MODIFY]
 title: Edge Integration Cell on Hyperscalers
 description: Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.
 sidebar_label: Edge Integration Cell on Hyperscalers
-keywords: [sap,eic,aws]
+keywords: [sap,eic,aws,azure,gcp]
 image: img/logo.svg
-tags: [aws,eic]
+tags: [aws,eic,azure,gcp]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -44,10 +44,6 @@ With its hybrid deployment model, EIC makes it easy to design and monitor integr
 
 ## Architecture
 
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/sap_eic.svg)
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/sap_eic.drawio)
 
 ## Flow  

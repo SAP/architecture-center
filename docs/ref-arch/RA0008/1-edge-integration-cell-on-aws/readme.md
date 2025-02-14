@@ -28,43 +28,40 @@ unlisted: false
 contributors:
   - adarshnarayanhegde
 last_update:
-  date: 2025-02-12
+  date: 2025-02-13
   author: adarshnarayanhegde
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its pupose -->
+SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on AWS to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines AWS-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
 
 ## Architecture
 
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/dummy.svg)
+![drawio](drawio/sap-edge-integration-cell-aws.drawio)
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-![drawio](drawio/dummy.drawio)
+## Overview
+The deployment on AWS follows a highly available and scalable model, utilizing **Amazon EKS (Elastic Kubernetes Service)** to run the EIC runtime across multiple availability zones. The setup includes:
 
-## Flow
+- **VPC and Networking**: A dedicated **Virtual Private Cloud (VPC)** with a multi-AZ setup, incorporating private and public subnets, NAT Gateways, and an Internet Gateway for controlled network access.
+- **EKS Cluster**: A managed Kubernetes environment where worker nodes run EIC runtime instances across private subnets.
+- **Storage and Databases**:  
+  - **Amazon RDS** for managing persistent database storage.   
+  - **Amazon ElastiCache** for high-performance caching needs.  
+  - **Amazon Elastic Block Store (EBS)** for node storage.
+  - **Amazon Elastic File System (EFS)** for shared file storage. 
 
-<!-- Add your flow content here -->
-
-## Characteristics
-
-<!-- Add your characteristics content here -->
-
-## Examples in an SAP context
-
-<!-- Add your SAP context examples here -->
-
-## Services and Components
-
-<!-- Add your services and components here -->
+On the SAP BTP side, the **Edge Integration Cell** must be activated within the SAP Integration Suite. Once the EIC is configured and successfully deployed on the AWS EKS cluster, integration flows can be designed and seamlessly deployed to the new EIC runtime, combining the powerful integration capabilities of SAP Integration Suite with the customer managed resources on AWS.
 
 ## Resources
 
-<!-- Add your resources here -->
+You can find the detailed setup instructions in the following GitHub repository:
 
-## Related Missions
+[**Deploy SAP Integration Suite - Edge Integration Cell on Amazon Web Services.**](https://github.com/SAP-samples/btp-edge-integration-cell-aws)
 
-<!-- Add related missions here -->
+## Explore More
+- [**Blog:** Getting Started with Edge Integration Cell on AWS: A Setup Guide Using SAP Integration Suite](https://community.sap.com/t5/technology-blogs-by-sap/getting-started-with-edge-integration-cell-on-aws-a-setup-guide-using-sap/ba-p/13880982)
+- [Setting Up and Managing Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/setting-up-and-managing-edge-integration-cell)
+
+
