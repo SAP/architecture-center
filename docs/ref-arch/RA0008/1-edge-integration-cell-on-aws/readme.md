@@ -35,16 +35,16 @@ last_update:
 ############################################################
 ---
 
-SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on AWS to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines AWS-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
+SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Amazon Web Services (AWS) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines AWS-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
 
 ## Architecture
 
 ![drawio](drawio/sap-edge-integration-cell-aws.drawio)
 
 ## Overview
-The deployment on AWS follows a highly available and scalable model, utilizing **Amazon EKS (Elastic Kubernetes Service)** to run the EIC runtime across multiple availability zones. The setup includes:
+EIC deployment on AWS follows a highly available and scalable model, utilizing **Amazon EKS (Elastic Kubernetes Service)** to run the EIC runtime across multiple availability zones. The setup includes:
 
-- **VPC and Networking**: A dedicated **Virtual Private Cloud (VPC)** with a multi-AZ setup, incorporating private and public subnets, NAT Gateways, and an Internet Gateway for controlled network access.
+- **VPC and Networking**: A dedicated **Virtual Private Cloud (VPC)** with a multi-AZ setup, incorporating private and public subnets, NAT Gateways, and an Internet Gateway for controlled network access in the private landscape.
 - **EKS Cluster**: A managed Kubernetes environment where worker nodes run EIC runtime instances across private subnets.
 - **Storage and Databases**:  
   - **Amazon RDS** for managing persistent database storage.   
@@ -56,9 +56,9 @@ On the SAP BTP side, the **Edge Integration Cell** must be activated within the 
 
 ## Resources
 
-You can find the detailed setup instructions in the following GitHub repository:
+You can find the detailed setup instructions for both basic and high availability (HA) setup in the following GitHub repository:
 
-[**Deploy SAP Integration Suite - Edge Integration Cell on Amazon Web Services.**](https://github.com/SAP-samples/btp-edge-integration-cell-aws)
+[**Deploy SAP Integration Suite - Edge Integration Cell on Amazon Web Services**](https://github.com/SAP-samples/btp-edge-integration-cell-aws)
 
 ## Explore More
 - [**Blog:** Getting Started with Edge Integration Cell on AWS: A Setup Guide Using SAP Integration Suite](https://community.sap.com/t5/technology-blogs-by-sap/getting-started-with-edge-integration-cell-on-aws-a-setup-guide-using-sap/ba-p/13880982)
