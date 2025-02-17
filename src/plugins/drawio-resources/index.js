@@ -70,9 +70,12 @@ export default (options) => {
 };
 
 function defineImport(name, path) {
+    // TODO: don't rely on file loader, which is now deprecated
+    // use file loader to skip SVGR processing for svgs
+    const loader = path.split('.')[1] === 'svg' ? '!!file-loader!' : '';
     return {
         type: 'mdxjsEsm',
-        value: `import ${name} from '!!file-loader!./${path}';`,
+        value: `import ${name} from '${loader}./${path}';`,
         data: {
             estree: {
                 type: 'Program',
@@ -87,8 +90,8 @@ function defineImport(name, path) {
                         ],
                         source: {
                             type: 'Literal',
-                            value: `!!file-loader!./${path}`,
-                            raw: `'!!file-loader!./${path}'`,
+                            value: `${loader}./${path}`,
+                            raw: `'${loader}./${path}'`,
                         },
                     },
                 ],
