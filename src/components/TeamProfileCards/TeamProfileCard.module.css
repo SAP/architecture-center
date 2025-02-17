@@ -71,6 +71,20 @@
 }
 
 .linkedin-button {
-    background-color: #0077b5;
+    background-color: #0a66c2;
     color: white;
+}
+
+[data-theme='dark'] .linkedin-button {
+    background-color: #0a66c2 !important;
+    color: white !important;
+}
+
+[data-theme='dark'] .team-profile-card {
+    background: #1b222a;
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .team-profile-card__button {
+    color: black;
 }
