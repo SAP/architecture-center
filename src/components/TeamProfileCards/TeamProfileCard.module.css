@@ -1,0 +1,90 @@
+.team-profile-container {
+    display: flex;
+    width: 100% !important;
+    gap: 20px;
+    justify-content: left;
+    padding: 1px;
+    flex-wrap: wrap;
+}
+
+.team-profile-card {
+    width: 430px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: to ensure uniform width */
+    min-width: 300px; /* Minimum width to maintain uniformity */
+    max-width: 800px; /* Maximum width if needed */
+}
+
+.team-profile-card__container {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-profile-card__avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.team-profile-card__name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: '72Bold';
+}
+
+.team-profile-card__description {
+    font-size: 14px;
+    font-family: '72';
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.team-profile-card__buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.team-profile-card__button {
+    flex: 1;
+    padding: 8px;
+    background: #f0f0f0;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    border-radius: 5px;
+    transition: background 0.2s ease-in-out;
+}
+
+.team-profile-card__button:hover {
+    background: #e0e0e0;
+}
+
+.linkedin-button {
+    background-color: #0a66c2;
+    color: white;
+}
+
+[data-theme='dark'] .linkedin-button {
+    background-color: #0a66c2 !important;
+    color: white !important;
+}
+
+[data-theme='dark'] .team-profile-card {
+    background: #1b222a;
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .team-profile-card__button {
+    color: black;
+}
