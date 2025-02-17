@@ -18,6 +18,8 @@ jobs:
 
             - name: Install dependencies
               run: npm ci
+            - name: Export drawios to svgs
+              run: DOCKER=1 node src/_scripts/_export-drawios.js
             - name: Build website
               run: npm run build
 
