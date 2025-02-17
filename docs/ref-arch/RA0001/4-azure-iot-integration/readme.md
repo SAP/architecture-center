@@ -76,7 +76,6 @@ SAP Private Link service is used for connectivity between SAP BTP and SAP S/4HAN
 
 **Option 2: Solution Architecture with SAP S/4HANA on-premise or Public Cloud and Cloud Connector**
 
-Sur
 ![drawio](drawio/e2b-azure-cc.drawio)
 
 The following steps depict the information flow across systems (in both scenarios)
