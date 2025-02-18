@@ -11,7 +11,6 @@ import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Heading from "@theme/Heading";
 import type { Props } from "@theme/DocCategoryGeneratedIndexPage";
 import { useColorMode } from '@docusaurus/theme-common';
-import ReactTooltip from "react-tooltip";
 
 const jsonSchema = require("@site/src/_scripts/_generatedIndexCategories.json");
 

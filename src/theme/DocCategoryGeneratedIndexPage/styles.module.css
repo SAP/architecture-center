@@ -70,7 +70,7 @@
     display: flex;
     flex-direction: column;
     flex: 1; /* Equal width for both filters */
-    min-width: 550px; /* Prevents shrinking too much */
+    min-width: 565px; /* Prevents shrinking too much */
 }
 
 .filterGroupReset {
