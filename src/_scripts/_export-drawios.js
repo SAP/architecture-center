@@ -1,6 +1,6 @@
-const { readdirSync, readFileSync, writeFileSync } = require('node:fs');
+const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
 const { execSync } = require('node:child_process');
-const { normalize: normalizePath } = require('node:path');
+const { normalize: normalizePath, dirname } = require('node:path');
 
 // SCRIPT CAN BE RUN NATIVELY ON MAC OR VIA DOCKER.
 // THE FORMER REQUIRES DRAWIO TO BE INSTALLED
@@ -40,6 +40,7 @@ for (const drawio of drawios) {
 
 // export all drawios to svgs
 for (const [input, out] of Object.entries(transforms)) {
+    if (!existsSync(dirname(out))) mkdirSync(dirname(out));
     const cmd = prepareCommand(input, out);
     try {
         // try sync variant first to not overwhelm runner in GitHub workflow
@@ -100,7 +101,7 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         });
 
         const logoSvg = readFileSync(SAP_LOGO, 'utf8');
-        const frontmatter = readFileSync(drawioPath.split("drawio/")[0] + "readme.md", 'utf8').split("---")[1];
+        const frontmatter = readFileSync(drawioPath.split('drawio/')[0] + 'readme.md', 'utf8').split('---')[1];
         const title = frontmatter.match(/^title:\s?(.*)$/m)[1];
         const slug = frontmatter.match(/^slug:\s?(.*)$/m)[1];
         const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="22">
