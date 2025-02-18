@@ -184,7 +184,6 @@ function DocCategoryGeneratedIndexPageContent({
                 onClick={isResetEnabled ? resetFilters : undefined} 
                 style={{ cursor: isResetEnabled ? "pointer" : "not-allowed" }}
               />
-              <ReactTooltip />
               </div>
               </div>
             </aside>
