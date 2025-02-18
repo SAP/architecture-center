@@ -9,6 +9,7 @@ const log = console.log;
 
 // DOCKER=1 -> run drawio cli via docker
 const { DOCKER = 0 } = process.env;
+const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true' ? true : false;
 const DRAWIO_CLI_MAC_BINARY = '/Applications/draw.io.app/Contents/MacOS/draw.io';
 // assuming script is in src/_scripts/
 const SEARCH_DIR = __dirname + '/../../docs/ref-arch';
@@ -40,12 +41,15 @@ for (const drawio of drawios) {
 
 // export all drawios to svgs
 for (const [input, out] of Object.entries(transforms)) {
-    if (!existsSync(dirname(out))) mkdirSync(dirname(out));
+    const dir = dirname(normalizePath(out));
+    if (!existsSync(dir)) mkdirSync(dir);
     const cmd = prepareCommand(input, out);
     try {
         // try sync variant first to not overwhelm runner in GitHub workflow
         const stdout = execSync(cmd, { encoding: 'utf8' });
         log(stdout.replaceAll('docs/ref-arch/', '').replaceAll('\n', ''));
+        // github workflow: docker creates files as root! set proper owner
+        if (GITHUB_ACTIONS) execSync(`sudo chown -R $(whoami):$(id -gn) ${dir}`);
     } catch (e) {
         const msg = `Export failed ${prettyPath(input)} -> ${prettyPath(out)}, aborting now`;
         // let's fail early
