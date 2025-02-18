@@ -29,7 +29,6 @@ contributors:
   - adarshnarayanhegde
   - madankumarpichamuthu
   - AFK-Python
-  
 last_update:
   date: 2025-02-17
   author: adarshnarayanhegde
@@ -69,10 +68,10 @@ The architecture diagram above illustrates the high-level setup of the Edge Inte
 2. **Migration path for SAP Process Integration customers:** EIC helps customers design and monitor integration content in the cloud, while keeping deployment and execution fully within their private environments.  
 
 
-
 ## Services and Components  
 
 ![EIC Landscape](./images/eic_components.png)
+
 ### Services  
 
 - **SAP Integration Suite**: An industry-leading, enterprise-grade integration platform-as-a-service (iPaaS) that enables businesses to seamlessly connect and integrate their applications, data, and processes within and beyond their organization.  
