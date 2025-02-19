@@ -8,19 +8,23 @@ sidebar_custom_props:
     - integration
     - aws
     - azure
-title: Architecting multi-region resiliency
-description: Learn how to architect multi-region resiliency for SAP BTP services to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.
+title: Architecting Multi-Region Resiliency
+description: Learn how to architect multi-region resiliency for SAP Business Suite solutions such as SAP Business Technology Platform to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.
 keywords:
   - sap
   - integration
   - application development
+  - multi-region
+  - multiregion
+  - cross region
+  - cross-region
   - ha dr
   - high availability
   - disaster recovery
   - resiliency
   - business continuity
   - failover
-sidebar_label: Architecting multi-region resiliency
+sidebar_label: Architecting Multi-Region Resiliency
 image: img/logo.svg
 tags:
   - aws
@@ -44,12 +48,13 @@ contributors:
   - alperdedeoglu
   - arajsinha
 last_update:
-  author: arajsinha
-  date: 2025-01-31
+  author: mahesh0431
+  date: 2025-02-19
 ---
 
-In today's globally distributed business environment, ensuring high availability and business continuity for your mission critical applications is crucial. Although the SAP BTP services leverage multi-AZ resiliency by default, some customers require additional solution robustness and regulatory compliance by adopting a multi-region setup. This documentation will guide you through the concepts, strategies, and best practices for implementing multi-region architectures on SAP BTP.
+In today's interconnected business landscape, ensuring the resilience of mission-critical applications is paramount. Organizations face diverse challenges ranging from natural disasters to cyber threats, making a robust disaster recovery (DR) strategy essential. A multi-region disaster recovery setup serves as a safeguard, ensuring that applications and data are replicated across geographically dispersed locations. This not only enhances data resilience and business continuity but also helps meet regulatory compliance requirements by guaranteeing uninterrupted access to essential services.
 
+While many SAP products support multi-region disaster recovery as part of their architecture, certain solutions, like SAP BTP, require customers to architect the setup. Although SAP BTP services offer multi-Availability Zone (multi-AZ) resiliency by default, some customers need additional robustness and regulatory compliance through a multi-region configuration. This documentation will guide you through the concepts, strategies, and best practices for implementing multi-region architectures on SAP BTP.
 
 ## Reference Architecture
 
