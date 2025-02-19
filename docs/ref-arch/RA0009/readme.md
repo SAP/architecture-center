@@ -2,17 +2,17 @@
 ############################################################
 #                Beginning of Front Matter                 #
 ############################################################
-id: id-ra0009 # [DO NOT MODIFY]
-slug: /ref-arch/f764cc1375 # [DO NOT MODIFY]
-sidebar_position: 9 # [DO NOT MODIFY] 
-sidebar_custom_props: # [DO NOT MODIFY]
+id: id-ra0009
+slug: /ref-arch/f764cc1375
+sidebar_position: 9
+sidebar_custom_props:
   category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Reference Architecture for SAP Task Center on SAP BTP
+title: Reference Architecture for SAP Task Center
 description: Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.
-sidebar_label: Reference Architecture for SAP Task Center on SAP BTP
+sidebar_label: Reference Architecture for SAP Task Center
 keywords: [sap, btp, cloud, task center]
 image: img/logo.svg
 tags: [appdev]
