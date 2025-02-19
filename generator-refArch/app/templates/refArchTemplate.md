@@ -38,7 +38,7 @@ last_update:
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its pupose -->
+<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
 ## Architecture
 

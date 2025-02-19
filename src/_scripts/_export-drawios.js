@@ -1,17 +1,18 @@
-const { readdirSync, readFileSync, writeFileSync } = require('node:fs');
+const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
 const { execSync } = require('node:child_process');
-const { normalize: normalizePath } = require('node:path');
+const { normalize: normalizePath, dirname } = require('node:path');
 
 // SCRIPT CAN BE RUN NATIVELY ON MAC OR VIA DOCKER.
 // THE FORMER REQUIRES DRAWIO TO BE INSTALLED
-
 const log = console.log;
 
 // DOCKER=1 -> run drawio cli via docker
 const { DOCKER = 0 } = process.env;
+const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true' ? true : false;
 const DRAWIO_CLI_MAC_BINARY = '/Applications/draw.io.app/Contents/MacOS/draw.io';
 // assuming script is in src/_scripts/
-const SEARCH_DIR = __dirname + '/../../docs/ref-arch';
+const ROOT = normalizePath(__dirname + '/../..');
+const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
 const URL = 'https://architecture.cloud.sap';
@@ -40,13 +41,17 @@ for (const drawio of drawios) {
 
 // export all drawios to svgs
 for (const [input, out] of Object.entries(transforms)) {
+    const dir = dirname(out);
+    if (!existsSync(dir)) mkdirSync(dir);
     const cmd = prepareCommand(input, out);
     try {
         // try sync variant first to not overwhelm runner in GitHub workflow
         const stdout = execSync(cmd, { encoding: 'utf8' });
-        log(stdout.replaceAll('docs/ref-arch/', '').replaceAll('\n', ''));
+        log(prettyPaths(stdout));
+        // github workflow: docker creates files as root! set proper owner
+        if (GITHUB_ACTIONS) execSync(`sudo chown -R $(whoami):$(id -gn) ${dir}`);
     } catch (e) {
-        const msg = `Export failed ${prettyPath(input)} -> ${prettyPath(out)}, aborting now`;
+        const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
         // let's fail early
         throw new Error(msg, { cause: e });
     }
@@ -54,15 +59,17 @@ for (const [input, out] of Object.entries(transforms)) {
 log('\n');
 
 function prepareCommand(input, out) {
-    // make relative, docker doesn't have same dir structure
-    const d = 'docs/';
-    out = d + normalizePath(out).split(d)[1];
-    input = d + normalizePath(input).split(d)[1];
+    if (DOCKER) {
+        // make relative, docker doesn't have same dir structure
+        const d = 'docs/';
+        out = d + out.split(d)[1];
+        input = d + input.split(d)[1];
+    }
 
     // put path in quotes because there are spaces sometimes
     const args = ` --export --embed-svg-images --svg-theme light --output "${out}" "${input}"`;
     const cmd =
-        (!DOCKER ? DRAWIO_CLI_MAC_BINARY : 'docker run -w /data -v $(pwd):/data rlespinasse/drawio-desktop-headless') +
+        (!DOCKER ? DRAWIO_CLI_MAC_BINARY : `docker run -w /data -v ${ROOT}:/data rlespinasse/drawio-desktop-headless`) +
         args;
     return cmd;
 }
@@ -100,9 +107,10 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         });
 
         const logoSvg = readFileSync(SAP_LOGO, 'utf8');
-        const frontmatter = readFileSync(drawioPath.split("drawio/")[0] + "readme.md", 'utf8').split("---")[1];
-        const title = frontmatter.match(/^title:\s?(.*)$/m)[1];
-        const slug = frontmatter.match(/^slug:\s?(.*)$/m)[1];
+        const frontmatter = readFileSync(drawioPath.split('drawio/')[0] + 'readme.md', 'utf8').split('---')[1];
+        let title = frontmatter.match(/^title:\s(.*)$/m)[1];
+        if (title.includes('#')) title = title.split('#')[0];
+        const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
         const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="22">
                         <![CDATA[${title}]]>
                     </text>
@@ -134,13 +142,14 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
             .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
         writeFileSync(svgPath, svg);
-        log('Watermarked ' + prettyPath(svgPath));
+        log(prettyPaths('Watermarked ' + svgPath));
     } catch (e) {
-        const msg = `Failed to watermark ${prettyPath(svgPath)}, aborting now`;
+        const msg = prettyPaths(`Failed to watermark ${svgPath}, aborting now`);
         throw new Error(msg, { cause: e });
     }
 }
 
-function prettyPath(p) {
-    return normalizePath(p.split('ref-arch/')[1]);
+function prettyPaths(log) {
+    const strip = DOCKER ? 'docs/ref-arch/' : SEARCH_DIR + '/';
+    return log.replaceAll(strip, '').replaceAll('\n', '');
 }
