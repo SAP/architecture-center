@@ -6,6 +6,8 @@ sidebar_custom_props:
   category_index:
     - integration
     - appdev
+    - aws
+    - azure
 title: Reference Architecture for Event-Driven Applications
 description: Guidance for developing end-to-end integrated applications based on Event-Driven Architecture (EDA) patterns and CAP modeling framework.
 keywords:
