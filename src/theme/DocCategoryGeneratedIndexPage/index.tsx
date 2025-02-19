@@ -84,9 +84,6 @@ function DocCategoryGeneratedIndexPageContent({
         : "#000",
     }),
   };
-  
-
-  console.log("Loaded Explore Page:", isExplorePage);
 
   const categories = jsonSchema.generatedIndexes.map((cat) => ({
     value: cat.customProps.id ?? "unknown",
