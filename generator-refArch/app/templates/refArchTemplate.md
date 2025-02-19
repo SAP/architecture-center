@@ -43,7 +43,7 @@ last_update:
 ## Architecture
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-![drawio](drawio/dummy.drawio)
+<!-- ![drawio](drawio/<your-file>.drawio) -->
 
 ## Flow
 
