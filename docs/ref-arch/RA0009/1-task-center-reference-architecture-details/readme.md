@@ -2,12 +2,10 @@
 ############################################################
 #                Beginning of Front Matter                 #
 ############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: <%= id %> 
-slug: <%= slug %> 
-sidebar_position: <%= sidebar_position %> 
-sidebar_custom_props: 
+id: id-ra0009-1  # [DO NOT MODIFY]
+slug: /ref-arch/f764cc1375/1 # [DO NOT MODIFY]
+sidebar_position: 1 # [DO NOT MODIFY] 
+sidebar_custom_props: # [DO NOT MODIFY]
   category_index: 
     - aws
     - gcp
@@ -15,12 +13,12 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: <%= title %>
-description: <%= description %>
-sidebar_label: <%= title %>
-keywords: [<%= keywords %>]
+title: Task Center reference architecture details
+description: Explore details of the SAP Task Center reference architecture that are applicable to SAP business applications
+sidebar_label: Task Center reference architecture details
+keywords: [sap, btp, cloud]
 image: img/logo.svg
-tags: [<%= tags %>]
+tags: [genai, azure, aws, gcp]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -31,14 +29,14 @@ contributors:
   - contributor1
   - contributor2
 last_update:
-  date: <%= today %>
-  author: <%= username %>
+  date: 2025-02-11
+  author: user-eb814de5ff
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
+<!-- Add the 'why?' for this architecture. Why do we have it? What is its pupose -->
 
 ## Architecture
 

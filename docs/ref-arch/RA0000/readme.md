@@ -47,7 +47,7 @@ tags:
   - gcp
 
 # HIDE_TABLE_OF_CONTENTS:Do you want to hide the table of content? Default: false. You can reclaim the space on the right hand side if it is not relevant for your page.
-hide_table_of_contents: true
+hide_table_of_contents: false
 
 # HIDE_TITLE: Do you want to hide the title of the page? Default: true.
 hide_title: false
