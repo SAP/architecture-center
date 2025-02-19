@@ -108,8 +108,9 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
 
         const logoSvg = readFileSync(SAP_LOGO, 'utf8');
         const frontmatter = readFileSync(drawioPath.split('drawio/')[0] + 'readme.md', 'utf8').split('---')[1];
-        const title = frontmatter.match(/^title:\s?(.*)$/m)[1];
-        const slug = frontmatter.match(/^slug:\s?(.*)$/m)[1];
+        let title = frontmatter.match(/^title:\s(.*)$/m)[1];
+        if (title.includes('#')) title = title.split('#')[0];
+        const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
         const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="22">
                         <![CDATA[${title}]]>
                     </text>
