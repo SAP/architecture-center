@@ -30,7 +30,7 @@ integration:
 
 cap:
   label: "CAP"
-  description: "SAP Cloud Application Programming (CAP) is a framework for building enterprise-grade applications. It provides a set of tools and libraries that help developers create scalable, secure, and modular applications."
+  description: "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks."
 
 abap:
   label: "ABAP"
