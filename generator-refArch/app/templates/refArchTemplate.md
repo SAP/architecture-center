@@ -4,14 +4,14 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: <%= id %> 
-slug: <%= slug %> 
-sidebar_position: <%= sidebar_position %> 
-sidebar_custom_props: 
-  category_index: 
-    - aws
-    - gcp
-    - azure
+id: <%= id %>
+slug: <%= slug %>
+sidebar_position: <%= sidebar_position %>
+sidebar_custom_props:
+    category_index:
+        - aws
+        - gcp
+        - azure
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -28,11 +28,11 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-  - contributor1
-  - contributor2
+    - contributor1
+    - contributor2
 last_update:
-  date: <%= today %>
-  author: <%= username %>
+    date: <%= today %>
+    author: <%= username %>
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -43,7 +43,9 @@ last_update:
 ## Architecture
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- ![drawio](drawio/<your-file>.drawio) -->
+<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
+
+![drawio](drawio/template.drawio)
 
 ## Flow
 

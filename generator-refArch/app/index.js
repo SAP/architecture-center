@@ -107,7 +107,9 @@ async function createSubfoldersForRefArch(subfolderCount = 1, parentPath) {
                 default: 'Keep it clear, concise, and within 50 characters.',
                 validate: (input) => {
                     const isValid = /^[a-zA-Z0-9 ]+$/.test(input); // Allow alphanumeric characters and spaces
-                    return isValid ? true : 'Title must only contain alphanumeric characters and spaces.';
+                    return isValid
+                        ? true
+                        : chalk.red('Error: Title must only contain alphanumeric characters and spaces.');
                 },
             },
             {
@@ -148,13 +150,13 @@ async function createSubfoldersForRefArch(subfolderCount = 1, parentPath) {
             const subfolderName = `${currentFoldersLength + 1}-` + promptTitle;
             const subfolderPath = createGuidFolder(parentPath, subfolderName);
 
-            // Create drawio and images folders for the subfolder
+            // Create drawio folder and copy the template
             const drawioFolderPath = path.join(subfolderPath, 'drawio');
-            const imagesFolderPath = path.join(subfolderPath, 'images');
             fs.mkdirSync(drawioFolderPath, { recursive: true });
-            fs.mkdirSync(imagesFolderPath, { recursive: true });
-            fs.writeFileSync(path.join(drawioFolderPath, 'dummy.drawio'), '');
-            fs.writeFileSync(path.join(imagesFolderPath, 'dummy.svg'), '');
+
+            const drawioTemplatePath = this.templatePath('template.drawio');
+            const destinationDrawioPath = path.join(drawioFolderPath, 'template.drawio');
+            fs.copyFileSync(drawioTemplatePath, destinationDrawioPath);
 
             // Create readme.md for the subfolder
             const readmePath = path.join(subfolderPath, 'readme.md');
@@ -175,7 +177,7 @@ async function createSubfoldersForRefArch(subfolderCount = 1, parentPath) {
         if (result.status === 'fulfilled') {
             this.log(`✅ Subfolder ${index + 1} created successfully.`);
         } else {
-            this.log(`❌ Subfolder ${index + 1} failed: ${result.reason}`);
+            chalk.red(`❌ Subfolder ${index + 1} failed: ${result.reason}`);
         }
     });
 
@@ -270,7 +272,6 @@ export default class extends Generator {
             const currentFoldersLength = findSubfoldersWithPattern(currentPath).length;
             const newFolderCount = currentFoldersLength + 1;
 
-            // Extract ID and slug from the existing reference architecture
             id = `${existingData.id}-${newFolderCount}`;
             slug = `${existingData.slug}/${newFolderCount}`;
             sidebarPosition = newFolderCount;
@@ -281,21 +282,19 @@ export default class extends Generator {
 
         const guidFolderPath = createGuidFolder(currentPath, guidFolderName);
 
-        // Create drawio and images folders with dummy files
+        // Create drawio folder and copy the template
         const drawioFolderPath = path.join(guidFolderPath, 'drawio');
-        const imagesFolderPath = path.join(guidFolderPath, 'images');
         fs.mkdirSync(drawioFolderPath, { recursive: true });
-        fs.mkdirSync(imagesFolderPath, { recursive: true });
-        fs.writeFileSync(path.join(drawioFolderPath, 'dummy.drawio'), '');
-        fs.writeFileSync(path.join(imagesFolderPath, 'dummy.svg'), '');
 
-        // create Readme
+        const drawioTemplatePath = this.templatePath('template.drawio');
+        const destinationDrawioPath = path.join(drawioFolderPath, 'template.drawio');
+        fs.copyFileSync(drawioTemplatePath, destinationDrawioPath);
 
-
-        //        const templatePath = this.templatePath('refArchTemplate.md');
+        // Generate readme.md
         const destinationPath = path.join(guidFolderPath, 'readme.md');
         const templateReadmeContent = this.fs.read(this.templatePath('refArchTemplate.md'));
         fs.writeFileSync(destinationPath, templateReadmeContent);
+
         const templateData = {
             ...this.answers,
             id,
@@ -304,12 +303,10 @@ export default class extends Generator {
             username,
             today: getFormattedDate() // Use the formatted date
         };
-        const readmeContent = fs.readFileSync(destinationPath, 'utf8');
-        //const templateReadmeContent = this.fs.read(this.templatePath('refArchTemplate.md')); // Read the template content
-        const renderedContent = ejs.render(readmeContent, templateData);
-        fs.writeFileSync(destinationPath, renderedContent); // Write it to the destination immediately
-        // await wait(5000);
 
+        const readmeContent = fs.readFileSync(destinationPath, 'utf8');
+        const renderedContent = ejs.render(readmeContent, templateData);
+        fs.writeFileSync(destinationPath, renderedContent);
 
         // Ask about creating subfolders only for Option 1
         if (this.answers.option === 'Create a new reference architecture') {
@@ -323,7 +320,6 @@ export default class extends Generator {
             ]);
 
             if (createSubfolders) {
-                // Step 4: Ask how many subfolders to create
                 const { subfolderCount } = await this.prompt([
                     {
                         type: 'number',
@@ -334,7 +330,6 @@ export default class extends Generator {
                     }
                 ]);
 
-                // Step 5: Create subfolders
                 await createSubfoldersForRefArch.call(this, subfolderCount, guidFolderPath);
             }
         }
