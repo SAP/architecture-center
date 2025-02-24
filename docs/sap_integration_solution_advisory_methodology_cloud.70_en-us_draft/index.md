@@ -1,4 +1,35 @@
-# SAP Integration Solution Advisory Methodology
+---
+id: id-sapintsoladvmetho-0
+sidebar_position: 1
+sidebar_custom_props: {}
+title: SAP Integration Solution Advisory Methodology
+description: What are SAP reference architectures, what value do they bring to organizations big and small, and how can you utilize them to help your business run better? This page gives an overview of the content you will find on the SAP Architecture Center, to start your journey toward well-architected SAP solutions.
+slug: /sapintsoladvmetho
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: Integration Solution Advisory Methodology
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
+
+## SAP Integration Solution Advisory Methodology
 
 -   [SAP Integration Solution Advisory Methodology Overview](sap-integration-solution-advisory-methodology-overview-85bcc86.md)
 -   [The Phases of the SAP Integration Solution Advisory Methodology](the-phases-of-the-sap-integration-solution-advisory-methodology-30d69e8.md)

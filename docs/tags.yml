@@ -61,3 +61,7 @@ ref-arch:
 community:
   label: "Community of Practice"
   description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."
+
+sapintsoladvmetho:
+  label: "SAP Integration Solution Advisory Methodology"
+  description: "SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs."
