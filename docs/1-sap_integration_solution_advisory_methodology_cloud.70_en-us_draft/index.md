@@ -3,7 +3,7 @@ id: id-sapintsoladvmetho-0
 sidebar_position: 1
 sidebar_custom_props: {}
 title: SAP Integration Solution Advisory Methodology
-description: What are SAP reference architectures, what value do they bring to organizations big and small, and how can you utilize them to help your business run better? This page gives an overview of the content you will find on the SAP Architecture Center, to start your journey toward well-architected SAP solutions.
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
 slug: /sapintsoladvmetho
 keywords:
   - sap
@@ -14,14 +14,14 @@ keywords:
   - advisory
   - methodology
 image: img/logo.svg
-sidebar_label: Integration Solution Advisory Methodology
+sidebar_label: SAP Integration Solution Advisory Methodology
 tags:
   - sapintsoladvmetho
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: false
+draft: true
 unlisted: false
 contributors:
 last_update:

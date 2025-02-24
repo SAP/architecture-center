@@ -76,7 +76,7 @@ Key Considerations from Platform or Services perspective -
 
 ### Eventing services
 
-API led integrations and event based integrations go hand in hand very well. SAP Integration Suite supports the eventing infrasture with the below list of offerings
+API led integrations and event based integrations go hand in hand very well. SAP Integration Suite supports the eventing infrastructure with the below list of offerings
 - SAP Integration Suite,advanced event mesh and Event Mesh Capability of Integration Suite.
 - Event Catalogs to understand the standards of events SAP provides and also provision to build your own catalog with your events.
 - Event Mediation with Cloud Integration capability enables event mapping, event enrichment, event enabling of legacy systems and connectivity to other applications, brokers and adapter through adapters.
@@ -94,10 +94,10 @@ The key differences are as below
 | :---: | :---: | :---: |
 Infrastructure Model | Shared | T-Shirt Sizes|
 Connecting SAP and non-SAP systems | BTP Deployment | Private and Public Cloud|
-Message Size and Storage | 1MB/10GB | Upto 30MB/Up to 6TB|
+Message Size and Storage | 1MB/10GB | Up to 30MB/Up to 6TB|
 Typical use case size | Small to Medium | Small to Ultra-large|
 
-Apart from the above mentioned SAP Integration Suite, advanced event mesh allows to create network of event brokers, provides advaced event monitoring and analysis, allows dynamic event routing, has capabilities for filtering, event replay and event management.
+Apart from the above mentioned SAP Integration Suite, advanced event mesh allows to create network of event brokers, provides advanced event monitoring and analysis, allows dynamic event routing, has capabilities for filtering, event replay and event management.
 
 Refer to [Comprehensive Real-Time Integration Using Event-Driven Architecture](https://www.sap.com/documents/2024/10/f41de944-dc7e-0010-bca6-c68f7e60039b.html) for more details on capabilities in SAP BTP for building EDA Applications. 
 
@@ -112,12 +112,12 @@ In this reference architecture the APIs in the ERP business systems are integrat
 
 ## Navigating from Generic Architecture to Specific Architecture for implementing business scenarios
 
-Based on the generic reference architecture, below can be 2 specific architecture which are specific to the two different integration patterns based on different Hyperscaler environement which acts as event producer. 
+Based on the generic reference architecture, below can be 2 specific architecture which are specific to the two different integration patterns based on different Hyperscaler environnement which acts as event producer. 
 
 ### Architecture 1 - Event-driven architecture with AWS as the Event Producer
 
-Go to [Integration with Amazon Web Services](/docs/ref-arch/RA0001/3-aws-iot-integration/readme.md)
+Go to [Integration with Amazon Web Services](../3-aws-iot-integration/readme.md)
 
 ### Architecture 2 - Event-driven architecture with Microsoft Azure as the Event Producer
 
-Go to [Integration with Microsoft Azure](/docs/ref-arch/RA0001/4-azure-iot-integration/readme.md)
+Go to [Integration with Microsoft Azure](../4-azure-iot-integration/readme.md)

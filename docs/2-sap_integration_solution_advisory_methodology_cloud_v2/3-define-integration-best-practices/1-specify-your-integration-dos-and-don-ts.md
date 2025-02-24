@@ -1,0 +1,63 @@
+<!-- loio5478c29f29b74c159d13a55eb835bc57 -->
+
+# Specify Your Integration Dos and Don’ts
+
+Define “golden rules” for integration development to standardize integration scenarios at higher quality.
+
+***
+
+<a name="loio5478c29f29b74c159d13a55eb835bc57__section_pkv_rnk_swb"/>
+
+## Context
+
+Integration dos and don’ts are easy-to-apply principles about aspects to consider or to avoid when designing and implementing integration scenarios. When defining such integration dos and don’ts, you should focus on the most important rules. Otherwise, there’s a high risk that integration developers will not follow all of them. The SAP Integration Solution Advisory Methodology attempts to define integration dos and don’ts for integration styles. If needed, you can deliver detailed guidance \(for instance for integration technologies\) as part of integration development guidelines.
+
+The list below shows an example of dos and don’ts applicable for the process integration style, including the reasons why.
+
+|Integration dos and don’ts|Reason|
+|--------------------------|------|
+|Leverage integration packages \(content\) wherever possible|Reduces integration development effort|
+|Decouple business applications via asynchronous messaging and events|Better scaling runtime behavior and resilience|
+|Use synchronous calls only in selected use cases|Risk of slow, unreliable or no responses|
+|Avoid a tight coupling of applications|Negative impact on resilience, availability, maintenance of the integration scenario|
+|Prefer \(near\) real-time distribution of data over batch-oriented processes|Ensures that data is up to date in connected business applications|
+|Avoid chaining of too many integration runtime components|Makes it more difficult to monitor and operate such integration scenarios|
+
+When defining integration dos and don’ts, you need also to consider customer context factors, which may lead to deviations from generic best practices.
+
+Integration dos and don’ts are typically defined by an integration architect.
+
+***
+
+<a name="loio5478c29f29b74c159d13a55eb835bc57__section_kj1_h4k_swb"/>
+
+## Procedure
+
+For specifying integration dos and don’ts you use the templates-based approach. Integration Assessment doesn't support the SAP Integration Solution Advisory Methodology: Integration dos and don’ts are related to the design and implementation of integration scenarios, which is not addressed by Integration Assessment.
+
+1.  Templates-based approach
+
+      
+      
+    **Integration Dos and Don’ts Template**
+
+    ![](images/loiocaaf15feea15447f9c3a97217b843635_LowRes.png "Integration Dos and Don’ts Template")
+
+    Download the "Integration Dos and Don'ts Template" and fill it out as follows:
+
+    1.  In the header row, specify an integration style you want to define integration dos and don’ts for
+    2.  In the first column, you enter the integration dos
+    3.  In the second column you enter the integration don’ts
+
+    As a rule of thumb: Make sure that you don’t define more than ten integration dos or don’ts in total.
+
+2.  Tool-based approach
+
+    Not supported by the Integration Assessment capability with SAP Integration Suite. Please choose the templates-based approach instead \(see above\).
+
+
+**Related Information**  
+
+
+[Download the Integration Dos and Don’ts Template](https://d.dam.sap.com/a/QXH6JPF?rc=10)
+
