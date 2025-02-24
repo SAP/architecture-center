@@ -1,10 +1,10 @@
 ---
-id: id-sapintsoladvmetho-0
+# id: id-sapintsoladvmetho-0
 sidebar_position: 1
 sidebar_custom_props: {}
-title: SAP Integration Solution Advisory Methodology
+title: SAP Integration Solution Advisory Methodology [old]
 description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
-slug: /sapintsoladvmetho
+# slug: /sapintsoladvmetho
 keywords:
   - sap
   - btp
@@ -14,7 +14,7 @@ keywords:
   - advisory
   - methodology
 image: img/logo.svg
-sidebar_label: SAP Integration Solution Advisory Methodology
+sidebar_label: SAP Integration Solution Advisory Methodology [old]
 tags:
   - sapintsoladvmetho
 hide_table_of_contents: false

@@ -1,6 +1,35 @@
-<!-- loio08687a9c8caf4c989e4782dc222dbeb8 -->
+---
+# id: 
+sidebar_position: 1
+sidebar_custom_props: {}
+title: Assess Your Integration Strategy
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
+# slug: 
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: Assess Your Integration Strategy
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
 
-# Assess Your Integration Strategy
+<!-- loio08687a9c8caf4c989e4782dc222dbeb8 -->
 
 Start by assessing the current integration strategy of your organization.
 
@@ -56,16 +85,16 @@ It’s recommended to involve the following personas in this phase:
 -   Integration architect
 -   Integration developer
 
--   **[Perform a Scoping of Your Integration Domains](perform-a-scoping-of-your-integration-domains-3a1b881.md "Get the first level of integration architecture assessment by selecting integration
+-   **[Perform a Scoping of Your Integration Domains](1-perform-a-scoping-of-your-integration-domains.md "Get the first level of integration architecture assessment by selecting integration
 		domains that are relevant for your organization.")**  
 Get the first level of integration architecture assessment by selecting integration domains that are relevant for your organization.
--   **[Perform a Scoping of Your Integration Styles](perform-a-scoping-of-your-integration-styles-189e05d.md "Get the second level of integration architecture assessment by selecting integration
+-   **[Perform a Scoping of Your Integration Styles](2-perform-a-scoping-of-your-integration-styles.md "Get the second level of integration architecture assessment by selecting integration
 		styles that are relevant for your organization.")**  
 Get the second level of integration architecture assessment by selecting integration styles that are relevant for your organization.
--   **[Perform a Scoping of Your Integration Use-Case Patterns](perform-a-scoping-of-your-integration-use-case-patterns-739e441.md "Get the third level of integration architecture assessment by selecting integration use
+-   **[Perform a Scoping of Your Integration Use-Case Patterns](3-perform-a-scoping-of-your-integration-use-case-patterns.md "Get the third level of integration architecture assessment by selecting integration use
 		case patterns that are relevant for your organization.")**  
 Get the third level of integration architecture assessment by selecting integration use case patterns that are relevant for your organization.
--   **[Catalog of Integration Use-Case Patterns](catalog-of-integration-use-case-patterns-712c94c.md "The SAP Integration Solution Advisory Methodology includes a catalog of predefined
+-   **[Catalog of Integration Use-Case Patterns](4-catalog-of-integration-use-case-patterns.md "The SAP Integration Solution Advisory Methodology includes a catalog of predefined
 		integration
 		use-case patterns, which can be adapted according to your
 		needs.")**  

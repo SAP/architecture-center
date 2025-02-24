@@ -1,6 +1,35 @@
-<!-- loio189e05d7319245e0a93f9b6080b5ddb4 -->
+---
+# id: 
+sidebar_position: 2
+sidebar_custom_props: {}
+title: Perform a Scoping of Your Integration Styles
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
+# slug: 
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: Perform a Scoping of Your Integration Styles
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
 
-# Perform a Scoping of Your Integration Styles
+<!-- loio189e05d7319245e0a93f9b6080b5ddb4 -->
 
 Get the second level of integration architecture assessment by selecting integration styles that are relevant for your organization.
 

@@ -1,6 +1,35 @@
-<!-- loio30d69e8c12dc46f68adb2f92621e1852 -->
+---
+# id: 
+sidebar_position: 1
+sidebar_custom_props: {}
+title: The Phases of the SAP Integration Solution Advisory Methodology
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
+# slug: 
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: The Phases of the SAP Integration Solution Advisory Methodology
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
 
-# The Phases of the SAP Integration Solution Advisory Methodology
+<!-- loio30d69e8c12dc46f68adb2f92621e1852 -->
 
 The SAP Integration Solution Advisory Methodology offers a well-defined adoption path along four phases that guide you through the process from defining to executing an enterprise integration strategy.
 
@@ -78,16 +107,16 @@ It is also possible to combine both options: You start with the templates-based 
 1.  Starting with the templates-based approach you can make yourself familiar with the concepts of the methodology and you can collaborate with others on defining and reviewing your enterprise integration strategy.
 2.  You enter your previously defined integration strategy in the Integration Assessment capability within SAP Integration Suite and maintain any updates in this tool.
 
--   **[Assess Your Integration Strategy](assess-your-integration-strategy-08687a9.md "Start by assessing the current integration strategy of your organization.")**  
+-   **[Assess Your Integration Strategy](../1-the-phases-of-the-sap-integration-solution-advisory-methodology/index.md "Start by assessing the current integration strategy of your organization.")**  
 Start by assessing the current integration strategy of your organization.
--   **[Design Your Hybrid Integration Platform](design-your-hybrid-integration-platform-e6f5a60.md "Use technology mapping, integration policies, and interface assessment to design your
+-   **[Design Your Hybrid Integration Platform](../2-design-your-hybrid-integration-platform/index.md "Use technology mapping, integration policies, and interface assessment to design your
 		future hybrid integration platform.")**  
 Use technology mapping, integration policies, and interface assessment to design your future hybrid integration platform.
--   **[Define Integration Best Practices](define-integration-best-practices-f848368.md "After you’ve designed your hybrid integration platform in the previous phase, you
+-   **[Define Integration Best Practices](../3-define-integration-best-practices/index.md "After you’ve designed your hybrid integration platform in the previous phase, you
 		continue with defining integration best practices for implementing the respective
 		integration scenarios.")**  
 After you’ve designed your hybrid integration platform in the previous phase, you continue with defining integration best practices for implementing the respective integration scenarios.
--   **[Enable a Practice of Empowerment](enable-a-practice-of-empowerment-6df2368.md "The last phase of the SAP Integration Solution Advisory Methodology addresses mainly
+-   **[Enable a Practice of Empowerment](../4-enable-a-practice-of-empowerment/index.md "The last phase of the SAP Integration Solution Advisory Methodology addresses mainly
 		non-technical aspects of enterprise integration covering organizational and operational
 		structure of an integration practice.")**  
 The last phase of the SAP Integration Solution Advisory Methodology addresses mainly non-technical aspects of enterprise integration covering organizational and operational structure of an integration practice.

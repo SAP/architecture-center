@@ -1,6 +1,35 @@
-<!-- loiof8483683f43b4dd9a3fab212df68aa16 -->
+---
+# id: 
+sidebar_position: 1
+sidebar_custom_props: {}
+title: Define Integration Best Practices
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
+# slug: 
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: Define Integration Best Practices
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
 
-# Define Integration Best Practices
+<!-- loiof8483683f43b4dd9a3fab212df68aa16 -->
 
 After you’ve designed your hybrid integration platform in the previous phase, you continue with defining integration best practices for implementing the respective integration scenarios.
 
@@ -46,13 +75,13 @@ At the end of this phase, you’ll have created the following set of assets:
 
 -   Integration architect
 
--   **[Specify Your Integration Dos and Don’ts](specify-your-integration-dos-and-don-ts-5478c29.md "Define “golden rules” for integration development to standardize integration scenarios
+-   **[Specify Your Integration Dos and Don’ts](1-specify-your-integration-dos-and-don-ts.md "Define “golden rules” for integration development to standardize integration scenarios
 		at higher quality.")**  
 Define “golden rules” for integration development to standardize integration scenarios at higher quality.
--   **[Create Your Architecture Blueprints](create-your-architecture-blueprints-c6bac95.md "Describe the scope of integration technologies, including relationships and
+-   **[Create Your Architecture Blueprints](2-create-your-architecture-blueprints.md "Describe the scope of integration technologies, including relationships and
 		characteristics with the help of architecture diagrams. ")**  
 Describe the scope of integration technologies, including relationships and characteristics with the help of architecture diagrams.
--   **[Create Tailored Development Guidelines](create-tailored-development-guidelines-2442284.md "Provide integration developers detailed guidance by creating development guidelines for
+-   **[Create Tailored Development Guidelines](3-create-tailored-development-guidelines.md "Provide integration developers detailed guidance by creating development guidelines for
 		integration technologies.")**  
 Provide integration developers detailed guidance by creating development guidelines for integration technologies.
 

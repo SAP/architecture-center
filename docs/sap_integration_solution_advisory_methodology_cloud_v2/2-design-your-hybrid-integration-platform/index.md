@@ -1,6 +1,35 @@
-<!-- loioe6f5a607e5e84c27829101544b693980 -->
+---
+# id: 
+sidebar_position: 1
+sidebar_custom_props: {}
+title: Design Your Hybrid Integration Platform
+description: SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs.
+# slug: 
+keywords:
+  - sap
+  - btp
+  - business suite
+  - integration
+  - solution
+  - advisory
+  - methodology
+image: img/logo.svg
+sidebar_label: Design Your Hybrid Integration Platform
+tags:
+  - sapintsoladvmetho
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+last_update:
+  author: PO
+  date: 2025-02-24
+---
 
-# Design Your Hybrid Integration Platform
+<!-- loioe6f5a607e5e84c27829101544b693980 -->
 
 Use technology mapping, integration policies, and interface assessment to design your future hybrid integration platform.
 
@@ -46,14 +75,14 @@ As part of the second phase of the SAP Integration Solution Advisory Methodology
 -   Integration architect
 -   Integration developer
 
--   **[Perform a Technology Mapping](perform-a-technology-mapping-58d1656.md "Define the high-level scope of your hybrid integration platform with the help of a
+-   **[Perform a Technology Mapping](1-perform-a-technology-mapping.md "Define the high-level scope of your hybrid integration platform with the help of a
 		technology mapping.")**  
 Define the high-level scope of your hybrid integration platform with the help of a technology mapping.
--   **[Define Your Integration Policies](define-your-integration-policies-e363962.md "Define guardrails for integration developers that help them to select the right
+-   **[Define Your Integration Policies](2-define-your-integration-policies.md "Define guardrails for integration developers that help them to select the right
 		integration technology of the hybrid integration platform for a given integration
 		requirement.")**  
 Define guardrails for integration developers that help them to select the right integration technology of the hybrid integration platform for a given integration requirement.
--   **[Assess Your Interfaces](assess-your-interfaces-57a7941.md "Integration developers determine the right integration technology by assessing
+-   **[Assess Your Interfaces](3-assess-your-interfaces.md "Integration developers determine the right integration technology by assessing
 		interfaces of business applications to integrate with.")**  
 Integration developers determine the right integration technology by assessing interfaces of business applications to integrate with.
 
