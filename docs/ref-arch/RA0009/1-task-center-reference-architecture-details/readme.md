@@ -26,8 +26,7 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-  - contributor1
-  - contributor2
+  - fabianleh
 last_update:
   date: 2025-02-11
   author: user-eb814de5ff
