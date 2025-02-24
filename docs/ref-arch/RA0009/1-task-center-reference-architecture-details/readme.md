@@ -41,6 +41,7 @@ last_update:
 ## Architecture
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
+
 ![drawio](drawio/establish-a-central-inbox-with-sap-task-center.drawio)
 
 ## Flow

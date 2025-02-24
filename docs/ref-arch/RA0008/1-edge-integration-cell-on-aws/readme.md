@@ -25,7 +25,7 @@ unlisted: false
 contributors:
   - adarshnarayanhegde
 last_update:
-  date: 2025-02-17
+  date: 2025-02-20
   author: adarshnarayanhegde
 ############################################################
 #                   End of Front Matter                    #
@@ -44,7 +44,7 @@ Deploying EIC on AWS requires a secure, scalable, and resilient infrastructure t
 
 ### AWS Setup
 
-### 1. VPC and Networking
+#### 1. VPC and Networking
 
 To ensure a **secure and private execution environment**, create a **[Virtual Private Cloud (VPC)](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)** with **multi-AZ redundancy** for high availability (HA).
 
@@ -103,7 +103,7 @@ EIC requires multiple storage solutions for transaction logs, runtime data, and 
 
 
 #### 2. Configure a Technical User and Set Up SSO 
-- Create a **technical users** (**[P-User](https://help.sap.com/docs/EDGE_LIFECYCLE_MANAGEMENT/9d5719aae5aa4d479083253ba79c23f9/edcd1a455afb4cb0b6b1b3d148256468.html)** and **[S-User](https://www.sap.com/account/universal-id.html)**) to interact with the SAP systems and to access SAP repository based shipment channel.  
+- Create **technical users** (**[P-User](https://help.sap.com/docs/EDGE_LIFECYCLE_MANAGEMENT/9d5719aae5aa4d479083253ba79c23f9/edcd1a455afb4cb0b6b1b3d148256468.html)** and **[S-User](https://www.sap.com/account/universal-id.html)**) to interact with the SAP systems and to access SAP repository based shipment channel.  
 - Set up **Single Sign-On (SSO)** for secure repository access, including monitoring and logging.  
 
 

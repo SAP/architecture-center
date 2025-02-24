@@ -90,8 +90,8 @@ Below are the features of the services which will help one decide on the choice 
 Both the services are fully managed cloud service, connect SAP and non-SAP system, have out of the box support for SAP event sources and support standard protocols.
 The key differences are as below
 
-Feature | Event Mesh capability of SAP Integration Suite | SAP Integration Suite,advanced event mesh |
---- | --- | --- |
+| Feature | Event Mesh capability of SAP Integration Suite | SAP Integration Suite,advanced event mesh |
+| :---: | :---: | :---: |
 Infrastructure Model | Shared | T-Shirt Sizes|
 Connecting SAP and non-SAP systems | BTP Deployment | Private and Public Cloud|
 Message Size and Storage | 1MB/10GB | Upto 30MB/Up to 6TB|

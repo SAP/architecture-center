@@ -131,4 +131,8 @@ npm run build
 npm run serve
 ```
 
+:::warning Note
+Make sure to set `draft` to `false` in [front-matter](front-matter.md) to render your architecture after the build.
+:::
+
 Your project should now be running at [http://localhost:3000](http://localhost:3000).

@@ -10,9 +10,9 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Reference Architecture for SAP Task Center
+title: SAP Task Center
 description: Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.
-sidebar_label: Reference Architecture for SAP Task Center
+sidebar_label: SAP Task Center
 keywords: [sap, btp, cloud, task center]
 image: img/logo.svg
 tags: [appdev]
