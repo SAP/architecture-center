@@ -9,9 +9,6 @@ slug: <%= slug %>
 sidebar_position: <%= sidebar_position %>
 sidebar_custom_props:
     category_index:
-        - aws
-        - gcp
-        - azure
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################

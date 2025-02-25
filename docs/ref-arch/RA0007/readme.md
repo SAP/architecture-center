@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index:
     - appdev
 title: Multitenant SaaS Application using CAP
-description: Multitenant SaaS Application using CAP on SAP Business Technology Platform (BTP)
+description: Multitenant SaaS applications built on SAP BTP offer a powerful way to extend SAP's core solutions and address specific industry or business needs at scale. By allowing multiple customers to share a single instance of the software, multitenancy lowers costs and makes maintenance simple for all users. This approach not only drives innovation and scalability but also enables faster time-to-market and more efficient resource utilization.
 keywords:
   - sap
   - btp
