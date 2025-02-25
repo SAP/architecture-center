@@ -89,12 +89,12 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         h: 52,
         w: 106,
         // margin top of logo
-        mt: 30,
+        mt: 28,
     };
     logo.y = height + logo.mt;
     // have now title of solution diagram on top
     // need to shift everything else
-    const yShift = 38;
+    const yShift = 56;
     viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
     const textX = logo.w + pad;
 

@@ -266,7 +266,7 @@ html[data-theme='dark'] .menu__list {
 
 .menu__list-item > a {
     display: block;
-    color: inherit;
+
     text-decoration: none;
     position: relative;
 }
@@ -292,11 +292,11 @@ html[data-theme='dark'] .menu__list {
 
 .menu__list-item-collapsible--active > .menu__link {
     background-color: var(--ifm-sidebar-selected-item-background-color);
-    color: var(--ifm-menu-color-active);
+    color: var(--ifm-menu-color-active) !important;
 }
 
 .menu__list-item > .menu__link--active {
-    color: var(--ifm-menu-color-active);
+    color: var(--ifm-menu-color-active) !important;
 }
 
 .menu__link:not(.menu__link--active):hover {
@@ -836,14 +836,14 @@ html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
     color: #000000;
     border: #dadde1 1px solid;
-    padding: 20px;
+    padding: 35px;
 }
 
 html[data-theme='dark'] .docItemCol_VOVn {
     background-color: #272729;
     border: #444950 1px solid;
     color: #ffffff;
-    padding: 20px;
+    padding: 35px;
 }
 
 html[data-theme='light'] .theme-last-updated {

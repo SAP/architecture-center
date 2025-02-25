@@ -65,6 +65,18 @@ export default (options) => {
                 counter++;
             }
         });
+
+        // remark treats our drawio syntax as inline Markdown content which it wraps in <p> by default
+        // as a result <div> is wrapped in <p>, creating a warning. undo this
+        root.children.forEach((node, i) => {
+            const ch = node.children;
+            try {
+                // try/catch to make sure to not throw here
+                if (node.type === 'paragraph' && ch.length === 1 && ch[0].url && ch[0].url.endsWith('.drawio')) {
+                    root.children[i] = ch[0];
+                }
+            } catch {}
+        });
         return ast;
     };
 };
