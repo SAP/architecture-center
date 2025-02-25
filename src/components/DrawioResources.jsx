@@ -12,14 +12,18 @@ const FALLBACK_IMG = '/img/fallback-drawio-img.svg';
 export default function DrawioResources({ drawioFile, drawioImg }) {
     const path = useBaseUrl(FALLBACK_IMG);
     return (
+        // current selector to apply zoom (see docusaurus.config) doesn't select img if directly
+        // under div with class 'markdown' => wrap img in paragraph for now
         <>
-            <img
-                decoding="async"
-                loading="lazy"
-                src={drawioImg ?? path}
-                alt="image of solution diagram"
-                style={{ height: 'auto', marginBottom: 20 }}
-            />
+            <p>
+                <img
+                    decoding="async"
+                    loading="lazy"
+                    src={drawioImg ?? path}
+                    alt="image of solution diagram"
+                    style={{ height: 'auto' }}
+                />
+            </p>
             <Admonition type="info" title="Solution Diagram Resources">
                 You can download the Solution Diagram as a{' '}
                 <b>
