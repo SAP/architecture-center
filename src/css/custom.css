@@ -836,14 +836,14 @@ html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
     color: #000000;
     border: #dadde1 1px solid;
-    padding: 20px;
+    padding: 35px;
 }
 
 html[data-theme='dark'] .docItemCol_VOVn {
     background-color: #272729;
     border: #444950 1px solid;
     color: #ffffff;
-    padding: 20px;
+    padding: 35px;
 }
 
 html[data-theme='light'] .theme-last-updated {
