@@ -4,8 +4,6 @@ slug: /ref-arch/6c73e3575f/9
 sidebar_position: 1
 sidebar_custom_props:
   category_index:
-    - appdev
-    - integration
 title: Cost of Ownership
 description: This document provides sample implementations using Azure Traffic Manager and AWS Route 53 for high availability and disaster recovery (HA/DR) of SAP services. It includes stateless and stateful setups for SAP Cloud Integration, SAP Work Zone, and SAP HANA Cloud with multi-region DR solutions.
 keywords:
