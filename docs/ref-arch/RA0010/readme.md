@@ -2,10 +2,10 @@
 ############################################################
 #                Beginning of Front Matter                 #
 ############################################################
-id: id-ra0010 # [DO NOT MODIFY]
-slug: /ref-arch/c2b5707a1f # [DO NOT MODIFY]
-sidebar_position: 10 # [DO NOT MODIFY] 
-sidebar_custom_props: # [DO NOT MODIFY]
+id: id-ra0010
+slug: /ref-arch/c2b5707a1f
+sidebar_position: 10
+sidebar_custom_props:
   category_index: 
     - aws
     - gcp
@@ -35,7 +35,7 @@ last_update:
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its pupose -->
+<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
 ## Establish a central entry point with SAP Build Work Zone
 
@@ -44,9 +44,6 @@ SAP Build Work Zone offers a comprehensive solution architecture designed to ele
 Additionally, it empowers business users with intuitive editors, allowing them to create pages or workspaces effortlessly without the need for coding skills. This enables a more dynamic, flexible, and user-friendly environment for managing business operations and engaging with your digital workspace.
 
 This reference architecture also refers to the UI integration use case pattern of the SAP Integration Solution Advisory Methodology.
-
-<!-- The Solution Diagram in SVG format should appear before the drawio "image" -->
-![image](images/dummy.svg)
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 ![drawio](drawio/SAP_Build_Work_Zone.drawio)

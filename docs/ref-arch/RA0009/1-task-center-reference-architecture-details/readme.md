@@ -2,10 +2,10 @@
 ############################################################
 #                Beginning of Front Matter                 #
 ############################################################
-id: id-ra0009-1  # [DO NOT MODIFY]
-slug: /ref-arch/f764cc1375/1 # [DO NOT MODIFY]
-sidebar_position: 1 # [DO NOT MODIFY] 
-sidebar_custom_props: # [DO NOT MODIFY]
+id: id-ra0009-1
+slug: /ref-arch/f764cc1375/1
+sidebar_position: 1
+sidebar_custom_props:
   category_index: 
     - aws
     - gcp
@@ -35,7 +35,7 @@ last_update:
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its pupose -->
+<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
 ## Architecture
 
