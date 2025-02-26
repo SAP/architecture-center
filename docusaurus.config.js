@@ -40,6 +40,20 @@ const config = {
             },
         ],
         [
+            '@docusaurus/plugin-content-docs',
+            /** @type {import('@docusaurus/plugin-content-docs').Options} */
+            {
+                id: 'guidance',
+                path: 'guidance',
+                routeBasePath: 'guidance',
+                sidebarPath: require.resolve('./sidebarsCommunity.js'),
+                showLastUpdateTime: true,
+                showLastUpdateAuthor: true,
+                onInlineTags: 'throw',
+                editUrl: 'https://github.com/SAP/architecture-center/edit/main/'
+            },
+        ],
+        [
             require.resolve('@easyops-cn/docusaurus-search-local'),
             {
                 hashed: true,
@@ -206,6 +220,11 @@ const config = {
                     {
                         to: 'blog',
                         label: "What's new",
+                        position: 'right',
+                    },
+                    {
+                        to: 'guidance/intro',
+                        label: 'Guidance Framwork',
                         position: 'right',
                     },
                     {
