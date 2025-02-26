@@ -47,7 +47,7 @@ This reference architecture also refers to the UI integration use case pattern o
 ## Architecture
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-![drawio](drawio/SAP_Build_Work_Zone.drawio)
+![drawio](drawio/sap-build-work-zone.drawio)
 
 ## Flow
 
