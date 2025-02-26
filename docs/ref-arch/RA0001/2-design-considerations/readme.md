@@ -60,7 +60,8 @@ The key functionalities and requirements that needs to be met by this architectu
 
 ## Design Considerations for EDA Implementations
 
-![image](images/e2b-framework-cc.svg)
+![drawio](drawio/e2b-cc.drawio)
+
 
 
 For the above architecture, it is important to look at the different technology options available and select the best suited options based on the business/technical scenario for integration.
