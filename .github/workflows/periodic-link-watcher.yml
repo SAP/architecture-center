@@ -23,6 +23,8 @@ jobs:
                   args: --verbose --no-progress --exclude-loopback . --cache-exclude-status '403, 429, 500..502' './docs/**/*.md' './blog/**/*.md'
                   output: ./lychee/out.md
                   fail: true
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Find existing issue
               id: find_issue
               uses: micalevisk/last-issue-action@v2
