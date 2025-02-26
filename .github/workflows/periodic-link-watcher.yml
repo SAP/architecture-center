@@ -20,7 +20,7 @@ jobs:
               id: lychee
               uses: lycheeverse/lychee-action@v2.3.0
               with:
-                  args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress '/docs/**/*.md' '/blog/**/*.md'
+                  args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress 'docs/**/*.md' 'blog/**/*.md'
                   output: ./lychee/out.md
                   fail: true
               env:
