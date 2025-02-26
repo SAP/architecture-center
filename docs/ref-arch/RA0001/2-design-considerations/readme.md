@@ -81,7 +81,7 @@ API led integrations and event based integrations go hand in hand very well. SAP
 - SAP Integration Suite,advanced event mesh and Event Mesh Capability of Integration Suite.
 - Event Catalogs to understand the standards of events SAP provides and also provision to build your own catalog with your events.
 - Event Mediation with Cloud Integration capability enables event mapping, event enrichment, event enabling of legacy systems and connectivity to other applications, brokers and adapter through adapters.
-
+  
 Below are the features of the services which will help one decide on the choice of the eventing service that needs to be leveraged for EDA Application Development.
 
     - **SAP Integration Suite, advanced event mesh(AEM)** is a distributed multi-broker event mesh which can be used for enterprise EDA implementations with flexible broker deployments. It complements SAP Event Mesh for more demanding use cases and offers benefits like support for very heavy loads or a truly distributed mesh of event brokers. A full set of eventing services including event streaming, event management and monitoring is provided and on top advanced features like dynamic message routing and fine-grained filtering.
@@ -101,13 +101,10 @@ Typical use case size | Small to Medium | Small to Ultra-large|
 Apart from the above mentioned SAP Integration Suite, advanced event mesh allows to create network of event brokers, provides advanced event monitoring and analysis, allows dynamic event routing, has capabilities for filtering, event replay and event management.
 
 Refer to [Comprehensive Real-Time Integration Using Event-Driven Architecture](https://www.sap.com/documents/2024/10/f41de944-dc7e-0010-bca6-c68f7e60039b.html) for more details on capabilities in SAP BTP for building EDA Applications. 
-
+  
 ### SAP BTP Runtime
-
 Refer to the SAP BTP Developer Guide [Understanding Available Technology](https://help.sap.com/docs/btp/btp-developers-guide/understanding-available-technology#loiof3641a5635504edab2c6bb84fa86a42a) to help decide on the runtime choice.
-
 ### Business APIs
-
 Explore and discover [SAP Business Accelerator Hub](https://api.sap.com) to consume APIs, events, adapters, business objects details for the extension application. 
 In this reference architecture the APIs in the ERP business systems are integrated in the sample applications. To extend the architecture to other SAP Systems or to leverage the events that are configured in the business systems, the content from SAP Business Accelerator Hub provides insights.
 
