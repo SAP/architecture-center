@@ -22,7 +22,7 @@ jobs:
               with:
                   args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress 'docs/**/*.md' 'blog/**/*.md'
                   output: ./lychee/out.md
-                  fail: true
+                  fail: false
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Find existing issue

@@ -34,7 +34,7 @@ Agents are autonomous systems powered by Large Language Models (LLMs) that perfo
 The architecture illustrates how intellient data apps operate within the SAP Business Technology Platform (BTP) ecosystem, enabling
 seamless integration of AI agent component and data sources. At the core, the [SAP Cloud Application Programming Model](./#sap-cloud-application-programming-model) (CAP)
 serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows.
-[SAP Datasphere](./ai-agents#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party
+[SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party
 applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without
 centralized storage. Meanwhile, the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 
