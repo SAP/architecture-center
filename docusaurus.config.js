@@ -46,7 +46,7 @@ const config = {
                 id: 'guidance',
                 path: 'guidance',
                 routeBasePath: 'guidance',
-                sidebarPath: require.resolve('./sidebarsCommunity.js'),
+                sidebarPath: require.resolve('./sidebarsGuidance.js'),
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,
                 onInlineTags: 'throw',
