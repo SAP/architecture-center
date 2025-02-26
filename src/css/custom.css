@@ -272,7 +272,7 @@ html[data-theme='dark'] .menu__list {
 }
 
 .menu__list-item .menu__list {
-    margin-left: 10px; /* Indent the sub-list */
+    margin-left: 15px; /* Indent the sub-list */
     padding-left: 10px;
     border-left: 2px solid var(--ifm-color-gray-500); /* Vertical line */
 }
