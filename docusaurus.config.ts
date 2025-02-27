@@ -1,6 +1,7 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
+import noSvgr from './src/plugins/no-svgr/index.js';
 const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -54,6 +55,7 @@ const config: Config = {
                 removeDefaultStemmer: true,
             },
         ],
+        noSvgr,
         // for assets loaded like: import DrawioFile from './drawio/demo.drawio?bin';
         function myCustomPluginBin(context, options) {
             return {

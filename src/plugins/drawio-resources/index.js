@@ -53,7 +53,7 @@ export default (options) => {
                 const absPath = vfile.history.at(-1).split('readme.md')[0] + imgPath;
                 // eventually, the image won't be there locally. we'll generate it before deployment
                 if (fileExists(absPath)) {
-                    const imgImport = defineImport(`drawioImg${counter}`, imgPath);
+                    const imgImport = defineImport(`drawioImg${counter}`, imgPath + "?resource");
                     root.children.unshift(imgImport);
                     // pass value to prop drawioImg
                     const prop = structuredClone(node.attributes[0]);
@@ -82,12 +82,9 @@ export default (options) => {
 };
 
 function defineImport(name, path) {
-    // TODO: don't rely on file loader, which is now deprecated
-    // use file loader to skip SVGR processing for svgs
-    const loader = path.split('.')[1] === 'svg' ? '!!file-loader!' : '';
     return {
         type: 'mdxjsEsm',
-        value: `import ${name} from '${loader}./${path}';`,
+        value: `import ${name} from './${path}';`,
         data: {
             estree: {
                 type: 'Program',
@@ -102,8 +99,8 @@ function defineImport(name, path) {
                         ],
                         source: {
                             type: 'Literal',
-                            value: `${loader}./${path}`,
-                            raw: `'${loader}./${path}'`,
+                            value: `./${path}`,
+                            raw: `'./${path}'`,
                         },
                     },
                 ],
