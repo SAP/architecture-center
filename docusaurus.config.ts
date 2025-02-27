@@ -1,7 +1,6 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
-import noSvgr from './src/plugins/no-svgr/index.js';
 const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -55,45 +54,6 @@ const config: Config = {
                 removeDefaultStemmer: true,
             },
         ],
-        noSvgr,
-        // for assets loaded like: import DrawioFile from './drawio/demo.drawio?bin';
-        function myCustomPluginBin(context, options) {
-            return {
-                name: 'custom-webpack-plugin-1',
-                configureWebpack(config, isServer, utils, content) {
-                    return {
-                        module: {
-                            rules: [
-                                {
-                                    resourceQuery: /bin/,
-                                    type: 'asset/resource',
-                                    generator: { filename: '[name]-[hash][ext]' },
-                                },
-                            ],
-                        },
-                    };
-                },
-            };
-        },
-        // for assets loaded like: import DrawioFile from './drawio/demo.drawio';
-        function myCustomPluginDrawio(context, options) {
-            return {
-                name: 'custom-webpack-plugin-2',
-                configureWebpack(config, isServer, utils, content) {
-                    return {
-                        module: {
-                            rules: [
-                                {
-                                    test: /\.drawio$/,
-                                    type: 'asset/resource',
-                                    generator: { filename: '[name]-[hash][ext]' },
-                                },
-                            ],
-                        },
-                    };
-                },
-            };
-        },
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -104,6 +64,7 @@ const config: Config = {
                 },
             };
         },
+        './src/plugins/asset-types'
     ],
 
     i18n: {
