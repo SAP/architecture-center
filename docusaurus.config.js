@@ -224,7 +224,7 @@ const config = {
                     },
                     {
                         to: 'guidance/intro',
-                        label: 'Guidance Framwork',
+                        label: 'Guidance Framework',
                         position: 'right',
                     },
                     {
