@@ -1,6 +1,6 @@
 ---
 sidebar_position: 0
-slug: /intro
+slug: /guidanceframework
 title: Guidance Framework
 sidebar_label: Guidance Framework
 keywords:
