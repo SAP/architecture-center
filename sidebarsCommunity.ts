@@ -1,4 +1,6 @@
-module.exports = {
+import type * as DocsPlugin from '@docusaurus/plugin-content-docs';
+
+export default {
   communitySidebar:
       [
           {
@@ -6,4 +8,4 @@ module.exports = {
               dirName: '.'
           }
       ]
-};
+} satisfies DocsPlugin.SidebarsConfig;
