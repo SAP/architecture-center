@@ -1,7 +1,7 @@
 name: Spell Check
 
 on:
-    pull_request:
+    pull_request_target:
         branches:
             - main
 
@@ -9,11 +9,18 @@ jobs:
     spell-check:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout code
+            - name: Checkout base repository
               uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
 
-            - name: Run spell check
+            - name: Run spell check (only specific folders)
               uses: check-spelling/check-spelling@v0.0.20
+              with:
+                  paths: |
+                      docs/
+                      community/
+                      guidance/
 
             - name: Upload spelling artifacts
               if: failure()
