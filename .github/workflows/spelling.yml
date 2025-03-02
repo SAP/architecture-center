@@ -1,0 +1,23 @@
+name: Spell Check
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    spell-check:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Run spell check
+              uses: check-spelling/check-spelling@v0.0.20
+
+            - name: Upload spelling artifacts
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: spelling-artifacts
+                  path: .github/actions/spelling/
