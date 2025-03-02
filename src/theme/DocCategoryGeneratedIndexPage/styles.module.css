@@ -33,7 +33,7 @@
 }
 
 /* Adjust for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .contentWrapper {
         flex-direction: column;
         gap: 1rem;
@@ -48,6 +48,12 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+    }
+
+    .filterRow {
+        flex-direction: column; /* Stack items on smaller screens */
+        align-items: flex-start; /* Align to the left */
+        gap: 5px; /* Reduce spacing for better fit */
     }
 }
 
@@ -78,6 +84,12 @@
     flex-direction: column;
 }
 
+.filterRow {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adjust spacing */
+}
+
 .filters h4 {
     display: block;
     margin-bottom: 8px;
@@ -99,7 +111,7 @@
 
 .resetIconWrapper {
     display: flex;
-    justify-content: end;
+    justify-content: start;
     margin-top: 20px;
     width: 100%;
 }

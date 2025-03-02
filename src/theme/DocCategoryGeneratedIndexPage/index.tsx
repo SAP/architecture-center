@@ -151,37 +151,39 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                 <div className={styles.contentWrapper}>
                     {isExplorePage && (
                         <aside className={styles.filters}>
-                            <div className={styles.filterGroup}>
-                                <h4 className={styles.filterGroupLabel}>Partners</h4>
-                                <Select
-                                    isMulti
-                                    options={partners}
-                                    value={selectedPartners}
-                                    onChange={handlePartnersChange}
-                                    placeholder="Select Partners..."
-                                    styles={selectStyles}
-                                />
-                            </div>
+                            <div className={styles.filterRow}>
+                                <div className={styles.filterGroup}>
+                                    <h4 className={styles.filterGroupLabel}>Partners</h4>
+                                    <Select
+                                        isMulti
+                                        options={partners}
+                                        value={selectedPartners}
+                                        onChange={handlePartnersChange}
+                                        placeholder="Select Partners..."
+                                        styles={selectStyles}
+                                    />
+                                </div>
 
-                            <div className={styles.filterGroup}>
-                                <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
-                                <Select
-                                    isMulti
-                                    options={techDomains}
-                                    value={selectedTechDomains}
-                                    onChange={handleTechDomainsChange}
-                                    placeholder="Select Technology Domains..."
-                                    styles={selectStyles}
-                                />
-                            </div>
+                                <div className={styles.filterGroup}>
+                                    <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
+                                    <Select
+                                        isMulti
+                                        options={techDomains}
+                                        value={selectedTechDomains}
+                                        onChange={handleTechDomainsChange}
+                                        placeholder="Select Technology Domains..."
+                                        styles={selectStyles}
+                                    />
+                                </div>
 
-                            <div className={styles.resetIconWrapper}>
-                                <IoMdRefresh
-                                    className={`${styles.resetIcon} ${isResetEnabled ? '' : styles.resetDisabled}`}
-                                    data-tip="Reset Filters"
-                                    onClick={isResetEnabled ? resetFilters : undefined}
-                                    style={{ cursor: isResetEnabled ? 'pointer' : 'not-allowed' }}
-                                />
+                                <div className={styles.resetIconWrapper}>
+                                    <IoMdRefresh
+                                        className={`${styles.resetIcon} ${isResetEnabled ? '' : styles.resetDisabled}`}
+                                        data-tip="Reset Filters"
+                                        onClick={isResetEnabled ? resetFilters : undefined}
+                                        style={{ cursor: isResetEnabled ? 'pointer' : 'not-allowed' }}
+                                    />
+                                </div>
                             </div>
                         </aside>
                     )}
