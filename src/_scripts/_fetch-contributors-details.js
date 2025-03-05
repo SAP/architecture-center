@@ -26,7 +26,7 @@ for (const rme of readmes) {
 }
 usernames = [...usernames];
 
-log(`There are ${usernames.size} unique contributors\nFetching contributors details now...`);
+log(`There are ${usernames.length} unique contributors\nFetching contributors details now...`);
 
 const contributorsDetails = {};
 (async () => {
