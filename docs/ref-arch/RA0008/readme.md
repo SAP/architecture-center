@@ -99,7 +99,7 @@ SAP Edge Integration Cell extends SAP Integration Suite’s hybrid deployment mo
 
 3. **SAP Process Integration (PI) Migration**: Customers transitioning from SAP Process Integration (PI) or Process Orchestration (PO) can use EIC as a stepping stone to adopt SAP Integration Suite’s modern capabilities without moving data outside their premises.
 
-4. **Edge Processing for Industrial Use Cases**: Example - Manufacturing or logistics companies can process IoT or operational data within factory networks to reduce cloud dependency.
+4. **Edge Processing for Industrial Use Cases**: Example - Manufacturing or logistics companies can process IoT or operational data within factory networks to enhance security and reduce latency.
 
 ## Services and Components
 
