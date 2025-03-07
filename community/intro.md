@@ -51,7 +51,7 @@ E --> F{Add More?}
 F -->|Yes| E
 F -->|No| G[Add Markdowns, Diagrams, Update Front Matter]
 G --> I[Create Draft PR]
-I --> J[Create Issue with FEAT Prefix]
+I --> J[Create Issue with CONTENT Prefix]
 J --> K[Associate PR with Issue]
 ```
 
