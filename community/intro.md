@@ -41,7 +41,7 @@ The following diagram shows the workflow process for making a content contributi
 
 ```mermaid
 graph TD
-A[Check SAP Architecture Center] -->|Already Exists?| B[Create PR with Modifications]
+A[Check for existing content] -->|Already Exists?| B[Create PR with Modifications]
 A -->|Create New| D[Fork Repository]
 D --> C{Decide on Scenario}
 C -->|New Architecture| E[genrefarch]
