@@ -23,7 +23,7 @@ last_update:
 
 ## Requirements
 
-- **Node.js** version 16.14 or above is required (v18.20.6 or above recommended).
+- **Node.js** version 18.x or above is required (v18.20.6 or above recommended).
 
 ## Step-by-Step Guide
 
@@ -89,7 +89,7 @@ Ensure that you are at the root level of the repository.
 3. Generate a new sub-page by running:
 
     ```bash
-    npm run gen-ref-arch
+    genrefarch
     ```
 
 4. Choose the second option: **Create sub-page in existing ref-arch**.
