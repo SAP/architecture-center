@@ -4,14 +4,14 @@
 ############################################################
 id: id-ra0008 # [DO NOT MODIFY]
 slug: /ref-arch/f2670637a8 # [DO NOT MODIFY]
-sidebar_position: 8 # [DO NOT MODIFY] 
+sidebar_position: 8 # [DO NOT MODIFY]
 sidebar_custom_props: # [DO NOT MODIFY]
-  category_index: 
-    - aws
-    - gcp
-    - azure
-    - integration
-    - appdev
+    category_index:
+        - aws
+        - gcp
+        - azure
+        - integration
+        - appdev
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -28,12 +28,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - adarshnarayanhegde
-  - madankumarpichamuthu
-  - AFK-Python
+    - adarshnarayanhegde
+    - madankumarpichamuthu
+    - AFK-Python
 last_update:
-  date: 2025-02-17
-  author: adarshnarayanhegde
+    date: 2025-03-06
+    author: adarshnarayanhegde
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -47,55 +47,84 @@ With its hybrid deployment model, EIC makes it easy to design and monitor integr
 
 ![drawio](drawio/sap_eic.drawio)
 
-## Flow  
-The architecture diagram above illustrates the high-level setup of the Edge Integration Cell (EIC). To deploy EIC in your private landscape, follow these steps:  
+## Flow
 
-### Hyperscaler Setup  
-- Set up an isolated network environment within your private hyperscaler landscape.  
-- Provision a Kubernetes cluster to serve as a secure and scalable runtime for EIC.  
-- Configure storage services to manage runtime data.  
+The architecture diagram above illustrates the high-level setup of the Edge Integration Cell (EIC). To deploy EIC in your private landscape, follow these steps:
 
-### SAP BTP Setup  
-- Activate EIC in your SAP BTP subaccount and assign the necessary roles for accessing Edge Lifecycle Management (ELM).  
-- Configure a technical user and set up Single Sign-On (SSO) for repository access, monitoring, and logging.  
-- Add an Edge Node and bootstrap it to the Kubernetes cluster in your private landscape.  
- 
+### Hyperscaler Setup
 
-## Characteristics
+-   Set up an isolated network environment within your private hyperscaler landscape.
+-   Provision a Kubernetes cluster to serve as a secure and scalable runtime for EIC.
+-   Configure storage services to manage runtime data.
+
+### SAP BTP Setup
+
+-   Activate EIC in your SAP BTP subaccount and assign the necessary roles for accessing Edge Lifecycle Management (ELM).
+-   Configure a technical user and set up Single Sign-On (SSO) for repository access, monitoring, and logging.
+-   Add an Edge Node and bootstrap it to the Kubernetes cluster in your private landscape.
+
+## Problem Statement and Relevance
+
+In modern enterprise landscapes, integration between SAP systems either cloud or on-premise is critical for seamless business operations. However, organizations face challenges when integrating systems across private and public cloud environments due to security, compliance, and latency concerns.
+
+### Key Challenges:
+
+1. **Security & Compliance Constraints**: Many enterprises, particularly in regulated industries (e.g., finance, healthcare, government), must ensure that sensitive data remains within their private infrastructure due to legal or compliance requirements.
+
+2. **Network Security & Private Connectivity**: Some customers require integration solutions that do not expose data to the public internet or external cloud services.
+
+3. **Latency & Performance Optimization**: If an SAP BTP region is geographically distant from an enterprise’s core systems, network latency can degrade integration performance.
+
+SAP Edge Integration Cell (EIC) addresses these challenges by enabling integration within an organization’s private cloud or on-premise environment, ensuring that data does not leave the secure perimeter while still leveraging SAP Integration Suite’s capabilities.
+
+## Value Proposition and Key Use Cases
 
 ![EIC Hybrid Landscape](./images/eic_landscape.png)
 
-1. **Security or compliance use cases:** Sensitive data stays safely within an enterprise's firewall, following strict rules to keep it within a private environment.  
+SAP Edge Integration Cell extends SAP Integration Suite’s hybrid deployment model, enabling customers to manage, design, and monitor integration flows in the cloud while executing them within their private infrastructure.
 
-2. **Migration path for SAP Process Integration customers:** EIC helps customers design and monitor integration content in the cloud, while keeping deployment and execution fully within their private environments.  
+### Key Benefits:
 
+-   **Hybrid Deployment Flexibility**: EIC enables customers to run integration scenarios within their private landscape while maintaining centralized governance via SAP Integration Suite.
 
-## Services and Components  
+-   **Enhanced Security & Compliance**: Organizations can ensure that sensitive business data remains within their internal network, complying with regulatory mandates like GDPR, or financial sector regulations.
+
+-   **Improved Latency & Performance**: By processing integration flows closer to customer's SAP systems, EIC can minimize latency and improve response times in cases where SAP BTP region is geographically distant.
+
+### Use Cases:
+
+1. **On-Premise & Private Cloud Integration**: Enterprises with strict security policies can integrate SAP S/4HANA, SAP ECC, or other SAP applications within their controlled environment.
+
+2. **Regulatory Compliance**: Businesses operating in regions without an SAP BTP presence can deploy EIC locally to ensure data processing remains compliant with local laws.
+
+3. **SAP Process Integration (PI) Migration**: Customers transitioning from SAP Process Integration (PI) or Process Orchestration (PO) can use EIC as a stepping stone to adopt SAP Integration Suite’s modern capabilities without moving data outside their premises.
+
+4. **Edge Processing for Industrial Use Cases**: Example - Manufacturing or logistics companies can process IoT or operational data within factory networks to enhance security and reduce latency.
+
+## Services and Components
 
 ![EIC Landscape](./images/eic_components.png)
 
-### Services  
+### Services
 
-- **SAP Integration Suite**: An industry-leading, enterprise-grade integration platform-as-a-service (iPaaS) that enables businesses to seamlessly connect and integrate their applications, data, and processes within and beyond their organization.  
+-   **SAP Integration Suite**: An industry-leading, enterprise-grade integration platform-as-a-service (iPaaS) that enables businesses to seamlessly connect and integrate their applications, data, and processes within and beyond their organization.
 
-- **Managed Kubernetes Service**: Kubernetes serves as the runtime environment for EIC, providing a scalable and secure infrastructure for enterprise-grade integration scenarios.
+-   **Managed Kubernetes Service**: Kubernetes serves as the runtime environment for EIC, providing a scalable and secure infrastructure for enterprise-grade integration scenarios.
 
-- **Storage Services**: Storage solutions, including block storage, databases, and data stores, ensure efficient storage of runtime and logging data generated by EIC.  
+-   **Storage Services**: Storage solutions, including block storage, databases, and data stores, ensure efficient storage of runtime and logging data generated by EIC.
 
-### Components  
+### Components
 
-- **Edge Lifecycle Management (Edge LM)**: The foundation for software lifecycle management, providing a shipment channel for SAP Business Technology Platform-based products like EIC. It enables the delivery and management of containerized workloads in on-premise or edge computing environments. Edge LM also serves as a central hub for managing and monitoring integration scenarios running in the EIC environment.  
+-   **Edge Lifecycle Management (Edge LM)**: The foundation for software lifecycle management, providing a shipment channel for SAP Business Technology Platform-based products like EIC. It enables the delivery and management of containerized workloads in on-premise or edge computing environments. Edge LM also serves as a central hub for managing and monitoring integration scenarios running in the EIC environment.
 
-- **Runtime and Operations**: The core component of EIC responsible for executing integration scenarios within the customer's private landscape. It also includes management capabilities for edge operations.  
+-   **Runtime and Operations**: The core component of EIC responsible for executing integration scenarios within the customer's private landscape. It also includes management capabilities for edge operations.
 
-- **Backing Services**: EIC relies on various backing services to support its functionality. These include messaging services for asynchronous communication, load balancing to distribute traffic across Kubernetes nodes and services, and other essential services required for integration and operational efficiency.  
+-   **Backing Services**: EIC relies on various backing services to support its functionality. These include messaging services for asynchronous communication, load balancing to distribute traffic across Kubernetes nodes and services, and other essential services required for integration and operational efficiency.
 
+## Resources
 
-## Resources 
-- [SAP Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/what-is-sap-integration-suite-edge-integration-cell)
-- [SAP Integration Suite](https://help.sap.com/docs/integration-suite?locale=en-US)
-- [EIC Technical Landscape](https://help.sap.com/docs/integration-suite/sap-integration-suite/technical-landscape-edge)
-- [Hybrid Deployment Using Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/hybrid-deployment-using-edge-integration-cell)
-- [**Blog:** Getting Started with Edge Integration Cell on AWS: A Setup Guide Using SAP Integration Suite](https://community.sap.com/t5/technology-blogs-by-sap/getting-started-with-edge-integration-cell-on-aws-a-setup-guide-using-sap/ba-p/13880982)
-
-
+-   [SAP Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/what-is-sap-integration-suite-edge-integration-cell)
+-   [SAP Integration Suite](https://help.sap.com/docs/integration-suite?locale=en-US)
+-   [EIC Technical Landscape](https://help.sap.com/docs/integration-suite/sap-integration-suite/technical-landscape-edge)
+-   [Hybrid Deployment Using Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/hybrid-deployment-using-edge-integration-cell)
+-   [**Blog:** Getting Started with Edge Integration Cell on AWS: A Setup Guide Using SAP Integration Suite](https://community.sap.com/t5/technology-blogs-by-sap/getting-started-with-edge-integration-cell-on-aws-a-setup-guide-using-sap/ba-p/13880982)
