@@ -58,7 +58,26 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
 :::
 10. Once the change has been approved and merged, we will inform you in a comment.
-11. Cheers!
+
+The following diagram shows the overall lifecycle of contributor changes in the SAP Architecture Center repository
+
+```mermaid
+gitGraph
+    commit id: "Release" type: HIGHLIGHT tag: "v1.0"
+    branch dev
+    commit id: "tool update"
+    commit id: "content update"
+    branch contributor_fork
+    commit id: "commit markdown"
+    commit id: "commit diagrams"
+    checkout dev
+    commit id: "other content 1"
+    commit id: "other content 2"
+    merge contributor_fork id: "Merge with PR"
+    commit id: "other content 3"
+    checkout main
+    merge dev id: "Release 2" type: HIGHLIGHT tag: "v1.1"
+```
 
 :::tip Best Practice
 Regularly sync with the main repository before contributing or creating a pull request to avoid merge conflicts.

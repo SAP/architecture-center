@@ -23,7 +23,10 @@ const config: Config = {
     onBrokenMarkdownLinks: 'throw',
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
-
+    markdown: {
+        mermaid: true,
+    },
+    themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         [

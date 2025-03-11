@@ -2,7 +2,7 @@
 id: id-ra0004-3
 slug: /ref-arch/28ac36db13/3
 sidebar_position: 1
-ssidebar_custom_props: {}
+sidebar_custom_props: {}
 title: Integration with Databricks
 description: Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via SAP Datasphere's unified data models for use with richer analytics and other use cases.
 keywords:
