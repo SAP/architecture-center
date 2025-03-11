@@ -33,7 +33,27 @@ The SAP ecosystem is a large one, and we all play a role in the success or failu
 
 Less altruistically, you also have the opportunity to engage with SAP experts, surface the architecture needs of your organization, and gain visibility through your contributions. Authors are named by their GitHub account and can count on the Architecture Center team to drive traffic into your content!
 
-Finally, you never know when good documentation might help you in another opportunity down the road. By bringing your real-world perspective and SAP architectures into this repository now, you make an investment in your future "SAP self", by ensuring these assets are available the next time you need them. The time savings in trying to track down old presentations and emails could be immense! 
+Finally, you never know when good documentation might help you in another opportunity down the road. By bringing your real-world perspective and SAP architectures into this repository now, you make an investment in your future "SAP self", by ensuring these assets are available the next time you need them. The time savings in trying to track down old presentations and emails could be immense!
+
+## Contribution Process
+
+The following diagram shows the workflow process for making a content contribution to the SAP Architecture Center.
+
+```mermaid
+graph TD
+A[Check for existing content] -->|Already Exists?| B[Create PR with Modifications]
+A -->|Create New| D[Fork Repository]
+D --> C{Decide on Scenario}
+C -->|New Architecture| E[genrefarch]
+C -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']
+H --> E
+E --> F{Add More?}
+F -->|Yes| E
+F -->|No| G[Add Markdowns, Diagrams, Update Front Matter]
+G --> I[Create Draft PR]
+I --> J[Create Issue with CONTENT Prefix]
+J --> K[Associate PR with Issue]
+```
 
 ## Requirements and Setup
 
