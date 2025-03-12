@@ -35,8 +35,6 @@ Get the third level of integration architecture assessment by selecting integrat
 
 ***
 
-<a name="loio739e44142de1459fae4aac753afefa98__section_ems_dgg_rwb"/>
-
 ## Context
 
 As part of the last step to assess your integration strategy, you identify the integration use-case patterns, which are relevant for your organization. Each integration style can be refined by use case patterns, which describe frequently used integration use-cases in enterprise landscapes. Based on the same principles, cross use-case patterns can complement one or more of the five core integration styles such as “API-managed integration” or “event-based integration”. Like integration domains and integration styles, integration use-case patterns are also defined in a technology agnostic way.
@@ -54,8 +52,6 @@ An integration architect who has a strong knowledge about integration requiremen
 In the following section, you can find the catalog of integration use-cases patterns grouped per integration style. Each pattern is complemented with examples in an SAP context. These are either examples, which are predefined by SAP or, which are typically custom-defined by customers or partners.
 
 ***
-
-<a name="loio739e44142de1459fae4aac753afefa98__section_q2z_c23_rwb"/>
 
 ## Procedure
 

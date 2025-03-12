@@ -35,8 +35,6 @@ Provide integration developers detailed guidance by creating development guideli
 
 ***
 
-<a name="loio2442284884a04489854908d48707f85a__section_qfk_tqq_swb"/>
-
 ## Context
 
 Integration development guidelines \(often also called integration handbooks, integration best practices, or similar\) are a common means for sharing integration best practices across distributed integration development teams. The objective of such guidelines is to ensure that integration flows are being designed and implemented in a robust fashion to safeguard your company's mission-critical business processes. Implementation guidelines address both technical and organizational aspects of integration developments. Examples of the latter one are for instance naming conventions for developed integration artifacts, processes for integration governance, and quality assurance.
@@ -89,8 +87,6 @@ The lifecycle management of integration scenarios isn’t limited to the actual 
 Implementation guidelines are typically defined by integration architects with expert knowledge in specific integration technologies.
 
 ***
-
-<a name="loio2442284884a04489854908d48707f85a__section_d1c_trq_swb"/>
 
 ## How to Apply
 

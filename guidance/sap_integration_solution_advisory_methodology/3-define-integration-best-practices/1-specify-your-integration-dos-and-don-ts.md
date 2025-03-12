@@ -35,8 +35,6 @@ Define “golden rules” for integration development to standardize integration
 
 ***
 
-<a name="loio5478c29f29b74c159d13a55eb835bc57__section_pkv_rnk_swb"/>
-
 ## Context
 
 Integration dos and don’ts are easy-to-apply principles about aspects to consider or to avoid when designing and implementing integration scenarios. When defining such integration dos and don’ts, you should focus on the most important rules. Otherwise, there’s a high risk that integration developers will not follow all of them. The SAP Integration Solution Advisory Methodology attempts to define integration dos and don’ts for integration styles. If needed, you can deliver detailed guidance \(for instance for integration technologies\) as part of integration development guidelines.
@@ -57,8 +55,6 @@ When defining integration dos and don’ts, you need also to consider customer c
 Integration dos and don’ts are typically defined by an integration architect.
 
 ***
-
-<a name="loio5478c29f29b74c159d13a55eb835bc57__section_kj1_h4k_swb"/>
 
 ## Procedure
 
