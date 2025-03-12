@@ -206,7 +206,6 @@ const config: Config = {
                         {
                             to: '/explore',
                             label: 'Explore all Reference Architectures',
-                            sidebar_id: 'explore',
                         },
                         {
                             type: 'html',
