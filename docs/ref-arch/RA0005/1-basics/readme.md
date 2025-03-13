@@ -28,7 +28,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - AdiPleyer
-  - vedant-gupta-ai
+  - vedant-aero-ml
   - madankumarpichamuthu
 last_update:
   author: kay-schmitteckert
