@@ -857,19 +857,3 @@ html[data-theme='light'] .theme-last-updated {
 html[data-theme='dark'] .theme-last-updated {
     color: #ffffff;
 }
-
-html[data-red-border] div#__docusaurus {
-    border: red solid thick;
-}
-
-html[data-sidebar='false'] .docSidebarContainer_YfHR {
-    display: none;
-}
-
-html[data-announcementBar='false'] .announcementBar_mb4j {
-    display: none;
-}
-
-html[data-navbar='false'] .navbar {
-    display: none;
-}

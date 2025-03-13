@@ -62,44 +62,17 @@ FedML's Connectivity Core component supports reading data from semantic models o
 
 Comparing several cuML algorithms on GPUs vs their CPU equivalents, the following acceleration numbers were recorded for GPU environments with varying data loads and features:  
  
-**RandomForest:**
+<b>RandomForest:  </b>
 
-<table>
-  <thead>
-    <tr>
-      <th>Samples / Features</th>
-      <td>1000</td>
-      <td>10,000</td>
-      <td>1000,000</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>20</td>
-      <td>2x</td>
-      <td>10x</td>
-      <td>76x</td>
-    </tr>
-    <tr>
-      <td>S0</td>
-      <td>2x</td>
-      <td>23x</td>
-      <td>116x</td>
-    </tr>
-    <tr>
-      <td>100</td>
-      <td>2x</td>
-      <td>35x</td>
-      <td>151x</td>
-    </tr>
-    <tr>
-      <td>200</td>
-      <td>3x</td>
-      <td>49x</td>
-      <td>190x</td>
-    </tr>
-  </tbody>
-</table>
+
+ <table> 
+<tr><th>Samples /
+ Features</th><td>1000</td><td>10,000</td><td>1000,000</td></tr>
+<tr><td>20</td><td>2x</td><td>10x</td><td>76x</td></tr>
+<tr><td>S0</td><td>2x</td><td>23x</td><td>116x</td></tr>
+<tr><td>100</td><td>2x</td><td>35x</td><td>151x</td></tr>
+<tr><td>200</td><td>3x</td><td>49x</td><td>190x</td></tr>
+ </table>
 
 
 ## Resources

@@ -35,6 +35,8 @@ Introduce an integration governance process to ensure that developers design int
 
 ***
 
+<a name="loio09d7aa4564ba4db2bf30a64d5a72526b__section_f3q_2ks_swb"/>
+
 ## Context
 
 After you’ve defined your enterprise integration strategy you need make sure that your virtual integration community is executing on it, for instance that integration scenarios are being designed and implemented in a consistent fashion based on agreed upon standards. By doing so, you can deliver enterprise-grade integration scenarios to safeguard your company's mission-critical business processes. Integration governance includes organizational structures to oversee the adoption of integration technology to create value and manage associated risks.
@@ -60,6 +62,8 @@ The concepts and templates of this methodology can help integration developers t
 The approach for integration governance needs to comply with the overarching IT governance process within an organization. The concept for the latter one is typically being defined by the Chief Technology Officer, which builds the foundation for an integration governance approach that is detailed out by integration architects belonging to the Integration Center of Excellence.
 
 ***
+
+<a name="loio09d7aa4564ba4db2bf30a64d5a72526b__section_ytc_jks_swb"/>
 
 ## Procedure
 

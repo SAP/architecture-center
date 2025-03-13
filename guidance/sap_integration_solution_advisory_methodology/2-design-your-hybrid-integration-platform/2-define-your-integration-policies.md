@@ -35,6 +35,8 @@ Define guardrails for integration developers that help them to select the right 
 
 ***
 
+<a name="loioe3639621e9984c45830faec98623c7fd__section_csz_xqj_swb"/>
+
 ## Context
 
 After you have defined the scope of your hybrid integration platform with the help of the technology mapping, you specify one or more policies for each technology. These act as guardrails for the integration developers and can help them to identify the appropriate technologies for a new integration requirement.
@@ -53,6 +55,8 @@ The SAP Integration Solution Advisory Methodology foresees different recommendat
 Integration architects define such integration policies. In this role an enterprise architect oversees the current integration technologies in an organization.
 
 ***
+
+<a name="loioe3639621e9984c45830faec98623c7fd__section_od5_prj_swb"/>
 
 ## Procedure
 

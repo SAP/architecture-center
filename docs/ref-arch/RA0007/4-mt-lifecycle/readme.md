@@ -62,8 +62,7 @@ Let's look at the different phases of the tenant lifecycle and how they can be m
     - The MTX services utilize the SAP Service Manager to create the database tenant.
     - The CAP application connects to this tenant at runtime using the Service Manager.
 
-    ![image](images/mt-cap-mtx-provisioning.svg)
-
+    <center>![image](images/mt-cap-mtx-provisioning.svg)</center>
     It is also possible to add custom logic for tenant onboarding using MTX within CAP. For example, you can create custom handlers to manage the onboarding process, such as creating a destination for connecting to business systems like SAP S/4HANA, assigning roles, setting up routes in Cloud Foundry, defining api rules in Kyma, or creating SAP BTP service instances.
 
     :::tip Quick Tip
@@ -118,7 +117,7 @@ Let's look at the different phases of the tenant lifecycle and how they can be m
     - The CAP application delegates the request to the MTX services.
     - The MTX services use SAP Service Manager to delete the tenant-specific HDI container.
 
-    ![image](images/mt-cap-mtx-offboarding.svg)
+    <center>![image](images/mt-cap-mtx-offboarding.svg)</center>
 
     :::tip Quick Tip
     To enhance the offboarding process, consider implementing a data retention policy that defines how long tenant data will be retained after offboarding. This policy can help you manage data storage costs and ensure compliance with data protection regulations.

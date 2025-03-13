@@ -35,6 +35,8 @@ Get the first level of integration architecture assessment by selecting integrat
 
 ***
 
+<a name="loio3a1b8817a2d7464caddb907262e22e9d__section_xdg_1t1_rwb"/>
+
 ## Context
 
 You conduct the first level of scoping of your to-be integration architecture with the help of integration domains. Integration domains provide the entry point into the methodology and can be used as a “big picture” for integration. They represent different integration touchpoints of business applications in today’s cloud and hybrid IT landscapes such as business applications, user-centric applications, and real-world objects. Integration domains are defined in a technology agnostic fashion. They can therefore also help in blueprinting a hybrid integration platform, which can consist of integration technologies from different vendors \(SAP/third-party\).
@@ -63,6 +65,8 @@ You conduct the first level of scoping of your to-be integration architecture wi
 > Typically an enterprise architect conducts the scoping of integration domains who oversees the entire IT landscape in an organization.
 
 ***
+
+<a name="loio3a1b8817a2d7464caddb907262e22e9d__section_apw_st1_rwb"/>
 
 ## Procedure
 

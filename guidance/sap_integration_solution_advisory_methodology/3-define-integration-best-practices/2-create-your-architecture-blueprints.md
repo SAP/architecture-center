@@ -35,6 +35,8 @@ Describe the scope of integration technologies, including relationships and char
 
 ***
 
+<a name="loioc6bac952bb464f97b6cece3eec9cfd5f__section_b5s_spq_swb"/>
+
 ## Context
 
 Architecture blueprints provide a template solution of an architecture for a particular domain. For the domain of enterprise integration, an architecture blueprint is a visual representation that maps out the components of an integration architecture, including their relationship and integration touch points with business applications. Other details such as interface technologies, security features and data types used should be added if these are essential for an IT architecture.
@@ -52,6 +54,8 @@ The following graphic shows an architecture blueprint sample of the cross-use ca
 Furthermore, you complemented each architecture blueprint with a set of characteristics that can help integration developers to identify the most appropriate architecture for an integration requirement.
 
 ***
+
+<a name="loioc6bac952bb464f97b6cece3eec9cfd5f__section_j43_wpq_swb"/>
 
 ## Procedure
 

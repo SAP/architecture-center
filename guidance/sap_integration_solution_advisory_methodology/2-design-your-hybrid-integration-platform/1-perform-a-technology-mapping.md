@@ -35,6 +35,8 @@ Define the high-level scope of your hybrid integration platform with the help of
 
 ***
 
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_ghc_dzn_rwb"/>
+
 ## Context
 
 The scoping results of the first phase of the SAP Integration Solution Advisory Methodology describe the functional requirements toward your organization’s future hybrid integration platform. You perform a technology mapping to relate these functional requirements to corresponding integration technologies from SAP or from other vendors based on their supported capabilities.
@@ -54,6 +56,8 @@ Examples:
 
 ***
 
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_try_hzn_rwb"/>
+
 ## Customer Context Factors
 
 When conducting such a technology mapping you need to consider specific context factors, too. These factors influence the decision-making process for integration technologies and are customer-specific. Examples of such customer context factors are the following:
@@ -66,9 +70,11 @@ When conducting such a technology mapping you need to consider specific context 
 
 The technology mapping is typically conducted by an enterprise architect.
 
-For selected integration styles sample technology mappings are available using services of SAP Business Technology Platform. For more information, see [Sample Technology Mappings](1-perform-a-technology-mapping.md).
+For selected integration styles sample technology mappings are available using services of SAP Business Technology Platform. For more information, see [Sample Technology Mappings](1-perform-a-technology-mapping.md#loio58d1656cb23249b4830c49bc3077c454__section_awj_lhj_swb).
 
 ***
+
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_dss_mjn_vwb"/>
 
 ## Procedure
 
@@ -93,11 +99,15 @@ For selected integration styles sample technology mappings are available using s
 
 ***
 
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_awj_lhj_swb"/>
+
 ## Sample Technology Mappings
 
 In the following section you can find sample technology mappings for each selected integration style that uses services of the SAP Business Technology Platform. The sample technology mappings are supposed to describe the high-level building blocks, which can form a hybrid integration platform.
 
 ***
+
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_ywx_hkn_vwb"/>
 
 ## Sample Technology Mapping for the Process Integration Style
 
@@ -125,6 +135,8 @@ The key characteristics of SAP Integration Suite are as follows:
 
 ***
 
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_tzc_ykn_vwb"/>
+
 ## Sample Technology Mapping for the Data Integration Style
 
 SAP Data Intelligence Cloud is SAP’s strategic data management solution and the tool of choice, in particular for cloud and hybrid data integration, metadata management, and data processing needs. It allows you to connect with SAP and third-party data sources. With the help of SAP Data Intelligence Cloud, you can govern, integrate, process, and orchestrate the volume, velocity, and variety of data in on-premise, cloud, multi-cloud, and hybrid distributed system landscapes. The solution is available both as a fully managed public cloud service offering and as a perpetual license product that can be deployed BYOL \(“bring your own license”\) or on-premise.
@@ -145,6 +157,8 @@ You can complement SAP Data Intelligence Cloud with other enterprise information
 
 ***
 
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_hxd_gln_vwb"/>
+
 ## Sample Mapping for the Analytics Integration Style
 
 You can enable the integration use case patterns of the analytics integration style with the help of two solutions:
@@ -159,6 +173,8 @@ The key characteristics covering both solutions can be summarized as follows:
 -   Predictive and planning capabilities \(available with SAP Analytics Cloud, Enterprise Edition\)
 
 ***
+
+<a name="loio58d1656cb23249b4830c49bc3077c454__section_cqq_pln_vwb"/>
 
 ## Sample Mapping for the User Integration Style
 
