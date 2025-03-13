@@ -18,13 +18,13 @@ export default () => {
                 {
                     test: /\.drawio$/,
                     resourceQuery: /source/,
-                    type: 'asset/source'
+                    type: 'asset/source',
                 },
                 {
                     test: /\.drawio$/,
                     type: 'asset/resource',
                     resourceQuery: { not: [/source/] },
-                    generator: { filename: templ }
+                    generator: { filename: templ },
                 }
             );
 
