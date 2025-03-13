@@ -7,7 +7,7 @@ const HOST_DRAWIO_VIEWER =
     'https://viewer.diagrams.net/?tags={}&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=diagram.drawio#R';
 
 // we expect the raw xml string of the drawio file as prop here
-export default function LinkDrawioViewer({ drawioFile }) {
+export default function LinkDrawioViewer({ drawioFile, drawioXml }) {
     const [encodedLink, setEncodedLink] = useState(null);
 
     useEffect(() => {

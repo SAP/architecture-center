@@ -19,7 +19,9 @@ export default (options) => {
             if (node.url.endsWith('.drawio')) {
                 // inject import statement at the root
                 const drawioImport = defineImport(`drawio${counter}`, node.url);
+                const xmlImp = defineImport(`drawioXml${counter}`, node.url + "?source");
                 root.children.unshift(drawioImport);
+                root.children.unshift(xmlImp);
                 // substitute <DrawioResources> JSX node for image node
                 node.type = 'mdxJsxFlowElement';
                 node.name = 'DrawioResources';
@@ -62,6 +64,11 @@ export default (options) => {
                     prop.value.data.estree.body[0].expression.name = prop.value.value;
                     node.attributes.push(prop);
                 }
+                const prop = structuredClone(node.attributes[0]);
+                prop.name = 'drawioXml';
+                prop.value.value = `drawioXml${counter}`; // prop value
+                prop.value.data.estree.body[0].expression.name = prop.value.value;
+                node.attributes.push(prop);
                 counter++;
             }
         });

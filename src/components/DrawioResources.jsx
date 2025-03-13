@@ -9,7 +9,8 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 // locally, use fallback image
 const FALLBACK_IMG = '/img/fallback-drawio-img.svg';
 
-export default function DrawioResources({ drawioFile, drawioImg }) {
+export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
+    console.log("xml", drawioXml, "drawio", drawioFile);
     const path = useBaseUrl(FALLBACK_IMG);
     return (
         // current selector to apply zoom (see docusaurus.config) doesn't select img if directly
@@ -43,7 +44,7 @@ export default function DrawioResources({ drawioFile, drawioImg }) {
                             Download as .drawio file
                         </Button>
                     </a>
-                    <LinkDrawioViewer drawioFile={drawioFile} />
+                    <LinkDrawioViewer drawioFile={drawioFile} drawioXml={drawioXml} />
                 </FlexBox>
             </Admonition>
         </>
