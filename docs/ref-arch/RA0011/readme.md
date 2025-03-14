@@ -9,7 +9,7 @@ slug: /ref-arch/e55b3bb294
 sidebar_position: 11
 sidebar_custom_props:
     category_index:
-        - aws
+        - aws 
         - azure
         - gcp
         - data
