@@ -873,3 +873,7 @@ html[data-announcementBar='false'] .announcementBar_mb4j {
 html[data-navbar='false'] .navbar {
     display: none;
 }
+
+html[data-footer='false'] .footer {
+    display: none;
+}
