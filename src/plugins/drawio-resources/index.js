@@ -19,33 +19,17 @@ export default (options) => {
             if (node.url.endsWith('.drawio')) {
                 // inject import statement at the root
                 const drawioImport = defineImport(`drawio${counter}`, node.url);
+                const drawioXmlImport = defineImport(`drawioXml${counter}`, node.url + '?source');
                 root.children.unshift(drawioImport);
+                root.children.unshift(drawioXmlImport);
+
                 // substitute <DrawioResources> JSX node for image node
                 node.type = 'mdxJsxFlowElement';
                 node.name = 'DrawioResources';
-                node.attributes = [
-                    {
-                        type: 'mdxJsxAttribute',
-                        name: 'drawioFile',
-                        value: {
-                            type: 'mdxJsxAttributeValueExpression',
-                            value: `drawio${counter}`,
-                            data: {
-                                estree: {
-                                    type: 'Program',
-                                    body: [
-                                        {
-                                            type: 'ExpressionStatement',
-                                            expression: {
-                                                type: 'Identifier',
-                                                name: `drawio${counter}`,
-                                            },
-                                        },
-                                    ],
-                                },
-                            },
-                        },
-                    },
+                // props to pass to DrawioResources component
+                const props = [
+                    passProp('drawioFile', `drawio${counter}`),
+                    passProp('drawioXml', `drawioXml${counter}`),
                 ];
 
                 // drawio/demo.drawio -> import the image from images/demo.svg
@@ -53,15 +37,11 @@ export default (options) => {
                 const absPath = vfile.history.at(-1).split('readme.md')[0] + imgPath;
                 // eventually, the image won't be there locally. we'll generate it before deployment
                 if (fileExists(absPath)) {
-                    const imgImport = defineImport(`drawioImg${counter}`, imgPath + "?resource");
+                    const imgImport = defineImport(`drawioImg${counter}`, imgPath + '?resource');
                     root.children.unshift(imgImport);
-                    // pass value to prop drawioImg
-                    const prop = structuredClone(node.attributes[0]);
-                    prop.name = 'drawioImg';
-                    prop.value.value = `drawioImg${counter}`; // prop value
-                    prop.value.data.estree.body[0].expression.name = prop.value.value;
-                    node.attributes.push(prop);
+                    props.push(passProp('drawioImg', `drawioImg${counter}`));
                 }
+                node.attributes = props;
                 counter++;
             }
         });
@@ -116,4 +96,30 @@ function fileExists(path) {
     } catch {
         return false;
     }
+}
+
+function passProp(prop, value) {
+    return {
+        type: 'mdxJsxAttribute',
+        name: prop,
+        value: {
+            type: 'mdxJsxAttributeValueExpression',
+            value: value, // prop value
+            data: {
+                estree: {
+                    type: 'Program',
+                    body: [
+                        {
+                            type: 'ExpressionStatement',
+                            expression: {
+                                type: 'Identifier',
+                                // yes, it's the value
+                                name: value,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    };
 }
