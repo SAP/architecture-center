@@ -37,8 +37,6 @@ The last phase of the SAP Integration Solution Advisory Methodology addresses ma
 
 ***
 
-<a name="loio6df23680e8534316892f490b1d028217__section_rrq_1cr_swb"/>
-
 ## Description
 
 As a first task you define its organizational structure starting with specifying integration roles and institutionalizing an Integration Center of Excellence. The second and third tasks relate to the operational structure of enterprise integration where you define an approach for introducing integration governance and ensuring integration quality assurance.
@@ -47,15 +45,11 @@ As a first task you define its organizational structure starting with specifying
 
 ***
 
-<a name="loio6df23680e8534316892f490b1d028217__section_hrp_ccr_swb"/>
-
 ## Goal
 
 The objective of the fourth phase of the SAP Integration Solution Advisory Methodology is to establish integration as a recognized discipline and to position integration as a strategic differentiator in your organization. Furthermore, this phase aims at improving the operational structure of your integration practice changing toward an agile integration delivery approach. This includes, for instance, the democratization of integration delivery, establishing a knowledge sharing culture, and improving the communication between development teams \(internal/external\).
 
 ***
-
-<a name="loio6df23680e8534316892f490b1d028217__section_k34_dcr_swb"/>
 
 ## Deliverables
 
@@ -66,8 +60,6 @@ At the end of the fourth phase of this methodology you will have created the fol
 -   Integration quality check list
 
 ***
-
-<a name="loio6df23680e8534316892f490b1d028217__section_r4k_gcr_swb"/>
 
 ## Personas
 

@@ -43,7 +43,7 @@ When designing a multitenant application, it is important to understand differen
 
 Before jumping into the details of multitenancy model on SAP BTP, it is important to understand the concept of Account Model or Structure of SAP BTP. It is highly recommended to go through the [Account Model of SAP BTP](https://help.sap.com/docs/btp/sap-business-technology-platform/account-model) to understand the concept of global account, subaccount etc.
 
-<center>![image](./images/mt-user-roles.svg)</center>
+![image](./images/mt-user-roles.svg)
 
 In SAP BTP, multitenancy is implemented using the concept of [subaccounts](https://help.sap.com/docs/btp/sap-business-technology-platform/account-model#subaccounts). In multitenancy context, two kinds of subaccounts are used:
 

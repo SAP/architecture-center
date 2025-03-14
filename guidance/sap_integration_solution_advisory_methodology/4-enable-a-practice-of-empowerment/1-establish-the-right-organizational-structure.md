@@ -35,8 +35,6 @@ Define integration roles, including responsibilities, and form an Integration Ce
 
 ***
 
-<a name="loiob2fdd9df6e3846888d51575f122a8a01__section_b1w_tcr_swb"/>
-
 ## Context
 
 Enterprise integration is a team exercise where employees of various roles are performing specific tasks in orchestration to achieve a common goal such as the delivery of integrated business applications or business processes that are integrated end-to-end.
@@ -138,8 +136,6 @@ Such an Integration Center of Excellence can not only optimize tactical integrat
 The high-level organizational structure for IT that includes enterprise integration, too, is typically defined by the Chief Technology Officer \(CTO\) together with the Human Resources department.
 
 ***
-
-<a name="loiob2fdd9df6e3846888d51575f122a8a01__section_vyd_jjs_swb"/>
 
 ## Procedure
 

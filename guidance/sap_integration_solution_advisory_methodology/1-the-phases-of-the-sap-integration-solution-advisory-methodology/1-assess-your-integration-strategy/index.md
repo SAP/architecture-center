@@ -35,8 +35,6 @@ Start by assessing the current integration strategy of your organization.
 
 ***
 
-<a name="loio08687a9c8caf4c989e4782dc222dbeb8__section_egx_vqz_qwb"/>
-
 ## Description
 
 You start the assessment with the review of the existing integration architecture followed by a scoping of its future building blocks. To conduct such an assessment, the methodology offers a well-defined top-down approach for scoping of requirements toward the to-be integration architecture. This is done with the help of integration domains, integration styles, and integration use case patterns.
@@ -53,15 +51,11 @@ The motivation for performing such an integration strategy assessment can be var
 
 ***
 
-<a name="loio08687a9c8caf4c989e4782dc222dbeb8__section_cgw_xqz_qwb"/>
-
 ## Goal
 
 The goal is to have the building blocks of your organization’s integration architecture defined which meet both the current and future integration requirements of an organization.
 
 ***
-
-<a name="loio08687a9c8caf4c989e4782dc222dbeb8__section_cwf_yqz_qwb"/>
 
 ## Deliverables
 
@@ -74,8 +68,6 @@ During this phase you’ll create three documents:
 . If the SAP delivered templates don’t meet all your requirements, you can adapt and enrich them according to your needs.
 
 ***
-
-<a name="loio08687a9c8caf4c989e4782dc222dbeb8__section_gcs_zqz_qwb"/>
 
 ## Personas
 

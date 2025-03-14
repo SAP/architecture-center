@@ -77,8 +77,8 @@ An important feature of the Generative AI Hub is [Orchestration](https://help.sa
 In a basic orchestration scenario, different modules from orchestration can be combined into a pipeline and executed with a single API call. Within this pipeline, the response from one module is used as the input for the next module. The order of execution within the pipeline is centrally defined in orchestration. However, details for each module can be configured, and optional modules can be omitted by including an orchestration configuration in JSON format with the request body or even easier leveraging the SAP Cloud SDK for AI ([JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) or [Java](https://github.com/SAP/ai-sdk-java)).
 
 <center>
-  <div class="video-container-16-9">
-    <iframe id="kaltura_player_1869760013" src="https://cdnapisec.kaltura.com/p/1921661/embedPlaykitJs/uiconf_id/54739572?iframeembed=true&entry_id=1_imwqek4c" allow="autoplay *; fullscreen *; encrypted-media *" class="video-responsive-iframe"></iframe>
+  <div className="video-container-16-9">
+    <iframe id="kaltura_player_1869760013" src="https://cdnapisec.kaltura.com/p/1921661/embedPlaykitJs/uiconf_id/54739572?iframeembed=true&entry_id=1_imwqek4c" allow="autoplay *; fullscreen *; encrypted-media *" className="video-responsive-iframe"></iframe>
   </div> 
   <div>
     <i>Generative AI Hub: Rethinking Business Applications on SAP BTP</i>
