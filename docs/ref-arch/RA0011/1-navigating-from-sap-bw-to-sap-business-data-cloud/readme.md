@@ -12,7 +12,7 @@ sidebar_custom_props: {}
 #     You can modify the front matter properties below     #
 ############################################################
 title: Navigating from SAP BW to SAP Business Data Cloud
-description: For decades, SAP Business Warehouse (BW) has served as the backbone of enterprise data warehousing, delivering critical insights for strategic decision-making. However, today&#39;s rapidly evolving business environment demands more from data infrastructure—real-time analytics capabilities, seamless integration across diverse sources, and scalable architecture that can adapt to changing requirements. The Business Data Cloud (BDC) represents the next evolution in enterprise data management, offering organizations a path beyond traditional BW environments toward a more agile, integrated, and future-ready data platform.
+description: For decades, SAP Business Warehouse (BW) has served as the backbone of enterprise data warehousing, delivering critical insights for strategic decision-making. However, today's rapidly evolving business environment demands more from data infrastructure—real-time analytics capabilities, seamless integration across diverse sources, and scalable architecture that can adapt to changing requirements. The Business Data Cloud (BDC) represents the next evolution in enterprise data management, offering organizations a path beyond traditional BW environments toward a more agile, integrated, and future-ready data platform.
 sidebar_label: Navigating from SAP BW to SAP Business Data Cloud
 keywords: [sap, bdc, data, analytics]
 image: img/logo.svg
