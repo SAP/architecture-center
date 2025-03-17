@@ -301,7 +301,7 @@ html[data-theme='dark'] .menu__list {
 .breadcrumbs__item--active .breadcrumbs__link {
     background: var(--ifm-sidebar-selected-item-background-color);
     color: var(--ifm-menu-color-active);
-    font-weight: bold;
+    font-weight: 500;
 }
 
 /* Dropdown menu customization*/
@@ -410,7 +410,7 @@ table thead {
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-    --ifm-font-color-base: #eaecee;
+    --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
     --ifm-color-primary: #d1efff;
     --ifm-color-primary-dark: #439ddd;
     --ifm-color-primary-darker: #4684e8;
