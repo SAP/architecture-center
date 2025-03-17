@@ -9,19 +9,21 @@ sidebar_custom_props:
     - aws
     - azure
 title: Reference Architecture for Event-Driven Applications
-description: Guidance for developing applications based on Event-Driven Architecture (EDA) patterns and Cloud Application Programming (CAP) framework.
+description: >-
+  Guidance for developing applications based on Event-Driven Architecture (EDA)
+  patterns and Cloud Application Programming (CAP) framework.
 keywords:
   - sap
   - btp
   - integration
   - event-driven architecture
-  - azure 
-  - aws 
+  - azure
+  - aws
   - genai
   - cloud application programming model
   - cap
   - eda
-sidebar_label: Designing Event-Driven Applications 
+sidebar_label: Designing Event-Driven Applications
 image: img/logo.svg
 tags:
   - azure
@@ -40,7 +42,7 @@ contributors:
   - anbazhagan-uma
   - pra1veenk
   - AjitKP91
-  - swatimaste00 
+  - swatimaste00
   - anirban-sap
 last_update:
   author: anbazhagan-uma
