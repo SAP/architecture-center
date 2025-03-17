@@ -7,8 +7,7 @@
 id: id-ra0011-1
 slug: /ref-arch/e55b3bb294/1
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: {}
+sidebar_custom_props: {}
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
