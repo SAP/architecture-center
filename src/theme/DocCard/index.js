@@ -35,7 +35,7 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
   return (
       <Card
         style={{
-          height: '400px',
+          height: '360px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',

@@ -61,15 +61,16 @@ const config: Config = {
                 hashed: true,
                 indexDocs: true,
                 indexPages: true,
-                docsRouteBasePath: '/docs',
-                docsDir: 'docs',
-                indexBlog: false,
+                docsRouteBasePath: ['/docs', '/community', '/guidance'],
+                docsDir: ['docs', 'community', 'guidance'],
+                indexBlog: true,
+                blogRouteBasePath: '/blog', 
                 language: ['en'],
                 highlightSearchTermsOnTargetPage: true,
                 removeDefaultStopWordFilter: true,
                 removeDefaultStemmer: true,
             },
-        ],
+        ],        
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -213,7 +214,7 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: '<strong>Partners</strong>',
+                            value: '<strong>Technology Partners</strong>',
                         },
                         {
                             type: 'docSidebar',
@@ -261,7 +262,7 @@ const config: Config = {
                         {
                             type: 'docSidebar',
                             sidebarId: 'security',
-                            label: 'Security',
+                            label: 'Operation & Security',
                         },
                     ],
                 },
