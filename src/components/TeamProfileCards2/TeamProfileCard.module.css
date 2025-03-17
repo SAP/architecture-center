@@ -37,12 +37,10 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
-    font-family: '72Bold';
 }
 
 .team-profile-card__description {
     font-size: 14px;
-    font-family: '72';
     color: #666;
     margin-bottom: 15px;
 }
