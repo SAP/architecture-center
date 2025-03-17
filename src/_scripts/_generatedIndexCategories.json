@@ -114,10 +114,10 @@
         },
         {
             "type": "category",
-            "label": "Security",
+            "label": "Operation & Security",
             "link": {
                 "type": "generated-index",
-                "title": "Security",
+                "title": "Operation & Security",
                 "description": "Discover SAP reference architectures for security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/security",
                 "keywords": ["security", "sap"],

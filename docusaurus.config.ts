@@ -213,7 +213,7 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: '<strong>Partners</strong>',
+                            value: '<strong>Technology Partners</strong>',
                         },
                         {
                             type: 'docSidebar',
@@ -261,7 +261,7 @@ const config: Config = {
                         {
                             type: 'docSidebar',
                             sidebarId: 'security',
-                            label: 'Security',
+                            label: 'Operation & Security',
                         },
                     ],
                 },
