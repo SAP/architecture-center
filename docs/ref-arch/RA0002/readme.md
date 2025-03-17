@@ -9,7 +9,11 @@ sidebar_custom_props:
     - aws
     - azure
 title: Architecting Multi-Region HA/DR resiliency patterns
-description: Learn how to architect multi-region resiliency for SAP solutions such to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.
+description: >-
+  Learn how to architect multi-region resiliency for SAP solutions such to
+  ensure high availability and business continuity. This guide covers
+  strategies, best practices, and sample implementations for a robust, compliant
+  multi-region setup with failover and disaster recovery capabilities.
 keywords:
   - sap
   - integration
