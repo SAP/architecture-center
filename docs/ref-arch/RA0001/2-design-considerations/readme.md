@@ -96,4 +96,30 @@ Both the services are fully managed cloud service, connect SAP and non-SAP syste
 The key differences are as below
 
 | Feature | Event Mesh capability of SAP Integration Suite | SAP Integration Suite,advanced event mesh |
-| :
+| :---: | :---: | :---: |
+Infrastructure Model | Shared | T-Shirt Sizes|
+Connecting SAP and non-SAP systems | BTP Deployment | Private and Public Cloud|
+Message Size and Storage | 1MB/10GB | Up to 30MB/Up to 6TB|
+Typical use case size | Small to Medium | Small to Ultra-large|
+
+Apart from the above mentioned SAP Integration Suite, advanced event mesh allows to create network of event brokers, provides advanced event monitoring and analysis, allows dynamic event routing, has capabilities for filtering, event replay and event management.
+
+Refer to [Comprehensive Real-Time Integration Using Event-Driven Architecture](https://www.sap.com/documents/2024/10/f41de944-dc7e-0010-bca6-c68f7e60039b.html) for more details on capabilities in SAP BTP for building EDA Applications. 
+
+### SAP BTP Runtime
+Refer to the SAP BTP Developer Guide [Understanding Available Technology](https://help.sap.com/docs/btp/btp-developers-guide/understanding-available-technology#loiof3641a5635504edab2c6bb84fa86a42a) to help decide on the runtime choice.
+### Business APIs
+Explore and discover [SAP Business Accelerator Hub](https://api.sap.com) to consume APIs, events, adapters, business objects details for the extension application. 
+In this reference architecture the APIs in the ERP business systems are integrated in the sample applications. To extend the architecture to other SAP Systems or to leverage the events that are configured in the business systems, the content from SAP Business Accelerator Hub provides insights.
+
+## Navigating from Generic Architecture to Specific Architecture for implementing business scenarios
+
+Based on the generic reference architecture, below can be 2 specific architecture which are specific to the two different integration patterns based on different Hyperscaler environnement which acts as event producer. 
+
+### Architecture 1 - Event-driven architecture with AWS as the Event Producer
+
+Go to [Integration with Amazon Web Services](../3-aws-iot-integration/readme.md)
+
+### Architecture 2 - Event-driven architecture with Microsoft Azure as the Event Producer
+
+Go to [Integration with Microsoft Azure](../4-azure-iot-integration/readme.md)

@@ -66,4 +66,75 @@ The below sections provides an rough estimate of the platform costs associated w
   The following services are used in the Cloud Foundry environment to run the basic version of sample application:
 
   |BTP Service (Plan)|Configuration	| SAP BTPEA|Pay-As-You-Go|
-  |
+  |-----------------------------------------------|---------------|--------------:|--------------:|
+  |Application Autoscaler (Standard)              |               |         0.00 €|	        0.00 €|
+  |Destination Service (Lite)                     |	              |         0.00 €|	        0.00 €|
+  |SAP Alert Notification service	                |10000 API Calls|	       12.50 €|        16.20 €|
+  |SAP Authorization and Trust Management Service |               |         0.00 €|         0.00 €|
+  |SAP BTP, Cloud Foundry Runtime                 |	4 GB          |	      340.00 €|	      442.00 €|
+  |SAP Cloud Management Service	                  |               |	        0.00 €|	        0.00 €|
+  |SAP Credential Store	                          |10 Records     |        10.00 €|        13.00 €|
+  |SAP HTML5 Application Repository Service       |               |		      0.00 €|	        0.00 €|
+  |SAP Software-as-a-Service Provisioning service |	              |	        0.00 €|	        0.00 €|
+  |SAP	HANA Cloud                                |32GB Memory    |	      663.75 €|	      858.45 €|
+  |SAP Service Manager	                          |               |	        0.00 €|	        0.00 €|
+  |SAP Cloud Logging                              |               |       538.00 €|       699.40 €|
+  |**Total**                                      |               | **1,564.25 €**| **2,029.05 €**|
+  |**Cost per Tenant** (No of Tenants: 10)        |               |   **156.65 €**|   **202.90 €**|
+
+  :::warning Important Note
+  The above cost estimates for services were calculated using the [Service Estimator](https://discovery-center.cloud.sap/estimator/) as of October 29, 2024. For the most current pricing information, please refer to the details of services on [Discovery Center](https://discovery-center.cloud.sap/viewServices) and utilize the [Service Estimator](https://discovery-center.cloud.sap/estimator/) to tailor cost estimates to your specific needs.
+  :::
+
+  Based on previously mentioned assumptions, for the Basic Version of the sample application, the estimated platform costs for operating in the Cloud Foundry environment are approximately 1,564.25 € under the BTPEA commercial model and 2,029.05 € under the Pay-As-You-Go model. Given that this configuration supports 10 tenants, the effective cost per tenant is 156.65 € for the BTPEA model and 202.90 € for the Pay-As-You-Go model.
+
+- ### Kyma Environment
+  In the Kyma environment, multiple services are utilized to operate the sample multitenant application, each with specific configurations and associated costs. To determine the platform expenses, we account for the configuration of each service and the anticipated number of tenants the application will support.
+
+  For calculation, service configurations are determined based on the following assumptions:
+  - The sample application is required to support 10 tenants (application consumers / customers). No of users can be more. 
+  - The sample application requires 2 GB of memory. However we have default 8 GB of memory of Kyma with base configuration.
+  - 10000 API calls are considered for the Alert Notification service to accommodate all 10 tenants.
+  - The SAP HANA Cloud configuration is based on an estimated requirement of less than 1 GB of storage per tenant per month. Therefore, a minimum configuration of SAP HANA Cloud is sufficient to support 10 tenants initially. 
+
+  The following services are used in the Kyma environment to run the basic version of sample application:
+
+  |BTP Service (Plan)|Configuration	| SAP BTPEA|Pay-As-You-Go|
+  |---|---|---:|---:|
+  |Destination Service (Lite)                     |	                  |         0.00 €|	        0.00 €|
+  |SAP Alert Notification service	                |10000 API Calls    |	       12.50 €|        16.20 €|
+  |SAP Authorization and Trust Management Service |                   |         0.00 €|         0.00 €|
+  |SAP BTP, Kyma runtime	                        |Base Configuration |	      845.00 €|	    1,098.50 €|	
+  |SAP Cloud Management Service	                  |                   |	        0.00 €|	        0.00 €|	
+  |SAP Credential Store	                          |10 Records         |	        0.00 €|        13.00 €|
+  |SAP HTML5 Application Repository Service	      |                   |		      0.00 €|	        0.00 €|
+  |SAP Software-as-a-Service Provisioning service |                   |	        0.00 €|	        0.00 €|
+  |SAP HANA Cloud                                 |32GB Memory        |	      663.75 €|	      858.45 €|
+  |SAP Service Manager	                          |                   |	        0.00 €|	        0.00 €|	
+  |SAP Cloud Logging                              |                   |		    538.00 €|       699.40 €|
+  |**Total**                                      |                   | **2,059.25 €**| **2,685.55 €**|
+  |**Cost per Tenant** (No of Tenants: 10)        |                   |   **205.95 €**|   **268.50 €**|
+
+  :::warning Important Note
+  The above cost estimates for services were calculated using the [Service Estimator](https://discovery-center.cloud.sap/estimator/) as of October 29, 2024. For the most current pricing information, please refer to the details of services on [Discovery Center](https://discovery-center.cloud.sap/viewServices) and utilize the [Service Estimator](https://discovery-center.cloud.sap/estimator/) to tailor cost estimates to your specific needs.
+  :::
+
+  Based on previously mentioned assumptions, for the Basic Version of the sample application, the estimated platform costs for operating in the Kyma environment are approximately 2,059.25 € under the BTPEA commercial model and 2,685.55 € under the Pay-As-You-Go model. Given that this configuration supports 10 tenants, the effective cost per tenant is 205.95 € for the BTPEA model and 268.50 € for the Pay-As-You-Go model.
+
+- ### Analysis for SAP HANA Cloud 
+  In above calculations, we have considered the 32GB of Memory configuration for SAP HANA Cloud to support 10 tenants. However,  it's important to recognize that sizing requirements can change over time due to evolving data generation and storage needs of the application. Let's analyze and compare the cost of SAP HANA Cloud under different data growth scenarios.
+
+  |Application generates 1GB of data per month per tenant|Application generates 0.5GB of data per month per tenant|
+  |:---:|:---:|
+  |![1GB_5Tenants](./images/shc-1gb-5.png)<br/> 5 Tenants|![0.5GB_5Tenants](./images/shc-0-5gb-5.png)<br/> 5 Tenants|
+  |![1GB_10Tenants](./images/shc-1gb-10.png)<br/> 10 Tenants|![5GB_10Tenants](./images/shc-0-5gb-10.png)<br/> 10 Tenants|
+  |![1GB_25Tenants](./images/shc-1gb-25.png)<br/> 25 Tenants|![5GB_20Tenants](./images/shc-0-5gb-25.png)<br/> 25 Tenants|
+
+  The graphs above illustrate a comparative analysis of the cost of SAP HANA Cloud for supporting 5, 10, and 25 tenants with data generation rates of 1 GB and 0.5 GB per month over a 2-year period, expressed in capacity units. It is important to note that the calculations and graph plotting are based on the assumption that data growth occurs linearly and consistently each month throughout the 2-year period and all tenants or consumers acquired at the beginning of the calculation period.
+
+  Observations:   
+  - The initial investment for SAP HANA Cloud is lower for multitenant applications, but costs increase over time based on data growth.
+  - Multitenant applications that generate less data can be more cost-effective.
+  - The cost of SAP HANA Cloud can be optimized by monitoring data growth and adjusting the configuration based on actual requirements when needed.
+  - Implementing data retention policies and data archiving strategies is crucial to control data growth and, consequently, costs.
+  - Storage of vector data directly and proportionally impacts data growth in SAP HANA Cloud. If a multitenant application has GenAI capabilities that require storing embeddings in SAP HANA Cloud, the storage requirements can significantly increase, leading to higher costs.
