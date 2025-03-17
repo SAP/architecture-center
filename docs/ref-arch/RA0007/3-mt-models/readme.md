@@ -2,7 +2,8 @@
 id: id-ra0007-2
 slug: /ref-arch/e7724ef4a7/2
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Tenant Model on SAP BTP
 description: Tenant Model on SAP BTP
 keywords:
