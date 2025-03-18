@@ -107,7 +107,7 @@ const config: Config = {
                     showLastUpdateTime: true,
                     showLastUpdateAuthor: true,
                     onInlineTags: 'warn',
-                    routeBasePath: '/',
+                    routeBasePath: 'docs',
                     sidebarPath: require.resolve('./sidebars'),
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
