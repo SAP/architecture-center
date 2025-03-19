@@ -5,7 +5,7 @@ export default function HeroSection(): JSX.Element {
     return (
         <section>
             <div className="hero_banner">
-                <div className="banner-overlay"></div>
+                {/* <div className="banner-overlay"></div> */}
                 <div className="container">
                     <div className="welcome">
                         <h1>

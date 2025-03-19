@@ -244,7 +244,7 @@ html[data-theme='dark'] .menu__link {
 
 .hero_banner {
     background-color: #1a2733;
-    background-image: url('/img/landingPage/about.jpg');
+    background-image: url('/img/landingPage/about.png');
     position: relative;
     max-width: 3480px;
     height: 420px; /* Adjust as needed */
@@ -264,7 +264,7 @@ html[data-theme='dark'] .menu__link {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .header_button {
@@ -289,6 +289,14 @@ html[data-theme='dark'] .menu__link {
     font-size: 16px;
     font-weight: 600;
     margin-top: -10px;
+    color: #0070f2;
+}
+
+.button_hero:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #002a86;
+    border: 1px solid #002a86;
 }
 
 .community {
@@ -344,6 +352,71 @@ html[data-theme='dark'] .menu__link {
     height: auto;
     border-radius: 20px;
     box-shadow: 0px 4px 10px rgba(0.3, 0.3, 0.3, 0.3);
+}
+
+@media screen and (max-width: 996px) {
+    .hero_banner {
+        padding: 1rem;
+        height: auto;
+        background-size: cover;
+        background-position: center;
+        text-align: left;
+    }
+
+    .community_body {
+        width: 100%;
+        height: auto;
+        margin: 0; /* Remove negative margins */
+        text-align: center;
+    }
+
+    .community_image {
+        width: 100%;
+        height: auto;
+        margin: 0 auto; /* Center it */
+    }
+
+    .button_hero,
+    .button_filled_community {
+        width: 100%;
+        max-width: 400px;
+        font-size: 15px;
+    }
+
+    .header_button {
+        margin: 0 auto; /* Center the button */
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .welcome {
+        margin-top: 1.5rem; /* Reduce unnecessary spacing */
+        text-align: left;
+    }
+
+    .header_body {
+        display: flex;
+        flex-direction: column; /* Stack content on smaller screens */
+        width: 90%; /* Make it responsive */
+        max-width: 500px;
+        height: auto; /* Allow it to scale properly */
+        margin: 0 auto;
+        text-align: left; /* Align text properly */
+    }
+    .benefits_body {
+        margin: 2rem auto; /* Reduce margin for better spacing */
+        width: 90%;
+        max-width: 500px; /* Make it adapt to smaller screens */
+        height: auto; /* Let it expand naturally */
+        font-size: 16px; /* Adjust font size for better readability */
+        text-align: center; /* Align text properly */
+    }
 }
 
 .announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
