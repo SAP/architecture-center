@@ -102,12 +102,6 @@
     color: #535353;
 }
 
-html[data-theme='dark'] .menu__list {
-    position: relative;
-    list-style: none;
-    color: #535353;
-}
-
 .menu__list-item > a {
     display: block;
 
@@ -346,10 +340,6 @@ table thead {
 }
 
 /* Sidebar styling in dark mode */
-[data-theme='dark'] .menu__link {
-    color: #fff !important;
-}
-
 [data-theme='dark'] .menu__link--active {
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff !important;
