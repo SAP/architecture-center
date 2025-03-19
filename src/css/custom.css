@@ -368,7 +368,6 @@ table thead {
 [data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
     background-color: transparent !important;
     color: #fff !important;
-    font-weight: normal !important;
 }
 
 [data-theme='dark'] .menu__link:not(.menu__link--active) {
