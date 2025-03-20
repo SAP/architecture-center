@@ -10,7 +10,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
 
     const sidebar_id = args.item.dirName;
 
-    if (sidebar_id === "explore") {
+    if (sidebar_id === "exploreallrefarch") {
         return [
             {
                 type: "category",
@@ -19,12 +19,12 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
                     type: "generated-index",
                     title: "Explore",
                     description: "Explore all SAP reference architectures across different technology domains and cloud providers.",
-                    slug: "/explore",
+                    slug: "/exploreallrefarch",
                     keywords: ["explore", "all", "sap", "reference architectures"],
                     image: "/img/sap_logo.png"
                 },
                 customProps: {
-                    id:"explore"
+                    id:"exploreallrefarch"
                 },
                 items: args.docs.map((doc) => ({
                     type: "ref",

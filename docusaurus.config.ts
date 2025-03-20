@@ -205,7 +205,7 @@ const config: Config = {
                             value: '<strong>Explore</strong>',
                         },
                         {
-                            to: '/explore',
+                            to: '/docs/exploreallrefarch',
                             label: 'Explore all Reference Architectures',
                         },
                         {
