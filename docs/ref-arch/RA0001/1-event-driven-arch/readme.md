@@ -4,7 +4,7 @@ slug: /ref-arch/a06a959120/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
-title: Introduction and SAPs EDA Strategy
+title: Introduction and SAP's EDA Strategy
 description: Understanding Event-Driven Architecture, Core Concepts and Building Blocks.
 keywords:
   - sap
