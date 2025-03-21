@@ -282,8 +282,12 @@ const config: Config = {
                     title: 'GitHub',
                     items: [
                         {
+                            label: 'GitHub Repository',
+                            href: 'https://github.com/SAP/architecture-center',
+                        },
+                        {
                             label: 'GitHub Issues',
-                            href: 'https://github.com/SAP/architecture-center/issues/new/choose',
+                            href: 'https://github.com/SAP/architecture-center/issues',
                         },
                     ],
                 },
@@ -305,20 +309,33 @@ const config: Config = {
                     ],
                 },
                 {
+                    title: 'Legal',
+                    items: [
+                        {
+                            label: 'Privacy',
+                            href: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
+                        },
+                        {
+                            label: 'Terms of Use',
+                            href: 'https://www.sap.com/about/legal/terms-of-use.html',
+                        },
+                        {
+                            label: 'Legal Statement',
+                            href: 'https://www.sap.com/corporate/en/legal/impressum.html',
+                        },
+                    ],
+                },
+                {
                     title: 'More',
                     items: [
                         {
                             label: 'SAP Discovery Center',
                             href: 'https://discovery-center.cloud.sap/index.html',
                         },
-                        {
-                            label: 'SAP Architecture Center (GitHub Repository)',
-                            href: 'https://github.com/SAP/architecture-center',
-                        },
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company. All rights reserved.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company. All rights reserved.<br>This site is hosted by GitHub Pages.`,
         },
         prism: {
             theme: lightCodeTheme,
