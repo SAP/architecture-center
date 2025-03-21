@@ -17,7 +17,7 @@ keywords:
   - cloud application programming model
   - cap
   - eda
-sidebar_label: Introduction and SAPs EDA Strategy
+sidebar_label: Introduction and SAP's EDA Strategy
 image: img/logo.svg
 tags:
   - azure
