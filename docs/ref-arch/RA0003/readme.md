@@ -9,7 +9,15 @@ sidebar_custom_props:
     - azure
     - gcp
 title: Federated Machine Learning with SAP Datasphere
-description: The SAP Federated Machine Learning Python library (FedML) applies the data federation architecture of SAP Datasphere for intelligently sourcing SAP and non-SAP data for Machine Learning experiments, run on any Machine Learning platform, thereby removing the need for replication or data movement. By abstracting data connection, data discovery, data loading (for all ML platforms), model training, model deployment, and inferencing (for hyperscaler machine learning platforms), the FedML library offers end-to-end integration with just a few lines of code.
+description: >-
+  The SAP Federated Machine Learning Python library (FedML) applies the data
+  federation architecture of SAP Datasphere for intelligently sourcing SAP and
+  non-SAP data for Machine Learning experiments, run on any Machine Learning
+  platform, thereby removing the need for replication or data movement. By
+  abstracting data connection, data discovery, data loading (for all ML
+  platforms), model training, model deployment, and inferencing (for hyperscaler
+  machine learning platforms), the FedML library offers end-to-end integration
+  with just a few lines of code.
 keywords:
   - sap
   - datasphere
@@ -43,6 +51,7 @@ contributors:
   - karishma-kapur
   - ranbian
   - ThatDodoBird
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
@@ -142,4 +151,3 @@ Google Cloud Platform VertexAI, Amazon Sagemaker, AzureML, Databricks, IBM watso
 - [Integrating SAP Datasphere & SAP AI Core with IBM watsonx using FedML](https://discovery-center.cloud.sap/missiondetail/4449)
 - [Predict Inventory Allocation with Amazon Sagemaker and FedML](https://discovery-center.cloud.sap/missiondetail/4106)
 - [Predict and Analyze Retail Inventory Allocation using FedML](https://discovery-center.cloud.sap/missiondetail/3944)
-
