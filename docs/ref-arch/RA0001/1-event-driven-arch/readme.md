@@ -2,16 +2,17 @@
 id: id-ra0001-1
 slug: /ref-arch/a06a959120/1
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Introduction and SAP's EDA Strategy
-description: Understanding Event-Driven Architecture, Core Concepts and Building Blocks.
+description: 'Understanding Event-Driven Architecture, Core Concepts and Building Blocks.'
 keywords:
   - sap
   - btp
   - integration
   - event-driven architecture
-  - azure 
-  - aws 
+  - azure
+  - aws
   - genai
   - cloud application programming model
   - cap
@@ -35,7 +36,8 @@ contributors:
   - anbazhagan-uma
   - pra1veenk
   - AjitKP91
-  - swatimaste00 
+  - swatimaste00
+discussion: 
 last_update:
   author: anbazhagan-uma
   date: 2025-01-18
