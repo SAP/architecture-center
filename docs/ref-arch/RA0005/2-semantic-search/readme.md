@@ -2,9 +2,14 @@
 id: id-ra0005-2
 slug: /ref-arch/5c9255f84a/2
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Embeddings & Semantic Search
-description: Semantic search using embeddings converts data into dense numeric vectors to capture meanings. Stored in vector databases, these vectors enable efficient similarity searches with cosine similarity, improving search relevance and user experience by focusing on meaning over exact keywords.
+description: >-
+  Semantic search using embeddings converts data into dense numeric vectors to
+  capture meanings. Stored in vector databases, these vectors enable efficient
+  similarity searches with cosine similarity, improving search relevance and
+  user experience by focusing on meaning over exact keywords.
 keywords:
   - sap
   - ai
@@ -30,6 +35,7 @@ contributors:
   - AdiPleyer
   - vedant-aero-ml
   - madankumarpichamuthu
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2025-01-31
