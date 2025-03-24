@@ -332,6 +332,10 @@ const config: Config = {
                             label: 'SAP Discovery Center',
                             href: 'https://discovery-center.cloud.sap/index.html',
                         },
+                        {
+                            label: 'BTP Solution Diagrams',
+                            href: 'https://sap.github.io/btp-solution-diagrams/',
+                        },
                     ],
                 },
             ],
