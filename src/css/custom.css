@@ -72,6 +72,7 @@
     /* Changed by PO: All pages should use the same colors */
     color: #535353;
     font-size: 0.8rem; /* Adjust the font size as needed */
+    font-weight: 400;
     line-height: 1rem;
 }
 
@@ -145,7 +146,7 @@
 .breadcrumbs__item--active .breadcrumbs__link {
     background: var(--ifm-sidebar-selected-item-background-color);
     color: var(--ifm-menu-color-active);
-    font-weight: 500;
+    font-weight: bold;
 }
 
 /* Dropdown menu customization*/
