@@ -12,6 +12,7 @@
 :root {
     --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif'; /* font 72 is SAP’s proprietary typeface */
     --ifm-font-color-base: #1d2d3e; /* Morning Horizon's color for text and titles */
+    --ifm-link-color: #0070f2; /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
     --ifm-color-primary-darker: #002a86;
@@ -22,7 +23,6 @@
     --ifm-color-secondary: #7858ff;
     --ifm-color-secondary-dark: #a9b4be;
     --ifm-background-color: #ffffff;
-    --ifm-link-color: #0057d2;
     --ifm-sidebar-selected-item-background-color: #e3f2fd;
     --ifm-navbar-link-hover-color: #556b82;
     --ifm-breadcrumb-color-active: #0057d2;
@@ -226,6 +226,7 @@ table thead {
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
     --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
+    --ifm-link-color: #4DB1FF; /* Evening Horizon's color for links */
     --ifm-color-primary: #d1efff;
     --ifm-color-primary-dark: #439ddd;
     --ifm-color-primary-darker: #4684e8;
@@ -234,7 +235,6 @@ table thead {
     --ifm-color-primary-lighter: #7adcff;
     --ifm-color-primary-lightest: #8dc2f7;
     --ifm-background-color: #ffffff;
-    --ifm-link-color: #0057d2;
     --ifm-background-color-selected-item: #0a6ed1;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
@@ -328,7 +328,6 @@ table thead {
     background-color: #1a2733;
 }
 
-[data-theme='dark'] a,
 [data-theme='dark'] h1,
 [data-theme='dark'] h2,
 [data-theme='dark'] h3,
