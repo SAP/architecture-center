@@ -128,7 +128,6 @@ html[data-theme='dark'] .menu__link {
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
-    z-index: 1000;
 }
 
 .header_button {
