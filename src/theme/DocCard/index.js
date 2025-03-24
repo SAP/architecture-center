@@ -11,7 +11,7 @@ import {
 } from '@docusaurus/plugin-content-docs/client';
 import {usePluralForm} from '@docusaurus/theme-common';
 import {translate} from '@docusaurus/Translate';
-import {Card, CardHeader, Text, Icon, FlexBox, Tag, Label} from '@ui5/webcomponents-react';
+import {Card, Text, Icon, FlexBox, Tag, Label, Title} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/dimension";
 import "@ui5/webcomponents-icons/dist/action";
 
@@ -35,7 +35,7 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
   return (
       <Card
         style={{
-          height: '360px',
+          height: '400px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -58,23 +58,38 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
           e.currentTarget.style.transform = 'none';
         }}
       >
-      <CardHeader
-        slot="header"
-        interactive
-        titleText={title}
-        avatar={<Icon name="dimension" style={{ color: '#0070F2' }} />}
-        wrappingType="Normal"
-        style={{
-          lineHeight: '1rem',
-          pointerEvents: 'none'
-        }}
-      />
+      {/* Custom Banner Image */}
+      <FlexBox direction="Column">
+        <div
+          style={{
+            height: '50px',
+            backgroundImage: `url('/img/Card_header_blue.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+
+        {/* Blue Left Accent */}
+        <FlexBox justifyContent="Start" alignItems="Center">
+          <div
+            style={{
+              marginTop:'10px',
+              height: '40px',
+              width: '6px',
+              backgroundColor: '#0070F2',
+            }}
+          />
+          <Title style={{padding: '0 16px', marginTop: '10px'}}>{title}</Title>
+        </FlexBox>
+      </FlexBox>
+
       <Text
           style={{
             padding: '0 16px',
             textAlign: 'left',
             flexGrow: 1,
             cursor: 'pointer',
+            marginTop: '10px',
             marginBottom: '20px'
           }}
       >
@@ -159,18 +174,21 @@ function CardCategory({item}) {
   );
 }
 
-function CardLink({item}) {
-  const doc = useDocById(item.docId ?? undefined);
+function CardLink({ item }) {
+  const href = item.customProps?.href;
+  const description = item.description ?? item.customProps?.description ?? '';
+
   return (
     <CardLayout
-      href={item.href}
+      href={item.href ?? href}
       title={item.customProps.title}
-      description={item.description ?? `${doc?.description.substring(0, 300)}...`}
+      description={description.length > 300 ? description.substring(0, 300) + '...' : description}
       tags={item.customProps.tags}
       lastUpdate={item.customProps.last_update}
     />
   );
 }
+
 
 export default function DocCard({item}) {
   switch (item.type) {

@@ -6,10 +6,11 @@ import Heading from '@theme/Heading';
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-import HeroSection from '../sections/HeroSection';
 import styles from './index.module.css';
 import React, { JSX } from 'react';
+import HeroSection from '../sections/HeroSection';
 import CommunitySection from '../sections/Community';
+import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
 
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
@@ -44,6 +45,7 @@ export default function Home(): JSX.Element {
             <main>
                 <HeroSection />
                 <CommunitySection />
+                <ExploreArchitectureSection />
             </main>
         </Layout>
     );

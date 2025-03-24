@@ -69,7 +69,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
     }, [colorMode]);
 
     const category = useCurrentSidebarCategory();
-    const isExplorePage = category?.customProps?.id === 'exploreallref';
+    const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
 
     const selectStyles = useMemo(() => getSelectStyles(isDarkMode), [isDarkMode]);
 
