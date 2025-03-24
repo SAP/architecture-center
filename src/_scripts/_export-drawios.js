@@ -27,7 +27,14 @@ if (!DOCKER) {
 }
 
 const files = readdirSync(SEARCH_DIR, { recursive: true });
-const drawios = files.filter((file) => file.match(/\.drawio$/));
+let drawios = files.filter((file) => file.match(/\.drawio$/));
+const subset = ["fedml-final.drawio", "fedml-aws.drawio", "multi-az.drawio", "reference-architecture-generative-ai.drawio"];
+drawios = drawios.filter(p => {
+    for (const sub of subset) {
+        if (p.includes(sub)) return true;
+    }
+    return false;
+});
 log(`Found ${drawios.length} drawios to export to svg\n`);
 
 const transforms = {};
@@ -80,6 +87,7 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
     const viewBox = svg.match(/viewBox="([^"]*)"/)[1].split(' ');
     const height = parseInt(viewBox[3]);
     const width = parseInt(viewBox[2]);
+    console.log("dims are:", "width", width, "height", height)
     // finding these exact values is a bit trial and error..
     const pad = 20;
     viewBox[0] = -pad;
@@ -92,6 +100,14 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         mt: 28,
     };
     logo.y = height + logo.mt;
+
+    let scaleDown = 1;
+    if (width < 1200) scaleDown = 0.85;
+    else if (width < 1000) scaleDown = 0.80;
+    else if (width < 800) scaleDown = 0.75;
+    logo.h =  logo.h * scaleDown;
+    logo.w =  logo.w * scaleDown;
+
     // have now title of solution diagram on top
     // need to shift everything else
     const yShift = 56;
@@ -111,20 +127,20 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         let title = frontmatter.match(/^title:\s(.*)$/m)[1];
         if (title.includes('#')) title = title.split('#')[0];
         const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
-        const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="22">
+        const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(22 * scaleDown)}">
                         <![CDATA[${title}]]>
                     </text>
                     <g transform="translate(0, ${yShift})">
-                    <text x="${textX}" y="${logo.y + 20}" font-family="Arial" font-weight="bold" font-size="20">
+                    <text x="${textX}" y="${logo.y + 20}" font-family="Arial" font-weight="bold" font-size="${20 * scaleDown}">
                         Architecture Center
                     </text>
-                    <text x="${textX}" y="${logo.y + logo.h - 4}" font-family="Arial" font-style="italic" font-size="16">
+                    <text x="${textX}" y="${logo.y + logo.h - 4}" font-family="Arial" font-style="italic" font-size="${16 * scaleDown}">
                         Last update on ${lastUpdate}
                     </text>
                     <g transform="translate(0, ${logo.y})">
                         <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
                     </g>
-                    <text x="${width / 2}" y="${logo.y + 36}" font-family="Arial" font-size="18">
+                    <text x="${width / 2}" y="${logo.y + 36}" font-family="Arial" font-size="${18 * scaleDown}">
                         ${URL + slug}
                     </text>
                     </g>`;
@@ -142,7 +158,7 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
             .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
         writeFileSync(svgPath, svg);
-        log(prettyPaths('Watermarked ' + svgPath));
+        // log(prettyPaths('Watermarked ' + svgPath));
     } catch (e) {
         const msg = prettyPaths(`Failed to watermark ${svgPath}, aborting now`);
         throw new Error(msg, { cause: e });
