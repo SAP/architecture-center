@@ -174,12 +174,12 @@ html[data-theme='dark'] .menu__link {
 }
 .community_body {
     padding-right: 2rem;
-    width: 55%;
+    width: 70%;
 }
 
 .community_image {
-    width: 40%;
-    height: 302px;
+    width: 33%;
+    height: 400px;
     flex-shrink: 0;
     justify-content: center;
 }
@@ -195,7 +195,7 @@ html[data-theme='dark'] .menu__link {
     padding: 4px 25px;
     padding-bottom: 4px;
     padding-top: 6px;
-    width: 250px;
+    width: 150px;
     height: 35px;
     background-color: #0064d9;
     border: 1px solid #0064d9;
@@ -219,7 +219,7 @@ html[data-theme='dark'] .menu__link {
     width: 100%;
     height: auto;
     border-radius: 20px;
-    box-shadow: 0px 4px 10px rgba(0.3, 0.3, 0.3, 0.3);
+    /*box-shadow: 0px 4px 10px rgba(0.3, 0.3, 0.3, 0.3);*/
 }
 
 @media screen and (max-width: 1200px) {
