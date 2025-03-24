@@ -5,10 +5,9 @@ export default function HeroSection(): JSX.Element {
     return (
         <section>
             <div className="hero_banner">
-                {/* <div className="banner-overlay"></div> */}
                 <div className="container">
                     <div className="welcome">
-                        <h1>
+                        <h1 className="header_title">
                             <b className="header_text">SAP Architecture Center</b>
                         </h1>
 
@@ -22,7 +21,7 @@ export default function HeroSection(): JSX.Element {
 
                         <div className="header_button">
                             <Link className="button_hero" to="/docs/exploreallrefarch">
-                                Explore the Reference Architecture
+                                Explore
                             </Link>
                         </div>
                     </div>
