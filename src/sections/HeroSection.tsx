@@ -21,7 +21,7 @@ export default function HeroSection(): JSX.Element {
                         </div>
 
                         <div className="header_button">
-                            <Link className="button_hero" to="/explore">
+                            <Link className="button_hero" to="/docs/exploreallrefarch">
                                 Explore the Reference Architecture
                             </Link>
                         </div>

@@ -6,24 +6,24 @@ export default function CommunitySection(): JSX.Element {
         <section>
             <div className="container">
                 <div className="community">
-                    <h2>
-                        <b>
-                            <HighlightText>Connect with Community</HighlightText>
-                        </b>
-                    </h2>
                     <div className="community_image">
                         <img src="/img/landingPage/community.jpg" className="community_image_inside" />
                     </div>
                     <div className="community_body">
+                        <h2>
+                            <b>
+                                <HighlightText>Let's Build Together</HighlightText>
+                            </b>
+                        </h2>
                         <p>
-                            Are you an architect, or someone in a similar role, with experience creating solution
-                            diagrams? Would you like to dive deeper into the subject or get involved enhancing the BTP
-                            Solution Diagram Design Guideline? <br />
-                            Why not share your expertise with us and enjoy the opportunity to interact with a wider
-                            network of architects and like-minded individuals across numerous platforms? Here's how you
-                            can initiate and build on these connections. <br />
-                            <br />
-                            <b>Visit the communities to help us help each other!</b>
+                            Are you passionate about solution architecture and eager to share your knowledge and
+                            expertise with others? <br /> <br />
+                            The Architecture Center is the perfect place for you! Whether you're an experienced
+                            architect or someone just starting out, our community welcomes everyone who wants to
+                            contribute and collaborate on creating and sharing reference architectures. <br /> <br />
+                            This is more than just a platform; it's a collective effort to advance the field of
+                            architecture through shared knowledge and collaboration. Together, we can create a rich
+                            repository of reference architectures that benefit everyone. <br /> <br />
                         </p>
                         <div className="community_buttons">
                             <Link className="button_filled_community" to="/community/intro">
