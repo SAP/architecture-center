@@ -69,7 +69,6 @@ The key services used by AWS are AWS IoT Core, Amazon SWS and Amazon EventBridge
 
 ![drawio](drawio/e2b-awsiot-sqs.drawio)
 
-
 The following steps depict the information flow across systems
 
 1. An application administrator logs into the SAP BTP Extension application based on Events to Business Actions Framework via SAP Build Work Zone, advanced edition, to configure the business rules, decisions, and the business actions that need to be triggered in the business systems.

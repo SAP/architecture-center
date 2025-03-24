@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link';
 import LinkDrawioViewer from './LinkDrawioViewer';
 import '@ui5/webcomponents-icons/dist/download.js';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import React from 'react'
 
 // eventually, the drawio image won't be there locally. we'll generate it before deployment
 // locally, use fallback image
@@ -15,16 +16,17 @@ export default function DrawioResources({ drawioFile, drawioImg }) {
         // current selector to apply zoom (see docusaurus.config) doesn't select img if directly
         // under div with class 'markdown' => wrap img in paragraph for now
         <>
-            <p>
-                <img
-                    decoding="async"
-                    loading="lazy"
-                    src={drawioImg ?? path}
-                    alt="image of solution diagram"
-                    style={{ height: 'auto' }}
-                />
-            </p>
-            <Admonition type="info" title="Solution Diagram Resources">
+        <p>
+        <img
+            decoding="async"
+            loading="lazy"
+            src={drawioImg ?? path}
+            alt="image of solution diagram"
+            className={drawioImg ? '' : 'fallback-image'}
+            style={{ height: 'auto'}}
+        />
+        </p>
+                       <Admonition type="info" title="Solution Diagram Resources">
                 You can download the Solution Diagram as a{' '}
                 <b>
                     <code>.drawio</code>
