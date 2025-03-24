@@ -38,7 +38,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                     style={{ marginTop: 22, gap: '8px normal' }}
                 >
                     <a href={drawioFile} download>
-                        <Button design="Emphasized" style={{ width: 122 }}>
+                        <Button design="Emphasized" style={{ width: 150 }}>
                             Download
                         </Button>
                     </a>

@@ -24,7 +24,7 @@ export default function LinkDrawioViewer({ drawioXml }) {
 
     return (
         <a href={encodedLink} target="_blank">
-            <Button style={{ width: 122 }}>Edit</Button>
+            <Button style={{ width: 150 }}>Edit</Button>
         </a>
     );
 }
