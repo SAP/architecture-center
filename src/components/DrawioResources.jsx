@@ -2,7 +2,6 @@ import { FlexBox, Button } from '@ui5/webcomponents-react';
 import Admonition from '@theme/Admonition';
 import Link from '@docusaurus/Link';
 import LinkDrawioViewer from './LinkDrawioViewer';
-import '@ui5/webcomponents-icons/dist/download.js';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 // eventually, the drawio image won't be there locally. we'll generate it before deployment
@@ -39,8 +38,8 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                     style={{ marginTop: 22, gap: '8px normal' }}
                 >
                     <a href={drawioFile} download>
-                        <Button design="Emphasized" icon="download">
-                            Download as .drawio file
+                        <Button design="Emphasized" style={{ width: 150 }}>
+                            Download
                         </Button>
                     </a>
                     <LinkDrawioViewer drawioXml={drawioXml} />
