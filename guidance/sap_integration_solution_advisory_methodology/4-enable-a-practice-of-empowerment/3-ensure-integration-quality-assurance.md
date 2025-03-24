@@ -35,8 +35,6 @@ Enrich existing quality assurance measures with a lightweight integration checkl
 
 ***
 
-<a name="loio510460779ea2460ca158d78e1747dc66__section_egd_rks_swb"/>
-
 ## Context
 
 Most organizations have quality assurance methods for their IT projects in place to ensure compliance against defined standards such as security, performance and usability standards. Integration is an integral part of most IT projects like implementing a new business application or upgrading/migrating an existing one. In this way, integration aspects need also be reflected as part of those quality assurance methods. Quality assurance measures are ideally part of every stage of an IT project, ranging from the requirements gathering, design, implementation, testing, go-live, and operations.
@@ -64,8 +62,6 @@ You can complement your existing quality assurance process with an integration q
 The integration quality checklist is defined and is supervised by integration architects of the Integration Center of Excellence.
 
 ***
-
-<a name="loio510460779ea2460ca158d78e1747dc66__section_lj2_dls_swb"/>
 
 ## Procedure
 

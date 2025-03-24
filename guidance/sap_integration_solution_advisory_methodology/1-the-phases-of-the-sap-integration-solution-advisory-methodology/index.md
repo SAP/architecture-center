@@ -37,8 +37,6 @@ Each phase is comprised of a set of steps describing the context, procedure and 
 
 ***
 
-<a name="loio30d69e8c12dc46f68adb2f92621e1852__section_wjk_hfs_qwb"/>
-
 ## 1. Assess Your Integration Strategy
 
 As a starting point an enterprise architect uses the SAP Integration Solution Advisory Methodology to identify the future building blocks for an organization’s integration architecture. For this purpose, the methodology offers a technology-agnostic scoping approach, which supports hybrid IT environmentsthat are comprised of SAP and third-party technologies and applications, too. As a result, you will have defined the functional scope of an organization’s future hybrid integration platform.
@@ -46,8 +44,6 @@ As a starting point an enterprise architect uses the SAP Integration Solution Ad
 ![](images/loiod2adb94654c6481f87c2880ee3c31d67_LowRes.png)
 
 ***
-
-<a name="loio30d69e8c12dc46f68adb2f92621e1852__section_qf2_3fs_qwb"/>
 
 ## 2. Design Your Hybrid Integration Platform
 
@@ -57,8 +53,6 @@ In this phase, an enterprise architect maps the results of the integration strat
 
 ***
 
-<a name="loio30d69e8c12dc46f68adb2f92621e1852__section_qnd_jfs_qwb"/>
-
 ## 3. Define Integration Best Practices
 
 Next, an integration architect defines architecture blueprints for the integration use case patterns that are relevant for their organization. These blueprints outline the scope of technologies, how they’re interconnected and further information, which is relevant for integration scenarios. Furthermore, the integration architect can define integration dos and don’ts, which integration developers can use as guardrails to implement integration scenarios in a consistent fashion. The integration architect also prepares development guidelines for applicable integration technologies, for instance by enriching vendor-specific best practices with customer-specific aspects \(such as naming conventions for integration artifacts\).
@@ -66,8 +60,6 @@ Next, an integration architect defines architecture blueprints for the integrati
 ![](images/loiobcb9902ac0a841b4919d62803a39011f_LowRes.png)
 
 ***
-
-<a name="loio30d69e8c12dc46f68adb2f92621e1852__section_ckh_kfs_qwb"/>
 
 ## 4. Enable a Practice of Empowerment
 
@@ -78,8 +70,6 @@ By following the SAP Integration Solution Advisory Methodology, you’ll create 
 ![](images/loio15e3f398add44af5b6acb10381380353_LowRes.png)
 
 ***
-
-<a name="loio30d69e8c12dc46f68adb2f92621e1852__section_zd1_sfs_qwb"/>
 
 ## Getting Started with Applying the Methodology
 

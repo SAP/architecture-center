@@ -35,8 +35,6 @@ Get the second level of integration architecture assessment by selecting integra
 
 ***
 
-<a name="loio189e05d7319245e0a93f9b6080b5ddb4__section_d4h_bbb_rwb"/>
-
 ## Context
 
 After you have determined relevant integration domains, you take the next step by identifying relevant integration styles. Integration styles represent key integration archetypes, which describe how an integration scenario between a business application and its target is realized.
@@ -101,8 +99,6 @@ Each integration style has specific requirements toward integration. The followi
 Typically an integration architect who has a solid understanding of integration requirements across business applications performs the scoping of integration styles.
 
 ***
-
-<a name="loio189e05d7319245e0a93f9b6080b5ddb4__section_efy_wdb_rwb"/>
 
 ## Procedure
 

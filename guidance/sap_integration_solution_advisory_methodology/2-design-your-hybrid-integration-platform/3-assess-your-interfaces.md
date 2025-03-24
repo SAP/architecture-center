@@ -35,8 +35,6 @@ Integration developers determine the right integration technology by assessing i
 
 ***
 
-<a name="loio57a7941b790b46e399e66553a4c25463__section_mhn_ysj_swb"/>
-
 ## Context
 
 A typical task of integration developers in implementation projects is to blueprint integration scenarios between two business applications \(see ? in the image below\). Typically, a business scenario is broken down into technical interfaces. Next, an integration developer needs to classify/assess the technical interface whether it belongs to a process-, data-, analytics-, user-, or thing-centric integration style \(see 1 in the image below\) followed by the applicable integration use case pattern \(see 2 in the image below\). An integration developer can select the appropriate integration technology with the help of the defined integration policies \(see number 3 in the image below\).
@@ -52,8 +50,6 @@ In addition to that, it also offers detailed guidance for integration developers
 Typically integration developers conduct such interface assessments.
 
 ***
-
-<a name="loio57a7941b790b46e399e66553a4c25463__section_x5q_ftj_swb"/>
 
 ## Procedure
 

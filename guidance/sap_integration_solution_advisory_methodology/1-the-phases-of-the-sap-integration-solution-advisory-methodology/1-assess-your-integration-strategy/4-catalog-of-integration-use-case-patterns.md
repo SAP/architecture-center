@@ -35,8 +35,6 @@ The SAP Integration Solution Advisory Methodology includes a catalog of predefin
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_asc_12l_vwb"/>
-
 ## Description
 
 The integration usecase patterns are grouped along integration styles and the cross-use case patterns form their own group.
@@ -48,15 +46,11 @@ For each pattern of this catalog, a description, illustration, and examples in a
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_t1n_22l_vwb"/>
-
 ## Integration Use-Case Patterns of the Process Integration Style
 
 The process integration style foresees four integration use-case patterns describing various needs of connecting business processes across business applications and other involved entities.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_sbs_f2l_vwb"/>
 
 ## A2A Integration
 
@@ -78,8 +72,6 @@ Examples of A2A integration use-case patterns in an SAP context, which are prede
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_o2p_jfl_vwb"/>
-
 ## Master Data Integration
 
 With the help of the master data integration use-case pattern, you can share master data objects across connected business applications. Master data is basic data about business-relevant objects that is required in different contexts, such as materials or business partners. To ensure data consistency the master data is synchronized across connected business applications in \(near-\) real-time fashion using APIs.
@@ -99,8 +91,6 @@ Examples of the master data integration use-case pattern in an SAP context, whic
 -   Synchronization of the customer master data object as part of the Lead to Cash process for cloud deployment. For more information, see: [Master Data Flow for Business Partner Customer](https://api.sap.com/dfd/LC1C1-DFDMasterDataFlowforBusinessPartnerCustomer).
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_dkj_fnm_vwb"/>
 
 ## B2B Integration
 
@@ -122,8 +112,6 @@ Examples of the B2B integration use-case pattern in an SAP context, which are cu
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_apf_sym_vwb"/>
-
 ## B2G Integration
 
 In many countries or regions organizations need to comply with local requirements mandating the submission of electronic documents to authorities or business partners. For this purpose, the business to government \(B2G\) integration use-case pattern allows you to exchange electronic documents, such as invoices, summaries, or transport registrations that conform to legally required data formats and security standards as mandated by the respective authority. You exchange these electronic documents with external systems, for example with business partners' systems with or without the authorities being involved in the process.
@@ -144,15 +132,11 @@ Examples of the B2G integration use-case pattern in an SAP context, which are pr
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_pt1_pzm_vwb"/>
-
 ## Integration Use-Case Patterns of the Data Integration Style
 
 The data integration style foresees four integration use-case patterns describing different approaches for synchronizing or accessing data across business applications and data sources.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_zbt_qzm_vwb"/>
 
 ## Data Replication \(ETL\)
 
@@ -178,8 +162,6 @@ Examples of the data replication use-case pattern in an SAP context, which are p
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_anv_m1n_vwb"/>
-
 ## Data Virtualization
 
 By creating a virtual abstraction layer, data virtualization offers a single view of all data that resides in a database. The data virtualization use-case pattern enables real-time access to data regardless of its location, source system, or type. It uses a data services layer to integrate data and content from heterogeneous sources on demand. This integration can happen in real time or near-real time, in a stream or a batch – supporting a wide range of business processes.
@@ -199,8 +181,6 @@ Examples of the data virtualization use-case pattern in an SAP context, which ar
 -   Run queries on combined data sources in real time, including DML \(Data Manipulating Language\) queries such as SQL \(Structured Query Language\), with updates being written back to the remote source.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_fsl_w1n_vwb"/>
 
 ## Data Quality Management
 
@@ -222,8 +202,6 @@ Examples of the data quality management integration use-case pattern in an SAP c
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_dbl_lbn_vwb"/>
-
 ## Data Orchestration
 
 The data orchestration integration use-case pattern extends data integration: It combines data discovery, preparation, integration, processing, and the connection of data across multiple and complex landscapes. Data orchestration follows a pipeline-driven data integration approach for disparate kinds of data supporting also distributed processing.
@@ -244,15 +222,11 @@ Examples of the data orchestration use-case pattern in an SAP context, which are
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_zbm_5bn_vwb"/>
-
 ## Integration Use-Case Patterns of the Analytics Integration Style
 
 The analytics integration style foresees two integration use-case patterns for enabling analytical queries and insights along business applications.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_lbn_vbn_vwb"/>
 
 ## Embedded Analytics
 
@@ -274,8 +248,6 @@ Examples of the embedded analytics integration use-case pattern in an SAP contex
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_cq5_kcn_vwb"/>
-
 ## Cross Application Analytics
 
 With the help of this integration use-case pattern you can combine data of several source systems using an analytics or data warehouse solution. On top of the combined data, you can build an analytic consumption model to enable \(cross application\) reporting.
@@ -294,15 +266,11 @@ Examples of the embedded analytics integration use-case pattern in an SAP contex
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_zrx_5cn_vwb"/>
-
 ## Integration Use-Case Patterns of the User Integration Style
 
 The user integration style foresees three integration use-case patterns. These allow users to access data from one or more business applications through different user interfaces \(UI\), such as web-based user interfaces, mobile applications, or chat.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_bjw_vcn_vwb"/>
 
 ## UI Integration
 
@@ -324,8 +292,6 @@ Examples of the UI integration use-case pattern in an SAP context, which are pre
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_j4t_32n_vwb"/>
-
 ## Mobile Integration
 
 The mobile integration use-case pattern enables the consumption of back-end application services in a mobile application, using native or hybrid device capabilities including offline data synchronization.
@@ -344,8 +310,6 @@ Examples of the mobile integration use-case pattern in an SAP context, which are
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_byh_s2n_vwb"/>
-
 ## Chatbot Integration
 
 This integration use-case pattern integrates chatbots into various communication channels including integration with business applications to trigger a transaction or retrieve further information.
@@ -360,15 +324,11 @@ This integration use-case pattern integrates chatbots into various communication
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_jrs_v2n_vwb"/>
-
 ## Integration Use-Case Patterns of the Thing Integration Style
 
 The thing integration style is comprised of of four integration use-case patterns, which allows you to connect real world objects \(such as sensor equipped machines or devices\) with business applications and data sources.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_j4p_w2n_vwb"/>
 
 ## Thing to Analytics
 
@@ -389,8 +349,6 @@ Examples of the thing to analytics integration use-case pattern in an SAP contex
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_gt2_gfn_vwb"/>
-
 ## Thing to Process
 
 With the help of the thing to process integration use-case pattern you can exchange data from physical objects for triggering a process step within a business application.
@@ -409,8 +367,6 @@ Examples of the thing to process integration use-case pattern in an SAP context 
 -   Integrate SAP Warehouse Robotics with physical robots to move handling units from source storage bins to destination storage bins in a warehouse. For more information, see: [Integration Services for SAP Warehouse Robotics](https://help.sap.com/docs/WAREHOUSE_ROBOTICS/17f1b82db1bc44e2b42097afae9b016a/8f7724109f5c4aaf82af86fffe503e33.html?locale=en-US).
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_wyp_qfn_vwb"/>
 
 ## Thing to Data Lake
 
@@ -431,8 +387,6 @@ Examples of the thing to data lake integration use-case pattern in an SAP contex
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_wmy_wfn_vwb"/>
-
 ## Thing to Thing
 
 This integration use-case pattern enables machine-to-machine integration scenarios where devices, robots, or similar can communicate with each other with the help of sensors and industrial standards such as the MQTT \(MQ telemetry transport\) protocol.
@@ -452,15 +406,11 @@ Examples of the thing to thing integration use-case pattern in an SAP context, w
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_u54_ngn_vwb"/>
-
 ## Cross Use-Case Patterns
 
 Cross use-case patterns can complement one or more integration styles. The current version of the SAP Integration Solution Advisory Methodology foresees five cross use cases.
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_mkm_4gn_vwb"/>
 
 ## API-Managed Integration
 
@@ -482,8 +432,6 @@ Examples of the API-managed integration use-case pattern in an SAP context, whic
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_vfx_xgn_vwb"/>
-
 ## Event-Driven Integration
 
 With the help of the event-driven integration use-case pattern you can implement a loosely coupled integration of business applications and extensions, which is based on events. An event represents a significant change in state of a \(business\) object. Whenever such a change occurs the event source publishes this information as event to an event infrastructure. These are intermediaries that broker and manage events. Event consumers are software components that subscribe to the event infrastructure to be informed about events.
@@ -503,8 +451,6 @@ Examples of the events-driven integration use-case pattern in an SAP context, wh
 -   Inform remote systems when a freight booking is created, changed, or cancelled in SAP S/4HANA. This information can be used to reserve freight space on a ship or airplane and to track the actual execution. For more information, see: [Freight Booking](https://help.sap.com/docs/SAP_S4HANA_CLOUD/588780cab2774a7ab9fffca3a7f919fe/7d9ea32445a84e7ca22e8ff6b6e6a032.html?profile=20025561&locale=en-US).
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_bjv_nhn_vwb"/>
 
 ## Stream Analytics
 
@@ -526,8 +472,6 @@ Examples of the stream analytics use-case pattern in an SAP context, which are c
 
 ***
 
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_lrr_5hn_vwb"/>
-
 ## Process Automation
 
 This cross-use case pattern lets you automate workflow processes and tasks across business applications, office software and more with the help of workflows, bots, and connectors.
@@ -547,8 +491,6 @@ Examples of the process automation use-case pattern in an SAP context that are p
 -   Automatically export experience measurement scores from Qualtrics to SAP Sales Cloud and Service Cloud using screen scraping. For more information, see: [Automatic export of XM scores and intelligent X-data \(Qualtrics, SAP Sales Cloud and Service Cloud\)](https://store.irpa.cfapps.eu10.hana.ondemand.com/#/package/6d54a4c2-7a22-42c2-93bf-51a24a8024a6).
 
 ***
-
-<a name="loio712c94c249d54894ba4e33f5d5bbfeab__section_rn1_j3n_vwb"/>
 
 ## Digital Integration Hub
 

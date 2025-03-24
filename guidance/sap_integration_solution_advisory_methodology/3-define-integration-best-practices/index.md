@@ -35,8 +35,6 @@ After you’ve designed your hybrid integration platform in the previous phase, 
 
 ***
 
-<a name="loiof8483683f43b4dd9a3fab212df68aa16__section_vbb_gnk_swb"/>
-
 ## Description
 
 The SAP Integration Solution Advisory Methodology describes vendor-agnostic concepts for integration best practices, which have been proven as most useful and valuable by SAP customers and partners. These are complemented with examples in an SAP context.
@@ -49,15 +47,11 @@ The first task is to describe integration dos and don’ts which is a set of mos
 
 ***
 
-<a name="loiof8483683f43b4dd9a3fab212df68aa16__section_mp5_jnk_swb"/>
-
 ## Goal
 
 The objective of this phase to govern and safeguard the implementation of integration scenarios. Documented and shared best practices are especially useful for integration development teams, which are organized in a decentral or distributed fashion. These help to agree on joint integration standards which increases the organization’s integration maturity level.
 
 ***
-
-<a name="loiof8483683f43b4dd9a3fab212df68aa16__section_xtt_knk_swb"/>
 
 ## Deliverables
 
@@ -68,8 +62,6 @@ At the end of this phase, you’ll have created the following set of assets:
 -   Integration development guidelines for integration technologies that are in use
 
 ***
-
-<a name="loiof8483683f43b4dd9a3fab212df68aa16__section_b3v_nnk_swb"/>
 
 ## Personas
 
