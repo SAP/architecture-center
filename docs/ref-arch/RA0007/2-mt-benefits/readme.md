@@ -79,12 +79,16 @@ The benefits of multitenancy extend beyond mere cost savings; they include incre
     Sharing infrastructure among tenants not only reduces costs but also helps minimize the environmental footprint of running the software.
 
     - **Efficient Use of Hardware**: Multitenancy maximizes the use of server resources, meaning fewer machines are needed to handle the same workload compared to single-tenant systems. This leads to reduced energy consumption and less electronic waste.
-    - **Sustainable Growth**: As the system scales, the efficient use of resources continues to minimize environmental impact, making it a greener option for hosting software solutions.---## Comparative Analysis
+    - **Sustainable Growth**: As the system scales, the efficient use of resources continues to minimize environmental impact, making it a greener option for hosting software solutions.
+    
+---
+
+## Comparative Analysis
 
 Multitenancy provides a wealth of benefits, from cost savings and scalability to simplified management and better resource utilization. It enables service providers to efficiently deliver high-quality software to multiple tenants while maintaining security, customization, and performance. For tenants, it offers a fast, scalable, and cost-effective way to access cloud-based services while enjoying the advantages of shared resources and simplified upgrades.
 
 | Single Tenancy                                            | Multitenancy                                                                          |
-|---------------------------------------------------------|------------------------------------------------------------------------------------- |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | Each customer has a dedicated instance of the application | Multiple customers share a single instance of the application                         |
 | Each customer has their own database and infrastructure   | Customers share the same database and infrastructure                                  |
 | Customization is easier but requires separate deployments | Customization is more challenging but can be achieved through configuration           |
