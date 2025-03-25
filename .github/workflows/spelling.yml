@@ -1,28 +1,75 @@
-name: Spell Check
+name: Check Spelling
 
 on:
     workflow_dispatch:
 
 jobs:
-    spell-check:
+    spelling:
+        name: Check Spelling
+        permissions:
+            contents: read
+            pull-requests: read
+            actions: read
+            security-events: write
+        outputs:
+            followup: ${{ steps.spelling.outputs.followup }}
         runs-on: ubuntu-latest
+        concurrency:
+            group: spelling-${{ github.event.pull_request.number }}
+            cancel-in-progress: true
         steps:
-            - name: Checkout base repository
-              uses: actions/checkout@v4
-              with:
-                  ref: ${{ github.event.pull_request.head.sha }}
-
             - name: Run spell check (only specific folders)
-              uses: check-spelling/check-spelling@v0.0.20
+              id: spelling
+              uses: check-spelling/check-spelling@main
               with:
-                  paths: |
-                      docs/
-                      community/
-                      guidance/
+                  checkout: true
+                  check_file_names: 1
+                  spell_check_this: check-spelling/spell-check-this@prerelease
+                  post_comment: 0
+                  use_magic_file: 1
+                  report-timing: 1
+                  warnings: bad-regex,binary-file,deprecated-feature,large-file,limited-references,no-newline-at-eof,noisy-file,non-alpha-in-dictionary,token-is-substring,unexpected-line-ending,whitespace-in-dictionary,minified-file,unsupported-configuration,no-files-to-check
+                  experimental_apply_changes_via_bot: 1
+                  use_sarif: 1
+                  extra_dictionary_limit: 20
+                  extra_dictionaries: cspell:software-terms/dict/softwareTerms.txt
 
-            - name: Upload spelling artifacts
-              if: failure()
-              uses: actions/upload-artifact@v4
+    comment-pr:
+        name: Report (PR)
+        runs-on: ubuntu-latest
+        needs: spelling
+        permissions:
+            contents: read
+            pull-requests: write
+        if: (success() || failure()) && needs.spelling.outputs.followup
+        steps:
+            - name: Comment on PR
+              uses: check-spelling/check-spelling@main
               with:
-                  name: spelling-artifacts
-                  path: .github/actions/spelling/
+                  checkout: true
+                  spell_check_this: check-spelling/spell-check-this@prerelease
+                  task: ${{ needs.spelling.outputs.followup }}
+                  experimental_apply_changes_via_bot: 1
+
+    update:
+        name: Update PR
+        permissions:
+            contents: write
+            pull-requests: write
+            actions: read
+        runs-on: ubuntu-latest
+        if: ${{
+            github.event_name == 'issue_comment' &&
+            github.event.issue.pull_request &&
+            contains(github.event.comment.body, '@check-spelling-bot apply')
+            }}
+        concurrency:
+            group: spelling-update-${{ github.event.issue.number }}
+            cancel-in-progress: false
+        steps:
+            - name: Apply spelling updates
+              uses: check-spelling/check-spelling@main
+              with:
+                  experimental_apply_changes_via_bot: 1
+                  checkout: true
+                  ssh_key: '${{ secrets.CHECK_SPELLING }}'
