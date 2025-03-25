@@ -1,5 +1,7 @@
 import React, { JSX } from 'react';
 import Link from '@docusaurus/Link';
+import { Button } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/AllIcons';
 
 export default function CommunitySection(): JSX.Element {
     return (
@@ -17,18 +19,27 @@ export default function CommunitySection(): JSX.Element {
                             </b>
                         </h2>
                         <p>
-                            Are you passionate about solution architecture and eager to share your knowledge and expertise with others?
+                            Are you passionate about solution architecture and eager to share your knowledge and
+                            expertise with others?
                             <br /> <br />
-                            The <b>Architecture Center</b> is the perfect place for you! Whether you're an experienced architect or someone just starting out, our community welcomes everyone who wants to contribute and collaborate on creating and sharing reference architectures.
+                            The <b>Architecture Center</b> is the perfect place for you! Whether you're an experienced
+                            architect or someone just starting out, our community welcomes everyone who wants to
+                            contribute and collaborate on creating and sharing reference architectures.
                             <br /> <br />
-                            This is more than just a platform; it's a collective effort to advance the field of architecture through shared knowledge and collaboration. Together, we can create a rich repository of reference architectures that benefit everyone.
-                            <br /> <br />
+                            This is more than just a platform; it's a collective effort to advance the field of
+                            architecture through shared knowledge and collaboration. Together, we can create a rich
+                            repository of reference architectures that benefit everyone.
+                            <br />
                         </p>
-                        <div className="community_buttons">
-                            <Link className="button_filled_community" to="/community/intro">
+                        <Link to="/community/intro">
+                            <Button
+                                design="Transparent"
+                                icon="write-new-document"
+                                style={{ backgroundColor: '#0064D9', color: '#fff' }}
+                            >
                                 Let's go!
-                            </Link>
-                        </div>
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -114,7 +114,6 @@ html[data-theme='dark'] .menu__link {
 }
 
 .hero_banner {
-    background-color: #f5f6f7;
     background-image: url('/img/landingPage/Architecture_Center_banner2_rounded_1440x424.jpg');
     width: 100%;
     height: 424px;
@@ -128,38 +127,6 @@ html[data-theme='dark'] .menu__link {
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
-}
-
-.header_button {
-    padding: 0rem 0rem;
-    margin: 0rem 0rem;
-}
-
-.button_hero {
-    display: inline-block;
-    padding: 8px 44px;
-    padding-bottom: 30px;
-    padding-top: 6px;
-    max-width: 150px;
-    height: 35px;
-    background-color: #ffffff;
-    border: 1px solid #bcc3ca;
-    border-radius: 8px;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    font-weight: 600;
-    margin: 1rem auto;
-    color: #0070f2;
-    width: 100%;
-}
-
-.button_hero:hover {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #002a86;
-    border: 1px solid #002a86;
 }
 
 .community {
@@ -182,43 +149,6 @@ html[data-theme='dark'] .menu__link {
     height: 400px;
     flex-shrink: 0;
     justify-content: center;
-}
-
-.community_buttons {
-    margin: 0rem 0rem;
-    justify-content: center;
-}
-
-.button_filled_community {
-    display: flex;
-    flex-direction: row;
-    padding: 4px 25px;
-    padding-bottom: 4px;
-    padding-top: 6px;
-    width: 150px;
-    height: 35px;
-    background-color: #0064d9;
-    border: 1px solid #0064d9;
-    border-radius: 8px;
-    color: #ffffff;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.button_filled_community:hover {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #002a86;
-    border: 1px solid #002a86;
-}
-
-.community_image_inside {
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -250,13 +180,6 @@ html[data-theme='dark'] .menu__link {
         width: 50%;
         height: auto;
         margin: 0 auto;
-    }
-
-    .button_hero,
-    .button_filled_community {
-        width: 100%;
-        font-size: 13px;
-        width: 150px;
     }
 
     .container {
@@ -295,13 +218,6 @@ html[data-theme='dark'] .menu__link {
 
     .community {
         flex-direction: column;
-    }
-
-    .community_buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
     }
 }
 

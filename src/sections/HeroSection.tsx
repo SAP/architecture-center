@@ -1,5 +1,7 @@
 import React, { JSX } from 'react';
 import Link from '@docusaurus/Link';
+import { Button } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/AllIcons';
 
 export default function HeroSection(): JSX.Element {
     return (
@@ -16,16 +18,20 @@ export default function HeroSection(): JSX.Element {
                         <div className="header_body">
                             <p className="header_body_p">
                                 The SAP Architecture Center offers a place that provides solution reference
-                                architectures, helping businesses adopt SAP solution to turn data into valuable business
-                                insights.
+                                architectures, helping businesses adopt SAP solutions to turn data into valuable
+                                business insights.
                             </p>
                         </div>
 
-                        <div className="header_button">
-                            <Link className="button_hero" to="/docs/exploreallrefarch">
+                        <Link to="/docs/exploreallrefarch">
+                            <Button
+                                design="Default"
+                                icon="explorer"
+                                style={{ backgroundColor: '#ffffff', color: '#0064D9' }}
+                            >
                                 Explore
-                            </Link>
-                        </div>
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
