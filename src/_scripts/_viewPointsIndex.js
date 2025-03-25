@@ -14,14 +14,11 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
 
     // Special case: exploreallrefarch -> generate sidebar and JSON for React section
     if (sidebar_id === "exploreallrefarch") {
-        const filteredDocs = args.docs
-            .filter((doc) => doc.frontMatter?.sidebar_custom_props?.category_index);
-        //     .sort((a, b) => {
-        //         const dateA = new Date(a.frontMatter?.last_update?.date || 0);
-        //         const dateB = new Date(b.frontMatter?.last_update?.date || 0);
-        //         return dateB - dateA;
-        //     })
-        //     .slice(0, 6);
+        const filteredDocs = args.docs.filter(
+            (doc) =>
+              Array.isArray(doc.frontMatter?.sidebar_custom_props?.category_index) &&
+              doc.frontMatter.sidebar_custom_props.category_index.length > 0
+          );
 
         const docsItems = filteredDocs.map((doc) => {
             const title = doc.frontMatter?.title || doc.title;
