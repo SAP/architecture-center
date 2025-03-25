@@ -167,7 +167,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="mailto:paa@sap.com?subject=[Architecture Center] Message&body=Dear PAA team,%0D%0DI would like to contact you because:%0D%0D< Just want to say Hi or make a suggestion? Enter your message here! >%0D%0DThank you!%0D%0DRegards,%0D%0D< your_name >">We welcome your feedback</a>.</b>',
+                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="mailto:paa@sap.com?subject=[Architecture Center] Message&body=Dear PAA team,%0D%0DI would like to contact you because:%0D%0D< Just want to say Hi or make a suggestion? Enter your message here! >%0D%0DThank you!%0D%0DRegards,%0D%0DX">We welcome your feedback</a>.</b>',
             backgroundColor: '#0A6ED1',
             textColor: '#FFFFFF',
             isCloseable: true,

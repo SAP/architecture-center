@@ -16,7 +16,7 @@ export default function ShareSite() {
     const url = isBrowser ? window.location.toString() : '';
 
     const mailSubject = 'SAP Architecture Center - ' + pgTitle;
-    const mailBody = 'Hey,\n\nI came across this on the SAP Architecture Center and thought you would find it interesting.\n\nCheck it out here: ' + url + '\n\nEnjoy the read!\n\n<your_name>';
+    const mailBody = 'Hey,\n\nI came across this on the SAP Architecture Center and thought you would find it interesting.\n\nCheck it out here: ' + url + '\n\nEnjoy the read!\n\nX';
 
     return (
         <>
