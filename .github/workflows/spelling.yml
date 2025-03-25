@@ -1,14 +1,7 @@
 name: Check Spelling
 
 on:
-    pull_request_target:
-        branches:
-            - dev
-            - main
-        types:
-            - 'opened'
-            - 'reopened'
-            - 'synchronize'
+    workflow_dispatch:
 
 jobs:
     spelling:
