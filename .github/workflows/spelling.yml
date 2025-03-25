@@ -27,7 +27,7 @@ jobs:
         steps:
             - name: Run spell check (only specific folders)
               id: spelling
-              uses: check-spelling/check-spelling@v0.0.22
+              uses: check-spelling/check-spelling@main
               with:
                   checkout: true
                   paths: |
@@ -55,7 +55,7 @@ jobs:
         if: (success() || failure()) && needs.spelling.outputs.followup
         steps:
             - name: Comment on PR
-              uses: check-spelling/check-spelling@v0.0.22
+              uses: check-spelling/check-spelling@main
               with:
                   checkout: true
                   spell_check_this: check-spelling/spell-check-this@prerelease
@@ -79,7 +79,7 @@ jobs:
             cancel-in-progress: false
         steps:
             - name: Apply spelling updates
-              uses: check-spelling/check-spelling@v0.0.22
+              uses: check-spelling/check-spelling@main
               with:
                   experimental_apply_changes_via_bot: 1
                   checkout: true
