@@ -30,10 +30,6 @@ jobs:
               uses: check-spelling/check-spelling@main
               with:
                   checkout: true
-                  paths: |
-                      docs/
-                      community/
-                      guidance/
                   check_file_names: 1
                   spell_check_this: check-spelling/spell-check-this@prerelease
                   post_comment: 0
