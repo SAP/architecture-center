@@ -15,9 +15,9 @@ export default function HeroSection(): JSX.Element {
 
                         <div className="header_body">
                             <p className="header_body_p">
-                                The SAP Architecture Center offers a place that provides solution <br />
-                                reference architectures, helping businesses adopt SAP solution to <br />
-                                turn data into valuable business insights.
+                                The SAP Architecture Center offers a place that provides solution reference
+                                architectures, helping businesses adopt SAP solution to turn data into valuable business
+                                insights.
                             </p>
                         </div>
 
