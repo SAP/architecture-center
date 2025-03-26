@@ -5,7 +5,6 @@ import LinkDrawioViewer from './LinkDrawioViewer';
 import '@ui5/webcomponents-icons/dist/download.js';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-
 // eventually, the drawio image won't be there locally. we'll generate it before deployment
 // locally, use fallback image
 const FALLBACK_IMG = '/img/fallback-drawio-img.svg';
