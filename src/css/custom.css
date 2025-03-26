@@ -95,7 +95,7 @@ html[data-theme='dark'] .menu__link {
     line-height: normal;
     z-index: 1;
     width: 100%;
-    max-width: 50%;
+    max-width: 43%;
     font-size: 1.2rem;
 }
 
@@ -133,15 +133,11 @@ html[data-theme='dark'] .menu__link {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 4rem 0;
     margin: 0 auto;
     max-width: 1200px;
-    gap: 4rem;
-}
-.community_body {
-    padding-right: 2rem;
-    width: 70%;
+    gap: 8rem;
 }
 
 .community_image {

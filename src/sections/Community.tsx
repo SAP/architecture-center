@@ -32,11 +32,7 @@ export default function CommunitySection(): JSX.Element {
                             <br />
                         </p>
                         <Link to="/community/intro">
-                            <Button
-                                design="Transparent"
-                                icon="write-new-document"
-                                style={{ backgroundColor: '#0064D9', color: '#fff' }}
-                            >
+                            <Button design="Emphasized" style={{ width: 150 }}>
                                 Let's go!
                             </Button>
                         </Link>
