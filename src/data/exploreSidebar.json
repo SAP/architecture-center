@@ -234,12 +234,12 @@
       },
       {
         "type": "link",
-        "label": "Explore your Hyperscaler data with SAP Datasphere",
-        "href": "docs/ref-arch/28ac36db13",
+        "label": "Federated Machine Learning with SAP Datasphere",
+        "href": "docs/ref-arch/785c72ab48",
         "customProps": {
-          "title": "Explore your Hyperscaler data with SAP Datasphere",
-          "description": "SAP Datasphere's data integration architectures that harmonizes SAP and non-SAP data using data fabric architecture helps business experts to make data-driven decisions with unprecedented impact.",
-          "href": "docs/ref-arch/28ac36db13",
+          "title": "Federated Machine Learning with SAP Datasphere",
+          "description": "The SAP Federated Machine Learning Python library (FedML) applies the data federation architecture of SAP Datasphere for intelligently sourcing SAP and non-SAP data for Machine Learning experiments, run on any Machine Learning platform, thereby removing the need for replication or data movement. By abstracting data connection, data discovery, data loading (for all ML platforms), model training, model deployment, and inferencing (for hyperscaler machine learning platforms), the FedML library offers end-to-end integration with just a few lines of code.",
+          "href": "docs/ref-arch/785c72ab48",
           "tags": [
             {
               "tag": "azure",
