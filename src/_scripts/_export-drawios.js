@@ -153,4 +153,3 @@ function prettyPaths(log) {
     const strip = DOCKER ? 'docs/ref-arch/' : SEARCH_DIR + '/';
     return log.replaceAll(strip, '').replaceAll('\n', '');
 }
-
