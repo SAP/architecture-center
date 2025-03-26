@@ -635,7 +635,8 @@ html[data-theme='dark'] .footer {
 }
 
 html[data-theme='dark'] .navbar {
-    background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);
+    /* background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);*/
+    background: #001848;
     border-bottom: 2px solid #003366;
     backdrop-filter: blur(10px);
 }
