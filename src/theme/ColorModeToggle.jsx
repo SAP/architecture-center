@@ -3,6 +3,9 @@ import { setTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import '@ui5/webcomponents-react/dist/Assets';
 
 export default function ColorModeToggleWrapper(props) {
+    const theme = localStorage.getItem('theme');
+    setTheme(theme == 'dark' ? 'sap_horizon_dark' : 'sap_horizon');
+    
     const onChange = (mode) => {
         setTheme(mode === 'dark' ? 'sap_horizon_dark' : 'sap_horizon');
         props.onChange(mode);
