@@ -1,13 +1,16 @@
 import ColorModeToggle from '@theme-original/ColorModeToggle';
 import { setTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import '@ui5/webcomponents-react/dist/Assets';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import { useEffect } from 'react';
 
 export default function ColorModeToggleWrapper(props) {
-    <BrowserOnly>
-        const theme = localStorage.getItem('theme');
+    // run only in first render of the component
+    useEffect(() => {
+        // set light theme as default
+        const theme = localStorage?.getItem?.('theme') || 'light';
         setTheme(theme == 'dark' ? 'sap_horizon_dark' : 'sap_horizon');
-    </BrowserOnly>
+    }, []);
+
     const onChange = (mode) => {
         setTheme(mode === 'dark' ? 'sap_horizon_dark' : 'sap_horizon');
         props.onChange(mode);
