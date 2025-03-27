@@ -31,7 +31,7 @@ function useCategoryItemsPlural() {
       ),
     );
 }
-function CardLayout({ href, title, description, tags, lastUpdate }) {
+function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   return (
       <Card
         style={{
@@ -63,7 +63,11 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
         <div
           style={{
             height: '50px',
-            backgroundImage: `url('/img/Card_header_blue.jpg')`,
+            backgroundImage: `url('${
+              item.customProps?.isGuidance 
+                ? '/img/Card_header_green.jpg' 
+                : '/img/Card_header_blue.jpg'
+            }')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -76,7 +80,7 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
               marginTop:'10px',
               height: '40px',
               width: '6px',
-              backgroundColor: '#0070F2',
+              backgroundColor: item.customProps?.isGuidance ? '#06B400': '#0070F2',
             }}
           />
           <Title style={{padding: '0 16px', marginTop: '10px'}}>{title}</Title>
@@ -127,18 +131,18 @@ function CardLayout({ href, title, description, tags, lastUpdate }) {
           alignItems: 'center'
         }}
       >
-        <Label style={{ marginRight: '7px' }}>
-          {"Last Update: "}
-        </Label>
-        <Text>
-          {lastUpdate
-            ? new Date(lastUpdate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })
-            : ''}
-        </Text>
+      <Label style={{ marginRight: '5px', fontStyle: 'italic', fontSize: 'var(--sapFontSmallSize)' }}>
+        Last Update:
+      </Label>
+      <Text style={{ fontStyle: 'italic', fontSize: 'var(--sapFontSmallSize)' }}>
+        {lastUpdate
+          ? new Date(lastUpdate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          : ''}
+      </Text>
       </FlexBox>
       <FlexBox
         style={{
@@ -185,6 +189,7 @@ function CardLink({ item }) {
       description={description.length > 300 ? description.substring(0, 300) + '...' : description}
       tags={item.customProps.tags}
       lastUpdate={item.customProps.last_update}
+      item={item}
     />
   );
 }

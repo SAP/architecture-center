@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import DocCard from '@theme/DocCard';
 // @ts-ignore
-import exploreSidebar from '../data/exploreArch.json';
+import exploreSidebar from '../data/exploreGuidance.json';
 import { Text, Title, Button, FlexBox } from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/navigation-left-arrow";
 import "@ui5/webcomponents-icons/dist/navigation-right-arrow";
@@ -41,7 +41,7 @@ export default function ExploreAllArchitecturesSection() {
 
                 {/* Header Section with Title and Browse Arrows */}
                 <FlexBox justifyContent="SpaceBetween" alignItems="Center" style={{ marginLeft: '10px', marginBottom: '20px' }}>
-                    <Title>Explore the latest Reference Architectures</Title>
+                    <Title>Explore the SAP BTP Guidance Framework</Title>
 
                     {/* Browse + Arrows */}
                     <FlexBox alignItems="Center" style={{ gap: '10px' }}>

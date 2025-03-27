@@ -11,6 +11,7 @@ import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
 import CommunitySection from '../sections/Community';
 import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
+import GuidanceFrameworkSection from '../sections/GuidanceFrameworkSection';
 
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
@@ -46,6 +47,7 @@ export default function Home(): JSX.Element {
                 <HeroSection />
                 <CommunitySection />
                 <ExploreArchitectureSection />
+                <GuidanceFrameworkSection />
             </main>
         </Layout>
     );

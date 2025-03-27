@@ -49,6 +49,7 @@ const config: Config = {
                 id: 'guidance',
                 path: 'guidance',
                 routeBasePath: 'guidance',
+                sidebarItemsGenerator: generateSidebarSlices,
                 sidebarPath: require.resolve('./sidebarsGuidance'),
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,

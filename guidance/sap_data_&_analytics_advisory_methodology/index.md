@@ -6,7 +6,7 @@ sidebar_custom_props:
     - daam
 title: SAP Data & Analytics Advisory Methodology
 description: The SAP Data & Analytics Advisory Methodology provides a comprehensive framework for enterprise and data architects to evaluate data strategies, develop solution architectures, and foster a data-driven culture in a structured four-phase approach.
-slug: /guidance/sap_data_&_analytics_advisory_methodology
+slug: /sap_data_&_analytics_advisory_methodology
 keywords:
   - sap
   - btp
