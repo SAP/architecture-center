@@ -87,6 +87,12 @@
     padding: 32px;
 }
 
+.fallback-image:not(.medium-zoom-image--opened) {
+    width: 70%;
+    margin-left: 30px;
+    margin-right: auto;
+  }
+
 /* Constrain the size of zoomed images */
 .medium-zoom-image--opened {
     max-width: 80%; /* Ensure the image doesn't exceed the screen width */
