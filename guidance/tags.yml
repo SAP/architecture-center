@@ -3,3 +3,12 @@
 sapintsoladvmetho:
     label: 'SAP Integration Solution Advisory Methodology'
     description: "SAP's integration strategy focuses on creating a seamless, intelligent suite of business applications by integrating end-to-end processes across SAP, partner, and third-party solutions, aiming to accelerate innovation and deliver significant business value. A key component of this strategy is the SAP Integration Solution Advisory Methodology, which provides a comprehensive framework for defining, documenting, and executing enterprise integration strategies, covering both technical and organizational aspects, and can be adapted to various integration technologies and organizational needs."
+
+sapappextmetho:
+    label: 'SAP Application Extension Methodology'
+    description: "The SAP Application Extension Methodology can support and guide you by providing a structured, technology-agnostic approach for customers and partners to define an organization-specific extension strategy."
+
+sapdatanaadvmetho:
+    label: 'SAP Data & Analytics Advisory Methodology'
+    description: "The SAP Data & Analytics Advisory Methodology provides a comprehensive framework for enterprise and data architects to evaluate data strategies, develop solution architectures, and foster a data-driven culture in a structured four-phase approach."
+
