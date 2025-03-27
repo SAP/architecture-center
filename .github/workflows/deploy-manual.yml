@@ -1,30 +1,51 @@
-name: Deploy to GitHub Pages
+name: Deploy main site to GitHub Pages
 
 on:
+    # for local PR builds esp. builds in forked repositories
     workflow_dispatch:
 
 jobs:
     build:
-        name: Build Docusaurus
+        name: Build Site
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v4
               with:
                   fetch-depth: 0
+
             - uses: actions/setup-node@v4
               with:
                   node-version: latest
                   cache: npm
 
-            - name: Install dependencies
+            - name: Install Dependencies
               run: npm ci
+
+            - name: Get pages deployment URL
+              run: |
+                  pages_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
+                  url=$(echo $pages_url|cut -d'/' -f 1)//$(echo $pages_url|cut -d'/' -f 3)
+                  base_url=$(echo $pages_url|cut -d'/' -f 4)
+                  echo "url=$url" >> "$GITHUB_ENV"
+                  echo "base_url=$base_url" >> "$GITHUB_ENV"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Patch docusaurus.config.ts
+              run: |
+                  sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
+                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/${{ env.base_url }}',^g" docusaurus.config.ts
+
             - name: Fetch contributors details from GitHub API
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
               run: node src/_scripts/_fetch-contributors-details.js
+
             - name: Export drawios to svgs
               run: DOCKER=1 node src/_scripts/_export-drawios.js
-            - name: Build website
+
+            - name: Build Website
               run: npm run build
 
             - name: Upload Build Artifact
@@ -33,46 +54,55 @@ jobs:
                   path: build
 
     deploy:
-        name: Deploy to GitHub Pages
+        name: Deploy Site
         runs-on: ubuntu-latest
         needs: build
 
-        permissions:
-            contents: write
-            pages: write
-            id-token: write
-
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
-
         steps:
-            - uses: actions/checkout@v4
+            - name: Checkout Repository
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
 
             - name: Download Build Artifact
               uses: actions/download-artifact@v4
               with:
-                  name: build
-                  path: build
+                  path: __build__
 
-            - name: Ensure site branch exists
+            - name: Set up Git
               run: |
-                  git fetch origin site || git checkout -b site
-                  git checkout site
+                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config --global user.name "github-actions[bot]"
 
-            - name: Deploy to GitHub Pages
+            - name: Switch to Pages Branch
               run: |
-                  git config user.email "actions-bot@github.com"
-                  git config user.name "github-actions[bot]"
+                  gh_pages_branch=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.branch')
+                  git fetch origin $gh_pages_branch
+                  git checkout $gh_pages_branch
+                  echo "gh_pages_branch=$gh_pages_branch" >> "$GITHUB_ENV"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-                  cp -r build/* .
-                  git add --all
+            - name: Drop Previous Content
+              run: |
+                  shopt -s extglob
+                  rm -rf !(@*|__build__)
 
-                  if ! git diff --cached --quiet; then
-                    git commit -m "Deploy to GitHub Pages"
-                    git push origin site --force
+            - name: Extract Build Content
+              run: |
+                  if [[ -d "__build__" && "$(ls -A __build__)" ]]; then
+                    mv __build__/* ./
+                    tar -xvf github-pages/artifact.tar
+                    rm github-pages/artifact.tar
+                    rm -rf __build__
                   else
-                    echo "No changes to deploy"
+                    echo "No build files found. Skipping move step."
+                  fi
+
+            - name: Commit and Push Changes
+              run: |
+                  git add -A
+                  if [[ "$(git status -s)" ]]; then
+                    git commit -m "site build ➝ gh pages"
+                    git push -f origin ${{ env.gh_pages_branch }}
                   fi

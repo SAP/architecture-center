@@ -1,0 +1,186 @@
+name: PR Site Build
+
+on:
+    # for forked repositories
+    pull_request_target:
+        branches:
+            - dev
+        types:
+            - opened
+            - synchronize
+            - reopened
+            - closed
+    # for forks
+    pull_request:
+        branches:
+            - dev
+        types:
+            - opened
+            - synchronize
+            - reopened
+            - closed
+
+env:
+    # https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request
+    PR_FOLDER: ${{github.event.pull_request.user.login}}-${{github.event.pull_request.head.ref}}
+
+jobs:
+    build:
+        name: Build Site for PR
+        runs-on: ubuntu-latest
+        # Note: only run when trigger is 'pull_request' in case pull request is from the same repo (see https://github.com/orgs/community/discussions/26829#discussioncomment-3253575)
+        if: (github.event_name == 'pull_request_target' || github.event.pull_request.base.repo.fork) && github.event.pull_request.merged != true && github.event.pull_request.state != 'closed'
+        steps:
+            - name: Checkout PR Code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: ${{github.event.pull_request.head.sha}}
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: latest
+                  cache: npm
+
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Get pages deployment URL
+              run: |
+                  pages_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
+                  url=$(echo $pages_url|cut -d'/' -f 1)//$(echo $pages_url|cut -d'/' -f 3)
+                  base_url=$(echo $pages_url|cut -d'/' -f 4)
+                  echo "url=$url" >> "$GITHUB_ENV"
+                  echo "base_url=$base_url" >> "$GITHUB_ENV"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Patch docusaurus.config.ts for PR builds
+              run: |
+                  sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
+                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/${{ env.base_url }}/@${{ env.PR_FOLDER }}',^g" docusaurus.config.ts
+                  sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (PR: #${PR_NUMBER})',^g" docusaurus.config.ts
+                  sed -E -i "s^title: 'Develop a multitenant Software as a Service application in SAP BTP using CAP'^title: 'Develop a multitenant Software as a Service application in SAP BTP using CAP (PR: #${PR_NUMBER})'^g" docusaurus.config.ts
+                  sed -E -i "s^logo: \{^logo: \{href: '${{ github.event.pull_request.html_url }}',^g" docusaurus.config.ts
+              env:
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+            - name: Verify Patch Application
+              run: cat docusaurus.config.ts
+
+            - name: Build Website
+              run: npm run build
+
+            - name: Upload Build Artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: build
+
+    deploy:
+        name: Deploy Site for PR
+        runs-on: ubuntu-latest
+        needs: build
+        # Note: only run when trigger is 'pull_request' in case pull request is from the same repo (see https://github.com/orgs/community/discussions/26829#discussioncomment-3253575)
+        if: success() && (github.event_name == 'pull_request_target' || github.event.pull_request.base.repo.fork) && github.event.pull_request.merged != true && github.event.pull_request.state != 'closed'
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: ${{github.event.pull_request.head.sha}}
+
+            - name: Download Build Artifact
+              uses: actions/download-artifact@v4
+              with:
+                  path: build/
+
+            - name: Set up Git
+              run: |
+                  git config --global user.email "$$GIT_USER_EMAIL"
+                  git config --global user.name "$$GIT_USER"
+
+            - name: Switch to Pages Branch
+              run: |
+                  gh_pages_branch=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.branch')
+                  git fetch origin $gh_pages_branch
+                  git checkout $gh_pages_branch
+                  echo "gh_pages_branch=$gh_pages_branch" >> "$GITHUB_ENV"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Drop Previous Content
+              run: |
+                  rm -rf @${{ env.PR_FOLDER }}
+                  mkdir @${{ env.PR_FOLDER }}
+
+            - name: Extract Build Content
+              run: |
+                  if [[ -d "build" && "$(ls -A build)" ]]; then
+                    mv build/* @${{ env.PR_FOLDER }}/
+                    cd @${{ env.PR_FOLDER }}/
+                    tar -xvf github-pages/artifact.tar
+                    rm github-pages/artifact.tar
+                  else
+                    echo "No build files found. Skipping move step."
+                  fi
+
+            - name: Commit and Push Changes
+              run: |
+                  git add -A
+                  if [[ "$(git status -s)" ]]; then
+                    git commit -m "pr build ➝ gh pages"
+                    git push -f origin ${{ env.gh_pages_branch }}
+                  fi
+
+    pr_comment:
+        name: Post Preview Link (PRs)
+        needs: deploy
+        runs-on: ubuntu-latest
+        if: (github.event_name == 'pull_request_target' || github.event.pull_request.base.repo.fork) && github.event.pull_request.merged != true && github.event.pull_request.state != 'closed'
+        permissions:
+            pull-requests: write
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - name: Get pages deployment URL
+              run: |
+                  echo "pages_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')" >> "$GITHUB_ENV"
+            - name: Add PR Comment with Preview Link
+              uses: thollander/actions-comment-pull-request@v2
+              with:
+                  message: 'Preview website is available [here](${{ env.pages_url }}@${{ env.PR_FOLDER }}).'
+
+    cleanup:
+        name: Cleanup Merged PR
+        runs-on: ubuntu-latest
+        if: (github.event_name == 'pull_request_target' || github.event.pull_request.base.repo.fork) && (github.event.pull_request.merged == true || github.event.pull_request.state == 'closed')
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: ${{github.event.pull_request.head.sha}}
+
+            - name: Set up Git
+              run: |
+                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config --global user.name "github-actions[bot]"
+
+            - name: Switch to GitHub Pages Branch
+              run: |
+                  gh_pages_branch=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.branch')
+                  git fetch origin $gh_pages_branch
+                  git checkout $gh_pages_branch
+                  echo "gh_pages_branch=$gh_pages_branch" >> "$GITHUB_ENV"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Delete Folder of Merged PR
+              run: |
+                  rm -rf @${{ env.PR_FOLDER }}
+
+            - name: Commit and Push Changes
+              run: |
+                  git add -A
+                  git commit -m "cleanup: removed folder @${{ env.PR_FOLDER }} after merge" || echo "No changes to commit"
+                  git push origin ${{ env.gh_pages_branch }}
