@@ -58,6 +58,14 @@ jobs:
             - name: Verify Patch Application
               run: cat docusaurus.config.ts
 
+            - name: Fetch contributors details from GitHub API
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+              run: node src/_scripts/_fetch-contributors-details.js
+
+            - name: Export drawios to svgs
+              run: DOCKER=1 node src/_scripts/_export-drawios.js
+
             - name: Build Website
               run: npm run build
 
@@ -134,7 +142,7 @@ jobs:
             - name: Add PR Comment with Preview Link
               uses: thollander/actions-comment-pull-request@v2
               with:
-                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}).'
+                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}).\n\n*Please note that it may take 4-5 minutes for the site to fully render.*'
 
     cleanup:
         name: Cleanup Merged PR
