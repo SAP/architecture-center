@@ -2,7 +2,8 @@
 id: id-ra0007-1
 slug: /ref-arch/e7724ef4a7/1
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Benefits of Multitenant Applications
 description: Benefits of Multitenant Applications
 keywords:
@@ -26,6 +27,7 @@ unlisted: false
 contributors:
   - AjitKP91
   - alperdedeoglu
+discussion: 
 last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
@@ -78,7 +80,7 @@ The benefits of multitenancy extend beyond mere cost savings; they include incre
 
     - **Efficient Use of Hardware**: Multitenancy maximizes the use of server resources, meaning fewer machines are needed to handle the same workload compared to single-tenant systems. This leads to reduced energy consumption and less electronic waste.
     - **Sustainable Growth**: As the system scales, the efficient use of resources continues to minimize environmental impact, making it a greener option for hosting software solutions.
-
+    
 ---
 
 ## Comparative Analysis

@@ -10,7 +10,12 @@ sidebar_custom_props:
     - azure
     - gcp
 title: Generative AI on SAP BTP
-description: Harness Generative AI on SAP BTP using a CAP-based backend with SAP HANA Cloud's Vector Engine for similarity search. The Generative AI Hub allows seamless integration of LLMs, supporting RAG and other advanced patterns. Compatible with Cloud Foundry and Kyma, it optimizes AI-driven app development.
+description: >-
+  Harness Generative AI on SAP BTP using a CAP-based backend with SAP HANA
+  Cloud's Vector Engine for similarity search. The Generative AI Hub allows
+  seamless integration of LLMs, supporting RAG and other advanced patterns.
+  Compatible with Cloud Foundry and Kyma, it optimizes AI-driven app
+  development.
 keywords:
   - sap
   - ai
@@ -33,7 +38,7 @@ contributors:
   - AdiPleyer
   - vedant-aero-ml
   - madankumarpichamuthu
-
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2025-01-14
@@ -168,4 +173,3 @@ For more information related to this Reference Architecture in general you may c
 - [SAP Learning: AI Ethics at SAP](https://learning.sap.com/courses/ai-ethics-at-sap)
 - [SAP AI Ethics Handbook](https://news.sap.com/sea/files/2024/01/11/SAP-AI-Ethics-Handbook.pdf)
 - [SAP Cloud SDK for AI](https://github.com/SAP/ai-sdk-js)
-

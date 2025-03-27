@@ -2,9 +2,14 @@
 id: id-ra0005-3
 slug: /ref-arch/5c9255f84a/3
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Retrieval Augmented Generation (RAG)
-description: Enhance LLM control with Retrieval Augmented Generation (RAG), which integrates external data to reduce hallucinations and improve accuracy across multiple domains without the need for fine-tuning. This approach combines factual data with language knowledge for increased precision.
+description: >-
+  Enhance LLM control with Retrieval Augmented Generation (RAG), which
+  integrates external data to reduce hallucinations and improve accuracy across
+  multiple domains without the need for fine-tuning. This approach combines
+  factual data with language knowledge for increased precision.
 keywords:
   - sap
   - ai
@@ -28,6 +33,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - madankumarpichamuthu
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2025-01-31
