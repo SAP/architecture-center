@@ -1,0 +1,262 @@
+[
+  {
+    "type": "category",
+    "label": "Explore All Architectures",
+    "link": {
+      "type": "generated-index",
+      "title": "Explore",
+      "description": "Explore all SAP reference architectures across different technology domains and cloud providers.",
+      "slug": "/exploreallrefarch",
+      "keywords": [
+        "explore",
+        "all",
+        "sap",
+        "reference architectures"
+      ],
+      "image": "/img/sap_logo.png"
+    },
+    "customProps": {
+      "id": "exploreallrefarch"
+    },
+    "items": [
+      {
+        "type": "link",
+        "label": "SAP HANA Cloud as an Esri Geodatabase",
+        "href": "docs/ref-arch/c6b47a100f",
+        "customProps": {
+          "title": "SAP HANA Cloud as an Esri Geodatabase",
+          "description": "The reference architecture for Esri running on SAP HANA Cloud as a geodatabase represents a powerful integration of geospatial technology with enterprise-grade cloud infrastructure. This enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, utilizing its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.",
+          "href": "docs/ref-arch/c6b47a100f",
+          "tags": [
+            {
+              "tag": "data",
+              "label": "Data & Analytics",
+              "description": "Access insights wherever your data resides with SAP data and analytics solutions.",
+              "permalink": "/data"
+            }
+          ],
+          "last_update": "2025-03-25T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "azure",
+            "gcp",
+            "data"
+          ]
+        }
+      },
+      {
+        "type": "link",
+        "label": "Edge Integration Cell on Hyperscalers",
+        "href": "docs/ref-arch/f2670637a8",
+        "customProps": {
+          "title": "Edge Integration Cell on Hyperscalers",
+          "description": "Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.",
+          "href": "docs/ref-arch/f2670637a8",
+          "tags": [
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
+            },
+            {
+              "tag": "eic",
+              "label": "Edge Integration Cell",
+              "description": "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.",
+              "permalink": "/eic"
+            }
+          ],
+          "last_update": "2025-03-06T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "gcp",
+            "azure",
+            "integration",
+            "appdev"
+          ]
+        }
+      },
+      {
+        "type": "link",
+        "label": "Establish a central entry point with SAP Build Work Zone",
+        "href": "docs/ref-arch/c2b5707a1f",
+        "customProps": {
+          "title": "Establish a central entry point with SAP Build Work Zone",
+          "description": "SAP Build Work Zone offers a comprehensive solution architecture designed to elevate user productivity and engagement by providing a digital workplace platform that supports single-sign-on. This innovative approach centralizes access to essential business applications, processes, information, and communication, serving as a unified entry point accessible from desktop or mobile devices. It harmonizes business content, applications, workflows, and processes across your landscape, ensuring a seamless integration and interaction within your digital ecosystem.",
+          "href": "docs/ref-arch/c2b5707a1f",
+          "tags": [
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
+            },
+            {
+              "tag": "appdev",
+              "label": "Application Development & Automation",
+              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
+              "permalink": "/appdev"
+            },
+            {
+              "tag": "buildworkzone",
+              "label": "SAP Build Work Zone",
+              "description": "SAP Build Work Zone is a tool that empowers business users to build and personalize digital workspaces. It provides secure, centralize access to SAP and external apps, processes, and data on any device, helping to drive productivity and engagement. Engage with both internal teams and external stakeholders using interactive workspaces, guided experiences, and knowledge sharing to maximize efficiency.",
+              "permalink": "/buildworkzone"
+            }
+          ],
+          "last_update": "2025-02-24T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "gcp",
+            "azure",
+            "appdev"
+          ]
+        }
+      },
+      {
+        "type": "link",
+        "label": "Architecting Multi-Region HA/DR resiliency patterns",
+        "href": "docs/ref-arch/6c73e3575f",
+        "customProps": {
+          "title": "Architecting Multi-Region HA/DR resiliency patterns",
+          "description": "Learn how to architect multi-region resiliency for SAP solutions such to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.",
+          "href": "docs/ref-arch/6c73e3575f",
+          "tags": [
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "appdev",
+              "label": "Application Development & Automation",
+              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
+              "permalink": "/appdev"
+            },
+            {
+              "tag": "integration",
+              "label": "Integration",
+              "description": "Connect and automate your processes business-wide.",
+              "permalink": "/integration"
+            }
+          ],
+          "last_update": "2025-02-19T00:00:00.000Z",
+          "category_index": [
+            "appdev",
+            "integration",
+            "aws",
+            "azure"
+          ]
+        }
+      },
+      {
+        "type": "link",
+        "label": "Establish a central inbox with SAP Task Center",
+        "href": "docs/ref-arch/f764cc1375",
+        "customProps": {
+          "title": "Establish a central inbox with SAP Task Center",
+          "description": "Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.",
+          "href": "docs/ref-arch/f764cc1375",
+          "tags": [
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
+            },
+            {
+              "tag": "appdev",
+              "label": "Application Development & Automation",
+              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
+              "permalink": "/appdev"
+            }
+          ],
+          "last_update": "2025-02-11T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "azure",
+            "gcp",
+            "appdev"
+          ]
+        }
+      },
+      {
+        "type": "link",
+        "label": "Multitenant SaaS Application using CAP",
+        "href": "docs/ref-arch/e7724ef4a7",
+        "customProps": {
+          "title": "Multitenant SaaS Application using CAP",
+          "description": "Multitenant SaaS applications built on SAP BTP offer a powerful way to extend SAP's core solutions and address specific industry or business needs at scale. By allowing multiple customers to share a single instance of the software, multitenancy lowers costs and makes maintenance simple for all users. This approach not only drives innovation and scalability but also enables faster time-to-market and more efficient resource utilization.",
+          "href": "docs/ref-arch/e7724ef4a7",
+          "tags": [
+            {
+              "tag": "appdev",
+              "label": "Application Development & Automation",
+              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
+              "permalink": "/appdev"
+            },
+            {
+              "tag": "cap",
+              "label": "CAP",
+              "description": "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks.",
+              "permalink": "/cap"
+            },
+            {
+              "tag": "genai",
+              "label": "Generative AI",
+              "description": "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on.",
+              "permalink": "/genai"
+            }
+          ],
+          "last_update": "2025-01-31T00:00:00.000Z",
+          "category_index": [
+            "appdev"
+          ]
+        }
+      }
+    ]
+  }
+]

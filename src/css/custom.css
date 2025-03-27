@@ -82,10 +82,172 @@
     padding: 0.2rem !important;
 }
 
-/* Add some padding inside the card container */
+.header_body {
+    display: flex;
+    height: 120px;
+    flex-shrink: 0;
+    color: #ffffff;
+    line-height: normal;
+    z-index: 1;
+    width: 100%;
+    max-width: 43%;
+    font-size: 1.2rem;
+}
+
+.header_title {
+    font-size: 2.5rem;
+}
+
 .container {
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
     padding: 32px;
 }
+
+.welcome {
+    margin-top: 3rem;
+}
+
+.hero_banner {
+    background-image: url('/img/landingPage/Architecture_Center_banner2_rounded_1440x424.png');
+    width: 100%;
+    height: 424px;
+    position: fixed;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+}
+
+.community {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+    margin: 0 auto;
+    max-width: 1200px;
+    gap: 8rem;
+}
+
+.community_image {
+    width: 33%;
+    height: 400px;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .hero_banner {
+        padding: 1rem;
+        height: auto;
+        background-size: cover;
+        background-position: center;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 996px) {
+    .hero_banner {
+        height: auto;
+        background-size: cover;
+        background-position: center;
+        text-align: left;
+    }
+
+    .community_body {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        text-align: center;
+    }
+
+    .community_image {
+        width: 50%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .welcome {
+        margin-top: 1.5rem; /* Reduce unnecessary spacing */
+        text-align: left;
+    }
+
+    .header_title {
+        font-size: 1.6rem;
+    }
+
+    .header_body {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        max-width: 500px;
+        height: auto;
+        text-align: left;
+    }
+
+    .benefits_body {
+        margin: 2rem auto;
+        width: 90%;
+        max-width: 500px;
+        height: auto;
+        text-align: center;
+    }
+
+    .community {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero_banner {
+        padding: 2rem 1rem;
+    }
+
+    .welcome {
+        margin-top: 1.5rem;
+        justify-content: left;
+    }
+
+    .header_body {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header_body_p {
+        font-size: 14px;
+    }
+
+    .community_image {
+        width: 100%;
+    }
+}
+
+.fallback-image:not(.medium-zoom-image--opened) {
+    width: 70%;
+    margin-left: 30px;
+    margin-right: auto;
+  }
 
 /* Constrain the size of zoomed images */
 .medium-zoom-image--opened {
@@ -280,6 +442,14 @@ table thead {
     );
 }
 
+/** In mobile view, reduce the padding */
+@media screen and (max-width: 996px) {
+    .hero_banner {
+        padding: 2rem;
+        background-color: #ffffff;
+    }
+}
+
 .footer_div {
     margin-top: 0rem 0rem;
 }
@@ -427,7 +597,7 @@ html[data-theme='light'] .main-wrapper {
 }
 
 html[data-theme='light'] .navbar {
-    background: linear-gradient(to bottom right, #7dbeff 40%, #d6ebfd 80%);
+    background: #ffffff;
     border-bottom: 2px solid #d0d2d4;
     backdrop-filter: blur(10px);
 }
@@ -451,7 +621,8 @@ html[data-theme='dark'] .footer {
 }
 
 html[data-theme='dark'] .navbar {
-    background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);
+    /* background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);*/
+    background: #001848;
     border-bottom: 2px solid #003366;
     backdrop-filter: blur(10px);
 }
