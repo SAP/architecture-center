@@ -59,7 +59,7 @@ Get started with exploring **best practices**, grow your skills with **learning 
 
 ## Explore the elements of the SAP BTP Guidance Framework
 
-[SAP BTP Guidance Framework](images/loio289a6bd8bcba4b209e24de6773cb2412_LowRes.png)
+![SAP BTP Guidance Framework](images/loio289a6bd8bcba4b209e24de6773cb2412_LowRes.png)
 
 Note: This image is not interactive.
 

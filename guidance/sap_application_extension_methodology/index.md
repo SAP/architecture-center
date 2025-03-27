@@ -1,7 +1,9 @@
 ---
 # id: 
 sidebar_position: 3
-sidebar_custom_props: {}
+sidebar_custom_props: 
+  guidance_index:
+    - aem
 title: SAP Application Extension Methodology
 description: The SAP Application Extension Methodology can support and guide you by providing a structured, technology-agnostic approach for customers and partners to define an organization-specific extension strategy.
 # slug: 
