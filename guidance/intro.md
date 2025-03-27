@@ -19,8 +19,10 @@ last_update:
     date: 2025-02-26
 ---
 
+<!--
 import GuidanceImageMap from '@site/src/components/GuidanceImageMap';
 import btpFrameworkImage from '/guidance/images/loio289a6bd8bcba4b209e24de6773cb2412_LowRes.png';
+-->
 
 ## What is the SAP BTP Guidance Framework?
 
@@ -62,6 +64,10 @@ Get started with exploring **best practices**, grow your skills with **learning 
 
 ## Explore the elements of the SAP BTP Guidance Framework
 
-This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+[SAP BTP Guidance Framework](images/loio289a6bd8bcba4b209e24de6773cb2412_LowRes.png)
 
+Note: This image is not interactive.
+
+<!--
 <GuidanceImageMap image={btpFrameworkImage}/>
+-->
