@@ -19,11 +19,6 @@ last_update:
     date: 2025-02-26
 ---
 
-<!-- 
-import GuidanceImageMap from '@site/src/components/GuidanceImageMap';
-import btpFrameworkImage from '/guidance/images/loio289a6bd8bcba4b209e24de6773cb2412_LowRes.png';
---> 
-
 ## What is the SAP BTP Guidance Framework?
 
 The **SAP BTP Guidance Framework** provides a central access point for architects, developers, and administrators to build and run enterprise-grade solutions on SAP BTP.
