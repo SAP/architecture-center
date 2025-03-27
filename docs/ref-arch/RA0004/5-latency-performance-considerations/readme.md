@@ -2,9 +2,14 @@
 id: id-ra0004-5
 slug: /ref-arch/28ac36db13/5
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Latency and Performance considerations
-description: In data federation scenarios, particularly where non-SAP and SAP data are virtually queried to avoid duplication, performance and latency are critical factors that influence the effectiveness of the data federation architecture for analytics solutions
+description: >-
+  In data federation scenarios, particularly where non-SAP and SAP data are
+  virtually queried to avoid duplication, performance and latency are critical
+  factors that influence the effectiveness of the data federation architecture
+  for analytics solutions
 keywords:
   - sap
   - latency
@@ -25,6 +30,7 @@ contributors:
   - sivakumar
   - s-krishnamoorthy
   - karishma-kapur
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

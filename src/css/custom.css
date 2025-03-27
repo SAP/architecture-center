@@ -12,6 +12,7 @@
 :root {
     --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif'; /* font 72 is SAP’s proprietary typeface */
     --ifm-font-color-base: #1d2d3e; /* Morning Horizon's color for text and titles */
+    --ifm-link-color: #0070f2; /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
     --ifm-color-primary-darker: #002a86;
@@ -22,9 +23,9 @@
     --ifm-color-secondary: #7858ff;
     --ifm-color-secondary-dark: #a9b4be;
     --ifm-background-color: #ffffff;
-    --ifm-link-color: #0057d2;
     --ifm-sidebar-selected-item-background-color: #e3f2fd;
     --ifm-navbar-link-hover-color: #556b82;
+    --ifm-dropdown-font-weight: 400;
     --ifm-breadcrumb-color-active: #0057d2;
     --ifm-menu-color-active: #0057d2;
     --ifm-code-font-size: 95%;
@@ -68,18 +69,12 @@
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
-html[data-theme='light'] .menu__link {
+.menu__link {
     /* Changed by PO: All pages should use the same colors */
     color: #535353;
     font-size: 0.8rem; /* Adjust the font size as needed */
-    line-height: 1rem !important;
-}
-
-html[data-theme='dark'] .menu__link {
-    /* Changed by PO: All pages should use the same colors */
-    color: #535353;
-    font-size: 0.8rem; /* Adjust the font size as needed */
-    line-height: 1rem !important;
+    font-weight: 400;
+    line-height: 1rem;
 }
 
 /* Changing the padding size of the symbol to expand the content in the sidebar */
@@ -87,144 +82,9 @@ html[data-theme='dark'] .menu__link {
     padding: 0.2rem !important;
 }
 
-.docusaurus-highlight-code-line {
-    background-color: rgb(72, 77, 91);
-    display: block;
-    margin: 0 calc(-1 * var(--ifm-pre-padding));
-    padding: 0 var(--ifm-pre-padding);
-}
-
-.banner {
-    padding: 4rem;
-}
-/** In mobile view, reduce the padding */
-@media screen and (max-width: 996px) {
-    .heroBanner {
-        padding: 2rem;
-    }
-}
-
-.button_filled_overview {
-    /*display: inline-block;*/
-    display: flex;
-    flex-direction: row;
-    padding: 4px 25px;
-    padding-bottom: 4px;
-    padding-top: 6px;
-    width: 250px;
-    height: 35px;
-    background-color: #0070f2;
-    border: 1px solid #0070f2;
-    border-radius: 8px;
-    color: #ffffff;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    /*margin-right: 10px;*/
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.button_filled_overview:hover {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #002a86;
-    border: 1px solid #002a86;
-}
-
-.button_filled_guideline {
-    display: inline-block;
-    padding: 4px 18px;
-    padding-bottom: 30px;
-    padding-top: 6px;
-    width: 200px;
-    height: 30px;
-    background-color: #0070f2;
-    border: 1px solid #bcc3ca;
-    border-radius: 8px;
-    color: #ffffff;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.button_filled_guideline:hover {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #002a86;
-    border: 1px solid #002a86;
-}
-
-.button_clean_guideline {
-    display: inline-block;
-    padding: 4px 18px;
-    padding-bottom: 30px;
-    padding-top: 6px;
-    width: 160px;
-    height: 35px;
-    background-color: #ffffff;
-    border: 1px solid #bcc3ca;
-    border-radius: 8px;
-    color: #0064d9;
-    text-decoration: none;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    padding: 5px;
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
 /* Add some padding inside the card container */
 .container {
-    /* padding: 2px 16px; */
     padding: 32px;
-}
-
-.container-wrapper {
-    display: flex;
-    gap: 20px; /* Adjust the space between cards as needed */
-}
-
-.overview_body {
-    margin: 2rem 0rem;
-    font-size: 18px;
-    width: 600px;
-}
-
-.overview_buttons {
-    padding: 0rem 0rem;
-    margin: 0rem 0rem;
-}
-
-.benefits_body {
-    margin: 15rem -0rem;
-    /* width: 600px; */
-    height: 550.487px;
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-.announcementBar_node_modules-\@docusaurus-theme-classic-lib-theme-AnnouncementBar-styles-module {
-    font-size: 16px;
-    /* font-style: italic; */
-    color: #ffffff !important;
-    --docusaurus-announcement-bar-height: 35px;
-    background-color: #002a86 !important;
 }
 
 /* Constrain the size of zoomed images */
@@ -237,22 +97,8 @@ html[data-theme='dark'] .menu__link {
     margin-right: auto; /* Center the image */
 }
 
-/* Fix the announcement bar at the top */
-.announcementBar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Ensure it stays above other content */
-}
-
 /* Sidebar customization */
-html[data-theme='light'] .menu__list {
-    position: relative;
-    list-style: none;
-    color: #535353;
-}
-
-html[data-theme='dark'] .menu__list {
+.menu__list {
     position: relative;
     list-style: none;
     color: #535353;
@@ -301,26 +147,13 @@ html[data-theme='dark'] .menu__list {
 .breadcrumbs__item--active .breadcrumbs__link {
     background: var(--ifm-sidebar-selected-item-background-color);
     color: var(--ifm-menu-color-active);
-    font-weight: 500;
+    font-weight: bold;
 }
 
 /* Dropdown menu customization*/
 .dropdown__link--active {
     font-weight: bold;
     background-color: var(--ifm-sidebar-selected-item-background-color);
-}
-
-/* Highlight the currently targeted section in the right sidebar */
-.right-sidebar .table-of-contents a:target {
-    background-color: var(--ifm-sidebar-selected-item-background-color); /* Light blue background */
-    border-left: 4px solid #1976d2; /* Blue left border */
-    padding-left: 8px; /* Adjust padding */
-    color: #000; /* Ensure text color contrasts well with background */
-}
-
-/* Optional: add hover effect for links */
-.right-sidebar .table-of-contents a:hover {
-    background-color: #bbdefb; /* Slightly darker blue on hover */
 }
 
 #__docusaurus .theme-code-block-highlighted-line {
@@ -352,19 +185,6 @@ html[data-theme='dark'] .sourcecode-badge {
 .code-block-hidden.theme-code-block-highlighted-line {
     display: none;
 }
-.required {
-    font-size: 13px;
-    border-radius: 3px;
-    border-style: solid;
-    border-color: #fa5035;
-    color: #fa5035;
-    border-width: 1px;
-    letter-spacing: 0.02rem;
-    margin-right: 0;
-    padding: 0 6px;
-    display: inline-block;
-    margin-left: 5px;
-}
 
 .markdown > h3 {
     font-size: 1.2rem;
@@ -389,10 +209,6 @@ html[data-theme='dark'] .sourcecode-badge {
     word-wrap: break-word;
 }
 
-.admonitionHeading_node_modules-\@docusaurus-theme-classic-lib-theme-Admonition-Layout-styles-module {
-    text-transform: none !important;
-}
-
 .admonitionHeading_Gvgb {
     text-transform: none !important;
 }
@@ -411,6 +227,7 @@ table thead {
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
     --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
+    --ifm-link-color: #4DB1FF; /* Evening Horizon's color for links */
     --ifm-color-primary: #d1efff;
     --ifm-color-primary-dark: #439ddd;
     --ifm-color-primary-darker: #4684e8;
@@ -419,7 +236,6 @@ table thead {
     --ifm-color-primary-lighter: #7adcff;
     --ifm-color-primary-lightest: #8dc2f7;
     --ifm-background-color: #ffffff;
-    --ifm-link-color: #0057d2;
     --ifm-background-color-selected-item: #0a6ed1;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
@@ -462,127 +278,6 @@ table thead {
         var(--ifm-color-emphasis-200) 0%,
         var(--ifm-color-emphasis-100) 100%
     );
-}
-
-.hero_banner {
-    background: linear-gradient(to right, #0070f2, #89d1ff);
-    max-width: 3480px;
-    height: 180px;
-    margin: 0 auto;
-    padding: 1rem 0rem;
-}
-
-/** In mobile view, reduce the padding */
-@media screen and (max-width: 996px) {
-    .hero_banner {
-        padding: 2rem;
-        background-color: #ffffff;
-    }
-}
-
-.hero_image {
-    margin: -15rem 44rem;
-    width: 500px;
-    height: 301.487px;
-    flex-shrink: 0;
-}
-
-/* CardComponent.css */
-/* Grid layout */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 20px;
-    padding: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 20px;
-    margin: 20px;
-    transition: transform 0.2s ease-in-out;
-    display: flex;
-    height: 150px;
-    flex-direction: column;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-.card-content {
-    display: flex;
-    align-items: start;
-}
-
-.card-image {
-    margin-right: 20px;
-}
-
-.card-image img {
-    min-width: 100px;
-    width: 100px;
-    height: 100px;
-    min-width: 100px;
-    min-height: 100px;
-}
-
-.card-text h3 {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #0070f2;
-}
-
-[data-theme='dark'] .card-text h3 {
-    color: #0070f2;
-}
-.card-text p {
-    color: grey;
-    font-size: 0.9rem;
-}
-
-[data-theme='dark'] .card p {
-    color: grey;
-}
-
-.welcome h1 {
-    font-size: 2.5rem;
-    color: #ffffff;
-}
-
-.welcome p {
-    font-size: 1.2rem;
-    color: #ffffff;
-}
-
-/* Remove default link styles */
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.card-link:hover .card {
-    text-decoration: none;
-    transform: scale(1.05); /* Optional hover effect */
-    transition: transform 0.2s ease-in-out;
-}
-
-/* When hovering over the card */
-.card:hover {
-    background-color: #eaecee; /* Light background on hover */
-    transform: scale(1.05); /* Slightly enlarge the card */
-}
-
-/* When the card is clicked (active state) */
-.card:active {
-    /* background-color: #0070f2; */
-    transform: scale(0.98); /* Slightly shrink the card */
 }
 
 .footer_div {
@@ -634,7 +329,6 @@ table thead {
     background-color: #1a2733;
 }
 
-[data-theme='dark'] a,
 [data-theme='dark'] h1,
 [data-theme='dark'] h2,
 [data-theme='dark'] h3,
@@ -647,10 +341,6 @@ table thead {
 }
 
 /* Sidebar styling in dark mode */
-[data-theme='dark'] .menu__link {
-    color: #fff !important;
-}
-
 [data-theme='dark'] .menu__link--active {
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff !important;
@@ -679,7 +369,6 @@ table thead {
 [data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
     background-color: transparent !important;
     color: #fff !important;
-    font-weight: normal !important;
 }
 
 [data-theme='dark'] .menu__link:not(.menu__link--active) {
@@ -704,11 +393,6 @@ table thead {
     font-weight: bold;
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff;
-}
-
-/** Added by PO **/
-.not-allowed {
-    cursor: not-allowed;
 }
 
 /** Added by PO: Changing the font size for the blog's title **/
