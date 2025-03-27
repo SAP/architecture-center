@@ -153,13 +153,13 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
                                 <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Partners</h4>
+                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
                                     <Select
                                         isMulti
                                         options={partners}
                                         value={selectedPartners}
                                         onChange={handlePartnersChange}
-                                        placeholder="Select Partners..."
+                                        placeholder="Select Technology Partners..."
                                         styles={selectStyles}
                                     />
                                 </div>
