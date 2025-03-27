@@ -2,7 +2,8 @@
 id: id-ra0007-3
 slug: /ref-arch/e7724ef4a7/3
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Tenant Lifecycle Management
 description: Tenant Lifecycle Management
 keywords:
@@ -26,6 +27,7 @@ unlisted: false
 contributors:
   - AjitKP91
   - alperdedeoglu
+discussion: 
 last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31

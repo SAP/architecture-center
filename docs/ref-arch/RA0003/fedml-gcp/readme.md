@@ -5,7 +5,10 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: FedML-GCP for Google Vertex AI
-description: FedML-GCP provides end-to-end integraton for training models in Google Vertex AI using live business data from SAP systems and eliminates the need for duplicating the data. 
+description: >-
+  FedML-GCP provides end-to-end integraton for training models in Google Vertex
+  AI using live business data from SAP systems and eliminates the need for
+  duplicating the data.
 keywords:
   - sap
   - gcp
@@ -31,6 +34,7 @@ contributors:
   - karishma-kapur
   - ranbian
   - ThatDodoBird
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

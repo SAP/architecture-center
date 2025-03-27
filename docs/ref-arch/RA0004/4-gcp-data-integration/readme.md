@@ -5,19 +5,22 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Integration with Google Cloud Platform sources
-description: Data from Google Cloud Platform (GCP) data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's advanced data fabric architecture. 
+description: >-
+  Data from Google Cloud Platform (GCP) data services can be seamlessly
+  integrated and harmonized with both SAP and non-SAP data using SAP
+  Datasphere's advanced data fabric architecture.
 keywords:
   - sap
   - gcp
   - gcs
   - gbq
   - google bigquery
-  - data federation 
+  - data federation
   - datasphere
   - replication
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/logo.svg
-tags: 
+tags:
   - data
   - gcp
 hide_table_of_contents: false
@@ -31,6 +34,7 @@ contributors:
   - s-krishnamoorthy
   - jackseeburger
   - karishma-kapur
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

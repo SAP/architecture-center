@@ -2,19 +2,23 @@
 id: id-ra0001-3
 slug: /ref-arch/a06a959120/3
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT Core
-description: Sample application for building event-driven architecture application with AWS IoT as event source. Assess the critical events and publish to SAP BTP for validation and processing the business processes operations in SAP S/4HANA.
+description: >-
+  Sample application for building event-driven architecture application with AWS
+  IoT as event source. Assess the critical events and publish to SAP BTP for
+  validation and processing the business processes operations in SAP S/4HANA.
 keywords:
-    - sap
-    - btp
-    - integration
-    - event-driven architecture
-    - aws 
-    - genai
-    - cloud application programming model
-    - cap
-    - eda
+  - sap
+  - btp
+  - integration
+  - event-driven architecture
+  - aws
+  - genai
+  - cloud application programming model
+  - cap
+  - eda
 sidebar_label: Integration with Amazon Web Services
 image: img/logo.svg
 tags:
@@ -33,7 +37,8 @@ contributors:
   - anbazhagan-uma
   - pra1veenk
   - AjitKP91
-  - swatimaste00 
+  - swatimaste00
+discussion: 
 last_update:
   author: anbazhagan-uma
   date: 2025-01-01

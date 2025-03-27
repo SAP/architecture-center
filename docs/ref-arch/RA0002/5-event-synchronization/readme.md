@@ -5,7 +5,11 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Events Synchronization
-description: Event synchronization in multi-region setups is enabled by SAP's Advanced Event Mesh (AEM) with Dynamic Message Routing (DMR), ensuring real-time, resilient, and scalable event processing across regions, maintaining continuity and high availability during infrastructure failures.
+description: >-
+  Event synchronization in multi-region setups is enabled by SAP's Advanced
+  Event Mesh (AEM) with Dynamic Message Routing (DMR), ensuring real-time,
+  resilient, and scalable event processing across regions, maintaining
+  continuity and high availability during infrastructure failures.
 keywords:
   - sap
   - integration
@@ -41,6 +45,7 @@ contributors:
   - uklasing
   - alperdedeoglu
   - arajsinha
+discussion: 
 last_update:
   author: arajsinha
   date: 2025-01-31

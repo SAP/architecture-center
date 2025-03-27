@@ -1,21 +1,29 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
 id: id-ra0009
 slug: /ref-arch/f764cc1375
 sidebar_position: 9
 sidebar_custom_props:
-  category_index: [aws, azure, gcp, appdev]
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - aws
+    - azure
+    - gcp
+    - appdev
 title: Establish a central inbox with SAP Task Center
-description: Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.
+description: >-
+  Guidance for setting up SAP Task Center service on SAP BTP. Learn about the
+  architecture components and flow in this architecture.
+keywords:
+  - sap
+  - btp
+  - cloud
+  - task center
 sidebar_label: Establish a central inbox with SAP Task Center
-keywords: [sap, btp, cloud, task center]
 image: img/logo.svg
-tags: [aws, azure, gcp, appdev]
+tags:
+  - aws
+  - azure
+  - gcp
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -24,12 +32,10 @@ draft: false
 unlisted: false
 contributors:
   - fabianleh
+discussion: 
 last_update:
-  date: 2025-02-11
   author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-02-11
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
