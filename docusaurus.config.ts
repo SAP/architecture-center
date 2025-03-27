@@ -28,6 +28,7 @@ const config: Config = {
     },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
+        './src/plugins/init-ui5-theme',
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         [
             '@docusaurus/plugin-content-docs',
