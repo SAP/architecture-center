@@ -22,7 +22,7 @@ on:
 
 env:
     # https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request
-    PR_FOLDER: ${{github.event.pull_request.user.login}}-${{github.event.pull_request.head.ref}}
+    PR_FOLDER: preview/${{github.event.pull_request.user.login}}-${{github.event.pull_request.head.ref}}
 
 jobs:
     build:
@@ -110,7 +110,7 @@ jobs:
             - name: Drop Previous Content
               run: |
                   rm -rf @${{ env.PR_FOLDER }}
-                  mkdir @${{ env.PR_FOLDER }}
+                  mkdir -p @${{ env.PR_FOLDER }}
 
             - name: Extract Build Content
               run: |
