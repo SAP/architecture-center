@@ -20,7 +20,8 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                     loading="lazy"
                     src={drawioImg ?? path}
                     alt="image of solution diagram"
-                    style={{ height: 'auto' }}
+                    className={drawioImg ? '' : 'fallback-image'}
+                    style={{ height: 'auto'}}
                 />
             </p>
             <Admonition type="info" title="Solution Diagram Resources">
