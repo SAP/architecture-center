@@ -1,18 +1,24 @@
 ---
 id: id-intro-0
-sidebar_position: 0
-sidebar_custom_props: {}
-title: Reference Architectures
-description: What are SAP reference architectures, what value do they bring to organizations big and small, and how can you utilize them to help your business run better? This page gives an overview of the content you will find on the SAP Architecture Center, to start your journey toward well-architected SAP solutions.
 slug: /
+sidebar_position: 0
+sidebar_custom_props:
+  category_index: []
+title: Reference Architectures
+description: >-
+  What are SAP reference architectures, what value do they bring to
+  organizations big and small, and how can you utilize them to help your
+  business run better? This page gives an overview of the content you will find
+  on the SAP Architecture Center, to start your journey toward well-architected
+  SAP solutions.
 keywords:
   - sap
   - btp
   - business suite
   - ai
   - data
-image: img/logo.svg
 sidebar_label: Reference Architectures
+image: img/logo.svg
 tags:
   - ref-arch
 hide_table_of_contents: false
@@ -21,7 +27,8 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors:
+contributors: 
+discussion: 
 last_update:
   author: PO
   date: 2025-01-23

@@ -2,9 +2,14 @@
 id: id-ra0003-6
 slug: /ref-arch/785c72ab48/6
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: FedML and IBM watsonx.ai / IBM Watson Studio integration
-description: FedML's IBM watsonx support helps data scientists accelerate machine learning workflows with IBM watsonx workflows, while providing instant access to SAP's critical business data thereby eliminating the need to duplicate data for model training.
+description: >-
+  FedML's IBM watsonx support helps data scientists accelerate machine learning
+  workflows with IBM watsonx workflows, while providing instant access to SAP's
+  critical business data thereby eliminating the need to duplicate data for
+  model training.
 keywords:
   - sap
   - watsonx
@@ -12,7 +17,7 @@ keywords:
   - machine learning
   - fedml
   - datasphere
-  - watson.ai 
+  - watson.ai
   - watson studio
 sidebar_label: FedML-IBM watsonx
 image: img/logo.svg
@@ -31,6 +36,7 @@ contributors:
   - karishma-kapur
   - ranbian
   - ThatDodoBird
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

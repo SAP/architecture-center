@@ -5,7 +5,11 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Integration with Azure data sources
-description: Data from Azure platform data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's robust data fabric architecture. This architecture facilitates the unification of disparate data sources, enabling comprehensive data modeling and analytics.
+description: >-
+  Data from Azure platform data services can be seamlessly integrated and
+  harmonized with both SAP and non-SAP data using SAP Datasphere's robust data
+  fabric architecture. This architecture facilitates the unification of
+  disparate data sources, enabling comprehensive data modeling and analytics.
 keywords:
   - sap
   - azure
@@ -14,9 +18,9 @@ keywords:
   - data federation
 sidebar_label: Integration with Azure data sources
 image: img/logo.svg
-tags: 
-    - azure
-    - data
+tags:
+  - azure
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -27,6 +31,7 @@ contributors:
   - sivakumar
   - s-krishnamoorthy
   - karishma-kapur
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
