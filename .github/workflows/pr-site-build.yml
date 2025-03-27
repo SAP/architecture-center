@@ -144,8 +144,7 @@ jobs:
             - name: Add PR Comment with Preview Link
               uses: thollander/actions-comment-pull-request@v2
               with:
-                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ github.event.pull_request.head.ref }}).'
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}).'
 
     cleanup:
         name: Cleanup Merged PR
