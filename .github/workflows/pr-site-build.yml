@@ -142,7 +142,7 @@ jobs:
             - name: Add PR Comment with Preview Link
               uses: thollander/actions-comment-pull-request@v2
               with:
-                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}).*Please note that it may take 4-5 minutes for the site to fully render.*'
+                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}). *Please note that it may take 4-5 minutes for the site to fully render.*'
 
     cleanup:
         name: Cleanup Merged PR

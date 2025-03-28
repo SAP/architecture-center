@@ -21,7 +21,7 @@ description: The reference architecture for Esri running on SAP HANA Cloud as a 
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
 keywords: [sap, hana cloud, esri]
 image: img/logo.svg
-tags: [data]
+tags: [aws, azure, gcp, data]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
