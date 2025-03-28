@@ -101,7 +101,6 @@
 .container {
     align-items: center;
     justify-content: center;
-    z-index: 1;
     padding: 32px;
 }
 
@@ -247,7 +246,7 @@
     width: 70%;
     margin-left: 30px;
     margin-right: auto;
-  }
+}
 
 /* Constrain the size of zoomed images */
 .medium-zoom-image--opened {
@@ -389,7 +388,7 @@ table thead {
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
     --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
-    --ifm-link-color: #4DB1FF; /* Evening Horizon's color for links */
+    --ifm-link-color: #4db1ff; /* Evening Horizon's color for links */
     --ifm-color-primary: #d1efff;
     --ifm-color-primary-dark: #439ddd;
     --ifm-color-primary-darker: #4684e8;
