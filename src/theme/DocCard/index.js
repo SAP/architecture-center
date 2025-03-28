@@ -4,16 +4,18 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   useDocById,
   findFirstSidebarItemLink,
 } from '@docusaurus/plugin-content-docs/client';
 import {usePluralForm} from '@docusaurus/theme-common';
 import {translate} from '@docusaurus/Translate';
-import {Card, Text, Icon, FlexBox, Tag, Label, Title} from '@ui5/webcomponents-react';
+import {Card, Text, Icon, FlexBox, Tag, Label, Title, Popover} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/dimension";
 import "@ui5/webcomponents-icons/dist/action";
+
+import styles from './styles.module.css';
 
 function useCategoryItemsPlural() {
   const {selectMessage} = usePluralForm();
@@ -32,131 +34,223 @@ function useCategoryItemsPlural() {
     );
 }
 function CardLayout({ href, title, description, tags, lastUpdate, item }) {
+  const moreTagsRef = useRef(null);
+  const [popoverIsOpen, setPopoverIsOpen] = useState(false);
+  const [compressedTags, setCompressedTags] = useState([])
+  const [remainingTags, setRemainingTags] = useState([])
+  const [readableDescription, setReadableDescription] = useState("")
+
+
+  
+  useEffect(()=> {
+    let counter = 0
+    let compressedLength = 0
+    for(const tag of tags) {
+      counter += tag.label.length
+      if(counter > 40) {
+        counter = 0
+        break;
+      }
+      compressedLength++
+      setCompressedTags((_tags)=> [..._tags, tag])
+    }
+    setRemainingTags(tags.slice(compressedLength))
+
+    if(description.length > 160) {
+      const _description = description.slice(0, 160);
+      const lastSpaceIndex = _description.lastIndexOf(' ');
+      setReadableDescription(_description.slice(0, lastSpaceIndex) + " [read more]")
+    }else{
+      setReadableDescription(description)
+    }
+  }, [])
+
   return (
-      <Card
+    <Card
+      style={{
+        height: '290px',
+        cursor: 'pointer',
+        borderRadius: '10px',
+        overflow: 'visible',
+        transition: 'all 0.3s ease-in-out',
+        backgroundColor: 'var(--ifm-card-background)',
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+      }}
+      onClick={(event) => {
+        if (
+          event.target.tagName === 'UI5-TAG' ||
+          event.target.className.includes('hoverUnderline') ||
+          event.target.tagName === 'UI5-POPOVER'
+        )
+          return;
+        window.location.href = href;
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = 'var(--ifm-hover-overlay)';
+        e.currentTarget.style.boxShadow = '0px 6px 16px rgba(0, 112, 242, 0.4)';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'var(--ifm-card-background)';
+        e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.1)';
+        e.currentTarget.style.transform = 'none';
+      }}
+    >
+      <FlexBox direction='Column' justifyContent='End' style={{height: "290px", margin: 0, padding: 0}} gap={0}>
+    {/* Custom Banner Image */}
+    <FlexBox direction="Column">
+      <div
         style={{
-          height: '400px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          cursor: 'pointer',
-          borderRadius: '10px',
-          overflow: 'visible',
-          transition: 'all 0.3s ease-in-out',
-          backgroundColor: 'var(--ifm-card-background)',
-          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-        }}
-        onClick={() => { window.location.href = href }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'var(--ifm-hover-overlay)';
-          e.currentTarget.style.boxShadow = '0px 6px 16px rgba(0, 112, 242, 0.4)';
-          e.currentTarget.style.transform = 'translateY(-3px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = 'var(--ifm-card-background)';
-          e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.1)';
-          e.currentTarget.style.transform = 'none';
-        }}
-      >
-      {/* Custom Banner Image */}
-      <FlexBox direction="Column">
-        <div
-          style={{
-            height: '50px',
-            backgroundImage: `url('${
+          height: '50px',
+          backgroundImage: `url('${
               item.customProps?.isGuidance 
                 ? '/img/Card_header_green.jpg' 
                 : '/img/Card_header_blue.jpg'
             }')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* Blue Left Accent */}
+    </FlexBox>
+    <FlexBox direction='Column' style={{height: "175px"}}>
+      <FlexBox justifyContent="Start" alignItems="Center">
+        <div
+          style={{
+            height: '40px',
+            width: '6px',
+            backgroundColor: item.customProps?.isGuidance ? '#06B400': '#0070F2',
           }}
         />
-
-        {/* Blue Left Accent */}
-        <FlexBox justifyContent="Start" alignItems="Center">
-          <div
-            style={{
-              marginTop:'10px',
-              height: '40px',
-              width: '6px',
-              backgroundColor: item.customProps?.isGuidance ? '#06B400': '#0070F2',
-            }}
-          />
-          <Title style={{padding: '0 16px', marginTop: '10px'}}>{title}</Title>
-        </FlexBox>
+        <Title style={{padding: '0 16px', paddingTop: '10px', cursor: "pointer", fontSize: "18px"}}>{title}</Title>
       </FlexBox>
-
-      <Text
-          style={{
-            padding: '0 16px',
-            textAlign: 'left',
-            flexGrow: 1,
-            cursor: 'pointer',
-            marginTop: '10px',
-            marginBottom: '20px'
-          }}
-      >
-        {description}
-      </Text>
-      {/* Tags container */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '8px',
-          padding: '0 16px 16px 16px',
-        }}
-      >
-        {tags?.map((tag, index) => (
-          <Tag
-            key={index}
-            design="Information"
-            hideStateIcon
-            title={tag.description || tag.label}
-          >
-            {tag.label}
-          </Tag>
-
-        ))}
-      </div>
-      {/* Date */}
-      <FlexBox
-        style={{
-          position: 'absolute',
-          bottom: '16px',
-          left: '16px',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}
-      >
-      <Label style={{ marginRight: '5px', fontStyle: 'italic', fontSize: 'var(--sapFontSmallSize)' }}>
-        Last Update:
-      </Label>
-      <Text style={{ fontStyle: 'italic', fontSize: 'var(--sapFontSmallSize)' }}>
-        {lastUpdate
-          ? new Date(lastUpdate).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          : ''}
-      </Text>
-      </FlexBox>
-      <FlexBox
-        style={{
-          position: 'absolute',
-          bottom: '16px',
-          right: '16px',
+    <FlexBox
+      style={{
+        padding: '16px 16px 0px 16px',
+          textAlign: 'left',
           cursor: 'pointer',
+          margin: 0
+      }}
+    >
+    <Text
+    >
+      {readableDescription}
+    </Text>
+    </FlexBox>
+    </FlexBox>
+      {/* Tags container */}
+      <FlexBox direction='Column' justifyContent='SpaceBetween' alignItems='Start' gap={10} style={{width: "100%", height: "65px"}}>
+      <FlexBox
+        style={{
+          flexWrap: 'wrap',
+          padding: '0 16px 0px 16px',
+          margin: 0,
+          bottom: 0,
+          width: "100%"
+        }}
+        direction='Row'
+        gap={3}
+        alignItems='End'
+        justifyContent='Start'
+      >
+        {compressedTags.map((tag, index) => (
+          <a href={"tags/" + tag.tag}>
+            <Tag
+              key={index}
+              design="Information"
+              hideStateIcon
+              title={tag.description || tag.label}
+              className={styles.hoverBoxShadow}
+              style={{borderRadius: "8px"}}
+            >
+              {tag.label}
+            </Tag>
+          </a>
+        ))}
+        {remainingTags.length > 0 && (
+          <>
+            <Tag
+              ref={moreTagsRef}
+              style={{
+                cursor: 'pointer',
+              }}
+              design='Information'
+              hideStateIcon
+              id="moreTags"
+              className={styles.hoverUnderline}
+              onClick={() => {
+                setPopoverIsOpen(!popoverIsOpen);
+              }}
+            >
+              <div style={{padding: '0px 2px 0px 2px'}}>
+              +{remainingTags.length}
+              </div>
+            </Tag>
+            <Popover
+              opener={moreTagsRef.current}
+              open={popoverIsOpen}
+              onClose={() => {
+                setPopoverIsOpen(false);
+              }}
+              style={{cursor: "initial"}}
+            >
+              <div style={{display: "flex", flexDirection: "Column", gap: "10px"}}>
+                {remainingTags.map((tag, index) => (
+                  <>
+                  <a href={"tags/" + tag.tag}>
+                    <Tag
+                      key={index}
+                      design="Information"
+                      hideStateIcon
+                      title={tag.description || tag.label}
+                      className={styles.hoverBoxShadow}
+                      style={{borderRadius: "8px", cursor: "pointer"}}
+                    >
+                      {tag.label}
+                    </Tag>
+                    </a>
+                  </>
+                ))}
+              </div>
+            </Popover>
+          </>
+        )}
+      </FlexBox>
+      {/* Date */}
+      <FlexBox direction='row' alignItems='End' justifyContent='SpaceBetween' style={{padding: "0px 16px 10px 16px", margin: 0, width: "100%", bottom: 0}}>
+      <FlexBox
+      direction='Row'
+      alignItems='Center'
+      style={{fontStyle: "italic"}}
+      >
+        <Text style={{ cursor: "pointer", color: "gray", fontSize: 'var(--sapFontSmallSize)' }}>
+          {"Last Update: "}
+        </Text>
+        <Text style={{cursor: "pointer", paddingLeft: 3, color: "gray", fontSize: 'var(--sapFontSmallSize)'}}>
+          {lastUpdate
+            ? new Date(lastUpdate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+            : ''}
+        </Text>
+      </FlexBox>
+      <FlexBox
+        style={{
+          cursor: 'pointer',
+          paddingBottom: 2
         }}
         onClick={(e) => {
           e.stopPropagation();
           window.open(href, '_blank');
         }}
       >
-      <Icon name="action" title="Open in a new window" style={{ color: '#0070F2' }} />
+        <Icon name="action" title="Open in a new window" style={{ color: '#0070F2', width: "15px" }} />
+      </FlexBox>
+      </FlexBox>
+      </FlexBox>
       </FlexBox>
     </Card>
   );
