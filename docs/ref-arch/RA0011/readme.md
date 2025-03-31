@@ -114,7 +114,7 @@ Overall SAP HANA Cloud is used as a unified database, executing diverse workload
 
 ## Examples
 
-One European Power Grid operator, Open Grid Europe (OGE), utilized SAP HANA Cloud to modernize its operations and enhance decision making capabilities. By migrating its analytical applications to the cloud, a power grid operator improved performance, scalability, and agility. The company is utilizing HANA Cloud as an integration hub for its asset management. This strategic move enabled a customer to consolidate asset data from various sources, providing a unified view for efficient management and optimization. The adoption of SAP HANA Cloud as a geodatabase for Esri streamlined processes, drives innovation, and supports the customer’s goal of becoming a more data-driven organization by combining SAP and Esri data for improving asset visibility, cost reduction, and overall operational efficiency.
+One European Power Grid operator, utilized SAP HANA Cloud to modernize its operations and enhance decision making capabilities. By migrating its analytical applications to the cloud, a power grid operator improved performance, scalability, and agility. The company is utilizing HANA Cloud as an integration hub for its asset management. This strategic move enabled a customer to consolidate asset data from various sources, providing a unified view for efficient management and optimization. The adoption of SAP HANA Cloud as a geodatabase for Esri streamlined processes, drives innovation, and supports the customer’s goal of becoming a more data-driven organization by combining SAP and Esri data for improving asset visibility, cost reduction, and overall operational efficiency.
 
 SAP HANA Cloud demonstrated powerful capabilities in handling complex geospatial data challenges, as evidenced by one European post office logistic department. This solution efficiently federates large volumes of sorting and delivery transaction data, enabling real-time analysis without data replication. SAP HANA Cloud's geospatial features allow for sophisticated visualization on geo maps, including polygons and flow maps, which are crucial for deriving quick business insights. The platform's ability to blend data from various sources, transform geospatial formats (like GeoJSON to WKT), and perform on-the-fly transformations makes it a versatile solution for organizations dealing with location-based data.
 
@@ -135,7 +135,6 @@ SAP HANA Cloud
 
 SAP HANA Links:
 
-- [SAP HANA Cloud Multitenancy Guide](https://help.sap.com/docs/hana-cloud/sap-hana-cloud-multitenancy/sap-hana-cloud-multitenancy)
 - [SAP HANA Get Started](https://www.sap.com/products/technology-platform/hana/get-started.html?sort=latest_desc&tab=product-demos)
 - [SAP HANA Cloud on sap.com](https://www.sap.com/products/technology-platform/hana.html)
 - [SAP HANA Cloud Documentation](https://help.sap.com/docs/hana-cloud?locale=en-US)
