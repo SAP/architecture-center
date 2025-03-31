@@ -1,25 +1,36 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
 id: id-ra0010
 slug: /ref-arch/c2b5707a1f
 sidebar_position: 10
 sidebar_custom_props:
-  category_index: 
+  category_index:
     - aws
     - gcp
     - azure
     - appdev
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Establish a central entry point with SAP Build Work Zone
-description: SAP Build Work Zone offers a comprehensive solution architecture designed to elevate user productivity and engagement by providing a digital workplace platform that supports single-sign-on. This innovative approach centralizes access to essential business applications, processes, information, and communication, serving as a unified entry point accessible from desktop or mobile devices. It harmonizes business content, applications, workflows, and processes across your landscape, ensuring a seamless integration and interaction within your digital ecosystem.
+description: >-
+  SAP Build Work Zone offers a comprehensive solution architecture designed to
+  elevate user productivity and engagement by providing a digital workplace
+  platform that supports single-sign-on. This innovative approach centralizes
+  access to essential business applications, processes, information, and
+  communication, serving as a unified entry point accessible from desktop or
+  mobile devices. It harmonizes business content, applications, workflows, and
+  processes across your landscape, ensuring a seamless integration and
+  interaction within your digital ecosystem.
+keywords:
+  - sap
+  - btp
+  - cloud
+  - build work zone
 sidebar_label: Establish a central entry point with SAP Build Work Zone
-keywords: [sap, btp, cloud, build work zone]
 image: img/logo.svg
-tags: [aws, azure, gcp, appdev, buildworkzone]
+tags:
+  - aws
+  - azure
+  - gcp
+  - appdev
+  - buildworkzone
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,12 +39,10 @@ draft: false
 unlisted: false
 contributors:
   - fabianleh
+discussion: 
 last_update:
-  date: 2025-02-24
   author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-02-24
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->

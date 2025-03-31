@@ -41,42 +41,36 @@
     }
 
     .filters {
-        width: 100%;
-        max-width: none;
-        min-width: auto;
-        margin-top: 15px;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
+        flex-wrap: wrap; /* Wrap elements on smaller screens */
+        justify-content: center; /* Center-align filters */
     }
 
     .filterRow {
-        flex-direction: column; /* Stack items on smaller screens */
-        align-items: flex-start; /* Align to the left */
-        gap: 5px; /* Reduce spacing for better fit */
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .resetIconWrapper {
+        justify-content: center;
+        width: 100%; /* Center the reset button on smaller screens */
     }
 }
 
 .filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 1.5rem;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    min-height: auto;
-    width: 100%;
-    margin-top: 5px;
     border: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: row; /* Side by side layout */
-    gap: 1.5rem;
-    align-items: center;
-    flex-wrap: wrap; /* Wrap elements on small screens */
+    width: 100%; /* Prevent overflow */
+    overflow: visible; /* Hide any accidental overflow */
 }
 
 .filterGroup {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Equal width for both filters */
-    min-width: 565px; /* Prevents shrinking too much */
+    flex: 1 1 100%; /* Take full width on smaller screens */
+    min-width: 300px; /* Prevent shrinking below a usable width */
 }
 
 .filterGroupReset {
@@ -87,7 +81,8 @@
 .filterRow {
     display: flex;
     align-items: center;
-    gap: 15px; /* Adjust spacing */
+    gap: 15px;
+    width: 100%;
 }
 
 .filters h4 {
@@ -111,13 +106,14 @@
 
 .resetIconWrapper {
     display: flex;
-    justify-content: start;
-    margin-top: 20px;
-    width: 100%;
+    justify-content: center; /* Center-align the reset icon */
+    align-items: center;
+    width: auto; /* Prevent it from stretching */
+    padding-top: 1.2rem;
 }
 
 .resetIcon {
-    font-size: 25px; /* Adjust size */
+    font-size: 25px;
     color: #0073e6;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -131,26 +127,6 @@
     opacity: 0.6;
     pointer-events: none;
     cursor: not-allowed;
-}
-
-/* Mobile-Specific Adjustments */
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-    }
-
-    .filterGroup {
-        width: 100%;
-        min-width: 100px;
-    }
-
-    .filterGroupReset {
-        width: 100%;
-    }
-
-    .resetButtonWrapper {
-        justify-content: end;
-    }
 }
 
 /* Dark Mode */

@@ -1,26 +1,33 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-id: id-ra0008 # [DO NOT MODIFY]
-slug: /ref-arch/f2670637a8 # [DO NOT MODIFY]
-sidebar_position: 8 # [DO NOT MODIFY]
-sidebar_custom_props: # [DO NOT MODIFY]
-    category_index:
-        - aws
-        - gcp
-        - azure
-        - integration
-        - appdev
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+id: id-ra0008
+slug: /ref-arch/f2670637a8
+sidebar_position: 8
+sidebar_custom_props:
+  category_index:
+    - aws
+    - gcp
+    - azure
+    - integration
+    - appdev
 title: Edge Integration Cell on Hyperscalers
-description: Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.
+description: >-
+  Discover reference architectures for deploying SAP Integration Suite - Edge
+  Integration Cell on hyperscalers. Access architecture diagrams and key
+  resources to understand its setup and implementation.
+keywords:
+  - sap
+  - aws
+  - azure
+  - gcp
+  - eic
+  - edge integration cell
 sidebar_label: Edge Integration Cell on Hyperscalers
-keywords: [sap, aws, azure, gcp, eic, edge integration cell]
 image: img/logo.svg
-tags: [aws, azure, gcp, eic]
+tags:
+  - aws
+  - azure
+  - gcp
+  - eic
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,15 +35,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - adarshnarayanhegde
-    - madankumarpichamuthu
-    - AFK-Python
+  - adarshnarayanhegde
+  - madankumarpichamuthu
+  - AFK-Python
+discussion: 
 last_update:
-    date: 2025-03-06
-    author: adarshnarayanhegde
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: adarshnarayanhegde
+  date: 2025-03-06
 ---
 
 Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.

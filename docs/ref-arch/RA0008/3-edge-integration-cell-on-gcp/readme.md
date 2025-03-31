@@ -1,23 +1,23 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0008-3 
-slug: /ref-arch/f2670637a8/3 
-sidebar_position: 3 
-sidebar_custom_props: 
-  category_index: 
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+id: id-ra0008-3
+slug: /ref-arch/f2670637a8/3
+sidebar_position: 3
+sidebar_custom_props:
+  category_index: []
 title: Edge Integration Cell on GCP
-description: Explore the reference architecture for deploying SAP Integration Suite - Edge Integration Cell on GCP. Learn about the required resources, and key considerations for setup and implementation on GCP.
+description: >-
+  Explore the reference architecture for deploying SAP Integration Suite - Edge
+  Integration Cell on GCP. Learn about the required resources, and key
+  considerations for setup and implementation on GCP.
+keywords:
+  - sap
+  - gcp
+  - eic
 sidebar_label: Edge Integration Cell on GCP
-keywords: [sap,gcp,eic]
 image: img/logo.svg
-tags: [gcp,eic]
+tags:
+  - gcp
+  - eic
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,12 +26,10 @@ draft: false
 unlisted: false
 contributors:
   - AFK-Python
+discussion: 
 last_update:
-  date: 2025-02-20
   author: AFK-Python
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-02-20
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Google Cloud Platform (GCP) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines GCP-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
@@ -129,5 +127,3 @@ The architecture and setup instructions in the GitHub repository above outline a
 
 ## Explore More
 - [Setting Up and Managing Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/setting-up-and-managing-edge-integration-cell)
-
-

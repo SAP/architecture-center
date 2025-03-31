@@ -1,23 +1,22 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0008-2 
-slug: /ref-arch/f2670637a8/2 
-sidebar_position: 2 
-sidebar_custom_props: 
-  category_index: 
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+id: id-ra0008-2
+slug: /ref-arch/f2670637a8/2
+sidebar_position: 2
+sidebar_custom_props:
+  category_index: []
 title: Edge Integration Cell on Azure
-description: Explore the reference architecture for deploying SAP Integration Suite - Edge Integration Cell on Azure. Learn about the required resources, and key considerations for setup and implementation on Azure.
+description: >-
+  Explore the reference architecture for deploying SAP Integration Suite - Edge
+  Integration Cell on Azure. Learn about the required resources, and key
+  considerations for setup and implementation on Azure.
+keywords:
+  - azure
+  - eic
 sidebar_label: Edge Integration Cell on Azure
-keywords: [azure,eic]
 image: img/logo.svg
-tags: [azure,eic]
+tags:
+  - azure
+  - eic
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,12 +25,10 @@ draft: false
 unlisted: false
 contributors:
   - madankumarpichamuthu
+discussion: 
 last_update:
-  date: 2025-02-20
   author: madankumarpichamuthu
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-02-20
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Azure to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines Azure-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.

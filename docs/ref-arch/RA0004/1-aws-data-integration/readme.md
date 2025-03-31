@@ -5,7 +5,9 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Integration with AWS data sources
-description: Data from AWS data sources can be harmonized with SAP and non-sap data via SAP Datasphere's data fabric architecture. 
+description: >-
+  Data from AWS data sources can be harmonized with SAP and non-sap data via SAP
+  Datasphere's data fabric architecture.
 keywords:
   - sap
   - aws
@@ -30,6 +32,7 @@ contributors:
   - s-krishnamoorthy
   - feng
   - karishma-kapur
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

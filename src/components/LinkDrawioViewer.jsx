@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import pako from 'pako';
 import { Button } from '@ui5/webcomponents-react';
-import '@ui5/webcomponents-icons/dist/edit-outside.js';
 
-const HOST_DRAWIO_VIEWER =
-    'https://viewer.diagrams.net/?tags={}&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=diagram.drawio#R';
+const HOST_DRAWIO_VIEWER = 'https://app.diagrams.net#R';
 
 // we expect the raw xml string of the drawio file as prop here
 export default function LinkDrawioViewer({ drawioXml }) {
@@ -26,9 +24,7 @@ export default function LinkDrawioViewer({ drawioXml }) {
 
     return (
         <a href={encodedLink} target="_blank">
-            <Button design="Emphasized" icon="edit-outside">
-                View & Edit on draw.io
-            </Button>
+            <Button style={{ width: 150 }}>Edit</Button>
         </a>
     );
 }

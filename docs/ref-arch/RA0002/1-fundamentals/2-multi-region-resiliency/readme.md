@@ -5,7 +5,11 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Multi-region resiliency
-description: Multi-region resiliency ensures applications remain functional during regional outages by leveraging geographically distributed data centers. It enhances disaster recovery, minimizes downtime, reduces latency, ensures compliance, and provides a seamless global user experience.
+description: >-
+  Multi-region resiliency ensures applications remain functional during regional
+  outages by leveraging geographically distributed data centers. It enhances
+  disaster recovery, minimizes downtime, reduces latency, ensures compliance,
+  and provides a seamless global user experience.
 keywords:
   - sap
   - integration
@@ -39,6 +43,7 @@ contributors:
   - uklasing
   - alperdedeoglu
   - arajsinha
+discussion: 
 last_update:
   author: arajsinha
   date: 2025-01-31

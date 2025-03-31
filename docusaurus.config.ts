@@ -28,6 +28,7 @@ const config: Config = {
     },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
+        './src/plugins/init-ui5-theme',
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         [
             '@docusaurus/plugin-content-docs',
@@ -48,6 +49,7 @@ const config: Config = {
                 id: 'guidance',
                 path: 'guidance',
                 routeBasePath: 'guidance',
+                sidebarItemsGenerator: generateSidebarSlices,
                 sidebarPath: require.resolve('./sidebarsGuidance'),
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,
@@ -107,7 +109,7 @@ const config: Config = {
                     showLastUpdateTime: true,
                     showLastUpdateAuthor: true,
                     onInlineTags: 'warn',
-                    routeBasePath: '/',
+                    routeBasePath: 'docs',
                     sidebarPath: require.resolve('./sidebars'),
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
@@ -167,8 +169,8 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="mailto:paa@sap.com?subject=[Architecture Center] Message&body=Dear PAA team,%0D%0DI would like to contact you because:%0D%0D< Just want to say Hi or make a suggestion? Enter your message here! >%0D%0DThank you!%0D%0DRegards,%0D%0D< your_name >">We welcome your feedback</a>.</b>',
-            backgroundColor: '#0A6ED1',
+                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="mailto:paa@sap.com?subject=[Architecture Center] Message&body=Dear PAA team,%0D%0DI would like to contact you because:%0D%0D< Just want to say Hi or make a suggestion? Enter your message here! >%0D%0DThank you!%0D%0DRegards,%0D%0DX">We welcome your feedback</a>.</b>',
+            backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
         },
@@ -202,67 +204,67 @@ const config: Config = {
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Explore</strong>',
+                            value: '<strong>Explore</strong>'
                         },
                         {
-                            to: '/explore',
-                            label: 'Explore all Reference Architectures',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
+                            to: '/docs/exploreallrefarch',
+                            label: 'Explore all Reference Architectures'
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Partners</strong>',
+                            value: '<hr style="margin: 0.3rem 0;">'
+                        },
+                        {
+                            type: 'html',
+                            value: '<strong>Technology Partners</strong>'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'aws',
-                            label: 'Amazon Web Services',
+                            label: 'Amazon Web Services'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'azure',
-                            label: 'Microsoft Azure',
+                            label: 'Microsoft Azure'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'gcp',
-                            label: 'Google Cloud Platform',
+                            label: 'Google Cloud Platform'
                         },
                         {
                             type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
+                            value: '<hr style="margin: 0.3rem 0;">'
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Domains</strong>',
+                            value: '<strong>Technology Domains</strong>'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'appdev',
-                            label: 'Application Development & Automation',
+                            label: 'Application Development & Automation'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'ai',
-                            label: 'Artificial Intelligence',
+                            label: 'Artificial Intelligence'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'data',
-                            label: 'Data & Analytics',
+                            label: 'Data & Analytics'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'integration',
-                            label: 'Integration',
+                            label: 'Integration'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'security',
-                            label: 'Operation & Security',
+                            label: 'Operation & Security'
                         },
                     ],
                 },
@@ -331,6 +333,10 @@ const config: Config = {
                         {
                             label: 'SAP Discovery Center',
                             href: 'https://discovery-center.cloud.sap/index.html',
+                        },
+                        {
+                            label: 'BTP Solution Diagrams',
+                            href: 'https://sap.github.io/btp-solution-diagrams/',
                         },
                     ],
                 },

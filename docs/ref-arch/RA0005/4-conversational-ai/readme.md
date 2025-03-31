@@ -2,7 +2,8 @@
 id: id-ra0005-4
 slug: /ref-arch/5c9255f84a/4
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Conversational AI & Joule
 description: Please add a description (max 300 characters)
 keywords:
@@ -17,7 +18,8 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: true
 unlisted: false
-contributors:
+contributors: 
+discussion: 
 last_update:
   author: jmsrpp
   date: 2025-01-01
