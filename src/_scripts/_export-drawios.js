@@ -154,7 +154,7 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
             .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
         writeFileSync(svgPath, svg);
-        // log(prettyPaths('Watermarked ' + svgPath));
+        log(prettyPaths('Watermarked ' + svgPath));
     } catch (e) {
         const msg = prettyPaths(`Failed to watermark ${svgPath}, aborting now`);
         throw new Error(msg, { cause: e });
