@@ -16,7 +16,7 @@ export default function ExploreAllArchitecturesSection() {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
       if (width <= 600) return 1;
-      if (width <= 996) return 2;
+      if (width <= 1339) return 2;
     }
     return 3;
   };
