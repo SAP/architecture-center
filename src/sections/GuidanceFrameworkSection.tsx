@@ -16,7 +16,7 @@ export default function ExploreAllArchitecturesSection() {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
       if (width <= 600) return 1;
-      if (width <= 996) return 2;
+      if (width <= 1339) return 2;
     }
     return 3;
   };
@@ -76,7 +76,7 @@ export default function ExploreAllArchitecturesSection() {
           <Title>Explore the SAP BTP Guidance Framework</Title>
           <FlexBox alignItems="Center" style={{ gap: "10px" }}>
             <Text className={styles.hideOnMobile}  style={{ fontWeight: "bold" }}>Browse</Text>
-            <Button
+            <Button         
               design={canGoLeft ? "Emphasized" : "Transparent"}
               icon="navigation-left-arrow"
               onClick={goPrevious}
