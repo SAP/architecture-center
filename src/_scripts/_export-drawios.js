@@ -15,7 +15,7 @@ const ROOT = normalizePath(__dirname + '/../..');
 const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
-const URL = 'https://architecture.cloud.sap';
+const URL = 'https://architecture.cloud.sap/docs';
 
 if (!DOCKER) {
     try {
@@ -92,6 +92,15 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         mt: 28,
     };
     logo.y = height + logo.mt;
+
+    let scaleDown = 1;
+    // ensure watermark doesn't get to big for smaller diagrams
+    if (width < 800) scaleDown = 0.7;
+    else if (width < 1000) scaleDown = 0.75;
+    else if (width < 1200) scaleDown = 0.85;
+    logo.h = logo.h * scaleDown;
+    logo.w = logo.w * scaleDown;
+
     // have now title of solution diagram on top
     // need to shift everything else
     const yShift = 56;
@@ -111,20 +120,23 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         let title = frontmatter.match(/^title:\s(.*)$/m)[1];
         if (title.includes('#')) title = title.split('#')[0];
         const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
-        const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="22">
+        const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(22 * scaleDown)}">
                         <![CDATA[${title}]]>
                     </text>
                     <g transform="translate(0, ${yShift})">
-                    <text x="${textX}" y="${logo.y + 20}" font-family="Arial" font-weight="bold" font-size="20">
+                    <text x="${textX}" y="${logo.y + Math.round(logo.h * 0.5)}" font-family="Arial" font-weight="bold"
+                            font-size="${Math.round(20 * scaleDown)}">
                         Architecture Center
                     </text>
-                    <text x="${textX}" y="${logo.y + logo.h - 4}" font-family="Arial" font-style="italic" font-size="16">
+                    <text x="${textX}" y="${logo.y + Math.round(logo.h * 0.9)}" font-family="Arial" font-style="italic"
+                            font-size="${Math.round(16 * scaleDown)}">
                         Last update on ${lastUpdate}
                     </text>
                     <g transform="translate(0, ${logo.y})">
                         <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
                     </g>
-                    <text x="${width / 2}" y="${logo.y + 36}" font-family="Arial" font-size="18">
+                    <text x="${width / 2}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
+                            font-size="${Math.round(18 * scaleDown)}">
                         ${URL + slug}
                     </text>
                     </g>`;

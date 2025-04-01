@@ -61,7 +61,7 @@ In today's interconnected business landscape, ensuring the resilience of mission
 
 While many SAP products support multi-region disaster recovery as part of their architecture, certain solutions, like SAP BTP, require customers to architect the setup. Although SAP BTP services offer multi-Availability Zone (multi-AZ) resiliency by default, some customers need additional robustness and regulatory compliance through a multi-region configuration. This documentation will guide you through the concepts, strategies, and best practices for implementing multi-region architectures on SAP BTP.
 
-## Reference Architecture
+## Architecture
 
 SAP BTP offers a global infrastructure that allows deployment across various regions which helps our customers achieve multi-region setup for their services. The following diagram presents a comprehensive reference architecture for multi-region deployment on SAP BTP:
 
