@@ -6,7 +6,6 @@
  */
 import React, {useState, useRef, useEffect} from 'react';
 import {
-  useDocById,
   findFirstSidebarItemLink,
 } from '@docusaurus/plugin-content-docs/client';
 import {usePluralForm} from '@docusaurus/theme-common';
@@ -14,8 +13,6 @@ import {translate} from '@docusaurus/Translate';
 import {Card, Text, Icon, FlexBox, Tag, Label, Title, Popover} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/dimension";
 import "@ui5/webcomponents-icons/dist/action";
-
-import styles from './styles.module.css';
 
 function useCategoryItemsPlural() {
   const {selectMessage} = usePluralForm();
@@ -33,28 +30,58 @@ function useCategoryItemsPlural() {
       ),
     );
 }
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}
 function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   const moreTagsRef = useRef(null);
   const [popoverIsOpen, setPopoverIsOpen] = useState(false);
   const [compressedTags, setCompressedTags] = useState([])
   const [remainingTags, setRemainingTags] = useState([])
   const [readableDescription, setReadableDescription] = useState("")
-
-
+  const [readableTitle, setReadableTitle] = useState("")
+  const size = useWindowSize();
   
   useEffect(()=> {
+    if(size.width === undefined) return;
+    setCompressedTags([])
+    setRemainingTags([])
     let counter = 0
-    let compressedLength = 0
+    let skippedTag = false
     for(const tag of tags) {
       counter += tag.label.length
-      if(counter > 40) {
-        counter = 0
-        break;
+      if(skippedTag && size.width <= 996 && counter < Math.round((size.width/2298)*255) ||
+        !skippedTag && size.width <= 996 && counter < Math.round((size.width/2298)*280) ||
+        skippedTag && counter < Math.round((size.width/2298)*65) ||
+        !skippedTag && counter < Math.round((size.width/2298)*70)) {
+        setCompressedTags((_tags)=> [..._tags, tag])
+        continue
       }
-      compressedLength++
-      setCompressedTags((_tags)=> [..._tags, tag])
+      skippedTag = true
+      counter -= tag.label.length
     }
-    setRemainingTags(tags.slice(compressedLength))
 
     if(description.length > 160) {
       const _description = description.slice(0, 160);
@@ -63,7 +90,29 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
     }else{
       setReadableDescription(description)
     }
-  }, [])
+
+    if(size.width <= 996 && title.length <= 100 || size.width > 996 && title.length <= 50) {
+      setReadableTitle(title)
+      return
+    }
+    if(size.width <= 996 && title.length > 100) {
+      setReadableTitle(title.substring(0,100)+"...")
+      return
+    }
+    if(size.width > 996 && title.length > 50) {
+      setReadableTitle(title.substring(0,50)+"...")
+      return
+    }
+  }, [size])
+
+  useEffect(()=>{
+    const difference = tags.filter(obj1 => 
+      !compressedTags.some(obj2 => 
+        JSON.stringify(obj1) === JSON.stringify(obj2)
+      )
+    );
+    setRemainingTags(difference)
+  }, [compressedTags])
 
   return (
     <Card
@@ -79,7 +128,6 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       onClick={(event) => {
         if (
           event.target.tagName === 'UI5-TAG' ||
-          event.target.className.includes('hoverUnderline') ||
           event.target.tagName === 'UI5-POPOVER'
         )
           return;
@@ -115,22 +163,26 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       {/* Blue Left Accent */}
     </FlexBox>
     <FlexBox direction='Column' style={{height: "175px"}}>
-      <FlexBox justifyContent="Start" alignItems="Center">
+      <FlexBox justifyContent="Start" alignItems="Center" style={{height: "60px"}}>
         <div
           style={{
             height: '40px',
             width: '6px',
+            minWidth: '6px',
+            borderTopRightRadius: '4px',
+            borderBottomRightRadius: '4px',
             backgroundColor: item.customProps?.isGuidance ? '#06B400': '#0070F2',
+            marginTop: "10px"
           }}
         />
-        <Title style={{padding: '0 16px', paddingTop: '10px', cursor: "pointer", fontSize: "18px"}}>{title}</Title>
+        <Title style={{padding: '0 16px', paddingTop: '10px', cursor: "pointer", fontSize: "18px"}}>{readableTitle}</Title>
       </FlexBox>
     <FlexBox
       style={{
         padding: '16px 16px 0px 16px',
           textAlign: 'left',
           cursor: 'pointer',
-          margin: 0
+          margin: 0,
       }}
     >
     <Text
@@ -161,8 +213,14 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
               design="Information"
               hideStateIcon
               title={tag.description || tag.label}
-              className={styles.hoverBoxShadow}
               style={{borderRadius: "8px"}}
+              onMouseEnter={(e) => {
+                //TODO: make this dependent on the theme
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.1)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none'
+              }}
             >
               {tag.label}
             </Tag>
@@ -178,9 +236,15 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
               design='Information'
               hideStateIcon
               id="moreTags"
-              className={styles.hoverUnderline}
               onClick={() => {
                 setPopoverIsOpen(!popoverIsOpen);
+              }}
+              title='Show more tags'
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = 'underline';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = 'none';
               }}
             >
               <div style={{padding: '0px 2px 0px 2px'}}>
@@ -198,14 +262,20 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
               <div style={{display: "flex", flexDirection: "Column", gap: "10px"}}>
                 {remainingTags.map((tag, index) => (
                   <>
-                  <a href={"tags/" + tag.tag}>
+                  <a href={"tags/" + tag.tag} id="popover">
                     <Tag
                       key={index}
                       design="Information"
                       hideStateIcon
                       title={tag.description || tag.label}
-                      className={styles.hoverBoxShadow}
                       style={{borderRadius: "8px", cursor: "pointer"}}
+                      onMouseEnter={(e) => {
+                        //TODO: make this dependent on the theme
+                        e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.1)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = 'none'
+                      }}
                     >
                       {tag.label}
                     </Tag>
