@@ -3,5 +3,6 @@
     "compilerOptions": {
         "jsx": "react",
         "baseUrl": "."
-    }
+    },
+    "include": ["src"]
 }
