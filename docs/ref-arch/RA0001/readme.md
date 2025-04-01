@@ -54,7 +54,7 @@ Customers are transitioning to cloud services and embracing a new digital core t
 
 This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
 
-## Reference Architecture
+## Architecture
 
 ![drawio](drawio/e2b-cc.drawio)
 
