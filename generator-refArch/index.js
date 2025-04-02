@@ -18,8 +18,13 @@ if (parseInt(currentNodeVersion, 10) < MIN_NODE_VERSION) {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Clear the terminal
-execSync('clear', { stdio: 'inherit' });
+// Clear the terminal (Cross-platform)
+const clearCommand = process.platform === 'win32' ? 'cls' : 'clear';
+try {
+  execSync(clearCommand, { stdio: 'inherit' });
+} catch (error) {
+  console.error('Failed to clear console:', error.message);
+}
 
 const env = new yeomanEnv();
 env.register(join(__dirname, 'app'), 'yo:genrefarch');
