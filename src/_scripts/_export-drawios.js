@@ -1,15 +1,22 @@
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
 const { execSync } = require('node:child_process');
-const { normalize: normalizePath, dirname } = require('node:path');
+const { normalize: normalizePath, dirname, basename, join } = require('node:path');
 
-// SCRIPT CAN BE RUN NATIVELY ON MAC OR VIA DOCKER.
 // THE FORMER REQUIRES DRAWIO TO BE INSTALLED
 const log = console.log;
 
 // DOCKER=1 -> run drawio cli via docker
 const { DOCKER = 0 } = process.env;
 const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true' ? true : false;
-const DRAWIO_CLI_MAC_BINARY = '/Applications/draw.io.app/Contents/MacOS/draw.io';
+// searching in different directorys, depending on OS
+const isWin = process.platform === 'win32';
+const isMac = process.platform === 'darwin';
+const DRAWIO_CLI_PATH = isMac
+    ? '/Applications/draw.io.app/Contents/MacOS/draw.io'
+    : isWin
+      ? 'C:\\Program Files\\draw.io\\draw.io.exe'
+      : null;
+const DRAWIO_CLI_BINARY = `"${DRAWIO_CLI_PATH}"`;
 // assuming script is in src/_scripts/
 const ROOT = normalizePath(__dirname + '/../..');
 const SEARCH_DIR = ROOT + '/docs/ref-arch';
@@ -18,11 +25,13 @@ const SVG_BACKGROUND_COLOR = '#ffffff';
 const URL = 'https://architecture.cloud.sap/docs';
 
 if (!DOCKER) {
+    if (!existsSync(DRAWIO_CLI_PATH)) {
+        throw new Error(`Drawio executable not found at ${DRAWIO_CLI_PATH}. Please check the path.`);
+    }
     try {
-        execSync(DRAWIO_CLI_MAC_BINARY + ' -h', { encoding: 'utf8' });
+        execSync(`${DRAWIO_CLI_BINARY} -h`, { encoding: 'utf8' });
     } catch (e) {
-        const msg = `Cannot find Drawio executable at ${DRAWIO_CLI_MAC_BINARY}. For now only Mac is supported. Set DOCKER=1 to run Drawio CLI via docker (if installed)`;
-        throw new Error(msg, { cause: e });
+        throw new Error(`Cannot run Drawio CLI at ${DRAWIO_CLI_PATH}.`, { cause: e });
     }
 }
 
@@ -33,10 +42,14 @@ log(`Found ${drawios.length} drawios to export to svg\n`);
 const transforms = {};
 // drawio as in RA0001/drawio/Events-to-business-actions-framework.drawio
 for (const drawio of drawios) {
-    // Events-to-business-actions-framework part
-    const name = drawio.split('/').slice(-1)[0].split('.')[0];
-    const svg = `${SEARCH_DIR}/${drawio.split('/drawio/')[0]}/images/${name}.svg`;
-    transforms[`${SEARCH_DIR}/${drawio}`] = svg;
+    // origin directory of the drawio
+    const fullInput = join(SEARCH_DIR, drawio);
+    const name = basename(drawio, '.drawio');
+    const baseDir = dirname(drawio);
+    const outputDir = join(SEARCH_DIR, baseDir, '..', 'images');
+    // final path for the svg
+    const svg = join(outputDir, `${name}.svg`);
+    transforms[fullInput] = svg;
 }
 
 // export all drawios to svgs
@@ -69,7 +82,7 @@ function prepareCommand(input, out) {
     // put path in quotes because there are spaces sometimes
     const args = ` --export --embed-svg-images --svg-theme light --output "${out}" "${input}"`;
     const cmd =
-        (!DOCKER ? DRAWIO_CLI_MAC_BINARY : `docker run -w /data -v ${ROOT}:/data rlespinasse/drawio-desktop-headless`) +
+        (!DOCKER ? DRAWIO_CLI_BINARY : `docker run -w /data -v ${ROOT}:/data rlespinasse/drawio-desktop-headless`) +
         args;
     return cmd;
 }
@@ -116,7 +129,8 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         });
 
         const logoSvg = readFileSync(SAP_LOGO, 'utf8');
-        const frontmatter = readFileSync(drawioPath.split('drawio/')[0] + 'readme.md', 'utf8').split('---')[1];
+        const readmePath = join(dirname(drawioPath), '..', 'readme.md');
+        const frontmatter = readFileSync(readmePath, 'utf8').split('---')[1];
         let title = frontmatter.match(/^title:\s(.*)$/m)[1];
         if (title.includes('#')) title = title.split('#')[0];
         const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
