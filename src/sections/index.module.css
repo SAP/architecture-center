@@ -1,0 +1,65 @@
+
+.sectionContainer {
+    background-color: #eaf3fc;
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carouselContainer {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding: 0 10px;
+    -webkit-overflow-scrolling: touch;
+    gap: 25px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cardGroup {
+    display: flex;
+    flex: 0 0 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 20px;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+}
+
+.cardContainer {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 410px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 996px) {
+    .cardContainer {
+      width: 48%; /* Tablet */
+    }
+}
+
+.hideOnMobile {
+    display: inline;
+}
+
+@media (max-width: 600px) {
+    .cardContainer {
+        width: 100%;
+        max-width: none;
+        min-width: 100%;
+    }
+
+    .hideOnMobile {
+        display: none;
+    }
+}
+
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+div::-webkit-scrollbar {
+    display: none;
+}

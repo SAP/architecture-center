@@ -139,10 +139,13 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
+            - name: Wait for 120 seconds
+              run: sleep 120s
+
             - name: Add PR Comment with Preview Link
               uses: thollander/actions-comment-pull-request@v2
               with:
-                  message: 'Preview website is available [here](https://architecture.cloud.sap/@${{ env.PR_FOLDER }}). <br /> <br /> *Note: It may take 4-5 minutes for the site to fully render.*'
+                  message: 'Preview website is available <a href="https://architecture.cloud.sap/@${{ env.PR_FOLDER }}" target="_blank" rel="noopener noreferrer">here</a>.'
 
     cleanup:
         name: Cleanup Merged PR

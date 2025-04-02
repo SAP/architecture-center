@@ -1,22 +1,5 @@
 [
   {
-    "type": "category",
-    "label": "Guidance Documents",
-    "link": {
-      "type": "generated-index",
-      "title": "Guidance Documents",
-      "description": "Explore guidance documents and methodologies.",
-      "slug": "/guidance",
-      "keywords": [
-        "guidance",
-        "methodology",
-        "best practices"
-      ],
-      "image": "/img/sap_logo.png"
-    },
-    "customProps": {
-      "id": "guidance"
-    },
     "items": [
       {
         "type": "link",
