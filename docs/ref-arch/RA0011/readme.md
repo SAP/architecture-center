@@ -1,27 +1,34 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0011
 slug: /ref-arch/c6b47a100f
 sidebar_position: 11
 sidebar_custom_props:
-    category_index:
-        - aws
-        - azure
-        - gcp
-        - data
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - aws
+    - azure
+    - gcp
+    - data
 title: SAP HANA Cloud as an Esri Geodatabase
-description: The reference architecture for Esri running on SAP HANA Cloud as a geodatabase represents a powerful integration of geospatial technology with enterprise-grade cloud infrastructure. This enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, utilizing its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.
+description: >-
+  The reference architecture for Esri running on SAP HANA Cloud as a geodatabase
+  represents a powerful integration of geospatial technology with
+  enterprise-grade cloud infrastructure. This enhances geospatial capabilities
+  by allowing organizations to store, process, and analyze spatial data directly
+  within SAP HANA Cloud, utilizing its multimodel processing and built-in
+  spatial engine. The integration provides real-time access to both SAP and
+  non-SAP data, breaking down data silos and enabling near-instant insights,
+  which is crucial for industries like utilities during natural disasters.
+keywords:
+  - sap
+  - hana cloud
+  - esri
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
-keywords: [sap, hana cloud, esri]
 image: img/logo.svg
-tags: [aws, azure, gcp, data]
+tags:
+  - aws
+  - azure
+  - gcp
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,14 +36,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - aldapooh
+  - aldapooh
+discussion: 
 last_update:
-    date: 2025-03-25
-    author: aldapooh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: aldapooh
+  date: 2025-03-25
 ---
+
 
 SAP and Esri have deepened their partnership by integrating Esri's ArcGIS technology with SAP HANA Cloud. This collaboration enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, leveraging its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.
 
