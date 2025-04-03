@@ -129,7 +129,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 4rem 0;
     margin: 0 auto;
     max-width: 1200px;
     gap: 8rem;
@@ -209,6 +208,7 @@
 
     .community {
         flex-direction: column;
+        gap: 3rem;
     }
 }
 
@@ -238,7 +238,7 @@
     }
 
     .community_image {
-        width: 100%;
+        width: 90%;
     }
 }
 
