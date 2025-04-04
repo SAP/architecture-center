@@ -1,110 +1,109 @@
-import React, { useRef, useState } from 'react';
-import DocCard from '@theme/DocCard';
+import React, { useRef, useState, useMemo, useEffect } from "react";
+import DocCard from "@theme/DocCard";
 // @ts-ignore
-import exploreSidebar from '../data/exploreArch.json';
-import { Text, Title, Button, FlexBox } from '@ui5/webcomponents-react';
+import exploreSidebar from "../data/exploreArch.json";
+import { Text, Title, Button, FlexBox } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/navigation-left-arrow";
 import "@ui5/webcomponents-icons/dist/navigation-right-arrow";
 
+import styles from "./index.module.css";
+
 export default function ExploreAllArchitecturesSection() {
-    // Extract sidebar items
-    let items = exploreSidebar[0]?.items || [];
+  const items = exploreSidebar[0]?.items || [];
 
-    // Group items into sets of 3 for each slide
-    const groupedItems = [];
-    for (let i = 0; i < items.length; i += 3) {
-        groupedItems.push(items.slice(i, i + 3));
+  // Group size based on screen width
+  const getCardsPerGroup = () => {
+    if (typeof window !== "undefined") {
+      const width = window.innerWidth;
+      if (width <= 600) return 1;
+      if (width <= 1339) return 2;
     }
+    return 3;
+  };
 
-    // Carousel Reference
-    const carouselRef = useRef(null);
-    const [activeDirection, setActiveDirection] = useState<'left' | 'right'>('right');
+  const [cardsPerGroup, setCardsPerGroup] = useState(getCardsPerGroup());
+  const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
-    // Function to Scroll Carousel
-    const goNext = () => {
-        if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: carouselRef.current.clientWidth, behavior: "smooth" });
-            setActiveDirection('left');
-        }
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Recalculate cards per group on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const newGroupSize = getCardsPerGroup();
+      setCardsPerGroup(newGroupSize);
+      setCurrentGroupIndex(0); // Reset position on resize
     };
 
-    const goPrevious = () => {
-        if (carouselRef.current) {
-            carouselRef.current.scrollBy({ left: -carouselRef.current.clientWidth, behavior: "smooth" });
-        }
-        setActiveDirection('right');
-    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    return (
-        <div style={{ backgroundColor: '#eaf3fc', padding: '40px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ width: '100%', maxWidth: '1300px' }}>
+  // Group items into chunks
+  const groupedItems = useMemo(() => {
+    const groups = [];
+    for (let i = 0; i < items.length; i += cardsPerGroup) {
+      groups.push(items.slice(i, i + cardsPerGroup));
+    }
+    return groups;
+  }, [items, cardsPerGroup]);
 
-                {/* Header Section with Title and Browse Arrows */}
-                <FlexBox justifyContent="SpaceBetween" alignItems="Center" style={{ marginLeft: '10px', marginBottom: '20px' }}>
-                    <Title>Explore the latest Reference Architectures</Title>
+  const totalGroups = groupedItems.length;
 
-                    {/* Browse + Arrows */}
-                    <FlexBox alignItems="Center" style={{ gap: '10px' }}>
-                        <Text style={{ fontWeight: 'bold' }}>Browse</Text>
-                        <Button design={activeDirection === 'left' ? 'Emphasized' : 'Transparent'} icon="navigation-left-arrow" onClick={goPrevious} disabled={items.length < 4} />
-                        <Button design={activeDirection === 'right' ? 'Emphasized' : 'Transparent'} icon="navigation-right-arrow" onClick={goNext} disabled={items.length < 4} />
-                    </FlexBox>
-                </FlexBox>
+  const canGoLeft = currentGroupIndex > 0;
+  const canGoRight = currentGroupIndex < totalGroups - 1;
 
-                {/* Carousel Section (Now with Hidden Scrollbar) */}
-                <div
-                    ref={carouselRef}
-                    style={{
-                        display: 'flex',
-                        overflowX: 'auto',
-                        scrollBehavior: 'smooth',
-                        gap: '16px',
-                        padding: '10px',
-                        whiteSpace: 'nowrap',
+  const goNext = () => {
+    if (carouselRef.current && canGoRight) {
+      const scrollAmount = carouselRef.current.clientWidth;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      setCurrentGroupIndex((prev) => prev + 1);
+    }
+  };
 
-                        /* Hide scrollbar */
-                        scrollbarWidth: 'none', /* Firefox */
-                        msOverflowStyle: 'none' /* IE & Edge */
-                    }}
-                >
-                    {/* Hide scrollbar for Webkit (Chrome, Safari) */}
-                    <style>
-                        {`
-                        div::-webkit-scrollbar {
-                            display: none;
-                        }
+  const goPrevious = () => {
+    if (carouselRef.current && canGoLeft) {
+      const scrollAmount = carouselRef.current.clientWidth;
+      carouselRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      setCurrentGroupIndex((prev) => prev - 1);
+    }
+  };
 
-                        .card-container {
-                            flex-shrink: 0;
-                            width: 100%;
-                            max-width: 410px;
-                        }
+  return (
+    <div className={styles.sectionContainer}>
+      <div style={{ width: "100%", maxWidth: "1300px" }}>
+        {/* Header Reference Architectures */}
+        <FlexBox justifyContent="SpaceBetween" alignItems="Center" style={{ marginLeft: "10px", marginBottom: "20px" }}>
+          <Title>Explore the latest Reference Architectures</Title>
+          <FlexBox alignItems="Center" style={{ gap: "10px" }}>
+            <Text className={styles.hideOnMobile} style={{ fontWeight: "bold" }}>Browse</Text>
+            <Button
+              design={canGoLeft ? "Emphasized" : "Transparent"}
+              icon="navigation-left-arrow"
+              onClick={goPrevious}
+              disabled={!canGoLeft}
+            />
+            <Button
+              design={canGoRight ? "Emphasized" : "Transparent"}
+              icon="navigation-right-arrow"
+              onClick={goNext}
+              disabled={!canGoRight}
+            />
+          </FlexBox>
+        </FlexBox>
 
-                        @media (max-width: 900px) {
-                        .card-container {
-                            width: 48%;
-                        }
-                        }
-
-                        @media (max-width: 600px) {
-                        .card-container {
-                            width: 100%;
-                        }
-                        }
-                        `}
-                    </style>
-
-                    {groupedItems.map((group, index) => (
-                        <div key={index} style={{ display: 'flex', flex: '0 0 auto', width: '100%', justifyContent: 'space-between' }}>
-                            {group.map((item) => (
-                                <div key={item.id} className='card-container'>
-                                    <DocCard item={item} />
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+        {/* Carousel */}
+        <div ref={carouselRef} className={styles.carouselContainer}>
+          {groupedItems.map((group, index) => (
+            <div key={index} className={styles.cardGroup}>
+              {group.map((item) => (
+                <div className={styles.cardContainer}>
+                  <DocCard item={item} />
                 </div>
+              ))}
             </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }

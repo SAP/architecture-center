@@ -1,27 +1,34 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0011
 slug: /ref-arch/c6b47a100f
 sidebar_position: 11
 sidebar_custom_props:
-    category_index:
-        - aws
-        - azure
-        - gcp
-        - data
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - aws
+    - azure
+    - gcp
+    - data
 title: SAP HANA Cloud as an Esri Geodatabase
-description: The reference architecture for Esri running on SAP HANA Cloud as a geodatabase represents a powerful integration of geospatial technology with enterprise-grade cloud infrastructure. This enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, utilizing its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.
+description: >-
+  The reference architecture for Esri running on SAP HANA Cloud as a geodatabase
+  represents a powerful integration of geospatial technology with
+  enterprise-grade cloud infrastructure. This enhances geospatial capabilities
+  by allowing organizations to store, process, and analyze spatial data directly
+  within SAP HANA Cloud, utilizing its multimodel processing and built-in
+  spatial engine. The integration provides real-time access to both SAP and
+  non-SAP data, breaking down data silos and enabling near-instant insights,
+  which is crucial for industries like utilities during natural disasters.
+keywords:
+  - sap
+  - hana cloud
+  - esri
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
-keywords: [sap, hana cloud, esri]
 image: img/logo.svg
-tags: [aws, azure, gcp, data]
+tags:
+  - aws
+  - azure
+  - gcp
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,14 +36,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - aldapooh
+  - aldapooh
+discussion: 
 last_update:
-    date: 2025-03-25
-    author: aldapooh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: aldapooh
+  date: 2025-03-25
 ---
+
 
 SAP and Esri have deepened their partnership by integrating Esri's ArcGIS technology with SAP HANA Cloud. This collaboration enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, leveraging its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.
 
@@ -114,7 +120,7 @@ Overall SAP HANA Cloud is used as a unified database, executing diverse workload
 
 ## Examples
 
-One European Power Grid operator, Open Grid Europe (OGE), utilized SAP HANA Cloud to modernize its operations and enhance decision making capabilities. By migrating its analytical applications to the cloud, a power grid operator improved performance, scalability, and agility. The company is utilizing HANA Cloud as an integration hub for its asset management. This strategic move enabled a customer to consolidate asset data from various sources, providing a unified view for efficient management and optimization. The adoption of SAP HANA Cloud as a geodatabase for Esri streamlined processes, drives innovation, and supports the customer’s goal of becoming a more data-driven organization by combining SAP and Esri data for improving asset visibility, cost reduction, and overall operational efficiency.
+One European Power Grid operator, utilized SAP HANA Cloud to modernize its operations and enhance decision making capabilities. By migrating its analytical applications to the cloud, a power grid operator improved performance, scalability, and agility. The company is utilizing HANA Cloud as an integration hub for its asset management. This strategic move enabled a customer to consolidate asset data from various sources, providing a unified view for efficient management and optimization. The adoption of SAP HANA Cloud as a geodatabase for Esri streamlined processes, drives innovation, and supports the customer’s goal of becoming a more data-driven organization by combining SAP and Esri data for improving asset visibility, cost reduction, and overall operational efficiency.
 
 SAP HANA Cloud demonstrated powerful capabilities in handling complex geospatial data challenges, as evidenced by one European post office logistic department. This solution efficiently federates large volumes of sorting and delivery transaction data, enabling real-time analysis without data replication. SAP HANA Cloud's geospatial features allow for sophisticated visualization on geo maps, including polygons and flow maps, which are crucial for deriving quick business insights. The platform's ability to blend data from various sources, transform geospatial formats (like GeoJSON to WKT), and perform on-the-fly transformations makes it a versatile solution for organizations dealing with location-based data.
 
@@ -135,7 +141,6 @@ SAP HANA Cloud
 
 SAP HANA Links:
 
-- [SAP HANA Cloud Multitenancy Guide](https://help.sap.com/docs/hana-cloud/sap-hana-cloud-multitenancy/sap-hana-cloud-multitenancy)
 - [SAP HANA Get Started](https://www.sap.com/products/technology-platform/hana/get-started.html?sort=latest_desc&tab=product-demos)
 - [SAP HANA Cloud on sap.com](https://www.sap.com/products/technology-platform/hana.html)
 - [SAP HANA Cloud Documentation](https://help.sap.com/docs/hana-cloud?locale=en-US)
