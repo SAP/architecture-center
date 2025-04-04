@@ -93,10 +93,10 @@ Business Application Studio: A development environment for building and extendin
 
 ## Services and Components
 
-SAP HANA Cloud
-SAP HANA Cloud, SAP HANA database
-SAP HANA Cloud, data lake
-SAP HANA Cloud, data lake files  
+- SAP HANA Cloud
+- SAP HANA Cloud, SAP HANA database
+- SAP HANA Cloud, data lake
+- SAP HANA Cloud, data lake files  
 
 ## Resources
 
