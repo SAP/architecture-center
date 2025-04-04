@@ -31,28 +31,21 @@ function useCategoryItemsPlural() {
     );
 }
 function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
   });
   useEffect(() => {
-    // Handler to call on window resize
     function handleResize() {
-      // Set window width/height to state
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     }
-    // Add event listener
     window.addEventListener("resize", handleResize);
-    // Call handler right away so state gets updated with initial window size
     handleResize();
-    // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
+  }, []); 
   return windowSize;
 }
 function CardLayout({ href, title, description, tags, lastUpdate, item }) {
@@ -63,25 +56,26 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   const [readableDescription, setReadableDescription] = useState("")
   const [readableTitle, setReadableTitle] = useState("")
   const size = useWindowSize();
+
+  const card = useRef(null)
   
   useEffect(()=> {
     if(size.width === undefined) return;
     setCompressedTags([])
     setRemainingTags([])
     let counter = 0
-    let skippedTag = false
+    const cardWidth = card.current.offsetWidth
     for(const tag of tags) {
       counter += tag.label.length
-      if(skippedTag && size.width <= 996 && counter < Math.round((size.width/2298)*255) ||
-        !skippedTag && size.width <= 996 && counter < Math.round((size.width/2298)*280) ||
-        skippedTag && counter < Math.round((size.width/2298)*65) ||
-        !skippedTag && counter < Math.round((size.width/2298)*70)) {
+      if(size.width <= 996 && counter < Math.round((cardWidth/400)*48) ||
+        counter < Math.round((cardWidth/400)*44)) {
         setCompressedTags((_tags)=> [..._tags, tag])
         continue
       }
-      skippedTag = true
       counter -= tag.label.length
     }
+
+    /* cut off description if it is too long */
 
     if(description.length > 160) {
       const _description = description.slice(0, 160);
@@ -91,16 +85,22 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       setReadableDescription(description)
     }
 
-    if(size.width <= 996 && title.length <= 100 || size.width > 996 && title.length <= 50) {
+    /* Change title length if title is too long */
+
+    if(size.width <= 996) {
+      if(title.length > Math.ceil((cardWidth/400)*100)) {
+        setReadableTitle(title.length - title.slice(0, Math.round((cardWidth/400)*100)).length <=2?title:title.slice(0, Math.round((cardWidth/400)*100)) + "...")
+        return
+      }
       setReadableTitle(title)
       return
     }
-    if(size.width <= 996 && title.length > 100) {
-      setReadableTitle(title.substring(0,100)+"...")
-      return
-    }
-    if(size.width > 996 && title.length > 50) {
-      setReadableTitle(title.substring(0,50)+"...")
+    if(size.width > 996) {
+      if(title.length > Math.ceil((cardWidth/400)*71)) {
+        setReadableTitle(title.length - title.slice(0, Math.round((cardWidth/400)*71)).length <=2?title:title.slice(0, Math.round((cardWidth/400)*71)) + "...")
+        return
+      }
+      setReadableTitle(title)
       return
     }
   }, [size])
@@ -116,6 +116,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
   return (
     <Card
+      ref={card}
       style={{
         height: '290px',
         cursor: 'pointer',
