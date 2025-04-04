@@ -3,7 +3,6 @@ const { execSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
 const QRCode = require('qrcode');
 
-// THE FORMER REQUIRES DRAWIO TO BE INSTALLED
 const log = console.log;
 
 // DOCKER=1 -> run drawio cli via docker
@@ -143,8 +142,9 @@ async function watermarkAll() {
             let title = frontmatter.match(/^title:\s(.*)$/m)[1];
             if (title.includes('#')) title = title.split('#')[0];
             const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
-            const fullLink = URL + slug;
-            const qrSvgContent = await generateQrSvg(fullLink);
+            const qrSvgContent = await generateQrSvg(URL + slug);
+            // Set qrSize to dynamically position the qrCode later (37 = original qrCode width)
+            const qrSize = 37 * 1.9 * scaleDown;
             const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(22 * scaleDown)}">
                             <![CDATA[${title}]]>
                         </text>
@@ -164,9 +164,9 @@ async function watermarkAll() {
                                 font-size="${Math.round(18 * scaleDown)}">
                             ${URL + slug}
                         </text>
-                        <g transform="translate(${viewBox[2] - logo.h - pad * 2}, ${logo.y}) scale(${logo.h / 37})" fill="#000000">
-                            ${qrSvgContent}
                         </g>
+                        <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${1.9 * scaleDown})">
+                            ${qrSvgContent}
                         </g>`;
 
             const bg = `<rect x="${-pad}" y="${-pad}" width="${viewBox[2]}" height="${viewBox[3]}" fill="${SVG_BACKGROUND_COLOR}"/>`;
