@@ -149,7 +149,7 @@ for (const [drawioPath, svgPath] of Object.entries(transforms)) {
                     <g transform="translate(0, ${logo.y})">
                         <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
                     </g>
-                    <text x="${width / 2}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
+                    <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
                             font-size="${Math.round(18 * scaleDown)}">
                         ${URL + slug}
                     </text>
