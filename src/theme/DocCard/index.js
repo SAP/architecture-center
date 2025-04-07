@@ -203,7 +203,6 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       <FlexBox direction='Column' justifyContent='SpaceBetween' alignItems='Start' gap={10} style={{width: "100%", height: "65px"}}>
       <FlexBox
         style={{
-          flexWrap: 'wrap',
           padding: '0 16px 0px 16px',
           margin: 0,
           bottom: 0,
@@ -230,7 +229,9 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              {tag.label}
+              <div style={{textWrap: "nowrap"}}>
+                {tag.label}
+              </div>
             </Tag>
           </a>
         ))}
