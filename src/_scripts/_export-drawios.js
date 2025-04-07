@@ -143,8 +143,8 @@ async function watermarkAll() {
             if (title.includes('#')) title = title.split('#')[0];
             const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
             const qrSvgContent = await generateQrSvg(URL + slug);
-            // Set qrSize to dynamically position the qrCode later (37 = original qrCode width)
-            const qrSize = 37 * 1.9 * scaleDown;
+            // Set qrSize to dynamically position the qrCode later (33 = original qrCode width)
+            const qrSize = 33 * 1.9 * scaleDown;
             const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(22 * scaleDown)}">
                             <![CDATA[${title}]]>
                         </text>
@@ -160,7 +160,7 @@ async function watermarkAll() {
                         <g transform="translate(0, ${logo.y})">
                             <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
                         </g>
-                        <text x="${width / 2}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
+                        <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
                                 font-size="${Math.round(18 * scaleDown)}">
                             ${URL + slug}
                         </text>
