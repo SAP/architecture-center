@@ -124,6 +124,7 @@
     position: relative;
 }
 
+/* Adding dark mode to the landing page banner */
 [data-theme='dark'] .hero_banner {
     background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_dark.png');
     width: 100%;
