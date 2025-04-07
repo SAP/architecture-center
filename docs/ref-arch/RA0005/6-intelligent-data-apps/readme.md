@@ -25,9 +25,7 @@ last_update:
   date: 2025-01-14
 ---
 
-Intelligent Data Apps enable users to interact with large datasets through natural language queries. These applications effectively integrate the vast data within business systems with the power of AI. By leveraging advanced AI techniques, they first interpret the user's natural language input, convert it into a technical query to retrieve the relevant data subset, and ultimately present the results back to the user.
-
-Agents are autonomous systems powered by Large Language Models (LLMs) that perform tasks independently, without continuous human intervention. These agents can analyze information, make decisions, and interact with systems, APIs, or other agents to execute complex tasks. By harnessing the reasoning and decision-making capabilities of LLMs, agents go beyond passive responses, enabling dynamic task execution within layered workflows. Unlike Retrieval Augmented Generation (RAG), which follows a linear process, agents employ iterative reasoning, refining their approach through intermediate outputs to tackle complex, non-linear tasks. In data-intensive business environments, agents excel at efficiently querying, analyzing, and processing intricate interrelationships, utilizing their advanced reasoning capabilities, and making them an ideal processing engine for intelligent data apps.
+Intelligent Data Apps empower users to interact with extensive datasets through natural language queries. These applications seamlessly integrate vast amounts of data stored across heterogeneous enterprise systems, leveraging SAP Datasphere for federated data access, eliminating the need for data replication. By leveraging Agents, natural language inputs are first interpreted and then transformed into technical queries to retrieve pertinent data, with results delivered in an actionable format. The architecture also supports the streamlined integration RAG pipelines for enhanced response optimization.
 
 ## Architecture
 
