@@ -217,7 +217,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
           margin: 0,
       }}
     >
-    <Text
+    <Text style={{cursor: "pointer"}}
     >
       {readableDescription}
     </Text>
