@@ -10,7 +10,7 @@ import {
 } from '@docusaurus/plugin-content-docs/client';
 import {usePluralForm} from '@docusaurus/theme-common';
 import {translate} from '@docusaurus/Translate';
-import {Card, Text, Icon, FlexBox, Tag, Label, Title, Popover} from '@ui5/webcomponents-react';
+import {Card, Text, Icon, FlexBox, Tag, Title, Popover, ExpandableText} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/dimension";
 import "@ui5/webcomponents-icons/dist/action";
 import styles from './styles.module.css';
@@ -54,8 +54,8 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   const [popoverIsOpen, setPopoverIsOpen] = useState(false);
   const [compressedTags, setCompressedTags] = useState([])
   const [remainingTags, setRemainingTags] = useState([])
-  const [readableDescription, setReadableDescription] = useState("")
   const [readableTitle, setReadableTitle] = useState("")
+  const [readableDescriptionCharacters, setReadableDescriptionCharacters] = useState(0)
   const size = useWindowSize();
 
   const card = useRef(null)
@@ -103,13 +103,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
     /* cut off description if it is too long */
 
-    if(description.length > Math.round((cardWidth/360)*200)) {
-      const _description = description.slice(0, Math.round((cardWidth/360)*200));
-      const lastSpaceIndex = _description.lastIndexOf(' ');
-      setReadableDescription(_description.slice(0, lastSpaceIndex) + " [read more]")
-    }else{
-      setReadableDescription(description)
-    }
+    setReadableDescriptionCharacters(Math.round((cardWidth/360)*160))
 
     /* Change title length if title is too long */
 
@@ -217,10 +211,9 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
           margin: 0,
       }}
     >
-    <Text style={{cursor: "pointer"}}
-    >
-      {readableDescription}
-    </Text>
+    <ExpandableText overflowMode="Popover" style={{cursor: "pointer"}} maxCharacters={readableDescriptionCharacters}>
+      {description}
+    </ExpandableText>
     </FlexBox>
     </FlexBox>
       {/* Tags container */}
