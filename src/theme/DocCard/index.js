@@ -65,10 +65,14 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
     setRemainingTags([])
     let counter = 0
     const cardWidth = card.current.offsetWidth
+    const tagsLength = tags.length
+    let compressedTagsLength = 0
     for(const tag of tags) {
       counter += tag.label.length
-      if(size.width <= 996 && counter < Math.round((cardWidth/400)*48) ||
-        counter < Math.round((cardWidth/400)*44)) {
+      const remainingTagsLength = tagsLength - compressedTagsLength
+      if(size.width <= 996 && counter < Math.round((cardWidth/360)*(remainingTagsLength<=1?49-compressedTagsLength:42-compressedTagsLength)) ||
+        counter < Math.round((cardWidth/400)*(remainingTagsLength<=1?52-compressedTagsLength:46-compressedTagsLength))) {
+        compressedTagsLength += 1
         setCompressedTags((_tags)=> [..._tags, tag])
         continue
       }
@@ -106,13 +110,16 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   }, [size])
 
   useEffect(()=>{
-    const difference = tags.filter(obj1 => 
+    setRemainingTags(calculateRemainingTags())
+  }, [compressedTags])
+
+  function calculateRemainingTags() {
+    return tags.filter(obj1 => 
       !compressedTags.some(obj2 => 
         JSON.stringify(obj1) === JSON.stringify(obj2)
       )
     );
-    setRemainingTags(difference)
-  }, [compressedTags])
+  }
 
   return (
     <Card
