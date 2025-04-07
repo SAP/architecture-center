@@ -10,7 +10,7 @@ export default function CommunitySection(): JSX.Element {
             <div className="container">
                 <div className="community">
                     <div className="community_image">
-                        <img src="/img/landingPage/community_puzzle.png" className="community_image_inside" />
+                        <img src="/img/landingPage/community_puzzle_light.png" className="community_image_inside" />
                     </div>
                     <div className="community_body">
                         <h2>
