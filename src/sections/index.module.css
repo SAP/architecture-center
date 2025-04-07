@@ -63,3 +63,9 @@
 div::-webkit-scrollbar {
     display: none;
 }
+
+/* Dark mode */
+[data-theme= 'dark'] .sectionContainer {
+    background-color: #000;
+}
+
