@@ -58,8 +58,29 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   const size = useWindowSize();
 
   const card = useRef(null)
-  
-  useEffect(()=> {
+
+  const [componentSize, setComponentSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const cardElement = card.current;
+
+    if (!cardElement) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        setComponentSize({ width, height });
+      }
+    });
+
+    resizeObserver.observe(cardElement);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     if(size.width === undefined) return;
     setCompressedTags([])
     setRemainingTags([])
@@ -107,7 +128,9 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       setReadableTitle(title)
       return
     }
-  }, [size])
+  }, [componentSize]);
+  
+  
 
   useEffect(()=>{
     setRemainingTags(calculateRemainingTags())
