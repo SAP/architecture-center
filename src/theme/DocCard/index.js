@@ -81,8 +81,8 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
     /* cut off description if it is too long */
 
-    if(description.length > 160) {
-      const _description = description.slice(0, 160);
+    if(description.length > Math.round((cardWidth/360)*200)) {
+      const _description = description.slice(0, Math.round((cardWidth/360)*200));
       const lastSpaceIndex = _description.lastIndexOf(' ');
       setReadableDescription(_description.slice(0, lastSpaceIndex) + " [read more]")
     }else{
