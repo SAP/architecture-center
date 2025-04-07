@@ -13,6 +13,7 @@ import {translate} from '@docusaurus/Translate';
 import {Card, Text, Icon, FlexBox, Tag, Label, Title, Popover} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/dimension";
 import "@ui5/webcomponents-icons/dist/action";
+import styles from './styles.module.css';
 
 function useCategoryItemsPlural() {
   const {selectMessage} = usePluralForm();
@@ -242,15 +243,9 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
               key={index}
               design="Information"
               hideStateIcon
+              className={styles.tag}
               title={tag.description || tag.label}
               style={{borderRadius: "8px"}}
-              onMouseEnter={(e) => {
-                //TODO: make this dependent on the theme
-                e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.1)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none'
-              }}
             >
               <div style={{textWrap: "nowrap"}}>
                 {tag.label}
@@ -278,6 +273,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
               onMouseLeave={(e) => {
                 e.currentTarget.style.textDecoration = 'none';
               }}
+              className={styles.tag}
             >
               <div style={{padding: '0px 2px 0px 2px'}}>
               +{remainingTags.length}
@@ -301,13 +297,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                       hideStateIcon
                       title={tag.description || tag.label}
                       style={{borderRadius: "8px", cursor: "pointer"}}
-                      onMouseEnter={(e) => {
-                        //TODO: make this dependent on the theme
-                        e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 0, 0, 0.1)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = 'none'
-                      }}
+                      className={styles.tag}
                     >
                       {tag.label}
                     </Tag>
