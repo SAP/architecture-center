@@ -15,8 +15,7 @@ export default function ExploreAllArchitecturesSection() {
   const getCardsPerGroup = () => {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
-      if (width <= 600) return 1;
-      if (width <= 1339) return 2;
+      if (width <= 997) return 1;
     }
     return 3;
   };
@@ -70,9 +69,9 @@ export default function ExploreAllArchitecturesSection() {
 
   return (
     <div className={styles.sectionContainer}>
-      <div style={{ width: "100%", maxWidth: "1300px" }}>
+      <div className={styles.innerContainer}>
         {/* Header Reference Architectures */}
-        <FlexBox justifyContent="SpaceBetween" alignItems="Center" style={{ marginLeft: "10px", marginBottom: "20px" }}>
+        <FlexBox justifyContent="SpaceBetween" alignItems="Center" className={styles.headerRow}>
           <Title>Explore the latest Reference Architectures</Title>
           <FlexBox alignItems="Center" style={{ gap: "10px" }}>
             <Text className={styles.hideOnMobile} style={{ fontWeight: "bold" }}>Browse</Text>
