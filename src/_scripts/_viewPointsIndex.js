@@ -80,12 +80,12 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
 
         const category = {
             type: "category",
-            label: "Explore All Architectures",
+            label: "Explore Reference Architectures",
             link: {
                 type: "generated-index",
-                title: "Explore",
+                title: "Architecture Explorer",
                 description:
-                    "Explore all SAP reference architectures across different technology domains and cloud providers.",
+                    "Explore all SAP reference architectures across different technology domains and technology partners.",
                 slug: "/exploreallrefarch",
                 keywords: ["explore", "all", "sap", "reference architectures"],
                 image: "/img/sap_logo.png",
