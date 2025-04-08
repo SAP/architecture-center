@@ -123,7 +123,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       setReadableTitle(title)
       return
     }
-  }, [componentSize]);
+  }, [componentSize, description, tags, title]);
   
   
 
