@@ -114,7 +114,7 @@ ui5-button::part(button) {
 }
 
 .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424.png');
+    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_light.png');
     width: 100%;
     height: 424px;
     position: fixed;
@@ -127,6 +127,11 @@ ui5-button::part(button) {
     justify-content: center;
     padding: 2rem 1rem;
     position: relative;
+}
+
+/* Adding dark mode to the landing page banner */
+[data-theme='dark'] .hero_banner {
+    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_dark.png');
 }
 
 .community {
