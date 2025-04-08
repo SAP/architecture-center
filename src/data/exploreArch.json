@@ -1,11 +1,11 @@
 [
   {
     "type": "category",
-    "label": "Explore All Architectures",
+    "label": "Explore Reference Architectures",
     "link": {
       "type": "generated-index",
-      "title": "Explore",
-      "description": "Explore all SAP reference architectures across different technology domains and cloud providers.",
+      "title": "Architecture Explorer",
+      "description": "Explore all SAP reference architectures across different technology domains and technology partners.",
       "slug": "/exploreallrefarch",
       "keywords": [
         "explore",
@@ -19,6 +19,31 @@
       "id": "exploreallrefarch"
     },
     "items": [
+      {
+        "type": "link",
+        "label": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
+        "href": "docs/ref-arch/465f66860a",
+        "customProps": {
+          "title": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
+          "description": "This reference architecture demonstrates a common use case for integrating various types of data—structured, semi-structured, and unstructured—into SAP HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By implementing this architecture, businesses can meet the challenge of providing a modern data foundation for intelligent data applications and provide cost-effective data management and analytics across the enterprise.",
+          "href": "docs/ref-arch/465f66860a",
+          "tags": [
+            {
+              "tag": "data",
+              "label": "Data & Analytics",
+              "description": "Access insights wherever your data resides with SAP data and analytics solutions.",
+              "permalink": "/data"
+            }
+          ],
+          "last_update": "2025-04-03T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "gcp",
+            "azure",
+            "data"
+          ]
+        }
+      },
       {
         "type": "link",
         "label": "SAP HANA Cloud as an Esri Geodatabase",
@@ -237,40 +262,6 @@
             "aws",
             "azure",
             "gcp",
-            "appdev"
-          ]
-        }
-      },
-      {
-        "type": "link",
-        "label": "Multitenant SaaS Application using CAP",
-        "href": "docs/ref-arch/e7724ef4a7",
-        "customProps": {
-          "title": "Multitenant SaaS Application using CAP",
-          "description": "Multitenant SaaS applications built on SAP BTP offer a powerful way to extend SAP's core solutions and address specific industry or business needs at scale. By allowing multiple customers to share a single instance of the software, multitenancy lowers costs and makes maintenance simple for all users. This approach not only drives innovation and scalability but also enables faster time-to-market and more efficient resource utilization.",
-          "href": "docs/ref-arch/e7724ef4a7",
-          "tags": [
-            {
-              "tag": "appdev",
-              "label": "Application Development & Automation",
-              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
-              "permalink": "/appdev"
-            },
-            {
-              "tag": "cap",
-              "label": "CAP",
-              "description": "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks.",
-              "permalink": "/cap"
-            },
-            {
-              "tag": "genai",
-              "label": "Generative AI",
-              "description": "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on.",
-              "permalink": "/genai"
-            }
-          ],
-          "last_update": "2025-01-31T00:00:00.000Z",
-          "category_index": [
             "appdev"
           ]
         }
