@@ -16,7 +16,7 @@ export default function ExploreAllArchitecturesSection() {
   const getCardsPerGroup = () => {
     if (typeof window !== "undefined") {
       const width = window.innerWidth;
-      if (width <= 997) return 1;
+      if (width <= 996) return 1;
     }
     return 3;
   };
