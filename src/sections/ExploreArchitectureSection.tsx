@@ -5,6 +5,7 @@ import exploreSidebar from "../data/exploreArch.json";
 import { Text, Title, Button, FlexBox } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/navigation-left-arrow";
 import "@ui5/webcomponents-icons/dist/navigation-right-arrow";
+import Link from '@docusaurus/Link';
 
 import styles from "./index.module.css";
 
@@ -71,10 +72,9 @@ export default function ExploreAllArchitecturesSection() {
     <div className={styles.sectionContainer}>
       <div className={styles.innerContainer}>
         {/* Header Reference Architectures */}
-        <FlexBox justifyContent="SpaceBetween" alignItems="Center" className={styles.headerRow}>
-          <Title>Explore the latest Reference Architectures</Title>
+        <Title style={{marginBottom: "10px"}}>Explore the latest Reference Architectures</Title>
+        <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>          
           <FlexBox alignItems="Center" style={{ gap: "10px" }}>
-            <Text className={styles.hideOnMobile} style={{ fontWeight: "bold" }}>Browse</Text>
             <Button
               design={canGoLeft ? "Emphasized" : "Transparent"}
               icon="navigation-left-arrow"
@@ -87,6 +87,9 @@ export default function ExploreAllArchitecturesSection() {
               onClick={goNext}
               disabled={!canGoRight}
             />
+            <Link to="docs/exploreallrefarch" >
+              <Button design="Default">Explore All</Button>
+            </Link> 
           </FlexBox>
         </FlexBox>
 
