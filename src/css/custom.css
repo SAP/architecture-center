@@ -59,6 +59,11 @@
     font-weight: normal;
 }
 
+ui5-button::part(button) {
+    font-weight: bold;
+    font-family: '72';
+}
+
 /* General list item styling */
 .menu__list-item {
     font-size: 14px; /* Adjust the font size as needed */
