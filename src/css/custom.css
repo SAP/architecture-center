@@ -114,10 +114,9 @@ ui5-button::part(button) {
 }
 
 .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424.png');
+    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_light.png');
     width: 100%;
     height: 424px;
-    position: fixed;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -125,8 +124,12 @@ ui5-button::part(button) {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 1rem;
     position: relative;
+}
+
+/* Adding dark mode to the landing page banner */
+[data-theme='dark'] .hero_banner {
+    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_dark.png');
 }
 
 .community {
@@ -375,6 +378,13 @@ html[data-theme='dark'] .sourcecode-badge {
     word-wrap: break-word;
 }
 
+/* Center all markdown images */
+.markdown img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .admonitionHeading_Gvgb {
     text-transform: none !important;
 }
@@ -463,7 +473,7 @@ table thead {
     margin-left: 0rem;
     margin-right: 0px;
     color: #000000;
-    height: 270px;
+    height: 290px;
 }
 
 @media screen and (max-width: 996px) {
