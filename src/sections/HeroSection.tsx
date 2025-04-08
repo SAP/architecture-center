@@ -24,12 +24,7 @@ export default function HeroSection(): JSX.Element {
                         </div>
 
                         <Link to="/docs/exploreallrefarch">
-                            <Button
-                                design="Default"
-                                style={{ width: 150, backgroundColor: '#ffffff', color: '#0064D9' }}
-                            >
-                                Explore
-                            </Button>
+                            <Button style={{ width: 150 }}>Explore</Button>
                         </Link>
                     </div>
                 </div>
