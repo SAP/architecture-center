@@ -1,6 +1,6 @@
 ---
 id: id-ra0008
-slug: /ref-arch/f2670637a8
+slug: /ref-arch/1bc0d9edd3
 sidebar_position: 8
 sidebar_custom_props:
   category_index:
@@ -43,6 +43,7 @@ last_update:
   author: adarshnarayanhegde
   date: 2025-03-06
 ---
+
 
 Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.
 
