@@ -1,6 +1,6 @@
 ---
 id: id-ra0003-5
-slug: /ref-arch/785c72ab48/5
+slug: /ref-arch/be6d2f599e/5
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -41,6 +41,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 FedML (fedml-dsp) can be used in notebooks with GPU compute. FedML now has support for NVIDIA RAPIDS™ and CUDA cuDF and cuML and detection of GPU for adding support for RAPIDS™ CUDA. 
 
