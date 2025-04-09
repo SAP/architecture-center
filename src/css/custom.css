@@ -110,7 +110,7 @@ ui5-button::part(button) {
 }
 
 .welcome {
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .hero_banner {
@@ -189,7 +189,7 @@ ui5-button::part(button) {
     }
 
     .welcome {
-        margin-top: 1.5rem; /* Reduce unnecessary spacing */
+        margin-top: 1rem; /* Reduce unnecessary spacing */
         text-align: left;
     }
 
@@ -226,7 +226,7 @@ ui5-button::part(button) {
     }
 
     .welcome {
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         justify-content: left;
     }
 

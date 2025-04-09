@@ -152,18 +152,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                     {isExplorePage && (
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
-                                <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
-                                    <Select
-                                        isMulti
-                                        options={partners}
-                                        value={selectedPartners}
-                                        onChange={handlePartnersChange}
-                                        placeholder="Select Technology Partners..."
-                                        styles={selectStyles}
-                                    />
-                                </div>
-
+                                
                                 <div className={styles.filterGroup}>
                                     <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
                                     <Select
@@ -172,6 +161,18 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                         value={selectedTechDomains}
                                         onChange={handleTechDomainsChange}
                                         placeholder="Select Technology Domains..."
+                                        styles={selectStyles}
+                                    />
+                                </div>
+
+                                <div className={styles.filterGroup}>
+                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
+                                    <Select
+                                        isMulti
+                                        options={partners}
+                                        value={selectedPartners}
+                                        onChange={handlePartnersChange}
+                                        placeholder="Select Technology Partners..."
                                         styles={selectStyles}
                                     />
                                 </div>
