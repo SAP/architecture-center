@@ -1,6 +1,6 @@
 ---
 id: id-ra0007
-slug: /ref-arch/e7724ef4a7
+slug: /ref-arch/f292c9cd73
 sidebar_position: 7
 sidebar_custom_props:
   category_index:
@@ -39,6 +39,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 In today's rapidly evolving digital landscape, multitenancy has become a crucial concept in the context of SAP architecture, particularly for SAP partners and line of business (LoB) teams developing applications on [SAP Business Technology Platform (SAP BTP)](https://www.sap.com/india/products/technology-platform.html). As businesses increasingly turn to SaaS solutions for their needs, understanding and leveraging multitenancy has become essential for creating innovative, scalable, and cost-effective applications within the SAP ecosystem.
 
