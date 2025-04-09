@@ -21,7 +21,7 @@ description: This reference architecture demonstrates a common use case for inte
 sidebar_label: Big Data Processing in SAP HANA Cloud
 keywords: [sap, btp, data lake, medallion, hana cloud]
 image: img/logo.svg
-tags: [data]
+tags: [data, azure, aws, gcp]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -74,10 +74,10 @@ Gold layer data is highly curated, modeled, and read-optimized for consumption. 
 
 Processed and curated data can be consumed (read-only) from the gold data layer by various applications and services such as:
 
-SAP HANA Cloud: Provides high-performance in-memory data processing and analytics.
-SAP Datasphere: Offers comprehensive data management, modeling and integration capabilities.
-SAP Analytics Cloud: Provides advanced analytics and business intelligence tools.
-Business Application Studio: A development environment for building and extending SAP applications.
+- SAP HANA Cloud: Provides high-performance in-memory data processing and analytics.
+- SAP Datasphere: Offers comprehensive data management, modeling and integration capabilities.
+- SAP Analytics Cloud: Provides advanced analytics and business intelligence tools.
+- Business Application Studio: A development environment for building and extending SAP applications.
 
 ## Characteristics
 
