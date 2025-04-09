@@ -1,6 +1,6 @@
 ---
 id: id-ra0003-1
-slug: /ref-arch/785c72ab48/1
+slug: /ref-arch/be6d2f599e/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -39,6 +39,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 FedML-AWS provides end-to-end integraton for training models in Amazon Sagemaker using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-aws enables 
 
