@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-1-1
-slug: /ref-arch/6c73e3575f/1/1
+slug: /ref-arch/764c406e35/1/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 Before diving into multi-region architectures, let's understand how single region resiliency is provided for SAP BTP using Availability Zones.
 
