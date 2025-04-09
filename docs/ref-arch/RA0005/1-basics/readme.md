@@ -1,6 +1,6 @@
 ---
 id: id-ra0005-1
-slug: /ref-arch/5c9255f84a/1
+slug: /ref-arch/7e63b8bdc1/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -40,6 +40,7 @@ last_update:
   author: kay-schmitteckert
   date: 2025-01-31
 ---
+
 
 Leveraging prompting with Foundation Models or Large Language Models (LLMs) is a powerful way to enhance your applications by enabling natural language processing for both input and output. Using Generative AI on SAP Business Technology Platform (SAP BTP), you can build applications that interact intelligently with your users through custom prompts. By calling Foundation Models with custom prompts, you can control the AI's responses to align with specific tasks and objectives. Here's what to use for basic prompting on SAP BTP to unlock this capability in your applications.
 
