@@ -1,6 +1,6 @@
 ---
 id: id-ra0008-3
-slug: /ref-arch/f2670637a8/3
+slug: /ref-arch/1bc0d9edd3/3
 sidebar_position: 3
 sidebar_custom_props:
   category_index: []
@@ -31,6 +31,7 @@ last_update:
   author: AFK-Python
   date: 2025-02-20
 ---
+
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Google Cloud Platform (GCP) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines GCP-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
 
