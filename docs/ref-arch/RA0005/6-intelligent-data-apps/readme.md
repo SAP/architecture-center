@@ -1,6 +1,6 @@
 ---
 id: id-ra0005-6
-slug: /ref-arch/5c9255f84a/6
+slug: /ref-arch/7e63b8bdc1/6
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -24,6 +24,7 @@ last_update:
   author: kay-schmitteckert
   date: 2025-01-14
 ---
+
 
 Intelligent Data Apps enable users to interact with large datasets through natural language queries. These applications effectively integrate the vast data within business systems with the power of AI. By leveraging advanced AI techniques, they first interpret the user's natural language input, convert it into a technical query to retrieve the relevant data subset, and ultimately present the results back to the user.
 
