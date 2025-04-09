@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-3
-slug: /ref-arch/6c73e3575f/3
+slug: /ref-arch/764c406e35/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 In a multi-region setup for SAP BTP services, load balancers play a crucial role in ensuring the efficient distribution of traffic across multiple regions with the help of health checks automatically or using a manual approach. They help improve the reliability, availability, and fault tolerance of applications by routing incoming requests to the most appropriate resources. Load balancers can automatically detect and redirect traffic from unhealthy instances, reducing downtime and enhancing user experience in an automatic setup. Additionally, they support seamless scaling during traffic surges, enabling a smooth and efficient operation of applications across diverse geographies.
 
