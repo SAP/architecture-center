@@ -1,6 +1,6 @@
 ---
 id: id-ra0005
-slug: /ref-arch/5c9255f84a
+slug: /ref-arch/7e63b8bdc1
 sidebar_position: 5
 sidebar_custom_props:
   category_index:
@@ -43,6 +43,7 @@ last_update:
   author: kay-schmitteckert
   date: 2025-01-14
 ---
+
 
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
 
