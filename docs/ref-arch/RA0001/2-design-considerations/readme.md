@@ -1,6 +1,6 @@
 ---
 id: id-ra0001-2
-slug: /ref-arch/a06a959120/2
+slug: /ref-arch/96c9a86a68/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -45,6 +45,7 @@ last_update:
   author: anbazhagan-uma
   date: 2025-01-01
 ---
+
 
 ## Architecture Principles for building EDA Application
 This generic architecture is required to address the events related integration among the systems to achieve the business integration in seamless way. This architecture is specific to use cases where there is 3rd party integration with SAP Cloud systems(for e.g SAP BTP, SAP S/4HANA etc)
