@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-4
-slug: /ref-arch/28ac36db13/4
+slug: /ref-arch/7b17999afe/4
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -39,6 +39,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 Data from Google Cloud Platform (GCP) data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's advanced data fabric architecture. This architecture enables efficient data management and analytics by providing a unified and scalable platform for data integration, transformation, and governance.
 
