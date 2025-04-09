@@ -1,6 +1,6 @@
 ---
 id: id-intro-0
-slug: /
+slug: 
 sidebar_position: 0
 sidebar_custom_props:
   category_index: []
@@ -33,6 +33,7 @@ last_update:
   author: PO
   date: 2025-01-23
 ---
+
 
 ## What are Reference Architectures?
 
