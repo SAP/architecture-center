@@ -1,6 +1,6 @@
 ---
 id: id-ra0007-3
-slug: /ref-arch/e7724ef4a7/3
+slug: /ref-arch/f292c9cd73/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -32,6 +32,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 When evaluating a multitenant architecture, it's crucial to account for every phase of a tenant's lifecycle. This includes onboarding, provisioning, and offboarding tenants. Each phase has its own set of challenges and requirements, which must be addressed to ensure a seamless experience for both the application provider and the consumers. Managing the tenant lifecycle is a critical aspect of multitenant architectures. It is important to have clear policies and procedures in place for each phase of the tenant lifecycle to ensure consistency, security, and compliance with regulations.
 
