@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-3
-slug: /ref-arch/28ac36db13/3
+slug: /ref-arch/7b17999afe/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -33,6 +33,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via SAP Datasphere's unified data models for use with richer analytics and other use cases.
 
