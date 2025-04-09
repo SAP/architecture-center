@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-5
-slug: /ref-arch/6c73e3575f/5
+slug: /ref-arch/764c406e35/5
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -50,6 +50,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 Event-Driven Architectures (EDA) play a crucial role in modern distributed systems by facilitating asynchronous communication between services through events.  SAP offers a robust suite of services to support various EDA use cases, ensuring seamless integration and event processing. Key offerings include [SAP Integration Suite's Event Mesh capability](https://help.sap.com/docs/integration-suite/sap-integration-suite/event-mesh), [SAP Integration Suite's  Advanced Event Mesh (AEM)](https://help.sap.com/docs/sap-integration-suite) and [SAP Event Broker for SAP cloud applications](https://help.sap.com/docs/sap-cloud-application-event-hub), which provide real-time, decoupled messaging capabilities. SAP Integration Suite, Cloud Integration service further extend this by facilitating smooth event-based integrations across different platforms, both SAP and non-SAP.
 
