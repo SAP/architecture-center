@@ -1,6 +1,6 @@
 ---
 id: id-ra0007-4
-slug: /ref-arch/e7724ef4a7/4
+slug: /ref-arch/f292c9cd73/4
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -32,6 +32,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 [Multitenancy](../readme.md#overview) is an important architectural concept used in SaaS application development in which a single instance of an application serves multiple customers (tenants). Multiple customers share computing resources that are logically separated. Each tenant is logically separated and operates as if they have their own isolated environment, even though they share the same underlying resources, such as the application itself, databases, and infrastructure.
 
