@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-1
-slug: /ref-arch/28ac36db13/1
+slug: /ref-arch/7b17999afe/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -37,6 +37,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 Data from AWS data sources can be harmonized with SAP and non-sap data via SAP Datasphere's data fabric architecture. 
 
