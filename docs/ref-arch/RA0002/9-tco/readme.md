@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-7
-slug: /ref-arch/6c73e3575f/9
+slug: /ref-arch/764c406e35/7
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-02-20
 ---
+
 
 When running a multi-region setup, it's essential to consider the cost implications. Since a separate subaccount is required for the secondary region, most instances from the primary region—such as Integration Suite and Build Work Zone Standard Edition—must be replicated. However, Identity Authentication Service (IAS) is inherently multi-region and does not require duplication.
 
