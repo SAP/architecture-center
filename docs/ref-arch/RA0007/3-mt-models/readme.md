@@ -1,6 +1,6 @@
 ---
 id: id-ra0007-2
-slug: /ref-arch/e7724ef4a7/2
+slug: /ref-arch/f292c9cd73/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -32,6 +32,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 There are multiple ways to design a multitenant application. Your choice of approach depends importantly on whether and how you share resources among your tenants. Intuitively, the more resources you share, the more cost-efficient your application will be. However, sharing resources might also increase the complexity of your application. In SAP BTP, you can develop and run multitenant applications that can be accessed by multiple consumers (tenants) through a dedicated URL.
 
