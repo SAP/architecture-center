@@ -1,6 +1,6 @@
 ---
 id: id-ra0007-5
-slug: /ref-arch/e7724ef4a7/5
+slug: /ref-arch/f292c9cd73/5
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -32,6 +32,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 As businesses increasingly move towards cloud-based solutions, multitenant architectures are becoming more popular due to their scalability, efficiency, and cost-effectiveness. However, understanding the cost of ownership for a multitenant application is crucial for making informed decisions. In simpler terms, total cost of ownership is the sum of all costs associated with owning and operating the application over its lifecycle.  
 
