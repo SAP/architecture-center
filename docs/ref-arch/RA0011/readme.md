@@ -1,6 +1,6 @@
 ---
 id: id-ra0011
-slug: /ref-arch/c6b47a100f
+slug: /ref-arch/25a350543b
 sidebar_position: 11
 sidebar_custom_props:
   category_index:
@@ -42,7 +42,6 @@ last_update:
   author: aldapooh
   date: 2025-03-25
 ---
-
 
 SAP and Esri have deepened their partnership by integrating Esri's ArcGIS technology with SAP HANA Cloud. This collaboration enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, leveraging its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.
 

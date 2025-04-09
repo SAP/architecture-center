@@ -1,6 +1,6 @@
 ---
 id: id-ra0001-2
-slug: /ref-arch/a06a959120/2
+slug: /ref-arch/fbdc46aaae/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
