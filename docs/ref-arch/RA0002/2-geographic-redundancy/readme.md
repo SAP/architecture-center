@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-2
-slug: /ref-arch/6c73e3575f/2
+slug: /ref-arch/764c406e35/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 Geographic redundancy involves distributing data and resources across multiple geographic locations to ensure continuous service availability or for disaster recovery purposes 
 
