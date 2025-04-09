@@ -1,6 +1,6 @@
 ---
 id: id-ra0005-3
-slug: /ref-arch/5c9255f84a/3
+slug: /ref-arch/7e63b8bdc1/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -38,6 +38,7 @@ last_update:
   author: kay-schmitteckert
   date: 2025-01-31
 ---
+
 
 To gain more control over the prompting results of a Large Language Model (LLM) in your application, you can leverage your own specific documents or data using Retrieval Augmented Generation (RAG). Key features of RAG include increased knowledge, as it allows LLMs to provide accurate answers by retrieving up-to-date information from external sources, even if the LLM wasn't trained on that data. RAG also offers flexibility by adapting to different domains, memory efficiency by avoiding model fine-tuning, and higher precision through combining factual data with LLM's language skills. Additionally, it enhances transparency by referencing specific sources for results.
 
