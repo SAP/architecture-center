@@ -1,6 +1,6 @@
 ---
 id: id-ra0001
-slug: /ref-arch/a06a959120
+slug: /ref-arch/96c9a86a68
 sidebar_position: 1
 sidebar_custom_props:
   category_index:
@@ -49,6 +49,7 @@ last_update:
   author: anbazhagan-uma
   date: 2025-01-18
 ---
+
 
 Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-drive architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
 
