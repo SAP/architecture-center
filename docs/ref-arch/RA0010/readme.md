@@ -1,6 +1,6 @@
 ---
 id: id-ra0010
-slug: /ref-arch/c2b5707a1f
+slug: /ref-arch/a99dbbb322
 sidebar_position: 10
 sidebar_custom_props:
   category_index:
@@ -44,6 +44,7 @@ last_update:
   author: fabianleh
   date: 2025-02-24
 ---
+
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
