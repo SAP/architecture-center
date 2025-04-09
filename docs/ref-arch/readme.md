@@ -1,6 +1,6 @@
 ---
 id: id-intro-0
-slug: 
+slug: /
 sidebar_position: 0
 sidebar_custom_props:
   category_index: []
