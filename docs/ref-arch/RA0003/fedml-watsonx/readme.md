@@ -1,6 +1,6 @@
 ---
 id: id-ra0003-6
-slug: /ref-arch/785c72ab48/6
+slug: /ref-arch/be6d2f599e/6
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -41,6 +41,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 FedML (fedml-dsp) can be used in notebooks inside the IBM watsonx.ai and Waston Studio environments. 
 
