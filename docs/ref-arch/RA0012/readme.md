@@ -1,27 +1,34 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0012
-slug: /ref-arch/465f66860a
+slug: /ref-arch/d9b25daf96
 sidebar_position: 12
 sidebar_custom_props:
-    category_index:
-      - aws
-      - gcp
-      - azure
-      - data
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - aws
+    - gcp
+    - azure
+    - data
 title: Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud
-description: This reference architecture demonstrates a common use case for integrating various types of data—structured, semi-structured, and unstructured—into SAP HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By implementing this architecture, businesses can meet the challenge of providing a modern data foundation for intelligent data applications and provide cost-effective data management and analytics across the enterprise.
+description: >-
+  This reference architecture demonstrates a common use case for integrating
+  various types of data—structured, semi-structured, and unstructured—into SAP
+  HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By
+  implementing this architecture, businesses can meet the challenge of providing
+  a modern data foundation for intelligent data applications and provide
+  cost-effective data management and analytics across the enterprise.
+keywords:
+  - sap
+  - btp
+  - data lake
+  - medallion
+  - hana cloud
 sidebar_label: Big Data Processing in SAP HANA Cloud
-keywords: [sap, btp, data lake, medallion, hana cloud]
 image: img/logo.svg
-tags: [data, azure, aws, gcp]
+tags:
+  - data
+  - azure
+  - aws
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,13 +36,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - aldapooh
+  - aldapooh
+discussion: 
 last_update:
-    date: 2025-04-03
-    author: aldapooh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: aldapooh
+  date: 2025-04-03
 ---
 
 This reference architecture demonstrates a common use case for integrating various types of structured, semi-structured, and unstructured data into SAP HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By implementing this architecture, businesses can meet the challenge of providing a modern data foundation for intelligent data applications and provide cost-effective data management and analytics across the enterprise.
