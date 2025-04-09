@@ -22,17 +22,35 @@
       {
         "type": "link",
         "label": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
-        "href": "docs/ref-arch/465f66860a",
+        "href": "docs/ref-arch/d9b25daf96",
         "customProps": {
           "title": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
           "description": "This reference architecture demonstrates a common use case for integrating various types of data—structured, semi-structured, and unstructured—into SAP HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By implementing this architecture, businesses can meet the challenge of providing a modern data foundation for intelligent data applications and provide cost-effective data management and analytics across the enterprise.",
-          "href": "docs/ref-arch/465f66860a",
+          "href": "docs/ref-arch/d9b25daf96",
           "tags": [
             {
               "tag": "data",
               "label": "Data & Analytics",
               "description": "Access insights wherever your data resides with SAP data and analytics solutions.",
               "permalink": "/data"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
             }
           ],
           "last_update": "2025-04-03T00:00:00.000Z",
@@ -47,11 +65,11 @@
       {
         "type": "link",
         "label": "SAP HANA Cloud as an Esri Geodatabase",
-        "href": "docs/ref-arch/c6b47a100f",
+        "href": "docs/ref-arch/25a350543b",
         "customProps": {
           "title": "SAP HANA Cloud as an Esri Geodatabase",
           "description": "The reference architecture for Esri running on SAP HANA Cloud as a geodatabase represents a powerful integration of geospatial technology with enterprise-grade cloud infrastructure. This enhances geospatial capabilities by allowing organizations to store, process, and analyze spatial data directly within SAP HANA Cloud, utilizing its multimodel processing and built-in spatial engine. The integration provides real-time access to both SAP and non-SAP data, breaking down data silos and enabling near-instant insights, which is crucial for industries like utilities during natural disasters.",
-          "href": "docs/ref-arch/c6b47a100f",
+          "href": "docs/ref-arch/25a350543b",
           "tags": [
             {
               "tag": "aws",
@@ -90,11 +108,11 @@
       {
         "type": "link",
         "label": "Edge Integration Cell on Hyperscalers",
-        "href": "docs/ref-arch/f2670637a8",
+        "href": "docs/ref-arch/263f576c90",
         "customProps": {
           "title": "Edge Integration Cell on Hyperscalers",
           "description": "Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.",
-          "href": "docs/ref-arch/f2670637a8",
+          "href": "docs/ref-arch/263f576c90",
           "tags": [
             {
               "tag": "aws",
@@ -134,11 +152,11 @@
       {
         "type": "link",
         "label": "Establish a central entry point with SAP Build Work Zone",
-        "href": "docs/ref-arch/c2b5707a1f",
+        "href": "docs/ref-arch/1311c18c17",
         "customProps": {
           "title": "Establish a central entry point with SAP Build Work Zone",
           "description": "SAP Build Work Zone offers a comprehensive solution architecture designed to elevate user productivity and engagement by providing a digital workplace platform that supports single-sign-on. This innovative approach centralizes access to essential business applications, processes, information, and communication, serving as a unified entry point accessible from desktop or mobile devices. It harmonizes business content, applications, workflows, and processes across your landscape, ensuring a seamless integration and interaction within your digital ecosystem.",
-          "href": "docs/ref-arch/c2b5707a1f",
+          "href": "docs/ref-arch/1311c18c17",
           "tags": [
             {
               "tag": "aws",
@@ -183,11 +201,11 @@
       {
         "type": "link",
         "label": "Architecting Multi-Region HA/DR resiliency patterns",
-        "href": "docs/ref-arch/6c73e3575f",
+        "href": "docs/ref-arch/81805673c0",
         "customProps": {
           "title": "Architecting Multi-Region HA/DR resiliency patterns",
           "description": "Learn how to architect multi-region resiliency for SAP solutions such to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.",
-          "href": "docs/ref-arch/6c73e3575f",
+          "href": "docs/ref-arch/81805673c0",
           "tags": [
             {
               "tag": "aws",
@@ -226,11 +244,11 @@
       {
         "type": "link",
         "label": "Establish a central inbox with SAP Task Center",
-        "href": "docs/ref-arch/f764cc1375",
+        "href": "docs/ref-arch/0245473a99",
         "customProps": {
           "title": "Establish a central inbox with SAP Task Center",
           "description": "Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.",
-          "href": "docs/ref-arch/f764cc1375",
+          "href": "docs/ref-arch/0245473a99",
           "tags": [
             {
               "tag": "aws",
