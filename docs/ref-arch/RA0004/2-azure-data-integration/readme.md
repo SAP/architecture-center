@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-2
-slug: /ref-arch/28ac36db13/2
+slug: /ref-arch/7b17999afe/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -36,6 +36,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 Data from Azure platform data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's robust data fabric architecture. This architecture facilitates the unification of disparate data sources, enabling comprehensive data modeling and analytics.
 
