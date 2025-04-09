@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-1
-slug: /ref-arch/6c73e3575f/1
+slug: /ref-arch/764c406e35/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -44,6 +44,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 ## Single-region resiliency configuration
 - **[Single-region resiliency](1-single-region-resiliency/readme.md)**
