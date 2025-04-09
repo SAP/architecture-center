@@ -1,6 +1,6 @@
 ---
 id: id-ra0004
-slug: /ref-arch/28ac36db13
+slug: /ref-arch/7b17999afe
 sidebar_position: 4
 sidebar_custom_props:
   category_index:
@@ -45,6 +45,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 SAP Datasphere empowers organizations with a comprehensive business data fabric architecture, seamlessly integrating mission-critical data from across the enterprise. This powerful platform enables business experts to make data-driven decisions with unprecedented impact. By providing federated data access and remote table replication from SAP line of business solutions, SAP Datasphere ensures that data is always accessible and up-to-date.
 
