@@ -8,6 +8,7 @@ export default function HeroSection(): JSX.Element {
         <section>
             <br />
             <br />
+            <br />
             <div className="hero_banner">
                 <div className="container">
                     <div className="welcome">
@@ -29,6 +30,9 @@ export default function HeroSection(): JSX.Element {
                     </div>
                 </div>
             </div>
+            <br />
+            <br />
+            <br />
         </section>
     );
 }

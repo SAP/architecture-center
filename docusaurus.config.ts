@@ -192,11 +192,11 @@ const config: Config = {
                     label: 'Community of Practice',
                     position: 'left',
                 },
-                {
-                    to: '/guidance/intro',
-                    label: 'Guidance Framework',
-                    position: 'left',
-                },
+                //{
+                //    to: '/guidance/intro',
+                //    label: 'Guidance Framework',
+                //    position: 'left',
+                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
