@@ -1,6 +1,6 @@
 ---
 id: id-ra0002
-slug: /ref-arch/6c73e3575f
+slug: /ref-arch/764c406e35
 sidebar_position: 2
 sidebar_custom_props:
   category_index:
@@ -56,6 +56,7 @@ last_update:
   author: mahesh0431
   date: 2025-02-19
 ---
+
 
 In today's interconnected business landscape, ensuring the resilience of mission-critical applications is paramount. Organizations face diverse challenges ranging from natural disasters to cyber threats, making a robust disaster recovery (DR) strategy essential. A multi-region disaster recovery setup serves as a safeguard, ensuring that applications and data are replicated across geographically dispersed locations. This not only enhances data resilience and business continuity but also helps meet regulatory compliance requirements by guaranteeing uninterrupted access to essential services.
 
