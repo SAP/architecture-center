@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-6
-slug: /ref-arch/6c73e3575f/6
+slug: /ref-arch/764c406e35/6
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -49,6 +49,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 Implementing a multi-region architecture involves multiple complex steps for both SAP BTP services and third-party services, which can quickly become overwhelming. Complexities include:
 
