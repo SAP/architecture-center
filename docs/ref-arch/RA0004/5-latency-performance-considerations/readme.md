@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-5
-slug: /ref-arch/28ac36db13/5
+slug: /ref-arch/7b17999afe/5
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -35,6 +35,7 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
 
 At a technical conceptual level, opting for data federation instead of data export or replication can significantly reduce network traffic and enhance network performance. This approach minimizes data duplication and eliminates redundant data engineering tasks typically associated with ETL processes.
 
