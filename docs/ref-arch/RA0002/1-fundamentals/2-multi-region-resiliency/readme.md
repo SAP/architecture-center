@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-1-2
-slug: /ref-arch/6c73e3575f/1/2
+slug: /ref-arch/764c406e35/1/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 Enterprises often start with ensuring redundancies within a single region. SAP provides Multi-AZ for SAP BTP. However, the next logical step is spreading across regions to protect against regional failures. Multi-region resiliency refers to the capability of an application or system to sustain its functionality and performance across multiple geographically dispersed data centers. This approach safeguards against large-scale outages and disasters that could impact an entire region, ensuring continuous service availability.
 
