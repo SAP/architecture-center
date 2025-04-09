@@ -1,6 +1,6 @@
 ---
 id: id-ra0002-7
-slug: /ref-arch/6c73e3575f/7
+slug: /ref-arch/764c406e35/7
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -48,6 +48,7 @@ last_update:
   author: arajsinha
   date: 2025-01-31
 ---
+
 
 This document presents sample implementations leveraging Microsoft Azure Traffic Manager and AWS Route 53 to achieve high availability and Disaster Recovery for SAP services. These patterns can also be realized using comparable offerings from other hyperscaler load balancers.
 
