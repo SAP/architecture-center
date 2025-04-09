@@ -10,20 +10,20 @@
 .carouselContainer {
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    scroll-padding: 0 10px;
     -webkit-overflow-scrolling: touch;
-    gap: 25px;
-    padding: 10px;
     width: 100%;
     box-sizing: border-box;
+    scroll-snap-type: x mandatory;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .cardGroup {
     display: flex;
-    flex: 0 0 100%;
-    flex-wrap: nowrap;
+    flex-shrink: 0;
+    width: 100%;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
     scroll-snap-align: start;
@@ -31,26 +31,29 @@
 }
 
 .cardContainer {
-    flex-shrink: 0;
-    width: 100%;
+    flex: 1 1 calc(33.333% - 20px);
     max-width: 410px;
     box-sizing: border-box;
-}
-
-@media (max-width: 996px) {
-    .cardContainer {
-      width: 48%; /* Tablet */
-    }
 }
 
 .hideOnMobile {
     display: inline;
 }
 
-@media (max-width: 600px) {
+.innerContainer {
+    width: 100%;
+    max-width: 1300px;
+    padding: 0 10px;
+}
+
+.headerRow {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 996px) {
     .cardContainer {
-        width: 100%;
-        max-width: none;
+        flex: 1 1 100%;
+        max-width: 100%;
         min-width: 100%;
     }
 
