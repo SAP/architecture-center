@@ -1,6 +1,6 @@
 ---
 id: id-ra0008-1
-slug: /ref-arch/f2670637a8/1
+slug: /ref-arch/1bc0d9edd3/1
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -31,6 +31,7 @@ last_update:
   author: adarshnarayanhegde
   date: 2025-02-20
 ---
+
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Amazon Web Services (AWS) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines AWS-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
 
