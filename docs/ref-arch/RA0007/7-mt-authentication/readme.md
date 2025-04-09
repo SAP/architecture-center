@@ -1,6 +1,6 @@
 ---
 id: id-ra0007-6
-slug: /ref-arch/e7724ef4a7/6
+slug: /ref-arch/f292c9cd73/6
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -32,6 +32,7 @@ last_update:
   author: Ajit Kumar Panda
   date: 2025-01-31
 ---
+
 
 In multitenant applications, the authentication strategy is crucial to ensure that each tenant's data and configurations are kept separate from other tenants. 
 
