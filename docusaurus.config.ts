@@ -185,12 +185,12 @@ const config: Config = {
                 {
                     to: 'blog',
                     label: "What's new",
-                    position: 'left',
+                    position: 'right',
                 },
                 {
                     to: '/community/intro',
                     label: 'Community of Practice',
-                    position: 'left',
+                    position: 'right',
                 },
                 //{
                 //    to: '/guidance/intro',
@@ -200,7 +200,7 @@ const config: Config = {
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
-                    position: 'right',
+                    position: 'left',
                     items: [
                         {
                             type: 'html',
