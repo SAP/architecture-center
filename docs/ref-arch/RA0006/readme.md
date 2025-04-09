@@ -1,6 +1,6 @@
 ---
 id: id-ra0006
-slug: /ref-arch/e79a7b609d
+slug: /ref-arch/26f0cf0f86
 sidebar_position: 6
 sidebar_custom_props:
   category_index:
@@ -47,6 +47,7 @@ last_update:
   author: hterminasyan
   date: 2025-01-22
 ---
+
 
 Secure connectivity is crucial for organizations that handle critical business operations across various cloud environments. To reduce vulnerabilities and potential security risks, it is important to transfer sensitive data within a protected and private networks. Network setups that expose traffic to the public internet increase the probability of security breaches and unauthorized access.
 
