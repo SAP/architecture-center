@@ -188,7 +188,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                         </aside>
                     )}
 
-                    <main className={styles.mainContent}>
+                    <main className={styles.mainContent} style={{width: "100%"}}>
                         <DocCardList items={filteredItems} className={styles.list} />
                         <DocPaginator
                             previous={categoryGeneratedIndex.navigation.previous}
