@@ -1,6 +1,6 @@
 ---
 id: id-ra0005-2
-slug: /ref-arch/5c9255f84a/2
+slug: /ref-arch/7e63b8bdc1/2
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -40,6 +40,7 @@ last_update:
   author: kay-schmitteckert
   date: 2025-01-31
 ---
+
 
 Embeddings are powerful and dense numeric representations of data that capture the underlying meaning of words or concepts. In business applications, they enable more intelligent, context-aware search capabilities. By using Embedding Models, businesses can transform textual or other data into vector representations. These vectors are then stored in a vector database, which facilitates fast and efficient similarity searches using methods like cosine similarity. This allows for semantic search functionality, where results are based on meaning rather than exact keyword matches, improving search relevance, user experience, and overall operational efficiency.
 
