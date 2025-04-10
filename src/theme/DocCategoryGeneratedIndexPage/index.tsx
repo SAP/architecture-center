@@ -45,17 +45,24 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
             ...provided,
             backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff',
             borderColor: isDarkMode ? '#444' : '#ccc',
-            color: isDarkMode ? '#fff' : '#000',
         }),
         menu: (provided) => ({
             ...provided,
             backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
-            color: isDarkMode ? '#fff' : '#000',
         }),
-        option: (provided, state) => ({
+        option: (provided, { isFocused }) => ({
             ...provided,
-            backgroundColor: state.isFocused ? (isDarkMode ? '#fff' : '#ddd') : isDarkMode ? '#2a2a2a' : '#fff',
-            color: state.isFocused ? (isDarkMode ? '#000' : '#000') : isDarkMode ? '#fff' : '#000',
+            backgroundColor: isFocused ? 'var(--ifm-dropdown-hover-background-color)' : isDarkMode ? '#2a2a2a' : '#fff',
+            color: 'var(--ifm-font-color-base)',
+        }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            color: 'var(--ifm-font-color-base)', // targets color of cross to remove a selection
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: 'var(--ifm-font-color-base)',
         }),
     };
 }
@@ -152,7 +159,6 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                     {isExplorePage && (
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
-                                
                                 <div className={styles.filterGroup}>
                                     <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
                                     <Select
