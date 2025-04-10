@@ -208,12 +208,12 @@ const config: Config = {
                         },
                         {
                             to: '/docs/exploreallrefarch',
-                            label: 'Card View'
+                            label: 'Card-Style Overview'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
-                            label: 'Navigator View'
+                            label: 'Navigator-Style Overview'
                         },
                         {
                             type: 'html',
