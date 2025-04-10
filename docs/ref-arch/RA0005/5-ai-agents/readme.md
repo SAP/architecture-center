@@ -79,9 +79,9 @@ It eliminates the need for custom agent runtimes by enabling no-code, configurat
 
 ## Selecting the Right Approach
 
-Not all use cases require the same level of orchestration or intelligence. Depending on factors like interaction complexity, the need for real-time data, and the nature of the underlying process, different design strategies are optimal—ranging from simple prompt engineering to agents.
+Not all use cases require the same level of orchestration or intelligence. Depending on factors like interaction complexity, the need for real-time data, and the nature of the underlying process, different design strategies are optimal ranging from simple prompt engineering to agents.
 
-The decision tree below serves as a practical guide to determine the most suitable implementation pattern for your scenario—be it prompt-based, tool-integrated, or agentic.
+The decision tree below serves as a practical guide to determine the most suitable implementation pattern for your scenario be it prompt-based, tool-integrated, or agentic.
 
 ![Agent Design Decision Tree](../../images/Agent_FD.png)
 
