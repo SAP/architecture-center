@@ -52,7 +52,7 @@ export default function CommunitySection(): JSX.Element {
                             <br />
                         </p>
                         <Link to="/community/intro">
-                            <Button design="Emphasized" style={{ width: 200 }}>
+                            <Button design="Emphasized" style={{ width: 150 }}>
                                 Let's team up!
                             </Button>
                         </Link>

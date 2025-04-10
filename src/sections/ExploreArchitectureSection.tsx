@@ -88,7 +88,7 @@ export default function ExploreAllArchitecturesSection() {
               disabled={!canGoRight}
             />
             <Link to="docs/exploreallrefarch" >
-              <Button design="Default">Explore All</Button>
+              <Button design="Default">Browse All</Button>
             </Link> 
           </FlexBox>
         </FlexBox>

@@ -25,7 +25,7 @@ export default function HeroSection(): JSX.Element {
                         </div>
 
                         <Link to="/docs/exploreallrefarch">
-                            <Button style={{ width: 200 }}>Architecture Explorer</Button>
+                            <Button style={{ width: 150 }}>Explore Now</Button>
                         </Link>
                     </div>
                 </div>
