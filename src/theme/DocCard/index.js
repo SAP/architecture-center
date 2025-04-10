@@ -145,7 +145,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
       style={{
         height: '290px',
         cursor: 'pointer',
-        borderRadius: '10px',
+        borderRadius: '20px',
         overflow: 'visible',
         transition: 'all 0.3s ease-in-out',
         backgroundColor: 'var(--ifm-card-background)',

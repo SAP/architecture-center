@@ -72,7 +72,7 @@ export default function ExploreAllArchitecturesSection() {
     <div className={styles.sectionContainer}>
       <div className={styles.innerContainer}>
         {/* Header Reference Architectures */}
-        <Title style={{marginBottom: "10px"}}>Explore the latest Reference Architectures</Title>
+        <Title size="H3" className={styles.titleStyle}>Explore the latest Reference Architectures</Title>
         <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>          
           <FlexBox alignItems="Center" style={{ gap: "10px" }}>
             <Button
@@ -87,9 +87,8 @@ export default function ExploreAllArchitecturesSection() {
               onClick={goNext}
               disabled={!canGoRight}
             />
-            <Link to="docs/exploreallrefarch" >
-              <Button design="Default">Browse All</Button>
-            </Link> 
+            <div></div>
+            <Link to="docs/exploreallrefarch" >Browse All</Link> 
           </FlexBox>
         </FlexBox>
 

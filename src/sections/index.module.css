@@ -1,3 +1,7 @@
+.titleStyle {
+    margin-bottom: 5px;
+    margin-left: 8px;
+}
 
 .sectionContainer {
     background-color: #eaf3fc;
@@ -34,31 +38,36 @@
     flex: 1 1 calc(33.333% - 20px);
     max-width: 410px;
     box-sizing: border-box;
-}
-
-.hideOnMobile {
-    display: inline;
+    padding: 0 7px;
 }
 
 .innerContainer {
     width: 100%;
     max-width: 1300px;
-    padding: 0 10px;
+    padding: 0 20px;
 }
 
 .headerRow {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-right: 10px;
 }
 
 @media (max-width: 996px) {
     .cardContainer {
         flex: 1 1 100%;
         max-width: 100%;
-        min-width: 100%;
     }
 
-    .hideOnMobile {
-        display: none;
+    .titleStyle {
+        margin-left: 8px;
+    }
+
+    .innerContainer {
+        padding: 0 5px;
+    }
+
+    .headerRow {
+        padding-right: 10px;
     }
 }
 
