@@ -1,3 +1,7 @@
+.titleStyle {
+    padding-bottom: 5px;
+    padding-left: clamp(8px, 3vw, 60px); 
+}
 
 .sectionContainer {
     background-color: #eaf3fc;
@@ -25,40 +29,38 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
     scroll-snap-align: start;
     box-sizing: border-box;
 }
 
 .cardContainer {
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: 410px;
+    flex: 1 1 0;
+    max-width: 430px;
     box-sizing: border-box;
-}
-
-.hideOnMobile {
-    display: inline;
+    padding: 0 16px;
 }
 
 .innerContainer {
     width: 100%;
-    max-width: 1300px;
-    padding: 0 10px;
+    max-width: 1400px;
+    padding: 0 16px;
 }
 
 .headerRow {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-right: 60px;
 }
 
 @media (max-width: 996px) {
     .cardContainer {
-        flex: 1 1 100%;
+        flex: 1 1 0;
         max-width: 100%;
         min-width: 100%;
+        padding: 16px;
     }
 
-    .hideOnMobile {
-        display: none;
+    .headerRow {
+        padding-right: 18px;
     }
 }
 
