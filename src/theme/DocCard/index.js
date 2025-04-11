@@ -55,7 +55,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
   const [compressedTags, setCompressedTags] = useState([])
   const [remainingTags, setRemainingTags] = useState([])
   const [readableTitle, setReadableTitle] = useState("")
-  const [readableDescriptionCharacters, setReadableDescriptionCharacters] = useState(0)
+  const [readableDescription, setReadableDescription] = useState(0)
   const size = useWindowSize();
 
   const card = useRef(null)
@@ -103,7 +103,14 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
     /* cut off description if it is too long */
 
-    setReadableDescriptionCharacters(Math.round((cardWidth/360)*160))
+    if(description.length > Math.round((cardWidth/360)*200)) {
+      const _description = description.slice(0, Math.round((cardWidth/360)*200));
+      const lastSpaceIndex = _description.lastIndexOf(' ');
+      const lastCharacterIsDot = _description.slice(-1) === "."
+      setReadableDescription(_description.slice(0, lastSpaceIndex) + (lastCharacterIsDot?"..":"..."))
+    }else{
+      setReadableDescription(description)
+    }
 
     /* Change title length if title is too long */
 
@@ -211,9 +218,9 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
           margin: 0,
       }}
     >
-    <ExpandableText overflowMode="Popover" style={{cursor: "pointer"}} maxCharacters={readableDescriptionCharacters}>
-      {description}
-    </ExpandableText>
+    <Text>
+      {readableDescription}
+    </Text>
     </FlexBox>
     </FlexBox>
       {/* Tags container */}
