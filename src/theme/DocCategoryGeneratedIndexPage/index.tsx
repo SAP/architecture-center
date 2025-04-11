@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, JSX } from 'react';
 import Select, { MultiValue, StylesConfig } from 'react-select';
+import { Title } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@docusaurus/theme-common';
 import { useCurrentSidebarCategory } from '@docusaurus/plugin-content-docs/client';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -45,17 +46,27 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
             ...provided,
             backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff',
             borderColor: isDarkMode ? '#444' : '#ccc',
-            color: isDarkMode ? '#fff' : '#000',
         }),
         menu: (provided) => ({
             ...provided,
             backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
-            color: isDarkMode ? '#fff' : '#000',
         }),
-        option: (provided, state) => ({
+        option: (provided, { isFocused }) => ({
             ...provided,
-            backgroundColor: state.isFocused ? (isDarkMode ? '#fff' : '#ddd') : isDarkMode ? '#2a2a2a' : '#fff',
-            color: state.isFocused ? (isDarkMode ? '#000' : '#000') : isDarkMode ? '#fff' : '#000',
+            backgroundColor: isFocused ? 'var(--ifm-dropdown-hover-background-color)' : isDarkMode ? '#2a2a2a' : '#fff',
+            ':active': {
+                backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            },
+            color: 'var(--ifm-font-color-base)',
+        }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            color: 'var(--ifm-font-color-base)', // targets color of cross to remove a selection
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: 'var(--ifm-font-color-base)',
         }),
     };
 }
@@ -152,9 +163,8 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                     {isExplorePage && (
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
-                                
                                 <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
+                                    <Title style={{ marginBottom: 6 }}>Technology Domains</Title>
                                     <Select
                                         isMulti
                                         options={techDomains}
@@ -166,7 +176,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 </div>
 
                                 <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
+                                    <Title style={{ marginBottom: 6 }}>Technology Partners</Title>
                                     <Select
                                         isMulti
                                         options={partners}
