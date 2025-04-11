@@ -103,13 +103,13 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
     /* cut off description if it is too long */
 
-    if(description.length > Math.round((cardWidth/360)*200)) {
-      const _description = description.slice(0, Math.round((cardWidth/360)*200));
-      const lastSpaceIndex = _description.lastIndexOf(' ');
-      const lastCharacterIsDot = _description.slice(-1) === "."
-      setReadableDescription(_description.slice(0, lastSpaceIndex) + (lastCharacterIsDot?"..":"..."))
-    }else{
-      setReadableDescription(description)
+    if (description.length > Math.round((cardWidth / 360) * 200)) {
+        const _description = description.slice(0, Math.round((cardWidth / 360) * 200));
+        const lastSpaceIndex = _description.lastIndexOf(' ');
+        const lastCharacterIsDot = _description.slice(-1) === '.';
+        setReadableDescription(_description.slice(0, lastSpaceIndex) + (lastCharacterIsDot ? '..' : '...'));
+    } else {
+        setReadableDescription(description);
     }
 
     /* Change title length if title is too long */
