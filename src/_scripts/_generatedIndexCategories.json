@@ -5,7 +5,7 @@
             "label": "Microsoft Azure",
             "link": {
                 "type": "generated-index",
-                "title": "SAP / Azure Joint Reference Architectures",
+                "title": "Architecture Explorer | SAP / Azure Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Microsoft Azure joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/azure",
                 "keywords": ["azure", "sap"],
@@ -21,7 +21,7 @@
             "label": "Amazon Web Services",
             "link": {
                 "type": "generated-index",
-                "title": "SAP / AWS Joint Reference Architectures",
+                "title": "Architecture Explorer | SAP / AWS Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Amazon Web Services joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/aws",
                 "keywords": ["aws", "sap"],
@@ -37,7 +37,7 @@
             "label": "Google Cloud Platform",
             "link": {
                 "type": "generated-index",
-                "title": "SAP / GCP Joint Reference Architectures",
+                "title": "Architecture Explorer | SAP / GCP Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Google Cloud Platform joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/gcp",
                 "keywords": ["gcp", "sap"],
@@ -53,7 +53,7 @@
             "label": "Application Development & Automation",
             "link": {
                 "type": "generated-index",
-                "title": "SAP Reference Architectures | Application Development & Automation",
+                "title": "Architecture Explorer | Application Development & Automation",
                 "description": "Explore SAP reference architectures for application development and automation. Streamline business processes, enhance productivity, and drive innovation with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/appdev",
                 "keywords": ["appdev", "sap"],
@@ -69,7 +69,7 @@
             "label": "Artificial Intelligence",
             "link": {
                 "type": "generated-index",
-                "title": "SAP Reference Architectures | Artificial Intelligence (AI)",
+                "title": "Architecture Explorer | Artificial Intelligence (AI)",
                 "description": "Discover AI-powered SAP reference architectures designed to reinvent business processes and automate tasks. Optimize efficiency, drive innovation, and transform your enterprise operations effortlessly.",
                 "slug": "/sap/ai",
                 "keywords": ["ai", "sap"],
@@ -85,7 +85,7 @@
             "label": "Data & Analytics",
             "link": {
                 "type": "generated-index",
-                "title": "Data & Analytics",
+                "title": "Architecture Explorer | Data & Analytics",
                 "description": "Discover SAP reference architectures for data and analytics. Leverage data-driven insights, optimize decision-making, and drive business growth with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/data",
                 "keywords": ["data", "analytics", "sap"],
@@ -101,7 +101,7 @@
             "label": "Integration",
             "link": {
                 "type": "generated-index",
-                "title": "Integration",
+                "title": "Architecture Explorer | Integration",
                 "description": "Explore SAP reference architectures for integration. Streamline business processes, enhance productivity, and drive innovation with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/integration",
                 "keywords": ["integration", "sap"],
@@ -117,7 +117,7 @@
             "label": "Operation & Security",
             "link": {
                 "type": "generated-index",
-                "title": "Operation & Security",
+                "title": "Architecture Explorer | Operation & Security",
                 "description": "Discover SAP reference architectures for security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/security",
                 "keywords": ["security", "sap"],

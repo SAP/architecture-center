@@ -185,22 +185,22 @@ const config: Config = {
                 {
                     to: 'blog',
                     label: "What's new",
-                    position: 'left',
+                    position: 'right',
                 },
                 {
                     to: '/community/intro',
                     label: 'Community of Practice',
-                    position: 'left',
+                    position: 'right',
                 },
-                {
-                    to: '/guidance/intro',
-                    label: 'Guidance Framework',
-                    position: 'left',
-                },
+                //{
+                //    to: '/guidance/intro',
+                //    label: 'Guidance Framework',
+                //    position: 'left',
+                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
-                    position: 'right',
+                    position: 'left',
                     items: [
                         {
                             type: 'html',
@@ -208,12 +208,12 @@ const config: Config = {
                         },
                         {
                             to: '/docs/exploreallrefarch',
-                            label: 'Card View'
+                            label: 'Card-Style Overview'
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
-                            label: 'Navigator View'
+                            label: 'Navigator-Style Overview'
                         },
                         {
                             type: 'html',
