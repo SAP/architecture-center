@@ -114,11 +114,11 @@
 }
 
 .resetIcon:hover {
-    color: var(--ifm-navbar-link-hover-color);
+    color: #2684ff;
 }
 
 .resetDisabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
 }
