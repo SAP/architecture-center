@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, JSX } from 'react';
 import Select, { MultiValue, StylesConfig } from 'react-select';
+import { Title } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@docusaurus/theme-common';
 import { useCurrentSidebarCategory } from '@docusaurus/plugin-content-docs/client';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -53,6 +54,9 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
         option: (provided, { isFocused }) => ({
             ...provided,
             backgroundColor: isFocused ? 'var(--ifm-dropdown-hover-background-color)' : isDarkMode ? '#2a2a2a' : '#fff',
+            ':active': {
+                backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            },
             color: 'var(--ifm-font-color-base)',
         }),
         multiValue: (provided) => ({
@@ -160,7 +164,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
                                 <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
+                                    <Title style={{ marginBottom: 6 }}>Technology Domains</Title>
                                     <Select
                                         isMulti
                                         options={techDomains}
@@ -172,7 +176,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 </div>
 
                                 <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
+                                    <Title style={{ marginBottom: 6 }}>Technology Partners</Title>
                                     <Select
                                         isMulti
                                         options={partners}
