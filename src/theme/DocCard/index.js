@@ -238,7 +238,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
         justifyContent='Start'
       >
         {compressedTags.map((tag, index) => (
-          <a href={"tags/" + tag.tag} key={index}>
+          <a href={"/docs/tags/" + tag.tag} key={index}>
             <Tag
               design="Information"
               hideStateIcon
@@ -288,7 +288,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
             >
               <div style={{display: "flex", flexDirection: "Column", gap: "10px"}}>
                 {remainingTags.map((tag, index) => (
-                  <a href={"tags/" + tag.tag} id="popover" key={index}>
+                  <a href={"/docs/tags/" + tag.tag} id="popover" key={index}>
                     <Tag
                       design="Information"
                       hideStateIcon
