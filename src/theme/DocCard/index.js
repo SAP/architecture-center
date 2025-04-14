@@ -315,7 +315,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
         <Text style={{ cursor: "pointer", color: "gray", fontSize: 'var(--sapFontSmallSize)' }}>
           {"Last Update: "}
         </Text>
-        <Text style={{cursor: "pointer", paddingLeft: 3, color: "gray", fontSize: 'var(--sapFontSmallSize)'}}>
+        <Text style={{cursor: "pointer", paddingLeft: 3, color: "gray", fontSize: 'var(--sapFontSmallSize)', overflow: 'visible'}}>
           {lastUpdate
             ? new Date(lastUpdate).toLocaleDateString('en-US', {
                 year: 'numeric',
