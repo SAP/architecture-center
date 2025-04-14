@@ -30,7 +30,8 @@
     --ifm-menu-color-active: #0057d2;
     --ifm-code-font-size: 95%;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-    --ifm-footer-link-color: #0064d9;
+    --ifm-footer-link-color: #8396A8;
+    --ifm-footer-title-color: var(--ifm-font-color-base);
     --doc-sidebar-width: 400px !important;
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
@@ -500,9 +501,7 @@ table thead {
 }
 
 .footer__link-item:hover {
-    color: #0064d9;
-    text-decoration: none;
-    background-color: #eaecee;
+    color: #6e7f8e;
 }
 
 .footer__copyright {
