@@ -64,6 +64,12 @@ ui5-button::part(button) {
     font-family: '72';
 }
 
+/* more sensible proportions for Mermaid flowcharts */
+div:has(> svg[aria-roledescription='flowchart-v2']) {
+    width: 55%;
+    margin: auto;
+}
+
 /* General list item styling */
 .menu__list-item {
     font-size: 14px; /* Adjust the font size as needed */
