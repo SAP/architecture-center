@@ -121,3 +121,4 @@ Before embarking on your migration journey, consider these fundamental questions
 -   What performance improvements would most benefit your decision-making processes?
 -   What integration requirements exist between your data platform and other enterprise systems?
 -   How does your BDC migration align with broader digital transformation initiatives?
+
