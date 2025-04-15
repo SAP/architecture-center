@@ -30,7 +30,8 @@
     --ifm-menu-color-active: #0057d2;
     --ifm-code-font-size: 95%;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-    --ifm-footer-link-color: #8396A8;
+    --ifm-footer-link-color: #556b82;
+    --ifm-footer-link-hover-color: #6b84a0;
     --ifm-footer-title-color: var(--ifm-font-color-base);
     --doc-sidebar-width: 400px !important;
     --ifm-table-cell-padding: 0.25rem 0.5rem;
@@ -405,6 +406,8 @@ table thead {
 [data-theme='dark'] {
     --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
     --ifm-link-color: #4db1ff; /* Evening Horizon's color for links */
+    --ifm-footer-link-color: #8396a8;
+    --ifm-footer-link-hover-color: #6e7f8e;
     --ifm-color-primary: #d1efff;
     --ifm-color-primary-dark: #439ddd;
     --ifm-color-primary-darker: #4684e8;
@@ -473,7 +476,6 @@ table thead {
     align-items: center;
     margin-left: 0rem;
     margin-right: 0px;
-    color: #000000;
     height: 290px;
 }
 
@@ -496,16 +498,18 @@ table thead {
 
     html[data-theme='dark'] .footer {
         background-color: #0e0f19 !important;
-        color: #1b90ff;
     }
 }
 
-.footer__link-item:hover {
-    color: #6e7f8e;
+/* make links in copyright behave like rest of links in footer */
+.footer__copyright,
+.footer__copyright a {
+    font-size: 14px;
+    color: var(--ifm-footer-link-color);
 }
 
-.footer__copyright {
-    font-size: 14px;
+.footer__copyright a:hover {
+    color: var(--ifm-footer-link-hover-color);
 }
 
 [data-theme='dark'] .navbar {
@@ -630,7 +634,6 @@ html[data-theme='light'] .menu {
 
 html[data-theme='dark'] .footer {
     background-color: #0e0f19;
-    color: #1b90ff;
 }
 
 html[data-theme='dark'] .navbar {
