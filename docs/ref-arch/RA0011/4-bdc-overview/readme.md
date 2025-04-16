@@ -1,19 +1,20 @@
+---
 ############################################################
 #                Beginning of Front Matter                 #
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0011-4
+id: id-ra0011-3
 slug: /ref-arch/e55b3bb294/4
-sidebar_position: 4
+sidebar_position: 3
 sidebar_custom_props:
     category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
 title: SAP Business Data Cloud Overview
-description: To modernize the data landscape, SAP BDC provides an SaaS experience for enterprise data to implement holistic data integration and applications with the underlying data in the system landscape.
-sidebar_label: SAP BDC Overview
+description: To modernize the data landscape, SAP BDC provides an SaaS experience for enterprise data to implement holistic data integration and applications with the underlying data in the system landscape. 
+sidebar_label: SAP Business Data Cloud Overview
 keywords: [sap, bdc, data, analytics]
 image: img/logo.svg
 tags: [aws]
@@ -33,7 +34,7 @@ last_update:
 ############################################################
 ---
 
-# SAP Business Data Cloud 
+# SAP Business Data Cloud Overview
 **This is Work in Progress. To be completed by April 25th, 2025.**
 
 Key points to cover
@@ -44,7 +45,6 @@ lakehouse architecture - distributed data lake - exposing through delta sharing 
 Insight apps - standard custom 
 Data products - standard , custom 
 Databricks
-
 
 ## Introduction 
 
@@ -68,17 +68,13 @@ Databricks
 - SAP BDC 
 
 
-
 ## Databricks Integration
 
 ## BW Modernization 
 
-
 ## Benefits of SAP BDC
-
 
 ## Resources 
 
 Learning Journey link 
 FAQ if any 
-
