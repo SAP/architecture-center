@@ -67,6 +67,7 @@ This approach does not need any conversion to SAP BW/4HANA in the context of SAP
 ### Migration Pathways: A Structured Approach
 
 Transitioning from SAP BW to the Business Data Cloud follows distinct paths based on your current environment. Each approach is designed to minimize disruption while maximizing the benefits of modernization. This image illustrates the various paths from SAP BW to Business Data Cloud.
+BW PCE simplifies the management of BW and to make the BW Data available to DSP as data products.
 
 ![drawio](drawio/bw-modernization.drawio)
 
