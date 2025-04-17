@@ -73,16 +73,15 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
 
 function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props): JSX.Element {
     const { colorMode } = useColorMode();
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(colorMode === 'dark');
-
-    useEffect(() => {
-        setIsDarkMode(colorMode === 'dark');
-    }, [colorMode]);
 
     const category = useCurrentSidebarCategory();
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
 
-    const selectStyles = useMemo(() => getSelectStyles(isDarkMode), [isDarkMode]);
+    const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>();
+
+    useEffect(() => {
+        setSelectStyles(getSelectStyles(colorMode === "dark"));
+    }, [colorMode]);
 
     const categories = useMemo(
         () =>
@@ -160,7 +159,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                 </header>
 
                 <div className={styles.contentWrapper}>
-                    {isExplorePage && (
+                    {isExplorePage && selectStyles && ( // switch from Select's default style to ours causes visual flash, prevent this
                         <aside className={styles.filters}>
                             <div className={styles.filterRow}>
                                 <div className={styles.filterGroup}>
