@@ -40,7 +40,7 @@ SAP Business Data Cloud (BDC) is a modern solution designed to address complex e
 
 ## Architecture
 
-![drawio](drawio/sap-bdc-components.drawio)
+![drawio](drawio/sap-bdc.drawio)
 
 ## Why a Modern Data Architecture is Critical
 
