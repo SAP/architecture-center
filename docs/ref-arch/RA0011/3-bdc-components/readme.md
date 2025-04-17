@@ -4,17 +4,17 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0011-2
-slug: /ref-arch/e55b3bb294/2
-sidebar_position: 2
+id: id-ra0011-3
+slug: /ref-arch/e55b3bb294/3
+sidebar_position: 3
 sidebar_custom_props:
     category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Data Products at SAP
+title: SAP BDC Components Overview
 description: The purpose of Data Products in the context of SAP is the efficient and standardized sharing and consumption of data across applications and domains. It helps ensure high-quality metadata, is optimized for intensive reads, and describes the lineage and interfaces available for integration.
-sidebar_label: Data Products at SAP
+sidebar_label: SAP BDC Components Overview
 keywords: [sap, bdc, data product]
 image: img/logo.svg
 tags: [azure, gcp, aws, data]

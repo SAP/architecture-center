@@ -4,17 +4,17 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0011-1
-slug: /ref-arch/e55b3bb294/1
-sidebar_position: 1
+id: id-ra0011-2
+slug: /ref-arch/e55b3bb294/2
+sidebar_position: 2
 sidebar_custom_props:
     category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Navigating from SAP BW to SAP Business Data Cloud
+title: Pathways and Assessments for SAP Business Data Cloud
 description: For decades, SAP Business Warehouse (BW) has served as the backbone of enterprise data warehousing, delivering critical insights for strategic decision-making. However, the rapidly evolving business environment demands more from data infrastructure and real-time analytics capabilities, seamless integration across diverse sources, and scalable architecture that can adapt to changing requirements. The Business Data Cloud (BDC) represents the next evolution in enterprise data management, offering organizations a path beyond traditional BW environments toward a more agile, integrated, and future-ready data platform.
-sidebar_label: Navigating from SAP BW to SAP Business Data Cloud
+sidebar_label: Pathways for SAP BDC Adoption
 keywords: [sap, bdc, data, analytics]
 image: img/logo.svg
 tags: [aws]
