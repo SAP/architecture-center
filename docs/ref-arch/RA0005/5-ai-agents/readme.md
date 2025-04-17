@@ -25,16 +25,35 @@ last_update:
   date: 2025-01-01
 ---
 
-<em>![Work In Progress](../../../images/wip1.svg)</em>
+AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.
 
-## Why AI Agents?
-Modern enterprises grapple with complex, non-linear workflows that span multiple systems, data sources, and decision points. Traditional automation and single-turn LLM interactions, while powerful, often fall short when tasks require adaptive reasoning, conditional logic, or orchestration across heterogeneous environments. AI Agents address this gap by autonomously executing multi-step processes, dynamically adjusting their strategy based on real‑time context, and integrating seamlessly with enterprise services.
+## Project Agent Builder
 
-## What are AI Agents?
-AI Agents are autonomous systems built atop foundation models—most commonly LLMs that go beyond passive prompt‑response behavior. Rather than simply generating text, they interpret user intent, execute a dynamic sequence of actions, and invoke specialized tools to accomplish goals. These tools might include document searches, web searches, code execution sandboxes, API calls, database queries, SAP system operations, or even interactions with other agents.
+*Project Agent Builder (PAB)* is SAP’s centralized platform for creating, managing, and consuming agents as reusable services on SAP BTP.
+
+*<solution diagram - content based agents>*
+
+PAB removes the need for custom runtimes by offering no‑code, configuration‑driven LLM agent creation that supports multi‑step reasoning, tool orchestration, and RAG. Using REST/OData APIs, it integrates seamlessly with SAP products, BTP services, and third‑party apps, while leveraging SAP AI Core for LLM access, anonymization, metering, and role‑based security. Built on LangChain and backed by a marketplace for SAP Joule extensibility, PAB delivers a scalable, secure foundation for agent‑based automation across the SAP ecosystem.
+
+*<architecture components' description + links to other ref arch sections>*
+
+## Agent Streams
+
+Within SAP’s approach to agent development, two commonly referenced patterns have emerged *Content-Based Agents* and *Code-Based Agents* to distinguish strategies based on configuration-driven versus programmatic implementations. While not universally standardized, these terms help structure design decisions within SAP’s GenAI development landscape.
+
+**Content Based Agents**
+
+Content Based Agents are fully supported within Project Agent Builder. They utilize structured business content and pre‑defined semantic rules to drive agent behavior, integrate off‑the‑shelf tools for multi‑step reasoning and dynamic decision‑making, and require minimal custom coding. This approach enables rapid configuration and seamless ingestion of enterprise data into automated workflows.
+
+**Code Based Agents**
+
+*<solution diagram - code based agents>*
+
+Code Based Agents offer a highly customizable solution through bespoke logic and tailored development. They leverage developer-defined workflows on frameworks like LangGraph, AutoGen, CrewAI & smolagents to provide fine-grained control over agent operations. This model is ideal for scenarios that demand precise, code-level intervention to meet complex business requirements.
 
 ## Elements of AI Agents
-To understand the inner workings of an AI Agent, consider its five core components explained below.
+
+To understand the technical working of an AI Agent, consider its five core components explained below.
 
 - **LLM - Reasoning Engine:**
 Processes inputs, plans steps, and generates natural‑language or structured outputs.
@@ -53,7 +72,7 @@ A recipe guides the agent's workflow and defines how the LLM, knowledge, memory,
 
 The diagram below illustrates the agent’s actions cycle at runtime, which could repeat multiple times till the goal is declared achieved by the LLM. The numbered steps correspond to:
 
-![Agent Thought & Action Cycle](../../images/Agent_Flow.png)
+![Agent Thought & Action Cycle](../../images/Agent_Flow.svg)
 
 1. **Input & Orchestration** – The user’s request and Recipe logic are ingested by the LLM.  
 2. **Guidance** – The Recipe supplies a plan based on orchestration rules and schema/metadata to steer the LLM’s planning.  
@@ -62,39 +81,15 @@ The diagram below illustrates the agent’s actions cycle at runtime, which coul
 5. **Final Output** – Once the goal is achieved, the agent emits the final response.  
 
 
-## Beyond Linear Processes
-
-Unlike linear pipelines such as RAG which strictly follow “retrieve → generate → respond”, or even fixed LLM chains with predetermined steps, Agents employ iterative reasoning. They continuously assess intermediate outputs, choose the next best tool or action, and adapt their strategy on the fly. This dynamic loop empowers agents to solve non‑linear problems, handle exceptions, and manage layered business workflows.
-
-## Agent Streams
-
-Within SAP’s approach to agent development, two commonly referenced patterns have emerged *Content-Based Agents* and *Code-Based Agents* to distinguish strategies based on configuration-driven versus programmatic implementations. While not universally standardized, these terms help structure design decisions within SAP’s GenAI development landscape.
-
-**Content Based Agents**
-
-They utilize structured business content and pre-defined semantic rules to drive agent behavior. They integrate off-the-shelf tools and capabilities to perform multi-step reasoning and dynamic decision-making with minimal custom coding. This approach enables quick configuration and seamless integration of business data into automated workflows.
-
-**Code Based Agents**
-
-*<solution diagram - code based agents>*
-
-Code Based Agents offer a highly customizable solution through bespoke logic and tailored development. They leverage developer-defined workflows on frameworks like LangGraph, AutoGen, CrewAI & smolagents to provide fine-grained control over agent operations. This model is ideal for scenarios that demand precise, code-level intervention to meet complex business requirements.
-
-## Project Agent Builder
-
-*Project Agent Builder (PAB)* is SAP’s centralized platform for creating, managing, and consuming intelligent **Contend Based Agents** as reusable services on SAP BTP.
-
-*<solution diagram - content based agents>*
-
-It eliminates the need for custom agent runtimes by enabling no-code, configuration-based creation of LLM-powered agents. These agents support multi-step reasoning, tool orchestration, and RAG, with seamless integration into SAP products, BTP services, and third-party applications via REST or OData APIs. The platform leverages SAP AI Core for LLM access, anonymization, and metering, and ensures enterprise-grade security by acting on behalf of users with inherited roles. Built on LangChain, it combines open-source innovation with custom enterprise tools and flows. With a marketplace-driven approach for extensibility and deep integration with SAP Joule, Project Agent Builder lays the foundation for scalable & secure agent-based automation across the SAP ecosystem.
-
 ## Selecting the Right Approach
 
-Not all use cases require the same level of orchestration or intelligence. Depending on factors like interaction complexity, the need for real-time data, and the nature of the underlying process, different design strategies are optimal ranging from simple prompt engineering to agents.
+Unlike linear pipelines such as RAG which strictly follow “retrieve → generate → respond”, or even fixed LLM chains with predetermined steps, Agents employ iterative reasoning. They continuously assess and adapt on the fly as discussed above which empowers agents to solve non‑linear problems, handle exceptions, and manage layered business workflows.
+
+But, not all use cases require the same level of orchestration or intelligence. Depending on factors like interaction complexity, the need for real-time data, and the nature of the underlying process, different design strategies are optimal ranging from simple prompt engineering to agents.
 
 The decision tree below serves as a practical guide to determine the most suitable implementation pattern for your scenario be it prompt-based, tool-integrated, or agentic.
 
-![Agent Design Decision Tree](../../images/Agent_FD.png)
+![Agent Design Decision Tree](../../images/Agent_FD.svg)
 
 ## Agent Evaluation
 
