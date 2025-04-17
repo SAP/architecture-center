@@ -337,7 +337,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 function CardCategory({item}) {
   const href = findFirstSidebarItemLink(item);
   const categoryItemsPlural = useCategoryItemsPlural();
-  // Unexpected: categories that dont have a link have been filtered upfront
+  // Unexpected: categories that don't have a link have been filtered upfront
   if (!href) {
     return null;
   }
