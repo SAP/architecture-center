@@ -67,7 +67,7 @@ SAP’s partnership with Databricks, a leader in unified data and AI platforms, 
 - Zero-copy data sharing using deltashare protocol , with 3rd party databricks environment
 - Keep existing databricks investment and leverage curated SAP data without ETL for AI & Analytics in databricks.
 
-![drawio](drawio/bdc-databricks.drawio)
+![drawio](drawio/bdc-databricks-brownfield.drawio)
 
 
 ## SAP Databricks Services and Components
@@ -78,7 +78,12 @@ SAP’s partnership with Databricks, a leader in unified data and AI platforms, 
 - **Apache Spark** : Data processing and analytics with parallel processing capabilities
 - **MLFlow** : Machine learning lifecycle management
 
-## Resources
+## Use Cases for SAP Databricks
+
+- **AI/ML**: Build robust models with curated SAP data in databricks notebooks, create derived data products and share back with SAP eco system for AI-driven decision making
+- **Data Engineering**: Process semi-structured and unstructed data at scale & blend curated SAP data, simplifying data pipelines for improved collaboration.
+- **Analytics**: Explore & analyze large amounts of data shared in lakehouse, for eg, from BW for real-time analytics and visualization
+
 
 <!-- Add your resources here -->
 
