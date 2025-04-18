@@ -37,42 +37,10 @@ last_update:
 
 The purpose of a Data Product in **SAP Business Data Cloud** is to support various analytic scenarios by providing relevant data sets. For example, a data product might include Supplier Data and Classification of Suppliers Based on Risk to support procurement execution and visibility.
 
-## Architecture
+## Architecture or should we call Data Product Component View
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
-
-![drawio](drawio/template.drawio)
-
- Purpose of a Data Product in the Context of SAP
-
-A **Data Product** in SAP serves several key purposes, primarily revolving around the efficient and standardized sharing and consumption of data across various applications and domains. Here are the main purposes:
-
-## 1. **Data Sharing Across Domains**
-Data Products enable sharing data across domains and application boundaries, facilitating integration and consumption by different applications, including SAP, customer, and partner applications.
-
-## 2. **Consumption via APIs**
-Data Products are exposed for consumption outside the boundaries of the producing application via APIs or Events. This allows applications to offer data for consumption in a standardized manner.
-
-## 3. **High-Quality Metadata**
-Data Products are described through high-quality metadata, which is accessible through the Data Product Directory. This metadata includes business semantics, making it easier for business users to understand and utilize the data.
-
-## 4. **Optimized for Intensive Reads**
-The data set within a Data Product is optimized for intensive reads and is consumed in a read-only fashion, ensuring efficient data access and utilization.
-
-## 5. **Data Lineage and Integration**
-Data Products describe their data lineage via input ports, which are detailed as ORD Integration Dependencies. This helps in understanding the origin and transformation of data within the product.
-
-## 6. **Facilitating Analytical and AI Applications**
-Data Products are fundamental for building analytical models, designing dashboards, and training AI applications. They make business data accessible and usable to business analysts, data engineers, and data scientists.
-
-## 7. **Decentralized Discoverability**
-The discoverability of Data Products is decentralized, allowing them to be listed in the Data Product Directory and SAP Business Accelerator Hub, making it easier to find and consume relevant data.
-
-## 8. **Product Mindset**
-Data Products are managed with a product mindset, ensuring they meet the needs of consumers. Each Data Product has an owner responsible for its definition, delivery, and lifecycle.
-
-## Key Points
+A data product is a data set exposed for consumption outside the boundaries of the application via APIs and described by high quality metadata that can be accessed through the Data Product Directory.
+Data products are described by an Open Resource Discovery(ORD) definition which is registered within the Unified Customer Landscape(UCL) directory.
 
 - **Curated and Enriched Data:** Data products are curated and enriched to ensure high quality and relevance for specific business needs.
 
@@ -81,5 +49,45 @@ Data Products are managed with a product mindset, ensuring they meet the needs o
 - **Analytic Scenarios:** Data products support various analytic scenarios, such as procurement execution and visibility.
 
 - **Data Packages:** Line-of-business leaders can create and deliver data products together with relevant business content (e.g., analytical models and dashboards) in the form of "data packages," which customers can then onboard and activate in their BDC instance.
+
+
+<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
+<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
+
+![drawio](drawio/bdc-dataproduct1.drawio)
+
+
+**Primary Data Product** is directly provided from applications and is not based on other data products representing the original data from a source application.
+
+**Derived Data Product** is curated by SAP and derived from other data sets. The deliver value-add and are based on other data products or APIs.
+
+Data products can be included in a Data Package as well which is grouping of data products defined by a data product owner. This will be listed in BDC Cockpit and can onboarded which will activate all the data products. This can be done independently of Insight Apps.
+
+ ## Purpose of a Data Product in the Context of SAP
+
+A **Data Product** in SAP serves several key purposes, primarily revolving around the efficient and standardized sharing and consumption of data across various applications and domains. Here are the main purposes:
+
+-  **Data Sharing Across Domains**
+Data Products enable sharing data across domains and application boundaries, facilitating integration and consumption by different applications, including SAP, customer, and partner applications.
+-  **Consumption via APIs**
+Data Products are exposed for consumption outside the boundaries of the producing application via APIs or Events. This allows applications to offer data for consumption in a standardized manner.
+
+-  **High-Quality Metadata**
+Data Products are described through high-quality metadata, which is accessible through the Data Product Directory. This metadata includes business semantics, making it easier for business users to understand and utilize the data.
+-  **Optimized for Intensive Reads**
+The data set within a Data Product is optimized for intensive reads and is consumed in a read-only fashion, ensuring efficient data access and utilization.
+
+- **Data Lineage and Integration**
+Data Products describe their data lineage via input ports, which are detailed as ORD Integration Dependencies. This helps in understanding the origin and transformation of data within the product.
+
+- **Facilitating Analytical and AI Applications**
+Data Products are fundamental for building analytical models, designing dashboards, and training AI applications. They make business data accessible and usable to business analysts, data engineers, and data scientists.
+
+- **Decentralized Discoverability**
+The discoverability of Data Products is decentralized, allowing them to be listed in the Data Product Directory and SAP Business Accelerator Hub, making it easier to find and consume relevant data.
+
+- **Product Mindset**
+Data Products are managed with a product mindset, ensuring they meet the needs of consumers. Each Data Product has an owner responsible for its definition, delivery, and lifecycle.
+
 
 In summary, Data Products in SAP are designed to facilitate efficient data sharing, consumption, and integration across various applications and domains, supported by high-quality metadata and optimized for intensive reads. They play a crucial role in enabling analytical and AI applications and are managed with a product mindset to meet consumer needs.

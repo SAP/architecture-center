@@ -12,9 +12,9 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Modernizing SAP Business Warehouse with SAP Business Data Cloud
+title: Modernizing SAP BW with SAP Business Data Cloud
 description: Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (BDC) to unlock real-time analytics, AI-driven insights, and scalable cloud-native architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products to transition seamlessly while preserving existing investments. Discover structured migration pathways, advanced AI/ML capabilities, and unified data management for future-ready enterprise data strategies.
-sidebar_label: Modernizing SAP Business Warehouse with SAP Business Data Cloud
+sidebar_label: Modernizing SAP BW with SAP BDC
 keywords: [sap, bdc, business, data, cloud, bw, warehouse, datasphere]
 image: img/logo.svg
 tags: [data, aws, azure, gcp]
@@ -42,6 +42,12 @@ SAP Business Warehouse (BW) has been a cornerstone of enterprise data management
 
 ![drawio](drawio/bwpce-sapbdc.drawio)
 
+With the introduction of SAP BW NetWeaver Cloud, private edition, SAP offers customers an option to lift their SAP BW NetWeaver to an SAP managed environment without the need to migrate to an intermediate solution until 2040 and benefit from an extended end of maintenance until 2030 for SAP BW NetWeaver Cloud, private edition. 
+
+As a result, customers can gradually shift SAP BW use cases to SAP Datasphere and replace respective data flows with proven capabilities within SAP Datasphere as well as data products and insight apps within SAP Business Data Cloud, instead of spending time and budget on a migration.
+
+![drawio](drawio/bw-bdc-detailed.drawio)
+
 ## High-Level Modernization Approach
 
 SAP provides a structured three-step approach for migrating SAP BW systems to the Business Data Cloud. This methodology focuses on leveraging existing BW data, transitioning to modern data products, and adopting a scalable, cloud-native architecture.
@@ -58,7 +64,7 @@ SAP provides a structured three-step approach for migrating SAP BW systems to th
 
 The migration pathway depends on the current SAP BW system landscape. Below are a visual representation of the available paths, and the recommended approaches based on the environment:
 
-[!drawio](drawio/bw-modernization.drawio)
+[!drawio](drawio/bw-modernization-pathway.drawio)
 
 ### For BW Systems on Non-HANA Databases
 - **Initial Requirement**: Migrate to SAP HANA to enable real-time analytics and in-memory processing.

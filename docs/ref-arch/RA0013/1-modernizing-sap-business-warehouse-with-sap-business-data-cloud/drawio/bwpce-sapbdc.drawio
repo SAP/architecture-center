@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.13">
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
   <diagram name="Page-1" id="WPdJK6UoSyrPu70Qkxo5">
-    <mxGraphModel dx="2334" dy="-122" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3480" dy="718" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -89,15 +89,6 @@
         </mxCell>
         <mxCell id="h9L52XwyiUI2S6i_91ug-27" value="&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;SAP HANA&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="-787" y="1276" width="99" height="31" as="geometry" />
-        </mxCell>
-        <mxCell id="h9L52XwyiUI2S6i_91ug-28" value="&lt;div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 17px; color: light-dark(rgb(51, 0, 0), rgb(237, 237, 237));&quot;&gt;Non-SAP Sources&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#314354;fillColor=#CCCCCC;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#ffffff;" parent="1" vertex="1">
-          <mxGeometry x="11.09" y="1407" width="525" height="63" as="geometry" />
-        </mxCell>
-        <mxCell id="h9L52XwyiUI2S6i_91ug-29" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Connectivity&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="88" y="1359" width="349" height="45" as="geometry" />
-        </mxCell>
-        <mxCell id="h9L52XwyiUI2S6i_91ug-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.469;entryY=-0.027;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.458;exitY=1.001;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="h9L52XwyiUI2S6i_91ug-6" target="h9L52XwyiUI2S6i_91ug-29" edge="1">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
