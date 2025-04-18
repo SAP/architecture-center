@@ -22,48 +22,64 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - s-krishnamoorthy
 last_update:
     date: 2025-04-17
-    author: user-fcfac33972
+    author: s-krishnamoorthy
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
+SAP’s partnership with Databricks, a leader in unified data and AI platforms, helps streamline the data access and enables businesses to harness SAP data for AI and machine learning use cases. This integration is delivered through SAP Databricks, a fully embedded OEM component of Databricks within the SAP Business Data Cloud.
 
 ## Architecture
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
-
-![drawio](drawio/template.drawio)
-
-## Flow
-
-<!-- Add your flow content here -->
+![drawio](drawio/bdc-databricks.drawio)
 
 ## Characteristics
 
-<!-- Add your characteristics content here -->
+### Zero-copy data exchange:
 
-## Examples in an SAP context
+- Data products from SAP applications which are made visible within SAP Business Data Cloud catalog, can now be shared with the embedded unity catalog of databricks using a single click.
+- Leverage delta-sharing to connect and blend data without the need for complex ETL pipelines.
+- Through this seamless integration,  multiple personas are brought together (data scientists, data analysts and data engineers) , enabling them to collaboratively work on top of readily available SAP data.
 
-<!-- Add your SAP context examples here -->
+### Development with pro-code tooling:
+ - Write Apache Spark pipelines to blend SAP and non-SAP data in SAP Databricks notebook.
+ - Build custom AI/ML solutions with Mosaic AI using trusted AI-ready SAP data.
+ - Use Databricks SQL to analyze data at scale for faster data-driven decision making. 
 
-## Services and Components
+### Integration Patterns
 
-<!-- Add your services and components here -->
+#### Geenfield Integration - For customers without an existing Enterprise databricks platform
+
+- This is the default scenario, where the SAP Business Data Cloud includes the SAP Databricks component.
+- Tightly integrated first-class Databricks experience in SAP Business Data Cloud.
+- Seamless bi-directional zero-copy data sharing using deltashare protocol.
+
+
+#### Brownfield Integration - For customers with an already existing Enterprise databricks platform
+
+- Zero-copy data sharing using deltashare protocol , with 3rd party databricks environment
+- Keep existing databricks investment and leverage curated SAP data without ETL for AI & Analytics in databricks.
+
+![drawio](drawio/bdc-databricks.drawio)
+
+
+## SAP Databricks Services and Components
+
+- **Delta Lake** : Open Data Lakehouse Foundation
+- **Unity Catalog** : Unified security, governance and cataloging
+- **Databricks Notebook** : Data science & AI, Realtime Analytics
+- **Apache Spark** : Data processing and analytics with parallel processing capabilities
+- **MLFlow** : Machine learning lifecycle management
 
 ## Resources
 
 <!-- Add your resources here -->
 
-## Related Missions
 
-<!-- Add related missions here -->
