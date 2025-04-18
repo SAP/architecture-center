@@ -64,7 +64,7 @@ SAP provides a structured three-step approach for migrating SAP BW systems to th
 
 The migration pathway depends on the current SAP BW system landscape. Below are a visual representation of the available paths, and the recommended approaches based on the environment:
 
-[!drawio](drawio/bw-modernization-pathway.drawio)
+![drawio](drawio/bw-modernization-pathway.drawio)
 
 ### For BW Systems on Non-HANA Databases
 - **Initial Requirement**: Migrate to SAP HANA to enable real-time analytics and in-memory processing.
@@ -96,7 +96,7 @@ It is also possible to expose SAP BW data for new use cases without requiring fu
 - Unified semantic models for SAP and non-SAP data.
 - Advanced AI/ML use cases via SAP Databricks.
 
-[!drawio](drawio/bw-approach-1.drawio)
+![drawio](drawio/bw-approach-1.drawio)
 
 ## Key Services and Components
 
