@@ -21,6 +21,50 @@
     "items": [
       {
         "type": "link",
+        "label": "Edge Integration Cell on Hyperscalers",
+        "href": "docs/ref-arch/263f576c90",
+        "customProps": {
+          "title": "Edge Integration Cell on Hyperscalers",
+          "description": "Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.",
+          "href": "docs/ref-arch/263f576c90",
+          "tags": [
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
+            },
+            {
+              "tag": "eic",
+              "label": "Edge Integration Cell",
+              "description": "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.",
+              "permalink": "/eic"
+            }
+          ],
+          "last_update": "2025-04-18T00:00:00.000Z",
+          "category_index": [
+            "aws",
+            "gcp",
+            "azure",
+            "integration",
+            "appdev"
+          ]
+        }
+      },
+      {
+        "type": "link",
         "label": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
         "href": "docs/ref-arch/d9b25daf96",
         "customProps": {
@@ -102,50 +146,6 @@
             "azure",
             "gcp",
             "data"
-          ]
-        }
-      },
-      {
-        "type": "link",
-        "label": "Edge Integration Cell on Hyperscalers",
-        "href": "docs/ref-arch/263f576c90",
-        "customProps": {
-          "title": "Edge Integration Cell on Hyperscalers",
-          "description": "Discover reference architectures for deploying SAP Integration Suite - Edge Integration Cell on hyperscalers. Access architecture diagrams and key resources to understand its setup and implementation.",
-          "href": "docs/ref-arch/263f576c90",
-          "tags": [
-            {
-              "tag": "aws",
-              "label": "Amazon Web Services",
-              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
-              "permalink": "/aws"
-            },
-            {
-              "tag": "azure",
-              "label": "Microsoft Azure",
-              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
-              "permalink": "/azure"
-            },
-            {
-              "tag": "gcp",
-              "label": "Google Cloud Platform",
-              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
-              "permalink": "/gcp"
-            },
-            {
-              "tag": "eic",
-              "label": "Edge Integration Cell",
-              "description": "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds.",
-              "permalink": "/eic"
-            }
-          ],
-          "last_update": "2025-03-06T00:00:00.000Z",
-          "category_index": [
-            "aws",
-            "gcp",
-            "azure",
-            "integration",
-            "appdev"
           ]
         }
       },
