@@ -8,7 +8,7 @@ id: id-ra0013-3
 slug: /ref-arch/ad1b90dbd1/3
 sidebar_position: 3
 sidebar_custom_props:
-    category_index:
+    category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -25,11 +25,12 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - jasoncwluo
+    - jmsrpp
+    - anbazhagan-uma
 last_update:
     date: 2025-04-17
-    author: user-51edaea350
+    author: anbazhagan-uma
 ############################################################
 #                   End of Front Matter                    #
 ############################################################

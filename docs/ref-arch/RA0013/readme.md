@@ -9,6 +9,10 @@ slug: /ref-arch/ad1b90dbd1
 sidebar_position: 13
 sidebar_custom_props:
     category_index:
+      - data
+      - aws
+      - azure
+      - gcp
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
