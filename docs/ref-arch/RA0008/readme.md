@@ -75,7 +75,7 @@ The architecture diagram above illustrates the high-level setup of the Edge Inte
 Let’s consider an enterprise using SAP Process Integration (PI) or SAP Process Orchestration (PO) for core application integration and message processing across on-premise systems. As the business grows and expands into cloud-based applications and digital channels, it needs to integrate its legacy on-prem systems with:
 
 -   **Cloud-based analytics or workflow services** on SAP BTP
--   **Modern event-driven architectures** powered by **SAP Integration Suite - Advanced Event Mesh** for real-time, decoupled communication
+-   **Modern event-driven architectures** powered by SAP Integration Suite - Advanced Event Mesh for real-time, decoupled communication
 -   **External partners**, logistics providers, or third-party cloud services
 
 However, they face three key roadblocks:
@@ -148,7 +148,7 @@ This approach enables a **phased modernization strategy**, allowing enterprises 
 SAP BTP is not currently available in all regions where **RISE with SAP** is offered. For example, organizations operating in the GCP Canada region are required to run their **SAP Integration Suite** workloads from Iowa, USA.  
 This setup introduces increased network latency and results in sensitive data crossing national boundaries — posing significant compliance and data residency concerns.
 
-By deploying **SAP Edge Integration Cell (EIC)** within the same data center as their **RISE** environment, organizations can execute integration flows locally.  
+By deploying **SAP Edge Integration Cell (EIC)** within the same data center as their RISE environment, organizations can execute integration flows locally.  
 This ensures adherence to security policies, performance expectations, and regulatory requirements — without compromising their cloud strategy.
 
 ### iii. On-Premise & Private Cloud Integration
