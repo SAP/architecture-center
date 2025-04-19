@@ -21,6 +21,49 @@
     "items": [
       {
         "type": "link",
+        "label": "Transforming Enterprise Data Strategy with SAP Business Data Cloud",
+        "href": "docs/ref-arch/ad1b90dbd1",
+        "customProps": {
+          "title": "Transforming Enterprise Data Strategy with SAP Business Data Cloud",
+          "description": "SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced analytics, governance, and AI-driven insights. With tools like SAP Datasphere, SAP Analytics Cloud, and Databricks integration, BDC addresses data silos, improves data quality, and supports real-time processing. Modernize legacy systems, create reusable data products, and leverage a unified semantic model for scalable, future-ready enterprise data strategies.",
+          "href": "docs/ref-arch/ad1b90dbd1",
+          "tags": [
+            {
+              "tag": "data",
+              "label": "Data & Analytics",
+              "description": "Access insights wherever your data resides with SAP data and analytics solutions.",
+              "permalink": "/data"
+            },
+            {
+              "tag": "aws",
+              "label": "Amazon Web Services",
+              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
+              "permalink": "/aws"
+            },
+            {
+              "tag": "azure",
+              "label": "Microsoft Azure",
+              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
+              "permalink": "/azure"
+            },
+            {
+              "tag": "gcp",
+              "label": "Google Cloud Platform",
+              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
+              "permalink": "/gcp"
+            }
+          ],
+          "last_update": "2025-04-17T00:00:00.000Z",
+          "category_index": [
+            "data",
+            "aws",
+            "azure",
+            "gcp"
+          ]
+        }
+      },
+      {
+        "type": "link",
         "label": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
         "href": "docs/ref-arch/d9b25daf96",
         "customProps": {
@@ -238,49 +281,6 @@
             "integration",
             "aws",
             "azure"
-          ]
-        }
-      },
-      {
-        "type": "link",
-        "label": "Establish a central inbox with SAP Task Center",
-        "href": "docs/ref-arch/0245473a99",
-        "customProps": {
-          "title": "Establish a central inbox with SAP Task Center",
-          "description": "Guidance for setting up SAP Task Center service on SAP BTP. Learn about the architecture components and flow in this architecture.",
-          "href": "docs/ref-arch/0245473a99",
-          "tags": [
-            {
-              "tag": "aws",
-              "label": "Amazon Web Services",
-              "description": "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow.",
-              "permalink": "/aws"
-            },
-            {
-              "tag": "azure",
-              "label": "Microsoft Azure",
-              "description": "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud.",
-              "permalink": "/azure"
-            },
-            {
-              "tag": "gcp",
-              "label": "Google Cloud Platform",
-              "description": "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure.",
-              "permalink": "/gcp"
-            },
-            {
-              "tag": "appdev",
-              "label": "Application Development & Automation",
-              "description": "Extend, create, and automate apps for SAP and non-SAP solutions.",
-              "permalink": "/appdev"
-            }
-          ],
-          "last_update": "2025-02-11T00:00:00.000Z",
-          "category_index": [
-            "aws",
-            "azure",
-            "gcp",
-            "appdev"
           ]
         }
       }
