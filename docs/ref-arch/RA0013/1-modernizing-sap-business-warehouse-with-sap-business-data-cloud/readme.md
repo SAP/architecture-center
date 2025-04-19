@@ -90,7 +90,7 @@ The migration pathway depends on the current SAP BW system landscape. Below are 
 
 ![drawio](drawio/bw-modernization-pathway.drawio)
 
- **For BW Systems on Non-HANA Databases**
+**For BW Systems on Non-HANA Databases**
     - **Initial Requirement**: Migrate to SAP HANA to enable real-time analytics and in-memory processing.
     - **Post-HANA Options**:
     - **BW 7.5 on HANA**: Upgrade to enable HANA-specific capabilities while retaining existing functionality.
