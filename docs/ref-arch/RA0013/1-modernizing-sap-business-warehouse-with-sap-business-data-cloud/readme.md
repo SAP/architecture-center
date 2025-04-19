@@ -84,24 +84,24 @@ In addition, Spark offers scalable compute capabilities supporting high-volume t
 
 **1. Lift to SAP Business Warehouse Cloud, private edition**: Transition existing SAP BW NetWeaver or SAP BW/4HANA on-premises deployments into the private cloud component of SAP BDC. This step secures BW investments while exposing BW data as data products for consumption.
 
-    **Migration Pathways: Structured Transition Options**
+**Migration Pathways: Structured Transition Options**
 
-    The migration pathway depends on the current SAP BW system landscape. Below are a visual representation of the available paths, and the recommended approaches based on the environment:
+The migration pathway depends on the current SAP BW system landscape. Below are a visual representation of the available paths, and the recommended approaches based on the environment:
 
-    ![drawio](drawio/bw-modernization-pathway.drawio)
+![drawio](drawio/bw-modernization-pathway.drawio)
 
-    **For BW Systems on Non-HANA Databases**
+ **For BW Systems on Non-HANA Databases**
     - **Initial Requirement**: Migrate to SAP HANA to enable real-time analytics and in-memory processing.
     - **Post-HANA Options**:
     - **BW 7.5 on HANA**: Upgrade to enable HANA-specific capabilities while retaining existing functionality.
     - **BW/4HANA 2023**: Comprehensive modernization for seamless integration with BDC.
 
-     **For BW Systems Already on HANA**
+**For BW Systems Already on HANA**
     - **NetWeaver < 7.5**: Upgrade to NetWeaver 7.5 (SP24+) or migrate directly to BW/4HANA 2023.
     - **NetWeaver 7.5**: Ensure Service Pack level meets minimum requirements (SP24+).
     - **Direct Path**: Migrate to BW/4HANA 2023 for advanced capabilities.
 
-     **For Existing BW/4HANA Environments**
+**For Existing BW/4HANA Environments**
     - **BW/4HANA 1.0 or 2.0**: Upgrade to BW/4HANA 2023 for latest features.
     - **BW/4HANA 2021**: Apply the latest Service Pack or upgrade to BW/4HANA 2023.
     - **BW/4HANA 2023**: Implement the most recent Service Pack for optimal performance.
