@@ -51,32 +51,32 @@ Furthermore, SAP Datasphere provides robust data governance and security feature
 ![drawio](drawio/azure-data-integration.drawio)
 
 
-## 1. Integration with Azure Data Explorer
+## 1. Integration with Fabric Synapse Real-Time Analytics
 
 **Mode(s) of Integration:** Federating data live into SAP Datasphere.
 
-Azure Data Explorer is a fully managed data analytics service on the Azure platform designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration.
+Fabric Synapse Real-Time Analytics is a fully managed, cloud-scale data analytics solution built on the Kusto engine with Azure Synapse. It is designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration.
 
-### Federating Data from Azure Data Explorer into SAP Datasphere
+### Federating Data from Fabric Synapse Real-Time Analytics into SAP Datasphere
 
-Data from Azure Data Explorer can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time access to data without the need for physical data movement, ensuring that the most current data is available for analysis. 
+Data from Fabric Synapse Real Time Analytics can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time access to data without the need for physical data movement, ensuring that the most current data is available for analysis. 
 
 #### Technical Details and Examples
 
 1. **Setting Up the Connection:**
-    - **Prerequisites:** Ensure that you have the necessary permissions and credentials to access both Azure Data Explorer and SAP Datasphere.
-    - **Connection Configuration:** Use the SAP Datasphere connection management interface to configure a new connection to Azure Data Explorer. Provide the required connection details such as the cluster URL, database name, and authentication credentials.
+    - **Prerequisites:** Ensure you have a Synapse workspace with Real-Time Analytics enabled, necessary credentials with proper access to the Synapse workspace, and SAP Datasphere access with privileges to create remote connections and models.
+    - **Connection Configuration:** Use the SAP Datasphere connection management interface to configure a new connection to Fabric Synapse Real-Time Analytics. Provide the required connection details such as the endpoint URL, database name, and authentication credentials.
 
 2. **Creating Remote Tables:**
-    - **Remote Table Definition:** Define remote tables in SAP Datasphere that map to the tables or queries in Azure Data Explorer. This can be done using the remote table creation wizard in SAP Datasphere.
+    - **Remote Table Definition:** Define remote tables in SAP Datasphere that map to the tables or queries in Fabric Synapse Real-Time Analytics. This can be done using the remote table creation wizard in SAP Datasphere. These remote tables point to Kusto tables or KQL queries in Synapse Real-Time Analytics.
     - **Example Query:** 
-      ```sql
+      ```kusto
       .create table MyTable (Timestamp: datetime, DeviceId: string, Temperature: real)
       ```
-    - **Federation Query:** Use SAP Datasphere to create a remote table that references the above table in Azure Data Explorer.
+    - **Federation Query:** Use SAP Datasphere to create a remote table that references the above table in Fabric Synapse Real-Time Analytics.
 
 3. **Data Augmentation:**
-    - **Combining Data:** Augment the federated data from Azure Data Explorer with SAP business data. For example, you can join sales data from SAP S/4HANA with IoT sensor data from Azure Data Explorer to analyze the impact of environmental conditions on product sales.
+    - **Combining Data:** Augment the federated data from Fabric Synapse Real-Time Analytics with SAP business data. For example, you can join sales data from SAP S/4HANA with IoT sensor data from Fabric Synapse Real-Time Analytics to analyze the impact of environmental conditions on product sales.
     - **Example Join Query:**
       ```sql
       SELECT 
@@ -95,7 +95,7 @@ Data from Azure Data Explorer can be **federated** live into SAP Datasphere remo
     - **Dashboards and Reports:** Use SAP Analytics Cloud to create dashboards and reports that visualize the federated data. This enables real-time monitoring and analysis of key metrics.
     - **Example Dashboard:** Create a dashboard that shows real-time temperature readings from IoT devices alongside sales performance metrics.
 
-For detailed step-by-step information on federating data live from Azure Data Explorer and to try out the integration, visit the Discovery Center mission: [Integrate Azure Data Explorer and SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3433/3473/).
+For detailed step-by-step information on federating data live from Fabric Synapse Real-Time Analytics and to try out the integration, visit the Discovery Center mission: [Integrate Azure Data Explorer and SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3433/3473/). [NEEDS TO BE UPDATED]
 
 ## 2. Integration with Azure Data Lake Storage Gen2
 
