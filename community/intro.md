@@ -40,19 +40,22 @@ Finally, you never know when good documentation might help you in another opport
 The following diagram shows the workflow process for making a content contribution to the SAP Architecture Center.
 
 ```mermaid
+%% Add custom styles for smaller font and reduced component size
 graph TD
-A[Check for existing content] -->|Already Exists?| B[Create PR with Modifications]
-A -->|Create New| D[Fork Repository]
-D --> C{Decide on Scenario}
-C -->|New Architecture| E[genrefarch]
-C -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']
-H --> E
-E --> F{Add More?}
-F -->|Yes| E
-F -->|No| G[Add Markdowns, Diagrams, Update Front Matter]
-G --> I[Create Draft PR]
-I --> J[Create Issue with CONTENT Prefix]
-J --> K[Associate PR with Issue]
+classDef reduceSize stroke-width:2px,font-size:14px;
+
+A[Check for existing content]:::reduceSize -->|Already Exists?| B[Create PR with Modifications]:::reduceSize
+A:::reduceSize -->|Create New| D[Fork Repository]:::reduceSize
+D:::reduceSize --> C{Decide on Scenario}:::reduceSize
+C:::reduceSize -->|New Architecture| E[genrefarch]:::reduceSize
+C:::reduceSize -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']:::reduceSize
+H:::reduceSize --> E:::reduceSize
+E:::reduceSize --> F{Add More?}:::reduceSize
+F:::reduceSize -->|Yes| E:::reduceSize
+F:::reduceSize -->|No| G[Add Markdowns, Diagrams, Update Front Matter]:::reduceSize
+G:::reduceSize --> I[Create Draft PR]:::reduceSize
+I:::reduceSize --> J[Create Issue with CONTENT Prefix]:::reduceSize
+J:::reduceSize --> K[Associate PR with Issue]:::reduceSize
 ```
 
 ## Requirements and Setup
