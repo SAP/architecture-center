@@ -60,11 +60,11 @@ J:::reduceSize --> K[Associate PR with Issue]:::reduceSize
 
 ## Requirements and Setup
 
-Refer to the [Contribution Guidelines](Guidelines/contribution.md) for the requirements & setup.
+Refer to the [Get Started](Guidelines/get-started.md) page for the requirements & setup.
 
-## Support, Feedback, Contributing
+## Support and Feedback
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/architecture-center/issues/new/choose). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](Guidelines/contribution.md).
+This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/architecture-center/issues/new/choose).
 
 ❓ - If you have a *question* you can ask it here in [GitHub Discussions](https://github.com/SAP/architecture-center/discussions).
 
@@ -72,8 +72,7 @@ This project is open to feature requests/suggestions, bug reports etc. via [GitH
 
 💡 - If you have an idea for improvement or a feature request, please open a [feature request](https://github.com/SAP/architecture-center/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFEATURE%5D).
 
-For more information about how to contribute, the project structure, and additional contribution information, see our [Contribution Guidelines](Guidelines/contribution.md).
-
+For more information about how to contribute, the project structure, and additional details, see our [Contribution Guidelines](Guidelines/contribution.md).
 
 ## Security / Disclosure
 If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/architecture-center/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
