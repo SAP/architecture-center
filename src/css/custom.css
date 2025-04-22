@@ -66,10 +66,11 @@ ui5-button::part(button) {
     font-family: '72';
 }
 
-/* more sensible proportions for Mermaid flowcharts */
+/* center text for mermaid charts */
 div:has(> svg[aria-roledescription='flowchart-v2']) {
-    width: 55%;
     margin: auto;
+    text-align: center;
+    width: 100%;
 }
 
 /* General list item styling */
