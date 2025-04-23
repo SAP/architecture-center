@@ -1,0 +1,164 @@
+---
+############################################################
+#                Beginning of Front Matter                 #
+############################################################
+#                     [DO NOT MODIFY]                      #
+############################################################
+id: id-ra0013-1 
+slug: /ref-arch/be54a62263/1
+sidebar_position: 1
+sidebar_custom_props:
+    category_index:
+############################################################
+#     You can modify the front matter properties below     #
+############################################################
+title: Secure Service Consumption on AWS Using IAM Roles Anywhere
+description: This architecture demonstrates how to securely access AWS services from applications running outside of AWS by leveraging IAM Roles Anywhere
+sidebar_label: Secure Service Consumption on AWS Using IAM Roles Anywhere
+keywords: [aws,security,iam,iam-roles-anywhere]
+image: img/logo.svg
+tags: [security,aws]
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors:
+    - contributor1
+    - contributor2
+last_update:
+    date: 2025-04-16
+    author: user-2a28053a87
+############################################################
+#                   End of Front Matter                    #
+############################################################
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import FlipCard from './components/FlipCard'
+import ExpandablePanel from './components/ExpandablePanel'
+
+import "@ui5/webcomponents/dist/Panel.js";
+import "@ui5/webcomponents/dist/Title.js";
+import "@ui5/webcomponents/dist/Label.js";
+
+This section provides a concrete example of the overall architecture for secure service consumption, with a focus on Amazon Web Services (AWS).  It addresses the issue of securely accessing AWS services from applications running outside of the AWS environment, such as workloads deployed on on-premises Kubernetes clusters or SAP Business Technology Platform (SAP BTP) runtimes.
+
+The solution makes use of [AWS IAM Roles Anywhere](https://aws.amazon.com/iam/roles-anywhere/), which provides certificate-based access to AWS Services by allowing trustworthy workloads to assume IAM roles using X.509 certificates issued by a trusted certificate authority. This eliminates the need for hardcoded AWS credentials or persistent access keys, and instead uses short-lived, auditable credentials.
+
+[By establishing a trust](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/getting-started.html#getting-started-step1), defining secure role policies, and automating credential signing and renewal, this architecture ensures that external service consumption is both secure and operationally efficient. It serves as a reference pattern for adopting zero trust principles in hybrid environments using native AWS capabilities.
+
+## Architecture
+
+<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
+<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
+
+![drawio](drawio/iam-roles-anywhere.drawio)
+
+## Flow
+
+<Tabs  defaultValue="Text View"
+  values={[
+    {label: 'Text View ', value: 'Text View'},
+    {label: 'Table View', value: 'Table View'},
+    {label: 'Animated View', value: 'Animated View'}
+  ]}>
+  <TabItem value="Text View" label="Text View">
+   ### Prerequisites (One-Time Setup for Trust + Authorization)
+
+**1. Create Trust Anchor in AWS** <br/>
+Establish the trust between your workload running on SAP BTP 
+via [creating a trust anchor](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/getting-started.html#getting-started-step1).
+
+:::note Note
+To be able to use BTP destination service CA for trust anchor, you need to get the certificate authority of BTP Destination Service via using [APIs](https://api.sap.com/api/SAP_CP_CF_Connectivity_Destination/resource/Destinations_on_Service_Instance_Subscription_Level).
+:::
+
+**2. Create IAM Role** <br/>
+[Define an IAM Role](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/getting-started.html#getting-started-step2) with a trust policy that allows your certificate to assume a role from IAM Roles Anywhere.
+
+**3. Create IAM Roles Anywhere Profile** <br/>
+IAM Roles Anywhere profile links the trust anchor and the IAM role(s) in a Profile to be able to assume the roles using certificates issued by the corresponding Certificate Authority.
+
+### Runtime Flow
+
+**1. Retrieve Certificate Pair** <br/>
+Workloads fetches the X.509 certificate and private key from SAP BTP Destination Service.
+
+**2. Create a Signed Request** <br/>
+The workload [creates a signed request](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-sign-process.html) using the private key and certificate to call AWS IAM Roles anywhere.
+
+
+:::info Information
+A [reference implementation with Go Programming Language](https://github.com/aws/rolesanywhere-credential-helper) is provided by AWS. 
+:::
+
+**3. Request Temporary Credentials** <br/>
+The signed request is sent to IAM Roles Anywhere, referencing the Profile ARN.
+
+AWS validates the certificate (via the trust anchor), and the role association (via the profile).
+If validation passes, temporary AWS credentials are issued.
+These are scoped by the IAM role’s permissions and are short-lived.
+
+**4. Access AWS Services**<br/>
+The workload uses the temporary credentials to access AWS services and rotates them regularly.
+
+  </TabItem>
+    <TabItem value="Table View" label="Table View" default>
+   | **Step** | ⏱️ **Phase**     | 🧩 **Component**              | 🎯 **Purpose**                                              | 🔗 **Who/What is Involved**                                         |
+|---------|------------------|-------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------|
+| 1       | 🏗️ Pre-setup     | 🔐 **Trust Anchor**           | Establish trust using BTP-issued X.509 certificates          | 📄 BTP Destination CA Certificate, ☁️ AWS IAM Roles Anywhere         |
+| 2       | 🏗️ Pre-setup     | 👤 **IAM Role**               | Define permissions via trust policy                          | 🔒 IAM Role with `sts:AssumeRoleWithCertificate` trust policy       |
+| 3       | 🏗️ Pre-setup     | 🧾 **IAM Roles Anywhere Profile** | Link trust anchor to one or more IAM roles (authorization) | 🔗 Profile ↔ Trust Anchor ↔ IAM Role(s)                            |
+| 4       | 🚀 Runtime       | 📬 **BTP Destination Service**| Issue short-lived X.509 certificate and private key          | 📦 Destination Service Instance, 👨‍💻 App Runtime                     |
+| 5       | 🚀 Runtime       | ✍️ **Client (App)**           | Create a signed request using private key                    | 🔑 X.509 Certificate, 🔐 Private Key                                |
+| 6       | 🚀 Runtime       | 🔄 **IAM Roles Anywhere API** | Authenticate + authorize, then issue session credentials     | 📨 Signed Request, 🧾 Profile ARN, 🔐 Trust Anchor, 👤 IAM Role       |
+| 7       | 🚀 Runtime       | 🪪 **IAM Roles Anywhere API**                | Return short-lived credentials (access key, secret, token)   | 🛂 Temporary Security Credentials (scoped by IAM Role)              |
+| 8       | 🚀 Runtime       | 🧠 **Application**            | Access AWS services securely with temporary credentials      | ☁️ AWS Services like SNS, Lambda, DynamoDB, etc.                    |
+
+  </TabItem>
+
+<TabItem value="Animated View" label="Animated View">
+![animation](./drawio/iam-roles-anywhere.svg)
+</TabItem>
+</Tabs>
+
+
+## Characteristics and Benefits
+
+<ExpandablePanel
+  title="1. Automated Certificate Management via SAP BTP Destination Service"
+  content="One of the standout features of this architecture is the use of SAP BTP’s Destination Service for handling X.509 certificates. The Destination Service not only provides secure access to private keys and client certificates, but also ensures their automatic renewal and lifecycle management. This is particularly critical as manual rotation is error-prone and operationally intensive."
+/>
+
+<ExpandablePanel
+  title="2. Secure and Scalable Credential Flow"
+  content="By leveraging AWS IAM Roles Anywhere, the architecture eliminates the need to hardcode or statically store AWS credentials in the application layer. Instead, short-lived, scoped credentials are issued on-demand, significantly reducing the attack surface and aligning with security best practices for credential hygiene"
+/>
+
+<ExpandablePanel
+  title="3. Designed for Hybrid and Multi-Cloud Environments"
+  content="This approach fits naturally into enterprise landscapes where workloads may run outside AWS, such as on SAP BTP or on-premises Kubernetes clusters. The flexibility of certificate-based trust anchors allows a consistent and secure way to access AWS services from non-native environments, without introducing overly complex identity federation layers"
+/>
+  
+
+
+<!-- Add your characteristics content here -->
+
+## Examples in an SAP context
+
+
+<!-- Add your SAP context examples here -->
+
+## Services and Components
+
+<!-- Add your services and components here -->
+
+## Resources
+
+<!-- Add your resources here -->
+
+## Related Missions
+
+<!-- Add related missions here -->
