@@ -23,7 +23,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: false
+draft: true
 unlisted: false
 contributors:
   - s-krishnamoorthy
@@ -57,7 +57,6 @@ The integration process involves:
 
 This approach ensures that data remains consistent and up-to-date, providing a robust foundation for advanced analytics and decision-making processes.
 
-For detailed step by step information for federating data live from Databricks delta lake, and to try out the integration, visit the Discovery Center mission : [Data Federation from Databricks through SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/4259/)
 
 ## Resources
 

@@ -53,7 +53,7 @@ Amazon Athena is Amazon's interactive query service that helps query and analyze
 Non-SAP data from Amazon Athena can be federated live into remote tables in SAP Datasphere and augmented with SAP buisness data for real-time analtyics in SAP Analytics cloud.
 
 
-For detailed step by step information and to try out the integration, visit the Discovery Center mission : [Integrate Amazon Athena with SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3401/)
+For detailed step by step information and to try out the integration, visit the blog : [Integrate Amazon Athena with SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/federating-queries-from-sap-datasphere-to-amazon-athena-to-derive-insights/ba-p/13475132)
 
 
 
@@ -66,7 +66,7 @@ S3 is an Object storage service built to store and retrieve any amount of data f
 Non-SAP data from Amazon S3 can be imported into SAP Datasphere though the Data Flow feature of SAP Datasphere for use with applications such as Financial Planning or business analytics in SAP Analytics Cloud . 
 
 
-For detailed step by step information and to try out the integration, visit the Discovery Center mission : [Accessing data in Amazon S3 from SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3403/)
+For detailed step by step information and to try out the integration, visit the blog : [Accessing data in Amazon S3 from SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/data-integration-between-sap-data-warehouse-cloud-and-amazon-s3-to-blend/ba-p/13461274)
 
 
 
@@ -86,4 +86,4 @@ Amazon Redshift is a fast, fully managed, petabyte-scale data warehouse service 
 Smart Data Integration (SDI) is a key component that helps you to achieve this integration. SDI  uses CamelJDBCAdapter adapter to connect to the Amazon Redshift. Once SDI is configured to connect to SAP Datasphere and remote connection to Amazon Redshift is established, virtual tables can be created in SAP Datasphere for the source tables in Amazon Redshift. The virtual tables can be used just like regular tables in views and procedures. Data can be virtually access or can be snapshot replicated onto SAP Datasphere.
 
 
-For detailed step by step information and to try out the integration, visit the Discovery Center mission : [Data Federation from Amazon Redshift through SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3406/?tab=overview)
+For detailed step by step information and to try out the integration, visit the blog : [Data Federation from Amazon Redshift through SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/data-federation-between-sap-data-warehouse-cloud-and-amazon-redshift/ba-p/13461562)
