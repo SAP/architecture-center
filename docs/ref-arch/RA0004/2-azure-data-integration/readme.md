@@ -57,7 +57,7 @@ Furthermore, SAP Datasphere provides robust data governance and security feature
 
 **Mode(s) of Integration:** Federating data live into SAP Datasphere.
 
-Fabric Synapse Real-Time Analytics is a fully managed, cloud-scale data analytics solution built on the Kusto engine with Azure Synapse. It is designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration. Synapse Real-time Analytics fully encompasses capabilities of the legacy Azure Data Explorer in Microsoft Fabric unified platform. 
+Fabric Synapse Real-Time Analytics is a fully managed, cloud-scale data analytics solution built on the [Kusto](https://learn.microsoft.com/en-us/kusto/query/?view=microsoft-fabric) engine with Azure Synapse. It is designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration. Synapse Real-time Analytics fully encompasses capabilities of the legacy Azure Data Explorer in Microsoft Fabric unified platform. 
 
 ### Federating Data from Fabric Synapse Real-Time Analytics into SAP Datasphere
 
