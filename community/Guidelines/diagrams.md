@@ -86,6 +86,8 @@ Mermaid-generated svg is automatically optimized for static websites. It is typi
 
 ### Best Practices for Mermaid Diagrams
 
+Check the code behind these examples by reviewing the underlying markdown, using the edit button at the top of this page. The rendered versions are displayed below for illustrative purposes.
+
 1. **Choose the Right Diagram Type**:
 
     - Use **flowcharts** for processes and workflows.
@@ -160,6 +162,8 @@ Mermaid-generated svg is automatically optimized for static websites. It is typi
 
 ### Mermaid diagram examples
 
+Check the code behind these examples by reviewing the underlying markdown, using the edit button at the top of this page. The rendered versions are displayed below for illustrative purposes.
+
 1. Contribution Workflow
 
     - **File**: `community/intro.md`
@@ -185,7 +189,7 @@ Mermaid-generated svg is automatically optimized for static websites. It is typi
         A[Source A] -->|Data Flow| B
         C[Source B] -->|Data Flow| B
         D[Source C] -->|Data Flow| B
-        subgraph SAP_Business_Data_Cloud
+        subgraph SAP_Business_Data_Cloud[SAP Business Data Cloud]
             B(Data Products) --> E(Space)
             E --> F(Base Model)
             F --> G(Analytic Model)
