@@ -13,7 +13,7 @@ sidebar_custom_props:
 #     You can modify the front matter properties below     #
 ############################################################
 title: SAP Databricks in Business Data Cloud
-description: SAP and Databricks have partnered to integrate SAP data with Databricks&#39; AI and analytics platform, allowing businesses to leverage SAP data for AI and machine learning applications. This partnership simplifies data access and eliminates the need for complex ETL processes, enabling real-time analytics and AI-driven decision-making.
+description: SAP and Databricks have partnered to integrate SAP data with Databricks AI and analytics platform, allowing businesses to leverage SAP data for AI and machine learning applications. This partnership simplifies data access and eliminates the need for complex ETL processes, enabling real-time analytics and AI-driven decision-making.
 sidebar_label: SAP Databricks in Business Data Cloud
 keywords: [sap, bdc, business, data, cloud, databricks]
 image: img/logo.svg
@@ -41,7 +41,7 @@ SAP’s partnership with Databricks, a leader in unified data and AI platforms, 
 
 ## Role of SAP Databricks in SAP Business Data Cloud
 
-SAP Databricks is a Data Intelligence Platform designed to bring data and Artificial Intelligence (AI) together. Integrated within SAP Business Data Cloud, it provides a seamless way to execute machine learning algorithms on SAP data without requiring external ML platforms. By leveraging the Delta Share protocol, data products from SAP Business Data Cloud can be shared with SAP Databricks for processing, and the results can be stored back in the SAP environment, ensuring data security and governance.
+SAP Databricks is a data intelligence platform designed to bring data and Artificial Intelligence (AI) together. Integrated within SAP Business Data Cloud, it provides a seamless way to execute machine learning algorithms on SAP data without requiring external ML platforms. By leveraging the Delta Share protocol, data products from SAP Business Data Cloud can be shared with SAP Databricks for processing, and the results can be stored back in the SAP environment, ensuring data security and governance.
 
 Key features of SAP Databricks in this context include:
 
