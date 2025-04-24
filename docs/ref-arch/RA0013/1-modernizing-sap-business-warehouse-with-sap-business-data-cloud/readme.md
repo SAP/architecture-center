@@ -48,6 +48,8 @@ As a result, customers can gradually shift SAP BW use cases to SAP Datasphere an
 
 ![drawio](drawio/bw-bdc-detailed.drawio)
 
+SAP BW/4HANA PCE is the Data Producer. This system is added in the SAP BDC Formation. With this addition, a dedicated provisioning space is created for BW/4HANA PCE. Data Product Generator is a tool which is available in SAP BW/4HANA PCE to create data products in Object Store in SAP BDC out of BW/4HANA PCE. These data products gets generated as custom data products in the object store which is in the SAP BDC Tenant. One can choose to setup a Medallion Architecture in this layer as per customer's requirements. From the provisioning space in SAP Datasphere, this can be shared with another space for modelling and consumption into SAP Analytics Cloud.
+
 ## Key Services and Components
 
 The modernization process leverages the following components to transition BW environments to SAP BDC:
@@ -82,7 +84,7 @@ In addition, Spark offers scalable compute capabilities supporting high-volume t
 
 ### Three-Step Migration Process
 
-**1. Lift to SAP Business Warehouse Cloud, private edition**: Transition existing SAP BW NetWeaver or SAP BW/4HANA on-premises deployments into the private cloud component of SAP BDC. This step secures BW investments while exposing BW data as data products for consumption.
+**1. Lift to SAP Business Warehouse Cloud, private edition**: Transition existing SAP BW NetWeaver or SAP BW/4HANA on-premises deployments into the private cloud component of SAP BDC. This step secures BW investments while exposing BW data as data products for consumption. 
 
 **Migration Pathways: Structured Transition Options**
 
