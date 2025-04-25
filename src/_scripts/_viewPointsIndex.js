@@ -22,7 +22,7 @@ function createRefItem(doc, tags, baseHref, extraCustomProps = {}) {
     };
 
     return {
-        type: "ref",
+        type: 'ref',
         id: doc.id,
         customProps,
     };
@@ -30,7 +30,7 @@ function createRefItem(doc, tags, baseHref, extraCustomProps = {}) {
 
 function createLandingPageSection(items) {
     return items.map((item) => ({
-        type: "link",
+        type: 'link',
         label: item.customProps.title,
         href: item.customProps?.href,
         customProps: item.customProps,
@@ -65,7 +65,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         return await defaultSidebarItemsGenerator(args);
     }
 
-    if (sidebar_id === "exploreallrefarch") {
+    if (sidebar_id === 'exploreallrefarch') {
         const filteredDocs = args.docs.filter(
             (doc) =>
                 Array.isArray(doc.frontMatter?.sidebar_custom_props?.category_index) &&
@@ -73,24 +73,24 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         );
 
         const docsRefArchItems = filteredDocs.map((doc) =>
-            createRefItem(doc, tags, "docs", {
+            createRefItem(doc, tags, 'docs', {
                 category_index: doc.frontMatter?.sidebar_custom_props?.category_index,
             })
         );
 
         const category = {
-            type: "category",
-            label: "Explore Reference Architectures",
+            type: 'category',
+            label: 'Explore Reference Architectures',
             link: {
-                type: "generated-index",
-                title: "Architecture Explorer",
+                type: 'generated-index',
+                title: 'Architecture Explorer',
                 description:
-                    "Explore all SAP reference architectures across different technology domains and technology partners.",
-                slug: "/exploreallrefarch",
-                keywords: ["explore", "all", "sap", "reference architectures"],
-                image: "/img/sap_logo.png",
+                    'Explore all SAP reference architectures across different technology domains and technology partners.',
+                slug: '/exploreallrefarch',
+                keywords: ['explore', 'all', 'sap', 'reference architectures'],
+                image: '/img/sap_logo.png',
             },
-            customProps: { id: "exploreallrefarch" },
+            customProps: { id: 'exploreallrefarch' },
             items: docsRefArchItems,
         };
 
@@ -102,7 +102,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         return [category];
     }
 
-    if (sidebar_id === "guidance") {
+    if (sidebar_id === 'guidance') {
         const filteredGuidanceDocs = args.docs.filter(
             (doc) =>
                 Array.isArray(doc.frontMatter?.sidebar_custom_props?.guidance_index) &&
@@ -110,7 +110,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         );
 
         const docsGuidanceItems = filteredGuidanceDocs.map((doc) =>
-            createRefItem(doc, tags, "/guidance", {
+            createRefItem(doc, tags, '/guidance', {
                 guidance_index: doc.frontMatter?.sidebar_custom_props?.guidance_index,
                 isGuidance: true,
             })
@@ -125,17 +125,13 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         return [];
     }
 
-    const sidebarCategory = jsonSchema.generatedIndexes.find(
-        (index) => index.customProps.id === sidebar_id
-    );
+    const sidebarCategory = jsonSchema.generatedIndexes.find((index) => index.customProps.id === sidebar_id);
     if (!sidebarCategory) return [];
 
     sidebarCategory.items = args.docs
-        .filter((doc) =>
-            doc.frontMatter?.sidebar_custom_props?.category_index?.includes(sidebar_id)
-        )
+        .filter((doc) => doc.frontMatter?.sidebar_custom_props?.category_index?.includes(sidebar_id))
         .map((doc) =>
-            createRefItem(doc, tags, "docs", {
+            createRefItem(doc, tags, 'docs', {
                 category_index: doc.frontMatter?.sidebar_custom_props?.category_index,
             })
         );

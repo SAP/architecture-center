@@ -89,7 +89,7 @@ function prepareCommand(input, out) {
 
 //generate qrcode, only get inner part
 async function generateQrSvg(link) {
-    const rawSvg = await QRCode.toString(link,{type: 'svg', margin: 0});
+    const rawSvg = await QRCode.toString(link, { type: 'svg', margin: 0 });
     const qrInner = rawSvg.replace(/<\/*svg[^>]*>/g, '');
     return qrInner;
 }
