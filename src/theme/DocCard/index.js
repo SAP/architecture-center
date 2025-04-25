@@ -123,11 +123,11 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
         /* Change title length if title is too long */
 
-        if (title.length > Math.ceil((cardWidth / 400) * 71)) {
+        if (title.length > Math.ceil((cardWidth / 400) * 63)) {
             setReadableTitle(
-                title.length - title.slice(0, Math.round((cardWidth / 400) * 71)).length <= 2
+                title.length - title.slice(0, Math.round((cardWidth / 400) * 63)).length <= 2
                     ? title
-                    : title.slice(0, Math.round((cardWidth / 400) * 71)) + '...'
+                    : title.slice(0, Math.round((cardWidth / 400) * 63)) + '...'
             );
             return;
         }
