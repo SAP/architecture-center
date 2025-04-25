@@ -36,23 +36,31 @@ Use **Draw.io diagrams** when:
 
 -   Representing **SAP BTP services**, **cloud products**, or **technical landscapes**.
 -   Creating **high-level solution architectures** that include SAP services, environments, and their interdependencies.
--   Following the **SAP BTP Solution Diagram Guidelines**.
+-   Following the **SAP BTP Solution Diagram Guidelines** to ensure consistency and adherence to SAP design principles.
 
 ### Best Practices for Draw.io Diagrams
 
 1. **Use the SAP BTP Starter Kit**:
 
     - Download the [SAP BTP Solution Diagram Starter Kit](https://sap.github.io/btp-solution-diagrams/docs/solution_diagr_intro/big_picture/) for official icons, templates, and design elements.
-    - Ensure all icons and shapes adhere to SAP’s design standards.
+    - The starter kit includes pre-configured libraries, reusable templates, and examples to help you get started quickly.
+
+2. **Leverage Shape Libraries and Editable Presets**:
+   - Access the [Draw.io Shape Libraries](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/shape-libraries-and-editable-presets/draw.io) for foundational icons, integration suite icons, and more.
+   - Use the [Editable Diagram Examples](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/editable-diagram-examples) to explore reusable templates for common SAP BTP scenarios, such as:
+     - SAP Build Work Zone (L2)
+     - SAP Private Link Service (L2)
+     - SAP Cloud Identity Services - Authentication (L2)
 
 2. **Maintain Consistency**:
 
+    - **Level 1 (L1)** diagrams: Provide a high-level overview of solution architectures, focusing on key components and their relationships.
+    - **Level 2 (L2)** diagrams: Offer detailed technical representations, including service interactions, data flows, and integration points.
     - Use the same icon sizes, line styles, and text formatting across all diagrams.
     - Avoid creating custom arrows; use the ones provided in the starter kit.
 
 3. **Optimize for Readability**:
 
-    - Use **Level 0 diagrams** for high-level overviews targeting non-technical audiences.
     - Use **Level 1 or Level 2 diagrams** for detailed technical representations.
 
 4. **Follow Repository Structure**:
@@ -69,6 +77,7 @@ Use **Draw.io diagrams** when:
 
 -   [SAP BTP Solution Diagram Guidelines](https://sap.github.io/btp-solution-diagrams/docs/solution_diagr_intro/big_picture/)
 -   [YouTube: Mastering Solution Diagrams](https://www.youtube.com/watch?v=Nc0ceaWcynA)
+-   [SAP Solution Diagrams on Lucid Marketplace](https://lucid.app/marketplace#/newlisting/8e327624-ad9a-4ccf-b74c-325bb907a0ef)
 
 ## Mermaid Diagrams for Flow-Based Visualizations
 
