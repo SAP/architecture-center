@@ -123,30 +123,16 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
         /* Change title length if title is too long */
 
-        if (size.width <= 996) {
-            if (title.length > Math.ceil((cardWidth / 400) * 100)) {
-                setReadableTitle(
-                    title.length - title.slice(0, Math.round((cardWidth / 400) * 100)).length <= 2
-                        ? title
-                        : title.slice(0, Math.round((cardWidth / 400) * 100)) + '...'
-                );
-                return;
-            }
-            setReadableTitle(title);
+        if (title.length > Math.ceil((cardWidth / 400) * 63)) {
+            setReadableTitle(
+                title.length - title.slice(0, Math.round((cardWidth / 400) * 63)).length <= 2
+                    ? title
+                    : title.slice(0, Math.round((cardWidth / 400) * 63)) + '...'
+            );
             return;
         }
-        if (size.width > 996) {
-            if (title.length > Math.ceil((cardWidth / 400) * 71)) {
-                setReadableTitle(
-                    title.length - title.slice(0, Math.round((cardWidth / 400) * 71)).length <= 2
-                        ? title
-                        : title.slice(0, Math.round((cardWidth / 400) * 71)) + '...'
-                );
-                return;
-            }
-            setReadableTitle(title);
-            return;
-        }
+        setReadableTitle(title);
+
     }, [componentSize, description, tags, title]);
 
     useEffect(() => {
