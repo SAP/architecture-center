@@ -85,7 +85,9 @@ SAP will be publishing Insight Apps across all application pillars. For e.g Core
 
 Few of the examples of Insight Apps with the offerings are mentioned below:
 
-** Note: Not all the below mentioned ones are GA**
+:::info Note
+Not all the below mentioned ones are GA
+:::
 
 - Core Enterprise Analytics: Enabling companies to effectively make use of current assets and maintain sufficient cash flow to meet short-term goals and obligations. The Insight App provides details on how was the working capital trending over past few periods, average payment period for account payable etc. E.g Working Capital, Sales Analysis etc.
 - People Analytics: Enabling customers to understand thier workforce composition and organization structure. E.g: Employee Central, Learning etc
