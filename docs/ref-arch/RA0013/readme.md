@@ -70,30 +70,30 @@ SAP Business Data Cloud integrates tools like SAP Datasphere and SAP Analytics C
 
 ## Key Components of SAP Business Data Cloud
 
-### 1. **SAP Datasphere**
+### 1. SAP Datasphere
 SAP Datasphere is the cornerstone of BDC, offering:
 - A unified environment for data integration, warehousing, and governance.
 - Advanced features for data modeling, transformation, and integration.
 - Tools to extract valuable insights and drive business innovation.
 
-### 2. **SAP Analytics Cloud**
+### 2. SAP Analytics Cloud
 SAP Analytics Cloud provides:
 - Advanced analytics and planning capabilities.
 - Real-time insights powered by AI and machine learning.
 - Seamless integration with SAP Datasphere for unified data analysis.
 
-### 3. **Data Products**
+### 3. Data Products
 Data Products are the foundation of SAP's data integration architecture. SAP BDC enables the creation of standardized, high-quality data products that:
 - Promote data consistency and reusability.
 - Simplify cross-domain collaboration.
 - Serve as modular, reusable assets optimized for AI/ML workflows.
 
-### 4. **SAP Databricks Integration**
+### 4. SAP Databricks Integration
 The partnership between SAP and Databricks enhances AI/ML capabilities by:
 - Supporting a lakehouse architecture for unified data storage and processing.
 - Enabling advanced analytics on SAP and non-SAP data.
 
-### 5. **Unified Semantic Model**
+### 5. Unified Semantic Layer
 At the core of BDC is its unified semantic model, which:
 - Standardizes data definitions across SAP and non-SAP systems.
 - Simplifies data access and governance.
@@ -111,27 +111,27 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 
 ## Innovations in SAP Business Data Cloud
 
-### 1. **Modernization of SAP BW Systems**
-- Transition legacy SAP BW systems to SAP Datasphere for improved analytics and scalability.
+### 1. Modernization of SAP BW Systems
+- Transition legacy SAP BW systems to SAP Datasphere, a core capability of BDC, for improved analytics and scalability.
 - Integrate SAP BW/4HANA with BDC for real-time data processing.
 
-### 2. **Data Products as Subscriptions**
+### 2. Data Products as Subscriptions
 - Curated datasets optimized for AI/ML workflows.
 - Modular and reusable data solutions that reduce management overhead.
 
-### 3. **Integration with Databricks**
+### 3. Integration with Databricks
 - Supports lakehouse architecture for unified data storage and analytics.
 - Enables advanced AI/ML capabilities through SAP Databricks partnership.
 
 ## Use Cases for SAP Business Data Cloud
 
-### 1. **Custom Insight Applications**
+### 1. Custom Insight Applications
 - Develop tailored analytics and AI applications leveraging harmonized data.
 
-### 2. **SAP Databricks Integration**
+### 2. SAP Databricks Integration
 - Utilize advanced analytics and AI/ML workflows on unified datasets.
 
-### 3. **SAP BW Modernization**
+### 3. SAP BW Modernization
 - Migrate legacy systems to cloud-native architectures for scalability and real-time analytics.
 
 ## SAP Learning Journey

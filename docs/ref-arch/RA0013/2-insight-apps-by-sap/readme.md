@@ -92,10 +92,11 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 1. **Single Sign-On**:
 
     - Seamless navigation between tenants of SAP Business Data Cloud, SAP Analytics Cloud, and SAP Datasphere.
+    - Enabled via [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity-services) and Identity Authentication.
 
 2. **Live Data Connection**:
 
-    - SAP-managed live data connection links SAP Datasphere objects to SAP Analytics Cloud for Insight Apps.
+    - SAP-managed live data connections link SAP Datasphere objects to SAP Analytics Cloud for Insight Apps usage.
 
 3. **Custom Connections**:
     - Users can create additional connections to access custom models and Data Products.
@@ -138,7 +139,7 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 
 ### Copying Content
 
--   SAP-managed Insight Apps cannot be directly edited but components can be copied.
+-   SAP-managed Insight Apps and their dependencies cannot be directly edited but components can be copied and adapted, as needed.
 -   Users can copy SAP Analytics Cloud stories to enhance or adjust them for their needs.
 
 ### Enhancing Models
