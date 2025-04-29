@@ -63,7 +63,7 @@ export function CoreTeam(): ReactNode {
                 name='James "Jim" Rapp'
                 description="Research, Development & more / Co-Lead"
                 githubUrl="https://github.com/jmsrpp"
-                linkedinUrl="https://www.linkedin.com/in/james-rapp-40a6311/"
+                linkedinUrl="https://www.linkedin.com/in/james-rapp"
             />
 
             <TeamProfileCard
