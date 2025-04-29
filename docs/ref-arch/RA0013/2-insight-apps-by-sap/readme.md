@@ -14,7 +14,7 @@ sidebar_custom_props:
 ############################################################
 title: Insight Apps by SAP
 description: Insight Apps are delivered in SAP Business Data Cloud as a prebuilt set of artifacts, from Data Products, to models, to stories in SAP Analytics Cloud. They allow you to configure your entire environment simply by subscribing.
-sidebar_label: Insight Apps by SAP
+sidebar_label: Insight Apps in SAP Business Data Cloud
 keywords: [sap, bdc, business, data, cloud, insight apps]
 image: img/logo.svg
 tags: [data, aws, azure, gcp]
