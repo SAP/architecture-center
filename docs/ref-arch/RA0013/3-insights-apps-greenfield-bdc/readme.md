@@ -85,8 +85,6 @@ Insight packages include data products, base and analytical models and pre-defin
 4. Setup Cloud Connector.
 5. Create the formation.
 
-
-
 ### SAP Delivered Insight App
 
 In this pattern, the SAP-managed data products are installed. The end user uses the standard insight application via SAP Analytics Cloud.Insight Apps are pre-built analytical applications within SAP BDC. They help you quickly discover hidden insights and make faster decisions. They are fully managed by SAP, built on curated BDC data products, Datasphere models, SAC stories and include predefined metrics, AI models, and planning tools. 
@@ -95,10 +93,7 @@ SAP Managed Data Products:
 - These are fully managed by SAP throughout their lifecycle.
 - The data is stored within the Foundation Service (FOS) HDLFS, which is not directly accessible to customers.
 
-
-
 ![drawio](drawio/sap-managed-insight-app.drawio)
-
 
 
 ### Customization of SAP Delivered Insight App
