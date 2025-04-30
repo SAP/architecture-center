@@ -31,11 +31,9 @@ AI agents bridge a critical gap in enterprise automation by autonomously executi
 
 *Project Agent Builder (PAB)* is SAP’s centralized platform for creating, managing, and consuming agents as reusable services on SAP BTP.
 
-*<solution diagram - content based agents>*
+![drawio](./drawio/reference-architecture-generative-ai-content-based.drawio)
 
 PAB removes the need for custom runtimes by offering no‑code, configuration‑driven LLM agent creation that supports multi‑step reasoning, tool orchestration, and RAG. Using REST/OData APIs, it integrates seamlessly with SAP products, BTP services, and third‑party apps, while leveraging SAP AI Core for LLM access, anonymization, metering, and role‑based security. Built on LangChain and backed by a marketplace for SAP Joule extensibility, PAB delivers a scalable, secure foundation for agent‑based automation across the SAP ecosystem.
-
-*<architecture components' description + links to other ref arch sections>*
 
 ## Agent Streams
 
@@ -47,7 +45,7 @@ Content Based Agents are fully supported within Project Agent Builder. They util
 
 **Code Based Agents**
 
-*<solution diagram - code based agents>*
+![drawio](./drawio/reference-architecture-generative-ai-code-based.drawio)
 
 Code Based Agents offer a highly customizable solution through bespoke logic and tailored development. They leverage developer-defined workflows on frameworks like LangGraph, AutoGen, CrewAI & smolagents to provide fine-grained control over agent operations. This model is ideal for scenarios that demand precise, code-level intervention to meet complex business requirements.
 

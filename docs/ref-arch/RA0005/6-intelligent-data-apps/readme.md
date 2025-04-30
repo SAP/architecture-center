@@ -33,16 +33,12 @@ An IDA can cater two core use case ideas: _Descriptive_ and _Prescriptive_ analy
 
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
-*<Ref. Arch. for Content Based Agent - IDA ?>*
-
 The architecture illustrates how an IDA operates within the SAP Business Technology Platform (BTP) ecosystem, enabling seamless integration of AI agent component and data sources. At the core, the [SAP Cloud Application Programming Model](./#sap-cloud-application-programming-model) (CAP)
 serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in _Code Based Agent_ approach. The agent can be designed in Project Agent Builder ([PAB](../5-ai-agents/readme.md#project-agent-builder)) and integrated with data in the _Content Based Agent_ approach. More information about Code and Content based agents can be found here: [Agent Streams](../5-ai-agents/readme.md#agent-streams). 
 
 [SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 
 These elements work together in unison to create an application that unifies data and AI, enabling real-time analytics and proactive decision-making. When combined with platforms like SAP Datasphere, agents can drive value across industries such as supply chain, logistics, financial services, and operations.
-
-*< Placeholder for content on BDC >*
 
 ## Services & Components
 
