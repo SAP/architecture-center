@@ -169,7 +169,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="mailto:paa@sap.com?subject=[Architecture Center] Message&body=Dear PAA team,%0D%0DI would like to contact you because:%0D%0D< Just want to say Hi or make a suggestion? Enter your message here! >%0D%0DThank you!%0D%0DRegards,%0D%0DX">We welcome your feedback</a>.</b>',
+                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">We welcome your feedback</a>.</b>',
             backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
@@ -185,53 +185,35 @@ const config: Config = {
                 {
                     to: 'blog',
                     label: "What's new",
-                    position: 'left',
+                    position: 'right',
                 },
                 {
                     to: '/community/intro',
                     label: 'Community of Practice',
-                    position: 'left',
+                    position: 'right',
                 },
-                {
-                    to: '/guidance/intro',
-                    label: 'Guidance Framework',
-                    position: 'left',
-                },
+                //{
+                //    to: '/guidance/intro',
+                //    label: 'Guidance Framework',
+                //    position: 'left',
+                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
-                    position: 'right',
+                    position: 'left',
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Explore</strong>'
+                            value: '<strong>Architecture Explorer</strong>'
                         },
                         {
                             to: '/docs/exploreallrefarch',
-                            label: 'Explore all Reference Architectures'
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">'
-                        },
-                        {
-                            type: 'html',
-                            value: '<strong>Technology Partners</strong>'
+                            label: 'Card-Style Overview'
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'aws',
-                            label: 'Amazon Web Services'
-                        },
-                        {
-                            type: 'docSidebar',
-                            sidebarId: 'azure',
-                            label: 'Microsoft Azure'
-                        },
-                        {
-                            type: 'docSidebar',
-                            sidebarId: 'gcp',
-                            label: 'Google Cloud Platform'
+                            sidebarId: 'refarchSidebar',
+                            label: 'Navigator-Style Overview'
                         },
                         {
                             type: 'html',
@@ -265,6 +247,29 @@ const config: Config = {
                             type: 'docSidebar',
                             sidebarId: 'security',
                             label: 'Operation & Security'
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">'
+                        },
+                        {
+                            type: 'html',
+                            value: '<strong>Technology Partners</strong>'
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'aws',
+                            label: 'Amazon Web Services'
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'azure',
+                            label: 'Microsoft Azure'
+                        },
+                        {
+                            type: 'docSidebar',
+                            sidebarId: 'gcp',
+                            label: 'Google Cloud Platform'
                         },
                     ],
                 },

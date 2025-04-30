@@ -1,16 +1,36 @@
-import React, { JSX } from 'react';
+import React, { JSX, useEffect, useState } from 'react';
 import Link from '@docusaurus/Link';
 import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
+import { useColorMode } from '@docusaurus/theme-common';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 export default function CommunitySection(): JSX.Element {
+    const { colorMode } = useColorMode();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true); // Only render image once the component is mounted
+    }, []);
+
+    const lightImg = useBaseUrl('/img/landingPage/community_puzzle_light.png');
+    const darkImg = useBaseUrl('/img/landingPage/community_puzzle_dark.png');
+
+    if (!mounted) {
+        return null;
+    }
+
     return (
         <section>
             <br /> <br />
             <div className="container">
                 <div className="community">
                     <div className="community_image">
-                        <img src="/img/landingPage/community_puzzle.png" className="community_image_inside" />
+                        <img
+                            src={colorMode === 'dark' ? darkImg : lightImg}
+                            className="community_image_inside"
+                            alt="Community Puzzle"
+                        />
                     </div>
                     <div className="community_body">
                         <h2>
@@ -33,7 +53,7 @@ export default function CommunitySection(): JSX.Element {
                         </p>
                         <Link to="/community/intro">
                             <Button design="Emphasized" style={{ width: 150 }}>
-                                Let's go!
+                                Let's team up!
                             </Button>
                         </Link>
                     </div>

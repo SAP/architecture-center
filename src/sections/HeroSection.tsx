@@ -8,6 +8,7 @@ export default function HeroSection(): JSX.Element {
         <section>
             <br />
             <br />
+            <br />
             <div className="hero_banner">
                 <div className="container">
                     <div className="welcome">
@@ -24,16 +25,14 @@ export default function HeroSection(): JSX.Element {
                         </div>
 
                         <Link to="/docs/exploreallrefarch">
-                            <Button
-                                design="Default"
-                                style={{ width: 150, backgroundColor: '#ffffff', color: '#0064D9' }}
-                            >
-                                Explore
-                            </Button>
+                            <Button style={{ width: 150 }}>Explore Now</Button>
                         </Link>
                     </div>
                 </div>
             </div>
+            <br />
+            <br />
+            <br />
         </section>
     );
 }
