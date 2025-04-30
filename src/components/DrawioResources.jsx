@@ -1,6 +1,7 @@
 import { FlexBox, Button } from '@ui5/webcomponents-react';
 import { useState } from 'react';
 import '@ui5/webcomponents-icons/dist/copy.js';
+import "@ui5/webcomponents-icons/dist/accept.js";
 import Admonition from '@theme/Admonition';
 import Link from '@docusaurus/Link';
 import LinkDrawioViewer from './LinkDrawioViewer';
