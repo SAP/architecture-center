@@ -16,12 +16,12 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors: 
 discussion: 
 last_update:
-  author: vedant-aero-ml
+  author: vedant-aero-ml, kay-schmitteckert
   date: 2025-01-01
 ---
 
@@ -70,7 +70,7 @@ A recipe guides the agent's workflow and defines how the LLM, knowledge, memory,
 
 The diagram below illustrates the agent’s actions cycle at runtime, which could repeat multiple times till the goal is declared achieved by the LLM. The numbered steps correspond to:
 
-![Agent Thought & Action Cycle](../../images/Agent_Flow.svg)
+![Agent Thought & Action Cycle](./images/Agent_Flow.svg)
 
 1. **Input & Orchestration** – The user’s request and Recipe logic are ingested by the LLM.  
 2. **Guidance** – The Recipe supplies a plan based on orchestration rules and schema/metadata to steer the LLM’s planning.  
@@ -87,7 +87,7 @@ But, not all use cases require the same level of orchestration or intelligence. 
 
 The decision tree below serves as a practical guide to determine the most suitable implementation pattern for your scenario be it prompt-based, tool-integrated, or agentic.
 
-![Agent Design Decision Tree](../../images/Agent_FD.svg)
+![Agent Design Decision Tree](./images/Agent_FD.svg)
 
 ## Agent Evaluation
 
