@@ -77,7 +77,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                         <Button
                             design="Transparent"
                             icon={`sap-icon://${icon}`}
-                            tooltip="Copy Reference Architecture to clipboard"
+                            tooltip="Copy Solution Diagram to Clipboard"
                             style={{ position: 'absolute', top: -15, right: 0, width: 30 }}
                         ></Button>
                     </a>
