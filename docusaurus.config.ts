@@ -44,27 +44,13 @@ const config: Config = {
             },
         ],
         [
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'guidance',
-                path: 'guidance',
-                routeBasePath: 'guidance',
-                sidebarItemsGenerator: generateSidebarSlices,
-                sidebarPath: require.resolve('./sidebarsGuidance'),
-                showLastUpdateTime: true,
-                showLastUpdateAuthor: true,
-                onInlineTags: 'throw',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
-            },
-        ],
-        [
             require.resolve('@easyops-cn/docusaurus-search-local'),
             {
                 hashed: true,
                 indexDocs: true,
                 indexPages: true,
-                docsRouteBasePath: ['/docs', '/community', '/guidance'],
-                docsDir: ['docs', 'community', 'guidance'],
+                docsRouteBasePath: ['/docs', '/community'],
+                docsDir: ['docs', 'community'],
                 indexBlog: true,
                 blogRouteBasePath: '/blog', 
                 language: ['en'],
@@ -192,11 +178,6 @@ const config: Config = {
                     label: 'Community of Practice',
                     position: 'right',
                 },
-                //{
-                //    to: '/guidance/intro',
-                //    label: 'Guidance Framework',
-                //    position: 'left',
-                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
