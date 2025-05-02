@@ -1,28 +1,39 @@
 ---
 id: id-ra0005-5
 slug: /ref-arch/e5eb3b9b1d/5
-sidebar_position: 1
+sidebar_position: 5
 sidebar_custom_props:
   category_index: []
-title: AI Agents & Business Agent Foundation (BAF)
-description: Please add a description (max 300 characters)
+title: AI Agents & Project Agent Builder (PAB)
+description: This is an overview of AI agents and their role in enterprise automation, focusing on SAP's Project Agent Builder (PAB) and its support for content-based and code-based agent development. It explores the technical components, design strategies, and evaluation criteria for deploying AI agents effectively within the SAP ecosystem.
 keywords:
-  - sap
+    - sap
+    - ai
+    - genai
+    - aws
+    - azure
+    - gcp
 sidebar_label: AI Agents & Business Agent Foundation (BAF)
 image: img/logo.svg
 tags:
-  - ref-arch
+    - agents
+    - genai
+    - aws
+    - gcp
+    - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors: 
+contributors:
+    - vedant-aero-ml
+    - kay-schmitteckert
 discussion: 
 last_update:
-  author: vedant-aero-ml, kay-schmitteckert
-  date: 2025-01-01
+  author: vedant-aero-ml
+  date: 2025-05-02
 ---
 
 AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.

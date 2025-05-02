@@ -1,17 +1,26 @@
 ---
 id: id-ra0005-6
 slug: /ref-arch/e5eb3b9b1d/6
-sidebar_position: 1
+sidebar_position: 6
 sidebar_custom_props:
   category_index: []
 title: Intelligent Data Apps
-description: Please add a description (max 300 characters)
+description: Intelligent Data Apps leverage advanced AI capabilities to transform how organizations interact with and derive insights from large quantities of structured data. By integrating natural language processing, federated data access, and real-time analytics, these applications enable seamless decision-making and operational efficiency across diverse industries.
 keywords:
-  - sap
+    - sap
+    - ai
+    - genai
+    - aws
+    - azure
+    - gcp
 sidebar_label: Intelligent Data Apps
 image: img/logo.svg
 tags:
-  - ref-arch
+    - agents
+    - genai
+    - aws
+    - gcp
+    - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -19,10 +28,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors: 
+    - vedant-aero-ml
+    - kay-schmitteckert
 discussion: 
 last_update:
-  author: vedant-aero-ml, kay-schmitteckert
-  date: 2025-01-14
+  author: vedant-aero-ml
+  date: 2025-05-02
 ---
 
 Intelligent Data Apps (IDA) empower users to interact with extensive datasets through natural language queries. These applications seamlessly integrate vast amounts of data stored across heterogeneous enterprise systems, leveraging SAP Datasphere for federated data access, eliminating the need for data replication. By leveraging Agents, natural language inputs are first interpreted and then transformed into technical queries to retrieve pertinent data, with results delivered in an actionable format. The architecture also supports the streamlined integration RAG pipelines for query pre-processing and overall response optimization.

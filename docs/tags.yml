@@ -65,3 +65,7 @@ ref-arch:
 community:
   label: "Community of Practice"
   description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."
+
+agents:
+  label: "Agents"
+  description: "An agent is a system, often backed by an LLM, that acts on behalf of a user or another program, often with some degree of autonomy. Agents can perform tasks, make decisions, and interact with other systems or users to achieve specific goals."
