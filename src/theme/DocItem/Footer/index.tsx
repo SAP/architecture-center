@@ -12,7 +12,7 @@ export default function DocItemFooter(): JSX.Element | null {
 
     const canDisplayContributorsRow = (frontMatter as any).contributors?.length > 0;
 
-    const canDisplayFooter = canDisplayContributorsRow
+    const canDisplayFooter = canDisplayContributorsRow;
 
     if (!canDisplayFooter) {
         return null;

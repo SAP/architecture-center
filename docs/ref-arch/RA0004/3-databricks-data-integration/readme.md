@@ -1,6 +1,6 @@
 ---
 id: id-ra0004-3
-slug: /ref-arch/28ac36db13/3
+slug: /ref-arch/a07a316077/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
@@ -57,7 +57,6 @@ The integration process involves:
 
 This approach ensures that data remains consistent and up-to-date, providing a robust foundation for advanced analytics and decision-making processes.
 
-For detailed step by step information for federating data live from Databricks delta lake, and to try out the integration, visit the Discovery Center mission : [Data Federation from Databricks through SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/4259/)
 
 ## Resources
 

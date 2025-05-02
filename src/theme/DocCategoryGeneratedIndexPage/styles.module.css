@@ -98,12 +98,6 @@
     flex-grow: 1;
 }
 
-.filterGroupLabel {
-    font-weight: bold;
-    font-size: 16px;
-    color: #0073e6;
-}
-
 .resetIconWrapper {
     display: flex;
     justify-content: center; /* Center-align the reset icon */
@@ -114,17 +108,17 @@
 
 .resetIcon {
     font-size: 25px;
-    color: #0073e6;
+    color: var(--sapContent_IconColor);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }
 
 .resetIcon:hover {
-    color: #005bb5;
+    color: #2684ff;
 }
 
 .resetDisabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
 }
@@ -140,10 +134,6 @@ html[data-theme='dark'] .filters {
 html[data-theme='dark'] .filterGroup {
     background: #1e1e1e !important;
     background-color: #1e1e1e !important;
-}
-
-html[data-theme='dark'] .filterGroupLabel {
-    color: #66aaff;
 }
 
 html[data-theme='dark'] .resetButton {

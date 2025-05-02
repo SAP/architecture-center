@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, JSX } from 'react';
 import Select, { MultiValue, StylesConfig } from 'react-select';
+import { Title } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@docusaurus/theme-common';
 import { useCurrentSidebarCategory } from '@docusaurus/plugin-content-docs/client';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -45,33 +46,42 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
             ...provided,
             backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff',
             borderColor: isDarkMode ? '#444' : '#ccc',
-            color: isDarkMode ? '#fff' : '#000',
         }),
         menu: (provided) => ({
             ...provided,
             backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
-            color: isDarkMode ? '#fff' : '#000',
         }),
-        option: (provided, state) => ({
+        option: (provided, { isFocused }) => ({
             ...provided,
-            backgroundColor: state.isFocused ? (isDarkMode ? '#fff' : '#ddd') : isDarkMode ? '#2a2a2a' : '#fff',
-            color: state.isFocused ? (isDarkMode ? '#000' : '#000') : isDarkMode ? '#fff' : '#000',
+            backgroundColor: isFocused ? 'var(--ifm-dropdown-hover-background-color)' : isDarkMode ? '#2a2a2a' : '#fff',
+            ':active': {
+                backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            },
+            color: 'var(--ifm-font-color-base)',
+        }),
+        multiValue: (provided) => ({
+            ...provided,
+            backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+            color: 'var(--ifm-font-color-base)', // targets color of cross to remove a selection
+        }),
+        multiValueLabel: (provided) => ({
+            ...provided,
+            color: 'var(--ifm-font-color-base)',
         }),
     };
 }
 
 function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props): JSX.Element {
     const { colorMode } = useColorMode();
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(colorMode === 'dark');
-
-    useEffect(() => {
-        setIsDarkMode(colorMode === 'dark');
-    }, [colorMode]);
 
     const category = useCurrentSidebarCategory();
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
 
-    const selectStyles = useMemo(() => getSelectStyles(isDarkMode), [isDarkMode]);
+    const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>();
+
+    useEffect(() => {
+        setSelectStyles(getSelectStyles(colorMode === 'dark'));
+    }, [colorMode]);
 
     const categories = useMemo(
         () =>
@@ -149,46 +159,47 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                 </header>
 
                 <div className={styles.contentWrapper}>
-                    {isExplorePage && (
-                        <aside className={styles.filters}>
-                            <div className={styles.filterRow}>
-                                <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Partners</h4>
-                                    <Select
-                                        isMulti
-                                        options={partners}
-                                        value={selectedPartners}
-                                        onChange={handlePartnersChange}
-                                        placeholder="Select Technology Partners..."
-                                        styles={selectStyles}
-                                    />
-                                </div>
+                    {isExplorePage &&
+                        selectStyles && ( // switch from Select's default style to ours causes visual flash, prevent this
+                            <aside className={styles.filters}>
+                                <div className={styles.filterRow}>
+                                    <div className={styles.filterGroup}>
+                                        <Title style={{ marginBottom: 6 }}>Technology Domains</Title>
+                                        <Select
+                                            isMulti
+                                            options={techDomains}
+                                            value={selectedTechDomains}
+                                            onChange={handleTechDomainsChange}
+                                            placeholder="Select Technology Domains..."
+                                            styles={selectStyles}
+                                        />
+                                    </div>
 
-                                <div className={styles.filterGroup}>
-                                    <h4 className={styles.filterGroupLabel}>Technology Domains</h4>
-                                    <Select
-                                        isMulti
-                                        options={techDomains}
-                                        value={selectedTechDomains}
-                                        onChange={handleTechDomainsChange}
-                                        placeholder="Select Technology Domains..."
-                                        styles={selectStyles}
-                                    />
-                                </div>
+                                    <div className={styles.filterGroup}>
+                                        <Title style={{ marginBottom: 6 }}>Technology Partners</Title>
+                                        <Select
+                                            isMulti
+                                            options={partners}
+                                            value={selectedPartners}
+                                            onChange={handlePartnersChange}
+                                            placeholder="Select Technology Partners..."
+                                            styles={selectStyles}
+                                        />
+                                    </div>
 
-                                <div className={styles.resetIconWrapper}>
-                                    <IoMdRefresh
-                                        className={`${styles.resetIcon} ${isResetEnabled ? '' : styles.resetDisabled}`}
-                                        data-tip="Reset Filters"
-                                        onClick={isResetEnabled ? resetFilters : undefined}
-                                        style={{ cursor: isResetEnabled ? 'pointer' : 'not-allowed' }}
-                                    />
+                                    <div className={styles.resetIconWrapper}>
+                                        <IoMdRefresh
+                                            className={`${styles.resetIcon} ${isResetEnabled ? '' : styles.resetDisabled}`}
+                                            data-tip="Reset Filters"
+                                            onClick={isResetEnabled ? resetFilters : undefined}
+                                            style={{ cursor: isResetEnabled ? 'pointer' : 'not-allowed' }}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </aside>
-                    )}
+                            </aside>
+                        )}
 
-                    <main className={styles.mainContent}>
+                    <main className={styles.mainContent} style={{ width: '100%' }}>
                         <DocCardList items={filteredItems} className={styles.list} />
                         <DocPaginator
                             previous={categoryGeneratedIndex.navigation.previous}
