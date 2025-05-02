@@ -9,14 +9,14 @@ slug: /ref-arch/ad1b90dbd1
 sidebar_position: 13
 sidebar_custom_props:
     category_index:
-      - data
-      - aws
-      - azure
-      - gcp
+        - data
+        - aws
+        - azure
+        - gcp
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
+title: Transforming Enterprise Data Strategy with SAP BDC
 description: SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced analytics, governance, and AI-driven insights. With tools like SAP Datasphere, SAP Analytics Cloud, and Databricks integration, BDC addresses data silos, improves data quality, and supports real-time processing. Modernize legacy systems, create reusable data products, and leverage a unified semantic model for scalable, future-ready enterprise data strategies.
 sidebar_label: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 keywords: [sap, bdc, business, data, cloud]
@@ -50,17 +50,18 @@ SAP Business Data Cloud (BDC) is a modern solution and part of a comprehensive s
 
 In the era of AI, organizations require scalable and efficient data architectures to manage growing volumes of data and extract actionable insights. Key drivers for adopting modern data architectures include:
 
-- **AI Model Requirements**: High-quality, diverse datasets are essential for AI model training and deployment.
-- **Data Integration**: Unified architectures simplify data integration across systems and platforms.
-- **Real-time Processing**: Architectures capable of handling real-time data streams are critical for operational agility.
-- **Data Security and Governance**: Robust frameworks ensure compliance and data protection.
-- **Adaptability**: Flexible architectures support evolving technologies and use cases.
+-   **AI Model Requirements**: High-quality, diverse datasets are essential for AI model training and deployment.
+-   **Data Integration**: Unified architectures simplify data integration across systems and platforms.
+-   **Real-time Processing**: Architectures capable of handling real-time data streams are critical for operational agility.
+-   **Data Security and Governance**: Robust frameworks ensure compliance and data protection.
+-   **Adaptability**: Flexible architectures support evolving technologies and use cases.
 
 ## Architecture and Design Principles of SAP Business Data Cloud
 
 SAP Business Data Cloud integrates tools like SAP Datasphere and SAP Analytics Cloud into a unified architecture, creating a semantically rich environment for data management and analysis.
 
-### Core Design Principles:
+### Core Design Principles
+
 1. **Flexible Storage Architecture**: Supports diverse storage options tailored to organizational needs.
 2. **Open Data Consumption**: Provides access to data via multiple tools and applications.
 3. **Data Gravity**: Processes data in-place to minimize movement and duplication.
@@ -70,34 +71,34 @@ SAP Business Data Cloud integrates tools like SAP Datasphere and SAP Analytics C
 
 ## Key Components of SAP Business Data Cloud
 
-### 1. **SAP Datasphere**
-SAP Datasphere is the cornerstone of BDC, offering:
-- A unified environment for data integration, warehousing, and governance.
-- Advanced features for data modeling, transformation, and integration.
-- Tools to extract valuable insights and drive business innovation.
+1. **SAP Datasphere** - SAP Datasphere is the cornerstone of BDC, offering:
 
-### 2. **SAP Analytics Cloud**
-SAP Analytics Cloud provides:
-- Advanced analytics and planning capabilities.
-- Real-time insights powered by AI and machine learning.
-- Seamless integration with SAP Datasphere for unified data analysis.
+    -   A unified environment for data integration, warehousing, and governance.
+    -   Advanced features for data modeling, transformation, and integration.
+    -   Tools to extract valuable insights and drive business innovation.
 
-### 3. **Data Products**
-Data Products are the foundation of SAP's data integration architecture. SAP BDC enables the creation of standardized, high-quality data products that:
-- Promote data consistency and reusability.
-- Simplify cross-domain collaboration.
-- Serve as modular, reusable assets optimized for AI/ML workflows.
+2. **SAP Analytics Cloud** - SAP Analytics Cloud provides:
 
-### 4. **SAP Databricks Integration**
-The partnership between SAP and Databricks enhances AI/ML capabilities by:
-- Supporting a lakehouse architecture for unified data storage and processing.
-- Enabling advanced analytics on SAP and non-SAP data.
+    - Advanced analytics and planning capabilities.
+    - Real-time insights powered by AI and machine learning.
+    - Seamless integration with SAP Datasphere for unified data analysis.
 
-### 5. **Unified Semantic Model**
-At the core of BDC is its unified semantic model, which:
-- Standardizes data definitions across SAP and non-SAP systems.
-- Simplifies data access and governance.
-- Supports cross-domain analytics and AI applications.
+3. **Data Products** - Data Products are the foundation of SAP's data integration architecture. SAP BDC enables the creation of standardized, high-quality data products that:
+
+    -   Promote data consistency and reusability.
+    -   Simplify cross-domain collaboration.
+    -   Serve as modular, reusable assets optimized for AI/ML workflows.
+
+4. **SAP Databricks Integration** - The partnership between SAP and Databricks enhances AI/ML capabilities by:
+
+    -   Supporting a lakehouse architecture for unified data storage and processing.
+    -   Enabling advanced analytics on SAP and non-SAP data.
+
+5. **Unified Semantic Layer** - At the core of BDC is its unified semantic model, which:
+
+    -   Standardizes data definitions across SAP and non-SAP systems.
+    -   Simplifies data access and governance.
+    -   Supports cross-domain analytics and AI applications.
 
 ## Addressing Data Management Challenges
 
@@ -111,28 +112,34 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 
 ## Innovations in SAP Business Data Cloud
 
-### 1. **Modernization of SAP BW Systems**
-- Transition legacy SAP BW systems to SAP Datasphere for improved analytics and scalability.
-- Integrate SAP BW/4HANA with BDC for real-time data processing.
+1. Modernization of SAP BW Systems
 
-### 2. **Data Products as Subscriptions**
-- Curated datasets optimized for AI/ML workflows.
-- Modular and reusable data solutions that reduce management overhead.
+    -   Transition legacy SAP BW systems to SAP Datasphere, a core capability of BDC, for improved analytics and scalability.
+    -   Integrate SAP BW/4HANA with BDC for real-time data processing.
 
-### 3. **Integration with Databricks**
-- Supports lakehouse architecture for unified data storage and analytics.
-- Enables advanced AI/ML capabilities through SAP Databricks partnership.
+2. Data Products as Subscriptions
+
+    -   Curated datasets optimized for AI/ML workflows.
+    -   Modular and reusable data solutions that reduce management overhead.
+
+3. Integration with Databricks
+
+    -   Supports lakehouse architecture for unified data storage and analytics.
+    -   Enables advanced AI/ML capabilities through SAP Databricks partnership.
 
 ## Use Cases for SAP Business Data Cloud
 
-### 1. **Custom Insight Applications**
-- Develop tailored analytics and AI applications leveraging harmonized data.
+1. Custom Insight Applications
 
-### 2. **SAP Databricks Integration**
-- Utilize advanced analytics and AI/ML workflows on unified datasets.
+    -   Develop tailored analytics and AI applications leveraging harmonized data.
 
-### 3. **SAP BW Modernization**
-- Migrate legacy systems to cloud-native architectures for scalability and real-time analytics.
+2. SAP Databricks Integration
+
+    -   Utilize advanced analytics and AI/ML workflows on unified datasets.
+
+3. SAP BW Modernization
+
+    -   Migrate legacy systems to cloud-native architectures for scalability and real-time analytics.
 
 ## SAP Learning Journey
 

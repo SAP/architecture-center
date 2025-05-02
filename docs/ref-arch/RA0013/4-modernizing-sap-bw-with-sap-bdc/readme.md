@@ -4,9 +4,9 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0013-1 
-slug: /ref-arch/ad1b90dbd1/1
-sidebar_position: 1
+id: id-ra0013-4
+slug: /ref-arch/ad1b90dbd1/4
+sidebar_position: 4
 sidebar_custom_props:
     category_index: []
 ############################################################
@@ -48,13 +48,13 @@ As a result, customers can gradually shift SAP BW use cases to SAP Datasphere an
 
 ![drawio](drawio/bw-bdc-detailed.drawio)
 
-SAP BW/4HANA PCE is the Data Producer. This system is added in the SAP BDC Formation. With this addition, a dedicated provisioning space is created for BW/4HANA PCE. Data Product Generator is a tool which is available in SAP BW/4HANA PCE to create data products in Object Store in SAP BDC out of BW/4HANA PCE. These data products gets generated as custom data products in the object store which is in the SAP BDC Tenant. One can choose to setup a Medallion Architecture in this layer as per customer's requirements. From the provisioning space in SAP Datasphere, this can be shared with another space for modelling and consumption into SAP Analytics Cloud.
+SAP BW PCE is the Data Producer. This system is added in the SAP BDC Formation. With this addition, a dedicated provisioning space is created for BW PCE. Data Product Generator is a tool which is available in SAP BW PCE to create data products in Object Store in SAP BDC out of BW PCE. These data products gets generated as custom data products in the object store which is in the SAP BDC Tenant.From the provisioning space in SAP Datasphere, this can be shared with another space for modelling and consumption into SAP Analytics Cloud.
 
 ## Key Services and Components
 
 The modernization process leverages the following components to transition BW environments to SAP BDC:
 
-- **SAP BW/4HANA PCE**: Private cloud edition of BW for transitioning to BDC.
+- **SAP BW PCE**: Private cloud edition of BW for transitioning to BDC.
 - **SAP Data Product Generator:** Enables creation of SAP BW data products for integration into SAP Datasphere.
 - **SAP Datasphere**: Centralized data management platform supporting self-service, semantic onboarding, and integration with data marketplaces.
 - **SAP Analytics Cloud:** Provides advanced analytics and visualization capabilities.
@@ -167,3 +167,5 @@ The modernization process unlocks new possibilities for leveraging SAP BW data:
 ## Conclusion
 
 Modernizing SAP BW with SAP Business Data Cloud provides a clear pathway to unlock agility, innovation, and scalability in enterprise data management. By leveraging existing investments, transitioning to data products, and adopting advanced architectures, organizations can build a unified platform for real-time analytics and AI-driven insights. SAP’s structured approach ensures a seamless migration process, enabling businesses to address evolving demands and capitalize on their data assets effectively.
+
+SAP BDC represents the future for on-premises BW systems. By migrating to the private cloud version of BW within BDC, you safeguard your existing data and investments while gaining access to enhanced capabilities. You'll retain familiar BW features and unlock new possibilities, such as transforming BW data into data products, enabling seamless data sharing with other systems, and leveraging BDC's integrated tools for data engineering, data science, and AI/ML with Databricks. This migration allows you to expose legacy BW Info-Provider data within a modern data fabric architecture, rapidly harmonize legacy and new data for improved insights, extend BW data for AI/ML use cases, and transition to the cloud at your own pace. Basically moving from customer managed DWH into SAP managed DWH solution with data products and Insight Apps. 

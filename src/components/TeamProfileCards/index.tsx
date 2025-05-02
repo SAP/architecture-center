@@ -54,16 +54,16 @@ export function CoreTeam(): ReactNode {
         <div className={styles['team-profile-container']}>
             <TeamProfileCard
                 name="Navya Khurana"
-                description="Research & Development / GitHub configuration"
+                description="Research & Development / GitHub actions black-belt"
                 githubUrl="https://github.com/navyakhurana"
                 linkedinUrl="https://www.linkedin.com/in/navya-khurana-1b78a6187/"
             />
 
             <TeamProfileCard
                 name='James "Jim" Rapp'
-                description="Research & Development / Co-Lead"
+                description="Research, Development & more / Co-Lead"
                 githubUrl="https://github.com/jmsrpp"
-                linkedinUrl="https://www.linkedin.com/in/james-rapp-40a6311/"
+                linkedinUrl="https://www.linkedin.com/in/james-rapp"
             />
 
             <TeamProfileCard
@@ -98,6 +98,18 @@ export function ExtendedTeam(): ReactNode {
                 description="Research & Development / Docusaurus black-belt"
                 githubUrl="https://github.com/g-kevorkian"
                 linkedinUrl="https://www.linkedin.com/in/gabriel-kevorkian-30005b2/"
+            />
+
+            <TeamProfileCard
+                name="Robin Purschwitz"
+                description="Research & Development"
+                githubUrl="https://github.com/RobinPurschwitz"
+            />
+
+            <TeamProfileCard
+                name="Max Lienhardt"
+                description="Research & Development"
+                githubUrl="https://github.com/xammaxx"
             />
         </div>
     );
