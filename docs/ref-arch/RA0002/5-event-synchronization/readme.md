@@ -59,7 +59,6 @@ For more insights on EDA:
 - [Martin Fowler's blog on Event-Driven Architecture](https://martinfowler.com/articles/201701-event-driven.html).
 - [SAP Learning Journey - Event-Driven Architecture](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/explaining-event-driven-architecture_d02a51bb-1ce4-4c2d-a25d-8b9c9198ffd2)
 
-<!-- ![Events Synchronization](images/event-replication.svg?raw=true) -->
 
 ![drawio](drawio/event-replication.drawio)
 

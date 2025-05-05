@@ -70,7 +70,6 @@ To address these complex requirements and orchestrate multi-region process, a cu
 
 ### Multi-Region Manager (MRM)
 
-<!-- ![Multi-Region Manager](images/multi-region-manager.svg?raw=true) -->
 
 ![drawio](drawio/multi-region-manager.drawio)
 

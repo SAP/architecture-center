@@ -51,7 +51,6 @@ last_update:
 
 In a multi-region setup, data synchronization is a critical aspect that ensures consistency and availability across different geographic locations. It involves replicating databases, files, configuration settings, and other pertinent information to multiple regions, which demands sophisticated strategies and robust tools. Additionally, regulatory compliance, data sovereignty laws, and other legal considerations play a pivotal role in shaping data synchronization strategies within a multi-region architecture.
 
-<!-- ![SAP HANA Cloud](images/data-replication.svg?raw=true) -->
 
 ![drawio](drawio/data-replication.drawio)
 
