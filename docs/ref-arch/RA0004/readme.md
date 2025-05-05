@@ -1,6 +1,6 @@
 ---
 id: id-ra0004
-slug: /ref-arch/28ac36db13
+slug: /ref-arch/a07a316077
 sidebar_position: 4
 sidebar_custom_props:
   category_index:
@@ -9,7 +9,10 @@ sidebar_custom_props:
     - azure
     - gcp
 title: Explore your Hyperscaler data with SAP Datasphere
-description: SAP Datasphere's data integration architectures that harmonizes SAP and non-SAP data using data fabric architecture helps business experts to make data-driven decisions with unprecedented impact.
+description: >-
+  SAP Datasphere's data integration architectures that harmonizes SAP and
+  non-SAP data using data fabric architecture helps business experts to make
+  data-driven decisions with unprecedented impact.
 keywords:
   - sap
   - datasphere
@@ -37,6 +40,7 @@ contributors:
   - chaturvedakash
   - karishma-kapur
   - ranbian
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23

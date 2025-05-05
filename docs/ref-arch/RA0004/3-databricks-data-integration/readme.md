@@ -1,19 +1,23 @@
 ---
 id: id-ra0004-3
-slug: /ref-arch/28ac36db13/3
+slug: /ref-arch/a07a316077/3
 sidebar_position: 1
-ssidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: Integration with Databricks
-description: Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via SAP Datasphere's unified data models for use with richer analytics and other use cases.
+description: >-
+  Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via
+  SAP Datasphere's unified data models for use with richer analytics and other
+  use cases.
 keywords:
   - sap
   - databricks
   - data federation
-  - deltalake 
+  - deltalake
   - camel JDBC
 sidebar_label: Integration with Databricks
 image: img/logo.svg
-tags: 
+tags:
   - data
 hide_table_of_contents: false
 hide_title: false
@@ -24,6 +28,7 @@ unlisted: false
 contributors:
   - s-krishnamoorthy
   - chaturvedakash
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
@@ -52,7 +57,6 @@ The integration process involves:
 
 This approach ensures that data remains consistent and up-to-date, providing a robust foundation for advanced analytics and decision-making processes.
 
-For detailed step by step information for federating data live from Databricks delta lake, and to try out the integration, visit the Discovery Center mission : [Data Federation from Databricks through SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/4259/)
 
 ## Resources
 

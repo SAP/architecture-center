@@ -1,21 +1,23 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-id: id-ra0008-1  # [DO NOT MODIFY]
-slug: /ref-arch/f2670637a8/1 # [DO NOT MODIFY]
-sidebar_position: 1 # [DO NOT MODIFY] 
-sidebar_custom_props: # [DO NOT MODIFY]
-  category_index: 
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+id: id-ra0008-1
+slug: /ref-arch/263f576c90/1
+sidebar_position: 1
+sidebar_custom_props:
+  category_index: []
 title: Edge Integration Cell on AWS
-description: Explore the reference architecture for deploying SAP Integration Suite - Edge Integration Cell on AWS. Learn about the required resources, and key considerations for setup and implementation on AWS.
+description: >-
+  Explore the reference architecture for deploying SAP Integration Suite - Edge
+  Integration Cell on AWS. Learn about the required resources, and key
+  considerations for setup and implementation on AWS.
+keywords:
+  - aws
+  - eic
+  - edge integration cell
 sidebar_label: Edge Integration Cell on AWS
-keywords: [aws, eic, edge integration cell]
 image: img/logo.svg
-tags: [aws, eic]
+tags:
+  - aws
+  - eic
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -24,12 +26,10 @@ draft: false
 unlisted: false
 contributors:
   - adarshnarayanhegde
+discussion: 
 last_update:
-  date: 2025-02-17
   author: adarshnarayanhegde
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-02-20
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Amazon Web Services (AWS) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines AWS-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
@@ -44,7 +44,7 @@ Deploying EIC on AWS requires a secure, scalable, and resilient infrastructure t
 
 ### AWS Setup
 
-### 1. VPC and Networking
+#### 1. VPC and Networking
 
 To ensure a **secure and private execution environment**, create a **[Virtual Private Cloud (VPC)](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)** with **multi-AZ redundancy** for high availability (HA).
 
@@ -103,7 +103,7 @@ EIC requires multiple storage solutions for transaction logs, runtime data, and 
 
 
 #### 2. Configure a Technical User and Set Up SSO 
-- Create a **technical users** (**[P-User](https://help.sap.com/docs/EDGE_LIFECYCLE_MANAGEMENT/9d5719aae5aa4d479083253ba79c23f9/edcd1a455afb4cb0b6b1b3d148256468.html)** and **[S-User](https://www.sap.com/account/universal-id.html)**) to interact with the SAP systems and to access SAP repository based shipment channel.  
+- Create **technical users** (**[P-User](https://help.sap.com/docs/EDGE_LIFECYCLE_MANAGEMENT/9d5719aae5aa4d479083253ba79c23f9/edcd1a455afb4cb0b6b1b3d148256468.html)** and **[S-User](https://www.sap.com/account/universal-id.html)**) to interact with the SAP systems and to access SAP repository based shipment channel.  
 - Set up **Single Sign-On (SSO)** for secure repository access, including monitoring and logging.  
 
 
@@ -124,5 +124,3 @@ The architecture and setup instructions in the GitHub repository above outline a
 ## Explore More
 - [**Blog:** Getting Started with Edge Integration Cell on AWS: A Setup Guide Using SAP Integration Suite](https://community.sap.com/t5/technology-blogs-by-sap/getting-started-with-edge-integration-cell-on-aws-a-setup-guide-using-sap/ba-p/13880982)
 - [Setting Up and Managing Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/setting-up-and-managing-edge-integration-cell)
-
-

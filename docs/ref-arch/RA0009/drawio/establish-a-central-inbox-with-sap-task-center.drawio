@@ -1,12 +1,9 @@
-<mxfile host="Electron" modified="2024-07-21T22:28:18.767Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="--1z6e6YLiK7zRN-APd9" version="24.5.3" type="device">
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
   <diagram id="FbstBVE6JiylST8Hq-xM" name="L2">
-    <mxGraphModel dx="3772" dy="2490" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="4333" dy="2855" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="3gaZ6STzcAwrb1w61FeG-6" value="&lt;b style=&quot;border-color: var(--border-color); color: rgb(0, 112, 242); font-family: arial; font-size: 16px;&quot;&gt;Establish a central inbox with SAP Task Center&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" parent="1" vertex="1">
-          <mxGeometry x="-2319" y="-1631.9999999999998" width="375" height="31" as="geometry" />
-        </mxCell>
         <mxCell id="3gaZ6STzcAwrb1w61FeG-27" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="-2315" y="-916" width="641" height="68" as="geometry" />
         </mxCell>
@@ -65,27 +62,6 @@
         </mxCell>
         <mxCell id="UHaCpyEYQsDfGPqh9ESF-41" value="&lt;div style=&quot;font-size: 10px; line-height: 100%;&quot;&gt;&lt;span style=&quot;font-family: arial; font-size: 10px; background-color: initial;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Optional&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=#1D2D3E;fontFamily=Helvetica;labelPosition=center;verticalLabelPosition=middle;" parent="1" vertex="1">
           <mxGeometry x="-1362.3" y="-883.25" width="55" height="23" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-43" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;strokeWidth=1.5;arcSize=16;fillColor=#F5F6F7;perimeterSpacing=0;imageHeight=24;absoluteArcSize=1;points=[];connectable=0;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1150" y="-1618.75" width="526" height="319.75" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-44" value="&lt;h1&gt;Flow&lt;/h1&gt;&lt;ul&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;SAP Cloud Identity Services handle identity management and authentication for SAP Task Center, allowing secure authentication and user provision.&lt;/li&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;&lt;p style=&quot;border-color: var(--border-color);&quot;&gt;Each task provider integrated with SAP Task Center must work with Identity Authentication. User entries must include essential data; sign-on should be set between the task provider and Identity Authentication, and tasks must correlate with the Global User ID.&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;&lt;p style=&quot;border-color: var(--border-color);&quot;&gt;SAP Task Center interacts with task provider apps via predefined destinations in a customer&#39;s subaccount.&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;&lt;p style=&quot;border-color: var(--border-color);&quot;&gt;Integration with SAP S/4HANA on-premise / privat cloud for receiving tasks in SAP Task Center requires the setup of the SAP Cloud Connector.&lt;/p&gt;&lt;/li&gt;&lt;li style=&quot;border-color: var(--border-color);&quot;&gt;&lt;p style=&quot;border-color: var(--border-color);&quot;&gt;End users access SAP Task Center through various clients, including the SAP Task Center Web app and To-Dos in SAP Mobile Start or SAP Start.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1606" width="469" height="291" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-45" value="&lt;p style=&quot;line-height: 100%; font-size: 12px;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;&lt;font face=&quot;arial black&quot; style=&quot;font-size: 12px;&quot; color=&quot;#ffffff&quot;&gt;1&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;verticalAlign=middle;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1559" width="22" height="22" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-46" value="&lt;p style=&quot;line-height: 100%; font-size: 12px;&quot;&gt;&lt;font face=&quot;arial black&quot; color=&quot;#ffffff&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;2&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;verticalAlign=middle;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1517" width="22" height="22" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-47" value="&lt;p style=&quot;line-height: 100%; font-size: 12px;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;&lt;font face=&quot;arial black&quot; style=&quot;font-size: 12px;&quot; color=&quot;#ffffff&quot;&gt;3&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;verticalAlign=middle;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1449" width="22" height="22" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-48" value="&lt;p style=&quot;line-height: 100%; font-size: 12px;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;&lt;font face=&quot;arial black&quot; style=&quot;font-size: 12px;&quot; color=&quot;#ffffff&quot;&gt;4&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;verticalAlign=middle;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1406" width="22" height="22" as="geometry" />
-        </mxCell>
-        <mxCell id="UHaCpyEYQsDfGPqh9ESF-49" value="&lt;p style=&quot;line-height: 100%; font-size: 12px;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;&lt;font face=&quot;arial black&quot; style=&quot;font-size: 12px;&quot; color=&quot;#ffffff&quot;&gt;5&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;verticalAlign=middle;container=0;" parent="1" vertex="1">
-          <mxGeometry x="-1129" y="-1366" width="22" height="22" as="geometry" />
         </mxCell>
         <mxCell id="UHaCpyEYQsDfGPqh9ESF-52" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="-2228" y="-1483" width="973.5" height="443.31999999999994" as="geometry" />
@@ -226,7 +202,7 @@
         <mxCell id="Hm9edAj7zCcvypmeV3OK-16" value="" style="group" parent="UHaCpyEYQsDfGPqh9ESF-52" vertex="1" connectable="0">
           <mxGeometry x="140.00000000000045" y="258.31999999999994" width="362" height="185" as="geometry" />
         </mxCell>
-        <mxCell id="Hm9edAj7zCcvypmeV3OK-17" value="" style="endArrow=none;html=1;strokeColor=#188918;bendable=1;rounded=0;endFill=0;endSize=3;strokeWidth=1.5;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="Hm9edAj7zCcvypmeV3OK-16" edge="1" target="Hm9edAj7zCcvypmeV3OK-23">
+        <mxCell id="Hm9edAj7zCcvypmeV3OK-17" value="" style="endArrow=none;html=1;strokeColor=#188918;bendable=1;rounded=0;endFill=0;endSize=3;strokeWidth=1.5;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" parent="Hm9edAj7zCcvypmeV3OK-16" target="Hm9edAj7zCcvypmeV3OK-23" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="93.2829015544039" y="97" as="sourcePoint" />
             <mxPoint x="94" y="137" as="targetPoint" />

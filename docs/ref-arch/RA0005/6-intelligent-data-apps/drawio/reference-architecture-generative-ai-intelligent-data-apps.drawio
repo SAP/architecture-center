@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" modified="2025-04-17T12:48:16.272Z" version="22.1.21" etag="FfVYMOhVy8ilhvjp_z36" type="device">
   <diagram name="Page-1" id="EuE7QjFSsSNyeWF4mh9U">
-    <mxGraphModel dx="3415" dy="3370" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2688" dy="2849" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -473,6 +473,16 @@
         </mxCell>
         <mxCell id="KABwGKrbAEEc0Z-LKmqf-243" value="&lt;p style=&quot;line-height: 114%;&quot;&gt;&lt;font size=&quot;1&quot; color=&quot;#475f75&quot;&gt;&lt;b style=&quot;&quot;&gt;Data Federation&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475f75;fillColor=#f5f6f7;fontColor=#266f3a;strokeWidth=1.5;fontFamily=Arial;" parent="1" vertex="1">
           <mxGeometry x="-664" y="-1384" width="99" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="V4aZALx4hrmGSyYWkbLb-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.501;entryY=-0.028;entryDx=0;entryDy=0;strokeColor=#475e75;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=default;labelBackgroundColor=default;startArrow=none;startFill=0;startSize=4;endArrow=blockThin;endFill=1;endSize=4;entryPerimeter=0;" edge="1" parent="1" source="KABwGKrbAEEc0Z-LKmqf-143" target="KABwGKrbAEEc0Z-LKmqf-237">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-844.5699999999999" y="-1669" as="targetPoint" />
+            <mxPoint x="-970.5699999999999" y="-1764" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-966" y="-1660" />
+              <mxPoint x="-1077" y="-1660" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

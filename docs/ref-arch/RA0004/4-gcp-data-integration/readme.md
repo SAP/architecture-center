@@ -1,23 +1,26 @@
 ---
 id: id-ra0004-4
-slug: /ref-arch/28ac36db13/4
+slug: /ref-arch/a07a316077/4
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Integration with Google Cloud Platform sources
-description: Data from Google Cloud Platform (GCP) data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's advanced data fabric architecture. 
+description: >-
+  Data from Google Cloud Platform (GCP) data services can be seamlessly
+  integrated and harmonized with both SAP and non-SAP data using SAP
+  Datasphere's advanced data fabric architecture.
 keywords:
   - sap
   - gcp
   - gcs
   - gbq
   - google bigquery
-  - data federation 
+  - data federation
   - datasphere
   - replication
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/logo.svg
-tags: 
+tags:
   - data
   - gcp
 hide_table_of_contents: false
@@ -31,6 +34,7 @@ contributors:
   - s-krishnamoorthy
   - jackseeburger
   - karishma-kapur
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
@@ -69,7 +73,7 @@ Google BigQuery is a managed, serverless cloud data warehouse product by Google,
 
 Data from Google BigQuery can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time data access without the need for data duplication. By federating data, organizations can create unified semantic models that combine Google BigQuery data with SAP business data. These models enable efficient and real-time analytics using SAP Analytics Cloud dashboards, providing comprehensive insights and facilitating data-driven decision-making.
 
-For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the Discovery Center mission: [Integrate Google BigQuery and SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3409/).
+For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the blog: [Integrate Google BigQuery and SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/data-federation-between-sap-data-warehouse-cloud-dwc-and-google-bigquery/ba-p/13465470).
 
 ### Replicating Data to Google BigQuery
 

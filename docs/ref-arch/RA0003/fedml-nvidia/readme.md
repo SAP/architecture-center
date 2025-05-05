@@ -1,10 +1,13 @@
 ---
 id: id-ra0003-5
-slug: /ref-arch/785c72ab48/5
+slug: /ref-arch/8e1a5fbce3/5
 sidebar_position: 1
-sidebar_custom_props: {}
+sidebar_custom_props:
+  category_index: []
 title: FedML's support for NVIDIA GPUs
-description: FedML now supports reading of federated SAP business data via SAP Datasphere directly into NVIDIA GPU environment computes for model training. 
+description: >-
+  FedML now supports reading of federated SAP business data via SAP Datasphere
+  directly into NVIDIA GPU environment computes for model training.
 keywords:
   - sap
   - nvidia
@@ -33,6 +36,7 @@ contributors:
   - karishma-kapur
   - ranbian
   - ThatDodoBird
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
@@ -62,17 +66,44 @@ FedML's Connectivity Core component supports reading data from semantic models o
 
 Comparing several cuML algorithms on GPUs vs their CPU equivalents, the following acceleration numbers were recorded for GPU environments with varying data loads and features:  
  
-<b>RandomForest:  </b>
+**RandomForest:**
 
-
- <table> 
-<tr><th>Samples /
- Features</th><td>1000</td><td>10,000</td><td>1000,000</td></tr>
-<tr><td>20</td><td>2x</td><td>10x</td><td>76x</td></tr>
-<tr><td>S0</td><td>2x</td><td>23x</td><td>116x</td></tr>
-<tr><td>100</td><td>2x</td><td>35x</td><td>151x</td></tr>
-<tr><td>200</td><td>3x</td><td>49x</td><td>190x</td></tr>
- </table>
+<table>
+  <thead>
+    <tr>
+      <th>Samples / Features</th>
+      <td>1000</td>
+      <td>10,000</td>
+      <td>1000,000</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>2x</td>
+      <td>10x</td>
+      <td>76x</td>
+    </tr>
+    <tr>
+      <td>S0</td>
+      <td>2x</td>
+      <td>23x</td>
+      <td>116x</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>2x</td>
+      <td>35x</td>
+      <td>151x</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td>3x</td>
+      <td>49x</td>
+      <td>190x</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## Resources

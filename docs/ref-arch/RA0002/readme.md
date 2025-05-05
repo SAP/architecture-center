@@ -1,6 +1,6 @@
 ---
 id: id-ra0002
-slug: /ref-arch/6c73e3575f
+slug: /ref-arch/81805673c0
 sidebar_position: 2
 sidebar_custom_props:
   category_index:
@@ -8,8 +8,12 @@ sidebar_custom_props:
     - integration
     - aws
     - azure
-title: Architecting Multi-Region Resiliency
-description: Learn how to architect multi-region resiliency for SAP Business Suite solutions such as SAP Business Technology Platform to ensure high availability and business continuity. This guide covers strategies, best practices, and sample implementations for a robust, compliant multi-region setup with failover and disaster recovery capabilities.
+title: Architecting Multi-Region HA/DR resiliency patterns
+description: >-
+  Learn how to architect multi-region resiliency for SAP solutions such to
+  ensure high availability and business continuity. This guide covers
+  strategies, best practices, and sample implementations for a robust, compliant
+  multi-region setup with failover and disaster recovery capabilities.
 keywords:
   - sap
   - integration
@@ -47,6 +51,7 @@ contributors:
   - uklasing
   - alperdedeoglu
   - arajsinha
+discussion: 
 last_update:
   author: mahesh0431
   date: 2025-02-19
@@ -56,7 +61,7 @@ In today's interconnected business landscape, ensuring the resilience of mission
 
 While many SAP products support multi-region disaster recovery as part of their architecture, certain solutions, like SAP BTP, require customers to architect the setup. Although SAP BTP services offer multi-Availability Zone (multi-AZ) resiliency by default, some customers need additional robustness and regulatory compliance through a multi-region configuration. This documentation will guide you through the concepts, strategies, and best practices for implementing multi-region architectures on SAP BTP.
 
-## Reference Architecture
+## Architecture
 
 SAP BTP offers a global infrastructure that allows deployment across various regions which helps our customers achieve multi-region setup for their services. The following diagram presents a comprehensive reference architecture for multi-region deployment on SAP BTP:
 

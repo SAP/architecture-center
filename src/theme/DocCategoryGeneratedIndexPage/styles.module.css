@@ -33,7 +33,7 @@
 }
 
 /* Adjust for Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .contentWrapper {
         flex-direction: column;
         gap: 1rem;
@@ -41,41 +41,48 @@
     }
 
     .filters {
-        width: 100%;
-        max-width: none;
-        min-width: auto;
-        margin-top: 15px;
-        align-items: center;
+        flex-wrap: wrap; /* Wrap elements on smaller screens */
+        justify-content: center; /* Center-align filters */
+    }
+
+    .filterRow {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .resetIconWrapper {
         justify-content: center;
-        margin: 0 auto;
+        width: 100%; /* Center the reset button on smaller screens */
     }
 }
 
 .filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 1.5rem;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    min-height: auto;
-    width: 100%;
-    margin-top: 5px;
     border: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: row; /* Side by side layout */
-    gap: 1.5rem;
-    align-items: center;
-    flex-wrap: wrap; /* Wrap elements on small screens */
+    width: 100%; /* Prevent overflow */
+    overflow: visible; /* Hide any accidental overflow */
 }
 
 .filterGroup {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Equal width for both filters */
-    min-width: 565px; /* Prevents shrinking too much */
+    flex: 1 1 100%; /* Take full width on smaller screens */
+    min-width: 300px; /* Prevent shrinking below a usable width */
 }
 
 .filterGroupReset {
     display: flex;
     flex-direction: column;
+}
+
+.filterRow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
 .filters h4 {
@@ -91,54 +98,29 @@
     flex-grow: 1;
 }
 
-.filterGroupLabel {
-    font-weight: bold;
-    font-size: 16px;
-    color: #0073e6;
-}
-
 .resetIconWrapper {
     display: flex;
-    justify-content: end;
-    margin-top: 20px;
-    width: 100%;
+    justify-content: center; /* Center-align the reset icon */
+    align-items: center;
+    width: auto; /* Prevent it from stretching */
+    padding-top: 1.2rem;
 }
 
 .resetIcon {
-    font-size: 25px; /* Adjust size */
-    color: #0073e6;
+    font-size: 25px;
+    color: var(--sapContent_IconColor);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }
 
 .resetIcon:hover {
-    color: #005bb5;
+    color: #2684ff;
 }
 
 .resetDisabled {
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
-}
-
-/* Mobile-Specific Adjustments */
-@media (max-width: 768px) {
-    .filters {
-        flex-direction: column;
-    }
-
-    .filterGroup {
-        width: 100%;
-        min-width: 100px;
-    }
-
-    .filterGroupReset {
-        width: 100%;
-    }
-
-    .resetButtonWrapper {
-        justify-content: end;
-    }
 }
 
 /* Dark Mode */
@@ -152,10 +134,6 @@ html[data-theme='dark'] .filters {
 html[data-theme='dark'] .filterGroup {
     background: #1e1e1e !important;
     background-color: #1e1e1e !important;
-}
-
-html[data-theme='dark'] .filterGroupLabel {
-    color: #66aaff;
 }
 
 html[data-theme='dark'] .resetButton {

@@ -1,6 +1,6 @@
 ---
 id: id-ra0001
-slug: /ref-arch/a06a959120
+slug: /ref-arch/fbdc46aaae
 sidebar_position: 1
 sidebar_custom_props:
   category_index:
@@ -9,19 +9,21 @@ sidebar_custom_props:
     - aws
     - azure
 title: Reference Architecture for Event-Driven Applications
-description: Guidance for developing end-to-end integrated applications based on Event-Driven Architecture (EDA) patterns and CAP modeling framework.
+description: >-
+  Guidance for developing applications based on Event-Driven Architecture (EDA)
+  patterns and Cloud Application Programming (CAP) framework.
 keywords:
   - sap
   - btp
   - integration
   - event-driven architecture
-  - azure 
-  - aws 
+  - azure
+  - aws
   - genai
   - cloud application programming model
   - cap
   - eda
-sidebar_label: Designing Event-Driven Applications 
+sidebar_label: Designing Event-Driven Applications
 image: img/logo.svg
 tags:
   - azure
@@ -40,7 +42,9 @@ contributors:
   - anbazhagan-uma
   - pra1veenk
   - AjitKP91
-  - swatimaste00 
+  - swatimaste00
+  - anirban-sap
+discussion: 
 last_update:
   author: anbazhagan-uma
   date: 2025-01-18
@@ -50,7 +54,7 @@ Customers are transitioning to cloud services and embracing a new digital core t
 
 This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
 
-## Reference Architecture
+## Architecture
 
 ![drawio](drawio/e2b-cc.drawio)
 
