@@ -1,58 +1,55 @@
 ---
 id: id-ra0005-6
 slug: /ref-arch/e5eb3b9b1d/6
-sidebar_position: 1
+sidebar_position: 6
 sidebar_custom_props:
   category_index: []
 title: Intelligent Data Apps
-description: Please add a description (max 300 characters)
+description: Intelligent Data Apps leverage advanced AI capabilities to transform how organizations interact with and derive insights from large quantities of structured data. By integrating natural language processing, federated data access, and real-time analytics, these applications enable seamless decision-making and operational efficiency across diverse industries.
 keywords:
-  - sap
+    - sap
+    - ai
+    - genai
+    - aws
+    - azure
+    - gcp
 sidebar_label: Intelligent Data Apps
 image: img/logo.svg
 tags:
-  - ref-arch
+    - agents
+    - genai
+    - aws
+    - gcp
+    - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors: 
+    - vedant-aero-ml
+    - kay-schmitteckert
 discussion: 
 last_update:
-  author: kay-schmitteckert
-  date: 2025-01-14
+  author: vedant-aero-ml
+  date: 2025-05-02
 ---
 
-Intelligent Data Apps enable users to interact with large datasets through natural language queries. These applications effectively integrate the vast data within business systems with the power of AI. By leveraging advanced AI techniques, they first interpret the user's natural language input, convert it into a technical query to retrieve the relevant data subset, and ultimately present the results back to the user.
+Intelligent Data Apps (IDA) empower users to interact with extensive datasets through natural language queries. These applications seamlessly integrate vast amounts of data stored across heterogeneous enterprise systems, leveraging SAP Datasphere for federated data access, eliminating the need for data replication. By leveraging Agents, natural language inputs are first interpreted and then transformed into technical queries to retrieve pertinent data, with results delivered in an actionable format. The architecture also supports the streamlined integration RAG pipelines for query pre-processing and overall response optimization.
 
-Agents are autonomous systems powered by Large Language Models (LLMs) that perform tasks independently, without continuous human intervention. These agents can analyze information, make decisions, and interact with systems, APIs, or other agents to execute complex tasks. By harnessing the reasoning and decision-making capabilities of LLMs, agents go beyond passive responses, enabling dynamic task execution within layered workflows. Unlike Retrieval Augmented Generation (RAG), which follows a linear process, agents employ iterative reasoning, refining their approach through intermediate outputs to tackle complex, non-linear tasks. In data-intensive business environments, agents excel at efficiently querying, analyzing, and processing intricate interrelationships, utilizing their advanced reasoning capabilities, and making them an ideal processing engine for intelligent data apps.
+An IDA can cater two core use case ideas: _Descriptive_ and _Prescriptive_ analytics. Descriptive analytics involves deriving insights and trends from data, while prescriptive analytics takes this a step further by offering proactive recommendations and actionable strategies based on the analyzed data, helping organizations optimize decision-making and operational efficiency.
 
 ## Architecture
 
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
-The architecture illustrates how intellient data apps operate within the SAP Business Technology Platform (BTP) ecosystem, enabling
-seamless integration of AI agent component and data sources. At the core, the [SAP Cloud Application Programming Model](./#sap-cloud-application-programming-model) (CAP)
-serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows.
-[SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party
-applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without
-centralized storage. Meanwhile, the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
+The architecture illustrates how an IDA operates within the SAP Business Technology Platform (BTP) ecosystem, enabling seamless integration of AI agent component and data sources. At the core, the [SAP Cloud Application Programming Model](./#sap-cloud-application-programming-model) (CAP)
+serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in _Code Based Agent_ approach. The agent can be designed in Project Agent Builder ([PAB](../5-ai-agents/readme.md#project-agent-builder)) and integrated with data in the _Content Based Agent_ approach. More information about Code and Content based agents can be found here: [Agent Streams](../5-ai-agents/readme.md#agent-streams). 
 
-A high-level overview of how LLM Agents operate by combining key elements that enable intelligent decision-making and task execution:
+[SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 
-- **LLM** serves as the reasoning engine, processing inputs and generating outputs
-- **Knowledge** provides the data context needed for informed actions.
-- **Memory** retains previous steps, ensuring continuity in complex workflows.
-- **Tools**, like e.g., an SQL execution platform, perform specific tasks such as data retrieval or calculations.
-- **Recipe** orchestrates these components, managing their interactions to deliver accurate results (e.g., in a data analysis task, the agent recipe might guide the LLM to query a database, store results in memory, and then apply a calculation tool to generate insights).
-
-These elements work together in unison to create intelligent applications that unify data and AI, enabling real-time analytics and proactive decision-making. When combined with platforms like SAP Datasphere, agents unlock transformative potential, driving
-significant advancements across industries such as supply chain, logistics, financial services, and operations.
-
-Agents broadly address two core use cases: _Descriptive_ and _Prescriptive_ analytics. Descriptive analytics involves
-deriving insights and trends from data, while prescriptive analytics takes this a step further by offering proactive recommendations and actionable strategies based on the analyzed data, helping organizations optimize decision-making and operational efficiency.
+These elements work together in unison to create an application that unifies data and AI, enabling real-time analytics and proactive decision-making. When combined with platforms like SAP Datasphere, agents can drive value across industries such as supply chain, logistics, financial services, and operations.
 
 ## Services & Components
 
@@ -60,10 +57,25 @@ For a comprehensive list of services, components and descriptions, please explor
 
 - [SAP Datasphere](https://discovery-center.cloud.sap/serviceCatalog/a62771ea-b7bf-4746-9d4b-fec20ade5281) enables a business data fabric architecture that uniquely harmonizes mission-critical data across the organization, unleashing business experts to make the most impactful decisions. It combines previously discrete capabilities into a unified service for data integration, cataloging, semantic modeling, data warehousing, and virtualizing workloads across SAP and non-SAP data.
 
-## Business Agent Foundation (BAF)
+
+## Example Use Cases
+
+- **Finance KPI Exploration - _Descriptive_**  
+  Intelligent Data Apps for Finance empower sales & finance teams to “ask” for key performance indicators across massive, structured datasets without manual SQL or BI modeling.
+
+- **Procurement Spend Classification - _Descriptive_**  
+  Leveraging detailed purchase order and supplier master data, agents classify spend by category, vendor, and region—highlighting consolidation opportunities and non‑contracted purchases directly in a single NL query.
+
+- **Replenishment Recommendation Engine - _Prescriptive_**  
+  Agents combine inventory levels, sales forecasts, and lead‑time tables to calculate optimal reorder points and suggest purchase orders—automating replenishment planning to prevent stock‑outs.
+
+
+
+
+<!-- ## Business Agent Foundation (BAF)
 
 The aim of the Business Agent Foundation (prototype) is to enable the efficient realization of business AI scenarios by providing reusable AI business agents as a service.
 Through various integration and development tools provided via the Business Agent Foundation (prototype),
 AI agents can be seamlessly integrated into existing and new business applications.
 The innovation offers various features that empower agents with the skills required to complete enterprise processes and tasks,
-while understanding business context and semantics. For more information, read the blog post [AI Business Agents and the Evolution of Business Automation: Join the Innovation Journey](https://community.sap.com/t5/technology-blogs-by-sap/ai-business-agents-and-the-evolution-of-business-automation-join-the/ba-p/13614232).
+while understanding business context and semantics. For more information, read the blog post [AI Business Agents and the Evolution of Business Automation: Join the Innovation Journey](https://community.sap.com/t5/technology-blogs-by-sap/ai-business-agents-and-the-evolution-of-business-automation-join-the/ba-p/13614232). -->

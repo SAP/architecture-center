@@ -53,11 +53,10 @@ function writeJsonToFile(filePath, data) {
 
 export default async function generateSidebarSlices({ defaultSidebarItemsGenerator, ...args }) {
     const sidebar_id = args.item.dirName;
-    const contentPath = sidebar_id === 'guidance' ? 'guidance' : 'docs';
     const tags = await getTagsFile({
         contentPaths: {
-            contentPathLocalized: contentPath,
-            contentPath: contentPath,
+            contentPathLocalized: 'docs',
+            contentPath: 'docs',
         },
     });
 
@@ -100,29 +99,6 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         writeJsonToFile(outputFile, [{ ...category, items: landingPageSectionItems }]);
 
         return [category];
-    }
-
-    if (sidebar_id === 'guidance') {
-        const filteredGuidanceDocs = args.docs.filter(
-            (doc) =>
-                Array.isArray(doc.frontMatter?.sidebar_custom_props?.guidance_index) &&
-                doc.frontMatter.sidebar_custom_props.guidance_index.length > 0
-        );
-
-        const docsGuidanceItems = filteredGuidanceDocs.map((doc) =>
-            createRefItem(doc, tags, '/guidance', {
-                guidance_index: doc.frontMatter?.sidebar_custom_props?.guidance_index,
-                isGuidance: true,
-            })
-        );
-
-        const latestItems = getLatestItems(docsGuidanceItems);
-        const landingPageSectionItems = createLandingPageSection(latestItems);
-
-        const outputFile = path.join(__dirname, '../data/exploreGuidance.json');
-        writeJsonToFile(outputFile, [{ items: landingPageSectionItems }]);
-
-        return [];
     }
 
     const sidebarCategory = jsonSchema.generatedIndexes.find((index) => index.customProps.id === sidebar_id);
