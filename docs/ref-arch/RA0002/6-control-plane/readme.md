@@ -70,7 +70,8 @@ To address these complex requirements and orchestrate multi-region process, a cu
 
 ### Multi-Region Manager (MRM)
 
-![Multi-Region Manager](images/multi-region-manager.svg?raw=true)
+
+![drawio](drawio/multi-region-manager.drawio)
 
  MRM is an open-source sample CAP-based application that can orchestrate the process of switching between regions. The orchestration process involves changes in replication topology, failover management, load balancer control, centralized monitoring and logging, and service-specific adaptations. It offers both manual and automatic failover options, requiring detailed analysis to choose the appropriate method based on the requirement. It can be deployed in both regions, so if one region is not available, the application could be accessed from the other region to initiate the failover.
 
