@@ -176,11 +176,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                     <div
                         style={{
                             height: '50px',
-                            backgroundImage: `url("${
-                                item.customProps?.isGuidance
-                                    ? '/img/Card_header_green.jpg'
-                                    : '/img/Card_header_blue.jpg'
-                            }")`,
+                            backgroundImage: `url("${'/img/Card_header_blue.jpg'}")`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                         }}
@@ -196,7 +192,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                                 minWidth: '6px',
                                 borderTopRightRadius: '4px',
                                 borderBottomRightRadius: '4px',
-                                backgroundColor: item.customProps?.isGuidance ? '#06B400' : '#0070F2',
+                                backgroundColor: '#0070F2',
                                 marginTop: '10px',
                             }}
                         />

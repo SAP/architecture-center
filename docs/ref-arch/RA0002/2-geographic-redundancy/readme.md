@@ -51,7 +51,7 @@ last_update:
 
 Geographic redundancy involves distributing data and resources across multiple geographic locations to ensure continuous service availability or for disaster recovery purposes 
 
-![Basic Geographic Redundancy](images/geographic-redundancy.svg?raw=true)
+![drawio](drawio/geographic-redundancy.drawio)
 
 A basic setup of geographic redundancy involves SAP BTP Application or a service subscribed to multiple subaccounts in different regions. These services or applications also need artifacts, data, events, etc., to be synchronized across the regions and often require more sophisticated strategies and additional components.
 
