@@ -34,9 +34,9 @@ They have been there from the very beginning, contributing to everything from fr
 
 <CoreTeam />
 
-## The evolving team
+## The extended team
 
-When professional support was needed, a team of skilled colleagues stepped in to push the boundaries with expertise and dedication.
+When extra support was needed, a team of skilled professionals stepped in to push the boundaries with expertise and dedication.
 
 <ExtendedTeam />
 
