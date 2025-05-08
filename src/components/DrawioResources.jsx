@@ -59,7 +59,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
         // under div with class 'markdown' => wrap img in paragraph for now
         <>
             <p>
-                <div style={{ position: 'relative', display: 'inline-block' }}>
+                <div style={{ position: 'relative', display: 'block', maxWidth: '100%', margin: '0 auto' }}>
                     <img
                         decoding="async"
                         loading="lazy"
