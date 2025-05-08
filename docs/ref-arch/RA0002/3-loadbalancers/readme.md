@@ -54,8 +54,6 @@ In a multi-region setup for SAP BTP services, load balancers play a crucial role
 ![drawio](drawio/loadbalancer.drawio)
 
 
-<!-- ![Load Balancers](images/loadbalancer.svg?raw=true) -->
-
 ## Types of Load Balancers used for Multi-Region Architectures
 
 ### DNS-Based Load Balancers
