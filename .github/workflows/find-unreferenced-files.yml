@@ -1,0 +1,52 @@
+name: Find Unreferenced Files
+
+on:
+    schedule:
+        - cron: '0 6 * * 1' # Every Monday at 06:00 UTC
+    workflow_dispatch:
+
+jobs:
+    check-unused-files:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Find unreferenced files and write to summary
+              run: |
+                  echo "## 🔍 Unreferenced Files Report" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+
+                  FILE_DIRS=("assets" "diagrams" "docs")  # update as needed
+                  FILE_EXTENSIONS=("*.png" "*.jpg" "*.jpeg" "*.svg" "*.drawio" "*.docx")  # update as needed
+                  MARKDOWN_FILES=$(find . -name "*.md")
+
+                  FOUND_UNUSED=0
+
+                  for dir in "${FILE_DIRS[@]}"; do
+                    if [ -d "$dir" ]; then
+                      for ext in "${FILE_EXTENSIONS[@]}"; do
+                        while read -r file; do
+                          [ -z "$file" ] && continue
+                          basename=$(basename "$file")
+                          referenced=false
+                          for md in $MARKDOWN_FILES; do
+                            if grep -q "$basename" "$md"; then
+                              referenced=true
+                              break
+                            fi
+                          done
+
+                          if [ "$referenced" = false ]; then
+                            echo "- $file" >> $GITHUB_STEP_SUMMARY
+                            FOUND_UNUSED=1
+                          fi
+                        done < <(find "$dir" -type f -name "$ext")
+                      done
+                    fi
+                  done
+
+                  if [ "$FOUND_UNUSED" -eq 0 ]; then
+                    echo "🎉 No unreferenced files found!" >> $GITHUB_STEP_SUMMARY
+                  fi
