@@ -155,16 +155,15 @@ Below are the list of services that are must-have to implement this architecture
 - **[Application Autoscaler](https://discovery-center.cloud.sap/serviceCatalog/application-autoscaler?service_plan=standard&region=all&commercialModel=cloud)**: Application Autoscaler lets you automatically increase or decrease the number of your application instances based on the policies you have defined.
 
 
-## Examples
+<!---## Examples
+
 Below are some of the examples and scenarios where this framework has been leveraged to build different business scenarios:
 - [“Events-to-Business Actions": An event-driven architecture on SAP BTP to implement Industry 4.0 scenarios with Microsoft Azure Services](https://community.sap.com/t5/technology-blogs-by-sap/part-1-events-to-business-actions-quot-an-event-driven-architecture-on-sap/ba-p/13555219)
 - [Events-2-Business Action Framework – Create Plant Maintenance Notification in SAP S/4 HANA](https://community.sap.com/t5/technology-blogs-by-members/events-2-business-action-framework-create-plant-maintenance-notification-in/ba-p/13573476#:~:text=Events%2D2%2DBusiness%20Action%20Framework%20%E2%80%93%20Create%20Plant%20Maintenance%20Notification%20in%20SAP%20S/4%20HANA)
-- [Integrate Events from Amazon Monitron with SAP S/4HANA using SAP BTP](https://discovery-center.cloud.sap/missiondetail/4345/4628/)
-- [Integrate Amazon Rekognition and SAP EHS for PPE Detection](https://discovery-center.cloud.sap/missiondetail/4352/4635/)
 
+--->
 
 ## Resources
 For more information related to this reference architecture, you can check out the following resources:
 
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/btp-events-to-business-actions-framework)
-- [Build Events-to-Business Actions Apps with SAP BTP and MS Azure/AWS](https://discovery-center.cloud.sap/missiondetail/4172/4422/)
