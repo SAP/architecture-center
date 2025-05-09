@@ -44,30 +44,35 @@ Data Products in SAP Business Data Cloud serve as a standardized and efficient w
 
 1. **Efficient Data Sharing Across Domains**:
 
-   - Data Products facilitate integration and consumption by SAP, customer, and partner applications via APIs and Events.
+   - Data Products facilitate replication-free integration and consumption by SAP, customer, and partner applications via APIs and Events.
 
-2. **High-Quality Metadata**:
+2. **Efficient Data Storage**
+
+   - Data Products are processed and curated in a modern object-store based data lake architecture with highly scalable Spark processing
+      
+3. **High-Quality Metadata**:
 
    - Metadata includes business semantics and is accessible through directories like the Data Product Directory and ORD Aggregators, enhancing discoverability.
 
-3. **Optimized for Analytics**:
+4. **Optimized for Analytics**:
 
    - Data sets are curated for intensive reads and consumed in a read-only fashion, ensuring efficiency and reliability.
 
-4. **Supporting Analytical and AI Applications**:
+5. **Supporting Analytical and AI Applications**:
 
    - Data Products provide foundational data for dashboards, analytical models, and AI applications.
 
-5. **Decentralized Ownership**:
+6. **Decentralized Ownership**:
 
    - Inspired by Data Mesh principles, Data Products are owned and managed by domain experts or teams responsible for operational data.
 
-6. **Lifecycle Management**:
+7. **Lifecycle Management**:
    - Data Products undergo needs analysis, design, and delivery phases, ensuring their accuracy and relevance.
+
 
 ## Integration and Consumption
 
-Data Products are exposed for consumption via APIs, Events, or Delta Sharing protocols. They are described using [Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/) metadata, which includes attributes such as visibility, release status, and integration dependencies.
+Data Products are exposed for consumption via APIs, Events, or [Delta Sharing](https://www.databricks.com/product/delta-sharing) protocols. They are described using [Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/) metadata, which includes attributes such as visibility, release status, and integration dependencies. 
 
 ### Components of Data Products
 
@@ -94,6 +99,7 @@ Data Products are exposed for consumption via APIs, Events, or Delta Sharing pro
 5. **Business Semantic Aspect**:
    - Describes semantic models using Entity Types, bridging conceptual and technical data models.
 
+
 ## Architecture of Data Products
 
 ### Data Sharing View
@@ -101,7 +107,7 @@ Data Products are exposed for consumption via APIs, Events, or Delta Sharing pro
 ```mermaid
 graph LR
     subgraph Data Provider
-        DL[Delta Lake Table] --> DS[Delta Sharing Server]
+        DL[Data Lake Table] --> DS[Delta Sharing Server]
         AP[Access Permissions] --> DS
     end
 
@@ -124,7 +130,7 @@ flowchart TD
         Catalog[Catalog]
         DP_Def2[Data Product Definitions]
         subgraph Data_Lake[Data Lake]
-            Delta_Lake_Tables["Delta Lake Tables"]
+            Data_Lake_Tables["Data Lake Tables"]
         end
 
         Catalog -->|reads| DP_Def1
@@ -160,11 +166,12 @@ sequenceDiagram
 3. **Consumption**:
    - Resources are accessed via APIs or Events defined in output ports.
 
+
 ## Delta Sharing Protocol
 
 ### Concept
 
-Delta Sharing is an open protocol for sharing data stored in cloud-based Delta Lake tables. It enables:
+Delta Sharing is an open protocol for sharing data stored in cloud-based Data Lake tables. It enables:
 
 - **Zero-Copy Data Access**:
 
@@ -190,17 +197,28 @@ Delta Sharing is an open protocol for sharing data stored in cloud-based Delta L
 
 ## Types of Data Products
 
-### Primary Data Product
+### SAP-managed vs customer-managed Data Products
+
+- Starting with S/4HANA Cloud, SAP is providing a comprehensive set of **SAP-managed data products** accross the Lines of Business (LoB). Customer only need to activate these predefined data products and then SAP takes care for extraction, loading and data curation.
+- Customer also can create their own **customer-managed data products** to enhance the set of data products with data from any SAP or non-SAP application. Customer-managed data products are curated in SAP Datasphere. The data and ORD file(s) are stored in the customer-managed object store within SAP Datasphere.
+- Both type of data products are technically identical. They are stored in an object store, described via ORD file and published in the BDC data catalogue.
+   
+### Data Packages
+
+- Grouping of related SAP-managed Data Products for streamlined onboarding and activation in SAP Business Data Cloud.
+
+Remark: 
+- SAP-managed Data products cannot be activated individually. They only can be activated via Insight App or on data package level. That means that all the data products within the data package or Insight app are activated in one step.
+
+### Primary Data Product (sub type of a data product)
 
 - Directly provided from applications, representing original data from source applications.
 
-### Derived Data Product
+### Derived Data Product (sub type of a data product)
 
 - Curated by SAP and derived from other data sets, delivering value-add based on existing Data Products or APIs.
 
-### Data Packages
 
-- Grouping of related Data Products for streamlined onboarding and activation in SAP Business Data Cloud.
 
 ## Key Attributes of Data Products
 
@@ -218,7 +236,7 @@ Delta Sharing is an open protocol for sharing data stored in cloud-based Delta L
 
 ## Purpose
 
-Foundation Services facilitate the discovery, extraction, and consumption of Data Products across SAP Lines of Business (LoBs). These services onboard LoBs progressively, starting with SAP S/4HANA Cloud.
+Foundation Services facilitate the discovery, extraction, and consumption of SAP-managed Data Products. These services onboard the different Lines of Business (LoB) applications in SAP progressively, starting with SAP S/4HANA Cloud.
 
 ## Features
 
@@ -226,12 +244,13 @@ Foundation Services facilitate the discovery, extraction, and consumption of Dat
 
    - Enables decentralized discoverability of Data Products.
 
-2. **Data Lake Storage**:
+2. **Data Lake Storage, including Spark Runtime**:
 
-   - Stores data as Delta Lake tables, following Delta Sharing principles.
+   - Stores data as Data Lake tables, following Delta Sharing principles.
+   - Medallion architecture with Bronze, Silver and Gold (optionally) and processing of data via Spark processing framework.
 
-3. **Analytics and Machine Learning**:
-   - Provides ready-to-use data for analytics and AI applications.
+3. **SAP-Managed Data Products**:
+   - Provides ready-to-use data products for analytics and AI applications.
 
 ## Conclusion
 
