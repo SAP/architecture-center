@@ -87,7 +87,7 @@ function prepareCommand(input, out) {
     return cmd;
 }
 
-//generate qrcode, only get inner part
+// generate qrcode, only get inner part
 async function generateQrSvg(link) {
     const rawSvg = await QRCode.toString(link, { type: 'svg', margin: 0 });
     const qrInner = rawSvg.replace(/<\/*svg[^>]*>/g, '');
@@ -101,8 +101,11 @@ async function watermarkAll() {
         const viewBox = svg.match(/viewBox="([^"]*)"/)[1].split(' ');
         const height = parseInt(viewBox[3]);
         const width = parseInt(viewBox[2]);
+        // scale factor for pad and yShift to adjust for wide svgs
+        let scaleBox = width/ 1500;
+        scaleBox = Math.max(1, scaleBox);
         // finding these exact values is a bit trial and error..
-        const pad = 20;
+        const pad = 20 * scaleBox;
         viewBox[0] = -pad;
         viewBox[1] = -pad;
         viewBox[2] = width + pad * 2; // add padding left/right
@@ -114,17 +117,15 @@ async function watermarkAll() {
         };
         logo.y = height + logo.mt;
 
-        let scaleDown = 1;
-        // ensure watermark doesn't get to big for smaller diagrams
-        if (width < 800) scaleDown = 0.7;
-        else if (width < 1000) scaleDown = 0.75;
-        else if (width < 1200) scaleDown = 0.85;
+        // ensure watermark doesn't get to big for smaller & bigger diagrams
+        let scaleDown = width / 1500;
+        scaleDown = Math.max(0.7, scaleDown);
         logo.h = logo.h * scaleDown;
         logo.w = logo.w * scaleDown;
 
         // have now title of solution diagram on top
         // need to shift everything else
-        const yShift = 56;
+        const yShift = 56 * scaleBox;
         viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
         const textX = logo.w + pad;
 
