@@ -39,8 +39,9 @@ last_update:
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
 Cloud infrastructures are distributes systems by default, caused by the fact that multiple systems are connected to execute a desired task. A distributed system design is massively increasing the complexity in building and operating these solutions. In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distrinbuted system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late. 
-Looking at typical enterprise solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like S/4 HANA, SuccessFactors, Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure-as-a-Service, 3rd party solutions and last but not least the Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. 
-In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsft Azure), these locations are referred to as "regions".
+
+Looking at typical enterprise solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like S/4 HANA, SuccessFactors, Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure as a Service (IaaS), 3rd party solutions and last but not least the SAP Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsft Azure), these locations are referred to as "regions". 
+
 However, the distribution of services to different locations is not just an obstacle to deal with, often there are valid business reasons behind using certain datacenter locations, like regulatory requirements, security and cost considerations and, you might guess it, performance requirements. 
 Many SAP customers do business in a vast number of countries, running services and solutions in different locations and regions becomes a business requirement and imperative.
 Designing such a global network of services for a certain customer specific solution and fitting it into an overarching enterprise architecture is a complex undertaking. As with any architectural concept, the ability of making intelligent tradeoffs is a most required skill.
@@ -74,7 +75,19 @@ Specialized Docker containers simulate UI requests by issuing OData calls to the
 Using a container simplifies deployment to different environments. The container can be deployed to anything from a docker desktop on a local workstation or virtual machine, to different container runtimes like AWS Elastic Container Service (ECS), Azure Container Instance (ACI) or Google Cloud Run, all kinds of Kubernetes environments like Kyma on SAP BTP and even Cloud Foundry. This deplyment flexibility makes it easy to simulate different user locations.
 
 * **The Controller Node**  
-The controller node runs another instance of JMeter. It is responsible for scheduling and
+The controller node runs another instance of JMeter. It is responsible for scheduling and controlling the load test operations on the different worker nodes. It uploads the measurement results to the dashboard.
+
+* **The Dashboard**  
+The Dashboard consists of 2 docker containers:
+  * A Container running [Grafana](https://github.com/grafana/grafana)
+  . According to [Wikipedia](https://en.wikipedia.org/wiki/Grafana) Grafana "is a  multi-platform open source analytics and interactive visualization web application. It can produce charts, graphs, and alerts for the web when connected to supported data sources." It is very often used for technical dashboards, e.g. in observability use cases.   
+
+  * A Container running [InfluxDB](https://github.com/influxdata/influxdb). [Wikipedia](https://en.wikipedia.org/wiki/InfluxDB) states: "InfluxDB is a time series database (TSDB) developed by the company InfluxData. It is used for storage and retrieval of time series data in fields such as operations monitoring, application metrics, Internet of Things sensor data, and real-time analytics..."
+ 
+   The Grafana dashboard is used to group and analyze the performance results that have been uploaded to InfluxDB as single records.
+
+  ![Screenshot of the Grafana Dashboard](images/dashboard.jpg)  
+Screenshot of the Grafana Dashboard    
 
 
 
@@ -82,9 +95,6 @@ The controller node runs another instance of JMeter. It is responsible for sched
 
 
 
-Specialized JMeter  The results of these request with different payload sizes, different numbers of concurrent client calls and diffent number of iterations were recorded and presented on a Grafana / InfluxDB based dashboard.
-
-The following 
 
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
