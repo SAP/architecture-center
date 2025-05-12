@@ -48,7 +48,7 @@ last_update:
 
 This describes a sample business scenario for building a reference application based on the event-driven application architecture.It extends the platform agnostic reference architecture to show how to integrate events from AWS IoT Core with SAP S/4HANA enterprise system using message brokers and events.
 
-In this reference application use-case, events from AWS IoT core are published to SAP Integration Suite, advanced event mesh or SAP Event Mesh. The Node.js extension application deployed in SAP BTP subscribes to the advanced event mesh queue and executes the action that is required to be taken based on the event details. SAP Event Mesh capability in SAP Integration Suite can also be leveraged for integration. The choice of the eventing service can be based on the scenario and volume of events to be handled.
+In this reference application use-case, events from AWS IoT core are published to SAP Integration Suite, advanced event mesh. The Node.js extension application deployed in SAP BTP subscribes to the advanced event mesh queue and executes the action that is required to be taken based on the event details. SAP Event Mesh capability in SAP Integration Suite can also be leveraged for integration. The choice of the eventing service can be based on the scenario and volume of events to be handled.
 
 ## Business Process Flow
 
@@ -70,7 +70,7 @@ In this event-driven scenario, based on the real-time data from IoT Devices gett
 
 ## Solution Architecture
 
-The key services used by AWS are AWS IoT Core, Amazon SWS and Amazon EventBridge. The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite, advanced event mesh or SAP Event Mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service.
+The key services used by AWS are AWS IoT Core, Amazon SWS and Amazon EventBridge. The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite, advanced event mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service.
 
 ![drawio](drawio/e2b-awsiot-sqs.drawio)
 
@@ -96,7 +96,7 @@ These are the technical prerequisites for integration between AWS IoT Core, SAP 
     - Foundation for running the CAP extension application for translating events to business actions.
 - **Authorization and Trust Management Service**
     - Required for securing the extension application in SAP BTP
-- **SAP Integration Suite, Advanced Event Mesh or Event Mesh**
+- **SAP Integration Suite,advanced event mesh
     - Required to receive events from Amazon AWS IoT
 - **SAP HANA Cloud**
     - Required to store action configuration and logs for the CAP application
@@ -112,4 +112,4 @@ These are the technical prerequisites for integration between AWS IoT Core, SAP 
 - **Amazon EventBridge**
     - Serverless event bus for SaaS apps and AWS Services. Required to send events from Amazon SQS to SAP Event Mesh.
 
-For detailed step by step information and to try out the integration, visit the SAP Discovery Center mission [Build Events-to-Business Actions with Amazon Web Services](https://discovery-center.cloud.sap/missiondetail/4172/4422/)
+For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework)

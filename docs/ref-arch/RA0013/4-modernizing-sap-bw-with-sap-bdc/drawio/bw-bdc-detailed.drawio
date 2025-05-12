@@ -1,13 +1,13 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
   <diagram id="BBTBgPeguMspx1ExuZYE" name="Page-4">
-    <mxGraphModel dx="2920" dy="683" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2680" dy="743" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="cN5y4G9h1jpa3G24g_gX-1" value="&lt;p style=&quot;margin-top: 6pt ; margin-bottom: 0pt ; margin-left: 0in ; direction: ltr ; unicode-bidi: embed ; vertical-align: baseline ; word-break: normal ; font-size: 14px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=1.5;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=2;" parent="1" vertex="1">
           <mxGeometry x="-1202" y="1101" width="1243" height="709" as="geometry" />
         </mxCell>
-        <mxCell id="cN5y4G9h1jpa3G24g_gX-2" value=" Business Data Cloud (BDC)" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" parent="1" vertex="1">
+        <mxCell id="cN5y4G9h1jpa3G24g_gX-2" value=" SAP Business Data Cloud (BDC)" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="-1163" y="1133" width="37" height="19" as="geometry" />
         </mxCell>
         <mxCell id="cN5y4G9h1jpa3G24g_gX-3" value="" style="group" parent="1" vertex="1" connectable="0">

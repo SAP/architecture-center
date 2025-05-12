@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
   <diagram id="wEa9kxaWup0mXUp4x22L" name="Azure-CC">
-    <mxGraphModel dx="1761" dy="1032" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1026" dy="683" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -301,22 +301,16 @@
           <mxGeometry x="11" y="6" width="140" height="30" as="geometry" />
         </mxCell>
         <mxCell id="MCOobiUJhgL7llRtCvgV-142" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/iot/IoT_Central_Applications.svg;" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
-          <mxGeometry x="41.56" y="89" width="40" height="46.01" as="geometry" />
-        </mxCell>
-        <mxCell id="MCOobiUJhgL7llRtCvgV-143" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/integration/Event_Grid_Domains.svg;" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
-          <mxGeometry x="128.56" y="93.08999999999997" width="40" height="35.83" as="geometry" />
+          <mxGeometry x="90.5" y="89" width="40" height="46.01" as="geometry" />
         </mxCell>
         <mxCell id="MCOobiUJhgL7llRtCvgV-144" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.storage_blob;" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
-          <mxGeometry x="81.56" y="199" width="43" height="40" as="geometry" />
+          <mxGeometry x="89" y="199" width="43" height="40" as="geometry" />
         </mxCell>
         <mxCell id="MCOobiUJhgL7llRtCvgV-145" value="&lt;span style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#1d2d3e&quot;&gt;Azure Blob Storage&lt;/font&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
           <mxGeometry x="45.5" y="245" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="MCOobiUJhgL7llRtCvgV-146" value="&lt;span style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#1d2d3e&quot;&gt;Azure IoT&lt;/font&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
-          <mxGeometry x="38.06" y="135.01" width="51.94" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="MCOobiUJhgL7llRtCvgV-147" value="&lt;span style=&quot;border-color: var(--border-color); font-family: arial; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-size: 14px;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#1d2d3e&quot;&gt;Azure Event Grid&lt;/font&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;verticalAlign=top;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" parent="MCOobiUJhgL7llRtCvgV-65" vertex="1">
-          <mxGeometry x="124.56" y="135.01" width="55.44" height="30" as="geometry" />
+          <mxGeometry x="67.52" y="135.01" width="85.97" height="30" as="geometry" />
         </mxCell>
         <mxCell id="MCOobiUJhgL7llRtCvgV-77" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="49" y="153" width="300" height="160" as="geometry" />
