@@ -66,6 +66,45 @@ ui5-button::part(button) {
     font-family: '72';
 }
 
+button.iconButton {
+    color: #0070f2;
+    width: 28px;
+    height: 28px;
+}
+
+.iconButton:hover {
+    background-color: #ebedf0 !important;   
+}
+
+.tooltip {
+    position: absolute;
+    top: 1px; 
+    right: 1px;
+}
+
+.tooltip_text {
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 6px;      
+    font-family: '72';
+    background-color: white;
+    color: black;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid black;
+    padding: 1px 5px;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.2s ease 0.1s;
+}
+
+.tooltip:hover .tooltip_text {
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
 /* center text for mermaid charts */
 div:has(> svg[aria-roledescription='flowchart-v2']) {
     margin: auto;

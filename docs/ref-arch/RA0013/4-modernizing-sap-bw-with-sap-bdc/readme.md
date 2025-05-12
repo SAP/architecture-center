@@ -92,21 +92,21 @@ The migration pathway depends on the current SAP BW system landscape. Below are 
 
 ![drawio](drawio/bw-modernization-pathway.drawio)
 
-**For BW Systems on Non-HANA Databases**
+**For SAP BW Systems on Non-HANA Databases**
     - **Initial Requirement**: Migrate to SAP HANA to enable real-time analytics and in-memory processing.
     - **Post-HANA Options**:
-    - **BW 7.5 on HANA**: Upgrade to enable HANA-specific capabilities while retaining existing functionality.
-    - **BW/4HANA 2023**: Comprehensive modernization for seamless integration with BDC.
+    - **SAP BW 7.5 on HANA**: Upgrade to enable SAP HANA-specific capabilities while retaining existing functionality.
+    - **SAP BW/4HANA 2023**: Comprehensive modernization for seamless integration with SAP BDC.
 
-**For BW Systems Already on HANA**
-    - **NetWeaver < 7.5**: Upgrade to NetWeaver 7.5 (SP24+) or migrate directly to BW/4HANA 2023.
-    - **NetWeaver 7.5**: Ensure Service Pack level meets minimum requirements (SP24+).
-    - **Direct Path**: Migrate to BW/4HANA 2023 for advanced capabilities.
+**For SAP BW Systems already on SAP HANA**
+    - **SAP NetWeaver < 7.5**: Upgrade to NetWeaver 7.5 (SP24+) or migrate directly to SAP BW/4HANA 2023.
+    - **SAP NetWeaver 7.5**: Ensure Service Pack level meets minimum requirements (SP24+).
+    - **Direct Path**: Migrate to SAP BW/4HANA 2023 for advanced capabilities.
 
-**For Existing BW/4HANA Environments**
-    - **BW/4HANA 1.0 or 2.0**: Upgrade to BW/4HANA 2023 for latest features.
-    - **BW/4HANA 2021**: Apply the latest Service Pack or upgrade to BW/4HANA 2023.
-    - **BW/4HANA 2023**: Implement the most recent Service Pack for optimal performance.
+**For Existing SAP BW/4HANA Environments**
+    - **SAP BW/4HANA 1.0 or 2.0**: Upgrade to SAP BW/4HANA 2023 for latest features.
+    - **SAP BW/4HANA 2021**: Apply the latest Service Pack or upgrade to SAP BW/4HANA 2023.
+    - **SAP BW/4HANA 2023**: Implement the most recent Service Pack for optimal performance.
 
 
 **2. Shift to SAP BW Data Product:** Begin using SAP BW data products and implement new use cases with direct access to SAP Datasphere’s object store.
@@ -128,15 +128,15 @@ With this, SAP BW Data product will be available for modelling and transformatio
 
 ![drawio](drawio/bw-approach-3.drawio)
 
-Customer managed BW Data Products are gradually replaced with SAP managed data products. SAP managed data products and insight apps allow customers to consume and create analytics scenarios, following a clean core principle. Over a period of time, with this approach SAP BW system can be decommissioned.
+Customer managed SAP BW Data Products will be gradually replaced with SAP managed data products. SAP managed data products and insight apps allow customers to consume and create analytics scenarios, following a clean core principle. Over a period of time, with this approach SAP BW system can be decommissioned.
 
-- Query and Composite Provider have been replaced with an Analytic Model and View using the onboarding in the catalog
-- Replace Standard DataSources with SAP managed data products
-- Translate Transformation from SAP BW into Transformation Flows in SAP Datasphere
-- Replace and repoint existing Local Tables (File) based on SAP BW data to Local Tables (File) with data from S/4HANA
-- Access non-SAP DataSources via Replication Flows and push the data into Local Tables (File) or via Remote Tables in SAP Datasphere 
-- Translate Transformation from SAP BW into Transformation Flows  or SQL Views in SAP Datasphere-
-- Replace and repoint existing Local Tables (File) based on SAP BW data to Local Tables (File) or View which is based on Remote Tables from non-SAP source
+- Query and Composite Provider have been replaced with an Analytic Model and View using the onboarding in the catalog.
+- Replace Standard DataSources with SAP managed data products.
+- Translate Transformation from SAP BW into Transformation Flows in SAP Datasphere.
+- Replace and repoint existing Local Tables (File) based on SAP BW data to Local Tables (File) with data from SAP S/4HANA.
+- Access non-SAP DataSources via Replication Flows and push the data into Local Tables (File) or via Remote Tables in SAP Datasphere.
+- Translate Transformation from SAP BW into Transformation Flows  or SQL Views in SAP Datasphere.
+- Replace and repoint existing Local Tables (File) based on SAP BW data to Local Tables (File) or View which is based on Remote Tables from non-SAP source.
 
 ## Key Benefits of SAP BW Modernization
 
@@ -166,6 +166,7 @@ The modernization process unlocks new possibilities for leveraging SAP BW data:
 
 ## Conclusion
 
-Modernizing SAP BW with SAP Business Data Cloud provides a clear pathway to unlock agility, innovation, and scalability in enterprise data management. By leveraging existing investments, transitioning to data products, and adopting advanced architectures, organizations can build a unified platform for real-time analytics and AI-driven insights. SAP’s structured approach ensures a seamless migration process, enabling businesses to address evolving demands and capitalize on their data assets effectively.
+Modernizing SAP BW with SAP Business Data Cloud provides a clear pathway to unlock agility, innovation, and scalability in enterprise data management. SAP BDC represents the future for on-premises SAP BW systems. By migrating to the private cloud version of SAP BW within SAP BDC, you safeguard your existing data and investments while gaining access to enhance capabilities. 
 
-SAP BDC represents the future for on-premises BW systems. By migrating to the private cloud version of BW within BDC, you safeguard your existing data and investments while gaining access to enhanced capabilities. You'll retain familiar BW features and unlock new possibilities, such as transforming BW data into data products, enabling seamless data sharing with other systems, and leveraging BDC's integrated tools for data engineering, data science, and AI/ML with Databricks. This migration allows you to expose legacy BW Info-Provider data within a modern data fabric architecture, rapidly harmonize legacy and new data for improved insights, extend BW data for AI/ML use cases, and transition to the cloud at your own pace. Basically moving from customer managed DWH into SAP managed DWH solution with data products and Insight Apps. 
+By leveraging existing investments, transitioning to data products, and adopting advanced architectures, organizations can build a unified platform for real-time analytics and AI-driven insights. SAP’s structured approach ensures a seamless migration process, enabling businesses to address evolving demands and capitalize on their data assets effectively
+
