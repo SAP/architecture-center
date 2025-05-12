@@ -1,23 +1,33 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0013-4
-slug: /ref-arch/ad1b90dbd1/4
+slug: /ref-arch/f5b6b597a6/4
 sidebar_position: 4
 sidebar_custom_props:
-    category_index: []
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Modernizing SAP BW with SAP Business Data Cloud
-description: Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (BDC) to unlock real-time analytics, AI-driven insights, and scalable cloud-native architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products to transition seamlessly while preserving existing investments. Discover structured migration pathways, advanced AI/ML capabilities, and unified data management for future-ready enterprise data strategies.
+description: >-
+  Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (BDC) to
+  unlock real-time analytics, AI-driven insights, and scalable cloud-native
+  architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products
+  to transition seamlessly while preserving existing investments. Discover
+  structured migration pathways, advanced AI/ML capabilities, and unified data
+  management for future-ready enterprise data strategies.
+keywords:
+  - sap
+  - bdc
+  - business
+  - data
+  - cloud
+  - bw
+  - warehouse
+  - datasphere
 sidebar_label: Modernizing SAP BW with SAP BDC
-keywords: [sap, bdc, business, data, cloud, bw, warehouse, datasphere]
 image: img/logo.svg
-tags: [data, aws, azure, gcp]
+tags:
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,15 +35,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - jasoncwluo
-    - jmsrpp
-    - anbazhagan-uma
+  - jasoncwluo
+  - jmsrpp
+  - anbazhagan-uma
+discussion: 
 last_update:
-    date: 2025-04-17
-    author: jmsrpp
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: jmsrpp
+  date: 2025-04-17
 ---
 
 ## Introduction
@@ -168,4 +176,4 @@ The modernization process unlocks new possibilities for leveraging SAP BW data:
 
 Modernizing SAP BW with SAP Business Data Cloud provides a clear pathway to unlock agility, innovation, and scalability in enterprise data management. By leveraging existing investments, transitioning to data products, and adopting advanced architectures, organizations can build a unified platform for real-time analytics and AI-driven insights. SAP’s structured approach ensures a seamless migration process, enabling businesses to address evolving demands and capitalize on their data assets effectively.
 
-SAP BDC represents the future for on-premises BW systems. By migrating to the private cloud version of BW within BDC, you safeguard your existing data and investments while gaining access to enhanced capabilities. You'll retain familiar BW features and unlock new possibilities, such as transforming BW data into data products, enabling seamless data sharing with other systems, and leveraging BDC's integrated tools for data engineering, data science, and AI/ML with Databricks. This migration allows you to expose legacy BW Info-Provider data within a modern data fabric architecture, rapidly harmonize legacy and new data for improved insights, extend BW data for AI/ML use cases, and transition to the cloud at your own pace. Basically moving from customer managed DWH into SAP managed DWH solution with data products and Insight Apps. 
+SAP BDC represents the future for on-premises BW systems. By migrating to the private cloud version of BW within BDC, you safeguard your existing data and investments while gaining access to enhanced capabilities. You'll retain familiar BW features and unlock new possibilities, such as transforming BW data into data products, enabling seamless data sharing with other systems, and leveraging BDC's integrated tools for data engineering, data science, and AI/ML with Databricks. This migration allows you to expose legacy BW Info-Provider data within a modern data fabric architecture, rapidly harmonize legacy and new data for improved insights, extend BW data for AI/ML use cases, and transition to the cloud at your own pace. Basically moving from customer managed DWH into SAP managed DWH solution with data products and Insight Apps.
