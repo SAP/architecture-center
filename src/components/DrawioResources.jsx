@@ -1,7 +1,8 @@
 import { FlexBox, Button } from '@ui5/webcomponents-react';
 import { useState } from 'react';
-import '@ui5/webcomponents-icons/dist/copy.js';
-import "@ui5/webcomponents-icons/dist/accept.js";
+import IconButton from '@mui/material/IconButton';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckIcon from '@mui/icons-material/Check';
 import Admonition from '@theme/Admonition';
 import Link from '@docusaurus/Link';
 import LinkDrawioViewer from './LinkDrawioViewer';
@@ -13,7 +14,7 @@ const FALLBACK_IMG = '/img/fallback-drawio-img.svg';
 
 export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
     const path = useBaseUrl(FALLBACK_IMG);
-    const [icon, setIcon] = useState('copy');
+    const [copied, setCopied] = useState(false);
 
     function utf8ToBase64(str) {
         const utf8Bytes = new TextEncoder().encode(str);
@@ -42,11 +43,9 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
 
                     const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
                     await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-                    //change icon on click
-                    setIcon('accept');
                     setTimeout(() => {
-                        setIcon('copy');
-                    }, 1500);
+                        setCopied(false);
+                    }, 2000);
                 };
                 img.onerror = function (e) {
                     console.error('The clipboard image failed to load', e);
@@ -69,20 +68,19 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                         style={{ height: 'auto' }}
                     />
                     {drawioImg && (
-                        <a
-                            onClick={(e) => {
-                                handleDownload();
-                                e.currentTarget.querySelector('ui5-button')?.blur();
-                            }}
-                        >
-                            <Button
-                                design="Transparent"
-                                icon={`sap-icon://${icon}`}
-                                tooltip="Copy to Clipboard"
-                                style={{ position: 'absolute', top: 1, right: 1, width: 30 }}
-                            ></Button>
-                        </a>
-                    )}    
+                        <div class="tooltip">
+                            <IconButton
+                                onClick={() => {
+                                    setCopied(true), handleDownload();
+                                }}
+                                className= "iconButton"
+                                variant="default"
+                            >
+                                {copied ? <CheckIcon style={{fontSize: 20}} /> : <ContentCopyIcon style={{fontSize: 20}} />}
+                            </IconButton>
+                            <span class="tooltip_text">{copied ? 'Copied!' : 'Copy to clipboard'}</span>
+                        </div>
+                    )}
                 </div>
             </p>
             <Admonition type="info" title="Solution Diagram Resources">
