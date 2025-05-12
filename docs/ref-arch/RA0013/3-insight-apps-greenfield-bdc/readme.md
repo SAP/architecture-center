@@ -1,23 +1,32 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0013-3
-slug: /ref-arch/ad1b90dbd1/3
+slug: /ref-arch/f5b6b597a6/3
 sidebar_position: 3
 sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
-title: Streamlining Business Insights with SAP BDC, S/4HANA, and Insight Apps
-description: Discover SAP BDC and S/4HANA integration with SAP-managed Data Products and Insight Apps for advanced analytics. Learn how to produce, activate, and visualize data products using SAP Datasphere and SAP Analytics Cloud. Explore pre-built Insight Apps for actionable intelligence across Core Enterprise, People, Spend, Customer, and Supply Chain Analytics. Maximize business insights with SAP's trusted data foundation and lifecycle management. Optimize decision-making with SAP's seamless architecture.
+  category_index: []
+title: 'Streamlining Business Insights with SAP BDC, S/4HANA, and Insight Apps'
+description: >-
+  Discover SAP BDC and S/4HANA integration with SAP-managed Data Products and
+  Insight Apps for advanced analytics. Learn how to produce, activate, and
+  visualize data products using SAP Datasphere and SAP Analytics Cloud. Explore
+  pre-built Insight Apps for actionable intelligence across Core Enterprise,
+  People, Spend, Customer, and Supply Chain Analytics. Maximize business
+  insights with SAP's trusted data foundation and lifecycle management. Optimize
+  decision-making with SAP's seamless architecture.
+keywords:
+  - sap
+  - bdc
+  - business
+  - data
+  - cloud
+  - databricks
 sidebar_label: Implement SAP-managed Insight Apps in SAP BDC
-keywords: [sap, bdc, business, data, cloud, databricks]
 image: img/logo.svg
-tags: [data, aws, azure, gcp]
+tags:
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,15 +34,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - s-krishnamoorthy
-    - jmsrpp
-    - anbazhagan-uma
+  - s-krishnamoorthy
+  - jmsrpp
+  - anbazhagan-uma
+discussion: 
 last_update:
-    date: 2025-04-29
-    author: jmsrpp
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: jmsrpp
+  date: 2025-04-29
 ---
 
 # Greenfield Implementation of SAP BDC and SAP S/4HANA with SAP-Managed Data Products and Insight Apps
