@@ -1,23 +1,28 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0013-2
-slug: /ref-arch/ad1b90dbd1/2
+slug: /ref-arch/f5b6b597a6/2
 sidebar_position: 2
 sidebar_custom_props:
-    category_index: []
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Insight Apps by SAP
-description: Insight Apps are delivered in SAP Business Data Cloud as a prebuilt set of artifacts, from Data Products, to models, to stories in SAP Analytics Cloud. They allow you to configure your entire environment simply by subscribing.
+description: >-
+  Insight Apps are delivered in SAP Business Data Cloud as a prebuilt set of
+  artifacts, from Data Products, to models, to stories in SAP Analytics Cloud.
+  They allow you to configure your entire environment simply by subscribing.
+keywords:
+  - sap
+  - bdc
+  - business
+  - data
+  - cloud
+  - insight apps
 sidebar_label: Insight Apps in SAP Business Data Cloud
-keywords: [sap, bdc, business, data, cloud, insight apps]
 image: img/logo.svg
-tags: [data, aws, azure, gcp]
+tags:
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,15 +30,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - jasoncwluo
-    - jmsrpp
-    - anbazhagan-uma
+  - jasoncwluo
+  - jmsrpp
+  - anbazhagan-uma
+discussion: 
 last_update:
-    date: 2025-04-17
-    author: anbazhagan-uma
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: anbazhagan-uma
+  date: 2025-04-17
 ---
 
 # Insight Apps by SAP
