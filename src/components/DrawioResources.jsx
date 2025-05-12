@@ -68,19 +68,21 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                         className={drawioImg ? '' : 'fallback-image'}
                         style={{ height: 'auto' }}
                     />
-                    <a
-                        onClick={(e) => {
-                            handleDownload();
-                            e.currentTarget.querySelector('ui5-button')?.blur();
-                        }}
-                    >
-                        <Button
-                            design="Transparent"
-                            icon={`sap-icon://${icon}`}
-                            tooltip="Copy Solution Diagram to Clipboard"
-                            style={{ position: 'absolute', top: -15, right: 0, width: 30 }}
-                        ></Button>
-                    </a>
+                    {drawioImg && (
+                        <a
+                            onClick={(e) => {
+                                handleDownload();
+                                e.currentTarget.querySelector('ui5-button')?.blur();
+                            }}
+                        >
+                            <Button
+                                design="Transparent"
+                                icon={`sap-icon://${icon}`}
+                                tooltip="Copy to Clipboard"
+                                style={{ position: 'absolute', top: 1, right: 1, width: 30 }}
+                            ></Button>
+                        </a>
+                    )}    
                 </div>
             </p>
             <Admonition type="info" title="Solution Diagram Resources">

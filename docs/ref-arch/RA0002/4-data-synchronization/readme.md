@@ -51,7 +51,8 @@ last_update:
 
 In a multi-region setup, data synchronization is a critical aspect that ensures consistency and availability across different geographic locations. It involves replicating databases, files, configuration settings, and other pertinent information to multiple regions, which demands sophisticated strategies and robust tools. Additionally, regulatory compliance, data sovereignty laws, and other legal considerations play a pivotal role in shaping data synchronization strategies within a multi-region architecture.
 
-![SAP HANA Cloud](images/data-replication.svg?raw=true)
+
+![drawio](drawio/data-replication.drawio)
 
 SAP recommends using SAP HANA Cloud that provides built-in Disaster Recovery (DR) and High Availability (HA) capabilities, using availability zones, provide robust data resiliency within a single region. This ensures that operations can continue seamlessly even if one availability zone experiences an outage. However, for multi-region data resiliency and availability, enterprises often require redundancy that spans multiple geographic regions. This requires setting up SAP HANA Cloud in multiple regions and synchronizing data across different regions using **Smart Data Integration (SDI)** or **Smart Data Access (SDA)**.
 

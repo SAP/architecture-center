@@ -148,6 +148,6 @@ Implementing multi-region setup is a journey that involves understanding, planni
 
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/btp-services-intelligent-routing)
 
-## Related Missions 
+<!-- ## Related Missions 
 
-- [Route Multi-Region Traffic to SAP BTP Services Intelligently](https://discovery-center.cloud.sap/missiondetail/3603/3646/)
+- [Route Multi-Region Traffic to SAP BTP Services Intelligently](https://discovery-center.cloud.sap/missiondetail/3603/3646/) -->
