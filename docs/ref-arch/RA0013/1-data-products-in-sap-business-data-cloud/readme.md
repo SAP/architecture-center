@@ -1,23 +1,29 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0013-1
-slug: /ref-arch/ad1b90dbd1/1
+slug: /ref-arch/f5b6b597a6/1
 sidebar_position: 1
 sidebar_custom_props:
-    category_index: []
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Data Products in SAP Business Data Cloud
-description: The purpose of Data Products in the context of SAP is the efficient and standardized sharing and consumption of data across applications and domains. It helps ensure high-quality metadata, is optimized for intensive reads, and describes the lineage and interfaces available for integration.
+description: >-
+  The purpose of Data Products in the context of SAP is the efficient and
+  standardized sharing and consumption of data across applications and domains.
+  It helps ensure high-quality metadata, is optimized for intensive reads, and
+  describes the lineage and interfaces available for integration.
+keywords:
+  - sap
+  - bdc
+  - business
+  - data
+  - cloud
+  - data product
 sidebar_label: Data Products in SAP Business Data Cloud
-keywords: [sap, bdc, business, data, cloud, data product]
 image: img/logo.svg
-tags: [data, aws, azure, gcp]
+tags:
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,15 +31,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - jasoncwluo
-    - jmsrpp
-    - anbazhagan-uma
+  - jasoncwluo
+  - jmsrpp
+  - anbazhagan-uma
+discussion: 
 last_update:
-    date: 2025-04-18
-    author: jmsrpp
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: jmsrpp
+  date: 2025-04-18
 ---
 
 Data Products in SAP Business Data Cloud serve as a standardized and efficient way to share and consume data across applications and domains. They enable analytic scenarios, AI applications, and facilitate data integration while being optimized for intensive reads. Managed with a product mindset, they are supported by high-quality metadata and governed by decentralized ownership principles.
