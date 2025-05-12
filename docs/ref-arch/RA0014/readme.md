@@ -25,8 +25,9 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - uklasing
+    - kshanth
+    - AjitKP91
 last_update:
     date: 2025-05-07
     author: user-97da66ca6c
@@ -37,7 +38,7 @@ last_update:
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
 
-Cloud infrastructures are distributes systems by default, caused by the fact that multiple systems are connected to execute a desired task. A distributed system design is massively increasing the complexity in building and operating these solutions. In the introduction of the famous Distributed Systems Course [MIT 6.824]() there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distrinbuted system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late. 
+Cloud infrastructures are distributes systems by default, caused by the fact that multiple systems are connected to execute a desired task. A distributed system design is massively increasing the complexity in building and operating these solutions. In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distrinbuted system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late. 
 Looking at typical enterprise solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like S/4 HANA, SuccessFactors, Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure-as-a-Service, 3rd party solutions and last but not least the Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. 
 In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsft Azure), these locations are referred to as "regions".
 However, the distribution of services to different locations is not just an obstacle to deal with, often there are valid business reasons behind using certain datacenter locations, like regulatory requirements, security and cost considerations and, you might guess it, performance requirements. 
