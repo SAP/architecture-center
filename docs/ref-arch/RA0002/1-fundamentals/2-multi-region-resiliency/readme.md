@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Multi-region resiliency
 description: >-
-  Multi-region resiliency ensures applications remain functional during regional
-  outages by leveraging geographically distributed data centers. It enhances
-  disaster recovery, minimizes downtime, reduces latency, ensures compliance,
-  and provides a seamless global user experience.
+  Learn how and why Multi-region resiliency ensures applications remain functional during regional
+  outages by leveraging geographically distributed data centers.
 keywords:
   - sap
   - integration
@@ -45,8 +43,8 @@ contributors:
   - arajsinha
 discussion: 
 last_update:
-  author: arajsinha
-  date: 2025-01-31
+  author: mahesh0431
+  date: 2025-05-12
 ---
 
 Enterprises often start with ensuring redundancies within a single region. SAP provides Multi-AZ for SAP BTP. However, the next logical step is spreading across regions to protect against regional failures. Multi-region resiliency refers to the capability of an application or system to sustain its functionality and performance across multiple geographically dispersed data centers. This approach safeguards against large-scale outages and disasters that could impact an entire region, ensuring continuous service availability.

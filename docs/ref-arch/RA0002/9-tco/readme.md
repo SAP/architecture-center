@@ -6,10 +6,7 @@ sidebar_custom_props:
   category_index: []
 title: Cost of Ownership
 description: >-
-  This document provides sample implementations using Azure Traffic Manager and
-  AWS Route 53 for high availability and disaster recovery (HA/DR) of SAP
-  services. It includes stateless and stateful setups for SAP Cloud Integration,
-  SAP Work Zone, and SAP HANA Cloud with multi-region DR solutions.
+  There is a cost to maintain multi-region setup which is inherent due to it's nature of having to setup duplicate services. However, there are some ways to reduce this further, which are discussed here.
 keywords:
   - sap
   - integration
@@ -45,8 +42,8 @@ contributors:
   - arajsinha
 discussion: 
 last_update:
-  author: arajsinha
-  date: 2025-02-20
+  author: mahesh0431
+  date: 2025-05-12
 ---
 
 When running a multi-region setup, it's essential to consider the cost implications. Since a separate subaccount is required for the secondary region, most instances from the primary region—such as Integration Suite and Build Work Zone Standard Edition—must be replicated. However, Identity Authentication Service (IAS) is inherently multi-region and does not require duplication.
