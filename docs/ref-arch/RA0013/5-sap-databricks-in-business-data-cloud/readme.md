@@ -1,23 +1,30 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0013-5
-slug: /ref-arch/ad1b90dbd1/5
+slug: /ref-arch/f5b6b597a6/5
 sidebar_position: 5
 sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: SAP Databricks in Business Data Cloud
-description: SAP and Databricks have partnered to integrate SAP data with Databricks AI and analytics platform, allowing businesses to leverage SAP data for AI and machine learning applications. This partnership simplifies data access and eliminates the need for complex ETL processes, enabling real-time analytics and AI-driven decision-making.
+description: >-
+  SAP and Databricks have partnered to integrate SAP data with Databricks AI and
+  analytics platform, allowing businesses to leverage SAP data for AI and
+  machine learning applications. This partnership simplifies data access and
+  eliminates the need for complex ETL processes, enabling real-time analytics
+  and AI-driven decision-making.
+keywords:
+  - sap
+  - bdc
+  - business
+  - data
+  - cloud
+  - databricks
 sidebar_label: SAP Databricks in Business Data Cloud
-keywords: [sap, bdc, business, data, cloud, databricks]
 image: img/logo.svg
-tags: [data, aws, azure, gcp]
+tags:
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,14 +32,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - s-krishnamoorthy
-    - jmsrpp
+  - s-krishnamoorthy
+  - jmsrpp
+discussion: 
 last_update:
-    date: 2025-04-17
-    author: s-krishnamoorthy
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: s-krishnamoorthy
+  date: 2025-04-17
 ---
 
 # SAP and Databricks Integration in SAP Business Data Cloud

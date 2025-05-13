@@ -226,7 +226,7 @@ const config: Config = {
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'security',
+                            sidebarId: 'opesec',
                             label: 'Operation & Security'
                         },
                         {
