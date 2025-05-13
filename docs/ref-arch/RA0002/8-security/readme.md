@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index: []
 title: Security
 description: >-
-  Security is crutial for enterprise applications and in the multi-region scenario, the security setup varies from service to service.
+  Security is crucial for enterprise applications and in the multi-region scenario, the security setup varies from service to service.
 keywords:
   - sap
   - integration
