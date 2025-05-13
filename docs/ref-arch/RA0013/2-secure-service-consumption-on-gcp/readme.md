@@ -38,7 +38,6 @@ last_update:
 This architecture provides guidance for enabling secure and scalable access from external workloads—such as SAP BTP, to Google Cloud Platform (GCP) services using Workload Identity Federation with OpenID Connect (OIDC).
 
 Traditional approaches rely on long-lived service account keys, which introduce operational overhead and security risks. Instead, this setup allows external identities to authenticate to GCP without storing or rotating keys, using short-lived tokens issued by a SAP IAS.
-By leveraging IAS as the OIDC-compliant IdP, this setup allows GCP to trust SAP IAS issued identity tokens and bind them to roles eliminating the need to manage long-lived service account keys.
 
 This model significantly reduces credential management complexity, supports least-privilege access, and aligns with zero trust principles.
 
