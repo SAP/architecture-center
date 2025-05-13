@@ -26,7 +26,7 @@ draft: false
 unlisted: false
 contributors:
     - adarshnarayanhegde
-    - contributor2
+    - AFK-Python
 last_update:
     date: 2025-05-12
     author: adarshnarayanhegde
