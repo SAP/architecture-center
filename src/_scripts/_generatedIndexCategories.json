@@ -119,12 +119,12 @@
                 "type": "generated-index",
                 "title": "Architecture Explorer | Operation & Security",
                 "description": "Discover SAP reference architectures for security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
-                "slug": "/sap/security",
-                "keywords": ["security", "sap"],
+                "slug": "/sap/opesec",
+                "keywords": ["opesec", "sap"],
                 "image": "/img/sap_logo.png"
             },
             "customProps": {
-                "id": "security"
+                "id": "opesec"
             },
             "items": []
         }

@@ -5,7 +5,7 @@ sidebar_position: 6
 sidebar_custom_props:
   category_index:
     - appdev
-    - security
+    - opesec
     - azure
     - aws
 title: Secure connectivity with SAP Private Link service
