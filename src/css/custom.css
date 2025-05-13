@@ -733,3 +733,7 @@ html[data-navbar='false'] .navbar {
 html[data-footer='false'] .footer {
     display: none;
 }
+.custom-tab-big {
+    font-size: 1.2rem; /* Adjust as needed */
+    font-weight: bold;
+  }
