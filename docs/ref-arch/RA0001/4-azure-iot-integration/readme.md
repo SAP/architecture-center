@@ -71,7 +71,7 @@ In this event-driven scenario, based on the real-time status of the IoT Devices 
 
 The key services used by Microsoft Azure are the Azure IoT Central, Azure Blob Storage, Azure Event Grid and Microsoft Entra ID.
 
-The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite advanced event mesh, SAP Event Mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service. 
+The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite, advanced event mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service. 
 
 SAP Private Link service is used for connectivity between SAP BTP and SAP S/4HANA when both systems are running on Microsoft Azure Infrastructure. Alternatively, you can use SAP Connectivity service and a cloud connector for integration of SAP BTP and SAP S/4HANA as well. 
 
@@ -126,4 +126,4 @@ These are the technical prerequisites for integration between Azure IoT Central,
     - Service for configuring Azure IoT Central Application
     - Required for configuring device templates, event producers and event routing.
 
-For detailed step by step information and to try out the integration, visit the Discovery Center mission [Build Events-to-Business Actions with Microsoft Azure](https://discovery-center.cloud.sap/missiondetail/4172/4422/)
+For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework)

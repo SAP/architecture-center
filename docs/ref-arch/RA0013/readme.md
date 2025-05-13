@@ -16,7 +16,7 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Transforming Enterprise Data Strategy with SAP BDC
+title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 description: SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced analytics, governance, and AI-driven insights. With tools like SAP Datasphere, SAP Analytics Cloud, and Databricks integration, BDC addresses data silos, improves data quality, and supports real-time processing. Modernize legacy systems, create reusable data products, and leverage a unified semantic model for scalable, future-ready enterprise data strategies.
 sidebar_label: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 keywords: [sap, bdc, business, data, cloud]
