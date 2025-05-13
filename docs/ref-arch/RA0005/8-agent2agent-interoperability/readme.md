@@ -8,9 +8,7 @@ id: id-ra0005-8
 slug: /ref-arch/e5eb3b9b1d/8
 sidebar_position: 6
 sidebar_custom_props:
-    category_index:
-        - gcp
-        - ai
+    category_index: []
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
