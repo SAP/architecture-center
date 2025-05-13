@@ -17,7 +17,7 @@ description: The Agent2Agent (A2A) protocol facilitates communication between in
 sidebar_label: Agent2Agent Interoperability
 keywords: [sap, google, agent2agent, joule, microsoft azure]
 image: img/logo.svg
-tags: [genai, gcp]
+tags: [genai, gcp, azure]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,7 +41,7 @@ Enterprise users often face complex tasks that depend on data and actions distri
 
 ## Architecture
 
-![A2A](images/a2a.png)
+![drawio](./drawio/a2a-ard-l1.drawio)
 
 ## Flow
 
