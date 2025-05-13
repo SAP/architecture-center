@@ -45,27 +45,27 @@ Enterprise users often face complex tasks that depend on data and actions distri
 
 ## Flow
 
-SAP adopts the A2A protocol to standardize inter-agent communications, fostering a collaborative agent ecosystem powered by the Agent-to-Agent (A2A) protocol. This protocol facilitates secure, trusted, and interoperable interactions between AI agents operating across enterprise landscapes and hyperscaler environments.
+SAP adopts the A2A protocol to standardize inter-agent communications, fostering a collaborative agent ecosystem powered by the A2A protocol. This protocol facilitates secure, trusted, and interoperable interactions between AI agents operating across enterprise landscapes and hyperscaler environments.
 
 ### Key Components:
 
 1. **Business Agent Foundation**  
    At the core of the architecture is SAP’s **Business Agent Foundation**, which enables the creation and orchestration of intelligent agents integrated with SAP’s business systems and processes. It supports both SAP and non-SAP agents through a unified catalog and registration system. When interacting with third-party agents, the **Agent2Agent (A2A) protocol** facilitates secure, standardized communication, enabling seamless collaboration and task execution across organizational and vendor boundaries.
 
-2. **Joule Catalog**  
-   The **Joule Catalog** aggregates agent metadata using **[Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/)** and provides a curated directory of both internal and external agents. Internal agents—developed and managed within SAP’s ecosystem—can register and expose their capabilities. External agents from trusted third-party catalogs (e.g., hosted on hyperscalers) are securely federated into the SAP environment using trust and ORD mechanisms.
+2. **Agent Catalog**  
+   The **Agent Catalog** aggregates agent metadata using **[Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/)** and provides a curated directory of both internal and external agents. Internal agents developed and managed within SAP’s ecosystem can register and expose their capabilities. External agents from trusted third-party catalogs (e.g., hosted on hyperscalers) are securely federated into the SAP environment.
 
 3. **Multi-Agent Collaboration**  
    The **A2A protocol** facilitates direct and dynamic communication among **SAP agents**, **Google Cloud agents**, and **Microsoft Azure agents**, enabling them to collaborate on complex tasks in distributed, multi-cloud environments. This interoperability ensures agents can discover each other, exchange intents, and delegate responsibilities while preserving context, trust boundaries, and security policies.
 
 4. **A2A Connector**  
-   The **A2A Connector** bridges SAP’s internal agent framework with external agent runtimes. It enables cross-network invocation of agents while maintaining strict compliance with authentication, authorization, and governance standards. Through this connector, SAP agents can orchestrate external capabilities or delegate sub-tasks to external agents operating in environments like Google Cloud or Microsoft Azure.
+   The **A2A Connector** bridges SAP’s internal agent framework with external agent runtimes, enabling seamless cross-network invocation of agents. It allows SAP agents to orchestrate external capabilities or delegate sub-tasks to agents operating in environments like Google Cloud or Microsoft Azure, facilitating smooth collaboration across platforms.
 
 ## A2A @ SAP
 
 As enterprise AI matures, agents are increasingly used to automate business scenarios. However, most remain restricted to the platforms or vendors that created them. This isolation limits their ability to execute business processes that span multiple environments, leading to disconnected workflows, redundant implementations, and missed opportunities for end-to-end automation.
 
-To fully unlock the potential of AI in the enterprise, organizations need a secure and standardized mechanism for agents to discover, communicate with, and collaborate across technical and organizational boundaries. SAP supports this vision through its adoption of the Agent-to-Agent (A2A) protocol, a vendor-neutral mechanism enabling agents to communicate, share context, and coordinate tasks across ecosystems. With A2A, SAP agents and third-party agents can work together as part of a distributed and coordinated agent landscape, enabling more intelligent, responsive, and business-aware operations. This approach ensures interoperability while upholding SAP’s standards for identity, authorization, and contextual integrity.
+To fully unlock the potential of AI in the enterprise, organizations need a secure and standardized mechanism for agents to discover, communicate with, and collaborate across technical and organizational boundaries. SAP supports this vision through its adoption of the **Agent2Agent (A2A)** protocol, a vendor-neutral mechanism enabling agents to communicate, share context, and coordinate tasks across ecosystems. With A2A, SAP agents and third-party agents can work together as part of a distributed and coordinated agent landscape, enabling more intelligent, responsive, and business-aware operations. This approach ensures interoperability while facilitating seamless coordination and context sharing across agent ecosystems.
 
 ## Value Proposition
 
