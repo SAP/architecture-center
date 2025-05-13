@@ -22,7 +22,7 @@ const ROOT = normalizePath(__dirname + '/../..');
 const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
-const URL = 'https://architecture.cloud.sap/docs';
+const URL = 'https://architecture.learning.sap.com/docs';
 
 if (!DOCKER) {
     if (!existsSync(DRAWIO_CLI_PATH)) {
