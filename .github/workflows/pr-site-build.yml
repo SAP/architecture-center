@@ -145,7 +145,7 @@ jobs:
             - name: Add PR Comment with Preview Link
               uses: thollander/actions-comment-pull-request@v2
               with:
-                  message: 'Preview website is available <a href="https://architecture.cloud.sap/@${{ env.PR_FOLDER }}" target="_blank" rel="noopener noreferrer">here</a>.'
+                  message: 'Preview website is available <a href="https://architecture.learning.sap.com/@${{ env.PR_FOLDER }}" target="_blank" rel="noopener noreferrer">here</a>.'
 
     cleanup:
         name: Cleanup Merged PR

@@ -49,11 +49,11 @@ SAP Business Data Cloud (BDC) is a modern solution and part of a comprehensive s
 
 In the era of AI, organizations require scalable and efficient data architectures to manage growing volumes of data and extract actionable insights. Key drivers for adopting modern data architectures include:
 
--   **AI Model Requirements**: High-quality, diverse datasets are essential for AI model training and deployment.
--   **Data Integration**: Unified architectures simplify data integration across systems and platforms.
--   **Real-time Processing**: Architectures capable of handling real-time data streams are critical for operational agility.
--   **Data Security and Governance**: Robust frameworks ensure compliance and data protection.
--   **Adaptability**: Flexible architectures support evolving technologies and use cases.
+- **AI Model Requirements**: High-quality, diverse datasets are essential for AI model training and deployment.
+- **Data Integration**: Unified architectures simplify data integration across systems and platforms.
+- **Real-time Processing**: Architectures capable of handling real-time data streams are critical for operational agility.
+- **Data Security and Governance**: Robust frameworks ensure compliance and data protection.
+- **Adaptability**: Flexible architectures support evolving technologies and use cases.
 
 ## Architecture and Design Principles of SAP Business Data Cloud
 
