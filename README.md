@@ -1,6 +1,6 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center)
 
-# [SAP Architecture Center](https://architecture.cloud.sap)
+# [SAP Architecture Center](https://architecture.learning.sap.com)
 
 Reference architectures are templates in their simplest form. They generalize specific implementations of software with a common set of components, vocabulary, or configuration. In the SAP context, this means showing how applications, data, and AI operate at the product and service level, and how you can take advantage of repeatable best practices to optimize your SAP cloud and on-premises investments.
 

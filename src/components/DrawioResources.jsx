@@ -1,5 +1,7 @@
 import { FlexBox, Button } from '@ui5/webcomponents-react';
 import { useState } from 'react';
+import '@ui5/webcomponents-icons/dist/copy.js';
+import '@ui5/webcomponents-icons/dist/accept.js';
 import IconButton from '@mui/material/IconButton';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
@@ -73,10 +75,14 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                                 onClick={() => {
                                     setCopied(true), handleDownload();
                                 }}
-                                className= "iconButton"
+                                className="iconButton"
                                 variant="default"
                             >
-                                {copied ? <CheckIcon style={{fontSize: 20}} /> : <ContentCopyIcon style={{fontSize: 20}} />}
+                                {copied ? (
+                                    <CheckIcon style={{ fontSize: 20 }} />
+                                ) : (
+                                    <ContentCopyIcon style={{ fontSize: 20 }} />
+                                )}
                             </IconButton>
                             <span class="tooltip_text">{copied ? 'Copied!' : 'Copy to clipboard'}</span>
                         </div>

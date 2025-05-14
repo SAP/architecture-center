@@ -10,7 +10,7 @@ const config: Config = {
     tagline: 'A Well-Architected Framework for SAP Architectures',
     favicon: 'img/logo.svg',
 
-    url: 'https://architecture.cloud.sap',
+    url: 'https://architecture.learning.sap.com',
     baseUrl: '/',
 
     // GitHub pages deployment config.
@@ -226,7 +226,7 @@ const config: Config = {
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'security',
+                            sidebarId: 'opsec',
                             label: 'Operation & Security'
                         },
                         {
