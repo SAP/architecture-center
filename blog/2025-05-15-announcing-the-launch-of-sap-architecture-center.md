@@ -32,19 +32,16 @@ With this new model, we're not just publishing architectures—we're fostering a
 * **draw.io for Solution Diagrams**: An open-source, industry-standard tool for creating architecture diagrams—enabling better collaboration and easy updates.
 * **Integration with SAP Discovery Center & Learning Center**: No matter where users enter, they will have a unified experience with our curated architectures.
 * **CPA Approach & Community Contributions**: We already have CPA included as part of our initial content, and we invite you to contribute, enhance, or even build your own.
-* **AI-Powered Architecture Validator (Coming Soon)**: We're working on an AI-driven tool that will validate new architectures for anti-patterns, syntactic errors, and provide intelligent recommendations.
 
 ## What's Next?
 
-We're launching the **SAP Architecture Center** globally at d-com 2025. This is your opportunity to be among the first contributors, test the workflows, and help shape the platform.
-
-But that's just the beginning! Our goal is to have at least ten high-quality architectures published by SAPPHIRE 2025, and we're not stopping there—we aim to double that number by the end of the year.
+We're launching the **SAP Architecture Center** globally at SAPPHIRE 2025. This is your opportunity to be among the first contributors, test the workflows, and help shape the platform.
 
 ## Call to Action
 
 We need your expertise, passion, and creativity to make the **SAP Architecture Center** a success. Whether you're a solution architect, a domain expert, or just someone who cares about well-structured technology blueprints, this is your chance to be part of something transformative.
 
-Let's build, innovate, and create together.
+Let's build, innovate, and create together. Check out the Community of Practice section to learn how [you can start contributing](/community/contribution) today.
 
 Happy Architecting!
 
