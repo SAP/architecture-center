@@ -112,7 +112,6 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
    </TabItem>
 
   <TabItem value="RA">
-  ## Architecture
    ![drawio](drawio/iam-roles-anywhere.drawio)
   ## Flow
 
