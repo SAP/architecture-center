@@ -27,6 +27,7 @@ unlisted: false
 contributors:
     - uklasing
     - kshanth
+    - anbazhagan-uma
     - AjitKP91
 last_update:
     date: 2025-05-07
@@ -36,9 +37,10 @@ last_update:
 ############################################################
 ---
 
-Cloud infrastructures are distributes systems by default, caused by the fact that multiple systems are connected via a network to execute a desired task. A distributed system design massively increases the complexity of building and operating these solutions. In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distrinbuted system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late for us. 
+Cloud infrastructures are distributed systems by default, caused by the fact that multiple systems are connected via a network to execute a desired task. A distributed system design massively increases the complexity of building and operating these solutions.  
+In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distributed system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late and we cannot make the cloud undone, anymore. 
 
-Looking at typical enterprise solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like S/4 HANA, SuccessFactors, Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure as a Service (IaaS), 3rd party solutions and last but not least the SAP Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsft Azure), these locations are referred to as "regions". 
+Looking at typical enterprise business solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like SAP S/4HANA Cloud, SAP SuccessFactors, SAP Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure as a Service (IaaS), 3rd party solutions and last but not least the SAP Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsoft Azure), these locations are referred to as "regions". 
 
 However, the distribution of services to different locations is not just an obstacle to deal with, often there are valid business reasons behind using certain datacenter locations, like regulatory requirements, security and cost considerations and, you might guess it, performance requirements. 
 Many SAP customers do business in a vast number of countries, running services and solutions in different locations and regions becomes a business requirement and imperative.
@@ -64,8 +66,8 @@ To get a deeper understanding of the measures refer to the wikipedia article men
 
 ## Architecture
 
-The architecture describes a distributed testing landscape that can be used to measure network performance aspects in a multi-regional, multi-provider setup. Although it can be used with all kinds of different network payloads the focus is currently on OData calls which is a common protocol that many SAP products and soultions use to connect user interface frontends (UI) with the respective backends. It is the default communcation method for UIs with SAP S/4 HANA and for any apps that have built using the SAP Cloud Application Programming Model (CAP) on SAP BTP.
-In the existing example the OData services from the "Manage Sales Orders" SAP Fiori were used to request data from an S/4 HANA Private Cloud Edition instance.
+The architecture describes a distributed testing landscape that can be used to measure network performance aspects in a multi-regional, multi-provider setup. Although it can be used with all kinds of different network payloads, the focus is currently on OData, which is a common protocol that many SAP products and solutions use to connect user interface frontends (UI) with the respective backends. It is the default communication method for UIs with SAP S/4HANA and for any apps that have been built using the SAP Cloud Application Programming Model (CAP) on SAP BTP.
+In the existing example the OData services from the "Manage Sales Orders" SAP Fiori app were used to request data from an S/4HANA Cloud Private Edition instance.
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 <!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
@@ -78,7 +80,7 @@ The solution architecture consists of the following parts:
 
 * **The Worker Nodes**    
 Specialized Docker containers simulate UI requests by issuing OData calls to the S/4 HANA Backend system. For this purpose a docker container containing the load testing tool [Apache JMeter](https://jmeter.apache.org) has been created. 
-Using a container simplifies deployment to different environments. The container can be deployed to anything from a docker desktop on a local workstation or virtual machine, to different container runtimes like AWS Elastic Container Service (ECS), Azure Container Instance (ACI) or Google Cloud Run, all kinds of Kubernetes environments like Kyma on SAP BTP and even Cloud Foundry. This deplyment flexibility makes it easy to simulate different user locations.
+Using a container simplifies deployment to different environments. The container can be deployed to anything from a docker desktop installation on a local workstation or virtual machine, to different container runtimes like AWS Elastic Container Service (ECS), Azure Container Instance (ACI) or Google Cloud Run, all kinds of Kubernetes environments like Kyma on SAP BTP and even Cloud Foundry. This deployment flexibility makes it easy to simulate different user locations.
 
 * **The Controller Node**  
 The controller node runs another instance of JMeter. It is responsible for scheduling and controlling the load test operations on the different worker nodes. It uploads the measurement results to the dashboard.
@@ -109,17 +111,17 @@ A customer has started on their "Rise with SAP" journey. For their S/4HANA Cloud
 Aspects to consider:
 * Availability of a BTP service in a certain region
 * Availability of a BTP service on a specific hyperscaler (IaaS provider)
-* Some connection options like the SAP PrivateLink service are only availabe on some providers and require the S/4HANA Cloud system and the connected BTP subaccount to be on the same hyperscaler platform (AWS or Azure)
-* User location and network distance to BTP subaccount and S/4HANA system
+* Some connection options like the SAP PrivateLink service are only available on some providers and require the S/4HANA Cloud system and the connected BTP subaccount to be on the same hyperscaler platform (AWS or Azure)
+* User location and network distance between BTP subaccount and S/4HANA system
 
-The network location and provider decisions for BTP subaccounts and the S/4HANA Cloud system decisions caused by these apspects have an impact on the network performance. Especially network throughput and latency do influence the response times of the API calls on the network and with this they have a major impact on the perceived solution performance by the user.
+The network location and provider decisions for BTP subaccounts and the S/4HANA Cloud system decisions caused by these aspects have an impact on the network performance. Especially network throughput and latency do influence the response times of the API calls on the network and with this they have a major impact on the perceived solution performance by the user.
 
-Besides service location and the resulting network distances in our distributed network different connection options and services on BTP like SAP Cloud Connector (SCC), SAP Private Link Services, other network proxies like the Cloud Foundry App Router and the SAP BTP Destination Service or a custom-build app can have an impact on the network performance.
-The network routing itself can have an impact. All major hyperscaler IaaS providers operate their own global fiber backbones to connect their different regions but of course we can make use of the public internet, too. However this is not always transparent to the customer. Different from working with Infrastructure-as-a-Service resources on hyperscalers like Alibaba Cloud, Amazon Web Services, Google Cloud or Microsoft Azure where you are in full control of the Software-Defined-Network (SDN) you rarely get in contact with the low level networking setup when using the SAP BTP Platform-as-a-Service (PaaS).  
+Besides service location and the resulting network distances in our distributed network, different connection options and services on BTP like SAP Cloud Connector (SCC), SAP Private Link Services, other network proxies like the Cloud Foundry App Router and the SAP BTP Destination Service or a custom-build app can have an impact on the network performance.
+The network routing itself can have an impact, too. All major hyperscaler IaaS providers operate their own global fibre backbones to connect their different regions but of course you can make use of the public internet, too. However, this is not always transparent to the customer. Different from working with Infrastructure-as-a-Service resources on hyperscalers like Amazon Web Services, Google Cloud or Microsoft Azure, where you are in full control of the Software-Defined-Network (SDN) you rarely get in contact with the low level networking setup when using the SAP BTP Platform-as-a-Service (PaaS).  
 
 To understand the impact of different connection options, several test options have been developed:
 
-To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/$HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API call are used.
+To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/$HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API calls are used.
 
 The baseline (no BTP involved):
 
@@ -127,49 +129,46 @@ The baseline (no BTP involved):
     * using public IPv4 address if the worker node and the S/4HANA systems are connected via the public internet (not recommend for production use)
     * you can use private IPv4 addresses if S/4HANA and the worker node are on the same private network
 
-    ![drawio](drawio/Direct_OData_Call.drawio)
-
-
+    ![Direct OData Call](images/Direct_OData_Call.drawio.png)
 
 Minimal BTP scenario using Cloud Foundry App as proxy:
 * OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy
 
-    ![drawio](drawio/OData_Call_App_Router.drawio)
+    ![OData Call App Router](images/OData_Call_App_Router.drawio.png)
 
 * OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Cloud Connector
 
-    ![drawio](drawio/OData_Call_App_Router_SCC.drawio)
+    ![OData Call App Router SCC](images/OData_Call_App_Router_SCC.drawio.png)
 
 * OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Private Link service.
 
-    ![drawio](drawio/OData_Call_App_Router_PrivateLink.drawio)
+    ![OData Call App Router PrivateLink](images/OData_Call_App_Router_PrivateLink.drawio.png)
 
 
 
 Indirect calls via BTP CAP application:
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system. The CAP app converts the OData v2 service into OData v4 that is consumed by our worker node simulating the client.
 
-<!-- corrected path error for draw.io file -->
-    ![drawio](drawio/OData_Call_CAP_App.drawio)
+    ![OData Call CAP App](images/OData_Call_CAP_App.drawio.png)
 
 
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system via SAP Cloud Connector.
 
-    ![drawio](drawio/OData_Call_CAP_SCC.drawio)
+    ![OData Call CAP SCC.drawio](images/OData_Call_CAP_SCC.drawio.png)
 
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system via SAP Private Link service.
 
-    ![drawio](drawio/OData_Call_CAP_PrivateLink.drawio)
+    ![OData Call CAP PrivateLink](images/OData_Call_CAP_PrivateLink.drawio.png)
 
 
 ## Considerations for the test execution
 
-To get comparable, statistically significant and meaningfull results, some general guiding principles could be useful:
+To get comparable, statistically significant and meaningful results, some general guiding principles could be useful:
 
-* **Number of consecutive calls**
+* **Number of consecutive calls**  
 To get a higher statistical significance a certain number of measurement records is needed. Repeating the test a few hundred times helps increasing the significance.
 
-* **Parallel calls**
+* **Parallel calls**  
 In a real life scenario concurrent users will use the system. Besides a load effect on the different services in the scenario this will require a higher network bandwidth and result in higher total network throughput if the available bandwidth allows.
 
 * **Ramp-up calls**  
@@ -177,7 +176,7 @@ To measure the network performance, you need to make sure the system response ti
 
 * **Comparing network locations**  
 One of the goals of measuring the network performance is to compare different client locations, BTP subaccount regions and backend locations. Additionally, daytime, day of the week or other time related extra-ordinary events can impact  network performance.  
-By running the different location checks in consecutive batches the risk of interference from changed network conditions can be possibly compensated because the probability is higher that all runs are affected by the these same overall network conditions.
+By running the different location checks in consecutive batches the risk of interference from changed network conditions can be possibly compensated because the probability is higher that all runs are affected by the these overall network conditions.
 
 A typical example config could be a structure like (from the current [example repo](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape) - the URL is subject to change soon) 
 
@@ -221,11 +220,13 @@ A typical example config could be a structure like (from the current [example re
 
 ## Statistical analysis and evaluation of the results data
 
-Every OData api call that is flowing through the test parcours is part of the result set and is uploaded to the InfluxDB of the dashboard. Grafana is used to group and analyze the data.
+Every OData api call that flows through the test course is part of the result set and is ingested into the InfluxDB of the dashboard. Grafana is used to group and analyze and present the data.
 
 A typical configuration for the data that is ingested into InfluxDB can look like this:
 
-    "sample_variables": "grpLabel,Scenario,ConnectionType,BTPHost_Name,SCCHost_Name,S4HHost_Name,UserHost_Name,statistics-approuter-total,statistics-scc-total,statistics-total,statistics-icmtotal,ping-s4h"
+```
+"sample_variables": "grpLabel,Scenario,ConnectionType,BTPHost_Name,SCCHost_Name,S4HHost_Name,UserHost_Name,statistics-approuter-total,statistics-scc-total,statistics-total,statistics-icmtotal,ping-s4h"
+```    
 
 In addition to the total response time per call execution, some of the services report back their own detailed statistics and add it to the http response header for each call. These can help identifying how much time is spent inside these services and are included in the result set, too.
 
@@ -235,19 +236,40 @@ Services that report back their own performance data are:
 *   SAP Cloud Connector: `statistics-scc-total`
 *   Internet Connection Manager of S/4HANA Cloud system: `statistics-icmtotal`
 
+![Drill Down View on the Dashboard](images/dashboard-drill.jpg)
 
 
+The dashboard is using different statistical funtions to group the data. E.g. `median` has been included as an additional value because `average` can be heavily biased by outliers in the results set.
+
+The following groupings can be interesting for the main attribute `Response Time`:
+
+- `Average`	 Average value (might be biased from outliers and ramp up calls)
+- `Median`	Median value (50% percentile – much less impact from outliers)
+- `90/95/99th Percentile`	The nth percentile is the smallest score that is greater than or equal to a certain percentage of the scores. To rephrase this, it’s the percentage of data that falls at or below a certain observation
 
 ## Conclusions from past performance tests
 
+Performance tests in Europe, North America and Asia, using the described architecture have lead to some first insights, some of them unexpected:
 
-<!-- Add your SAP context examples here -->
+   - The response times did not exceed critical 150ms for all test constellations tested in Europe (OData standard request with result set of 10 sales orders)
+   - Test results from Canada are comparable to Europe results, using a BTP subaccount on AWS (Montreal CA10) with a SAP S/4HANA Cloud system on Azure in Canada Central (Toronto) provides slightly better performance than using Azure Region East US (Ashburn, VA US21)    
+   - SAP BTP subaccount and SAP S/4HANA should be placed geographically close to each other (especially for data intensive extensions and analytical scenarios)
+   - Cross hyperscaler traffic e.g. SAP S/4HANA on Azure to SAP BTP on AWS did not have any negative performance impact (response time and throughput) compared to using the hyperscaler's own fibre backbones
+   - We could not find a significant performance difference between SAP Cloud Connector and SAP Private Link
+   - Most hyperscalers will try by default to keep traffic on their own network if both orgin and target are on the same hyperscaler even when using public IPs (aka "cold potato routing"). However, this behaviour is configurable.
 
+   - - -
+
+
+
+Network performance is not the only criteria for designing a multi-regional setup for a SAP solution. Other non-functional aspects like regulatory requirements, (high) availability requirements, security and cost considerations could require different decisions, leading to trade-offs on the performance side. It is also important to understand the network performance requirements of the business solution.  
+A good application architecture can often mitigate performance bottlenecks on the network.
+
+<!--
 ## Services and Components
-
-<!-- Add your services and components here -->
+-->
+<!-- Add Component Page-->
 
 ## Resources
-
-<!-- Add your resources here -->
+* The sourcecode and setup instructions for the performance testing landscape can be found on [GitHub](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape). However, the project is currently undergoing some rework and the URL is subject to change. 
 
