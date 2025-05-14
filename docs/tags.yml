@@ -48,6 +48,10 @@ eic:
   label: "Edge Integration Cell"
   description: "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds."
 
+build:
+  label: "SAP Build"
+  description: "SAP Build is a low-code development environment that enables users to create applications and automate processes with minimal coding. It provides a user-friendly interface and pre-built components to accelerate application development, making it accessible for both technical and non-technical users."
+  
 buildworkzone:
   label: "SAP Build Work Zone"
   description: "SAP Build Work Zone is a tool that empowers business users to build and personalize digital workspaces. It provides secure, centralize access to SAP and external apps, processes, and data on any device, helping to drive productivity and engagement. Engage with both internal teams and external stakeholders using interactive workspaces, guided experiences, and knowledge sharing to maximize efficiency."
