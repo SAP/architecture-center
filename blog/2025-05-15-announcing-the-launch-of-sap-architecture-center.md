@@ -46,3 +46,5 @@ Let's build, innovate, and create together. Check out the Community of Practice 
 Happy Architecting!
 
 The Office of the CTO
+
+<!-- truncate -->
