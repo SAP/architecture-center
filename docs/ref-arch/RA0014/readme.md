@@ -143,7 +143,9 @@ Minimal BTP scenario using Cloud Foundry App as proxy:
 Indirect calls via BTP CAP application:
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system. The CAP app converts the OData v2 service into OData v4 that is consumed by our worker node simulating the client.
 
-    ![drawio](drawio/docs/ref-arch/RA0014/drawio/OData_Call_CAP_App.drawio)
+<!-- corrected path error for draw.io file -->
+    ![drawio](drawio/OData_Call_CAP_App.drawio)
+
 
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system via SAP Cloud Connector.
 
