@@ -8,7 +8,7 @@ id: id-ra0014
 slug: /ref-arch/97da66ca6c
 sidebar_position: 14
 sidebar_custom_props:
-    category_index: aws, azure, gcp, appdev, integration, security
+    category_index: [aws, azure, gcp, appdev, integration, opsec]
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
