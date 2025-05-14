@@ -73,12 +73,12 @@ button.iconButton {
 }
 
 .iconButton:hover {
-    background-color: #ebedf0 !important;   
+    background-color: #ebedf0 !important;
 }
 
 .tooltip {
     position: absolute;
-    top: 1px; 
+    top: 1px;
     right: 1px;
 }
 
@@ -87,7 +87,7 @@ button.iconButton {
     z-index: 9999;
     top: 50%;
     transform: translateY(-50%);
-    margin-left: 6px;      
+    margin-left: 6px;
     font-family: '72';
     background-color: white;
     color: black;

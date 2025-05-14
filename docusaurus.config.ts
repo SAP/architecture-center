@@ -40,7 +40,7 @@ const config: Config = {
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,
                 onInlineTags: 'warn',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
             },
         ],
         [
