@@ -17,12 +17,12 @@ description: This reference architecture describes how the different authorizati
 sidebar_label: Authorization Design
 keywords: [sap, authorization, IdDS, security, cloud identity, business suite, cloud erp, SAP Cloud Identity Services, Authorization Management]
 image: img/logo.svg
-tags: [security, iam, genai, AMS, IdDS]
+tags: [security, genai]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - sapgunnar
@@ -61,11 +61,11 @@ Current SAP applications with an user- & group / role store expose those via the
 2. SAP BTP applications based on AMS publish automatically the policies into the Identity Directory as groups.
 3. SAP BTP applications based on XS UAA should be configured with IPS to replicate Role Collections into the Identity Directory as groups.
 
-><ins>Examples:</ins>
->
->SAP S/4HANA Cloud exposes Roles as Groups and Users as Users via SCIM2.
->
->SAP Cloud Identity Services themselves use [AMS to allow finegrained authorizations](https://help.sap.com/docs/identity-authentication/identity-authentication/beta-configure-authorizations-based-on-policies?locale=en-US).
+:::info Examples
+SAP S/4HANA Cloud exposes Roles as Groups and Users as Users via SCIM2.
+
+SAP Cloud Identity Services themselves use [AMS to allow finegrained authorizations](https://help.sap.com/docs/identity-authentication/identity-authentication/beta-configure-authorizations-based-on-policies?locale=en-US).
+:::
 
 ### Flow
 
@@ -79,7 +79,9 @@ Current SAP applications with an user- & group / role store expose those via the
     - Applications with an own user- & groups-store the IPS replicates the assignments to the SAP applications via periodic execution of IPS-source & target jobs.
     - AMS based applications synchronize the assignments automatically in the background.
 
-><ins>Hint: </ins>Future applications might use different technologies integrating with the Cloud Identity Services which would allow our customers an easy adoption.
+:::tip Hint
+Future applications might use different technologies integrating with the Cloud Identity Services which would allow our customers an easy adoption.
+:::
 
 ### Characteristics
 

@@ -9,6 +9,9 @@ slug: /ref-arch/2e1c68431b
 sidebar_position: 19
 sidebar_custom_props:
     category_index:
+        - appdev
+        - opsec
+        - ai
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -17,12 +20,12 @@ description: This reference architecture describes the authentication, identity 
 sidebar_label: Identity Access Management
 keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, idm, iag, access, single sign-on, SAP Cloud Identity Services, Identity Provisioning, Identity Authentication]
 image: img/logo.svg
-tags: [security, iam, genai, ias, ips]
+tags: [security, genai]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - sapgunnar
@@ -36,8 +39,6 @@ last_update:
 ---
 
 ## Architecture
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 
 ![drawio](drawio/public_SAP_IAM_SD.drawio)
 

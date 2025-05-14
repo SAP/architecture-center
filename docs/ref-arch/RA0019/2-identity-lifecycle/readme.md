@@ -17,12 +17,12 @@ description: This reference architecture describes the identity lifecycle flows 
 sidebar_label: Identity Lifecycle
 keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, SAP Cloud Identity Services, Identity Provisioning]
 image: img/logo.svg
-tags: [security, iam, genai, ips, IdDS]
+tags: [security, genai]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - sapgunnar
@@ -35,11 +35,7 @@ last_update:
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
-
 ## Architecture
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 
 ![drawio](drawio/public_SAP_IdentityLifecycle_SD.drawio)
 

@@ -9,6 +9,7 @@ slug: /ref-arch/2e1c68431b/1
 sidebar_position: 1
 sidebar_custom_props:
     category_index:
+        - opsec
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -17,12 +18,12 @@ description: This reference architecture describes the authentication flows for 
 sidebar_label: Authentication and Single Sign On
 keywords: [sap, identity, ias, security, cloud identity, business suite, cloud erp, single sign-on, SAP Cloud Identity Services, Identity Authentication]
 image: img/logo.svg
-tags: [security, iam, genai, ias]
+tags: [security, genai]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - sapgunnar
@@ -37,8 +38,6 @@ last_update:
 
 ## Architecture
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-
 ![drawio](drawio/public_SAP_AuthN_SD.drawio)
 
 The main actors in the model, aside from human interaction, are identity providers, service providers, and the SAP BTP-supported IAM services. As depicted in the figure, identity providers are systems that vouch for the identity of users requesting access to service provider systems by issuing a security token that eliminates repeated authentication. Service providers are systems providing business and technical services requisite for user tasks.
@@ -51,9 +50,11 @@ In conclusion, the SAP Cloud Identity Services function either as a secure Ident
 
 The following flows start in the application. Those are known as SAML Service Provider initiated and OIDC Resource Provider initiated flow. Those are the most common scenarios.
 
-> <ins>Note:</ins> If SAML is used in the complete chain then  (3rd party) IdP initiated SAML flows  are supported,  but this would be just an option and not the default or recommendation.
-> 
-> <ins>Note: [3521979 - Deprecation of SAML for User-Interactive Authentication in BTP Accounts](https://me.sap.com/notes/3521979/E)
+:::note Note
+If SAML is used in the complete chain then  (3rd party) IdP initiated SAML flows  are supported,  but this would be just an option and not the default or recommendation.
+
+[3521979 - Deprecation of SAML for User-Interactive Authentication in BTP Accounts](https://me.sap.com/notes/3521979/E)
+:::
 
 ### A) SP / RP initiated flow (SAML / OIDC) for Web applications
 
@@ -73,10 +74,13 @@ The following flow can be applied to SAP Cloud applications and SAP On-Premises 
 7. The 3rd party IdP redirects the application client with the authenticated user details to IAS.
 8. The IAS accepts the incoming token and processes it based on the app-configuration.
 
-> :warning: In the past the common scenario was [**IAS proxy**](https://help.sap.com/docs/identity-authentication/identity-authentication/corporate-identity-providers?locale=en-US) without the user present in IdDS. This reference architecture expects the user present in IdDS and the [***Federation setting "Use Identity Authentication user store" enabled***](https://help.sap.com/docs/identity-authentication/identity-authentication/corp-idp-configure-identity-federation?locale=en-US#context)
-> :warning:
+:::warning
+ In the past the common scenario was [**IAS proxy**](https://help.sap.com/docs/identity-authentication/identity-authentication/corporate-identity-providers?locale=en-US) without the user present in IdDS. This reference architecture expects the user present in IdDS and the [***Federation setting "Use Identity Authentication user store" enabled***](https://help.sap.com/docs/identity-authentication/identity-authentication/corp-idp-configure-identity-federation?locale=en-US#context)
+:::
 
-> :warning: New SAP SaaS features ([SAP Task Center](https://pages.community.sap.com/topics/task-center), [SAP Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html)) require user persistency in IdDS for cross application correlation, access/role/policy assignments and as only user store. :warning:
+:::warning
+New SAP SaaS features ([SAP Task Center](https://pages.community.sap.com/topics/task-center), [SAP Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html)) require user persistency in IdDS for cross application correlation, access/role/policy assignments and as only user store.
+:::
 
 ### C) Application authentication for Web applications
 
