@@ -116,15 +116,15 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
   ## Flow
 
   ### Prerequisites:
-    **1. Create x509 credentials via using an approved Certificate Authority for your organization**  
-    **2. [Upload x509 credentials](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/use-destination-certificates) to SAP BTP Destination Service** <br/>
-    **3. [Establish Trust and Create Roles on AWS IAM Roles Anywhere](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/getting-started.html#getting-started-step1)**   
+    1. Create x509 credentials via using an approved Certificate Authority for your organization
+    2. [Upload x509 credentials](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/use-destination-certificates) to SAP BTP Destination Service
+    3. [Establish Trust and Create Roles on AWS IAM Roles Anywhere](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/getting-started.html#getting-started-step1)
   
   ### Runtime Flow
-  **1. Retrieve Certificate Pair** <br/>
+  **1. Retrieve Certificate Pair**
   Workloads fetches the X.509 certificate and private key from SAP BTP Destination Service.
 
-    **2. Create a Signed Request** <br/>
+    **2. Create a Signed Request**  
     The workload [creates a signed request](https://docs.aws.amazon.com/rolesanywhere/latest/userguide/authentication-sign-process.html) using the private key and certificate to call AWS IAM Roles anywhere.
 
 
@@ -132,14 +132,14 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
     A [reference implementation with Go Programming Language](https://github.com/aws/rolesanywhere-credential-helper) is provided by AWS. 
     :::
 
-    **3. Request Temporary Credentials** <br/>
+    **3. Request Temporary Credentials**  
     The signed request is sent to IAM Roles Anywhere, referencing the Profile ARN.
 
     AWS validates the certificate (via the trust anchor), and the role association (via the profile).
     If validation passes, temporary AWS credentials are issued.
     These are scoped by the IAM role’s permissions and are short-lived.
 
-    **4. Access AWS Services**<br/>
+    **4. Access AWS Services** 
     The workload uses the temporary credentials to access AWS services and rotates them regularly.
 
    ## Characteristics 
