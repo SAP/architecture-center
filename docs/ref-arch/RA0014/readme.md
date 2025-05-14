@@ -164,7 +164,9 @@ Indirect calls via BTP CAP application:
 
 ## Considerations for the test execution
 
-To get good and meaningful results that are statistically significant a certain number of measurements is needed. 
+To get comparable, statistically significant and meaningfull results some general guiding principles could be followed:
+
+
 
 
 
