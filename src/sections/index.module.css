@@ -1,6 +1,6 @@
 .titleStyle {
     padding-bottom: 5px;
-    padding-left: clamp(8px, 3vw, 60px); 
+    padding-left: clamp(8px, 3vw, 60px);
 }
 
 .sectionContainer {
@@ -70,6 +70,6 @@ div::-webkit-scrollbar {
 }
 
 /* Dark mode */
-[data-theme= 'dark'] .sectionContainer {
+[data-theme='dark'] .sectionContainer {
     background-color: #000;
 }

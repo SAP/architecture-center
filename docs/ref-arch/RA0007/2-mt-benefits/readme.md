@@ -52,7 +52,7 @@ The benefits of multitenancy extend beyond mere cost savings; they include incre
       | Single Tenant | Multitenant |
       |:---:|:---:|
       |In a single-tenant setup, a SaaS application is uniquely deployed to a specific environment not shared with other consumer tenants. This involves having a separate application instance, along with a dedicated database and runtime memory exclusively for each SaaS client.|If you design your SaaS application to support multitenancy, this means a great advantage for your TCO as a SaaS provider. While the SaaS consumer doesn't even notice that resources are shared in the background, you can for example safely store the data of 1000 consumer Tenants on the same database. In case of an SAP HANA Cloud database, this will reduce the costs of a powerful in-memory system to a minimum for each of the 1000 consumers making the concept very profitable for both sides.|
-      |![SaaS_SingleTenant](images/saas-singletenant.png)|![Saas_Multitenant](images/saas-multitenant.png)|
+      |![SaaS_SingleTenant](images/saas-singletenant.svg)|![Saas_Multitenant](images/saas-multitenant.svg)|
       |The single consumer in this scenario spends $500 per year for the SaaS subscription. The SaaS provider is charged $300 for the dedicated SAP HANA Cloud instance and some GBs of runtime. All in all, the provider is left with a profit of $200.|In this scenario, 100 consumers pay $100 per year for the SaaS subscription (= $10000). The SaaS provider is charged $3000 for a large SAP HANA Cloud instance and the necessary runtime memory. All in all, the provider is left with a profit of $7000.|
     
 3.  ### Application Scalability

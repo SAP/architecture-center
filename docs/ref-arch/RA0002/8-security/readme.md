@@ -6,10 +6,7 @@ sidebar_custom_props:
   category_index: []
 title: Security
 description: >-
-  This document provides sample implementations using Azure Traffic Manager and
-  AWS Route 53 for high availability and disaster recovery (HA/DR) of SAP
-  services. It includes stateless and stateful setups for SAP Cloud Integration,
-  SAP Work Zone, and SAP HANA Cloud with multi-region DR solutions.
+  Security is crucial for enterprise applications and in the multi-region scenario, the security setup varies from service to service.
 keywords:
   - sap
   - integration
@@ -45,8 +42,8 @@ contributors:
   - arajsinha
 discussion: 
 last_update:
-  author: arajsinha
-  date: 2025-02-06
+  author: mahesh0431
+  date: 2025-05-12
 ---
 
 <!-- **Security Considerations for High Availability and Disaster Recovery (HADR)** -->

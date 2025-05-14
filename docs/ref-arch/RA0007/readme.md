@@ -54,7 +54,7 @@ In this reference architecture, we will explore the key components and best prac
 
 | Single Tenancy | Multitenancy |
 |:---:|:---:|
-|![single-tenant](images/single-tenant.png)|![multi-tenant](images/multi-tenant.png)|
+|![single-tenant](images/single-tenant.svg)|![multi-tenant](images/multi-tenant.svg)|
 |In single tenancy design, for each customer, a separate instance of the application is deployed|In multitenancy design, a single application instance is deployed which severs multiple customers |
 
 ## Key Aspects

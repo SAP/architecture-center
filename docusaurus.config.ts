@@ -10,7 +10,7 @@ const config: Config = {
     tagline: 'A Well-Architected Framework for SAP Architectures',
     favicon: 'img/logo.svg',
 
-    url: 'https://architecture.cloud.sap',
+    url: 'https://architecture.learning.sap.com',
     baseUrl: '/',
 
     // GitHub pages deployment config.
@@ -40,21 +40,7 @@ const config: Config = {
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,
                 onInlineTags: 'warn',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
-            },
-        ],
-        [
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'guidance',
-                path: 'guidance',
-                routeBasePath: 'guidance',
-                sidebarItemsGenerator: generateSidebarSlices,
-                sidebarPath: require.resolve('./sidebarsGuidance'),
-                showLastUpdateTime: true,
-                showLastUpdateAuthor: true,
-                onInlineTags: 'throw',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
             },
         ],
         [
@@ -63,8 +49,8 @@ const config: Config = {
                 hashed: true,
                 indexDocs: true,
                 indexPages: true,
-                docsRouteBasePath: ['/docs', '/community', '/guidance'],
-                docsDir: ['docs', 'community', 'guidance'],
+                docsRouteBasePath: ['/docs', '/community'],
+                docsDir: ['docs', 'community'],
                 indexBlog: true,
                 blogRouteBasePath: '/blog', 
                 language: ['en'],
@@ -192,11 +178,6 @@ const config: Config = {
                     label: 'Community of Practice',
                     position: 'right',
                 },
-                //{
-                //    to: '/guidance/intro',
-                //    label: 'Guidance Framework',
-                //    position: 'left',
-                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
@@ -245,7 +226,7 @@ const config: Config = {
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'security',
+                            sidebarId: 'opsec',
                             label: 'Operation & Security'
                         },
                         {
