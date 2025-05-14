@@ -60,7 +60,7 @@
     "react-select": "^5.10.0",
     "react-tooltip": "^5.28.0",
     "unist-util-visit": "^5.0.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.7.0",
