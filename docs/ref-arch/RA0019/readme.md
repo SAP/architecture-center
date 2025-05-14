@@ -15,7 +15,7 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Identity Access Management
+title: SAP IAM integration with SAP Cloud Identity Services
 description: This reference architecture describes the authentication, identity lifecycle flows and how to assign and design roles (authorizations) for the SAP SaaS via the SAP Cloud Identity Services.
 sidebar_label: Identity Access Management
 keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, idm, iag, access, single sign-on, SAP Cloud Identity Services, Identity Provisioning, Identity Authentication]
@@ -38,10 +38,6 @@ last_update:
 ############################################################
 ---
 
-## Architecture
-
-![drawio](drawio/public_SAP_IAM_SD.drawio)
-
 These reference architectures delve into the critical aspects of Identity Access Management (IAM) for SAP, focusing on essential elements such as user storage, replication, and identity lifecycle.
 
 Identity Access Management consists of three main pillars:
@@ -51,6 +47,10 @@ Identity Access Management consists of three main pillars:
 - Authorization
 
 The [SAP Cloud Identity Services](https://www.sap.com/documents/2024/04/84ada3ed-b87e-0010-bca6-c68f7e60039b.html) serve as the designated Identity and Access Management interface for SAP SaaS integrations.
+
+## Architecture
+
+![drawio](drawio/public_SAP_IAM_SD.drawio)
 
 In an SAP landscape, user data is stored across all service providers. To ensure consistency and synchronization across these different environments, replication is essential.
 

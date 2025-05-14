@@ -12,7 +12,7 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Authorization Design
+title: Authorization with SAP Cloud Identity Services
 description: This reference architecture describes how the different authorization technologies within the SAP SaaS portfolio can be used from a central point for the Identity Lifecycle.
 sidebar_label: Authorization Design
 keywords: [sap, authorization, IdDS, security, cloud identity, business suite, cloud erp, SAP Cloud Identity Services, Authorization Management]
@@ -35,16 +35,12 @@ last_update:
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
+Authorizations are domain specific and still the aim is that they can be assigned to an identity centrally. 
+Traditionally authorizations are defined in the application and are not centrally managed. This leads to a huge effort to maintain the authorizations and to ensure that the least-privilege-methodology is applied across different stacks and solutions.
 
 ## Architecture
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-
 ![drawio](drawio/public_SAP_AuthZ_SD.drawio)
-
-Authorizations are domain specific and still the aim is that they can be assigned to an identity centrally. 
-Traditionally authorizations are defined in the application and are not centrally managed. This leads to a huge effort to maintain the authorizations and to ensure that the least-privilege-methodology is applied across different stacks and solutions.
 
 SAP uses for the authorization assignments in an identity lifecycle the Identity Directory. Identity Directory is a SCIM compliant user and group store. Identity Directory acts as customer fascade for the identity lifecycle and the central point for the authorization assignments. The Cloud Identity Services also act as trusted anchor for the SAP applications for several security features like the authentication and the authorization assignments, but also the federation with 3rd party solutions.
 

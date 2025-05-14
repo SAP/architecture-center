@@ -12,7 +12,7 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Identity Lifecycle
+title: Identity lifecycle with SAP Cloud Identity Services
 description: This reference architecture describes the identity lifecycle flows for SAP SaaS via the SAP Cloud Identity Services.
 sidebar_label: Identity Lifecycle
 keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, SAP Cloud Identity Services, Identity Provisioning]
@@ -35,11 +35,11 @@ last_update:
 ############################################################
 ---
 
+Every user has a user account in each system that provides services for the business scenarios that are relevant for that user. Users may be employees, consumers, or business partners, with corresponding authorization assignments.
+
 ## Architecture
 
 ![drawio](drawio/public_SAP_IdentityLifecycle_SD.drawio)
-
-Every user has a user account in each system that provides services for the business scenarios that are relevant for that user. Users may be employees, consumers, or business partners, with corresponding authorization assignments.
 
 In the context of new applications, the SAP Cloud Identity Services - Directory Service functions as the user and group store, eliminating the need for further replication to application local user stores. This advanced service accommodates the SAP Authorization Management Service-defined policies, which are stored and assigned to users in the Identity Directory.
 To get the identities into the Identity Directory the replication can occur via the leading Identity Management (IDM) tool or through the SAP Cloud Identity Services - Identity Provisioning.
