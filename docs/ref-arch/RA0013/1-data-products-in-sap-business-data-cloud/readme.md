@@ -34,10 +34,11 @@ contributors:
   - jasoncwluo
   - jmsrpp
   - anbazhagan-uma
+  - peterfendt
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-04-18
+  date: 2025-05-10
 ---
 
 Data Products in SAP Business Data Cloud serve as a standardized and efficient way to share and consume data across applications and domains. They enable analytic scenarios, AI applications, and facilitate data integration while being optimized for intensive reads. Managed with a product mindset, they are supported by high-quality metadata and governed by decentralized ownership principles.

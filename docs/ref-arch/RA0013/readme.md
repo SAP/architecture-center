@@ -8,14 +8,8 @@ sidebar_custom_props:
     - aws
     - azure
     - gcp
-title: Transforming Enterprise Data Strategy with SAP BDC
-description: >-
-  SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced
-  analytics, governance, and AI-driven insights. With tools like SAP Datasphere,
-  SAP Analytics Cloud, and Databricks integration, BDC addresses data silos,
-  improves data quality, and supports real-time processing. Modernize legacy
-  systems, create reusable data products, and leverage a unified semantic model
-  for scalable, future-ready enterprise data strategies.
+title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
+description: SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced analytics, governance, and AI-driven insights. With tools like SAP Datasphere, SAP Analytics Cloud, and Databricks integration, SAP BDC addresses data silos, improves data quality, and supports real-time processing. Modernize legacy systems, create reusable data products, and leverage a unified semantic model for scalable, future-ready enterprise data strategies.
 keywords:
   - sap
   - bdc
@@ -39,10 +33,12 @@ contributors:
   - jasoncwluo
   - jmsrpp
   - anbazhagan-uma
+  - s-krishnamoorthy
+  - peterfendt
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-04-17
+  date: 2025-05-10
 ---
 
 SAP Business Data Cloud (BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
