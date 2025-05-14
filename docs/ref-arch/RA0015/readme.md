@@ -1,24 +1,25 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0015
-slug: /ref-arch/374e430f49
+slug: /ref-arch/c5f6fe6cf1
 sidebar_position: 15
 sidebar_custom_props:
-    category_index:
-     - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: Business to Government Integration
-description: Discover the Business-to-Government Integration Reference Architecture for seamless compliance with government regulations. Learn how SAP solutions like SAP Integration Suite and SAP Document and Reporting Compliance enable secure, standardized, and efficient electronic document exchanges with authorities worldwide.
+description: >-
+  Discover the Business-to-Government Integration Reference Architecture for
+  seamless compliance with government regulations. Learn how SAP solutions like
+  SAP Integration Suite and SAP Document and Reporting Compliance enable secure,
+  standardized, and efficient electronic document exchanges with authorities
+  worldwide.
+keywords:
+  - sap
+  - integration
+  - b2g
 sidebar_label: Business to Government Integration
-keywords: [sap, integration, b2g]
 image: img/logo.svg
-tags: [integration]
+tags:
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +27,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - avikSap
-    - fabianleh
+  - avikSap
+  - fabianleh
+discussion: 
 last_update:
-    date: 2024-08-01
-    author: avikSap
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: avikSap
+  date: 2024-08-01
 ---
 
 # Business-to-Government Integration Reference Architecture
