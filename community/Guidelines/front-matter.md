@@ -18,7 +18,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-02-19
+  date: 2025-05-01
 ---
 
 The Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
