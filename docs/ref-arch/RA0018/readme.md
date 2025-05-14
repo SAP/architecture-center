@@ -1,24 +1,31 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0018
-slug: /ref-arch/d82b006bb1
+slug: /ref-arch/99fd0564be
 sidebar_position: 18
 sidebar_custom_props:
-    category_index:
-        - appdev
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - appdev
 title: Integrate and Extend with SAP Build Process Automation
-description: SAP Build Process Automation is a no-code/low-code solution for automating business processes. Integrate SAP and non-SAP systems across cloud and hybrid landscapes with features like workflow management, robotic process automation, and predefined content. Streamline tasks such as scheduling agreements, job requisitions, and data management, enhancing productivity and reducing manual effort.
+description: >-
+  SAP Build Process Automation is a no-code/low-code solution for automating
+  business processes. Integrate SAP and non-SAP systems across cloud and hybrid
+  landscapes with features like workflow management, robotic process automation,
+  and predefined content. Streamline tasks such as scheduling agreements, job
+  requisitions, and data management, enhancing productivity and reducing manual
+  effort.
+keywords:
+  - sap
+  - btp
+  - build process automation
+  - integration
+  - automation
 sidebar_label: Integrate and Extend with SAP Build Process Automation
-keywords: [sap, btp, build process automation, integration, automation]
 image: img/logo.svg
-tags: [build, azure, aws, gcp]
+tags:
+  - build
+  - azure
+  - aws
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,13 +33,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - fabianleh
+  - fabianleh
+discussion: 
 last_update:
-    date: 2025-05-14
-    author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: fabianleh
+  date: 2025-05-14
 ---
 
 # Integrate and extend SAP and non-SAP solutions with SAP Build Process Automation
