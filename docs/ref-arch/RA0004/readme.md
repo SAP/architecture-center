@@ -8,7 +8,7 @@ sidebar_custom_props:
     - aws
     - azure
     - gcp
-title: Explore your Hyperscaler data with SAP Datasphere
+title: Explore your Hyperscaler data with SAP Business Data Cloud
 description: >-
   SAP Datasphere's data integration architectures that harmonizes SAP and
   non-SAP data using data fabric architecture helps business experts to make
@@ -19,7 +19,7 @@ keywords:
   - federation
   - replication
   - hyperscaler
-sidebar_label: Explore your Hyperscaler data with SAP Datasphere
+sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/logo.svg
 tags:
   - azure
@@ -46,9 +46,9 @@ last_update:
   date: 2025-01-23
 ---
 
-SAP Datasphere empowers organizations with a comprehensive business data fabric architecture, seamlessly integrating mission-critical data from across the enterprise. This powerful platform enables business experts to make data-driven decisions with unprecedented impact. By providing federated data access and remote table replication from SAP line of business solutions, SAP Datasphere ensures that data is always accessible and up-to-date.
+SAP Datasphere, which is an integral part of SAP Business Data Cloud, empowers organizations with a comprehensive business data fabric architecture, seamlessly integrating mission-critical data from across the enterprise. This powerful platform enables business experts to make data-driven decisions with unprecedented impact. By providing federated data access and remote table replication from SAP line of business solutions, SAP Datasphere ensures that data is always accessible and up-to-date.
 
-In this architecture, SAP Datasphere goes beyond merely connecting SAP data; it also integrates non-SAP data from leading hyperscaler services such as AWS, Microsoft Azure, and Google Cloud Platform. This integration allows businesses to combine diverse data sources into unified data models within SAP Datasphere, facilitating faster and more insightful business analytics.
+In this architecture aimed at an open data ecosystem integration, SAP Datasphere goes beyond merely connecting SAP data; it also integrates non-SAP data from leading hyperscaler services such as AWS, Microsoft Azure, and Google Cloud Platform. This integration allows businesses to combine diverse data sources into unified data models within SAP Datasphere, facilitating faster and more insightful business analytics.
 
 With SAP Datasphere, organizations can:
 
