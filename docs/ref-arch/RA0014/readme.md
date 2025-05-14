@@ -12,9 +12,9 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Testing and Understanding Network Performance Implications in a Multi-Regional Solution Setup
+title: Understanding Network Performance in a Multi Regional Solution
 description: Designing and operating cloud based solutions in a multi-regional setup are technically advanced tasks. The solution and application design, usage of different network providers and last but not least the geographical placement of services have an impact on the overall performance.
-sidebar_label: Testing and Understanding Network Performance Implications in a Multi Regional Solution Setup
+sidebar_label: Understanding Network Performance in a Multi Regional Solution
 keywords: [sap, BTP, rise, grow, hyperscaler, S/4 HANA, aws, azure, gcp, odata, privatelink, wan, internet]
 image: img/logo.svg
 tags: [aws, azure, gcp, appdev, integration]
