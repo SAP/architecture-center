@@ -40,8 +40,8 @@ contributors:
   - swatimaste00
 discussion: 
 last_update:
-  author: anbazhagan-uma
-  date: 2025-01-01
+  author: swatimaste00
+  date: 2025-05-10
 ---
 
 ## Introduction
@@ -56,21 +56,17 @@ In this reference architecture, events from AWS IoT SiteWise are published to SA
 
 The following steps depicts the information flow across systems:
 
-(1) Event is triggered from AWS IoT SiteWise.
+1. An application administrator logs into SAP BTP Extension application based on Events to Business Actions Framework via SAP Build Work Zone, standard edition, to configure the business rules/decisions and the business actions that needs to be triggered in the business systems.
 
-(2) and (3) The sensor data from AWS IoT SiteWise is dumped into the Amazon S3 bucket.
-
-(4a) AWS Lambda is a serverless function, which will orchestrate the process of detecting a stream contains any alerts related to failure or warnings, and then the inference result is passed to SAP Integration Suite, advanced event mesh.
-
-(4b) AWS secrets manager is used to store credentials, these are used by the lambda function to provide payload to SAP Integration Suite, advanced event mesh.
-
-(5), (6) Event-to-Business-Action framework(extension app) processor module's endpoint is subscribed to SAP Integration Suite,advanced event mesh, hence receives this event.
-
-(7) Event-to-Business-Action framework(extension app) processor module leverages the Business Rules capability of SAP Build Process Automation to derive business action (for example, In this scenario, Plant Maintenance Notification creation in SAP S/4HANA system) based on certain characteristics of incoming event.
-
-(8a), (8b) Event-to-Business-Action framework(extension app) calls Amazon Bedrock LLM model using Gen AI hub to generate summary of the event.
-
-(9), (10), (11) Event-to-Business-Action framework (extension app) processor module triggers the defined action in the SAP S/4HANA system by using the SAP Destination Service and SAP Private Link Service.
+2. AWS IoT SiteWise Edge at the factory captures the equipment parameters like vibration, temperature, and forwards it to AWS IoT SiteWise which then dumps these events into Amazon S3, which triggers an AWS Lambda function. It detects anomaly in these events and publishes such events to the SAP Integration Suite, Advanced Event Mesh.
+ 
+3. As the processor module's (part of the Events-to-Business-Action framework) subscribes to Advanced event mesh, the event is received.
+ 
+4. Processor module (part of the Events-to-Business-Action framework) leverages the Decisions capability of SAP Build Process Automation to derive business action (for example, plant Maintenance Notification/purchase order requisition creation in SAP S/4HANA) based on certain characteristics of incoming event.
+ 
+5. The framework integrates with SAP AI Core to invoke a deployed Amazon Bedrock Claude 3 Sonnet model. This model processes raw, hard-to-read incoming IoT event data and generates easy-to-read summaries of the event payload. These summaries are then automatically populated into the maintenance notification description, improving readability and providing enhanced clarity for maintenance teams. With this we prepare a complete payload which is used to execute the business action in SAP S/4HANA system (in this PoC we create a Plant Maintenance Notification)
+ 
+6. The defined action is triggered in SAP S/4HANA using the SAP Destination service and SAP Connectivity service leveraging Private Link setup. In case SAP S/4HANA and SAP BTP are not on same Hyperscaler, communication with SAP S/4HANA happens via SAP Cloud Connector service.
 
 ## List of Services and Components
 
@@ -109,4 +105,6 @@ These are the technical prerequisites for integration between AWS IoT SiteWise, 
 - **Amazon Lambda Function**
      - Required to orchestrate the process of detecting a stream contains any alerts related to failure or warnings, and then the inference result is passed to SAP Integration Suite Advanced Event Mesh.
 
-For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework)
+For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework/tree/main/scenarios/Integration-with-AWS/IoTSiteWise)
+
+Refer to [Integrating Amazon Rekognition and SAP EHS with SAP BTP for PPE Detection](https://github.com/SAP-samples/btp-events-to-business-actions-framework/tree/main/scenarios/Integration-with-AWS/PPE) for another reference application implementation.
