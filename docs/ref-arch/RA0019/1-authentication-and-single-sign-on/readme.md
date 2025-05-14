@@ -3,8 +3,7 @@ id: id-ra0019-1
 slug: /ref-arch/20c6b29b1e/1
 sidebar_position: 1
 sidebar_custom_props:
-  category_index:
-    - opsec
+  category_index: []
 title: Authentication with SAP Cloud Identity Services
 description: >-
   This reference architecture describes the authentication flows for SAP SaaS
@@ -44,7 +43,7 @@ The main actors in the model, aside from human interaction, are identity provide
 
 ## Architecture
 
-![drawio](drawio/public_SAP_AuthN_SD.drawio)
+![drawio](drawio/public-sap-authn-sd.drawio)
 
 The SAP Cloud Identity Services can act as an identity provider, executing authentication or acting as a broker by forwarding requests to third-party providers. In the figure diagram, the SAP Cloud Identity Services redirects the incoming authentication request to a specifically configured Identity Provider, performing the broker's role. This operation is common for employee scenarios where a company utilizes one central IdP across numerous vendors. This scenario is also compatible with new applications that use the Identity Directory within the SAP Cloud Identity Services to manage identities and their assignments. SAP Cloud Identity Services can cross-verify against the Identity Directory on how the authentication flow should be federated towards a remote Identity Provider or which features should be merged into the authentication tokens relevant only for the SAP landscape.
 

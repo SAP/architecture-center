@@ -33,8 +33,6 @@ last_update:
   author: avikSap
   date: 2024-08-01
 ---
-
-## API Managed Integration: Simplified, Secure, and Governed Access to Business Applications
   
 Application Programming Interfaces (APIs) enable integration, interoperability, and data sharing between software systems. With the help of an API management solution like the API Management capability within SAP Integration Suite, you can provide omni-channel and secure access to solutions. Furthermore, it allows you to enforce usage policies for APIs, control API access, analyze API consumption, and more.  
   

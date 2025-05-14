@@ -34,8 +34,6 @@ last_update:
   date: 2024-08-01
 ---
 
-## Streamlined Business Document Exchange: SAP Business-to-Business Integration
-
 With the help of business-to-business (B2B) integration, you can electronically exchange business documents with other organizations. It allows you to extend your business processes beyond your organization’s boundaries to include your business partners such as customers and suppliers. To enable electronic data exchange with those business partners, you need to align with them on common B2B standards, which include document types, transport protocols, partner identification, security features, and more.
 
 This reference architecture is based on the concepts of the **SAP Integration Solution Advisory Methodology**. Here, B2B integration is defined as an integration use case pattern that belongs to the process integration style. The diagram shows the runtime perspective for B2B integration covering the integration domains Cloud2Cloud and Cloud2OnPremise.

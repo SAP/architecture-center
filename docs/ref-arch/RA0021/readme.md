@@ -35,8 +35,6 @@ last_update:
   date: 2024-08-01
 ---
 
-## Application-to-Application Integration: Real-Time Data Exchange Across Business Applications
-
 With the help of application-to-application (App2App) integration, you can exchange transactional data along internal company processes by connecting involved business applications in a (near-) real-time fashion. Messages are used for exchanging transactional data, which trigger the execution of the next process step in a connected business solution. Transactional data refers to data about ongoing business activities such as physical goods movement or sales order documents.
 
 This reference architecture is based on the concepts of the **SAP Integration Solution Advisory Methodology**. App2App integration is defined as an integration use case pattern that belongs to the process integration style. The diagram illustrates the runtime perspective for App2App integration, covering the integration domains Cloud2Cloud, Cloud2OnPremise, and OnPremise2OnPremise.

@@ -43,7 +43,7 @@ Every user has a user account in each system that provides services for the busi
 
 ## Architecture
 
-![drawio](drawio/public_SAP_IdentityLifecycle_SD.drawio)
+![drawio](drawio/public-sap-identity-lifecycle-sd.drawio)
 
 In the context of new applications, the SAP Cloud Identity Services - Directory Service functions as the user and group store, eliminating the need for further replication to application local user stores. This advanced service accommodates the SAP Authorization Management Service-defined policies, which are stored and assigned to users in the Identity Directory.
 To get the identities into the Identity Directory the replication can occur via the leading Identity Management (IDM) tool or through the SAP Cloud Identity Services - Identity Provisioning.

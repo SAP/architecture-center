@@ -44,7 +44,7 @@ Traditionally authorizations are defined in the application and are not centrall
 
 ## Architecture
 
-![drawio](drawio/public_SAP_AuthZ_SD.drawio)
+![drawio](drawio/public-sap-authz-sd.drawio)
 
 SAP uses for the authorization assignments in an identity lifecycle the Identity Directory. Identity Directory is a SCIM compliant user and group store. Identity Directory acts as customer fascade for the identity lifecycle and the central point for the authorization assignments. The Cloud Identity Services also act as trusted anchor for the SAP applications for several security features like the authentication and the authorization assignments, but also the federation with 3rd party solutions.
 
