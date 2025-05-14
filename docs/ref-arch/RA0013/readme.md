@@ -33,10 +33,12 @@ contributors:
   - jasoncwluo
   - jmsrpp
   - anbazhagan-uma
+  - s-krishnamoorthy
+  - peterfendt
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-04-17
+  date: 2025-05-10
 ---
 
 SAP Business Data Cloud (BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
