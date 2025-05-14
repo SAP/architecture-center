@@ -112,9 +112,17 @@ Aspects to consider:
 * Some connection options like the SAP PrivateLink service are only availabe on some providers and require the S/4HANA Cloud system and the connected BTP subaccount to be on the same hyperscaler platform (AWS or Azure)
 * User location and network distance to BTP subaccount and S/4HANA system
 
-To understand the impact of different connection options, different test options have been developed:
+The network location and provider decisions for BTP subaccounts and the S/4HANA Cloud system decisions caused by these apspects have an impact on the network performance. Especially network throughput and latency do influence the response times of the API calls on the network and with this they have a major impact on the perceived solution performance by the user.
+
+Besides service location and the resulting network distances in our distributed network different connection options and services on BTP like SAP Cloud Connector (SCC), SAP Private Link Services, other network proxies like the Cloud Foundry App Router and the SAP BTP Destination Service or a custom-build app can have an impact on the network performance.
+The network routing itself can have an impact. All major hyperscaler IaaS providers operate their own global fiber backbones to connect their different regions but of course we can make use of the public internet, too. However this is not always transparent to the customer. Different from working with Infrastructure-as-a-Service resources on hyperscalers like Alibaba Cloud, Amazon Web Services, Google Cloud or Microsoft Azure where you are in full control of the Software-Defined-Network (SDN) you rarely get in contact with the low level networking setup when using the SAP BTP Platform-as-a-Service (PaaS).  
+
+To understand the impact of different connection options, several test options have been developed:
+
+To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/$HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API call are used.
 
 The baseline (no BTP involved):
+
 * Direct OData call from worker node to the S/4HANA system (SAP Gateway)
     * using public IPv4 address if the worker node and the S/4HANA systems are connected via the public internet (not recommend for production use)
     * you can use private IPv4 addresses if S/4HANA and the worker node are on the same private network
@@ -124,15 +132,15 @@ The baseline (no BTP involved):
 
 
 Minimal BTP scenario using Cloud Foundry App as proxy:
-* Odata call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy
+* OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy
 
     ![drawio](drawio/OData_Call_App_Router.drawio)
 
-* Odata call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Cloud Connector
+* OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Cloud Connector
 
     ![drawio](drawio/OData_Call_App_Router_SCC.drawio)
 
-* Odata call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Private Link service.
+* OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Private Link service.
 
     ![drawio](drawio/OData_Call_App_Router_PrivateLink.drawio)
 
@@ -152,6 +160,11 @@ Indirect calls via BTP CAP application:
 * A CAP app on a BTP subaccount is used to consume the OData service on the S/4HANA system via SAP Private Link service.
 
     ![drawio](drawio/OData_Call_CAP_PrivateLink.drawio)
+
+
+## Considerations for the test execution
+
+To get good and meaningful results that are statistically significant a certain number of measurements is needed. 
 
 
 
