@@ -73,7 +73,7 @@ Google BigQuery is a managed, serverless cloud data warehouse product by Google,
 
 Data from Google BigQuery can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time data access without the need for data duplication. By federating data, organizations can create unified semantic models that combine Google BigQuery data with SAP business data. These models enable efficient and real-time analytics using SAP Analytics Cloud dashboards, providing comprehensive insights and facilitating data-driven decision-making.
 
-For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the Discovery Center mission: [Integrate Google BigQuery and SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3409/).
+For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the blog: [Integrate Google BigQuery and SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/data-federation-between-sap-data-warehouse-cloud-dwc-and-google-bigquery/ba-p/13465470).
 
 ### Replicating Data to Google BigQuery
 

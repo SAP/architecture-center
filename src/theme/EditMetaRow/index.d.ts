@@ -6,4 +6,4 @@
  */
 import { type ReactNode } from 'react';
 import type { Props } from '@theme/EditMetaRow';
-export default function EditMetaRow({ className, editUrl, lastUpdatedAt, lastUpdatedBy, }: Props): ReactNode;
+export default function EditMetaRow({ className, editUrl, lastUpdatedAt, lastUpdatedBy }: Props): ReactNode;

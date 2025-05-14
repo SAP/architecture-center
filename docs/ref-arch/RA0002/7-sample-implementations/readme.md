@@ -45,8 +45,8 @@ contributors:
   - arajsinha
 discussion: 
 last_update:
-  author: arajsinha
-  date: 2025-01-31
+  author: mahesh0431
+  date: 2025-05-12
 ---
 
 This document presents sample implementations leveraging Microsoft Azure Traffic Manager and AWS Route 53 to achieve high availability and Disaster Recovery for SAP services. These patterns can also be realized using comparable offerings from other hyperscaler load balancers.
@@ -55,11 +55,12 @@ This document presents sample implementations leveraging Microsoft Azure Traffic
 
 In stateless scenarios, the applications don’t require replication of data or events across regions. Requests are simply rerouted to an alternative region in case of downtime in the primary region.
 
-### Multi-Region Setup for SAP Cloud Integration using Azure Traffic Manager
+### Multi-Region Setup for SAP Cloud Integration
+1. **Using Azure Traffic Manager**:
+   - **Implementation Overview**: [GitHub Repository](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_azure)
 
-Learn how to achieve HA/DR for a Cloud Integration flow built by using SAP Custom Domain service and Azure Traffic Manager.
-
-- **Implementation Overview**: [GitHub Repository](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_azure)
+2. **Using Google Cloud Services**: 
+   - **Implementation Overview**:  [GitHub Repository](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_gcp)
 
 ### Multi-Region Setup for SAP Work Zone, Standard Edition
 

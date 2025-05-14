@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index: []
 title: Integration with Azure data sources
 description: >-
-  Data from Azure platform data services can be seamlessly integrated and
+  Data from Microsoft Fabric analytics platform can be seamlessly integrated and
   harmonized with both SAP and non-SAP data using SAP Datasphere's robust data
   fabric architecture. This architecture facilitates the unification of
   disparate data sources, enabling comprehensive data modeling and analytics.
@@ -37,11 +37,13 @@ last_update:
   date: 2025-01-23
 ---
 
-Data from Azure platform data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's robust data fabric architecture. This architecture facilitates the unification of disparate data sources, enabling comprehensive data modeling and analytics.
+Microsoft Fabric is an end-to-end, unified analytics platform that integrates technologies like Azure Data Factory, Azure Synapse Analytics and Power BI into a single unified product.
+
+Data from the Microsoft Fabric Analytics platform - OneLake (the foundational component of Fabric, serving as a single source of truth for analytics data) can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's robust data fabric architecture. This architecture facilitates the unification of disparate data sources, enabling comprehensive data modeling and analytics. 
 
 SAP Datasphere's data fabric architecture supports various modes of data integration, including data federation and data replication. Data federation allows real-time access to data without the need for physical data movement, ensuring up-to-date insights and reducing data latency. On the other hand, data replication involves copying data from source systems to SAP Datasphere, enabling high-performance data processing and analytics.
 
-By leveraging SAP Datasphere, organizations can create a unified semantic layer that combines data from Azure services such as Azure Data Explorer and Azure Data Lake Storage with SAP business data. This unified view empowers users to perform advanced analytics and generate actionable insights using tools like SAP Analytics Cloud.
+By leveraging SAP Datasphere, organizations can create a unified semantic layer that combines data from Microsoft Fabric's data platform with SAP business data. This unified view empowers users to perform advanced analytics and generate actionable insights using tools like SAP Analytics Cloud.
 
 Furthermore, SAP Datasphere provides robust data governance and security features, ensuring that integrated data complies with organizational policies and regulatory requirements. This comprehensive approach to data integration and harmonization helps organizations maximize the value of their data assets and drive informed decision-making.
 
@@ -51,32 +53,32 @@ Furthermore, SAP Datasphere provides robust data governance and security feature
 ![drawio](drawio/azure-data-integration.drawio)
 
 
-## 1. Integration with Azure Data Explorer
+## 1. Integration with Fabric Synapse Real-Time Analytics
 
 **Mode(s) of Integration:** Federating data live into SAP Datasphere.
 
-Azure Data Explorer is a fully managed data analytics service on the Azure platform designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration.
+Fabric Synapse Real-Time Analytics is a fully managed, cloud-scale data analytics solution built on the [Kusto](https://learn.microsoft.com/en-us/kusto/query/?view=microsoft-fabric) engine with Azure Synapse. It is designed for real-time analysis of large volumes of data streaming from applications, websites, IoT devices, and more. It provides a powerful query engine and a highly optimized data storage architecture, making it ideal for interactive analytics and complex data exploration. Synapse Real-time Analytics fully encompasses capabilities of the legacy Azure Data Explorer in Microsoft Fabric unified platform. 
 
-### Federating Data from Azure Data Explorer into SAP Datasphere
+### Federating Data from Fabric Synapse Real-Time Analytics into SAP Datasphere
 
-Data from Azure Data Explorer can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time access to data without the need for physical data movement, ensuring that the most current data is available for analysis. 
+Data from Fabric Synapse Real Time Analytics can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time access to data without the need for physical data movement, ensuring that the most current data is available for analysis. 
 
 #### Technical Details and Examples
 
 1. **Setting Up the Connection:**
-    - **Prerequisites:** Ensure that you have the necessary permissions and credentials to access both Azure Data Explorer and SAP Datasphere.
-    - **Connection Configuration:** Use the SAP Datasphere connection management interface to configure a new connection to Azure Data Explorer. Provide the required connection details such as the cluster URL, database name, and authentication credentials.
+    - **Prerequisites:** Ensure you have a Synapse workspace with Real-Time Analytics enabled, necessary credentials with proper access to the Synapse workspace, and SAP Datasphere access with privileges to create remote connections and models.
+    - **Connection Configuration:** Use the SAP Datasphere connection management interface to configure a new connection to Fabric Synapse Real-Time Analytics. Provide the required connection details such as the endpoint URL, database name, and authentication credentials.
 
 2. **Creating Remote Tables:**
-    - **Remote Table Definition:** Define remote tables in SAP Datasphere that map to the tables or queries in Azure Data Explorer. This can be done using the remote table creation wizard in SAP Datasphere.
+    - **Remote Table Definition:** Define remote tables in SAP Datasphere that map to the tables or queries in Fabric Synapse Real-Time Analytics. This can be done using the remote table creation wizard in SAP Datasphere. These remote tables point to Kusto tables or KQL (Kusto Query Language) queries in Synapse Real-Time Analytics.
     - **Example Query:** 
-      ```sql
+      ```kusto
       .create table MyTable (Timestamp: datetime, DeviceId: string, Temperature: real)
       ```
-    - **Federation Query:** Use SAP Datasphere to create a remote table that references the above table in Azure Data Explorer.
+    - **Federation Query:** Use SAP Datasphere to create a remote table that references the above table in Fabric Synapse Real-Time Analytics.
 
 3. **Data Augmentation:**
-    - **Combining Data:** Augment the federated data from Azure Data Explorer with SAP business data. For example, you can join sales data from SAP S/4HANA with IoT sensor data from Azure Data Explorer to analyze the impact of environmental conditions on product sales.
+    - **Combining Data:** Augment the federated data from Fabric Synapse Real-Time Analytics with SAP business data. For example, you can join sales data from SAP S/4HANA with IoT sensor data from Fabric Synapse Real-Time Analytics to analyze the impact of environmental conditions on product sales.
     - **Example Join Query:**
       ```sql
       SELECT 
@@ -95,13 +97,12 @@ Data from Azure Data Explorer can be **federated** live into SAP Datasphere remo
     - **Dashboards and Reports:** Use SAP Analytics Cloud to create dashboards and reports that visualize the federated data. This enables real-time monitoring and analysis of key metrics.
     - **Example Dashboard:** Create a dashboard that shows real-time temperature readings from IoT devices alongside sales performance metrics.
 
-For detailed step-by-step information on federating data live from Azure Data Explorer and to try out the integration, visit the Discovery Center mission: [Integrate Azure Data Explorer and SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/3433/3473/).
 
-## 2. Integration with Azure Data Lake Storage Gen2
+## 2. Integration with MS Fabric OneLake
 
 **Mode(s) of Integration:** Replicating data out with *Replication Flows*, Importing data into SAP Datasphere using *Data Flows*.
 
-Azure Data Lake Storage is a scalable and secure data lake solution designed to handle large volumes of data in various formats. It supports big data analytics and is optimized for high-performance workloads.
+OneLake is a single, unified data lake that serves as a centralized repository for all organizational data. It's built on top of Azure Data Lake Storage (ADLS) Gen2 which is a scalable and secure data lake solution designed to handle large volumes of data in various formats. It supports big data analytics and is optimized for high-performance workloads.
 
 ### Importing Data into SAP Datasphere
 
@@ -121,9 +122,9 @@ Non-SAP data from Azure Data Lake Storage can be **imported** into SAP Dataspher
     - **Execution:** Execute the data flow to import the data into SAP Datasphere.
     - **Validation:** Validate the imported data to ensure accuracy and completeness.
 
-### Replicating Data to Azure Data Lake Storage
+### Replicating Data to OneLake 
 
-Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
+Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Microst Fabric's OneLake data platform by replicating it to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
 
 #### Steps to Replicate Data:
 
@@ -139,4 +140,7 @@ Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** 
     - **Execution:** Execute the replication flow to start the data replication process.
     - **Monitoring:** Monitor the replication process to ensure it completes successfully and troubleshoot any issues that arise.
 
-For detailed step-by-step information on replicating data to Azure Data Lake Storage using Replication Flows, visit the blog [SAP Datasphere Replication Flow from S/4HANA to Azure Data Lake](https://community.sap.com/t5/technology-blogs-by-sap/sap-datasphere-replication-flow-from-s-4hana-to-azure-data-lake/ba-p/13585656).
+4. **Access the replicated data in OneLake:**
+    -Data replicated into Azure Data Lake Storage Gen2 can be accesssed vitually in OneLake via shortcuts or can be moved into OneLake via the Data Flow workflows.
+
+
