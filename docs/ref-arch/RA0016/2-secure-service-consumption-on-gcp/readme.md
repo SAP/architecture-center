@@ -1,23 +1,27 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0016-2 
-slug: /ref-arch/ff41411bd6/2
+id: id-ra0016-2
+slug: /ref-arch/7e558be8f1/2
 sidebar_position: 2
 sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Secure Service Consumption on GCP
-description: Configure secure, keyless access to GCP resources using OIDC-based Workload Identity Federation. Workloads  authenticate without storing service account keys.
+description: >-
+  Configure secure, keyless access to GCP resources using OIDC-based Workload
+  Identity Federation. Workloads  authenticate without storing service account
+  keys.
+keywords:
+  - gcp
+  - oidc
+  - federation
+  - ias
+  - sap
+  - btp
+  - security
 sidebar_label: Secure Service Consumption on GCP
-keywords: [gcp, oidc, federation, ias, sap, btp, security]
 image: img/logo.svg
-tags: [gcp,security]
+tags:
+  - gcp
+  - security
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,13 +29,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - alperdedeoglu
+  - alperdedeoglu
+discussion: 
 last_update:
-    date: 2025-05-14
-    author: alperdedeoglu
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: alperdedeoglu
+  date: 2025-05-14
 ---
 
 This architecture provides guidance for enabling secure and scalable access from external workloads—such as SAP BTP, to Google Cloud Platform (GCP) services using Workload Identity Federation with OpenID Connect (OIDC).
@@ -108,4 +110,3 @@ Once prerequisites are in place, the runtime authentication flow proceeds in fou
 
 - [OIDC (OpenID Connect) Specification](https://openid.net/connect/)  
   A good resource to learn the core concepts of OIDC and how it works.
-
