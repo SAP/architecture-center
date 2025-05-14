@@ -181,6 +181,7 @@ By running the different location checks in consecutive batches the risk of inte
 
 A typical example config could be a structure like (from the current [example repo](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape) - the URL is subject to change soon) 
 
+```json
     "Region": "NA",
     "Type": "Daily",
     "ThreadGroup": {
@@ -214,7 +215,7 @@ A typical example config could be a structure like (from the current [example re
             }
         ]
     }
-
+```
 
 
 
