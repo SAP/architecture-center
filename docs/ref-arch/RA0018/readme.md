@@ -46,7 +46,7 @@ This reference architecture describes how you can use SAP Build Process Automati
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 <!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
 
-![drawio](drawio/template.drawio)
+![drawio](drawio/Integrate-and-extend-SAP-and-non-SAP-solutions-with-SAP-Build-Process-Automation.drawio)
 
 ## Flow
 
