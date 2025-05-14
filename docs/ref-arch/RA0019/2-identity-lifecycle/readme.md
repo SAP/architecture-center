@@ -1,23 +1,29 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0019-2 
-slug: /ref-arch/2e1c68431b/2
+id: id-ra0019-2
+slug: /ref-arch/20c6b29b1e/2
 sidebar_position: 2
 sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Identity lifecycle with SAP Cloud Identity Services
-description: This reference architecture describes the identity lifecycle flows for SAP SaaS via the SAP Cloud Identity Services.
+description: >-
+  This reference architecture describes the identity lifecycle flows for SAP
+  SaaS via the SAP Cloud Identity Services.
+keywords:
+  - sap
+  - identity
+  - ias
+  - ips
+  - security
+  - cloud identity
+  - business suite
+  - cloud erp
+  - SAP Cloud Identity Services
+  - Identity Provisioning
 sidebar_label: Identity Lifecycle
-keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, SAP Cloud Identity Services, Identity Provisioning]
 image: img/logo.svg
-tags: [security, genai]
+tags:
+  - security
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,14 +31,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - sapgunnar
-    - gunnar-kosche_sap
+  - sapgunnar
+  - gunnar-kosche_sap
+discussion: 
 last_update:
-    date: 2025-05-13
-    author: sapgunnar
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: sapgunnar
+  date: 2025-05-13
 ---
 
 Every user has a user account in each system that provides services for the business scenarios that are relevant for that user. Users may be employees, consumers, or business partners, with corresponding authorization assignments.
