@@ -1,24 +1,30 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0019-1 
-slug: /ref-arch/2e1c68431b/1
+id: id-ra0019-1
+slug: /ref-arch/20c6b29b1e/1
 sidebar_position: 1
 sidebar_custom_props:
-    category_index:
-        - opsec
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - opsec
 title: Authentication with SAP Cloud Identity Services
-description: This reference architecture describes the authentication flows for SAP SaaS via the SAP Cloud Identity Services - Identity Authentication.
+description: >-
+  This reference architecture describes the authentication flows for SAP SaaS
+  via the SAP Cloud Identity Services - Identity Authentication.
+keywords:
+  - sap
+  - identity
+  - ias
+  - security
+  - cloud identity
+  - business suite
+  - cloud erp
+  - single sign-on
+  - SAP Cloud Identity Services
+  - Identity Authentication
 sidebar_label: Authentication and Single Sign On
-keywords: [sap, identity, ias, security, cloud identity, business suite, cloud erp, single sign-on, SAP Cloud Identity Services, Identity Authentication]
 image: img/logo.svg
-tags: [security, genai]
+tags:
+  - security
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +32,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - sapgunnar
-    - gunnar-kosche_sap
+  - sapgunnar
+  - gunnar-kosche_sap
+discussion: 
 last_update:
-    date: 2025-05-13
-    author: sapgunnar
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: sapgunnar
+  date: 2025-05-13
 ---
 
 The main actors in the model, aside from human interaction, are identity providers, service providers, and the SAP BTP-supported IAM services. As depicted in the figure, identity providers are systems that vouch for the identity of users requesting access to service provider systems by issuing a security token that eliminates repeated authentication. Service providers are systems providing business and technical services requisite for user tasks.
