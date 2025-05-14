@@ -9,6 +9,7 @@ slug: /ref-arch/d82b006bb1
 sidebar_position: 18
 sidebar_custom_props:
     category_index:
+        - appdev
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
