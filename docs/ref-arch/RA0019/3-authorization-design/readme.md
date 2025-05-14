@@ -53,7 +53,7 @@ In the SAP Business Technology Platform (BTP) the autorizations are also specifi
 
 In the context of new applications, the [SAP Cloud Identity Services - Identity Directory](https://api.sap.com/api/IdDS_SCIM/overview) functions as the user and group store. This advanced service accommodates the [SAP Authorization Management Service (AMS)](https://help.sap.com/docs/identity-authentication/identity-authentication/configuring-authorization-policies?locale=en-US)(AMS)-defined policies, which are stored and assigned to users in the Identity Directory. The AMS allows the definition of policies by the app-developer but a central derivation and assignment to users in the Identity Directory.
 
-### Preperation
+### Preparation
 
 Current SAP applications with an user- & group / role store expose those via the SCIM2 protocol.
 
@@ -89,13 +89,13 @@ This setup has the following characteristics:
 - The Identity Directory is the central point for the authorization assignments.
 - The authorizations are and remain domain specific - only the assignment is done centrally.
 
-### Services and Components
+## Services and Components
 
 - [SAP Cloud Identity Services - Identity Provisioning](https://discovery-center.cloud.sap/serviceCatalog/identity-provisioning?service_plan=sap-cloud-to-sap-cloud&region=all&commercialModel=cloud)
 - [SAP Cloud Identity Services - Identity Authentication](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 
 
-### Resources
+## Resources
 
 - [SAP Cloud Identity Services - Identity Directory](https://api.sap.com/api/IdDS_SCIM/overview)
 
@@ -108,7 +108,7 @@ This setup has the following characteristics:
 - [SCIM2 protocol](https://www.rfc-editor.org/rfc/rfc7644)
 - [SCIM2 schemas](https://www.rfc-editor.org/rfc/rfc7643)
 
-### Related Missions
+## Related Missions
 
 - [Get Started with SAP BTP - Cloud Identity](https://discovery-center.cloud.sap/missiondetail/4325/4605/)
 - [Configure identity lifecycle management in a hybrid SAP landscape](https://discovery-center.cloud.sap/missiondetail/3116/3152/)
