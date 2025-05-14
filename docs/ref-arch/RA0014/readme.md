@@ -164,22 +164,79 @@ Indirect calls via BTP CAP application:
 
 ## Considerations for the test execution
 
-To get comparable, statistically significant and meaningfull results some general guiding principles could be followed:
+To get comparable, statistically significant and meaningfull results, some general guiding principles could be useful:
+
+* **Number of consecutive calls**
+To get a higher statistical significance a certain number of measurement records is needed. Repeating the test a few hundred times helps increasing the significance.
+
+* **Parallel calls**
+In a real life scenario concurrent users will use the system. Besides a load effect on the different services in the scenario this will require a higher network bandwidth and result in higher total network throughput if the available bandwidth allows.
+
+* **Ramp-up calls**  
+To measure the network performance, you need to make sure the system response time for the backend system is stable. Using a number of ramp-up calls for warming up the system, that are not part of the measurement, can ensure more consistent response times from the backend server and decrease interference when measuring the network performance.
+
+* **Comparing network locations**  
+One of the goals of measuring the network performance is to compare different client locations, BTP subaccount regions and backend locations. Additionally, daytime, day of the week or other time related extra-ordinary events can impact  network performance.  
+By running the different location checks in consecutive batches the risk of interference from changed network conditions can be possibly compensated because the probability is higher that all runs are affected by the these same overall network conditions.
+
+A typical example config could be a structure like (from the current [example repo](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape) - the URL is subject to change soon) 
+
+    "Region": "NA",
+    "Type": "Daily",
+    "ThreadGroup": {
+        "Threads": 5,
+        "Rampup": 10,
+        "Loop": 250
+    },
+    "ScenarioConfigFolders": "S4H,CAP,ROUTER",
+    "JMeterWorker": {
+        "ExecutionType": "sequential",
+        "Hosts": [
+            {
+                "IPAddress": "10.31.0.4",
+                "Name": "CanadaCentral"
+            },
+            {
+                "IPAddress": "10.32.0.4",
+                "Name": "CanadaEast"
+            },
+            {
+                "IPAddress": "10.33.0.4",
+                "Name": "EastUS2"
+            },
+            {
+                "IPAddress": "10.34.0.4",
+                "Name": "SouthCentralUS"
+            },
+            {
+                "IPAddress": "10.35.0.4",
+                "Name": "WestUS2"
+            }
+        ]
+    }
 
 
 
 
+## Statistical analysis and evaluation of the results data
+
+Every OData api call that is flowing through the test parcours is part of the result set and is uploaded to the InfluxDB of the dashboard. Grafana is used to group and analyze the data.
+
+A typical configuration for the data that is ingested into InfluxDB can look like this:
+
+    "sample_variables": "grpLabel,Scenario,ConnectionType,BTPHost_Name,SCCHost_Name,S4HHost_Name,UserHost_Name,statistics-approuter-total,statistics-scc-total,statistics-total,statistics-icmtotal,ping-s4h"
+
+In addition to the total response time per call execution, some of the services report back their own detailed statistics and add it to the http response header for each call. These can help identifying how much time is spent inside these services and are included in the result set, too.
+
+Services that report back their own performance data are:
+
+*   Cloud Foundry App Router: `statistics-approuter-total`
+*   SAP Cloud Connector: `statistics-scc-total`
+*   Internet Connection Manager of S/4HANA Cloud system: `statistics-icmtotal`
 
 
+## Conclusions from past performance tests
 
-
-<!-- Add your flow content here -->
-
-## Characteristics
-
-<!-- Add your characteristics content here -->
-
-## Examples in an SAP context
 
 <!-- Add your SAP context examples here -->
 
@@ -191,6 +248,3 @@ To get comparable, statistically significant and meaningfull results some genera
 
 <!-- Add your resources here -->
 
-## Related Missions
-
-<!-- Add related missions here -->
