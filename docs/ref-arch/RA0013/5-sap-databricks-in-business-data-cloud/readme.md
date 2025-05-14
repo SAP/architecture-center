@@ -34,10 +34,11 @@ unlisted: false
 contributors:
   - s-krishnamoorthy
   - jmsrpp
+  - peterfendt
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-04-17
+  date: 2025-05-10
 ---
 
 # SAP and Databricks Integration in SAP Business Data Cloud
