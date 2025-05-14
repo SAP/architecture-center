@@ -4,8 +4,8 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0013-2
-slug: /ref-arch/be54a62263/2
+id: id-ra0016-2 
+slug: /ref-arch/ff41411bd6/2
 sidebar_position: 2
 sidebar_custom_props:
     category_index:
@@ -17,19 +17,18 @@ description: Configure secure, keyless access to GCP resources using OIDC-based 
 sidebar_label: Secure Service Consumption on GCP
 keywords: [gcp, oidc, federation, ias, sap, btp, security]
 image: img/logo.svg
-tags: [gcp,security,ias,oidc,federation,identity,btp]
+tags: [gcp,security]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - alperdedeoglu
 last_update:
-    date: 2025-05-12
-    author: user-967159a588
+    date: 2025-05-14
+    author: alperdedeoglu
 ############################################################
 #                   End of Front Matter                    #
 ############################################################

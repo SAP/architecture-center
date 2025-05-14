@@ -4,8 +4,8 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0013-1 
-slug: /ref-arch/be54a62263/1
+id: id-ra0016-1 
+slug: /ref-arch/ff41411bd6/1
 sidebar_position: 1
 sidebar_custom_props:
     category_index:
@@ -13,8 +13,8 @@ sidebar_custom_props:
 #     You can modify the front matter properties below     #
 ############################################################
 title: Secure Service Consumption on AWS
-description: This architecture demonstrates how to securely access AWS services from applications running outside of AWS 
-sidebar_label: Secure Service Consumption on AWS 
+description: This architecture demonstrates how to securely access AWS services from applications running outside of AWS.
+sidebar_label: Secure Service Consumption on AWS
 keywords: [aws,security,iam,iam-roles-anywhere,oidc]
 image: img/logo.svg
 tags: [security,aws]
@@ -22,17 +22,18 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - alperdedeoglu
 last_update:
-    date: 2025-04-16
-    author: user-2a28053a87
+    date: 2025-05-14
+    author: alperdedeoglu
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
+---
+
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -47,32 +48,35 @@ Alternatively, AWS IAM Roles Anywhere allows certificate-based access to AWS ser
 
 Both identity federation and certificate-based access ensure secure, scalable service consumption, serving as a reference pattern for implementing zero-trust principles in hybrid environments.
 
+## Architecture
 
 <Tabs
   defaultValue="OIDC"
-  className= "custom-tab-big"
   values={[
     {label: 'OIDC Federation via SAP IAS', value: 'OIDC'},
     {label: 'AWS IAM Roles Anywhere', value: 'RA'}
   ]}>
-  <TabItem value="OIDC">
-   ## Architecture
-    ![drawio](drawio/oidc-sts.drawio)
-   ## Flow
-    This alternative pattern demonstrates how to access AWS services by treating the application created within SAP IAS as an OIDC Identity Provider (IdP) for AWS.
+<TabItem value="OIDC">
 
-   ### Prerequisites:
-    1. **Register SAP IAS as an OIDC Provider in AWS**  
-    Add your IAS application metadata to AWS IAM as a new Identity Provider using [OIDC IdP setup](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html).
-    2. **Create IAM Role with Trust Policy**  
+![drawio](drawio/oidc-sts.drawio)
 
-   ### Runtime Flow: 
-    1. **Application obtains ID token from SAP IAS.**
-    2. **Application uses this token to assume an IAM Role using STS.**
-    3. **AWS issues temporary credentials scoped by the role's permissions.**
-    4. **Application accesses AWS services with these credentials.**
-  
- ## Characteristics 
+## Flow
+This alternative pattern demonstrates how to access AWS services by treating the application created within SAP IAS as an OIDC Identity Provider (IdP) for AWS.
+
+### Prerequisites:
+
+1. **Register SAP IAS as an OIDC Provider in AWS**  
+Add your IAS application metadata to AWS IAM as a new Identity Provider using [OIDC IdP setup](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html).
+2. **Create IAM Role with Trust Policy**  
+
+### Runtime Flow: 
+
+1. Application obtains ID token from SAP IAS.
+2. Application uses this token to assume an IAM Role using STS.
+3. AWS issues temporary credentials scoped by the role's permissions.
+4. Application accesses AWS services with these credentials.
+
+## Characteristics
     | Characteristic                            | Description                                                                 |
     |------------------------------------------|-----------------------------------------------------------------------------|
     | **Authentication Type**                  | OpenID Connect JWT Token                                            |

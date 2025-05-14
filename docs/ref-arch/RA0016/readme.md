@@ -4,11 +4,15 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0013
-slug: /ref-arch/be54a62263
-sidebar_position: 13
+id: id-ra0016
+slug: /ref-arch/ff41411bd6
+sidebar_position: 16
 sidebar_custom_props:
     category_index:
+        - appdev
+        - opsec
+        - azure
+        - aws
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -17,23 +21,23 @@ description: This architecture outlines a cloud-agnostic approach for securely c
 sidebar_label: Secure Service Consumption Across Hyperscalers
 keywords: [security,authentication,hyperscalers,aws,gcp,azure]
 image: img/logo.svg
-tags: [security,hyperscalers]
+tags: [security,aws,gcp]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - alperdedeoglu
 last_update:
-    date: 2025-04-16
-    author: user-be54a62263
+    date: 2025-05-14
+    author: alperdedeoglu
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -41,11 +45,11 @@ To enable compliant and secure integration with hyperscaler services, SAP recomm
 
 The following reference architectures illustrate how federated authentication can be implemented for corresponding hyperscaler.
 
+## Architecture
+
 <Tabs>
   <TabItem value="aws" label="Amazon Web Services">
-
-           ![drawio](./1-secure-service-consumption-on-aws-using-iam-roles-anywhere/drawio/oidc-sts.drawio)
-
+           ![drawio](./1-secure-service-consumption-on-aws/drawio/oidc-sts.drawio)
   </TabItem>
   
   <TabItem value="gcp" label="Google Cloud Platform">
