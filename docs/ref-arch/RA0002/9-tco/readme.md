@@ -6,7 +6,9 @@ sidebar_custom_props:
   category_index: []
 title: Cost of Ownership
 description: >-
-  There is a cost to maintain multi-region setup which is inherent due to it's nature of having to setup duplicate services. However, there are some ways to reduce this further, which are discussed here.
+  There is a cost to maintain multi-region setup which is inherent due to it's
+  nature of having to setup duplicate services. However, there are some ways to
+  reduce this further, which are discussed here.
 keywords:
   - sap
   - integration
@@ -18,7 +20,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Cost of Ownership
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
