@@ -28,7 +28,7 @@ keywords:
   - private networks
   - cloud security
 sidebar_label: Secure connectivity with SAP Private Link service
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - security
