@@ -20,7 +20,7 @@ keywords:
   - DGX
   - fedml
 sidebar_label: FedML-NVIDIA
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
