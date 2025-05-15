@@ -13,7 +13,7 @@ keywords:
   - saas
   - cap
 sidebar_label: Tenant Lifecycle Management
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
