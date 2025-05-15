@@ -1,23 +1,26 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0005-8
 slug: /ref-arch/e5eb3b9b1d/8
 sidebar_position: 6
 sidebar_custom_props:
-    category_index: []
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Agent2Agent Interoperability
-description: The Agent2Agent (A2A) protocol facilitates communication between independent AI agents. SAP contributes to the A2A specification via Joule and Open Resource Discovery (ORD).
+description: >-
+  The Agent2Agent (A2A) protocol facilitates communication between independent
+  AI agents. SAP contributes to the A2A specification via Joule and Open
+  Resource Discovery (ORD).
+keywords:
+  - sap
+  - google
+  - agent2agent
+  - joule
+  - microsoft azure
 sidebar_label: Agent2Agent Interoperability
-keywords: [sap, google, agent2agent, joule, microsoft azure]
-image: img/logo.svg
-tags: [genai, gcp, azure]
+image: img/ac-soc-med.png
+tags:
+  - genai
+  - gcp
+  - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,14 +28,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - adarshnarayanhegde
-    - AFK-Python
+  - adarshnarayanhegde
+  - AFK-Python
+discussion: 
 last_update:
-    date: 2025-05-12
-    author: adarshnarayanhegde
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: adarshnarayanhegde
+  date: 2025-05-12
 ---
 
 # Agent2Agent (A2A) Interoperability in Enterprise AI
