@@ -21,7 +21,7 @@ keywords:
   - gcp
   - azure
 sidebar_label: Secure Service Consumption Across Hyperscalers
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - aws
