@@ -36,8 +36,8 @@ keywords:
   - cloud
   - demo
 
-# IMAGE: Default is SAP logo.
-image: img/AC_SocMed.png
+# IMAGE: Default is SAP Architecture Center logo.
+image: img/ac-soc-med.png
 
 # TAGS: Tags are displayed at the bottom of the page.
 tags:
