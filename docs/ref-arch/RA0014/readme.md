@@ -250,9 +250,9 @@ The dashboard is using different statistical funtions to group the data. E.g. `m
 
 The following groupings can be interesting for the main attribute `Response Time`:
 
-- `Average`	 Average value (might be biased from outliers and ramp up calls)
-- `Median`	Median value (50% percentile – much less impact from outliers)
-- `90/95/99th Percentile`	The nth percentile is the smallest score that is greater than or equal to a certain percentage of the scores. To rephrase this, it’s the percentage of data that falls at or below a certain observation
+- `Average` Average value (might be biased from outliers and ramp up calls)
+- `Median` Median value (50% percentile – much less impact from outliers)
+- `90/95/99th Percentile` The nth percentile is the smallest score that is greater than or equal to a certain percentage of the scores. To rephrase this, it’s the percentage of data that falls at or below a certain observation
 
 ## Conclusions from past performance tests
 
