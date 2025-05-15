@@ -18,7 +18,7 @@ keywords:
   - cap
   - eda
 sidebar_label: Introduction and SAP's EDA Strategy
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws
