@@ -20,7 +20,7 @@ keywords:
   - integration
   - automation
 sidebar_label: Integrate and Extend with SAP Build Process Automation
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - build
   - azure
