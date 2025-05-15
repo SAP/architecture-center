@@ -99,7 +99,7 @@ const config: Config = {
                     sidebarPath: require.resolve('./sidebars'),
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
-                    editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                    editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                 },
                 theme: {
                     customCss: './src/css/custom.css',
