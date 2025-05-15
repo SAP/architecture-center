@@ -234,11 +234,18 @@ A typical configuration for the data that is ingested into InfluxDB can look lik
 
 ```text
   "sample_variables":
-    "grpLabel", "Scenario", "ConnectionType",
-    "BTPHost_Name", "SCCHost_Name", "S4HHost_Name",
-    "UserHost_Name", "statistics-approuter-total",
-    "statistics-scc-total", "statistics-total",
-    "statistics-icmtotal", "ping-s4h"
+    "grpLabel", 
+    "Scenario", 
+    "ConnectionType",
+    "BTPHost_Name", 
+    "SCCHost_Name", 
+    "S4HHost_Name",
+    "UserHost_Name", 
+    "statistics-approuter-total",
+    "statistics-scc-total", 
+    "statistics-total",
+    "statistics-icmtotal", 
+    "ping-s4h"
 ```
 
 In addition to the total response time per call execution, some of the services report back their own detailed statistics and add it to the http response header for each call. These can help identifying how much time is spent inside these services and are included in the result set, too.
