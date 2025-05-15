@@ -34,8 +34,6 @@ last_update:
   date: 2024-08-01
 ---
 
-## Streamlined Business Document Exchange: SAP Business-to-Business Integration
-
 With the help of business-to-business (B2B) integration, you can electronically exchange business documents with other organizations. It allows you to extend your business processes beyond your organization’s boundaries to include your business partners such as customers and suppliers. To enable electronic data exchange with those business partners, you need to align with them on common B2B standards, which include document types, transport protocols, partner identification, security features, and more.
 
 This reference architecture is based on the concepts of the **SAP Integration Solution Advisory Methodology**. Here, B2B integration is defined as an integration use case pattern that belongs to the process integration style. The diagram shows the runtime perspective for B2B integration covering the integration domains Cloud2Cloud and Cloud2OnPremise.
@@ -74,7 +72,7 @@ An architecture for B2B integration can be characterized as follows:
 - **Secured communication**: As B2B documents are exchanged over the public internet, you need to establish secure communication channels (transport-level security) and configure digital encryption and digital signing of messages (message-level security).
 - **Scaling design and runtime environment**: B2B integration requires a scalable solution that can accommodate the growth of trading partner networks and increasing data load. This may include optimized features for trading partner onboarding and management and processing bulk data.
 
-### Examples in an SAP Context
+## Examples in an SAP Context
 
 Many SAP solutions, such as SAP S/4HANA Cloud, offer public APIs for B2B integration scenarios. Examples of applying the reference architecture for B2B integration for cloud deployment include:
 
@@ -82,7 +80,7 @@ Many SAP solutions, such as SAP S/4HANA Cloud, offer public APIs for B2B integra
 - [Sales Order/Customer Return - Create, Update, Cancel (B2B)](https://help.sap.com/docs/SAP_S4HANA_CLOUD/03c04db2a7434731b7fe21dca77440da/4261582b6ca44d008c72be11b9a400e2.html?q=%22EDI%22%20Sales&locale=en-US) in SAP S/4HANA Cloud.
 - [Manage Just-In-Time Calls](https://help.sap.com/docs/SAP_S4HANA_CLOUD/d35113ee62644d3abee1aaec148291d9/2963c5246b334cca8787cc1aa4cd587c.html?q=%22EDI%22%20Just&locale=en-US) in SAP S/4HANA Cloud.
 
-### Reasonable Alternatives
+## Reasonable Alternatives
 
 Alternative architectures and solution options for B2B integration for cloud deployment include:
 
@@ -92,13 +90,13 @@ Alternative architectures and solution options for B2B integration for cloud dep
 - **SAP Business Network and SAP Ariba Solutions**: Instead of interacting with individual trading partners, you can join the SAP Business Network or SAP Ariba solutions for sourcing, procurement, and supplier management. These enable organizations to collaborate as customers or suppliers.  
   Example: Use [SAP Integration Suite, managed gateway for spend management and SAP Business Network](https://help.sap.com/docs/sisgw?locale=en-US) to integrate SAP ERP and SAP S/4HANA backend systems with trading partners and SAP Ariba solutions. Suppliers can also choose alternative integration options like online, EDI, or API-based approaches ([How Suppliers connect to SAP Business Network](https://help.sap.com/docs/business-network-for-trading-partners/introduction-to-business-network/how-suppliers-connect-to-sap-business-network?locale=en-US)).
 
-### Services and Components
+## Services and Components
 
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 - [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?service_plan=lite&region=all)
 
-### Resources
+## Resources
 
 - [SAP Business Accelerator Hub](https://hub.sap.com)
 - [SAP Application Interface Framework](https://help.sap.com/docs/SAP_APPLICATION_INTERFACE_FRAMEWORK_OVERVIEW)
@@ -108,6 +106,6 @@ Alternative architectures and solution options for B2B integration for cloud dep
 - [Integration Advisor: Overview of components for building B2B integration content and further reading (SAP Community blog post)](https://blogs.sap.com/2021/09/28/integration-advisor-overview-of-components-for-building-b2b-integration-content-and-further-reading/)
 - [Announcement: SAP Trading Partner Management and B2B Monitoring brand new capabilities of SAP Integration Suite is released! (SAP Community blog post)](https://blogs.sap.com/2021/12/17/announcement-sap-trading-partner-management-and-b2b-monitoring-brand-new-capabilities-of-sap-integration-suite-is-released/)
 
-### Related Missions
+## Related Missions
 
 - [Get started with SAP Integration Suite](https://discovery-center.cloud.sap/missiondetail/3258/3327/)

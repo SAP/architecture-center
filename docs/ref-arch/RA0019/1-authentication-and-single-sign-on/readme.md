@@ -3,8 +3,7 @@ id: id-ra0019-1
 slug: /ref-arch/20c6b29b1e/1
 sidebar_position: 1
 sidebar_custom_props:
-  category_index:
-    - opsec
+  category_index: []
 title: Authentication with SAP Cloud Identity Services
 description: >-
   This reference architecture describes the authentication flows for SAP SaaS
@@ -44,13 +43,13 @@ The main actors in the model, aside from human interaction, are identity provide
 
 ## Architecture
 
-![drawio](drawio/public_SAP_AuthN_SD.drawio)
+![drawio](drawio/public-sap-authn-sd.drawio)
 
 The SAP Cloud Identity Services can act as an identity provider, executing authentication or acting as a broker by forwarding requests to third-party providers. In the figure diagram, the SAP Cloud Identity Services redirects the incoming authentication request to a specifically configured Identity Provider, performing the broker's role. This operation is common for employee scenarios where a company utilizes one central IdP across numerous vendors. This scenario is also compatible with new applications that use the Identity Directory within the SAP Cloud Identity Services to manage identities and their assignments. SAP Cloud Identity Services can cross-verify against the Identity Directory on how the authentication flow should be federated towards a remote Identity Provider or which features should be merged into the authentication tokens relevant only for the SAP landscape.
 
 In conclusion, the SAP Cloud Identity Services function either as a secure Identity Provider for your SAP landscape or as a facade linking SAP applications to your existing Identity Provider. In both setups, you benefit from pre-existing templates and integrations within the SAP environment, leading to a lesser integration effort into your non-SAP cybersecurity toolset.
 
-## Flow
+### Flow
 
 The following flows start in the application. Those are known as SAML Service Provider initiated and OIDC Resource Provider initiated flow. Those are the most common scenarios.
 
@@ -60,7 +59,7 @@ If SAML is used in the complete chain then  (3rd party) IdP initiated SAML flows
 [3521979 - Deprecation of SAML for User-Interactive Authentication in BTP Accounts](https://me.sap.com/notes/3521979/E)
 :::
 
-### A) SP / RP initiated flow (SAML / OIDC) for Web applications
+**SP / RP initiated flow (SAML / OIDC) for Web applications**
 
 The following flow can be applied to SAP Cloud applications and SAP On-Premises applications (incl. private cloud) which are integrated with the SAP Cloud Identity Services - Identity Authentication.
 
@@ -72,7 +71,7 @@ The following flow can be applied to SAP Cloud applications and SAP On-Premises 
     - no: The IAS presents a login screen
     - yes: e.g. in general for all SAP applications a redirect is enabled - IAS redirects the application client to the 3rd party Identity Provider
 
-### B) Federation flow with 3rd party Identity Providers (IdP) for Web applications
+**Federation flow with 3rd party Identity Providers (IdP) for Web applications**
 
 6. The 3rd party Identity Provider authenticates the user.
 7. The 3rd party IdP redirects the application client with the authenticated user details to IAS.
@@ -86,23 +85,23 @@ The following flow can be applied to SAP Cloud applications and SAP On-Premises 
 New SAP SaaS features ([SAP Task Center](https://pages.community.sap.com/topics/task-center), [SAP Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html)) require user persistency in IdDS for cross application correlation, access/role/policy assignments and as only user store.
 :::
 
-### C) Application authentication for Web applications
+**Application authentication for Web applications**
 
 9. The IAS creates a new token based on the application-configuration SAML or OIDC with attributes used from the 3rd party IdP and/or from the IdDS.
 10. The IAS redirects the application client to the application.
 11. The application accepts the token from IAS and creates a new user-session. The user is logged in.
 
-### D) SAP GUI Single Sign-On
+**SAP GUI Single Sign-On**
 
 The Single Sign-On flow for SAP GUI applications re-uses the same authentication flow with Cloud Identity Services - Identity Authentication as the Web applications. The difference is that the SAP GUI uses a different protocol. The SAP GUI uses X.509 certificates for the authentication. The flow is as follows:
 
-1. The users starts the SAP GUI and activates the SSO features with SAP Cloud Identity Services.
+1. The users start the SAP GUI and activates the SSO features with SAP Cloud Identity Services.
 2. The user authenticates against the IAS.
 3. The IAS creates a new OIDC token with attributes. As described above the attributes could come from the 3rd party IdP and/or from the IdDS. IAS hands the token over to the [SAP Secure Login Service for SAP GUI](https://help.sap.com/sls) (SLS).
 4. The SLS creates a short term X.509 certificate for the authenticated user and stores it in the certificate store the SAP GUI uses.
 5. The SAP GUI uses the X.509 certificate to authenticate against the SAP application.
 
-## Characteristics
+### Characteristics
 
 This setup has the following characteristics:
 
