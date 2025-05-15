@@ -21,7 +21,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Data Synchronization across regions
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
