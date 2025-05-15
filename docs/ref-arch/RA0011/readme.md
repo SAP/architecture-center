@@ -23,7 +23,7 @@ keywords:
   - hana cloud
   - esri
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
