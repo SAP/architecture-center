@@ -33,10 +33,8 @@ last_update:
   date: 2025-05-14
 ---
 
----
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-
 
 
 This section outlines the architecture for securely accessing AWS services from external environments, such as applications running on SAP Business Technology Platform (SAP BTP).
@@ -55,6 +53,7 @@ Both identity federation and certificate-based access ensure secure, scalable se
     {label: 'OIDC Federation via SAP IAS', value: 'OIDC'},
     {label: 'AWS IAM Roles Anywhere', value: 'RA'}
   ]}>
+
 <TabItem value="OIDC">
 
 ![drawio](drawio/oidc-sts.drawio)
@@ -101,6 +100,7 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
    :::tip Tip
    This flow simplifies access control and identity federation, making it particularly suitable for SAP BTP applications — even those using XSUAA — where leveraging an existing IAS trust allows secure AWS access without managing certificates.
    :::
+
   ## Resources
   - [Create an OpenID Connect (OIDC) identity provider in AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)
   - [Create a role for OpenID Connect federation in AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_oidc.html)
@@ -112,6 +112,7 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
 
   <TabItem value="RA">
    ![drawio](drawio/iam-roles-anywhere.drawio)
+  
   ## Flow
 
   ### Prerequisites:
