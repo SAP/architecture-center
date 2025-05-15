@@ -99,7 +99,7 @@ const config: Config = {
                     sidebarPath: require.resolve('./sidebars'),
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
-                    editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                    editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                 },
                 theme: {
                     customCss: './src/css/custom.css',
@@ -327,7 +327,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company. All rights reserved.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
         },
         prism: {
             theme: lightCodeTheme,
