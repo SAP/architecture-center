@@ -9,7 +9,7 @@ keywords:
     - diagram
     - drawio
     - mermaid
-image: img/AC_SocMed.png
+image: img/ac-soc-med.png
 tags:
     - community
 hide_table_of_contents: false
