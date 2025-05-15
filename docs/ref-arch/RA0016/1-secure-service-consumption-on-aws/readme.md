@@ -1,23 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0016-1 
-slug: /ref-arch/ff41411bd6/1
+id: id-ra0016-1
+slug: /ref-arch/7e558be8f1/1
 sidebar_position: 1
 sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index: []
 title: Secure Service Consumption on AWS
-description: This architecture demonstrates how to securely access AWS services from applications running outside of AWS.
+description: >-
+  This architecture demonstrates how to securely access AWS services from
+  applications running outside of AWS.
+keywords:
+  - aws
+  - security
+  - iam
+  - iam-roles-anywhere
+  - oidc
 sidebar_label: Secure Service Consumption on AWS
-keywords: [aws,security,iam,iam-roles-anywhere,oidc]
 image: img/logo.svg
-tags: [security,aws]
+tags:
+  - security
+  - aws
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,13 +26,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - alperdedeoglu
+  - alperdedeoglu
+discussion: 
 last_update:
-    date: 2025-05-14
-    author: alperdedeoglu
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: alperdedeoglu
+  date: 2025-05-14
 ---
 
 ---
@@ -180,5 +179,3 @@ Add your IAS application metadata to AWS IAM as a new Identity Provider using [O
 [SAP BTP Destination Service Official Documentation](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/destination-service)
   </TabItem>
 </Tabs>
-
-

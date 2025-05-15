@@ -1,24 +1,25 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0021
-slug: /ref-arch/9fb514285b
+slug: /ref-arch/58f6d88e9a
 sidebar_position: 21
 sidebar_custom_props:
-    category_index:
-      - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: Application to Application Integration
-description: Learn how application-to-application (App2App) integration facilitates the exchange of transactional data across internal company processes by connecting business applications in a near real-time manner. This reference architecture highlights SAP Integration Suite&#39;s role in enabling seamless data flow and interoperability between cloud and on-premise solutions.
+description: >-
+  Learn how application-to-application (App2App) integration facilitates the
+  exchange of transactional data across internal company processes by connecting
+  business applications in a near real-time manner. This reference architecture
+  highlights SAP Integration Suite&#39;s role in enabling seamless data flow and
+  interoperability between cloud and on-premise solutions.
+keywords:
+  - sap
+  - app2app
+  - integration
 sidebar_label: Application to Application Integration
-keywords: [sap, app2app, integration]
 image: img/logo.svg
-tags: [integration]
+tags:
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +27,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - avikSap
-    - fabianleh
+  - avikSap
+  - fabianleh
+discussion: 
 last_update:
-    date: 2024-08-01
-    author: avikSap
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: avikSap
+  date: 2024-08-01
 ---
 
 ## Application-to-Application Integration: Real-Time Data Exchange Across Business Applications

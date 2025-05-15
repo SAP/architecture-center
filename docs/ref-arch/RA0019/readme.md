@@ -1,26 +1,38 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0019
-slug: /ref-arch/2e1c68431b
+slug: /ref-arch/20c6b29b1e
 sidebar_position: 19
 sidebar_custom_props:
-    category_index:
-        - appdev
-        - opsec
-        - ai
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - appdev
+    - opsec
+    - ai
 title: SAP IAM integration with SAP Cloud Identity Services
-description: This reference architecture describes the authentication, identity lifecycle flows and how to assign and design roles (authorizations) for the SAP SaaS via the SAP Cloud Identity Services.
+description: >-
+  This reference architecture describes the authentication, identity lifecycle
+  flows and how to assign and design roles (authorizations) for the SAP SaaS via
+  the SAP Cloud Identity Services.
+keywords:
+  - sap
+  - identity
+  - ias
+  - ips
+  - security
+  - cloud identity
+  - business suite
+  - cloud erp
+  - idm
+  - iag
+  - access
+  - single sign-on
+  - SAP Cloud Identity Services
+  - Identity Provisioning
+  - Identity Authentication
 sidebar_label: Identity Access Management
-keywords: [sap, identity, ias, ips, security, cloud identity, business suite, cloud erp, idm, iag, access, single sign-on, SAP Cloud Identity Services, Identity Provisioning, Identity Authentication]
 image: img/logo.svg
-tags: [security, genai]
+tags:
+  - security
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,14 +40,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - sapgunnar
-    - gunnar-kosche_sap
+  - sapgunnar
+  - gunnar-kosche_sap
+discussion: 
 last_update:
-    date: 2025-05-13
-    author: sapgunnar
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: sapgunnar
+  date: 2025-05-13
 ---
 
 These reference architectures delve into the critical aspects of Identity Access Management (IAM) for SAP, focusing on essential elements such as user storage, replication, and identity lifecycle.

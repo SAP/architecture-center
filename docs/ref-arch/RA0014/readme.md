@@ -1,23 +1,43 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0014
-slug: /ref-arch/97da66ca6c
+slug: /ref-arch/0ec83f98fe
 sidebar_position: 14
 sidebar_custom_props:
-    category_index: [aws, azure, gcp, appdev, integration, opsec]
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - aws
+    - azure
+    - gcp
+    - appdev
+    - integration
+    - opsec
 title: Understanding Network Performance in a Multi Regional Solution
-description: Designing and operating cloud based solutions in a multi-regional setup are technically advanced tasks. The solution and application design, usage of different network providers and last but not least the geographical placement of services have an impact on the overall performance.
+description: >-
+  Designing and operating cloud based solutions in a multi-regional setup are
+  technically advanced tasks. The solution and application design, usage of
+  different network providers and last but not least the geographical placement
+  of services have an impact on the overall performance.
+keywords:
+  - sap
+  - BTP
+  - rise
+  - grow
+  - hyperscaler
+  - S/4 HANA
+  - aws
+  - azure
+  - gcp
+  - odata
+  - privatelink
+  - wan
+  - internet
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
-keywords: [sap, BTP, rise, grow, hyperscaler, S/4 HANA, aws, azure, gcp, odata, privatelink, wan, internet]
 image: img/logo.svg
-tags: [aws, azure, gcp, appdev, integration]
+tags:
+  - aws
+  - azure
+  - gcp
+  - appdev
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,22 +45,18 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - uklasing
-    - kshanth
-    - anbazhagan-uma
-    - AjitKP91
+  - uklasing
+  - kshanth
+  - AjitKP91
+discussion: 
 last_update:
-    date: 2025-05-07
-    author: uklasing
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: uklasing
+  date: 2025-05-07
 ---
 
-Cloud infrastructures are distributed systems by default, caused by the fact that multiple systems are connected via a network to execute a desired task. A distributed system design massively increases the complexity of building and operating these solutions.  
-In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distributed system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late and we cannot make the cloud undone, anymore. 
+Cloud infrastructures are distributes systems by default, caused by the fact that multiple systems are connected via a network to execute a desired task. A distributed system design massively increases the complexity of building and operating these solutions. In the introduction of the famous [Distributed Systems Course MIT 6.824](https://www.youtube.com/@6.824/videos) there is already this kind of ironic warning "...if you can possibly solve it on a single computer ... without building a distrinbuted system you should do it that way". Having an honest assessment of our situation this warning is definitely a bit late for us. 
 
-Looking at typical enterprise business solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like SAP S/4HANA Cloud, SAP SuccessFactors, SAP Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure as a Service (IaaS), 3rd party solutions and last but not least the SAP Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsoft Azure), these locations are referred to as "regions". 
+Looking at typical enterprise solutions consisting of different SAP SaaS Cloud products of the SAP Business Suite like S/4 HANA, SuccessFactors, Ariba, SAP Sales Cloud,... SAP Legacy Solutions on-premise or operated on Infrastructure as a Service (IaaS), 3rd party solutions and last but not least the SAP Business Technology Platform (BTP) you automatically end up in a massively distributed system. To make things even harder, these systems could be spread out to very different locations, spanning even different continents. In the context of hyperscalers (Infrastructure and platform providers like Amazon Web Service, Google Cloud Platform or Microsft Azure), these locations are referred to as "regions". 
 
 However, the distribution of services to different locations is not just an obstacle to deal with, often there are valid business reasons behind using certain datacenter locations, like regulatory requirements, security and cost considerations and, you might guess it, performance requirements. 
 Many SAP customers do business in a vast number of countries, running services and solutions in different locations and regions becomes a business requirement and imperative.
@@ -65,6 +81,7 @@ To get a deeper understanding of the measures refer to the wikipedia article men
 
 
 ## Architecture
+
 
 The architecture describes a distributed testing landscape that can be used to measure network performance aspects in a multi-regional, multi-provider setup. Although it can be used with all kinds of different network payloads, the focus is currently on OData, which is a common protocol that many SAP products and solutions use to connect user interface frontends (UI) with the respective backends. It is the default communication method for UIs with SAP S/4HANA and for any apps that have been built using the SAP Cloud Application Programming Model (CAP) on SAP BTP.
 In the existing example the OData services from the "Manage Sales Orders" SAP Fiori app were used to request data from an S/4HANA Cloud Private Edition instance.
@@ -143,7 +160,6 @@ Minimal BTP scenario using Cloud Foundry App as proxy:
 * OData call from worker node to the S/4HANA system using the Cloud Foundry App Router as a proxy via SAP Private Link service.
 
     ![OData Call App Router PrivateLink](images/OData_Call_App_Router_PrivateLink.drawio.png)
-
 
 
 Indirect calls via BTP CAP application:
@@ -272,4 +288,3 @@ A good application architecture can often mitigate performance bottlenecks on th
 
 ## Resources
 * The sourcecode and setup instructions for the performance testing landscape can be found on [GitHub](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape). However, the project is currently undergoing some rework and the URL is subject to change. 
-

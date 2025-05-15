@@ -114,10 +114,10 @@
         },
         {
             "type": "category",
-            "label": "Operational Security",
+            "label": "Operations & Security",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | Operational Security",
+                "title": "Architecture Explorer | Operations & Security",
                 "description": "Discover SAP reference architectures for operations and security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/opsec",
                 "keywords": ["opsec", "sap"],

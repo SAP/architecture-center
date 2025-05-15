@@ -1,24 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0020
-slug: /ref-arch/0c1120f71c
+slug: /ref-arch/61f6a1db63
 sidebar_position: 20
 sidebar_custom_props:
-    category_index:
-      - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: Business to Business Integration
-description: Discover SAP's Business-to-Business (B2B) Integration architecture for efficient electronic document exchange with trading partners. Learn about design and runtime perspectives, flow, SAP Integration Suite capabilities, security, scalability, and more.
+description: >-
+  Discover SAP's Business-to-Business (B2B) Integration architecture for
+  efficient electronic document exchange with trading partners. Learn about
+  design and runtime perspectives, flow, SAP Integration Suite capabilities,
+  security, scalability, and more.
+keywords:
+  - sap
+  - b2b
+  - integration
 sidebar_label: Business to Business Integration
-keywords: [sap, b2b, integration]
 image: img/logo.svg
-tags: [integration]
+tags:
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +26,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - avikSap
-    - fabianleh
+  - avikSap
+  - fabianleh
+discussion: 
 last_update:
-    date: 2024-08-01
-    author: avikSap
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: avikSap
+  date: 2024-08-01
 ---
 
 ## Streamlined Business Document Exchange: SAP Business-to-Business Integration

@@ -1,24 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0022
-slug: /ref-arch/c54568a514
+slug: /ref-arch/309338f0eb
 sidebar_position: 22
 sidebar_custom_props:
-    category_index:
-      - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: API Managed Integration
-description: Discover how API-managed integration enables omni-channel, secure access to business applications while hiding the complexity of heterogeneous landscapes. Learn how SAP Integration Suite's API Management capability supports governance, security, and simplified consumption of business-critical APIs.
+description: >-
+  Discover how API-managed integration enables omni-channel, secure access to
+  business applications while hiding the complexity of heterogeneous landscapes.
+  Learn how SAP Integration Suite's API Management capability supports
+  governance, security, and simplified consumption of business-critical APIs.
+keywords:
+  - sap
+  - api
+  - integration
 sidebar_label: API Managed Integration
-keywords: [sap, api, integration]
 image: img/logo.svg
-tags: [integration]
+tags:
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +26,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - avikSap
-    - fabianleh
+  - avikSap
+  - fabianleh
+discussion: 
 last_update:
-    date: 2024-08-01
-    author: avikSap
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: avikSap
+  date: 2024-08-01
 ---
 
 ## API Managed Integration: Simplified, Secure, and Governed Access to Business Applications
@@ -102,4 +100,4 @@ SAP does not deliver predefined integration scenarios for API-managed integratio
 ### Related Missions  
   
 - [Get Started with Integration Suite - API Management](https://discovery-center.cloud.sap/missiondetail/3062/3072/)  
-- [Create simple, connected digital experiences with API-based integration](https://discovery-center.cloud.sap/missiondetail/3062/3072/)  
+- [Create simple, connected digital experiences with API-based integration](https://discovery-center.cloud.sap/missiondetail/3062/3072/)

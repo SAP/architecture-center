@@ -1,24 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0017
-slug: /ref-arch/b28a13829c
+slug: /ref-arch/7adaecbbaf
 sidebar_position: 17
 sidebar_custom_props:
-    category_index:
-      - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: Connect Business Processes with SAP Master Data Integration
-description: Explore the Master Data Integration Reference Architecture to synchronize and manage business-critical data across SAP and third-party solutions. Learn best practices for data consistency, real-time processing, and secure integration using SAP Integration Suite and SAP Master Data Integration.
+description: >-
+  Explore the Master Data Integration Reference Architecture to synchronize and
+  manage business-critical data across SAP and third-party solutions. Learn best
+  practices for data consistency, real-time processing, and secure integration
+  using SAP Integration Suite and SAP Master Data Integration.
+keywords:
+  - sap
+  - mdi
+  - business process
 sidebar_label: Connect Business Applications with SAP Master Data Integration
-keywords: [sap, mdi, business process]
 image: img/logo.svg
-tags: [integration]
+tags:
+  - integration
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -26,14 +26,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - avikSap
-    - fabianleh
+  - avikSap
+  - fabianleh
+discussion: 
 last_update:
-    date: 2025-01-08
-    author: avikSap
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: avikSap
+  date: 2024-01-08
 ---
 
 ## Overview
