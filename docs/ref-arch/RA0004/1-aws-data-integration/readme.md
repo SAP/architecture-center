@@ -17,7 +17,7 @@ keywords:
   - athena
   - datasphere
 sidebar_label: Integration with AWS data sources
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws
