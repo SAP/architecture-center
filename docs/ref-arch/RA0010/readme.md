@@ -24,7 +24,7 @@ keywords:
   - cloud
   - build work zone
 sidebar_label: Establish a central entry point with SAP Build Work Zone
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
