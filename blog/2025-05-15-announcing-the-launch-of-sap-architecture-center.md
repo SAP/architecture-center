@@ -1,5 +1,5 @@
 ---
-title: Announcing the Launch of SAP Architecture Center
+title: Launching the SAP Architecture Center
 description: The SAP Architecture Center centralizes all resources in one place, enabling organizations to maximize cloud capabilities while ensuring that their solutions are secure, resilient, and optimized to their specific requirements.
 authors: [ anirban-sap ]
 keywords: ["SAP Architecture Center", "Reference Architecture", "SAP BTP"]
@@ -7,7 +7,7 @@ hide_table_of_contents: true
 date: 2025-05-15
 ---
 
-## Launching the SAP Architecture Center!
+## Launching the SAP Architecture Center
 
 I'm pleased to announce that my team at the Office of the CTO, SAP, has officially launched the [SAP Architecture Center on the SAP Learning Center](https://architecture.learning.sap.com/).
 
@@ -29,9 +29,9 @@ I'm pleased to announce that my team at the Office of the CTO, SAP, has official
 
 Special acknowledgment to Philipp Herzig and Andre Bechtold for sponsorship, the core team: James Rapp, Pierre-Olivier Basseville, Navya Khurana, Fabian Lehmann, Michael Still, Marina Noble, Julian, Johanna, Vedant, Gabriel, Robin, Max, Jonas, Praveen, and all contributors.
 
-Join us in shaping the future of SAP architecture."
+Join us in shaping the future of SAP architecture.
 
- [Start contributing](/community/contribution) today.
+[Start contributing](/community/contribution) today!
 
 Anirban
 Office of the CTO
