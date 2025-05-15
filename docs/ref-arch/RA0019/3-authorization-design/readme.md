@@ -20,7 +20,7 @@ keywords:
   - SAP Cloud Identity Services
   - Authorization Management
 sidebar_label: Authorization Design
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - genai
