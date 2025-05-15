@@ -13,7 +13,7 @@ keywords:
   - saas
   - cap
 sidebar_label: Authentication Strategies
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
