@@ -17,7 +17,7 @@ keywords:
   - Azure Data Lake Storage Gen2
   - data federation
 sidebar_label: Integration with Azure data sources
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - data
@@ -142,5 +142,3 @@ Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** 
 
 4. **Access the replicated data in OneLake:**
     -Data replicated into Azure Data Lake Storage Gen2 can be accesssed vitually in OneLake via shortcuts or can be moved into OneLake via the Data Flow workflows.
-
-
