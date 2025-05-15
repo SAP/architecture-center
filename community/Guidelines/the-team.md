@@ -6,7 +6,7 @@ sidebar_label: Team
 keywords:
  - sap
  - team
-image: img/logo.svg
+image: img/AC_SocMed.png
 tags:
   - community
 hide_table_of_contents: false

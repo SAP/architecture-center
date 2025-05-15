@@ -6,7 +6,7 @@ description: It includes latest components developed and tested by the team.
 sidebar_label: Components
 keywords:
   - community
-image: img/logo.svg
+image: img/AC_SocMed.png
 tags:
   - community
 hide_table_of_contents: false
