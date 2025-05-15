@@ -6,8 +6,9 @@ sidebar_custom_props:
   category_index: []
 title: Multi-region resiliency
 description: >-
-  Learn how and why Multi-region resiliency ensures applications remain functional during regional
-  outages by leveraging geographically distributed data centers.
+  Learn how and why Multi-region resiliency ensures applications remain
+  functional during regional outages by leveraging geographically distributed
+  data centers.
 keywords:
   - sap
   - integration
@@ -19,7 +20,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Multi-region resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
