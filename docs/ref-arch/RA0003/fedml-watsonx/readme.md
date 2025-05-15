@@ -20,7 +20,7 @@ keywords:
   - watson.ai
   - watson studio
 sidebar_label: FedML-IBM watsonx
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
