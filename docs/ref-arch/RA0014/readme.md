@@ -185,7 +185,7 @@ To measure the network performance, you need to make sure the system response ti
 One of the goals of measuring the network performance is to compare different client locations, BTP subaccount regions and backend locations. Additionally, daytime, day of the week or other time related extra-ordinary events can impact  network performance.  
 By running the different location checks in consecutive batches the risk of interference from changed network conditions can be possibly compensated because the probability is higher that all runs are affected by the these overall network conditions.
 
-A typical example config could be a structure like (from the current [example repo](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape) - the URL is subject to change soon) 
+A typical example config could be a structure like (from the current [example repo](https://github.com/SAP-archive/cap-distributed-resiliency/tree/Performance-Landscape) - the URL is subject to change soon)
 
 ```json
     "Region": "NA",
@@ -231,9 +231,14 @@ Every OData api call that flows through the test course is part of the result se
 
 A typical configuration for the data that is ingested into InfluxDB can look like this:
 
+```text
+  "sample_variables":
+    "grpLabel", "Scenario", "ConnectionType",
+    "BTPHost_Name", "SCCHost_Name", "S4HHost_Name",
+    "UserHost_Name", "statistics-approuter-total",
+    "statistics-scc-total", "statistics-total",
+    "statistics-icmtotal", "ping-s4h"
 ```
-"sample_variables": "grpLabel,Scenario,ConnectionType,BTPHost_Name,SCCHost_Name,S4HHost_Name,UserHost_Name,statistics-approuter-total,statistics-scc-total,statistics-total,statistics-icmtotal,ping-s4h"
-```    
 
 In addition to the total response time per call execution, some of the services report back their own detailed statistics and add it to the http response header for each call. These can help identifying how much time is spent inside these services and are included in the result set, too.
 
