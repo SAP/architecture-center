@@ -39,6 +39,28 @@
     --ifm-menu-link-padding-horizontal: 0.75rem;
 }
 
+/* Ensure code blocks do not overflow the page */
+code,
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Prevent code blocks from overflowing on mobile devices */
+@media (max-width: 969px) {
+    code,
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 /* simply one font family, uses the correct font according to the font weight which is set, e.g. 900 => use 72Black */
 @font-face {
     font-family: '72';
@@ -373,34 +395,15 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
-#__docusaurus .theme-code-block-highlighted-line {
-    margin: 0;
-}
-
 #__docusaurus {
     min-height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.theme-code-block-added-line {
-    background-color: rgb(87 171 90 / 15%);
-    display: block;
-}
-
-.theme-code-block-removed-line {
-    background-color: rgb(229 83 75 / 15%);
-    display: block;
-}
-
 html[data-theme='dark'] .sourcecode-badge {
     background-color: var(--ifm-color-secondary);
     color: #24292f;
-}
-
-.code-block-hidden,
-.code-block-hidden.theme-code-block-highlighted-line {
-    display: none;
 }
 
 .markdown > h3 {
