@@ -5,22 +5,27 @@ sidebar_position: 5
 sidebar_custom_props:
   category_index: []
 title: AI Agents & Project Agent Builder (PAB)
-description: This is an overview of AI agents and their role in enterprise automation, focusing on SAP's Project Agent Builder (PAB) and its support for content-based and code-based agent development. It explores the technical components, design strategies, and evaluation criteria for deploying AI agents effectively within the SAP ecosystem.
+description: >-
+  This is an overview of AI agents and their role in enterprise automation,
+  focusing on SAP's Project Agent Builder (PAB) and its support for
+  content-based and code-based agent development. It explores the technical
+  components, design strategies, and evaluation criteria for deploying AI agents
+  effectively within the SAP ecosystem.
 keywords:
-    - sap
-    - ai
-    - genai
-    - aws
-    - azure
-    - gcp
+  - sap
+  - ai
+  - genai
+  - aws
+  - azure
+  - gcp
 sidebar_label: AI Agents & Business Agent Foundation (BAF)
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
-    - agents
-    - genai
-    - aws
-    - gcp
-    - azure
+  - agents
+  - genai
+  - aws
+  - gcp
+  - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,8 +33,8 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - vedant-aero-ml
-    - kay-schmitteckert
+  - vedant-aero-ml
+  - kay-schmitteckert
 discussion: 
 last_update:
   author: vedant-aero-ml
@@ -114,4 +119,3 @@ Having determined that an agentic approach is suitable for your use case using t
 | **Safety & Responsibility** | Compliance with security policies, ethical constraints, data privacy regulations, and bias mitigation. | Essential for data protection, regulatory adherence, mitigating bias, and maintaining corporate reputation.            | Red Teaming, Guardrails (custom logic, framework-provided), Bias Detection Tools & Techniques, Compliance Audits, Access Control Verification, Content Moderation Integration        |
 
 Systematic evaluation using these dimensions provides the necessary assurance for deploying AI agents responsibly and effectively within SAP enterprise landscape.
-
