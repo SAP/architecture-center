@@ -13,7 +13,7 @@ keywords:
   - saas
   - cap
 sidebar_label: Cost of Ownership
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
