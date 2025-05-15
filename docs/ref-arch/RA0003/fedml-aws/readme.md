@@ -17,7 +17,7 @@ keywords:
   - fedml
   - datasphere
 sidebar_label: FedML-AWS
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - data
