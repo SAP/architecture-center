@@ -36,8 +36,8 @@ keywords:
   - cloud
   - demo
 
-# IMAGE: Default is SAP logo.
-image: img/logo.svg
+# IMAGE: Default is SAP Architecture Center logo.
+image: img/ac-soc-med.png
 
 # TAGS: Tags are displayed at the bottom of the page.
 tags:
@@ -59,10 +59,10 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4 
 
 # DRAFT: If you set this to True, the page will not be part of the build and will not be deployed.
-draft: true 
+draft: false 
 
 # UNLISTED: If you set this to True, the page will be part of the build, will be deployed, but will not be visible. You need to access it directly via the defined slug.
-unlisted: false
+unlisted: true
 
 # DISCUSSION: If defined, a button will be added at the bottom of the document page to jump to the matching discussion. Expected format: github:<DISCUSSION-ID> or community:<DISCUSSION-PATH>
 discussion: github:195
@@ -75,8 +75,8 @@ contributors:
 
 # LAST_UPDATE: Choose the author & the date of the last important update. Please use the international format YYYY-MM-DD for the date to avoid problems. It will appear at the bottom of the page.
 last_update:
-  date: 2025-01-15
-  author: PO
+  date: 2025-05-15
+  author: cernus76
 
 ############################################################
 #                   End of Front Matter                    #
