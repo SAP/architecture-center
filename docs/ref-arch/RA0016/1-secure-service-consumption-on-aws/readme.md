@@ -15,7 +15,7 @@ keywords:
   - iam-roles-anywhere
   - oidc
 sidebar_label: Secure Service Consumption on AWS
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - aws
