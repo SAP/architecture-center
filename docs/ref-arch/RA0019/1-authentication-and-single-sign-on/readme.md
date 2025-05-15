@@ -20,7 +20,7 @@ keywords:
   - SAP Cloud Identity Services
   - Identity Authentication
 sidebar_label: Authentication and Single Sign On
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - genai
