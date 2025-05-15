@@ -68,8 +68,8 @@ Designing such a global network of services for a certain customer specific solu
 This document will have a look at the performance impact of wide area network connections and the effects of using different services for the connections. Instead of guessing the performance we will use a distributed measurement system to understand the impact of different architectural decisions. In the final section we will discuss the findings and results from former tests that have been executed using the distributed measurement environment and will derive some best practices and rules of thumb that can help architects in designing their distributed system landscape for SAP solutions.
 
 ## Definition of network performance:
-From [Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Network_performance):  
-> Network performance refers to measures of service quality of a network as seen by the customer. ...
+From [Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Network_performance):
+> Network performance refers to measures of service quality of a network as seen by the customer.
 > 
 > The following (performance) measures are often considered important:
 > 
