@@ -24,7 +24,7 @@ keywords:
   - cap
   - eda
 sidebar_label: Designing Event-Driven Applications
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws
