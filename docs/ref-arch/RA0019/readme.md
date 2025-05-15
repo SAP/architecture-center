@@ -60,7 +60,7 @@ The [SAP Cloud Identity Services](https://www.sap.com/documents/2024/04/84ada3ed
 
 ## Architecture
 
-![drawio](drawio/public_SAP_IAM_SD.drawio)
+![drawio](drawio/public-sap-iam-sd.drawio)
 
 In an SAP landscape, user data is stored across all service providers. To ensure consistency and synchronization across these different environments, replication is essential.
 
