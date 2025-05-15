@@ -17,7 +17,7 @@ keywords:
   - cloud
   - insight apps
 sidebar_label: Insight Apps in SAP Business Data Cloud
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws
