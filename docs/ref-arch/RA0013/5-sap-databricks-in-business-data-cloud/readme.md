@@ -19,7 +19,7 @@ keywords:
   - cloud
   - databricks
 sidebar_label: SAP Databricks in Business Data Cloud
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws
