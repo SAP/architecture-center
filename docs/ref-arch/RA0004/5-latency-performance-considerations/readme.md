@@ -17,7 +17,7 @@ keywords:
   - data federation
   - data replication
 sidebar_label: Latency and Performance considerations
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
