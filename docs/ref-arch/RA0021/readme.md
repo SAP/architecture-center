@@ -35,8 +35,6 @@ last_update:
   date: 2024-08-01
 ---
 
-## Application-to-Application Integration: Real-Time Data Exchange Across Business Applications
-
 With the help of application-to-application (App2App) integration, you can exchange transactional data along internal company processes by connecting involved business applications in a (near-) real-time fashion. Messages are used for exchanging transactional data, which trigger the execution of the next process step in a connected business solution. Transactional data refers to data about ongoing business activities such as physical goods movement or sales order documents.
 
 This reference architecture is based on the concepts of the **SAP Integration Solution Advisory Methodology**. App2App integration is defined as an integration use case pattern that belongs to the process integration style. The diagram illustrates the runtime perspective for App2App integration, covering the integration domains Cloud2Cloud, Cloud2OnPremise, and OnPremise2OnPremise.
@@ -72,7 +70,7 @@ The message flow for application-to-application integration is outlined as follo
 - **Support for Exception Handling**: Proper handling of transmission failures due to issues like unavailability of receiving solutions or incorrect message content.
 - **Transport and Message-Level Security**: Ensure secured communication over the public internet (transport-level security) and use digital encryption/signatures to protect message content (message-level security).
 
-### Examples in an SAP Context
+## Examples in an SAP Context
 
 SAP delivers predefined App2App integration scenarios for end-to-end business processes spanning multiple SAP business applications. Examples include:
 
@@ -80,19 +78,19 @@ SAP delivers predefined App2App integration scenarios for end-to-end business pr
 - **External Workforce Process**: Replicate service entry sheets or timesheets from SAP Fieldglass Vendor Management System to SAP S/4HANA for [cloud deployment](https://hub.sap.com/dfd/EW1H1-DFDTransactionalDataFlows).
 - **Acquire-to-Decommission Process**: Exchange maintenance orders between SAP S/4HANA and SAP Service and Asset Manager for [hybrid deployment](https://hub.sap.com/dfd/AD1H2-DFDDataFlows).
 
-### Reasonable Alternatives
+## Reasonable Alternatives
 
 For selected SAP solutions, additional integration technologies tailored to specific needs are available:
 
 - **SAP Integration Suite, Managed Gateway for Spend Management and SAP Business Network**: Formerly known as SAP Ariba Cloud Integration Gateway, this solution facilitates integration of SAP ERP or SAP S/4HANA systems with SAP intelligent spend solutions and SAP Business Network. It includes self-service wizards, automated testing, and real-time monitoring. Learn more: [Content Transformation Service](https://help.sap.com/docs/sisgw/sap-ariba-cloud-integration-gateway-installation-guide/content-transformation-as-service?locale=en-US).
 
-### Services and Components
+## Services and Components
 
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 - [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?service_plan=lite&region=all)
 
-### Resources
+## Resources
 
 - [SAP Business Accelerator Hub](https://hub.sap.com)
 - [SAP Application Interface Framework](https://help.sap.com/docs/SAP_APPLICATION_INTERFACE_FRAMEWORK_OVERVIEW)
@@ -100,7 +98,7 @@ For selected SAP solutions, additional integration technologies tailored to spec
 - [SAP Integration Solution Advisory Methodology (SAP Help Portal)](https://help.sap.com/docs/integration-suite)
 - [SAP Integration Suite (SAP Community topic page)](https://community.sap.com/topics/integration-suite)
 
-### Related Missions
+## Related Missions
 
 - [Get started with SAP Integration Suite](https://discovery-center.cloud.sap/missiondetail/3258/3327/)
 - [Publish Documents from SAP S/4HANA Cloud to SharePoint](https://discovery-center.cloud.sap/missiondetail/3324/3365/)

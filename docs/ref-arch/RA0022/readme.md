@@ -33,8 +33,6 @@ last_update:
   author: avikSap
   date: 2024-08-01
 ---
-
-## API Managed Integration: Simplified, Secure, and Governed Access to Business Applications
   
 Application Programming Interfaces (APIs) enable integration, interoperability, and data sharing between software systems. With the help of an API management solution like the API Management capability within SAP Integration Suite, you can provide omni-channel and secure access to solutions. Furthermore, it allows you to enforce usage policies for APIs, control API access, analyze API consumption, and more.  
   
@@ -74,7 +72,7 @@ An architecture for API-managed integration is characterized by:
 - **Visibility and Analytical Insights**: Centrally collect and analyze API metrics, with options for monetizing API consumption.  
 - **Interoperability**: Perform transformations and mediations to enable seamless interoperability between API providers and consumers, including simplified consumption via data graphs.  
   
-### Examples in an SAP Context  
+## Examples in an SAP Context  
   
 SAP does not deliver predefined integration scenarios for API-managed integration. Customers and partners typically implement API management solutions for reasons such as:  
   
@@ -83,13 +81,13 @@ SAP does not deliver predefined integration scenarios for API-managed integratio
 - Simplifying integration with SAP and other API providers.  
 - Realizing revenue in the cloud-native economy.  
   
-### Services and Components  
+## Services and Components  
   
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)  
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)  
 - [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?service_plan=lite&region=all)  
   
-### Resources  
+## Resources  
   
 - [SAP Business Accelerator Hub](https://hub.sap.com)  
 - [SAP API Management – Overview & Getting started (SAP Community blog post)](https://blogs.sap.com/2016/03/03/sap-api-management-overview-getting-started/)  
@@ -97,7 +95,6 @@ SAP does not deliver predefined integration scenarios for API-managed integratio
 - [SAP Integration Solution Advisory Methodology (SAP Help Portal)](https://help.sap.com/docs/architecture_guidance/f64ada51d9f44c83a751b96f955aad5a/85bcc8675d3e42718279bf7b87dafc2d.html?locale=en-US)  
 - [SAP Integration Suite (SAP Community topic page)](https://community.sap.com/topics/integration-suite)  
   
-### Related Missions  
+## Related Missions  
   
-- [Get Started with Integration Suite - API Management](https://discovery-center.cloud.sap/missiondetail/3062/3072/)  
-- [Create simple, connected digital experiences with API-based integration](https://discovery-center.cloud.sap/missiondetail/3062/3072/)
+- [Get Started with Integration Suite - API Management](https://discovery-center.cloud.sap/missiondetail/3062/3072/)

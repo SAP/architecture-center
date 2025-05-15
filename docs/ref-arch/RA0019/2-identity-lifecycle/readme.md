@@ -43,7 +43,34 @@ Every user has a user account in each system that provides services for the busi
 
 ## Architecture
 
-![drawio](drawio/public_SAP_IdentityLifecycle_SD.drawio)
+![drawio](drawio/public-sap-identity-lifecycle-sd.drawio)
+
+### Flow
+
+The flow contains two major aspects 1. The derivation of an Identity from a Workforce Person and 2. The assignment of access to the Identity which implicit requires the replication into the target systems.
+A Workforce Person is an entity which represents the master data of employees or contigent workers. The Workforce Person could have multiple contracts with the company and most of the attributes have a time dependency.
+The digitial Identity is derivation of the Workforce Person and the focus is on the current valid attributes which are relevant for the user replication and the access assignments. The Identity is the entity which is replicated into the target systems and which is used for the access assignments.
+
+**Workforce Person to Identity**
+
+1. In the first step the Workforce Person is created or updated in the leading system. The leading system is the system which is the master data system for the Workforce Person. The leading system could be a SAP Success Factors for employees or an SAP Fieldglass for contingent workers. The leading system could also be a non-SAP system which is the master data system for the Workforce Person.
+2. The Workforce to Identity derivation takes place in an Identity Management solution. The IDM consumes the source system APIs offering the workforce data APIs (:warning:not user:warning:). The Identity Management derives out of the time-sliced attributes the current relevant values for the Identity. This process is very customers specific.
+
+**Identity with access assignments**
+
+3. The Identity Management solution replicates the Identity into the Identity Directory of the SAP Cloud Identity Services.
+   - The Identity Directory is the user and group store of the SAP Cloud Identity Services.
+   - The Identity Directory is the central user store for the SAP Cloud Identity Services and is used for the access assignments.
+4. (OPTIONAL) The access assignments can run through access requests and access analysis to identify and mitigate business risks with the SAP Cloud Identity Access Governance.
+5. The Identity Provisioning service replicates user & groups into the target systems. The IPS offers connectors for the SAP applications with preconfigured attribute-sets.
+
+### Characteristics
+
+This setup has the following characteristics:
+- Workforce Person to Identity derivation is a customer specific process in a 3rd party Identity Management solution.
+- The Identity Directory is the central user store for the SAP landscape and is used for the access assignments. The Identity Directory offers the usage of different technologies for the access assignments e.g. SAP BTP contains: XS UAA and AMS based applications which are all supported by the Identity Directory and the Identity Provisioning Service.
+- The Identity Provisioning Service replicates user & groups into the SAP target systems.
+- The identity lifecycle reference architecture should be combined with reference authentication architecture which both rely on the SAP Cloud Identity Services.
 
 In the context of new applications, the SAP Cloud Identity Services - Directory Service functions as the user and group store, eliminating the need for further replication to application local user stores. This advanced service accommodates the SAP Authorization Management Service-defined policies, which are stored and assigned to users in the Identity Directory.
 To get the identities into the Identity Directory the replication can occur via the leading Identity Management (IDM) tool or through the SAP Cloud Identity Services - Identity Provisioning.
@@ -53,17 +80,17 @@ The architecture resulting from these boundary conditions advocates for centrall
 
 For a unified access governance, SAP Cloud Identity Access Governance integrates with SAP Cloud Identity Services. This integration enables comprehensive analysis of identities and their access, helping to mitigate business risks significantly.
 
-## Administrative and Operational Aspects
+### Administrative and Operational Aspects
 
 A user with an administrator role has access to the tenant-specific administration console in the browser. In the console, the administrator can use the administration services to select which identity data from which identity provider should be forwarded to which service provider by the SAP Cloud Identity Services. Furthermore, the administrator sets up the connectors to establish communication between the Identity Provisioning Service and the service providers. Different connectors are required to establish this communication, depending on the peripheral systems that should be connected. For connecting on-premise systems the SAP Connectivity service can be used.
 The SAP Cloud Identity Services rely internally also on the AMS policies. For compatibility reasons and easy onboarding, the services use a simplified access-interface today as default. We recommend activating the policies for the SAP Cloud Identity Services in the tenant for more granular and customizable authorization concepts.
 Administrators of the SAP Cloud Identity Services could maintain the local identities in the Identity Directory via the administration console of SAP Cloud Identity Services. In this reference architecture it is more for verifying the data than actually maintaining identities because we foresee integrations with an IDM as leading processes.
 
-## Conclusion
+### Conclusion
 
 In conclusion, our reference architecture in the figure adopts a cloud driven IAM approach, underscoring the importance of robust, efficient, and scalable IAM for SAP. Embracing this approach can lead to stronger security, improved compliance, and enhanced operational efficiency, paving the way for a secure and reliable digital business environment. The SAP Cloud Identity Services act as facade for the SAP landscape and allow you a more efficient management of the identity lifecycle.
 
-# SAP Business Technology Platform specifics
+## SAP Business Technology Platform specifics
 
 SAP Business Technology Platform (BTP) is made up of global accounts, directories and subaccounts which are used to manage and operate SaaS and custom applications and services. This involves setting up trust with the SAP Cloud Identity Services for business users as well as platform users (administrators, developers, operators) who work with SAP BTP.
 
@@ -79,33 +106,6 @@ Further information is available in the Best Practices for SAP BTP.
 With AMS, administrators can derive and maintain application policies centrally in SAP Cloud Identity Services instead of individual BTP subaccounts and can control authorizations on a much more fine-grained level.  
 Currently nearly all SAP applications have their own user store. This has several reasons but makes remote management and compliance complex. This also applies to each BTP subaccount. The fast-evolving cloud technologies also introduced several different software stacks and ways of interacting with such user stores. SAP will simplify this with SAP Cloud Identity Services in the long run. The goal is to centralize user and group management in SAP Cloud Identity Services and to enable remote management for the whole SAP cloud landscape using SAP Cloud Identity APIs.
 New applications and new BTP features require the users to exist in the identity directory. In such cases, you must populate the Identity Directory with all relevant users, for example, to assign policies of the Authorization Management service to users. While the setup of SAP Cloud Identity Services with the first such application might add additional effort to the project, it reduces the effort for any following application, because you no longer need to populate additional application-specific user stores.
-
-## Flow
-
-The flow contains two major aspects 1. The derivation of an Identity from a Workforce Person and 2. The assignment of access to the Identity which implicit requires the replication into the target systems.
-A Workforce Person is an entity which represents the master data of employees or contigent workers. The Workforce Person could have multiple contracts with the company and most of the attributes have a time dependency.
-The digitial Identity is derivation of the Workforce Person and the focus is on the current valid attributes which are relevant for the user replication and the access assignments. The Identity is the entity which is replicated into the target systems and which is used for the access assignments.
-
-## Workforce Person to Identity
-
-1. In the first step the Workforce Person is created or updated in the leading system. The leading system is the system which is the master data system for the Workforce Person. The leading system could be a SAP Success Factors for employees or an SAP Fieldglass for contingent workers. The leading system could also be a non-SAP system which is the master data system for the Workforce Person.
-2. The Workforce to Identity derivation takes place in an Identity Management solution. The IDM consumes the source system APIs offering the workforce data APIs (:warning:not user:warning:). The Identity Management derives out of the time-sliced attributes the current relevant values for the Identity. This process is very customers specific.
-
-## Identity with access assignments
-
-3. The Identity Management solution replicates the Identity into the Identity Directory of the SAP Cloud Identity Services.
-   - The Identity Directory is the user and group store of the SAP Cloud Identity Services.
-   - The Identity Directory is the central user store for the SAP Cloud Identity Services and is used for the access assignments.
-4. (OPTIONAL) The access assignments can run through access requests and access analysis to identify and mitigate business risks with the SAP Cloud Identity Access Governance.
-5. The Identity Provisioning service replicates user & groups into the target systems. The IPS offers connectors for the SAP applications with preconfigured attribute-sets.
-
-## Characteristics
-
-This setup has the following characteristics:
-- Workforce Person to Identity derivation is a customer specific process in a 3rd party Identity Management solution.
-- The Identity Directory is the central user store for the SAP landscape and is used for the access assignments. The Identity Directory offers the usage of different technologies for the access assignments e.g. SAP BTP contains: XS UAA and AMS based applications which are all supported by the Identity Directory and the Identity Provisioning Service.
-- The Identity Provisioning Service replicates user & groups into the SAP target systems.
-- The identity lifecycle reference architecture should be combined with reference authentication architecture which both rely on the SAP Cloud Identity Services.
 
 ## Services and Components
 
