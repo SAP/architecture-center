@@ -21,7 +21,7 @@ keywords:
   - cap
   - eda
 sidebar_label: Integration with Microsoft Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - cap
   - azure
