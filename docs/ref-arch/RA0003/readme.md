@@ -32,7 +32,7 @@ keywords:
   - nvidia
   - fedml
 sidebar_label: Federated Machine Learning with SAP Datasphere
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws
