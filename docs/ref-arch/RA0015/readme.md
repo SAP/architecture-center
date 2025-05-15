@@ -17,7 +17,7 @@ keywords:
   - integration
   - b2g
 sidebar_label: Business to Government Integration
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - integration
 hide_table_of_contents: false
