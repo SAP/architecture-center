@@ -122,16 +122,12 @@ const config: Config = {
     ],
 
     themeConfig: {
+        image: 'img/ac-soc-med.png',
         metadata: [
-            {
-                name: 'description',
-                content:
-                    'SAP Architecture Center: Optimize cloud deployments with a well-architected framework, collaborative experiences, and cost-saving tools for improved cost of ownership.',
-            },
             {
                 name: 'keywords',
                 content: 'sap, btp, architecture, center, hyperscaler, reference',
-            },
+            }
         ],
         zoom: {
             selector: '.markdown :not(em) > img:not(.no-zoom)',

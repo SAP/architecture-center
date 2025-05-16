@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Link from '@theme/Link';
+import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
@@ -44,17 +44,14 @@ export default function Home(): JSX.Element {
         <Layout
             title={siteConfig.title}
             description={siteConfig.tagline}
-            keywords={['sap', 'architecture', 'reference architectures', 'cloud', 'enterprise']}
-            meta={[
+            metadata={[
                 { property: 'og:title', content: siteConfig.title },
                 { property: 'og:description', content: siteConfig.tagline },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
-                { property: 'og:image', content: '/img/ac-soc-med.png' },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:title', content: siteConfig.title },
                 { name: 'twitter:description', content: siteConfig.tagline },
-                { name: 'twitter:image', content: '/img/ac-soc-med.png' },
             ]}
         >
             <main>
