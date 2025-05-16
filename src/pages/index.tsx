@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
+import Link from '@theme/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
@@ -41,7 +41,22 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <Layout title={`${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+        <Layout
+            title={siteConfig.title}
+            description={siteConfig.tagline}
+            keywords={['sap', 'architecture', 'reference architectures', 'cloud', 'enterprise']}
+            meta={[
+                { property: 'og:title', content: siteConfig.title },
+                { property: 'og:description', content: siteConfig.tagline },
+                { property: 'og:type', content: 'website' },
+                { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
+                { property: 'og:image', content: '/img/ac-soc-med.png' },
+                { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'twitter:title', content: siteConfig.title },
+                { name: 'twitter:description', content: siteConfig.tagline },
+                { name: 'twitter:image', content: '/img/ac-soc-med.png' },
+            ]}
+        >
             <main>
                 <HeroSection />
                 <ExploreArchitectureSection />
