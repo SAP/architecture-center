@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
     title: 'SAP Architecture Center',
-    tagline: 'A Well-Architected Framework for SAP Architectures',
+    tagline: 'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
     favicon: 'img/logo.svg',
 
     url: 'https://architecture.learning.sap.com',
@@ -121,12 +121,8 @@ const config: Config = {
     ],
 
     themeConfig: {
+        image: 'img/ac-soc-med.png',
         metadata: [
-            {
-                name: 'description',
-                content:
-                    'SAP Architecture Center: Optimize cloud deployments with a well-architected framework, collaborative experiences, and cost-saving tools for improved cost of ownership.',
-            },
             {
                 name: 'keywords',
                 content: 'sap, btp, architecture, center, hyperscaler, reference',
