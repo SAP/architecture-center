@@ -23,7 +23,7 @@ keywords:
   - medallion
   - hana cloud
 sidebar_label: Big Data Processing in SAP HANA Cloud
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - azure

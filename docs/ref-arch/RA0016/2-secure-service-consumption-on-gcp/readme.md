@@ -18,7 +18,7 @@ keywords:
   - btp
   - security
 sidebar_label: Secure Service Consumption on GCP
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - gcp
   - security

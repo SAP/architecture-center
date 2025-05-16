@@ -15,7 +15,7 @@ keywords:
   - datasphere
   - machine learning
 sidebar_label: FedML-Databricks
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false

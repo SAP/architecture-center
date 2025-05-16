@@ -14,7 +14,7 @@ keywords:
   - gcp
   - eic
 sidebar_label: Edge Integration Cell on GCP
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - gcp
   - eic

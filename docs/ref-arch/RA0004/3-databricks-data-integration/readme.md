@@ -16,7 +16,7 @@ keywords:
   - deltalake
   - camel JDBC
 sidebar_label: Integration with Databricks
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false

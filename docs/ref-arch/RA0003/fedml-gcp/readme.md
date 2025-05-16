@@ -17,7 +17,7 @@ keywords:
   - machine learning
   - vertex ai
 sidebar_label: FedML-GCP for Google Vertex AI
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - gcp

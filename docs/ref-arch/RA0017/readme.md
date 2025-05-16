@@ -16,7 +16,7 @@ keywords:
   - mdi
   - business process
 sidebar_label: Connect Business Applications with SAP Master Data Integration
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - integration
 hide_table_of_contents: false

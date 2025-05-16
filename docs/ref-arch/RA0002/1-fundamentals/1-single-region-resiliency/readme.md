@@ -5,8 +5,7 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Single-region resiliency
-description: >-
-  How the single region resiliency works. What are the benefits and drawbacks.
+description: How the single region resiliency works. What are the benefits and drawbacks.
 keywords:
   - sap
   - integration
@@ -18,7 +17,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Single-region resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

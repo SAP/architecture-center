@@ -20,7 +20,7 @@ keywords:
   - replication
   - hyperscaler
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws

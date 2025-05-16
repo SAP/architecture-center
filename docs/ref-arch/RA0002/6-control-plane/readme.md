@@ -22,7 +22,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Multi-region Control Plane
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

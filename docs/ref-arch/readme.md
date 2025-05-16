@@ -18,7 +18,7 @@ keywords:
   - ai
   - data
 sidebar_label: Reference Architectures
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - ref-arch
 hide_table_of_contents: false

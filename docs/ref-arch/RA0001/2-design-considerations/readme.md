@@ -21,7 +21,7 @@ keywords:
   - cap
   - eda
 sidebar_label: Design Considerations for EDA Applications
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws

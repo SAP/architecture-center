@@ -19,7 +19,7 @@ keywords:
   - datasphere
   - replication
 sidebar_label: Integration with Google Cloud Platform sources
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - gcp

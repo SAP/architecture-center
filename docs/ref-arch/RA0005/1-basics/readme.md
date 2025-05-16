@@ -3,27 +3,27 @@ id: id-ra0005-1
 slug: /ref-arch/e5eb3b9b1d/1
 sidebar_position: 1
 sidebar_custom_props:
-    category_index: []
+  category_index: []
 title: Basic Prompting
 description: >-
-    Enhance SAP BTP applications using Generative AI by integrating custom prompts
-    for Foundation Models or LLMs. This allows natural language processing to
-    craft AI responses tailored to specific tasks, enabling intelligent user
-    interactions and achieving application objectives.
+  Enhance SAP BTP applications using Generative AI by integrating custom prompts
+  for Foundation Models or LLMs. This allows natural language processing to
+  craft AI responses tailored to specific tasks, enabling intelligent user
+  interactions and achieving application objectives.
 keywords:
-    - sap
-    - ai
-    - genai
-    - aws
-    - azure
-    - gcp
+  - sap
+  - ai
+  - genai
+  - aws
+  - azure
+  - gcp
 sidebar_label: Basic Prompting
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
+  - aws
+  - azure
+  - gcp
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -31,14 +31,14 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - kay-schmitteckert
-    - AdiPleyer
-    - vedant-aero-ml
-    - madankumarpichamuthu
-discussion:
+  - kay-schmitteckert
+  - AdiPleyer
+  - vedant-aero-ml
+  - madankumarpichamuthu
+discussion: 
 last_update:
-    author: kay-schmitteckert
-    date: 2025-01-31
+  author: kay-schmitteckert
+  date: 2025-01-31
 ---
 
 Leveraging prompting with Foundation Models or Large Language Models (LLMs) is a powerful way to enhance your applications by enabling natural language processing for both input and output. Using Generative AI on SAP Business Technology Platform (SAP BTP), you can build applications that interact intelligently with your users through custom prompts. By calling Foundation Models with custom prompts, you can control the AI's responses to align with specific tasks and objectives. Here's what to use for basic prompting on SAP BTP to unlock this capability in your applications.

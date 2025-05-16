@@ -18,7 +18,7 @@ keywords:
   - cloud
   - task center
 sidebar_label: Establish a central inbox with SAP Task Center
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

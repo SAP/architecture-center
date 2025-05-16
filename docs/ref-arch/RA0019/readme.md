@@ -29,7 +29,7 @@ keywords:
   - Identity Provisioning
   - Identity Authentication
 sidebar_label: Identity Access Management
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - genai

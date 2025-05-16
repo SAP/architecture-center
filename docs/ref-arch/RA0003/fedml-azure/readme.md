@@ -15,7 +15,7 @@ keywords:
   - datasphere
   - machine learning
 sidebar_label: FedML-Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - data

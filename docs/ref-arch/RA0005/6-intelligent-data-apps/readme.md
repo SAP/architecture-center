@@ -5,31 +5,36 @@ sidebar_position: 7
 sidebar_custom_props:
   category_index: []
 title: Agents for Structured Data
-description: Agents for Structured Data leverage advanced AI capabilities to transform how organizations interact with and derive insights from large quantities of tabular and other structured data. By integrating natural language processing, federated data access, and real-time analytics, these applications enable seamless decision-making and operational efficiency across diverse industries.
+description: >-
+  Agents for Structured Data leverage advanced AI capabilities to transform how
+  organizations interact with and derive insights from large quantities of
+  tabular and other structured data. By integrating natural language processing,
+  federated data access, and real-time analytics, these applications enable
+  seamless decision-making and operational efficiency across diverse industries.
 keywords:
-    - sap
-    - ai
-    - genai
-    - aws
-    - azure
-    - gcp
+  - sap
+  - ai
+  - genai
+  - aws
+  - azure
+  - gcp
 sidebar_label: Agents for Structured Data
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
-    - agents
-    - genai
-    - aws
-    - gcp
-    - azure
+  - agents
+  - genai
+  - aws
+  - gcp
+  - azure
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors: 
-    - vedant-aero-ml
-    - kay-schmitteckert
+contributors:
+  - vedant-aero-ml
+  - kay-schmitteckert
 discussion: 
 last_update:
   author: vedant-aero-ml

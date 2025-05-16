@@ -9,7 +9,7 @@ description: Please add a description (max 300 characters)
 keywords:
   - sap
 sidebar_label: Non-Functional Pillars
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - ref-arch
 hide_table_of_contents: false

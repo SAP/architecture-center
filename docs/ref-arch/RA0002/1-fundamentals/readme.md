@@ -17,7 +17,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Single-region and Multi-region resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

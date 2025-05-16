@@ -31,7 +31,7 @@ keywords:
   - wan
   - internet
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

@@ -3,31 +3,31 @@ id: id-ra0008
 slug: /ref-arch/263f576c90
 sidebar_position: 8
 sidebar_custom_props:
-    category_index:
-        - aws
-        - gcp
-        - azure
-        - integration
-        - appdev
+  category_index:
+    - aws
+    - gcp
+    - azure
+    - integration
+    - appdev
 title: Edge Integration Cell on Hyperscalers
 description: >-
-    Discover reference architectures for deploying SAP Integration Suite - Edge
-    Integration Cell on hyperscalers. Access architecture diagrams and key
-    resources to understand its setup and implementation.
+  Discover reference architectures for deploying SAP Integration Suite - Edge
+  Integration Cell on hyperscalers. Access architecture diagrams and key
+  resources to understand its setup and implementation.
 keywords:
-    - sap
-    - aws
-    - azure
-    - gcp
-    - eic
-    - edge integration cell
+  - sap
+  - aws
+  - azure
+  - gcp
+  - eic
+  - edge integration cell
 sidebar_label: Edge Integration Cell on Hyperscalers
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - eic
+  - aws
+  - azure
+  - gcp
+  - eic
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -35,13 +35,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - adarshnarayanhegde
-    - madankumarpichamuthu
-    - AFK-Python
-discussion:
+  - adarshnarayanhegde
+  - madankumarpichamuthu
+  - AFK-Python
+discussion: 
 last_update:
-    author: adarshnarayanhegde
-    date: 2025-04-18
+  author: adarshnarayanhegde
+  date: 2025-04-18
 ---
 
 In today's enterprise landscape, organizations are under increasing pressure to modernize their integration strategies. They must connect a growing mix of SAP and non-SAP systems, deployed across cloud, on-premise, and hybrid environments — all while adhering to strict data security, regulatory compliance, and performance expectations.

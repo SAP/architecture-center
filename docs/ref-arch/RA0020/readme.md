@@ -16,7 +16,7 @@ keywords:
   - b2b
   - integration
 sidebar_label: Business to Business Integration
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - integration
 hide_table_of_contents: false

@@ -22,7 +22,7 @@ keywords:
   - warehouse
   - datasphere
 sidebar_label: Modernizing SAP BW with SAP BDC
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws

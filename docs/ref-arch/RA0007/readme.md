@@ -20,7 +20,7 @@ keywords:
   - saas
   - cap
 sidebar_label: Multitenant SaaS Application using CAP
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - cap

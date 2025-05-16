@@ -3,27 +3,27 @@ id: id-ra0005-3
 slug: /ref-arch/e5eb3b9b1d/3
 sidebar_position: 1
 sidebar_custom_props:
-    category_index: []
+  category_index: []
 title: Retrieval Augmented Generation (RAG)
 description: >-
-    Enhance LLM control with Retrieval Augmented Generation (RAG), which
-    integrates external data to reduce hallucinations and improve accuracy across
-    multiple domains without the need for fine-tuning. This approach combines
-    factual data with language knowledge for increased precision.
+  Enhance LLM control with Retrieval Augmented Generation (RAG), which
+  integrates external data to reduce hallucinations and improve accuracy across
+  multiple domains without the need for fine-tuning. This approach combines
+  factual data with language knowledge for increased precision.
 keywords:
-    - sap
-    - ai
-    - genai
-    - aws
-    - azure
-    - gcp
+  - sap
+  - ai
+  - genai
+  - aws
+  - azure
+  - gcp
 sidebar_label: Retrieval Augmented Generation (RAG)
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
+  - aws
+  - azure
+  - gcp
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -31,12 +31,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - kay-schmitteckert
-    - madankumarpichamuthu
-discussion:
+  - kay-schmitteckert
+  - madankumarpichamuthu
+discussion: 
 last_update:
-    author: kay-schmitteckert
-    date: 2025-01-31
+  author: kay-schmitteckert
+  date: 2025-01-31
 ---
 
 To gain more control over the prompting results of a Large Language Model (LLM) in your application, you can leverage your own specific documents or data using Retrieval Augmented Generation (RAG). Key features of RAG include increased knowledge, as it allows LLMs to provide accurate answers by retrieving up-to-date information from external sources, even if the LLM wasn't trained on that data. RAG also offers flexibility by adapting to different domains, memory efficiency by avoiding model fine-tuning, and higher precision through combining factual data with LLM's language skills. Additionally, it enhances transparency by referencing specific sources for results.

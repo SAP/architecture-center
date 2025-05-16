@@ -20,7 +20,7 @@ keywords:
   - SAP Cloud Identity Services
   - Identity Provisioning
 sidebar_label: Identity Lifecycle
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - security
   - genai

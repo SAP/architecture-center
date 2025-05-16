@@ -14,7 +14,7 @@ keywords:
   - eic
   - edge integration cell
 sidebar_label: Edge Integration Cell on AWS
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - eic

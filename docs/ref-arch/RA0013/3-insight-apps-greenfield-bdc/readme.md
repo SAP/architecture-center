@@ -21,7 +21,7 @@ keywords:
   - cloud
   - databricks
 sidebar_label: Implement SAP-managed Insight Apps in SAP BDC
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws

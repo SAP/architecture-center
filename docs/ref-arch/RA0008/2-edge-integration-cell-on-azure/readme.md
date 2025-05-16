@@ -13,7 +13,7 @@ keywords:
   - azure
   - eic
 sidebar_label: Edge Integration Cell on Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - eic

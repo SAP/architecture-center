@@ -29,7 +29,7 @@ keywords:
   - business continuity
   - failover
 sidebar_label: Architecting Multi-Region Resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure

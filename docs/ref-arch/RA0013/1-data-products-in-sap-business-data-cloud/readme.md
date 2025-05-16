@@ -18,7 +18,7 @@ keywords:
   - cloud
   - data product
 sidebar_label: Data Products in SAP Business Data Cloud
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
   - aws

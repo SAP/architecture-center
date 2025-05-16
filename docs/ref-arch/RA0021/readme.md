@@ -17,7 +17,7 @@ keywords:
   - app2app
   - integration
 sidebar_label: Application to Application Integration
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - integration
 hide_table_of_contents: false
