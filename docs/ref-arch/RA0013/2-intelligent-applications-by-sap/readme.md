@@ -36,8 +36,8 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: anbazhagan-uma
-  date: 2025-05-10
+  author: jmsrpp
+  date: 2025-05-19
 ---
 
 # Intelligent Applications by SAP

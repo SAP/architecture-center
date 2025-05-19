@@ -37,8 +37,8 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: s-krishnamoorthy
-  date: 2025-05-10
+  author: jmsrpp
+  date: 2025-05-19
 ---
 
 # SAP and Databricks Integration in SAP Business Data Cloud
