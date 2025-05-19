@@ -2,6 +2,7 @@
 sidebar_position: 0
 slug: /intro
 title: Contributing to the SAP Architecture Center
+description: Contribute to the SAP Architecture Center Community of Practice. Collaborate with SAP experts, share reference architectures, and enhance SAP cloud and on-premises solutions. Learn how to submit content, follow contribution guidelines, and join a global network of SAP professionals driving innovation and best practices.
 sidebar_label: Community of Practice
 keywords:
  - sap
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: jmsrpp
-  date: 2025-05-01
+  date: 2025-05-19
 ---
 
 ## About this project

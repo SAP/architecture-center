@@ -2,6 +2,7 @@
 sidebar_position: 2
 slug: /get-started
 title: Get Started
+description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to set up your environment, create or update reference architectures, and test your changes locally.
 sidebar_label: Get Started
 keywords:
  - sap
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: navyakhurana
-  date: 2025-05-01
+  date: 2025-05-19
 ---
 
 ## Requirements

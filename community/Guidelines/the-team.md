@@ -2,6 +2,7 @@
 sidebar_position: 99
 slug: /team
 title: Team
+description: The team behind the SAP Architecture Center.
 sidebar_label: Team
 keywords:
  - sap
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-05-01
+  date: 2025-05-19
 ---
 
 import {
