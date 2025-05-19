@@ -89,7 +89,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
                     'Explore all SAP reference architectures across different technology domains and technology partners.',
                 slug: '/exploreallrefarch',
                 keywords: ['explore', 'all', 'sap', 'reference architectures'],
-                image: '/img/sap_logo.png',
+                image: '/img/ac-soc-med.png',
             },
             customProps: { id: 'exploreallrefarch' },
             items: latestItems,
