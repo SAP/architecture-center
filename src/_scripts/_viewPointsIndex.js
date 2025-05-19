@@ -37,10 +37,9 @@ function createLandingPageSection(items) {
     }));
 }
 
-function getLatestItems(items, limit = 6) {
+function getLatestItems(items) {
     return [...items]
         .sort((a, b) => new Date(b.customProps.last_update) - new Date(a.customProps.last_update))
-        .slice(0, limit);
 }
 
 function writeJsonToFile(filePath, data) {
@@ -77,6 +76,8 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
             })
         );
 
+        const latestItems = getLatestItems(docsRefArchItems); 
+
         const category = {
             type: 'category',
             label: 'Explore Reference Architectures',
@@ -90,11 +91,10 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
                 image: '/img/sap_logo.png',
             },
             customProps: { id: 'exploreallrefarch' },
-            items: docsRefArchItems,
+            items: latestItems,
         };
 
-        const latestItems = getLatestItems(docsRefArchItems);
-        const landingPageSectionItems = createLandingPageSection(latestItems);
+        const landingPageSectionItems = createLandingPageSection(latestItems.slice(0, 6));
         const outputFile = path.join(__dirname, '../data/exploreArch.json');
         writeJsonToFile(outputFile, [{ ...category, items: landingPageSectionItems }]);
 
