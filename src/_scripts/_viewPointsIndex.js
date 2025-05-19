@@ -67,7 +67,8 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         const filteredDocs = args.docs.filter(
             (doc) =>
                 Array.isArray(doc.frontMatter?.sidebar_custom_props?.category_index) &&
-                doc.frontMatter.sidebar_custom_props.category_index.length > 0
+                doc.frontMatter.sidebar_custom_props.category_index.length > 0 &&
+                doc.frontMatter?.unlisted !== true
         );
 
         const docsRefArchItems = filteredDocs.map((doc) =>
