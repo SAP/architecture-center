@@ -5,11 +5,11 @@
             "label": "Microsoft Azure",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | SAP / Azure Joint Reference Architectures",
+                "title": "SAP / Azure Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Microsoft Azure joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/azure",
                 "keywords": ["azure", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "azure"
@@ -21,11 +21,11 @@
             "label": "Amazon Web Services",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | SAP / AWS Joint Reference Architectures",
+                "title": "SAP / AWS Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Amazon Web Services joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/aws",
                 "keywords": ["aws", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "aws"
@@ -37,11 +37,11 @@
             "label": "Google Cloud Platform",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | SAP / GCP Joint Reference Architectures",
+                "title": "SAP / GCP Joint Reference Architectures",
                 "description": "Leverage the power of SAP and Google Cloud Platform joint reference architectures to ensure secure, reliable, scalable, and performant SAP deployments. Optimize TCO and streamline business processes with industry-best practices and seamless cloud integration.",
                 "slug": "/partners/gcp",
                 "keywords": ["gcp", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "gcp"
@@ -53,11 +53,11 @@
             "label": "Application Development & Automation",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | Application Development & Automation",
+                "title": "Application Development & Automation",
                 "description": "Explore SAP reference architectures for application development and automation. Streamline business processes, enhance productivity, and drive innovation with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/appdev",
                 "keywords": ["appdev", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "appdev"
@@ -69,11 +69,11 @@
             "label": "Artificial Intelligence",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | Artificial Intelligence (AI)",
+                "title": "Artificial Intelligence (AI)",
                 "description": "Discover AI-powered SAP reference architectures designed to reinvent business processes and automate tasks. Optimize efficiency, drive innovation, and transform your enterprise operations effortlessly.",
                 "slug": "/sap/ai",
                 "keywords": ["ai", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "ai"
@@ -85,11 +85,11 @@
             "label": "Data & Analytics",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | Data & Analytics",
+                "title": "Data & Analytics",
                 "description": "Discover SAP reference architectures for data and analytics. Leverage data-driven insights, optimize decision-making, and drive business growth with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/data",
                 "keywords": ["data", "analytics", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "data"
@@ -105,7 +105,7 @@
                 "description": "Explore SAP reference architectures for integration. Streamline business processes, enhance productivity, and drive innovation with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/integration",
                 "keywords": ["integration", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "integration"
@@ -117,11 +117,11 @@
             "label": "Operations & Security",
             "link": {
                 "type": "generated-index",
-                "title": "Architecture Explorer | Operations & Security",
+                "title": "Operations & Security",
                 "description": "Discover SAP reference architectures for operations and security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
                 "slug": "/sap/opsec",
                 "keywords": ["opsec", "sap"],
-                "image": "/img/sap_logo.png"
+                "image": "/img/ac-soc-med.png"
             },
             "customProps": {
                 "id": "opsec"
