@@ -188,10 +188,10 @@ Check the code behind these examples by reviewing the underlying markdown, using
         C:::reduceSize -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']:::reduceSize
         ```
 
-2. Insight Apps Data Flow
+2. Intelligent Applications Data Flow
 
-    - **File**: `docs/ref-arch/RA0013/3-insight-apps-by-sap/readme.md`
-    - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Insight Apps. It demonstrates how to use subgraphs for logical grouping of components.
+    - **File**: `docs/ref-arch/RA0013/3-intelligent-applications-by-sap/readme.md`
+    - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Intelligent Applications. It demonstrates how to use subgraphs for logical grouping of components.
     - **Code**:
         ```mermaid
         graph TD
@@ -203,7 +203,7 @@ Check the code behind these examples by reviewing the underlying markdown, using
             E --> F(Base Model)
             F --> G(Analytic Model)
         end
-        G --> H(Insight App)
+        G --> H(Intelligent Application)
         ```
 
 3. Contributor Lifecycle
