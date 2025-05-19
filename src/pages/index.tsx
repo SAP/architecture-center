@@ -41,7 +41,19 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <Layout title={`${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+        <Layout
+            title={siteConfig.title}
+            description={siteConfig.tagline}
+            metadata={[
+                { property: 'og:title', content: siteConfig.title },
+                { property: 'og:description', content: siteConfig.tagline },
+                { property: 'og:type', content: 'website' },
+                { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
+                { name: 'twitter:card', content: 'summary_large_image' },
+                { name: 'twitter:title', content: siteConfig.title },
+                { name: 'twitter:description', content: siteConfig.tagline },
+            ]}
+        >
             <main>
                 <HeroSection />
                 <ExploreArchitectureSection />
