@@ -69,6 +69,15 @@ jobs:
             - name: Build Website
               run: npm run build
 
+            - name: Delete sitemap.xml
+              run: |
+                  if [ -f build/sitemap.xml ]; then
+                    rm build/sitemap.xml
+                    echo "Deleted sitemap.xml from build output."
+                  else
+                    echo "No sitemap.xml found to delete."
+                  fi
+
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
               with:
