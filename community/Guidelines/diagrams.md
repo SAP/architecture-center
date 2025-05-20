@@ -2,7 +2,7 @@
 sidebar_position: 6
 slug: /diagrams
 title: Diagram Best Practices
-description: Enhance your diagramming expertise with this guide for the SAP Architecture Center. Learn best practices for creating Draw.io diagrams tailored to SAP solution architectures and Mermaid diagrams for process flows and visualizations. Ensure consistency and readability for your reference architecture content. Access official resources, templates, and examples to deliver visually compelling and technically accurate diagrams that elevate your SAP Architecture Center contributions.
+description: Enhance your diagramming expertise with this guide for the SAP Architecture Center. Learn best practices for creating Draw.io diagrams tailored to SAP solution architectures and Mermaid diagrams for process flows and visualizations.
 sidebar_label: Diagramming
 keywords:
     - sap
@@ -21,7 +21,7 @@ unlisted: false
 contributors:
 last_update:
   author: jmsrpp
-  date: 2025-05-01
+  date: 2025-05-19
 ---
 
 # Diagram Best Practices
@@ -188,10 +188,10 @@ Check the code behind these examples by reviewing the underlying markdown, using
         C:::reduceSize -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']:::reduceSize
         ```
 
-2. Insight Apps Data Flow
+2. Intelligent Applications Data Flow
 
-    - **File**: `docs/ref-arch/RA0013/3-insight-apps-by-sap/readme.md`
-    - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Insight Apps. It demonstrates how to use subgraphs for logical grouping of components.
+    - **File**: `docs/ref-arch/RA0013/3-intelligent-applications-by-sap/readme.md`
+    - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Intelligent Applications. It demonstrates how to use subgraphs for logical grouping of components.
     - **Code**:
         ```mermaid
         graph TD
@@ -203,7 +203,7 @@ Check the code behind these examples by reviewing the underlying markdown, using
             E --> F(Base Model)
             F --> G(Analytic Model)
         end
-        G --> H(Insight App)
+        G --> H(Intelligent Application)
         ```
 
 3. Contributor Lifecycle

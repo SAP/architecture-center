@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index: []
 title: Modernizing SAP BW with SAP Business Data Cloud
 description: >-
-  Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (BDC) to
+  Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (SAP BDC) to
   unlock real-time analytics, AI-driven insights, and scalable cloud-native
   architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products
   to transition seamlessly while preserving existing investments. Discover
@@ -42,35 +42,35 @@ contributors:
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-05-10
+  date: 2025-05-19
 ---
 
 ## Introduction
 
-SAP Business Warehouse (BW) has been a cornerstone of enterprise data management for decades, providing essential insights for decision-making. However, the growing complexity of modern data landscapes, the need for real-time analytics, and the shift toward AI-driven processes demand a more scalable and integrated approach. SAP Business Data Cloud (BDC) offers a path to modernize BW environments, enabling organizations to leverage existing investments while transitioning to a future-ready architecture.
+SAP Business Warehouse (BW) has been a cornerstone of enterprise data management for decades, providing essential insights for decision-making. However, the growing complexity of modern data landscapes, the need for real-time analytics, and the shift toward AI-driven processes demand a more scalable and integrated approach. SAP Business Data Cloud (SAP BDC) offers a path to modernize BW environments, enabling organizations to leverage existing investments while transitioning to a future-ready architecture.
 
 With the introduction of SAP BW NetWeaver Cloud, private edition, SAP offers customers an option to lift their SAP BW NetWeaver to an SAP managed environment without the need to migrate to an intermediate solution until 2040 and benefit from an extended end of maintenance until 2030 for SAP BW NetWeaver Cloud, private edition. 
 
-As a result, customers can gradually shift SAP BW use cases to SAP Datasphere and replace respective data flows with proven capabilities within SAP Datasphere as well as data products and insight apps within SAP Business Data Cloud, instead of spending time and budget on a migration.
+As a result, customers can gradually shift SAP BW use cases to SAP Datasphere and replace respective data flows with proven capabilities within SAP Datasphere as well as data products and Intelligent Applications within SAP Business Data Cloud, instead of spending time and budget on a migration.
 
 ## Architectural Overview
 
 ![drawio](drawio/bw-bdc-detailed.drawio)
 
-SAP BW PCE is the Data Producer. This system is added in the SAP BDC Formation. With this addition, a dedicated provisioning space is created for BW PCE. Data Product Generator is a tool which is available in SAP BW PCE to create data products in Object Store in SAP BDC out of BW PCE. These data products gets generated as custom data products in the object store which is in the SAP BDC Tenant.From the provisioning space in SAP Datasphere, this can be shared with another space for modelling and consumption into SAP Analytics Cloud.
+SAP BW PCE is the Data Producer. This system is added in the SAP BDC Formation. With this addition, a dedicated provisioning space is created for BW PCE. Data Product Generator is a tool which is available in SAP BW PCE to create data products in Object Store in SAP BDC out of BW PCE. These data products gets generated as custom data products in the object store which is in the SAP BDC Tenant. From the provisioning space in SAP Datasphere, this can be shared with another space for modeling and consumption into SAP Analytics Cloud.
 
 ## Key Services and Components
 
 The modernization process leverages the following components to transition BW environments to SAP BDC:
 
-- **SAP BW PCE**: Private cloud edition of BW for transitioning to BDC.
+- **SAP BW PCE**: Private cloud edition of BW for transitioning to SAP BDC.
 - **SAP Data Product Generator:** Enables creation of SAP BW data products for integration into SAP Datasphere.
 - **SAP Datasphere**: Centralized data management platform supporting self-service, semantic onboarding, and integration with data marketplaces.
 - **SAP Analytics Cloud:** Provides advanced analytics and visualization capabilities.
 - **SAP Databricks:** Supports AI/ML scenarios on unified SAP BW and SAP BDC data.
 - **Data Products**: Standardized datasets for AI/ML and cross-domain analytics.
-- **Insight Apps**: Pre-built applications for actionable intelligence.
-- **SAP BDC Cockpit**: Centralized management interface for BDC.
+- **Intelligent Applications**: Pre-built applications for actionable intelligence.
+- **SAP BDC Cockpit**: Centralized management interface for SAP BDC.
 
 ## High-Level SAP BW Modernization Approach
 
@@ -78,7 +78,7 @@ Migration projects require careful planning to ensure continuity and minimize di
 
 - **Data Continuity**: Comprehensive validation ensures consistency and integrity during migration, with a focus on preserving historical data and business rules.
 - **Operational Stability**: Parallel operations during transition phases reduce business disruption, supported by robust fallback mechanisms.
-- **Capability Development**: Tailored training programs ensure teams can effectively manage and utilize the new BDC environment.
+- **Capability Development**: Tailored training programs ensure teams can effectively manage and utilize the new SAP BDC environment.
 - **Security and Compliance**: Enterprise-grade security controls and compliance frameworks protect data and support audit requirements.
 
 SAP provides a structured three-step approach for migrating SAP BW systems to the Business Data Cloud. This methodology focuses on leveraging existing BW data, transitioning to modern data products, and adopting a scalable, cloud-native architecture.
@@ -133,11 +133,11 @@ Note: the object store is not a cold store alternative, but enables SAP BW data 
 
 With this, SAP BW Data product will be available for modelling and transformation purposes in SAP BDC. With delta share with SAP Databricks, proven SAP BW Data can be used for implementing AI/ML use cases. Update of data can be scheduled in a delta mode.
 
-**3. Innovate with SAP Managed Data Products and Insight Apps:** Replace legacy BW workflows with SAP-managed data products and insight apps, adopting a lakehouse architecture. Over time, customer-managed BW data products are gradually replaced with SAP-managed data products.
+**3. Innovate with SAP Managed Data Products and Intelligent Applications:** Replace legacy BW workflows with SAP-managed data products and Intelligent Applications, adopting a lakehouse architecture. Over time, customer-managed BW data products are gradually replaced with SAP-managed data products.
 
 ![drawio](drawio/bw-approach-3.drawio)
 
-Customer managed SAP BW Data Products will be gradually replaced with SAP managed data products. SAP managed data products and insight apps allow customers to consume and create analytics scenarios, following a clean core principle. Over a period of time, with this approach SAP BW system can be decommissioned.
+Customer managed SAP BW Data Products will be gradually replaced with SAP managed data products. SAP managed data products and Intelligent Applications allow customers to consume and create analytics scenarios, following a clean core principle. Over a period of time, with this approach SAP BW system can be decommissioned.
 
 - Query and Composite Provider have been replaced with an Analytic Model and View using the onboarding in the catalog.
 - Replace Standard DataSources with SAP managed data products.
@@ -158,14 +158,14 @@ Customer managed SAP BW Data Products will be gradually replaced with SAP manage
 ## Use Cases for BW Modernization
 
 The modernization process unlocks new possibilities for leveraging SAP BW data:
-- **Building Intelligent Applications**: Develop data-driven applications integrating SAP BW and BDC data products.
+- **Building Intelligent Applications**: Develop data-driven applications integrating SAP BW and SAP BDC data products.
 - **AI/ML Scenarios**: Use SAP Databricks to apply advanced AI/ML models to BW data.
 - **Unified Data Platform**: Consolidate data from SAP and non-SAP sources for comprehensive analytics and insights.
 
 
 ## Expected TCO Benefits with SAP BDC and SAP BW PCE
 - **Transformation Effort:** No migration cost for upgrade to SAP BW/4HANA. Leverage SAP Standard data products with business semantics intact.
-- **Analytics and Tech Support Cost:** With adoption of Insight Apps and Data product, 50-80% reduction in cost as annual cost to build and maintain integrations. Reduction in annual monitoring, technical upgrade effort and reduce losses from unforeseen data risk,
+- **Analytics and Tech Support Cost:** With adoption of Intelligent Applications and Data product, 50-80% reduction in cost as annual cost to build and maintain integrations. Reduction in annual monitoring, technical upgrade effort and reduce losses from unforeseen data risk,
 - **SAP Software & Maintenance:** No SAP BW/4HANA licence and annual maintenance. Eliminate SAP Datapshere Premium Outbound costs by leveraging zero copy approach.
 - **Infrastructure and Stack Cost:** Optimize hardware investment and reduce hardware size by offloading SAP BW Data volume to object store.
 

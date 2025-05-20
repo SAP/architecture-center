@@ -10,7 +10,7 @@ sidebar_custom_props:
     - gcp
 title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 description: >-
-  SAP Business Data Cloud (BDC) unifies SAP and non-SAP data, enabling advanced
+  SAP Business Data Cloud (SAP BDC) unifies SAP and non-SAP data, enabling advanced
   analytics, governance, and AI-driven insights. With tools like SAP Datasphere,
   SAP Analytics Cloud, and Databricks integration, SAP BDC addresses data silos,
   improves data quality, and supports real-time processing. Modernize legacy
@@ -44,10 +44,10 @@ contributors:
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-05-10
+  date: 2025-05-19
 ---
 
-SAP Business Data Cloud (BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
+SAP Business Data Cloud (SAP BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
 
 ## Architecture
 
@@ -78,7 +78,7 @@ SAP Business Data Cloud integrates tools like SAP Datasphere, SAP Analytics Clou
 
 ## Key Components of SAP Business Data Cloud
 
-1. **SAP Datasphere** - SAP Datasphere is the technical cornerstone of BDC, offering:
+1. **SAP Datasphere** - SAP Datasphere is the technical cornerstone of SAP BDC, offering:
 
     -   A unified environment for data integration, warehousing, and governance.
     -   Flexible integrated data tiering (object, disk-based and in-memory store) provide cost-efficient persistence layer
@@ -99,18 +99,18 @@ SAP Business Data Cloud integrates tools like SAP Datasphere, SAP Analytics Clou
     -   Serverless Spark offerings aim to simplify big data processing
     -   replication-free access of SAP data products and integration with Unity catalogue.
   
-4. **Insight Apps and Data Products** - Highlight of SAP BDC are the Insight Apps and SAP-managed Data Products:
+4. **Intelligent Applications and Data Products** - A highlight of SAP BDC are the Intelligent Applications and SAP-managed Data Products:
 
     -   ready-to-use, standarized business data object and data applications, provided and operated by SAP
     -   minimize effort for build and run of analytical and data science applications
     -   Promote data consistency and reusability.
     -   Serve as modular, reusable assets for analytical models or AI/ML workflows.
       
-5. **Unified Semantic Layer** - At the core of BDC is its unified semantic model, which:
+5. **Unified Semantic Layer** - At the core of SAP BDC is its unified semantic model, which:
 
     -   Standardizes data definitions across SAP and non-SAP systems
     -   Simplified zero-copy data access via standardized delta-share Interface supports cross-domain analytics and AI applications
-    -   Centralized cross application catalogue for data products and Insight apps.
+    -   Centralized cross application catalogue for data products and Intelligent Applications.
 
 ## Addressing Data Management Challenges
 
@@ -125,11 +125,11 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 
 1. Modernization of SAP BW Systems
 
-    -   Integrating SAP BW and BW/4HANA systems with BDC for advanced analytical and AI/ML use cases
+    -   Integrating SAP BW and BW/4HANA systems with SAP BDC for advanced analytical and AI/ML use cases
     -   Shifting BW to a modern, more standardized data product based architecture
-    -   Innovating and supporting business departments by predefined insight apps and SAP-managed data products.
+    -   Innovating and supporting business departments by predefined Intelligent Applications and SAP-managed data products.
 
-2. Insight apps and Data Products as a service
+2. Intelligent Applications and Data Products as a service
 
     -   Curated datasets optimized for analytical and AI/ML use cases
     -   data extraction,loading and transformation managed by SAP
@@ -142,9 +142,9 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 
 ## Use Cases for SAP Business Data Cloud
 
-1. Moving towards a business data fabric approach with standardized data products and Insight apps
+1. Moving towards a business data fabric approach with standardized data products and Intelligent Applications
    
-    -   Usage of SAP-managed and data products and Insight Apps
+    -   Usage of SAP-managed and data products and Intelligent Applications
     -   Extensions by customer-developed tailored analytics and AI applications leveraging harmonized data.
 
 4. Data Science and AI with high-quality enterprise data
@@ -155,7 +155,7 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 5. SAP BW Modernization
 
     -   Migrate/shift BW Systems step-by-step to cloud-native architectures for scalability and real-time analytics.
-    -   Innovate your business with predefined Insight Apps and out-of-the-box integration with Databricks for AI/ML use cases
+    -   Innovate your business with predefined Intelligent Applications and out-of-the-box integration with Databricks for AI/ML use cases
 
 ## SAP Learning Journey
 
@@ -163,7 +163,7 @@ SAP BDC resolves common technical challenges faced by organizations modernizing 
 
 ## Conclusion
 
-SAP Business Data Cloud (BDC) lays a strong foundation for modern enterprise data management by breaking down data silos, ensuring governance, and streamlining integration. With unified data access and advanced analytics capabilities, BDC empowers organizations to modernize their infrastructure and harness AI-driven insights.
+SAP Business Data Cloud (SAP BDC) lays a strong foundation for modern enterprise data management by breaking down data silos, ensuring governance, and streamlining integration. With unified data access and advanced analytics capabilities, SAP BDC empowers organizations to modernize their infrastructure and harness AI-driven insights.
 
 By adopting SAP BDC, businesses can boost operational efficiency, accelerate decision-making, and build scalable architectures for future innovation. Its unified semantic model, open ecosystem and seamless AI integration, make it a strategic asset for data-driven enterprises.
 

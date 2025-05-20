@@ -38,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-05-10
+  date: 2025-05-19
 ---
 
 Data Products in SAP Business Data Cloud serve as a standardized and efficient way to share and consume data across applications and domains. They enable analytic scenarios, AI applications, and facilitate data integration while being optimized for intensive reads. Managed with a product mindset, they are supported by high-quality metadata and governed by decentralized ownership principles.
@@ -96,6 +96,8 @@ Data Products are exposed for consumption via APIs, Events, or [Delta Sharing](h
 
 ### Data Sharing View
 
+This diagram illustrates how data is shared between providers and recipients using the Delta Sharing protocol. The Data Provider manages data lake tables and access permissions, which are exposed through a Delta Sharing Server.
+
 ```mermaid
 graph LR
     subgraph Data Provider
@@ -111,6 +113,8 @@ graph LR
 ```
 
 ### Discovery and Generation Workflow
+
+This diagram shows how data product definitions are discovered and generated. Source Lines of Business (LoB) provide data product definitions, which are read and listed by the SAP Business Data Cloud catalog. These definitions are then used to generate data lake tables, making data products available for consumption.
 
 ```mermaid
 flowchart TD
@@ -133,6 +137,8 @@ flowchart TD
 
 ### Consumption Workflow
 
+This diagram illustrates how consumers discover, integrate, and access data products.
+
 ```mermaid
 sequenceDiagram
     participant Consumer
@@ -145,7 +151,7 @@ sequenceDiagram
     Consumer->>Data Product: 3. Authenticate & Access Resources
 ```
 
-#### Steps
+**Steps**:
 
    - **1. Discovery**: 
    Consumers query ORD Aggregators to find Data Products and associated metadata.
@@ -165,7 +171,7 @@ Delta Sharing is an open protocol for sharing data stored in cloud-based Data La
 - **Central Governance**: Controlled access and scalable sharing.
 - **Multi-Tool Support**: Compatible with tools like Apache Spark and Python.
 
-#### Workflow
+**Workflow**:
 
 1. **Data Provider**:
    - Shares tables/partitions via Delta Sharing Server.
@@ -177,23 +183,25 @@ Delta Sharing is an open protocol for sharing data stored in cloud-based Data La
 
 ## Types of Data Products
 
-### SAP-managed vs customer-managed Data Products
+**SAP-managed vs customer-managed Data Products**:
 
 - Starting with SAP S/4HANA Cloud, SAP is providing a comprehensive set of **SAP-managed data products** across the Lines of Business (LoB). Customer only need to activate these predefined data products and then SAP takes care for extraction, loading and data curation.
 - Customer also can create their own **customer-managed data products** to enhance the set of data products with data from any SAP or non-SAP application. Customer-managed data products are curated in SAP Datasphere. The data and ORD file(s) are stored in the customer-managed object store within SAP Datasphere.
 - Both type of data products are technically identical. They are stored in an object store, described via ORD file and published in the SAP BDC data catalogue.
    
-### Data Packages
+**Data Packages**:
 
 - Grouping of related SAP-managed Data Products for streamlined onboarding and activation in SAP Business Data Cloud.
-**Remark:** 
-- SAP-managed Data products cannot be activated individually. They only can be activated via Insight App or on data package level. That means that all the data products within the data package or Insight app are activated in one step.
 
-### Primary Data Product (sub type of a data product)
+:::note 
+SAP-managed Data products cannot be activated individually. They only can be activated via Intelligent Application or on data package level. That means that all the data products within the data package or Intelligent Application are activated in one step.
+:::
+
+**Primary Data Product (sub type of a data product)**:
 
 - Directly provided from applications, representing original data from source applications.
 
-### Derived Data Product (sub type of a data product)
+**Derived Data Product (sub type of a data product)**:
 
 - Curated by SAP and derived from other data sets, delivering value-add based on existing Data Products or APIs.
 
@@ -213,8 +221,7 @@ Delta Sharing is an open protocol for sharing data stored in cloud-based Data La
 
 ## Foundation Services in SAP Business Data Cloud
 
-### Purpose
-Foundation Services facilitate the discovery, extraction, and consumption of SAP-managed Data Products. These services onboard the different Lines of Business (LoB) applications in SAP progressively, starting with SAP S/4HANA Cloud.
+Foundation Services facilitate the discovery, extraction, and consumption of SAP-managed Data Products. These services will onboard the different Lines of Business (LoB) applications in SAP progressively, starting with SAP S/4HANA Cloud.
 
 ## Features
 

@@ -7,7 +7,7 @@
         <mxCell id="cN5y4G9h1jpa3G24g_gX-1" value="&lt;p style=&quot;margin-top: 6pt ; margin-bottom: 0pt ; margin-left: 0in ; direction: ltr ; unicode-bidi: embed ; vertical-align: baseline ; word-break: normal ; font-size: 14px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=1.5;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=2;" parent="1" vertex="1">
           <mxGeometry x="-1202" y="1101" width="1243" height="709" as="geometry" />
         </mxCell>
-        <mxCell id="cN5y4G9h1jpa3G24g_gX-2" value=" SAP Business Data Cloud (BDC)" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" parent="1" vertex="1">
+        <mxCell id="cN5y4G9h1jpa3G24g_gX-2" value=" SAP Business Data Cloud (SAP BDC)" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" parent="1" vertex="1">
           <mxGeometry x="-1163" y="1133" width="37" height="19" as="geometry" />
         </mxCell>
         <mxCell id="cN5y4G9h1jpa3G24g_gX-3" value="" style="group" parent="1" vertex="1" connectable="0">
@@ -161,7 +161,7 @@
         <mxCell id="cN5y4G9h1jpa3G24g_gX-57" value="SAC Story" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" parent="cN5y4G9h1jpa3G24g_gX-54" vertex="1">
           <mxGeometry x="218.9392993340913" y="19" width="78.0227058632451" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="cN5y4G9h1jpa3G24g_gX-58" value="Insight Apps" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" parent="cN5y4G9h1jpa3G24g_gX-54" vertex="1">
+        <mxCell id="cN5y4G9h1jpa3G24g_gX-58" value="Intelligent Applications" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" parent="cN5y4G9h1jpa3G24g_gX-54" vertex="1">
           <mxGeometry x="304.0449027123599" y="19" width="78.0227058632451" height="20" as="geometry" />
         </mxCell>
         <mxCell id="cN5y4G9h1jpa3G24g_gX-59" value="&lt;font size=&quot;1&quot; color=&quot;#475f75&quot;&gt;&lt;b&gt;Data Product Generator&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475f75;fillColor=#f5f6f7;fontColor=#266f3a;strokeWidth=1.5;" parent="cN5y4G9h1jpa3G24g_gX-3" vertex="1">

@@ -15,6 +15,7 @@ sidebar_position: 0
 # SIDEBAR_CUSTOM_PROPS: [DO NOT MODIFY] - In which additional sidebar this page should be displayed? Check its presence on the 'SAP ViewPoints'.
 sidebar_custom_props: 
   category_index: 
+  - demo
 
 ############################################################
 #     You can modify the front matter properties below     #

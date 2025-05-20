@@ -2,6 +2,7 @@
 sidebar_position: 1
 slug: /contribution
 title: How to Contribute
+description: Learn how to contribute to the SAP Architecture Center. Follow step-by-step guidelines for submitting code, documentation, or AI-generated content.
 sidebar_label: How to Contribute
 keywords:
  - sap
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: navyakhurana
-  date: 2025-05-01
+  date: 2025-05-19
 ---
 
 

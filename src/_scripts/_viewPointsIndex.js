@@ -37,10 +37,9 @@ function createLandingPageSection(items) {
     }));
 }
 
-function getLatestItems(items, limit = 6) {
+function getLatestItems(items) {
     return [...items]
         .sort((a, b) => new Date(b.customProps.last_update) - new Date(a.customProps.last_update))
-        .slice(0, limit);
 }
 
 function writeJsonToFile(filePath, data) {
@@ -68,7 +67,8 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         const filteredDocs = args.docs.filter(
             (doc) =>
                 Array.isArray(doc.frontMatter?.sidebar_custom_props?.category_index) &&
-                doc.frontMatter.sidebar_custom_props.category_index.length > 0
+                doc.frontMatter.sidebar_custom_props.category_index.length > 0 &&
+                doc.frontMatter?.unlisted !== true
         );
 
         const docsRefArchItems = filteredDocs.map((doc) =>
@@ -76,6 +76,8 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
                 category_index: doc.frontMatter?.sidebar_custom_props?.category_index,
             })
         );
+
+        const latestItems = getLatestItems(docsRefArchItems); 
 
         const category = {
             type: 'category',
@@ -87,14 +89,13 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
                     'Explore all SAP reference architectures across different technology domains and technology partners.',
                 slug: '/exploreallrefarch',
                 keywords: ['explore', 'all', 'sap', 'reference architectures'],
-                image: '/img/sap_logo.png',
+                image: '/img/ac-soc-med.png',
             },
             customProps: { id: 'exploreallrefarch' },
-            items: docsRefArchItems,
+            items: latestItems,
         };
 
-        const latestItems = getLatestItems(docsRefArchItems);
-        const landingPageSectionItems = createLandingPageSection(latestItems);
+        const landingPageSectionItems = createLandingPageSection(latestItems.slice(0, 6));
         const outputFile = path.join(__dirname, '../data/exploreArch.json');
         writeJsonToFile(outputFile, [{ ...category, items: landingPageSectionItems }]);
 

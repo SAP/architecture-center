@@ -4,7 +4,7 @@ slug: /ref-arch/f5b6b597a6/5
 sidebar_position: 5
 sidebar_custom_props:
   category_index: []
-title: SAP Databricks in Business Data Cloud
+title: SAP Databricks in SAP BDC
 description: >-
   SAP and Databricks have partnered to integrate SAP data with Databricks AI and
   analytics platform, allowing businesses to leverage SAP data for AI and
@@ -18,7 +18,7 @@ keywords:
   - data
   - cloud
   - databricks
-sidebar_label: SAP Databricks in Business Data Cloud
+sidebar_label: SAP Databricks in SAP BDC
 image: img/ac-soc-med.png
 tags:
   - data
@@ -37,8 +37,8 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: s-krishnamoorthy
-  date: 2025-05-10
+  author: jmsrpp
+  date: 2025-05-19
 ---
 
 # SAP and Databricks Integration in SAP Business Data Cloud

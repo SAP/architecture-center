@@ -15,12 +15,14 @@ keywords:
   - agent2agent
   - joule
   - microsoft azure
+  - aws
 sidebar_label: Agent2Agent Interoperability
 image: img/ac-soc-med.png
 tags:
   - genai
   - gcp
   - azure
+  - aws
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -30,10 +32,11 @@ unlisted: false
 contributors:
   - adarshnarayanhegde
   - AFK-Python
+  - AndItDontFade
 discussion: 
 last_update:
-  author: adarshnarayanhegde
-  date: 2025-05-12
+  author: AndItDontFade
+  date: 2025-05-19
 ---
 
 # Agent2Agent (A2A) Interoperability in Enterprise AI
@@ -42,7 +45,7 @@ Enterprise users often face complex tasks that depend on data and actions distri
 
 ## Architecture
 
-![drawio](./drawio/a2a-ard-l1.drawio)
+![drawio](drawio/a2a-ard-l1.drawio)
 
 ## Flow
 

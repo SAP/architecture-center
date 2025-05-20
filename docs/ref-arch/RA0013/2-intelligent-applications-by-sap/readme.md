@@ -4,9 +4,9 @@ slug: /ref-arch/f5b6b597a6/2
 sidebar_position: 2
 sidebar_custom_props:
   category_index: []
-title: Insight Apps by SAP
+title: Intelligent Applications by SAP
 description: >-
-  Insight Apps are delivered in SAP Business Data Cloud as a prebuilt set of
+  Intelligent Applications are delivered in SAP Business Data Cloud as a prebuilt set of
   artifacts, from Data Products, to models, to stories in SAP Analytics Cloud.
   They allow you to configure your entire environment simply by subscribing.
 keywords:
@@ -15,8 +15,8 @@ keywords:
   - business
   - data
   - cloud
-  - insight apps
-sidebar_label: Insight Apps in SAP Business Data Cloud
+  - Intelligent Applications
+sidebar_label: Intelligent Applications in SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
   - data
@@ -36,19 +36,19 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: anbazhagan-uma
-  date: 2025-05-10
+  author: jmsrpp
+  date: 2025-05-19
 ---
 
-# Insight Apps by SAP
+# Intelligent Applications by SAP
 
 ## Overview
 
-Insight Apps in SAP Business Data Cloud provide pre-configured, SAP-managed dashboards and analytics based on underlying Data Products and models. These apps leverage SAP Analytics Cloud as the key front-end solution for visualization, simplifying the process of creating interactive reports and dashboards. Insight Apps reduce complexity, requiring only installation and role assignment for consumption.
+Intelligent Applications in SAP Business Data Cloud provide pre-configured, SAP-managed dashboards and analytics based on underlying Data Products and models. These apps leverage SAP Analytics Cloud as the key front-end solution for visualization, simplifying the process of creating interactive reports and dashboards. Intelligent Applications reduce complexity, requiring only installation and role assignment for consumption.
 
-## Architecture of Insight Apps
+## Architecture of Intelligent Applications
 
-High-Level Object Structure of Insight Apps consist of:
+High-Level Object Structure of Intelligent Applications consist of:
 
 **1. Visualization Objects**:
     - SAP Analytics Cloud stories serve as dashboards.
@@ -60,7 +60,7 @@ High-Level Object Structure of Insight Apps consist of:
 
 ### Data Flows
 
-The following diagram shows how raw source data is enriched as it moved through SAP BDC components until being surfaced in an Insight App.
+The following diagram shows how raw source data is enriched as it moved through SAP BDC components until being surfaced in an Intelligent Application.
 
 ```mermaid
 graph TD;
@@ -81,16 +81,16 @@ graph TD;
 
         subgraph SAP Analytics Cloud
         direction TB
-            G --> H(Insight App)
-            H --> I(Low-code Insight App)
-            H --> J(Pro-code Insight App)
+            G --> H(Intelligent Application)
+            H --> I(Low-code Intelligent Application)
+            H --> J(Pro-code Intelligent Application)
         end
     end
 ```
 
-## Formation Setup for Insight Apps
+## Formation Setup for Intelligent Applications
 
-To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Datasphere must operate in a formation. This involves:
+To enable Intelligent Applications, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Datasphere must operate in a formation. This involves:
 
 **1. Single Sign-On**:
 
@@ -99,19 +99,19 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 
 **2. Live Data Connection**:
 
-    - SAP-managed live data connections link SAP Datasphere objects to SAP Analytics Cloud for Insight Apps usage.
+    - SAP-managed live data connections link SAP Datasphere objects to SAP Analytics Cloud for Intelligent Applications usage.
 
 **3. Custom Connections**:
     - Users can create additional connections to access custom models and Data Products.
 
-## Workflow of Insight Apps
+## Workflow of Intelligent Applications
 
 ### Installation
 
 **1. Search and Install**:
 
     - Log in to SAP Business Data Cloud cockpit.
-    - Browse available Insight Apps and their associated documentation.
+    - Browse available Intelligent Applications and their associated documentation.
 
 **2. Automated Setup**:
 
@@ -125,10 +125,10 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 
 ### Visualization
 
--   Insight Apps provide interactive dashboards based on live data connections to SAP Datasphere.
+-   Intelligent Applications provide interactive dashboards based on live data connections to SAP Datasphere.
 -   Users can apply filters, select members or dimensions, and set variable values (e.g., target currency).
 
-## Key Components of Insight Apps
+## Key Components of Intelligent Applications
 
 | **Component**            | **Description**                                                                  |
 | ------------------------ | -------------------------------------------------------------------------------- |
@@ -142,7 +142,7 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 
 ### Copying Content
 
--   SAP-managed Insight Apps and their dependencies cannot be directly edited but components can be copied and adapted, as needed.
+-   SAP-managed Intelligent Applications and their dependencies cannot be directly edited but components can be copied and adapted, as needed.
 -   Users can copy SAP Analytics Cloud stories to enhance or adjust them for their needs.
 
 ### Enhancing Models
@@ -150,7 +150,7 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 -   For advanced use cases, users can copy and modify the underlying analytic models.
 -   Changes to models affect both original and copied stories.
 
-## Features of Insight Apps
+## Features of Intelligent Applications
 
 **1. Pre-Configured Dashboards**:
 - Delivered as SAP Analytics Cloud stories.
@@ -165,11 +165,11 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 **4. Customizable**:
 - Components such as stories and models can be copied and enhanced for specific use cases.
 
-## How to Leverage SAP Insight Apps
+## How to Leverage SAP Intelligent Applications
 
 **1. Selection and Deployment**
 
-- Identify relevant Insight Apps from the BDC marketplace
+- Identify relevant Intelligent Applications from the SAP BDC marketplace
 - Review capabilities and alignment with business objectives
 - Deploy with minimal configuration required
 - Customize to reflect your organization's specific metrics and processes
@@ -197,4 +197,4 @@ To enable Insight Apps, SAP Business Data Cloud, SAP Analytics Cloud, and SAP Da
 
 ## Conclusion
 
-Insight Apps simplify the visualization and analysis of data in SAP Business Data Cloud. By leveraging SAP Analytics Cloud for dashboards and SAP Datasphere for data preparation, Insight Apps offer pre-configured, SAP-managed solutions that reduce complexity and enhance usability. Their architecture integrates Data Products, Foundation Services, and analytic models, ensuring seamless deployment and scalability while allowing customization for advanced scenarios.
+Intelligent Applications simplify the visualization and analysis of data in SAP Business Data Cloud. By leveraging SAP Analytics Cloud for dashboards and SAP Datasphere for data preparation, Intelligent Applications offer pre-configured, SAP-managed solutions that reduce complexity and enhance usability. Their architecture integrates Data Products, Foundation Services, and analytic models, ensuring seamless deployment and scalability while allowing customization for advanced scenarios.
