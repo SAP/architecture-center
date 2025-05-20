@@ -14,8 +14,8 @@ const isMac = process.platform === 'darwin';
 const DRAWIO_CLI_PATH = isMac
     ? '/Applications/draw.io.app/Contents/MacOS/draw.io'
     : isWin
-      ? 'C:\\Program Files\\draw.io\\draw.io.exe'
-      : null;
+        ? 'C:\\Program Files\\draw.io\\draw.io.exe'
+        : null;
 const DRAWIO_CLI_BINARY = `"${DRAWIO_CLI_PATH}"`;
 // assuming script is in src/_scripts/
 const ROOT = normalizePath(__dirname + '/../..');
@@ -164,7 +164,7 @@ async function watermarkAll() {
                         </g>
                         <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
                                 font-size="${Math.round(18 * scaleDown)}">
-                            ${slug}
+                            ${smallSlug}
                         </text>
                         </g>
                         <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${1.9 * scaleDown})">
