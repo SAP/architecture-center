@@ -52,13 +52,13 @@ const config: Config = {
                 docsRouteBasePath: ['/docs', '/community'],
                 docsDir: ['docs', 'community'],
                 indexBlog: true,
-                blogRouteBasePath: '/blog', 
+                blogRouteBasePath: '/blog',
                 language: ['en'],
                 highlightSearchTermsOnTargetPage: true,
                 removeDefaultStopWordFilter: true,
                 removeDefaultStemmer: true,
             },
-        ],        
+        ],
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -283,7 +283,7 @@ const config: Config = {
                             href: 'https://community.sap.com/t5/enterprise-architecture/gh-p/Enterprise-Architecture',
                         },
                         {
-                            label: 'Blogs',
+                            label: 'Blog Posts',
                             href: 'https://community.sap.com/t5/all-sap-community-blogs/ct-p/all-blogs',
                         },
                         {
