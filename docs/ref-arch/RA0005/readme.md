@@ -41,7 +41,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2025-01-14
+  date: 2025-05-20
 ---
 
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
