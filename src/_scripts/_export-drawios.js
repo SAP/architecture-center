@@ -143,6 +143,7 @@ async function watermarkAll() {
             let title = frontmatter.match(/^title:\s(.*)$/m)[1];
             if (title.includes('#')) title = title.split('#')[0];
             const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
+            const smallSlug = frontmatter.match(/^slug:\s\/ref-arch\/(\S+)/m)[1];
             const qrSvgContent = await generateQrSvg(URL + slug);
             // Set qrSize to dynamically position the qrCode later (33 = original qrCode width)
             const qrSize = 33 * 1.9 * scaleDown;
@@ -163,7 +164,7 @@ async function watermarkAll() {
                         </g>
                         <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
                                 font-size="${Math.round(18 * scaleDown)}">
-                            ${URL + slug}
+                            ${slug}
                         </text>
                         </g>
                         <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${1.9 * scaleDown})">
