@@ -83,3 +83,7 @@ gitGraph
 :::tip Best Practice
 Regularly sync with the main repository before contributing or creating a pull request to avoid merge conflicts.
 :::
+
+## Formatting Consistency
+
+To ensure consistent code and documentation formatting across all contributions, we use [Prettier](https://prettier.io/docs/configuration) for automatic code formatting. Additionally, we provide a [.editorconfig](https://learn.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022) file to standardize basic editor settings (such as indentation and line endings) across different IDEs. Please make sure your editor respects these settings for a smooth collaboration experience.

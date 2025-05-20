@@ -7,7 +7,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
     title: 'SAP Architecture Center',
-    tagline: 'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
+    tagline:
+        'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
     favicon: 'img/logo.svg',
 
     url: 'https://architecture.learning.sap.com',
@@ -181,72 +182,72 @@ const config: Config = {
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Architecture Explorer</strong>'
+                            value: '<strong>Architecture Explorer</strong>',
                         },
                         {
                             to: '/docs/exploreallrefarch',
-                            label: 'Card-Style Overview'
+                            label: 'Card-Style Overview',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
-                            label: 'Navigator-Style Overview'
+                            label: 'Navigator-Style Overview',
                         },
                         {
                             type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">'
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Domains</strong>'
+                            value: '<strong>Technology Domains</strong>',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'appdev',
-                            label: 'Application Development & Automation'
+                            label: 'Application Development & Automation',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'ai',
-                            label: 'Artificial Intelligence'
+                            label: 'Artificial Intelligence',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'data',
-                            label: 'Data & Analytics'
+                            label: 'Data & Analytics',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'integration',
-                            label: 'Integration'
+                            label: 'Integration',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'opsec',
-                            label: 'Operation & Security'
+                            label: 'Operation & Security',
                         },
                         {
                             type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">'
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Partners</strong>'
+                            value: '<strong>Technology Partners</strong>',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'aws',
-                            label: 'Amazon Web Services'
+                            label: 'Amazon Web Services',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'azure',
-                            label: 'Microsoft Azure'
+                            label: 'Microsoft Azure',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'gcp',
-                            label: 'Google Cloud Platform'
+                            label: 'Google Cloud Platform',
                         },
                     ],
                 },
