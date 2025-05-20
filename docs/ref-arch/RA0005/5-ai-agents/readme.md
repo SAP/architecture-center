@@ -18,7 +18,7 @@ keywords:
   - aws
   - azure
   - gcp
-sidebar_label: AI Agents & Business Agent Foundation (BAF)
+sidebar_label: AI Agents & Project Agent Builder (PAB)
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -38,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: vedant-aero-ml
-  date: 2025-05-02
+  date: 2025-05-20
 ---
 
 AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.
