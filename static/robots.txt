@@ -1,0 +1,8 @@
+# Allow all search engines to index the main content
+User-agent: *
+Disallow: /404.html
+Disallow: /*.json$
+Disallow: /*.drawio$
+
+# Specify the sitemap location
+Sitemap: https://architecture.learning.sap.com/sitemap.xml
