@@ -114,6 +114,7 @@ const config: Config = {
                         '/blog/archive/**',
                         '/**/partners/**',
                         '/**/sap/**',
+                        '/docs/exploreallrefarch/**',
                     ],
                 },
             } satisfies Preset.Options,
