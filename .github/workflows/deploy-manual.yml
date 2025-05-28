@@ -4,6 +4,10 @@ on:
     # for local PR builds esp. builds in forked repositories
     workflow_dispatch:
 
+permissions:
+    contents: read
+    pages: write
+
 jobs:
     build:
         name: Build Site
