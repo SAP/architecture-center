@@ -63,6 +63,5 @@ Models trained in Databricks ML platform can also be optionally deployed in SAP 
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
-- [Using FedML library with SAP Datasphere and Databricks](https://community.sap.com/t5/technology-blogs-by-sap/using-fedml-library-with-sap-datasphere-and-databricks/ba-p/13568923)
+- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Databricks)
 - [Predict & Analyze marketing campaign effectiveness with SAP Datasphere and Databricks Data Intelligence Platform](https://www.databricks.com/blog/predict-analyze-marketing-campaign-effectiveness-sap-datasphere-and-databricks-data)

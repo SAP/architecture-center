@@ -71,7 +71,6 @@ Models trained in Amazon Sagemaker can also be optionally deployed in SAP AI Cor
 ## Resources
 
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/AWS)
-- [Federated Machine Learning using SAP Datasphere and Amazon SageMaker 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-amazon-sagemaker-2-0/ba-p/13527862)
 
 ## Related Missions
 
