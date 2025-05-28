@@ -78,6 +78,15 @@ jobs:
                     echo "No sitemap.xml found to delete."
                   fi
 
+            - name: Delete robots.txt
+              run: |
+                  if [ -f build/robots.txt ]; then
+                    rm build/robots.txt
+                    echo "Deleted robots.txt from build output."
+                  else
+                    echo "No robots.txt found to delete."
+                  fi
+
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
               with:
