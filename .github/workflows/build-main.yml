@@ -1,5 +1,9 @@
 name: Build for GitHub Pages
 
+permissions:
+    contents: read
+    pages: write
+
 on:
     push:
         branches:

@@ -1,6 +1,6 @@
 {
   "name": "sap-architecture-center",
-  "version": "1.2520.6",
+  "version": "1.2522.1",
   "private": true,
   "scripts": {
     "clean": "rm -rf build",
@@ -80,7 +80,8 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5",
-    "printWidth": 120
+    "printWidth": 120,
+    "endOfLine": "lf" 
   },
   "browserslist": {
     "production": [

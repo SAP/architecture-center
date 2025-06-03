@@ -78,6 +78,15 @@ jobs:
                     echo "No sitemap.xml found to delete."
                   fi
 
+            - name: Delete robots.txt
+              run: |
+                  if [ -f build/robots.txt ]; then
+                    rm build/robots.txt
+                    echo "Deleted robots.txt from build output."
+                  else
+                    echo "No robots.txt found to delete."
+                  fi
+
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
               with:
@@ -115,15 +124,19 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Drop Previous Content
+              env:
+                  PR_FOLDER: ${{ env.PR_FOLDER }}
               run: |
-                  rm -rf @${{ env.PR_FOLDER }}
-                  mkdir -p @${{ env.PR_FOLDER }}
+                  rm -rf @$PR_FOLDER
+                  mkdir -p @$PR_FOLDER
 
             - name: Extract Build Content
+              env:
+                  PR_FOLDER: ${{ env.PR_FOLDER }}
               run: |
                   if [[ -d "build" && "$(ls -A build)" ]]; then
-                    mv build/* @${{ env.PR_FOLDER }}/
-                    cd @${{ env.PR_FOLDER }}/
+                    mv build/* @$PR_FOLDER/
+                    cd @$PR_FOLDER/
                     tar -xvf github-pages/artifact.tar
                     rm github-pages/artifact.tar
                   else
