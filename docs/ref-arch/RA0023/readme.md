@@ -17,7 +17,11 @@ description: This reference architecture describes cloud services and offerings 
 sidebar_label: DevOps with SAP BTP
 keywords: [sap, devops, agile, cicd]
 image: img/logo.svg
-tags: [Application Development &amp; Automation]
+tags:
+    - ref-arch
+    - appdev
+    - build
+    - cap
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,11 +29,10 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - bzarske
 last_update:
     date: 2025-06-06
-    author: user-7a6eeddefb
+    author: bzarske
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
