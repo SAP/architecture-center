@@ -1,0 +1,19 @@
+name: Check Repo Size and Large Files
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: List files/folders over 1MB
+        run: |
+          echo "Files and folders larger than 1MB:"
+          du -sh ./*/*/ | awk '$1 ~ /M|G/' | sort -hr
