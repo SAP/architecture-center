@@ -175,3 +175,7 @@ As there are many approaches in place and customers might have already certain p
 <!-- dc-ref-arch-related-missions-start -->
 - [Develop a multitenant SaaS application on SAP BTP using CAP | SAP Discovery Center](https://discovery-center.cloud.sap/missiondetail/4064/4275/)
 <!-- dc-ref-arch-related-missions-end -->
+
+<!-- dc-ref-arch-related-missions-start -->
+- [Enhance core ERP business processes with resilient applications on SAP BTP | SAP-samples on GitHub](https://github.com/SAP-samples/btp-build-resilient-apps)
+<!-- dc-ref-arch-related-missions-end -->
