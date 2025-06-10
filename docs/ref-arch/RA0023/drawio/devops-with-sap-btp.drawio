@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4">
   <diagram id="FbstBVE6JiylST8Hq-xM" name="L2">
-    <mxGraphModel dx="3266" dy="1201" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2140" dy="500" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -310,12 +310,6 @@
         </mxCell>
         <mxCell id="eP-Ncv_d5URBy7ixXD03-47" value="&lt;font color=&quot;#475f75&quot; size=&quot;1&quot;&gt;&lt;b style=&quot;&quot;&gt;Secure tunnel&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475f75;fillColor=default;strokeWidth=1.5;" parent="1" vertex="1">
           <mxGeometry x="-146" y="431.5" width="72" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="lbPgFuZumCOXme4oE2IH-23" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="-1162" y="13" width="338" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="lbPgFuZumCOXme4oE2IH-24" value="&lt;b style=&quot;border-color: var(--border-color); color: rgb(0, 112, 242); font-size: 16px;&quot;&gt;DevOps with SAP BTP&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" parent="lbPgFuZumCOXme4oE2IH-23" vertex="1">
-          <mxGeometry width="188" height="31" as="geometry" />
         </mxCell>
         <mxCell id="lbPgFuZumCOXme4oE2IH-33" value="&lt;font face=&quot;arial&quot; color=&quot;#1d2d3e&quot;&gt;&lt;span style=&quot;font-size: 16px; text-wrap: nowrap;&quot;&gt;&lt;b&gt;SAP Solution&lt;br&gt;Manager&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#188918;fillColor=#FFFFFF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;dashed=1;dashPattern=1 2;" parent="1" vertex="1">
           <mxGeometry x="119" y="130" width="110" height="50" as="geometry" />
