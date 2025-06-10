@@ -1,5 +1,9 @@
 name: Deploy main site to GitHub Pages
 
+permissions:
+    contents: write
+    pages: write
+
 on:
     # for local PR builds esp. builds in forked repositories
     workflow_dispatch:

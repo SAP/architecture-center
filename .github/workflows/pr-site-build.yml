@@ -1,5 +1,9 @@
 name: PR Site Build
 
+permissions:
+    contents: write
+    pages: write
+
 on:
     pull_request_target:
         branches:
@@ -48,7 +52,7 @@ jobs:
             - name: Patch docusaurus.config.ts for PR builds
               run: |
                   sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
-                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/@${{ env.PR_FOLDER }}',^g" docusaurus.config.ts
+                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/@$PR_FOLDER',^g" docusaurus.config.ts
                   sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (PR: #${PR_NUMBER})',^g" docusaurus.config.ts
                   sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (PR: #${PR_NUMBER})'^g" docusaurus.config.ts
                   sed -E -i "s^logo: \{^logo: \{href: '${{ github.event.pull_request.html_url }}',^g" docusaurus.config.ts
@@ -124,15 +128,11 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Drop Previous Content
-              env:
-                  PR_FOLDER: ${{ env.PR_FOLDER }}
               run: |
                   rm -rf @$PR_FOLDER
                   mkdir -p @$PR_FOLDER
 
             - name: Extract Build Content
-              env:
-                  PR_FOLDER: ${{ env.PR_FOLDER }}
               run: |
                   if [[ -d "build" && "$(ls -A build)" ]]; then
                     mv build/* @$PR_FOLDER/
@@ -196,10 +196,10 @@ jobs:
 
             - name: Delete Folder of Merged PR
               run: |
-                  rm -rf @${{ env.PR_FOLDER }}
+                  rm -rf @$PR_FOLDER
 
             - name: Commit and Push Changes
               run: |
                   git add -A
-                  git commit -m "cleanup: removed folder @${{ env.PR_FOLDER }} after merge" || echo "No changes to commit"
+                  git commit -m "cleanup: removed folder @$PR_FOLDER after merge" || echo "No changes to commit"
                   git push origin ${{ env.gh_pages_branch }}
