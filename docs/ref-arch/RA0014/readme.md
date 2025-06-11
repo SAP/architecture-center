@@ -16,18 +16,14 @@ description: >-
   provider usage, and service placement for superior performance.
 keywords:
   - sap
-  - BTP
-  - rise
-  - grow
+  - btp
+  - network performance
+  - multi-regional solution
   - hyperscaler
-  - S/4HANA
+  - S/4 HANA
   - aws
   - azure
-  - gcp
-  - odata
-  - privatelink
-  - wan
-  - internet
+  - cloud design
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
 image: img/ac-soc-med.png
 tags:
