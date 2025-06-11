@@ -16,11 +16,13 @@ description: >-
   resources to understand its setup and implementation.
 keywords:
   - sap
-  - aws
+  - btp
+  - integration suite
+  - edge integration
+  - hyperscalers
   - azure
-  - gcp
-  - eic
-  - edge integration cell
+  - aws
+  - gcp cloud services
 sidebar_label: Edge Integration Cell on Hyperscalers
 image: img/ac-soc-med.png
 tags:
