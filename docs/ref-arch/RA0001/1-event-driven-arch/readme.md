@@ -11,14 +11,10 @@ description: >-
 keywords:
   - sap
   - btp
-  - integration
   - event-driven architecture
+  - eda integration
   - azure
-  - aws
-  - genai
   - cloud application programming model
-  - cap
-  - eda
 sidebar_label: Introduction and SAP's EDA Strategy
 image: img/ac-soc-med.png
 tags:
