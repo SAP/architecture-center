@@ -12,15 +12,10 @@ description: >-
   continuity and high availability during infrastructure failures.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
-  - eda
+  - resiliency design
+  - multi-region
+  - event synchronization
+  - advanced event mesh
 sidebar_label: Events Synchronization across regions
 image: img/ac-soc-med.png
 tags:
