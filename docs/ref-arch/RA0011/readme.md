@@ -21,7 +21,10 @@ description: >-
 keywords:
   - sap
   - hana cloud
-  - esri
+  - esri integration
+  - geospatial database
+  - enterprise infrastructure
+  - spatial data management
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
 image: img/ac-soc-med.png
 tags:
