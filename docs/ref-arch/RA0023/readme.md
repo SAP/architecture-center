@@ -15,9 +15,10 @@ description: >-
   streamlined application lifecycle management.
 keywords:
   - sap
+  - btp
   - devops
-  - agile
-  - cicd
+  - agile methodology
+  - cicd pipelines
 sidebar_label: DevOps with SAP BTP
 image: img/logo.svg
 tags:
