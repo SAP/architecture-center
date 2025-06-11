@@ -11,8 +11,9 @@ description: >-
   considerations for setup and implementation on GCP.
 keywords:
   - sap
-  - gcp
-  - eic
+  - gcp edge integration
+  - integration suite
+  - real-time connectivity
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png
 tags:
