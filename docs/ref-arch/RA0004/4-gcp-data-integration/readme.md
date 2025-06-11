@@ -11,13 +11,10 @@ description: >-
   Datasphere's advanced data fabric architecture.
 keywords:
   - sap
-  - gcp
-  - gcs
-  - gbq
+  - cloud performance
   - google bigquery
-  - data federation
-  - datasphere
-  - replication
+  - data harmonization
+  - advanced analytics
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png
 tags:
