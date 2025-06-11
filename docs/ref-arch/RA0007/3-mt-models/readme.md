@@ -11,9 +11,10 @@ description: >-
 keywords:
   - sap
   - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant management
+  - multitenant application
+  - saas architecture
+  - cap model
 sidebar_label: Tenant Model on SAP BTP
 image: img/ac-soc-med.png
 tags:
