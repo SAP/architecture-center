@@ -15,8 +15,10 @@ description: >-
 keywords:
   - sap
   - btp
-  - cloud
-  - build work zone
+  - digital workplace
+  - sap build work zone
+  - integration ecosystem
+  - business applications
 sidebar_label: Establish a central entry point with SAP Build Work Zone
 image: img/ac-soc-med.png
 tags:
