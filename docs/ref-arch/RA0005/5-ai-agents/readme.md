@@ -14,10 +14,10 @@ description: >-
 keywords:
   - sap
   - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - project agent builder
+  - enterprise AI automation
+  - code-based AI agents
+  - content-based AI
 sidebar_label: AI Agents & Project Agent Builder (PAB)
 image: img/ac-soc-med.png
 tags:
