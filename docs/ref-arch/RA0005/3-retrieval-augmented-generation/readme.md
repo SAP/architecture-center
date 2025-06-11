@@ -11,10 +11,10 @@ description: >-
 keywords:
   - sap
   - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - retrieval augmented generation
+  - LLM control
+  - generation accuracy
+  - cross-domain integration
 sidebar_label: Retrieval Augmented Generation (RAG)
 image: img/ac-soc-med.png
 tags:
