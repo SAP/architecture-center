@@ -12,10 +12,10 @@ description: >-
 keywords:
   - sap
   - aws
-  - sagemaker
+  - amazon sagemaker
   - machine learning
-  - fedml
-  - datasphere
+  - fedml integration
+  - business data training
 sidebar_label: FedML-AWS
 image: img/ac-soc-med.png
 tags:
