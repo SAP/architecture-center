@@ -8,10 +8,9 @@ title: Authentication Strategies
 description: Authentication Strategies
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - authentication model
+  - tenant lifecycle
+  - btp security
 sidebar_label: Authentication Strategies
 image: img/ac-soc-med.png
 tags:
