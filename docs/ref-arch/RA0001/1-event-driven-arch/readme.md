@@ -5,7 +5,9 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Introduction and SAP's EDA Strategy
-description: 'Understanding Event-Driven Architecture, Core Concepts and Building Blocks.'
+description: >-
+  Explore event-driven architecture concepts and building blocks for scalable
+  SAP applications.
 keywords:
   - sap
   - btp
