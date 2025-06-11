@@ -8,10 +8,9 @@ title: Tenant Lifecycle Management
 description: Tenant Lifecycle Management
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant lifecycle
+  - service management
+  - multitenancy model
 sidebar_label: Tenant Lifecycle Management
 image: img/ac-soc-med.png
 tags:
