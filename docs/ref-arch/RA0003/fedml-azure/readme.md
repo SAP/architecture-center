@@ -11,9 +11,10 @@ description: >-
   eliminates the need for duplicating the data.
 keywords:
   - sap
-  - azure
-  - datasphere
-  - machine learning
+  - azure machine learning
+  - fedml
+  - data integration
+  - live business data
 sidebar_label: FedML-Azure
 image: img/ac-soc-med.png
 tags:
