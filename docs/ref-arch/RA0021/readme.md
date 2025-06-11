@@ -14,8 +14,10 @@ description: >-
   interoperability between cloud and on-premise solutions.
 keywords:
   - sap
-  - app2app
-  - integration
+  - application interoperability
+  - app-to-app integration
+  - transactional data exchange
+  - integration suite
 sidebar_label: Application to Application Integration
 image: img/ac-soc-med.png
 tags:
