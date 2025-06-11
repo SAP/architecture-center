@@ -13,8 +13,10 @@ description: >-
   security, scalability, and more.
 keywords:
   - sap
-  - b2b
-  - integration
+  - b2b integration
+  - secure document exchange
+  - scalability solutions
+  - integration architecture
 sidebar_label: Business to Business Integration
 image: img/ac-soc-med.png
 tags:
