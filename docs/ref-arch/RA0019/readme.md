@@ -13,20 +13,13 @@ description: >-
   Identity Services.
 keywords:
   - sap
-  - identity
-  - ias
-  - ips
-  - security
   - cloud identity
-  - business suite
-  - cloud erp
-  - idm
-  - iag
-  - access
+  - identity management
+  - security
+  - authentication
   - single sign-on
+  - access authorizations
   - SAP Cloud Identity Services
-  - Identity Provisioning
-  - Identity Authentication
 sidebar_label: Identity Access Management
 image: img/ac-soc-med.png
 tags:
