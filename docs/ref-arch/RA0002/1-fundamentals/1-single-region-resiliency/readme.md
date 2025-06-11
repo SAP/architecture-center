@@ -9,13 +9,10 @@ description: How the single region resiliency works. What are the benefits and d
 keywords:
   - sap
   - integration
-  - application development
-  - ha dr
-  - high availability
+  - single-region resiliency
   - disaster recovery
-  - resiliency
   - business continuity
-  - failover
+  - high availability
 sidebar_label: Single-region resiliency
 image: img/ac-soc-med.png
 tags:
