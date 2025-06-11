@@ -12,14 +12,10 @@ description: >-
   capabilities, and robust data availability across regions.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region synchronization
+  - data replication
+  - failover capabilities
+  - cloud-integrated resiliency
 sidebar_label: Data Synchronization across regions
 image: img/ac-soc-med.png
 tags:
