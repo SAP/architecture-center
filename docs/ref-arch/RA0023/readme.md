@@ -1,26 +1,32 @@
 ---
 id: id-ra0023
-slug: /ref-arch/7a6eeddefb
+slug: /ref-arch/1c5706feb5
 sidebar_position: 23
 sidebar_custom_props:
-    category_index:
-        - appdev
-        - opsec
-        - aws
-        - azure
-        - gcp
-title: DevOps with SAP BTP
-description: This reference architecture describes cloud services and offerings of SAP BTP for SAP customers and partners to foster agile development principles along the lifecycle of SAP BTP applications, in the spirit of DevOps.
-sidebar_label: DevOps with SAP BTP
-keywords: [sap, devops, agile, cicd]
-image: img/logo.svg
-tags:
+  category_index:
     - appdev
-    - build
-    - cap
+    - opsec
     - aws
     - azure
     - gcp
+title: DevOps with SAP BTP
+description: >-
+  Adopt agile DevOps principles on SAP BTP with cloud services and tools for
+  streamlined application lifecycle management.
+keywords:
+  - sap
+  - devops
+  - agile
+  - cicd
+sidebar_label: DevOps with SAP BTP
+image: img/logo.svg
+tags:
+  - appdev
+  - build
+  - cap
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,10 +34,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - bzarske
+  - bzarske
+discussion: 
 last_update:
-    date: 2025-06-06
-    author: bzarske
+  author: bzarske
+  date: 2025-06-06
 ---
 
 DevOps is a key enabler for achieving high-level agility and quality in development projects – including SAP enterprise environments.
