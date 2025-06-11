@@ -12,11 +12,10 @@ description: >-
   user experience by focusing on meaning over exact keywords.
 keywords:
   - sap
-  - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - semantic search
+  - embeddings
+  - ai-driven search
+  - vector database efficiency
 sidebar_label: Embeddings & Semantic Search
 image: img/ac-soc-med.png
 tags:
