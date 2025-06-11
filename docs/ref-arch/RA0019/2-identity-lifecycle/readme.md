@@ -10,15 +10,11 @@ description: >-
   SaaS via the SAP Cloud Identity Services.
 keywords:
   - sap
-  - identity
-  - ias
-  - ips
-  - security
+  - sap iam integration
   - cloud identity
-  - business suite
-  - cloud erp
-  - SAP Cloud Identity Services
-  - Identity Provisioning
+  - identity lifecycle
+  - authorization management
+  - sap security solutions
 sidebar_label: Identity Lifecycle
 image: img/ac-soc-med.png
 tags:
