@@ -10,13 +10,12 @@ description: >-
   data for seamless model training without data duplication.
 keywords:
   - sap
-  - watsonx
-  - ibm
+  - ibm watsonx
   - machine learning
   - fedml
-  - datasphere
-  - watson.ai
-  - watson studio
+  - data integration
+  - model training
+  - critical business data
 sidebar_label: FedML-IBM watsonx
 image: img/ac-soc-med.png
 tags:
