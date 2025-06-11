@@ -16,7 +16,9 @@ keywords:
   - sap
   - btp
   - cloud
-  - task center
+  - sap task center
+  - central inbox
+  - architecture flow
 sidebar_label: Establish a central inbox with SAP Task Center
 image: img/ac-soc-med.png
 tags:
