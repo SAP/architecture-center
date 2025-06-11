@@ -12,10 +12,10 @@ description: >-
   disparate data sources, enabling comprehensive data modeling and analytics.
 keywords:
   - sap
-  - azure
-  - data explorer
-  - Azure Data Lake Storage Gen2
-  - data federation
+  - microsoft azure
+  - datasphere integration
+  - data governance
+  - real-time analytics
 sidebar_label: Integration with Azure data sources
 image: img/ac-soc-med.png
 tags:
