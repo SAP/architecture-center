@@ -11,14 +11,10 @@ description: >-
   for the Identity Lifecycle.
 keywords:
   - sap
-  - authorization
-  - IdDS
-  - security
-  - cloud identity
-  - business suite
-  - cloud erp
-  - SAP Cloud Identity Services
-  - Authorization Management
+  - authorization management
+  - identity lifecycle
+  - cloud erp security
+  - identity provisioning
 sidebar_label: Authorization Design
 image: img/ac-soc-med.png
 tags:
