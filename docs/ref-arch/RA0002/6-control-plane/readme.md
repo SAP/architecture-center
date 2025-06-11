@@ -13,14 +13,10 @@ description: >-
   availability.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
+  - application reliability
+  - ha dr architecture
   - business continuity
-  - failover
+  - failover strategies
 sidebar_label: Multi-region Control Plane
 image: img/ac-soc-med.png
 tags:
