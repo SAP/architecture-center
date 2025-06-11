@@ -11,9 +11,10 @@ description: >-
   systems and eliminates the need for duplicating the data.
 keywords:
   - sap
-  - databricks
-  - datasphere
+  - databricks platform
+  - fedml integration
   - machine learning
+  - live business data
 sidebar_label: FedML-Databricks
 image: img/ac-soc-med.png
 tags:
