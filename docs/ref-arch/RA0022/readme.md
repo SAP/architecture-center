@@ -13,8 +13,11 @@ description: >-
   governance, security, and simplified consumption of business-critical APIs.
 keywords:
   - sap
-  - api
-  - integration
+  - api integration
+  - business application access
+  - secure consumption
+  - governance
+  - cross-platform compatibility
 sidebar_label: API Managed Integration
 image: img/ac-soc-med.png
 tags:
