@@ -10,10 +10,11 @@ description: >-
   and access management strategies.
 keywords:
   - aws
-  - security
+  - secure access
   - iam
-  - iam-roles-anywhere
   - oidc
+  - cloud applications
+  - architecture integration
 sidebar_label: Secure Service Consumption on AWS
 image: img/ac-soc-med.png
 tags:
