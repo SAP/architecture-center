@@ -8,10 +8,10 @@ title: Cost of Ownership
 description: Cost of Ownership
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant lifecycle
+  - multitenant applications
+  - btp cost analysis
+  - application scalability
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png
 tags:
