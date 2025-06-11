@@ -8,14 +8,10 @@ title: Single-region and Multi-region resiliency
 description: Overview for Single and Multi-region resiliency
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region
+  - resiliency architecture
+  - regional outages
+  - cloud disaster recovery
 sidebar_label: Single-region and Multi-region resiliency
 image: img/ac-soc-med.png
 tags:
