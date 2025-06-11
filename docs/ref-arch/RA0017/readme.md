@@ -13,8 +13,10 @@ description: >-
   using SAP Integration Suite and SAP Master Data Integration.
 keywords:
   - sap
-  - mdi
-  - business process
+  - master data integration
+  - mdi architecture
+  - secure integration
+  - business synchronization
 sidebar_label: Connect Business Applications with SAP Master Data Integration
 image: img/ac-soc-med.png
 tags:
