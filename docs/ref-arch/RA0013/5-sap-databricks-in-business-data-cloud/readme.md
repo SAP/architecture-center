@@ -13,11 +13,10 @@ description: >-
   and AI-driven decision-making.
 keywords:
   - sap
-  - bdc
-  - business
-  - data
-  - cloud
   - databricks
+  - sap business data cloud
+  - real-time ai
+  - advanced analytics
 sidebar_label: SAP Databricks in SAP BDC
 image: img/ac-soc-med.png
 tags:
