@@ -6,11 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Agents for Structured Data
 description: >-
-  Agents for Structured Data leverage advanced AI capabilities to transform how
-  organizations interact with and derive insights from large quantities of
-  tabular and other structured data. By integrating natural language processing,
-  federated data access, and real-time analytics, these applications enable
-  seamless decision-making and operational efficiency across diverse industries.
+  Transform structured data analysis with AI-powered applications, enabling
+  real-time insights and operational efficiency.
 keywords:
   - sap
   - ai integration
