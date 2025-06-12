@@ -3,31 +3,28 @@ id: id-ra0013-4
 slug: /ref-arch/f5b6b597a6/4
 sidebar_position: 4
 sidebar_custom_props:
-    category_index: []
+  category_index: []
 title: Modernizing SAP BW with SAP Business Data Cloud
 description: >-
-    Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (SAP BDC) to
-    unlock real-time analytics, AI-driven insights, and scalable cloud-native
-    architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products
-    to transition seamlessly while preserving existing investments. Discover
-    structured migration pathways, advanced AI/ML capabilities, and unified data
-    management for future-ready enterprise data strategies.
+  Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (SAP BDC)
+  to unlock real-time analytics, AI-driven insights, and scalable cloud-native
+  architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products
+  to transition seamlessly while preserving existing investments. Discover
+  structured migration pathways, advanced AI/ML capabilities, and unified data
+  management for future-ready enterprise data strategies.
 keywords:
-    - sap
-    - bdc
-    - business
-    - data
-    - cloud
-    - bw
-    - warehouse
-    - datasphere
+  - sap
+  - business warehouse modernization
+  - data cloud integration
+  - ai-driven analytics
+  - real-time architecture
 sidebar_label: Modernizing SAP BW with SAP BDC
 image: img/ac-soc-med.png
 tags:
-    - data
-    - aws
-    - azure
-    - gcp
+  - data
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -35,14 +32,14 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - jasoncwluo
-    - jmsrpp
-    - anbazhagan-uma
-    - peterfendt
-discussion:
+  - jasoncwluo
+  - jmsrpp
+  - anbazhagan-uma
+  - peterfendt
+discussion: 
 last_update:
-    author: jmsrpp
-    date: 2025-05-19
+  author: jmsrpp
+  date: 2025-05-19
 ---
 
 ## Introduction
