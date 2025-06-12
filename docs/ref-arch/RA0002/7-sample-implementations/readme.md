@@ -12,14 +12,10 @@ description: >-
   SAP Work Zone, and SAP HANA Cloud with multi-region DR solutions.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
   - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - ha dr solutions
+  - azure traffic manager
+  - aws route 53
 sidebar_label: Sample Implementations
 image: img/ac-soc-med.png
 tags:
