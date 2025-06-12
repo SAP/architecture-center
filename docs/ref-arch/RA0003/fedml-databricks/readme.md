@@ -6,9 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: FedML-Databricks for Databricks platform
 description: >-
-  FedML-Databricks provides end-to-end integraton for training models in
-  Databricks machine learning platform, using live business data from SAP
-  systems and eliminates the need for duplicating the data.
+  Train models on Databricks using live SAP data with FedML-Databricks, enabling
+  secure integration and eliminating data duplication.
 keywords:
   - sap
   - databricks platform
