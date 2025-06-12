@@ -11,12 +11,10 @@ description: >-
   keys.
 keywords:
   - gcp
-  - oidc
-  - federation
-  - ias
-  - sap
-  - btp
-  - security
+  - oidc federation
+  - workload identity
+  - secure keyless access
+  - sap btp security
 sidebar_label: Secure Service Consumption on GCP
 image: img/ac-soc-med.png
 tags:
