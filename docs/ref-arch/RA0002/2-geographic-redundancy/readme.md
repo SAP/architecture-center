@@ -12,14 +12,9 @@ description: >-
   BTP services and applications.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
+  - geographic redundancy
   - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - business continuity solutions
 sidebar_label: Geographic Redundancy
 image: img/ac-soc-med.png
 tags:
