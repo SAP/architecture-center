@@ -7,10 +7,8 @@ sidebar_custom_props:
     - integration
 title: Business to Business Integration
 description: >-
-  Discover SAP's Business-to-Business (B2B) Integration architecture for
-  efficient electronic document exchange with trading partners. Learn about
-  design and runtime perspectives, flow, SAP Integration Suite capabilities,
-  security, scalability, and more.
+  Optimize B2B integration with SAP Integration Suite for secure, scalable
+  electronic document exchange with trading partners.
 keywords:
   - sap
   - b2b integration
