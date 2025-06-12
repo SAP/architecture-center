@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: HA/DR Sample Implementations
 description: >-
-  This document provides sample implementations using Azure Traffic Manager and
-  AWS Route 53 for high availability and disaster recovery (HA/DR) of SAP
-  services. It includes stateless and stateful setups for SAP Cloud Integration,
-  SAP Work Zone, and SAP HANA Cloud with multi-region DR solutions.
+  Implement HA/DR for SAP services using Azure Traffic Manager and AWS Route 53
+  for stateless and stateful multi-region setups.
 keywords:
   - sap
   - disaster recovery
