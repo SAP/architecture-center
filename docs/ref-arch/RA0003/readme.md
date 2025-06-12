@@ -20,17 +20,10 @@ description: >-
   with just a few lines of code.
 keywords:
   - sap
-  - datasphere
-  - machine learning
-  - aws
-  - azure
-  - gcp
-  - sagemaker
-  - vertexai
-  - databricks
-  - watsonx
-  - nvidia
-  - fedml
+  - federated machine learning
+  - datasphere integration
+  - ai insights
+  - machine learning platforms
 sidebar_label: Federated Machine Learning with SAP Datasphere
 image: img/ac-soc-med.png
 tags:
