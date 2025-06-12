@@ -8,13 +8,8 @@ title: >-
   Streamlining Business Insights with SAP BDC, S/4HANA, and Intelligent
   Applications
 description: >-
-  Discover SAP BDC and S/4HANA integration with SAP-managed Data Products and
-  Intelligent Applications for advanced analytics. Learn how to produce,
-  activate, and visualize data products using SAP Datasphere and SAP Analytics
-  Cloud. Explore pre-built Intelligent Applications for actionable intelligence
-  across Core Enterprise, People, Spend, Customer, and Supply Chain Analytics.
-  Maximize business insights with SAP's trusted data foundation and lifecycle
-  management. Optimize decision-making with SAP's seamless architecture.
+  Streamline business insights with SAP BDC, integrating S/4HANA and Intelligent
+  Applications for analytics, decision-making, and lifecycle management.
 keywords:
   - sap
   - business data cloud
