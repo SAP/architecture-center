@@ -6,9 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Authorization with SAP Cloud Identity Services
 description: >-
-  This reference architecture describes how the different authorization
-  technologies within the SAP SaaS portfolio can be used from a central point
-  for the Identity Lifecycle.
+  Centralize identity lifecycle management with SAP Cloud Identity Services for
+  secure authorization across SAP SaaS solutions.
 keywords:
   - sap
   - authorization management
