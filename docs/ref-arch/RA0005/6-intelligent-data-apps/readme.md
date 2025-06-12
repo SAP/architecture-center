@@ -13,11 +13,10 @@ description: >-
   seamless decision-making and operational efficiency across diverse industries.
 keywords:
   - sap
-  - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - ai integration
+  - structured data agents
+  - natural language processing
+  - federated data insights
 sidebar_label: Agents for Structured Data
 image: img/ac-soc-med.png
 tags:
