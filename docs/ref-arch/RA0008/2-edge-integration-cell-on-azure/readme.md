@@ -11,7 +11,9 @@ description: >-
   considerations for setup and implementation on Azure.
 keywords:
   - azure
-  - eic
+  - edge integration
+  - sap integration suite
+  - real-time architecture
 sidebar_label: Edge Integration Cell on Azure
 image: img/ac-soc-med.png
 tags:
