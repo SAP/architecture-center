@@ -10,12 +10,10 @@ description: >-
   Datasphere's data fabric architecture.
 keywords:
   - sap
-  - aws
-  - data federation
-  - s3
-  - redshift
-  - athena
+  - aws data integration
   - datasphere
+  - cloud harmonization
+  - advanced analytics models
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:
