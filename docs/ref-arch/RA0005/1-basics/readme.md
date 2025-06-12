@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Basic Prompting
 description: >-
-  Enhance SAP BTP applications using Generative AI by integrating custom prompts
-  for Foundation Models or LLMs. This allows natural language processing to
-  craft AI responses tailored to specific tasks, enabling intelligent user
-  interactions and achieving application objectives.
+  Integrate Generative AI with SAP BTP using custom prompts for intelligent
+  interactions and tailored AI responses.
 keywords:
   - sap
   - ai integration
