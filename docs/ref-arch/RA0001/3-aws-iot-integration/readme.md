@@ -12,14 +12,9 @@ description: >-
   S/4HANA.
 keywords:
   - sap
-  - btp
-  - integration
-  - event-driven architecture
-  - aws
-  - genai
-  - cloud application programming model
-  - cap
-  - eda
+  - aws iot integration
+  - event-to-business actions
+  - cloud application programming
 sidebar_label: Integration with Amazon Web Services
 image: img/ac-soc-med.png
 tags:
