@@ -12,11 +12,10 @@ description: >-
   interactions and achieving application objectives.
 keywords:
   - sap
-  - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - ai integration
+  - prompting techniques
+  - generative ai applications
+  - natural language systems
 sidebar_label: Basic Prompting
 image: img/ac-soc-med.png
 tags:
