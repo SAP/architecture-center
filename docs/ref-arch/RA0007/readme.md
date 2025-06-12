@@ -15,10 +15,10 @@ description: >-
   time-to-market and more efficient resource utilization.
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - multitenant saas
+  - application scalability
+  - btp innovation
+  - industry solutions
 sidebar_label: Multitenant SaaS Application using CAP
 image: img/ac-soc-med.png
 tags:
