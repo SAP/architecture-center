@@ -6,9 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Agent2Agent Interoperability
 description: >-
-  The Agent2Agent (A2A) protocol facilitates communication between independent
-  AI agents. SAP contributes to the A2A specification via Joule and Open
-  Resource Discovery (ORD).
+  Enable interoperability between AI agents with Agent2Agent protocol, fostering
+  collaboration across enterprise landscapes.
 keywords:
   - sap
   - agent interoperability
