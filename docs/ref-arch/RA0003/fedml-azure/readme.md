@@ -6,9 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: FedML-Azure for Azure Machine Learning
 description: >-
-  FedML-Azure provides end-to-end integraton for training models in Azure
-  Machine Learning service, using live business data from SAP systems and
-  eliminates the need for duplicating the data.
+  Train models in Azure ML with live SAP data using FedML-Azure, eliminating
+  duplication and simplifying integration with minimal coding.
 keywords:
   - sap
   - azure machine learning
