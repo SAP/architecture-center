@@ -8,10 +8,10 @@ title: Benefits of Multitenant Applications
 description: Benefits of Multitenant Applications
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - multitenant benefits
+  - cloud solutions
+  - saas scalability
+  - cost optimization
 sidebar_label: Benefits of Multitenant Applications
 image: img/ac-soc-med.png
 tags:
