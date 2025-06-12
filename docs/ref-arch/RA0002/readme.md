@@ -16,18 +16,10 @@ description: >-
   multi-region setup with failover and disaster recovery capabilities.
 keywords:
   - sap
-  - integration
-  - application development
-  - multi-region
-  - multiregion
-  - cross region
-  - cross-region
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region architecture
+  - ha dr strategies
+  - business reliability
+  - failover management
 sidebar_label: Architecting Multi-Region Resiliency
 image: img/ac-soc-med.png
 tags:
