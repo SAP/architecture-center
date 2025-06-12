@@ -11,11 +11,10 @@ description: >-
   Resource Discovery (ORD).
 keywords:
   - sap
-  - google
-  - agent2agent
-  - joule
-  - microsoft azure
-  - aws
+  - agent interoperability
+  - joule platform
+  - ai communication protocols
+  - agent2agent communication
 sidebar_label: Agent2Agent Interoperability
 image: img/ac-soc-med.png
 tags:
