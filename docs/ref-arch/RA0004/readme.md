@@ -10,9 +10,8 @@ sidebar_custom_props:
     - gcp
 title: Explore your Hyperscaler data with SAP Business Data Cloud
 description: >-
-  SAP Datasphere's data integration architectures that harmonizes SAP and
-  non-SAP data using data fabric architecture helps business experts to make
-  data-driven decisions with unprecedented impact.
+  Explore SAP Datasphere for harmonizing hyperscaler data with SAP, enabling
+  impactful, data-driven business decisions.
 keywords:
   - sap
   - datasphere
