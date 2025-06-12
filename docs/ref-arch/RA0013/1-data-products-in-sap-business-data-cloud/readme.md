@@ -12,11 +12,10 @@ description: >-
   describes the lineage and interfaces available for integration.
 keywords:
   - sap
-  - bdc
-  - business
-  - data
-  - cloud
-  - data product
+  - data products
+  - business data cloud solutions
+  - metadata quality
+  - integration optimization
 sidebar_label: Data Products in SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
