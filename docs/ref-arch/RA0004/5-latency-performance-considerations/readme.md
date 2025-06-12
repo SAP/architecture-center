@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Latency and Performance considerations
 description: >-
-  In data federation scenarios, particularly where non-SAP and SAP data are
-  virtually queried to avoid duplication, performance and latency are critical
-  factors that influence the effectiveness of the data federation architecture
-  for analytics solutions
+  Optimize SAP data federation scenarios by addressing latency and performance
+  challenges for analytics solutions.
 keywords:
   - sap
   - latency optimization
