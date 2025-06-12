@@ -12,14 +12,10 @@ description: >-
   features, providing seamless operations across diverse geographies.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - load balancing
+  - multi-region setup
+  - traffic distribution
+  - business reliability
 sidebar_label: Load Balancers
 image: img/ac-soc-med.png
 tags:
