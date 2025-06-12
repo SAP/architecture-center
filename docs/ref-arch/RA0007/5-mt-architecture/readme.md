@@ -8,10 +8,9 @@ title: Reference Architecture
 description: Reference Architecture
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - multitenant applications
+  - scalable saas solutions
+  - btp reference models
 sidebar_label: Reference Architecture
 image: img/ac-soc-med.png
 tags:
