@@ -7,10 +7,8 @@ sidebar_custom_props:
     - integration
 title: API Managed Integration
 description: >-
-  Discover how API-managed integration enables omni-channel, secure access to
-  business applications while hiding the complexity of heterogeneous landscapes.
-  Learn how SAP Integration Suite's API Management capability supports
-  governance, security, and simplified consumption of business-critical APIs.
+  Enable secure, omni-channel API access to business apps with SAP Integration
+  Suite, simplifying governance, security, and API consumption.
 keywords:
   - sap
   - api integration
