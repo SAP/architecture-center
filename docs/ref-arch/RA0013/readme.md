@@ -10,7 +10,8 @@ sidebar_custom_props:
     - gcp
 title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 description: >-
-  SAP Business Data Cloud unifies SAP and non-SAP data for analytics, governance, and AI insights. It eliminates silos, enhances quality, and enables scalable data strategies. 
+  Transform enterprise data strategies with SAP BDC, unifying SAP and non-SAP
+  data for scalable AI and analytics.
 keywords:
   - sap
   - business data cloud
