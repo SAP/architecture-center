@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Geographic Redundancy
 description: >-
-  Geographic redundancy ensures continuous service availability by distributing
-  data and resources across multiple locations. It minimizes downtime, enables
-  disaster recovery, and synchronizes critical components across regions for SAP
-  BTP services and applications.
+  Ensure continuous service with geographic redundancy for SAP BTP, distributing
+  resources across multiple locations.
 keywords:
   - sap
   - geographic redundancy
