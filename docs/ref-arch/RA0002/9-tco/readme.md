@@ -11,14 +11,10 @@ description: >-
   reduce this further, which are discussed here.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - cost optimization
+  - multi-region architecture
+  - cloud compliance
+  - efficient setups
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png
 tags:
