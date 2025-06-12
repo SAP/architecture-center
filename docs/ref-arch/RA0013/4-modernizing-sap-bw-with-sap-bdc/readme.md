@@ -6,12 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Modernizing SAP BW with SAP Business Data Cloud
 description: >-
-  Modernize SAP Business Warehouse (BW) with SAP Business Data Cloud (SAP BDC)
-  to unlock real-time analytics, AI-driven insights, and scalable cloud-native
-  architecture. Leverage SAP Datasphere, SAP Analytics Cloud, and data products
-  to transition seamlessly while preserving existing investments. Discover
-  structured migration pathways, advanced AI/ML capabilities, and unified data
-  management for future-ready enterprise data strategies.
+  Modernize SAP BW with SAP BDC for real-time analytics, AI insights, and
+  scalable cloud-native architecture.
 keywords:
   - sap
   - business warehouse modernization
