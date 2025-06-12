@@ -6,16 +6,16 @@ sidebar_custom_props:
   category_index: []
 title: Intelligent Applications by SAP
 description: >-
-  Intelligent Applications are delivered in SAP Business Data Cloud as a prebuilt set of
-  artifacts, from Data Products, to models, to stories in SAP Analytics Cloud.
-  They allow you to configure your entire environment simply by subscribing.
+  Intelligent Applications are delivered in SAP Business Data Cloud as a
+  prebuilt set of artifacts, from Data Products, to models, to stories in SAP
+  Analytics Cloud. They allow you to configure your entire environment simply by
+  subscribing.
 keywords:
   - sap
-  - bdc
-  - business
-  - data
-  - cloud
-  - Intelligent Applications
+  - intelligent apps
+  - business data cloud
+  - prebuilt analytics solutions
+  - modernized configurations
 sidebar_label: Intelligent Applications in SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
