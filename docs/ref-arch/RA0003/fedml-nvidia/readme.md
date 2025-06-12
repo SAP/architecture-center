@@ -10,15 +10,10 @@ description: >-
   directly into NVIDIA GPU environment computes for model training.
 keywords:
   - sap
-  - nvidia
-  - datasphere
-  - machine learning
-  - GPU
-  - RAPIDS
-  - cuml
-  - cuDF
-  - DGX
-  - fedml
+  - nvidia gpu integration
+  - datasphere federation
+  - machine learning acceleration
+  - fedml gpu processing
 sidebar_label: FedML-NVIDIA
 image: img/ac-soc-med.png
 tags:
