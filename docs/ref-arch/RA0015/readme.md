@@ -7,11 +7,8 @@ sidebar_custom_props:
     - integration
 title: Business to Government Integration
 description: >-
-  Discover the Business-to-Government Integration Reference Architecture for
-  seamless compliance with government regulations. Learn how SAP solutions like
-  SAP Integration Suite and SAP Document and Reporting Compliance enable secure,
-  standardized, and efficient electronic document exchanges with authorities
-  worldwide.
+  Streamline compliance with SAP's Business-to-Government Integration for secure
+  electronic document exchange.
 keywords:
   - sap
   - b2g compliance
