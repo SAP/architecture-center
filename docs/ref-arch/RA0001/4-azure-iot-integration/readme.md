@@ -12,14 +12,10 @@ description: >-
   S/4HANA.
 keywords:
   - sap
-  - btp
-  - integration
+  - microsoft azure
+  - events-to-business
   - event-driven architecture
-  - azure
-  - genai
-  - cloud application programming model
-  - cap
-  - eda
+  - iot integration
 sidebar_label: Integration with Microsoft Azure
 image: img/ac-soc-med.png
 tags:
