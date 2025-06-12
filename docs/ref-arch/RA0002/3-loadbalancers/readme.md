@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Load Balancers
 description: >-
-  Load balancers enhance reliability, scalability, and fault tolerance in
-  multi-region SAP BTP setups by distributing traffic intelligently. They ensure
-  optimal performance with real-time failover, health checks, and advanced
-  features, providing seamless operations across diverse geographies.
+  Enhance SAP BTP setups with intelligent load balancing for optimal
+  performance, fault tolerance, and seamless operations.
 keywords:
   - sap
   - load balancing
