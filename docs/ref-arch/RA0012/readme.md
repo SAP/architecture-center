@@ -10,12 +10,8 @@ sidebar_custom_props:
     - data
 title: Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud
 description: >-
-  This reference architecture demonstrates a common use case for integrating
-  various types of data—structured, semi-structured, and unstructured—into SAP
-  HANA Cloud, utilizing the powerful features of SAP HANA Cloud Data Lake. By
-  implementing this architecture, businesses can meet the challenge of providing
-  a modern data foundation for intelligent data applications and provide
-  cost-effective data management and analytics across the enterprise.
+  Process big data with SAP HANA Cloud Data Lake, integrating structured and
+  unstructured data for intelligent applications.
 keywords:
   - sap
   - big data architecture
