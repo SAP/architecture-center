@@ -10,14 +10,9 @@ description: >-
   scenario, the security setup varies from service to service.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region security
+  - enterprise cloud protection
+  - service-to-service security
 sidebar_label: Security
 image: img/ac-soc-med.png
 tags:
