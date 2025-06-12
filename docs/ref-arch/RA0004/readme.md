@@ -16,9 +16,9 @@ description: >-
 keywords:
   - sap
   - datasphere
-  - federation
-  - replication
-  - hyperscaler
+  - federated architecture
+  - business-driven decisions
+  - cloud hyperscaler data
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
