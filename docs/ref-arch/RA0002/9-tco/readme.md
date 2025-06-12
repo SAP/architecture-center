@@ -6,9 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Cost of Ownership
 description: >-
-  There is a cost to maintain multi-region setup which is inherent due to it's
-  nature of having to setup duplicate services. However, there are some ways to
-  reduce this further, which are discussed here.
+  Explore cost optimization strategies for multi-region SAP BTP setups, reducing
+  inherent expenses without compromising service.
 keywords:
   - sap
   - cost optimization
