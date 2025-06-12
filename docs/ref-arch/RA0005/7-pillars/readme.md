@@ -8,6 +8,9 @@ title: Non-Functional Pillars
 description: Please add a description (max 300 characters)
 keywords:
   - sap
+  - reference architecture
+  - non-functional design
+  - system considerations
 sidebar_label: Non-Functional Pillars
 image: img/ac-soc-med.png
 tags:
