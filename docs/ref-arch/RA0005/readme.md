@@ -18,8 +18,10 @@ description: >-
   development.
 keywords:
   - sap
-  - ai
-  - genai
+  - generative ai hub
+  - cloud foundry
+  - vector engine integration
+  - advanced ai solutions
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:
