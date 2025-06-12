@@ -17,16 +17,10 @@ description: >-
   environments
 keywords:
   - sap
-  - BTP
-  - Microsoft Azure
-  - AWS
-  - security
   - secure connectivity
-  - secure communication
-  - SAP Private Link service
-  - hyperscaler
-  - private networks
-  - cloud security
+  - private link service
+  - hyperscaler workloads
+  - cloud network security
 sidebar_label: Secure connectivity with SAP Private Link service
 image: img/ac-soc-med.png
 tags:
