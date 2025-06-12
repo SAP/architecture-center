@@ -14,8 +14,10 @@ description: >-
   worldwide.
 keywords:
   - sap
-  - integration
-  - b2g
+  - b2g compliance
+  - governance integration
+  - secure document exchange
+  - automated reporting
 sidebar_label: Business to Government Integration
 image: img/ac-soc-med.png
 tags:
