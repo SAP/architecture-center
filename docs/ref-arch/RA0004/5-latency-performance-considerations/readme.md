@@ -12,10 +12,10 @@ description: >-
   for analytics solutions
 keywords:
   - sap
-  - latency
-  - performance
+  - latency optimization
   - data federation
-  - data replication
+  - performance management
+  - analytics efficiency
 sidebar_label: Latency and Performance considerations
 image: img/ac-soc-med.png
 tags:
