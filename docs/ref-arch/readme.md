@@ -13,10 +13,9 @@ description: >-
   SAP solutions.
 keywords:
   - sap
-  - btp
+  - reference architecture
+  - btp solutions
   - business suite
-  - ai
-  - data
 sidebar_label: Reference Architectures
 image: img/ac-soc-med.png
 tags:
