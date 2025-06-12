@@ -6,10 +6,8 @@ sidebar_custom_props:
   category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
 description: >-
-  Sample application for building event-driven architecture application with AWS
-  IoT SiteWise as event source. Assess the critical events and publish to SAP
-  BTP for validation and processing the business processes operations in SAP
-  S/4HANA.
+  Create event-driven architecture with AWS IoT SiteWise and SAP BTP for
+  seamless business process integration.
 keywords:
   - sap
   - aws iot integration
