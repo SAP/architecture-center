@@ -15,10 +15,10 @@ description: >-
   effort.
 keywords:
   - sap
-  - btp
   - build process automation
-  - integration
-  - automation
+  - workflow integration
+  - robotic process automation
+  - no-code automation
 sidebar_label: Integrate and Extend with SAP Build Process Automation
 image: img/ac-soc-med.png
 tags:
