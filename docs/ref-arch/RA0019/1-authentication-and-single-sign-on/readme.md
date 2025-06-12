@@ -10,15 +10,10 @@ description: >-
   via the SAP Cloud Identity Services - Identity Authentication.
 keywords:
   - sap
-  - identity
-  - ias
-  - security
-  - cloud identity
-  - business suite
-  - cloud erp
-  - single sign-on
-  - SAP Cloud Identity Services
-  - Identity Authentication
+  - identity authentication
+  - cloud identity lifecycle
+  - erp security solutions
+  - access management
 sidebar_label: Authentication and Single Sign On
 image: img/ac-soc-med.png
 tags:
