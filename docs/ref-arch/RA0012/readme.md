@@ -18,10 +18,10 @@ description: >-
   cost-effective data management and analytics across the enterprise.
 keywords:
   - sap
-  - btp
+  - big data architecture
+  - sap hana cloud
   - data lake
-  - medallion
-  - hana cloud
+  - medallion design
 sidebar_label: Big Data Processing in SAP HANA Cloud
 image: img/ac-soc-med.png
 tags:
