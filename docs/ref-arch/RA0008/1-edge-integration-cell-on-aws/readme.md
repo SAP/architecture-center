@@ -11,8 +11,9 @@ description: >-
   considerations for setup and implementation on AWS.
 keywords:
   - aws
-  - eic
-  - edge integration cell
+  - edge integration
+  - sap integration suite
+  - real-time cloud connections
 sidebar_label: Edge Integration Cell on AWS
 image: img/ac-soc-med.png
 tags:
