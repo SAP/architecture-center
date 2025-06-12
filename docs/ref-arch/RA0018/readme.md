@@ -7,12 +7,8 @@ sidebar_custom_props:
     - appdev
 title: Integrate and Extend with SAP Build Process Automation
 description: >-
-  SAP Build Process Automation is a no-code/low-code solution for automating
-  business processes. Integrate SAP and non-SAP systems across cloud and hybrid
-  landscapes with features like workflow management, robotic process automation,
-  and predefined content. Streamline tasks such as scheduling agreements, job
-  requisitions, and data management, enhancing productivity and reducing manual
-  effort.
+  Automate processes with SAP Build Process Automation, integrating workflows
+  across SAP and non-SAP systems.
 keywords:
   - sap
   - build process automation
