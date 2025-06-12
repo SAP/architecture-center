@@ -10,11 +10,8 @@ sidebar_custom_props:
     - aws
 title: Secure connectivity with SAP Private Link service
 description: >-
-  Secure connectivity between SAP BTP and hyperscaler workloads with SAP Private
-  Link service. Keep sensitive data protected within private networks, avoid
-  public internet exposure, and reduce security risks. Ensure compliance,
-  minimize attack surfaces, and enable seamless communication across cloud
-  environments
+  Secure SAP BTP-hyperscaler connectivity with SAP Private Link service,
+  protecting sensitive data within private networks.
 keywords:
   - sap
   - secure connectivity
