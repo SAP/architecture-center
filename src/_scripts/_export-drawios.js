@@ -126,8 +126,7 @@ async function watermarkAll() {
         const textX = logo.w + pad;
 
         try {
-            // TODO: use execFileSync for this as well!
-            const iso = execSync(`git log -1 --format=%cd --date=iso "${drawioPath}"`);
+            const iso = execFileSync('git', ['log',  '-1', '--format=%cd', '--date=iso', drawioPath]);
             const lastUpdate = new Date(iso).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
