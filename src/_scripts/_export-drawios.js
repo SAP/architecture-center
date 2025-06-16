@@ -33,8 +33,7 @@ if (!DOCKER) {
 }
 
 const files = readdirSync(SEARCH_DIR, { recursive: true });
-let drawios = files.filter((file) => file.match(/\.drawio$/));
-// drawios = drawios.slice(0, 2);
+const drawios = files.filter((file) => file.match(/\.drawio$/));
 log(`Found ${drawios.length} drawios to export to svg\n`);
 
 const transforms = {};
@@ -55,7 +54,6 @@ for (let [input, out] of Object.entries(transforms)) {
     const dir = dirname(out);
     if (!existsSync(dir)) mkdirSync(dir);
     try {
-        // try sync variant first to not overwhelm runner in GitHub workflow
         let cmd = DRAWIO_CLI_BINARY;
         let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
         if (DOCKER) {
@@ -68,6 +66,7 @@ for (let [input, out] of Object.entries(transforms)) {
         }
         args.push(out, input);
 
+        // try sync variant first to not overwhelm runner in GitHub workflow
         const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
         log(prettyPaths(stdout));
         // github workflow: docker creates files as root! set proper owner
@@ -127,6 +126,7 @@ async function watermarkAll() {
         const textX = logo.w + pad;
 
         try {
+            // TODO: use execFileSync for this as well!
             const iso = execSync(`git log -1 --format=%cd --date=iso "${drawioPath}"`);
             const lastUpdate = new Date(iso).toLocaleDateString('en-US', {
                 year: 'numeric',
