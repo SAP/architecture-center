@@ -1,6 +1,7 @@
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
-const { execSync } = require('node:child_process');
+const { execFileSync, execSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
+const { userInfo } = require('os');
 const QRCode = require('qrcode');
 
 const log = console.log;
@@ -8,15 +9,11 @@ const log = console.log;
 // DOCKER=1 -> run drawio cli via docker
 const { DOCKER = 0 } = process.env;
 const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true' ? true : false;
-// searching in different directorys, depending on OS
-const isWin = process.platform === 'win32';
+// searching in different directories, depending on OS
 const isMac = process.platform === 'darwin';
-const DRAWIO_CLI_PATH = isMac
+const DRAWIO_CLI_BINARY = isMac
     ? '/Applications/draw.io.app/Contents/MacOS/draw.io'
-    : isWin
-        ? 'C:\\Program Files\\draw.io\\draw.io.exe'
-        : null;
-const DRAWIO_CLI_BINARY = `"${DRAWIO_CLI_PATH}"`;
+    : 'C:\\Program Files\\draw.io\\draw.io.exe';
 // assuming script is in src/_scripts/
 const ROOT = normalizePath(__dirname + '/../..');
 const SEARCH_DIR = ROOT + '/docs/ref-arch';
@@ -25,13 +22,13 @@ const SVG_BACKGROUND_COLOR = '#ffffff';
 const URL = 'https://architecture.learning.sap.com/docs';
 
 if (!DOCKER) {
-    if (!existsSync(DRAWIO_CLI_PATH)) {
-        throw new Error(`Drawio executable not found at ${DRAWIO_CLI_PATH}. Please check the path.`);
+    if (!existsSync(DRAWIO_CLI_BINARY)) {
+        throw new Error(`Drawio executable not found at ${DRAWIO_CLI_BINARY}. Please check the path.`);
     }
     try {
-        execSync(`${DRAWIO_CLI_BINARY} -h`, { encoding: 'utf8' });
+        execFileSync(DRAWIO_CLI_BINARY, ['-h'], { encoding: 'utf8' });
     } catch (e) {
-        throw new Error(`Cannot run Drawio CLI at ${DRAWIO_CLI_PATH}.`, { cause: e });
+        throw new Error(`Cannot run Drawio CLI at ${DRAWIO_CLI_BINARY}.`, { cause: e });
     }
 }
 
@@ -53,16 +50,31 @@ for (const drawio of drawios) {
 }
 
 // export all drawios to svgs
-for (const [input, out] of Object.entries(transforms)) {
+for (let [input, out] of Object.entries(transforms)) {
     const dir = dirname(out);
     if (!existsSync(dir)) mkdirSync(dir);
-    const cmd = prepareCommand(input, out);
     try {
+        let cmd = DRAWIO_CLI_BINARY;
+        let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
+        if (DOCKER) {
+            // make relative, docker doesn't have same dir structure
+            const d = 'docs/';
+            out = d + out.split(d)[1];
+            input = d + input.split(d)[1];
+            cmd = 'docker';
+            args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
+        }
+        args.push(out, input);
+
         // try sync variant first to not overwhelm runner in GitHub workflow
-        const stdout = execSync(cmd, { encoding: 'utf8' });
+        const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
         log(prettyPaths(stdout));
         // github workflow: docker creates files as root! set proper owner
-        if (GITHUB_ACTIONS) execSync(`sudo chown -R $(whoami):$(id -gn) ${dir}`);
+        if (GITHUB_ACTIONS) {
+            const user = userInfo().username;
+            const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
+            execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
+        }
     } catch (e) {
         const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
         // let's fail early
@@ -70,22 +82,6 @@ for (const [input, out] of Object.entries(transforms)) {
     }
 }
 log('\n');
-
-function prepareCommand(input, out) {
-    if (DOCKER) {
-        // make relative, docker doesn't have same dir structure
-        const d = 'docs/';
-        out = d + out.split(d)[1];
-        input = d + input.split(d)[1];
-    }
-
-    // put path in quotes because there are spaces sometimes
-    const args = ` --export --embed-svg-images --svg-theme light --output "${out}" "${input}"`;
-    const cmd =
-        (!DOCKER ? DRAWIO_CLI_BINARY : `docker run -w /data -v ${ROOT}:/data rlespinasse/drawio-desktop-headless`) +
-        args;
-    return cmd;
-}
 
 // generate qrcode, only get inner part
 async function generateQrSvg(link) {
@@ -102,7 +98,7 @@ async function watermarkAll() {
         const height = parseInt(viewBox[3]);
         const width = parseInt(viewBox[2]);
         // scale factor for pad and yShift to adjust for wide svgs
-        let scaleBox = width/ 1500;
+        let scaleBox = width / 1500;
         scaleBox = Math.max(1, scaleBox);
         // finding these exact values is a bit trial and error..
         const pad = 20 * scaleBox;
@@ -130,7 +126,7 @@ async function watermarkAll() {
         const textX = logo.w + pad;
 
         try {
-            const iso = execSync(`git log -1 --format=%cd --date=iso "${drawioPath}"`);
+            const iso = execFileSync('git', ['log',  '-1', '--format=%cd', '--date=iso', drawioPath]);
             const lastUpdate = new Date(iso).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
