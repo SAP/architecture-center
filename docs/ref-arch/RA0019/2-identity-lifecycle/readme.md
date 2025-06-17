@@ -50,7 +50,7 @@ The digitial Identity is derivation of the Workforce Person and the focus is on 
 **Workforce Person to Identity**
 
 1. In the first step the Workforce Person is created or updated in the leading system. The leading system is the system which is the master data system for the Workforce Person. The leading system could be a SAP Success Factors for employees or an SAP Fieldglass for contingent workers. The leading system could also be a non-SAP system which is the master data system for the Workforce Person.
-2. The Workforce to Identity derivation takes place in an Identity Management solution. The IDM consumes the source system APIs offering the workforce data APIs (:warning:not user:warning:). The Identity Management derives out of the time-sliced attributes the current relevant values for the Identity. This process is very customers specific.
+2. The Workforce to Identity derivation takes place in an Identity Management solution. The IDM consumes the source system APIs offering the workforce data APIs (:warning:not user:warning:). The Identity Management derives out of the time-sliced attributes the current relevant values for the Identity. This process is highly customer specific.
 
 **Identity with access assignments**
 
