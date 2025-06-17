@@ -1,38 +1,33 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0024
-slug: /ref-arch/8bf28782b9
+slug: /ref-arch/06ff6062dc
 sidebar_position: 24
 sidebar_custom_props:
-    category_index:
-        - ai
-        - appdev
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - ai
+    - appdev
 title: Create Custom Skills and AI Agents with Joule Studio
-description: Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation.
-sidebar_label: Create Custom Skills and AI Agents with Joule Studio
+description: >-
+  Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule
+  Skills and AI Agents for seamless integration across SAP and non-SAP systems,
+  driving automation and innovation.
 keywords:
-    - sap build
-    - joule studio
-    - custom joule skills
-    - ai agents
-    - sap integration
-    - sap ai
-    - automation
-    - sap btp
-    - hybrid landscapes
+  - sap build
+  - joule studio
+  - custom joule skills
+  - ai agents
+  - sap integration
+  - sap ai
+  - automation
+  - sap btp
+  - hybrid landscapes
+sidebar_label: Create Custom Skills and AI Agents with Joule Studio
 image: img/logo.svg
 tags:
-    - genai
-    - agents
-    - build
-    - appdev
+  - genai
+  - agents
+  - build
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -40,14 +35,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - miguelmezamartinez
-    - fabianleh
+  - miguelmezamartinez
+  - fabianleh
+discussion: 
 last_update:
-    date: 2025-06-17
-    author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: fabianleh
+  date: 2025-06-17
 ---
 
 Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.  
