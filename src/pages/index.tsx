@@ -1,6 +1,7 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
+import Head from '@docusaurus/Head';
 import HeroSection from '../sections/HeroSection';
 import CommunitySection from '../sections/Community';
 import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
@@ -9,7 +10,7 @@ export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            title='Create reference architectures'
+            title="Create reference architectures"
             description={siteConfig.tagline}
             metadata={[
                 { property: 'og:title', content: 'Create reference architectures' },

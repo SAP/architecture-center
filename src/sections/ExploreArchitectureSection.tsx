@@ -10,6 +10,14 @@ import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 
 export default function ExploreAllArchitecturesSection() {
+    const [isClient, setIsClient] = useState(false);
+    const [cardsPerGroup, setCardsPerGroup] = useState(3);
+    const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
     const items = exploreSidebar[0]?.items || [];
 
     // Group size based on screen width
@@ -20,11 +28,6 @@ export default function ExploreAllArchitecturesSection() {
         }
         return 3;
     };
-
-    const [cardsPerGroup, setCardsPerGroup] = useState(getCardsPerGroup());
-    const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
-
-    const carouselRef = useRef<HTMLDivElement>(null);
 
     // Recalculate cards per group on resize
     useEffect(() => {
@@ -76,7 +79,7 @@ export default function ExploreAllArchitecturesSection() {
                     Explore the latest Reference Architectures
                 </Title>
                 <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>
-                    <FlexBox alignItems="Center" style={{ gap: '10px' }}>
+                    <FlexBox alignItems="Center" className={styles.headerControls}>
                         <Button
                             design={canGoLeft ? 'Emphasized' : 'Transparent'}
                             icon="navigation-left-arrow"
@@ -89,7 +92,6 @@ export default function ExploreAllArchitecturesSection() {
                             onClick={goNext}
                             disabled={!canGoRight}
                         />
-                        <div></div>
                         <Link to="docs/exploreallrefarch">Browse All</Link>
                     </FlexBox>
                 </FlexBox>
