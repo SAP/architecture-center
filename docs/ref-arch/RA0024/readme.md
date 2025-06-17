@@ -55,7 +55,7 @@ This reference architecture outlines how Joule Studio can be leveraged to integr
 
 ## Architecture
 
-![drawio](drawio/Joule-Studio-Reference-Architecture.drawio)
+![drawio](drawio/joule-studio-ref-arch.drawio)
 
 ## Flow
 
