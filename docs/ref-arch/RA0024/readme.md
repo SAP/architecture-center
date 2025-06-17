@@ -9,6 +9,8 @@ slug: /ref-arch/8bf28782b9
 sidebar_position: 24
 sidebar_custom_props:
     category_index:
+    - ai
+    - appdev
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -16,15 +18,19 @@ title: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP 
 description: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP Build for Seamless Integration across SAP and Non-SAP Systems
 sidebar_label: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP Build
 keywords: 
-  - sap
-  - joule
-  - build
-  - custom skills
-  - btp
-  - ai
-  - agents
+    - sap
+    - joule
+    - build
+    - custom skills
+    - btp
+    - ai
+    - agents
 image: img/logo.svg
-tags: [genai]
+tags:
+    - genai
+    - agents
+    - build
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -68,31 +74,32 @@ This reference architecture outlines how Joule Studio can be leveraged to integr
 
 ## Characteristics
 
-•	Centralized AI Solution Across Hybrid SAP Landscapes: Joule Studio in SAP Build empowers users to create and deploy custom Joule skills and AI agents, with Joule client applications serving as a centralized access point for managing AI capabilities across desktop and mobile platforms.
+•	**Centralized AI Solution Across Hybrid SAP Landscapes**: Joule Studio in SAP Build empowers users to create and deploy custom Joule skills and AI agents, with Joule client applications serving as a centralized access point for managing AI capabilities across desktop and mobile platforms.
 
-•	Support for Third-Party Identity Providers: SAP Cloud Identity Services - Identity Authentication allows federation with third-party identity providers, while SAP Cloud Identity Services - Provisioning facilitates the provisioning of user/role assignments from external sources, ensuring secure and seamless identity management.
+•	**Support for Third-Party Identity Providers: SAP Cloud Identity Services** - Identity Authentication allows federation with third-party identity providers, while SAP Cloud Identity Services - Provisioning facilitates the provisioning of user/role assignments from external sources, ensuring secure and seamless identity management.
 
-•	Global User ID: A globally unique user identifier managed by SAP Cloud Identity Services - Identity Authentication ensures consistent and secure user access across Joule Studio integrations and deployments.
+•	**Global User ID**: A globally unique user identifier managed by SAP Cloud Identity Services - Identity Authentication ensures consistent and secure user access across Joule Studio integrations and deployments.
 
-•	Cloud and On-Premise Solution Integration: Joule Studio integrates seamlessly with various SAP and third-party cloud solutions, including SAP ECC, SAP S/4HANA, and S/4HANA Cloud Private Edition, providing comprehensive support for hybrid landscapes.
+•	**Cloud and On-Premise Solution Integration**: Joule Studio integrates seamlessly with various SAP and third-party cloud solutions, including SAP ECC, SAP S/4HANA, and S/4HANA Cloud Private Edition, providing comprehensive support for hybrid landscapes.
 
 
 ## Examples in an SAP context
 
-•	Automated Customer Support Agent Deployment: Joule Studio can be used to create AI agents that automatically handle customer inquiries, retrieve order statuses, and escalate issues when necessary. By integrating with SAP S/4HANA and external CRM systems, these agents provide consistent and efficient customer support.
+•	**Automated Customer Support Agent Deployment**: Joule Studio can be used to create AI agents that automatically handle customer inquiries, retrieve order statuses, and escalate issues when necessary. By integrating with SAP S/4HANA and external CRM systems, these agents provide consistent and efficient customer support.
 
-•	Order Management Optimization: Joule Skills created in Joule Studio streamline the process of order management by automating tasks such as checking stock levels, processing orders, and providing delivery updates. This integration reduces manual work and improves accuracy across SAP and third-party systems.
-•	Procurement Negotiation and Compliance: AI agents built in Joule Studio analyze supplier contracts, monitor compliance, and negotiate procurement deals, leveraging data from SAP ECC and external sources. This automation increases efficiency and ensures adherence to procurement policies.
+•	**Order Management Optimization**: Joule Skills created in Joule Studio streamline the process of order management by automating tasks such as checking stock levels, processing orders, and providing delivery updates. This integration reduces manual work and improves accuracy across SAP and third-party systems.
 
-•	Talent Acquisition Enhancement: Joule Studio can automate the creation and approval of job requisitions in SAP SuccessFactors, utilizing custom AI agents to streamline the process. These agents extract data from source files, manage approval workflows, and publish job openings, reducing manual effort and accelerating recruitment.
+•	**Procurement Negotiation and Compliance**: AI agents built in Joule Studio analyze supplier contracts, monitor compliance, and negotiate procurement deals, leveraging data from SAP ECC and external sources. This automation increases efficiency and ensures adherence to procurement policies.
 
-•	Supply Chain Risk Management: Joule Skills aid in monitoring supply chain risks by retrieving data from SAP S/4HANA and third-party systems. This automation helps businesses proactively manage disruptions, ensure timely deliveries, and maintain operational continuity.
+•	**Talent Acquisition Enhancement**: Joule Studio can automate the creation and approval of job requisitions in SAP SuccessFactors, utilizing custom AI agents to streamline the process. These agents extract data from source files, manage approval workflows, and publish job openings, reducing manual effort and accelerating recruitment.
 
-•	Mass Maintenance of Scheduling Agreements: Business experts can use Joule Studio to automate the creation and modification of scheduling agreements based on specified criteria. This reduces manual intervention, improves transparency, and ensures compliance with business requirements, ultimately streamlining supply chain operations.
+•	**Supply Chain Risk Management**: Joule Skills aid in monitoring supply chain risks by retrieving data from SAP S/4HANA and third-party systems. This automation helps businesses proactively manage disruptions, ensure timely deliveries, and maintain operational continuity.
 
-•	Non-Repairable Parts Management: AI agents can accelerate the recording and management of non-repairable parts, automating goods movements to designated storage locations in SAP systems. This reduces labor-intensive processes and minimizes errors associated with high-volume, manual declarations.
+•	**Mass Maintenance of Scheduling Agreements**: Business experts can use Joule Studio to automate the creation and modification of scheduling agreements based on specified criteria. This reduces manual intervention, improves transparency, and ensures compliance with business requirements, ultimately streamlining supply chain operations.
 
-•	Creation of Customer Material Info Records: Joule Skills streamline the creation of CMIRs by automating validation, initiating approval workflows, and generating records upon approval through API integration with SAP S/4HANA. This reduces manual data entry, addressing data inconsistencies and improving efficiency in purchasing and procurement.
+•	**Non-Repairable Parts Management**: AI agents can accelerate the recording and management of non-repairable parts, automating goods movements to designated storage locations in SAP systems. This reduces labor-intensive processes and minimizes errors associated with high-volume, manual declarations.
+
+•	**Creation of Customer Material Info Records**: Joule Skills streamline the creation of CMIRs by automating validation, initiating approval workflows, and generating records upon approval through API integration with SAP S/4HANA. This reduces manual data entry, addressing data inconsistencies and improving efficiency in purchasing and procurement.
 
 By leveraging Joule Studio in SAP Build, organizations can integrate AI capabilities into existing business processes, enhancing automation, productivity, and decision-making across both SAP and non-SAP systems.
 
