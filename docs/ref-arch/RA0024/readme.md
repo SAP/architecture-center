@@ -14,17 +14,19 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP Build
-description: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP Build for Seamless Integration across SAP and Non-SAP Systems
-sidebar_label: Enhance Joule with Custom Skills and AI Agents using Joule Studio in SAP Build
+title: Create Custom Skills and AI Agents with Joule Studio
+description: Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation.
+sidebar_label: Create Custom Skills and AI Agents with Joule Studio
 keywords: 
-    - sap
-    - joule
-    - build
-    - custom skills
-    - btp
-    - ai
-    - agents
+    - sap build  
+    - joule studio  
+    - custom joule skills  
+    - ai agents  
+    - sap integration  
+    - sap ai  
+    - automation  
+    - sap btp  
+    - hybrid landscapes  
 image: img/logo.svg
 tags:
     - genai
@@ -51,11 +53,7 @@ last_update:
 Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.
 This reference architecture outlines how Joule Studio can be leveraged to integrate and extend SAP and non-SAP solutions across cloud and hybrid landscapes. By tapping into the expertise of citizen developers, Joule Studio facilitates the adaptation, improvement, and innovation of business processes, driving positive business outcomes through sophisticated AI capabilities.
 
-
 ## Architecture
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
 
 ![drawio](drawio/Joule-Studio-Reference-Architecture.drawio)
 
