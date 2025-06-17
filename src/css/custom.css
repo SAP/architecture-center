@@ -10,9 +10,12 @@
 
 /* You can override the Infima variables here. For their default values, see node_modules/infima/dist/css/default/default.css */
 :root {
-    --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif'; /* font 72 is SAP’s proprietary typeface */
-    --ifm-font-color-base: #1d2d3e; /* Morning Horizon's color for text and titles */
-    --ifm-link-color: #0070f2; /* Morning Horizon's color for links */
+    --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif';
+    /* font 72 is SAP’s proprietary typeface */
+    --ifm-font-color-base: #1d2d3e;
+    /* Morning Horizon's color for text and titles */
+    --ifm-link-color: #0070f2;
+    /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
     --ifm-color-primary-darker: #002a86;
@@ -51,6 +54,7 @@ pre {
 
 /* Prevent code blocks from overflowing on mobile devices */
 @media (max-width: 969px) {
+
     code,
     pre {
         white-space: pre-wrap;
@@ -68,18 +72,21 @@ pre {
     font-weight: bold;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Black.woff2') format('woff2');
     font-weight: 900;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Medium.woff2') format('woff2');
     font-weight: 500;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Regular.woff2') format('woff2');
@@ -140,18 +147,21 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 /* General list item styling */
 .menu__list-item {
-    font-size: 14px; /* Adjust the font size as needed */
-    list-style: none; /* Remove bullet points */
+    font-size: 14px;
+    /* Adjust the font size as needed */
+    list-style: none;
+    /* Remove bullet points */
 }
 
-.menu__list-item > .menu__link--active {
+.menu__list-item>.menu__link--active {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
 .menu__link {
     /* Changed by PO: All pages should use the same colors */
     color: #535353;
-    font-size: 0.8rem; /* Adjust the font size as needed */
+    font-size: 0.8rem;
+    /* Adjust the font size as needed */
     font-weight: 400;
     line-height: 1rem;
 }
@@ -163,6 +173,8 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 .header_body {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     height: 120px;
     flex-shrink: 0;
     color: #ffffff;
@@ -177,20 +189,55 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     font-size: 2.5rem;
 }
 
+@media (max-width: 600px) {
+    .hero_banner img {
+        aspect-ratio: 1440 / 700;
+        /* Make the banner much taller on mobile */
+        min-height: 320px;
+        /* Optional: ensure a minimum height */
+    }
+
+    .header_title {
+        font-size: 1.5rem;
+    }
+
+    .header_body_p {
+        font-size: 0.9rem;
+    }
+
+    .welcome {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+}
+
 .container {
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    padding: 32px;
+    padding-right: 32px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .welcome {
     margin-top: 1rem;
+    padding-left: 104px;
+    /* Match SAP logo width or desired offset */
+    padding-right: 32px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
 }
 
 .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_light.png');
     width: 100%;
-    height: 424px;
+    max-width: 1440px;
+    min-height: 320px;
+    margin: 64px auto 0 auto;
+    aspect-ratio: 1440 / 424;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -199,11 +246,16 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
 }
 
-/* Adding dark mode to the landing page banner */
-[data-theme='dark'] .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_dark.png');
+.hero_banner img {
+    width: 100%;
+    border-radius: 24px;
+    height: auto;
+    display: block;
 }
 
 .community {
@@ -241,6 +293,18 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
         text-align: left;
     }
 
+    .header_title {
+        font-size: 1.8rem;
+    }
+
+    .header_body_p {
+        font-size: 1.05rem;
+    }
+
+    .welcome {
+        font-size: 1rem;
+    }
+
     .community_body {
         width: 100%;
         height: auto;
@@ -255,16 +319,16 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     }
 
     .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
 
     .welcome {
-        margin-top: 1rem; /* Reduce unnecessary spacing */
-        text-align: left;
+        padding-left: 48px;
+        padding-right: 16px;
+        font-size: 1rem;
     }
 
     .header_title {
@@ -272,12 +336,9 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     }
 
     .header_body {
-        display: flex;
-        flex-direction: column;
-        width: 90%;
-        max-width: 500px;
-        height: auto;
-        text-align: left;
+        width: 100%;
+        max-width: none;
+
     }
 
     .benefits_body {
@@ -299,6 +360,18 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
         padding: 2rem 1rem;
     }
 
+    .header_title {
+        font-size: 1.5rem;
+    }
+
+    .header_body_p {
+        font-size: 0.95rem;
+    }
+
+    .welcome {
+        font-size: 0.95rem;
+    }
+
     .welcome {
         margin-top: 1rem;
         justify-content: left;
@@ -306,17 +379,34 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
     .header_body {
         width: 100%;
-        text-align: left;
     }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 600px) {
     .container {
-        padding: 1rem;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .welcome {
+        padding-left: 16px;
+        padding-right: 8px;
+        font-size: 0.9rem;
+    }
+
+    .header_body {
+        width: 100%;
+        max-width: none;
+    }
+
+    .header_title {
+        font-size: 1.2rem;
     }
 
     .header_body_p {
-        font-size: 14px;
+        font-size: 0.9rem;
     }
 
     .community_image {
@@ -332,12 +422,18 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 /* Constrain the size of zoomed images */
 .medium-zoom-image--opened {
-    max-width: 80%; /* Ensure the image doesn't exceed the screen width */
-    max-height: 80%; /* Constrain the zoomed image to 80% of the viewport height */
-    object-fit: contain; /* Maintain the aspect ratio */
-    display: block; /* Center the image */
-    margin-left: auto; /* Center the image */
-    margin-right: auto; /* Center the image */
+    max-width: 80%;
+    /* Ensure the image doesn't exceed the screen width */
+    max-height: 80%;
+    /* Constrain the zoomed image to 80% of the viewport height */
+    object-fit: contain;
+    /* Maintain the aspect ratio */
+    display: block;
+    /* Center the image */
+    margin-left: auto;
+    /* Center the image */
+    margin-right: auto;
+    /* Center the image */
 }
 
 /* Sidebar customization */
@@ -347,7 +443,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     color: #535353;
 }
 
-.menu__list-item > a {
+.menu__list-item>a {
     display: block;
 
     text-decoration: none;
@@ -355,9 +451,11 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .menu__list-item .menu__list {
-    margin-left: 15px; /* Indent the sub-list */
+    margin-left: 15px;
+    /* Indent the sub-list */
     padding-left: 10px;
-    border-left: 2px solid var(--ifm-color-gray-500); /* Vertical line */
+    border-left: 2px solid var(--ifm-color-gray-500);
+    /* Vertical line */
 }
 
 .menu__link--active {
@@ -373,12 +471,12 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background: var(--ifm-sidebar-selected-item-background-color);
 }
 
-.menu__list-item-collapsible--active > .menu__link {
+.menu__list-item-collapsible--active>.menu__link {
     background-color: var(--ifm-sidebar-selected-item-background-color);
     color: var(--ifm-menu-color-active) !important;
 }
 
-.menu__list-item > .menu__link--active {
+.menu__list-item>.menu__link--active {
     color: var(--ifm-menu-color-active) !important;
 }
 
@@ -400,9 +498,13 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 #__docusaurus {
-    min-height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.main-wrapper {
+    min-height: calc(100vh - 290px);
 }
 
 html[data-theme='dark'] .sourcecode-badge {
@@ -410,17 +512,17 @@ html[data-theme='dark'] .sourcecode-badge {
     color: #24292f;
 }
 
-.markdown > h3 {
+.markdown>h3 {
     font-size: 1.2rem;
     padding-top: 10px;
 }
 
-.markdown > h2 {
+.markdown>h2 {
     font-size: 1.5rem;
     padding-top: 10px;
 }
 
-.markdown > h1 {
+.markdown>h1 {
     font-size: 2rem;
     padding-top: 10px;
 }
@@ -448,7 +550,7 @@ html[data-theme='dark'] .sourcecode-badge {
     display: none;
 }
 
-.markdown > table th,
+.markdown>table th,
 table td,
 table tr,
 table thead {
@@ -457,8 +559,10 @@ table thead {
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-    --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
-    --ifm-link-color: #4db1ff; /* Evening Horizon's color for links */
+    --ifm-font-color-base: #eaecee;
+    /* Evening Horizon's color for text and titles */
+    --ifm-link-color: #4db1ff;
+    /* Evening Horizon's color for links */
     --ifm-footer-link-color: #8396a8;
     --ifm-footer-link-hover-color: #6e7f8e;
     --ifm-color-primary: #d1efff;
@@ -506,11 +610,9 @@ table thead {
     --docsearch-hit-background: var(--ifm-color-emphasis-100);
     /* Footer */
     --docsearch-footer-background: var(--ifm-background-surface-color);
-    --docsearch-key-gradient: linear-gradient(
-        -26.5deg,
-        var(--ifm-color-emphasis-200) 0%,
-        var(--ifm-color-emphasis-100) 100%
-    );
+    --docsearch-key-gradient: linear-gradient(-26.5deg,
+            var(--ifm-color-emphasis-200) 0%,
+            var(--ifm-color-emphasis-100) 100%);
 }
 
 /** In mobile view, reduce the padding */
@@ -530,9 +632,12 @@ table thead {
     margin-left: 0rem;
     margin-right: 0px;
     height: 290px;
+    min-height: 290px;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 996px) {
+
     /* Force the background to match the footer */
     html[data-theme='light'],
     body[data-theme='light'] {
@@ -588,15 +693,16 @@ table thead {
 }
 
 [data-theme='dark'] .menu__list-item .menu__list {
-    border-left: 2px solid #444950 !important; /* Vertical line */
+    border-left: 2px solid #444950 !important;
+    /* Vertical line */
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link {
     background-color: transparent !important;
     color: #fff !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link {
+[data-theme='dark'] .menu__list-item-collapsible--active>.menu__link {
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff !important;
     font-weight: bold !important;
@@ -606,7 +712,7 @@ table thead {
     background: var(--ifm-background-color-selected-item) !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link:not(.menu__link--active) {
     background-color: transparent !important;
     color: #fff !important;
 }
@@ -698,8 +804,27 @@ html[data-theme='dark'] .navbar {
 
 @media screen and (max-width: 996px) {
     .navbar-sidebar {
-        position: fixed !important; /* Ensures it's always visible */
-        height: 100vh !important; /* Allows it to expand */
+        position: fixed !important;
+        /* Ensures it's always visible */
+        height: 100vh !important;
+        /* Allows it to expand */
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 400px) {
+    .welcome {
+        padding-left: 8px;
+        padding-right: 4px;
+        font-size: 0.8rem;
+    }
+
+    .header_title {
+        font-size: 1rem;
+    }
+
+    .header_body_p {
+        font-size: 0.8rem;
     }
 }
 
@@ -709,7 +834,8 @@ html[data-theme='dark'] .navbar {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
 /* For 4:3 aspect ratio */
@@ -717,7 +843,8 @@ html[data-theme='dark'] .navbar {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 75%; /* 4:3 Aspect Ratio (divide 4 by 3 = 0.75) */
+    padding-top: 75%;
+    /* 4:3 Aspect Ratio (divide 4 by 3 = 0.75) */
 }
 
 /* For 3:2 aspect ratio */
@@ -725,7 +852,8 @@ html[data-theme='dark'] .navbar {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 66.66%; /* 3:2 Aspect Ratio (divide 3 by 2 = 0.6666) */
+    padding-top: 66.66%;
+    /* 3:2 Aspect Ratio (divide 3 by 2 = 0.6666) */
 }
 
 /* This style allows the iframe to fit in the container div with full height and width */

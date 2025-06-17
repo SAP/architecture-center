@@ -16,9 +16,7 @@ export default function CommunitySection(): JSX.Element {
     const lightImg = useBaseUrl('/img/landingPage/community_puzzle_light.png');
     const darkImg = useBaseUrl('/img/landingPage/community_puzzle_dark.png');
 
-    if (!mounted) {
-        return null;
-    }
+    const imgSrc = mounted && colorMode === 'dark' ? darkImg : lightImg;
 
     return (
         <section>
@@ -27,9 +25,12 @@ export default function CommunitySection(): JSX.Element {
                 <div className="community">
                     <div className="community_image">
                         <img
-                            src={colorMode === 'dark' ? darkImg : lightImg}
+                            src={imgSrc}
                             className="community_image_inside"
                             alt="Community Puzzle"
+                            width={600}
+                            height={400}
+                            loading="lazy"
                         />
                     </div>
                     <div className="community_body">
