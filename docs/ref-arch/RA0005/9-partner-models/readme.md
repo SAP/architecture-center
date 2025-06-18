@@ -14,7 +14,6 @@ sidebar_custom_props:
 ############################################################
 title: Partner Models
 description: The reference architecture illustrates how to benefit from partner models like IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.
-sidebar_label: Partner Models
 keywords: [IBM, Granite, Generative AI, SAP HANA Cloud, SAP AI Core, RAG]
 sidebar_label: Partner Models
 image: img/logo.svg
