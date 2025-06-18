@@ -16,13 +16,14 @@ title: Partner Models
 description: The reference architecture illustrates how to benefit from partner models like IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.
 sidebar_label: Partner Models
 keywords: [IBM, Granite, Generative AI, SAP HANA Cloud, SAP AI Core, RAG]
+sidebar_label: Partner Models
 image: img/logo.svg
-tags: [IBM, Granite, Generative AI, SAP HANA Cloud, SAP AI Core, RAG]
+tags: [genai]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - chaturvedakash
@@ -30,7 +31,7 @@ contributors:
     - kevinxhuang
 last_update:
     date: 2025-06-17
-    author: user-191aab22d7
+    author: feng-lia
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -42,12 +43,7 @@ With the support of enterprise-grade tools such as SAP AI Core and IBM’s Grani
 
 Furthermore, the architecture is modular and extensible, allowing seamless integration with other SAP cloud and on-premise systems, such as SAP S/4HANA, SAP SuccessFactors, and SAP Document Management Service, to enhance enterprise-wide knowledge accessibility.
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
-
 ## Architecture
-
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
 
 ![drawio](drawio/ibm-granite-rag-ard.drawio)
 
@@ -73,8 +69,6 @@ By running Granite under SAP's management, businesses benefit from SAP’s built
 
 7. Enhanced Data Security and Trust
 Since the models operate within SAP’s trusted environment, sensitive business data doesn’t leave the company’s ecosystem. This reduces exposure risk and aligns with strict data residency and sovereignty requirements often demanded by enterprise customers.
-
-<!-- Add your characteristics content here -->
 
 ## Resources
 
