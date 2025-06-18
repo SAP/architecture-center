@@ -52,19 +52,6 @@ pre {
     box-sizing: border-box;
 }
 
-/* Prevent code blocks from overflowing on mobile devices */
-@media (max-width: 969px) {
-
-    code,
-    pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        overflow-x: auto;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-}
-
 /* simply one font family, uses the correct font according to the font weight which is set, e.g. 900 => use 72Black */
 @font-face {
     font-family: '72';
@@ -189,29 +176,6 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     font-size: 2.5rem;
 }
 
-@media (max-width: 600px) {
-    .hero_banner img {
-        aspect-ratio: 1440 / 700;
-        /* Make the banner much taller on mobile */
-        min-height: 320px;
-        /* Optional: ensure a minimum height */
-    }
-
-    .header_title {
-        font-size: 1.5rem;
-    }
-
-    .header_body_p {
-        font-size: 0.9rem;
-        max-width: 90%;
-    }
-
-    .welcome {
-        font-size: 0.9rem;
-        padding: 0 1rem;
-    }
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -224,39 +188,67 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .welcome {
-    margin-top: 1rem;
-    padding-left: 104px;
-    /* Match SAP logo width or desired offset */
-    padding-right: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 3rem 2rem;
+    max-width: 80%;
     width: 100%;
     box-sizing: border-box;
     text-align: left;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
 }
 
 .hero_banner {
     width: 100%;
     max-width: 1440px;
-    min-height: 320px;
-    margin: 64px auto 0 auto;
     aspect-ratio: 1440 / 424;
-    background-size: contain;
+    min-height: 424px;
+    margin-top: 64px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    border-radius: 24px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
 }
 
 .hero_banner img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 24px;
-    height: auto;
     display: block;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero_banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    z-index: 1;
+    pointer-events: auto;
+    background-color: transparent;
 }
 
 .community {
@@ -270,145 +262,22 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .community_image {
-    width: 33%;
-    height: 400px;
-    flex-shrink: 0;
+    width: 70%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    margin: 0 auto;
 }
 
-@media screen and (max-width: 1200px) {
-    .hero_banner {
-        padding: 1rem;
-        height: auto;
-        background-size: cover;
-        background-position: center;
-        text-align: left;
-    }
-}
-
-@media screen and (max-width: 996px) {
-    .hero_banner {
-        height: auto;
-        background-size: cover;
-        background-position: center;
-        text-align: left;
-    }
-
-    .header_title {
-        font-size: 1.8rem;
-    }
-
-    .header_body_p {
-        font-size: 1.05rem;
-        max-width: 80%;
-    }
-
-    .welcome {
-        font-size: 1rem;
-    }
-
-    .community_body {
-        width: 100%;
-        height: auto;
-        margin: 0;
-        text-align: center;
-    }
-
-    .community_image {
-        width: 50%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    .container {
-        padding-right: 0;
-        padding-top: 24px;
-        padding-bottom: 24px;
-    }
-
-    .welcome {
-        padding-left: 72px;
-        padding-right: 16px;
-        font-size: 1rem;
-    }
-
-    .header_title {
-        font-size: 1.6rem;
-    }
-
-    .header_body {
-        max-width: 80%;
-    }
-
-    .benefits_body {
-        margin: 2rem auto;
-        width: 90%;
-        max-width: 500px;
-        height: auto;
-        text-align: center;
-    }
-
-    .community {
-        flex-direction: column;
-        gap: 3rem;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .hero_banner {
-        padding: 2rem 1rem;
-    }
-
-    .header_title {
-        font-size: 1.5rem;
-    }
-
-    .header_body_p {
-        font-size: 0.95rem;
-    }
-
-    .welcome {
-        font-size: 0.95rem;
-    }
-
-    .welcome {
-        margin-top: 1rem;
-        justify-content: left;
-    }
-
-    .header_body {
-        width: 90%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .container {
-        padding-right: 0;
-        padding-top: 16px;
-        padding-bottom: 16px;
-    }
-
-    .welcome {
-        padding-left: 48px;
-        padding-right: 8px;
-        font-size: 0.9rem;
-    }
-
-    .header_body {
-        max-width: 80%;
-    }
-
-    .header_title {
-        font-size: 1.2rem;
-    }
-
-    .header_body_p {
-        font-size: 0.9rem;
-    }
-
-    .community_image {
-        width: 90%;
-    }
+.community_image_inside {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
 }
 
 .fallback-image:not(.medium-zoom-image--opened) {
@@ -612,14 +481,6 @@ table thead {
             var(--ifm-color-emphasis-100) 100%);
 }
 
-/** In mobile view, reduce the padding */
-@media screen and (max-width: 996px) {
-    .hero_banner {
-        padding: 2rem;
-        background-color: #ffffff;
-    }
-}
-
 .footer_div {
     margin-top: 0rem 0rem;
 }
@@ -631,29 +492,6 @@ table thead {
     height: 290px;
     min-height: 290px;
     box-sizing: border-box;
-}
-
-@media screen and (max-width: 996px) {
-
-    /* Force the background to match the footer */
-    html[data-theme='light'],
-    body[data-theme='light'] {
-        background-color: #e0e0e0 !important;
-    }
-
-    html[data-theme='dark'],
-    body[data-theme='dark'] {
-        background-color: #0e0f19 !important;
-    }
-
-    /* Ensure footer matches the background */
-    html[data-theme='light'] .footer {
-        background-color: #e0e0e0 !important;
-    }
-
-    html[data-theme='dark'] .footer {
-        background-color: #0e0f19 !important;
-    }
 }
 
 /* make links in copyright behave like rest of links in footer */
@@ -799,36 +637,6 @@ html[data-theme='dark'] .navbar {
     backdrop-filter: blur(10px);
 }
 
-@media screen and (max-width: 996px) {
-    .navbar-sidebar {
-        position: fixed !important;
-        /* Ensures it's always visible */
-        height: 100vh !important;
-        /* Allows it to expand */
-    }
-}
-
-/* Extra small mobile */
-@media (max-width: 400px) {
-    .welcome {
-        padding-left: 16px;
-        padding-right: 4px;
-        font-size: 0.8rem;
-    }
-
-    .header_title {
-        font-size: 1rem;
-    }
-
-    .header_body {
-        max-width: 90%;
-    }
-
-    .header_body_p {
-        font-size: 0.8rem;
-    }
-}
-
 /* The following styles are for the iframes to fit in the container div with full height and width */
 /* For 16:9 aspect ratio */
 .video-container-16-9 {
@@ -908,4 +716,81 @@ html[data-navbar='false'] .navbar {
 
 html[data-footer='false'] .footer {
     display: none;
+}
+
+/* All Media Queries */
+
+@media (max-width: 1440px) {
+    .hero_banner {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        aspect-ratio: unset;
+        min-height: 424px;
+        height: auto;
+        position: static;
+        overflow: visible;
+    }
+    .hero_banner img,
+    .hero_banner__overlay {
+        position: static;
+        width: 100%;
+        height: auto;
+        min-height: 424px;
+        border-radius: 24px;
+        display: block;
+    }
+}
+
+/* Tablet/laptop */
+@media (max-width: 996px) {
+    .hero_banner {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 32px;
+    }
+    .welcome {
+        padding: 2rem 1rem;
+        max-width: 95%;
+        gap: 1rem;
+        font-size: 1rem;
+    }
+    .header_title {
+        font-size: 1.6rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .hero_banner {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        margin-top: 16px;
+    }
+    .welcome {
+        padding: 1rem 0.5rem;
+        max-width: 100%;
+        gap: 0.7rem;
+        font-size: 0.95rem;
+    }
+    .header_title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+    .hero_banner {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        margin-top: 8px;
+    }
+    .welcome {
+        padding: 0.5rem 0.2rem;
+        max-width: 100%;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+    }
+    .header_title {
+        font-size: 1rem;
+    }
 }

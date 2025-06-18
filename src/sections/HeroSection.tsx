@@ -34,7 +34,6 @@ export default function HeroSection(): JSX.Element {
                 className="hero_banner"
                 style={{
                     width: '100%',
-                    height: '424px',
                     overflow: 'hidden',
                     position: 'relative',
                 }}
@@ -56,7 +55,7 @@ export default function HeroSection(): JSX.Element {
                     fetchPriority="high"
                 />
                 <div
-                    className="container"
+                    className="hero_banner__overlay"
                     style={{
                         position: 'absolute',
                         top: 0,
