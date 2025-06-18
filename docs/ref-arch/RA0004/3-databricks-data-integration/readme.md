@@ -60,4 +60,4 @@ This approach ensures that data remains consistent and up-to-date, providing a r
 
 ## Resources
 
-- [Federating queries to Databricks from SAP Datasphere for real-time analytics in SAP Analytics Cloud](https://community.sap.com/t5/technology-blogs-by-sap/federating-queries-to-databricks-from-sap-datasphere-for-real-time/ba-p/13564838)
+- [Federating queries to Databricks from SAP Datasphere for real-time analytics in SAP Analytics Cloud](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/Databricks/databricks-integration.md)
