@@ -8,15 +8,29 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 export default function CommunitySection(): JSX.Element {
     const { colorMode } = useColorMode();
     const [mounted, setMounted] = useState(false);
+    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
 
     useEffect(() => {
-        setMounted(true); // Only render image once the component is mounted
+        setMounted(true);
     }, []);
 
-    const lightImg = useBaseUrl('/img/landingPage/community_puzzle_light.png');
-    const darkImg = useBaseUrl('/img/landingPage/community_puzzle_dark.png');
+    // WebP sources
+    const lightSrcSet = [
+        getImg('community_puzzle_light_150.webp') + ' 150w',
+        getImg('community_puzzle_light_300.webp') + ' 300w',
+        getImg('community_puzzle_light_500.webp') + ' 500w',
+    ].join(', ');
 
-    const imgSrc = mounted && colorMode === 'dark' ? darkImg : lightImg;
+    const darkSrcSet = [
+        getImg('community_puzzle_dark_150.webp') + ' 150w',
+        getImg('community_puzzle_dark_300.webp') + ' 300w',
+        getImg('community_puzzle_dark_500.webp') + ' 500w',
+    ].join(', ');
+
+    const srcSet = mounted && colorMode === 'dark' ? darkSrcSet : lightSrcSet;
+    const fallbackSrc = mounted && colorMode === 'dark'
+        ? getImg('community_puzzle_dark_500.webp')
+        : getImg('community_puzzle_light_500.webp');
 
     return (
         <section>
@@ -25,11 +39,13 @@ export default function CommunitySection(): JSX.Element {
                 <div className="community">
                     <div className="community_image">
                         <img
-                            src={imgSrc}
+                            src={fallbackSrc}
+                            srcSet={srcSet}
+                            sizes="(max-width: 600px) 140px, (max-width: 996px) 280px, 400px"
                             className="community_image_inside"
                             alt="Community Puzzle"
-                            width={600}
-                            height={400}
+                            width={500}
+                            height={500}
                             loading="lazy"
                         />
                     </div>
