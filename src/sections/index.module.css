@@ -4,56 +4,63 @@
 }
 
 .sectionContainer {
+    width: 100%;
     background-color: #eaf3fc;
     padding: 40px 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    /* changed from center */
     min-height: 380px;
 }
 
+.innerContainer {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .carouselContainer {
-    height: 340px;
-    min-height: unset;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
     scroll-snap-type: x mandatory;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 .cardGroup {
-    display: flex;
-    flex-shrink: 0;
+    flex: 0 0 100%;
     width: 100%;
-    flex-wrap: wrap;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     scroll-snap-align: start;
     box-sizing: border-box;
 }
 
 .cardContainer {
-    height: 320px;
-    width: 320px;         /* or whatever your card's intended width is */
+    flex: 1 1 0;
+    min-width: 320px;
     max-width: 430px;
-    min-width: 320px;     /* add this */
+    width: 100%;
+    height: 320px;
     box-sizing: border-box;
     padding: 0 16px;
-    flex: 0 0 auto;       /* prevent flex-grow/shrink */
-}
-
-.innerContainer {
-    width: 100%;
-    max-width: 1400px;
-    padding: 0 16px;
-    min-height: 380px;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
 .headerRow {
@@ -61,24 +68,56 @@
     justify-content: flex-end;
     align-items: center;
     min-height: 36px;
-    min-width: 260px; /* Adjust as needed for your controls */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    gap: 10px; /* Optional: add spacing between controls */
+    min-width: 260px;
+    /* Adjust as needed for your controls */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    gap: 10px;
+    /* Optional: add spacing between controls */
 }
 
 .headerControls {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    min-width: 180px; /* Adjust as needed for your controls */
+    min-width: 180px;
+    /* Adjust as needed for your controls */
     gap: 10px;
 }
 
 /* Tablet styles */
 @media (max-width: 996px) {
+    .sectionContainer {
+        padding: 24px 0;
+        min-height: 340px;
+    }
+
+    .innerContainer,
     .carouselContainer {
+        max-width: none;
+        margin: 0;
+    }
+
+    .innerContainer {
+        padding: 0 4px;
+        min-height: 340px;
+    }
+
+    .carouselContainer {
+        padding-left: 8px;
+        padding-right: 8px;
         height: 340px;
-        min-height: unset;
+    }
+
+    .cardGroup {
+        display: flex;
+        flex-shrink: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* Center cards in the group */
+        scroll-snap-align: start;
+        box-sizing: border-box;
     }
 
     .cardContainer {
@@ -96,7 +135,7 @@
 }
 
 /* Mobile phone styles */
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .carouselContainer {
         height: 340px;
         min-height: unset;
@@ -106,10 +145,12 @@
         height: 340px;
         padding: 8px;
     }
+
     .innerContainer {
         padding: 0 4px;
         min-height: 340px;
     }
+
     .sectionContainer {
         padding: 24px 0;
         min-height: 340px;
