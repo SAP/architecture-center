@@ -1,7 +1,6 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
-import Head from '@docusaurus/Head';
 import HeroSection from '../sections/HeroSection';
 import CommunitySection from '../sections/Community';
 import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
