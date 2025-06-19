@@ -263,8 +263,8 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 .community_image {
     width: 70%;
+    max-width: 500px;
     aspect-ratio: 1 / 1;
-    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -278,6 +278,13 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     object-fit: contain;
     display: block;
     border-radius: 12px;
+}
+
+.community_body {
+    text-align: left;
+    max-width: 600px;
+    margin: 0;
+    padding: 0;
 }
 
 .fallback-image:not(.medium-zoom-image--opened) {
@@ -771,6 +778,25 @@ html[data-footer='false'] .footer {
     .header_body {
         max-width: 70%;
     }
+
+    .community {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .community_image {
+        width: 80%;
+        max-width: 300px;
+        margin-bottom: 1.5rem;
+    }
+
+    .community_body {
+        text-align: center;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
 }
 
 /* Mobile */
@@ -800,6 +826,16 @@ html[data-footer='false'] .footer {
     .hero_banner img,
     .hero_banner__overlay {
         min-height: 324px;
+    }
+
+    .community_image {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .community_body {
+        font-size: 0.98rem;
+        padding: 0 0.5rem;
     }
 }
 
