@@ -370,14 +370,25 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
+html,
+body,
 #__docusaurus {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
 }
 
 .main-wrapper {
     min-height: calc(100vh - 290px);
+}
+
+.navbar-sidebar {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    z-index: 2000;
 }
 
 html[data-theme='dark'] .sourcecode-badge {
@@ -844,13 +855,22 @@ html[data-footer='false'] .footer {
         overflow-x: hidden;
     }
 
-    /* Footer links: stack and center */
     .footer__links {
+        display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         width: 100%;
         margin: 0 auto;
+    }
+
+    .footer__col {
+        flex: unset !important;
+        height: auto !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        /* Optional: add spacing between columns */
     }
 
     /* Footer bottom: center and full width */

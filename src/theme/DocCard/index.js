@@ -12,6 +12,7 @@ import { Card, Text, Icon, FlexBox, Tag, Title, Popover } from '@ui5/webcomponen
 import '@ui5/webcomponents-icons/dist/dimension';
 import '@ui5/webcomponents-icons/dist/action';
 import styles from './styles.module.css';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function useCategoryItemsPlural() {
     const { selectMessage } = usePluralForm();
@@ -155,7 +156,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                 {/* Banner */}
                 <FlexBox direction="Column">
                     <img
-                        src="/img/card_header_blue.webp"
+                        src={useBaseUrl('/img/card_header_blue.webp')}
                         width={430}
                         height={50}
                         alt=""
