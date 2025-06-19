@@ -57,16 +57,22 @@ export default function ExploreAllArchitecturesSection() {
 
     const goNext = () => {
         if (carouselRef.current && canGoRight) {
-            const scrollAmount = carouselRef.current.clientWidth;
-            carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            const groupWidth = carouselRef.current.clientWidth;
+            carouselRef.current.scrollTo({
+                left: groupWidth * (currentGroupIndex + 1),
+                behavior: 'smooth',
+            });
             setCurrentGroupIndex((prev) => prev + 1);
         }
     };
 
     const goPrevious = () => {
         if (carouselRef.current && canGoLeft) {
-            const scrollAmount = carouselRef.current.clientWidth;
-            carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            const groupWidth = carouselRef.current.clientWidth;
+            carouselRef.current.scrollTo({
+                left: groupWidth * (currentGroupIndex - 1),
+                behavior: 'smooth',
+            });
             setCurrentGroupIndex((prev) => prev - 1);
         }
     };

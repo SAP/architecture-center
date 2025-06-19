@@ -168,7 +168,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     line-height: normal;
     z-index: 1;
     width: 100%;
-    max-width: 43%;
+    max-width: 45%;
     font-size: 1.2rem;
 }
 
@@ -191,7 +191,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    padding: 3rem 2rem;
+    padding: 4rem 2rem;
     max-width: 80%;
     width: 100%;
     box-sizing: border-box;
@@ -730,6 +730,7 @@ html[data-footer='false'] .footer {
         position: static;
         overflow: visible;
     }
+
     .hero_banner img,
     .hero_banner__overlay {
         position: static;
@@ -738,6 +739,13 @@ html[data-footer='false'] .footer {
         min-height: 424px;
         border-radius: 24px;
         display: block;
+    }
+
+    .welcome {
+        padding-left: 4rem;
+        max-width: 95%;
+        gap: 1rem;
+        font-size: 1rem;
     }
 }
 
@@ -748,14 +756,20 @@ html[data-footer='false'] .footer {
         padding-right: 1rem;
         margin-top: 32px;
     }
+
     .welcome {
-        padding: 2rem 1rem;
+        padding-left: 3rem;
         max-width: 95%;
         gap: 1rem;
         font-size: 1rem;
     }
+
     .header_title {
         font-size: 1.6rem;
+    }
+
+    .header_body {
+        max-width: 70%;
     }
 }
 
@@ -766,14 +780,26 @@ html[data-footer='false'] .footer {
         padding-right: 0.5rem;
         margin-top: 16px;
     }
+
     .welcome {
-        padding: 1rem 0.5rem;
+        padding-left: 2rem;
         max-width: 100%;
         gap: 0.7rem;
         font-size: 0.95rem;
     }
+
     .header_title {
         font-size: 1.2rem;
+    }
+
+    .header_body {
+        max-width: 95%;
+    }
+
+    .hero_banner,
+    .hero_banner img,
+    .hero_banner__overlay {
+        min-height: 324px;
     }
 }
 
@@ -784,13 +810,25 @@ html[data-footer='false'] .footer {
         padding-right: 0.25rem;
         margin-top: 8px;
     }
+
     .welcome {
-        padding: 0.5rem 0.2rem;
+        padding-left: 1rem;
         max-width: 100%;
         gap: 0.4rem;
-        font-size: 0.85rem;
     }
+
     .header_title {
         font-size: 1rem;
+    }
+
+    .header_body {
+        max-width: 99%;
+        font-size: 0.9rem;
+    }
+
+    .hero_banner,
+    .hero_banner img,
+    .hero_banner__overlay {
+        min-height: 274px;
     }
 }
