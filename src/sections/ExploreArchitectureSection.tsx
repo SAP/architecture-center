@@ -1,4 +1,6 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+import React, { useRef } from 'react';
+import Slider from 'react-slick';
+// @ts-ignore
 import DocCard from '@theme/DocCard';
 // @ts-ignore
 import exploreSidebar from '../data/exploreArch.json';
@@ -7,114 +9,64 @@ import '@ui5/webcomponents-icons/dist/navigation-left-arrow';
 import '@ui5/webcomponents-icons/dist/navigation-right-arrow';
 import Link from '@docusaurus/Link';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import styles from './index.module.css';
 
 export default function ExploreAllArchitecturesSection() {
-    const [isClient, setIsClient] = useState(false);
-    const [cardsPerGroup, setCardsPerGroup] = useState(3);
-    const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
-    const carouselRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
+    const sliderRef = useRef<Slider>(null);
     const items = exploreSidebar[0]?.items || [];
 
-    // Group size based on screen width
-    const getCardsPerGroup = () => {
-        if (typeof window !== 'undefined') {
-            const width = window.innerWidth;
-            if (width <= 996) return 1;
-        }
-        return 3;
-    };
-
-    // Recalculate cards per group on resize
-    useEffect(() => {
-        const handleResize = () => {
-            const newGroupSize = getCardsPerGroup();
-            setCardsPerGroup(newGroupSize);
-            setCurrentGroupIndex(0); // Reset position on resize
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    // Group items into chunks
-    const groupedItems = useMemo(() => {
-        const groups = [];
-        for (let i = 0; i < items.length; i += cardsPerGroup) {
-            groups.push(items.slice(i, i + cardsPerGroup));
-        }
-        return groups;
-    }, [items, cardsPerGroup]);
-
-    const totalGroups = groupedItems.length;
-
-    const canGoLeft = currentGroupIndex > 0;
-    const canGoRight = currentGroupIndex < totalGroups - 1;
-
-    const goNext = () => {
-        if (carouselRef.current && canGoRight) {
-            const groupWidth = carouselRef.current.clientWidth;
-            carouselRef.current.scrollTo({
-                left: groupWidth * (currentGroupIndex + 1),
-                behavior: 'smooth',
-            });
-            setCurrentGroupIndex((prev) => prev + 1);
-        }
-    };
-
-    const goPrevious = () => {
-        if (carouselRef.current && canGoLeft) {
-            const groupWidth = carouselRef.current.clientWidth;
-            carouselRef.current.scrollTo({
-                left: groupWidth * (currentGroupIndex - 1),
-                behavior: 'smooth',
-            });
-            setCurrentGroupIndex((prev) => prev - 1);
-        }
+    // react-slick settings for responsive carousel
+    const settings = {
+        dots: true,
+        arrows: false, // We'll use our own UI5 buttons for navigation
+        infinite: items.length > 3,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 996,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
     };
 
     return (
-        <div className={styles.sectionContainer}>
+        <section className={styles.sectionContainer}>
             <div className={styles.innerContainer}>
-                {/* Header Reference Architectures */}
-                <Title size="H3" className={styles.titleStyle}>
+                <Title level="H3" className={styles.titleStyle}>
                     Explore the latest Reference Architectures
                 </Title>
                 <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>
                     <FlexBox alignItems="Center" className={styles.headerControls}>
                         <Button
-                            design={canGoLeft ? 'Emphasized' : 'Transparent'}
+                            design="Transparent"
                             icon="navigation-left-arrow"
-                            onClick={goPrevious}
-                            disabled={!canGoLeft}
+                            onClick={() => sliderRef.current?.slickPrev()}
                         />
                         <Button
-                            design={canGoRight ? 'Emphasized' : 'Transparent'}
+                            design="Transparent"
                             icon="navigation-right-arrow"
-                            onClick={goNext}
-                            disabled={!canGoRight}
+                            onClick={() => sliderRef.current?.slickNext()}
                         />
                         <Link to="docs/exploreallrefarch">Browse All</Link>
                     </FlexBox>
                 </FlexBox>
-
-                {/* Carousel */}
-                <div ref={carouselRef} className={styles.carouselContainer}>
-                    {groupedItems.map((group, index) => (
-                        <div key={index} className={styles.cardGroup}>
-                            {group.map((item) => (
-                                <div className={styles.cardContainer}>
-                                    <DocCard item={item} />
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+                <div className={styles.carouselContainer}>
+                    <Slider ref={sliderRef} {...settings}>
+                        {items.map((item, idx) => (
+                            <div key={idx} className={styles.cardContainer}>
+                                <DocCard item={item} />
+                            </div>
+                        ))}
+                    </Slider>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

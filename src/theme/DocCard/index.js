@@ -132,7 +132,6 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
             return;
         }
         setReadableTitle(title);
-
     }, [componentSize, description, tags, title]);
 
     useEffect(() => {
@@ -146,84 +145,38 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
     return (
         <Card
             ref={card}
-            style={{
-                height: '290px',
-                cursor: 'pointer',
-                borderRadius: '20px',
-                overflow: 'visible',
-                transition: 'all 0.3s ease-in-out',
-                backgroundColor: 'var(--ifm-card-background)',
-                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
-            }}
+            className={styles.docCard}
             onClick={(event) => {
                 if (event.target.tagName === 'UI5-TAG' || event.target.tagName === 'UI5-POPOVER') return;
                 window.location.href = href;
             }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--ifm-hover-overlay)';
-                e.currentTarget.style.boxShadow = '0px 6px 16px rgba(0, 112, 242, 0.4)';
-                e.currentTarget.style.transform = 'translateY(-3px)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--ifm-card-background)';
-                e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.style.transform = 'none';
-            }}
         >
-            <FlexBox direction="Column" justifyContent="End" style={{ height: '290px' }}>
-                {/* Custom Banner Image */}
+            <FlexBox direction="Column" justifyContent="End" style={{ height: '100%' }}>
+                {/* Banner */}
                 <FlexBox direction="Column">
-                    <div
-                        style={{
-                            height: '50px',
-                            backgroundImage: `url("${'/img/Card_header_blue.jpg'}")`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        }}
+                    <img
+                        src="/img/card_header_blue.webp"
+                        width={430}
+                        height={50}
+                        alt=""
+                        className={styles.cardBanner}
+                        loading="lazy"
+                        decoding="async"
                     />
                 </FlexBox>
-                {/* Blue Left Accent and Card Content */}
+                {/* Accent and Content */}
                 <FlexBox direction="Column" style={{ height: '175px' }}>
                     <FlexBox justifyContent="Start" alignItems="Center" style={{ height: '60px' }}>
-                        <div
-                            style={{
-                                height: '40px',
-                                width: '6px',
-                                minWidth: '6px',
-                                borderTopRightRadius: '4px',
-                                borderBottomRightRadius: '4px',
-                                backgroundColor: '#0070F2',
-                                marginTop: '10px',
-                            }}
-                        />
-                        <Title style={{ padding: '0 16px', paddingTop: '10px', cursor: 'pointer', fontSize: '18px' }}>
-                            {readableTitle}
-                        </Title>
+                        <div className={styles.cardAccent} />
+                        <Title className={styles.cardTitle}>{readableTitle}</Title>
                     </FlexBox>
-                    <FlexBox style={{ padding: '16px 16px 0px 16px', textAlign: 'left', cursor: 'pointer' }}>
+                    <FlexBox className={styles.cardDescription}>
                         <Text>{readableDescription}</Text>
                     </FlexBox>
                 </FlexBox>
-                {/* Tags container */}
-                <FlexBox
-                    direction="Column"
-                    justifyContent="SpaceBetween"
-                    alignItems="Start"
-                    gap={10}
-                    style={{ width: '100%', height: '65px' }}
-                >
-                    <FlexBox
-                        style={{
-                            padding: '0 16px 0px 16px',
-                            margin: 0,
-                            bottom: 0,
-                            width: '100%',
-                        }}
-                        direction="Row"
-                        gap={3}
-                        alignItems="End"
-                        justifyContent="Start"
-                    >
+                {/* Tags */}
+                <FlexBox direction="Column" className={styles.tagsContainer}>
+                    <FlexBox className={styles.tagsRow}>
                         {compressedTags.map((tag, index) => (
                             <a href={'/docs/tags/' + tag.tag} key={index}>
                                 <Tag
@@ -231,9 +184,8 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                                     hideStateIcon
                                     className={styles.tag}
                                     title={tag.description || tag.label}
-                                    style={{ borderRadius: '8px' }}
                                 >
-                                    <div style={{ textWrap: 'nowrap' }}>{tag.label}</div>
+                                    <div style={{ whiteSpace: 'nowrap' }}>{tag.label}</div>
                                 </Tag>
                             </a>
                         ))}
@@ -241,42 +193,28 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                             <>
                                 <Tag
                                     ref={moreTagsRef}
-                                    style={{
-                                        cursor: 'pointer',
-                                    }}
                                     design="Information"
                                     hideStateIcon
                                     id="moreTags"
-                                    onClick={() => {
-                                        setPopoverIsOpen(!popoverIsOpen);
-                                    }}
-                                    title="Show more tags"
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.textDecoration = 'underline';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.textDecoration = 'none';
-                                    }}
                                     className={styles.tag}
+                                    onClick={() => setPopoverIsOpen(!popoverIsOpen)}
+                                    title="Show more tags"
                                 >
-                                    <div style={{ padding: '0px 2px 0px 2px' }}>+{remainingTags.length}</div>
+                                    <div style={{ padding: '0px 2px' }}>+{remainingTags.length}</div>
                                 </Tag>
                                 <Popover
                                     opener={moreTagsRef.current}
                                     open={popoverIsOpen}
-                                    onClose={() => {
-                                        setPopoverIsOpen(false);
-                                    }}
+                                    onClose={() => setPopoverIsOpen(false)}
                                     style={{ cursor: 'initial' }}
                                 >
-                                    <div style={{ display: 'flex', flexDirection: 'Column', gap: '10px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                         {remainingTags.map((tag, index) => (
                                             <a href={'/docs/tags/' + tag.tag} id="popover" key={index}>
                                                 <Tag
                                                     design="Information"
                                                     hideStateIcon
                                                     title={tag.description || tag.label}
-                                                    style={{ borderRadius: '8px', cursor: 'pointer' }}
                                                     className={styles.tag}
                                                 >
                                                     {tag.label}
@@ -288,32 +226,11 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                             </>
                         )}
                     </FlexBox>
-                    {/* Date and Link to open in a new window */}
-                    <FlexBox
-                        direction="row"
-                        alignItems="End"
-                        justifyContent="SpaceBetween"
-                        style={{ padding: '0px 16px 10px 16px', width: '100%' }}
-                    >
-                        <FlexBox direction="Row" alignItems="Center" style={{ fontStyle: 'italic' }}>
-                            <Text
-                                style={{
-                                    cursor: 'pointer',
-                                    color: 'gray',
-                                    fontSize: 'var(--sapFontSmallSize)',
-                                    paddingRight: 3,
-                                }}
-                            >
-                                {'Last Update:'}
-                            </Text>
-                            <Text
-                                style={{
-                                    cursor: 'pointer',
-                                    paddingRight: 3,
-                                    color: 'gray',
-                                    fontSize: 'var(--sapFontSmallSize)',
-                                }}
-                            >
+                    {/* Date and Link */}
+                    <FlexBox className={styles.lastUpdateRow}>
+                        <FlexBox direction="Row" alignItems="Center">
+                            <Text className={styles.lastUpdateText}>Last Update:</Text>
+                            <Text className={styles.lastUpdateText}>
                                 {lastUpdate
                                     ? new Date(lastUpdate).toLocaleDateString('en-US', {
                                           year: 'numeric',
@@ -324,10 +241,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                             </Text>
                         </FlexBox>
                         <FlexBox
-                            style={{
-                                cursor: 'pointer',
-                                paddingBottom: 2,
-                            }}
+                            className={styles.openInNew}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 window.open(href, '_blank');
