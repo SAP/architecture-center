@@ -48,25 +48,25 @@ Furthermore, the architecture is modular and extensible, allowing seamless integ
 
 ## Why SAP Managed Granite?
 
-1. Purpose-Built for Enterprise Use Cases
+#### 1. Purpose-Built for Enterprise Use Cases
 Unlike generic foundation models, IBM Granite is specifically designed for enterprise-grade applications, offering data privacy and standard IP Protection needed for business-critical tasks like summarization, classification, RAG, and conversational agents—all aligned with real business needs. Details at [IBM Granite and Client Protection](https://newsroom.ibm.com/2023-09-28-IBM-Announces-Availability-of-watsonx-Granite-Model-Series,-Client-Protections-for-IBM-watsonx-Models).
 
-2. Domain-Specific Intelligence
+#### 2. Domain-Specific Intelligence
 Granite is trained on high-quality, domain-specific datasets, including legal, financial, and enterprise content. This focused approach ensures a deeper understanding of industry-specific language, enabling better performance in specialized use cases—often outperforming much larger models in enterprise benchmarks. You can find more information in the [research paper of IBM Granite foundation models](https://www.ibm.com/downloads/documents/us-en/10a99803c92fdb35).
 
-3. Trusted, Transparent and Responsible AI
+#### 3. Trusted, Transparent and Responsible AI
 IBM ensures rigorous data governance and ethical standards throughout Granite’s lifecycle. All training data is filtered to remove duplicates, copyrighted material, profane content, and GDPR-protected data. Model and its training data are also open-sourced. Check more at [IBM Ganite on huggingface](https://huggingface.co/ibm-granite) and [IBM Granite on github](https://github.com/ibm-granite).
 
-4.	Efficient and Cost-Effective
+#### 4. Efficient and Cost-Effective
 Granite strikes a balance between performance and resource efficiency. The 13B parameter models can run on a single GPU, significantly reducing infrastructure complexity and operational cost, while still matching or exceeding larger models in enterprise benchmarks—especially in financial services.
 
-5. Streamlined Integration with SAP Ecosystem
+#### 5. Streamlined Integration with SAP Ecosystem
 SAP-managed Granite models are optimized to work natively within SAP’s suite of applications (e.g., SAP S/4HANA, SuccessFactors, SAP Build Work Zone). This tight integration accelerates deployment and eliminates the need for extensive customization, making it easier to embed generative AI into core business processes.
 
-6. Enterprise-Grade Governance and Compliance
+#### 6. Enterprise-Grade Governance and Compliance
 By running Granite under SAP's management, businesses benefit from SAP’s built-in data governance, compliance, and security frameworks—ensuring that AI deployments meet industry-specific regulatory requirements.
 
-7. Enhanced Data Security and Trust
+#### 7. Enhanced Data Security and Trust
 Since the models operate within SAP’s trusted environment, sensitive business data doesn’t leave the company’s ecosystem. This reduces exposure risk and aligns with strict data residency and sovereignty requirements often demanded by enterprise customers.
 
 ## Resources
