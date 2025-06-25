@@ -21,7 +21,7 @@ keywords:
   - automation
   - sap btp
   - hybrid landscapes
-sidebar_label: Create Custom Skills and AI Agents with Joule Studio
+sidebar_label: Extend Joule with Joule Studio
 image: img/logo.svg
 tags:
   - genai
