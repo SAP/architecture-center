@@ -41,7 +41,7 @@ contributors:
 discussion: 
 last_update:
   author: fabianleh
-  date: 2025-06-23
+  date: 2025-06-25
 ---
 
 Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.  
