@@ -6,16 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: Integration with Azure data sources
 description: >-
-  Data from Microsoft Fabric analytics platform can be seamlessly integrated and
-  harmonized with both SAP and non-SAP data using SAP Datasphere's robust data
-  fabric architecture. This architecture facilitates the unification of
-  disparate data sources, enabling comprehensive data modeling and analytics.
+  Unify Azure data with SAP Datasphere for comprehensive analytics, leveraging
+  SAP's robust data fabric architecture.
 keywords:
   - sap
-  - azure
-  - data explorer
-  - Azure Data Lake Storage Gen2
-  - data federation
+  - microsoft azure
+  - datasphere integration
+  - data governance
+  - real-time analytics
 sidebar_label: Integration with Azure data sources
 image: img/ac-soc-med.png
 tags:

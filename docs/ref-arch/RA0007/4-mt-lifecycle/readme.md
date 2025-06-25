@@ -5,13 +5,12 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Tenant Lifecycle Management
-description: Tenant Lifecycle Management
+description: Manage tenant lifecycle on SAP BTP with automated onboarding, provisioning, and offboarding for scalable multitenant SaaS applications.
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant lifecycle
+  - service management
+  - multitenancy model
 sidebar_label: Tenant Lifecycle Management
 image: img/ac-soc-med.png
 tags:

@@ -6,17 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: Embeddings & Semantic Search
 description: >-
-  Semantic search using embeddings converts data into dense numeric vectors to
-  capture meanings. Stored in vector databases, these vectors enable efficient
-  similarity searches with cosine similarity, improving search relevance and
-  user experience by focusing on meaning over exact keywords.
+  Improve search relevance with semantic embeddings stored in vector databases,
+  enabling efficient similarity searches.
 keywords:
   - sap
-  - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - semantic search
+  - embeddings
+  - ai-driven search
+  - vector database efficiency
 sidebar_label: Embeddings & Semantic Search
 image: img/ac-soc-med.png
 tags:

@@ -6,12 +6,13 @@ sidebar_custom_props:
   category_index: []
 title: Edge Integration Cell on Azure
 description: >-
-  Explore the reference architecture for deploying SAP Integration Suite - Edge
-  Integration Cell on Azure. Learn about the required resources, and key
-  considerations for setup and implementation on Azure.
+  Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid
+  integration, leveraging secure infrastructure.
 keywords:
   - azure
-  - eic
+  - edge integration
+  - sap integration suite
+  - real-time architecture
 sidebar_label: Edge Integration Cell on Azure
 image: img/ac-soc-med.png
 tags:

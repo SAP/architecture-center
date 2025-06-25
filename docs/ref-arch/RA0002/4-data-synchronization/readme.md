@@ -6,20 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: Data Synchronization
 description: >-
-  Data synchronization in multi-region setups ensures consistency across
-  locations. SAP HANA Cloud with Smart Data Access (SDA) enables efficient data
-  replication and resiliency, providing real-time updates, failover
-  capabilities, and robust data availability across regions.
+  Ensure multi-region data consistency with SAP HANA Cloud's Smart Data Access
+  for real-time updates, failover, and resilient data availability.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region synchronization
+  - data replication
+  - failover capabilities
+  - cloud-integrated resiliency
 sidebar_label: Data Synchronization across regions
 image: img/ac-soc-med.png
 tags:

@@ -6,17 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: Data Products in SAP Business Data Cloud
 description: >-
-  The purpose of Data Products in the context of SAP is the efficient and
-  standardized sharing and consumption of data across applications and domains.
-  It helps ensure high-quality metadata, is optimized for intensive reads, and
-  describes the lineage and interfaces available for integration.
+  Standardize data sharing with SAP Data Products for efficient, high-quality
+  metadata and seamless integration.
 keywords:
   - sap
-  - bdc
-  - business
-  - data
-  - cloud
-  - data product
+  - data products
+  - business data cloud solutions
+  - metadata quality
+  - integration optimization
 sidebar_label: Data Products in SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:

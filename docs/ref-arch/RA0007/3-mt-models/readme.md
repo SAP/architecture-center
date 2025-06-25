@@ -5,13 +5,16 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Tenant Model on SAP BTP
-description: Tenant Model on SAP BTP
+description: >-
+  Explore tenant models on SAP BTP for scalable, multitenant SaaS applications
+  and efficient resource management.
 keywords:
   - sap
   - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant management
+  - multitenant application
+  - saas architecture
+  - cap model
 sidebar_label: Tenant Model on SAP BTP
 image: img/ac-soc-med.png
 tags:

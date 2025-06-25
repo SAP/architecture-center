@@ -6,14 +6,15 @@ sidebar_custom_props:
   category_index: []
 title: Secure Service Consumption on AWS
 description: >-
-  This architecture demonstrates how to securely access AWS services from
-  applications running outside of AWS.
+  Securely access AWS services from external applications using robust identity
+  and access management strategies.
 keywords:
   - aws
-  - security
+  - secure access
   - iam
-  - iam-roles-anywhere
   - oidc
+  - cloud applications
+  - architecture integration
 sidebar_label: Secure Service Consumption on AWS
 image: img/ac-soc-med.png
 tags:

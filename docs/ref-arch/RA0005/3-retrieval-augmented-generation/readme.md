@@ -6,17 +6,15 @@ sidebar_custom_props:
   category_index: []
 title: Retrieval Augmented Generation (RAG)
 description: >-
-  Enhance LLM control with Retrieval Augmented Generation (RAG), which
-  integrates external data to reduce hallucinations and improve accuracy across
-  multiple domains without the need for fine-tuning. This approach combines
-  factual data with language knowledge for increased precision.
+  Improve LLM accuracy with Retrieval Augmented Generation (RAG) by integrating
+  external data for enhanced precision and reduced hallucinations.
 keywords:
   - sap
   - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - retrieval augmented generation
+  - LLM control
+  - generation accuracy
+  - cross-domain integration
 sidebar_label: Retrieval Augmented Generation (RAG)
 image: img/ac-soc-med.png
 tags:

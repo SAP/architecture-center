@@ -13,8 +13,8 @@ keywords:
   - sap
   - databricks
   - data federation
-  - deltalake
-  - camel JDBC
+  - analytics harmonization
+  - integration models
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:

@@ -6,13 +6,13 @@ sidebar_custom_props:
   category_index: []
 title: Edge Integration Cell on GCP
 description: >-
-  Explore the reference architecture for deploying SAP Integration Suite - Edge
-  Integration Cell on GCP. Learn about the required resources, and key
-  considerations for setup and implementation on GCP.
+  Deploy SAP Integration Suite - Edge Integration Cell on GCP for secure hybrid
+  integration, leveraging scalable infrastructure and best practices.
 keywords:
   - sap
-  - gcp
-  - eic
+  - gcp edge integration
+  - integration suite
+  - real-time connectivity
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png
 tags:

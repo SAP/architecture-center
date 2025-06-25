@@ -6,18 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: SAP Databricks in SAP BDC
 description: >-
-  SAP and Databricks have partnered to integrate SAP data with Databricks AI and
-  analytics platform, allowing businesses to leverage SAP data for AI and
-  machine learning applications. This partnership simplifies data access and
-  eliminates the need for complex ETL processes, enabling real-time analytics
-  and AI-driven decision-making.
+  Leverage SAP Databricks for AI and analytics, integrating SAP data with
+  Databricks for real-time insights and simplified data access.
 keywords:
   - sap
-  - bdc
-  - business
-  - data
-  - cloud
   - databricks
+  - sap business data cloud
+  - real-time ai
+  - advanced analytics
 sidebar_label: SAP Databricks in SAP BDC
 image: img/ac-soc-med.png
 tags:

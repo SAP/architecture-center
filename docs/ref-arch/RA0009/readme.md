@@ -10,13 +10,15 @@ sidebar_custom_props:
     - appdev
 title: Establish a central inbox with SAP Task Center
 description: >-
-  Guidance for setting up SAP Task Center service on SAP BTP. Learn about the
-  architecture components and flow in this architecture.
+  Learn to set up SAP Task Center on SAP BTP. Explore its architecture,
+  components, and workflows for a unified task management experience.
 keywords:
   - sap
   - btp
   - cloud
-  - task center
+  - sap task center
+  - central inbox
+  - architecture flow
 sidebar_label: Establish a central inbox with SAP Task Center
 image: img/ac-soc-med.png
 tags:

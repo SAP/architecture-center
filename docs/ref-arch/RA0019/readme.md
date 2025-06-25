@@ -9,25 +9,17 @@ sidebar_custom_props:
     - ai
 title: SAP IAM integration with SAP Cloud Identity Services
 description: >-
-  This reference architecture describes the authentication, identity lifecycle
-  flows and how to assign and design roles (authorizations) for the SAP SaaS via
-  the SAP Cloud Identity Services.
+  Design authentication and role management flows for SAP SaaS with SAP Cloud
+  Identity Services.
 keywords:
   - sap
-  - identity
-  - ias
-  - ips
-  - security
   - cloud identity
-  - business suite
-  - cloud erp
-  - idm
-  - iag
-  - access
+  - identity management
+  - security
+  - authentication
   - single sign-on
+  - access authorizations
   - SAP Cloud Identity Services
-  - Identity Provisioning
-  - Identity Authentication
 sidebar_label: Identity Access Management
 image: img/ac-soc-med.png
 tags:

@@ -14,15 +14,10 @@ description: >-
   patterns and Cloud Application Programming (CAP) framework.
 keywords:
   - sap
-  - btp
-  - integration
-  - event-driven architecture
-  - azure
-  - aws
-  - genai
-  - cloud application programming model
-  - cap
-  - eda
+  - event-driven applications
+  - eda patterns
+  - cap framework
+  - business event processing
 sidebar_label: Designing Event-Driven Applications
 image: img/ac-soc-med.png
 tags:

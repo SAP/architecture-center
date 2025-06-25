@@ -6,18 +6,16 @@ sidebar_custom_props:
   category_index: []
 title: AI Agents & Project Agent Builder (PAB)
 description: >-
-  This is an overview of AI agents and their role in enterprise automation,
-  focusing on SAP's Project Agent Builder (PAB) and its support for
-  content-based and code-based agent development. It explores the technical
-  components, design strategies, and evaluation criteria for deploying AI agents
-  effectively within the SAP ecosystem.
+  Develop AI agents using SAP Project Agent Builder (PAB) for enterprise
+  automation with content/code-based strategies and multi-step reasoning
+  capabilities.
 keywords:
   - sap
   - ai
-  - genai
-  - aws
-  - azure
-  - gcp
+  - project agent builder
+  - enterprise AI automation
+  - code-based AI agents
+  - content-based AI
 sidebar_label: AI Agents & Project Agent Builder (PAB)
 image: img/ac-soc-med.png
 tags:

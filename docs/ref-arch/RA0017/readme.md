@@ -7,14 +7,14 @@ sidebar_custom_props:
     - integration
 title: Connect Business Processes with SAP Master Data Integration
 description: >-
-  Explore the Master Data Integration Reference Architecture to synchronize and
-  manage business-critical data across SAP and third-party solutions. Learn best
-  practices for data consistency, real-time processing, and secure integration
-  using SAP Integration Suite and SAP Master Data Integration.
+  Synchronize and manage business-critical data across SAP and third-party
+  systems using SAP Master Data Integration.
 keywords:
   - sap
-  - mdi
-  - business process
+  - master data integration
+  - mdi architecture
+  - secure integration
+  - business synchronization
 sidebar_label: Connect Business Applications with SAP Master Data Integration
 image: img/ac-soc-med.png
 tags:

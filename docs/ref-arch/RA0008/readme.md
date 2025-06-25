@@ -11,16 +11,17 @@ sidebar_custom_props:
     - appdev
 title: Edge Integration Cell on Hyperscalers
 description: >-
-  Discover reference architectures for deploying SAP Integration Suite - Edge
-  Integration Cell on hyperscalers. Access architecture diagrams and key
-  resources to understand its setup and implementation.
+  Deploy SAP Integration Suite - Edge Integration Cell on hyperscalers for
+  secure hybrid integration with architecture diagrams and resources.
 keywords:
   - sap
-  - aws
+  - btp
+  - integration suite
+  - edge integration
+  - hyperscalers
   - azure
-  - gcp
-  - eic
-  - edge integration cell
+  - aws
+  - gcp cloud services
 sidebar_label: Edge Integration Cell on Hyperscalers
 image: img/ac-soc-med.png
 tags:

@@ -11,14 +11,9 @@ description: >-
   data centers.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region resilience
+  - cloud disaster recovery
+  - application availability
 sidebar_label: Multi-region resiliency
 image: img/ac-soc-med.png
 tags:

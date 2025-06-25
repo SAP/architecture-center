@@ -5,13 +5,12 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Reference Architecture
-description: Reference Architecture
+description: Build scalable multitenant SaaS apps on SAP BTP using CAP, utilizing shared resources, secure tenant isolation, and efficient provisioning.
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - multitenant applications
+  - scalable saas solutions
+  - btp reference models
 sidebar_label: Reference Architecture
 image: img/ac-soc-med.png
 tags:

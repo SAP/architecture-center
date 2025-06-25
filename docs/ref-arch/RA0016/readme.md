@@ -14,12 +14,11 @@ description: >-
   services offered by hyperscalers from applications running outside their
   environments.
 keywords:
-  - security
-  - authentication
-  - hyperscalers
-  - aws
-  - gcp
-  - azure
+  - sap
+  - multi-cloud security
+  - hyperscaler applications
+  - authentication solutions
+  - secure service consumption
 sidebar_label: Secure Service Consumption Across Hyperscalers
 image: img/ac-soc-med.png
 tags:

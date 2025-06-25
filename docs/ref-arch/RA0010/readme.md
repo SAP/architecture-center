@@ -10,19 +10,15 @@ sidebar_custom_props:
     - appdev
 title: Establish a central entry point with SAP Build Work Zone
 description: >-
-  SAP Build Work Zone offers a comprehensive solution architecture designed to
-  elevate user productivity and engagement by providing a digital workplace
-  platform that supports single-sign-on. This innovative approach centralizes
-  access to essential business applications, processes, information, and
-  communication, serving as a unified entry point accessible from desktop or
-  mobile devices. It harmonizes business content, applications, workflows, and
-  processes across your landscape, ensuring a seamless integration and
-  interaction within your digital ecosystem.
+  SAP Build Work Zone centralizes business applications, workflows, and
+  communication for a seamless digital workplace experience.
 keywords:
   - sap
   - btp
-  - cloud
-  - build work zone
+  - digital workplace
+  - sap build work zone
+  - integration ecosystem
+  - business applications
 sidebar_label: Establish a central entry point with SAP Build Work Zone
 image: img/ac-soc-med.png
 tags:

@@ -7,15 +7,14 @@ sidebar_custom_props:
     - integration
 title: Application to Application Integration
 description: >-
-  Learn how application-to-application (App2App) integration facilitates the
-  exchange of transactional data across internal company processes by connecting
-  business applications in a near real-time manner. This reference architecture
-  highlights SAP Integration Suite&#39;s role in enabling seamless data flow and
-  interoperability between cloud and on-premise solutions.
+  Enable seamless App2App integration with SAP Integration Suite for near
+  real-time transactional data exchange across internal processes.
 keywords:
   - sap
-  - app2app
-  - integration
+  - application interoperability
+  - app-to-app integration
+  - transactional data exchange
+  - integration suite
 sidebar_label: Application to Application Integration
 image: img/ac-soc-med.png
 tags:

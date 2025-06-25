@@ -12,24 +12,18 @@ sidebar_custom_props:
     - opsec
 title: Understanding Network Performance in a Multi Regional Solution
 description: >-
-  Designing and operating cloud based solutions in a multi-regional setup are
-  technically advanced tasks. The solution and application design, usage of
-  different network providers and last but not least the geographical placement
-  of services have an impact on the overall performance.
+  Optimize multi-regional cloud solutions with insights into network design,
+  provider usage, and service placement for superior performance.
 keywords:
   - sap
-  - BTP
-  - rise
-  - grow
+  - btp
+  - network performance
+  - multi-regional solution
   - hyperscaler
   - S/4 HANA
   - aws
   - azure
-  - gcp
-  - odata
-  - privatelink
-  - wan
-  - internet
+  - cloud design
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
 image: img/ac-soc-med.png
 tags:

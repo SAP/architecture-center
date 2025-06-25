@@ -6,21 +6,14 @@ sidebar_custom_props:
   category_index: []
 title: Control Plane for Orchestration
 description: >-
-  Multi-Region Manager (MRM) is an open-source CAP-based application that
-  orchestrates multi-region processes like replication topology, failover
-  management, load balancer control, and monitoring. It enables seamless
-  failover between regions, ensuring business continuity and service
-  availability.
+  Ensure business continuity with Multi-Region Manager (MRM), orchestrating
+  failover, replication, and load balancing across regions.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
+  - application reliability
+  - ha dr architecture
   - business continuity
-  - failover
+  - failover strategies
 sidebar_label: Multi-region Control Plane
 image: img/ac-soc-med.png
 tags:
