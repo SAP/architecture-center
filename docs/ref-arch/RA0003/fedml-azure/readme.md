@@ -69,8 +69,8 @@ Models trained in Azure ML can also be optionally deployed in SAP BTP Kyma for i
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
-- [Federated Machine Learning using SAP Datasphere and Azure Machine Learning 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-azure-machine-learning/ba-p/13527824)
+- [SAP Samples | GitHub | Fedml-Azure](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
+
 
 ## Related Missions
 
