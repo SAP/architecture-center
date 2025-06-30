@@ -36,26 +36,9 @@ A well-structured CSS approach is essential for maintainable, scalable, and perf
 
 These guidelines help us deliver a robust user experience and make ongoing development easier. As a contributor of reference architecture content, you might not need to worry about this at all. Markdown is styled automatically and we handle the majority of this customization at the site level. Our development team uses these guidelines to provide the rich content on our [main page](https://architecture.learning.sap.com). If you ever contribute a custom component or other site-level modification to our project, the following sections are for you!
 
-## Structure
-
--   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and are ideal for typography, color variables, layout resets, and Infima/Docusaurus overrides.
--   **CSS Modules**: Used for component or page-level styles (e.g., `src/sections/index.module.css`, `src/theme/DocCard/styles.module.css`). These provide local scoping and prevent style conflicts.
--   **Inline styles**: Used only for one-off, component-specific tweaks that do not apply elsewhere. Avoid for reusable or layout-related styles.
--   **Media queries**: Always placed at the bottom of each CSS or CSS module file, grouped together for clarity and maintainability.
-
-## Best Practices
-
--   **Prefer CSS Modules** for component/page-specific styles. This keeps styles modular and avoids global namespace pollution.
--   **Use global styles** for variables, typography, and layout primitives shared across the site.
--   **Minimize inline styles**; use only for unique, non-reusable tweaks.
--   **Keep media queries together** at the end of each file to simplify responsive maintenance.
--   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
--   **Test changes across breakpoints** to ensure responsive behavior.
--   **Avoid global overrides** unless necessary for theming or framework integration.
-
 ## Why Responsive Design?
 
-Responsive design ensures your site looks and works well on all devices and screen sizes. This is achieved using flexible layouts, relative units, and media queries. See [MDN Responsive Design](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design) for a comprehensive guide.
+Responsive design ensures our site looks and works well on all devices and screen sizes. This is achieved using flexible layouts, relative units, and media queries. See [MDN Responsive Design](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design) for a comprehensive guide.
 
 **Minimizing Cumulative Layout Shift (CLS)**
 
@@ -82,7 +65,6 @@ LCP is a key web performance metric that measures when the largest content eleme
     width={1440}
     height={424}
     alt="SAP Architecture Center Banner"
-    style={{ width: '100%', height: 'auto', objectFit: 'cover', display: 'block' }}
     loading="eager"
     fetchPriority="high"
 />
@@ -90,6 +72,23 @@ LCP is a key web performance metric that measures when the largest content eleme
 
 -   Always specify `width` and `height` to reserve space and reduce layout shift.
 -   Use `loading="eager"` and `fetchPriority="high"` for above-the-fold images.
+
+## Structure
+
+-   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and are ideal for typography, color variables, layout resets, and Infima/Docusaurus overrides.
+-   **CSS Modules**: Used for component or page-level styles (e.g., `src/sections/index.module.css`, `src/theme/DocCard/styles.module.css`). These provide local scoping and prevent style conflicts.
+-   **Inline styles**: Used only for one-off, component-specific tweaks that do not apply elsewhere. Avoid for reusable or layout-related styles.
+-   **Media queries**: Always placed at the bottom of each CSS or CSS module file, grouped together for clarity and maintainability.
+
+## Best Practices
+
+-   **Prefer CSS Modules** for component/page-specific styles. This keeps styles modular and avoids global namespace pollution.
+-   **Use global styles** for variables, typography, and layout primitives shared across the site.
+-   **Minimize inline styles**; use only for unique, non-reusable tweaks.
+-   **Keep media queries together** at the end of each file to simplify responsive maintenance.
+-   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
+-   **Test changes across breakpoints** to ensure responsive behavior.
+-   **Avoid global overrides** unless necessary for theming or framework integration.
 
 ## Examples
 
