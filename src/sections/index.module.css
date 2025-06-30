@@ -1,6 +1,7 @@
 .titleStyle {
     padding-bottom: 5px;
-    padding-left: clamp(8px, 3vw, 60px);
+    padding-left: clamp(8px, 1vw, 60px);
+    font-size: var(--sapFontHeader3Size);
 }
 
 .carouselContainer .slick-track {
@@ -68,7 +69,6 @@
 
 /* Tablet styles */
 @media (max-width: 996px) {
-
     .carouselContainer .slick-slide {
         display: flex !important;
         justify-content: center;
@@ -77,7 +77,7 @@
         height: 100%;
     }
 
-    .carouselContainer .slick-slide>div {
+    .carouselContainer .slick-slide > div {
         display: flex;
         justify-content: center;
         align-items: stretch;
@@ -111,7 +111,6 @@
 
 /* Mobile phone styles */
 @media (max-width: 600px) {
-
     .cardContainer {
         min-height: 340px;
         padding: 0 2px;

@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import DocCard from '@theme/DocCard';
 // @ts-ignore
 import exploreSidebar from '../data/exploreArch.json';
-import { Text, Title, Button, FlexBox } from '@ui5/webcomponents-react';
+import { Title, Button, FlexBox } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/navigation-left-arrow';
 import '@ui5/webcomponents-icons/dist/navigation-right-arrow';
 import Link from '@docusaurus/Link';
@@ -39,7 +39,7 @@ export default function ExploreAllArchitecturesSection() {
     return (
         <section className={styles.sectionContainer}>
             <div className={styles.innerContainer}>
-                <Title level="H3" className={styles.titleStyle}>
+                <Title level="H3" size="H3" className={styles.titleStyle}>
                     Explore the latest Reference Architectures
                 </Title>
                 <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>
