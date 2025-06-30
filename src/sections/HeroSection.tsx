@@ -30,14 +30,7 @@ export default function HeroSection(): JSX.Element {
 
     return (
         <section>
-            <div
-                className="hero_banner"
-                style={{
-                    width: '100%',
-                    overflow: 'hidden',
-                    position: 'relative',
-                }}
-            >
+            <div className="hero_banner">
                 <img
                     src={fallbackSrc}
                     srcSet={srcSet}
@@ -45,30 +38,10 @@ export default function HeroSection(): JSX.Element {
                     width={1440}
                     height={424}
                     alt="SAP Architecture Center Banner"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'cover',
-                        display: 'block',
-                    }}
                     loading="eager"
                     fetchPriority="high"
                 />
-                <div
-                    className="hero_banner__overlay"
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 1,
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                        justifyContent: 'center',
-                        padding: '0',
-                    }}
-                >
+                <div className="hero_banner__overlay">
                     <div className="welcome">
                         <h1 className="header_title">
                             <b className="header_text">SAP Architecture Center</b>

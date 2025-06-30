@@ -45,11 +45,13 @@ export default function ExploreAllArchitecturesSection() {
                 <FlexBox justifyContent="End" alignItems="Center" className={styles.headerRow}>
                     <FlexBox alignItems="Center" className={styles.headerControls}>
                         <Button
+                            accessibleName="Previous slide"
                             design="Transparent"
                             icon="navigation-left-arrow"
                             onClick={() => sliderRef.current?.slickPrev()}
                         />
                         <Button
+                            accessibleName="Next slide"
                             design="Transparent"
                             icon="navigation-right-arrow"
                             onClick={() => sliderRef.current?.slickNext()}
