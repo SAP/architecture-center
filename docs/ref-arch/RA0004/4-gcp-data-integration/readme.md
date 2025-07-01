@@ -69,13 +69,13 @@ Google BigQuery is a managed, serverless cloud data warehouse product by Google,
 
 Data from Google BigQuery can be **federated** live into SAP Datasphere remote models using SAP Datasphere's data federation architecture. This approach allows for real-time data access without the need for data duplication. By federating data, organizations can create unified semantic models that combine Google BigQuery data with SAP business data. These models enable efficient and real-time analytics using SAP Analytics Cloud dashboards, providing comprehensive insights and facilitating data-driven decision-making.
 
-For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the blog: [Integrate Google BigQuery and SAP Datasphere](https://community.sap.com/t5/technology-blogs-by-sap/data-federation-between-sap-data-warehouse-cloud-dwc-and-google-bigquery/ba-p/13465470).
+For detailed step-by-step information on federating data live from Google BigQuery and to try out the integration, visit the github: [Integrate Google BigQuery and SAP Datasphere](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/GCP/bigquery-data-federation.md).
 
 ### Replicating Data to Google BigQuery
 
 Data from SAP source systems such as S/4HANA and BW/4HANA can be directly **replicated** out to Google BigQuery using SAP Datasphere's *Replication Flows*. This replication ensures that data is consistently and accurately transferred between SAP systems and Google BigQuery, maintaining data integrity and availability across platforms. Replication Flows support various data transfer scenarios, including full and incremental loads, to accommodate different business needs and data volumes.
 
-For detailed step-by-step information on replicating data out to Google BigQuery using Replication Flows, visit the blog: [Replication Flows - SAP Datasphere and Google BigQuery](https://community.sap.com/t5/technology-blogs-by-sap/replication-flows-sap-datasphere-and-google-big-query/ba-p/13581256).
+For detailed step-by-step information on replicating data out to Google BigQuery using Replication Flows, visit the github: [Replication Flows - SAP Datasphere and Google BigQuery](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/GCP/bigquery-data-replication.md).
 
 By leveraging these integration modes, organizations can harness the power of both SAP Datasphere and Google BigQuery, enabling advanced analytics and comprehensive data management strategies.
 

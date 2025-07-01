@@ -103,4 +103,4 @@ Comparing several cuML algorithms on GPUs vs their CPU equivalents, the followin
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/NVIDIA-RAPIDS)
+- [SAP Samples | GitHub | Fedml-dsp with NVIDIA GPU](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/NVIDIA-RAPIDS)

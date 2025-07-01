@@ -68,8 +68,7 @@ Models trained in Google Vertex AI can also be optionally deployed in SAP BTP Ky
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/GCP)
-- [Federated Machine Learning using SAP Datasphere & Google Cloud Vertex AI 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-google-cloud-vertex-ai-2-0/ba-p/13527660)
+- [SAP Samples | GitHub | Fedml-gcp](https://github.com/SAP-samples/datasphere-fedml/tree/main/GCP)
 
 ## Related Missions
 

@@ -140,3 +140,6 @@ Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** 
 
 4. **Access the replicated data in OneLake:**
     -Data replicated into Azure Data Lake Storage Gen2 can be accesssed vitually in OneLake via shortcuts or can be moved into OneLake via the Data Flow workflows.
+
+
+For detailed step by step information and to try out the integration, visit the github : [Integrate MS Fabric with SAP Datasphere](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/Azure/fabric-integration.md)

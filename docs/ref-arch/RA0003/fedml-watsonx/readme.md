@@ -61,6 +61,6 @@ FedML's Connectivity Core component supports reading data from semantic models o
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/IBM-Watson-Studio)
+- [SAP Samples | GitHub | fedml-dsp with IBM Watson studio](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/IBM-Watson-Studio)
 
 - [External Blog - Integration of SAP FedML Library with IBM watsonx ](https://medium.com/towards-generative-ai/simplify-your-end-to-end-ai-workflow-with-sap-fedml-d0f54f99d787)
