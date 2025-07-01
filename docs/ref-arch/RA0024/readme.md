@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index:
     - ai
     - appdev
-title: Create Custom Skills and AI Agents with Joule Studio
+title: Extend Joule with Joule Studio
 description: >-
   Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule
   Skills and AI Agents for seamless integration across SAP and non-SAP systems,
