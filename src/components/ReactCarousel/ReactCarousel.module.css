@@ -1,14 +1,4 @@
-.titleStyle {
-    padding-bottom: 5px;
-    padding-left: clamp(8px, 1vw, 60px);
-    font-size: var(--sapFontHeader3Size);
-}
-
-.carouselContainer .slick-track {
-    display: flex !important;
-    justify-content: center;
-}
-
+/* Parent for ReactCarousel component */
 .sectionContainer {
     width: 100%;
     background-color: #eaf3fc;
@@ -19,6 +9,7 @@
     min-height: 380px;
 }
 
+/* Inner container for content alignment */
 .innerContainer {
     width: 100%;
     max-width: 1440px;
@@ -30,6 +21,32 @@
     align-items: stretch;
 }
 
+.headerRow {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 36px;
+    min-width: 260px;
+    flex-wrap: nowrap;
+    gap: 10px;
+    /* Optional: add spacing between controls */
+}
+
+.titleStyle {
+    padding-bottom: 5px;
+    padding-left: clamp(8px, 1vw, 60px);
+    font-size: var(--sapFontHeader3Size);
+}
+
+/* Controls container (arrows, browse button) */
+.headerControls {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 180px;
+    gap: 10px;
+}
+/* Carousel container */
 .carouselContainer {
     width: 100%;
     margin: 0 auto;
@@ -37,6 +54,13 @@
     padding-top: 10px;
 }
 
+/* Center the slick track */
+.carouselContainer .slick-track {
+    display: flex !important;
+    justify-content: center;
+}
+
+/* Card container with minimum space reserved */
 .cardContainer {
     padding: 0 12px;
     box-sizing: border-box;
@@ -45,30 +69,32 @@
     width: 100%;
 }
 
-.headerRow {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    min-height: 36px;
-    min-width: 260px;
-    /* Adjust as needed for your controls */
-    flex-wrap: nowrap;
-    /* Prevent wrapping */
-    gap: 10px;
-    /* Optional: add spacing between controls */
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+.carouselContainer::-webkit-scrollbar {
+    display: none;
 }
 
-.headerControls {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    min-width: 180px;
-    /* Adjust as needed for your controls */
-    gap: 10px;
+/* Dark mode */
+[data-theme='dark'] .sectionContainer {
+    background-color: #000;
 }
 
 /* Tablet styles */
 @media (max-width: 996px) {
+
+     .sectionContainer {
+        padding: 24px 0;
+        min-height: 340px;
+    }
+
+    .innerContainer {
+        padding: 0 8px;
+    }
+
+    .headerRow {
+        padding-right: 18px;
+    }
+
     .carouselContainer .slick-slide {
         display: flex !important;
         justify-content: center;
@@ -94,40 +120,18 @@
         display: flex !important;
         flex-direction: column;
     }
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
 
     .sectionContainer {
         padding: 24px 0;
         min-height: 340px;
     }
 
-    .innerContainer {
-        padding: 0 8px;
-    }
-
-    .headerRow {
-        padding-right: 18px;
-    }
-}
-
-/* Mobile phone styles */
-@media (max-width: 600px) {
     .cardContainer {
         min-height: 340px;
         padding: 0 2px;
     }
-
-    .sectionContainer {
-        padding: 24px 0;
-        min-height: 340px;
-    }
-}
-
-/* Hide scrollbar for Webkit (Chrome, Safari) */
-div::-webkit-scrollbar {
-    display: none;
-}
-
-/* Dark mode */
-[data-theme='dark'] .sectionContainer {
-    background-color: #000;
 }
