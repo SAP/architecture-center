@@ -46,18 +46,25 @@
     min-width: 180px;
     gap: 10px;
 }
+
 /* Carousel container */
 .carouselContainer {
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
     padding-top: 10px;
+    max-width: 1440px;
+    height: auto !important;
 }
 
-/* Center the slick track */
-.carouselContainer .slick-track {
-    display: flex !important;
-    justify-content: center;
+.carouselContainer .slick-list,
+.carouselContainer .slick-slider,
+.carouselContainer .slick-track,
+.carouselContainer .slick-slide,
+.carouselContainer .slick-slide>div {
+    height: auto !important;
+    min-height: unset !important;
+    max-height: none !important;
 }
 
 /* Card container with minimum space reserved */
@@ -67,6 +74,26 @@
     min-height: 320px;
     max-width: 430px;
     width: 100%;
+}
+
+/* Updated selector for grid card container */
+.gridCardContainer {
+    padding: 0 12px;
+    box-sizing: border-box;
+    min-height: 320px;
+    max-width: none;
+    width: 100%;
+}
+
+.gridContainer {
+    height: auto;
+}
+
+.gridContainer,
+.filters,
+.filterRow {
+    min-width: 0;
+    overflow: hidden;
 }
 
 /* Hide scrollbar for Webkit (Chrome, Safari) */
@@ -79,10 +106,19 @@
     background-color: #000;
 }
 
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 16px;
+    width: 100%;
+    height: auto;
+}
+
 /* Tablet styles */
 @media (max-width: 996px) {
 
-     .sectionContainer {
+    .sectionContainer {
         padding: 24px 0;
         min-height: 340px;
     }
@@ -95,16 +131,9 @@
         padding-right: 18px;
     }
 
-    .carouselContainer .slick-slide {
+    .carouselContainer .slick-slide,
+    .carouselContainer .slick-slide>div {
         display: flex !important;
-        justify-content: center;
-        align-items: stretch;
-        width: 100%;
-        height: 100%;
-    }
-
-    .carouselContainer .slick-slide > div {
-        display: flex;
         justify-content: center;
         align-items: stretch;
         width: 100%;
@@ -114,6 +143,19 @@
     .cardContainer {
         max-width: 600px;
         width: 100%;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .gridContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .gridCardContainer {
+        max-width: 600px;
         margin: 0 auto;
         padding-left: 0;
         padding-right: 0;
@@ -131,6 +173,11 @@
     }
 
     .cardContainer {
+        min-height: 340px;
+        padding: 0 2px;
+    }
+
+    .gridCardContainer {
         min-height: 340px;
         padding: 0 2px;
     }

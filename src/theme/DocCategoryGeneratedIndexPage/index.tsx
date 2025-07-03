@@ -1,22 +1,26 @@
-import React, { useState, useEffect, useMemo, useCallback, JSX } from 'react';
-import Select, { MultiValue, StylesConfig } from 'react-select';
-import { Title } from '@ui5/webcomponents-react';
+import React, { useState, useEffect, useRef, useMemo, useCallback, JSX } from 'react';
+import { MultiValue, StylesConfig } from 'react-select';
 import { PageMetadata } from '@docusaurus/theme-common';
 import { useCurrentSidebarCategory } from '@docusaurus/plugin-content-docs/client';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import DocCardList from '@theme/DocCardList';
-import DocPaginator from '@theme/DocPaginator';
+// @ts-ignore
 import DocVersionBanner from '@theme/DocVersionBanner';
+// @ts-ignore
 import DocVersionBadge from '@theme/DocVersionBadge';
-import DocBreadcrumbs from '@theme/DocBreadcrumbs';
+// @ts-ignore
+import DocCard from '@theme/DocCard';
+// @ts-ignore
 import Heading from '@theme/Heading';
+import DocBreadcrumbs from '@theme/DocBreadcrumbs';
 import type { Props } from '@theme/DocCategoryGeneratedIndexPage';
 import { useColorMode } from '@docusaurus/theme-common';
+import ReactCarousel from '@site/src/components/ReactCarousel';
+import FilterBar from '@site/src/components/FilterBar';
 
 import jsonSchema from '@site/src/_scripts/_generatedIndexCategories.json';
 
 import styles from './styles.module.css';
-import { IoMdRefresh } from 'react-icons/io';
+import carouselStyles from '@site/src/components/ReactCarousel/ReactCarousel.module.css';
 
 declare global {
     namespace JSX {
@@ -76,6 +80,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
 
     const category = useCurrentSidebarCategory();
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
+    const carouselRef = useRef<any>(null);
 
     const [isHydrated, setIsHydrated] = useState(false);
     const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>(
@@ -148,6 +153,22 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         setSelectedTechDomains(newValue as { value: string; label: string }[]);
     }, []);
 
+    function chunkItems(items, chunkSize) {
+        const chunks = [];
+        for (let i = 0; i < items.length; i += chunkSize) {
+            chunks.push(items.slice(i, i + chunkSize));
+        }
+        return chunks;
+    }
+    const groupedItems = chunkItems(filteredItems, 3); // 3 = 3x1 row
+
+    useEffect(() => {
+         if (carouselRef.current && typeof carouselRef.current.slickGoTo === 'function') {
+            carouselRef.current.slickGoTo(0, true); // Go to first slide, don't animate
+        }
+        window.dispatchEvent(new Event('resize'));
+    }, [groupedItems.length, categoryGeneratedIndex.title]);
+
     return (
         <div>
             <DocVersionBanner />
@@ -163,51 +184,57 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                 </header>
 
                 <div className={styles.contentWrapper}>
-                    {isExplorePage &&
-                        isHydrated && ( // Prevent hydration mismatch by waiting for client-side hydration
-                            <aside className={styles.filters}>
-                                <div className={styles.filterRow}>
-                                    <div className={styles.filterGroup}>
-                                        <Title style={{ marginBottom: 6 }}>Technology Domains</Title>
-                                        <Select
-                                            isMulti
-                                            options={techDomains}
-                                            value={selectedTechDomains}
-                                            onChange={handleTechDomainsChange}
-                                            placeholder="Select Technology Domains..."
-                                            styles={selectStyles}
-                                        />
-                                    </div>
-
-                                    <div className={styles.filterGroup}>
-                                        <Title style={{ marginBottom: 6 }}>Technology Partners</Title>
-                                        <Select
-                                            isMulti
-                                            options={partners}
-                                            value={selectedPartners}
-                                            onChange={handlePartnersChange}
-                                            placeholder="Select Technology Partners..."
-                                            styles={selectStyles}
-                                        />
-                                    </div>
-
-                                    <div className={styles.resetIconWrapper}>
-                                        <IoMdRefresh
-                                            className={`${styles.resetIcon} ${isResetEnabled ? '' : styles.resetDisabled}`}
-                                            data-tip="Reset Filters"
-                                            onClick={isResetEnabled ? resetFilters : undefined}
-                                            style={{ cursor: isResetEnabled ? 'pointer' : 'not-allowed' }}
-                                        />
-                                    </div>
-                                </div>
-                            </aside>
-                        )}
+                    {isExplorePage && isHydrated && selectStyles && (
+                        <FilterBar
+                            techDomains={techDomains}
+                            partners={partners}
+                            selectedTechDomains={selectedTechDomains}
+                            selectedPartners={selectedPartners}
+                            onTechDomainsChange={handleTechDomainsChange}
+                            onPartnersChange={handlePartnersChange}
+                            resetFilters={resetFilters}
+                            isResetEnabled={isResetEnabled}
+                            selectStyles={selectStyles}
+                        />
+                    )}
 
                     <main className={styles.mainContent} style={{ width: '100%' }}>
-                        <DocCardList items={filteredItems} className={styles.list} />
-                        <DocPaginator
-                            previous={categoryGeneratedIndex.navigation.previous}
-                            next={categoryGeneratedIndex.navigation.next}
+                        <ReactCarousel
+                            ref={carouselRef}
+                            items={groupedItems}
+                            renderItem={(group, idx) => {
+                                const isLastGroup = idx === groupedItems.length - 1;
+                                const paddedGroup = isLastGroup
+                                    ? [...group, ...Array(3 - group.length).fill(null)]
+                                    : group;
+                                return (
+                                    <div className={carouselStyles.gridContainer}>
+                                        {paddedGroup.map((item, i) => (
+                                            <div key={i} className={carouselStyles.gridCardContainer}>
+                                                {item ? <DocCard item={item} /> : null}
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            }}
+                            arrowOrientation="V"
+                            showHeader={true}
+                            vertical={true}
+                            verticalSwiping={true}
+                            className={carouselStyles.carouselContainer}
+                            slidesToShow={Math.min(3, groupedItems.length)}
+                            slidesToScroll={1}
+                            infinite={true}
+                            arrows={false}
+                            responsive={[
+                                {
+                                    breakpoint: 996,
+                                    settings: {
+                                        slidesToShow: 1,
+                                        slidesToScroll: 1,
+                                    },
+                                },
+                            ]}
                         />
                     </main>
                 </div>
