@@ -161,10 +161,11 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         return chunks;
     }
     const groupedItems = chunkItems(filteredItems, 3); // 3 = 3x1 row
+    const slidesToShow = Math.min(3, groupedItems.length);
 
     useEffect(() => {
-         if (carouselRef.current && typeof carouselRef.current.slickGoTo === 'function') {
-            carouselRef.current.slickGoTo(0, true); // Go to first slide, don't animate
+        if (carouselRef.current && typeof carouselRef.current.slickGoTo === 'function') {
+            carouselRef.current.slickGoTo(0, true);
         }
         window.dispatchEvent(new Event('resize'));
     }, [groupedItems.length, categoryGeneratedIndex.title]);
@@ -218,11 +219,10 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 );
                             }}
                             arrowOrientation="V"
-                            showHeader={true}
                             vertical={true}
                             verticalSwiping={true}
                             className={carouselStyles.carouselContainer}
-                            slidesToShow={Math.min(3, groupedItems.length)}
+                            slidesToShow={slidesToShow}
                             slidesToScroll={1}
                             infinite={true}
                             arrows={false}

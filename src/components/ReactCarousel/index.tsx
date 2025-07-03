@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useRef, useImperativeHandle, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -33,12 +33,20 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
             showHeader = true,
             showLink = null,
             arrowOrientation = 'H',
+            slidesToShow = 3,
             ...settings
         },
         ref
     ) => {
         const sliderRef = useRef<Slider>(null);
         useImperativeHandle(ref, () => sliderRef.current as Slider);
+
+        const [currentSlide, setCurrentSlide] = useState(0);
+        const totalSlides = items.length;
+        const handleAfterChange = (index: number) => setCurrentSlide(index);
+        const atStart = currentSlide === 0;
+        const atEnd = currentSlide >= totalSlides - slidesToShow;
+
         // Choose icons based on orientation
         const prevIcon = arrowOrientation === 'V' ? 'navigation-up-arrow' : 'navigation-left-arrow';
         const nextIcon = arrowOrientation === 'V' ? 'navigation-down-arrow' : 'navigation-right-arrow';
@@ -53,6 +61,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                                     accessibleName="Previous slide"
                                     design="Transparent"
                                     icon={prevIcon}
+                                    disabled={atStart}
                                     onClick={() => {
                                         if (sliderRef.current && typeof sliderRef.current.slickPrev === 'function') {
                                             sliderRef.current.slickPrev();
@@ -67,6 +76,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                                     accessibleName="Next slide"
                                     design="Transparent"
                                     icon={nextIcon}
+                                    disabled={atEnd}
                                     onClick={() => {
                                         if (sliderRef.current && typeof sliderRef.current.slickNext === 'function') {
                                             sliderRef.current.slickNext();
@@ -83,7 +93,12 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                     )}
                     {title && <div className={styles.titleStyle}>{title}</div>}
                     <div className={className || styles.carouselContainer}>
-                        <Slider ref={sliderRef} {...settings}>
+                        <Slider
+                            ref={sliderRef}
+                            {...settings}
+                            slidesToShow={slidesToShow}
+                            afterChange={handleAfterChange}
+                        >
                             {items.map((item, idx) => (
                                 <React.Fragment key={idx}>{renderItem(item, idx)}</React.Fragment>
                             ))}
