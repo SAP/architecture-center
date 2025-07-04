@@ -23,8 +23,12 @@ last_update:
 ---
 
 
-Important information regarding the privacy Statement:
+## Important information regarding the Privacy Statement
 
-The SAP Architecture Center (this site) is hosted by [GitHub Pages](https://pages.github.com/) and doesn't process any personal data by itself.
+:::info Hosting on GitHub Pages
 
-Please see the [GitHub Privacy Statement](https://docs.github.com/en/github/site-policy/github-privacy-statement) for any information how GitHub processes your personal data.
+The **SAP Architecture Center** (this site) is hosted by **[GitHub Pages](https://pages.github.com/)** and doesn't process any personal data by itself.
+
+Please see the **[GitHub Privacy Statement](https://docs.github.com/en/github/site-policy/github-privacy-statement)** for any information how GitHub processes your personal data.
+
+:::
