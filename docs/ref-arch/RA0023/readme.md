@@ -87,7 +87,6 @@ Below are examples of applying the reference architecture to implement agile Dev
 
 Flexibility options complement the opinionated low-entry-barrier approach outlined above, catering to customers with existing processes or specific requirements. Alternative approaches and deviations from the recommended setup include:
 
--   For greater flexibility or existing CI/CD infrastructure (e.g., non-SAP scenarios), consider the open-source offering [Project 'Piper'](https://www.project-piper.io/). It provides pipeline templates, pipeline step libraries, end-to-end scenarios, and Docker images for SAP-specific use cases. While it offers community support only, it is suitable for partners and customers seeking full flexibility and already equipped with expertise or infrastructure.
 -   Instead of using SAP-provided testing frameworks in CI/CD pipelines, you can integrate other frameworks by adding additional commands to the pipelines. Learn more in [this blog post | SAP Community](https://community.sap.com/t5/technology-blogs-by-sap/next-level-of-flexibility-additional-commands-in-ci-cd-pipelines/ba-p/13567178).
 -   For the development environment, consider alternatives like Eclipse, depending on the specific SAP BTP use case and environment.
 -   A single pipeline covering both feature and release stages could be used instead of separate pipelines. However, separating pipelines helps decouple development from delivery, especially for large teams or projects.
