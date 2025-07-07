@@ -56,3 +56,17 @@
         gap: 0.5rem;
     }
 }
+
+/* Small mobile styles (430px breakpoint) */
+@media (max-width: 430px) {
+    .contentWrapper,
+    .mainContent {
+        max-width: 100vw;
+        padding: 0 1px;
+        gap: 0.25rem;
+    }
+
+    .title {
+        --ifm-h1-font-size: 2.5rem; /* Slightly smaller title for very small screens */
+    }
+}

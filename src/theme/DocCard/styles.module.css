@@ -115,8 +115,23 @@ html[data-theme='dark'] .tag:hover {
   padding-bottom: 2px;
 }
 
+/* Tablet styles (996px breakpoint) */
 @media (max-width: 996px) {
   .docCard {
     height: 340px;
+  }
+}
+
+/* Mobile styles (600px breakpoint) */
+@media (max-width: 600px) {
+  .docCard {
+    height: 340px;
+  }
+}
+
+/* Small mobile styles (430px breakpoint) */
+@media (max-width: 430px) {
+  .docCard {
+    height: 360px; /* Slightly taller for better text readability */
   }
 }

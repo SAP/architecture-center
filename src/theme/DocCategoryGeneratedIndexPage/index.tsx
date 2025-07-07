@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, JSX } from 'react';
+import { useWindowSize } from '@docusaurus/theme-common';
 import { MultiValue, StylesConfig } from 'react-select';
 import { PageMetadata } from '@docusaurus/theme-common';
 import { useCurrentSidebarCategory } from '@docusaurus/plugin-content-docs/client';
@@ -77,6 +78,7 @@ function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; lab
 
 function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props): JSX.Element {
     const { colorMode } = useColorMode();
+    const windowSize = useWindowSize();
 
     const category = useCurrentSidebarCategory();
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
@@ -153,6 +155,16 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         setSelectedTechDomains(newValue as { value: string; label: string }[]);
     }, []);
 
+    // Responsive chunking logic
+    const getChunkSize = useMemo(() => {
+        if (typeof window !== 'undefined') {
+            if (window.innerWidth <= 996) {
+                return 1; // 1x1 grid for tablet and mobile (996px and below)
+            }
+        }
+        return 3; // 3x1 grid for desktop (above 996px)
+    }, [windowSize]);
+
     function chunkItems(items, chunkSize) {
         const chunks = [];
         for (let i = 0; i < items.length; i += chunkSize) {
@@ -160,8 +172,12 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         }
         return chunks;
     }
-    const groupedItems = chunkItems(filteredItems, 3); // 3 = 3x1 row
-    const slidesToShow = Math.min(3, groupedItems.length);
+
+    const groupedItems = useMemo(() => {
+        return chunkItems(filteredItems, getChunkSize);
+    }, [filteredItems, getChunkSize]);
+
+    const slidesToShow = Math.min(getChunkSize === 1 ? 3 : 3, groupedItems.length);
 
     useEffect(() => {
         if (carouselRef.current && typeof carouselRef.current.slickGoTo === 'function') {
@@ -204,8 +220,9 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                             ref={carouselRef}
                             items={groupedItems}
                             renderItem={(group, idx) => {
+                                // For mobile (1x1), no padding needed. For desktop (3x1), pad incomplete groups
                                 const isLastGroup = idx === groupedItems.length - 1;
-                                const paddedGroup = isLastGroup
+                                const paddedGroup = getChunkSize === 3 && isLastGroup
                                     ? [...group, ...Array(3 - group.length).fill(null)]
                                     : group;
                                 return (
@@ -230,7 +247,21 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 {
                                     breakpoint: 996,
                                     settings: {
-                                        slidesToShow: 1,
+                                        slidesToShow: 3,
+                                        slidesToScroll: 1,
+                                    },
+                                },
+                                {
+                                    breakpoint: 600,
+                                    settings: {
+                                        slidesToShow: 3,
+                                        slidesToScroll: 1,
+                                    },
+                                },
+                                {
+                                    breakpoint: 430,
+                                    settings: {
+                                        slidesToShow: 3,
                                         slidesToScroll: 1,
                                     },
                                 },
