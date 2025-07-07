@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react';
+// @ts-ignore
 import DocCard from '@theme/DocCard';
 // @ts-ignore
 import exploreSidebar from '../data/exploreArch.json';
@@ -21,13 +22,22 @@ export default function ExploreAllArchitecturesSection() {
         return 3;
     };
 
-    const [cardsPerGroup, setCardsPerGroup] = useState(getCardsPerGroup());
+    const [cardsPerGroup, setCardsPerGroup] = useState(3); // SSR-safe default
     const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
+    const [isHydrated, setIsHydrated] = useState(false);
 
     const carouselRef = useRef<HTMLDivElement>(null);
 
+    // Set initial cards per group after hydration
+    useEffect(() => {
+        setCardsPerGroup(getCardsPerGroup());
+        setIsHydrated(true);
+    }, []);
+
     // Recalculate cards per group on resize
     useEffect(() => {
+        if (!isHydrated) return; // Only run after hydration
+
         const handleResize = () => {
             const newGroupSize = getCardsPerGroup();
             setCardsPerGroup(newGroupSize);
@@ -36,7 +46,7 @@ export default function ExploreAllArchitecturesSection() {
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [isHydrated]);
 
     // Group items into chunks
     const groupedItems = useMemo(() => {
@@ -98,8 +108,8 @@ export default function ExploreAllArchitecturesSection() {
                 <div ref={carouselRef} className={styles.carouselContainer}>
                     {groupedItems.map((group, index) => (
                         <div key={index} className={styles.cardGroup}>
-                            {group.map((item) => (
-                                <div className={styles.cardContainer}>
+                            {group.map((item, itemIndex) => (
+                                <div key={item.href || itemIndex} className={styles.cardContainer}>
                                     <DocCard item={item} />
                                 </div>
                             ))}
