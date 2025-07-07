@@ -297,8 +297,8 @@ const config: Config = {
                     title: 'Legal',
                     items: [
                         {
-                            label: 'Privacy',
-                            href: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
+                            label: 'Privacy Statement',
+                            href: 'https://architecture.learning.sap.com/community/privacy',
                         },
                         {
                             label: 'Terms of Use',
