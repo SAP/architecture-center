@@ -165,6 +165,7 @@
         padding: 0 8px; /* Add horizontal padding for mobile cards */
         display: flex !important;
         flex-direction: column;
+        margin-bottom: 16px; /* Add vertical spacing between cards on mobile */
     }
 }
 
@@ -183,6 +184,7 @@
     .gridCardContainer {
         min-height: 340px;
         padding: 0 6px; /* Consistent padding for mobile cards */
+        margin-bottom: 16px; /* Add vertical spacing between cards on mobile */
     }
 
     .gridContainer {
@@ -209,6 +211,7 @@
     .gridCardContainer {
         min-height: 360px;
         padding: 0 4px; /* Minimal but visible padding for very small screens */
+        margin-bottom: 12px; /* Slightly smaller spacing for very small screens */
     }
 
     .gridContainer {
