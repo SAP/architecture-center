@@ -54,19 +54,11 @@ export default function HeroSection(): JSX.Element {
                             </p>
                         </div>
                         <Link to="/docs/exploreallrefarch">
-                            <Button style={{ width: 150 }}>Explore Now</Button>
+                            <Button className="standard-button-width">Explore Now</Button>
                         </Link>
                     </div>
                 </div>
             </div>
         </section>
-    );
-}
-
-export function HighlightText(props) {
-    return (
-        <strong className="bolder relative z-10 box-content before:absolute before:bottom-0 before:z-[-1] before:h-3 before:w-full before:bg-[#95DAFF50] before:duration-300 before:content-[''] hover:before:w-0">
-            {props.children}
-        </strong>
     );
 }

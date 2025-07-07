@@ -4,6 +4,7 @@ import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { useColorMode } from '@docusaurus/theme-common';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import HighlightText from '../components/HighlightText';
 
 export default function CommunitySection(): JSX.Element {
     const { colorMode } = useColorMode();
@@ -69,7 +70,7 @@ export default function CommunitySection(): JSX.Element {
                             <br />
                         </p>
                         <Link to="/community/intro">
-                            <Button design="Emphasized" style={{ width: 150 }}>
+                            <Button design="Emphasized" className="standard-button-width">
                                 Let's team up!
                             </Button>
                         </Link>
@@ -78,12 +79,5 @@ export default function CommunitySection(): JSX.Element {
             </div>
             <br /> <br />
         </section>
-    );
-}
-export function HighlightText(props) {
-    return (
-        <strong className="bolder relative z-10 box-content before:absolute before:bottom-0 before:z-[-1] before:h-3 before:w-full before:bg-[#95DAFF50] before:duration-300 before:content-[''] hover:before:w-0">
-            {props.children}
-        </strong>
     );
 }

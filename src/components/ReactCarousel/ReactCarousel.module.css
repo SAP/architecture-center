@@ -7,15 +7,15 @@
     flex-direction: column;
     align-items: center;
     min-height: 380px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-sm);
 }
 
 /* Inner container for content alignment */
 .innerContainer {
     width: 100%;
-    max-width: 1440px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 var(--container-padding);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -29,13 +29,12 @@
     min-height: 36px;
     min-width: 260px;
     flex-wrap: nowrap;
-    gap: 10px;
-    /* Optional: add spacing between controls */
+    gap: var(--spacing-sm);
 }
 
 .titleStyle {
-    padding-bottom: 5px;
-    padding-left: clamp(8px, 1vw, 60px);
+    padding-bottom: var(--spacing-xs);
+    padding-left: clamp(var(--spacing-sm), 1vw, 60px);
     font-size: var(--sapFontHeader3Size);
 }
 
@@ -45,7 +44,7 @@
     align-items: center;
     flex-wrap: nowrap;
     min-width: 180px;
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 /* Carousel container */
@@ -74,16 +73,16 @@
 
 /* Card container with minimum space reserved */
 .cardContainer {
-    padding: 0 12px;
+    padding: 0 var(--spacing-md);
     box-sizing: border-box;
     min-height: 320px;
-    max-width: 430px;
+    max-width: var(--card-max-width);
     width: 100%;
 }
 
 /* Updated selector for grid card container */
 .gridCardContainer {
-    padding: 0 12px;
+    padding: 0 var(--spacing-md);
     box-sizing: border-box;
     min-height: 320px;
     max-width: none;
