@@ -260,6 +260,8 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
+    contain: layout style; /* Prevent layout recalculations & style invalidation */
+    content-visibility: auto; /* Browser optimization for off-screen content */
 }
 
 .hero_banner img {
@@ -904,7 +906,7 @@ html[data-footer='false'] .footer {
         padding: 0;
         z-index: 1;
         pointer-events: auto;
-        background-color: transparent; /* or your gradient if needed */
+        background-color: transparent;
         border-radius: 24px;
     }
 
