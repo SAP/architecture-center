@@ -32,13 +32,17 @@
 /* Filter bar container to prevent layout shifts */
 .filterBarContainer {
     width: 100%;
-    min-height: 140px; /* Increased to better match actual FilterBar height */
     transition: none; /* Prevent animation-induced CLS */
+}
+
+/* Only apply height when FilterBar is present - controlled by component */
+.filterBarContainerWithHeight {
+    min-height: 140px; /* Increased to better match actual FilterBar height */
 }
 
 .filterBarPlaceholder {
     width: 100%;
-    height: 140px; /* Match filter bar height - increased for better accuracy */
+    height: 0; /* No height when no FilterBar */
     visibility: hidden;
 }
 
@@ -144,12 +148,8 @@
     }
 
     /* FilterBar switches to column layout on tablet/mobile, needs more height */
-    .filterBarContainer {
+    .filterBarContainerWithHeight {
         min-height: 180px; /* Increased for column layout */
-    }
-
-    .filterBarPlaceholder {
-        height: 180px; /* Match increased height */
     }
 }
 

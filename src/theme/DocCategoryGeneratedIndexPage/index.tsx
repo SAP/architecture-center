@@ -306,8 +306,8 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                 </header>
 
                 <div className={styles.contentWrapper}>
-                    <div className={styles.filterBarContainer}>
-                        {isExplorePage && isHydrated ? (
+                    <div className={`${styles.filterBarContainer} ${isExplorePage ? styles.filterBarContainerWithHeight : ''}`}>
+                        {isExplorePage ? (
                             <FilterBar
                                 techDomains={techDomains}
                                 partners={partners}
@@ -319,8 +319,6 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 isResetEnabled={isResetEnabled}
                                 selectStyles={selectStyles}
                             />
-                        ) : isExplorePage ? (
-                            <div className={styles.filterBarPlaceholder} />
                         ) : null}
                     </div>
 
