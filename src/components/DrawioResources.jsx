@@ -56,39 +56,37 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
             });
     }
     return (
-        // current selector to apply zoom (see docusaurus.config) doesn't select img if directly
-        // under div with class 'markdown' => wrap img in paragraph for now
+        // current selector to apply zoom (see docusaurus.config) selects img as direct child
+        // using single div with inline-block display to maintain zoom functionality
         <>
-            <p>
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                    <img
-                        decoding="async"
-                        loading="lazy"
-                        src={drawioImg ?? path}
-                        alt="image of solution diagram"
-                        className={drawioImg ? '' : 'fallback-image'}
-                        style={{ height: 'auto' }}
-                    />
-                    {drawioImg && (
-                        <div class="tooltip">
-                            <IconButton
-                                onClick={() => {
-                                    setCopied(true), handleDownload();
-                                }}
-                                className="iconButton"
-                                variant="default"
-                            >
-                                {copied ? (
-                                    <CheckIcon style={{ fontSize: 20 }} />
-                                ) : (
-                                    <ContentCopyIcon style={{ fontSize: 20 }} />
-                                )}
-                            </IconButton>
-                            <span class="tooltip_text">{copied ? 'Copied!' : 'Copy to clipboard'}</span>
-                        </div>
-                    )}
-                </div>
-            </p>
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+                <img
+                    decoding="async"
+                    loading="lazy"
+                    src={drawioImg ?? path}
+                    alt="image of solution diagram"
+                    className={drawioImg ? '' : 'fallback-image'}
+                    style={{ height: 'auto' }}
+                />
+                {drawioImg && (
+                    <div className="tooltip">
+                        <IconButton
+                            onClick={() => {
+                                setCopied(true), handleDownload();
+                            }}
+                            className="iconButton"
+                            variant="default"
+                        >
+                            {copied ? (
+                                <CheckIcon style={{ fontSize: 20 }} />
+                            ) : (
+                                <ContentCopyIcon style={{ fontSize: 20 }} />
+                            )}
+                        </IconButton>
+                        <span className="tooltip_text">{copied ? 'Copied!' : 'Copy to clipboard'}</span>
+                    </div>
+                )}
+            </div>
             <Admonition type="info" title="Solution Diagram Resources">
                 You can download the Solution Diagram as a{' '}
                 <b>

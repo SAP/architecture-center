@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Slider from 'react-slick';
+import Slid
 // @ts-ignore
 import DocCard from '@theme/DocCard';
 // @ts-ignore
@@ -37,7 +37,6 @@ export default function ExploreAllArchitecturesSection() {
     // Handle resize events after hydration
     useEffect(() => {
         if (!isHydrated) return;
-
         const handleResize = () => {
             const width = window.innerWidth;
             setSlidesToShow(width <= 996 ? 1 : 3);
