@@ -729,8 +729,10 @@ html[data-theme='dark'] .navbar {
 
 html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
-    border: #dadde1 1px solid;
+    border: 1px solid #dadde1;
     padding: 35px;
+    margin: 12px;
+    box-sizing: border-box;
 }
 
 html[data-theme='dark'] .docItemCol_VOVn {
