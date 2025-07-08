@@ -731,7 +731,7 @@ html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
     border: 1px solid #dadde1;
     padding: 35px;
-    margin: 12px;
+    margin: 0 0 0 12px;
     box-sizing: border-box;
 }
 
@@ -740,6 +740,8 @@ html[data-theme='dark'] .docItemCol_VOVn {
     border: #444950 1px solid;
     color: #ffffff;
     padding: 35px;
+    margin: 0 0 0 12px;
+    box-sizing: border-box;
 }
 
 html[data-theme='light'] .theme-last-updated {
