@@ -77,9 +77,13 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
     const category = useCurrentSidebarCategory();
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
 
-    const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>();
+    const [isHydrated, setIsHydrated] = useState(false);
+    const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>(
+        getSelectStyles(false) // SSR-safe default (light mode)
+    );
 
     useEffect(() => {
+        setIsHydrated(true);
         setSelectStyles(getSelectStyles(colorMode === 'dark'));
     }, [colorMode]);
 
@@ -160,7 +164,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
 
                 <div className={styles.contentWrapper}>
                     {isExplorePage &&
-                        selectStyles && ( // switch from Select's default style to ours causes visual flash, prevent this
+                        isHydrated && ( // Prevent hydration mismatch by waiting for client-side hydration
                             <aside className={styles.filters}>
                                 <div className={styles.filterRow}>
                                     <div className={styles.filterGroup}>

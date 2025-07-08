@@ -30,41 +30,61 @@ function useCategoryItemsPlural() {
             )
         );
 }
+
 function useWindowSize() {
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,
     });
+    const [isHydrated, setIsHydrated] = useState(false);
+
     useEffect(() => {
+        // Set hydration flag first
+        setIsHydrated(true);
+        
         function handleResize() {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
+            if (typeof window !== 'undefined') {
+                setWindowSize({
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                });
+            }
         }
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        return () => window.removeEventListener('resize', handleResize);
+        
+        // Only add event listener and call handleResize after hydration
+        if (typeof window !== 'undefined') {
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Set initial size
+        }
+        
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', handleResize);
+            }
+        };
     }, []);
-    return windowSize;
+
+    return { ...windowSize, isHydrated };
 }
+
 function CardLayout({ href, title, description, tags, lastUpdate, item }) {
     const moreTagsRef = useRef(null);
     const [popoverIsOpen, setPopoverIsOpen] = useState(false);
     const [compressedTags, setCompressedTags] = useState([]);
     const [remainingTags, setRemainingTags] = useState([]);
-    const [readableTitle, setReadableTitle] = useState('');
-    const [readableDescription, setReadableDescription] = useState(0);
-    const size = useWindowSize();
+    const [readableTitle, setReadableTitle] = useState(title); // Initialize with title
+    const [readableDescription, setReadableDescription] = useState(description); // Initialize with description
+    const { width, height, isHydrated } = useWindowSize();
 
     const card = useRef(null);
-
     const [componentSize, setComponentSize] = useState({ width: 0, height: 0 });
 
+    // ResizeObserver effect with hydration guard
     useEffect(() => {
+        if (!isHydrated) return;
+        
         const cardElement = card.current;
-
-        if (!cardElement) return;
+        if (!cardElement || typeof ResizeObserver === 'undefined') return;
 
         const resizeObserver = new ResizeObserver((entries) => {
             for (let entry of entries) {
@@ -78,68 +98,74 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
         return () => {
             resizeObserver.disconnect();
         };
-    }, []);
+    }, [isHydrated]);
 
+    // Tag and text processing effect with hydration guard
     useEffect(() => {
-        if (size.width === undefined) return;
+        if (!isHydrated || width === undefined || !card.current) return;
+        
         setCompressedTags([]);
         setRemainingTags([]);
+        
         let counter = 0;
-        const cardWidth = card.current.offsetWidth;
-        const tagsLength = tags.length;
+        const cardWidth = card.current.offsetWidth || 400; // Fallback width
+        const tagsLength = tags?.length || 0;
         let compressedTagsLength = 0;
-        for (const tag of tags) {
-            counter += tag.label.length;
-            const remainingTagsLength = tagsLength - compressedTagsLength;
-            if (
-                (size.width <= 996 &&
+        
+        if (tags) {
+            for (const tag of tags) {
+                counter += tag.label.length;
+                const remainingTagsLength = tagsLength - compressedTagsLength;
+                if (
+                    (width <= 996 &&
+                        counter <
+                            Math.round(
+                                (cardWidth / 360) *
+                                    (remainingTagsLength <= 1 ? 49 - compressedTagsLength : 42 - compressedTagsLength)
+                            )) ||
                     counter <
                         Math.round(
-                            (cardWidth / 360) *
-                                (remainingTagsLength <= 1 ? 49 - compressedTagsLength : 42 - compressedTagsLength)
-                        )) ||
-                counter <
-                    Math.round(
-                        (cardWidth / 400) *
-                            (remainingTagsLength <= 1 ? 52 - compressedTagsLength : 46 - compressedTagsLength)
-                    )
-            ) {
-                compressedTagsLength += 1;
-                setCompressedTags((_tags) => [..._tags, tag]);
-                continue;
+                            (cardWidth / 400) *
+                                (remainingTagsLength <= 1 ? 52 - compressedTagsLength : 46 - compressedTagsLength)
+                        )
+                ) {
+                    compressedTagsLength += 1;
+                    setCompressedTags((_tags) => [..._tags, tag]);
+                    continue;
+                }
+                counter -= tag.label.length;
             }
-            counter -= tag.label.length;
         }
 
         /* cut off description if it is too long */
-
-        if (description.length > Math.round((cardWidth / 360) * 200)) {
+        if (description && description.length > Math.round((cardWidth / 360) * 200)) {
             const _description = description.slice(0, Math.round((cardWidth / 360) * 200));
             const lastSpaceIndex = _description.lastIndexOf(' ');
             const lastCharacterIsDot = _description.slice(-1) === '.';
             setReadableDescription(_description.slice(0, lastSpaceIndex) + (lastCharacterIsDot ? '..' : '...'));
         } else {
-            setReadableDescription(description);
+            setReadableDescription(description || '');
         }
 
         /* Change title length if title is too long */
-
-        if (title.length > Math.ceil((cardWidth / 400) * 63)) {
+        if (title && title.length > Math.ceil((cardWidth / 400) * 63)) {
             setReadableTitle(
                 title.length - title.slice(0, Math.round((cardWidth / 400) * 63)).length <= 2
                     ? title
                     : title.slice(0, Math.round((cardWidth / 400) * 63)) + '...'
             );
-            return;
+        } else {
+            setReadableTitle(title || '');
         }
-        setReadableTitle(title);
-    }, [componentSize, description, tags, title]);
+    }, [componentSize, description, tags, title, width, isHydrated]);
 
     useEffect(() => {
+        if (!isHydrated) return;
         setRemainingTags(calculateRemainingTags());
-    }, [compressedTags]);
+    }, [compressedTags, isHydrated]);
 
     function calculateRemainingTags() {
+        if (!tags) return [];
         return tags.filter((obj1) => !compressedTags.some((obj2) => JSON.stringify(obj1) === JSON.stringify(obj2)));
     }
 
@@ -284,10 +310,10 @@ function CardLink({ item }) {
     return (
         <CardLayout
             href={item.href ?? href}
-            title={item.customProps.title}
+            title={item.customProps?.title || item.label}
             description={description.length > 300 ? description.substring(0, 300) + '...' : description}
-            tags={item.customProps.tags}
-            lastUpdate={item.customProps.last_update}
+            tags={item.customProps?.tags}
+            lastUpdate={item.customProps?.last_update}
             item={item}
         />
     );
