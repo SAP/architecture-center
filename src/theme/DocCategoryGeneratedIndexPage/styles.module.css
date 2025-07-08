@@ -83,7 +83,6 @@
     background: var(--ifm-color-emphasis-200);
     border-radius: 4px;
     margin-bottom: var(--spacing-md);
-    animation: skeletonShimmer 1.5s ease-in-out infinite;
 }
 
 .skeletonContent {
@@ -96,7 +95,6 @@
     height: 16px;
     background: var(--ifm-color-emphasis-200);
     border-radius: 4px;
-    animation: skeletonShimmer 1.5s ease-in-out infinite;
 }
 
 .skeletonLineShort {
@@ -104,32 +102,17 @@
     background: var(--ifm-color-emphasis-200);
     border-radius: 4px;
     width: 70%;
-    animation: skeletonShimmer 1.5s ease-in-out infinite;
 }
 
 @keyframes skeletonPulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.7;
-    }
-}
-
-@keyframes skeletonShimmer {
-    0% {
-        background-position: -200px 0;
-    }
-    100% {
-        background-position: calc(200px + 100%) 0;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .skeletonLine,
 .skeletonLineShort,
 .skeletonHeader {
-    background: linear-gradient(90deg, var(--ifm-color-emphasis-200) 25%, var(--ifm-color-emphasis-300) 50%, var(--ifm-color-emphasis-200) 75%);
-    background-size: 200px 100%;
+    background: var(--ifm-color-emphasis-200);
 }
 
 /* Dark mode skeleton styles */

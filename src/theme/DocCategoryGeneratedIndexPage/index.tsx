@@ -45,86 +45,100 @@ function DocCategoryGeneratedIndexPageMetadata({ categoryGeneratedIndex }: Props
     );
 }
 
-function getSelectStyles(isDarkMode: boolean): StylesConfig<{ value: string; label: string }, true> {
-    return {
-        control: (provided, state) => ({
-            ...provided,
-            backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff',
-            borderColor: isDarkMode ? '#444' : '#ccc',
-            transition: 'all 0.2s ease-in-out',
-            minHeight: '38px', // Fixed height to prevent CLS
-            boxShadow: state.isFocused ? (isDarkMode ? '0 0 0 1px #444' : '0 0 0 1px #ccc') : 'none',
-            '&:hover': {
-                borderColor: isDarkMode ? '#666' : '#999',
-            },
-        }),
-        menu: (provided) => ({
-            ...provided,
-            backgroundColor: isDarkMode ? '#2a2a2a' : '#fff',
-            border: isDarkMode ? '1px solid #444' : '1px solid #ccc',
-            boxShadow: isDarkMode 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-            zIndex: 9999, // Ensure menu appears above other content
-        }),
-        option: (provided, { isFocused, isSelected }) => ({
-            ...provided,
-            backgroundColor: isSelected 
-                ? 'var(--ifm-color-primary)' 
-                : isFocused 
-                    ? 'var(--ifm-dropdown-hover-background-color)' 
-                    : isDarkMode ? '#2a2a2a' : '#fff',
-            ':active': {
-                backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
-            },
-            color: isSelected ? '#fff' : 'var(--ifm-font-color-base)',
-            transition: 'background-color 0.15s ease-in-out',
-        }),
-        multiValue: (provided) => ({
-            ...provided,
-            backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
-            color: 'var(--ifm-font-color-base)',
-            border: isDarkMode ? '1px solid #444' : '1px solid #ccc',
-        }),
-        multiValueLabel: (provided) => ({
-            ...provided,
-            color: 'var(--ifm-font-color-base)',
-            fontSize: '14px',
-        }),
-        multiValueRemove: (provided) => ({
-            ...provided,
-            color: 'var(--ifm-font-color-base)',
-            ':hover': {
-                backgroundColor: isDarkMode ? '#444' : '#ddd',
-                color: 'var(--ifm-font-color-base)',
-            },
-        }),
-        placeholder: (provided) => ({
-            ...provided,
-            color: isDarkMode ? '#888' : '#666',
-            fontSize: '14px',
-        }),
-        singleValue: (provided) => ({
-            ...provided,
-            color: 'var(--ifm-font-color-base)',
-        }),
-        input: (provided) => ({
-            ...provided,
-            color: 'var(--ifm-font-color-base)',
-        }),
-        indicatorSeparator: (provided) => ({
-            ...provided,
-            backgroundColor: isDarkMode ? '#444' : '#ccc',
-        }),
-        dropdownIndicator: (provided) => ({
-            ...provided,
-            color: isDarkMode ? '#888' : '#666',
-            ':hover': {
-                color: isDarkMode ? '#aaa' : '#333',
-            },
-        }),
-    };
-}
+// Memoized select styles to prevent recreation on every render
+const lightSelectStyles: StylesConfig<{ value: string; label: string }, true> = {
+    control: (provided, state) => ({
+        ...provided,
+        backgroundColor: '#ffffff',
+        borderColor: '#ccc',
+        minHeight: '38px',
+        boxShadow: state.isFocused ? '0 0 0 1px #ccc' : 'none',
+        '&:hover': { borderColor: '#999' },
+    }),
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        zIndex: 9999,
+    }),
+    option: (provided, { isFocused, isSelected }) => ({
+        ...provided,
+        backgroundColor: isSelected 
+            ? 'var(--ifm-color-primary)' 
+            : isFocused 
+                ? 'var(--ifm-dropdown-hover-background-color)' 
+                : '#fff',
+        color: isSelected ? '#fff' : 'var(--ifm-font-color-base)',
+    }),
+    multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+        border: '1px solid #ccc',
+    }),
+    multiValueLabel: (provided) => ({
+        ...provided,
+        color: 'var(--ifm-font-color-base)',
+        fontSize: '14px',
+    }),
+    multiValueRemove: (provided) => ({
+        ...provided,
+        color: 'var(--ifm-font-color-base)',
+        ':hover': { backgroundColor: '#ddd' },
+    }),
+    placeholder: (provided) => ({ ...provided, color: '#666', fontSize: '14px' }),
+    singleValue: (provided) => ({ ...provided, color: 'var(--ifm-font-color-base)' }),
+    input: (provided) => ({ ...provided, color: 'var(--ifm-font-color-base)' }),
+    indicatorSeparator: (provided) => ({ ...provided, backgroundColor: '#ccc' }),
+    dropdownIndicator: (provided) => ({ ...provided, color: '#666', ':hover': { color: '#333' } }),
+};
+
+const darkSelectStyles: StylesConfig<{ value: string; label: string }, true> = {
+    control: (provided, state) => ({
+        ...provided,
+        backgroundColor: '#1e1e1e',
+        borderColor: '#444',
+        minHeight: '38px',
+        boxShadow: state.isFocused ? '0 0 0 1px #444' : 'none',
+        '&:hover': { borderColor: '#666' },
+    }),
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: '#2a2a2a',
+        border: '1px solid #444',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+        zIndex: 9999,
+    }),
+    option: (provided, { isFocused, isSelected }) => ({
+        ...provided,
+        backgroundColor: isSelected 
+            ? 'var(--ifm-color-primary)' 
+            : isFocused 
+                ? 'var(--ifm-dropdown-hover-background-color)' 
+                : '#2a2a2a',
+        color: isSelected ? '#fff' : 'var(--ifm-font-color-base)',
+    }),
+    multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: 'var(--ifm-dropdown-hover-background-color)',
+        border: '1px solid #444',
+    }),
+    multiValueLabel: (provided) => ({
+        ...provided,
+        color: 'var(--ifm-font-color-base)',
+        fontSize: '14px',
+    }),
+    multiValueRemove: (provided) => ({
+        ...provided,
+        color: 'var(--ifm-font-color-base)',
+        ':hover': { backgroundColor: '#444' },
+    }),
+    placeholder: (provided) => ({ ...provided, color: '#888', fontSize: '14px' }),
+    singleValue: (provided) => ({ ...provided, color: 'var(--ifm-font-color-base)' }),
+    input: (provided) => ({ ...provided, color: 'var(--ifm-font-color-base)' }),
+    indicatorSeparator: (provided) => ({ ...provided, backgroundColor: '#444' }),
+    dropdownIndicator: (provided) => ({ ...provided, color: '#888', ':hover': { color: '#aaa' } }),
+};
 
 function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props): JSX.Element {
     const { colorMode } = useColorMode();
@@ -134,17 +148,17 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
     const isExplorePage = category?.customProps?.id === 'exploreallrefarch';
     const carouselRef = useRef<any>(null);
 
-    // Initialize with default styles to prevent hydration mismatch
-    const [selectStyles, setSelectStyles] = useState<StylesConfig<{ value: string; label: string }, true>>(
-        getSelectStyles(false) // Default to light mode for SSR consistency
+    // Use memoized styles to prevent recreation and reduce JS blocking
+    const selectStyles = useMemo(() => 
+        colorMode === 'dark' ? darkSelectStyles : lightSelectStyles, 
+        [colorMode]
     );
     const [isHydrated, setIsHydrated] = useState(false);
     const [isContentLoading, setIsContentLoading] = useState(true);
 
     useEffect(() => {
         setIsHydrated(true);
-        setSelectStyles(getSelectStyles(colorMode === 'dark'));
-    }, [colorMode]);
+    }, []);
 
     const categories = useMemo(
         () =>
@@ -250,38 +264,32 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         }
     }, [groupedItems.length, categoryGeneratedIndex.title, isHydrated]);
 
-    // Manage content loading state
+    // Simplified content loading state - remove setTimeout to reduce blocking
     useEffect(() => {
         if (isHydrated && groupedItems.length > 0) {
-            // Add a small delay to ensure carousel is properly initialized
-            const timer = setTimeout(() => {
-                setIsContentLoading(false);
-            }, 100);
-            return () => clearTimeout(timer);
+            setIsContentLoading(false);
         }
     }, [isHydrated, groupedItems.length]);
 
-    // Skeleton loader component
-    const SkeletonCard = () => (
-        <div className={styles.skeletonCard}>
-            <div className={styles.skeletonHeader}></div>
-            <div className={styles.skeletonContent}>
-                <div className={styles.skeletonLine}></div>
-                <div className={styles.skeletonLine}></div>
-                <div className={styles.skeletonLineShort}></div>
+    // Simplified skeleton loader - memoized to prevent recreation
+    const skeletonContent = useMemo(() => (
+        <div className={styles.skeletonContainer}>
+            <div className={carouselStyles.gridContainer}>
+                {Array(3).fill(null).map((_, i) => (
+                    <div key={i} className={carouselStyles.gridCardContainer}>
+                        <div className={styles.skeletonCard}>
+                            <div className={styles.skeletonHeader}></div>
+                            <div className={styles.skeletonContent}>
+                                <div className={styles.skeletonLine}></div>
+                                <div className={styles.skeletonLine}></div>
+                                <div className={styles.skeletonLineShort}></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
-    );
-
-    const SkeletonCarousel = () => (
-        <div className={carouselStyles.gridContainer}>
-            {Array(getChunkSize).fill(null).map((_, i) => (
-                <div key={i} className={carouselStyles.gridCardContainer}>
-                    <SkeletonCard />
-                </div>
-            ))}
-        </div>
-    );
+    ), []);
 
     return (
         <div>
@@ -318,9 +326,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
 
                     <main className={styles.mainContent} style={{ width: '100%' }}>
                         {isContentLoading ? (
-                            <div className={styles.skeletonContainer}>
-                                <SkeletonCarousel />
-                            </div>
+                            skeletonContent
                         ) : (
                             <ReactCarousel
                                 ref={carouselRef}
