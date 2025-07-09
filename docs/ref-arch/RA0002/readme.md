@@ -8,6 +8,7 @@ sidebar_custom_props:
     - integration
     - aws
     - azure
+    - gcp
 title: Architecting Multi-Region HA/DR resiliency patterns
 description: >-
   Architect multi-region resiliency for SAP solutions with strategies for high
@@ -23,6 +24,7 @@ image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
 hide_table_of_contents: false
@@ -62,7 +64,7 @@ SAP BTP offers a global infrastructure that allows deployment across various reg
 
 The reference architecture diagram shows the Muti-Region Resilient architecture for the SAP BTP Services and the applications built on SAP BTP.
 
-1. DNS-based load balancers like Azure Traffic Manager or Amazon Route 53 oversee the health of application endpoints distributed across multiple regions (two SAP BTP subaccounts). They employ DNS-based load balancing to direct user traffic to the operational service endpoint by updating DNS records accordingly. Users access the application via the URL provided by the load balancer.
+1. DNS-based load balancers like Azure Traffic Manager, Amazon Route 53 or Google Cloud DNS oversee the health of application endpoints distributed across multiple regions (two SAP BTP subaccounts). They employ DNS-based load balancing to direct user traffic to the operational service endpoint by updating DNS records accordingly. Users access the application via the URL provided by the load balancer.
 2. Implementing a multi-region architecture requires two different SAP BTP subaccounts in separate hyperscaler regions. If one subaccount experiences service interruptions, the other can take over without disrupting operations. Using the SAP Custom Domain service is crucial to maintain a single, customized URL for a consistent user experience.
 3. SAP BTP Services achieve high availability by leveraging multiple availability zones in a single hyperscaler region. For disaster recovery, such as a regional switch, a cross-region HA and DR setup is essential for adequate protection. This requires the SAP BTP services or applications to be available in both the subaccounts.
 4. SAP Integration Suite, Advanced Event Mesh Message Replication can be configured to duplicate messages/events across different regions using DMR (Dynamic Message Routing) cluster replication. The DMR cluster is a feature that ensures events and messages are replicated from one region to another. This is particularly useful in maintaining data consistency and availability during regional outages. For more information, refer to the [SAP Integration Suite documentation](https://help.sap.com/docs/SAP_INTEGRATION_SUITE). With two separate subaccounts set up for SAP HANA Cloud and employing Smart Data Access (SDA) – Remote Table Replication, the data is replicated to another region's SAP HANA Cloud. Smart Data Access (SDA) allows for real-time data access and integration across different databases, while Remote Table Replication ensures that data changes in one region are mirrored in another. For more details, see the [SAP HANA Cloud documentation](https://help.sap.com/docs/HANA_CLOUD).
@@ -72,7 +74,7 @@ The reference architecture diagram shows the Muti-Region Resilient architecture 
 
 :::note
 - This architecture is adaptable. Your specific implementation may vary based on your unique requirements, the services you choose to use, and your existing infrastructure.
-- The architecture and strategies outlined in these approaches are reference designs and not turnkey solutions. Our assessment provides an architectural perspective on disaster recovery approaches using selected SAP BTP services and hyperscaler offerings such as Azure Traffic Manager and Amazon Route 53. This represents one possible method for managing stateless and stateful failovers. Additionally, these designs do not encompass the evaluation of customer-specific requirements or custom scenarios. Actual implementations will necessitate careful planning, customization, and development to address unique business needs and constraints.
+- The architecture and strategies outlined in these approaches are reference designs and not turnkey solutions. Our assessment provides an architectural perspective on disaster recovery approaches using selected SAP BTP services and hyperscaler offerings such as Azure Traffic Manager, Amazon Route 53 or Google Cloud DNS. This represents one possible method for managing stateless and stateful failovers. Additionally, these designs do not encompass the evaluation of customer-specific requirements or custom scenarios. Actual implementations will necessitate careful planning, customization, and development to address unique business needs and constraints.
 :::
 
 <!-- ## Overview of Multi-Region Resiliency
