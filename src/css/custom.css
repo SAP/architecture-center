@@ -80,6 +80,13 @@
     --container-padding: 24px;
     --container-padding-tablet: 16px;
     --container-padding-mobile: 8px;
+
+    /* Semantic colors for repeated values */
+    --color-border-light: #e0e0e0;
+    --color-background-dark-secondary: #1e1e1e;
+    --color-linkedin: #0a66c2;
+    --color-text-muted: #666;
+    --color-sap-primary: #002a86;
 }
 
 /* Ensure code blocks do not overflow the page */

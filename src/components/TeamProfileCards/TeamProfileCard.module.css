@@ -41,7 +41,7 @@
 
 .team-profile-card__description {
     font-size: 14px;
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 15px;
 }
 
@@ -55,7 +55,7 @@
 .team-profile-card__button {
     flex: 1;
     padding: 8px;
-    background: #f0f0f0;
+    background: var(--color-border-light);
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -65,16 +65,17 @@
 }
 
 .team-profile-card__button:hover {
-    background: #e0e0e0;
+    background: var(--color-border-light);
+    opacity: 0.8;
 }
 
 .linkedin-button {
-    background-color: #0a66c2;
+    background-color: var(--color-linkedin);
     color: white;
 }
 
 [data-theme='dark'] .linkedin-button {
-    background-color: #0a66c2 !important;
+    background-color: var(--color-linkedin) !important;
     color: white !important;
 }
 
