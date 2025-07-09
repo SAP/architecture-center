@@ -94,6 +94,37 @@ LCP is a key web performance metric that measures when the largest content eleme
 -   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
 -   **Test changes across breakpoints** to ensure responsive behavior.
 
+### ⚠️ CSS Modules Limitation: Media Query Variables
+
+**Important**: CSS variables **do not work in media queries within CSS Modules** (`.module.css` files). This is a technical limitation of CSS Modules processing.
+
+**✅ This works in CSS Modules:**
+```css
+.myComponent {
+    padding: var(--spacing-md); /* ✅ Works fine */
+    color: var(--color-primary); /* ✅ Works fine */
+}
+```
+
+**❌ This does NOT work in CSS Modules:**
+```css
+@media (max-width: var(--breakpoint-tablet)) { /* ❌ Variable not resolved */
+    .myComponent { /* Styles won't apply correctly */ }
+}
+```
+
+**✅ Workaround - Use hardcoded breakpoints in CSS Modules:**
+```css
+@media (max-width: 996px) { /* ✅ Use hardcoded values */
+    .myComponent { /* Styles work correctly */ }
+}
+```
+
+**✅ Alternative - Use global CSS for breakpoint variables:**
+CSS variables in media queries work perfectly in `src/css/custom.css` (global CSS file).
+
+**Recommendation**: Use a hybrid approach - CSS variables for properties, hardcoded breakpoints in CSS Modules media queries.
+
 ## CSS Custom Properties & Utility Classes
 
 We use CSS custom properties (variables) and utility classes to maintain consistency and reduce code duplication. Instead of hard-coding values like `padding: 16px` or `border-radius: 20px`, use our standardized variables.
