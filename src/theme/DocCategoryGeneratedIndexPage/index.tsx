@@ -253,7 +253,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         return chunkItems(filteredItems, getChunkSize);
     }, [filteredItems, getChunkSize]);
 
-    const slidesToShow = Math.min(getChunkSize === 1 ? 3 : 3, groupedItems.length);
+    const slidesToShow = Math.min(3, groupedItems.length);
 
     // Optimize carousel initialization to prevent CLS
     useEffect(() => {
@@ -360,21 +360,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                             slidesToShow: 3,
                                             slidesToScroll: 1,
                                         },
-                                    },
-                                    {
-                                        breakpoint: 600,
-                                        settings: {
-                                            slidesToShow: 3,
-                                            slidesToScroll: 1,
-                                        },
-                                    },
-                                    {
-                                        breakpoint: 430,
-                                        settings: {
-                                            slidesToShow: 3,
-                                            slidesToScroll: 1,
-                                        },
-                                    },
+                                    }
                                 ]}
                             />
                         )}
