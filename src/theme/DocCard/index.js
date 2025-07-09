@@ -187,7 +187,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
                         height={50}
                         alt=""
                         className={styles.cardBanner}
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
                     />
                 </FlexBox>
