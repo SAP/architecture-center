@@ -100,5 +100,4 @@ For selected SAP solutions, additional integration technologies tailored to spec
 ## Related Missions
 
 - [Get started with SAP Integration Suite](https://discovery-center.cloud.sap/missiondetail/3258/3327/)
-- [Publish Documents from SAP S/4HANA Cloud to SharePoint](https://discovery-center.cloud.sap/missiondetail/3324/3365/)
 - [Extract your Ariba Spend Data using SAP Integration Suite](https://discovery-center.cloud.sap/missiondetail/4038/4245/)
