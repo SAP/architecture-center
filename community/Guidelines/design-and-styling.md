@@ -27,7 +27,7 @@ last_update:
     date: 2025-06-20
 ---
 
-A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and sparing use of inline styles to ensure:
+A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and utility classes for:
 
 -   **Consistency**: Shared variables and resets keep the look and feel unified.
 -   **Isolation**: CSS Modules prevent style conflicts between components.
@@ -41,6 +41,8 @@ These guidelines help us deliver a robust user experience and make ongoing devel
 Responsive design is critical for the SAP Architecture Center because our users access complex technical content from various devices - from mobile phones during commutes to large desktop monitors in development environments. Our architecture diagrams, code examples, and reference materials must remain readable and functional across all screen sizes.
 
 This is achieved using flexible layouts, relative units, and media queries that adapt our content presentation to each device's capabilities. See [MDN Responsive Design](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design) for a comprehensive guide.
+
+The impact on our site is surfaced in our [core web vitals](https://developers.google.com/search/docs/appearance/core-web-vitals) score, which influences where pages are ranked for Google searches. Two critical topics are:
 
 **Minimizing Cumulative Layout Shift (CLS)**
 
@@ -89,7 +91,6 @@ LCP is a key web performance metric that measures when the largest content eleme
 -   **Prefer CSS Modules** for component/page-specific styles. This keeps styles modular and avoids global namespace pollution.
 -   **Leverage utility classes** for common patterns like flexbox layouts (`.flex-center`) and standard button widths (`.standard-button-width`).
 -   **Avoid inline styles completely**; use CSS modules or utility classes instead.
--   **Use standardized breakpoints** via CSS variables (`--breakpoint-tablet: 996px`, `--breakpoint-mobile: 600px`).
 -   **Keep media queries together** at the end of each file to simplify responsive maintenance.
 -   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
 -   **Test changes across breakpoints** to ensure responsive behavior.
@@ -119,11 +120,6 @@ LCP is a key web performance metric that measures when the largest content eleme
     .myComponent { /* Styles work correctly */ }
 }
 ```
-
-**✅ Alternative - Use global CSS for breakpoint variables:**
-CSS variables in media queries work perfectly in `src/css/custom.css` (global CSS file).
-
-**Recommendation**: Use a hybrid approach - CSS variables for properties, hardcoded breakpoints in CSS Modules media queries.
 
 ## CSS Custom Properties & Utility Classes
 
