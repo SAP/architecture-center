@@ -255,6 +255,13 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
 
     const slidesToShow = groupedItems.length < 3 ? groupedItems.length : 3;
 
+    const [carouselKey, setCarouselKey] = useState(0);
+    useEffect(() => {
+        if (isHydrated) {
+            setCarouselKey(prev => prev + 1);
+        }
+    }, [filteredItems.length, isHydrated]);
+
     // Optimize carousel initialization to prevent CLS
     useEffect(() => {
         if (!isHydrated) return; // Only run after hydration
@@ -327,6 +334,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                             skeletonContent
                         ) : (
                             <ReactCarousel
+                                key={carouselKey}
                                 ref={carouselRef}
                                 items={groupedItems}
                                 renderItem={(group, idx) => {

@@ -49,7 +49,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
             forceUpdate(t => t + 1);
         };
         const atStart = currentSlide === 0;
-        const atEnd = currentSlide >= totalSlides - (settings.slidesToScroll || 1);
+        const atEnd = currentSlide >= totalSlides - slidesToShow;
 
         // Choose icons based on orientation
         const prevIcon = arrowOrientation === 'V' ? 'navigation-up-arrow' : 'navigation-left-arrow';
