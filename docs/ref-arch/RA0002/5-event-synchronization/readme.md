@@ -19,6 +19,7 @@ image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
   - eda
