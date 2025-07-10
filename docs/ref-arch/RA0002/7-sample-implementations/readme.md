@@ -13,12 +13,14 @@ keywords:
   - disaster recovery
   - ha dr solutions
   - azure traffic manager
+  - Google Cloud DNS
   - aws route 53
 sidebar_label: Sample Implementations
 image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
 hide_table_of_contents: false
