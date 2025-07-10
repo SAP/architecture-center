@@ -57,11 +57,10 @@
     height: auto !important;
 }
 
-/* Removed conflicting height: auto !important rules that break vertical carousel */
-.carouselContainer .slick-list,
-.carouselContainer .slick-slider,
-.carouselContainer .slick-track {
+.carouselContainer .slick-track,
+.carouselContainer .slick-list {
     height: auto !important;
+    min-height: unset !important;
 }
 
 /* Allow slides to have proper fixed heights for vertical mode */

@@ -253,7 +253,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
         return chunkItems(filteredItems, getChunkSize);
     }, [filteredItems, getChunkSize]);
 
-    const slidesToShow = Math.min(3, groupedItems.length);
+    const slidesToShow = groupedItems.length < 3 ? groupedItems.length : 3;
 
     // Optimize carousel initialization to prevent CLS
     useEffect(() => {
@@ -347,7 +347,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 }}
                                 arrowOrientation="V"
                                 vertical={true}
-                                verticalSwiping={true}
+                                verticalSwiping={false}
                                 className={carouselStyles.carouselContainer}
                                 slidesToShow={slidesToShow}
                                 slidesToScroll={1}
@@ -357,7 +357,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                     {
                                         breakpoint: 996,
                                         settings: {
-                                            slidesToShow: 3,
+                                            slidesToShow: slidesToShow,
                                             slidesToScroll: 1,
                                         },
                                     }
