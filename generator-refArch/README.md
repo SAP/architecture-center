@@ -17,7 +17,7 @@ A CLI tool for generating SAP Architecture Center reference architectures using 
 ## Installation
 
 ```bash
-npm install -g genrefarch-cli
+npm run setup
 ```
 
 ## Usage
