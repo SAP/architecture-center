@@ -14,7 +14,10 @@
     "setup": "cd generator-refArch && npm install --silent && npm install -g .",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch"
+    "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch",
+    "gen-sidebar": "node ./src/_scripts/_generateRefArchSidebar.js",
+    "prestart": "npm run gen-sidebar",
+    "prebuild": "npm run gen-sidebar"
   },
   "resolutions": {
     "path-to-regexp": "^8.1.0"
