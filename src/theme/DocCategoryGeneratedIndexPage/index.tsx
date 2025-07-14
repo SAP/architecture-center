@@ -155,6 +155,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
     );
     const [isHydrated, setIsHydrated] = useState(false);
     const [isContentLoading, setIsContentLoading] = useState(true);
+    const [noResults, setNoResults] = useState(false);
 
     useEffect(() => {
         setIsHydrated(true);
@@ -199,18 +200,24 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
             return preFilteredItems;
         }
 
-        return preFilteredItems.filter((item) => {
+        const results = preFilteredItems.filter((item) => {
             const categoryIndex = Array.isArray(item.customProps?.category_index)
                 ? item.customProps.category_index
                 : [];
 
-            return (
-                (selectedPartners.length === 0 ||
-                    selectedPartners.every((partner) => categoryIndex.includes(partner.value))) &&
-                (selectedTechDomains.length === 0 ||
-                    selectedTechDomains.every((domain) => categoryIndex.includes(domain.value)))
-            );
+            const partnerMatch =
+                selectedPartners.length === 0 ||
+                selectedPartners.some((partner) => categoryIndex.includes(partner.value));
+
+            const techDomainMatch =
+                selectedTechDomains.length === 0 ||
+                selectedTechDomains.some((domain) => categoryIndex.includes(domain.value));
+
+            return partnerMatch && techDomainMatch;
         });
+
+        setNoResults(isExplorePage && isResetEnabled && results.length === 0);
+        return results;
     }, [isExplorePage, isResetEnabled, preFilteredItems, selectedPartners, selectedTechDomains]);
 
     const handlePartnersChange = useCallback((newValue: MultiValue<{ value: string; label: string }>) => {
@@ -332,6 +339,10 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                     <main className={styles.mainContent} style={{ width: '100%' }}>
                         {isContentLoading ? (
                             skeletonContent
+                        ) : noResults ? (
+                            <div className={styles.noResultsContainer}>
+                                <p>No Architectures matching this criteria</p>
+                            </div>
                         ) : (
                             <ReactCarousel
                                 key={carouselKey}

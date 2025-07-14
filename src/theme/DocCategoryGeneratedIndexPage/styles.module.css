@@ -132,6 +132,18 @@
     background-size: 200px 100%;
 }
 
+.noResultsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Match main content height */
+    width: 100%;
+    padding: var(--spacing-xl);
+    text-align: center;
+    font-size: var(--ifm-font-size-lg);
+    color: var(--ifm-color-emphasis-600);
+}
+
 /* Media Queries */
 @media (max-width: 996px) {
     .contentWrapper {
@@ -166,7 +178,7 @@
 @media (max-width: 430px) {
     .contentWrapper,
     .mainContent {
-        max-width: 100vw;
+        max-w-width: 100vw;
         padding: 0 1px;
         gap: var(--spacing-xs);
     }
