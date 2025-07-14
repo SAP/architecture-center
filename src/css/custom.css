@@ -675,6 +675,16 @@ table thead {
     color: #fff;
 }
 
+/* Dark mode slick button formatting requires global styles to override module defaults */
+[data-theme='dark'] .slick-dots li button:before {
+    color: var(--ifm-color-primary-lighter) !important;
+    opacity: 1;
+}
+[data-theme='dark'] .slick-dots li.slick-active button:before {
+    color: var(--ifm-color-primary-lightest) !important;
+    opacity: 1;
+}
+
 /** Added by PO: Changing the font size for the blog's title **/
 .title_f1Hy {
     font-size: 2rem !important;
