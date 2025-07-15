@@ -35,11 +35,8 @@ export default function ExploreAllArchitecturesSection() {
         <ReactCarousel
             ref={carouselRef}
             items={items}
-            renderItem={(item, idx) => (
-                <div className={carouselStyles.cardContainer}>
-                    <DocCard item={item} />
-                </div>
-            )}
+            renderItem={(item, idx) => <DocCard item={item} />}
+            cardClassName={carouselStyles.paddedCardContainer}
             title={
                 <Title level="H3" size="H3" className={carouselStyles.titleStyle}>
                     Explore the latest Reference Architectures

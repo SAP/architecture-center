@@ -79,6 +79,14 @@
     width: 100%;
 }
 
+/* New padded container for consistent spacing */
+.paddedCardContainer {
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+    min-height: 320px;
+    width: 100%;
+}
+
 /* Updated selector for grid card container */
 .gridCardContainer {
     padding: 0 var(--spacing-md);
@@ -204,6 +212,10 @@
     .cardContainer {
         min-height: 360px;
         padding: 0 1px;
+    }
+
+    .paddedCardContainer {
+        padding: 0 8px; /* Consistent padding for small mobile */
     }
 
     .gridCardContainer {

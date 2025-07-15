@@ -133,6 +133,9 @@ We use CSS custom properties (variables) and utility classes to maintain consist
 - Border radius: `var(--border-radius-md)` (12px), `var(--border-radius-lg)` (20px)
 - Layout: `.flex-center`, `.standard-button-width`
 
+**Carousel Specific:**
+- Padding: Use the `cardClassName` prop on the `ReactCarousel` component to apply consistent padding. The `paddedCardContainer` class in `ReactCarousel.module.css` is a good default.
+
 **Example Usage:**
 ```css
 .myCard {

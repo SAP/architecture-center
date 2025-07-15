@@ -17,6 +17,7 @@ interface ReactCarouselProps extends Settings {
     items: any[];
     renderItem: (item: any, idx: number) => React.ReactNode;
     className?: string;
+    cardClassName?: string;
     title?: React.ReactNode;
     showHeader?: boolean;
     showLink?: { name: string; url: string } | null;
@@ -29,6 +30,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
             items,
             renderItem,
             className,
+            cardClassName,
             title,
             showHeader = true,
             showLink = null,
@@ -104,7 +106,9 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                             afterChange={handleAfterChange}
                         >
                             {items.map((item, idx) => (
-                                <React.Fragment key={idx}>{renderItem(item, idx)}</React.Fragment>
+                                <div key={idx} className={cardClassName}>
+                                    {renderItem(item, idx)}
+                                </div>
                             ))}
                         </Slider>
                     </div>

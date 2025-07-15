@@ -685,6 +685,10 @@ table thead {
     opacity: 1;
 }
 
+.slick-dots {
+    bottom: -10px;
+}
+
 /** Added by PO: Changing the font size for the blog's title **/
 .title_f1Hy {
     font-size: 2rem !important;
@@ -1084,6 +1088,10 @@ html[data-footer='false'] .footer {
         min-height: 324px;
     }
 
+    .slick-dots {
+        margin-bottom: 1rem !important;
+    }
+
     .community_image {
         width: 100%;
         max-width: 200px;
@@ -1096,7 +1104,7 @@ html[data-footer='false'] .footer {
 }
 
 /* Small mobile */
-@media (max-width: 400px) {
+@media (max-width: 430px) {
     .hero_banner {
         width: 96vw;
         padding-left: 0.25rem;
@@ -1124,5 +1132,9 @@ html[data-footer='false'] .footer {
     .hero_banner img,
     .hero_banner__overlay {
         min-height: 274px;
+    }
+
+    .slick-dots {
+        margin-bottom: 0.5rem !important;
     }
 }
