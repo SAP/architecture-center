@@ -23,6 +23,7 @@ draft: false
 unlisted: false
 contributors:
   - jmsrpp
+  - mahesh0431
 last_update:
   author: jmsrpp
   date: 2025-07-16
@@ -32,7 +33,7 @@ As an extension for VSCode, Cline autonomously generates code, suggests optimiza
 
 ## Getting Started
 
-To get started with Cline and SAP AI Core, you will first need to create a service key for SAP AI Core. This will provide you with the necessary credentials to connect Cline to the AI models available in SAP AI Core.
+To get started with Cline and SAP AI Core, you will first need to create a service key for SAP AI Core. This will provide you with the necessary credentials to connect Cline to the AI models available in SAP AI Core. Follow the [initial setup](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/initial-setup) for details.
 
 ### Configure Cline for SAP AI Core
 
@@ -44,7 +45,7 @@ Once you have your SAP AI Core service key, you need to configure the following 
 4.  **AI Core Base URL**: The `AI_API_URL` from your service key.
 5.  **AI Core Auth URL**: The `url` from your service key.
 6.  **AI Core Resource Group**: The resource group you want to use.
-7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`). You must have a deployment for this model in SAP AI Core.
+7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`). You must have a [deployment](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/create-deployment-for-generative-ai-model-in-sap-ai-core) for this model in SAP AI Core.
 
 With these settings configured, you are ready to start "vibe-coding" with Cline and SAP AI Core.
 
