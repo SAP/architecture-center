@@ -48,7 +48,7 @@ Vibe coding flips traditional development into a streamlined **prompt-first** lo
 
 Cline now ships with a native **SAP AI Core** provider integration, giving you enterprise-grade access to foundation models from Claude, Gemini, and OpenAI under your organization’s compliance and cost controls.
 
-![Cline and SAP AI Core](./images/cline_aicore.png)
+![Cline and SAP AI Core](./images/cline-aicore.png)
 
 With this integration, Cline forwards your requests, along with relevant local context, to your foundation models on SAP AI Core. 
 
