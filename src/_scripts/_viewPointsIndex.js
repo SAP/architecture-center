@@ -1,15 +1,7 @@
-import path from 'path'; // The 'path' module is already imported, we will use it.
+import path from 'path';
 import fs from 'fs';
 import { getTagsFile } from '@docusaurus/utils-validation';
 const jsonSchema = require('./_generatedIndexCategories.json');
-
-// --- MODIFIED SECTION START ---
-// This is the robust, definitive way to load the file.
-// 1. `__dirname` gives us the absolute path to the current script's directory (`.../src/_scripts`).
-// 2. `path.resolve` joins the paths to create a single, absolute path to the JSON file in your project root.
-const categoryDocMappingPath = path.resolve(__dirname, '../../sidebarGenerated.json');
-const categoryDocMapping = require(categoryDocMappingPath);
-// --- MODIFIED SECTION END ---
 
 function getTagsList(doc, tags) {
     return (doc.frontMatter?.tags || []).map((tag) => ({
@@ -68,38 +60,7 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
     });
 
     if (args.item.dirName === '.') {
-        const sidebarItems = await defaultSidebarItemsGenerator(args);
-        
-        const docIdToCategoriesMap = new Map();
-        for (const [categoryKey, data] of Object.entries(categoryDocMapping)) {
-            for (const docId of data.ids) {
-                if (!docIdToCategoriesMap.has(docId)) {
-                    docIdToCategoriesMap.set(docId, []);
-                }
-                docIdToCategoriesMap.get(docId).push(categoryKey);
-            }
-        }
-
-        function injectProps(items) {
-            if (!items) return []; 
-            return items.map((item) => {
-                if (item.type === 'doc' && docIdToCategoriesMap.has(item.id)) {
-                    return {
-                        ...item,
-                        customProps: {
-                            ...item.customProps,
-                            category_index: docIdToCategoriesMap.get(item.id),
-                        },
-                    };
-                }
-                if (item.type === 'category') {
-                    return { ...item, items: injectProps(item.items) };
-                }
-                return item;
-            });
-        }
-
-        return injectProps(sidebarItems);
+        return await defaultSidebarItemsGenerator(args);
     }
 
     if (sidebar_id === 'exploreallrefarch') {
