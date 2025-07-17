@@ -2,19 +2,19 @@
 id: id-ra0005-10
 slug: /ref-arch/e5eb3b9b1d/10
 sidebar_position: 10
-title: "Vibe Coding with Cline and SAP AI Core"
-description: "Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows."
+title: Vibe Coding with Cline and SAP AI Core
+description: Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.
 keywords:
-  - sap
-  - cline
-  - ai core
-  - generative ai
-  - autonomous coding
-sidebar_label: "Vibe Coding with Cline and SAP AI Core"
+    - sap
+    - cline
+    - ai core
+    - generative ai
+    - autonomous coding
+sidebar_label: Vibe Coding with Cline and SAP AI Core
 image: img/logo.svg
 tags:
-  - genai
-  - appdev
+    - genai
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -22,25 +22,23 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - jmsrpp
-  - mahesh0431
-  - AjitKP91
+    - jmsrpp
+    - mahesh0431
+    - AjitKP91
 last_update:
-  author: mahesh0431
-  date: 2025-07-17
+    author: mahesh0431
+    date: 2025-07-17
 ---
-
-## Introduction to Vibe Coding
 
 Vibe coding flips traditional development into a streamlined **prompt-first** loop: you describe the feature, the AI writes the code, and you iterate. To transform this “vibe” into a reliable engineering practice, you must master **context engineering**—the art of supplying the model with exactly the right information (requirements, APIs, tests, style guides, enterprise knowledge) at call-time so it can respond deterministically and cost-effectively.
 
-### Core Principles
+## Core Principles
 
-* **Prompt-Driven Development** – Describe functionality in plain language; the AI scaffolds the solution.
-* **Context Engineering** – Curate precise, minimal, and authoritative context (task instructions, examples, multimodal artifacts, MCP knowledge graphs, etc.) for every request.
-* **TDD Meets AI** – Let the AI generate tests first to set a verifiable contract; code is then produced to satisfy those tests.
-* **Human-in-the-Loop Governance** – Developers and Architects remain the final gatekeepers for compliance, performance, and security.
-* **Productivity Amplified** – Routine boilerplate is offloaded so teams can focus on high-value architectural decisions.
+-   **Prompt-Driven Development** – Describe functionality in plain language; the AI scaffolds the solution.
+-   **Context Engineering** – Curate precise, minimal, and authoritative context (task instructions, examples, multimodal artifacts, MCP knowledge graphs, etc.) for every request.
+-   **TDD Meets AI** – Let the AI generate tests first to set a verifiable contract; code is then produced to satisfy those tests.
+-   **Human-in-the-Loop Governance** – Developers and Architects remain the final gatekeepers for compliance, performance, and security.
+-   **Productivity Amplified** – Routine boilerplate is offloaded so teams can focus on high-value architectural decisions.
 
 ## Cline + SAP AI Core Integration
 
@@ -48,9 +46,9 @@ Vibe coding flips traditional development into a streamlined **prompt-first** lo
 
 Cline now ships with a native **SAP AI Core** provider integration, giving you enterprise-grade access to foundation models from Claude, Gemini, and OpenAI under your organization’s compliance and cost controls.
 
-![Cline and SAP AI Core](./images/cline-aicore.png)
+![drawio](./drawio/cline-vibe-code-diagram.drawio)
 
-With this integration, Cline forwards your requests, along with relevant local context, to your foundation models on SAP AI Core. 
+With this integration, Cline forwards your requests, along with relevant local context, to your foundation models on SAP AI Core.
 
 :::tip Quick Setup
 
@@ -71,9 +69,9 @@ Once you have your SAP AI Core service key, you need to configure the following 
 6.  **AI Core Resource Group**: The resource group you want to use.
 7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`). You must have a [deployment](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/create-deployment-for-generative-ai-model-in-sap-ai-core) for this model in SAP AI Core.
 
-With these settings configured, you are ready to start "vibe-coding" with Cline and SAP AI Core.
+With these settings configured, you are ready to start vibe coding with Cline and SAP AI Core.
 :::
 
-#### Reference Implementation
+## Reference Implementation
 
 See the end-to-end **[SAP CAP Vibe Coding with Cline and SAP AI Core Example](https://github.com/SAP-samples/btp-cap-demo-usecases/tree/vibe-coding-with-cline)** for a sample scenario.
