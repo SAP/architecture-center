@@ -1,0 +1,10 @@
+.dropdownDiv {
+    padding: 16px;
+    border-bottom: 1px solid var(--ifm-toc-border-color);
+    margin-top: 55px;
+}
+
+.docSidebarContainerHidden_DPk8 .dropdownDiv,
+[class*="docSidebarContainerHidden"] .dropdownDiv {
+  display: none;
+}

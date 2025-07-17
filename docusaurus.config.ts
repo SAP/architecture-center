@@ -30,7 +30,6 @@ const config: Config = {
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         './src/plugins/init-ui5-theme',
-        [require.resolve('docusaurus-plugin-image-zoom'), {}],
         [
             '@docusaurus/plugin-content-docs',
             {
@@ -84,10 +83,10 @@ const config: Config = {
             {
                 blog: {
                     path: 'blog',
-                    blogTitle: 'SAP Architecture Center - News', // Replacing Blog by News
+                    blogTitle: 'SAP Architecture Center - News', 
                     blogDescription:
                         'This blog covers reference architectures in the SAP Architecture Center and details their well-architected framework principles',
-                    blogSidebarTitle: 'Architecture Center news', // Replacing Blog by News
+                    blogSidebarTitle: 'Architecture Center news', 
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
                 },
@@ -191,7 +190,7 @@ const config: Config = {
                         {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
-                            label: 'Navigator-Style Overview',
+                            label: 'Navigator-Style Overview'
                         },
                         {
                             type: 'html',

@@ -780,3 +780,11 @@ html[data-navbar='false'] .navbar {
 html[data-footer='false'] .footer {
     display: none;
 }
+
+.sidebar_njMd {
+    padding-top: 5px !important;
+}
+
+.sidebarHidden_VK0M .dropdownDiv {
+  display: none;
+}

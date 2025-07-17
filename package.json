@@ -15,6 +15,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch"
+
   },
   "resolutions": {
     "path-to-regexp": "^8.1.0"
