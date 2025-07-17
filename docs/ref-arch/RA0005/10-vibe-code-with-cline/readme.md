@@ -24,16 +24,40 @@ unlisted: false
 contributors:
   - jmsrpp
   - mahesh0431
+  - AjitKP91
 last_update:
-  author: jmsrpp
-  date: 2025-07-16
+  author: mahesh0431
+  date: 2025-07-17
 ---
 
-As an extension for VSCode, Cline autonomously generates code, suggests optimizations, and executes terminal commands – while you stay in control. Developers working with SAP AI Core can now enjoy this Cline extension and its functionality with access to cutting-edge AI models available in SAP AI Core, including the latest models from Anthropic including Claude 4, Google including Gemini 2.5 Pro, GPT models from OpenAI, and others.
+## Introduction to Vibe Coding
 
-## Getting Started
+Vibe coding flips traditional development into a streamlined **prompt-first** loop: you describe the feature, the AI writes the code, and you iterate. To transform this “vibe” into a reliable engineering practice, you must master **context engineering**—the art of supplying the model with exactly the right information (requirements, APIs, tests, style guides, enterprise knowledge) at call-time so it can respond deterministically and cost-effectively.
 
-To get started with Cline and SAP AI Core, you will first need to create a service key for SAP AI Core. This will provide you with the necessary credentials to connect Cline to the AI models available in SAP AI Core. Follow the [initial setup](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/initial-setup) for details.
+### Core Principles
+
+* **Prompt-Driven Development** – Describe functionality in plain language; the AI scaffolds the solution.
+* **Context Engineering** – Curate precise, minimal, and authoritative context (task instructions, examples, multimodal artifacts, MCP knowledge graphs, etc.) for every request.
+* **TDD Meets AI** – Let the AI generate tests first to set a verifiable contract; code is then produced to satisfy those tests.
+* **Human-in-the-Loop Governance** – Developers and Architects remain the final gatekeepers for compliance, performance, and security.
+* **Productivity Amplified** – Routine boilerplate is offloaded so teams can focus on high-value architectural decisions.
+
+## Cline + SAP AI Core Integration
+
+**Cline** is an autonomous coding agent right in your IDE, capable of creating/editing files, executing commands, using the browser, and more with your permission every step of the way. Learn more in the [Cline Docs](https://docs.cline.bot/getting-started/what-is-cline).
+
+Cline now ships with a native **SAP AI Core** provider integration, giving you enterprise-grade access to foundation models from Claude, Gemini, and OpenAI under your organization’s compliance and cost controls.
+
+![Cline and SAP AI Core](./images/cline_aicore.png)
+
+With this integration, Cline forwards your requests, along with relevant local context, to your foundation models on SAP AI Core. 
+
+:::tip Quick Setup
+
+To get started with Cline and SAP AI Core:
+
+1. Install the [Cline Plugin](https://docs.cline.bot/getting-started/for-new-coders#%F0%9F%9A%80-getting-started) for VS Code.
+2. Create a service key for SAP AI Core in SAP BTP—this key contains the credentials that let Cline connect to your deployed models, follow the tutorial [Set up Generative AI Hub in SAP AI Core](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) for step-by-step instructions.
 
 ### Configure Cline for SAP AI Core
 
@@ -48,26 +72,8 @@ Once you have your SAP AI Core service key, you need to configure the following 
 7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`). You must have a [deployment](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/create-deployment-for-generative-ai-model-in-sap-ai-core) for this model in SAP AI Core.
 
 With these settings configured, you are ready to start "vibe-coding" with Cline and SAP AI Core.
+:::
 
-## AI-Assisted Development Process
+#### Reference Implementation
 
-### Grounding Rules
-
-Provide grounding rules via markdown in your repository directory. For example, split general and SAP-specific guidelines as follows:
-
-*   `prd rule.md`: Product Requirements Document generation with TDD approach
-*   `cap-fiori.md`: SAP CAP and Fiori best practices for deterministic generation
-
-**Note**: These are demo-focused rules. Production applications require comprehensive grounding rules.
-
-### Generation Workflow
-
-1.  **Configure Cline**: Set to "Act mode" with auto-approve, read edit enabled
-2.  **Use Generation Prompt**:
-    *   **Goal**: Generate / Create a CAP Application
-    *   **Application Details**: Application will be used to manage incidents. Each incident will have priority and status to indicate importance of it. Incident can also be updated with comments to indicate progress. afterwards generate the UI. I don't want to deploy it to sap hana, for now only want to test it locally.
-3.  **Review & Approve**: AI generates PRD → Review → Approve → Complete implementation
-
-## Conclusion
-
-By integrating Cline with SAP AI Core, you can significantly enhance your development productivity. This powerful combination allows you to leverage state-of-the-art AI models directly within your development environment, streamlining your workflow and enabling you to build innovative applications faster. This project demonstrates the potential of AI-assisted enterprise development while highlighting the importance of proper context, grounding rules, and human oversight in the development process.
+See the end-to-end **[SAP CAP Vibe Coding with Cline and SAP AI Core Example](https://github.com/SAP-samples/btp-cap-demo-usecases/tree/vibe-coding-with-cline)** for a sample scenario.
