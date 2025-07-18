@@ -74,4 +74,4 @@ With these settings configured, you are ready to start vibe coding with Cline an
 
 ## Reference Implementation
 
-See the end-to-end **[SAP CAP Vibe Coding with Cline and SAP AI Core Example](https://github.com/SAP-samples/btp-cap-demo-usecases/tree/vibe-coding-with-cline)** for a sample scenario.
+See the end-to-end **[SAP CAP Vibe Coding with Cline and SAP AI Core Example](https://github.com/SAP-samples/cloud-cap-vibe-with-cline)** for a sample scenario.
