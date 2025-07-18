@@ -1109,7 +1109,7 @@ html[data-footer='false'] .footer {
         width: 96vw;
         padding-left: 0.25rem;
         padding-right: 0.25rem;
-        margin-top: 8px;
+        margin: 16px auto 2rem auto;
     }
 
     .welcome {
