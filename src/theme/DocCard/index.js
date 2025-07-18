@@ -157,7 +157,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
         } else {
             setReadableTitle(title || '');
         }
-    }, [componentSize, description, tags, title, width, isHydrated]);
+    }, [description, tags, title, width, isHydrated]);
 
     useEffect(() => {
         if (!isHydrated) return;

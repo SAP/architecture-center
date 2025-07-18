@@ -319,7 +319,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                     {categoryGeneratedIndex.description && <p>{categoryGeneratedIndex.description}</p>}
                 </header>
 
-                <div className={styles.contentWrapper}>
+                <div className={`${styles.contentWrapper} ${isExplorePage ? styles.exploreAllWrapper : ''}`}>
                     <div className={`${styles.filterBarContainer} ${isExplorePage ? styles.filterBarContainerWithHeight : ''}`}>
                         {isExplorePage ? (
                             <FilterBar

@@ -60,9 +60,10 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
         return (
             <section className={styles.sectionContainer}>
                 <div className={styles.innerContainer}>
+                    {title && <div className={styles.titleStyle}>{title}</div>}
                     {showHeader && (
                         <div className={styles.headerRow}>
-                            <div className={styles.headerControls}>
+                            <div className={`${styles.headerControls} ${!showLink ? styles.noLink : ''}`}>
                                 <Button
                                     accessibleName="Previous slide"
                                     design="Transparent"
@@ -97,7 +98,6 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                             </div>
                         </div>
                     )}
-                    {title && <div className={styles.titleStyle}>{title}</div>}
                     <div className={className || styles.carouselContainer}>
                         <Slider
                             ref={sliderRef}
