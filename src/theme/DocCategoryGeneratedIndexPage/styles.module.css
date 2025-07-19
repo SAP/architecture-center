@@ -175,7 +175,7 @@
 @media (max-width: 430px) {
     .contentWrapper,
     .mainContent {
-        padding: 0 var(--container-padding-mobile);
+        padding: 0 !important;
     }
 
     .title {

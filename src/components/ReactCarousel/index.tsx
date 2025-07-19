@@ -17,6 +17,7 @@ interface ReactCarouselProps extends Settings {
     items: any[];
     renderItem: (item: any, idx: number) => React.ReactNode;
     className?: string;
+    containerClassName?: string;
     cardClassName?: string;
     title?: React.ReactNode;
     showHeader?: boolean;
@@ -30,6 +31,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
             items,
             renderItem,
             className,
+            containerClassName,
             cardClassName,
             title,
             showHeader = true,
@@ -58,7 +60,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
         const nextIcon = arrowOrientation === 'V' ? 'navigation-down-arrow' : 'navigation-right-arrow';
 
         return (
-            <section className={styles.sectionContainer}>
+            <section className={`${styles.sectionContainer} ${containerClassName}`}>
                 <div className={styles.innerContainer}>
                     {title && <div className={styles.titleStyle}>{title}</div>}
                     {showHeader && (

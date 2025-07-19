@@ -9,6 +9,10 @@
     border-radius: var(--border-radius-sm);
 }
 
+.noVerticalPadding {
+    padding: 0 !important;
+}
+
 /* Inner container for content alignment */
 .innerContainer {
     width: 100%;

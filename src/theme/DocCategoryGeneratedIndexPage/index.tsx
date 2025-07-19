@@ -348,6 +348,7 @@ function DocCategoryGeneratedIndexPageContent({ categoryGeneratedIndex }: Props)
                                 key={carouselKey}
                                 ref={carouselRef}
                                 items={groupedItems}
+                                containerClassName={isExplorePage ? carouselStyles.noVerticalPadding : ''}
                                 renderItem={(group, idx) => {
                                     // For mobile (1x1), no padding needed. For desktop (3x1), pad incomplete groups
                                     const isLastGroup = idx === groupedItems.length - 1;
