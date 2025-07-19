@@ -10,7 +10,7 @@
 }
 
 .noVerticalPadding {
-    padding: 0 !important;
+    padding: 2px 0 !important;
 }
 
 /* Inner container for content alignment */

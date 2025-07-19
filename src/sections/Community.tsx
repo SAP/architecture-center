@@ -36,7 +36,7 @@ export default function CommunitySection(): JSX.Element {
     return (
         <section>
             <br /> <br />
-            <div className="container">
+            <div className="community-section-wrapper">
                 <div className="community">
                     <div className="community_image">
                         <img
