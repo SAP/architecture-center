@@ -788,3 +788,7 @@ html[data-footer='false'] .footer {
 .sidebarHidden_VK0M .dropdownDiv {
   display: none;
 }
+
+.navbar-sidebar__item ul {
+    padding: 0;
+}

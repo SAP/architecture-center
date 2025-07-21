@@ -1,12 +1,12 @@
-// src/theme/DocSidebar/index.js
-
 import React, { useState, useMemo } from 'react';
 import DocSidebar from '@theme-original/DocSidebar';
+import DocSidebarItems from '@theme-original/DocSidebarItems';
+import { NavbarSecondaryMenuFiller, useWindowSize } from "@docusaurus/theme-common";
 import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
 import styles from './styles.module.css';
 
-// The filterSidebarItems function does not need any changes.
+
 function filterSidebarItems(items, selectedPartners, selectedTechDomains) {
   if (selectedPartners.length === 0 && selectedTechDomains.length === 0) {
     return items;
@@ -38,16 +38,18 @@ function filterSidebarItems(items, selectedPartners, selectedTechDomains) {
   }, []);
 }
 
-export default function DocSidebarWrapper(props) {
+// ============================================================================
+// Desktop Version 
+// ============================================================================
+function DocSidebarDesktop(props) {
   const sidebar = useDocsSidebar();
   const shouldShowFilters = sidebar?.name === 'refarchSidebar';
 
-  // If this isn't the sidebar we want to modify, just render the original and exit.
+  
   if (!shouldShowFilters) {
     return <DocSidebar {...props} />;
   }
 
-  // From here, we are only handling the 'refarchSidebar' case.
   const [selectedPartners, setSelectedPartners] = useState([]);
   const [selectedTechDomains, setSelectedTechDomains] = useState([]);
 
@@ -71,10 +73,100 @@ export default function DocSidebarWrapper(props) {
           initialValues={{ partners: selectedPartners, techDomains: selectedTechDomains }}
         />
       </div>
-
       <div className={styles.sidebarMenuList}>
         <DocSidebar {...newProps} />
       </div>
     </div>
+  );
+}
+
+
+// ============================================================================
+// Mobile Version
+// ============================================================================
+
+function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
+  const [selectedPartners, setSelectedPartners] = useState([]);
+  const [selectedTechDomains, setSelectedTechDomains] = useState([]);
+
+  const handleFilterChange = (filterGroup, selectedKeys) => {
+    if (filterGroup === 'partners') { setSelectedPartners(selectedKeys); }
+    else if (filterGroup === 'techDomains') { setSelectedTechDomains(selectedKeys); }
+  };
+
+  const filteredSidebar = useMemo(
+    () => filterSidebarItems(sidebar, selectedPartners, selectedTechDomains),
+    [sidebar, selectedPartners, selectedTechDomains]
+  );
+
+  return (
+    <>
+      <SidebarFilters
+        onFilterChange={handleFilterChange}
+        initialValues={{ partners: selectedPartners, techDomains: selectedTechDomains }}
+      />
+      <DocSidebarItems
+        items={filteredSidebar}
+        activePath={path}
+        onItemClick={onItemClick}
+      />
+    </>
+  );
+}
+
+function DocSidebarMobileSecondaryMenu({ shouldShowFilters, ...props }) {
+  return (
+    <ul>
+      {shouldShowFilters ? (
+        <FilteredMobileSidebarView
+          sidebar={props.sidebar}
+          path={props.path}
+          onItemClick={props.toggleSidebar}
+        />
+      ) : (
+        <DocSidebarItems
+          items={props.sidebar}
+          activePath={props.path}
+          onItemClick={props.toggleSidebar}
+        />
+      )}
+    </ul>
+  );
+}
+
+function DocSidebarMobile({ shouldShowFilters, ...props }) {
+    return (
+        <NavbarSecondaryMenuFiller
+            component={DocSidebarMobileSecondaryMenu}
+            props={{...props, shouldShowFilters}}
+        />
+    );
+}
+
+// ============================================================================
+// Main Exported Wrapper
+// This is the entry point that decides which version to render.
+// ============================================================================
+const DocSidebarDesktopMemo = React.memo(DocSidebarDesktop);
+const DocSidebarMobileMemo = React.memo(DocSidebarMobile);
+
+export default function DocSidebarWrapper(props) {
+  const windowSize = useWindowSize();
+  const sidebarContext = useDocsSidebar();
+
+  const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
+  
+  const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
+  const shouldRenderSidebarMobile = windowSize === 'mobile';
+
+  return (
+    <>
+      {shouldRenderSidebarDesktop && (
+        <DocSidebarDesktopMemo {...props} />
+      )}
+      {shouldRenderSidebarMobile && (
+        <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />
+      )}
+    </>
   );
 }
