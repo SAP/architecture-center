@@ -77,13 +77,13 @@ After storing the chunked and embedded documents, users can call the [Retrieval 
 
 Beyond the classical RAG approach, there are also advanced techniques that extend a RAG’s capabilities.
 
-### Multimodal RAG
+### Multi-modal RAG
 
-When the requirements for a RAG exceed what is provided by SAP's standardized services, SAP BTP offers a great platform to realize more advanced use cases or purposefully extend existing solutions. This comes to play when aiming to retrieve information from documents that contain both plain text and images. In such cases, a multimodal RAG approach provides a suitable solution. 
+When the requirements for a RAG exceed what is provided by SAP's standardized services, SAP BTP offers a great platform to realize more advanced use cases or purposefully extend existing solutions. This comes to play when aiming to retrieve information from documents that contain both plain text and images. In such cases, a multi-modal RAG approach provides a suitable solution. 
 
-This image shows how the workflow of a multimodal RAG can look like
+This image shows how the workflow of a multi-modal RAG can look like
 
-![image](images/multimodal-rag.svg)
+![image](images/multi-modal-rag.svg)
 
 As depicted here, the documents go through a lot of preprocessing before they are stored in a database to be retrieved at runtime. 
 
