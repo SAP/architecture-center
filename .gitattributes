@@ -1,0 +1,11 @@
+*.drawio filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+
+/docs        export-ignore
+/.github     export-ignore
+/tests       export-ignore
+.vscode/     export-ignore
+.gitignore   export-ignore
+README.md    export-ignore
