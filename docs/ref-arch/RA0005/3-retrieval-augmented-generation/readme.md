@@ -83,7 +83,7 @@ When the requirements for a RAG exceed what is provided by SAP's standardized se
 
 This image shows how the workflow of a multi-modal RAG can look like
 
-![image](images/multi-modal-rag.svg)
+![image](images/multi-modal-RAG.svg)
 
 As depicted here, the documents go through a lot of preprocessing before they are stored in a database to be retrieved at runtime. 
 
