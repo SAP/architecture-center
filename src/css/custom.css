@@ -780,3 +780,15 @@ html[data-navbar='false'] .navbar {
 html[data-footer='false'] .footer {
     display: none;
 }
+
+body[data-sidebar-id='refarchSidebar'] .sidebar_njMd {
+  padding-top: 5px !important;
+}
+
+.sidebarHidden_VK0M .dropdownDiv {
+  display: none;
+}
+
+.navbar-sidebar__item ul {
+    padding: 0;
+}
