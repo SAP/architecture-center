@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import DocSidebar from '@theme-original/DocSidebar';
 import DocSidebarItems from '@theme-original/DocSidebarItems';
 import { NavbarSecondaryMenuFiller, useWindowSize } from "@docusaurus/theme-common";
@@ -158,6 +158,12 @@ export default function DocSidebarWrapper(props) {
   
   const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
   const shouldRenderSidebarMobile = windowSize === 'mobile';
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
+    }
+  }, [sidebarContext?.name]);
 
   return (
     <>
