@@ -9,7 +9,8 @@ export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            title='Create reference architectures'
+            // @ts-expect-error
+            title="Create reference architectures"
             description={siteConfig.tagline}
             metadata={[
                 { property: 'og:title', content: 'Create reference architectures' },
