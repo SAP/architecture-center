@@ -1,6 +1,6 @@
 {
   "name": "sap-architecture-center",
-  "version": "1.2527.1",
+  "version": "1.2529.2",
   "private": true,
   "scripts": {
     "clean": "rm -rf build",
@@ -58,7 +58,9 @@
     "react-dom": "^18.0.0",
     "react-icons": "^5.4.0",
     "react-select": "^5.10.0",
+    "react-slick": "^0.30.3",
     "react-tooltip": "^5.28.0",
+    "slick-carousel": "^1.8.1",
     "unist-util-visit": "^5.0.0",
     "uuid": "^9.0.0"
   },
@@ -67,6 +69,7 @@
     "@docusaurus/tsconfig": "^3.8.1",
     "@docusaurus/types": "^3.8.1",
     "@types/react": "^19.0.11",
+    "@types/react-slick": "^0.23.13",
     "autoprefixer": "^10.4.20",
     "npm-force-resolutions": "^0.0.10",
     "postcss": "^8.4.41",
