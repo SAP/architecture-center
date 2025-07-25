@@ -1,19 +1,19 @@
 [
   {
+    "id": "ra0000",
+    "name": "This is the demo page [RA0000]",
+    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0000/drawio/demo.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/this-is-the-demo-page-[ra0000].svg",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/demo",
+    "shortDescription": "This page is used for demo purpose. It includes latest components developed and tested by the team. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
+  },
+  {
     "id": "ra0001",
     "name": "Reference Architecture for Event-Driven Applications",
     "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0001/drawio/e2b-cc.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/reference-architecture-for-event-driven-applications.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/fbdc46aaae",
     "shortDescription": "Guidance for developing applications based on Event-Driven Architecture (EDA) patterns and Cloud Application Programming (CAP) framework."
-  },
-  {
-    "id": "ra0002",
-    "name": "Architecting Multi-Region HA/DR resiliency patterns",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0002/drawio/architecting-multi-region-resiliency-for-sap-btp-use-cases.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/architecting-multi-region-ha/dr-resiliency-patterns.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/81805673c0",
-    "shortDescription": "Architect multi-region resiliency for SAP solutions with strategies for high availability and disaster recovery."
   },
   {
     "id": "ra0003",
@@ -46,6 +46,14 @@
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/secure-connectivity-with-sap-private-link-service.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/a2f89cac57",
     "shortDescription": "Secure SAP BTP-hyperscaler connectivity with SAP Private Link service, protecting sensitive data within private networks."
+  },
+  {
+    "id": "ra0007",
+    "name": "Multitenant SaaS Application using CAP",
+    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0007/drawio/susaas-app-architecture.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/multitenant-saas-application-using-cap.svg",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/d31bedf420",
+    "shortDescription": "Develop scalable multitenant SaaS applications on SAP BTP using CAP for cost-effective, tailored solutions."
   },
   {
     "id": "ra0008",
