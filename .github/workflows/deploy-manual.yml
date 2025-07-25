@@ -49,6 +49,9 @@ jobs:
             - name: Export drawios to svgs
               run: DOCKER=1 node src/_scripts/_export-drawios.js
 
+            - name: Generate artifacts
+              run: node src/_scripts/_generate-artifacts.js
+
             - name: Build Website
               run: npm run build
 
