@@ -3,6 +3,7 @@ const { execFileSync, execSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
 const { userInfo } = require('os');
 const QRCode = require('qrcode');
+const fm = require('front-matter'); // Added for front-matter parsing
 
 const log = console.log;
 
@@ -19,7 +20,9 @@ const ROOT = normalizePath(__dirname + '/../..');
 const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
-const URL = 'https://architecture.learning.sap.com/docs';
+const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to BASE_URL for consistency with generate-artifacts.js
+const ARTIFACTS_DIR = ROOT + '/static/artifacts'; // Added for artifacts generation
+const THUMBNAILS_DIR = ARTIFACTS_DIR + '/thumbnails'; // Added for thumbnails generation
 
 if (!DOCKER) {
     if (!existsSync(DRAWIO_CLI_BINARY)) {
@@ -32,117 +35,145 @@ if (!DOCKER) {
     }
 }
 
-const files = readdirSync(SEARCH_DIR, { recursive: true });
-const drawios = files.filter((file) => file.match(/\.drawio$/));
-log(`Found ${drawios.length} drawios to export to svg\n`);
+if (!existsSync(ARTIFACTS_DIR)) mkdirSync(ARTIFACTS_DIR, { recursive: true }); // Added for artifacts generation
+if (!existsSync(THUMBNAILS_DIR)) mkdirSync(THUMBNAILS_DIR, { recursive: true }); // Added for thumbnails generation
+
+// Function to recursively find .drawio files and their corresponding readme.md
+function findDrawioFilesAndReadmes(baseDir) {
+    const foundFiles = [];
+    const refArchDirs = readdirSync(baseDir, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('RA'))
+        .map(dirent => dirent.name);
+
+    for (const dirName of refArchDirs) {
+        const refArchPath = join(baseDir, dirName);
+        const readmePath = join(refArchPath, 'readme.md');
+
+        // Special handling for RA0007
+        if (dirName === 'RA0007') {
+            const nestedDrawioPath = join(refArchPath, '5-mt-architecture', 'drawio');
+            if (existsSync(readmePath) && existsSync(nestedDrawioPath)) {
+                const drawioFile = readdirSync(nestedDrawioPath).find(file => file.endsWith('.drawio'));
+                if (drawioFile) {
+                    foundFiles.push({
+                        drawioPath: join(nestedDrawioPath, drawioFile),
+                        readmePath: readmePath,
+                        dirName: dirName
+                    });
+                } else {
+                    log(`[WARNING] Skipping ${dirName}: No .drawio file found in ${nestedDrawioPath}`);
+                }
+            } else {
+                log(`[WARNING] Skipping ${dirName}: Missing readme.md at ${readmePath} or drawio directory at ${nestedDrawioPath}`);
+            }
+            continue; // Skip standard processing for RA0007
+        }
+
+        // Standard processing for other RAs
+        const drawioDir = join(refArchPath, 'drawio');
+        if (existsSync(readmePath) && existsSync(drawioDir)) {
+            const drawioFile = readdirSync(drawioDir).find(file => file.endsWith('.drawio'));
+            if (drawioFile) {
+                foundFiles.push({
+                    drawioPath: join(drawioDir, drawioFile),
+                    readmePath: readmePath,
+                    dirName: dirName
+                });
+            } else {
+                log(`[WARNING] Skipping ${dirName}: No .drawio file found in ${drawioDir}`);
+            }
+        } else {
+            log(`[WARNING] Skipping ${dirName}: Missing readme.md at ${readmePath} or drawio directory at ${drawioDir}`);
+        }
+    }
+    return foundFiles;
+}
+
+const allDrawioInfo = findDrawioFilesAndReadmes(SEARCH_DIR);
+log(`Found ${allDrawioInfo.length} drawios to export to svg and generate artifacts from.\n`);
 
 const transforms = {};
-// drawio as in RA0001/drawio/Events-to-business-actions-framework.drawio
-for (const drawio of drawios) {
-    // origin directory of the drawio
-    const fullInput = join(SEARCH_DIR, drawio);
-    const name = basename(drawio, '.drawio');
-    const baseDir = dirname(drawio);
-    const outputDir = join(SEARCH_DIR, baseDir, '..', 'images');
-    // final path for the svg
-    const svg = join(outputDir, `${name}.svg`);
-    transforms[fullInput] = svg;
-}
+const artifactData = []; // To store data for data.json
 
-// export all drawios to svgs
-for (let [input, out] of Object.entries(transforms)) {
-    const dir = dirname(out);
-    if (!existsSync(dir)) mkdirSync(dir);
-    try {
-        let cmd = DRAWIO_CLI_BINARY;
-        let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
-        if (DOCKER) {
-            // make relative, docker doesn't have same dir structure
-            const d = 'docs/';
-            out = d + out.split(d)[1];
-            input = d + input.split(d)[1];
-            cmd = 'docker';
-            args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
-        }
-        args.push(out, input);
+async function processDrawios() {
+    for (const { drawioPath, readmePath, dirName } of allDrawioInfo) {
+        const name = basename(drawioPath, '.drawio');
+        const baseDir = dirname(drawioPath);
+        const outputDir = join(SEARCH_DIR, baseDir.replace(SEARCH_DIR, ''), '..', 'images'); // Adjust outputDir to be relative to SEARCH_DIR
+        const svgPath = join(outputDir, `${name}.svg`);
 
-        // try sync variant first to not overwhelm runner in GitHub workflow
-        const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
-        log(prettyPaths(stdout));
-        // github workflow: docker creates files as root! set proper owner
-        if (GITHUB_ACTIONS) {
-            const user = userInfo().username;
-            const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
-            execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
-        }
-    } catch (e) {
-        const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
-        // let's fail early
-        throw new Error(msg, { cause: e });
-    }
-}
-log('\n');
+        transforms[drawioPath] = svgPath;
 
-// generate qrcode, only get inner part
-async function generateQrSvg(link) {
-    const rawSvg = await QRCode.toString(link, { type: 'svg', margin: 0 });
-    const qrInner = rawSvg.replace(/<\/*svg[^>]*>/g, '');
-    return qrInner;
-}
-
-// watermark the svgs, which were created in the previous step
-async function watermarkAll() {
-    for (const [drawioPath, svgPath] of Object.entries(transforms)) {
-        let svg = readFileSync(svgPath, 'utf8');
-        const viewBox = svg.match(/viewBox="([^"]*)"/)[1].split(' ');
-        const height = parseInt(viewBox[3]);
-        const width = parseInt(viewBox[2]);
-        // scale factor for pad and yShift to adjust for wide svgs
-        let scaleBox = width / 1500;
-        scaleBox = Math.max(1, scaleBox);
-        // finding these exact values is a bit trial and error..
-        const pad = 20 * scaleBox;
-        viewBox[0] = -pad;
-        viewBox[1] = -pad;
-        viewBox[2] = width + pad * 2; // add padding left/right
-        const logo = {
-            h: 52,
-            w: 106,
-            // margin top of logo
-            mt: 28,
-        };
-        logo.y = height + logo.mt;
-
-        // ensure watermark doesn't get to big for smaller & bigger diagrams
-        let scaleDown = width / 1500;
-        scaleDown = Math.max(0.7, scaleDown);
-        logo.h = logo.h * scaleDown;
-        logo.w = logo.w * scaleDown;
-
-        // have now title of solution diagram on top
-        // need to shift everything else
-        const yShift = 56 * scaleBox;
-        viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
-        const textX = logo.w + pad;
+        // Export drawio to SVG
+        const dir = dirname(svgPath);
+        if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); // Ensure recursive creation
 
         try {
-            const iso = execFileSync('git', ['log',  '-1', '--format=%cd', '--date=iso', drawioPath]);
+            let cmd = DRAWIO_CLI_BINARY;
+            let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
+            if (DOCKER) {
+                const d = 'docs/';
+                const relativeSvgPath = d + svgPath.split(d)[1];
+                const relativeDrawioPath = d + drawioPath.split(d)[1];
+                cmd = 'docker';
+                args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
+                args.push(relativeSvgPath, relativeDrawioPath);
+            } else {
+                args.push(svgPath, drawioPath);
+            }
+
+            const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
+            log(prettyPaths(stdout));
+
+            if (GITHUB_ACTIONS) {
+                const user = userInfo().username;
+                const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
+                execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
+            }
+        } catch (e) {
+            log(`[ERROR] Export failed for ${drawioPath} -> ${svgPath}. Error: ${e.message}`);
+            continue; // Continue to next drawio instead of aborting
+        }
+
+        // Watermark and generate thumbnail
+        try {
+            let svgContent = readFileSync(svgPath, 'utf8');
+            const viewBox = svgContent.match(/viewBox="([^"]*)"/)[1].split(' ');
+            const height = parseInt(viewBox[3]);
+            const width = parseInt(viewBox[2]);
+            let scaleBox = width / 1500;
+            scaleBox = Math.max(1, scaleBox);
+            const pad = 20 * scaleBox;
+            viewBox[0] = -pad;
+            viewBox[1] = -pad;
+            viewBox[2] = width + pad * 2;
+            const logo = { h: 52, w: 106, mt: 28 };
+            logo.y = height + logo.mt;
+            let scaleDown = width / 1500;
+            scaleDown = Math.max(0.7, scaleDown);
+            logo.h = logo.h * scaleDown;
+            logo.w = logo.w * scaleDown;
+            const yShift = 56 * scaleBox;
+            viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
+            const textX = logo.w + pad;
+
+            const iso = execFileSync('git', ['log', '-1', '--format=%cd', '--date=iso', drawioPath]);
             const lastUpdate = new Date(iso).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+                year: 'numeric', month: 'long', day: 'numeric',
             });
 
             const logoSvg = readFileSync(SAP_LOGO, 'utf8');
-            const readmePath = join(dirname(drawioPath), '..', 'readme.md');
-            const frontmatter = readFileSync(readmePath, 'utf8').split('---')[1];
-            let title = frontmatter.match(/^title:\s(.*)$/m)[1];
+            const readmeContent = readFileSync(readmePath, 'utf8');
+            const { attributes } = fm(readmeContent);
+            let title = attributes.title;
             if (title.includes('#')) title = title.split('#')[0];
-            const slug = frontmatter.match(/^slug:\s(\S+)/m)[1];
-            const smallSlug = frontmatter.match(/^slug:\s\/ref-arch\/(\S+)/m)[1];
-            const qrSvgContent = await generateQrSvg(URL + slug);
-            // Set qrSize to dynamically position the qrCode later (33 = original qrCode width)
+            const slug = attributes.slug;
+            const smallSlug = slug.match(/\/ref-arch\/(\S+)/)?.[1] || '';
+            // Ensure the QR code link includes the /docs path
+            const qrLink = `${BASE_URL}/docs${slug}`;
+            const qrSvgContent = await generateQrSvg(qrLink);
             const qrSize = 33 * 1.9 * scaleDown;
+
             const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(22 * scaleDown)}">
                             <![CDATA[${title}]]>
                         </text>
@@ -168,29 +199,57 @@ async function watermarkAll() {
                         </g>`;
 
             const bg = `<rect x="${-pad}" y="${-pad}" width="${viewBox[2]}" height="${viewBox[3]}" fill="${SVG_BACKGROUND_COLOR}"/>`;
-            svg = svg
-                // leave svg opening tag unchanged, but add rect element to set background color
+            svgContent = svgContent
                 .replace(/<svg([^>]*)>/, '<svg$1>' + bg)
-                // this g contains the diagram
                 .replace('<g>', `<g transform="translate(0, ${yShift})">`)
                 .replace(/<\/svg>$/, mark + '</svg>')
                 .replace(/viewBox="([^"]*)"/, `viewBox="${viewBox.join(' ')}"`)
-                // height attribute was set to same as viewbox height, so update it too
                 .replace(/height="([^"]*)"/, `height="${viewBox[3]}"`)
                 .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
-            writeFileSync(svgPath, svg);
+            writeFileSync(svgPath, svgContent);
             log(prettyPaths('Watermarked ' + svgPath));
+
+            // Generate thumbnail from the watermarked SVG
+            const titleAsFileName = attributes.title.toLowerCase().replace(/\s+/g, '-');
+            const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
+
+            // Copy the watermarked SVG to the thumbnails directory
+            writeFileSync(thumbnailSvgPath, svgContent);
+            log(`Generated thumbnail: ${thumbnailSvgPath}`);
+
+            artifactData.push({
+                id: dirName.toLowerCase(),
+                name: attributes.title,
+                drawioLink: `${BASE_URL}/docs/ref-arch/${dirName}/drawio/${basename(drawioPath)}`, // Adjusted drawioLink
+                thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${titleAsFileName}.svg`,
+                acLink: `${BASE_URL}/docs/ref-arch${attributes.slug}`,
+                shortDescription: attributes.description,
+            });
+
         } catch (e) {
-            const msg = prettyPaths(`Failed to watermark ${svgPath}, aborting now`);
-            throw new Error(msg, { cause: e });
+            log(`[ERROR] Failed to watermark or generate thumbnail for ${svgPath}. Error: ${e.message}`);
         }
     }
+
+    // Write data.json
+    writeFileSync(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(artifactData, null, 2));
+    log('Successfully generated artifacts data.json.');
 }
 
-watermarkAll();
+// generate qrcode, only get inner part
+async function generateQrSvg(link) {
+    const rawSvg = await QRCode.toString(link, { type: 'svg', margin: 0 });
+    const qrInner = rawSvg.replace(/<\/*svg[^>]*>/g, '');
+    return qrInner;
+}
 
 function prettyPaths(log) {
     const strip = DOCKER ? 'docs/ref-arch/' : SEARCH_DIR + '/';
     return log.replaceAll(strip, '').replaceAll('\n', '');
 }
+
+processDrawios().catch(e => {
+    log('Error during processing:', e);
+    process.exit(1);
+});
