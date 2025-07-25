@@ -6,7 +6,7 @@ import { useDoc } from '@docusaurus/plugin-content-docs/client';
 import Contributors from '../../../components/Contributors';
 import Discussion from '../../../components/Discussion';
 
-export default function DocItemFooter(): JSX.Element | null {
+export default function DocItemFooter(): React.ReactElement | null {
     const { metadata } = useDoc();
     const { frontMatter } = metadata;
 
