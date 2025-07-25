@@ -1,194 +1,186 @@
 [
   {
-    "id": "ra0000",
-    "name": "This is the demo page [RA0000]",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0000/drawio/demo.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/this-is-the-demo-page-[ra0000].svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/demo",
-    "shortDescription": "This page is used for demo purpose. It includes latest components developed and tested by the team. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum."
-  },
-  {
     "id": "ra0001",
     "name": "Reference Architecture for Event-Driven Applications",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0001/drawio/e2b-cc.drawio",
+    "drawioLink": "PLACEHOLDER:e2b-cc.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/reference-architecture-for-event-driven-applications.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/fbdc46aaae",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/fbdc46aaae",
     "shortDescription": "Guidance for developing applications based on Event-Driven Architecture (EDA) patterns and Cloud Application Programming (CAP) framework."
   },
   {
     "id": "ra0003",
     "name": "Federated Machine Learning with SAP Datasphere",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0003/drawio/fedml-final.drawio",
+    "drawioLink": "PLACEHOLDER:fedml-final.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/federated-machine-learning-with-sap-datasphere.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/8e1a5fbce3",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/8e1a5fbce3",
     "shortDescription": "Federate SAP and non-SAP data with SAP Datasphere for seamless ML integration, eliminating replication and enhancing insights."
   },
   {
     "id": "ra0004",
     "name": "Explore your Hyperscaler data with SAP Business Data Cloud",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0004/drawio/explore-hyperscaler-data.drawio",
+    "drawioLink": "PLACEHOLDER:explore-hyperscaler-data.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/explore-your-hyperscaler-data-with-sap-business-data-cloud.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/a07a316077",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/a07a316077",
     "shortDescription": "Explore SAP Datasphere for harmonizing hyperscaler data with SAP, enabling impactful, data-driven business decisions."
   },
   {
     "id": "ra0005",
     "name": "Generative AI on SAP BTP",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0005/drawio/reference-architecture-generative-ai.drawio",
+    "drawioLink": "PLACEHOLDER:reference-architecture-generative-ai.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/generative-ai-on-sap-btp.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/e5eb3b9b1d",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d",
     "shortDescription": "Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for similarity search and advanced AI patterns."
   },
   {
     "id": "ra0006",
     "name": "Secure connectivity with SAP Private Link service",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0006/drawio/secure-connectivity-with-sap-private-link-service.drawio",
+    "drawioLink": "PLACEHOLDER:secure-connectivity-with-sap-private-link-service.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/secure-connectivity-with-sap-private-link-service.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/a2f89cac57",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/a2f89cac57",
     "shortDescription": "Secure SAP BTP-hyperscaler connectivity with SAP Private Link service, protecting sensitive data within private networks."
   },
   {
     "id": "ra0007",
     "name": "Multitenant SaaS Application using CAP",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0007/drawio/susaas-app-architecture.drawio",
+    "drawioLink": "PLACEHOLDER:susaas-app-architecture.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/multitenant-saas-application-using-cap.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/d31bedf420",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/d31bedf420",
     "shortDescription": "Develop scalable multitenant SaaS applications on SAP BTP using CAP for cost-effective, tailored solutions."
   },
   {
     "id": "ra0008",
     "name": "Edge Integration Cell on Hyperscalers",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0008/drawio/sap_eic.drawio",
+    "drawioLink": "PLACEHOLDER:sap_eic.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/edge-integration-cell-on-hyperscalers.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/263f576c90",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/263f576c90",
     "shortDescription": "Deploy SAP Integration Suite - Edge Integration Cell on hyperscalers for secure hybrid integration with architecture diagrams and resources."
   },
   {
     "id": "ra0009",
     "name": "Establish a central inbox with SAP Task Center",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0009/drawio/establish-a-central-inbox-with-sap-task-center.drawio",
+    "drawioLink": "PLACEHOLDER:establish-a-central-inbox-with-sap-task-center.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/establish-a-central-inbox-with-sap-task-center.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/0245473a99",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/0245473a99",
     "shortDescription": "Learn to set up SAP Task Center on SAP BTP. Explore its architecture, components, and workflows for a unified task management experience."
   },
   {
     "id": "ra0010",
     "name": "Establish a central entry point with SAP Build Work Zone",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0010/drawio/sap-build-work-zone.drawio",
+    "drawioLink": "PLACEHOLDER:sap-build-work-zone.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/establish-a-central-entry-point-with-sap-build-work-zone.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/1311c18c17",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/1311c18c17",
     "shortDescription": "SAP Build Work Zone centralizes business applications, workflows, and communication for a seamless digital workplace experience."
   },
   {
     "id": "ra0011",
     "name": "SAP HANA Cloud as an Esri Geodatabase",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0011/drawio/esri-and-hana-cloud.drawio",
+    "drawioLink": "PLACEHOLDER:esri-and-hana-cloud.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/sap-hana-cloud-as-an-esri-geodatabase.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/25a350543b",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/25a350543b",
     "shortDescription": "Integrate Esri ArcGIS with SAP HANA Cloud for real-time geospatial and business data analysis, optimizing insights for industries like utilities during disasters."
   },
   {
     "id": "ra0012",
     "name": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0012/drawio/medallion-big-data-architecture.drawio",
+    "drawioLink": "PLACEHOLDER:medallion-big-data-architecture.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/medallion-reference-architecture-for-big-data-processing-in-sap-hana-cloud.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/d9b25daf96",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/d9b25daf96",
     "shortDescription": "Process big data with SAP HANA Cloud Data Lake, integrating structured and unstructured data for intelligent applications."
   },
   {
     "id": "ra0013",
     "name": "Transforming Enterprise Data Strategy with SAP Business Data Cloud",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0013/drawio/sap-bdc.drawio",
+    "drawioLink": "PLACEHOLDER:sap-bdc.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/transforming-enterprise-data-strategy-with-sap-business-data-cloud.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/f5b6b597a6",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/f5b6b597a6",
     "shortDescription": "Transform enterprise data strategies with SAP BDC, unifying SAP and non-SAP data for scalable AI and analytics."
   },
   {
     "id": "ra0014",
     "name": "Understanding Network Performance in a Multi Regional Solution",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0014/drawio/Direct_OData_Call.drawio",
+    "drawioLink": "PLACEHOLDER:measurement_landscape.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/understanding-network-performance-in-a-multi-regional-solution.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/0ec83f98fe",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/0ec83f98fe",
     "shortDescription": "Optimize multi-regional cloud solutions with insights into network design, provider usage, and service placement for superior performance."
   },
   {
     "id": "ra0015",
     "name": "Business to Government Integration",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0015/drawio/business-to-government-integration.drawio",
+    "drawioLink": "PLACEHOLDER:business-to-government-integration.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/business-to-government-integration.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/c5f6fe6cf1",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/c5f6fe6cf1",
     "shortDescription": "Streamline compliance with SAP's Business-to-Government Integration for secure electronic document exchange."
   },
   {
     "id": "ra0016",
     "name": "Secure Service Consumption Across Hyperscalers",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0016/drawio/gcp-oidc.drawio",
+    "drawioLink": "PLACEHOLDER:gcp-oidc.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/secure-service-consumption-across-hyperscalers.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/7e558be8f1",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/7e558be8f1",
     "shortDescription": "This architecture outlines a cloud-agnostic approach for securely consuming services offered by hyperscalers from applications running outside their environments."
   },
   {
     "id": "ra0017",
     "name": "Connect Business Processes with SAP Master Data Integration",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0017/drawio/master-data-integration.drawio",
+    "drawioLink": "PLACEHOLDER:master-data-integration.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/connect-business-processes-with-sap-master-data-integration.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/7adaecbbaf",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/7adaecbbaf",
     "shortDescription": "Synchronize and manage business-critical data across SAP and third-party systems using SAP Master Data Integration."
   },
   {
     "id": "ra0018",
     "name": "Integrate and Extend with SAP Build Process Automation",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0018/drawio/integrate-and-extend-with-sap-build-process-automation.drawio",
+    "drawioLink": "PLACEHOLDER:integrate-and-extend-with-sap-build-process-automation.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/integrate-and-extend-with-sap-build-process-automation.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/99fd0564be",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/99fd0564be",
     "shortDescription": "Automate processes with SAP Build Process Automation, integrating workflows across SAP and non-SAP systems."
   },
   {
     "id": "ra0019",
     "name": "SAP IAM integration with SAP Cloud Identity Services",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0019/drawio/public-sap-iam-sd.drawio",
+    "drawioLink": "PLACEHOLDER:public-sap-iam-sd.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/sap-iam-integration-with-sap-cloud-identity-services.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/20c6b29b1e",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/20c6b29b1e",
     "shortDescription": "Design authentication and role management flows for SAP SaaS with SAP Cloud Identity Services."
   },
   {
     "id": "ra0020",
     "name": "Business to Business Integration",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0020/drawio/business-to-business-integration.drawio",
+    "drawioLink": "PLACEHOLDER:business-to-business-integration.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/business-to-business-integration.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/61f6a1db63",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/61f6a1db63",
     "shortDescription": "Optimize B2B integration with SAP Integration Suite for secure, scalable electronic document exchange with trading partners."
   },
   {
     "id": "ra0021",
     "name": "Application to Application Integration",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0021/drawio/application-to-application-integration.drawio",
+    "drawioLink": "PLACEHOLDER:application-to-application-integration.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/application-to-application-integration.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/58f6d88e9a",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/58f6d88e9a",
     "shortDescription": "Enable seamless App2App integration with SAP Integration Suite for near real-time transactional data exchange across internal processes."
   },
   {
     "id": "ra0022",
     "name": "API Managed Integration",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0022/drawio/api-managed-integration.drawio",
+    "drawioLink": "PLACEHOLDER:api-managed-integration.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/api-managed-integration.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/309338f0eb",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/309338f0eb",
     "shortDescription": "Enable secure, omni-channel API access to business apps with SAP Integration Suite, simplifying governance, security, and API consumption."
   },
   {
     "id": "ra0023",
     "name": "DevOps with SAP BTP",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0023/drawio/devops-with-sap-btp.drawio",
+    "drawioLink": "PLACEHOLDER:devops-with-sap-btp.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/devops-with-sap-btp.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/1c5706feb5",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/1c5706feb5",
     "shortDescription": "Adopt agile DevOps principles on SAP BTP with cloud services and tools for streamlined application lifecycle management."
   },
   {
     "id": "ra0024",
     "name": "Extend Joule with Joule Studio",
-    "drawioLink": "https://architecture.learning.sap.com/docs/ref-arch/RA0024/drawio/joule-studio-ref-arch.drawio",
+    "drawioLink": "PLACEHOLDER:joule-studio-ref-arch.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/extend-joule-with-joule-studio.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/ref-arch/06ff6062dc",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc",
     "shortDescription": "Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation."
   }
 ]
