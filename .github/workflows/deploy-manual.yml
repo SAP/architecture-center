@@ -52,6 +52,9 @@ jobs:
             - name: Build Website
               run: npm run build
 
+            - name: Update drawio links with hashed URLs
+              run: node src/_scripts/_update-drawio-links.js
+
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
               with:

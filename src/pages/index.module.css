@@ -6,7 +6,7 @@
 .heroBanner {
     padding: 5rem 0;
     text-align: center;
-    color: #002a86;
+    color: var(--color-sap-primary);
     position: relative;
     overflow: hidden;
     height: 700px;
@@ -26,7 +26,7 @@
 }
 
 .buttons {
-    color: #002a86;
+    color: var(--color-sap-primary);
     display: flex;
     align-items: center;
     justify-content: center;
