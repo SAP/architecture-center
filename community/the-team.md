@@ -27,7 +27,10 @@ import {
   ExtendedTeam,
 } from '@site/src/components/TeamProfileCards';
 
-The team behind the SAP Architecture Center.
+
+We are the **Platform Architecture & Adoption** team within the **Office of the CTO**, driving the development and engagement of SAP’s Architecture Center. 
+
+We enable community **collaboration** and **innovation** by providing a modern, GitHub-based platform for building, publishing, and governing SAP reference solution architectures.
 
 ## The core team
 
@@ -43,7 +46,7 @@ When professional support was needed, a team of skilled colleagues stepped in to
 
 ## The other contributors
 
-There are two types of contributors:  
+Many individuals contributed to this project, and we are deeply grateful for their support.
+To everyone who offered help — whether large or small — you know who you are, and we thank you.
 
-1. Everyone who has offered us help—you know who you are.  
-2. The content creators, without whom this site would not exist!
+A special thanks goes to our **content creators**, whose work is the foundation of this site.
