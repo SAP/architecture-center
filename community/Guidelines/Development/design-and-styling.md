@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 1
 slug: /design-and-styling
 title: Design & Styling
 description: Best practices for CSS, responsive design, and performance in the SAP Architecture Center. Ensure a fast, accessible, and maintainable site.
