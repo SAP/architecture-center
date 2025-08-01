@@ -1,0 +1,100 @@
+name: Validate Architecture Diagrams
+
+on:
+  pull_request_target:
+    paths:
+      - "**/*.drawio"
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  validate-diagrams:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      # Step 1: Checkout PR Code
+      - name: Checkout PR Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      # Step 3: Install Dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 4: Find .drawio Files in PR using GitHub API
+      - name: Find .drawio Files in PR
+        id: find_drawio
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_number="${{ github.event.pull_request.number }}"
+          repo="${{ github.repository }}"
+
+          echo "Fetching changed files from PR #$pr_number in $repo..."
+
+          drawio_files=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$repo/pulls/$pr_number/files" | \
+            jq -r '.[].filename' | grep '\.drawio$' || true)
+
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$drawio_files" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # Step 5: Validate Drawio Files and Generate Summary
+      - name: Validate Drawio Files and Generate Reports
+        if: steps.find_drawio.outputs.files != ''
+        env:
+          ARCH_API_KEY: ${{ secrets.ARCH_API_KEY }}
+        run: |
+          echo "## Architecture Diagram Validation Report" >> $GITHUB_STEP_SUMMARY
+          mkdir -p reports
+          echo "${{ steps.find_drawio.outputs.files }}" > drawio_list.txt
+          node src/_scripts/validateAllDrawios.js $(cat drawio_list.txt)
+          cat reports/combined-report.md >> $GITHUB_STEP_SUMMARY
+
+      # Step 6: Upload Validation Reports
+      - name: Upload Validation Reports
+        if: steps.find_drawio.outputs.files != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: drawio-validation-reports
+          path: reports/
+
+      # Step 7: Read Header Summary into ENV
+      - name: Read Header Summary into ENV
+        if: steps.find_drawio.outputs.files != ''
+        id: read_summary
+        run: |
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          cat reports/header-summary.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # Step 8: Comment on PR with Summary Info
+      - name: Comment with Summary Tab Info
+        if: steps.find_drawio.outputs.files != ''
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ### Architecture Diagram Validation Report
+
+            ${{ steps.read_summary.outputs.summary }}
+
+            Please find the detailed validation results for the uploaded architecture diagrams in the **[Summary](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})** tab.
+
+            ---
+            _Note: These results are based on SAP architectural best practices. Please review any warnings or errors accordingly._
