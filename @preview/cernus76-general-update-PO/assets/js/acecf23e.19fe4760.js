@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksap_architecture_center=self.webpackChunksap_architecture_center||[]).push([[81903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/@preview/cernus76-general-update-PO/blog","blogTitle":"SAP Architecture Center - News","authorsListPath":"/@preview/cernus76-general-update-PO/blog/authors"}')}}]);
