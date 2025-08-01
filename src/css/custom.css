@@ -10,9 +10,12 @@
 
 /* You can override the Infima variables here. For their default values, see node_modules/infima/dist/css/default/default.css */
 :root {
-    --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif'; /* font 72 is SAP’s proprietary typeface */
-    --ifm-font-color-base: #1d2d3e; /* Morning Horizon's color for text and titles */
-    --ifm-link-color: #0070f2; /* Morning Horizon's color for links */
+    --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif';
+    /* font 72 is SAP's proprietary typeface */
+    --ifm-font-color-base: #1d2d3e;
+    /* Morning Horizon's color for text and titles */
+    --ifm-link-color: #0070f2;
+    /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
     --ifm-color-primary-darker: #002a86;
@@ -37,6 +40,53 @@
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
+
+    /* Custom spacing scale */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+
+    /* Custom shadow values */
+    --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0px 6px 16px rgba(0, 112, 242, 0.4);
+    --shadow-filter: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    /* Custom border radius */
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 20px;
+    --border-radius-xl: 24px;
+
+    /* Custom breakpoints */
+    --breakpoint-tablet: 996px;
+    --breakpoint-mobile: 600px;
+    --breakpoint-small-mobile: 430px;
+
+    /* Custom button width */
+    --button-width-standard: 150px;
+
+    /* Custom card dimensions */
+    --card-height-desktop: 290px;
+    --card-height-tablet: 340px;
+    --card-height-mobile: 360px;
+    --card-max-width: 430px;
+    --card-max-width-tablet: 600px;
+
+    /* Custom container dimensions */
+    --container-max-width: 1440px;
+    --container-padding: 24px;
+    --container-padding-tablet: 16px;
+    --container-padding-mobile: 8px;
+
+    /* Semantic colors for repeated values */
+    --color-border-light: #e0e0e0;
+    --color-background-dark-secondary: #1e1e1e;
+    --color-linkedin: #0a66c2;
+    --color-text-muted: #666;
+    --color-sap-primary: #002a86;
 }
 
 /* Ensure code blocks do not overflow the page */
@@ -49,18 +99,6 @@ pre {
     box-sizing: border-box;
 }
 
-/* Prevent code blocks from overflowing on mobile devices */
-@media (max-width: 969px) {
-    code,
-    pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        overflow-x: auto;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-}
-
 /* simply one font family, uses the correct font according to the font weight which is set, e.g. 900 => use 72Black */
 @font-face {
     font-family: '72';
@@ -68,18 +106,21 @@ pre {
     font-weight: bold;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Black.woff2') format('woff2');
     font-weight: 900;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Medium.woff2') format('woff2');
     font-weight: 500;
     font-display: swap;
 }
+
 @font-face {
     font-family: '72';
     src: url('../css/font/72Brand-Regular.woff2') format('woff2');
@@ -140,8 +181,10 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 /* General list item styling */
 .menu__list-item {
-    font-size: 14px; /* Adjust the font size as needed */
-    list-style: none; /* Remove bullet points */
+    font-size: 14px;
+    /* Adjust the font size as needed */
+    list-style: none;
+    /* Remove bullet points */
 }
 
 .menu__list-item > .menu__link--active {
@@ -151,7 +194,8 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 .menu__link {
     /* Changed by PO: All pages should use the same colors */
     color: #535353;
-    font-size: 0.8rem; /* Adjust the font size as needed */
+    font-size: 0.8rem;
+    /* Adjust the font size as needed */
     font-weight: 400;
     line-height: 1rem;
 }
@@ -163,13 +207,15 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 .header_body {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     height: 120px;
     flex-shrink: 0;
     color: #ffffff;
     line-height: normal;
     z-index: 1;
     width: 100%;
-    max-width: 43%;
+    max-width: 50%;
     font-size: 1.2rem;
 }
 
@@ -177,21 +223,43 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     font-size: 2.5rem;
 }
 
-.container {
-    align-items: center;
+.community-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    padding: 32px;
+    padding: 0 16px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .welcome {
-    margin-top: 1rem;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 6rem;
+    padding-top: 3rem;
+    max-width: 80%;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
 }
 
 .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_light.png');
     width: 100%;
-    height: 424px;
-    background-size: contain;
+    max-width: 1440px;
+    aspect-ratio: 1440 / 424;
+    min-height: 424px;
+    margin: 64px auto 4rem auto;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     color: white;
@@ -199,13 +267,35 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: -35px;
-    margin-bottom: -20px;
 }
 
-/* Adding dark mode to the landing page banner */
-[data-theme='dark'] .hero_banner {
-    background-image: url('/img/landingPage/architecture_center_banner5_rounded_1440x424_dark.png');
+.hero_banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero_banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    z-index: 1;
+    pointer-events: auto;
+    background-color: transparent;
 }
 
 .community {
@@ -219,111 +309,29 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .community_image {
-    width: 33%;
-    height: 400px;
-    flex-shrink: 0;
+    width: 70%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    margin: 0 auto;
 }
 
-@media screen and (max-width: 1200px) {
-    .hero_banner {
-        padding: 1rem;
-        height: auto;
-        background-size: cover;
-        background-position: center;
-        text-align: left;
-    }
+.community_image_inside {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
 }
 
-@media screen and (max-width: 996px) {
-    .hero_banner {
-        height: auto;
-        background-size: cover;
-        background-position: center;
-        text-align: left;
-    }
-
-    .community_body {
-        width: 100%;
-        height: auto;
-        margin: 0;
-        text-align: center;
-    }
-
-    .community_image {
-        width: 50%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
-    }
-
-    .welcome {
-        margin-top: 1rem; /* Reduce unnecessary spacing */
-        text-align: left;
-    }
-
-    .header_title {
-        font-size: 1.6rem;
-    }
-
-    .header_body {
-        display: flex;
-        flex-direction: column;
-        width: 90%;
-        max-width: 500px;
-        height: auto;
-        text-align: left;
-    }
-
-    .benefits_body {
-        margin: 2rem auto;
-        width: 90%;
-        max-width: 500px;
-        height: auto;
-        text-align: center;
-    }
-
-    .community {
-        flex-direction: column;
-        gap: 3rem;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .hero_banner {
-        padding: 2rem 1rem;
-    }
-
-    .welcome {
-        margin-top: 1rem;
-        justify-content: left;
-    }
-
-    .header_body {
-        width: 100%;
-        text-align: left;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .container {
-        padding: 1rem;
-    }
-
-    .header_body_p {
-        font-size: 14px;
-    }
-
-    .community_image {
-        width: 90%;
-    }
+.community_body {
+    text-align: left;
+    max-width: 600px;
+    margin: 0;
+    padding: 0;
 }
 
 .fallback-image:not(.medium-zoom-image--opened) {
@@ -334,12 +342,18 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 /* Constrain the size of zoomed images */
 .medium-zoom-image--opened {
-    max-width: 80%; /* Ensure the image doesn't exceed the screen width */
-    max-height: 80%; /* Constrain the zoomed image to 80% of the viewport height */
-    object-fit: contain; /* Maintain the aspect ratio */
-    display: block; /* Center the image */
-    margin-left: auto; /* Center the image */
-    margin-right: auto; /* Center the image */
+    max-width: 80%;
+    /* Ensure the image doesn't exceed the screen width */
+    max-height: 80%;
+    /* Constrain the zoomed image to 80% of the viewport height */
+    object-fit: contain;
+    /* Maintain the aspect ratio */
+    display: block;
+    /* Center the image */
+    margin-left: auto;
+    /* Center the image */
+    margin-right: auto;
+    /* Center the image */
 }
 
 /* Sidebar customization */
@@ -357,9 +371,11 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .menu__list-item .menu__list {
-    margin-left: 15px; /* Indent the sub-list */
+    margin-left: 15px;
+    /* Indent the sub-list */
     padding-left: 10px;
-    border-left: 2px solid var(--ifm-color-gray-500); /* Vertical line */
+    border-left: 2px solid var(--ifm-color-gray-500);
+    /* Vertical line */
 }
 
 .menu__link--active {
@@ -401,10 +417,24 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
+html,
+body,
 #__docusaurus {
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
+}
+
+.main-wrapper {
+    min-height: calc(100vh - 290px);
+}
+
+.navbar-sidebar {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    z-index: 2000;
 }
 
 html[data-theme='dark'] .sourcecode-badge {
@@ -459,8 +489,10 @@ table thead {
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-    --ifm-font-color-base: #eaecee; /* Evening Horizon's color for text and titles */
-    --ifm-link-color: #4db1ff; /* Evening Horizon's color for links */
+    --ifm-font-color-base: #eaecee;
+    /* Evening Horizon's color for text and titles */
+    --ifm-link-color: #4db1ff;
+    /* Evening Horizon's color for links */
     --ifm-footer-link-color: #8396a8;
     --ifm-footer-link-hover-color: #6e7f8e;
     --ifm-color-primary: #d1efff;
@@ -515,14 +547,6 @@ table thead {
     );
 }
 
-/** In mobile view, reduce the padding */
-@media screen and (max-width: 996px) {
-    .hero_banner {
-        padding: 2rem;
-        background-color: #ffffff;
-    }
-}
-
 .footer_div {
     margin-top: 0rem 0rem;
 }
@@ -532,28 +556,39 @@ table thead {
     margin-left: 0rem;
     margin-right: 0px;
     height: 290px;
+    min-height: 290px;
+    box-sizing: border-box;
 }
 
-@media screen and (max-width: 996px) {
-    /* Force the background to match the footer */
-    html[data-theme='light'],
-    body[data-theme='light'] {
-        background-color: #e0e0e0 !important;
-    }
+.footer__links {
+    display: flex;
+    justify-content: center !important;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0 auto;
+}
 
-    html[data-theme='dark'],
-    body[data-theme='dark'] {
-        background-color: #0e0f19 !important;
-    }
+.container-fluid {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100%;
+    max-width: 1440px;
+    box-sizing: border-box;
+}
 
-    /* Ensure footer matches the background */
-    html[data-theme='light'] .footer {
-        background-color: #e0e0e0 !important;
-    }
-
-    html[data-theme='dark'] .footer {
-        background-color: #0e0f19 !important;
-    }
+.footer__bottom.text--center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1440px;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 /* make links in copyright behave like rest of links in footer */
@@ -590,7 +625,8 @@ table thead {
 }
 
 [data-theme='dark'] .menu__list-item .menu__list {
-    border-left: 2px solid #444950 !important; /* Vertical line */
+    border-left: 2px solid #444950 !important;
+    /* Vertical line */
 }
 
 [data-theme='dark'] .menu__list-item-collapsible > .menu__link {
@@ -635,6 +671,20 @@ table thead {
     font-weight: bold;
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff;
+}
+
+/* Dark mode slick button formatting requires global styles to override module defaults */
+[data-theme='dark'] .slick-dots li button:before {
+    color: var(--ifm-color-primary-lighter) !important;
+    opacity: 1;
+}
+[data-theme='dark'] .slick-dots li.slick-active button:before {
+    color: var(--ifm-color-primary-lightest) !important;
+    opacity: 1;
+}
+
+.slick-dots {
+    bottom: -10px;
 }
 
 /** Added by PO: Changing the font size for the blog's title **/
@@ -698,20 +748,14 @@ html[data-theme='dark'] .navbar {
     backdrop-filter: blur(10px);
 }
 
-@media screen and (max-width: 996px) {
-    .navbar-sidebar {
-        position: fixed !important; /* Ensures it's always visible */
-        height: 100vh !important; /* Allows it to expand */
-    }
-}
-
 /* The following styles are for the iframes to fit in the container div with full height and width */
 /* For 16:9 aspect ratio */
 .video-container-16-9 {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
 }
 
 /* For 4:3 aspect ratio */
@@ -719,7 +763,8 @@ html[data-theme='dark'] .navbar {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 75%; /* 4:3 Aspect Ratio (divide 4 by 3 = 0.75) */
+    padding-top: 75%;
+    /* 4:3 Aspect Ratio (divide 4 by 3 = 0.75) */
 }
 
 /* For 3:2 aspect ratio */
@@ -727,7 +772,8 @@ html[data-theme='dark'] .navbar {
     position: relative;
     overflow: hidden;
     width: 90%;
-    padding-top: 66.66%; /* 3:2 Aspect Ratio (divide 3 by 2 = 0.6666) */
+    padding-top: 66.66%;
+    /* 3:2 Aspect Ratio (divide 3 by 2 = 0.6666) */
 }
 
 /* This style allows the iframe to fit in the container div with full height and width */
@@ -744,8 +790,10 @@ html[data-theme='dark'] .navbar {
 
 html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
-    border: #dadde1 1px solid;
+    border: 1px solid #dadde1;
     padding: 35px;
+    margin: 0 0 0 12px;
+    box-sizing: border-box;
 }
 
 html[data-theme='dark'] .docItemCol_VOVn {
@@ -753,6 +801,8 @@ html[data-theme='dark'] .docItemCol_VOVn {
     border: #444950 1px solid;
     color: #ffffff;
     padding: 35px;
+    margin: 0 0 0 12px;
+    box-sizing: border-box;
 }
 
 html[data-theme='light'] .theme-last-updated {
