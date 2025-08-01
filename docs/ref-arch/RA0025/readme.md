@@ -23,14 +23,13 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - navyakhurana
 last_update:
     date: 2025-08-01
-    author: user-129d486477
+    author: navyakhurana
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
