@@ -18,13 +18,20 @@ const inputFiles = process.argv.slice(2); // Read all passed drawio files
   }
 
   // Header Summary
-  const headerSummary =
-    `#### Summary Across ${inputFiles.length} Architecture Diagram(s)\n\n` +
-    `| Metric                       | Count |\n` +
-    `|-----------------------------|-------|\n` +
-    `| Total Architecture Diagrams | ${inputFiles.length} |\n` +
-    `| ⚠️ Warning                  | ${totalWarning} |\n` +
-    `| ❌ Error                    | ${totalError} |\n\n`;
+  let headerSummary;
+  if (totalWarning === 0 && totalError === 0) {
+    headerSummary =
+      `#### Summary Across ${inputFiles.length} Architecture Diagram(s)\n\n` +
+      `✅ No anti pattern found.\n\n`;
+  } else {
+    headerSummary =
+      `#### Summary Across ${inputFiles.length} Architecture Diagram(s)\n\n` +
+      `| Metric                       | Count |\n` +
+      `|-----------------------------|-------|\n` +
+      `| Total Architecture Diagrams | ${inputFiles.length} |\n` +
+      `| ⚠️ Warning                  | ${totalWarning} |\n` +
+      `| ❌ Error                    | ${totalError} |\n\n`;
+  }
 
   // Full report includes header and all diagram reports
   const fullReport = allReports.join('\n---\n\n');

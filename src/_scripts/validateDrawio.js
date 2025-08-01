@@ -62,7 +62,7 @@ const generateReport = (filePath, results) => {
   let report = `### \`${fileName}\`\n\n`;
 
   if (results.length === 0) {
-    report += `✅ No warnings or errors found.\n`;
+    report += `✅ No anti pattern found.\n`;
     return report;
   }
 
