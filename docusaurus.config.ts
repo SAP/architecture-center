@@ -152,7 +152,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">We welcome your feedback</a>.</b>',
+                '<b>Welcome to the SAP Architecture Center! We welcome your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a>.</b>',
             backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
