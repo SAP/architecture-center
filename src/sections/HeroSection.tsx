@@ -16,17 +16,21 @@ export default function HeroSection(): JSX.Element {
                             <b className="header_text">SAP Architecture Center</b>
                         </h1>
 
+                        <br />
+                        <h3>Give you the tools to shape your future</h3>
+
+                        <br />
+
                         <div className="header_body">
                             <p className="header_body_p">
-                                The SAP Architecture Center offers a place that provides solution reference
-                                architectures, helping businesses adopt SAP solutions to turn data into valuable
-                                business insights.
+                                Put AI, data and application to work with comprehensive architectures of SAP
+                                solutions tailored to your needs and read to extends as you grow.
                             </p>
                         </div>
 
-                        <Link to="/docs/exploreallrefarch">
+                        {/* <Link to="/docs/exploreallrefarch">
                             <Button style={{ width: 150 }}>Explore Now</Button>
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>

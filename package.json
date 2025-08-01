@@ -15,7 +15,6 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch"
-
   },
   "resolutions": {
     "path-to-regexp": "^8.1.0"
@@ -43,7 +42,6 @@
     "@tailwindcss/typography": "^0.5.14",
     "@ui5/webcomponents": "^2.7.0",
     "@ui5/webcomponents-fiori": "^2.7.0",
-    "@ui5/webcomponents-icons": "^2.7.0",
     "@ui5/webcomponents-react": "^2.7.0",
     "chalk": "^5.4.1",
     "clsx": "^2.0.0",

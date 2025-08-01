@@ -199,6 +199,8 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-top: -35px;
+    margin-bottom: -20px;
 }
 
 /* Adding dark mode to the landing page banner */
