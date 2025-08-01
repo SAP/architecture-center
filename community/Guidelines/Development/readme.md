@@ -1,9 +1,9 @@
 ---
 sidebar_position: 1
 slug: /development
-title: Development
+title: Developers' Corner
 description: Examples for CSS, responsive design, and performance in the SAP Architecture Center.
-sidebar_label: Development
+sidebar_label: Developers' Corner
 keywords:
     - sap architecture center
     - css guidelines
