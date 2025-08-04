@@ -186,7 +186,7 @@
   {
     "id": "ra0025",
     "name": "Test MS Copilot",
-    "drawioLink": "PLACEHOLDER:ref_arch_MSCopilot 2.drawio",
+    "drawioLink": "PLACEHOLDER:ref_arch_MSCopilot_2.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/test-ms-copilot.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/129d486477",
     "shortDescription": "Test MS Copilot usecase w/o anti patterns"
