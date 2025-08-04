@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 2
 slug: /design-and-styling
 title: Design & Styling
 description: Best practices for CSS, responsive design, and performance in the SAP Architecture Center. Ensure a fast, accessible, and maintainable site.
@@ -158,6 +158,8 @@ These practices directly improve our site's performance and user experience:
 - **Faster loading**: CSS variables reduce bundle size by ~25%, meaning faster page loads for users accessing architecture diagrams and documentation
 - **Consistent experience**: Standardized spacing and shadows ensure our reference architectures and code examples look professional across all devices
 - **Easier maintenance**: When we need to update our design system (like adjusting card shadows or spacing), we change one variable instead of hunting through dozens of files
+
+Below are several examples that demonstrate best practices for improving code styling and overall coding quality.
 
 ## Examples
 
