@@ -39,7 +39,7 @@ last_update:
 
 This architecture showcases an integration between Microsoft Copilot and SAP Business Technology Platform (BTP), leveraging Joule AI, SAP AI Core, and Microsoft Azure AI capabilities to provide seamless AI assistance and enterprise-grade services across SAP and non-SAP landscapes.
 
-![drawio](drawio/ref_arch_MSCopilot 2.drawio)
+![drawio](drawio/ref_arch_MSCopilot_2.drawio)
 
 ## Flow
 
