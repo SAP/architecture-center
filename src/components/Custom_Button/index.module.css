@@ -1,0 +1,64 @@
+.default {
+    width: 100%;
+    height: 80px;
+    transition: transform 0.3s ease;
+    background-color: white;
+}
+
+.default::part(button) {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    background: var(--sapUiButtonBackground);
+    border: 2px solid transparent;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 24px;
+    gap: 0.75rem;
+    font-size: 18px;
+    font-weight: 600;
+    color: #585757;
+    transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.default ui5-icon {
+    color: #585757;
+    margin-right: 12px;
+}
+
+.default::part(button)::after {
+    content: '\e05a';
+    font-family: 'SAP-icons';
+    font-size: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    opacity: 0;
+    color: rgba(255, 255, 255, 0.15);
+    opacity: 0 !important;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.default:hover {
+    transform: translateY(-5px);
+}
+
+.default:hover::part(button) {
+    background: var(--sapUiBrand) !important;
+    color: var(--sapUiButtonEmphasizedTextColor);
+    box-shadow: 0 8px 20px -5px var(--sapUiBrand);
+    border-color: var(--sapUiButtonEmphasizedTextColor);
+    background-color: white !important;
+}
+
+.default:hover ui5-icon {
+    color: var(--sapUiButtonEmphasizedTextColor);
+}
+
+.default:hover::part(button)::after {
+    opacity: 1;
+}

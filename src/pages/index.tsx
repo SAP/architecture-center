@@ -4,28 +4,30 @@ import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
 import CommunitySection from '../sections/Community';
 import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
+import DomainSection from '../sections/Domain';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
             // @ts-expect-error
-            title="Create reference architectures"
+            title="Welcome"
             description={siteConfig.tagline}
             metadata={[
-                { property: 'og:title', content: 'Create reference architectures' },
+                { property: 'og:title', content: 'Welcome' },
                 { property: 'og:description', content: siteConfig.tagline },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:title', content: 'Create reference architectures' },
+                { name: 'twitter:title', content: 'Welcome' },
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >
             <main>
                 <HeroSection />
                 <ExploreArchitectureSection />
-                <CommunitySection />
+                {/* <CommunitySection /> */}
+                <DomainSection />
             </main>
         </Layout>
     );
