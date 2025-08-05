@@ -1,52 +1,31 @@
-import React, { useRef } from 'react';
-// @ts-ignore
-import DocCard from '@theme/DocCard';
-// @ts-ignore
-import exploreSidebar from '../data/exploreArch.json';
+import React, { JSX } from 'react';
+import { BUTTON_TOPIC } from '../constant/constants';
+import Custom_Button from '../components/Custom_Button/Custom_Button';
 
-import { Title } from '@ui5/webcomponents-react';
-import ReactCarousel from '@site/src/components/ReactCarousel';
-import carouselStyles from '@site/src/components/ReactCarousel/ReactCarousel.module.css';
-
-export default function ExploreAllArchitecturesSection() {
-    const carouselRef = useRef<any>(null);
-    const items = exploreSidebar[0]?.items || [];
-
-    // react-slick settings for responsive carousel
-    const settings = {
-        dots: true,
-        arrows: false, // We'll use our own UI5 buttons for navigation
-        infinite: items.length > 3,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 996,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
-
+export default function ExploreArchitectureSection(): JSX.Element {
     return (
-        <ReactCarousel
-            ref={carouselRef}
-            items={items}
-            renderItem={(item, idx) => <DocCard item={item} />}
-            cardClassName={carouselStyles.paddedCardContainer}
-            title={
-                <Title level="H3" size="H3" className={carouselStyles.titleStyle}>
-                    Explore the latest Reference Architectures
-                </Title>
-            }
-            showHeader={true}
-            showLink={{ name: 'Browse All', url: 'docs/exploreallrefarch' }}
-            arrowOrientation="H"
-            className={carouselStyles.carouselContainer}
-            {...settings}
-        />
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100%',
+            }}
+        >
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '24px',
+                    width: '100%',
+                    maxWidth: '1425px',
+                }}
+            >
+                {BUTTON_TOPIC.map((product, index) => (
+                    <div key={index}>
+                        <Custom_Button title={product.title} icon={product.icon} link={product.link} />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }
