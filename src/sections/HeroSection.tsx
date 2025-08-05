@@ -1,6 +1,4 @@
 import React, { JSX } from 'react';
-import Link from '@docusaurus/Link';
-import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
@@ -54,8 +52,8 @@ export default function HeroSection(): JSX.Element {
 
                         <div className="header_body">
                             <p className="header_body_p">
-                                Put AI, data and application to work with comprehensive architectures of SAP
-                                solutions tailored to your needs and read to extends as you grow.
+                                Put AI, data and application to work with comprehensive architectures of SAP solutions
+                                tailored to your needs and read to extends as you grow.
                             </p>
                         </div>
 
