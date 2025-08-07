@@ -1,9 +1,9 @@
-export const BUTTON_TOPIC = [
-    { title: 'Browse Architectures', icon: 'sap-icon://document-text', link: '/docs/ref-arch/demo' },
+export const navigationCardsData = [
+    { title: 'Browse Architectures', icon: 'document-text', subtitle: 'Test', link: '/docs/ref-arch/demo' },
     { title: 'Architecture Validator', icon: 'ssap-icon://order-status', link: '' },
     { title: 'Community of Practice', icon: 'sap-icon://group', link: '/community/intro' },
     { title: 'Solution Diagram Guidelines', icon: 'sap-icon://learning-assistant', link: '' },
-    { title: "What's new", icon: 'sap-icon://feed', link: '/blog' },
+    { title: "What's new", icon: 'sap-icon://marketing-campaign', link: '/blog' },
 ];
 
 export const TECH_DOMAIN = [

@@ -25,8 +25,6 @@ export default function Home(): JSX.Element {
         >
             <main>
                 <HeroSection />
-                <ExploreArchitectureSection />
-                {/* <CommunitySection /> */}
                 <DomainSection />
             </main>
         </Layout>
