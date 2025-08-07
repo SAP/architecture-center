@@ -1,5 +1,5 @@
 ---
-sidebar_position: 99
+sidebar_position: 98
 slug: /privacy
 title: Privacy Statement
 description: The SAP Architecture Center (this site) is hosted on GitHub Pages and doesn't process any personal data by itself.

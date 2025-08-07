@@ -30,7 +30,7 @@ const config: Config = {
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         './src/plugins/init-ui5-theme',
-        [require.resolve('docusaurus-plugin-image-zoom'), {}],
+        './src/plugins/page-mapping-generator',
         [
             '@docusaurus/plugin-content-docs',
             {
@@ -84,10 +84,10 @@ const config: Config = {
             {
                 blog: {
                     path: 'blog',
-                    blogTitle: 'SAP Architecture Center - News', // Replacing Blog by News
+                    blogTitle: 'SAP Architecture Center - News',
                     blogDescription:
                         'This blog covers reference architectures in the SAP Architecture Center and details their well-architected framework principles',
-                    blogSidebarTitle: 'Architecture Center news', // Replacing Blog by News
+                    blogSidebarTitle: 'Architecture Center news',
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
                 },
@@ -152,7 +152,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">We welcome your feedback</a>.</b>',
+                '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
             backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
@@ -165,16 +165,16 @@ const config: Config = {
                 src: 'img/logo.svg',
             },
             items: [
-                {
-                    to: 'blog',
-                    label: "What's new",
-                    position: 'right',
-                },
-                {
-                    to: '/community/intro',
-                    label: 'Community of Practice',
-                    position: 'right',
-                },
+                // {
+                //     to: 'blog',
+                //     label: "What's new",
+                //     position: 'right',
+                // },
+                // {
+                //     to: '/community/intro',
+                //     label: 'Community of Practice',
+                //     position: 'right',
+                // },
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',

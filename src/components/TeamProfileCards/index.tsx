@@ -104,12 +104,14 @@ export function ExtendedTeam(): ReactNode {
                 name="Robin Purschwitz"
                 description="Research & Development"
                 githubUrl="https://github.com/RobinPurschwitz"
+                linkedinUrl="https://www.linkedin.com/in/robin-purschwitz/"
             />
 
             <TeamProfileCard
                 name="Max Lienhardt"
                 description="Research & Development"
                 githubUrl="https://github.com/xammaxx"
+                linkedinUrl="https://www.linkedin.com/in/max-lienhardt-a2a157335/"
             />
         </div>
     );
