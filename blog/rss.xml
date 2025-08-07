@@ -4,10 +4,82 @@
         <title>SAP Architecture Center Blog</title>
         <link>https://architecture.learning.sap.com/blog</link>
         <description>SAP Architecture Center Blog</description>
-        <lastBuildDate>Thu, 15 May 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 12 Aug 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[New Architectures & Contributors (Q3-2025)]]></title>
+            <link>https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center</link>
+            <guid>https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center</guid>
+            <pubDate>Tue, 12 Aug 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Explore new reference architectures covering AI, DevOps, Integration, and Security, and meet the latest contributors to the SAP Architecture Center.]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_LWe7" id="whats-new-in-the-sap-architecture-center">What's New in the SAP Architecture Center<a href="https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center#whats-new-in-the-sap-architecture-center" class="hash-link" aria-label="Direct link to What's New in the SAP Architecture Center" title="Direct link to What's New in the SAP Architecture Center">​</a></h2>
+<p>We're excited to share the latest updates and additions to the SAP Architecture Center since our last major release in Q2-2025! Our community has been hard at work expanding the collection of reference architectures and welcoming new contributors along the way. This will be a quarterly recurring post going forward, where we spotlight newly released, updated, or retired content, along with members of the SAP ecosystem who have made their first contribution to our repository. It's also our chance to share some insights about how people are finding our site and repository.</p>
+<p>We hope you find this list useful and join us in thanking our contributors for their efforts in building the SAP Architecture Center together.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="new-reference-architectures">New Reference Architectures<a href="https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center#new-reference-architectures" class="hash-link" aria-label="Direct link to New Reference Architectures" title="Direct link to New Reference Architectures">​</a></h3>
+<p>We've added several new top-level reference architectures to provide even more guidance and best practices for building robust solutions with SAP technologies. Here are the latest additions, from newest to oldest:</p>
+<ul>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc" target="_blank" rel="noopener noreferrer">Extend Joule with Joule Studio</a></strong> - Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/1c5706feb5" target="_blank" rel="noopener noreferrer">DevOps with SAP BTP</a></strong> - Adopt agile DevOps principles on SAP BTP with cloud services and tools for streamlined application lifecycle management.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/309338f0eb" target="_blank" rel="noopener noreferrer">API Managed Integration</a></strong> - Enable secure, omni-channel API access to business apps with SAP Integration Suite, simplifying governance, security, and API consumption.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/58f6d88e9a" target="_blank" rel="noopener noreferrer">Application to Application Integration</a></strong> - Enable seamless App2App integration with SAP Integration Suite for near real-time transactional data exchange across internal processes.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/61f6a1db63" target="_blank" rel="noopener noreferrer">Business to Business Integration</a></strong> - Optimize B2B integration with SAP Integration Suite for secure, scalable electronic document exchange with trading partners.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/20c6b29b1e" target="_blank" rel="noopener noreferrer">SAP IAM integration with SAP Cloud Identity Services</a></strong> - Design authentication and role management flows for SAP SaaS with SAP Cloud Identity Services.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/99fd0564be" target="_blank" rel="noopener noreferrer">Integrate and Extend with SAP Build Process Automation</a></strong> - Automate processes with SAP Build Process Automation, integrating workflows across SAP and non-SAP systems.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/7adaecbbaf" target="_blank" rel="noopener noreferrer">Connect Business Applications with SAP Master Data Integration</a></strong> - Synchronize and manage business-critical data across SAP and third-party systems using SAP Master Data Integration.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/7e558be8f1" target="_blank" rel="noopener noreferrer">Secure Service Consumption Across Hyperscalers</a></strong> - This architecture outlines a cloud-agnostic approach for securely consuming services offered by hyperscalers from applications running outside their environments.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/c5f6fe6cf1" target="_blank" rel="noopener noreferrer">Business to Government Integration</a></strong> - Streamline compliance with SAP's Business-to-Government Integration for secure electronic document exchange.</p>
+</li>
+<li>
+<p><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/0ec83f98fe" target="_blank" rel="noopener noreferrer">Understanding Network Performance in a Multi Regional Solution</a></strong> - Optimize multi-regional cloud solutions with insights into network design, provider usage, and service placement for superior performance.</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="reference-architectures-with-new-content">Reference Architectures with New Content<a href="https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center#reference-architectures-with-new-content" class="hash-link" aria-label="Direct link to Reference Architectures with New Content" title="Direct link to Reference Architectures with New Content">​</a></h3>
+<p>We've also expanded existing reference architectures with new content, providing deeper insights and broader coverage on key topics:</p>
+<ul>
+<li><strong>Generative AI on SAP BTP</strong>
+<ul>
+<li><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/10" target="_blank" rel="noopener noreferrer">Vibe Coding with Cline and SAP AI Core</a></strong>  - Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.</li>
+<li><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/8" target="_blank" rel="noopener noreferrer">Agent2Agent Interoperability</a></strong> - Enable interoperability between AI agents with Agent2Agent protocol, fostering collaboration across enterprise landscapes.</li>
+<li><strong><a href="https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/9" target="_blank" rel="noopener noreferrer">Partner Models</a></strong> - Benefit from partner models like the IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="welcoming-new-contributors">Welcoming New Contributors<a href="https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center#welcoming-new-contributors" class="hash-link" aria-label="Direct link to Welcoming New Contributors" title="Direct link to Welcoming New Contributors">​</a></h3>
+<p>We are thrilled to welcome new contributors who have joined our efforts to expand and enrich the SAP Architecture Center. Their expertise and dedication are invaluable to our community. A big thank you to:</p>
+<ul>
+<li><a href="https://github.com/uklasing" target="_blank" rel="noopener noreferrer">uklasing</a></li>
+<li><a href="https://github.com/kshanth" target="_blank" rel="noopener noreferrer">kshanth</a></li>
+<li><a href="https://github.com/AjitKP91" target="_blank" rel="noopener noreferrer">AjitKP91</a></li>
+<li><a href="https://github.com/avikSap" target="_blank" rel="noopener noreferrer">avikSap</a></li>
+<li><a href="https://github.com/alperdedeoglu" target="_blank" rel="noopener noreferrer">alperdedeoglu</a></li>
+<li><a href="https://github.com/sapgunnar" target="_blank" rel="noopener noreferrer">sapgunnar</a></li>
+<li><a href="https://github.com/bzarske" target="_blank" rel="noopener noreferrer">bzarske</a></li>
+<li><a href="https://github.com/maria-kondratyeva" target="_blank" rel="noopener noreferrer">maria-kondratyeva</a></li>
+<li><a href="https://github.com/miguelmezamartinez" target="_blank" rel="noopener noreferrer">miguelmezamartinez</a></li>
+</ul>
+<p>We hope you enjoyed reading these details. Please join us in shaping the future of SAP architecture and <a href="https://architecture.learning.sap.com/community/contribution">start contributing</a> today!</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Launching the SAP Architecture Center]]></title>
             <link>https://architecture.learning.sap.com/blog/2025/05/15/announcing-the-launch-of-sap-architecture-center</link>
