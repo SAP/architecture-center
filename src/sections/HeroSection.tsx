@@ -5,6 +5,7 @@ import { navigationCardsData } from '../constant/constants';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
+import styles from './HeroSection.module.css';
 
 export default function HeroSection(): JSX.Element {
   const { colorMode } = useColorMode();
@@ -70,35 +71,20 @@ export default function HeroSection(): JSX.Element {
   function renderHeroSlide(slide, index) {
     const imgSrc = getImg(colorMode === 'dark' ? slide.darkImg : slide.lightImg);
     return (
-      <div style={{ position: 'relative' }}>
+      <div className={styles.heroSlide}>
         <img
           src={imgSrc}
           alt={slide.title}
           width={1440}
           height={424}
-          style={{ objectFit: 'cover', width: '100%', height: '424px' }}
+          className={styles.heroSlideImage}
         />
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            textAlign: 'left',
-            padding: '3rem',
-          }}
-        >
+        <div className={styles.heroSlideOverlay}>
           <h1>{slide.title}</h1>
           {slide.subtitle && (
-            <h3 style={{ fontWeight: 400, marginTop: '0.5rem' }}>{slide.subtitle}</h3>
+            <h3 className={styles.heroSlideSubtitle}>{slide.subtitle}</h3>
           )}
-          <p style={{ maxWidth: '600px' }}>{slide.body}</p>
+          <p className={styles.heroSlideBody}>{slide.body}</p>
         </div>
       </div>
     );
@@ -106,16 +92,7 @@ export default function HeroSection(): JSX.Element {
 
 
   return (
-    <section
-      style={{
-        marginTop: '65px',
-        marginBottom: '70px',
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <section className={styles.section}>
       {/* Carousel */}
       <ReactCarousel
         ref={carouselRef}
@@ -131,21 +108,7 @@ export default function HeroSection(): JSX.Element {
         containerClassName="heroSectionCarouselContainer"
       />
       {/* Navigation Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '45px',
-          width: '100%',
-          maxWidth: '1440px',
-          marginTop: '85px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          paddingLeft: 'var(--container-padding)',
-          paddingRight: 'var(--container-padding)',
-          boxSizing: 'border-box'  
-        }}
-      >
+      <div className={styles.cardsGrid}>
         {navigationCardsData.map((item, index) => (
           <NavigationCard
             key={index}

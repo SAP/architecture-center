@@ -19,14 +19,14 @@ export default function NavigationCard({
   onMouseLeave,
 }: CustomButtonProps): JSX.Element {
   return (
-    <Link to={link} >
+    <Link to={link} className={styles.cardLink}>
       <Card
         className={styles.default}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
         <span className={styles.inline}>
-          <Icon name={icon} />
+          <Icon className= {styles.icon} name={icon} />
           {title}
         </span>
       </Card>

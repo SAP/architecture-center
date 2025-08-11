@@ -1,0 +1,55 @@
+.section {
+  margin-top: 65px;
+  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px;
+  width: 100%;
+  max-width: 1440px;
+  margin-top: 85px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.heroSlide {
+  position: relative;
+}
+
+.heroSlideImage {
+  object-fit: cover;
+  width: 100%;
+  height: 424px;
+}
+
+.heroSlideOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  padding: 3rem;
+}
+
+.heroSlideSubtitle {
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.heroSlideBody {
+  max-width: 600px;
+}
