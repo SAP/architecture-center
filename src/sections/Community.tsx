@@ -4,32 +4,50 @@ import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { useColorMode } from '@docusaurus/theme-common';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import HighlightText from '../components/HighlightText';
 
 export default function CommunitySection(): JSX.Element {
     const { colorMode } = useColorMode();
     const [mounted, setMounted] = useState(false);
+    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
 
     useEffect(() => {
-        setMounted(true); // Only render image once the component is mounted
+        setMounted(true);
     }, []);
 
-    const lightImg = useBaseUrl('/img/landingPage/community_puzzle_light.png');
-    const darkImg = useBaseUrl('/img/landingPage/community_puzzle_dark.png');
+    // WebP sources
+    const lightSrcSet = [
+        getImg('community_puzzle_light_150.webp') + ' 150w',
+        getImg('community_puzzle_light_300.webp') + ' 300w',
+        getImg('community_puzzle_light_500.webp') + ' 500w',
+    ].join(', ');
 
-    if (!mounted) {
-        return null;
-    }
+    const darkSrcSet = [
+        getImg('community_puzzle_dark_150.webp') + ' 150w',
+        getImg('community_puzzle_dark_300.webp') + ' 300w',
+        getImg('community_puzzle_dark_500.webp') + ' 500w',
+    ].join(', ');
+
+    const srcSet = mounted && colorMode === 'dark' ? darkSrcSet : lightSrcSet;
+    const fallbackSrc = mounted && colorMode === 'dark'
+        ? getImg('community_puzzle_dark_500.webp')
+        : getImg('community_puzzle_light_500.webp');
 
     return (
         <section>
             <br /> <br />
-            <div className="container">
+            <div className="community-section-wrapper">
                 <div className="community">
                     <div className="community_image">
                         <img
-                            src={colorMode === 'dark' ? darkImg : lightImg}
+                            src={fallbackSrc}
+                            srcSet={srcSet}
+                            sizes="(max-width: 600px) 140px, (max-width: 996px) 280px, 400px"
                             className="community_image_inside"
                             alt="Community Puzzle"
+                            width={500}
+                            height={500}
+                            loading="lazy"
                         />
                     </div>
                     <div className="community_body">
@@ -52,7 +70,7 @@ export default function CommunitySection(): JSX.Element {
                             <br />
                         </p>
                         <Link to="/community/intro">
-                            <Button design="Emphasized" style={{ width: 150 }}>
+                            <Button design="Emphasized" className="standard-button-width">
                                 Let's team up!
                             </Button>
                         </Link>
@@ -61,12 +79,5 @@ export default function CommunitySection(): JSX.Element {
             </div>
             <br /> <br />
         </section>
-    );
-}
-export function HighlightText(props) {
-    return (
-        <strong className="bolder relative z-10 box-content before:absolute before:bottom-0 before:z-[-1] before:h-3 before:w-full before:bg-[#95DAFF50] before:duration-300 before:content-[''] hover:before:w-0">
-            {props.children}
-        </strong>
     );
 }
