@@ -104,9 +104,7 @@ export default function HeroSection(): JSX.Element {
         autoplay={true}
         autoplaySpeed={5000}
         showHeader={false}
-        className="heroCarousel"
-        containerClassName="heroSectionCarouselContainer"
-      />
+      />       
       {/* Navigation Cards */}
       <div className={styles.cardsGrid}>
         {navigationCardsData.map((item, index) => (

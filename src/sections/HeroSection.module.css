@@ -5,6 +5,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .cardsGrid {
@@ -20,36 +21,84 @@
   padding-right: var(--container-padding);
 }
 
+/* --- HERO / BANNER --- */
 .heroSlide {
   position: relative;
+  aspect-ratio: 1440 / 424;
+  overflow: hidden;
+  border-radius: 18px;
 }
 
 .heroSlideImage {
-  object-fit: cover;
+  display: block;
   width: 100%;
-  height: 424px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .heroSlideOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   color: white;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   text-align: left;
-  padding: 3rem;
+  padding: clamp(16px, 4vw, 48px);
+}
+
+/* Typography that scales */
+.heroSlideOverlay h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(22px, 4.2vw, 40px);
+  line-height: 1.15;
 }
 
 .heroSlideSubtitle {
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 0.5rem;
+  font-size: clamp(14px, 2.8vw, 22px);
+  opacity: 0.95;
 }
 
 .heroSlideBody {
-  max-width: 600px;
+  max-width: 70ch;
+  font-size: clamp(13px, 2.4vw, 18px);
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+/* --- RESPONSIVE LAYOUT --- */
+@media (max-width: 1024px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    margin-top: 40px;
+    margin-bottom: 48px;
+  }
+
+  .heroSlideOverlay {
+    align-items: center;   /* center text on small screens */
+    text-align: center;
+    padding: clamp(12px, 5vw, 24px);
+  }
+
+  .heroSlideBody {
+    max-width: 100%;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
 }
