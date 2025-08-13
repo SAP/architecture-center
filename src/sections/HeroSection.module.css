@@ -29,13 +29,6 @@
   border-radius: 18px;
 }
 
-.heroSlideImage {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .heroSlideOverlay {
   position: absolute;
   inset: 0;

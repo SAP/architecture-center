@@ -77,7 +77,6 @@ export default function HeroSection(): JSX.Element {
           alt={slide.title}
           width={1440}
           height={424}
-          className={styles.heroSlideImage}
         />
         <div className={styles.heroSlideOverlay}>
           <h1>{slide.title}</h1>
