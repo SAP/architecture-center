@@ -182,13 +182,5 @@
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/extend-joule-with-joule-studio.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc",
     "shortDescription": "Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation."
-  },
-  {
-    "id": "ra0025",
-    "name": "Transition Architectures",
-    "drawioLink": "PLACEHOLDER:template.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/transition-architectures.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/5f84ec80cc",
-    "shortDescription": "A large SAP product base is on Netweaver. Netweaver based products are approaching end of standard maintenance in 2027. SAP has either made successor products available or have named the successor products for the Netweaver products. This section of Architecture Center is dedicated to outline the options for customers for various use cases."
   }
 ]
