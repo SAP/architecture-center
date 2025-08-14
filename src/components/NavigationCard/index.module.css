@@ -1,0 +1,50 @@
+/* kill link coloring so the card decides */
+.cardLink,
+.cardLink:visited,
+.cardLink:hover,
+.cardLink:active {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.default {
+  --navcard-fg: var(--sapTextColor);
+  max-width: 450px;
+  min-height: 80px;
+  background: #fff;
+  border-radius: .40rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  gap: .75rem;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.default::part(root) {
+  box-shadow: none;
+  padding: 0;
+  background: transparent;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--navcard-fg) !important;
+}
+
+.icon {
+  color: var(--navcard-fg) !important;
+  margin-right: 10px;
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 1.5rem;
+}
+
+.default:hover {
+  --navcard-fg: var(--sapHighlightColor);
+  color: var(--sapHighlightColor);
+}
