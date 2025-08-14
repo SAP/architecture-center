@@ -9,6 +9,7 @@ slug: /ref-arch/5f84ec80cc
 sidebar_position: 25
 sidebar_custom_props:
     category_index:
+        - integration
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
@@ -55,10 +56,6 @@ Another aspect of this is about preserving the investments in customization. Cus
 Till recently, securing a solution meant adding authentication and authorization, and to make it further secure, putting it behind a firewall. However, it gets harder and harder as more and more solutions are added in the landscape. Just from the perspective of administration, it is very difficult to reliably manage correct level of authorizations at all point in time for a given job role across numerous applications used in the organizations that are spread across on-premise and cloud. Existing solutions typicall cater to the on-premise solutions and cloud solutions need to be managed separately. This not only increases TCO and administrative overhead, but also puts the organization at risk of security exposure. 
 
 Organizations may be looking for one or more of the above aspects while looking for a replacement solution. Luckily, the SAP portfolio has the solutions that not just meet the current needs but provide additional features that adds value to the overall use case. 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
-
-![drawio](drawio/template.drawio)
 
 ## Transition
 While having a suitable technology, however, is not sufficient. It is important to ensure that **right technology is used for the right use case**. Using top of the line technology has the pitfall of increasing TCO due to costly technology, unavailability of suitable talent, harder to troubleshoot issues due to complexity, etc. On the other end, choosing an unsuitable technology just because of its versatility to meet a requirement or widespread usage - without exception - leads to technical debt. Lastly, choosing to stay on obsolete technology exposes the organization to risk of security vulenerabilities, dependence on third party support (which may be costly or unreliable, or both) and higher support costs. Worse part is that even after paying more, the licence to operate risks or the risk of unplanned unavailability doesn't disappear.

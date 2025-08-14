@@ -62,7 +62,6 @@ There are dedicated missions on Discovery Center (see resources section below) t
 ![Pre](images/SAP_Architecture_Center_BTP_IS_EIC-Pre.png)
 
 ### To-be architecture
-![Post](images/SAP_Architecture_Center_BTP_IS_EIC-Post.png)
 ![drawio](drawio/SAP_Architecture_Center_BTP_IS_EIC.drawio)
 
 ## Flow
