@@ -6,7 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://architecture.learning.sap.com/blog"/>
     <subtitle>SAP Architecture Center Blog</subtitle>
-    <icon>https://architecture.learning.sap.com/img/logo.svg</icon>
+    <icon>https://architecture.learning.sap.com/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[New Architectures & Contributors (Q3-2025)]]></title>
         <id>https://architecture.learning.sap.com/blog/2025/08/12/whats-new-in-sap-architecture-center</id>
