@@ -3,9 +3,9 @@ const path = require('path');
 const matter = require('gray-matter');
 
 const TAG_MAPPING = {
-  ai: ['ai', 'azure', 'genai', 'aws', 'gcp'],
+  ai: ['genai'],
   data: ['data'],
-  security: ['security'],
+  opsec: ['security'],
   appdev: ['appdev'],
   integration: ['integration'],
 };
