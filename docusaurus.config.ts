@@ -29,6 +29,7 @@ const config: Config = {
     },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
+        [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
         [
@@ -165,16 +166,6 @@ const config: Config = {
                 src: 'img/logo.svg',
             },
             items: [
-                // {
-                //     to: 'blog',
-                //     label: "What's new",
-                //     position: 'right',
-                // },
-                // {
-                //     to: '/community/intro',
-                //     label: 'Community of Practice',
-                //     position: 'right',
-                // },
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
