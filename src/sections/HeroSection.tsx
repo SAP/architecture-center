@@ -58,7 +58,7 @@ export default function HeroSection(): JSX.Element {
       }
     }
   }, [isHoveringCard]);
-
+  
   const handleCardHover = (index) => {
     setSelectedIndex(index);
     setIsHoveringCard(true);
@@ -93,17 +93,20 @@ export default function HeroSection(): JSX.Element {
   return (
     <section className={styles.section}>
       {/* Carousel */}
-      <ReactCarousel
-        ref={carouselRef}
-        items={slides}
-        renderItem={renderHeroSlide}
-        slidesToShow={1}
-        dots={true}
-        infinite={true}
-        autoplay={true}
-        autoplaySpeed={5000}
-        showHeader={false}
-      />       
+      <div className={styles.heroCarousel}>
+        <ReactCarousel
+          ref={carouselRef}
+          items={slides}
+          renderItem={renderHeroSlide}
+          slidesToShow={1}
+          dots={true}
+          infinite={true}
+          autoplay={true}
+          autoplaySpeed={5000}
+          showHeader={false}
+          fade={true}      
+        />
+      </div>       
       {/* Navigation Cards */}
       <div className={styles.cardsGrid}>
         {navigationCardsData.map((item, index) => (
