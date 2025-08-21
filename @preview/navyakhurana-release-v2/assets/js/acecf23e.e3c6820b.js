@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksap_architecture_center=self.webpackChunksap_architecture_center||[]).push([[81903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/@preview/navyakhurana-release-v2/blog","blogTitle":"SAP Architecture Center - News","authorsListPath":"/@preview/navyakhurana-release-v2/blog/authors"}')}}]);
