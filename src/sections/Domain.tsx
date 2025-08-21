@@ -1,15 +1,33 @@
-import React, { JSX } from 'react';
+import React, { JSX, useState, useEffect } from 'react';
 import { Title, Text } from '@ui5/webcomponents-react';
 import { TECH_DOMAIN } from '../constant/constants';
 import Tile from '../components/Tile/Tile';
 
 export default function Domain(): JSX.Element {
+    const [columns, setColumns] = useState(3);
+
+    useEffect(() => {
+        const updateColumns = () => {
+            const width = window.innerWidth;
+            if (width <= 600) {
+                setColumns(1);
+            } else if (width <= 992) {
+                setColumns(2);
+            } else {
+                setColumns(3);
+            }
+        };
+        updateColumns();
+        window.addEventListener('resize', updateColumns);
+        return () => window.removeEventListener('resize', updateColumns);
+    }, []);
+
     return (
         <section>
             <div
                 style={{
                     maxWidth: '1440px',
-                    margin: '40px auto 40px auto',
+                    margin: '40px auto',
                     padding: '0 10px',
                 }}
             >
@@ -23,7 +41,7 @@ export default function Domain(): JSX.Element {
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        gridTemplateColumns: `repeat(${columns}, 1fr)`,
                         gap: '24px',
                         width: '100%',
                         maxWidth: '1425px',

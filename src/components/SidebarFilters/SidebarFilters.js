@@ -23,7 +23,7 @@ export default function SidebarFilters({ onFilterChange, initialValues }) {
 
   return (
     <div className={style.dropdownDiv}>
-      <div style={{ marginBottom: '1rem' }}>
+      {/* <div style={{ marginBottom: '1rem' }}>
         <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
           Technology Partners
         </label>
@@ -41,7 +41,7 @@ export default function SidebarFilters({ onFilterChange, initialValues }) {
             />
           ))}
         </MultiComboBox>
-      </div>
+      </div> */}
 
       <div>
         <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>

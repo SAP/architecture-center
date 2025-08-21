@@ -9,7 +9,7 @@ const config: Config = {
     title: 'SAP Architecture Center',
     tagline:
         'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
-    favicon: 'img/favicon.ico',
+    favicon: 'img/logo.png',
 
     url: 'https://architecture.learning.sap.com',
     baseUrl: '/',

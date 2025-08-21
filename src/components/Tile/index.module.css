@@ -1,134 +1,84 @@
-.default {
-    width: 100%;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s;
-    padding-top: 24px;
-    box-sizing: border-box;
-    overflow: visible;
-    position: relative;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    box-shadow: none;
+.cardLink {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
-.default:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(11, 101, 216, 0.15), var(--sapUiShadow2);
-    border: 2px solid transparent;
-    background: none !important;
-    z-index: 1;
+.tileCard {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.cardContent {
+    padding: 1.5rem 1.5rem 1rem;
 }
 
 .header {
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 8px;
-    padding-left: 24px;
-    padding-top: 8px;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
 }
 
-.header :global(ui5-title),
-.header .ui5-title {
-    color: #111 !important;
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    line-height: 1.2;
-    transition: color 0.2s, border 0.2s;
-    border: none;
-    border-radius: 4px;
-    padding: 0;
+.icon {
+    font-size: 2rem;
+    color: var(--ifm-color-primary);
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
     margin: 0;
-}
-
-.header :global(ui5-icon),
-.header .ui5-icon {
-    color: #111 !important;
-    transition: color 0.2s;
-}
-
-.header :global(ui5-title):hover .ui5-icon,
-.header .ui5-title:hover .ui5-icon {
-    color: #0b65d8 !important;
-}
-
-.header :global(ui5-title):hover,
-.header .ui5-title:hover {
-    border: 2px solid #0b65d8;
-    box-shadow: 0 8px 24px rgba(11, 101, 216, 0.15), var(--sapUiShadow2);
-    background: none !important;
-    transform: translateY(-5px);
-    z-index: 1;
-}
-
-.content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 36px;
-    box-sizing: border-box;
-    overflow: auto;
-    max-width: 100%;
+    color: var(--ifm-color-emphasis-800);
 }
 
 .docList {
-    width: 100%;
-    padding: 0;
+    list-style: none;
+    padding-left: 0;
     margin: 0;
-    overflow: hidden;
-    word-break: break-word;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+}
+
+.docList a {
+    color: inherit;
+}
+
+.docList a:hover {
+    color: var(--ifm-color-primary);
+    text-decoration: underline;
 }
 
 .docList li {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    width: 100%;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--ifm-color-emphasis-700);
 }
 
-.docList li:last-child {
-    margin-bottom: 0;
+.docIcon {
+    color: var(--ifm-color-emphasis-500);
+    font-size: 1rem;
 }
 
-.docList a {
-    color: #222 !important;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.docList a:hover {
-    color: #0b65d8 !important;
-    text-decoration: underline;
-}
-
-.docList li :global(ui5-icon),
-.docList li .ui5-icon {
-    color: #888 !important;
-    transition: color 0.2s;
-}
-
-.docList a:hover ~ :global(ui5-icon),
-.docList a:hover ~ .ui5-icon,
-.docList li:hover :global(ui5-icon),
-.docList li:hover .ui5-icon {
-    color: #0b65d8 !important;
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    background-color: var(--ifm-color-emphasis-100);
+    border-top: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .noDocsMessage {
-    color: #999;
-    font-size: 15px;
-    text-align: left;
-    margin-top: 12px;
-    padding-left: 0;
+    font-style: italic;
+    color: var(--ifm-color-emphasis-600);
 }

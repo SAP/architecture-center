@@ -1,0 +1,36 @@
+.domainSection {
+    /* Styles for the overall section if needed */
+}
+
+.container {
+    max-width: 1440px;
+    margin: 40px auto;
+    padding: 0 24px; /* A bit more padding for smaller screens */
+}
+
+.title {
+    font-size: 36px !important; /* Use !important if UI5 component styles are too strong */
+    color: #333;
+    margin-bottom: 10px !important;
+}
+
+.subtitle {
+    font-size: 20px !important;
+    color: #555;
+}
+
+.tilesGrid {
+    display: grid;
+    gap: 24px;
+    margin-top: 40px;
+
+    /*
+     * This is the magic line that replaces all your JavaScript logic.
+     * - 'auto-fit': Creates as many columns as can fit in the available space.
+     * - 'minmax(340px, 1fr)': Each column must be at least 340px wide. If there's
+     *   extra space, they will share it equally (1fr).
+     *
+     * This automatically handles 3, 2, and 1 column layouts without any JS.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
