@@ -46,14 +46,48 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
         useImperativeHandle(ref, () => sliderRef.current as Slider);
 
         const [currentSlide, setCurrentSlide] = useState(0);
+        const [currentSlidesToShow, setCurrentSlidesToShow] = useState(slidesToShow as number);
         const totalSlides = items.length;
         const [, forceUpdate] = useState(0);
+
         const handleAfterChange = (index: number) => {
             setCurrentSlide(index);
-            forceUpdate(t => t + 1);
+            forceUpdate((t) => t + 1);
         };
-        const atStart = currentSlide === 0;
-        const atEnd = currentSlide >= totalSlides - slidesToShow;
+
+        // Track responsive slidesToShow changes
+        React.useEffect(() => {
+            const updateSlidesToShow = () => {
+                const width = window.innerWidth;
+                let responsiveSlidesToShow = slidesToShow as number;
+
+                // Check responsive breakpoints
+                if (settings.responsive) {
+                    for (const breakpoint of settings.responsive) {
+                        if (
+                            width <= breakpoint.breakpoint &&
+                            breakpoint.settings &&
+                            typeof breakpoint.settings !== 'string' &&
+                            breakpoint.settings.slidesToShow
+                        ) {
+                            responsiveSlidesToShow = breakpoint.settings.slidesToShow;
+                        }
+                    }
+                }
+
+                setCurrentSlidesToShow(responsiveSlidesToShow);
+            };
+
+            updateSlidesToShow();
+            window.addEventListener('resize', updateSlidesToShow);
+            return () => window.removeEventListener('resize', updateSlidesToShow);
+        }, [slidesToShow, settings.responsive]);
+
+        // For react-slick, when infinite is true, we should never disable the buttons
+        // When infinite is false, disable buttons at start/end positions
+        const isInfinite = settings.infinite !== false;
+        const atStart = !isInfinite && currentSlide === 0;
+        const atEnd = !isInfinite && currentSlide >= totalSlides - currentSlidesToShow;
 
         // Choose icons based on orientation
         const prevIcon = arrowOrientation === 'V' ? 'navigation-up-arrow' : 'navigation-left-arrow';

@@ -16,7 +16,7 @@ export default function ExploreAllArchitecturesSection() {
     const settings = {
         dots: true,
         arrows: false, // We'll use our own UI5 buttons for navigation
-        infinite: items.length > 3,
+        infinite: false, // Disable infinite scrolling
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
@@ -26,6 +26,7 @@ export default function ExploreAllArchitecturesSection() {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
+                    infinite: false, // Ensure infinite is disabled on mobile too
                 },
             },
         ],
