@@ -69,9 +69,9 @@
     --button-width-standard: 150px;
 
     /* Custom card dimensions */
-    --card-height-desktop: 290px;
-    --card-height-tablet: 340px;
-    --card-height-mobile: 360px;
+    --card-height-desktop: 300px;
+    --card-height-tablet: 300px;
+    --card-height-mobile: 320px;
     --card-max-width: 430px;
     --card-max-width-tablet: 600px;
 
@@ -1090,6 +1090,7 @@ html[data-footer='false'] .footer {
 
     .slick-dots {
         margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 
     .community_image {
@@ -1135,6 +1136,7 @@ html[data-footer='false'] .footer {
     }
 
     .slick-dots {
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 }
