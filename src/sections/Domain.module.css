@@ -1,15 +1,14 @@
 .domainSection {
-    /* Styles for the overall section if needed */
 }
 
 .container {
     max-width: 1440px;
     margin: 40px auto;
-    padding: 0 24px; /* A bit more padding for smaller screens */
+    padding: 0 24px;
 }
 
 .title {
-    font-size: 36px !important; /* Use !important if UI5 component styles are too strong */
+    font-size: 36px !important;
     color: #333;
     margin-bottom: 10px !important;
 }
