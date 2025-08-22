@@ -10,7 +10,7 @@ html[data-theme='dark'] .tag:hover {
   height: var(--card-height-desktop);
   cursor: pointer;
   border-radius: var(--border-radius-lg);
-  overflow: visible;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
   background-color: var(--ifm-card-background);
   box-shadow: var(--shadow-card);
