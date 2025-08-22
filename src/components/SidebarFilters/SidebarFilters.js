@@ -23,26 +23,6 @@ export default function SidebarFilters({ onFilterChange, initialValues }) {
 
   return (
     <div className={style.dropdownDiv}>
-      {/* <div style={{ marginBottom: '1rem' }}>
-        <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
-          Technology Partners
-        </label>
-        <MultiComboBox
-          style={{ width: '100%' }}
-          placeholder="Filter by partner..."
-          onSelectionChange={(event) => handleSelectionChange(event, 'partners')}
-        >
-          {partners.map(partner => (
-            <MultiComboBoxItem
-              key={partner.value}
-              text={partner.label}
-              data-key={partner.value} 
-              selected={initialValues.partners.includes(partner.value)} 
-            />
-          ))}
-        </MultiComboBox>
-      </div> */}
-
       <div>
         <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '0.5rem' }}>
           Technology Domains

@@ -4,7 +4,7 @@
 .container {
     max-width: 1440px;
     margin: 40px auto;
-    padding: 0 24px;
+    padding: 0 10px;
 }
 
 .title {
@@ -21,6 +21,24 @@
 .tilesGrid {
     display: grid;
     gap: 24px;
+    width: 100%;
+    max-width: 1425px;
     margin-top: 40px;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+
+    /* Always stretch rows equally */
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+
+    /* responsive */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 992px) {
+    .tilesGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.tileWrapper {
+    height: 100%;
 }

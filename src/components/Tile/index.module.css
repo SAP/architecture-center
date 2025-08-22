@@ -1,22 +1,44 @@
-.cardLink {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+.tileCard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--ifm-color-emphasis-200);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
-.tileCard {
-    width: 100%;
+ui5-card::part(content) {
     height: 100%;
-    min-height: 280px;
+}
+
+.tileInner {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    border: 1px solid var(--ifm-color-emphasis-200);
+    height: 100%;
 }
 
 .cardContent {
     padding: 1.5rem 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.footerLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    background-color: var(--ifm-color-emphasis-100);
+    border-top: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .header {
@@ -65,17 +87,6 @@
 .docIcon {
     color: var(--ifm-color-emphasis-500);
     font-size: 1rem;
-}
-
-.footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    color: var(--ifm-color-primary);
-    background-color: var(--ifm-color-emphasis-100);
-    border-top: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .noDocsMessage {
