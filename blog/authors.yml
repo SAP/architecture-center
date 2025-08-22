@@ -1,13 +1,13 @@
 jmsrpp:
-  name: James Rapp
-  title: SAP Architect
+  name: Jim Rapp
+  title: Chief Architect
   url: https://github.com/jmsrpp
   image_url: https://github.com/jmsrpp.png
   page: true
   # valid socials are "x", "github", "twitter", "linkedin", "stackoverflow", "instagram", "bluesky", "mastodon", "threads", "twitch", "youtube"
   socials:
     github: jmsrpp
-    linkedin: james-rapp-40a6311
+    linkedin: james-rapp
 
 cernus76:
   name: Pierre-Olivier Basseville
@@ -22,7 +22,7 @@ cernus76:
 
 anirban-sap:
   name: Anirban Majumdar
-  title: Head of the Platform Architecture & Adoption
+  title: Head of the Office of the CTO
   url: https://github.com/anirban-sap
   image_url: https://github.com/anirban-sap.png
   page: true

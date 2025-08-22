@@ -38,9 +38,9 @@ last_update:
 
 # Integrate and extend SAP and non-SAP solutions with SAP Build Process Automation
 
-SAP Build Process Automation is a citizen developer solution to adapt, improve, and innovate business processes with no-code workflow management and robotic process automation capabilities.
+SAP Build Process Automation is a citizen developer solution to adapt, improve, and innovate business processes with low-code and no-code workflow management and robotic process automation capabilities.
 
-SAP Build Process Automation enables business users and technologists to become citizen developers. With intuitive low-code and no-code capabilities, the solution supports you in driving automation by tapping into the expertise of citizen developers.
+SAP Build Process Automation enables business users and technologists to become citizen developers. With intuitive low-code and no-code capabilities and AI-based artifacts generation, the solution supports you in driving automation by tapping into the expertise of citizen developers.
 
 This reference architecture describes how SAP Build Process Automation can be used to integrate and extend SAP and non-SAP solutions in cloud and hybrid landscapes. It is also related to the Robotic Process Automation use case pattern of the SAP Integration Solution Advisory Methodology. 
 
@@ -70,13 +70,13 @@ The SAP Build Process Automation architecture diagram highlights five key flows 
 
 ## Characteristics
 
-- **Central automation solution across hybrid SAP landscapes**: SAP Build Process Automation allows users to easily build approval processes across systems with SAP Task Center as a centralized access point for end users to manage their tasks.  
+- **Central process automation solution across hybrid SAP landscapes**: SAP Build Process Automation allows users to easily build approval processes, workflows and business automation scenarios, including API-based (actions) & UI-based (automations) access across systems with SAP Task Center as a centralized access point for end users to manage their tasks. The solution 
 
 - **Support of third-party identity providers**: SAP Cloud Identity Services - Authentication allows federation with third-party identity providers, and SAP Cloud Identity Services - Provisioning enables provisioning of user/role assignments from third-party sources. 
 
 - **Global User ID**: A globally unique user identifier defined by SAP Cloud Identity Services - Identity Authentication and used by SAP Build Process Automation.  
 
-- **Cloud and on-premise solution integration**: Apart from integrating with various SAP and third-party cloud solutions, SAP Build Process Automation can also be configured to work with SAP ECC, SAP S/4HANA, and S/4HANA Cloud Private Edition. 
+- **Cloud and on-premise solution integration**: In addition to integration with various SAP and third-party (non-SAP) cloud solutions, SAP Build Process Automation can be configured to work with SAP ECC, SAP S/4HANA, and S/4HANA Cloud Private Edition (and provides dedicated predefined content, see below).
 
 - **Predefined content**: Predefined content for SAP Build Process Automation is directly available via the integrated store and can be used with or without adaptation based on customer needs.  
 
@@ -109,15 +109,17 @@ SAP Build Process Automation is used in various use cases across all lines of bu
 
 ## Services and Components
 
+- [SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation?region=all)
+- [SAP Build Apps](https://discovery-center.cloud.sap/serviceCatalog/sap-build-apps?region=all)
+- [SAP Build Code](https://discovery-center.cloud.sap/serviceCatalog/sap-build-code?region=all)
+- [SAP Build Work Zone](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-advanced-edition?region=all)
+- [Joule Studio](https://discovery-center.cloud.sap/ai-feature/e93aa292-e7f4-449d-9586-f1a8510d5ab6/)
 - [SAP Business Application Studio](https://discovery-center.cloud.sap/serviceCatalog/business-application-studio?region=all)
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 - [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?region=all)
 - [SAP Document Management service, integration option](https://discovery-center.cloud.sap/serviceCatalog/document-management-service-integration-option?region=all)
 - [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
-- [SAP Build Apps](https://discovery-center.cloud.sap/serviceCatalog/sap-build-apps?region=all)
-- [SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation?region=all) 
-- [SAP Build Work Zone](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-advanced-edition?region=all)
 
 ## Resources
 

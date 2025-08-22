@@ -14,6 +14,8 @@ I'm pleased to announce that my team at the Office of the CTO, SAP, has official
 #### Why did we create it?
 In the past, we've relied on various tools, ranging from PowerPoint presentations to static websites, for documenting and sharing technical architectures. These methods, however, lacked collaborative authoring capabilities, robust version control, and ease of iterative refinement. To address these limitations, we've transitioned to a modern, collaborative solution using GitHub, a widely recognized platform among developers and architects.
 
+<!-- truncate -->
+
 #### What is the SAP Architecture Center?
 The SAP Architecture Center is a GitHub-based repository designed to enhance how we build, publish, and govern Reference Solution Architectures. Each architecture is managed through Markdown files on [GitHub](https://github.com/SAP/architecture-center), supporting transparent collaboration, robust version control, and structured governance. Solution diagrams utilize draw.io, an open-source tool, and integrate seamlessly into our official [Solution Diagrams repository](https://sap.github.io/btp-solution-diagrams/), managed by Fabian Lehmann.
 
@@ -44,5 +46,3 @@ Join us in shaping the future of SAP architecture.
 
 Anirban
 Office of the CTO
-
-<!-- truncate -->

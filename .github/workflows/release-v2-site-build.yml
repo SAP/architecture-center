@@ -1,24 +1,26 @@
-name: Deploy main site to GitHub Pages
+name: Release V2 Site Build
 
 permissions:
     contents: write
     pages: write
 
 on:
-    # for local PR builds esp. builds in forked repositories
     workflow_dispatch:
+
+env:
+    PREVIEW_FOLDER: preview/releasev2
 
 jobs:
     build:
-        name: Build Site
+        name: Build Site for Release V2 preview
         runs-on: ubuntu-latest
-
         steps:
-            - uses: actions/checkout@v4
+            - name: Checkout Release V2 Code
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-
-            - uses: actions/setup-node@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
                   node-version: latest
                   cache: npm
@@ -36,10 +38,16 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Patch docusaurus.config.ts
+            - name: Patch docusaurus.config.ts for Release V2 preview
               run: |
                   sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
-                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/${{ env.base_url }}',^g" docusaurus.config.ts
+                  sed -E -i "s^baseUrl:(..*)^baseUrl: '/@${{ env.PREVIEW_FOLDER }}',^g" docusaurus.config.ts
+                  sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (Release V2 Preview)',^g" docusaurus.config.ts
+                  sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (Release V2 Preview)'^g" docusaurus.config.ts
+                  sed -E -i "s^logo: \{^logo: \{href: 'https://github.com/${{ github.repository }}/tree/release-v2',^g" docusaurus.config.ts
+
+            - name: Verify Patch Application
+              run: cat docusaurus.config.ts
 
             - name: Fetch contributors details from GitHub API
               env:
@@ -52,8 +60,23 @@ jobs:
             - name: Build Website
               run: npm run build
 
-            - name: Update drawio links with hashed URLs
-              run: node src/_scripts/_update-drawio-links.js
+            - name: Delete sitemap.xml
+              run: |
+                  if [ -f build/sitemap.xml ]; then
+                    rm build/sitemap.xml
+                    echo "Deleted sitemap.xml from build output."
+                  else
+                    echo "No sitemap.xml found to delete."
+                  fi
+
+            - name: Delete robots.txt
+              run: |
+                  if [ -f build/robots.txt ]; then
+                    rm build/robots.txt
+                    echo "Deleted robots.txt from build output."
+                  else
+                    echo "No robots.txt found to delete."
+                  fi
 
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
@@ -61,10 +84,10 @@ jobs:
                   path: build
 
     deploy:
-        name: Deploy Site
+        name: Deploy Site for Release V2 Preview
         runs-on: ubuntu-latest
         needs: build
-
+        if: success()
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -74,7 +97,7 @@ jobs:
             - name: Download Build Artifact
               uses: actions/download-artifact@v4
               with:
-                  path: __build__
+                  path: build/
 
             - name: Set up Git
               run: |
@@ -92,16 +115,16 @@ jobs:
 
             - name: Drop Previous Content
               run: |
-                  shopt -s extglob
-                  rm -rf !(@*|__build__)
+                  rm -rf @${{ env.PREVIEW_FOLDER }}
+                  mkdir -p @${{ env.PREVIEW_FOLDER }}
 
             - name: Extract Build Content
               run: |
-                  if [[ -d "__build__" && "$(ls -A __build__)" ]]; then
-                    mv __build__/* ./
+                  if [[ -d "build" && "$(ls -A build)" ]]; then
+                    mv build/* @${{ env.PREVIEW_FOLDER }}/
+                    cd @${{ env.PREVIEW_FOLDER }}/
                     tar -xvf github-pages/artifact.tar
                     rm github-pages/artifact.tar
-                    rm -rf __build__
                   else
                     echo "No build files found. Skipping move step."
                   fi
@@ -110,6 +133,20 @@ jobs:
               run: |
                   git add -A
                   if [[ "$(git status -s)" ]]; then
-                    git commit -m "site build ➝ gh pages"
+                    git commit -m "release-v2 build ➝ gh pages"
                     git push -f origin ${{ env.gh_pages_branch }}
                   fi
+
+    notify:
+        name: Notify Deployment Complete
+        needs: deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Wait for deployment
+              run: sleep 120s
+
+            - name: Output Preview Link
+              run: |
+                  echo "🚀 Release V2 preview site has been deployed!"
+                  echo "📍 Preview URL: https://architecture.learning.sap.com/@${{ env.PREVIEW_FOLDER }}"
+                  echo "🔗 Direct link: https://architecture.learning.sap.com/@${{ env.PREVIEW_FOLDER }}/"
