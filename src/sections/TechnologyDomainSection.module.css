@@ -1,0 +1,29 @@
+:root {
+  --domain-text-color: #4a5d6f;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 80px auto 40px auto; /* bigger top spacing, normal bottom */
+  padding: 0 24px; /* matches common layout gutters */
+}
+
+.title {
+  font-size: var(--sapFontHeader2Size);
+  color: var(--domain-text-color);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: var(--sapFontHeader4Size);
+  margin-top: 1rem;
+  color: var(--domain-text-color);
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 1425px;
+  margin-top: 40px;
+}

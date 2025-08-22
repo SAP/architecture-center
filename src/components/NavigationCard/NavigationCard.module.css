@@ -1,3 +1,16 @@
+:root {
+    --navcard-border-default: #bbbbbb;
+    --navcard-border-hover: #0065B3;
+
+    --navcard-text-default: #4A5D6F;
+    --navcard-text-hover: #0065B3;
+
+    --navcard-icon-default: #4A5D6F;
+    --navcard-icon-hover: #0065B3;
+
+    --navcard-shadow-hover: var(--sapUiBrand);
+}
+
 /* kill link coloring so the card decides */
 .cardLink,
 .cardLink:visited,
@@ -12,20 +25,20 @@
     min-height: 80px;
     background-color: white;
     border-radius: 0.5rem;
-    border: 1px solid;
+    border: 1px solid var(--navcard-border-default);
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding-left: 24px;
     gap: 0.75rem;
-    font-size: 18px;
     font-weight: 600;
-    color: #585757;
+    color: var(--navcard-text-default);
     box-shadow: none;
 }
 
-.default ui5-icon {
-    color: #585757;
+.default ui5-icon,
+.icon {
+    color: var(--navcard-icon-default);
     margin-right: 12px;
     font-size: 1.5rem;
     width: 2.5rem;
@@ -37,45 +50,25 @@
     align-items: center;
     gap: 5px;
     overflow: visible;
+    color: var(--navcard-text-default);
+    font-size: var(--sapFontLargeSize);
 }
 
 .default:hover {
     background-color: white;
-    box-shadow: 0 8px 20px -5px var(--sapUiBrand);
-    border-color: var(--sapUiButtonEmphasizedTextColor);
-    color: var(--sapUiButtonEmphasizedTextColor);
+    box-shadow: 0 8px 20px -5px var(--navcard-shadow-hover);
+    border: 1px solid var(--navcard-border-hover);
+    color: var(--navcard-text-hover);
 }
 
-.default:hover ui5-icon {
-    color: var(--sapUiButtonEmphasizedTextColor);
-}
-
+.default:hover ui5-icon,
+.default:hover .icon,
 .default:hover .inline {
-    color: #006bb8;
+    color: var(--navcard-icon-hover);
 }
 
 .default::part(root) {
     box-shadow: none;
     padding: 0;
     background: transparent;
-}
-
-.inline {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: var(--navcard-fg) !important;
-}
-
-.icon {
-    color: var(--navcard-fg) !important;
-    margin-right: 10px;
-    font-size: 1.5rem;
-    width: 2.5rem;
-    height: 1.5rem;
-}
-
-.default:hover {
-    --navcard-fg: var(--sapHighlightColor);
-    color: var(--sapHighlightColor);
 }
