@@ -27,9 +27,9 @@ export default function HeroSection(): JSX.Element {
             body: 'Build side-by-side extensions while keeping the core clean.',
         },
         {
-            lightImg: 'banner_example_3_light.webp',
-            darkImg: 'banner_example_3_dark.webp',
-            title: 'AI in SAP Landscape',
+            lightImg: 'architecture_center_banner5_rounded_700x206_light.webp',
+            darkImg: 'architecture_center_banner5_rounded_700x206_light.webp',
+            title: 'Community of Practice',
             subtitle: 'Give you the tools to shape the future',
             body: 'Discover AI-driven enterprise strategies.',
         },

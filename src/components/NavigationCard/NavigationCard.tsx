@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import { Card, Icon } from '@ui5/webcomponents-react';
-import styles from './index.module.css';
+import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
 
 interface CustomButtonProps {

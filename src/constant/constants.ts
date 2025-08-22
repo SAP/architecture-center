@@ -6,7 +6,7 @@ export const navigationCardsData = [
     { title: "What's new", icon: 'sap-icon://marketing-campaign', link: '/blog' },
 ];
 
-export const TECH_DOMAIN = [
+export const techDomain = [
     { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
     { id: 'data', title: 'Data & Analytics', icon: 'sap-icon://database' },
     { id: 'opsec', title: 'Operation & Security', icon: 'sap-icon://shield' },

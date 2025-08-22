@@ -1,8 +1,8 @@
 import React, { JSX } from 'react';
 import { Title, Text } from '@ui5/webcomponents-react';
-import { TECH_DOMAIN } from '../constant/constants';
+import { techDomain } from '../constant/constants';
 import Tile from '../components/Tile/Tile';
-import styles from './Domain.module.css';
+import styles from './TechnologyDomainSection.module.css';
 
 export default function Domain(): JSX.Element {
     return (
@@ -14,7 +14,7 @@ export default function Domain(): JSX.Element {
                 <Text className={styles.subtitle}>Explore architectures for different technology domains</Text>
 
                 <div className={styles.tilesGrid}>
-                    {TECH_DOMAIN.map((domain, index) => (
+                    {techDomain.map((domain, index) => (
                         <Tile id={domain.id} key={index} title={domain.title} icon={domain.icon} />
                     ))}
                 </div>

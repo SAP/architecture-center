@@ -45,12 +45,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 1rem;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: center;
+    align-items: left;
+    text-align: left;
     color: white;
 }
 
@@ -63,7 +63,7 @@
 
 .heroSlideSubtitle {
     font-weight: 500;
-    margin-top: 0.5rem;
+    margin-top: 2rem;
     font-size: clamp(14px, 2.8vw, 22px);
     opacity: 0.95;
 }
@@ -71,7 +71,7 @@
 .heroSlideBody {
     max-width: 70ch;
     font-size: clamp(13px, 2.4vw, 18px);
-    margin-top: 0.5rem;
+    margin-top: 2rem;
     opacity: 0.9;
 }
 

@@ -1,0 +1,50 @@
+:root {
+    --domain-text-color: #4a5d6f;
+}
+
+.title {
+    font-size: var(--sapFontHeader2Size);
+    color: var(--domain-text-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: var(--sapFontHeader4Size);
+    margin-top: 1rem;
+    color: var(--domain-text-color);
+}
+
+.grid {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+    max-width: 1425px;
+    margin-top: 40px;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 80px auto 40px auto;
+    padding: 0 24px;
+}
+
+.tilesGrid {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+    max-width: 1425px;
+    margin-top: 40px;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 992px) {
+    .tilesGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.tileWrapper {
+    height: 100%;
+}
