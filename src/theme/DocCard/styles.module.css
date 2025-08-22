@@ -10,19 +10,20 @@ html[data-theme='dark'] .tag:hover {
   height: var(--card-height-desktop);
   cursor: pointer;
   border-radius: var(--border-radius-lg);
-  overflow: visible;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
   background-color: var(--ifm-card-background);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin-top: 5px;
 }
 
 .docCard:hover {
   background-color: var(--ifm-hover-overlay);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-3px);
+  transform: translateY(-5px);
 }
 
 .cardBanner {
@@ -86,6 +87,7 @@ html[data-theme='dark'] .tag:hover {
   gap: 3px;
   align-items: flex-end;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .tag {
@@ -119,6 +121,7 @@ html[data-theme='dark'] .tag:hover {
 @media (max-width: 996px) {
   .docCard {
     height: var(--card-height-tablet);
+    margin-bottom: 20px;
   }
 }
 
@@ -126,5 +129,6 @@ html[data-theme='dark'] .tag:hover {
 @media (max-width: 430px) {
   .docCard {
     height: var(--card-height-mobile);
+    margin-bottom: 20px;
   }
 }

@@ -1090,6 +1090,7 @@ html[data-footer='false'] .footer {
 
     .slick-dots {
         margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 
     .community_image {
@@ -1135,6 +1136,7 @@ html[data-footer='false'] .footer {
     }
 
     .slick-dots {
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 }
