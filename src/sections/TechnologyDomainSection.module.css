@@ -2,6 +2,13 @@
     --domain-text-color: #4a5d6f;
 }
 
+.domainSection {
+    background: 
+    url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
+    #eaf3fc;
+    padding: 0 0 20px 0; 
+}
+
 .title {
     font-size: var(--sapFontHeader2Size);
     color: var(--domain-text-color);
@@ -24,8 +31,8 @@
 
 .container {
     max-width: 1440px;
-    margin: 80px auto 40px auto;
-    padding: 0 24px;
+    margin: 20px auto 40px auto;
+    padding: 60px 24px 20px;
 }
 
 .tilesGrid {

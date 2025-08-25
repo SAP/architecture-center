@@ -46,12 +46,12 @@
 }
 
 .inline {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 5px;
     overflow: visible;
     color: var(--navcard-text-default);
-    font-size: var(--sapFontLargeSize);
+    font-size: var(--sapFontHeader4Size);
 }
 
 .default:hover {
