@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.2.15 Chrome/134.0.6998.205 Electron/35.2.1 Safari/537.36" version="26.2.15">
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
   <diagram name="Pre" id="CsYT0jjc2dDIddzaS4Tb">
-    <mxGraphModel dx="1473" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1732" dy="1043" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="SWCKuI3yV05O1hUtp25W-0" />
         <mxCell id="SWCKuI3yV05O1hUtp25W-1" parent="SWCKuI3yV05O1hUtp25W-0" />
@@ -241,9 +241,6 @@
         </mxCell>
         <mxCell id="83r2QO2GGbaT9ctiXixm-1" value="" style="shape=image;editableCssRules=.*;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0wLjUgLTAuNSAyOCAyOCIgaGVpZ2h0PSIyOCIgd2lkdGg9IjI4Ij4mI3hhOwkgIDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MCB7IHN0b3AtY29sb3I6IHJnYigzNSwgMTQ5LCAyNTUpOyB9IC5zdDEgeyBzdG9wLWNvbG9yOiByZ2IoMCwgODcsIDIxMCk7IH0gPC9zdHlsZT4mI3hhOwk8ZGVmcz4mI3hhOwkJPGxpbmVhckdyYWRpZW50IGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB5Mj0iMjUuMzA5IiB4Mj0iMjMuNDU0IiB5MT0iMy40NzQiIHgxPSIyLjAzOSIgaWQ9IkEiPiYjeGE7CQkJPHN0b3AgY2xhc3M9InN0MCIvPiYjeGE7CQkJPHN0b3AgY2xhc3M9InN0MSIgb2Zmc2V0PSIxIi8+JiN4YTsJCTwvbGluZWFyR3JhZGllbnQ+JiN4YTsJPC9kZWZzPiYjeGE7CTxwYXRoIGZpbGw9InVybCgjQSkiIGQ9Ik0yNi45OTYgMTIuNDIybC02LjY1LTUuNTE2YTEuNCAxLjQgMCAwIDAtMS40ODQtLjE5NmMtLjQ5LjIyNC0uNzk4LjcyOC0uNzk4IDEuMjc0djIuNTM0TDEzLjcxIDYuOTA2YTEuNCAxLjQgMCAwIDAtMS40ODQtLjE5NmMtLjQ5LjIyNC0uNzk4LjcyOC0uNzk4IDEuMjc0VjEyLjFIOC41ODZWLjljMC0uNzctLjYzLTEuNC0xLjQtMS40SC45Qy4xMy0uNS0uNS4xMy0uNS45djI1LjJjMCAuNzcuNjMgMS40IDEuNCAxLjRoMjUuMmMuNzcgMCAxLjQtLjYzIDEuNC0xLjRWMTMuNWExLjM5IDEuMzkgMCAwIDAtLjUwNC0xLjA3OHpNNS43NTggMjQuN0gyLjN2LTMuNWgzLjQ1OHptMC02LjNIMi4zdi0zLjVoMy40NTh6bTAtNi4zSDIuM1Y4LjgyNGgzLjQ1OHptMC02LjA3NkgyLjNWMi4zaDMuNDU4ek0yNC42ODYgMjQuN0g4LjU1OHYtMy41aDEuODQ4Yy43NyAwIDEuNC0uNjMgMS40LTEuNHMtLjYzLTEuNC0xLjQtMS40SDguNTU4di0zLjVIMTIuOGMuNzcgMCAxLjQtLjYzIDEuNC0xLjR2LTIuNTM0bDQuMzU0IDMuNjEyYTEuNCAxLjQgMCAwIDAgMS40ODQuMTk2Yy40OS0uMjI0Ljc5OC0uNzI4Ljc5OC0xLjI3NHYtMi41MzRsMy44NSAzLjE5MnptLTkuMzY2LTMuMTVhMS43NSAxLjc1IDAgMSAwIDAtMy41IDEuNzUgMS43NSAwIDEgMCAwIDMuNXptNi45My0xLjc1YTEuNzUgMS43NSAwIDEgMS0zLjUgMCAxLjc1IDEuNzUgMCAxIDEgMy41IDB6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4mI3hhOzwvc3ZnPg==;" parent="SWCKuI3yV05O1hUtp25W-1" vertex="1">
           <mxGeometry x="50" y="765" width="28" height="28" as="geometry" />
-        </mxCell>
-        <mxCell id="f837f0OaSVsTsTq4Vbiq-0" value="&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Cross Domain integrations using SAP PI/PO and additional solutions&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" parent="SWCKuI3yV05O1hUtp25W-1" vertex="1">
-          <mxGeometry x="38" width="550" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
