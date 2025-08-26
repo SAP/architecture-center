@@ -59,7 +59,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                 <div className={styles.cardContent}>
                     <div className={styles.header}>
                         <Icon name={icon} className={styles.icon} />
-                        <Title level="H4" className={styles.title}>
+                        <Title className={styles.title}>
                             {title}
                         </Title>
                     </div>
