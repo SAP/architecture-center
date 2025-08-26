@@ -730,7 +730,7 @@ html[data-theme='light'] .navbar {
 }
 
 html[data-theme='light'] .footer {
-    background-color: #e0e0e0;
+    background-color: #ffffff;
 }
 
 html[data-theme='light'] .menu {
@@ -1051,6 +1051,7 @@ body[data-sidebar-id='refarchSidebar'] .sidebar_njMd {
 
     .slick-dots {
         margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 
     .community_image {
@@ -1096,6 +1097,7 @@ body[data-sidebar-id='refarchSidebar'] .sidebar_njMd {
     }
 
     .slick-dots {
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
     }
 }
