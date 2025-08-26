@@ -70,7 +70,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                                 <li key={doc.id}>
                                     <Icon name="document-text" className={styles.docIcon} />
                                     <Link to={doc.permalink} title={doc.title} onClick={handleCardClick}>
-                                        <span title={doc.title}>{truncateWords(doc.title, 7)}</span>
+                                        <span title={doc.title}>{truncateWords(doc.title, 6)}</span>
                                     </Link>
                                 </li>
                             ))}

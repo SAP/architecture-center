@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    border: 1px solid var(--ifm-color-emphasis-200);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
 ui5-card::part(content) {
