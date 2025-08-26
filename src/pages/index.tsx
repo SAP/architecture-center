@@ -2,8 +2,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
-import CommunitySection from '../sections/Community';
-import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
+import DomainSection from '../sections/TechnologyDomainSection';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
@@ -24,8 +23,7 @@ export default function Home(): JSX.Element {
         >
             <main>
                 <HeroSection />
-                <ExploreArchitectureSection />
-                <CommunitySection />
+                <DomainSection />
             </main>
         </Layout>
     );

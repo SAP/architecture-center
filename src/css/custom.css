@@ -263,12 +263,10 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background-repeat: no-repeat;
     background-position: center;
     color: white;
-    display: block;
-    padding-left: 0;
-    padding-right: 0;
-    box-sizing: border-box;
-    contain: layout style; /* Prevent layout recalculations & style invalidation */
-    content-visibility: auto; /* Browser optimization for off-screen content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .hero_banner img {
@@ -732,13 +730,14 @@ html[data-theme='light'] .navbar {
 }
 
 html[data-theme='light'] .footer {
-    background-color: #e0e0e0;
+    background-color: #ffffff;
 }
 
 html[data-theme='light'] .menu {
     background-color: #eeeeee;
 }
 
+/*Dark Mode*/
 html[data-theme='dark'] .footer {
     background-color: #0e0f19;
 }
@@ -835,55 +834,17 @@ html[data-footer='false'] .footer {
     display: none;
 }
 
-/* Utility Classes */
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body[data-sidebar-id='refarchSidebar'] .sidebar_njMd {
+    padding-top: 5px !important;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
+.sidebarHidden_VK0M .dropdownDiv {
+    display: none;
 }
 
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.navbar-sidebar__item ul {
+    padding: 0;
 }
-
-.flex-start {
-    display: flex;
-    align-items: flex-start;
-}
-
-.card-shadow {
-    box-shadow: var(--shadow-card);
-}
-
-.card-hover {
-    transition: all 0.3s ease-in-out;
-}
-
-.card-hover:hover {
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-3px);
-}
-
-.standard-button-width {
-    width: var(--button-width-standard);
-}
-
-.responsive-container {
-    width: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    box-sizing: border-box;
-}
-
-/* All Media Queries */
 
 @media (max-width: 1440px) {
     .hero_banner {

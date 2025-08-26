@@ -1,0 +1,30 @@
+.refarchSidebarActive {
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollableContent {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+:global(html[data-sidebar-collapsed='true']) .scrollableContent {
+  display: none;
+}
+
+.theme-doc-sidebar-container-collapsed .custom-sidebar-filters-container {
+  display: none;
+}
+
+.sidebarWithFiltersContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebarMenuList {
+  flex: 1;
+  overflow-y: auto;
+}

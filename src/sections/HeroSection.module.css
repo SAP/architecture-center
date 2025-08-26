@@ -1,0 +1,156 @@
+.section {
+    margin-top: 65px;
+    margin-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- HERO / BANNER --- */
+.heroCarousel {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.heroSlide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+}
+
+/* Slide container */
+.heroSlide {
+    position: relative;
+    width: 100%;
+    height: 424px;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Overlay content */
+.heroSlideOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    text-align: left;
+    color: white;
+}
+
+.heroSlideOverlay h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(22px, 4.2vw, 40px);
+    line-height: 1.15;
+}
+
+.heroSlideSubtitle {
+    font-weight: 500;
+    margin-top: 2rem;
+    font-size: clamp(14px, 2.8vw, 22px);
+    opacity: 0.95;
+}
+
+.heroSlideBody {
+    max-width: 70ch;
+    font-size: clamp(13px, 2.4vw, 18px);
+    margin-top: 2rem;
+    opacity: 0.9;
+}
+
+/* --- Navigation Cards --- */
+.cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 45px;
+    width: 100%;
+    max-width: 1440px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+
+/* --- RESPONSIVE LAYOUT --- */
+@media (max-width: 1024px) {
+    .cardsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 48px;
+    }
+}
+
+/* Tablet (996px breakpoint) */
+@media (max-width: 996px) {
+    .heroSlide {
+        height: 360px;
+    }
+
+    .cardsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 48px;
+    }
+}
+
+/* Mobile (600px breakpoint) */
+@media (max-width: 600px) {
+    .section {
+        margin-top: 40px;
+        margin-bottom: 48px;
+        padding: 0 16px;
+    }
+
+    .heroSlideOverlay {
+        padding: 16px;
+    }
+
+    .cardsGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 32px;
+    }
+}
+
+/* Small mobile (430px breakpoint) */
+@media (max-width: 430px) {
+    .heroSlideOverlay h1 {
+        font-size: clamp(18px, 6vw, 28px);
+    }
+
+    .heroSlideSubtitle {
+        font-size: clamp(12px, 4vw, 18px);
+    }
+
+    .heroSlideBody {
+        font-size: clamp(12px, 3.5vw, 16px);
+        max-width: 90%;
+    }
+
+    .heroSlideOverlay {
+        padding: 40px;
+    }
+
+    .cardsGrid {
+        gap: 12px;
+        margin-top: 24px;
+    }
+}
