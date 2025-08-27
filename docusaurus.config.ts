@@ -301,19 +301,6 @@ const config: Config = {
                         },
                     ],
                 },
-                {
-                    title: 'More',
-                    items: [
-                        {
-                            label: 'SAP Discovery Center',
-                            href: 'https://discovery-center.cloud.sap/index.html',
-                        },
-                        {
-                            label: 'BTP Solution Diagrams',
-                            href: 'https://sap.github.io/btp-solution-diagrams/',
-                        },
-                    ],
-                },
             ],
             copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
         },
