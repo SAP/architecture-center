@@ -89,13 +89,17 @@
     padding-right: var(--container-padding);
 }
 
-/* --- RESPONSIVE LAYOUT --- */
 @media (max-width: 1024px) {
     .cardsGrid {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
         margin-top: 48px;
     }
+
+    .section {
+        padding: 0 25px;
+    }
+    
 }
 
 /* Tablet (996px breakpoint) */

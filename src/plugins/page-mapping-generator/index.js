@@ -41,8 +41,7 @@ module.exports = function (context, options) {
           const fileContent = fs.readFileSync(filePath, 'utf8');
           const { data: frontMatter } = matter(fileContent);
           
-          const stats = fs.statSync(filePath);
-          const lastUpdatedAt = stats.mtime;
+          const lastUpdatedAt = new Date(frontMatter.last_update.date);
 
           if (frontMatter.id && frontMatter.title && frontMatter.tags && Array.isArray(frontMatter.tags)) {
             

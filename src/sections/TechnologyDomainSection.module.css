@@ -1,7 +1,3 @@
-:root {
-    --domain-text-color: #4a5d6f;
-}
-
 .domainSection {
     background: 
     url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
@@ -11,14 +7,14 @@
 
 .title {
     font-size: var(--sapFontHeader2Size);
-    color: var(--domain-text-color);
+    color: var(--navcard-text-default);
     margin-bottom: 10px;
 }
 
 .subtitle {
     font-size: var(--sapFontHeader4Size);
     margin-top: 1rem;
-    color: var(--domain-text-color);
+    color: var(--navcard-text-default);
 }
 
 .grid {
@@ -46,12 +42,50 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-@media (min-width: 992px) {
+.tileWrapper {
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .domainSection {
+       padding: 25px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+    
+}
+
+/* Tablet (996px breakpoint) */
+@media (min-width: 996px) {
     .tilesGrid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-.tileWrapper {
-    height: 100%;
+/* Mobile (600px breakpoint) */
+@media (max-width: 600px) {
+    .title {
+        font-size: var(--sapFontHeader3Size);
+    }
+
+    .subtitle {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Small mobile (430px breakpoint) */
+@media (max-width: 430px) {
+    .title {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .subtitle {
+        font-size: var(--sapFontHeader5Size);
+    }
 }

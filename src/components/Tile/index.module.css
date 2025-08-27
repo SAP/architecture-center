@@ -2,6 +2,20 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    border: 1px solid var(--navcard-border-default);
+    border-radius: 0.5rem;
+}
+
+.tileCard::part(root) {
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0.5rem;
+}
+
+.tileCard:hover {
+    box-shadow: 0 8px 20px -5px var(--sapUiBrand);
+    border: 1px solid var(--navcard-border-hover);
+
 }
 
 ui5-card::part(content) {
@@ -31,10 +45,10 @@ ui5-card::part(content) {
 .footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0.75rem 1.5rem;
     font-weight: 600;
-    color: var(--ifm-color-primary);
+    color: var( --navcard-text-hover);
     background-color: var(--ifm-color-emphasis-100);
     border-top: 1px solid var(--ifm-color-emphasis-200);
 }
@@ -42,20 +56,23 @@ ui5-card::part(content) {
 .header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 20px;
     margin-bottom: 1.25rem;
 }
 
 .icon {
-    font-size: 2rem;
-    color: var(--ifm-color-primary);
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    color: var(--navcard-icon-hover);
 }
 
 .title {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
-    color: var(--ifm-color-emphasis-800);
+    color: var(--navcard-text-default);
 }
 
 .docList {
@@ -69,13 +86,13 @@ ui5-card::part(content) {
 }
 
 .docList a:hover {
-    color: var(--ifm-color-primary);
+    color: var( --navcard-text-hover);
     text-decoration: underline;
 }
 
 .docList li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
     margin-bottom: 0.6rem;
     font-size: 0.9rem;
@@ -85,9 +102,19 @@ ui5-card::part(content) {
 .docIcon {
     color: var(--ifm-color-emphasis-500);
     font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .noDocsMessage {
     font-style: italic;
     color: var(--ifm-color-emphasis-600);
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
