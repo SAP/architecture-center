@@ -45,10 +45,10 @@ ui5-card::part(content) {
 .footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding: 0.75rem 1.5rem;
     font-weight: 600;
-    color: var(--ifm-color-primary);
+    color: var( --navcard-text-hover);
     background-color: var(--ifm-color-emphasis-100);
     border-top: 1px solid var(--ifm-color-emphasis-200);
 }
@@ -86,13 +86,13 @@ ui5-card::part(content) {
 }
 
 .docList a:hover {
-    color: var(--ifm-color-primary);
+    color: var( --navcard-text-hover);
     text-decoration: underline;
 }
 
 .docList li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
     margin-bottom: 0.6rem;
     font-size: 0.9rem;
@@ -102,9 +102,19 @@ ui5-card::part(content) {
 .docIcon {
     color: var(--ifm-color-emphasis-500);
     font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .noDocsMessage {
     font-style: italic;
     color: var(--ifm-color-emphasis-600);
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

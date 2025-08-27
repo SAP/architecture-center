@@ -70,7 +70,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                                 <li key={doc.id}>
                                     <Icon name="document-text" className={styles.docIcon} />
                                     <Link to={doc.permalink} title={doc.title} onClick={handleCardClick}>
-                                        <span title={doc.title}>{truncateWords(doc.title, 6)}</span>
+                                        <span className={styles.truncate}>{doc.title}</span>
                                     </Link>
                                 </li>
                             ))}
@@ -83,7 +83,6 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                 <Link onClick={handleCardClick} to="/docs" className={styles.footerLink}>
                     <div className={styles.footer}>
                         <span>View All</span>
-                        <Icon name="slim-arrow-right" />
                     </div>
                 </Link>
             </div>

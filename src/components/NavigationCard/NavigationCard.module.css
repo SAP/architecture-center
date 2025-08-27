@@ -59,3 +59,24 @@
     padding: 0;
     background: transparent;
 }
+
+/* Tablet (996px breakpoint) */
+@media (max-width: 996px) {
+    .inline {
+        font-size: var(--sapFontHeader5Size);
+    }
+}
+
+/* Mobile (600px breakpoint) */
+@media (max-width: 600px) {
+    .inline {
+        font-size: var(--sapFontHeader5Size);
+    }
+}
+
+/* Small mobile (430px breakpoint) */
+@media (max-width: 430px) {
+    .inline {
+        font-size: var(--sapFontHeader6Size);
+    }
+}
