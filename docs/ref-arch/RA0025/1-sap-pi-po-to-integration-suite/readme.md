@@ -1,23 +1,25 @@
 ---
-############################################################
-# Beginning of Front Matter#
-############################################################
-#[DO NOT MODIFY] #
-############################################################
-id: id-ra0025-1 
-slug: /ref-arch/5f84ec80cc/1
+id: id-ra0025-1
+slug: /ref-arch/9a5f7b59dc/1
 sidebar_position: 1
 sidebar_custom_props:
- category_index:
-############################################################
-#You can modify the front matter properties below#
-############################################################
+  category_index: []
 title: Migrating from SAP Process Integration/Orchestration to SAP Integration Suite
-description: Learn about the transition from SAP Process Integration (PI) and Process Orchestration (PO) to SAP Integration Suite, an iPaaS solution for modern integration needs. Discover benefits, migration tools, architectural shifts, and strategies for simplifying integration landscapes and reducing TCO.
+description: >-
+  Learn about the transition from SAP Process Integration (PI) and Process
+  Orchestration (PO) to SAP Integration Suite, an iPaaS solution for modern
+  integration needs. Discover benefits, migration tools, architectural shifts,
+  and strategies for simplifying integration landscapes and reducing TCO.
+keywords:
+  - SAP PI/PO migration
+  - SAP Integration Suite iPaaS
+  - Edge Integration Cell
+  - SAP migration tools and assessment
 sidebar_label: SAP PI/PO to SAP Integration Suite
-keywords: [SAP PI/PO migration, SAP Integration Suite iPaaS, Edge Integration Cell, SAP migration tools and assessment]
 image: img/logo.svg
-tags: [integration, transition]
+tags:
+  - integration
+  - transition
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,13 +27,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
- - abklgithub
+  - abklgithub
+discussion: 
 last_update:
- date: 2025-08-02
- author: abklgithub
-############################################################
-# End of Front Matter#
-############################################################
+  author: abklgithub
+  date: 2025-08-02
 ---
 
 SAP Process Integration / Process Orchestration (PI/PO) is a NetWeaver-based solution for meeting cross-domain integration needs that serve both intra- and inter-company scenarios. As it approaches the end of standard maintenance in 2027, customers need to plan migrations to a modern integration solution that offers robust, scalable, and secure integration capabilities. Customers do have the option to extend maintenance until 2030, after which SAP support comes to an end.
