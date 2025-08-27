@@ -56,6 +56,10 @@ buildworkzone:
   label: "SAP Build Work Zone"
   description: "SAP Build Work Zone is a tool that empowers business users to build and personalize digital workspaces. It provides secure, centralize access to SAP and external apps, processes, and data on any device, helping to drive productivity and engagement. Engage with both internal teams and external stakeholders using interactive workspaces, guided experiences, and knowledge sharing to maximize efficiency."
 
+transition:
+  label: "Transition Architectures"
+  description: "These reference architectures are designed to help organizations transition from legacy systems to cloud-native architectures, ensuring a smooth migration while maintaining business continuity and minimizing disruption."
+
 # generic tags generally not used except for testing
 
 demo:
