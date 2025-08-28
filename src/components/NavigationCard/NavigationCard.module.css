@@ -60,6 +60,31 @@
     background: transparent;
 }
 
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    line-height: 1.2; 
+}
+
+.spacing {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2; 
+}
+
+.spacing > div:first-child {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.logo {
+  height: 24px;
+  width: auto;
+  margin-right: 12px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 /* Tablet (996px breakpoint) */
 @media (max-width: 996px) {
     .inline {
