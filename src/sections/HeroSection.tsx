@@ -20,19 +20,33 @@ export default function HeroSection(): JSX.Element {
             body: 'Put AI, data, and applications to work with comprehensive architectures of SAP solutions tailored to your needs — and ready to extend as you grow.',
         },
         {
-            lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
-            darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
+            lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
+            darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             title: 'Explore Clean Core',
             subtitle: 'Give you the tools to shape the future',
             body: 'Build side-by-side extensions while keeping the core clean.',
         },
         {
-            lightImg: 'architecture_center_banner5_rounded_700x206_light.webp',
-            darkImg: 'architecture_center_banner5_rounded_700x206_light.webp',
+            lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
+            darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
             title: 'Community of Practice',
             subtitle: 'Give you the tools to shape the future',
             body: 'Discover AI-driven enterprise strategies.',
         },
+        {
+            lightImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
+            darkImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
+            title: 'Solution Diagram Guidelines',
+            subtitle: 'Create clear, consistent, and professional diagrams',
+            body: 'Follow SAP-recommended standards, templates, and best practices to design solution diagrams that are easy to understand and share.',
+        },
+        {
+            lightImg: 'whats_new_hero_banner_1140x424_light.webp',
+            darkImg: 'whats_new_hero_banner_1140x424_light.webp',
+            title: "What's New",
+            subtitle: 'Stay updated with the latest features and releases',
+            body: 'Explore new tools, capabilities, and enhancements that help you design, build, and run smarter solutions.',
+        }
     ];
 
     const carouselRef = useRef(null);
