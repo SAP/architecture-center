@@ -1,24 +1,26 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0025
-slug: /ref-arch/5f84ec80cc
+slug: /ref-arch/9a5f7b59dc
 sidebar_position: 25
 sidebar_custom_props:
-    category_index:
-        - integration
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
+  category_index:
+    - integration
 title: Transitioning Architectures from SAP NetWeaver
-description: Discover how SAP customers can transition from NetWeaver-based products approaching end-of-maintenance in 2027. Explore successor solutions, integration strategies, innovation needs, and security considerations for seamless migration and future-proofing your SAP landscape.
+description: >-
+  Discover how SAP customers can transition from NetWeaver-based products
+  approaching end-of-maintenance in 2027. Explore successor solutions,
+  integration strategies, innovation needs, and security considerations for
+  seamless migration and future-proofing your SAP landscape.
+keywords:
+  - SAP NetWeaver transition
+  - security
+  - governance
+  - integration strategies
 sidebar_label: Transitioning Architectures from SAP NetWeaver
-keywords: [SAP NetWeaver transition, security, governance, integration strategies]
 image: img/logo.svg
-tags: [integration, transition]
+tags:
+  - integration
+  - transition
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -27,12 +29,10 @@ draft: false
 unlisted: false
 contributors:
   - abklgithub
+discussion: 
 last_update:
-  date: 2025-08-02
   author: abklgithub
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  date: 2025-08-02
 ---
 
 A large base of SAP customers is on NetWeaver-based products. These products are approaching the end of standard maintenance in 2027 ([see note 1648480](https://me.sap.com/notes/1648480)). SAP has either made successor products available or named the successor products, which can be found in [PAM](https://userapps.support.sap.com/sap/support/pam). This section of the Architecture Center is dedicated to outlining the options for customers for various use cases.
