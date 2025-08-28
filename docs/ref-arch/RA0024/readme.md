@@ -48,11 +48,11 @@ Joule Studio in SAP Build is a comprehensive platform for developing and enhanci
 This reference architecture outlines how Joule Studio can be leveraged to integrate and extend SAP and non-SAP solutions across cloud and hybrid landscapes. By tapping into the expertise of citizen developers, Joule Studio facilitates the adaptation, improvement, and innovation of business processes, driving positive business outcomes through sophisticated AI capabilities.
 
 
-:::note [Devtoberfest Scavenger Hunt]
+:::note Devtoberfest Scavenger Hunt
 
-Congrats! You’ve found another piece of the [Devtoberfest Scavenger](https://community.sap.com/t5/devtoberfest-blog-posts/introducing-the-devtoberfest-scavenger-hunt/ba-p/14183972) Devtoberfest Scavenger Hunt secret code. The next 3 digits can be found from the picture of Kasimir the Cat. We suggest downloading the picture and examining it carefully.
+Congrats! You’ve found another piece of the **[Devtoberfest Scavenger](https://community.sap.com/t5/devtoberfest-blog-posts/introducing-the-devtoberfest-scavenger-hunt/ba-p/14183972)** Hunt secret code. The next 3 digits can be found from the picture of Kasimir the Cat. We suggest downloading the picture and examining it carefully.
 
-<em>![Kasimir the Cat](img/kasimir.png)</em>
+<em>![Kasimir the Cat](images/kasimir.png)</em>
 
 :::
 
