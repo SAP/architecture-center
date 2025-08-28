@@ -60,6 +60,23 @@
     background: transparent;
 }
 
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    line-height: 1.2; 
+}
+
+.spacing {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2; 
+}
+
+.spacing > div:first-child {
+    font-weight: 600;
+    margin-bottom: 4px;       /* space only between title and subtitle */
+}
+
 /* Tablet (996px breakpoint) */
 @media (max-width: 996px) {
     .inline {
