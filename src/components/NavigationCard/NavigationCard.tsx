@@ -14,9 +14,10 @@ interface CustomButtonProps {
 }
 
 export default function NavigationCard({
-  icon,
   title,
   subtitle,
+  icon,
+  logo,
   link,
   onMouseEnter,
   onMouseLeave,
@@ -29,7 +30,11 @@ return (
       onMouseLeave={onMouseLeave}
     >
       <span className={styles.inline}>
-        <Icon className={styles.icon} name={icon} />
+        {logo ? (
+            <img src={logo} alt={`${title} logo`} className={styles.logo} />
+          ) : (
+            <Icon className={styles.icon} name={icon} />
+          )}
         {subtitle ? (
           <div className={styles.spacing}>
             <div>{title}</div>

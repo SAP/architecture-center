@@ -20,7 +20,7 @@ export default function HeroSection(): JSX.Element {
                             key={index}
                             title={item.title}
                             subtitle={item.subtitle}
-                            icon={item.icon}
+                            logo={item.logo}
                             link={item.link}
                         />
                     ))}

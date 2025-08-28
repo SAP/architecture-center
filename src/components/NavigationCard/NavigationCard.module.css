@@ -74,7 +74,15 @@
 
 .spacing > div:first-child {
     font-weight: 600;
-    margin-bottom: 4px;       /* space only between title and subtitle */
+    margin-bottom: 4px;
+}
+
+.logo {
+  height: 24px;
+  width: auto;
+  margin-right: 12px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* Tablet (996px breakpoint) */
