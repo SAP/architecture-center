@@ -130,7 +130,7 @@
   {
     "id": "ra0018",
     "name": "Integrate and Extend with SAP Build Process Automation",
-    "drawioLink": "https://architecture.learning.sap.com/integrate-and-extend-with-sap-build-process-automation-eac681c8914e10bf.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/integrate-and-extend-with-sap-build-process-automation-977d250068b6143b.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/integrate-and-extend-with-sap-build-process-automation.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/99fd0564be",
     "shortDescription": "Automate processes with SAP Build Process Automation, integrating workflows across SAP and non-SAP systems."
@@ -170,7 +170,7 @@
   {
     "id": "ra0023",
     "name": "DevOps with SAP BTP",
-    "drawioLink": "https://architecture.learning.sap.com/devops-with-sap-btp-320f6cd1dd52022c.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/devops-with-sap-btp-76743bf371954e2c.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/devops-with-sap-btp.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/1c5706feb5",
     "shortDescription": "Adopt agile DevOps principles on SAP BTP with cloud services and tools for streamlined application lifecycle management."
