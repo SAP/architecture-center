@@ -26,7 +26,6 @@ function truncateWords(text: string, wordLimit: number) {
 export default function Tile({ id, title, icon }: TileProps): JSX.Element {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const globalData = useGlobalData();
-
     const docsPluginData = globalData['docusaurus-plugin-content-docs']['default'] as {
         versions: { docs: DocFromGlobalData[] }[];
     };
@@ -59,9 +58,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                 <div className={styles.cardContent}>
                     <div className={styles.header}>
                         <Icon name={icon} className={styles.icon} />
-                        <Title className={styles.title}>
-                            {title}
-                        </Title>
+                        <Title className={styles.title}>{title}</Title>
                     </div>
 
                     {top5Docs.length > 0 ? (

@@ -11,12 +11,13 @@ function filterSidebarItems(items, selectedTechDomains) {
     if (selectedTechDomains.length === 0) {
         return items;
     }
+
     return items.reduce((acc, item) => {
         const checkItem = (currentItem) => {
-            const categoryIndex = Array.isArray(currentItem.customProps?.category_index)
+            const itemTags = Array.isArray(currentItem.customProps?.category_index)
                 ? currentItem.customProps.category_index
                 : [];
-            return selectedTechDomains.every((domainKey) => categoryIndex.includes(domainKey));
+            return selectedTechDomains.every((domainKey) => itemTags.includes(domainKey));
         };
         if (item.type === 'category') {
             if (checkItem(item)) {
@@ -42,6 +43,7 @@ function filterSidebarItems(items, selectedTechDomains) {
 // Desktop Version
 // ============================================================================
 function DocSidebarDesktop(props) {
+    console.log(props.sidebar);
     const sidebar = useDocsSidebar();
     const shouldShowFilters = sidebar?.name === 'refarchSidebar';
 
