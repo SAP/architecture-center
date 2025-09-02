@@ -5,15 +5,15 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Cost of Ownership
-description: Cost of Ownership
+description: Explore strategies to optimize the total cost of ownership for multitenant SAP applications, covering platform, maintenance, and resource allocation costs.
 keywords:
   - sap
-  - btp
-  - multitenant
-  - saas
-  - cap
+  - tenant lifecycle
+  - multitenant applications
+  - btp cost analysis
+  - application scalability
 sidebar_label: Cost of Ownership
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - appdev
   - cap

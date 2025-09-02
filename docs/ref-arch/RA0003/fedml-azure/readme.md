@@ -6,16 +6,16 @@ sidebar_custom_props:
   category_index: []
 title: FedML-Azure for Azure Machine Learning
 description: >-
-  FedML-Azure provides end-to-end integraton for training models in Azure
-  Machine Learning service, using live business data from SAP systems and
-  eliminates the need for duplicating the data.
+  Train models in Azure ML with live SAP data using FedML-Azure, eliminating
+  duplication and simplifying integration with minimal coding.
 keywords:
   - sap
-  - azure
-  - datasphere
-  - machine learning
+  - azure machine learning
+  - fedml
+  - data integration
+  - live business data
 sidebar_label: FedML-Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - data
@@ -69,8 +69,8 @@ Models trained in Azure ML can also be optionally deployed in SAP BTP Kyma for i
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
-- [Federated Machine Learning using SAP Datasphere and Azure Machine Learning 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-azure-machine-learning/ba-p/13527824)
+- [SAP Samples | GitHub | Fedml-Azure](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
+
 
 ## Related Missions
 

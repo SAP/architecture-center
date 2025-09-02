@@ -22,7 +22,7 @@ function createRefItem(doc, tags, baseHref, extraCustomProps = {}) {
     };
 
     return {
-        type: "ref",
+        type: 'ref',
         id: doc.id,
         customProps,
     };
@@ -30,17 +30,16 @@ function createRefItem(doc, tags, baseHref, extraCustomProps = {}) {
 
 function createLandingPageSection(items) {
     return items.map((item) => ({
-        type: "link",
+        type: 'link',
         label: item.customProps.title,
         href: item.customProps?.href,
         customProps: item.customProps,
     }));
 }
 
-function getLatestItems(items, limit = 6) {
+function getLatestItems(items) {
     return [...items]
         .sort((a, b) => new Date(b.customProps.last_update) - new Date(a.customProps.last_update))
-        .slice(0, limit);
 }
 
 function writeJsonToFile(filePath, data) {
@@ -53,11 +52,10 @@ function writeJsonToFile(filePath, data) {
 
 export default async function generateSidebarSlices({ defaultSidebarItemsGenerator, ...args }) {
     const sidebar_id = args.item.dirName;
-    const contentPath = sidebar_id === 'guidance' ? 'guidance' : 'docs';
     const tags = await getTagsFile({
         contentPaths: {
-            contentPathLocalized: contentPath,
-            contentPath: contentPath,
+            contentPathLocalized: 'docs',
+            contentPath: 'docs',
         },
     });
 
@@ -65,77 +63,52 @@ export default async function generateSidebarSlices({ defaultSidebarItemsGenerat
         return await defaultSidebarItemsGenerator(args);
     }
 
-    if (sidebar_id === "exploreallrefarch") {
+    if (sidebar_id === 'exploreallrefarch') {
         const filteredDocs = args.docs.filter(
             (doc) =>
                 Array.isArray(doc.frontMatter?.sidebar_custom_props?.category_index) &&
-                doc.frontMatter.sidebar_custom_props.category_index.length > 0
+                doc.frontMatter.sidebar_custom_props.category_index.length > 0 &&
+                doc.frontMatter?.unlisted !== true
         );
 
         const docsRefArchItems = filteredDocs.map((doc) =>
-            createRefItem(doc, tags, "docs", {
+            createRefItem(doc, tags, 'docs', {
                 category_index: doc.frontMatter?.sidebar_custom_props?.category_index,
             })
         );
 
+        const latestItems = getLatestItems(docsRefArchItems); 
+
         const category = {
-            type: "category",
-            label: "Explore Reference Architectures",
+            type: 'category',
+            label: 'Explore Reference Architectures',
             link: {
-                type: "generated-index",
-                title: "Architecture Explorer",
+                type: 'generated-index',
+                title: 'Architecture Explorer',
                 description:
-                    "Explore all SAP reference architectures across different technology domains and technology partners.",
-                slug: "/exploreallrefarch",
-                keywords: ["explore", "all", "sap", "reference architectures"],
-                image: "/img/sap_logo.png",
+                    'Explore all SAP reference architectures across different technology domains and technology partners.',
+                slug: '/exploreallrefarch',
+                keywords: ['explore', 'all', 'sap', 'reference architectures'],
+                image: '/img/ac-soc-med.png',
             },
-            customProps: { id: "exploreallrefarch" },
-            items: docsRefArchItems,
+            customProps: { id: 'exploreallrefarch' },
+            items: latestItems,
         };
 
-        const latestItems = getLatestItems(docsRefArchItems);
-        const landingPageSectionItems = createLandingPageSection(latestItems);
+        const landingPageSectionItems = createLandingPageSection(latestItems.slice(0, 6));
         const outputFile = path.join(__dirname, '../data/exploreArch.json');
         writeJsonToFile(outputFile, [{ ...category, items: landingPageSectionItems }]);
 
         return [category];
     }
 
-    if (sidebar_id === "guidance") {
-        const filteredGuidanceDocs = args.docs.filter(
-            (doc) =>
-                Array.isArray(doc.frontMatter?.sidebar_custom_props?.guidance_index) &&
-                doc.frontMatter.sidebar_custom_props.guidance_index.length > 0
-        );
-
-        const docsGuidanceItems = filteredGuidanceDocs.map((doc) =>
-            createRefItem(doc, tags, "/guidance", {
-                guidance_index: doc.frontMatter?.sidebar_custom_props?.guidance_index,
-                isGuidance: true,
-            })
-        );
-
-        const latestItems = getLatestItems(docsGuidanceItems);
-        const landingPageSectionItems = createLandingPageSection(latestItems);
-
-        const outputFile = path.join(__dirname, '../data/exploreGuidance.json');
-        writeJsonToFile(outputFile, [{ items: landingPageSectionItems }]);
-
-        return [];
-    }
-
-    const sidebarCategory = jsonSchema.generatedIndexes.find(
-        (index) => index.customProps.id === sidebar_id
-    );
+    const sidebarCategory = jsonSchema.generatedIndexes.find((index) => index.customProps.id === sidebar_id);
     if (!sidebarCategory) return [];
 
     sidebarCategory.items = args.docs
-        .filter((doc) =>
-            doc.frontMatter?.sidebar_custom_props?.category_index?.includes(sidebar_id)
-        )
+        .filter((doc) => doc.frontMatter?.sidebar_custom_props?.category_index?.includes(sidebar_id))
         .map((doc) =>
-            createRefItem(doc, tags, "docs", {
+            createRefItem(doc, tags, 'docs', {
                 category_index: doc.frontMatter?.sidebar_custom_props?.category_index,
             })
         );

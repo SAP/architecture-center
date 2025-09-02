@@ -1,6 +1,6 @@
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center) [![Deploy main site to GitHub Pages](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml) [![Periodic Link Checker](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml) [![CodeQL](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql)
 
-# [SAP Architecture Center](https://architecture.cloud.sap)
+# [SAP Architecture Center](https://architecture.learning.sap.com)
 
 Reference architectures are templates in their simplest form. They generalize specific implementations of software with a common set of components, vocabulary, or configuration. In the SAP context, this means showing how applications, data, and AI operate at the product and service level, and how you can take advantage of repeatable best practices to optimize your SAP cloud and on-premises investments.
 

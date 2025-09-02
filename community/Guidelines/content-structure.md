@@ -2,11 +2,12 @@
 sidebar_position: 3
 slug: /content-structure
 title: Content Structure
+description: Learn how to organize folders, diagrams, images, and documentation for consistency and clarity in your SAP Architecture Center contribution.
 sidebar_label: Content Structure
 keywords:
  - sap
  - content structure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - community
 hide_table_of_contents: false
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-02-11
+  date: 2025-05-19
 ---
 
 The content structure has been defined and is identical for all reference architectures.

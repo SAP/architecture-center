@@ -11,17 +11,12 @@ description: >-
   applications.
 keywords:
   - sap
-  - btp
-  - integration
-  - event-driven architecture
-  - azure
-  - aws
-  - genai
-  - cloud application programming model
-  - cap
-  - eda
+  - event-driven patterns
+  - eda applications
+  - cloud design considerations
+  - architecture challenges
 sidebar_label: Design Considerations for EDA Applications
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws
@@ -43,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-01-01
+  date: 2025-03-18
 ---
 
 ## Architecture Principles for building EDA Application

@@ -7,10 +7,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
     title: 'SAP Architecture Center',
-    tagline: 'A Well-Architected Framework for SAP Architectures',
-    favicon: 'img/logo.svg',
+    tagline:
+        'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
+    favicon: 'img/favicon.ico',
 
-    url: 'https://architecture.cloud.sap',
+    url: 'https://architecture.learning.sap.com',
     baseUrl: '/',
 
     // GitHub pages deployment config.
@@ -40,21 +41,7 @@ const config: Config = {
                 showLastUpdateTime: true,
                 showLastUpdateAuthor: true,
                 onInlineTags: 'warn',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
-            },
-        ],
-        [
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'guidance',
-                path: 'guidance',
-                routeBasePath: 'guidance',
-                sidebarItemsGenerator: generateSidebarSlices,
-                sidebarPath: require.resolve('./sidebarsGuidance'),
-                showLastUpdateTime: true,
-                showLastUpdateAuthor: true,
-                onInlineTags: 'throw',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
             },
         ],
         [
@@ -63,16 +50,16 @@ const config: Config = {
                 hashed: true,
                 indexDocs: true,
                 indexPages: true,
-                docsRouteBasePath: ['/docs', '/community', '/guidance'],
-                docsDir: ['docs', 'community', 'guidance'],
+                docsRouteBasePath: ['/docs', '/community'],
+                docsDir: ['docs', 'community'],
                 indexBlog: true,
-                blogRouteBasePath: '/blog', 
+                blogRouteBasePath: '/blog',
                 language: ['en'],
                 highlightSearchTermsOnTargetPage: true,
                 removeDefaultStopWordFilter: true,
                 removeDefaultStemmer: true,
             },
-        ],        
+        ],
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -113,7 +100,7 @@ const config: Config = {
                     sidebarPath: require.resolve('./sidebars'),
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
-                    editUrl: 'https://github.com/SAP/architecture-center/edit/main/',
+                    editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                 },
                 theme: {
                     customCss: './src/css/custom.css',
@@ -122,12 +109,12 @@ const config: Config = {
                     lastmod: 'date',
                     ignorePatterns: [
                         '/**/tags/**',
-                        '/tags/**',
                         '/search/**',
                         '/blog/authors/**',
                         '/blog/archive/**',
-                        '/partners/**',
-                        '/sap/**',
+                        '/docs/partners/**',
+                        '/docs/sap/**',
+                        '/docs/exploreallrefarch/**',
                     ],
                 },
             } satisfies Preset.Options,
@@ -135,12 +122,8 @@ const config: Config = {
     ],
 
     themeConfig: {
+        image: 'img/ac-soc-med.png',
         metadata: [
-            {
-                name: 'description',
-                content:
-                    'SAP Architecture Center: Optimize cloud deployments with a well-architected framework, collaborative experiences, and cost-saving tools for improved cost of ownership.',
-            },
             {
                 name: 'keywords',
                 content: 'sap, btp, architecture, center, hyperscaler, reference',
@@ -169,7 +152,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">We welcome your feedback</a>.</b>',
+                '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
             backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
@@ -192,11 +175,6 @@ const config: Config = {
                     label: 'Community of Practice',
                     position: 'right',
                 },
-                //{
-                //    to: '/guidance/intro',
-                //    label: 'Guidance Framework',
-                //    position: 'left',
-                //},
                 {
                     type: 'dropdown',
                     label: 'SAP Viewpoints',
@@ -204,72 +182,72 @@ const config: Config = {
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Architecture Explorer</strong>'
+                            value: '<strong>Architecture Explorer</strong>',
                         },
                         {
                             to: '/docs/exploreallrefarch',
-                            label: 'Card-Style Overview'
+                            label: 'Card-Style Overview',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
-                            label: 'Navigator-Style Overview'
+                            label: 'Navigator-Style Overview',
                         },
                         {
                             type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">'
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Domains</strong>'
+                            value: '<strong>Technology Domains</strong>',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'appdev',
-                            label: 'Application Development & Automation'
+                            label: 'Application Development & Automation',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'ai',
-                            label: 'Artificial Intelligence'
+                            label: 'Artificial Intelligence',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'data',
-                            label: 'Data & Analytics'
+                            label: 'Data & Analytics',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'integration',
-                            label: 'Integration'
+                            label: 'Integration',
                         },
                         {
                             type: 'docSidebar',
-                            sidebarId: 'security',
-                            label: 'Operation & Security'
+                            sidebarId: 'opsec',
+                            label: 'Operation & Security',
                         },
                         {
                             type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">'
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             type: 'html',
-                            value: '<strong>Technology Partners</strong>'
+                            value: '<strong>Technology Partners</strong>',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'aws',
-                            label: 'Amazon Web Services'
+                            label: 'Amazon Web Services',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'azure',
-                            label: 'Microsoft Azure'
+                            label: 'Microsoft Azure',
                         },
                         {
                             type: 'docSidebar',
                             sidebarId: 'gcp',
-                            label: 'Google Cloud Platform'
+                            label: 'Google Cloud Platform',
                         },
                     ],
                 },
@@ -306,7 +284,7 @@ const config: Config = {
                             href: 'https://community.sap.com/t5/enterprise-architecture/gh-p/Enterprise-Architecture',
                         },
                         {
-                            label: 'Blogs',
+                            label: 'Blog Posts',
                             href: 'https://community.sap.com/t5/all-sap-community-blogs/ct-p/all-blogs',
                         },
                         {
@@ -319,8 +297,8 @@ const config: Config = {
                     title: 'Legal',
                     items: [
                         {
-                            label: 'Privacy',
-                            href: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
+                            label: 'Privacy Statement',
+                            href: 'https://architecture.learning.sap.com/community/privacy',
                         },
                         {
                             label: 'Terms of Use',
@@ -346,7 +324,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company. All rights reserved.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
         },
         prism: {
             theme: lightCodeTheme,

@@ -5,3 +5,130 @@ html[data-theme='light'] .tag:hover {
 html[data-theme='dark'] .tag:hover {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
+
+.docCard {
+  height: var(--card-height-desktop);
+  cursor: pointer;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--ifm-card-background);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+.docCard:hover {
+  background-color: var(--ifm-hover-overlay);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-5px);
+}
+
+.cardBanner {
+  width: 100%;
+  height: 50px;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+}
+
+.cardAccent {
+  height: 40px;
+  width: 6px;
+  min-width: 6px;
+  border-top-right-radius: var(--spacing-xs);
+  border-bottom-right-radius: var(--spacing-xs);
+  background-color: var(--ifm-color-primary);
+  margin-top: var(--spacing-sm);
+}
+
+.cardTitle {
+  padding: 0 16px;
+  padding-top: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardDescription {
+  padding: 16px 16px 0px 16px;
+  text-align: left;
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tagsContainer {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.tagsRow {
+  padding: 0 16px 0px 16px;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+}
+
+.lastUpdateRow {
+  padding: 0px 16px 10px 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.lastUpdateText {
+  cursor: pointer;
+  color: gray;
+  font-size: var(--sapFontSmallSize);
+  padding-right: 3px;
+  font-style: italic;
+}
+
+.openInNew {
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+
+/* Tablet and Mobile styles */
+@media (max-width: 996px) {
+  .docCard {
+    height: var(--card-height-tablet);
+    margin-bottom: 20px;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 430px) {
+  .docCard {
+    height: var(--card-height-mobile);
+    margin-bottom: 20px;
+  }
+}

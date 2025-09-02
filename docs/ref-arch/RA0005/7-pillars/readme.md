@@ -1,15 +1,18 @@
 ---
 id: id-ra0005-7
 slug: /ref-arch/e5eb3b9b1d/7
-sidebar_position: 1
+sidebar_position: 8
 sidebar_custom_props:
   category_index: []
 title: Non-Functional Pillars
 description: Please add a description (max 300 characters)
 keywords:
   - sap
+  - reference architecture
+  - non-functional design
+  - system considerations
 sidebar_label: Non-Functional Pillars
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - ref-arch
 hide_table_of_contents: false

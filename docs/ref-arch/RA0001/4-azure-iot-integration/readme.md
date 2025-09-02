@@ -6,22 +6,16 @@ sidebar_custom_props:
   category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and Microsoft Azure
 description: >-
-  Sample application for building event-driven architecture application with
-  Microsoft Azure IoT as event source. Assess the critical events and publish to
-  SAP BTP for validation and processing the business processes operations in SAP
-  S/4HANA.
+  Build event-driven applications with Azure IoT and SAP BTP for real-time
+  business action processing in SAP S/4HANA.
 keywords:
   - sap
-  - btp
-  - integration
+  - microsoft azure
+  - events-to-business
   - event-driven architecture
-  - azure
-  - genai
-  - cloud application programming model
-  - cap
-  - eda
+  - iot integration
 sidebar_label: Integration with Microsoft Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - cap
   - azure
@@ -41,8 +35,8 @@ contributors:
   - swatimaste00
 discussion: 
 last_update:
-  author: anbazhagan-uma
-  date: 2025-01-01
+  author: pra1veenk
+  date: 2025-05-10
 ---
 
 ## Scenario
@@ -71,7 +65,7 @@ In this event-driven scenario, based on the real-time status of the IoT Devices 
 
 The key services used by Microsoft Azure are the Azure IoT Central, Azure Blob Storage, Azure Event Grid and Microsoft Entra ID.
 
-The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite advanced event mesh, SAP Event Mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service. 
+The services used by SAP BTP are the Cloud Foundry Runtime, SAP Integration Suite, advanced event mesh, SAP Connectivity service, SAP Private Link service, SAP Build Process Automation and SAP Destination service. 
 
 SAP Private Link service is used for connectivity between SAP BTP and SAP S/4HANA when both systems are running on Microsoft Azure Infrastructure. Alternatively, you can use SAP Connectivity service and a cloud connector for integration of SAP BTP and SAP S/4HANA as well. 
 
@@ -126,4 +120,4 @@ These are the technical prerequisites for integration between Azure IoT Central,
     - Service for configuring Azure IoT Central Application
     - Required for configuring device templates, event producers and event routing.
 
-For detailed step by step information and to try out the integration, visit the Discovery Center mission [Build Events-to-Business Actions with Microsoft Azure](https://discovery-center.cloud.sap/missiondetail/4172/4422/)
+For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework)

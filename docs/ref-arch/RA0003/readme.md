@@ -10,29 +10,16 @@ sidebar_custom_props:
     - gcp
 title: Federated Machine Learning with SAP Datasphere
 description: >-
-  The SAP Federated Machine Learning Python library (FedML) applies the data
-  federation architecture of SAP Datasphere for intelligently sourcing SAP and
-  non-SAP data for Machine Learning experiments, run on any Machine Learning
-  platform, thereby removing the need for replication or data movement. By
-  abstracting data connection, data discovery, data loading (for all ML
-  platforms), model training, model deployment, and inferencing (for hyperscaler
-  machine learning platforms), the FedML library offers end-to-end integration
-  with just a few lines of code.
+  Federate SAP and non-SAP data with SAP Datasphere for seamless ML integration,
+  eliminating replication and enhancing insights.
 keywords:
   - sap
-  - datasphere
-  - machine learning
-  - aws
-  - azure
-  - gcp
-  - sagemaker
-  - vertexai
-  - databricks
-  - watsonx
-  - nvidia
-  - fedml
+  - federated machine learning
+  - datasphere integration
+  - ai insights
+  - machine learning platforms
 sidebar_label: Federated Machine Learning with SAP Datasphere
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - aws
@@ -138,11 +125,10 @@ Google Cloud Platform VertexAI, Amazon Sagemaker, AzureML, Databricks, IBM watso
 ## Resources
 
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml)
-- [FedML - The Federated Machine Learning Libraries for Hyperscalers 2.0](https://community.sap.com/t5/technology-blogs-by-sap/fedml-the-federated-machine-learning-libraries-for-hyperscalers-2-0/ba-p/13528073)
-- [Federated Machine Learning using SAP Datasphere and Amazon SageMaker 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-amazon-sagemaker-2-0/ba-p/13527862)
-- [Federated Machine Learning using SAP Datasphere and Azure Machine Learning 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-azure-machine-learning/ba-p/13527824)
-- [Federated Machine Learning using SAP Datasphere & Google Cloud Vertex AI 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-google-cloud-vertex-ai-2-0/ba-p/13527660)
-- [Using FedML library with SAP Datasphere and Databricks](https://community.sap.com/t5/technology-blogs-by-sap/using-fedml-library-with-sap-datasphere-and-databricks/ba-p/13568923)
+- [Federated Machine Learning using SAP Datasphere and Amazon SageMaker 2.0](https://github.com/SAP-samples/datasphere-fedml/tree/main/AWS)
+- [Federated Machine Learning using SAP Datasphere and Azure Machine Learning 2.0](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
+- [Federated Machine Learning using SAP Datasphere & Google Cloud Vertex AI 2.0](https://github.com/SAP-samples/datasphere-fedml/tree/main/GCP)
+- [Using FedML library with SAP Datasphere and Databricks](https://github.com/SAP-samples/datasphere-fedml/tree/main/Databricks)
 
 ## Related Missions
 

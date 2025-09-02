@@ -10,17 +10,12 @@ description: >-
   directly into NVIDIA GPU environment computes for model training.
 keywords:
   - sap
-  - nvidia
-  - datasphere
-  - machine learning
-  - GPU
-  - RAPIDS
-  - cuml
-  - cuDF
-  - DGX
-  - fedml
+  - nvidia gpu integration
+  - datasphere federation
+  - machine learning acceleration
+  - fedml gpu processing
 sidebar_label: FedML-NVIDIA
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
@@ -108,4 +103,4 @@ Comparing several cuML algorithms on GPUs vs their CPU equivalents, the followin
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/NVIDIA-RAPIDS)
+- [SAP Samples | GitHub | Fedml-dsp with NVIDIA GPU](https://github.com/SAP-samples/datasphere-fedml/tree/main/Datasphere/NVIDIA-RAPIDS)

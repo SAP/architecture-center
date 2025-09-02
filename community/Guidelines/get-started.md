@@ -2,11 +2,12 @@
 sidebar_position: 2
 slug: /get-started
 title: Get Started
+description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to set up your environment, create or update reference architectures, and test your changes locally.
 sidebar_label: Get Started
 keywords:
  - sap
  - get started
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - community
 hide_table_of_contents: false
@@ -18,12 +19,12 @@ unlisted: false
 contributors:
 last_update:
   author: navyakhurana
-  date: 2025-01-31
+  date: 2025-05-19
 ---
 
 ## Requirements
 
-- **Node.js** version 18.x or above is required (v18.20.6 or above recommended).
+- **Node.js** version 20.x or above is required (v20.8.1 or above recommended).
 
 ## Step-by-Step Guide
 

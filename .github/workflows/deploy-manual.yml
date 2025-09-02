@@ -1,5 +1,9 @@
 name: Deploy main site to GitHub Pages
 
+permissions:
+    contents: write
+    pages: write
+
 on:
     # for local PR builds esp. builds in forked repositories
     workflow_dispatch:
@@ -47,6 +51,9 @@ jobs:
 
             - name: Build Website
               run: npm run build
+
+            - name: Update drawio links with hashed URLs
+              run: node src/_scripts/_update-drawio-links.js
 
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3

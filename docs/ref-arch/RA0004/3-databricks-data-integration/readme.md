@@ -13,10 +13,10 @@ keywords:
   - sap
   - databricks
   - data federation
-  - deltalake
-  - camel JDBC
+  - analytics harmonization
+  - integration models
 sidebar_label: Integration with Databricks
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
@@ -57,8 +57,7 @@ The integration process involves:
 
 This approach ensures that data remains consistent and up-to-date, providing a robust foundation for advanced analytics and decision-making processes.
 
-For detailed step by step information for federating data live from Databricks delta lake, and to try out the integration, visit the Discovery Center mission : [Data Federation from Databricks through SAP Datasphere](https://discovery-center.cloud.sap/missiondetail/4259/)
 
 ## Resources
 
-- [Federating queries to Databricks from SAP Datasphere for real-time analytics in SAP Analytics Cloud](https://community.sap.com/t5/technology-blogs-by-sap/federating-queries-to-databricks-from-sap-datasphere-for-real-time/ba-p/13564838)
+- [Federating queries to Databricks from SAP Datasphere for real-time analytics in SAP Analytics Cloud](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/Databricks/databricks-integration.md)

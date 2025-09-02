@@ -6,16 +6,16 @@ sidebar_custom_props:
   category_index: []
 title: FedML-Databricks for Databricks platform
 description: >-
-  FedML-Databricks provides end-to-end integraton for training models in
-  Databricks machine learning platform, using live business data from SAP
-  systems and eliminates the need for duplicating the data.
+  Train models on Databricks using live SAP data with FedML-Databricks, enabling
+  secure integration and eliminating data duplication.
 keywords:
   - sap
-  - databricks
-  - datasphere
+  - databricks platform
+  - fedml integration
   - machine learning
+  - live business data
 sidebar_label: FedML-Databricks
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - data
 hide_table_of_contents: false
@@ -63,6 +63,6 @@ Models trained in Databricks ML platform can also be optionally deployed in SAP 
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/Azure)
-- [Using FedML library with SAP Datasphere and Databricks](https://community.sap.com/t5/technology-blogs-by-sap/using-fedml-library-with-sap-datasphere-and-databricks/ba-p/13568923)
+- [SAP Samples | GitHub | Fedml-databricks ](https://github.com/SAP-samples/datasphere-fedml/blob/main/Databricks/README.md)
+
 - [Predict & Analyze marketing campaign effectiveness with SAP Datasphere and Databricks Data Intelligence Platform](https://www.databricks.com/blog/predict-analyze-marketing-campaign-effectiveness-sap-datasphere-and-databricks-data)

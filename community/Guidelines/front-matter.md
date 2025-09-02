@@ -2,11 +2,12 @@
 sidebar_position: 4
 slug: /front-matter
 title: Front Matter
+description: Learn how to use front matter in SAP Architecture Center submissions. This guide explains each front matter field to optimize SEO, improve navigation, and ensure consistency across reference architecture pages.
 sidebar_label: Front Matter
 keywords:
  - sap
  - front matter
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - community
 hide_table_of_contents: false
@@ -18,10 +19,10 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-02-19
+  date: 2025-05-19
 ---
 
-The Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
+Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
 
 ## Example
 Here is an example of what a page front matter looks like:

@@ -2,11 +2,12 @@
 sidebar_position: 1
 slug: /contribution
 title: How to Contribute
+description: Learn how to contribute to the SAP Architecture Center. Follow step-by-step guidelines for submitting code, documentation, or AI-generated content.
 sidebar_label: How to Contribute
 keywords:
  - sap
  - contribute
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - community
 hide_table_of_contents: false
@@ -18,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: navyakhurana
-  date: 2025-01-20
+  date: 2025-05-19
 ---
 
 
@@ -82,3 +83,7 @@ gitGraph
 :::tip Best Practice
 Regularly sync with the main repository before contributing or creating a pull request to avoid merge conflicts.
 :::
+
+## Formatting Consistency
+
+To ensure consistent code and documentation formatting across all contributions, we use [Prettier](https://prettier.io/docs/configuration) for automatic code formatting. Additionally, we provide a [.editorconfig](https://learn.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022) file to standardize basic editor settings (such as indentation and line endings) across different IDEs. Please make sure your editor respects these settings for a smooth collaboration experience.

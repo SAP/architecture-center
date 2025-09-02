@@ -11,6 +11,7 @@ sidebar_custom_props:
         - gcp
 title: Generative AI on SAP BTP
 description: >-
+<<<<<<< HEAD
     Harness Generative AI on SAP BTP using a CAP-based backend with SAP HANA
     Cloud's Vector Engine for similarity search. The Generative AI Hub allows
     seamless integration of LLMs, supporting RAG and other advanced patterns.
@@ -20,8 +21,18 @@ keywords:
     - sap
     - ai
     - genai
+=======
+  Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
+  similarity search and advanced AI patterns.
+keywords:
+  - sap
+  - generative ai hub
+  - cloud foundry
+  - vector engine integration
+  - advanced ai solutions
+>>>>>>> 749884a83b6ad87fb836501519badb193c4b7311
 sidebar_label: Generative AI on SAP BTP
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
     - aws
     - azure
@@ -40,8 +51,13 @@ contributors:
     - madankumarpichamuthu
 discussion:
 last_update:
+<<<<<<< HEAD
     author: kay-schmitteckert
     date: 2025-01-14
+=======
+  author: kay-schmitteckert
+  date: 2025-05-20
+>>>>>>> 749884a83b6ad87fb836501519badb193c4b7311
 ---
 
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
@@ -84,7 +100,7 @@ In a basic orchestration scenario, different modules from orchestration can be c
 <center>
   <div className="video-container-16-9">
     <iframe id="kaltura_player_1869760013" src="https://cdnapisec.kaltura.com/p/1921661/embedPlaykitJs/uiconf_id/54739572?iframeembed=true&entry_id=1_imwqek4c" allow="autoplay *; fullscreen *; encrypted-media *" className="video-responsive-iframe"></iframe>
-  </div> 
+  </div>
   <div>
     <i>Generative AI Hub: Rethinking Business Applications on SAP BTP</i>
   </div>
@@ -130,7 +146,10 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 -   [Basic Prompting](1-basics/readme.md) introduces the fundamentals of prompting foundation models by interacting with the Generative AI Hub, providing essential techniques for effective AI engagement within your SAP BTP application.
 -   [Semantic Search & Embeddings](2-semantic-search/readme.md) demonstrates how to leverage vector representations in SAP HANA Cloud's Vector Engine for context-aware, meaning-based search.
 -   [Retrieval Augmented Generation](3-retrieval-augmented-generation/readme.md) extends on how to support and ground generative AI with actual documents and data.
+-   [AI Agents](5-ai-agents/readme.md) enable autonomous, adaptive execution of complex enterprise processes.
+-   [Agents for Structured Data](6-agents-structured-data) enable natural language queries into enterprise data for descriptive and prescriptive analytics.
 -   [Multi-Tenancy](../RA0007/readme.md) explains the multi-tenant aspect for generative AI on SAP BTP.
+-   [Vibe Coding with Cline and SAP AI Core](10-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
 
 ## Services & Components
 

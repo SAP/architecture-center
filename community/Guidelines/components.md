@@ -2,11 +2,11 @@
 sidebar_position: 5
 slug: /components
 title: Components
-description: It includes latest components developed and tested by the team. 
+description: Find details about custom components developed for the SAP Architecture Center. Use them in your own contributions to the site. 
 sidebar_label: Components
 keywords:
   - community
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - community
 hide_table_of_contents: false
@@ -17,7 +17,7 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  date: 2025-02-19
+  date: 2025-05-19
   author: cernus76
 ---
 

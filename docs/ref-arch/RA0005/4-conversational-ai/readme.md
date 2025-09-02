@@ -8,8 +8,11 @@ title: Conversational AI & Joule
 description: Please add a description (max 300 characters)
 keywords:
   - sap
+  - conversational AI
+  - joule platform
+  - intelligent interactions
 sidebar_label: Conversational AI & Joule
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - ref-arch
 hide_table_of_contents: false

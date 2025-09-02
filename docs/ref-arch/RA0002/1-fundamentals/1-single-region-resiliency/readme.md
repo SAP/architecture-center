@@ -5,26 +5,20 @@ sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Single-region resiliency
-description: >-
-  This guide explains single-region resiliency for SAP BTP using Availability
-  Zones (AZs), ensuring high availability, low-latency replication, and failover
-  within a region. While reliable, Multi-AZ setups are vulnerable to region-wide
-  outages and may not meet global performance or compliance needs.
+description: How the single region resiliency works. What are the benefits and drawbacks.
 keywords:
   - sap
   - integration
-  - application development
-  - ha dr
-  - high availability
+  - single-region resiliency
   - disaster recovery
-  - resiliency
   - business continuity
-  - failover
+  - high availability
 sidebar_label: Single-region resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
 hide_table_of_contents: false
@@ -45,8 +39,8 @@ contributors:
   - arajsinha
 discussion: 
 last_update:
-  author: arajsinha
-  date: 2025-01-31
+  author: mahesh0431
+  date: 2025-05-12
 ---
 
 Before diving into multi-region architectures, let's understand how single region resiliency is provided for SAP BTP using Availability Zones.

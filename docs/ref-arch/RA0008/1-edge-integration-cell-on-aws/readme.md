@@ -6,15 +6,15 @@ sidebar_custom_props:
   category_index: []
 title: Edge Integration Cell on AWS
 description: >-
-  Explore the reference architecture for deploying SAP Integration Suite - Edge
-  Integration Cell on AWS. Learn about the required resources, and key
-  considerations for setup and implementation on AWS.
+  Deploy SAP Integration Suite - Edge Integration Cell on AWS for secure hybrid
+  integration and optimized workflows.
 keywords:
   - aws
-  - eic
-  - edge integration cell
+  - edge integration
+  - sap integration suite
+  - real-time cloud connections
 sidebar_label: Edge Integration Cell on AWS
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - eic

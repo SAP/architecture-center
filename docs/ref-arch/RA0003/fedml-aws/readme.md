@@ -6,18 +6,17 @@ sidebar_custom_props:
   category_index: []
 title: FedML-AWS for Amazon Sagemaker
 description: >-
-  FedML-AWS provides end-to-end integraton for training models in Amazon
-  Sagemaker using live business data from SAP systems and eliminates the need
-  for duplicating the data.
+  Train models on Amazon SageMaker with FedML-AWS, integrating live SAP data for
+  seamless machine learning and analytics.
 keywords:
   - sap
   - aws
-  - sagemaker
+  - amazon sagemaker
   - machine learning
-  - fedml
-  - datasphere
+  - fedml integration
+  - business data training
 sidebar_label: FedML-AWS
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - data
@@ -70,8 +69,7 @@ Models trained in Amazon Sagemaker can also be optionally deployed in SAP AI Cor
 
 ## Resources
 
-- [SAP Samples | GitHub ](https://github.com/SAP-samples/datasphere-fedml/tree/main/AWS)
-- [Federated Machine Learning using SAP Datasphere and Amazon SageMaker 2.0](https://community.sap.com/t5/technology-blogs-by-sap/federated-machine-learning-using-sap-datasphere-and-amazon-sagemaker-2-0/ba-p/13527862)
+- [SAP Samples | GitHub | Fedml-AWS ](https://github.com/SAP-samples/datasphere-fedml/tree/main/AWS)
 
 ## Related Missions
 
