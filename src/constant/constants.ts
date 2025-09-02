@@ -7,9 +7,9 @@ export const navigationCardsData = [
 ];
 
 export const techDomain = [
-    { id: 'genai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
+    { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
     { id: 'data', title: 'Data & Analytics', icon: 'sap-icon://database' },
-    { id: 'security', title: 'Operation & Security', icon: 'sap-icon://shield' },
+    { id: 'opsec', title: 'Operation & Security', icon: 'sap-icon://shield' },
     { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },
     { id: 'integration', title: 'Integration', icon: 'sap-icon://exit-full-screen' },
 ];

@@ -13,35 +13,41 @@ function filterSidebarItems(items, selectedTechDomains, tagsDocId) {
         return items;
     }
 
-    const tagsEntries = Object.entries(tagsDocId || {});
-    const matchingIds = new Set(
-        tagsEntries
-            .filter(([id, tags]) => Array.isArray(tags) && tags.some((tag) => selectedTechDomains.includes(tag)))
-            .map(([id]) => id)
-    );
+    const tagMap = {
+        ai: 'genai',
+        opsec: 'security',
+    };
 
-    return items.reduce((acc, item) => {
-        const checkItem = (currentItem) => {
-            const idToCheck = currentItem.docId || currentItem.id;
-            return idToCheck && matchingIds.has(idToCheck);
-        };
+    const searchableTags = selectedTechDomains.map((domain) => tagMap[domain] || domain);
 
-        if (item.type === 'category') {
-            if (checkItem(item)) {
+    const matchingIds = new Set();
+    for (const [docId, tags] of Object.entries(tagsDocId || {})) {
+        if (Array.isArray(tags) && tags.some((tag) => searchableTags.includes(tag))) {
+            matchingIds.add(docId);
+        }
+    }
+
+    const recursiveFilter = (sidebarItems) => {
+        return sidebarItems.reduce((acc, item) => {
+            const idToCheck = item.docId || item.id;
+
+            // For a document or link, check if its ID is in our whitelist.
+            if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
                 acc.push(item);
-            } else {
-                const filteredChildren = filterSidebarItems(item.items, selectedTechDomains, tagsDocId);
+            }
+            // For a category, ALWAYS filter its children.
+            else if (item.type === 'category') {
+                const filteredChildren = recursiveFilter(item.items);
+                // Keep the category only if it has children left after filtering.
                 if (filteredChildren.length > 0) {
                     acc.push({ ...item, items: filteredChildren });
                 }
             }
-        } else if (item.type === 'doc' || item.type === 'link') {
-            if (checkItem(item)) {
-                acc.push(item);
-            }
-        }
-        return acc;
-    }, []);
+            return acc;
+        }, []);
+    };
+
+    return recursiveFilter(items);
 }
 
 // ============================================================================
