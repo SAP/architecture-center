@@ -11,17 +11,6 @@ sidebar_custom_props:
         - gcp
 title: Generative AI on SAP BTP
 description: >-
-<<<<<<< HEAD
-    Harness Generative AI on SAP BTP using a CAP-based backend with SAP HANA
-    Cloud's Vector Engine for similarity search. The Generative AI Hub allows
-    seamless integration of LLMs, supporting RAG and other advanced patterns.
-    Compatible with Cloud Foundry and Kyma, it optimizes AI-driven app
-    development.
-keywords:
-    - sap
-    - ai
-    - genai
-=======
   Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
   similarity search and advanced AI patterns.
 keywords:
@@ -30,7 +19,6 @@ keywords:
   - cloud foundry
   - vector engine integration
   - advanced ai solutions
->>>>>>> 749884a83b6ad87fb836501519badb193c4b7311
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:
@@ -51,13 +39,8 @@ contributors:
     - madankumarpichamuthu
 discussion:
 last_update:
-<<<<<<< HEAD
-    author: kay-schmitteckert
-    date: 2025-01-14
-=======
   author: kay-schmitteckert
-  date: 2025-05-20
->>>>>>> 749884a83b6ad87fb836501519badb193c4b7311
+  date: 2025-09-02
 ---
 
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
