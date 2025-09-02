@@ -6,24 +6,31 @@ import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
+import useGlobalData from '@docusaurus/useGlobalData';
 
-function filterSidebarItems(items, selectedTechDomains) {
+function filterSidebarItems(items, selectedTechDomains, tagsDocId) {
     if (selectedTechDomains.length === 0) {
         return items;
     }
 
+    const tagsEntries = Object.entries(tagsDocId || {});
+    const matchingIds = new Set(
+        tagsEntries
+            .filter(([id, tags]) => Array.isArray(tags) && tags.some((tag) => selectedTechDomains.includes(tag)))
+            .map(([id]) => id)
+    );
+
     return items.reduce((acc, item) => {
         const checkItem = (currentItem) => {
-            const itemTags = Array.isArray(currentItem.customProps?.category_index)
-                ? currentItem.customProps.category_index
-                : [];
-            return selectedTechDomains.every((domainKey) => itemTags.includes(domainKey));
+            const idToCheck = currentItem.docId || currentItem.id;
+            return idToCheck && matchingIds.has(idToCheck);
         };
+
         if (item.type === 'category') {
             if (checkItem(item)) {
                 acc.push(item);
             } else {
-                const filteredChildren = filterSidebarItems(item.items, selectedTechDomains);
+                const filteredChildren = filterSidebarItems(item.items, selectedTechDomains, tagsDocId);
                 if (filteredChildren.length > 0) {
                     acc.push({ ...item, items: filteredChildren });
                 }
@@ -32,8 +39,6 @@ function filterSidebarItems(items, selectedTechDomains) {
             if (checkItem(item)) {
                 acc.push(item);
             }
-        } else {
-            acc.push(item);
         }
         return acc;
     }, []);
@@ -43,7 +48,7 @@ function filterSidebarItems(items, selectedTechDomains) {
 // Desktop Version
 // ============================================================================
 function DocSidebarDesktop(props) {
-    console.log(props.sidebar);
+    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const sidebar = useDocsSidebar();
     const shouldShowFilters = sidebar?.name === 'refarchSidebar';
 
@@ -58,7 +63,10 @@ function DocSidebarDesktop(props) {
         setTechDomains(selectedKeys);
     };
 
-    const filteredSidebar = useMemo(() => filterSidebarItems(props.sidebar, techDomains), [props.sidebar, techDomains]);
+    const filteredSidebar = useMemo(
+        () => filterSidebarItems(props.sidebar, techDomains, tagsDocId),
+        [props.sidebar, techDomains, tagsDocId]
+    );
 
     const newProps = { ...props, sidebar: filteredSidebar };
 

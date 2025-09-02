@@ -71,12 +71,12 @@
                 "type": "generated-index",
                 "title": "Artificial Intelligence (AI)",
                 "description": "Discover AI-powered SAP reference architectures designed to reinvent business processes and automate tasks. Optimize efficiency, drive innovation, and transform your enterprise operations effortlessly.",
-                "slug": "/sap/ai",
-                "keywords": ["ai", "sap"],
+                "slug": "/sap/genai",
+                "keywords": ["genai", "sap"],
                 "image": "/img/ac-soc-med.png"
             },
             "customProps": {
-                "id": "ai"
+                "id": "genai"
             },
             "items": []
         },
@@ -119,12 +119,12 @@
                 "type": "generated-index",
                 "title": "Operations & Security",
                 "description": "Discover SAP reference architectures for operations and security. Ensure data protection, compliance, and risk management with industry-best practices and cutting-edge technologies.",
-                "slug": "/sap/opsec",
-                "keywords": ["opsec", "sap"],
+                "slug": "/sap/security",
+                "keywords": ["security", "sap"],
                 "image": "/img/ac-soc-med.png"
             },
             "customProps": {
-                "id": "opsec"
+                "id": "security"
             },
             "items": []
         }

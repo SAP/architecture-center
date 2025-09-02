@@ -4,9 +4,9 @@ const matter = require('gray-matter');
 const glob = require('glob');
 
 const TAG_MAPPING = {
-  ai: ['genai'],
+  genai: ['genai'],
   data: ['data'],
-  opsec: ['security'],
+  security: ['security'],
   appdev: ['appdev'],
   integration: ['integration'],
 };
