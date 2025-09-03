@@ -1,24 +1,31 @@
 # predefined tags
 
-genai:
-  label: "Generative AI"
-  description: "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on."
-
+# technology partners
 aws:
   label: "Amazon Web Services"
   description: "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow."
+  categoryid: "aws"
 
 azure:
   label: "Microsoft Azure"
   description: "Azure is a cloud computing platform created by Microsoft. It provides a wide range of cloud services, including those for computing, analytics, storage, and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications, in the public cloud."
+  categoryid: "azure"
 
 gcp:
   label: "Google Cloud Platform"
   description: "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure."
+  categoryid: "gcp"
+
+# technology domains
+genai:
+  label: "Generative AI"
+  description: "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on."
+  categoryid: "ai"
 
 appdev:
   label: "Application Development & Automation"
   description: "Extend, create, and automate apps for SAP and non-SAP solutions."
+  categoryid: "appdev"
 
 data:
   label: "Data & Analytics"
@@ -27,41 +34,50 @@ data:
 integration:
   label: "Integration"
   description: "Connect and automate your processes business-wide."
-
-cap:
-  label: "CAP"
-  description: "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks."
-
-abap:
-  label: "ABAP"
-  description: "ABAP (Advanced Business Application Programming) is a high-level programming language created by SAP. It is used to develop applications for the SAP R/3 system, which is a set of integrated business applications that execute business processes in real-time."
+  categoryid: "integration"
 
 security:
   label: "Security"
   description: "Protect your data and applications with comprehensive security solutions."
+  categoryid: "opsec"
+
+# other tags
+cap:
+  label: "CAP"
+  description: "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks."
+  categoryid: "appdev"
+
+abap:
+  label: "ABAP"
+  description: "ABAP (Advanced Business Application Programming) is a high-level programming language created by SAP. It is used to develop applications for the SAP R/3 system, which is a set of integrated business applications that execute business processes in real-time."
+  categoryid: "appdev"
 
 eda:
   label: "Event-Driven Architecture"
   description: "An event-driven architecture (EDA) is an integration model built to publish, capture, process, and respond to events across distributed systems in real time. When an event occurs in one application, a message is automatically sent to all the other applications that need to know about it, so they can act on it in turn."
+  categoryid: "integration"
 
 eic:
   label: "Edge Integration Cell"
   description: "Edge Integration Cell (EIC), part of the SAP Integration Suite, brings a powerful hybrid integration runtime that bridges the gap between the cloud and your private landscape. It provides the flexibility to seamlessly manage APIs and run integration scenarios within a controlled environment, combining the best of both worlds."
+  categoryid: "integration"
 
 build:
   label: "SAP Build"
   description: "SAP Build is a low-code development environment that enables users to create applications and automate processes with minimal coding. It provides a user-friendly interface and pre-built components to accelerate application development, making it accessible for both technical and non-technical users."
-  
+  categoryid: "appdev"
+
 buildworkzone:
   label: "SAP Build Work Zone"
   description: "SAP Build Work Zone is a tool that empowers business users to build and personalize digital workspaces. It provides secure, centralize access to SAP and external apps, processes, and data on any device, helping to drive productivity and engagement. Engage with both internal teams and external stakeholders using interactive workspaces, guided experiences, and knowledge sharing to maximize efficiency."
+  categoryid: "appdev"
 
 transition:
   label: "Transition Architectures"
   description: "These reference architectures are designed to help organizations transition from legacy systems to cloud-native architectures, ensuring a smooth migration while maintaining business continuity and minimizing disruption."
+  categoryid: "transition"
 
-# generic tags generally not used except for testing
-
+# generic tags
 demo:
   label: "Demo"
   description: "A demo page is a page designed to showcase features, functionality, or design of a product, service, or concept. It is often used for demonstrations, testing, or marketing purposes."
