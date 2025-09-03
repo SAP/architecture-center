@@ -4,6 +4,8 @@ import drawioResources from './src/plugins/drawio-resources/index.js';
 const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+require('dotenv').config();
+
 
 const config: Config = {
     title: 'SAP Architecture Center',
@@ -27,6 +29,10 @@ const config: Config = {
     markdown: {
         mermaid: true,
     },
+    customFields: {
+        validatorApiKey: process.env.VALIDATOR_API_KEY,
+        validatorApiUrl : process.env.VALIDATOR_API_URL
+      },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         [require.resolve('docusaurus-plugin-image-zoom'), {}],

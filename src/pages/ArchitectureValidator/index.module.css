@@ -1,0 +1,461 @@
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0 2rem 2rem 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+.mainContent {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    height: calc(100vh - 300px);
+    min-height: 600px;
+}
+
+.leftPanel {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.rightPanel {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    position: sticky;
+    top: 2rem;
+}
+
+.headerBar {
+    background: linear-gradient(135deg, #0057b8 0%, #004494 100%);
+    color: white;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    text-align: left;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(0, 87, 184, 0.3);
+}
+
+.headerDescription {
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    color: #e3f2fd;
+    line-height: 1.4;
+}
+
+.headerSubtitle {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: #e3f2fd;
+}
+
+.uploadSection {
+    margin-bottom: 2rem;
+}
+
+.uploadArea {
+    border: 2px dashed var(--ifm-color-primary-light);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--ifm-background-color);
+    margin-bottom: 2rem;
+}
+
+.uploadArea:hover {
+    border-color: var(--ifm-color-primary);
+    background: var(--ifm-color-primary-lightest);
+}
+
+.uploadArea.hasFile {
+    border-color: var(--ifm-color-success);
+    background: var(--ifm-color-success-lightest);
+}
+
+.uploadPrompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.uploadIcon {
+    font-size: 3rem;
+    opacity: 0.6;
+}
+
+.uploadText {
+    font-size: 1.1rem;
+    color: var(--ifm-color-primary);
+}
+
+.uploadSubtext {
+    font-size: 0.9rem;
+    color: var(--ifm-color-secondary);
+}
+
+.fileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fileIcon {
+    font-size: 3rem;
+}
+
+.fileName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    word-break: break-all;
+}
+
+.fileSize {
+    font-size: 0.9rem;
+    color: var(--ifm-color-secondary);
+}
+
+.validateButton {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: var(--ifm-color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.validateButton:hover:not(:disabled) {
+    background: var(--ifm-color-primary-dark);
+    transform: translateY(-2px);
+}
+
+.validateButton:disabled {
+    background: var(--ifm-color-secondary-light);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.errorMessage {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--ifm-color-danger-lightest);
+    border: 1px solid var(--ifm-color-danger-light);
+    border-radius: 8px;
+    color: var(--ifm-color-danger-dark);
+}
+
+.resultsSection {
+    margin-top: 2rem;
+}
+
+.summaryBar {
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+    background: var(--ifm-background-color);
+    border: 2px solid var(--ifm-color-emphasis-300);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(44, 44, 44, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.summaryScore {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.summaryStats {
+    font-size: 1.1rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    color: var(--ifm-color-secondary-dark);
+}
+
+.resultsSection h2 {
+    font-size: 2rem;
+    color: var(--ifm-color-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.successMessage {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--ifm-color-success-lightest);
+    border: 1px solid var(--ifm-color-success-light);
+    border-radius: 12px;
+    color: var(--ifm-color-success-dark);
+}
+
+.successIcon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.successMessage strong {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.successMessage p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+.violationsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.violationItem {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: var(--ifm-background-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* New colored cards for severity */
+.errorCard {
+    background: #fdecea;
+    border-left: 6px solid #d32f2f;
+}
+
+.warningCard {
+    background: #fff4e5;
+    border-left: 6px solid #f57c00;
+}
+
+.infoCard {
+    background: #e3f2fd;
+    border-left: 6px solid #1976d2;
+}
+
+.violationHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.severityBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.violationType {
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+}
+
+.violationRule {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.violationRule strong {
+    color: var(--ifm-color-primary);
+}
+
+.violationDetails {
+    padding: 1rem;
+    background: var(--ifm-color-emphasis-100);
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.violationDetails strong {
+    color: var(--ifm-color-primary);
+}
+
+/* Preview Panel Styles */
+.previewSection {
+    height: 100%;
+}
+
+.previewSection h3 {
+    font-size: 1.5rem;
+    color: var(--ifm-color-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.previewContainer {
+    border: 2px solid var(--ifm-color-emphasis-300);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.diagramViewer {
+    width: 100%;
+    height: calc(100vh - 400px);
+    min-height: 400px;
+    border: none;
+    display: block;
+}
+
+.previewActions {
+    text-align: center;
+}
+
+.openInDrawioButton {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--ifm-color-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.openInDrawioButton:hover {
+    background: var(--ifm-color-primary-dark);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.previewPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 400px);
+    min-height: 500px;
+    border: 2px dashed var(--ifm-color-emphasis-300);
+    border-radius: 12px;
+    background: var(--ifm-color-emphasis-100);
+    text-align: center;
+    color: var(--ifm-color-secondary);
+}
+
+.placeholderIcon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.previewPlaceholder h3 {
+    font-size: 1.5rem;
+    color: var(--ifm-color-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.previewPlaceholder p {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .mainContent {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+
+    .rightPanel {
+        position: static;
+        height: auto;
+    }
+
+    .leftPanel {
+        height: auto;
+        overflow-y: visible;
+    }
+
+    .diagramViewer {
+        height: 60vh;
+        min-height: 400px;
+    }
+
+    .previewPlaceholder {
+        height: 60vh;
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        min-height: calc(100vh - 80px);
+    }
+
+    .uploadArea {
+        padding: 2rem 1rem;
+    }
+
+    .violationHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .violationItem {
+        padding: 1rem;
+    }
+
+    .headerBar {
+        font-size: 1.5rem;
+        padding: 1.5rem 1.5rem;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .headerDescription {
+        font-size: 1rem;
+    }
+
+    .mainContent {
+        gap: 1rem;
+        height: auto;
+        min-height: auto;
+    }
+
+    .diagramViewer {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .previewPlaceholder {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .placeholderIcon {
+        font-size: 3rem;
+    }
+}
