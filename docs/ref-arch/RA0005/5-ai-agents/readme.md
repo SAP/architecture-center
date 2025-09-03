@@ -36,7 +36,7 @@ contributors:
 discussion:
 last_update:
   author: kay-schmitteckert
-  date: 2025-09-02
+  date: 2025-09-03
 ---
 
 AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.
@@ -74,11 +74,11 @@ They leverage popular frameworks such as LangGraph, AutoGen, CrewAI, or smolagen
 
 To understand the technical working of an AI Agent, consider its five core components explained below.
 
-- **LLM - Reasoning Engine**: Processes inputs, plans steps, and generates natural‑language or structured outputs.
+- **LLM (Reasoning Engine)**: Processes inputs, plans steps, and generates natural‑language or structured outputs.
 - **Knowledge**: Contextual information from structured and unstructured sources to guide agent decision-making.
-- **Memory - State**: Retains intermediate results and past interactions, ensuring continuity and statefulness across multi‑step workflows.
+- **Memory (State)**: Retains intermediate results and past interactions, ensuring continuity and statefulness across multi‑step workflows.
 - **Tools**: Enable agents to perform actions. The agent selects and invokes tools based on the current context and goal.
-- **Recipe - Orchestration Logic**: A recipe guides the agent's workflow and defines how the LLM, knowledge, memory, and tools interact.
+- **Recipe (Orchestration Logic)**: A recipe guides the agent's workflow and defines how the LLM, knowledge, memory, and tools interact.
 
 The diagram below illustrates the agent’s actions cycle at runtime, which could repeat multiple times till the goal is declared achieved by the LLM. The numbered steps correspond to:
 
