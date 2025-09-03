@@ -7,47 +7,55 @@ import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
+import tagsMap from '@site/src/constant/tagsMapping.json';
 
-function filterSidebarItems(items, selectedTechDomains, tagsDocId) {
-    if (selectedTechDomains.length === 0) {
-        return items;
-    }
+const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
+  const cat = meta?.categoryid;
+  if (!cat) return acc;
+  (acc[cat] ??= []).push(tagKey);
+  return acc;
+}, {});
 
-    const tagMap = {
-        ai: 'genai',
-        opsec: 'security',
-    };
+function filterSidebarItems(items, selectedDomains, docIdToTags) {
+  if (!selectedDomains?.length) {
+    return items; // nothing selected, show full sidebar
+  }
 
-    const searchableTags = selectedTechDomains.map((domain) => tagMap[domain] || domain);
+  // Expand selected domains into all tag keys they cover
+  const searchableTags = Array.from(
+    new Set(
+      selectedDomains.flatMap((domainId) => [
+        domainId,
+        ...(categoryIdToTags[domainId] ?? []),
+      ])
+    )
+  );
 
-    const matchingIds = new Set();
-    for (const [docId, tags] of Object.entries(tagsDocId || {})) {
-        if (Array.isArray(tags) && tags.some((tag) => searchableTags.includes(tag))) {
-            matchingIds.add(docId);
+  // Find doc IDs whose tags intersect with searchableTags
+  const matchingIds = new Set(
+    Object.entries(docIdToTags ?? {}).flatMap(([docId, tags]) =>
+      Array.isArray(tags) && tags.some((t) => searchableTags.includes(t)) ? [docId] : []
+    )
+  );
+
+  // Recursive filter of sidebar tree
+  const recurse = (nodes) =>
+    nodes.reduce((acc, item) => {
+      const idToCheck = item.docId || item.id;
+
+      if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
+        acc.push(item);
+      } else if (item.type === 'category') {
+        const filteredChildren = recurse(item.items);
+        if (filteredChildren.length > 0) {
+          acc.push({ ...item, items: filteredChildren });
         }
-    }
+      }
 
-    const recursiveFilter = (sidebarItems) => {
-        return sidebarItems.reduce((acc, item) => {
-            const idToCheck = item.docId || item.id;
+      return acc;
+    }, []);
 
-            // For a document or link, check if its ID is in our whitelist.
-            if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
-                acc.push(item);
-            }
-            // For a category, ALWAYS filter its children.
-            else if (item.type === 'category') {
-                const filteredChildren = recursiveFilter(item.items);
-                // Keep the category only if it has children left after filtering.
-                if (filteredChildren.length > 0) {
-                    acc.push({ ...item, items: filteredChildren });
-                }
-            }
-            return acc;
-        }, []);
-    };
-
-    return recursiveFilter(items);
+  return recurse(items);
 }
 
 // ============================================================================
@@ -92,6 +100,7 @@ function DocSidebarDesktop(props) {
 // Mobile Version
 // ============================================================================
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
+    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const techDomains = useSidebarFilterStore((state) => state.techDomains);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
@@ -99,7 +108,10 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         setTechDomains(selectedKeys);
     };
 
-    const filteredSidebar = useMemo(() => filterSidebarItems(sidebar, techDomains), [sidebar, techDomains]);
+    const filteredSidebar = useMemo(
+        () => filterSidebarItems(sidebar, techDomains, tagsDocId),
+        [sidebar, techDomains, tagsDocId]
+    );
 
     return (
         <>
