@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Layout from '@theme/Layout';
 import axios from 'axios';
 import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import '@ui5/webcomponents-icons/dist/AllIcons';
+
+type FileStatus = 'queued' | 'validating' | 'success' | 'warning' | 'error';
 
 interface ValidationRule {
     rule: string;
@@ -12,284 +13,249 @@ interface ValidationRule {
     details: string;
 }
 
-interface ValidationResponse {
-    validationReport: ValidationRule[];
+interface ManagedFile {
+    id: string;
+    file: File;
+    content: string;
+    status: FileStatus;
+    results: ValidationRule[] | null;
+    error: string | null;
 }
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [isValidating, setIsValidating] = useState(false);
-    const [validationResults, setValidationResults] = useState<ValidationRule[] | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [fileContent, setFileContent] = useState<string | null>(null);
+    const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
+    const [isProcessingBatch, setIsProcessingBatch] = useState(false);
+    const [progress, setProgress] = useState(0);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    const updateFileState = (id: string, updates: Partial<ManagedFile>) => {
+        setManagedFiles((prev) => prev.map((mf) => (mf.id === id ? { ...mf, ...updates } : mf)));
+    };
+
+    const processAndAddFiles = (files: FileList) => {
+        const fileArray = Array.from(files).filter((file) => file.name.toLowerCase().endsWith('.drawio'));
+
+        const filePromises = fileArray.map(
+            (file) =>
+                new Promise<ManagedFile>((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        resolve({
+                            id: `${file.name}-${file.lastModified}-${Math.random()}`,
+                            file,
+                            content: e.target?.result as string,
+                            status: 'queued',
+                            results: null,
+                            error: null,
+                        });
+                    };
+                    reader.readAsText(file);
+                })
+        );
+
+        Promise.all(filePromises).then((newFiles) => {
+            setManagedFiles((current) => [...current, ...newFiles]);
+        });
+    };
+
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file && !file.name.toLowerCase().endsWith('.drawio')) {
-            setError('Please select a valid .drawio file');
-            setSelectedFile(null);
-            setValidationResults(null);
-            setFileContent(null);
-            return;
-        }
-        setSelectedFile(file);
-        setError(null);
-        setValidationResults(null);
-
-        // Read file content for preview
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setFileContent(e.target?.result as string);
-            };
-            reader.readAsText(file);
-        }
-    };
-
-    const handleValidate = async () => {
-        if (!selectedFile) {
-            setError('Please select a .drawio file first');
-            return;
-        }
-
-        setIsValidating(true);
-        setError(null);
-
-        try {
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-
-            // Get API key and URL from environment variables
-            const apiKey = siteConfig.customFields.validatorApiKey as string;
-            const apiUrl = siteConfig.customFields.validatorApiUrl as string;
-
-            if (!apiKey) {
-                throw new Error('API key not configured. Please set VALIDATOR_API_KEY environment variable.');
-            }
-
-            if (!apiUrl) {
-                throw new Error('API URL not configured. Please set VALIDATOR_API_URL environment variable.');
-            }
-
-            const response = await axios.post(apiUrl, formData, {
-                headers: {
-                    'x-api-key': apiKey,
-                },
-            });
-
-            if (!response.data || !Array.isArray(response.data.validationReport)) {
-                throw new Error('Invalid response format from validation API');
-            }
-
-            setValidationResults(response.data.validationReport);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred during validation');
-        } finally {
-            setIsValidating(false);
-        }
-    };
-
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
+        if (event.target.files) processAndAddFiles(event.target.files);
+        event.target.value = ''; // Allow re-selecting the same file
     };
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
-        const files = event.dataTransfer.files;
-        if (files.length > 0) {
-            const file = files[0];
-            if (file.name.toLowerCase().endsWith('.drawio')) {
-                setSelectedFile(file);
-                setError(null);
-                setValidationResults(null);
+        if (event.dataTransfer.files) processAndAddFiles(event.dataTransfer.files);
+    };
 
-                // Read file content for preview
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    setFileContent(e.target?.result as string);
-                };
-                reader.readAsText(file);
-            } else {
-                setError('Please select a valid .drawio file');
-            }
+    const validateFile = async (managedFile: ManagedFile) => {
+        updateFileState(managedFile.id, { status: 'validating' });
+        try {
+            const formData = new FormData();
+            formData.append('file', managedFile.file);
+            const apiKey = siteConfig.customFields.validatorApiKey as string;
+            const apiUrl = siteConfig.customFields.validatorApiUrl as string;
+
+            const response = await axios.post<{ validationReport: ValidationRule[] }>(apiUrl, formData, {
+                headers: { 'x-api-key': apiKey },
+            });
+
+            const report = response.data.validationReport;
+            let finalStatus: FileStatus = 'success';
+            if (report.some((v) => v.severity === 'ERROR')) finalStatus = 'error';
+            else if (report.some((v) => v.severity === 'WARNING')) finalStatus = 'warning';
+
+            updateFileState(managedFile.id, { status: finalStatus, results: report });
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'An unexpected error occurred.';
+            updateFileState(managedFile.id, { status: 'error', error: message });
         }
     };
 
-    const getSeverityColor = (severity: string) => {
-        switch (severity) {
-            case 'ERROR':
-                return '#d32f2f';
-            case 'WARNING':
-                return '#f57c00';
-            case 'INFO':
-                return '#1976d2';
-            default:
-                return '#1976d2';
+    const handleValidateBatch = async () => {
+        setIsProcessingBatch(true);
+        setProgress(0);
+        const filesToValidate = managedFiles.filter((mf) => mf.status === 'queued');
+
+        for (let i = 0; i < filesToValidate.length; i++) {
+            await validateFile(filesToValidate[i]);
+            setProgress(((i + 1) / filesToValidate.length) * 100);
         }
+        setIsProcessingBatch(false);
     };
 
-    // Helper to count severities for summary
-    const countBySeverity = (severity: string) => validationResults?.filter((v) => v.severity === severity).length || 0;
+    const handleRemoveFile = (idToRemove: string) => {
+        setManagedFiles((current) => current.filter((mf) => mf.id !== idToRemove));
+    };
 
-    // Calculate Overall Score (mock calculation: Errors reduce score)
-    const filesValidated = selectedFile ? 1 : 0;
-    const totalViolations = validationResults?.length || 0;
-    const errorCount = countBySeverity('ERROR');
-    const warningCount = countBySeverity('WARNING');
-    const infoCount = countBySeverity('INFO');
+    const clearAll = () => {
+        setManagedFiles([]);
+        setProgress(0);
+        setIsProcessingBatch(false);
+    };
 
     return (
-        <Layout>
+        <Layout title="Architecture Validator" description="Validate your .drawio architecture diagrams.">
             <div className={styles.headerBar}>
-                Architecture Validator
-                <div className={styles.headerDescription}>
-                    Upload your .drawio architecture diagram to validate it against SAP best practices and guidelines.
-                </div>
-                <div className={styles.headerSubtitle}>Generated: {new Date().toISOString()}</div>
+                <h1>Architecture Validator</h1>
+                <p>Upload, preview, and validate your .drawio diagrams against best practices.</p>
             </div>
 
-            <div className={styles.container}>
-                <div className={styles.mainContent}>
-                    <div className={styles.leftPanel}>
-                        <div className={styles.uploadSection}>
-                            <div
-                                className={`${styles.uploadArea} ${selectedFile ? styles.hasFile : ''}`}
-                                onDragOver={handleDragOver}
-                                onDrop={handleDrop}
-                                onClick={() => fileInputRef.current?.click()}
-                            >
-                                <input
-                                    ref={fileInputRef}
-                                    type="file"
-                                    accept=".drawio"
-                                    onChange={handleFileSelect}
-                                    style={{ display: 'none' }}
-                                />
-
-                                {selectedFile ? (
-                                    <div className={styles.fileInfo}>
-                                        <div className={styles.fileIcon}>📄</div>
-                                        <div className={styles.fileName}>{selectedFile.name}</div>
-                                        <div className={styles.fileSize}>
-                                            {(selectedFile.size / 1024).toFixed(2)} KB
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className={styles.uploadPrompt}>
-                                        <div className={styles.uploadIcon}>⬆️</div>
-                                        <div className={styles.uploadText}>
-                                            <strong>Click to upload</strong> or drag and drop your .drawio file here
-                                        </div>
-                                        <div className={styles.uploadSubtext}>Only .drawio files are supported</div>
-                                    </div>
-                                )}
-                            </div>
-
-                            <button
-                                className={styles.validateButton}
-                                onClick={handleValidate}
-                                disabled={!selectedFile || isValidating}
-                            >
-                                {isValidating ? 'Validating...' : 'Validate'}
+            <main className={styles.mainContainer}>
+                {managedFiles.length === 0 ? (
+                    <div
+                        className={styles.uploadPrompt}
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDrop}
+                        onClick={() => fileInputRef.current?.click()}
+                    >
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept=".drawio"
+                            onChange={handleFileSelect}
+                            style={{ display: 'none' }}
+                            multiple
+                        />
+                        <div className={styles.uploadIcon}>⬆️</div>
+                        <h2>Drag & Drop your .drawio files here</h2>
+                        <p>or click to select files</p>
+                    </div>
+                ) : (
+                    <div className={styles.contentArea}>
+                        <div className={styles.actionsHeader}>
+                            <button className={styles.addFilesButton} onClick={() => fileInputRef.current?.click()}>
+                                + Add More Files
                             </button>
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept=".drawio"
+                                onChange={handleFileSelect}
+                                style={{ display: 'none' }}
+                                multiple
+                            />
+                            <div className={styles.actionButtons}>
+                                <button className={styles.clearButton} onClick={clearAll}>
+                                    Clear All
+                                </button>
+                                <button
+                                    className={styles.validateButton}
+                                    onClick={handleValidateBatch}
+                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'queued')}
+                                >
+                                    {isProcessingBatch
+                                        ? `Validating...`
+                                        : `Validate Queued (${
+                                              managedFiles.filter((f) => f.status === 'queued').length
+                                          })`}
+                                </button>
+                            </div>
                         </div>
 
-                        {error && (
-                            <div className={styles.errorMessage}>
-                                <strong>Error:</strong> {error}
+                        {isProcessingBatch && (
+                            <div className={styles.progressBarContainer}>
+                                <div className={styles.progressBar} style={{ width: `${progress}%` }}></div>
                             </div>
                         )}
 
-                        {validationResults !== null && (
-                            <div className={styles.resultsSection}>
-                                <div className={styles.summaryBar}>
-                                    <div className={styles.summaryStats}>
-                                        Files validated: {filesValidated} &nbsp;|&nbsp; Total violations:{' '}
-                                        {totalViolations} &nbsp;|&nbsp; Errors: {errorCount} &nbsp;|&nbsp; Warnings:{' '}
-                                        {warningCount} &nbsp;|&nbsp; Info: {infoCount}
-                                    </div>
-                                </div>
-
-                                <h2>Validation Results</h2>
-
-                                {validationResults.length === 0 ? (
-                                    <div className={styles.successMessage}>
-                                        <div className={styles.successIcon}>✅</div>
-                                        <div>
-                                            <strong>No errors or warnings found!</strong>
-                                            <p>Your architecture diagram follows all the validation rules.</p>
+                        <div className={styles.fileListContainer}>
+                            {managedFiles.map((mf) => (
+                                <div key={mf.id} className={`${styles.fileCard} ${styles[mf.status]}`}>
+                                    <div className={styles.fileCardHeader}>
+                                        <div className={styles.fileInfo}>
+                                            <span className={styles.statusName}>{mf.status.toUpperCase()}</span>
+                                            <h3 className={styles.fileName}>{mf.file.name}</h3>
+                                        </div>
+                                        <div className={styles.cardActions}>
+                                            {mf.status === 'queued' && (
+                                                <button
+                                                    className={styles.cardValidateButton}
+                                                    onClick={() => validateFile(mf)}
+                                                >
+                                                    Validate
+                                                </button>
+                                            )}
+                                            <button
+                                                className={styles.cardRemoveButton}
+                                                onClick={() => handleRemoveFile(mf.id)}
+                                                title="Remove File"
+                                            >
+                                                ✕
+                                            </button>
                                         </div>
                                     </div>
-                                ) : (
-                                    <div className={styles.violationsList}>
-                                        {validationResults.map((violation, index) => (
-                                            <div
-                                                key={index}
-                                                className={`${styles.violationItem} ${
-                                                    violation.severity === 'ERROR'
-                                                        ? styles.errorCard
-                                                        : violation.severity === 'WARNING'
-                                                        ? styles.warningCard
-                                                        : styles.infoCard
-                                                }`}
-                                            >
-                                                <div className={styles.violationHeader}>
-                                                    <span
-                                                        className={styles.severityBadge}
-                                                        style={{
-                                                            backgroundColor: getSeverityColor(violation.severity),
-                                                        }}
-                                                    >
-                                                        {violation.severity}
-                                                    </span>
-                                                    <span className={styles.violationType}>{violation.violation}</span>
+                                    <div className={styles.previewAndResults}>
+                                        <div className={styles.previewWrapper}>
+                                            <iframe
+                                                src={`https://viewer.diagrams.net/?lightbox=1&edit=_blank&layers=1&nav=1#R${encodeURIComponent(
+                                                    mf.content
+                                                )}`}
+                                                className={styles.diagramViewer}
+                                                title={mf.file.name}
+                                            />
+                                        </div>
+                                        <div className={styles.resultsContainer}>
+                                            {!mf.results && !mf.error && (
+                                                <div className={styles.resultsPlaceholder}>
+                                                    Validation results will appear here.
                                                 </div>
-                                                <div className={styles.violationRule}>
-                                                    <strong>Rule:</strong> {violation.rule}
+                                            )}
+                                            {mf.error && (
+                                                <div className={`${styles.violationCard} ${styles.errorCard}`}>
+                                                    <strong>API Error:</strong> {mf.error}
                                                 </div>
-                                                {violation.details && violation.details !== 'No Details Provided' && (
-                                                    <div className={styles.violationDetails}>
-                                                        <strong>Details:</strong> {violation.details}
+                                            )}
+                                            {mf.results?.length === 0 && (
+                                                <div className={`${styles.violationCard} ${styles.successCard}`}>
+                                                    <strong>Validation Passed:</strong> No issues found.
+                                                </div>
+                                            )}
+                                            {mf.results?.map((v, index) => (
+                                                <div
+                                                    key={index}
+                                                    className={`${styles.violationCard} ${
+                                                        styles[v.severity.toLowerCase() + 'Card']
+                                                    }`}
+                                                >
+                                                    <div className={styles.violationHeader}>
+                                                        <span className={styles.severityBadge}>{v.severity}</span>
+                                                        <span>{v.violation}</span>
                                                     </div>
-                                                )}
-                                            </div>
-                                        ))}
+                                                    <div className={styles.violationRule}>
+                                                        <strong>Rule:</strong> {v.rule}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Right Panel - Preview */}
-                    <div className={styles.rightPanel}>
-                        {selectedFile && fileContent ? (
-                            <div className={styles.previewSection}>
-                                <h3>Diagram Preview</h3>
-                                <div className={styles.previewContainer}>
-                                    <iframe
-                                        src={`https://viewer.diagrams.net/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=${encodeURIComponent(
-                                            selectedFile.name
-                                        )}#R${encodeURIComponent(fileContent)}`}
-                                        className={styles.diagramViewer}
-                                        title="Diagram Preview"
-                                        frameBorder="0"
-                                        allowFullScreen
-                                    />
                                 </div>
-                            </div>
-                        ) : (
-                            <div className={styles.previewPlaceholder}>
-                                <div className={styles.placeholderIcon}>📊</div>
-                                <h3>Diagram Preview</h3>
-                                <p>Upload a .drawio file to see the preview here</p>
-                            </div>
-                        )}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </div>
+                )}
+            </main>
         </Layout>
     );
 }
