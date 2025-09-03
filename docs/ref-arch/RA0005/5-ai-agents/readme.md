@@ -4,7 +4,7 @@ slug: /ref-arch/e5eb3b9b1d/5
 sidebar_position: 5
 sidebar_custom_props:
   category_index: []
-title: AI Agents
+title: AI Agents & Agent Builder
 description: >-
   Develop AI agents using SAP Project Agent Builder (PAB) for enterprise
   automation with content/code-based strategies and multi-step reasoning
@@ -16,7 +16,7 @@ keywords:
   - enterprise AI automation
   - code-based AI agents
   - content-based AI
-sidebar_label: AI Agents (Content- & Code-Based)
+sidebar_label: AI Agents & Agent Builder
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -49,13 +49,14 @@ SAP supports two complementary approaches to building AI agents: **Content-Based
 Built using **Joule Studio’s Agent Builder**, SAP’s low-code environment on SAP BTP, these **Content-Based Agents** are ideal for rapid rollout of agent-based automation across the SAP ecosystem with minimal coding effort.
 
 They are designed for rapid development through configuration rather than coding with key characteristics:
-- **Business Content Firs**: Structured business context and semantic rules drive agent behavior.
+- **Business Content First**: Structured business context and semantic rules drive agent behavior.
 - **Low-Code Orchestration**: Multi-step reasoning, tool orchestration, and RAG without custom runtimes.
 - **Enterprise Integration**: Seamless connection via REST/OData APIs to SAP products, BTP services, and third-party applications.
 - **Secure & Scalable**: Built on top of Generative AI Hub with anonymization, metering and role-based security.
 
-![drawio](../../RA0024/drawio/joule-studio-ref-arch.drawio)
 For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/readme.md).
+
+![drawio](../../RA0024/drawio/joule-studio-ref-arch.drawio)
 
 ### Code-Based Agents ###
 
