@@ -103,6 +103,5 @@ For selected SAP lines-of-business solutions further integration technologies ar
     - [Master Data Integration and Master Data Management: What’s the Difference (blog post)](https://blogs.sap.com/2020/10/23/master-data-integration-and-master-data-management-whats-the-difference/)
   
 ### Related Missions
-- [Use SAP Integration Suite to Synchronize Master Data](https://discovery-center.cloud.sap/missiondetail/4248/4505/)
 - [Get started with SAP Integration Suite](https://discovery-center.cloud.sap/missiondetail/3258/3327/)
 - [S/4HANA Cloud - Cost Center Mass Update](https://discovery-center.cloud.sap/missiondetail/3419/3459/)

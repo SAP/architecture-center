@@ -9,7 +9,7 @@ const config: Config = {
     title: 'SAP Architecture Center',
     tagline:
         'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
-    favicon: 'img/logo.svg',
+    favicon: 'img/favicon.ico',
 
     url: 'https://architecture.learning.sap.com',
     baseUrl: '/',
@@ -152,7 +152,7 @@ const config: Config = {
         announcementBar: {
             id: 'internal-prototype',
             content:
-                '<b>The Architecture Center is still under development, and some features are not yet available. <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">We welcome your feedback</a>.</b>',
+                '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
             backgroundColor: '#0053CB',
             textColor: '#FFFFFF',
             isCloseable: true,
@@ -297,8 +297,8 @@ const config: Config = {
                     title: 'Legal',
                     items: [
                         {
-                            label: 'Privacy',
-                            href: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
+                            label: 'Privacy Statement',
+                            href: 'https://architecture.learning.sap.com/community/privacy',
                         },
                         {
                             label: 'Terms of Use',
