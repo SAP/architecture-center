@@ -1,0 +1,45 @@
+
+aws:
+  categoryid: "aws"
+
+azure:
+  categoryid: "azure"
+
+gcp:
+  categoryid: "gcp"
+
+genai:
+  categoryid: "ai"
+
+appdev:
+  categoryid: "appdev"
+
+data:
+  categoryid: "data"
+
+integration:
+  categoryid: "integration"
+
+security:
+  categoryid: "opsec"
+
+cap:
+  categoryid: "appdev"
+
+abap:
+  categoryid: "appdev"
+
+eda:
+  categoryid: "integration"
+
+eic:
+  categoryid: "integration"
+
+build:
+  categoryid: "appdev"
+
+buildworkzone:
+  categoryid: "appdev"
+
+transition:
+  categoryid: "integration"
