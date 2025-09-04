@@ -3,7 +3,7 @@ id: id-ra0005-2
 slug: /ref-arch/e5eb3b9b1d/2
 sidebar_position: 1
 sidebar_custom_props:
-    category_index: []
+  category_index: []
 title: Embeddings & Semantic Search
 description: >-
   Improve search relevance with semantic embeddings stored in vector databases,
@@ -17,10 +17,10 @@ keywords:
 sidebar_label: Embeddings & Semantic Search
 image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
+  - aws
+  - azure
+  - gcp
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,14 +28,14 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - kay-schmitteckert
-    - AdiPleyer
-    - vedant-aero-ml
-    - madankumarpichamuthu
-discussion:
+  - kay-schmitteckert
+  - AdiPleyer
+  - vedant-aero-ml
+  - madankumarpichamuthu
+discussion: 
 last_update:
-    author: kay-schmitteckert
-    date: 2025-01-31
+  author: kay-schmitteckert
+  date: 2025-01-31
 ---
 
 Embeddings are powerful and dense numeric representations of data that capture the underlying meaning of words or concepts. In business applications, they enable more intelligent, context-aware search capabilities. By using Embedding Models, businesses can transform textual or other data into vector representations. These vectors are then stored in a vector database, which facilitates fast and efficient similarity searches using methods like cosine similarity. This allows for semantic search functionality, where results are based on meaning rather than exact keyword matches, improving search relevance, user experience, and overall operational efficiency.
