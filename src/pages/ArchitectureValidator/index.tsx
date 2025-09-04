@@ -116,7 +116,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     };
 
     return (
-        <Layout title="Architecture Validator" description="Validate your .drawio architecture diagrams.">
+        <Layout>
             <div className={styles.headerBar}>
                 <h1>Architecture Validator</h1>
                 <p>Upload, preview, and validate your .drawio diagrams against best practices.</p>

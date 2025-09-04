@@ -1,23 +1,28 @@
 .headerBar {
-    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 0),
-        linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-    background-size: 15px 15px;
+    background: var(--ifm-menu-color-active);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    max-width: 1440px;
+    position: relative;
+    margin: 50px auto 4rem auto;
+    border-radius: 24px;
     color: white;
     padding: 4rem 2rem;
     text-align: center;
 }
 .headerBar h1 {
     margin: 0;
-    font-size: 3rem;
     font-weight: 700;
+    font-size: clamp(22px, 4.2vw, 40px);
+    line-height: 1.15;
 }
 .headerBar p {
-    margin: 0.75rem auto 0;
-    font-size: 1.2rem;
-    opacity: 0.85;
-    max-width: 650px;
-    line-height: 1.6;
+    font-weight: 500;
+    margin-top: 2rem;
+    font-size: clamp(14px, 2.8vw, 22px);
+    opacity: 0.95;
 }
 
 .mainContainer {
