@@ -6,42 +6,63 @@ import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
+import useGlobalData from '@docusaurus/useGlobalData';
+import tagsMap from '@site/src/constant/tagsMapping.json';
 
-function filterSidebarItems(items, selectedTechDomains) {
-    if (selectedTechDomains.length === 0) {
-        return items;
-    }
-    return items.reduce((acc, item) => {
-        const checkItem = (currentItem) => {
-            const categoryIndex = Array.isArray(currentItem.customProps?.category_index)
-                ? currentItem.customProps.category_index
-                : [];
-            return selectedTechDomains.every((domainKey) => categoryIndex.includes(domainKey));
-        };
-        if (item.type === 'category') {
-            if (checkItem(item)) {
-                acc.push(item);
-            } else {
-                const filteredChildren = filterSidebarItems(item.items, selectedTechDomains);
-                if (filteredChildren.length > 0) {
-                    acc.push({ ...item, items: filteredChildren });
-                }
-            }
-        } else if (item.type === 'doc' || item.type === 'link') {
-            if (checkItem(item)) {
-                acc.push(item);
-            }
-        } else {
-            acc.push(item);
+const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
+  const cat = meta?.categoryid;
+  if (!cat) return acc;
+  (acc[cat] ??= []).push(tagKey);
+  return acc;
+}, {});
+
+function filterSidebarItems(items, selectedDomains, docIdToTags) {
+  if (!selectedDomains?.length) {
+    return items; // nothing selected, show full sidebar
+  }
+
+  // Expand selected domains into all tag keys they cover
+  const searchableTags = Array.from(
+    new Set(
+      selectedDomains.flatMap((domainId) => [
+        domainId,
+        ...(categoryIdToTags[domainId] ?? []),
+      ])
+    )
+  );
+
+  // Find doc IDs whose tags intersect with searchableTags
+  const matchingIds = new Set(
+    Object.entries(docIdToTags ?? {}).flatMap(([docId, tags]) =>
+      Array.isArray(tags) && tags.some((t) => searchableTags.includes(t)) ? [docId] : []
+    )
+  );
+
+  // Recursive filter of sidebar tree
+  const recurse = (nodes) =>
+    nodes.reduce((acc, item) => {
+      const idToCheck = item.docId || item.id;
+
+      if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
+        acc.push(item);
+      } else if (item.type === 'category') {
+        const filteredChildren = recurse(item.items);
+        if (filteredChildren.length > 0) {
+          acc.push({ ...item, items: filteredChildren });
         }
-        return acc;
+      }
+
+      return acc;
     }, []);
+
+  return recurse(items);
 }
 
 // ============================================================================
 // Desktop Version
 // ============================================================================
 function DocSidebarDesktop(props) {
+    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const sidebar = useDocsSidebar();
     const shouldShowFilters = sidebar?.name === 'refarchSidebar';
 
@@ -56,7 +77,10 @@ function DocSidebarDesktop(props) {
         setTechDomains(selectedKeys);
     };
 
-    const filteredSidebar = useMemo(() => filterSidebarItems(props.sidebar, techDomains), [props.sidebar, techDomains]);
+    const filteredSidebar = useMemo(
+        () => filterSidebarItems(props.sidebar, techDomains, tagsDocId),
+        [props.sidebar, techDomains, tagsDocId]
+    );
 
     const newProps = { ...props, sidebar: filteredSidebar };
 
@@ -76,6 +100,7 @@ function DocSidebarDesktop(props) {
 // Mobile Version
 // ============================================================================
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
+    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const techDomains = useSidebarFilterStore((state) => state.techDomains);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
@@ -83,7 +108,10 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         setTechDomains(selectedKeys);
     };
 
-    const filteredSidebar = useMemo(() => filterSidebarItems(sidebar, techDomains), [sidebar, techDomains]);
+    const filteredSidebar = useMemo(
+        () => filterSidebarItems(sidebar, techDomains, tagsDocId),
+        [sidebar, techDomains, tagsDocId]
+    );
 
     return (
         <>

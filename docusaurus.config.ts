@@ -32,6 +32,7 @@ const config: Config = {
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
+        './src/plugins/tags-generator',
         [
             '@docusaurus/plugin-content-docs',
             {
@@ -300,7 +301,7 @@ const config: Config = {
                             href: 'https://www.sap.com/corporate/en/legal/impressum.html',
                         },
                     ],
-                }
+                },
             ],
             copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
         },
