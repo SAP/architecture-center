@@ -95,6 +95,9 @@ function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: k
                     <button className={styles.dropdownItem} onClick={() => formatHeading('h3')}>
                         Heading 3
                     </button>
+                    <button className={styles.dropdownItem} onClick={formatCode}>
+                        Code Block
+                    </button>
                 </div>
             )}
         </div>
@@ -115,10 +118,8 @@ function FloatingToolbarContent() {
             setIsBold(selection.hasFormat('bold'));
             setIsItalic(selection.hasFormat('italic'));
             setIsUnderline(selection.hasFormat('underline'));
-
             const anchorNode = selection.anchor.getNode();
             const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-
             if ($isHeadingNode(element)) {
                 const tag = element.getTag();
                 if (tag in blockTypeToBlockName) {
@@ -134,7 +135,6 @@ function FloatingToolbarContent() {
                     setBlockType('paragraph');
                 }
             }
-
             const node = selection.getNodes()[0];
             const parent = node.getParent();
             setIsLink($isLinkNode(parent) || $isLinkNode(node));
@@ -198,6 +198,7 @@ export default function ToolbarPlugin() {
 
     const updateToolbarLocation = useCallback(() => {
         const toolbarElement = toolbarRef.current;
+
         if (!toolbarElement) {
             return;
         }
@@ -207,25 +208,34 @@ export default function ToolbarPlugin() {
         const rootElement = editor.getRootElement();
 
         if (
-            selection !== null &&
-            nativeSelection !== null &&
-            !nativeSelection.isCollapsed &&
-            rootElement &&
-            rootElement.contains(nativeSelection.anchorNode)
+            !toolbarElement ||
+            !rootElement ||
+            !nativeSelection ||
+            !selection ||
+            nativeSelection.isCollapsed ||
+            !rootElement.contains(nativeSelection.anchorNode)
         ) {
-            const domRange = nativeSelection.getRangeAt(0);
-            const rect = domRange.getBoundingClientRect();
-
-            const top = rect.bottom;
-            const left = rect.left + rect.width / 2 - toolbarElement.offsetWidth / 2;
-
-            toolbarElement.style.opacity = '1';
-            toolbarElement.style.top = `${top}px`;
-            toolbarElement.style.left = `${left}px`;
-        } else {
             toolbarElement.style.opacity = '0';
             toolbarElement.style.top = '-1000px';
+            return;
         }
+
+        const domRange = nativeSelection.getRangeAt(0);
+        const selectionRect = domRange.getBoundingClientRect();
+
+        const positioningContainer = toolbarElement.offsetParent;
+        if (!positioningContainer) {
+            return;
+        }
+        const containerRect = positioningContainer.getBoundingClientRect();
+        const relativeTop = selectionRect.top - containerRect.top;
+        const relativeLeft = selectionRect.left - containerRect.left;
+        const top = relativeTop - toolbarElement.offsetHeight - 10;
+        const left = relativeLeft;
+
+        toolbarElement.style.opacity = '1';
+        toolbarElement.style.top = `${top}px`;
+        toolbarElement.style.left = `${left}px`;
     }, [editor]);
 
     useEffect(() => {

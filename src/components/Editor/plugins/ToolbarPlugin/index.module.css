@@ -1,15 +1,13 @@
-/* src/plugins/index.module.css */
-
 .floatingToolbarContainer {
     position: absolute;
     z-index: 100;
     top: -1000px;
     left: -1000px;
     opacity: 0;
-    background-color: #1e1e1e;
-    border: 1px solid #333;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     padding: 4px 8px;
@@ -35,18 +33,18 @@
     padding: 0 8px;
     border: none;
     background-color: transparent;
-    color: #b0b0b0;
+    color: #555;
     cursor: pointer;
     border-radius: 4px;
 }
 
 .toolbarButton:hover {
-    background-color: #333;
+    background-color: #f0f0f0;
 }
 
 .toolbarButton.active {
-    background-color: #444;
-    color: #ffffff;
+    background-color: #e0e0e0;
+    color: #111;
 }
 
 .textBold {
@@ -58,7 +56,7 @@
 
 .divider {
     width: 1px;
-    background-color: #444;
+    background-color: #e0e0e0;
     height: 20px;
     margin: 0 8px;
 }
@@ -75,14 +73,14 @@
     height: 32px;
     border: none;
     background-color: transparent;
-    color: #e0e0e0;
+    color: #333;
     cursor: pointer;
     border-radius: 4px;
     font-size: 14px;
 }
 
 .dropdownButton:hover {
-    background-color: #333;
+    background-color: #f0f0f0;
 }
 
 .dropdownChevron {
@@ -93,10 +91,10 @@
     position: absolute;
     top: 110%;
     left: 0;
-    background-color: #2a2a2a;
+    background-color: #ffffff;
     border-radius: 6px;
-    border: 1px solid #444;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 10;
     width: 150px;
     display: flex;
@@ -108,7 +106,7 @@
     padding: 8px 12px;
     background: none;
     border: none;
-    color: #e0e0e0;
+    color: #333;
     text-align: left;
     cursor: pointer;
     border-radius: 4px;
@@ -116,7 +114,7 @@
 }
 
 .dropdownItem:hover {
-    background-color: #444;
+    background-color: #f0f0f0;
 }
 
 .dropdownChevronSmall {
