@@ -110,6 +110,7 @@ export default function HeroSection(): JSX.Element {
                     autoplay={true}
                     autoplaySpeed={5000}
                     showHeader={false}
+                    showArrows={false}
                     fade={true}
                 />
             </div>

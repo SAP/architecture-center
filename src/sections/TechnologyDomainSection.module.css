@@ -5,6 +5,13 @@
     padding: 0 0 10px 0; 
 }
 
+:root[data-theme='dark'] .domainSection {
+    background:
+        url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
+        var(--sapShellColor);
+    padding: 0 0 10px 0; 
+}
+
 .title {
     font-size: var(--sapFontHeader2Size);
     color: var(--navcard-text-default);
@@ -15,6 +22,11 @@
     font-size: var(--sapFontHeader4Size);
     margin-top: 1rem;
     color: var(--navcard-text-default);
+}
+
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
 }
 
 .grid {
