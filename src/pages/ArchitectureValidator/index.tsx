@@ -9,7 +9,6 @@ type FileStatus = 'queued' | 'validating' | 'success' | 'warning' | 'error';
 interface ValidationRule {
     rule: string;
     severity: 'ERROR' | 'WARNING' | 'INFO';
-    violation: string;
     details: string;
 }
 
@@ -82,11 +81,15 @@ export default function ArchitectureValidator(): React.JSX.Element {
             });
 
             const report = response.data.validationReport;
-            let finalStatus: FileStatus = 'success';
-            if (report.some((v) => v.severity === 'ERROR')) finalStatus = 'error';
-            else if (report.some((v) => v.severity === 'WARNING')) finalStatus = 'warning';
 
-            updateFileState(managedFile.id, { status: finalStatus, results: report });
+            // Filter out INFO items for display and status determination
+            const displayResults = report.filter((v) => v.severity !== 'INFO');
+
+            let finalStatus: FileStatus = 'success';
+            if (displayResults.some((v) => v.severity === 'ERROR')) finalStatus = 'error';
+            else if (displayResults.some((v) => v.severity === 'WARNING')) finalStatus = 'warning';
+
+            updateFileState(managedFile.id, { status: finalStatus, results: displayResults });
         } catch (err) {
             const message = err instanceof Error ? err.message : 'An unexpected error occurred.';
             updateFileState(managedFile.id, { status: 'error', error: message });
@@ -98,10 +101,21 @@ export default function ArchitectureValidator(): React.JSX.Element {
         setProgress(0);
         const filesToValidate = managedFiles.filter((mf) => mf.status === 'queued');
 
-        for (let i = 0; i < filesToValidate.length; i++) {
-            await validateFile(filesToValidate[i]);
-            setProgress(((i + 1) / filesToValidate.length) * 100);
-        }
+        let completedCount = 0;
+        const totalFiles = filesToValidate.length;
+
+        // Create promises for all validations to run in parallel
+        const validationPromises = filesToValidate.map(async (file) => {
+            try {
+                await validateFile(file);
+            } finally {
+                completedCount++;
+                setProgress((completedCount / totalFiles) * 100);
+            }
+        });
+
+        // Wait for all validations to complete
+        await Promise.all(validationPromises);
         setIsProcessingBatch(false);
     };
 
@@ -241,10 +255,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                                 >
                                                     <div className={styles.violationHeader}>
                                                         <span className={styles.severityBadge}>{v.severity}</span>
-                                                        <span>{v.violation}</span>
                                                     </div>
                                                     <div className={styles.violationRule}>
                                                         <strong>Rule:</strong> {v.rule}
+                                                    </div>
+                                                    <div className={styles.violationDetails}>
+                                                        <strong>Details:</strong> {v.details}
                                                     </div>
                                                 </div>
                                             ))}

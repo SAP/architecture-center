@@ -266,6 +266,10 @@
     border-left-color: #4caf50;
     background-color: #f6fbf6;
 }
+.violationCard.infoCard {
+    border-left-color: #0969da;
+    background-color: #f6f8fa;
+}
 .violationHeader {
     display: flex;
     align-items: center;
@@ -285,7 +289,14 @@
 .warningCard .severityBadge {
     background-color: #ff9800;
 }
+.infoCard .severityBadge {
+    background-color: #0969da;
+}
 .violationRule {
+    margin-top: 0.5rem;
+    color: #555;
+}
+.violationDetails {
     margin-top: 0.5rem;
     color: #555;
 }
