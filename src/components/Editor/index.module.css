@@ -1,0 +1,136 @@
+:root {
+    --page-background: #f8f9fa;
+    --editor-background: #ffffff;
+    --text-color: #212529;
+    --placeholder-color: #adb5bd;
+    --border-color: #dee2e6;
+}
+
+.editorPageWrapper {
+    background-color: var(--page-background);
+    padding: 50px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.editorContainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: var(--editor-background);
+    color: var(--text-color);
+    position: relative;
+    line-height: 1.6;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.editorInner {
+    position: relative;
+}
+
+.editorInput {
+    min-height: 850px;
+    resize: none;
+    font-size: 16px;
+    caret-color: var(--text-color);
+    position: relative;
+    tab-size: 4;
+    outline: 0;
+    padding: 40px 50px;
+    user-select: text;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.editorPlaceholder {
+    color: var(--placeholder-color);
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 40px;
+    left: 50px;
+    font-size: 16px;
+    user-select: none;
+    pointer-events: none;
+}
+
+.editorParagraph {
+    margin: 0;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.editorH1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.editorH2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 24px 0 8px 0;
+}
+
+.editorQuote {
+    margin: 16px 0;
+    padding-left: 16px;
+    color: #6c757d;
+    border-left: 3px solid #e9ecef;
+}
+
+.editorLink {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.editorTextBold {
+    font-weight: bold;
+}
+
+.editorTextItalic {
+    font-style: italic;
+}
+
+.editorTextUnderline {
+    text-decoration: underline;
+}
+
+.editorTextStrikethrough {
+    text-decoration: line-through;
+}
+
+.editorTextCode {
+    background-color: #f1f3f5;
+    padding: 2px 5px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 85%;
+    border-radius: 4px;
+}
+
+.editorCode {
+    background-color: #f1f3f5;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    padding: 16px;
+    margin: 16px 0;
+    font-size: 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.editorOList,
+.editorUList {
+    padding-left: 24px;
+    margin: 12px 0;
+}
+
+.editorListItem {
+    margin: 8px 0;
+}
+
+.editorImage {
+    display: block;
+    max-width: 100%;
+}

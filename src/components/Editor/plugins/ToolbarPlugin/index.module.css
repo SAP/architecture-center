@@ -1,0 +1,125 @@
+/* src/plugins/index.module.css */
+
+.floatingToolbarContainer {
+    position: absolute;
+    z-index: 100;
+    top: -1000px;
+    left: -1000px;
+    opacity: 0;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    transition: opacity 0.15s ease-out;
+}
+
+.toolbarContent {
+    display: flex;
+    align-items: center;
+}
+
+.toolbarButtonGroup {
+    display: flex;
+    align-items: center;
+}
+
+.toolbarButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border: none;
+    background-color: transparent;
+    color: #b0b0b0;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.toolbarButton:hover {
+    background-color: #333;
+}
+
+.toolbarButton.active {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.textBold {
+    font-weight: 700;
+}
+.textItalic {
+    font-style: italic;
+}
+
+.divider {
+    width: 1px;
+    background-color: #444;
+    height: 20px;
+    margin: 0 8px;
+}
+
+.dropdownContainer {
+    position: relative;
+}
+
+.dropdownButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    color: #e0e0e0;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dropdownButton:hover {
+    background-color: #333;
+}
+
+.dropdownChevron {
+    color: #888;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    border: 1px solid #444;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}
+
+.dropdownItem {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dropdownItem:hover {
+    background-color: #444;
+}
+
+.dropdownChevronSmall {
+    color: #888;
+    margin-left: 2px;
+}

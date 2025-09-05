@@ -1,0 +1,245 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import {
+    $getSelection,
+    $isRangeSelection,
+    FORMAT_TEXT_COMMAND,
+    SELECTION_CHANGE_COMMAND,
+    $createParagraphNode,
+} from 'lexical';
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
+import { $setBlocksType } from '@lexical/selection';
+import { $isHeadingNode, $createHeadingNode, HeadingTagType } from '@lexical/rich-text';
+import { $createCodeNode } from '@lexical/code';
+import { ChevronDown, Underline, Link2 } from 'lucide-react';
+
+import styles from './index.module.css';
+
+const LowPriority = 1;
+
+const blockTypeToBlockName = {
+    code: 'Code Block',
+    h1: 'Heading 1',
+    h2: 'Heading 2',
+    h3: 'Heading 3',
+    paragraph: 'Paragraph',
+};
+
+function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: keyof typeof blockTypeToBlockName }) {
+    const [showDropDown, setShowDropDown] = useState(false);
+    const dropDownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropDownRef.current && !dropDownRef.current.contains(event.target as Node)) {
+                setShowDropDown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const formatParagraph = () => {
+        if (blockType !== 'paragraph') {
+            editor.update(() => {
+                const selection = $getSelection();
+                if ($isRangeSelection(selection)) {
+                    $setBlocksType(selection, () => $createParagraphNode());
+                }
+            });
+        }
+        setShowDropDown(false);
+    };
+
+    const formatHeading = (headingSize: HeadingTagType) => {
+        if (blockType !== headingSize) {
+            editor.update(() => {
+                const selection = $getSelection();
+                if ($isRangeSelection(selection)) {
+                    $setBlocksType(selection, () => $createHeadingNode(headingSize));
+                }
+            });
+        }
+        setShowDropDown(false);
+    };
+
+    const formatCode = () => {
+        if (blockType !== 'code') {
+            editor.update(() => {
+                const selection = $getSelection();
+                if ($isRangeSelection(selection)) {
+                    $setBlocksType(selection, () => $createCodeNode());
+                }
+            });
+        }
+        setShowDropDown(false);
+    };
+
+    return (
+        <div className={styles.dropdownContainer} ref={dropDownRef}>
+            <button className={styles.dropdownButton} onClick={() => setShowDropDown(!showDropDown)}>
+                {blockTypeToBlockName[blockType] || 'Paragraph'}
+                <ChevronDown size={16} className={styles.dropdownChevron} />
+            </button>
+            {showDropDown && (
+                <div className={styles.dropdownMenu}>
+                    <button className={styles.dropdownItem} onClick={formatParagraph}>
+                        Paragraph
+                    </button>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading('h1')}>
+                        Heading 1
+                    </button>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading('h2')}>
+                        Heading 2
+                    </button>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading('h3')}>
+                        Heading 3
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function FloatingToolbarContent() {
+    const [editor] = useLexicalComposerContext();
+    const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [isUnderline, setIsUnderline] = useState(false);
+    const [isLink, setIsLink] = useState(false);
+
+    const updateToolbar = useCallback(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+            setIsBold(selection.hasFormat('bold'));
+            setIsItalic(selection.hasFormat('italic'));
+            setIsUnderline(selection.hasFormat('underline'));
+
+            const anchorNode = selection.anchor.getNode();
+            const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+
+            if ($isHeadingNode(element)) {
+                const tag = element.getTag();
+                if (tag in blockTypeToBlockName) {
+                    setBlockType(tag as keyof typeof blockTypeToBlockName);
+                } else {
+                    setBlockType('paragraph');
+                }
+            } else {
+                const type = element.getType();
+                if (type in blockTypeToBlockName) {
+                    setBlockType(type as keyof typeof blockTypeToBlockName);
+                } else {
+                    setBlockType('paragraph');
+                }
+            }
+
+            const node = selection.getNodes()[0];
+            const parent = node.getParent();
+            setIsLink($isLinkNode(parent) || $isLinkNode(node));
+        }
+    }, []);
+
+    useEffect(() => {
+        return editor.registerUpdateListener(({ editorState }) => {
+            editorState.read(() => {
+                updateToolbar();
+            });
+        });
+    }, [editor, updateToolbar]);
+
+    const insertLink = useCallback(() => {
+        if (!isLink) {
+            editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
+        } else {
+            editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
+        }
+    }, [editor, isLink]);
+
+    return (
+        <div className={styles.toolbarContent}>
+            <BlockOptionsDropdown editor={editor} blockType={blockType} />
+            <div className={styles.divider} />
+            <div className={styles.toolbarButtonGroup}>
+                <button
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')}
+                    className={`${styles.toolbarButton} ${isBold ? styles.active : ''}`}
+                >
+                    <span className={styles.textBold}>B</span>
+                </button>
+                <button
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')}
+                    className={`${styles.toolbarButton} ${isItalic ? styles.active : ''}`}
+                >
+                    <span className={styles.textItalic}>I</span>
+                </button>
+                <button
+                    onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')}
+                    className={`${styles.toolbarButton} ${isUnderline ? styles.active : ''}`}
+                >
+                    <Underline size={18} />
+                </button>
+            </div>
+            <div className={styles.divider} />
+            <div className={styles.toolbarButtonGroup}>
+                <button onClick={insertLink} className={`${styles.toolbarButton} ${isLink ? styles.active : ''}`}>
+                    <Link2 size={18} />
+                    <ChevronDown size={16} className={styles.dropdownChevronSmall} />
+                </button>
+            </div>
+        </div>
+    );
+}
+
+export default function ToolbarPlugin() {
+    const [editor] = useLexicalComposerContext();
+    const toolbarRef = useRef<HTMLDivElement>(null);
+
+    const updateToolbarLocation = useCallback(() => {
+        const toolbarElement = toolbarRef.current;
+        if (!toolbarElement) {
+            return;
+        }
+
+        const selection = $getSelection();
+        const nativeSelection = window.getSelection();
+        const rootElement = editor.getRootElement();
+
+        if (
+            selection !== null &&
+            nativeSelection !== null &&
+            !nativeSelection.isCollapsed &&
+            rootElement &&
+            rootElement.contains(nativeSelection.anchorNode)
+        ) {
+            const domRange = nativeSelection.getRangeAt(0);
+            const rect = domRange.getBoundingClientRect();
+
+            const top = rect.bottom;
+            const left = rect.left + rect.width / 2 - toolbarElement.offsetWidth / 2;
+
+            toolbarElement.style.opacity = '1';
+            toolbarElement.style.top = `${top}px`;
+            toolbarElement.style.left = `${left}px`;
+        } else {
+            toolbarElement.style.opacity = '0';
+            toolbarElement.style.top = '-1000px';
+        }
+    }, [editor]);
+
+    useEffect(() => {
+        const unregister = editor.registerUpdateListener(({ editorState }) => {
+            editorState.read(() => {
+                updateToolbarLocation();
+            });
+        });
+        return unregister;
+    }, [editor, updateToolbarLocation]);
+
+    return (
+        <div ref={toolbarRef} className={styles.floatingToolbarContainer}>
+            <FloatingToolbarContent />
+        </div>
+    );
+}
