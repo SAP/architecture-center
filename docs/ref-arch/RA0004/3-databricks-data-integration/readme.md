@@ -34,13 +34,15 @@ last_update:
   date: 2025-01-23
 ---
 
-Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via SAP Datasphere's unified data models for use with richer analytics and other use cases.
+SAP Business Data Cloud facilitates seamless harmonization of SAP and non-SAP data for richer Analytics and AI use cases. 
+While Datasphere's data federation architecture helps unify the SAP and non-SAP data (of enterprise databricks delta lake) using the JDBC connectivity enabling a open data ecosystem integration, SAP Business Data Cloud's 'BDC Connect' for databricks enables the bi-directional data sharing with enterprise databricks via the open delta share protocol.
 
-## Architecture
+
+## Architecture 
 
 ![drawio](drawio/databricks-data-integration.drawio)
 
-## 1. Integration with Databricks Delta Lake
+## 1. Integration with Databricks Delta Lake [open data ecosystem integration]
 
 **Mode(s) of Integration:** Federating data live into SAP Datasphere.
 
@@ -57,6 +59,9 @@ The integration process involves:
 
 This approach ensures that data remains consistent and up-to-date, providing a robust foundation for advanced analytics and decision-making processes.
 
+## 2. Bi-directional delta share integration with enterprise databricks via BDC Connect
+
+[Ref: brownfield integration](../../RA0013/5-sap-databricks-in-business-data-cloud/readme.md#2-brownfield-integration-integrating-an-existing-enterprise-databricks-platform-with-sap-bdc)
 
 ## Resources
 
