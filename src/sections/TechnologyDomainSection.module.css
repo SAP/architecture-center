@@ -2,7 +2,7 @@
     background: 
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 0 0 20px 0; 
+    padding: 0 0 10px 0; 
 }
 
 .title {
@@ -28,7 +28,7 @@
 .container {
     max-width: 1440px;
     margin: 20px auto 40px auto;
-    padding: 60px 24px 20px;
+    padding: 20px 24px 0px;
 }
 
 .tilesGrid {

@@ -1,6 +1,5 @@
 .section {
-    margin-top: 65px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,7 +81,7 @@
     gap: 45px;
     width: 100%;
     max-width: 1440px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--container-padding);
@@ -118,8 +117,7 @@
 /* Mobile (600px breakpoint) */
 @media (max-width: 600px) {
     .section {
-        margin-top: 40px;
-        margin-bottom: 48px;
+        margin-bottom: 20px;
         padding: 0 16px;
     }
 

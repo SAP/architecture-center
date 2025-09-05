@@ -33,12 +33,12 @@
 }
 
 .inline {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 5px;
-    overflow: visible;
+    gap: 0.75rem;
+    flex: 1;
     color: var(--navcard-text-default);
-    font-size: var(--sapFontHeader4Size);
+    font-size: var(--sapFontHeader5Size);
 }
 
 .default:hover {
@@ -61,7 +61,7 @@
 }
 
 .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--sapContent_LabelColor, #6a6d70);
     line-height: 1.2; 
 }
@@ -69,7 +69,9 @@
 .spacing {
     display: flex;
     flex-direction: column;
-    line-height: 1.2; 
+    justify-content: center;
+    line-height: 1.4;
+    padding: 0 8px; 
 }
 
 .spacing > div:first-child {
@@ -79,8 +81,7 @@
 
 .logo {
   height: 24px;
-  width: auto;
-  margin-right: 12px;
+  width: 48px;
   object-fit: contain;
   flex-shrink: 0;
 }
