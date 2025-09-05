@@ -50,6 +50,7 @@
 .textBold {
     font-weight: 700;
 }
+
 .textItalic {
     font-style: italic;
 }
@@ -120,4 +121,39 @@
 .dropdownChevronSmall {
     color: #888;
     margin-left: 2px;
+}
+
+.linkEditorPositioner {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    width: 320px;
+    z-index: 101;
+}
+
+.linkEditor {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+}
+
+.linkInput {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    background-color: #fafafa;
+}
+
+.linkInput:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
 }

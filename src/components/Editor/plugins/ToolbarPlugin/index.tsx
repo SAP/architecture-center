@@ -8,12 +8,27 @@ import {
     $createParagraphNode,
 } from 'lexical';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
-import { $setBlocksType } from '@lexical/selection';
+import { $setBlocksType, $isAtNodeEnd } from '@lexical/selection';
 import { $isHeadingNode, $createHeadingNode, HeadingTagType } from '@lexical/rich-text';
 import { $createCodeNode } from '@lexical/code';
 import { ChevronDown, Underline, Link2 } from 'lucide-react';
-
 import styles from './index.module.css';
+
+function getSelectedNode(selection) {
+    const anchor = selection.anchor;
+    const focus = selection.focus;
+    const anchorNode = selection.anchor.getNode();
+    const focusNode = selection.focus.getNode();
+    if (anchorNode === focusNode) {
+        return anchorNode;
+    }
+    const isBackward = selection.isBackward();
+    if (isBackward) {
+        return $isAtNodeEnd(focus) ? anchorNode : focusNode;
+    } else {
+        return $isAtNodeEnd(anchor) ? focusNode : anchorNode;
+    }
+}
 
 const LowPriority = 1;
 
@@ -104,7 +119,56 @@ function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: k
     );
 }
 
-function FloatingToolbarContent() {
+function FloatingLinkEditor({ editor, onClose }: { editor: any; onClose: () => void }) {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [linkUrl, setLinkUrl] = useState('');
+
+    useEffect(() => {
+        editor.getEditorState().read(() => {
+            const selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+                const node = getSelectedNode(selection);
+                const parent = node.getParent();
+                if ($isLinkNode(parent)) {
+                    setLinkUrl(parent.getURL());
+                } else if ($isLinkNode(node)) {
+                    setLinkUrl(node.getURL());
+                } else {
+                    setLinkUrl('https://');
+                }
+            }
+        });
+        setTimeout(() => inputRef.current?.focus(), 0);
+    }, [editor]);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (linkUrl.trim() !== '') {
+                editor.dispatchCommand(TOGGLE_LINK_COMMAND, linkUrl);
+            }
+            onClose();
+        } else if (event.key === 'Escape') {
+            event.preventDefault();
+            onClose();
+        }
+    };
+
+    return (
+        <div className={styles.linkEditor}>
+            <input
+                ref={inputRef}
+                className={styles.linkInput}
+                value={linkUrl}
+                onChange={(e) => setLinkUrl(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Paste link or search pages"
+            />
+        </div>
+    );
+}
+
+function FloatingToolbarContent({ onEditLink }: { onEditLink: () => void }) {
     const [editor] = useLexicalComposerContext();
     const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
     const [isBold, setIsBold] = useState(false);
@@ -135,7 +199,7 @@ function FloatingToolbarContent() {
                     setBlockType('paragraph');
                 }
             }
-            const node = selection.getNodes()[0];
+            const node = getSelectedNode(selection);
             const parent = node.getParent();
             setIsLink($isLinkNode(parent) || $isLinkNode(node));
         }
@@ -151,11 +215,11 @@ function FloatingToolbarContent() {
 
     const insertLink = useCallback(() => {
         if (!isLink) {
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
+            onEditLink();
         } else {
             editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
         }
-    }, [editor, isLink]);
+    }, [editor, isLink, onEditLink]);
 
     return (
         <div className={styles.toolbarContent}>
@@ -195,10 +259,10 @@ function FloatingToolbarContent() {
 export default function ToolbarPlugin() {
     const [editor] = useLexicalComposerContext();
     const toolbarRef = useRef<HTMLDivElement>(null);
+    const [isLinkEditMode, setIsLinkEditMode] = useState(false);
 
     const updateToolbarLocation = useCallback(() => {
         const toolbarElement = toolbarRef.current;
-
         if (!toolbarElement) {
             return;
         }
@@ -208,35 +272,41 @@ export default function ToolbarPlugin() {
         const rootElement = editor.getRootElement();
 
         if (
-            !toolbarElement ||
-            !rootElement ||
-            !nativeSelection ||
-            !selection ||
-            nativeSelection.isCollapsed ||
-            !rootElement.contains(nativeSelection.anchorNode)
+            selection !== null &&
+            nativeSelection !== null &&
+            !nativeSelection.isCollapsed &&
+            rootElement &&
+            rootElement.contains(nativeSelection.anchorNode)
         ) {
+            const domRange = nativeSelection.getRangeAt(0);
+            const selectionRect = domRange.getBoundingClientRect();
+            const positioningContainer = toolbarElement.offsetParent;
+
+            if (!positioningContainer) {
+                return;
+            }
+            const containerRect = positioningContainer.getBoundingClientRect();
+
+            const relativeTop = selectionRect.top - containerRect.top;
+            const relativeLeft = selectionRect.left - containerRect.left;
+
+            const top = relativeTop - toolbarElement.offsetHeight - 5;
+            const left = relativeLeft;
+
+            toolbarElement.style.opacity = '1';
+            toolbarElement.style.top = `${top}px`;
+            toolbarElement.style.left = `${left}px`;
+        } else {
             toolbarElement.style.opacity = '0';
             toolbarElement.style.top = '-1000px';
-            return;
         }
-
-        const domRange = nativeSelection.getRangeAt(0);
-        const selectionRect = domRange.getBoundingClientRect();
-
-        const positioningContainer = toolbarElement.offsetParent;
-        if (!positioningContainer) {
-            return;
-        }
-        const containerRect = positioningContainer.getBoundingClientRect();
-        const relativeTop = selectionRect.top - containerRect.top;
-        const relativeLeft = selectionRect.left - containerRect.left;
-        const top = relativeTop - toolbarElement.offsetHeight - 10;
-        const left = relativeLeft;
-
-        toolbarElement.style.opacity = '1';
-        toolbarElement.style.top = `${top}px`;
-        toolbarElement.style.left = `${left}px`;
     }, [editor]);
+
+    useEffect(() => {
+        editor.getEditorState().read(() => {
+            updateToolbarLocation();
+        });
+    }, [isLinkEditMode, editor, updateToolbarLocation]);
 
     useEffect(() => {
         const unregister = editor.registerUpdateListener(({ editorState }) => {
@@ -247,9 +317,44 @@ export default function ToolbarPlugin() {
         return unregister;
     }, [editor, updateToolbarLocation]);
 
+    useEffect(() => {
+        const onSelectionChange = () => {
+            const selection = $getSelection();
+            if (isLinkEditMode && (!$isRangeSelection(selection) || selection.isCollapsed())) {
+                setIsLinkEditMode(false);
+            }
+            return false;
+        };
+        return editor.registerCommand(SELECTION_CHANGE_COMMAND, onSelectionChange, LowPriority);
+    }, [editor, isLinkEditMode]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (toolbarRef.current && !toolbarRef.current.contains(event.target as Node)) {
+                setIsLinkEditMode(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     return (
         <div ref={toolbarRef} className={styles.floatingToolbarContainer}>
-            <FloatingToolbarContent />
+            <FloatingToolbarContent
+                onEditLink={() => {
+                    setIsLinkEditMode(true);
+                }}
+            />
+            {isLinkEditMode && (
+                <div className={styles.linkEditorPositioner}>
+                    <FloatingLinkEditor
+                        editor={editor}
+                        onClose={() => {
+                            setIsLinkEditMode(false);
+                        }}
+                    />
+                </div>
+            )}
         </div>
     );
 }

@@ -10,95 +10,20 @@ import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lex
 import { $createHeadingNode } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import * as ReactDOM from 'react-dom';
+import {
+    Type,
+    Heading1,
+    Heading2,
+    List,
+    ListOrdered,
+    Image as ImageIcon,
+    LayoutDashboard,
+    Paperclip,
+} from 'lucide-react';
 
 import { TOGGLE_IMAGE_DIALOG, OPEN_DRAWIO_DIALOG } from '../commands';
 import styles from './index.module.css';
-
-const TextIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M5 4V7H9.5M5 4H19M5 4H7.5M19 4V7H14.5M19 4H16.5M12 20V4M12 20H9.5M12 20H14.5"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-const H1Icon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M6 4V20M18 4V20M6 12H18M11 4H4M20 4H13M11 20H4M20 20H13"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-const H2Icon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M6 4V20M18 12H6M18 5.5C18 4.67157 17.3284 4 16.5 4H13C13 4 13 6.5 15.5 6.5C18 6.5 18 9 18 9M18 18.5C18 19.3284 17.3284 20 16.5 20H13C13 20 13 17.5 15.5 17.5C18 17.5 18 15 18 15"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-const BulletedListIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M8 6H21M8 12H21M8 18H21M3.5 6V6.01M3.5 12V12.01M3.5 18V18.01"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-const NumberedListIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M8 6H21M8 12H21M8 18H21M4 6L3 7M4 18H3L4 17H3M3 11H4L3 13H4"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-const ImageIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M21 12.18C21 12.75 20.78 13.29 20.34 13.68L13.66 19.64C12.74 20.47 11.23 20.47 10.31 19.64L3.62999 13.68C3.21999 13.29 2.99999 12.75 2.99999 12.18V5.91C2.99999 4.29 4.28999 3 5.91999 3H18.08C19.71 3 21 4.29 21 5.91V12.18Z"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-        <path
-            d="M7.5 8C8.32843 8 9 7.32843 9 6.5C9 5.67157 8.32843 5 7.5 5C6.67157 5 6 5.67157 6 6.5C6 7.32843 6.67157 8 7.5 8Z"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
-
-const DrawioIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M9 20V21M15 20V21M9 3V4M15 3V4M3 9H4M3 15H4M20 9H21M20 15H21M12 8V16M8 12H16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
-);
+import { fileUploadCommand } from '../fileUploadCommand';
 
 class CommandOption extends MenuOption {
     name: string;
@@ -193,6 +118,39 @@ function CommandMenu({
     );
 }
 
+const onFileSelect = (editor: LexicalEditor) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt,.md,.js,.css,.html,.json';
+    fileInput.style.display = 'none';
+
+    fileInput.onchange = (e) => {
+        const target = e.target as HTMLInputElement;
+        const file = target.files?.[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const fileContent = event.target?.result as string;
+            if (fileContent) {
+                editor.update(() => {
+                    const selection = $getSelection();
+                    if ($isRangeSelection(selection)) {
+                        selection.insertText(fileContent);
+                    }
+                });
+            }
+        };
+        reader.onerror = (error) => console.error('Error reading file:', error);
+        reader.readAsText(file);
+        document.body.removeChild(fileInput);
+    };
+
+    document.body.appendChild(fileInput);
+    fileInput.click();
+};
+
 export default function SlashCommandPlugin() {
     const [editor] = useLexicalComposerContext();
     const [queryString, setQueryString] = useState<string | null>(null);
@@ -200,7 +158,7 @@ export default function SlashCommandPlugin() {
     const ALL_COMMANDS = useMemo(
         () => [
             new CommandOption('Paragraph', {
-                icon: <TextIcon />,
+                icon: <Type size={20} />,
                 keywords: ['paragraph', 'text', 'p'],
                 onSelect: (editor) => {
                     editor.update(() => {
@@ -212,7 +170,7 @@ export default function SlashCommandPlugin() {
                 },
             }),
             new CommandOption('Heading 1', {
-                icon: <H1Icon />,
+                icon: <Heading1 size={20} />,
                 keywords: ['heading', 'h1', 'header'],
                 hint: '#',
                 onSelect: (editor) => {
@@ -225,7 +183,7 @@ export default function SlashCommandPlugin() {
                 },
             }),
             new CommandOption('Heading 2', {
-                icon: <H2Icon />,
+                icon: <Heading2 size={20} />,
                 keywords: ['heading', 'h2', 'header'],
                 hint: '##',
                 onSelect: (editor) => {
@@ -238,7 +196,7 @@ export default function SlashCommandPlugin() {
                 },
             }),
             new CommandOption('Bulleted List', {
-                icon: <BulletedListIcon />,
+                icon: <List size={20} />,
                 keywords: ['bullet', 'list', 'ul'],
                 hint: '-',
                 onSelect: (editor) => {
@@ -246,7 +204,7 @@ export default function SlashCommandPlugin() {
                 },
             }),
             new CommandOption('Numbered List', {
-                icon: <NumberedListIcon />,
+                icon: <ListOrdered size={20} />,
                 keywords: ['numbered', 'list', 'ol'],
                 hint: '1.',
                 onSelect: (editor) => {
@@ -254,19 +212,20 @@ export default function SlashCommandPlugin() {
                 },
             }),
             new CommandOption('Image', {
-                icon: <ImageIcon />,
+                icon: <ImageIcon size={20} />,
                 keywords: ['image', 'photo', 'picture', 'img'],
                 onSelect: (editor) => {
                     editor.dispatchCommand(TOGGLE_IMAGE_DIALOG, undefined);
                 },
             }),
             new CommandOption('Draw.io Diagram', {
-                icon: <DrawioIcon />,
+                icon: <LayoutDashboard size={20} />,
                 keywords: ['drawio', 'diagram', 'draw', 'flowchart'],
                 onSelect: (editor) => {
                     editor.dispatchCommand(OPEN_DRAWIO_DIALOG, undefined);
                 },
             }),
+            new CommandOption(fileUploadCommand.name, { ...fileUploadCommand }),
         ],
         []
     );
