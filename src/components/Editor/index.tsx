@@ -18,6 +18,7 @@ import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import { DrawioNode } from './nodes/DrawioNode';
 import DrawioPlugin from './plugins/DrawioPlugin';
+import TableOfContentsPlugin from './plugins/TableOfContentPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
 
 import EditorTheme from './EditorTheme';
@@ -54,22 +55,25 @@ const Editor: React.FC = () => {
     return (
         <div className={styles.editorPageWrapper}>
             <LexicalComposer initialConfig={editorConfig}>
-                <div className={styles.editorContainer}>
-                    <ToolbarPlugin />
-                    <div className={styles.editorInner}>
-                        <RichTextPlugin
-                            contentEditable={<ContentEditable className={styles.editorInput} />}
-                            placeholder={<Placeholder />}
-                            ErrorBoundary={LexicalErrorBoundary}
-                        />
-                        <HistoryPlugin />
-                        <AutoFocusPlugin />
-                        <ListPlugin />
-                        <LinkPlugin />
-                        <ImagePlugin />
-                        <DrawioPlugin />
-                        <SlashCommandPlugin />
+                <div className={styles.editorLayoutContainer}>
+                    <div className={styles.editorContainer}>
+                        <ToolbarPlugin />
+                        <div className={styles.editorInner}>
+                            <RichTextPlugin
+                                contentEditable={<ContentEditable className={styles.editorInput} />}
+                                placeholder={<Placeholder />}
+                                ErrorBoundary={LexicalErrorBoundary}
+                            />
+                            <HistoryPlugin />
+                            <AutoFocusPlugin />
+                            <ListPlugin />
+                            <LinkPlugin />
+                            <ImagePlugin />
+                            <DrawioPlugin />
+                            <SlashCommandPlugin />
+                        </div>
                     </div>
+                    <TableOfContentsPlugin />
                 </div>
             </LexicalComposer>
         </div>
