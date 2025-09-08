@@ -23,7 +23,6 @@ interface ReactCarouselProps extends Settings {
     showHeader?: boolean;
     showLink?: { name: string; url: string } | null;
     arrowOrientation?: ArrowOrientation;
-    showArrows?: boolean;
 }
 
 const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
@@ -36,7 +35,6 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
             cardClassName,
             title,
             showHeader = true,
-            showArrows = true,
             showLink = null,
             arrowOrientation = 'H',
             slidesToShow = 3,
@@ -101,39 +99,35 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                     {title && <div className={styles.titleStyle}>{title}</div>}
                     {showHeader && (
                         <div className={styles.headerRow}>
-                            <div className={`${styles.headerControls} ${!showLink ? styles.noLink : ''}`}>
-                                {showArrows && (
-                                    <>                            
-                                    <Button
-                                        accessibleName="Previous slide"
-                                        design="Transparent"
-                                        icon={prevIcon}
-                                        disabled={atStart}
-                                        onClick={() => {
-                                            if (sliderRef.current && typeof sliderRef.current.slickPrev === 'function') {
-                                                sliderRef.current.slickPrev();
-                                            } else {
-                                                console.warn(
-                                                    'Previous slide is not a function or slider reference is null'
-                                                );
-                                            }
-                                        }}
-                                    />
-                                    <Button
-                                        accessibleName="Next slide"
-                                        design="Transparent"
-                                        icon={nextIcon}
-                                        disabled={atEnd}
-                                        onClick={() => {
-                                            if (sliderRef.current && typeof sliderRef.current.slickNext === 'function') {
-                                                sliderRef.current.slickNext();
-                                            } else {
-                                                console.warn('Next slide is not a function or slider reference is null');
-                                            }
-                                        }}
-                                    />                                   
-                                  </>
-                                )}                        
+                            <div className={`${styles.headerControls} ${!showLink ? styles.noLink : ''}`}>                     
+                                <Button
+                                    accessibleName="Previous slide"
+                                    design="Transparent"
+                                    icon={prevIcon}
+                                    disabled={atStart}
+                                    onClick={() => {
+                                        if (sliderRef.current && typeof sliderRef.current.slickPrev === 'function') {
+                                            sliderRef.current.slickPrev();
+                                        } else {
+                                            console.warn(
+                                                'Previous slide is not a function or slider reference is null'
+                                            );
+                                        }
+                                    }}
+                                />
+                                <Button
+                                    accessibleName="Next slide"
+                                    design="Transparent"
+                                    icon={nextIcon}
+                                    disabled={atEnd}
+                                    onClick={() => {
+                                        if (sliderRef.current && typeof sliderRef.current.slickNext === 'function') {
+                                            sliderRef.current.slickNext();
+                                        } else {
+                                            console.warn('Next slide is not a function or slider reference is null');
+                                        }
+                                    }}
+                                />                                   
                                 {showLink && showLink.url && showLink.name && (
                                     <Link to={showLink.url}>{showLink.name}</Link>
                                 )}
