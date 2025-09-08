@@ -99,7 +99,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                     {title && <div className={styles.titleStyle}>{title}</div>}
                     {showHeader && (
                         <div className={styles.headerRow}>
-                            <div className={`${styles.headerControls} ${!showLink ? styles.noLink : ''}`}>                     
+                            <div className={`${styles.headerControls} ${!showLink ? styles.noLink : ''}`}>
                                 <Button
                                     accessibleName="Previous slide"
                                     design="Transparent"
@@ -127,7 +127,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                                             console.warn('Next slide is not a function or slider reference is null');
                                         }
                                     }}
-                                />                                   
+                                />
                                 {showLink && showLink.url && showLink.name && (
                                     <Link to={showLink.url}>{showLink.name}</Link>
                                 )}
