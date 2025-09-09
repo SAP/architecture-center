@@ -22,9 +22,9 @@ export default function HeroSection(): JSX.Element {
         {
             lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
-            title: 'Explore Clean Core',
+            title: 'Architecture Validator',
             subtitle: 'Give you the tools to shape the future',
-            body: 'Build side-by-side extensions while keeping the core clean.',
+            body: 'Ensure your solution diagrams comply with a set of rules carefully crafted by our architects.',
         },
         {
             lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
