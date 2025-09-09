@@ -37,18 +37,18 @@ export const addResData = [
         title: 'Amazon Web Services',
         subtitle: 'Reference architectures, best practices, and Well-Architected guidance for AWS workloads.',
         link: 'https://aws.amazon.com/architecture/',
-        logo: 'img/landingPage/AC_AWS_Light_Logo.svg',
+        logo: 'img/landingPage/AC_AWS_Light_Logo.webp',
     },
     {
         title: 'Microsoft Azure',
         subtitle: 'Solution ideas, reference architectures, and design patterns for Azure cloud applications.',
         link: 'https://learn.microsoft.com/en-us/azure/architecture/',
-        logo: 'img/landingPage/AC_Azure_Logo.svg',
+        logo: 'img/landingPage/AC_Azure_Logo.webp',
     },
     {
         title: 'Google Cloud Platform',
         subtitle: 'Best practices, topologies, and blueprints for designing and managing Google Cloud workloads.',
         link: 'https://cloud.google.com/architecture',
-        logo: 'img/landingPage/AC_GCP_Logo.svg',
+        logo: 'img/landingPage/AC_GCP_Logo.webp',
     },
 ];
