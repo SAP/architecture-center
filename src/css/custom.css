@@ -46,7 +46,7 @@
     --navcard-border-hover: #0065B3;
 
     /* Morning Horizon's color for icons */
-     --navcard-icon-default: #4A5D6F;
+    --navcard-icon-default: #4A5D6F;
     --navcard-icon-hover: #0065B3;   
 
     /* Custom spacing scale */
@@ -95,6 +95,9 @@
     --color-linkedin: #0a66c2;
     --color-text-muted: #666;
     --color-sap-primary: #002a86;
+
+    /* Dark mode colors */
+    --text-color-dark-mode: #ccc;
 }
 
 /* Ensure code blocks do not overflow the page */

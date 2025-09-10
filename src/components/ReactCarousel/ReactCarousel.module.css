@@ -117,11 +117,6 @@
     display: none;
 }
 
-/* Dark mode */
-[data-theme='dark'] .sectionContainer {
-    background-color: #000;
-}
-
 .gridContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

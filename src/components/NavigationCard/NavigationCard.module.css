@@ -23,6 +23,12 @@
     box-shadow: none;
 }
 
+:root[data-theme='dark'] .default {
+    background-color: var(--sapBackgroundColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    color: var(--sapContent_ContrastTextColor);
+}
+
 .default ui5-icon,
 .icon {
     color: var(--navcard-icon-default);
@@ -30,6 +36,11 @@
     font-size: 1.5rem;
     width: 2rem;
     height: 1.5rem;
+}
+
+:root[data-theme='dark'] .default ui5-icon,
+:root[data-theme='dark'] .icon {
+    color: var(--text-color-dark-mode);
 }
 
 .inline {
@@ -41,6 +52,11 @@
     font-size: var(--sapFontHeader5Size);
 }
 
+:root[data-theme='dark'] .default,
+:root[data-theme='dark'] .inline {
+    color: var(--text-color-dark-mode);
+}
+
 .default:hover {
     background-color: white;
     box-shadow: 0 8px 20px -5px var(--sapUiBrand);
@@ -48,9 +64,20 @@
     color: var(--navcard-text-hover);
 }
 
+:root[data-theme='dark'] .default:hover {
+    background-color: var(--sapList_Hover_Background);
+    border-color: var(--navcard-text-hover);
+}
+
 .default:hover ui5-icon,
 .default:hover .icon,
 .default:hover .inline {
+    color: var(--navcard-icon-hover);
+}
+
+:root[data-theme='dark'] .default:hover ui5-icon,
+:root[data-theme='dark'] .default:hover .icon,
+:root[data-theme='dark'] .default:hover .inline {
     color: var(--navcard-icon-hover);
 }
 
