@@ -17,35 +17,35 @@ export default function HeroSection(): JSX.Element {
             darkImg: 'architecture_center_hero_banner_1440x424_light.webp',
             title: 'SAP Architecture Center',
             subtitle: '',
-            body: 'Put AI, data, and applications to work with comprehensive architectures of SAP solutions tailored to your needs — and ready to extend as you grow.',
+            body: 'Put AI, data, and applications to work with SAP’s comprehensive solution architectures. They are designed to address your business needs today and built to scale, adapt, and extend seamlessly as your organization grows.',
         },
         {
             lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             title: 'Architecture Validator',
             subtitle: '',
-            body: 'Ensure your solution diagrams comply with a set of rules carefully crafted by our architects.',
+            body: 'Ensure your solution diagrams follow a consistent framework with rules developed by our architects, maintaining quality, improving collaboration, and aligning technical accuracy with business needs.',
         },
         {
             lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
             darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
             title: 'Community of Practice',
             subtitle: '',
-            body: 'Discover AI-driven enterprise strategies.',
+            body: 'Our mission is to create a common, collaborative, environment where all SAP experts can co-create, maintain, and enhance reference architectures for every flavor of SAP cloud, on-premises, and partner implementation.',
         },
         {
             lightImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
             darkImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
             title: 'Solution Diagram Guidelines',
             subtitle: '',
-            body: 'Follow SAP-recommended standards, templates, and best practices to design solution diagrams that are easy to understand and share.',
+            body: 'The single source of truth for architects provides the latest updates, best practices, and ready-to-use templates to help you create clear, consistent, and high-quality diagrams of architectural landscapes.',
         },
         {
             lightImg: 'whats_new_hero_banner_1140x424_light.webp',
             darkImg: 'whats_new_hero_banner_1140x424_light.webp',
             title: "What's New",
             subtitle: '',
-            body: 'Stay updated with the latest features and releases. Explore new tools, capabilities, and enhancements that help you design, build, and run smarter solutions.',
+            body: 'Stay informed about the latest features and releases from our platform. Discover new tools, capabilities, and enhancements that empower you to design, build, and run smarter, more scalable, and future-ready solutions.',
         }
     ];
 
