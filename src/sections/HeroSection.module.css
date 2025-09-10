@@ -68,8 +68,8 @@
 }
 
 .heroSlideBody {
-    max-width: 70ch;
-    font-size: clamp(13px, 2.4vw, 18px);
+    max-width: 60ch;
+    font-size: clamp(14px, 2.8vw, 22px);
     margin-top: 2rem;
     opacity: 0.9;
 }
