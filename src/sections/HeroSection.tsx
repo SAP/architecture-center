@@ -16,36 +16,36 @@ export default function HeroSection(): JSX.Element {
             lightImg: 'architecture_center_hero_banner_1440x424_light.webp',
             darkImg: 'architecture_center_hero_banner_1440x424_light.webp',
             title: 'SAP Architecture Center',
-            subtitle: 'Give you the tools to shape the future',
+            subtitle: '',
             body: 'Put AI, data, and applications to work with comprehensive architectures of SAP solutions tailored to your needs — and ready to extend as you grow.',
         },
         {
             lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             title: 'Architecture Validator',
-            subtitle: 'Give you the tools to shape the future',
+            subtitle: '',
             body: 'Ensure your solution diagrams comply with a set of rules carefully crafted by our architects.',
         },
         {
             lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
             darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
             title: 'Community of Practice',
-            subtitle: 'Give you the tools to shape the future',
+            subtitle: '',
             body: 'Discover AI-driven enterprise strategies.',
         },
         {
             lightImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
             darkImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
             title: 'Solution Diagram Guidelines',
-            subtitle: 'Create clear, consistent, and professional diagrams',
+            subtitle: '',
             body: 'Follow SAP-recommended standards, templates, and best practices to design solution diagrams that are easy to understand and share.',
         },
         {
             lightImg: 'whats_new_hero_banner_1140x424_light.webp',
             darkImg: 'whats_new_hero_banner_1140x424_light.webp',
             title: "What's New",
-            subtitle: 'Stay updated with the latest features and releases',
-            body: 'Explore new tools, capabilities, and enhancements that help you design, build, and run smarter solutions.',
+            subtitle: '',
+            body: 'Stay updated with the latest features and releases. Explore new tools, capabilities, and enhancements that help you design, build, and run smarter solutions.',
         }
     ];
 
