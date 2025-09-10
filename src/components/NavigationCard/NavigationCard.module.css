@@ -25,7 +25,7 @@
 
 :root[data-theme='dark'] .default {
     background-color: var(--sapBackgroundColor);
-    border: 1px solid var(--sapTile_BorderColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
     color: var(--sapContent_ContrastTextColor);
 }
 

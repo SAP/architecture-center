@@ -2,13 +2,14 @@ import React, { JSX } from 'react';
 import { Card, Icon } from '@ui5/webcomponents-react';
 import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
-import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
+import { useColorMode } from '@docusaurus/theme-common'
 
 interface CustomButtonProps {
     title: string;
     subtitle?: string;
     icon?: string;
-    logo?: string;
+    logoLight?: string;
+    logoDark?: string;
     link: string;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
@@ -18,17 +19,21 @@ export default function NavigationCard({
     title,
     subtitle,
     icon,
-    logo,
+    logoLight,
+    logoDark,
     link,
     onMouseEnter,
     onMouseLeave,
 }: CustomButtonProps): JSX.Element {
+    const { colorMode } = useColorMode();
+    const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
+
     return (
         <Link to={link} className={styles.cardLink}>
             <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <span className={styles.inline}>
-                    {logo ? (
-                        <img src={logo} alt={`${title} logo`} className={styles.logo} />
+                    {resolvedLogo ? (
+                        <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
                     ) : (
                         <Icon className={styles.icon} name={icon} />
                     )}
