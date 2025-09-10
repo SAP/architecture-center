@@ -715,6 +715,16 @@ table thead {
     margin-left: 10px;
 }
 
+.navbar-item-user {
+    background: url('/img/user.svg') no-repeat center;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
 /* Dark mode styles */
 html[data-theme='dark'] .navbar-item-github {
     background: url('/img/github-mark-white.svg') no-repeat center;

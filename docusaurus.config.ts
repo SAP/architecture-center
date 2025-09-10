@@ -255,6 +255,11 @@ const config: Config = {
                     'aria-label': 'GitHub repository',
                     title: 'Visit GitHub Repository',
                 },
+                {
+                    type: 'html',
+                    position: 'right',
+                    value: `<a href="#" class="navbar-item-user" aria-label="Login" title="Login" style="color:inherit;text-decoration:none;" onclick="window.location.href='https://tfe-india-genai-validator-dev-backend-srv.cfapps.eu10-004.hana.ondemand.com/user/login?origin_uri=' + encodeURIComponent(window.location.href); return false;"></a>`,
+                }
             ],
         },
         footer: {
