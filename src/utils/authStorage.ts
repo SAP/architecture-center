@@ -1,8 +1,9 @@
 /**
  * Authentication storage utility with base64 encryption
  */
+import { environment } from "../config/environment";
 
-const AUTH_STORAGE_KEY = "sap-btp-ai-bp-auth-token";
+const AUTH_STORAGE_KEY = environment.storageName;
 const isBrowser = typeof window !== "undefined";
 
 export interface AuthData {
