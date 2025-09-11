@@ -61,11 +61,27 @@ export default function ArchitectureValidator(): React.JSX.Element {
             <Layout>
                 <div className={styles.headerBar}>
                     <h1>Architecture Validator</h1>
-                    <p>Authentication required</p>
+                    <p>Authentication required to access this feature</p>
                 </div>
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
-                        <p>Redirecting to login...</p>
+                        <div className={styles.authRequired}>
+                            <h2>🔒 Authentication Required</h2>
+                            <p>
+                                The Architecture Validator requires authentication to ensure secure access to validation
+                                services.
+                            </p>
+                            <p>
+                                You will be redirected to the login page automatically, or you can click the button
+                                below to login manually.
+                            </p>
+                            <button className={styles.loginButton} onClick={login}>
+                                Login to Continue
+                            </button>
+                            <p className={styles.authHelpText}>
+                                After logging in, you'll be redirected back to this page.
+                            </p>
+                        </div>
                     </div>
                 </main>
             </Layout>

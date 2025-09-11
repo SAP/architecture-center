@@ -1,7 +1,8 @@
 import React, { JSX, useEffect, useRef, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
-import { getVisibleNavigationCards } from '../constant/constants';
+import { navigationCardsData } from '../constant/constants';
+import { authStorage } from '../utils/authStorage';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
@@ -10,6 +11,17 @@ import styles from './HeroSection.module.css';
 export default function HeroSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+
+    const getVisibleNavigationCards = () => {
+        const authData = authStorage.load();
+        const isLoggedIn = authData && authData.token;
+
+        return navigationCardsData.map((card) => ({
+            ...card,
+            // If card requires authentication and user is not logged in, mark as disabled
+            disabled: card.requiresAuth && !isLoggedIn,
+        }));
+    };
 
     const slides = [
         {
@@ -121,6 +133,7 @@ export default function HeroSection(): JSX.Element {
                         title={item.title}
                         icon={item.icon}
                         link={item.link}
+                        disabled={item.disabled}
                         onMouseEnter={() => handleCardHover(index)}
                         onMouseLeave={handleCardLeave}
                     />
