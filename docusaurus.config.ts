@@ -5,7 +5,7 @@ const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
-
+import { environment } from "./src/config/environment";
 
 const config: Config = {
     title: 'SAP Architecture Center',
@@ -31,7 +31,8 @@ const config: Config = {
     },
     customFields: {
         validatorApiKey: process.env.VALIDATOR_API_KEY,
-        validatorApiUrl : process.env.VALIDATOR_API_URL
+        validatorApiUrl : process.env.VALIDATOR_API_URL,
+        apiUrl: environment.apiUrl
       },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
@@ -257,9 +258,8 @@ const config: Config = {
                     title: 'Visit GitHub Repository',
                 },
                 {
-                    type: 'html',
-                    position: 'right',
-                    value: `<a href="#" class="navbar-item-user" aria-label="Login" title="Login" style="color:inherit;text-decoration:none;" onclick="window.location.href='https://tfe-india-genai-validator-dev-backend-srv.cfapps.eu10-004.hana.ondemand.com/user/login?origin_uri=' + encodeURIComponent(window.location.href); return false;"></a>`,
+                    type: "custom-user-dropdown",
+                    position: "right"
                 }
             ],
         },

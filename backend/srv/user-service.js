@@ -49,14 +49,14 @@ const loginSuccessHandler = async (req) => {
 
 const getUserInfoHandler = async (req) => {
     const { user } = cds.context;
-    console.log(JSON.stringify(user));
     const thisUser = {
         ID: user?.id,
         firstName: user?.attr.givenName,
         lastName: user?.attr.familyName,
         email: user?.attr.email,
-        companyId: user?.attr.sapBpidOrg[0],
-        company: user?.attr.company[0],
-        type: user?.attr.type[0],
+        companyId: '',
+        company: '',
+        type: ''
     };
+    return thisUser;
 };
