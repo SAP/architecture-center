@@ -284,31 +284,23 @@ const config: Config = {
             style: 'light',
             links: [
                 {
-                    title: 'Quick Links',
+                    title: 'Other Resources',
                     items: [
                         {
-                            label: 'Browse Architectures',
-                            href: '/docs',
+                            label: 'SAP Help Portal',
+                            href: 'https://help.sap.com/docs/',
                         },
                         {
-                            label: 'Architecture Validator',
-                            href: '/',
+                            label: 'SAP Developer Center',
+                            href: 'https://developers.sap.com/',
                         },
                         {
-                            label: 'QuickStart',
-                            href: '/',
+                            label: 'SAP Support Portal',
+                            href: 'https://support.sap.com/',
                         },
                         {
-                            label: 'Solution Diagram Guidelines',
-                            href: '/',
-                        },
-                        {
-                            label: 'Community of Practice',
-                            href: '/community/intro',
-                        },
-                        {
-                            label: 'What\'s New',
-                            href: '/blog',
+                            label: 'SAP Learning',
+                            href: 'https://learning.sap.com/',
                         },
                     ],
                 },
@@ -337,7 +329,7 @@ const config: Config = {
                             href: 'https://community.sap.com/t5/all-sap-community-blogs/ct-p/all-blogs',
                         },
                         {
-                            label: 'Q&A',
+                            label: 'SAP Community',
                             href: 'https://community.sap.com/',
                         },
                     ],
