@@ -56,8 +56,6 @@ They are designed for rapid development through configuration rather than coding
 
 For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/readme.md).
 
-![drawio](../../RA0024/drawio/joule-studio-ref-arch.drawio)
-
 ### Code-Based Agents ###
 
 Offering maximum flexibility, **Code-Based Agents** enable developers to implement bespoke logic and fine-tuned workflows directly on SAP BTP, making them ideal for complex business requirements that go beyond low-code configurations.
