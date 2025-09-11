@@ -20,7 +20,7 @@ const loginHandler = async (req) => {
     const origin_uri = http && http.req.query.origin_uri;
     // const callback_url = `${http && http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
     const callback_url = `https://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
-    const authorize_url = `${xsuaa.url}/oauth/authorize?response_type=code&client_id=${xsuaa.clientid}&redirect_uri=${callback_url}`;
+    const authorize_url = `${xsuaa.url}/oauth/authorize?login_hint=%257B%2522origin%2522%253A%2522sap.default%2522%257D&response_type=code&client_id=${xsuaa.clientid}&redirect_uri=${callback_url}`;
     if (http && http.res) http.res.redirect(authorize_url);
 };
 
