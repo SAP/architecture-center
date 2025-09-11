@@ -1,7 +1,7 @@
 import React, { JSX, useEffect, useRef, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
-import { navigationCardsData } from '../constant/constants';
+import { getVisibleNavigationCards } from '../constant/constants';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
@@ -46,7 +46,7 @@ export default function HeroSection(): JSX.Element {
             title: "What's New",
             subtitle: '',
             body: 'Stay informed about the latest features and releases from our platform. Discover new tools, capabilities, and enhancements that empower you to design, build, and run smarter, more scalable, and future-ready solutions.',
-        }
+        },
     ];
 
     const carouselRef = useRef(null);
@@ -115,7 +115,7 @@ export default function HeroSection(): JSX.Element {
             </div>
             {/* Navigation Cards */}
             <div className={styles.cardsGrid}>
-                {navigationCardsData.map((item, index) => (
+                {getVisibleNavigationCards().map((item, index) => (
                     <NavigationCard
                         key={index}
                         title={item.title}

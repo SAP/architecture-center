@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import axios from 'axios';
 import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { authStorage } from '../../utils/authStorage';
+import { useAuth } from '../../authProviderBTP';
 
 type FileStatus = 'queued' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -23,10 +25,52 @@ interface ManagedFile {
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
+    const { isLoggedIn, isLoading, login } = useAuth();
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Redirect to login if user is not authenticated
+    useEffect(() => {
+        if (!isLoading && !isLoggedIn) {
+            login();
+        }
+    }, [isLoading, isLoggedIn, login]);
+
+    // Show loading state while checking authentication
+    if (isLoading) {
+        return (
+            <Layout>
+                <div className={styles.headerBar}>
+                    <h1>Architecture Validator</h1>
+                    <p>Loading...</p>
+                </div>
+                <main className={styles.mainContainer}>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <p>Checking authentication...</p>
+                    </div>
+                </main>
+            </Layout>
+        );
+    }
+
+    // Don't render the main content if user is not logged in
+    if (!isLoggedIn) {
+        return (
+            <Layout>
+                <div className={styles.headerBar}>
+                    <h1>Architecture Validator</h1>
+                    <p>Authentication required</p>
+                </div>
+                <main className={styles.mainContainer}>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <p>Redirecting to login...</p>
+                    </div>
+                </main>
+            </Layout>
+        );
+    }
 
     const updateFileState = (id: string, updates: Partial<ManagedFile>) => {
         setManagedFiles((prev) => prev.map((mf) => (mf.id === id ? { ...mf, ...updates } : mf)));
@@ -73,11 +117,20 @@ export default function ArchitectureValidator(): React.JSX.Element {
         try {
             const formData = new FormData();
             formData.append('file', managedFile.file);
-            const apiKey = siteConfig.customFields.validatorApiKey as string;
             const apiUrl = siteConfig.customFields.validatorApiUrl as string;
 
+            // Get token from authStorage
+            const authData = authStorage.load();
+            const token = authData?.token;
+
+            if (!token) {
+                throw new Error('Authentication token not found. Please log in.');
+            }
+
             const response = await axios.post<{ validationReport: ValidationRule[] }>(apiUrl, formData, {
-                headers: { 'x-api-key': apiKey },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             const report = response.data.validationReport;

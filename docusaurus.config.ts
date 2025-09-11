@@ -5,7 +5,6 @@ const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
-import { environment } from "./src/config/environment";
 
 const config: Config = {
     title: 'SAP Architecture Center',
@@ -30,9 +29,8 @@ const config: Config = {
         mermaid: true,
     },
     customFields: {
-        validatorApiKey: process.env.VALIDATOR_API_KEY,
         validatorApiUrl : process.env.VALIDATOR_API_URL,
-        apiUrl: environment.apiUrl
+        xsuaaApiUrl: process.env.XSUAA_API_URL,
       },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [

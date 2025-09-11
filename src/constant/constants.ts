@@ -1,10 +1,25 @@
+import { authStorage } from '../utils/authStorage';
+
 export const navigationCardsData = [
     { title: 'Browse Architectures', icon: 'document-text', link: '/docs/ref-arch/demo' },
-    { title: 'Architecture Validator', icon: 'sap-icon://order-status', link: '/ArchitectureValidator' },
+    { title: 'Architecture Validator', icon: 'sap-icon://order-status', link: '/ArchitectureValidator', requiresAuth: true },
     { title: 'Community of Practice', icon: 'sap-icon://group', link: '/community/intro' },
     { title: 'Solution Diagram Guidelines', icon: 'sap-icon://learning-assistant', link: '' },
     { title: "What's new", icon: 'sap-icon://marketing-campaign', link: '/blog' },
 ];
+
+export const getVisibleNavigationCards = () => {
+    const authData = authStorage.load();
+    const isLoggedIn = authData && authData.token;
+    
+    return navigationCardsData.filter(card => {
+        // If card requires authentication and user is not logged in, hide it
+        if (card.requiresAuth && !isLoggedIn) {
+            return false;
+        }
+        return true;
+    });
+};
 
 export const techDomain = [
     { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },

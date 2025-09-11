@@ -2,7 +2,7 @@ import { useLocation, useHistory } from "@docusaurus/router";
 import React, { createContext, useState, useContext, useEffect, useMemo, useRef } from "react";
 import siteConfig from "@generated/docusaurus.config";
 import { authStorage } from "./utils/authStorage";
-const BTP_API = siteConfig.customFields.apiUrl as string;
+const BTP_API = siteConfig.customFields.xsuaaApiUrl as string;
 
 interface AuthContextProps {
   isLoggedIn: boolean;

@@ -1,9 +1,8 @@
 /**
  * Authentication storage utility with base64 encryption
  */
-import { environment } from "../config/environment";
 
-const AUTH_STORAGE_KEY = environment.storageName;
+const AUTH_STORAGE_KEY = process.env.NODE_ENV === "development" ? "sap-architecture-center-dev" : "sap-architecture-center";
 const isBrowser = typeof window !== "undefined";
 
 export interface AuthData {
