@@ -177,10 +177,6 @@ const config: Config = {
                             value: '<strong>Architecture Explorer</strong>',
                         },
                         {
-                            to: '/docs/exploreallrefarch',
-                            label: 'Card-Style Overview',
-                        },
-                        {
                             type: 'docSidebar',
                             sidebarId: 'refarchSidebar',
                             label: 'Navigator-Style Overview',
@@ -244,6 +240,38 @@ const config: Config = {
                     ],
                 },
                 {
+                    type: 'dropdown',
+                    label: 'Menu',
+                    position: 'right',
+                    items: [
+                        {
+                            label: 'Browse Architectures',
+                            to: '/docs',
+                        },
+                        {
+                            label: 'Architecture Validator',
+                            to: '/validator',
+                        },
+                        {
+                            label: 'QuickStart',
+                            to: '/quickstart',
+                        },
+                        {
+                            label: 'Solution Diagram Guidelines',
+                            to: '/solution-diagram-guidelines',
+                        },
+                        {
+                            label: 'Community of Practice',
+                            to: '/community/intro',
+                        },
+                        {
+                            label: 'What\'s New',
+                            to: '/blog',
+                        },
+
+                    ],
+                },
+                {
                     href: 'https://github.com/SAP/architecture-center',
                     position: 'right',
                     className: 'navbar-item-github',
@@ -255,16 +283,34 @@ const config: Config = {
         footer: {
             style: 'light',
             links: [
-               {
-                    title: "SAP Logo",
+                {
+                    title: 'Quick Links',
                     items: [
                         {
-                        html: `
-                            <a href="${baseUrl}" aria-label="SAP Logo">
-                            <img src="${baseUrl}img/logo.svg" alt="SAP Logo" height="50" />
-                            </a>`
-                        }
-                    ]
+                            label: 'Browse Architectures',
+                            href: '/docs',
+                        },
+                        {
+                            label: 'Architecture Validator',
+                            href: '/',
+                        },
+                        {
+                            label: 'QuickStart',
+                            href: '/',
+                        },
+                        {
+                            label: 'Solution Diagram Guidelines',
+                            href: '/',
+                        },
+                        {
+                            label: 'Community of Practice',
+                            href: '/community/intro',
+                        },
+                        {
+                            label: 'What\'s New',
+                            href: '/blog',
+                        },
+                    ],
                 },
                 {
                     title: 'GitHub',
@@ -274,8 +320,8 @@ const config: Config = {
                             href: 'https://github.com/SAP/architecture-center',
                         },
                         {
-                            label: 'GitHub Issues',
-                            href: 'https://github.com/SAP/architecture-center/issues',
+                            label: 'Create a new GitHub issue',
+                            href: 'https://github.com/SAP/architecture-center/issues/new/choose',
                         },
                     ],
                 },
