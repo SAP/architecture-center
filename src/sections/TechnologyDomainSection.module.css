@@ -2,7 +2,14 @@
     background: 
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 0 0 20px 0; 
+    padding: 0 0 10px 0; 
+}
+
+:root[data-theme='dark'] .domainSection {
+    background:
+        url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
+        var(--sapShellColor);
+    padding: 0 0 10px 0; 
 }
 
 .title {
@@ -17,6 +24,11 @@
     color: var(--navcard-text-default);
 }
 
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
+}
+
 .grid {
     display: grid;
     gap: 24px;
@@ -28,7 +40,7 @@
 .container {
     max-width: 1440px;
     margin: 20px auto 40px auto;
-    padding: 60px 24px 20px;
+    padding: 20px 24px 0px;
 }
 
 .tilesGrid {
