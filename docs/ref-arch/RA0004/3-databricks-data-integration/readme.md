@@ -34,6 +34,12 @@ last_update:
   date: 2025-01-23
 ---
 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Databricks.**
+
+:::
+
 SAP Business Data Cloud facilitates seamless harmonization of SAP and non-SAP data for richer Analytics and AI use cases. 
 While Datasphere's data federation architecture helps unify the SAP and non-SAP data (of enterprise databricks delta lake) using the JDBC connectivity enabling a open data ecosystem integration, SAP Business Data Cloud's 'BDC Connect' for databricks enables the bi-directional data sharing with enterprise databricks via the open delta share protocol.
 
