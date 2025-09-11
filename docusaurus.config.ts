@@ -255,6 +255,17 @@ const config: Config = {
         footer: {
             style: 'light',
             links: [
+               {
+                    title: "SAP Logo",
+                    items: [
+                        {
+                        html: `
+                            <a href="${baseUrl}" aria-label="SAP Logo">
+                            <img src="${baseUrl}img/logo.svg" alt="SAP Logo" height="50" />
+                            </a>`
+                        }
+                    ]
+                },
                 {
                     title: 'GitHub',
                     items: [
@@ -269,7 +280,7 @@ const config: Config = {
                     ],
                 },
                 {
-                    title: 'SAP Community',
+                    title: 'SAP Communities',
                     items: [
                         {
                             label: 'Enterprise Architecture',
