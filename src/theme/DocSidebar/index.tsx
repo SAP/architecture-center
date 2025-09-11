@@ -85,14 +85,10 @@ function DocSidebarDesktop(props) {
     const newProps = { ...props, sidebar: filteredSidebar };
 
     return (
-        <div className={styles.sidebarWithFiltersContainer}>
-            <div>
-                <SidebarFilters onFilterChange={handleFilterChange} initialValues={{ techDomains }} />
-            </div>
-            <div className={styles.sidebarMenuList}>
-                <DocSidebar {...newProps} />
-            </div>
-        </div>
+      <div className={styles.sidebarWithFiltersContainer}>
+        <SidebarFilters onFilterChange={handleFilterChange} initialValues={{ techDomains }} />
+        <DocSidebar {...newProps} />
+      </div>
     );
 }
 
