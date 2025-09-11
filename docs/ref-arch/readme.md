@@ -4,15 +4,35 @@ slug: /
 sidebar_position: 0
 sidebar_custom_props:
   category_index: []
-title: Reference Architectures
+title: SAP Reference Architecture for Interoperability & Scalability
 description: >-
-  Explore SAP reference architectures for scalable solutions, optimizing
-  business processes with SAP Architecture Center.
+  Discover why adopting SAP reference architectures is essential for building efficient, scalable, interoperable processes using proven industry standards.
 keywords:
-  - sap
-  - reference architecture
-  - btp solutions
-  - business suite
+  - "reference architecture"
+  - "architecture"
+  - "interoperability"
+  - "scalability"
+  - "standardization"
+  - "efficiency"
+  - "SAP BTP"
+  - "SAP Integration Suite"
+  - "SAP API Management"
+  - "SAP Event Mesh"
+  - "SAP S/4HANA"
+  - "SAP Datasphere"
+  - "SAP HANA Cloud"
+  - "reference architecture patterns"
+  - "API-led integration"
+  - "event-driven architecture"
+  - "canonical data model"
+  - "hybrid cloud"
+  - "multi-cloud"
+  - "microservices"
+  - "Kubernetes Kyma"
+  - "CI/CD DevOps"
+  - "Zero Trust security"
+  - "observability"
+  - "governance and compliance"
 sidebar_label: Reference Architectures
 image: img/ac-soc-med.png
 tags:
