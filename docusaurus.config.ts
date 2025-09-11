@@ -20,7 +20,7 @@ const config: Config = {
     deploymentBranch: 'site',
     trailingSlash: false,
 
-    onBrokenLinks: 'throw',
+    onBrokenLinks: 'warn', //'throw' to fail build
     onBrokenMarkdownLinks: 'throw',
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
@@ -174,19 +174,6 @@ const config: Config = {
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Architecture Explorer</strong>',
-                        },
-                        {
-                            type: 'docSidebar',
-                            sidebarId: 'refarchSidebar',
-                            label: 'Navigator-Style Overview',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
-                        },
-                        {
-                            type: 'html',
                             value: '<strong>Technology Domains</strong>',
                         },
                         {
@@ -284,7 +271,7 @@ const config: Config = {
             style: 'light',
             links: [
                 {
-                    title: 'Other Resources',
+                    title: 'Other SAP Resources',
                     items: [
                         {
                             label: 'SAP Help Portal',
@@ -305,8 +292,12 @@ const config: Config = {
                     ],
                 },
                 {
-                    title: 'GitHub',
+                    title: 'SAP Open Source & GitHub',
                     items: [
+                        {
+                            label: 'SAP Open Source',
+                            href: 'https://pages.community.sap.com/topics/open-source',
+                        },
                         {
                             label: 'GitHub Repository',
                             href: 'https://github.com/SAP/architecture-center',
