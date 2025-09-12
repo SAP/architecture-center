@@ -23,6 +23,12 @@
     box-shadow: none;
 }
 
+:root[data-theme='dark'] .default {
+    background-color: var(--sapBackgroundColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    color: var(--sapContent_ContrastTextColor);
+}
+
 .default ui5-icon,
 .icon {
     color: var(--navcard-icon-default);
@@ -32,13 +38,23 @@
     height: 1.5rem;
 }
 
+:root[data-theme='dark'] .default ui5-icon,
+:root[data-theme='dark'] .icon {
+    color: var(--text-color-dark-mode);
+}
+
 .inline {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 5px;
-    overflow: visible;
+    gap: 0.75rem;
+    flex: 1;
     color: var(--navcard-text-default);
-    font-size: var(--sapFontHeader4Size);
+    font-size: var(--sapFontHeader5Size);
+}
+
+:root[data-theme='dark'] .default,
+:root[data-theme='dark'] .inline {
+    color: var(--text-color-dark-mode);
 }
 
 .default:hover {
@@ -48,9 +64,20 @@
     color: var(--navcard-text-hover);
 }
 
+:root[data-theme='dark'] .default:hover {
+    background-color: var(--sapList_Hover_Background);
+    border-color: var(--navcard-text-hover);
+}
+
 .default:hover ui5-icon,
 .default:hover .icon,
 .default:hover .inline {
+    color: var(--navcard-icon-hover);
+}
+
+:root[data-theme='dark'] .default:hover ui5-icon,
+:root[data-theme='dark'] .default:hover .icon,
+:root[data-theme='dark'] .default:hover .inline {
     color: var(--navcard-icon-hover);
 }
 
@@ -61,7 +88,7 @@
 }
 
 .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--sapContent_LabelColor, #6a6d70);
     line-height: 1.2; 
 }
@@ -69,7 +96,9 @@
 .spacing {
     display: flex;
     flex-direction: column;
-    line-height: 1.2; 
+    justify-content: center;
+    line-height: 1.4;
+    padding: 0 8px; 
 }
 
 .spacing > div:first-child {
@@ -79,8 +108,7 @@
 
 .logo {
   height: 24px;
-  width: auto;
-  margin-right: 12px;
+  width: 48px;
   object-fit: contain;
   flex-shrink: 0;
 }

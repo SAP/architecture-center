@@ -95,7 +95,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 </div>
 
                 <div className={styles.editorColumn}>
-                    {/* --- NEW HEADER --- */}
                     <div className={styles.editorHeader}>
                         {lastSaveTimestamp && (
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
@@ -104,7 +103,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             Save
                         </button>
                     </div>
-                    {/* --- END NEW HEADER --- */}
 
                     <div className={styles.editorContainer}>
                         <ToolbarPlugin />
