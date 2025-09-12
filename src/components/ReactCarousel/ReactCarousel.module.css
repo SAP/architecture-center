@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 380px;
+    min-height: 0;
     border-radius: var(--border-radius-sm);
 }
 

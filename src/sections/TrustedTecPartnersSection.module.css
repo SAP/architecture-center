@@ -1,0 +1,30 @@
+.logoImg {
+    width: 160px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 20px auto 40px auto;
+    padding: 10px 24px 10px;
+}
+
+.title {
+    font-size: var(--sapFontHeader2Size);
+    color: var(--navcard-text-default);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: var(--sapFontHeader4Size);
+    margin-top: 1rem;
+    color: var(--navcard-text-default);
+}
+
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
+}
