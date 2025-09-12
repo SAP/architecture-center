@@ -1,0 +1,87 @@
+.navContainer {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navItem {
+    font-size: 14px;
+    color: #555;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navItem:hover {
+    background-color: #f0f2f5;
+}
+
+.navItem.active {
+    color: #1d69e5;
+    font-weight: 600;
+    background-color: #e7f1ff;
+}
+
+.rootItem {
+    margin-bottom: 0.5rem;
+}
+
+.childrenList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 1rem;
+    margin-left: 10px;
+    border-left: 1px solid #e0e0e0;
+}
+
+.childrenList .navItem {
+    margin-bottom: 2px;
+}
+
+.itemTitle {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 8px;
+}
+
+.itemActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+}
+
+.navItem:hover .itemActions,
+.navItem.active .itemActions {
+    opacity: 1;
+}
+
+.actionButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #555;
+    border-radius: 4px;
+    width: 22px;
+    height: 22px;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.actionButton:hover {
+    background-color: #dcdfe3;
+    border-color: #ccc;
+}

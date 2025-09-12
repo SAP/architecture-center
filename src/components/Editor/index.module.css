@@ -1,144 +1,97 @@
-:root {
-    --page-background: #f8f9fa;
-    --editor-background: #ffffff;
-    --text-color: #212529;
-    --placeholder-color: #adb5bd;
-    --border-color: #dee2e6;
-}
-
 .editorPageWrapper {
-    background-color: var(--page-background);
-    padding: 50px;
-    min-height: 100vh;
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    min-height: calc(100vh - var(--ifm-navbar-height));
+    background-color: #f8f9fa;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-.editorLayoutContainer {
+.navColumn {
+    flex-shrink: 0;
+    width: 250px;
+}
+
+.editorColumn {
+    flex-grow: 1;
     display: flex;
-    gap: 32px;
-    align-items: flex-start;
-    max-width: 1100px;
-    margin: 0 auto;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.tocColumn {
+    flex-shrink: 0;
+    width: 250px;
 }
 
 .editorContainer {
     flex-grow: 1;
-    min-width: 0;
-    background-color: var(--editor-background);
-    color: var(--text-color);
-    position: relative;
-    line-height: 1.6;
-    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+    color: #212529;
+    border: 1px solid #dee2e6;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .editorInner {
     position: relative;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .editorInput {
-    min-height: 850px;
+    min-height: 100%;
     resize: none;
     font-size: 16px;
-    caret-color: var(--text-color);
+    caret-color: #212529;
     position: relative;
-    tab-size: 4;
     outline: 0;
-    padding: 40px 50px;
-    user-select: text;
-    white-space: pre-wrap;
-    word-break: break-word;
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+    padding-bottom: 40vh;
 }
 
 .editorPlaceholder {
-    color: var(--placeholder-color);
+    color: #adb5bd;
     overflow: hidden;
     position: absolute;
     text-overflow: ellipsis;
-    top: 40px;
-    left: 50px;
+    top: 2rem;
+    left: 3rem;
     font-size: 16px;
     user-select: none;
     pointer-events: none;
 }
 
-.editorParagraph {
-    margin: 0;
-    margin-bottom: 8px;
-    position: relative;
+.editorHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    padding-right: 4px;
 }
 
-.editorH1 {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.editorH2 {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 24px 0 8px 0;
-}
-
-.editorQuote {
-    margin: 16px 0;
-    padding-left: 16px;
+.saveTimestamp {
+    font-size: 12px;
     color: #6c757d;
-    border-left: 3px solid #e9ecef;
 }
 
-.editorLink {
-    color: #0d6efd;
-    text-decoration: none;
-}
-
-.editorTextBold {
-    font-weight: bold;
-}
-
-.editorTextItalic {
-    font-style: italic;
-}
-
-.editorTextUnderline {
-    text-decoration: underline;
-}
-
-.editorTextStrikethrough {
-    text-decoration: line-through;
-}
-
-.editorTextCode {
-    background-color: #f1f3f5;
-    padding: 2px 5px;
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    font-size: 85%;
-    border-radius: 4px;
-}
-
-.editorCode {
-    background-color: #f1f3f5;
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-    padding: 16px;
-    margin: 16px 0;
-    font-size: 14px;
+.saveButton {
+    background-color: #1d69e5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
     border-radius: 6px;
-    overflow-x: auto;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.editorOList,
-.editorUList {
-    padding-left: 24px;
-    margin: 12px 0;
-}
-
-.editorListItem {
-    margin: 8px 0;
-}
-
-.editorImage {
-    display: block;
-    max-width: 100%;
+.saveButton:hover {
+    background-color: #1652b3;
 }
