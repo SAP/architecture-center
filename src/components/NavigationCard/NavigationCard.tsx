@@ -12,6 +12,7 @@ interface CustomButtonProps {
     logoDark?: string;
     link: string;
     disabled?: boolean;
+    requiresAuth?: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
 }
@@ -24,6 +25,7 @@ export default function NavigationCard({
     logoDark,
     link,
     disabled = false,
+    requiresAuth = false,
     onMouseEnter,
     onMouseLeave,
 }: CustomButtonProps): JSX.Element {
@@ -43,6 +45,9 @@ export default function NavigationCard({
             onMouseEnter={disabled ? undefined : onMouseEnter}
             onMouseLeave={disabled ? undefined : onMouseLeave}
         >
+            {requiresAuth && disabled && (
+                <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
+            )}
             <span className={styles.inline}>
                 {resolvedLogo ? (
                     <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
@@ -63,7 +68,11 @@ export default function NavigationCard({
 
     if (disabled) {
         return (
-            <div className={`${styles.cardLink} ${styles.disabledLink}`} onClick={handleClick}>
+            <div
+                className={`${styles.cardLink} ${styles.disabledLink}`}
+                onClick={handleClick}
+                title={requiresAuth ? 'Authentication Required' : undefined}
+            >
                 {cardContent}
             </div>
         );

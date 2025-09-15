@@ -7,6 +7,7 @@ import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
 import styles from './HeroSection.module.css';
+import { Icon } from '@ui5/webcomponents-react';
 
 export default function HeroSection(): JSX.Element {
     const { colorMode } = useColorMode();
@@ -35,7 +36,7 @@ export default function HeroSection(): JSX.Element {
             lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             title: 'Architecture Validator',
-            subtitle: '',
+            subtitle: 'Authentication required',
             body: 'Ensure your solution diagrams follow a consistent framework with rules developed by our architects, maintaining quality, improving collaboration, and aligning technical accuracy with business needs.',
         },
         {
@@ -101,7 +102,14 @@ export default function HeroSection(): JSX.Element {
                 <img src={imgSrc} alt={slide.title} width={1440} height={424} />
                 <div className={styles.heroSlideOverlay}>
                     <h1>{slide.title}</h1>
-                    {slide.subtitle && <h3 className={styles.heroSlideSubtitle}>{slide.subtitle}</h3>}
+                    {slide.subtitle && (
+                        <h3 className={styles.heroSlideSubtitle}>
+                            {slide.title === 'Architecture Validator' && (
+                                <Icon name="sap-icon://locked" style={{ marginRight: '8px', fontSize: '0.9rem' }} />
+                            )}
+                            {slide.subtitle}
+                        </h3>
+                    )}
                     <p className={styles.heroSlideBody}>{slide.body}</p>
                 </div>
             </div>
@@ -134,6 +142,7 @@ export default function HeroSection(): JSX.Element {
                         icon={item.icon}
                         link={item.link}
                         disabled={item.disabled}
+                        requiresAuth={item.requiresAuth}
                         onMouseEnter={() => handleCardHover(index)}
                         onMouseLeave={handleCardLeave}
                     />

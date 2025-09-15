@@ -21,6 +21,7 @@
     font-weight: 600;
     color: var(--navcard-text-default);
     box-shadow: none;
+    position: relative;
 }
 
 :root[data-theme='dark'] .default {
@@ -111,6 +112,38 @@
     width: 48px;
     object-fit: contain;
     flex-shrink: 0;
+}
+
+/* Lock icon styles */
+.lockIcon {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 0.875rem;
+    color: var(--navcard-icon-default);
+    z-index: 1;
+}
+
+:root[data-theme='dark'] .lockIcon {
+    color: var(--text-color-dark-mode);
+}
+
+.default:hover .lockIcon {
+    color: var(--navcard-icon-hover);
+}
+
+:root[data-theme='dark'] .default:hover .lockIcon {
+    color: var(--navcard-icon-hover);
+}
+
+.disabled .lockIcon {
+    color: var(--navcard-icon-default);
+    opacity: 1;
+}
+
+:root[data-theme='dark'] .disabled .lockIcon {
+    color: var(--text-color-dark-mode);
+    opacity: 1;
 }
 
 /* Tablet (996px breakpoint) */
