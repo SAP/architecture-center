@@ -6,7 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '../../authProviderBTP';
 
-type FileStatus = 'queued' | 'validating' | 'success' | 'warning' | 'error';
+type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
 interface ValidationRule {
     rule: string;
@@ -104,7 +104,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                             id: `${file.name}-${file.lastModified}-${Math.random()}`,
                             file,
                             content: e.target?.result as string,
-                            status: 'queued',
+                            status: 'batched',
                             results: null,
                             error: null,
                         });
@@ -168,7 +168,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const handleValidateBatch = async () => {
         setIsProcessingBatch(true);
         setProgress(0);
-        const filesToValidate = managedFiles.filter((mf) => mf.status === 'queued');
+        const filesToValidate = managedFiles.filter((mf) => mf.status === 'batched');
 
         let completedCount = 0;
         const totalFiles = filesToValidate.length;
@@ -246,12 +246,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 <button
                                     className={styles.validateButton}
                                     onClick={handleValidateBatch}
-                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'queued')}
+                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
                                 >
                                     {isProcessingBatch
                                         ? `Validating...`
-                                        : `Validate Queued (${
-                                              managedFiles.filter((f) => f.status === 'queued').length
+                                        : `Validate Batch (${
+                                              managedFiles.filter((f) => f.status === 'batched').length
                                           })`}
                                 </button>
                             </div>
@@ -272,7 +272,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                             <h3 className={styles.fileName}>{mf.file.name}</h3>
                                         </div>
                                         <div className={styles.cardActions}>
-                                            {mf.status === 'queued' && (
+                                            {mf.status === 'batched' && (
                                                 <button
                                                     className={styles.cardValidateButton}
                                                     onClick={() => validateFile(mf)}
@@ -300,11 +300,16 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                             />
                                         </div>
                                         <div className={styles.resultsContainer}>
-                                            {!mf.results && !mf.error && (
+                                            {mf.status === 'validating' ? (
+                                                <div className={styles.validatingContainer}>
+                                                    <div className={styles.loadingSpinner}></div>
+                                                    <div className={styles.validatingText}>Validating...</div>
+                                                </div>
+                                            ) : !mf.results && !mf.error ? (
                                                 <div className={styles.resultsPlaceholder}>
                                                     Validation results will appear here.
                                                 </div>
-                                            )}
+                                            ) : null}
                                             {mf.error && (
                                                 <div className={`${styles.violationCard} ${styles.errorCard}`}>
                                                     <strong>API Error:</strong> {mf.error}
