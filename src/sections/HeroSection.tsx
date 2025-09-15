@@ -36,7 +36,7 @@ export default function HeroSection(): JSX.Element {
             lightImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             darkImg: 'architecture_validator_hero_banner_1140x424_light.webp',
             title: 'Architecture Validator',
-            subtitle: 'Authentication required',
+            subtitle: '',
             body: 'Ensure your solution diagrams follow a consistent framework with rules developed by our architects, maintaining quality, improving collaboration, and aligning technical accuracy with business needs.',
         },
         {
@@ -102,14 +102,7 @@ export default function HeroSection(): JSX.Element {
                 <img src={imgSrc} alt={slide.title} width={1440} height={424} />
                 <div className={styles.heroSlideOverlay}>
                     <h1>{slide.title}</h1>
-                    {slide.subtitle && (
-                        <h3 className={styles.heroSlideSubtitle}>
-                            {slide.title === 'Architecture Validator' && (
-                                <Icon name="sap-icon://locked" style={{ marginRight: '8px', fontSize: '0.9rem' }} />
-                            )}
-                            {slide.subtitle}
-                        </h3>
-                    )}
+                    {slide.subtitle && <h3 className={styles.heroSlideSubtitle}>{slide.subtitle}</h3>}
                     <p className={styles.heroSlideBody}>{slide.body}</p>
                 </div>
             </div>
