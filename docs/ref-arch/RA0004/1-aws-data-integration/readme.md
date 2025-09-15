@@ -36,6 +36,12 @@ last_update:
   date: 2025-01-23
 ---
 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Amazon.**
+
+:::
+
 Data from AWS data sources can be harmonized with SAP and non-sap data via SAP Datasphere's data fabric architecture. 
 
 ## Architecture

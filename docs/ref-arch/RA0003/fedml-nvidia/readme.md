@@ -37,6 +37,12 @@ last_update:
   date: 2025-01-23
 ---
 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with NVIDIA.**
+
+:::
+
 FedML (fedml-dsp) can be used in notebooks with GPU compute. FedML now has support for NVIDIA RAPIDS™ and CUDA cuDF and cuML and detection of GPU for adding support for RAPIDS™ CUDA. 
 
 FedML's Connectivity Core component supports reading data from semantic models of SAP Datasphere directly into CUDA cuDF dataframes. FedML's GPU support helps data scientists accelerate the machine learning workflows with NVIDIA GPUs, while providing instant access to SAP's critical business data without the need for ETL or additional overhead in processing ETL'd data.
