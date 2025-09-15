@@ -66,22 +66,44 @@
     opacity: 1;
 }
 
-.actionButton {
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: #555;
-    border-radius: 4px;
-    width: 22px;
-    height: 22px;
-    font-size: 1.2rem;
-    line-height: 1;
+/* Confirmation Dialog Styles */
+.dialogOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    z-index: 1000;
 }
 
-.actionButton:hover {
-    background-color: #dcdfe3;
-    border-color: #ccc;
+.dialogContent {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    min-width: 400px;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dialogTitle {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dialogMessage {
+    margin: 0 0 24px 0;
+    color: #666;
+    line-height: 1.5;
+}
+
+.dialogActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
 }

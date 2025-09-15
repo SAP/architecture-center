@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from '@ui5/webcomponents-react/Button';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import styles from './index.module.css';
 
@@ -7,67 +8,65 @@ interface PageTabsProps {
 }
 
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
-    const { documents, activeDocumentId, setActiveDocumentId, deleteDocument } = usePageDataStore();
+    const { documents, activeDocumentId, setActiveDocumentId } = usePageDataStore();
+
     const rootDocuments = documents.filter((doc) => doc.parentId === null);
 
     const firstPage = rootDocuments[0];
     const otherPages = rootDocuments.slice(1);
 
-    const handleActionClick = (e: React.MouseEvent) => {
+    const handleActionClick = (e: any) => {
         e.stopPropagation();
+    };
+
+    const getChildDocuments = (parentId: string) => {
+        return documents.filter((doc) => doc.parentId === parentId);
+    };
+
+    const renderDocumentTree = (doc: any, isRoot: boolean = false) => {
+        const children = getChildDocuments(doc.id);
+
+        return (
+            <div key={doc.id}>
+                <div
+                    className={`${styles.navItem} ${isRoot ? styles.rootItem : ''} ${
+                        doc.id === activeDocumentId ? styles.active : ''
+                    }`}
+                    onClick={() => setActiveDocumentId(doc.id)}
+                >
+                    <span className={styles.itemTitle} title={doc.title || 'Untitled Page'}>
+                        {doc.title || 'Untitled Page'}
+                    </span>
+                    <div className={styles.itemActions}>
+                        <Button
+                            design="Default"
+                            icon="add"
+                            onClick={(e) => {
+                                handleActionClick(e);
+                                onAddNew(isRoot ? null : doc.id);
+                            }}
+                            tooltip={isRoot ? 'Add new page' : 'Add sub-page'}
+                        />
+                    </div>
+                </div>
+                {children.length > 0 && (
+                    <ul className={styles.childrenList}>
+                        {children.map((child) => (
+                            <li key={child.id}>{renderDocumentTree(child, false)}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
     };
 
     return (
         <div className={styles.navContainer}>
-            {firstPage && (
-                <div
-                    className={`${styles.navItem} ${styles.rootItem} ${
-                        firstPage.id === activeDocumentId ? styles.active : ''
-                    }`}
-                    onClick={() => setActiveDocumentId(firstPage.id)}
-                >
-                    <span className={styles.itemTitle} title={firstPage.title || 'Untitled Page'}>
-                        {firstPage.title || 'Untitled Page'}
-                    </span>
-                    <div className={styles.itemActions}>
-                        <button
-                            className={styles.actionButton}
-                            onClick={(e) => {
-                                handleActionClick(e);
-                                onAddNew(null);
-                            }}
-                            title="Add new page"
-                        >
-                            +
-                        </button>
-                    </div>
-                </div>
-            )}
-
+            {firstPage && renderDocumentTree(firstPage, true)}
             {otherPages.length > 0 && (
                 <ul className={styles.childrenList}>
                     {otherPages.map((doc) => (
-                        <li
-                            key={doc.id}
-                            className={`${styles.navItem} ${doc.id === activeDocumentId ? styles.active : ''}`}
-                            onClick={() => setActiveDocumentId(doc.id)}
-                        >
-                            <span className={styles.itemTitle} title={doc.title || 'Untitled Page'}>
-                                {doc.title || 'Untitled Page'}
-                            </span>
-                            <div className={styles.itemActions}>
-                                <button
-                                    className={styles.actionButton}
-                                    onClick={(e) => {
-                                        handleActionClick(e);
-                                        deleteDocument(doc.id);
-                                    }}
-                                    title="Delete page"
-                                >
-                                    −
-                                </button>
-                            </div>
-                        </li>
+                        <li key={doc.id}>{renderDocumentTree(doc, false)}</li>
                     ))}
                 </ul>
             )}

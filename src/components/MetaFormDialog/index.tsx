@@ -11,6 +11,7 @@ import {
     Form,
     FormItem,
     Token,
+    Label,
 } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@site/src/store/pageDataStore';
 
@@ -50,12 +51,6 @@ export default function MetadataFormDialog({
         setAuthorInputValue('');
     };
 
-    const handleAuthorDelete = (event) => {
-        const authorToRemove = event.detail.token.text;
-        const updatedAuthors = initialData?.authors.filter((author) => author !== authorToRemove);
-        onDataChange({ authors: updatedAuthors });
-    };
-
     const handleTagUpdate = (event) => {
         const tags = event.detail.items.map((item) => item.text);
         onDataChange({ tags });
@@ -87,25 +82,35 @@ export default function MetadataFormDialog({
             }
         >
             <Form style={{ padding: '1rem' }}>
-                <FormItem label="Title (Required)">
+                <FormItem labelContent={<Label required>Title</Label>}>
                     <Input
                         value={initialData?.title || ''}
                         onInput={(e) => onDataChange({ title: e.target.value })}
                         required
+                        placeholder="Add your title..."
                     />
                 </FormItem>
-                <FormItem label="Authors (Required)">
+                <FormItem labelContent={<Label required>Authors</Label>}>
                     {/* Use the corrected props for MultiInput */}
                     <MultiInput
                         value={authorInputValue}
                         onInput={(e) => setAuthorInputValue(e.target.value)}
                         onChange={handleAuthorAdd}
-                        onTokenDelete={handleAuthorDelete}
+                        onTokenDelete={(e) => {
+                            const deletedTokens = e.detail.tokens;
+                            if (deletedTokens && deletedTokens.length > 0) {
+                                const tokenText = deletedTokens[0].text;
+                                const updatedAuthors = (initialData?.authors || []).filter(
+                                    (author) => author !== tokenText
+                                );
+                                onDataChange({ authors: updatedAuthors });
+                            }
+                        }}
                         tokens={initialData?.authors?.map((author) => <Token key={author} text={author} />) || []}
                         placeholder="Add at least one author..."
                     />
                 </FormItem>
-                <FormItem label="Tags (Required)">
+                <FormItem labelContent={<Label required>Tags</Label>}>
                     <MultiComboBox onSelectionChange={handleTagUpdate} placeholder="Select at least one tag...">
                         {AVAILABLE_TAGS.map((tag) => (
                             <MultiComboBoxItem key={tag} text={tag} />

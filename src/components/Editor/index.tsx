@@ -14,6 +14,7 @@ import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { Button } from '@ui5/webcomponents-react/Button';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import { ImageNode } from './nodes/ImageNode';
 import ImagePlugin from './plugins/ImagePlugin';
@@ -72,7 +73,8 @@ interface EditorProps {
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
-    const { getActiveDocument, saveState, lastSaveTimestamp } = usePageDataStore();
+    const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents } = usePageDataStore();
+    const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
     const activeDocument = getActiveDocument();
 
     if (!activeDocument) return null;
@@ -99,9 +101,21 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         {lastSaveTimestamp && (
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
-                        <button className={styles.saveButton} onClick={saveState}>
-                            Save
-                        </button>
+                        <div className={styles.headerButtons}>
+                            <Button design="Default" icon="save" onClick={saveState}>
+                                Save
+                            </Button>
+                            {activeDocument && (
+                                <Button
+                                    design="Negative"
+                                    icon="delete"
+                                    onClick={() => setShowDeleteConfirm(true)}
+                                    tooltip="Delete current document"
+                                >
+                                    Delete
+                                </Button>
+                            )}
+                        </div>
                     </div>
 
                     <div className={styles.editorContainer}>
@@ -130,6 +144,34 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                     <TableOfContentsPlugin />
                 </div>
             </div>
+
+            {/* Delete Confirmation Dialog */}
+            {showDeleteConfirm && activeDocument && (
+                <div className={styles.dialogOverlay}>
+                    <div className={styles.dialogContent}>
+                        <h3 className={styles.dialogTitle}>Delete Document</h3>
+                        <p className={styles.dialogMessage}>
+                            Are you sure you want to delete "{activeDocument.title || 'Untitled Page'}"?
+                            <br />
+                            This action cannot be undone.
+                        </p>
+                        <div className={styles.dialogActions}>
+                            <Button design="Default" onClick={() => setShowDeleteConfirm(false)}>
+                                Cancel
+                            </Button>
+                            <Button
+                                design="Negative"
+                                onClick={() => {
+                                    deleteDocument(activeDocument.id);
+                                    setShowDeleteConfirm(false);
+                                }}
+                            >
+                                Delete
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </LexicalComposer>
     );
 };
