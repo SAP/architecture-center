@@ -88,7 +88,7 @@ export const usePageDataStore = create<PageDataState>((set, get) => {
         addDocument: (metadata: PageMetadata, parentId: string | null = null) => {
             const newDocument: Document = { ...metadata, id: uuidv4(), editorState: '', parentId };
             set((state) => ({ documents: [...state.documents, newDocument], activeDocumentId: newDocument.id }));
-            debouncedSave(); // Trigger auto-save
+            debouncedSave();
         },
 
         updateDocument: (id: string, updates: Partial<Document>) => {

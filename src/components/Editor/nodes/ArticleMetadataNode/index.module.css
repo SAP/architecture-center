@@ -25,15 +25,10 @@
     margin-right: 10px;
 }
 
-.updateInfo,
-.perfInfo {
+.updateInfo {
     font-size: 14px;
     color: #6c757d;
     margin: 0;
-}
-
-.perfInfo {
-    font-style: italic;
 }
 
 .updateInfo strong {
@@ -43,4 +38,12 @@
 
 .actions {
     align-self: center;
+}
+
+.metadataContainer + h1:not(:has(span[data-lexical-text='true']))::before {
+    content: 'Press / to get started...';
+    position: absolute;
+    color: #999;
+    pointer-events: none;
+    user-select: none;
 }

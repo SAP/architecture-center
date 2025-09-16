@@ -91,7 +91,6 @@ export default function MetadataFormDialog({
                     />
                 </FormItem>
                 <FormItem labelContent={<Label required>Authors</Label>}>
-                    {/* Use the corrected props for MultiInput */}
                     <MultiInput
                         value={authorInputValue}
                         onInput={(e) => setAuthorInputValue(e.target.value)}

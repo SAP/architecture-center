@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $createHeadingNode } from '@lexical/rich-text';
-import { $createParagraphNode, $getRoot, $createTextNode } from 'lexical';
+import { $getRoot, $createTextNode } from 'lexical';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import { $createArticleMetadataNode } from '../../nodes/ArticleMetadataNode';
 
@@ -28,7 +28,7 @@ export default function InitializerPlugin() {
             root.append(
                 $createHeadingNode('h1').append($createTextNode(activeDocument.title)),
                 $createArticleMetadataNode(activeDocument.tags, activeDocument.authors),
-                $createParagraphNode()
+                $createHeadingNode('h1')
             );
             isInitialized.current = true;
         });
