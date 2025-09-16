@@ -15,8 +15,8 @@
     --ifm-font-color-base: #1d2d3e;
     /* Morning Horizon's color for text and titles */
     --ifm-link-color: #0070f2;
-    --navcard-text-default: #4A5D6F;
-    --navcard-text-hover: #0065B3;
+    --navcard-text-default: #4a5d6f;
+    --navcard-text-hover: #0065b3;
     /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
@@ -43,11 +43,11 @@
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
     --navcard-border-default: #bbbbbb;
-    --navcard-border-hover: #0065B3;
+    --navcard-border-hover: #0065b3;
 
     /* Morning Horizon's color for icons */
-    --navcard-icon-default: #4A5D6F;
-    --navcard-icon-hover: #0065B3;   
+    --navcard-icon-default: #4a5d6f;
+    --navcard-icon-hover: #0065b3;
 
     /* Custom spacing scale */
     --spacing-xs: 0.25rem;
@@ -713,16 +713,6 @@ table thead {
     background-size: contain;
     width: 24px;
     height: 24px;
-    display: inline-block;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
-.navbar-item-user {
-    background: url('/img/user.svg') no-repeat center;
-    background-size: contain;
-    width: 30px;
-    height: 30px;
     display: inline-block;
     margin-right: 10px;
     margin-left: 10px;
