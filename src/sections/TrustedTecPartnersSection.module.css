@@ -1,10 +1,13 @@
 .trustedTecPartnersSection {
-    background: 
-        url("/img/landingPage/293368_GettyImages-483147081_light.webp");
-    padding: 10px 0 10px 0;
-    background-position: center;
-    background-size: cover; 
+  background: 
+    url("/img/landingPage/285400_GettyImages-71570243_light.webp") no-repeat center top,
+    #d9d9d9;
+  background-size: 1440px auto, auto;
+  background-position: center top;
+  background-color: #d9d9d9;
+  padding: 10px 0;
 }
+
 
 :root[data-theme='dark'] .trustedTecPartnersSection {
     background: 
