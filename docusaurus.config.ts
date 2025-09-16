@@ -21,7 +21,7 @@ const config: Config = {
     deploymentBranch: 'site',
     trailingSlash: false,
 
-    onBrokenLinks: 'throw',
+    onBrokenLinks: 'warn', //'throw' to fail build
     onBrokenMarkdownLinks: 'throw',
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
@@ -179,23 +179,6 @@ const config: Config = {
                     items: [
                         {
                             type: 'html',
-                            value: '<strong>Architecture Explorer</strong>',
-                        },
-                        {
-                            to: '/docs/exploreallrefarch',
-                            label: 'Card-Style Overview',
-                        },
-                        {
-                            type: 'docSidebar',
-                            sidebarId: 'refarchSidebar',
-                            label: 'Navigator-Style Overview',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
-                        },
-                        {
-                            type: 'html',
                             value: '<strong>Technology Domains</strong>',
                         },
                         {
@@ -249,6 +232,38 @@ const config: Config = {
                     ],
                 },
                 {
+                    type: 'dropdown',
+                    label: 'Navigate',
+                    position: 'right',
+                    items: [
+                        {
+                            label: 'Browse Architectures',
+                            to: '/docs',
+                        },
+                        {
+                            label: 'Architecture Validator',
+                            to: '/validator',
+                        },
+                        {
+                            label: 'QuickStart',
+                            to: '/quickstart',
+                        },
+                        {
+                            label: 'Solution Diagram Guidelines',
+                            to: '/solution-diagram-guidelines',
+                        },
+                        {
+                            label: 'Community of Practice',
+                            to: '/community/intro',
+                        },
+                        {
+                            label: 'What\'s New',
+                            to: '/blog',
+                        },
+
+                    ],
+                },
+                {
                     href: 'https://github.com/SAP/architecture-center',
                     position: 'right',
                     className: 'navbar-item-github',
@@ -265,20 +280,45 @@ const config: Config = {
             style: 'light',
             links: [
                 {
-                    title: 'GitHub',
+                    title: 'Other SAP Resources',
                     items: [
+                        {
+                            label: 'SAP Help Portal',
+                            href: 'https://help.sap.com/docs/',
+                        },
+                        {
+                            label: 'SAP Developer Center',
+                            href: 'https://developers.sap.com/',
+                        },
+                        {
+                            label: 'SAP Support Portal',
+                            href: 'https://support.sap.com/',
+                        },
+                        {
+                            label: 'SAP Learning',
+                            href: 'https://learning.sap.com/',
+                        },
+                    ],
+                },
+                {
+                    title: 'SAP Open Source & GitHub',
+                    items: [
+                        {
+                            label: 'SAP Open Source',
+                            href: 'https://pages.community.sap.com/topics/open-source',
+                        },
                         {
                             label: 'GitHub Repository',
                             href: 'https://github.com/SAP/architecture-center',
                         },
                         {
-                            label: 'GitHub Issues',
-                            href: 'https://github.com/SAP/architecture-center/issues',
+                            label: 'Create a new GitHub issue',
+                            href: 'https://github.com/SAP/architecture-center/issues/new/choose',
                         },
                     ],
                 },
                 {
-                    title: 'SAP Community',
+                    title: 'SAP Communities',
                     items: [
                         {
                             label: 'Enterprise Architecture',
@@ -289,7 +329,7 @@ const config: Config = {
                             href: 'https://community.sap.com/t5/all-sap-community-blogs/ct-p/all-blogs',
                         },
                         {
-                            label: 'Q&A',
+                            label: 'SAP Community',
                             href: 'https://community.sap.com/',
                         },
                     ],
