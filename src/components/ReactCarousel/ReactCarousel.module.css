@@ -130,7 +130,7 @@
 @media (max-width: 996px) {
     .sectionContainer {
         padding: 24px 0;
-        min-height: 340px;
+        min-height: 0;
     }
 
     .innerContainer {
@@ -179,7 +179,7 @@
 @media (max-width: 600px) {
     .sectionContainer {
         padding: 24px 0;
-        min-height: 340px;
+        min-height: 0;
     }
 
     .cardContainer {
@@ -202,7 +202,7 @@
 @media (max-width: 430px) {
     .sectionContainer {
         padding: 16px 0;
-        min-height: 360px; /* Slightly taller for smaller screens */
+        min-height: 0;
     }
 
     .innerContainer {
