@@ -67,7 +67,7 @@ Once you have your SAP AI Core service key, you need to configure the following 
 4.  **AI Core Base URL**: The `AI_API_URL` from your service key.
 5.  **AI Core Auth URL**: The `url` from your service key.
 6.  **AI Core Resource Group**: The resource group you want to use.
-7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`). You must have a [deployment](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/create-deployment-for-generative-ai-model-in-sap-ai-core) for this model in SAP AI Core.
+7.  **Model**: The model you want to use (e.g., `anthropic--claude-4-sonnet`, `gemini-2.5-pro`, `gpt-4.1`).
 
 With these settings configured, you are ready to start vibe coding with Cline and SAP AI Core.
 :::

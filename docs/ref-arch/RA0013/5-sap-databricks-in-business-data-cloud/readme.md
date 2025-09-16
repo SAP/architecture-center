@@ -41,7 +41,7 @@ last_update:
 
 SAP’s partnership with Databricks, a leader in unified data and AI platforms, helps streamline data access and enables businesses to harness SAP data for AI and machine learning use cases. This integration is delivered through SAP Databricks, a fully embedded OEM component of Databricks within the SAP Business Data Cloud.
 
-## Role of SAP Databricks in SAP Business Data Cloud
+## 1. SAP Databricks in SAP Business Data Cloud [Greenfield Integration]
 
 SAP Databricks is a data intelligence platform designed to bring data and Artificial Intelligence (AI) together. Integrated within SAP Business Data Cloud, it provides a seamless way to execute machine learning algorithms on SAP data without requiring external ML platforms. By leveraging the Delta Share protocol, data products from SAP Business Data Cloud can be shared with SAP Databricks for processing, and the results can be stored back in the SAP environment, ensuring data security and governance.
 
@@ -71,21 +71,6 @@ This tailored version of SAP Databricks focuses on computing capabilities withou
 -   Write Apache Spark pipelines to blend SAP and non-SAP data in SAP Databricks notebooks.
 -   Build custom AI/ML solutions with Mosaic AI using trusted, AI-ready SAP data.
 -   Use Databricks SQL to analyze data at scale for faster, data-driven decision-making.
-
-## Integration Patterns
-
-### Greenfield Integration - For Customers Without an Existing Enterprise Databricks Platform
-
--   Default scenario where SAP Business Data Cloud includes the SAP Databricks component.
--   Provides a tightly integrated, first-class Databricks experience in SAP Business Data Cloud.
--   Facilitates seamless bi-directional zero-copy data sharing using the Delta Share protocol.
-
-### Brownfield Integration - For Customers With an Existing Enterprise Databricks Platform
-
--   Enables zero-copy data sharing with third-party Databricks environments using the Delta Share protocol.
--   Allows customers to retain their existing Databricks investment while leveraging curated SAP data without ETL for AI and analytics in Databricks.
-
-![drawio](drawio/bdc-databricks-brownfield.drawio)
 
 ## SAP Databricks Services and Components
 
@@ -139,3 +124,16 @@ classDef largeNode stroke-width:4px;
 
     style Data_Capabilities stroke-width:4px
 ```
+
+## 2. Brownfield Integration (Integrating an existing enterprise databricks platform with SAP BDC)
+
+-   Helps customer safeguard their existing enterprise databricks investment, by enabling integration of their databricks platform with SAP Business Data Cloud via BDC Connect service.
+-   One time setup to provision the 'BDC Connect' service for Databricks that makes this integration possible.  
+-   Enables zero-copy bi-directional data sharing of data products with third-party Databricks environments using the Delta Share protocol.
+-   Allows customers to retain their existing Databricks investment while leveraging curated SAP data without ETL for AI and analytics in Databricks.
+-   Data products must be explicitly shared to Databricks via BDC Catalog. This is the only difference between SAP Databricks and enterprise Databricks.
+-   Data products from Foundation Services layer (SAP Dataproducts) as well from Datasphere's Object Store layer (custom data products) can be delta shared to enterprise databricks.
+-   Though connetor cannot be used to data movement or replication, the connection and delta share via the BDC connect service is cost effective compared to replication using Premium Outbound Integration. 
+
+
+![drawio](drawio/bdc-databricks-brownfield.drawio)
