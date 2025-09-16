@@ -1,16 +1,16 @@
 .trustedTecPartnersSection {
     background: 
-        url("/img/landingPage/285400_GettyImages-71570243_light.jpg");
+        url("/img/landingPage/293368_GettyImages-483147081_light.webp");
     padding: 10px 0 10px 0;
-    background-position: center -70px;
+    background-position: center;
     background-size: cover; 
 }
 
 :root[data-theme='dark'] .trustedTecPartnersSection {
     background: 
-        url("/img/landingPage/285400_GettyImages-71570243_dark.jpg");
+        url("/img/landingPage/293368_GettyImages-483147081_dark.webp");
     padding: 10px 0 10px 0;
-    background-position: center -115px;
+    background-position: center;
     background-size: cover;
 }
 
