@@ -242,11 +242,11 @@ const config: Config = {
                         },
                         {
                             label: 'Architecture Validator',
-                            to: '/validator',
+                            to: '/ArchitectureValidator',
                         },
                         {
                             label: 'QuickStart',
-                            to: '/quickstart',
+                            to: '/quickStart',
                         },
                         {
                             label: 'Solution Diagram Guidelines',
