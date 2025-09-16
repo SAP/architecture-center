@@ -80,7 +80,7 @@ export default function TrustedTecPartnersSection(): JSX.Element {
                     slidesToShow={6}
                     infinite={true}
                     autoplay={true}
-                    speed={3000}
+                    speed={2000}
                     autoplaySpeed={1}
                     showHeader={false}
                     pauseOnHover={false}
