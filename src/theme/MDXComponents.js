@@ -11,7 +11,6 @@ import Contributors from '../components/Contributors';
 
 setDefaultFontLoading(false); // https://github.com/SAP/ui5-webcomponents/blob/main/docs/2-advanced/01-configuration.md#defaultFontLoading
 library.add(fab, fas); // Add all icons to the library so you can use them without importing them individually.
-console.log(MDXComponents);
 export default {
     // Re-use the default mapping
     ...MDXComponents,
