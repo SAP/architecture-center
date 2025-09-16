@@ -51,6 +51,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async () => {
     // Redirect to login
+    console.log(BTP_API);
     window.location.href = `${BTP_API}/user/login?origin_uri=${window.location.href}`;
   };
 

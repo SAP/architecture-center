@@ -133,6 +133,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
         try {
             const formData = new FormData();
             formData.append('file', managedFile.file);
+            console.log('Using API URL:', siteConfig.customFields.validatorApiUrl);
             const apiUrl = siteConfig.customFields.validatorApiUrl as string;
 
             // Get token from authStorage
