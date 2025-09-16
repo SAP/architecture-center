@@ -1,0 +1,31 @@
+_schema-version: 3.3.0
+ID: backend
+version: 1.0.0
+description: 'Backend for Token Generation'
+parameters:
+    enable-parallel-deployments: true
+build-parameters:
+    before-all:
+        - builder: custom
+          commands:
+              - npm ci
+              - npx cds build --production
+modules:
+    - name: backend-srv
+      type: nodejs
+      path: gen/srv
+      parameters:
+          instances: 1
+          buildpack: nodejs_buildpack
+      build-parameters:
+          builder: npm-ci
+      provides:
+          - name: srv-api # required by consumers of CAP services (e.g. approuter)
+            properties:
+                srv-url: ${default-url}
+      requires:
+          - name: arch-val-auth
+
+resources:
+    - name: arch-val-auth
+      type: org.cloudfoundry.existing-service
