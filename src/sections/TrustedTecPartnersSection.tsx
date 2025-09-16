@@ -1,10 +1,11 @@
-import React, { JSX } from 'react';
+import React, { JSX, useRef } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { Title, Text } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './TrustedTecPartnersSection.module.css';
 import ReactCarousel from '@site/src/components/ReactCarousel';
+import Slider from 'react-slick';
 
 const logos = [
   { 
@@ -45,11 +46,15 @@ const logos = [
 export default function TrustedTecPartnersSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+    const sliderRef = useRef<Slider>(null);
 
     function renderLogo(item, idx) {
     const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
         return (
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
+            <a href={item.url} target="_blank" rel="noopener noreferrer"
+              onMouseEnter={() => sliderRef.current?.slickPause()}  // ⏸ stops instantly
+              onMouseLeave={() => sliderRef.current?.slickPlay()}  // ▶️ resumes instantly
+            >
             <img
                 src={imgSrc}
                 alt={item.name}
@@ -69,15 +74,17 @@ export default function TrustedTecPartnersSection(): JSX.Element {
             </div>
             <div className={styles.carouselLogo}>
                 <ReactCarousel
+                    ref={sliderRef}
                     items={logos}
                     renderItem={renderLogo}
-                    slidesToShow={4}
+                    slidesToShow={6}
                     infinite={true}
                     autoplay={true}
                     speed={3000}
+                    autoplaySpeed={1}
                     showHeader={false}
-                    cssEase="linear" 
-                    className={styles.logoCarousel}
+                    pauseOnHover={false}
+                    cssEase="linear"
                 />
             </div>
         </section>

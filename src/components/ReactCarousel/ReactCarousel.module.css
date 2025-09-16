@@ -1,6 +1,6 @@
 /* Parent for ReactCarousel component */
 .sectionContainer {
-    padding: 40px 0;
+    padding: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
