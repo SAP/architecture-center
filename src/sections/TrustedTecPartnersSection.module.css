@@ -19,16 +19,16 @@
     height: 80px;
     object-fit: contain;
     display: block;
-    transition: transform 0.3s ease;
 }
 
 .logoImg:hover {
   transform: scale(1.5);
+  transition: transform 0.3s ease;
 }
 
 .container {
     max-width: 1440px;
-    margin: 10px auto 40px auto;
+    margin: 10px auto auto;
     padding: 10px 24px 10px;
 }
 

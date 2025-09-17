@@ -52,8 +52,24 @@ export default function TrustedTecPartnersSection(): JSX.Element {
     const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
         return (
             <a href={item.url} target="_blank" rel="noopener noreferrer"
-              onMouseEnter={() => sliderRef.current?.slickPause()}  // ⏸ stops instantly
-              onMouseLeave={() => sliderRef.current?.slickPlay()}  // ▶️ resumes instantly
+              onMouseEnter={() => {
+                if (sliderRef.current) {
+                  sliderRef.current.slickPause();
+                  const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+                  if (track) {
+                    track.style.transition = 'none'; // ⏸ freeze instantly
+                  }
+                }
+              }}
+              onMouseLeave={() => {
+                if (sliderRef.current) {
+                  const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+                  if (track) {
+                    track.style.transition = ''; // reset
+                  }
+                  sliderRef.current.slickPlay(); // ▶ resume
+                }
+              }}
             >
             <img
                 src={imgSrc}
@@ -80,8 +96,8 @@ export default function TrustedTecPartnersSection(): JSX.Element {
                     slidesToShow={6}
                     infinite={true}
                     autoplay={true}
-                    speed={2000}
-                    autoplaySpeed={1}
+                    autoplaySpeed={0}
+                    speed={3000}
                     showHeader={false}
                     pauseOnHover={false}
                     cssEase="linear"
