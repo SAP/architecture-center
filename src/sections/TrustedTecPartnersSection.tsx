@@ -57,17 +57,19 @@ export default function TrustedTecPartnersSection(): JSX.Element {
                   sliderRef.current.slickPause();
                   const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
                   if (track) {
-                    track.style.transition = 'none'; // ⏸ freeze instantly
+                    const computed = window.getComputedStyle(track).transform; 
+                    track.style.transform = computed;
+                    track.style.transition = 'none';
                   }
                 }
-              }}
+              }}    
               onMouseLeave={() => {
                 if (sliderRef.current) {
                   const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
                   if (track) {
                     track.style.transition = ''; // reset
                   }
-                  sliderRef.current.slickPlay(); // ▶ resume
+                  sliderRef.current.slickPlay(); // resume
                 }
               }}
             >
