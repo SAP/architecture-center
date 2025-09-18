@@ -1,15 +1,17 @@
 .trustedTecPartnersSection {
   background-color: #c8c8c8;
+  height: auto;
 }
 
 .innerWrapper {
   width: 1440px;
+  height: 480px;
   margin: 0 auto;
   background: url("/img/landingPage/worldmap_1440x424_light.webp")
     center -1px no-repeat;
   background-size: cover;
-  background-position: center -20px;
-  padding: 10px 24px 10px;
+  background-position: center;
+  padding: 30px 24px 10px;
 }
 
 :root[data-theme='dark'] .trustedTecPartnersSection {
@@ -17,12 +19,8 @@
 }
 
 :root[data-theme='dark'] .innerWrapper {
-  width: 1440px;
-  margin: 0 auto;
   background: url("/img/landingPage/worldmap_1440x424_dark.webp")
     center -1px no-repeat;
-  background-size: auto;
-  padding: 10px 24px 10px;
 }
 
 .logoImg {
@@ -49,9 +47,11 @@
     color: var(--navcard-text-default);
 }
 
-.slick-track {
-  will-change: transform;
+.carouselLogo {
+    padding-top: clamp(40px, 5vw, 80px);
 }
+
+.logoList { display: none; }
 
 :root[data-theme='dark'] .title,
 :root[data-theme='dark'] .subtitle {
@@ -67,6 +67,11 @@
 
     .carouselLogo {
         padding: 0 20px;
+    }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
     }
 }
 
@@ -84,9 +89,21 @@
         height: 80px;
     }
 
-    .carouselLogo {
-        padding: 0 20px;
+    .carouselLogo { display: none; }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
     }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
+    }
+
 }
 
 /* Small mobile */
@@ -106,5 +123,18 @@
 
     .carouselLogo {
         padding: 0 20px;
+    }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
+    }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
     }
 }

@@ -1,4 +1,4 @@
-import React, { JSX, useRef } from 'react';
+import React, { JSX, useRef, useState, useEffect } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { Title, Text } from '@ui5/webcomponents-react';
@@ -99,13 +99,36 @@ export default function TrustedTecPartnersSection(): JSX.Element {
             renderItem={renderLogo}
             slidesToShow={6}
             infinite={true}
-            autoplay={false}
+            autoplay={true}
             speed={4000}
             autoplaySpeed={10}
             showHeader={false}
             pauseOnHover={false}
             cssEase="linear"
+            responsive={[
+              {
+                breakpoint: 1200, // e.g. iPad landscape
+                settings: { slidesToShow: 4 }
+              },
+              {
+                breakpoint: 1024, // iPad portrait
+                settings: { slidesToShow: 4 }
+              },
+              {
+                breakpoint: 768, // smaller tablets
+                settings: { slidesToShow: 3 }
+              },
+              {
+                breakpoint: 600, // mobile -> already handled by logoList
+                settings: "unslick" // disables carousel
+              }
+            ]}
           />
+        </div>
+
+        {/* Static vertical list (mobile) */}
+        <div className={styles.logoList}>
+          {logos.map((logo, idx) => renderLogo(logo, idx))}
         </div>
       </div>
     </section>
