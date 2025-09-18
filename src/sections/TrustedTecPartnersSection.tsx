@@ -44,67 +44,70 @@ const logos = [
 ];
 
 export default function TrustedTecPartnersSection(): JSX.Element {
-    const { colorMode } = useColorMode();
-    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
-    const sliderRef = useRef<Slider>(null);
+  const { colorMode } = useColorMode();
+  const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+  const sliderRef = useRef<Slider>(null);
 
-    function renderLogo(item, idx) {
-    const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
-        return (
-            <a href={item.url} target="_blank" rel="noopener noreferrer"
-              onMouseEnter={() => {
-                if (sliderRef.current) {
-                  sliderRef.current.slickPause();
-                  const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-                  if (track) {
-                    const computed = window.getComputedStyle(track).transform; 
-                    track.style.transform = computed;
-                    track.style.transition = 'none';
-                  }
-                }
-              }}    
-              onMouseLeave={() => {
-                if (sliderRef.current) {
-                  const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-                  if (track) {
-                    track.style.transition = ''; // reset
-                  }
-                  sliderRef.current.slickPlay(); // resume
-                }
-              }}
-            >
-            <img
-                src={imgSrc}
-                alt={item.name}
-                className={styles.logoImg}
-            />
-            </a>
-        );
-    }
-
+  function renderLogo(item, idx) {
+  const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
     return (
-        <section className={styles.trustedTecPartnersSection}>
-            <div className={styles.container}>
-                <Title className={styles.title}>
-                    Trusted Technology Partners
-                </Title>
-                <Text className={styles.subtitle}>Empowering Innovation Together</Text>     
-            </div>
-            <div className={styles.carouselLogo}>
-                <ReactCarousel
-                    ref={sliderRef}
-                    items={logos}
-                    renderItem={renderLogo}
-                    slidesToShow={6}
-                    infinite={true}
-                    autoplay={true}
-                    autoplaySpeed={0}
-                    speed={3000}
-                    showHeader={false}
-                    pauseOnHover={false}
-                    cssEase="linear"
-                />
-            </div>
-        </section>
+      <a href={item.url} target="_blank" rel="noopener noreferrer"
+        onMouseEnter={() => {
+          if (sliderRef.current) {
+            sliderRef.current.slickPause();
+            const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+            if (track) {
+              const computed = window.getComputedStyle(track).transform; 
+              track.style.transform = computed;
+              track.style.transition = 'none';
+            }
+          }
+        }}    
+        onMouseLeave={() => {
+          if (sliderRef.current) {
+            const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+            if (track) {
+              track.style.transition = ''; // reset
+            }
+            sliderRef.current.slickPlay(); // resume
+          }
+        }}
+      >
+      <img
+          src={imgSrc}
+          alt={item.name}
+          className={styles.logoImg}
+      />
+      </a>
     );
+  }
+
+  return (
+    <section className={styles.trustedTecPartnersSection}>
+      <div className={styles.innerWrapper}>
+        <Title className={styles.title}>
+          Trusted Technology Partners
+        </Title>
+        <Text className={styles.subtitle}>
+          Empowering Innovation Together
+        </Text>     
+
+        <div className={styles.carouselLogo}>
+          <ReactCarousel
+            ref={sliderRef}
+            items={[...logos, ...logos]}
+            renderItem={renderLogo}
+            slidesToShow={6}
+            infinite={true}
+            autoplay={false}
+            speed={4000}
+            autoplaySpeed={10}
+            showHeader={false}
+            pauseOnHover={false}
+            cssEase="linear"
+          />
+        </div>
+      </div>
+    </section>
+  );
 }

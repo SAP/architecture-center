@@ -1,17 +1,27 @@
 .trustedTecPartnersSection {
-    background: 
-        url("/img/landingPage/World_map_light.webp");
-    padding: 10px 0 10px 0;
-    background-position: center -5px;
-    background-size: cover; 
+  background-color: #c8c8c8;
+}
+
+.innerWrapper {
+  width: 1440px;
+  margin: 0 auto;
+  background: url("/img/landingPage/worldmap_1440x424_light.webp")
+    center -1px no-repeat;
+  background-size: auto;
+  padding: 10px 24px 10px;
 }
 
 :root[data-theme='dark'] .trustedTecPartnersSection {
-    background: 
-        url("/img/landingPage/293368_GettyImages-483147081_dark.webp");
-    padding: 10px 0 10px 0;
-    background-position: center;
-    background-size: cover;
+    background-color: #000;
+}
+
+:root[data-theme='dark'] .innerWrapper {
+  width: 1440px;
+  margin: 0 auto;
+  background: url("/img/landingPage/worldmap_1440x424_dark.webp")
+    center -1px no-repeat;
+  background-size: auto;
+  padding: 10px 24px 10px;
 }
 
 .logoImg {
@@ -26,12 +36,6 @@
   transition: transform 0.3s ease;
 }
 
-.container {
-    max-width: 1440px;
-    margin: 10px auto auto;
-    padding: 10px 24px 10px;
-}
-
 .title {
     font-size: var(--sapFontHeader2Size);
     color: var(--navcard-text-default);
@@ -42,6 +46,10 @@
     font-size: var(--sapFontHeader4Size);
     margin-top: 1rem;
     color: var(--navcard-text-default);
+}
+
+.slick-track {
+  will-change: transform;
 }
 
 :root[data-theme='dark'] .title,
