@@ -48,6 +48,37 @@
 
 .carouselLogo {
     padding-top: clamp(40px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+}
+
+.carouselLogo::before,
+.carouselLogo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.carouselLogo::before {
+    left: 0;
+    background: linear-gradient(to right, var(--fade-bg), transparent);
+}
+
+.carouselLogo::after {
+    right: 0;
+    background: linear-gradient(to left, var(--fade-bg), transparent);
+}
+
+:root {
+    --fade-bg: #c8c8c8;
+}
+
+:root[data-theme='dark'] {
+    --fade-bg: #000;
 }
 
 .logoList { display: none; }
