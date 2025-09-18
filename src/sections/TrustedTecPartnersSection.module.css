@@ -7,7 +7,7 @@
   width: 1440px;
   height: 480px;
   margin: 0 auto;
-  background: url("/img/landingPage/worldmap_1440x424_light.webp");
+  background-image: url("/img/landingPage/worldmap_1440x424_light.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
