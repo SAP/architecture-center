@@ -31,7 +31,7 @@ app.get('/api/auth/github', (req: Request, res: Response) => {
     }
     const redirectPath = req.query.redirect || '/';
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirectURI=${encodeURIComponent(
-        redirectPath as string
+        'http://localhost:3000/quickStart'
     )}`;
     res.redirect(githubAuthUrl);
 });
@@ -78,7 +78,7 @@ app.get('/api/auth/github/callback', async (req: Request, res: Response) => {
             provider: 'github',
         });
 
-        res.redirect(`${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent(redirectPath)}`);
+        res.redirect(`${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent('http://localhost:3000/quickStart')}`);
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
         res.redirect(`${FRONTEND_URL}/login/failure`);
