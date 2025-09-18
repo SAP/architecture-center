@@ -1,8 +1,5 @@
-// src/pages/login/success.tsx
-
 import React, { useEffect } from 'react';
 import { useLocation } from '@docusaurus/router';
-import Layout from '@theme/Layout';
 
 function LoginSuccess() {
     const location = useLocation();

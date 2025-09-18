@@ -238,7 +238,7 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: 'Navigate',
+                    label: 'Explore',
                     position: 'right',
                     items: [
                         {

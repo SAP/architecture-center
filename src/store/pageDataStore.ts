@@ -5,6 +5,7 @@ export interface PageMetadata {
     title: string;
     tags: string[];
     authors: string[];
+    contributors?: string[];
 }
 
 export interface Document extends PageMetadata {

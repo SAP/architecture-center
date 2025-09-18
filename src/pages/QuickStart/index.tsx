@@ -6,6 +6,7 @@ import { useHistory } from '@docusaurus/router';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import ProtectedRoute from '@site/src/components/ProtectedRoute';
+import { useAuth } from '@site/src/context/AuthContext';
 
 function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -28,6 +29,7 @@ const initialPageData: PageMetadata = {
     title: '',
     tags: [],
     authors: [],
+    contributors: [],
 };
 
 export default function QuickStart(): JSX.Element {
@@ -36,15 +38,21 @@ export default function QuickStart(): JSX.Element {
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
     const { documents, addDocument } = usePageDataStore();
     const history = useHistory();
+    const { user } = useAuth();
 
     useEffect(() => {
         if (documents.length === 0) {
-            setIsModalOpen(true);
+            handleAddNew(null);
         }
     }, [documents.length]);
 
     const handleAddNew = (parentId: string | null = null) => {
-        setNewDocData(initialPageData);
+        const newDocWithAuthor = {
+            ...initialPageData,
+            authors: user ? [user.username] : [],
+            contributors: user ? [user.username] : [],
+        };
+        setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
         setIsModalOpen(true);
     };

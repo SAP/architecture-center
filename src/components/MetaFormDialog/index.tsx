@@ -1,3 +1,5 @@
+// src/components/MetaFormDialog.tsx
+
 import React, { useState } from 'react';
 import {
     Button,
@@ -14,6 +16,7 @@ import {
     Label,
 } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@site/src/store/pageDataStore';
+import { useAuth } from '@site/src/context/AuthContext';
 
 interface MetadataFormDialogProps {
     open: boolean;
@@ -39,16 +42,16 @@ export default function MetadataFormDialog({
     onSave,
     onCancel,
 }: MetadataFormDialogProps) {
-    const [authorInputValue, setAuthorInputValue] = useState('');
+    const { user } = useAuth();
+    const [contributorInputValue, setContributorInputValue] = useState('');
 
-    const handleAuthorAdd = (event) => {
-        const newAuthor = event.target.value.trim();
-        if (newAuthor && !initialData?.authors.includes(newAuthor)) {
-            const updatedAuthors = [...(initialData?.authors || []), newAuthor];
-            onDataChange({ authors: updatedAuthors });
+    const handleContributorAdd = (event) => {
+        const newContributor = event.target.value.trim();
+        if (newContributor && !initialData?.contributors?.includes(newContributor)) {
+            const updatedContributors = [...(initialData?.contributors || []), newContributor];
+            onDataChange({ contributors: updatedContributors });
         }
-
-        setAuthorInputValue('');
+        setContributorInputValue('');
     };
 
     const handleTagUpdate = (event) => {
@@ -56,8 +59,7 @@ export default function MetadataFormDialog({
         onDataChange({ tags });
     };
 
-    const isFormValid =
-        initialData?.title?.trim().length > 0 && initialData?.authors?.length > 0 && initialData?.tags?.length > 0;
+    const isFormValid = initialData?.title?.trim().length > 0 && initialData?.tags?.length > 0;
 
     return (
         <Dialog
@@ -90,23 +92,26 @@ export default function MetadataFormDialog({
                         placeholder="Add your title..."
                     />
                 </FormItem>
-                <FormItem labelContent={<Label required>Authors</Label>}>
+                <FormItem labelContent={<Label required>Author</Label>}>
+                    <Input value={user?.username || 'Loading...'} readonly />
+                </FormItem>
+                <FormItem labelContent={<Label>Contributors</Label>}>
                     <MultiInput
-                        value={authorInputValue}
-                        onInput={(e) => setAuthorInputValue(e.target.value)}
-                        onChange={handleAuthorAdd}
+                        value={contributorInputValue}
+                        onInput={(e) => setContributorInputValue(e.target.value)}
+                        onChange={handleContributorAdd}
                         onTokenDelete={(e) => {
                             const deletedTokens = e.detail.tokens;
                             if (deletedTokens && deletedTokens.length > 0) {
                                 const tokenText = deletedTokens[0].text;
-                                const updatedAuthors = (initialData?.authors || []).filter(
-                                    (author) => author !== tokenText
+                                const updatedContributors = (initialData?.contributors || []).filter(
+                                    (contributor) => contributor !== tokenText
                                 );
-                                onDataChange({ authors: updatedAuthors });
+                                onDataChange({ contributors: updatedContributors });
                             }
                         }}
-                        tokens={initialData?.authors?.map((author) => <Token key={author} text={author} />) || []}
-                        placeholder="Add at least one author..."
+                        tokens={initialData?.contributors?.map((c) => <Token key={c} text={c} />) || []}
+                        placeholder="Add more contributors (optional)..."
                     />
                 </FormItem>
                 <FormItem labelContent={<Label required>Tags</Label>}>

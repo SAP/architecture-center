@@ -3,17 +3,24 @@ import axios from 'axios';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
+import path from 'path';
 
-dotenv.config();
+const envPath = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envPath });
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-const BTP_API_URL = process.env.BTP_API_URL;
+const BTP_API_URL = process.env.XSUAA_API_URL;
 const JWT_SECRET = process.env.JWT_SECRET as string;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+
+console.log('--- SERVER STARTING ---');
+console.log('Attempting to load .env from:', envPath);
+console.log('BTP_API_URL Loaded:', process.env.BTP_API_URL);
+console.log('-----------------------');
 
 if (!JWT_SECRET || !FRONTEND_URL) {
     throw new Error('Missing JWT_SECRET or FRONTEND_URL environment variables.');
@@ -30,8 +37,8 @@ app.get('/api/auth/github', (req: Request, res: Response) => {
         return res.status(500).send('GitHub authentication is not configured on the server.');
     }
     const redirectPath = req.query.redirect || '/';
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirectURI=${encodeURIComponent(
-        'http://localhost:3000/quickStart'
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(
+        redirectPath as string
     )}`;
     res.redirect(githubAuthUrl);
 });
@@ -78,7 +85,7 @@ app.get('/api/auth/github/callback', async (req: Request, res: Response) => {
             provider: 'github',
         });
 
-        res.redirect(`${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent('http://localhost:3000/quickStart')}`);
+        res.redirect(`${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent(redirectPath)}`);
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
         res.redirect(`${FRONTEND_URL}/login/failure`);

@@ -1,284 +1,308 @@
 .loginButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 12px;
+    cursor: pointer;
+    height: 35px;
+    border-radius: 8px;
+    margin-right: 10px;
+    border: 1px solid transparent;
+    background-color: transparent;
 }
 
 .loginButton:hover {
-  background: var(--ifm-color-emphasis-200);
+    background: var(--ifm-color-emphasis-200);
 }
 
 .loginButton ui5-icon {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
-[data-theme="dark"] .loginButton ui5-icon {
-  color: var(--ifm-color-emphasis-800);
+.loginButtonText {
+    margin-left: 8px;
+}
+
+[data-theme='dark'] .loginButton ui5-icon {
+    color: var(--ifm-color-emphasis-800);
 }
 
 .userDropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
-/* Styles for the avatar in the navbar */
+.userAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userAvatarLarge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .userAvatarPlaceholder {
-  width: 32px; /* Adjust size as needed */
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--ifm-color-primary); /* Placeholder background */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.9em; /* Adjust as needed */
-  /* margin-right: 8px; */ /* Remove if caret is not used */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9em;
 }
 
 .userDropdown__button {
-  background-color: transparent;
-  color: var(--ifm-navbar-link-color);
-  /* padding: var(--ifm-navbar-item-padding-vertical) var(--ifm-navbar-item-padding-horizontal); */
-  /* Remove default padding to only show avatar */
-  padding: 0;
-  font-size: inherit;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  position: relative; /* Added for underline positioning */
-}
-
-.userDropdown__button:hover,
-.userDropdown__button:focus {
-  /* color: var(--ifm-navbar-link-hover-color); */
-  /* No color change for button, avatar is the focus */
+    background-color: transparent;
+    color: var(--ifm-navbar-link-color);
+    padding: 0;
+    font-size: inherit;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
 .userDropdown__content {
-  display: none; /* Hidden by default */
-  position: absolute;
-  right: 0;
-  top: calc(100% + 14px); /* Position below the navbar item with some spacing */
-  background-color: #ffffff; /* White background like the image */
-  min-width: 360px; /* Adjusted width based on image */
-  box-shadow: 0px 10px 30px 0px #22364940;
-  padding: 0; /* Remove padding, sections will handle it */
-  z-index: var(--ifm-z-index-dropdown);
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 14px);
+    background-color: #ffffff;
+    min-width: 360px;
+    box-shadow: 0px 10px 30px 0px #22364940;
+    padding: 0;
+    z-index: var(--ifm-z-index-dropdown);
 }
 
 @media (max-width: 500px) {
-  .userDropdown__content {
-    min-width: 280px;
-    right: -30px;
-  }
+    .userDropdown__content {
+        min-width: 280px;
+        right: -30px;
+    }
 }
 
-[data-theme="dark"] .userDropdown__content {
-  background-color: var(--sap-horizon-neutral-11);
-  color: var(--sap-horizon-neutral-1);
+[data-theme='dark'] .userDropdown__content {
+    background-color: var(--sap-horizon-neutral-11);
+    color: var(--sap-horizon-neutral-1);
 }
 
-/* Class to show the dropdown content when triggered by click */
 .userDropdown__contentOpen {
-  display: block;
+    display: block;
 }
 
-/* Underline for the button when dropdown is open */
 .buttonUnderline {
-  display: none; /* Hidden by default */
-  position: absolute;
-  bottom: -18px; /* Corresponds to inset-block-end: 0px; */
-  left: 0; /* Combined with width 100% for full width */
-  width: 100%; /* Corresponds to inline-size: 100%; */
-  height: 3px; /* User provided variable, with fallback */
-  border-radius: 2px 2px 0 0;
-  background-color: var(--ifm-color-primary); /* User provided variable, with fallback */
+    display: none;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background-color: var(--ifm-color-primary);
 }
 
 .userDropdownOpenState .userDropdown__button .buttonUnderline {
-  display: block;
-  /* The place-self and grid-row-start properties are context-dependent (grid) and are handled by absolute positioning here */
+    display: block;
 }
 
-/* Header section within the dropdown */
 .userDropdown__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #eeeeee; /* Light separator line */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eeeeee;
 }
 
-[data-theme="dark"] .userDropdown__header {
-  border-bottom-color: var(--sap-horizon-neutral-10);
+[data-theme='dark'] .userDropdown__header {
+    border-bottom-color: var(--sap-horizon-neutral-10);
 }
 
 .userAvatarLargePlaceholder {
-  width: 80px; /* Larger avatar */
-  height: 80px;
-  border-radius: 50%;
-  background-color: var(--ifm-color-primary); /* Placeholder background */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 2em; /* Larger font for initials */
-  margin-bottom: 20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
 .userDropdown__userDetails {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .userName {
-  font-size: 1.2em;
-  line-height: 1.2em;
-  font-weight: bold;
-  color: #333333;
-  margin: 0;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    font-weight: bold;
+    color: #333333;
+    margin: 0;
 }
 
-[data-theme="dark"] .userName {
-  color: var(--sap-horizon-neutral-1);
+[data-theme='dark'] .userName {
+    color: var(--sap-horizon-neutral-1);
 }
 
 .userEmail {
-  font-size: 0.8em;
-  color: #666666;
-  margin: 0;
-  text-align: center;
+    font-size: 0.8em;
+    color: #666666;
+    margin: 0;
+    text-align: center;
 }
 
-[data-theme="dark"] .userEmail {
-  color: var(--sap-horizon-neutral-3);
+[data-theme='dark'] .userEmail {
+    color: var(--sap-horizon-neutral-3);
 }
 
-/* General section styling */
 .userDropdown__section {
-  padding: 15px 20px;
-  border-bottom: 1px solid #eeeeee; /* Separator before logout if it's not the last content section */
-  font-size: 0.9em;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 0.9em;
 }
 
-[data-theme="dark"] .userDropdown__section {
-  border-bottom-color: var(--sap-horizon-neutral-10);
+[data-theme='dark'] .userDropdown__section {
+    border-bottom-color: var(--sap-horizon-neutral-10);
 }
 
-/* Styling for section titles that are also links */
 .userDropdown__sectionTitle {
-  font-size: 1.1em; /* Adjust as needed, could be larger than normal links */
-  font-weight: bold;
-  margin-top: 0;
-  margin-bottom: 12px; /* Space before the list of links */
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 12px;
 }
 
 .userDropdown__titleLink {
-  color: var(--ifm-color-content); /* Or specific title color */
-  text-decoration: none;
+    color: var(--ifm-color-content);
+    text-decoration: none;
 }
 
 .userDropdown__titleLink:hover {
-  color: var(--ifm-color-content);
-  text-decoration: underline;
+    color: var(--ifm-color-content);
+    text-decoration: underline;
 }
 
-[data-theme="dark"] .userDropdown__titleLink {
-  color: var(--ifm-font-color-base);
+[data-theme='dark'] .userDropdown__titleLink {
+    color: var(--ifm-font-color-base);
 }
 
-[data-theme="dark"] .userDropdown__titleLink:hover {
-  color: var(--ifm-font-color-base);
+[data-theme='dark'] .userDropdown__titleLink:hover {
+    color: var(--ifm-font-color-base);
 }
 
-.userDropdown__section:last-of-type {
-  /* Ensure no border if it's the section right before logout */
-  /* This might need adjustment if logout is not directly after or if other sections are added */
-}
-
-/* Styling for the list of links */
 .userDropdown__linkList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .userDropdown__linkList li {
-  margin-bottom: 8px; /* Space between links */
+    margin-bottom: 8px;
 }
 
 .userDropdown__linkList li:last-child {
-  margin-bottom: 0; /* No margin for the last link item in the list */
+    margin-bottom: 0;
 }
 
-/* Styling for individual links */
 .userDropdown__link {
-  font-size: 0.95em; /* Adjust as per image */
-  color: var(--ifm-link-color); /* Or your desired link color */
-  text-decoration: none;
+    font-size: 0.95em;
+    color: var(--ifm-link-color);
+    text-decoration: none;
 }
 
 .userDropdown__link:hover {
-  text-decoration: underline;
-  color: var(--ifm-link-hover-color);
+    text-decoration: underline;
+    color: var(--ifm-link-hover-color);
 }
 
-[data-theme="dark"] .userDropdown__link {
-  color: var(--ifm-font-color-base); /* Adjust for dark theme readability */
+[data-theme='dark'] .userDropdown__link {
+    color: var(--ifm-font-color-base);
 }
 
-[data-theme="dark"] .userDropdown__link:hover {
-  color: var(--ifm-font-color-base);
+[data-theme='dark'] .userDropdown__link:hover {
+    color: var(--ifm-font-color-base);
 }
 
-/* Section for the logout button */
 .userDropdown__logoutSection {
-  padding: 20px; /* Padding around the logout button */
+    padding: 20px;
 }
 
-/* Separator line between sections */
 .userDropdown__separator {
-  border: 0;
-  border-top: 1px solid #eeeeee;
-  margin: 0; /* No extra margin */
+    border: 0;
+    border-top: 1px solid #eeeeee;
+    margin: 0;
 }
 
-[data-theme="dark"] .userDropdown__separator {
-  border-top-color: var(--sap-horizon-neutral-10);
+[data-theme='dark'] .userDropdown__separator {
+    border-top-color: var(--sap-horizon-neutral-10);
 }
 
-/* Larger logout button specific to the manage account section */
 .logoutButtonLarge {
-  display: block;
-  width: 100%;
-  padding: 10px 0; /* Generous padding */
-  text-align: center;
-  font-weight: bold;
-  background-color: var(--ifm-color-primary); /* SAP blue */
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: bold;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 .logoutButtonLarge:hover {
-  background-color: var(--ifm-color-primary-dark);
-  color: var(--sap-horizon-neutral-1);
+    background-color: var(--ifm-color-primary-dark);
+    color: var(--sap-horizon-neutral-1);
 }
 
-/* Padding for the header and sections */
 .userDropdown__header,
 .userDropdown__section,
 .userDropdown__logoutSection {
-  padding: 30px 40px;
+    padding: 30px 40px;
+}
+
+.loadingPlaceholder {
+    width: 40px;
+    height: 40px;
+    background-color: var(--ifm-color-emphasis-200);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.loginOptions {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.loginOptionButton {
+    width: 100%;
+    justify-content: center;
 }
