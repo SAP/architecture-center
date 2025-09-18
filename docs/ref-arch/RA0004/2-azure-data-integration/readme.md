@@ -35,6 +35,12 @@ last_update:
   date: 2025-01-23
 ---
 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Microsoft.**
+
+:::
+
 Microsoft Fabric is an end-to-end, unified analytics platform that integrates technologies like Azure Data Factory, Azure Synapse Analytics and Power BI into a single unified product.
 
 Data from the Microsoft Fabric Analytics platform - OneLake (the foundational component of Fabric, serving as a single source of truth for analytics data) can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's robust data fabric architecture. This architecture facilitates the unification of disparate data sources, enabling comprehensive data modeling and analytics. 

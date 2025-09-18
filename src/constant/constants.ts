@@ -1,6 +1,7 @@
+
 export const navigationCardsData = [
     { title: 'Browse Architectures', icon: 'document-text', link: '/docs/ref-arch/demo' },
-    { title: 'Architecture Validator', icon: 'sap-icon://order-status', link: '' },
+    { title: 'Architecture Validator', icon: 'sap-icon://order-status', link: '/ArchitectureValidator', requiresAuth: true },
     { title: 'Quick Start', icon: 'sap-icon://write-new-document', link: '/quickStart' },
     { title: 'Solution Diagram Guidelines', icon: 'sap-icon://learning-assistant', link: '' },
     { title: 'Community of Practice', icon: 'sap-icon://group', link: '/community/intro' },

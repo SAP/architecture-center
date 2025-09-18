@@ -2,14 +2,27 @@ import React, { JSX, useEffect, useRef, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { navigationCardsData } from '../constant/constants';
+import { authStorage } from '../utils/authStorage';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
 import styles from './HeroSection.module.css';
+import { Icon } from '@ui5/webcomponents-react';
 
 export default function HeroSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+
+    const getVisibleNavigationCards = () => {
+        const authData = authStorage.load();
+        const isLoggedIn = authData && authData.token;
+
+        return navigationCardsData.map((card) => ({
+            ...card,
+            // If card requires authentication and user is not logged in, mark as disabled
+            disabled: card.requiresAuth && !isLoggedIn,
+        }));
+    };
 
     const slides = [
         {
@@ -46,7 +59,7 @@ export default function HeroSection(): JSX.Element {
             title: "What's New",
             subtitle: '',
             body: 'Stay informed about the latest features and releases from our platform. Discover new tools, capabilities, and enhancements that empower you to design, build, and run smarter, more scalable, and future-ready solutions.',
-        }
+        },
     ];
 
     const carouselRef = useRef(null);
@@ -115,12 +128,14 @@ export default function HeroSection(): JSX.Element {
             </div>
             {/* Navigation Cards */}
             <div className={styles.cardsGrid}>
-                {navigationCardsData.map((item, index) => (
+                {getVisibleNavigationCards().map((item, index) => (
                     <NavigationCard
                         key={index}
                         title={item.title}
                         icon={item.icon}
                         link={item.link}
+                        disabled={item.disabled}
+                        requiresAuth={item.requiresAuth}
                         onMouseEnter={() => handleCardHover(index)}
                         onMouseLeave={handleCardLeave}
                     />
