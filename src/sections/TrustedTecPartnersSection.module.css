@@ -63,22 +63,21 @@
     z-index: 2;
 }
 
+:root {
+  --carousel-fade-bg: #c8c8c8;
+}
+:root[data-theme='dark'] {
+  --carousel-fade-bg: #000;
+}
+
 .carouselLogo::before {
     left: 0;
-    background: linear-gradient(to right, var(--fade-bg), transparent);
+    background: linear-gradient(to right, var(--carousel-fade-bg), transparent);
 }
 
 .carouselLogo::after {
     right: 0;
-    background: linear-gradient(to left, var(--fade-bg), transparent);
-}
-
-:root {
-    --fade-bg: #c8c8c8;
-}
-
-:root[data-theme='dark'] {
-    --fade-bg: #000;
+    background: linear-gradient(to left, var(--carousel-fade-bg), transparent);
 }
 
 .logoList { display: none; }
