@@ -61,6 +61,7 @@
         "dotenv": "^17.2.1",
         "ejs": "^3.1.10",
         "front-matter": "^4.0.2",
+        "jwt-decode": "^4.0.0",
         "lexical": "^0.34.0",
         "lucide-react": "^0.542.0",
         "mammoth": "^1.10.0",

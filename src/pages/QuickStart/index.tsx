@@ -5,6 +5,7 @@ import styles from './index.module.css';
 import { useHistory } from '@docusaurus/router';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
+import ProtectedRoute from '@site/src/components/ProtectedRoute';
 
 function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -62,16 +63,18 @@ export default function QuickStart(): JSX.Element {
 
     return (
         <Layout>
-            <MetadataFormDialog
-                open={isModalOpen}
-                initialData={newDocData}
-                onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
-                onSave={handleCreate}
-                onCancel={handleCancel}
-            />
-            <main className={styles.pageContainer}>
-                <EditorComponent onAddNew={handleAddNew} />
-            </main>
+            <ProtectedRoute>
+                <MetadataFormDialog
+                    open={isModalOpen}
+                    initialData={newDocData}
+                    onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
+                    onSave={handleCreate}
+                    onCancel={handleCancel}
+                />
+                <main className={styles.pageContainer}>
+                    <EditorComponent onAddNew={handleAddNew} />
+                </main>
+            </ProtectedRoute>
         </Layout>
     );
 }

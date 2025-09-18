@@ -29,9 +29,10 @@ const config: Config = {
         mermaid: true,
     },
     customFields: {
-        validatorApiUrl : process.env.VALIDATOR_API_URL,
+        validatorApiUrl: process.env.VALIDATOR_API_URL,
         xsuaaApiUrl: process.env.XSUAA_API_URL,
-      },
+        backendUrl: 'http://localhost:8080',
+    },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
@@ -257,10 +258,9 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: 'What\'s New',
+                            label: "What's New",
                             to: '/blog',
                         },
-
                     ],
                 },
                 {
@@ -271,9 +271,9 @@ const config: Config = {
                     title: 'Visit GitHub Repository',
                 },
                 {
-                    type: "custom-user-dropdown",
-                    position: "right"
-                }
+                    type: 'custom-user-dropdown',
+                    position: 'right',
+                },
             ],
         },
         footer: {
