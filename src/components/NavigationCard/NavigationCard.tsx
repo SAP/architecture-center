@@ -1,5 +1,6 @@
 import React, { JSX } from 'react';
 import { Card, Icon } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
