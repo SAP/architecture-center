@@ -32,6 +32,10 @@ const config: Config = {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         xsuaaApiUrl: process.env.XSUAA_API_URL,
         backendUrl: 'http://localhost:8080',
+        authProviders: {
+            '/ArchitectureValidator': 'btp',
+            '/quickStart': 'github',
+        },
     },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
