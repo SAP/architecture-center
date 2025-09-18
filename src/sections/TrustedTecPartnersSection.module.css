@@ -7,8 +7,8 @@
   width: 1440px;
   height: 480px;
   margin: 0 auto;
-  background: url("/img/landingPage/worldmap_1440x424_light.webp")
-    center -1px no-repeat;
+  background: url("/img/landingPage/worldmap_1440x424_light.webp");
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   padding: 30px 24px 10px;
@@ -19,8 +19,7 @@
 }
 
 :root[data-theme='dark'] .innerWrapper {
-  background: url("/img/landingPage/worldmap_1440x424_dark.webp")
-    center -1px no-repeat;
+  background-image: url("/img/landingPage/worldmap_1440x424_dark.webp")
 }
 
 .logoImg {
