@@ -130,3 +130,166 @@
     gap: 12px;
     justify-content: flex-end;
 }
+
+/* Text Formatting Styles */
+.editorTextBold {
+    font-weight: bold;
+}
+
+.editorTextItalic {
+    font-style: italic;
+}
+
+.editorTextUnderline {
+    text-decoration: underline;
+}
+
+.editorTextStrikethrough {
+    text-decoration: line-through;
+}
+
+.editorTextUnderlineStrikethrough {
+    text-decoration: underline line-through;
+}
+
+.editorTextCode {
+    background-color: #f1f3f4;
+    padding: 1px 0.25rem;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+/* Paragraph and Heading Styles */
+.editorParagraph {
+    margin: 0 0 1rem 0;
+}
+
+.editorH1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+/* Quote Styles */
+.editorQuote {
+    border-left: 4px solid #ccc;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #666;
+}
+
+/* List Styles */
+.editorUList {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.editorOList {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.editorListItem {
+    margin: 0.25rem 0;
+}
+
+.editorNestedListItem {
+    list-style-type: none;
+}
+
+/* Link Styles */
+.editorLink {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.editorLink:hover {
+    text-decoration: underline;
+}
+
+/* Code Block Styles */
+.editorCode {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+}
+
+/* Image Styles */
+.editorImage {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+/* Direction Styles */
+.ltr {
+    text-align: left;
+}
+
+.rtl {
+    text-align: right;
+}
+
+/* Code Highlight Styles */
+.editorTokenComment {
+    color: #6a737d;
+}
+
+.editorTokenPunctuation {
+    color: #24292e;
+}
+
+.editorTokenProperty {
+    color: #005cc5;
+}
+
+.editorTokenSelector {
+    color: #6f42c1;
+}
+
+.editorTokenOperator {
+    color: #d73a49;
+}
+
+.editorTokenAttr {
+    color: #d73a49;
+}
+
+.editorTokenVariable {
+    color: #e36209;
+}
+
+.editorTokenFunction {
+    color: #6f42c1;
+}

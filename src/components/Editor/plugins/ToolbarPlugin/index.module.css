@@ -97,7 +97,7 @@
     border: 1px solid #e0e0e0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    width: 150px;
+    width: 180px;
     display: flex;
     flex-direction: column;
     padding: 4px;
@@ -156,4 +156,58 @@
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.fixedToolbarContainer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar {
+    height: 8px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.toolbarButton.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.toolbarButton.disabled:hover {
+    background-color: transparent;
+}
+
+.toolbarContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+}
+
+.toolbarButtonGroup {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }

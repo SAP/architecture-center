@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '@ui5/webcomponents-icons/dist/AllIcons';
 import { Button } from '@ui5/webcomponents-react/Button';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import styles from './index.module.css';

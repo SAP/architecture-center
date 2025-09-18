@@ -1,4 +1,5 @@
 import React from 'react';
+import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
@@ -119,7 +120,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                     </div>
 
                     <div className={styles.editorContainer}>
-                        <ToolbarPlugin />
+                        <ToolbarPlugin mode="fixed" />
+                        <ToolbarPlugin mode="floating" />
                         <div className={styles.editorInner}>
                             <RichTextPlugin
                                 contentEditable={<ContentEditable className={styles.editorInput} />}
