@@ -1,0 +1,16 @@
+---
+applications:
+    - name: github-auth-srv
+      memory: 2G
+      disk_quota: 2G
+      instances: 1
+      buildpacks:
+          - nodejs_buildpack
+      path: ./
+      command: npm start
+      env:
+          NODE_ENV: production
+          GITHUB_CLIENT_ID: 'Ov23liDKPRgVqg9Xa9s8'
+          GITHUB_CLIENT_SECRET: '72578d9477e8a9ef46bf5c6e945d8fda1093abc3'
+          JWT_SECRET: 'this-is-a-super-secret-and-long-string-for-jwt'
+          FRONTEND_URL: 'http://localhost:3000'

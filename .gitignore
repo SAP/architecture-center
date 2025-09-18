@@ -29,3 +29,4 @@ backend/.vscode
 
 # Ignoring the mapping file
 src/constant/pageMapping.ts
+**/dist
