@@ -1,9 +1,10 @@
+// src/pages/login/success.tsx
+
 import React, { useEffect } from 'react';
 import { useLocation } from '@docusaurus/router';
-import { useAuth } from '@site/src/context/AuthContext';
+import Layout from '@theme/Layout';
 
 function LoginSuccess() {
-    const { login } = useAuth();
     const location = useLocation();
 
     useEffect(() => {
@@ -12,7 +13,7 @@ function LoginSuccess() {
         const redirectPath = params.get('redirect');
 
         if (token) {
-            login(token);
+            localStorage.setItem('jwt_token', token);
 
             window.location.href = redirectPath || '/';
         } else {
@@ -23,7 +24,7 @@ function LoginSuccess() {
     return (
         <div style={{ textAlign: 'center', padding: '50px' }}>
             <h1>Finalizing Login...</h1>
-            <p>Please wait while we redirect you.</p>
+            <p>This should be quick.</p>
         </div>
     );
 }
