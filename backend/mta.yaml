@@ -25,7 +25,10 @@ modules:
                 srv-url: ${default-url}
       requires:
           - name: arch-val-auth
+          - name: auth-user-provided
 
 resources:
     - name: arch-val-auth
+      type: org.cloudfoundry.existing-service
+    - name: auth-user-provided
       type: org.cloudfoundry.existing-service

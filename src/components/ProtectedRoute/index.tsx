@@ -61,9 +61,9 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         if (requiredProvider) {
             if (typeof window !== 'undefined') {
                 const redirectPath = location.pathname + location.search;
-                const loginUrl = `${backendUrl}/api/auth/${requiredProvider}?redirect=${encodeURIComponent(
+                const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
                     redirectPath
-                )}`;
+                )}&provider=${requiredProvider}`;
                 window.location.href = loginUrl;
             }
             return <Redirecting provider={requiredProvider} />;

@@ -28,7 +28,9 @@ export default function UserDropdownNavbarItem() {
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
     const handleLogin = (provider: 'btp' | 'github') => {
-        window.location.href = `${backendUrl}/api/auth/${provider}`;
+        window.location.href = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
+            window.location.href
+        )}&provider=${provider}`;
     };
 
     if (!user) {
@@ -40,6 +42,7 @@ export default function UserDropdownNavbarItem() {
             <div className={`navbar__item ${styles.userDropdown}`} ref={dropdownRef}>
                 <button onClick={toggleDropdown} className={styles.loginButton}>
                     <Icon name="person-placeholder"></Icon>
+                    <span className={styles.loginButtonText}>Login</span>
                 </button>
                 {isDropdownOpen && (
                     <div

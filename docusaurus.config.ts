@@ -30,8 +30,7 @@ const config: Config = {
     },
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
-        xsuaaApiUrl: process.env.XSUAA_API_URL,
-        backendUrl: 'http://localhost:8080',
+        backendUrl: process.env.BACKEND_API_URL,
         authProviders: {
             '/ArchitectureValidator': 'btp',
             '/quickStart': 'github',

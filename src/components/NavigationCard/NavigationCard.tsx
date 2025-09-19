@@ -90,7 +90,7 @@ export default function NavigationCard({
     }
 
     if (isLoggedOutAndProtected) {
-        const loginUrl = `${backendUrl}/api/auth/${requiredProvider}?redirect=${encodeURIComponent(link)}`;
+        const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(link)}&provider=${requiredProvider}`;
         return (
             <a href={loginUrl} className={styles.cardLink}>
                 {cardContent}
