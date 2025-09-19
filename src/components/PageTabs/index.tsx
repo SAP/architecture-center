@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
-import { Button } from '@ui5/webcomponents-react/Button';
-import { usePageDataStore } from '@site/src/store/pageDataStore';
+import { Button, Icon } from '@ui5/webcomponents-react';
+import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import styles from './index.module.css';
 
 interface PageTabsProps {
@@ -11,26 +11,17 @@ interface PageTabsProps {
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     const { documents, activeDocumentId, setActiveDocumentId } = usePageDataStore();
 
-    const rootDocuments = documents.filter((doc) => doc.parentId === null);
-
-    const firstPage = rootDocuments[0];
-    const otherPages = rootDocuments.slice(1);
-
-    const handleActionClick = (e: any) => {
+    const handleActionClick = (e: React.MouseEvent) => {
         e.stopPropagation();
     };
 
-    const getChildDocuments = (parentId: string) => {
-        return documents.filter((doc) => doc.parentId === parentId);
-    };
-
-    const renderDocumentTree = (doc: any, isRoot: boolean = false) => {
-        const children = getChildDocuments(doc.id);
+    const renderDocumentTree = (doc: Document) => {
+        const children = documents.filter((child) => child.parentId === doc.id);
 
         return (
             <div key={doc.id}>
                 <div
-                    className={`${styles.navItem} ${isRoot ? styles.rootItem : ''} ${
+                    className={`${styles.navItem} ${!doc.parentId ? styles.rootItem : ''} ${
                         doc.id === activeDocumentId ? styles.active : ''
                     }`}
                     onClick={() => setActiveDocumentId(doc.id)}
@@ -40,20 +31,20 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                     </span>
                     <div className={styles.itemActions}>
                         <Button
-                            design="Default"
+                            design="Transparent"
                             icon="add"
                             onClick={(e) => {
                                 handleActionClick(e);
-                                onAddNew(isRoot ? null : doc.id);
+                                onAddNew(doc.id);
                             }}
-                            tooltip={isRoot ? 'Add new page' : 'Add sub-page'}
+                            tooltip={'Add sub-page'}
                         />
                     </div>
                 </div>
                 {children.length > 0 && (
                     <ul className={styles.childrenList}>
                         {children.map((child) => (
-                            <li key={child.id}>{renderDocumentTree(child, false)}</li>
+                            <li key={child.id}>{renderDocumentTree(child)}</li>
                         ))}
                     </ul>
                 )}
@@ -61,18 +52,9 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
         );
     };
 
-    return (
-        <div className={styles.navContainer}>
-            {firstPage && renderDocumentTree(firstPage, true)}
-            {otherPages.length > 0 && (
-                <ul className={styles.childrenList}>
-                    {otherPages.map((doc) => (
-                        <li key={doc.id}>{renderDocumentTree(doc, false)}</li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
+    const rootDocuments = documents.filter((doc) => doc.parentId === null);
+
+    return <div className={styles.navContainer}>{rootDocuments.map((doc) => renderDocumentTree(doc))}</div>;
 };
 
 export default PageTabs;

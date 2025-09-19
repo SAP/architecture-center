@@ -40,7 +40,6 @@ export default function UserDropdownNavbarItem() {
             <div className={`navbar__item ${styles.userDropdown}`} ref={dropdownRef}>
                 <button onClick={toggleDropdown} className={styles.loginButton}>
                     <Icon name="person-placeholder"></Icon>
-                    <span className={styles.loginButtonText}>Login</span>
                 </button>
                 {isDropdownOpen && (
                     <div

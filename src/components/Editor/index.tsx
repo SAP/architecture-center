@@ -16,7 +16,7 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { Button } from '@ui5/webcomponents-react/Button';
-import { usePageDataStore } from '@site/src/store/pageDataStore';
+import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import { ImageNode } from './nodes/ImageNode';
 import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
@@ -30,9 +30,52 @@ import TitleSyncPlugin from './plugins/TitleSyncPlugin';
 import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
+    let currentDoc = allDocs.find((d) => d.id === startDocId);
+    if (!currentDoc) return null;
+
+    while (currentDoc.parentId) {
+        const parentDoc = allDocs.find((d) => d.id === currentDoc.parentId);
+        if (!parentDoc) {
+            break;
+        }
+        currentDoc = parentDoc;
+    }
+    return currentDoc;
+};
+
+const buildDocumentTree = (docId: string, allDocs: Document[]): Document | null => {
+    const rootDoc = allDocs.find((d) => d.id === docId);
+    if (!rootDoc) return null;
+
+    const children = allDocs
+        .filter((d) => d.parentId === docId)
+        .map((childDoc) => buildDocumentTree(childDoc.id, allDocs))
+        .filter(Boolean) as Document[];
+
+    return { ...rootDoc, children };
+};
+
+const transformTreeForBackend = (doc: Document): any => {
+    return {
+        id: doc.id,
+        editorState: doc.editorState,
+        parentId: doc.parentId,
+        children: doc.children ? doc.children.map(transformTreeForBackend) : [],
+        metadata: {
+            title: doc.title,
+            tags: doc.tags,
+            authors: doc.authors,
+            contributors: doc.contributors,
+            description: doc.description || 'This is a default description.',
+        },
+    };
+};
 
 function Placeholder() {
-    return <div className={styles.editorPlaceholder}>Type '/' for commands...</div>;
+    return <div className={styles.editorPlaceholder}>type / to get started</div>;
 }
 
 const editorNodes = [
@@ -77,6 +120,48 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents } = usePageDataStore();
     const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
     const activeDocument = getActiveDocument();
+    const { siteConfig } = useDocusaurusContext();
+    const backendUrl = siteConfig.customFields.backendUrl as string;
+
+    const handleSubmit = async () => {
+        if (!activeDocument) {
+            alert('No active document to publish.');
+            return;
+        }
+
+        const rootDoc = findRootDocument(activeDocument.id, documents);
+        if (!rootDoc) {
+            alert('Could not find the root document for publishing.');
+            return;
+        }
+
+        const fullDocumentTree = buildDocumentTree(rootDoc.id, documents);
+        if (!fullDocumentTree) {
+            alert('Could not construct the document tree.');
+            return;
+        }
+
+        const payload = transformTreeForBackend(fullDocumentTree);
+
+        try {
+            const response = await fetch(`${backendUrl}/api/publish`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(`Success! ${result.message}`);
+            } else {
+                throw new Error(result.message || 'Failed to publish.');
+            }
+        } catch (error) {
+            console.error('Publishing failed:', error);
+            alert(`Error: ${error.message}`);
+        }
+    };
 
     if (!activeDocument) return null;
 
@@ -96,13 +181,15 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 <div className={styles.navColumn}>
                     <PageTabs onAddNew={onAddNew} />
                 </div>
-
                 <div className={styles.editorColumn}>
                     <div className={styles.editorHeader}>
                         {lastSaveTimestamp && (
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
                         <div className={styles.headerButtons}>
+                            <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit}>
+                                Submit
+                            </Button>
                             <Button design="Default" icon="save" onClick={saveState}>
                                 Save
                             </Button>
@@ -118,7 +205,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             )}
                         </div>
                     </div>
-
                     <div className={styles.editorContainer}>
                         <ToolbarPlugin mode="fixed" />
                         <ToolbarPlugin mode="floating" />
@@ -141,13 +227,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         </div>
                     </div>
                 </div>
-
                 <div className={styles.tocColumn}>
                     <TableOfContentsPlugin />
                 </div>
             </div>
-
-            {/* Delete Confirmation Dialog */}
             {showDeleteConfirm && activeDocument && (
                 <div className={styles.dialogOverlay}>
                     <div className={styles.dialogContent}>

@@ -6,12 +6,14 @@ export interface PageMetadata {
     tags: string[];
     authors: string[];
     contributors?: string[];
+    description?: string;
 }
 
 export interface Document extends PageMetadata {
     id: string;
-    editorState: string;
+    editorState: string | null;
     parentId: string | null;
+    children?: Document[];
 }
 
 interface StoredState {
@@ -21,18 +23,12 @@ interface StoredState {
 
 interface PageDataState extends StoredState {
     activeDocumentId: string | null;
-    isModalOpen: boolean;
-    editingDocumentId: string | null;
-    newDocParentId: string | null;
     getDocuments: () => Document[];
-    getActiveDocument: () => Document | undefined;
+    getActiveDocument: () => Document | null;
     addDocument: (metadata: PageMetadata, parentId?: string | null) => void;
     updateDocument: (id: string, updates: Partial<Document>) => void;
     setActiveDocumentId: (id: string | null) => void;
     deleteDocument: (id: string) => void;
-    openModalForNew: (parentId: string | null) => void;
-    openModalForEdit: (docId: string) => void;
-    closeModal: () => void;
     saveState: () => void;
 }
 
@@ -40,7 +36,6 @@ const LOCAL_STORAGE_KEY = 'docusaurus-editor-content';
 
 const debounce = <F extends (...args: any[]) => any>(func: F, wait: number) => {
     let timeout: NodeJS.Timeout | null = null;
-
     const debounced = (...args: Parameters<F>) => {
         if (timeout) {
             clearTimeout(timeout);
@@ -49,7 +44,6 @@ const debounce = <F extends (...args: any[]) => any>(func: F, wait: number) => {
             func(...args);
         }, wait);
     };
-
     return debounced;
 };
 
@@ -74,21 +68,47 @@ export const usePageDataStore = create<PageDataState>((set, get) => {
 
     const debouncedSave = debounce(_performSave, 1000);
 
+    const findDocumentById = (docs: Document[], id: string | null): Document | null => {
+        if (!id) return null;
+        for (const doc of docs) {
+            if (doc.id === id) return doc;
+            if (doc.children) {
+                const found = findDocumentById(doc.children, id);
+                if (found) return found;
+            }
+        }
+        return null;
+    };
+
     return {
         ...loadState(),
         activeDocumentId: loadState().documents[0]?.id || null,
-        isModalOpen: false,
-        editingDocumentId: null,
-        newDocParentId: null,
 
         getDocuments: () => get().documents,
-        getActiveDocument: () => get().documents.find((doc) => doc.id === get().activeDocumentId),
+
+        getActiveDocument: () => {
+            const { documents, activeDocumentId } = get();
+            const activeDoc = findDocumentById(documents, activeDocumentId);
+
+            if (activeDoc) {
+                return JSON.parse(JSON.stringify(activeDoc));
+            }
+            return null;
+        },
 
         setActiveDocumentId: (id: string | null) => set({ activeDocumentId: id }),
 
         addDocument: (metadata: PageMetadata, parentId: string | null = null) => {
-            const newDocument: Document = { ...metadata, id: uuidv4(), editorState: '', parentId };
-            set((state) => ({ documents: [...state.documents, newDocument], activeDocumentId: newDocument.id }));
+            const newDocument: Document = {
+                ...metadata,
+                id: uuidv4(),
+                editorState: null,
+                parentId,
+            };
+            set((state) => ({
+                documents: [...state.documents, newDocument],
+                activeDocumentId: newDocument.id,
+            }));
             debouncedSave();
         },
 
@@ -101,21 +121,15 @@ export const usePageDataStore = create<PageDataState>((set, get) => {
 
         deleteDocument: (id: string) => {
             set((state) => {
-                const childrenIds = state.documents.filter((d) => d.parentId === id).map((d) => d.id);
-                const docsToKeep = state.documents.filter((doc) => doc.id !== id && !childrenIds.includes(doc.id));
+                const docsToKeep = state.documents.filter((doc) => doc.id !== id && doc.parentId !== id);
                 let newActiveId = state.activeDocumentId;
-                if (state.activeDocumentId === id || childrenIds.includes(state.activeDocumentId)) {
+                if (state.activeDocumentId === id) {
                     newActiveId = docsToKeep.length > 0 ? docsToKeep[0].id : null;
                 }
                 return { documents: docsToKeep, activeDocumentId: newActiveId };
             });
             debouncedSave();
         },
-
-        openModalForNew: (parentId: string | null) =>
-            set({ isModalOpen: true, editingDocumentId: null, newDocParentId: parentId }),
-        openModalForEdit: (docId: string) => set({ isModalOpen: true, editingDocumentId: docId }),
-        closeModal: () => set({ isModalOpen: false, editingDocumentId: null, newDocParentId: null }),
 
         saveState: () => {
             _performSave();

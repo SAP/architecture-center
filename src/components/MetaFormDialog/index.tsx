@@ -1,10 +1,9 @@
-// src/components/MetaFormDialog.tsx
-
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Button,
     Dialog,
     Input,
+    TextArea,
     MultiComboBox,
     MultiComboBoxItem,
     MultiInput,
@@ -17,6 +16,7 @@ import {
 } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
+import useGlobalData from '@docusaurus/useGlobalData';
 
 interface MetadataFormDialogProps {
     open: boolean;
@@ -25,15 +25,6 @@ interface MetadataFormDialogProps {
     onSave: () => void;
     onCancel: () => void;
 }
-
-const AVAILABLE_TAGS = [
-    'Generative AI',
-    'Amazon Web Services',
-    'Microsoft Azure',
-    'Google Cloud Platform',
-    'Application Development & Automation',
-    'Data & Analytics',
-];
 
 export default function MetadataFormDialog({
     open,
@@ -45,6 +36,25 @@ export default function MetadataFormDialog({
     const { user } = useAuth();
     const [contributorInputValue, setContributorInputValue] = useState('');
 
+    const tagsData = useGlobalData()['docusaurus-tags']['default']['tags'] || {};
+
+    const { availableTags, labelToKeyMap } = useMemo(() => {
+        if (!tagsData || Object.keys(tagsData).length === 0) {
+            return { availableTags: [], labelToKeyMap: new Map() };
+        }
+
+        const tagsArray = Object.entries(tagsData)
+            .filter(([key]) => key !== 'demo')
+            .map(([key, value]: [string, any]) => ({
+                key: key,
+                label: value.label,
+                description: value.description,
+            }));
+
+        const map = new Map(tagsArray.map((tag) => [tag.label, tag.key]));
+        return { availableTags: tagsArray, labelToKeyMap: map };
+    }, [tagsData]);
+
     const handleContributorAdd = (event) => {
         const newContributor = event.target.value.trim();
         if (newContributor && !initialData?.contributors?.includes(newContributor)) {
@@ -55,8 +65,9 @@ export default function MetadataFormDialog({
     };
 
     const handleTagUpdate = (event) => {
-        const tags = event.detail.items.map((item) => item.text);
-        onDataChange({ tags });
+        const selectedLabels = event.detail.items.map((item) => item.text);
+        const selectedKeys = selectedLabels.map((label) => labelToKeyMap.get(label)).filter(Boolean);
+        onDataChange({ tags: selectedKeys });
     };
 
     const isFormValid = initialData?.title?.trim().length > 0 && initialData?.tags?.length > 0;
@@ -92,9 +103,20 @@ export default function MetadataFormDialog({
                         placeholder="Add your title..."
                     />
                 </FormItem>
+
+                <FormItem labelContent={<Label>Description</Label>}>
+                    <TextArea
+                        style={{ minHeight: '80px', width: '100%' }}
+                        value={initialData?.description || ''}
+                        onInput={(e) => onDataChange({ description: e.target.value })}
+                        placeholder="Add a short description (max 300 characters)..."
+                    />
+                </FormItem>
+
                 <FormItem labelContent={<Label required>Author</Label>}>
                     <Input value={user?.username || 'Loading...'} readonly />
                 </FormItem>
+
                 <FormItem labelContent={<Label>Contributors</Label>}>
                     <MultiInput
                         value={contributorInputValue}
@@ -114,10 +136,11 @@ export default function MetadataFormDialog({
                         placeholder="Add more contributors (optional)..."
                     />
                 </FormItem>
+
                 <FormItem labelContent={<Label required>Tags</Label>}>
                     <MultiComboBox onSelectionChange={handleTagUpdate} placeholder="Select at least one tag...">
-                        {AVAILABLE_TAGS.map((tag) => (
-                            <MultiComboBoxItem key={tag} text={tag} />
+                        {availableTags.map((tag) => (
+                            <MultiComboBoxItem key={tag.key} text={tag.label} />
                         ))}
                     </MultiComboBox>
                 </FormItem>

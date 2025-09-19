@@ -2,11 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 12px;
     cursor: pointer;
     height: 35px;
     border-radius: 8px;
-    margin-right: 10px;
     border: 1px solid transparent;
     background-color: transparent;
 }
@@ -18,10 +16,6 @@
 .loginButton ui5-icon {
     width: 24px;
     height: 24px;
-}
-
-.loginButtonText {
-    margin-left: 8px;
 }
 
 [data-theme='dark'] .loginButton ui5-icon {

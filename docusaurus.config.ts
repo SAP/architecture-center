@@ -43,6 +43,7 @@ const config: Config = {
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
         './src/plugins/tags-generator',
+        './src/plugins/tags-plugin',
         [
             '@docusaurus/plugin-content-docs',
             {

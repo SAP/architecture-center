@@ -1,8 +1,18 @@
 .navContainer {
     border-right: 1px solid #e0e0e0;
-    padding-right: 16px;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
 }
 
 .navItem {
@@ -66,7 +76,6 @@
     opacity: 1;
 }
 
-/* Confirmation Dialog Styles */
 .dialogOverlay {
     position: fixed;
     top: 0;
