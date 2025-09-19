@@ -113,6 +113,13 @@ export function ExtendedTeam(): ReactNode {
                 githubUrl="https://github.com/xammaxx"
                 linkedinUrl="https://www.linkedin.com/in/max-lienhardt-a2a157335/"
             />
+
+            <TeamProfileCard
+                name="Abhishek Sharma"
+                description="Research & Development"
+                githubUrl="https://github.com/abhissharma21"
+                linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
+            />
         </div>
     );
 }
