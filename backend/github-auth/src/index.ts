@@ -30,7 +30,93 @@ const createAppToken = (payload: { username: string; email?: string; avatar?: st
     return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 };
 
-// ... ALL AUTH ROUTES GO HERE ...
+app.get('/api/auth/github', (req: Request, res: Response) => {
+    if (!GITHUB_CLIENT_ID) {
+        return res.status(500).send('GitHub authentication is not configured on the server.');
+    }
+    const redirectPath = req.query.redirect || '/';
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(
+        redirectPath as string
+    )}`;
+    res.redirect(githubAuthUrl);
+});
+
+app.get('/api/auth/github/callback', async (req: Request, res: Response) => {
+    const { code, state } = req.query;
+    const redirectPath = (state as string) || '/';
+    if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
+        return res.status(500).send('GitHub authentication is not configured on the server.');
+    }
+    if (!code || typeof code !== 'string') {
+        return res.redirect(`${FRONTEND_URL}/login/failure?error=NoCode`);
+    }
+    try {
+        const tokenResponse = await axios.post(
+            'https://github.com/login/oauth/access_token',
+            { client_id: GITHUB_CLIENT_ID, client_secret: GITHUB_CLIENT_SECRET, code: code },
+            { headers: { Accept: 'application/json' } }
+        );
+        const accessToken = tokenResponse.data.access_token;
+        if (!accessToken) {
+            throw new Error('Failed to retrieve GitHub access token');
+        }
+        const userResponse = await axios.get('https://api.github.com/user', {
+            headers: { Authorization: `token ${accessToken}` },
+        });
+        const userData = userResponse.data;
+        const appToken = createAppToken({
+            username: userData.login,
+            email: userData.email,
+            avatar: userData.avatar_url,
+            provider: 'github',
+        });
+        res.redirect(`${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent(redirectPath)}`);
+    } catch (error) {
+        console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
+        res.redirect(`${FRONTEND_URL}/login/failure`);
+    }
+});
+
+app.get('/api/auth/btp', (req: Request, res: Response) => {
+    if (!BTP_API_URL) {
+        return res.status(500).send('BTP authentication is not configured on the server.');
+    }
+    const redirectPath = req.query.redirect || '/';
+    const callbackUrl = `${req.protocol}://${req.get('host')}/api/auth/btp/callback?redirect=${encodeURIComponent(
+        redirectPath as string
+    )}`;
+    const btpLoginUrl = `${BTP_API_URL}/user/login?origin_uri=${encodeURIComponent(callbackUrl)}`;
+    res.redirect(btpLoginUrl);
+});
+
+app.get('/api/auth/btp/callback', async (req: Request, res: Response) => {
+    const { t: btpToken, redirect: redirectPath } = req.query;
+    if (!BTP_API_URL) {
+        return res.status(500).send('BTP authentication is not configured on the server.');
+    }
+    if (!btpToken || typeof btpToken !== 'string') {
+        return res.redirect(`${FRONTEND_URL}/login/failure?error=NoBtpToken`);
+    }
+    try {
+        const responseUser = await axios.get(`${BTP_API_URL}/user/getUserInfo`, {
+            headers: { Authorization: `Bearer ${btpToken}` },
+        });
+        const userData = responseUser.data;
+        const appToken = createAppToken({
+            username: `${userData.firstName} ${userData.lastName}`,
+            email: userData.email,
+            provider: 'btp',
+        });
+        res.redirect(
+            `${FRONTEND_URL}/login/success?token=${appToken}&redirect=${encodeURIComponent(
+                (redirectPath as string) || '/'
+            )}`
+        );
+    } catch (error) {
+        console.error('BTP auth callback error:', error instanceof Error ? error.message : error);
+        res.redirect(`${FRONTEND_URL}/login/failure`);
+    }
+});
 
 const slugify = (text: string) =>
     text
@@ -116,24 +202,17 @@ app.post('/api/publish', async (req: Request, res: Response) => {
         if (!rootDocument || !rootDocument.metadata) {
             return res.status(400).send({ message: 'Invalid document data received.' });
         }
-
         const docsPath = path.resolve(__dirname, '../../../docs/ref-arch');
-
         const entries = await fs.readdir(docsPath, { withFileTypes: true });
-
         const raFolders = entries
             .filter((entry) => entry.isDirectory() && entry.name.startsWith('RA'))
             .map((entry) => parseInt(entry.name.substring(2), 10))
             .filter((num) => !isNaN(num));
-
         const latestRaNumber = raFolders.length > 0 ? Math.max(...raFolders) : 0;
         const newRaNumber = latestRaNumber + 1;
         const newRaFolderName = `RA${newRaNumber.toString().padStart(4, '0')}`;
-
         const newDocPath = path.join(docsPath, newRaFolderName);
-
         await processDocumentAndChildren(rootDocument, newDocPath, [newRaFolderName.toLowerCase()], newRaNumber);
-
         res.status(200).send({ message: `Successfully published to ${newRaFolderName}` });
     } catch (error) {
         console.error('Error during publish process:', error);
