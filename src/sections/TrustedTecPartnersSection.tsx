@@ -1,4 +1,4 @@
-import React, { JSX, useRef, useState, useEffect } from 'react';
+import React, { JSX, useRef } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { Title, Text } from '@ui5/webcomponents-react';
@@ -6,6 +6,8 @@ import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './TrustedTecPartnersSection.module.css';
 import ReactCarousel from '@site/src/components/ReactCarousel';
 import Slider from 'react-slick';
+import { useHistory } from '@docusaurus/router';
+import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 
 const logos = [
   { 
@@ -17,7 +19,7 @@ const logos = [
   { 
     name: 'Microsoft',
     lightImg: 'AC_microsoft_logo.webp',
-    url: 'https://www.microsoft.com'
+    filter: { partners: ['azure'] }
   },
   { 
     name: 'IBM',
@@ -27,7 +29,7 @@ const logos = [
   { 
     name: 'Google',
     lightImg: 'AC_google_logo.webp',
-    url: 'https://cloud.google.com'
+    filter: { partners: ['gcp'] }
   },
   { 
     name: 'Databricks',
@@ -39,7 +41,7 @@ const logos = [
     name: 'Amazon',
     lightImg: 'AC_amazon_logo_light.webp',
     darkImg: 'AC_amazon_logo_dark.webp',
-    url: 'https://aws.amazon.com'
+    filter: { partners: ['aws'] }
   }
 ];
 
@@ -47,11 +49,32 @@ export default function TrustedTecPartnersSection(): JSX.Element {
   const { colorMode } = useColorMode();
   const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
   const sliderRef = useRef<Slider>(null);
+  const history = useHistory();
+  const setPartners = useSidebarFilterStore((state) => state.setPartners);
+  const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
   function renderLogo(item, idx) {
   const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (item.filter?.partners) {
+      setPartners(item.filter.partners);
+    }
+    if (item.filter?.techDomains) {
+      setTechDomains(item.filter.techDomains);
+    }
+
+    if (item.filter) {
+      // internal navigation → docs page with sidebar filters
+      history.push('/docs');
+    } else if (item.url) {
+      // external navigation fallback
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+    }
+  };
     return (
-      <a href={item.url} target="_blank" rel="noopener noreferrer"
+      <a href={item.url} onClick= {handleClick} target="_blank" rel="noopener noreferrer"
         onMouseEnter={() => {
           if (sliderRef.current) {
             sliderRef.current.slickPause();
