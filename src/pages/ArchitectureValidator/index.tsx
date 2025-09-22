@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
-import { useAuth } from '../../authProviderBTP';
+import { useAuth } from '@site/src/context/AuthContext';
 
 type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -25,7 +25,7 @@ interface ManagedFile {
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { isLoggedIn, isLoading, login } = useAuth();
+    const { user, loading } = useAuth();
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -33,13 +33,15 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     // Redirect to login if user is not authenticated
     useEffect(() => {
-        if (!isLoading && !isLoggedIn) {
-            login();
+        if (!loading && !user) {
+            // Redirect to BTP login
+            const BTP_API = siteConfig.customFields.backendUrl as string;
+            window.location.href = `${BTP_API}/user/login?origin_uri=${window.location.href}`;
         }
-    }, [isLoading, isLoggedIn, login]);
+    }, [loading, user]);
 
     // Show loading state while checking authentication
-    if (isLoading) {
+    if (loading) {
         return (
             <Layout>
                 <div className={styles.headerBar}>
@@ -56,7 +58,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     }
 
     // Don't render the main content if user is not logged in
-    if (!isLoggedIn) {
+    if (!user) {
         return (
             <Layout>
                 <div className={styles.headerBar}>
@@ -75,7 +77,13 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 You will be redirected to the login page automatically, or you can click the button
                                 below to login manually.
                             </p>
-                            <button className={styles.loginButton} onClick={login}>
+                            <button
+                                className={styles.loginButton}
+                                onClick={() => {
+                                    const BTP_API = siteConfig.customFields.backendUrl as string;
+                                    window.location.href = `${BTP_API}/user/login?origin_uri=${window.location.href}`;
+                                }}
+                            >
                                 Login to Continue
                             </button>
                             <p className={styles.authHelpText}>

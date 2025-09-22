@@ -300,3 +300,282 @@
     width: 100%;
     justify-content: center;
 }
+
+/* Dual Login Layout Styles */
+.dualLoginLayout {
+    min-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .dualLoginLayout {
+        min-width: 320px;
+    }
+}
+
+.dualLoginContainer {
+    display: flex;
+    gap: 1px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+[data-theme='dark'] .dualLoginContainer {
+    border-bottom-color: var(--sap-horizon-neutral-10);
+}
+
+@media (max-width: 768px) {
+    .dualLoginContainer {
+        flex-direction: column;
+    }
+}
+
+.dualLoginSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: relative;
+}
+
+[data-theme='dark'] .dualLoginSection {
+    background-color: var(--sap-horizon-neutral-11);
+}
+
+.dualLoginSection:not(:last-child) {
+    border-right: 1px solid #eeeeee;
+}
+
+[data-theme='dark'] .dualLoginSection:not(:last-child) {
+    border-right-color: var(--sap-horizon-neutral-10);
+}
+
+@media (max-width: 768px) {
+    .dualLoginSection:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    [data-theme='dark'] .dualLoginSection:not(:last-child) {
+        border-bottom-color: var(--sap-horizon-neutral-10);
+    }
+}
+
+.dualLoginSection .userDropdown__header {
+    padding: 20px 15px;
+    border-bottom: none;
+    text-align: center;
+}
+
+.dualLoginSection .userDropdown__section {
+    padding: 15px;
+    border-bottom: none;
+    flex-grow: 1;
+}
+
+.dualLoginSection .userDropdown__section .userDropdown__linkList {
+    margin-bottom: 0;
+}
+
+.dualLoginSection .userDropdown__section .userDropdown__linkList li {
+    margin-bottom: 6px;
+}
+
+.providerBadge {
+    display: inline-block;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-top: 4px;
+    text-transform: uppercase;
+}
+
+.logoutButton {
+    margin: 10px 15px 15px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    border-radius: 4px;
+}
+
+.dualLoginLayout .userDropdown__logoutSection {
+    padding: 15px 20px;
+    border-top: 1px solid #eeeeee;
+    background-color: #ffffff;
+}
+
+[data-theme='dark'] .dualLoginLayout .userDropdown__logoutSection {
+    border-top-color: var(--sap-horizon-neutral-10);
+    background-color: var(--sap-horizon-neutral-11);
+}
+
+/* Adjust avatar sizes for dual login */
+.dualLoginSection .userAvatarLarge {
+    width: 60px;
+    height: 60px;
+}
+
+.dualLoginSection .userAvatarLargePlaceholder {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.dualLoginSection .userName {
+    font-size: 1em;
+    margin-bottom: 2px;
+}
+
+.dualLoginSection .userEmail {
+    font-size: 0.75em;
+    margin-bottom: 4px;
+}
+
+/* Additional login button for single login mode */
+.additionalLoginButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+.additionalLoginButton:hover {
+    background-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .additionalLoginButton:hover {
+    background-color: var(--sap-horizon-neutral-9);
+}
+
+/* New vertical dual login layout */
+.dualLoginVerticalContainer {
+    padding: 0;
+}
+
+.accountRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eeeeee;
+    transition: background-color 0.2s ease;
+}
+
+.accountRow:hover {
+    background-color: #f8f9fa;
+}
+
+[data-theme='dark'] .accountRow {
+    border-bottom-color: var(--sap-horizon-neutral-10);
+}
+
+[data-theme='dark'] .accountRow:hover {
+    background-color: var(--sap-horizon-neutral-10);
+}
+
+.accountInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.accountIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.accountIconPlaceholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.accountDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.accountName {
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--ifm-font-color-base);
+}
+
+.accountProvider {
+    font-size: 0.8em;
+    color: var(--ifm-color-emphasis-600);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+[data-theme='dark'] .accountProvider {
+    color: var(--sap-horizon-neutral-3);
+}
+
+.crossButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ifm-color-emphasis-600);
+    transition: all 0.2s ease;
+}
+
+.crossButton:hover {
+    background-color: var(--ifm-color-danger-contrast-background);
+    color: var(--ifm-color-danger);
+}
+
+[data-theme='dark'] .crossButton {
+    color: var(--sap-horizon-neutral-3);
+}
+
+[data-theme='dark'] .crossButton:hover {
+    background-color: var(--sap-horizon-neutral-9);
+    color: var(--ifm-color-danger);
+}
+
+.logoutAllSection {
+    padding: 15px 20px;
+    border-top: 1px solid #eeeeee;
+    background-color: #ffffff;
+}
+
+[data-theme='dark'] .logoutAllSection {
+    border-top-color: var(--sap-horizon-neutral-10);
+    background-color: var(--sap-horizon-neutral-11);
+}
+
+.logoutAllButton {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 0.9em;
+}
+
+/* Update dual login layout width for vertical design */
+.dualLoginLayout {
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .dualLoginLayout {
+        min-width: 280px;
+    }
+}
