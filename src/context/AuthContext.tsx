@@ -195,16 +195,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 window.location.href = '/';
             }
         } else if (provider === 'btp') {
-            // Clear only BTP authentication
+            // BTP logout - redirect to SAP OAuth logout URL
+            const authData = authStorage.load();
+            const btpToken = authData?.token;
+
+            // Clear BTP authentication locally first
             authStorage.clear();
             const newUsers = { ...users, btp: null };
             setUsers(newUsers);
-            // Set GitHub as primary user if it exists
-            if (newUsers.github) {
-                setUser(newUsers.github);
+
+            if (btpToken) {
+                const logoutUrl = new URL('https://accounts.sap.com/oauth2/logout');
+                logoutUrl.searchParams.append('id_token_hint', btpToken);
+                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+
+                // Redirect to SAP logout
+                window.location.href = logoutUrl.toString();
             } else {
-                setUser(null);
-                window.location.href = '/';
+                // Fallback if no token
+                if (newUsers.github) {
+                    setUser(newUsers.github);
+                } else {
+                    setUser(null);
+                    window.location.href = '/';
+                }
             }
         }
     };
