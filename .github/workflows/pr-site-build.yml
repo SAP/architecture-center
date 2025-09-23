@@ -5,14 +5,7 @@ permissions:
     pages: write
 
 on:
-    pull_request_target:
-        branches:
-            - dev
-        types:
-            - opened
-            - synchronize
-            - reopened
-            - closed
+    workflow_dispatch:
 
 env:
     # https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request
