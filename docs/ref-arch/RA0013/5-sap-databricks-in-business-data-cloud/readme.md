@@ -33,8 +33,8 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: jmsrpp
-  date: 2025-05-19
+  author: s-krishnamoorthy
+  date: 2025-09-09
 ---
 
 # SAP and Databricks Integration in SAP Business Data Cloud
@@ -125,7 +125,7 @@ classDef largeNode stroke-width:4px;
     style Data_Capabilities stroke-width:4px
 ```
 
-## 2. Brownfield Integration (Integrating an existing enterprise databricks platform with SAP BDC)
+## 2. Integrating an existing enterprise databricks platform with SAP BDC [Brownfield Integration]
 
 -   Helps customer safeguard their existing enterprise databricks investment, by enabling integration of their databricks platform with SAP Business Data Cloud via BDC Connect service.
 -   One time setup to provision the 'BDC Connect' service for Databricks that makes this integration possible.  
