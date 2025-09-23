@@ -31,6 +31,7 @@ const config: Config = {
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
+        expressBackendUrl: 'http://localhost:8080',
         authProviders: {
             '/ArchitectureValidator': 'btp',
             '/quickStart': 'github',

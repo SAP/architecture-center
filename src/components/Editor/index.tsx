@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -35,12 +35,9 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
     let currentDoc = allDocs.find((d) => d.id === startDocId);
     if (!currentDoc) return null;
-
     while (currentDoc.parentId) {
         const parentDoc = allDocs.find((d) => d.id === currentDoc.parentId);
-        if (!parentDoc) {
-            break;
-        }
+        if (!parentDoc) break;
         currentDoc = parentDoc;
     }
     return currentDoc;
@@ -49,12 +46,10 @@ const findRootDocument = (startDocId: string, allDocs: Document[]): Document | n
 const buildDocumentTree = (docId: string, allDocs: Document[]): Document | null => {
     const rootDoc = allDocs.find((d) => d.id === docId);
     if (!rootDoc) return null;
-
     const children = allDocs
         .filter((d) => d.parentId === docId)
         .map((childDoc) => buildDocumentTree(childDoc.id, allDocs))
         .filter(Boolean) as Document[];
-
     return { ...rootDoc, children };
 };
 
@@ -118,48 +113,64 @@ interface EditorProps {
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents } = usePageDataStore();
-    const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const activeDocument = getActiveDocument();
     const { siteConfig } = useDocusaurusContext();
-    const backendUrl = siteConfig.customFields.backendUrl as string;
+    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
 
     const handleSubmit = async () => {
+        setIsLoading(true);
+
         if (!activeDocument) {
             alert('No active document to publish.');
+            setIsLoading(false);
             return;
         }
-
         const rootDoc = findRootDocument(activeDocument.id, documents);
         if (!rootDoc) {
             alert('Could not find the root document for publishing.');
+            setIsLoading(false);
             return;
         }
-
         const fullDocumentTree = buildDocumentTree(rootDoc.id, documents);
         if (!fullDocumentTree) {
             alert('Could not construct the document tree.');
+            setIsLoading(false);
             return;
         }
-
-        const payload = transformTreeForBackend(fullDocumentTree);
+        const documentObject = transformTreeForBackend(fullDocumentTree);
+        const payloadForPublish = {
+            document: JSON.stringify(documentObject),
+        };
 
         try {
-            const response = await fetch(`${backendUrl}/api/publish`, {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) {
+                alert('Authentication error: You are not logged in. Please log in again.');
+                return;
+            }
+
+            const response = await fetch(`${expressBackendUrl}/api/publish`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(payloadForPublish),
             });
 
             const result = await response.json();
-
-            if (response.ok) {
-                alert(`Success! ${result.message}`);
-            } else {
-                throw new Error(result.message || 'Failed to publish.');
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to publish to GitHub.');
             }
-        } catch (error) {
+
+            alert(`Successfully published! View your commit: ${result.commitUrl}`);
+        } catch (error: any) {
             console.error('Publishing failed:', error);
             alert(`Error: ${error.message}`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -187,8 +198,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
                         <div className={styles.headerButtons}>
-                            <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit}>
-                                Submit
+                            <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit} disabled={isLoading}>
+                                {isLoading ? 'Submitting...' : 'Submit'}
                             </Button>
                             <Button design="Default" icon="save" onClick={saveState}>
                                 Save

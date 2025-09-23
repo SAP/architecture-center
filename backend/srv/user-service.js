@@ -12,9 +12,9 @@ dotenv.config({ path: envPath });
 const { Users } = cds.entities;
 let xsuaa = {};
 try { xsuaa = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa; }
-catch (e) { console.error('Error loading xsuaa service:', e); }
+catch (e) { console.log('Error loading xsuaa service:', e); }
 
-const upsAuth = process.env.VCAP_SERVICES ? JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'] : null;
+const upsAuth = process.env.GITHUB_CLIENT_ID ? null : JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'];
 
 
 // GitHub and general configuration

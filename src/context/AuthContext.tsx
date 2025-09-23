@@ -9,6 +9,7 @@ interface AuthUser {
     email?: string;
     avatar?: string;
     provider: 'github' | 'btp';
+    githubAccessToken?: string;
 }
 
 interface DualAuthUsers {

@@ -10,7 +10,10 @@ import Link from '@docusaurus/Link';
 export default function UserDropdownNavbarItem() {
     const { user, users, loading, logout, hasDualLogin } = useAuth();
     const { siteConfig } = useDocusaurusContext();
-    const backendUrl = siteConfig.customFields.backendUrl as string;
+    const { backendUrl, expressBackendUrl } = siteConfig.customFields as {
+        backendUrl: string;
+        expressBackendUrl: string;
+    };
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -28,10 +31,20 @@ export default function UserDropdownNavbarItem() {
 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
+    // const handleLogin = (provider: 'btp' | 'github') => {
+    //     window.location.href = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
+    //         window.location.href
+    //     )}&provider=${provider}`;
+    // };
+
     const handleLogin = (provider: 'btp' | 'github') => {
-        window.location.href = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
-            window.location.href
-        )}&provider=${provider}`;
+        const originUri = encodeURIComponent(window.location.href);
+
+        if (provider === 'github') {
+            window.location.href = `${expressBackendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
+        } else {
+            window.location.href = `${backendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
+        }
     };
 
     if (!user) {
@@ -69,6 +82,7 @@ export default function UserDropdownNavbarItem() {
     }
 
     const UserAvatar = ({ isLarge = false }) => {
+        console.log('Rendering avatar for user:', user);
         if (user.provider === 'github' && user.avatar) {
             return (
                 <img
@@ -105,9 +119,7 @@ export default function UserDropdownNavbarItem() {
                     }`}
                 >
                     {hasDualLogin ? (
-                        // Dual login layout - vertical list
                         <div className={styles.dualLoginVerticalContainer}>
-                            {/* GitHub Account Row */}
                             {users.github && (
                                 <div className={styles.accountRow}>
                                     <div className={styles.accountInfo}>
@@ -135,7 +147,6 @@ export default function UserDropdownNavbarItem() {
                                 </div>
                             )}
 
-                            {/* BTP Account Row */}
                             {users.btp && (
                                 <div className={styles.accountRow}>
                                     <div className={styles.accountInfo}>

@@ -12,7 +12,9 @@
     "axios": "^1.12.2",
     "dotenv": "^17.2.2",
     "express": "^4",
-    "jsonwebtoken": "^9.0.2"
+    "glob": "^11.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.1.6"
   },
   "engines": {
     "node": ">=20"
@@ -31,6 +33,9 @@
     "requires": {
       "[production]": {
         "auth": "xsuaa"
+      },
+      "[hybrid]": {
+        "auth": "mocked"
       }
     }
   }
