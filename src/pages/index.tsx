@@ -9,8 +9,8 @@ export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     useEffect(() => {
         const script = document.createElement('script');
-        script.src = 'https://wup3nky7.eu12.sapdas-staging.cloud.sap/resources/public/webclient/bootstrap.js'; // Replace with actual URL
-        script.setAttribute('data-bot-name', 'sap_digital_assistant'); // Replace with your bot name
+        script.src = 'https://71ab10dc.eu12.sapdas-staging.cloud.sap/resources/public/webclient/bootstrap.js'; // Replace with actual URL
+        script.setAttribute('data-bot-name', 'architecture_validation'); // Replace with your bot name
         script.setAttribute('data-expander-type', 'DEFAULT');
         script.setAttribute(
             'data-expander-preferences',
