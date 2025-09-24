@@ -61,7 +61,7 @@ A tool called the Data Product Generator for SAP Business Data Cloud is introduc
 
 The modernization process leverages the following components to transition BW environments to SAP BDC:
 
-- **SAP Business Warehouse, private cloud edition for SAP NetWeaver**: Private cloud edition of BW for transitioning to SAP BDC.
+- **SAP Business Warehouse, private cloud edition**: Private cloud edition of BW for transitioning to SAP BDC.
 - **Data Product Generator:** Enables creation of SAP BW data products for integration in SAP Datasphere and ML/AI scenarios in SAP Databricks.
 - **SAP Datasphere**: Centralized business data fabric supporting self-service, semantic onboarding, and integration with data marketplaces.
 - **SAP Analytics Cloud:** Provides Analytics & BI and Enterprise Planning.
@@ -72,16 +72,9 @@ The modernization process leverages the following components to transition BW en
 
 ## High-Level SAP BW Modernization Approach
 
-Migration projects require careful planning to ensure continuity and minimize disruption. SAP’s approach addresses key enterprise concerns:
-
--   **Data Continuity**: Comprehensive validation ensures consistency and integrity during migration, with a focus on preserving historical data and business rules.
--   **Operational Stability**: Parallel operations during transition phases reduce business disruption, supported by robust fallback mechanisms.
--   **Capability Development**: Tailored training programs ensure teams can effectively manage and utilize the new SAP BDC environment.
--   **Security and Compliance**: Enterprise-grade security controls and compliance frameworks protect data and support audit requirements.
-
 SAP provides a structured three-step approach for migrating SAP BW systems to the Business Data Cloud. This methodology focuses on leveraging existing BW data, transitioning to modern data products, and adopting a scalable, cloud-native architecture.
 
-**Key benefits of SAP Business Warehouse, private cloud edition for SAP NetWeaver as part of SAP BDC:**
+**Key benefits of SAP Business Warehouse, private cloud edition as part of SAP BDC:**
 
 -   SAP BW data products can be leveraged in SAP Databricks for ML/AI use cases and in SAP Datasphere for analytics scenarios, allowing the native implementation of BW use cases while following a zero-copy approach.
 -   HANA Data Lake Files (object store) are used to store large business data, reducing associated storage costs.
@@ -99,7 +92,6 @@ The migration pathway depends on the current SAP BW system landscape. Below is a
 
 ![drawio](drawio/migration-pathways.drawio)
 
-
 **For SAP BW > 7.5 deployments:** 
 - Upgrade to BW 7.5 on HANA database (in case of any DB) and check if SPS24 is fulfilled or upgrade to the latest SPS.
 
@@ -110,7 +102,6 @@ The migration pathway depends on the current SAP BW system landscape. Below is a
 
 - SAP BW/4HANA 1.0 and 2.0: Upgrade to SAP BW/4HANA 2023 latest support package.
 - SAP BW/4HANA 2021: Check if SPS04 is fulfilled or upgrade to the latest SPS.
-- **SAP BW/4HANA 2023**: Implement the most recent Service Pack for optimal performance.
 
 **2. Shift to SAP BW data products:** 
 
