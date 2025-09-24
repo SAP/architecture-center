@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import path from 'path';
 
 export interface FileForCommit {
     path: string;
@@ -7,6 +8,10 @@ export interface FileForCommit {
 }
 
 export interface DocumentObject {
+    id: string;
+    editorState: string;
+    parentId: string | null;
+    children?: DocumentObject[];
     metadata: {
         title: string;
         tags: string[];
@@ -14,11 +19,11 @@ export interface DocumentObject {
         contributors: string[];
         description?: string;
     };
-    editorState: string;
 }
 
 interface LexicalNode {
     type: string;
+    src?: string;
     tag?: string;
     text?: string;
     format?: number;
@@ -34,16 +39,19 @@ interface LexicalEditorState {
     root: LexicalNode;
 }
 
+const slugify = (text: string): string =>
+    text
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '');
+
 function extractDrawioData(node: LexicalNode): FileForCommit[] {
     if (!node) return [];
     let diagrams: FileForCommit[] = [];
     if (node.type === 'drawio' && node.diagramXML) {
         const fileName = `diagram-${nanoid(10)}.drawio`;
         node.fileName = fileName;
-        diagrams.push({
-            path: `drawio/${fileName}`,
-            content: node.diagramXML,
-        });
+        diagrams.push({ path: `drawio/${fileName}`, content: node.diagramXML });
     }
     if (node.children && Array.isArray(node.children)) {
         for (const child of node.children) {
@@ -51,6 +59,31 @@ function extractDrawioData(node: LexicalNode): FileForCommit[] {
         }
     }
     return diagrams;
+}
+
+function extractImageData(node: LexicalNode): FileForCommit[] {
+    if (!node) return [];
+    let images: FileForCommit[] = [];
+    if (node.type === 'image' && node.src && node.src.startsWith('data:image/')) {
+        const matches = node.src.match(/^data:image\/([a-zA-Z]+);base64,(.*)$/);
+        if (matches && matches.length === 3) {
+            const extension = matches[1];
+            const base64Data = matches[2];
+            const fileName = `image-${nanoid(10)}.${extension}`;
+            node.fileName = fileName;
+            images.push({
+                path: `images/${fileName}`,
+                content: base64Data,
+                encoding: 'base64',
+            });
+        }
+    }
+    if (node.children && Array.isArray(node.children)) {
+        for (const child of node.children) {
+            images = images.concat(extractImageData(child));
+        }
+    }
+    return images;
 }
 
 function convertNodeToMarkdown(node: LexicalNode): string {
@@ -102,13 +135,30 @@ function convertLexicalToMarkdown(editorState: string): string {
     }
 }
 
-export function generateFileTreeInMemory(doc: DocumentObject, raFolderName: string): FileForCommit[] {
-    const { metadata } = doc;
+function processDocumentTreeRecursively(
+    doc: DocumentObject,
+    raFolderName: string,
+    currentBasePath: string,
+    sidebarPosition: number,
+    idSegments: string[],
+    parentSlug: string,
+    isRoot: boolean = false
+): FileForCommit[] {
+    let filesForThisLevel: FileForCommit[] = [];
+    const { metadata, editorState } = doc;
+    let currentFullSlug: string;
+
+    if (isRoot) {
+        currentFullSlug = path.join(parentSlug, nanoid(8));
+    } else {
+        currentFullSlug = path.join(parentSlug, sidebarPosition.toString());
+    }
+
     const today = new Date().toISOString().split('T')[0];
     const frontMatter = `---
-id: id-${raFolderName.toLowerCase()}
-slug: /ref-arch/${nanoid(8)}
-sidebar_position: 1
+id: id-${idSegments.join('-')}
+slug: ${currentFullSlug}
+sidebar_position: ${sidebarPosition}
 title: '${metadata.title.replace(/'/g, "''")} [${raFolderName.toUpperCase()}]'
 description: '${(metadata.description || '').replace(/'/g, "''")}'
 sidebar_label: '${metadata.title.replace(/'/g, "''")}'
@@ -124,17 +174,57 @@ last_update:
 ---
 `;
 
-    let filesToCommit: FileForCommit[] = [];
-    if (doc.editorState) {
-        const jsonState = JSON.parse(doc.editorState) as LexicalEditorState;
+    if (editorState) {
+        const jsonState = JSON.parse(editorState) as LexicalEditorState;
         const drawioFiles = extractDrawioData(jsonState.root);
-        filesToCommit.push(...drawioFiles);
+        const imageFiles = extractImageData(jsonState.root);
+
+        drawioFiles.forEach((drawioFile) => {
+            filesForThisLevel.push({
+                ...drawioFile,
+                path: path.join(currentBasePath, drawioFile.path),
+            });
+        });
+
+        imageFiles.forEach((imageFile) => {
+            filesForThisLevel.push({
+                ...imageFile,
+                path: path.join(currentBasePath, imageFile.path),
+            });
+        });
+
         const markdownContent = convertLexicalToMarkdown(JSON.stringify(jsonState));
-        filesToCommit.push({
-            path: 'readme.md',
+        filesForThisLevel.push({
+            path: path.join(currentBasePath, 'readme.md'),
             content: frontMatter + '\n' + markdownContent,
             encoding: 'utf-8',
         });
     }
-    return filesToCommit;
+
+    if (doc.children && doc.children.length > 0) {
+        doc.children.forEach((childDoc, index) => {
+            const childPosition = index + 1;
+            const childFolderName = `${childPosition}-${slugify(childDoc.metadata.title || 'untitled')}`;
+            const childBasePath = path.join(currentBasePath, childFolderName);
+            const childIdSegments = [...idSegments, childPosition.toString()];
+            const childFiles = processDocumentTreeRecursively(
+                childDoc,
+                raFolderName,
+                childBasePath,
+                childPosition,
+                childIdSegments,
+                currentFullSlug,
+                false
+            );
+            filesForThisLevel.push(...childFiles);
+        });
+    }
+
+    return filesForThisLevel;
+}
+
+export function generateFileTreeInMemory(rootDoc: DocumentObject, raFolderName: string): FileForCommit[] {
+    const initialIdSegments = [raFolderName.toLowerCase()];
+    const initialParentSlug = '/ref-arch';
+    return processDocumentTreeRecursively(rootDoc, raFolderName, '', 1, initialIdSegments, initialParentSlug, true);
 }

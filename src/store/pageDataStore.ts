@@ -30,6 +30,7 @@ interface PageDataState extends StoredState {
     setActiveDocumentId: (id: string | null) => void;
     deleteDocument: (id: string) => void;
     saveState: () => void;
+    resetStore: () => void;
 }
 
 const LOCAL_STORAGE_KEY = 'docusaurus-editor-content';
@@ -133,6 +134,18 @@ export const usePageDataStore = create<PageDataState>((set, get) => {
 
         saveState: () => {
             _performSave();
+        },
+
+        resetStore: () => {
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
+
+            set({
+                documents: [],
+                lastSaveTimestamp: null,
+                activeDocumentId: null,
+            });
+
+            console.log('Editor store has been reset.');
         },
     };
 });

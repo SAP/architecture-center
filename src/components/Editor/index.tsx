@@ -31,6 +31,8 @@ import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useHistory } from '@docusaurus/router';
+import LoadingModal, { PublishStage } from '../LoadingModal';
 
 const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
     let currentDoc = allDocs.find((d) => d.id === startDocId);
@@ -111,16 +113,33 @@ interface EditorProps {
     onAddNew: (parentId?: string | null) => void;
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+interface PublishStatus {
+    stage: PublishStage;
+    error: string | null;
+    commitUrl: string | null;
+}
+
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
-    const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents } = usePageDataStore();
+    const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents, resetStore } =
+        usePageDataStore();
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const activeDocument = getActiveDocument();
     const { siteConfig } = useDocusaurusContext();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const [publishStatus, setPublishStatus] = useState<PublishStatus>({
+        stage: 'idle',
+        error: null,
+        commitUrl: null,
+    });
+    const history = useHistory();
 
     const handleSubmit = async () => {
         setIsLoading(true);
+
+        setPublishStatus({ stage: 'forking', error: null, commitUrl: null });
 
         if (!activeDocument) {
             alert('No active document to publish.');
@@ -144,6 +163,12 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             document: JSON.stringify(documentObject),
         };
 
+        await sleep(3000);
+        setPublishStatus((prev) => ({ ...prev, stage: 'packaging' }));
+
+        await sleep(5000);
+        setPublishStatus((prev) => ({ ...prev, stage: 'committing' }));
+
         try {
             const token = localStorage.getItem('jwt_token');
             if (!token) {
@@ -165,13 +190,36 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 throw new Error(result.error || 'Failed to publish to GitHub.');
             }
 
-            alert(`Successfully published! View your commit: ${result.commitUrl}`);
+            setPublishStatus({
+                stage: 'success',
+                error: null,
+                commitUrl: result.commitUrl,
+            });
         } catch (error: any) {
             console.error('Publishing failed:', error);
-            alert(`Error: ${error.message}`);
+            console.error('Publishing failed:', error);
+            setPublishStatus({
+                stage: 'error',
+                error: error.message,
+                commitUrl: null,
+            });
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const closeLoadingModal = () => {
+        setPublishStatus({ stage: 'idle', error: null, commitUrl: null });
+    };
+
+    const handleSuccessAndReset = () => {
+        if (publishStatus.commitUrl) {
+            window.open(publishStatus.commitUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        resetStore();
+
+        history.push('/');
     };
 
     if (!activeDocument) return null;
@@ -268,6 +316,13 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                     </div>
                 </div>
             )}
+            <LoadingModal
+                status={publishStatus.stage}
+                error={publishStatus.error}
+                commitUrl={publishStatus.commitUrl}
+                onClose={closeLoadingModal}
+                onSuccessFinish={handleSuccessAndReset}
+            />
         </LexicalComposer>
     );
 };
