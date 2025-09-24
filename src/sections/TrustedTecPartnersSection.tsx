@@ -1,11 +1,9 @@
-import React, { JSX, useRef } from 'react';
+import React, { JSX } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { Title, Text } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './TrustedTecPartnersSection.module.css';
-import ReactCarousel from '@site/src/components/ReactCarousel';
-import Slider from 'react-slick';
 import { useHistory } from '@docusaurus/router';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 
@@ -48,10 +46,9 @@ const logos = [
 export default function TrustedTecPartnersSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
-    const sliderRef = useRef<Slider>(null);
     const history = useHistory();
-    const setPartners = useSidebarFilterStore((state) => state.setPartners);
-    const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+    const setPartners = useSidebarFilterStore((state: any) => state.setPartners);
+    const setTechDomains = useSidebarFilterStore((state: any) => state.setTechDomains);
 
     function renderLogo(item, idx) {
     const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
@@ -75,29 +72,8 @@ export default function TrustedTecPartnersSection(): JSX.Element {
     };
 
     return (
-      <div className={styles.logoWrapper}>
-        <a href={item.url} onClick= {handleClick} target="_blank" rel="noopener noreferrer"
-          onMouseEnter={() => {
-            if (sliderRef.current) {
-              sliderRef.current.slickPause();
-              const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-              if (track) {
-                const computed = window.getComputedStyle(track).transform; 
-                track.style.transform = computed;
-                track.style.transition = 'none';
-              }
-            }
-          }}    
-          onMouseLeave={() => {
-            if (sliderRef.current) {
-              const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-              if (track) {
-                track.style.transition = ''; // reset
-              }
-              sliderRef.current.slickPlay(); // resume
-            }
-          }}
-        >
+      <div className={styles.logoWrapper} key={idx}>
+        <a href={item.url} onClick={handleClick} target="_blank" rel="noopener noreferrer">
         <img
             src={imgSrc}
             alt={item.name}
@@ -119,37 +95,12 @@ export default function TrustedTecPartnersSection(): JSX.Element {
         </Text>     
 
         <div className={styles.carouselLogo}>
-          <ReactCarousel
-            ref={sliderRef}
-            items={[...logos, ...logos]}
-            renderItem={renderLogo}
-            slidesToShow={6}
-            infinite={true}
-            autoplay={true}
-            speed={4000}
-            autoplaySpeed={10}
-            showHeader={false}
-            pauseOnHover={false}
-            cssEase="linear"
-            responsive={[
-              {
-                breakpoint: 1200, // e.g. iPad landscape
-                settings: { slidesToShow: 4 }
-              },
-              {
-                breakpoint: 1024, // iPad portrait
-                settings: { slidesToShow: 4 }
-              },
-              {
-                breakpoint: 768, // smaller tablets
-                settings: { slidesToShow: 3 }
-              },
-              {
-                breakpoint: 600, // mobile -> already handled by logoList
-                settings: "unslick" // disables carousel
-              }
-            ]}
-          />
+          <div className={styles.logoScroller}>
+            {/* First set of logos */}
+            {logos.map((logo, idx) => renderLogo(logo, idx))}
+            {/* Duplicate set for seamless loop */}
+            {logos.map((logo, idx) => renderLogo(logo, idx + logos.length))}
+          </div>
         </div>
 
         {/* Static vertical list (mobile) */}

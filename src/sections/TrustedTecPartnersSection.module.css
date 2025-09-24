@@ -23,24 +23,27 @@
 }
 
 .logoWrapper {
-  width: 244px;
+  width: auto;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .logoImg {
-  max-width: 244px;   
-  max-height: 60px;
+  max-width: auto;   
+  max-height: 80px;
   width: auto;
   height: auto;
+  object-fit:contain;
 }
 
-
 .logoImg:hover {
-  transform: scale(1.5);
-  transition: transform 0.3s ease;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
 .title {
@@ -59,6 +62,29 @@
     padding-top: clamp(40px, 5vw, 80px);
     position: relative;
     overflow: hidden;
+    height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.logoScroller {
+    display: flex;
+    gap: 40px;
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+}
+
+.logoScroller:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .carouselLogo::before,
@@ -98,9 +124,17 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
+    .logoWrapper {
+        width: 160px;
+    }
+
     .logoImg {
-        width: 140px;
-        height: 100px;
+        max-width: 140px;
+        max-height: 60px;
+    }
+
+    .logoScroller {
+        gap: 30px;
     }
 
     .carouselLogo {
