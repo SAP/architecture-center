@@ -32,13 +32,16 @@
 }
 
 .logoImg {
-  height: auto;
-  width: auto;
+  height: 90%;
+  max-height: 80px;
+  width: 90%;
+  max-width: 200px;
   display: block;
+  object-fit: contain;
 }
 
 .logoImg:hover {
-  transform: scale(1.5);
+  transform: scale(1.2);
   transition: transform 0.3s ease;
 }
 
@@ -88,6 +91,20 @@
     background: linear-gradient(to left, var(--carousel-fade-bg), transparent);
 }
 
+/* Allow slick-slide containers to size automatically based on image content */
+.carouselLogo :global(.slick-slide) {
+    width: auto !important; /* Let width be determined by content */
+    min-width: 120px; /* Minimum width to prevent too narrow slides */
+    max-width: 300px; /* Maximum width to prevent oversized slides */
+}
+
+.carouselLogo :global(.slick-slide) > div {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .logoList { display: none; }
 
 :root[data-theme='dark'] .title,
@@ -98,12 +115,17 @@
 /* Tablet */
 @media (max-width: 1024px) {
     .logoImg {
-        width: 140px;
-        height: 100px;
+        max-width: 140px;
+        max-height: 70px;
     }
 
     .carouselLogo {
         padding: 0 20px;
+    }
+
+    .carouselLogo :global(.slick-slide) {
+        min-width: 100px;
+        max-width: 200px;
     }
 
     .innerWrapper {
@@ -122,8 +144,8 @@
     }
 
     .logoImg {
-        width: 100px;
-        height: 80px;
+        max-width: 100px;
+        max-height: 60px;
     }
 
     .carouselLogo { display: none; }
@@ -154,8 +176,8 @@
     }
 
     .logoImg {
-        width: 80px;
-        height: 60px;
+        max-width: 80px;
+        max-height: 50px;
     }
 
     .carouselLogo {
