@@ -17,7 +17,7 @@ function Redirecting({ provider }: { provider?: string }) {
 }
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
-    const { user, loading } = useAuth();
+    const { user, users, loading } = useAuth();
     const { siteConfig } = useDocusaurusContext();
     const location = useLocation();
 
@@ -38,19 +38,23 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
 
     if (user) {
         const requiredProvider = authProviders[location.pathname];
-        if (requiredProvider && user.provider !== requiredProvider) {
-            return (
-                <Layout>
-                    <div style={{ padding: '2rem', textAlign: 'center' }}>
-                        <h2>Access Denied</h2>
-                        <p>
-                            This page requires you to be logged in with {requiredProvider.toUpperCase()}. You are
-                            currently logged in with {user.provider.toUpperCase()}.
-                        </p>
-                        <p>Please log out and log in with the correct provider.</p>
-                    </div>
-                </Layout>
-            );
+        if (requiredProvider) {
+            // Check if user is logged in with the required provider using the users object
+            const isLoggedInWithRequiredProvider = users[requiredProvider] !== null;
+            if (!isLoggedInWithRequiredProvider) {
+                return (
+                    <Layout>
+                        <div style={{ padding: '2rem', textAlign: 'center' }}>
+                            <h2>Access Denied</h2>
+                            <p>
+                                This page requires you to be logged in with {requiredProvider.toUpperCase()}. You are
+                                currently logged in with {user.provider.toUpperCase()}.
+                            </p>
+                            <p>Please log out and log in with the correct provider.</p>
+                        </div>
+                    </Layout>
+                );
+            }
         }
         return <>{children}</>;
     }

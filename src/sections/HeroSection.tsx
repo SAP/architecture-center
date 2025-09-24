@@ -2,26 +2,44 @@ import React, { JSX, useEffect, useRef, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { navigationCardsData } from '../constant/constants';
-import { authStorage } from '../utils/authStorage';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import ReactCarousel from '@site/src/components/ReactCarousel';
 import styles from './HeroSection.module.css';
 import { Icon } from '@ui5/webcomponents-react';
+import { useAuth } from '../context/AuthContext';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function HeroSection(): JSX.Element {
     const { colorMode } = useColorMode();
+    const { users } = useAuth();
+    const { siteConfig } = useDocusaurusContext();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
 
     const getVisibleNavigationCards = () => {
-        const authData = authStorage.load();
-        const isLoggedIn = authData && authData.token;
+        const { authProviders } = siteConfig.customFields as {
+            authProviders: Record<string, 'btp' | 'github'>;
+        };
 
-        return navigationCardsData.map((card) => ({
-            ...card,
-            // If card requires authentication and user is not logged in, mark as disabled
-            disabled: card.requiresAuth && !isLoggedIn,
-        }));
+        return navigationCardsData.map((card) => {
+            const requiredProvider = authProviders?.[card.link];
+            let disabled = false;
+
+            if (requiredProvider) {
+                // Check if user is logged in with the required provider
+                const isLoggedInWithRequiredProvider = users[requiredProvider] !== null;
+                disabled = !isLoggedInWithRequiredProvider;
+            } else if (card.requiresAuth) {
+                // Fallback to general auth requirement (either provider)
+                const isLoggedIn = users.github || users.btp;
+                disabled = !isLoggedIn;
+            }
+
+            return {
+                ...card,
+                disabled,
+            };
+        });
     };
 
     const slides = [
@@ -135,7 +153,6 @@ export default function HeroSection(): JSX.Element {
                         icon={item.icon}
                         link={item.link}
                         disabled={item.disabled}
-                        requiresAuth={item.requiresAuth}
                         onMouseEnter={() => handleCardHover(index)}
                         onMouseLeave={handleCardLeave}
                     />

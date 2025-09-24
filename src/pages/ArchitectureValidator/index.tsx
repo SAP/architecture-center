@@ -25,20 +25,27 @@ interface ManagedFile {
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { user, loading } = useAuth();
+    const { user, users, loading } = useAuth();
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [hasRedirected, setHasRedirected] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Redirect to login if user is not authenticated
+    // Check if user is authenticated with BTP
+    const isBtpAuthenticated = users.btp !== null;
+
+    // Redirect to BTP login if user is not authenticated with BTP
     useEffect(() => {
-        if (!loading && !user) {
+        if (!loading && !isBtpAuthenticated && !hasRedirected) {
+            setHasRedirected(true);
             // Redirect to BTP login
             const BTP_API = siteConfig.customFields.backendUrl as string;
-            window.location.href = `${BTP_API}/user/login?origin_uri=${window.location.href}`;
+            window.location.href = `${BTP_API}/user/login?origin_uri=${encodeURIComponent(
+                window.location.href
+            )}&provider=btp`;
         }
-    }, [loading, user]);
+    }, [loading, isBtpAuthenticated, hasRedirected, siteConfig.customFields.backendUrl]);
 
     // Show loading state while checking authentication
     if (loading) {
@@ -57,37 +64,46 @@ export default function ArchitectureValidator(): React.JSX.Element {
         );
     }
 
-    // Don't render the main content if user is not logged in
-    if (!user) {
+    // Don't render the main content if user is not authenticated with BTP
+    if (!isBtpAuthenticated) {
         return (
             <Layout>
                 <div className={styles.headerBar}>
                     <h1>Architecture Validator</h1>
-                    <p>Authentication required to access this feature</p>
+                    <p>BTP authentication required to access this feature</p>
                 </div>
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <div className={styles.authRequired}>
-                            <h2>🔒 Authentication Required</h2>
+                            <h2>🔒 BTP Authentication Required</h2>
                             <p>
-                                The Architecture Validator requires authentication to ensure secure access to validation
-                                services.
+                                The Architecture Validator requires BTP authentication to ensure secure access to
+                                validation services.
                             </p>
-                            <p>
-                                You will be redirected to the login page automatically, or you can click the button
-                                below to login manually.
-                            </p>
+                            {user && user.provider !== 'btp' ? (
+                                <p>
+                                    You are currently logged in with {user.provider.toUpperCase()}, but this feature
+                                    requires BTP login.
+                                </p>
+                            ) : (
+                                <p>
+                                    You will be redirected to the BTP login page automatically, or you can click the
+                                    button below to login manually.
+                                </p>
+                            )}
                             <button
                                 className={styles.loginButton}
                                 onClick={() => {
                                     const BTP_API = siteConfig.customFields.backendUrl as string;
-                                    window.location.href = `${BTP_API}/user/login?origin_uri=${window.location.href}`;
+                                    window.location.href = `${BTP_API}/user/login?origin_uri=${encodeURIComponent(
+                                        window.location.href
+                                    )}&provider=btp`;
                                 }}
                             >
-                                Login to Continue
+                                Login with BTP to Continue
                             </button>
                             <p className={styles.authHelpText}>
-                                After logging in, you'll be redirected back to this page.
+                                After logging in with BTP, you'll be redirected back to this page.
                             </p>
                         </div>
                     </div>

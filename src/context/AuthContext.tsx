@@ -90,6 +90,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const githubToken = params.get('token');
             // Check for BTP token (uses 't' parameter)
             const btpToken = params.get('t');
+            // Check for logout success
+            const logoutSuccess = params.get('logout');
+            const logoutProvider = params.get('provider');
 
             if (githubToken) {
                 // Handle GitHub authentication
@@ -153,6 +156,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
                 // Trigger a storage event to notify other components
                 window.dispatchEvent(new Event('storage'));
+            } else if (logoutSuccess === 'success' && logoutProvider) {
+                // Handle logout success callback
+                console.log(`Logout success callback for provider: ${logoutProvider}`);
+
+                // Clean URL to remove logout parameters
+                history.replace({ ...location, search: '' });
+
+                // The logout process has completed, auth state should already be cleared
+                // Just ensure we check the current auth state
+                checkAuthTokens();
             } else {
                 // Check for existing authentication
                 checkAuthTokens();
@@ -176,18 +189,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [location, history]);
 
     const logout = (provider?: 'github' | 'btp' | 'all') => {
+        const BTP_API = siteConfig.customFields.backendUrl as string;
+
+        console.log(`Frontend logout called with provider: ${provider}`);
+
         if (!provider || provider === 'all') {
-            // Clear both storage systems
+            // Clear both storage systems locally first
             localStorage.removeItem('jwt_token');
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
+
+            // Use backend logout for BTP if we had BTP authentication
+            // if (users.btp) {
+            //     const logoutUrl = new URL(`${BTP_API}/user/logout`);
+            //     logoutUrl.searchParams.append('provider', 'btp');
+            //     logoutUrl.searchParams.append('origin_uri', window.location.origin + '/');
+            //     window.location.href = logoutUrl.toString();
+            // } else {
             window.location.href = '/';
+            // }
         } else if (provider === 'github') {
-            // Clear only GitHub authentication
+            // For GitHub, handle logout locally since there's no official logout endpoint
             localStorage.removeItem('jwt_token');
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
+
             // Set BTP as primary user if it exists
             if (newUsers.btp) {
                 setUser(newUsers.btp);
@@ -196,23 +223,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 window.location.href = '/';
             }
         } else if (provider === 'btp') {
-            // BTP logout - redirect to SAP OAuth logout URL
+            // Get BTP token BEFORE clearing local storage
             const authData = authStorage.load();
             const btpToken = authData?.token;
 
-            // Clear BTP authentication locally first
-            authStorage.clear();
-            const newUsers = { ...users, btp: null };
-            setUsers(newUsers);
-
+            // Use backend logout handler for BTP
             if (btpToken) {
-                const logoutUrl = new URL('https://accounts.sap.com/oauth2/logout');
-                logoutUrl.searchParams.append('id_token_hint', btpToken);
-                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+                // const logoutUrl = new URL(`${BTP_API}/user/logout`);
+                // logoutUrl.searchParams.append('provider', 'btp');
+                // logoutUrl.searchParams.append('sap-architecture-center-dev', btpToken);
 
-                // Redirect to SAP logout
-                window.location.href = logoutUrl.toString();
+                // Clear BTP authentication locally after getting the token
+                authStorage.clear();
+                const newUsers = { ...users, btp: null };
+                setUsers(newUsers);
+
+                // If we have GitHub user remaining, stay on current page
+                // if (newUsers.github) {
+                //     setUser(newUsers.github);
+                //     logoutUrl.searchParams.append('origin_uri', window.location.href);
+                // } else {
+                //     logoutUrl.searchParams.append('origin_uri', window.location.origin + '/');
+                // }
+
+                // Redirect to backend logout handler
+                // window.location.href = logoutUrl.toString();
+                window.location.href = '/';
             } else {
+                console.log('No BTP token found, clearing locally and redirecting');
+
+                // Clear BTP authentication locally
+                authStorage.clear();
+                const newUsers = { ...users, btp: null };
+                setUsers(newUsers);
+
                 // Fallback if no token
                 if (newUsers.github) {
                     setUser(newUsers.github);

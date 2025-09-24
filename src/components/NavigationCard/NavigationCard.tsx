@@ -33,7 +33,7 @@ export default function NavigationCard({
     onMouseLeave,
 }: CustomButtonProps): JSX.Element {
     const { colorMode } = useColorMode();
-    const { user } = useAuth();
+    const { user, users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
     const { backendUrl, authProviders } = siteConfig.customFields as {
@@ -44,10 +44,12 @@ export default function NavigationCard({
     const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
     const requiredProvider = authProviders?.[link];
 
-    const isLoggedInWithWrongProvider = user && requiredProvider && user.provider !== requiredProvider;
+    // Check if user is logged in with the required provider using the users object
+    const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
+    const isLoggedInWithWrongProvider = user && requiredProvider && !isLoggedInWithRequiredProvider;
     const isLoggedOutAndProtected = !user && requiredProvider;
 
-    const shouldAppearDisabled = alwaysShowLock || isLoggedInWithWrongProvider;
+    const shouldAppearDisabled = alwaysShowLock || isLoggedInWithWrongProvider || isLoggedOutAndProtected;
     const isFunctionallyDisabled = disabled || isLoggedInWithWrongProvider;
 
     const cardContent = (
@@ -91,8 +93,10 @@ export default function NavigationCard({
 
     if (isLoggedOutAndProtected) {
         const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(link)}&provider=${requiredProvider}`;
+        const tooltip = `Requires ${requiredProvider.toUpperCase()} login. Click to login.`;
+
         return (
-            <a href={loginUrl} className={styles.cardLink}>
+            <a href={loginUrl} className={styles.cardLink} title={tooltip}>
                 {cardContent}
             </a>
         );
