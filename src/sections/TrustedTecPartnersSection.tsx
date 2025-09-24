@@ -46,62 +46,65 @@ const logos = [
 ];
 
 export default function TrustedTecPartnersSection(): JSX.Element {
-  const { colorMode } = useColorMode();
-  const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
-  const sliderRef = useRef<Slider>(null);
-  const history = useHistory();
-  const setPartners = useSidebarFilterStore((state) => state.setPartners);
-  const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+    const { colorMode } = useColorMode();
+    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+    const sliderRef = useRef<Slider>(null);
+    const history = useHistory();
+    const setPartners = useSidebarFilterStore((state) => state.setPartners);
+    const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
-  function renderLogo(item, idx) {
-  const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
-  const handleClick = (e) => {
-    e.preventDefault();
+    function renderLogo(item, idx) {
+    const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
+    const handleClick = (e) => {
+      e.preventDefault();
 
-    if (item.filter?.partners) {
-      setPartners(item.filter.partners);
-    }
-    if (item.filter?.techDomains) {
-      setTechDomains(item.filter.techDomains);
-    }
+      if (item.filter?.partners) {
+        setPartners(item.filter.partners);
+      }
+      if (item.filter?.techDomains) {
+        setTechDomains(item.filter.techDomains);
+      }
 
-    if (item.filter) {
-      // internal navigation → docs page with sidebar filters
-      history.push('/docs');
-    } else if (item.url) {
-      // external navigation fallback
-      window.open(item.url, '_blank', 'noopener,noreferrer');
-    }
-  };
+      if (item.filter) {
+        // internal navigation → docs page with sidebar filters
+        history.push('/docs');
+      } else if (item.url) {
+        // external navigation fallback
+        window.open(item.url, '_blank', 'noopener,noreferrer');
+      }
+    };
+
     return (
-      <a href={item.url} onClick= {handleClick} target="_blank" rel="noopener noreferrer"
-        onMouseEnter={() => {
-          if (sliderRef.current) {
-            sliderRef.current.slickPause();
-            const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-            if (track) {
-              const computed = window.getComputedStyle(track).transform; 
-              track.style.transform = computed;
-              track.style.transition = 'none';
+      <div className={styles.logoWrapper}>
+        <a href={item.url} onClick= {handleClick} target="_blank" rel="noopener noreferrer"
+          onMouseEnter={() => {
+            if (sliderRef.current) {
+              sliderRef.current.slickPause();
+              const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+              if (track) {
+                const computed = window.getComputedStyle(track).transform; 
+                track.style.transform = computed;
+                track.style.transition = 'none';
+              }
             }
-          }
-        }}    
-        onMouseLeave={() => {
-          if (sliderRef.current) {
-            const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
-            if (track) {
-              track.style.transition = ''; // reset
+          }}    
+          onMouseLeave={() => {
+            if (sliderRef.current) {
+              const track = sliderRef.current.innerSlider?.list?.querySelector('.slick-track') as HTMLElement | null;
+              if (track) {
+                track.style.transition = ''; // reset
+              }
+              sliderRef.current.slickPlay(); // resume
             }
-            sliderRef.current.slickPlay(); // resume
-          }
-        }}
-      >
-      <img
-          src={imgSrc}
-          alt={item.name}
-          className={styles.logoImg}
-      />
-      </a>
+          }}
+        >
+        <img
+            src={imgSrc}
+            alt={item.name}
+            className={styles.logoImg}
+        />
+        </a>
+      </div>
     );
   }
 

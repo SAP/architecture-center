@@ -22,10 +22,21 @@
   background-image: url("/img/landingPage/worldmap_1440x424_dark.webp")
 }
 
-.logoImg {
-    object-fit: scale-down;
-    display: inline-block;
+.logoWrapper {
+  width: 244px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.logoImg {
+  max-width: 244px;   
+  max-height: 60px;
+  width: auto;
+  height: auto;
+}
+
 
 .logoImg:hover {
   transform: scale(1.5);
