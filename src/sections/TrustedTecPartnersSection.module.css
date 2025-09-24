@@ -23,10 +23,8 @@
 }
 
 .logoImg {
-    width: 120px;
-    height: 80px;
-    object-fit: contain;
-    display: block;
+    object-fit: scale-down;
+    display: inline-block;
 }
 
 .logoImg:hover {
