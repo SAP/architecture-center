@@ -123,7 +123,7 @@ export default function TrustedTecPartnersSection(): JSX.Element {
             ref={sliderRef}
             items={[...logos, ...logos]}
             renderItem={renderLogo}
-            slidesToShow={6}
+            slidesToShow={5}
             infinite={true}
             autoplay={true}
             speed={4000}
@@ -131,6 +131,9 @@ export default function TrustedTecPartnersSection(): JSX.Element {
             showHeader={false}
             pauseOnHover={false}
             cssEase="linear"
+            cardClassName={styles.containerLogo}
+            centerPadding='40px'
+            centerMode={true}
             responsive={[
               {
                 breakpoint: 1200, // e.g. iPad landscape
