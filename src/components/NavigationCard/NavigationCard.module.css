@@ -21,6 +21,13 @@
     font-weight: 600;
     color: var(--navcard-text-default);
     box-shadow: none;
+    position: relative;
+}
+
+:root[data-theme='dark'] .default {
+    background-color: var(--sapBackgroundColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    color: var(--sapContent_ContrastTextColor);
 }
 
 .default ui5-icon,
@@ -32,6 +39,11 @@
     height: 1.5rem;
 }
 
+:root[data-theme='dark'] .default ui5-icon,
+:root[data-theme='dark'] .icon {
+    color: var(--text-color-dark-mode);
+}
+
 .inline {
     display: flex;
     align-items: center;
@@ -41,6 +53,11 @@
     font-size: var(--sapFontHeader5Size);
 }
 
+:root[data-theme='dark'] .default,
+:root[data-theme='dark'] .inline {
+    color: var(--text-color-dark-mode);
+}
+
 .default:hover {
     background-color: white;
     box-shadow: 0 8px 20px -5px var(--sapUiBrand);
@@ -48,9 +65,20 @@
     color: var(--navcard-text-hover);
 }
 
+:root[data-theme='dark'] .default:hover {
+    background-color: var(--sapList_Hover_Background);
+    border-color: var(--navcard-text-hover);
+}
+
 .default:hover ui5-icon,
 .default:hover .icon,
 .default:hover .inline {
+    color: var(--navcard-icon-hover);
+}
+
+:root[data-theme='dark'] .default:hover ui5-icon,
+:root[data-theme='dark'] .default:hover .icon,
+:root[data-theme='dark'] .default:hover .inline {
     color: var(--navcard-icon-hover);
 }
 
@@ -63,7 +91,7 @@
 .subtitle {
     font-size: 0.8rem;
     color: var(--sapContent_LabelColor, #6a6d70);
-    line-height: 1.2; 
+    line-height: 1.2;
 }
 
 .spacing {
@@ -71,7 +99,7 @@
     flex-direction: column;
     justify-content: center;
     line-height: 1.4;
-    padding: 0 8px; 
+    padding: 0 8px;
 }
 
 .spacing > div:first-child {
@@ -80,10 +108,42 @@
 }
 
 .logo {
-  height: 24px;
-  width: 48px;
-  object-fit: contain;
-  flex-shrink: 0;
+    height: 24px;
+    width: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Lock icon styles */
+.lockIcon {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 0.875rem;
+    color: var(--navcard-icon-default);
+    z-index: 1;
+}
+
+:root[data-theme='dark'] .lockIcon {
+    color: var(--text-color-dark-mode);
+}
+
+.default:hover .lockIcon {
+    color: var(--navcard-icon-hover);
+}
+
+:root[data-theme='dark'] .default:hover .lockIcon {
+    color: var(--navcard-icon-hover);
+}
+
+.disabled .lockIcon {
+    color: var(--navcard-icon-default);
+    opacity: 1;
+}
+
+:root[data-theme='dark'] .disabled .lockIcon {
+    color: var(--text-color-dark-mode);
+    opacity: 1;
 }
 
 /* Tablet (996px breakpoint) */
@@ -105,4 +165,67 @@
     .inline {
         font-size: var(--sapFontHeader6Size);
     }
+}
+
+/* Disabled state styles */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.disabledLink {
+    cursor: not-allowed;
+    pointer-events: auto; /* Allow pointer events on the wrapper to show cursor */
+}
+
+.disabled:hover {
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid var(--navcard-border-default);
+    color: var(--navcard-text-default);
+    transform: none;
+}
+
+:root[data-theme='dark'] .disabled {
+    background-color: var(--sapBackgroundColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    color: var(--sapContent_ContrastTextColor);
+    opacity: 0.5;
+}
+
+:root[data-theme='dark'] .disabled:hover {
+    background-color: var(--sapBackgroundColor);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    color: var(--sapContent_ContrastTextColor);
+    box-shadow: none;
+    transform: none;
+}
+
+.disabled ui5-icon,
+.disabled .icon,
+.disabled .inline {
+    color: var(--navcard-icon-default);
+    opacity: 0.5;
+}
+
+:root[data-theme='dark'] .disabled ui5-icon,
+:root[data-theme='dark'] .disabled .icon,
+:root[data-theme='dark'] .disabled .inline {
+    color: var(--text-color-dark-mode);
+    opacity: 0.5;
+}
+
+.disabled:hover ui5-icon,
+.disabled:hover .icon,
+.disabled:hover .inline {
+    color: var(--navcard-icon-default);
+    opacity: 0.5;
+}
+
+:root[data-theme='dark'] .disabled:hover ui5-icon,
+:root[data-theme='dark'] .disabled:hover .icon,
+:root[data-theme='dark'] .disabled:hover .inline {
+    color: var(--text-color-dark-mode);
+    opacity: 0.5;
 }

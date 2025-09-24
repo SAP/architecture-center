@@ -36,6 +36,12 @@ last_update:
   date: 2025-01-23
 ---
 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Google.**
+
+:::
+
 Data from Google Cloud Platform (GCP) data services can be seamlessly integrated and harmonized with both SAP and non-SAP data using SAP Datasphere's advanced data fabric architecture. This architecture enables efficient data management and analytics by providing a unified and scalable platform for data integration, transformation, and governance.
 
 SAP Datasphere's data fabric architecture supports various modes of integration, including data federation, replication, and import/export capabilities. This allows organizations to leverage GCP's robust data services such as Google BigQuery and Google Cloud Storage, and combine them with SAP's enterprise data to create comprehensive and actionable insights.

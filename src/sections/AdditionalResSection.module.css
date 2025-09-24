@@ -22,6 +22,11 @@
   color: var(--navcard-text-default);
 }
 
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
+}
+
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

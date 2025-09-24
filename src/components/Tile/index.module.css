@@ -75,6 +75,10 @@ ui5-card::part(content) {
     color: var(--navcard-text-default);
 }
 
+:root[data-theme='dark'] .title {
+    color: var(--text-color-dark-mode);
+}
+
 .docList {
     list-style: none;
     padding-left: 0;

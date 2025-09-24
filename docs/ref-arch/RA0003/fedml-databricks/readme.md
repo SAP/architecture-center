@@ -37,7 +37,13 @@ last_update:
   date: 2025-01-23
 ---
 
-FedML-Databricks provides end-to-end integraton for training models in Databricks machine learning platform, using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-databricks enables Data discovery, Pyspark support and deployment support to SAP BTP Kyma all while enabling instant access to source business data from SAP systems.  
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Databricks.**
+
+:::
+
+FedML-Databricks provides end-to-end integration for training models in Databricks machine learning platform, using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-databricks enables Data discovery, Pyspark support and deployment support to SAP BTP Kyma all while enabling instant access to source business data from SAP systems.  
 
 ## Architecture
 
