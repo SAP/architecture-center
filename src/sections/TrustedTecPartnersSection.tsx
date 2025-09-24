@@ -11,7 +11,7 @@ import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 
 const logos = [
   { 
-    name: 'Nvidia',
+    name: 'NVIDIA',
     lightImg: 'AC_nvidia_logo_light.webp',
     darkImg: 'AC_nvidia_logo_dark.webp',
     url: 'https://www.nvidia.com'
