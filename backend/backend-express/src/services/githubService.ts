@@ -2,7 +2,7 @@ import { FileForCommit, DocumentObject, generateFileTreeInMemory } from './lexic
 
 const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = process.env;
 
-const TARGET_BRANCH = 'non-technical-onboarding';
+const TARGET_BRANCH = 'dev';
 const REPO_BASE_PATH = 'docs/ref-arch';
 
 interface GitHubApiError extends Error {

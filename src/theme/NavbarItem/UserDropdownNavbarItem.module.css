@@ -260,7 +260,6 @@
 
 .logoutButtonLarge:hover {
     background-color: var(--ifm-color-primary-dark);
-    color: var(--sap-horizon-neutral-1);
 }
 
 .userDropdown__header,

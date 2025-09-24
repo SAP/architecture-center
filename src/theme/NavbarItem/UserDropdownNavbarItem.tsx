@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon, Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/person-placeholder.js';
 import '@ui5/webcomponents-icons/dist/decline.js';
+import '@ui5/webcomponents-icons/dist/log.js';
 import styles from './UserDropdownNavbarItem.module.css';
 import Link from '@docusaurus/Link';
 
@@ -82,7 +83,6 @@ export default function UserDropdownNavbarItem() {
     }
 
     const UserAvatar = ({ isLarge = false }) => {
-        console.log('Rendering avatar for user:', user);
         if (user.provider === 'github' && user.avatar) {
             return (
                 <img
@@ -142,7 +142,7 @@ export default function UserDropdownNavbarItem() {
                                         className={styles.crossButton}
                                         title="Logout from GitHub"
                                     >
-                                        <Icon name="decline" />
+                                        <Icon name="log" />
                                     </button>
                                 </div>
                             )}
@@ -163,7 +163,7 @@ export default function UserDropdownNavbarItem() {
                                         className={styles.crossButton}
                                         title="Logout from SAP"
                                     >
-                                        <Icon name="decline" />
+                                        <Icon name="log" />
                                     </button>
                                 </div>
                             )}
@@ -255,7 +255,7 @@ export default function UserDropdownNavbarItem() {
                             <div className={styles.userDropdown__logoutSection}>
                                 <Button
                                     design="Emphasized"
-                                    onClick={() => logout('all')}
+                                    onClick={() => logout(user.provider)}
                                     className={styles.logoutButtonLarge}
                                 >
                                     Logout

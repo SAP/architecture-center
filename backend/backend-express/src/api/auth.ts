@@ -14,9 +14,7 @@ router.get('/login', (req: Request, res: Response) => {
     const callbackUrl = `${req.protocol}://${req.get('host')}/user/github/callback`;
 
     // THE CHANGE IS HERE: We add "&scope=repo" to the end of the URL.
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        callbackUrl
-    )}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
 
     res.redirect(githubAuthUrl);
 });
