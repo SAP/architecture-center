@@ -32,9 +32,9 @@
 }
 
 .logoImg {
-  height: 90%;
+  height: 80%;
+  width: 80%; 
   max-height: 80px;
-  width: 90%;
   max-width: 200px;
   display: block;
   object-fit: contain;
@@ -91,11 +91,10 @@
     background: linear-gradient(to left, var(--carousel-fade-bg), transparent);
 }
 
-/* Allow slick-slide containers to size automatically based on image content */
 .carouselLogo :global(.slick-slide) {
-    width: auto !important; /* Let width be determined by content */
-    min-width: 120px; /* Minimum width to prevent too narrow slides */
-    max-width: 300px; /* Maximum width to prevent oversized slides */
+    width: auto !important;
+    min-width: 120px;
+    max-width: 300px;
 }
 
 .carouselLogo :global(.slick-slide) > div {

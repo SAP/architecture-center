@@ -131,7 +131,6 @@ export default function TrustedTecPartnersSection(): JSX.Element {
             showHeader={false}
             pauseOnHover={false}
             cssEase="linear"
-            cardClassName={styles.containerLogo}
             centerPadding='40px'
             centerMode={true}
             responsive={[
