@@ -16,7 +16,6 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
 npm-debug.log*
 yarn-debug.log*
@@ -29,4 +28,3 @@ backend/.vscode
 
 # Ignoring the mapping file
 src/constant/pageMapping.ts
-**/dist
