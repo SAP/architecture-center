@@ -78,7 +78,6 @@ export default function LoadingModal({
                         {/* <Icon name="sys-enter-2" className={`${styles.resultIcon} ${styles.iconSuccess}`} /> */}
                         <h3>Published Successfully!</h3>
                         {/* <p>Your changes have been committed to your forked repository.</p> */}
-                        <img src="img/success.gif" style={{ width: '800px' }} />
                         <div className={styles.buttonGroup}>
                             <Button design="Emphasized" onClick={onSuccessFinish}>
                                 View on GitHub & Finish
