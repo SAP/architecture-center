@@ -6,23 +6,24 @@ const router = Router();
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = process.env;
 
-// Helper to validate that the origin_uri is on the same origin as FRONTEND_URL
-// Returns true only if candidate is a relative path, or matches FRONTEND_URL exactly, and resolves to the same origin.
 function isTrustedRedirectUrl(candidate: string | undefined): boolean {
-    if (!candidate || typeof candidate !== "string" || !FRONTEND_URL) return false;
+    if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
     try {
         const trustedUrl = new URL(FRONTEND_URL);
-        // Accept only exact match or relative path
-        if (candidate === FRONTEND_URL) { // exact match
+        if (candidate === FRONTEND_URL) {
             return true;
         }
-        // Accept only relative paths (starting with `/`)
+
         if (/^\/[^\/\\]/.test(candidate)) {
-            // Disallow encoded slashes, protocol-relative URLs, and backslashes
-            if (candidate.includes('//') || candidate.includes('\\') || candidate.includes('%2f') || candidate.includes('%2F')) {
+            if (
+                candidate.includes('//') ||
+                candidate.includes('\\') ||
+                candidate.includes('%2f') ||
+                candidate.includes('%2F')
+            ) {
                 return false;
             }
-            // Make sure the resolved URL is same origin
+
             const candidateUrl = new URL(candidate, FRONTEND_URL);
             return candidateUrl.origin === trustedUrl.origin;
         }
@@ -38,14 +39,15 @@ router.get('/login', (req: Request, res: Response) => {
     }
     const callbackUrl = `${req.protocol}://${req.get('host')}/user/github/callback`;
 
-    // THE CHANGE IS HERE: We add "&scope=repo" to the end of the URL.
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
+    console.log('GENERATED CALLBACK URL:', callbackUrl);
+
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+        callbackUrl
+    )}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
 
     res.redirect(githubAuthUrl);
 });
 
-// The callback handler does not need to be changed.
-// It will now receive a more powerful token from GitHub.
 router.get('/github/callback', async (req: Request, res: Response) => {
     const { code, state: origin_uri } = req.query;
     if (!code || typeof code !== 'string') {
@@ -80,7 +82,7 @@ router.get('/github/callback', async (req: Request, res: Response) => {
         if (isTrustedRedirectUrl(origin_uri as string)) {
             res.redirect(`${origin_uri}?token=${appToken}`);
         } else {
-            res.redirect(`${FRONTEND_URL}/login`);
+            res.redirect(`${FRONTEND_URL}/quickStart`);
         }
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
