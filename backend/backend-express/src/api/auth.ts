@@ -6,6 +6,17 @@ const router = Router();
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = process.env;
 
+// Helper to validate that the origin_uri is on the same origin as FRONTEND_URL
+function isTrustedRedirectUrl(candidate: string | undefined): boolean {
+    if (!candidate || typeof candidate !== "string" || !FRONTEND_URL) return false;
+    try {
+        const trustedOrigin = new URL(FRONTEND_URL).origin;
+        const candidateOrigin = new URL(candidate, FRONTEND_URL).origin;
+        return candidateOrigin === trustedOrigin;
+    } catch {
+        return false;
+    }
+}
 router.get('/login', (req: Request, res: Response) => {
     const { origin_uri } = req.query;
     if (!origin_uri || typeof origin_uri !== 'string') {
@@ -52,7 +63,11 @@ router.get('/github/callback', async (req: Request, res: Response) => {
             { expiresIn: '7d' }
         );
 
-        res.redirect(`${origin_uri}?token=${appToken}`);
+        if (isTrustedRedirectUrl(origin_uri as string)) {
+            res.redirect(`${origin_uri}?token=${appToken}`);
+        } else {
+            res.redirect(`${FRONTEND_URL}/login`);
+        }
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
         res.redirect(`${FRONTEND_URL}/login/failure`);
