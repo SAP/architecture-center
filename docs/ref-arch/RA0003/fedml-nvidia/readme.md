@@ -17,6 +17,7 @@ keywords:
 sidebar_label: FedML-NVIDIA
 image: img/ac-soc-med.png
 tags:
+  - nvidia
   - data
 hide_table_of_contents: false
 hide_title: false

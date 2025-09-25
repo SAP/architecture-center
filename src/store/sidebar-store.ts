@@ -1,7 +1,21 @@
 import { create } from 'zustand';
 
-export const useSidebarFilterStore = create((set) => ({
-    techDomains: [],
-    setTechDomains: (techDomains) => set({ techDomains }),
-    resetFilters: () => set({ techDomains: [] }),
+interface SidebarFilterState {
+  techDomains: string[];
+  setTechDomains: (techDomains: string[]) => void;
+
+  partners: string[];
+  setPartners: (partners: string[]) => void;
+
+  resetFilters: () => void;
+}
+
+export const useSidebarFilterStore = create<SidebarFilterState>((set) => ({
+  techDomains: [],
+  setTechDomains: (techDomains) => set({ techDomains }),
+
+  partners: [],
+  setPartners: (partners) => set({ partners }),
+
+  resetFilters: () => set({ techDomains: [], partners: [] }),
 }));

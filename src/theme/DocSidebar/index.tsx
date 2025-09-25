@@ -8,6 +8,7 @@ import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
+import { useHistory } from '@docusaurus/router';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -16,17 +17,20 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   return acc;
 }, {});
 
-function filterSidebarItems(items, selectedDomains, docIdToTags) {
-  if (!selectedDomains?.length) {
-    return items; // nothing selected, show full sidebar
+function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTags) {
+  // nothing selected
+  if (!selectedDomains?.length && !selectedPartners?.length) {
+    return items;
   }
 
-  // Expand selected domains into all tag keys they cover
+  const selectedCategories = [...(selectedDomains ?? []), ...(selectedPartners ?? [])];
+
+  // Expand selected categories into all tag keys they cover
   const searchableTags = Array.from(
     new Set(
-      selectedDomains.flatMap((domainId) => [
-        domainId,
-        ...(categoryIdToTags[domainId] ?? []),
+      selectedCategories.flatMap((categoryId) => [
+        categoryId,
+        ...(categoryIdToTags[categoryId] ?? []),
       ])
     )
   );
@@ -68,27 +72,42 @@ function DocSidebarDesktop(props) {
 
     const techDomains = useSidebarFilterStore((state) => state.techDomains);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+    const partners = useSidebarFilterStore((state) => state.partners);
+    const setPartners = useSidebarFilterStore((state) => state.setPartners);
 
     if (!shouldShowFilters) {
         return <DocSidebar {...props} />;
     }
 
-    const handleFilterChange = (_filterGroup, selectedKeys) => {
+    const handleFilterChange = (filterGroup, selectedKeys) => {
+      if (filterGroup === "partners") {
+        setPartners(selectedKeys);
+      }
+      if (filterGroup === "techDomains") {
         setTechDomains(selectedKeys);
+      }
     };
 
     const filteredSidebar = useMemo(
-        () => filterSidebarItems(props.sidebar, techDomains, tagsDocId),
-        [props.sidebar, techDomains, tagsDocId]
+      () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
+      [props.sidebar, techDomains, partners, tagsDocId]
     );
+
 
     const newProps = { ...props, sidebar: filteredSidebar };
 
     return (
-      <div className={styles.sidebarWithFiltersContainer}>
-        <SidebarFilters onFilterChange={handleFilterChange} initialValues={{ techDomains }} />
-        <DocSidebar {...newProps} />
-      </div>
+            <div className={styles.sidebarWithFiltersContainer}>
+                <div>
+            <SidebarFilters
+              onFilterChange={handleFilterChange}
+              initialValues={{ partners, techDomains }}
+            />
+            </div>
+            <div className={styles.sidebarMenuList}>
+                <DocSidebar {...newProps} />
+            </div>
+        </div>
     );
 }
 
@@ -99,20 +118,30 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const techDomains = useSidebarFilterStore((state) => state.techDomains);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+    const partners = useSidebarFilterStore((state) => state.partners);
+    const setPartners = useSidebarFilterStore((state) => state.setPartners);
 
-    const handleFilterChange = (_filterGroup, selectedKeys) => {
+    const handleFilterChange = (filterGroup, selectedKeys) => {
+      if (filterGroup === "partners") {
+        setPartners(selectedKeys);
+      }
+      if (filterGroup === "techDomains") {
         setTechDomains(selectedKeys);
+      }
     };
 
     const filteredSidebar = useMemo(
-        () => filterSidebarItems(sidebar, techDomains, tagsDocId),
-        [sidebar, techDomains, tagsDocId]
+      () => filterSidebarItems(sidebar, techDomains, partners, tagsDocId),
+      [sidebar, techDomains, partners, tagsDocId]
     );
 
     return (
         <>
-            <SidebarFilters onFilterChange={handleFilterChange} initialValues={{ techDomains }} />
-            <DocSidebarItems items={filteredSidebar} activePath={path} onItemClick={onItemClick} />
+        <SidebarFilters
+          onFilterChange={handleFilterChange}
+          initialValues={{ partners, techDomains }}
+        />
+        <DocSidebarItems items={filteredSidebar} activePath={path} onItemClick={onItemClick} />
         </>
     );
 }
@@ -146,23 +175,39 @@ const DocSidebarDesktopMemo = React.memo(DocSidebarDesktop);
 const DocSidebarMobileMemo = React.memo(DocSidebarMobile);
 
 export default function DocSidebarWrapper(props) {
-    const windowSize = useWindowSize();
-    const sidebarContext = useDocsSidebar();
-    const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
+  const windowSize = useWindowSize();
+  const sidebarContext = useDocsSidebar();
+  const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
+  const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
+  const history = useHistory();
 
-    const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
-    const shouldRenderSidebarMobile = windowSize === 'mobile';
+  useEffect(() => {
+    // Subscribe to history changes
+    return history.listen((location) => {
+      console.log("Route changed:", location.pathname);
 
-    useEffect(() => {
-        if (typeof document !== 'undefined') {
-            document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
-        }
-    }, [sidebarContext?.name]);
+      // Reset only when leaving /docs
+      if (!location.pathname.startsWith('/docs')) {
+        console.log("Resetting filters...");
+        resetFilters();
+      }
+    });
+  }, [history, resetFilters]);
 
-    return (
-        <>
-            {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
-            {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
-        </>
-    );
+
+  const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
+  const shouldRenderSidebarMobile = windowSize === 'mobile';
+
+  useEffect(() => {
+      if (typeof document !== 'undefined') {
+          document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
+      }
+  }, [sidebarContext?.name]);
+
+  return (
+      <>
+          {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
+          {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
+      </>
+  );
 }
