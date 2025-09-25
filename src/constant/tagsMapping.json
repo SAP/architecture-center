@@ -8,6 +8,15 @@
   "gcp": {
     "categoryid": "gcp"
   },
+  "ibm": {
+    "categoryid": "ibm"
+  },
+  "databricks": {
+    "categoryid": "databricks"
+  },
+  "nvidia": {
+    "categoryid": "nvidia"
+  },
   "genai": {
     "categoryid": "ai"
   },

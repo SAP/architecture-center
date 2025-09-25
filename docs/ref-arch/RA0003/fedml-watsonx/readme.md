@@ -19,6 +19,7 @@ keywords:
 sidebar_label: FedML-IBM watsonx
 image: img/ac-soc-med.png
 tags:
+  - ibm
   - data
 hide_table_of_contents: false
 hide_title: false

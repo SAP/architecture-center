@@ -17,8 +17,8 @@ keywords:
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:
-  - data
-  - aws
+- aws
+- data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
