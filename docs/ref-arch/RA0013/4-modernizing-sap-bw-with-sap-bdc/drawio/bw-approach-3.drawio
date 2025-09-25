@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
   <diagram name="Page-1" id="5bHaEas3I0YWfYlRU1f9">
-    <mxGraphModel dx="1296" dy="781" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1018" dy="688" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -22,8 +22,8 @@
         <mxCell id="d6p9PFXJ9PnHoYDoL1wJ-7" value="Provisioning Layer" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#D1EFFF;arcSize=12;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;dashed=1;dashPattern=1 2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=13;fontColor=light-dark(#00185A,#CCDDFF);fontStyle=1;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
           <mxGeometry x="247.32999999999998" y="585.5" width="275.66" height="37" as="geometry" />
         </mxCell>
-        <mxCell id="d6p9PFXJ9PnHoYDoL1wJ-8" value="&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;SAP BW Cloud, PCE /&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; style=&quot;font-size: 16px;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;SAP BW/4HANA RISE/Cloud, PCE&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
-          <mxGeometry x="248.15999999999994" y="530" width="274" height="50" as="geometry" />
+        <mxCell id="d6p9PFXJ9PnHoYDoL1wJ-8" value="&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot; face=&quot;arial&quot;&gt;&lt;b&gt;SAP Business Warehouse,&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot; face=&quot;arial&quot;&gt;&lt;b&gt;private cloud edition&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="275.15999999999997" y="530" width="221" height="50" as="geometry" />
         </mxCell>
         <mxCell id="d6p9PFXJ9PnHoYDoL1wJ-9" value="&lt;font face=&quot;arial&quot;&gt;&lt;span&gt;Data Product Generator for &lt;br&gt;SAP BW&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=light-dark(#00185A,#C5D9FF);fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="404" y="706" width="163" height="41" as="geometry" />
