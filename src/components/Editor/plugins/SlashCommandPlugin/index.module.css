@@ -1,0 +1,103 @@
+:root {
+    --slash-menu-bg: #ffffff;
+    --slash-menu-text: #1c1e21;
+    --slash-menu-border: #e4e6eb;
+    --slash-menu-selected-bg: #f0f2f5;
+    --slash-menu-hover-bg: #f0f2f5;
+    --slash-menu-hint-text: #90949c;
+    --slash-menu-key-bg: #e4e6eb;
+}
+
+[data-theme='dark'] {
+    --slash-menu-bg: #2d2d2d;
+    --slash-menu-text: #e0e0e0;
+    --slash-menu-border: #444444;
+    --slash-menu-selected-bg: #444444;
+    --slash-menu-hover-bg: #3a3a3a;
+    --slash-menu-hint-text: #888888;
+    --slash-menu-key-bg: #3a3a3a;
+}
+
+.typeahead-popover {
+    position: absolute;
+    z-index: 10;
+    background: var(--slash-menu-bg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--slash-menu-border);
+    border-radius: 8px;
+    min-width: 250px;
+    max-height: 300px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.typeahead-popover ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+    width: 100%;
+}
+
+.typeahead-popover li {
+    margin: 0;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+}
+
+.typeahead-popover li.selected {
+    background-color: var(--slash-menu-selected-bg);
+}
+
+.typeahead-popover li:hover {
+    background-color: var(--slash-menu-hover-bg);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--slash-menu-text);
+}
+
+.text {
+    flex-grow: 1;
+    font-size: 15px;
+    color: var(--slash-menu-text);
+}
+
+.hint {
+    font-size: 13px;
+    color: var(--slash-menu-hint-text);
+    font-family: monospace;
+}
+
+.menuFooter {
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--slash-menu-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--slash-menu-hint-text);
+    flex-shrink: 0;
+}
+
+.footerKey {
+    background-color: var(--slash-menu-key-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}

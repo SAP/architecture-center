@@ -1,0 +1,87 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: var(--ifm-background-color);
+    padding: 2rem 3rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.stageList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.stageItem {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+}
+
+.stageItem:not(:last-child) {
+    border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.icon {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.spinner {
+    margin-right: 1rem;
+}
+
+.iconPending {
+    color: var(--ifm-color-emphasis-500);
+}
+
+.iconSuccess {
+    color: var(--ifm-color-success);
+}
+
+.iconError {
+    color: var(--ifm-color-danger);
+}
+
+.resultContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.resultIcon {
+    font-size: 3.5rem;
+}
+
+.errorMessage {
+    background-color: var(--ifm-color-danger-contrast-background);
+    color: var(--ifm-color-danger-contrast-foreground);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    max-width: 100%;
+    word-break: break-word;
+}

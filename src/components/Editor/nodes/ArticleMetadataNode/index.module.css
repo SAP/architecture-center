@@ -1,0 +1,49 @@
+.metadataContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 1rem 0 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.metadataInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 14px;
+    color: #0b65de;
+    border: 1px solid #e9ecef;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.updateInfo {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+}
+
+.updateInfo strong {
+    color: #343a40;
+    font-weight: 600;
+}
+
+.actions {
+    align-self: center;
+}
+
+.metadataContainer + h1:not(:has(span[data-lexical-text='true']))::before {
+    content: 'Press / to get started...';
+    position: absolute;
+    color: #999;
+    pointer-events: none;
+    user-select: none;
+}
