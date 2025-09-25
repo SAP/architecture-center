@@ -845,12 +845,12 @@ html[data-footer='false'] .footer {
     display: none;
 }
 
-body[data-sidebar-id='refarchSidebar'] .sidebar_njMd {
-    padding-top: 5px !important;
+body[data-sidebar-id='refarchSidebar'] [class^="sidebar_"] {
+  padding-top: 5px !important;
 }
 
-.sidebarHidden_VK0M .dropdownDiv {
-    display: none;
+[class^="sidebarHidden_"] .dropdownDiv {
+  display: none;
 }
 
 .navbar-sidebar__item ul {

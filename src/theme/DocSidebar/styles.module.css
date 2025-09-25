@@ -38,3 +38,10 @@
   flex-direction: column;
 }
 
+[class^="sidebar_"] {
+  border-right: 1px solid var(--ifm-toc-border-color);
+}
+
+:global(button[class*="collapseSidebarButton"]) {
+  border-right: none !important;
+}
