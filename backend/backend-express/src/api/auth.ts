@@ -7,12 +7,26 @@ const router = Router();
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = process.env;
 
 // Helper to validate that the origin_uri is on the same origin as FRONTEND_URL
+// Returns true only if candidate is a relative path, or matches FRONTEND_URL exactly, and resolves to the same origin.
 function isTrustedRedirectUrl(candidate: string | undefined): boolean {
     if (!candidate || typeof candidate !== "string" || !FRONTEND_URL) return false;
     try {
-        const trustedOrigin = new URL(FRONTEND_URL).origin;
-        const candidateOrigin = new URL(candidate, FRONTEND_URL).origin;
-        return candidateOrigin === trustedOrigin;
+        const trustedUrl = new URL(FRONTEND_URL);
+        // Accept only exact match or relative path
+        if (candidate === FRONTEND_URL) { // exact match
+            return true;
+        }
+        // Accept only relative paths (starting with `/`)
+        if (/^\/[^\/\\]/.test(candidate)) {
+            // Disallow encoded slashes, protocol-relative URLs, and backslashes
+            if (candidate.includes('//') || candidate.includes('\\') || candidate.includes('%2f') || candidate.includes('%2F')) {
+                return false;
+            }
+            // Make sure the resolved URL is same origin
+            const candidateUrl = new URL(candidate, FRONTEND_URL);
+            return candidateUrl.origin === trustedUrl.origin;
+        }
+        return false;
     } catch {
         return false;
     }
