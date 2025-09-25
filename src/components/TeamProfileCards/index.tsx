@@ -11,6 +11,7 @@ interface ProfileProps {
 }
 
 function TeamProfileCard({ className, name, description, children, githubUrl, linkedinUrl }: ProfileProps) {
+    // Extract the username from the githubUrl
     const avatarUrl = githubUrl ? `https://github.com/${githubUrl.split('/').pop()}.png` : undefined;
 
     return (

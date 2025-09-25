@@ -1,53 +1,15 @@
 const cds = require('@sap/cds');
 const xsenv = require('@sap/xsenv');
-const axios = require('axios');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const path = require('path');
-
-// Load environment variables
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
 
 const { Users } = cds.entities;
-let xsuaa = {};
-try { xsuaa = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa; }
-catch (e) { console.log('Error loading xsuaa service:', e); }
-
-const upsAuth = process.env.GITHUB_CLIENT_ID ? null : JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'];
-
-
-// GitHub and general configuration
-const GITHUB_CLIENT_ID = upsAuth ? upsAuth.GITHUB_CLIENT_ID : process.env.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = upsAuth ? upsAuth.GITHUB_CLIENT_SECRET : process.env.GITHUB_CLIENT_SECRET;
-const BTP_API_URL = upsAuth ? upsAuth.XSUAA_API_URL : process.env.XSUAA_API_URL;
-const JWT_SECRET = upsAuth ? upsAuth.JWT_SECRET : process.env.JWT_SECRET;
-const FRONTEND_URL = upsAuth ? upsAuth.FRONTEND_URL : process.env.FRONTEND_URL || 'http://localhost:3000';
-const XSUAA_URL = xsuaa.url || process.env.XSUAA_URL;
-const XSUAA_CLIENTID = xsuaa.clientid || process.env.XSUAA_CLIENTID;
-const XSUAA_SECRET = xsuaa.clientsecret || process.env.XSUAA_SECRET;
-
-console.log('--- SERVER STARTING ---');
-console.log('Attempting to load .env from:', envPath);
-console.log('BTP_API_URL Loaded:', BTP_API_URL);
-console.log('GitHub Client ID Loaded:', GITHUB_CLIENT_ID ? 'Yes' : 'No');
-console.log('-----------------------');
-
-if (!JWT_SECRET || !FRONTEND_URL || !GITHUB_CLIENT_ID) {
-    throw new Error('Missing JWT_SECRET or FRONTEND_URL or Github Client environment variables.');
-}
-
-// Helper function to create app token
-const createAppToken = (payload) => {
-    return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
-};
+const xsuaa = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa;
 class UserService extends cds.ApplicationService {
     async init() {
-        // Unified handlers supporting both BTP and GitHub
+        // handlers
         this.on('login', (req) => loginHandler(req));
         this.on('loginSuccess', (req) => loginSuccessHandler(req));
         this.on('getUserInfo', (req) => getUserInfoHandler(req));
-
+        // this.on(getUserInfo, (req) => getUserInfoHandlerCdc(req));
         await super.init();
     }
 }
@@ -55,111 +17,34 @@ module.exports = UserService;
 
 const loginHandler = async (req) => {
     const { http } = cds.context;
-    const provider = (http && http.req.query && http.req.query.provider) || 'btp';
-    const origin_uri = http && http.req.query && http.req.query.origin_uri;
-    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?provider=${provider}&origin_uri=${origin_uri}`;
-    callback_url = encodeURIComponent(callback_url);
-    let authorize_url = '';
-    if (provider === 'github') {
-        authorize_url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${callback_url}&redirect_uri=${callback_url}`;
-    } else {
-        authorize_url = `${XSUAA_URL}/oauth/authorize?login_hint=%257B%2522origin%2522%253A%2522sap.default%2522%257D&response_type=code&client_id=${XSUAA_CLIENTID}&redirect_uri=${callback_url}`;
-    }
+    const origin_uri = http && http.req.query.origin_uri;
+    // const callback_url = `${http && http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
+    const callback_url = `https://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
+    const authorize_url = `${xsuaa.url}/oauth/authorize?login_hint=%257B%2522origin%2522%253A%2522sap.default%2522%257D&response_type=code&client_id=${xsuaa.clientid}&redirect_uri=${callback_url}`;
     if (http && http.res) http.res.redirect(authorize_url);
 };
 
 const loginSuccessHandler = async (req) => {
     const { http } = cds.context;
-    const provider = (http && http.req.query && http.req.query.provider) || 'btp';
-    const code = (http && http.req.query && http.req.query.code) || null;
     const origin_uri = http && http.req.query.origin_uri;
-
-    // [TODO] Clean Up
-    if (!code) {
-        if (provider === 'github') {
-            if (http && http.res) {
-                http.res.redirect(`${FRONTEND_URL}/login/failure?error=NoCode`);
-            }
-        } else {
-            const origin_uri = http && http.req.query.origin_uri;
-            if (http && http.res) http.res.redirect(`${origin_uri}?e=UNAUTHORIZED`);
-        }
-        return;
-    }
-
-    if (provider === 'github') {
-        // GitHub authentication callback
-        const state = http && http.req.query && http.req.query.state;
-        const redirectPath = state || '/';
-
-        try {
-            // Exchange code for access token
-            const tokenResponse = await axios.post(
-                'https://github.com/login/oauth/access_token',
-                {
-                    client_id: GITHUB_CLIENT_ID,
-                    client_secret: GITHUB_CLIENT_SECRET,
-                    code: code,
-                },
-                {
-                    headers: { Accept: 'application/json' },
-                }
-            );
-
-            const accessToken = tokenResponse.data.access_token;
-            if (!accessToken) {
-                throw new Error('Failed to retrieve GitHub access token');
-            }
-
-            // Get user information from GitHub
-            const userResponse = await axios.get('https://api.github.com/user', {
-                headers: { Authorization: `token ${accessToken}` },
-            });
-            const userData = userResponse.data;
-
-            // Create app token with provider info
-            const appToken = createAppToken({
-                username: userData.login,
-                email: userData.email,
-                avatar: userData.avatar_url,
-                provider: 'github',
-            });
-
-            // Redirect to success page with token and redirect path
-            if (http && http.res) http.res.redirect(`${origin_uri}?t=${accessToken}&token=${appToken}`);
-        } catch (error) {
-            console.error('GitHub auth callback error:', error.message || error);
-            if (http && http.res) {
-                http.res.redirect(`${FRONTEND_URL}/login/failure`);
-            }
-        }
+    // const callback_url = `${http && http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
+    const callback_url = `https://${http && http.req.get('host')}/user/loginSuccess?origin_uri=${origin_uri}`;
+    const code = (http && http.req.query && http.req.query.code) || null;
+    if (code) {
+        // Get Token
+        const token_url = `${xsuaa.url}/oauth/token?grant_type=authorization_code&code=${code}&redirect_uri=${callback_url}`;
+        const encodedCredentials = Buffer.from(`${xsuaa.clientid}:${xsuaa.clientsecret}`).toString('base64');
+        const token_response = await fetch(token_url, {
+            method: 'POST',
+            headers: {
+                Authorization: `Basic ${encodedCredentials}`,
+            },
+        });
+        const token_data = await token_response.json();
+        if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.access_token}`);
     } else {
-
-        let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?provider=btp&origin_uri=${origin_uri}`;
-        callback_url = encodeURIComponent(callback_url);
-
-        try {
-            // Get Token from BTP
-            const token_url = `${XSUAA_URL}/oauth/token?grant_type=authorization_code&code=${code}&redirect_uri=${callback_url}`;
-            const encodedCredentials = Buffer.from(`${XSUAA_CLIENTID}:${XSUAA_SECRET}`).toString('base64');
-            const token_response = await fetch(token_url, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Basic ${encodedCredentials}`,
-                },
-            });
-            const token_data = await token_response.json();
-
-            if (token_data.access_token) {
-
-                if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.access_token}`);
-
-                // Create app token with BTP user info
-            };
-        } catch (error) {
-            console.error('BTP auth callback error:', error.message || error);
-        };
-    };
+        if (http && http.res) http.res.redirect(`${origin_uri}?e=UNAUTHORIZED`);
+    }
 };
 
 const getUserInfoHandler = async (req) => {
@@ -175,4 +60,3 @@ const getUserInfoHandler = async (req) => {
     };
     return thisUser;
 };
-

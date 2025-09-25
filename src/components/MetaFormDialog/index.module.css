@@ -1,9 +1,0 @@
-.widerDialog {
-    width: 650px;
-}
-
-@media (max-width: 768px) {
-    .widerialog {
-        width: 90vw;
-    }
-}
