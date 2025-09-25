@@ -4,9 +4,11 @@ slug: /
 sidebar_position: 0
 sidebar_custom_props:
   category_index: []
-title: SAP Reference Architectures for Interoperability & Scalability
+title: SAP Reference Architecture: Building Blocks for Business Success
 description: >-
-  Discover why adopting SAP reference architectures is essential for building efficient, scalable, interoperable processes using proven industry standards.
+  Learn how to leverage SAP reference architectures for building efficient, scalable, 
+  and secure enterprise solutions. Master proven patterns using SAP BTP, cloud integration, 
+  and industry standards for digital transformation.
 keywords:
   - "SAP Reference Architectures"
   - "Architectures"
@@ -25,6 +27,7 @@ keywords:
   - "hybrid cloud"
   - "multi-cloud"
   - "governance"
+  - "Security"
   - "compliance"
 sidebar_label: Reference Architectures
 image: img/ac-soc-med.png
