@@ -14,6 +14,10 @@ jobs:
     build:
         name: Build Site for Release V2 preview
         runs-on: ubuntu-latest
+        env:
+            VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
+            BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+            EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
         steps:
             - name: Checkout Release V2 Code
               uses: actions/checkout@v4
