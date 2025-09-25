@@ -1,10 +1,47 @@
-.metadataContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+.container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
     margin: 1rem 0 2rem 0;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    background-color: #f9f9f9;
+}
+
+.container:has(input) {
+    border-style: dashed;
+    border-color: #ccc;
+    background-color: transparent;
+}
+
+.actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.displayTitle {
+    font-size: 2.5rem;
+    margin: 0 0 1.5rem 0;
+    padding-right: 40px;
+}
+
+.titleInput {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.titleInput::part(root) {
+    border: none;
+    background: transparent;
+}
+
+.titleInput::part(input) {
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 0;
+    height: auto;
 }
 
 .metadataInfo {
@@ -18,11 +55,17 @@
     font-size: 14px;
     color: #0b65de;
     border: 1px solid #e9ecef;
+    background-color: white;
     padding: 4px 10px;
     border-radius: 6px;
     text-decoration: none;
     cursor: pointer;
     margin-right: 10px;
+}
+
+.placeholder {
+    font-style: italic;
+    color: #888;
 }
 
 .updateInfo {
@@ -36,14 +79,19 @@
     font-weight: 600;
 }
 
-.actions {
-    align-self: center;
+.formField {
+    margin-bottom: 1rem;
 }
 
-.metadataContainer + h1:not(:has(span[data-lexical-text='true']))::before {
-    content: 'Press / to get started...';
-    position: absolute;
-    color: #999;
-    pointer-events: none;
-    user-select: none;
+.formField > :global(ui5-multi-combobox),
+.formField > :global(ui5-multi-input) {
+    width: 100%;
+}
+
+.cancelButton {
+    margin-left: 8px;
+}
+
+:global(ui5-responsive-popover.ui5-multi-combobox-popup) {
+    min-width: var(--_ui5_input_width);
 }

@@ -3,6 +3,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $getRoot, NodeKey } from 'lexical';
 import { $isHeadingNode } from '@lexical/rich-text';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
+import { ArticleHeaderNode } from '../../nodes/ArticleMetadataNode';
 
 import styles from './index.module.css';
 
@@ -22,14 +23,26 @@ export default function TableOfContentsPlugin() {
         const unregister = editor.registerUpdateListener(({ editorState }) => {
             editorState.read(() => {
                 const root = $getRoot();
-                const newHeadings: Heading[] = root
-                    .getChildren()
-                    .filter($isHeadingNode)
-                    .map((node) => ({
-                        key: node.getKey(),
-                        text: node.getTextContent(),
-                        level: parseInt(node.getTag().substring(1), 10),
-                    }));
+
+                const newHeadings: Heading[] = root.getChildren().reduce((acc, node) => {
+                    if (node instanceof ArticleHeaderNode) {
+                        const title = node.getTitle();
+                        if (title) {
+                            acc.push({
+                                key: node.getKey(),
+                                text: title,
+                                level: 1,
+                            });
+                        }
+                    } else if ($isHeadingNode(node)) {
+                        acc.push({
+                            key: node.getKey(),
+                            text: node.getTextContent(),
+                            level: parseInt(node.getTag().substring(1), 10),
+                        });
+                    }
+                    return acc;
+                }, []);
 
                 if (JSON.stringify(headings) !== JSON.stringify(newHeadings)) {
                     setHeadings(newHeadings);

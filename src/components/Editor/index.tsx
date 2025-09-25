@@ -24,9 +24,10 @@ import { DrawioNode } from './nodes/DrawioNode';
 import DrawioPlugin from './plugins/DrawioPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
-import { ArticleMetadataNode } from './nodes/ArticleMetadataNode';
+import { ArticleHeaderNode } from './nodes/ArticleMetadataNode';
 import InitializerPlugin from './plugins/InitializerPlugin';
 import TitleSyncPlugin from './plugins/TitleSyncPlugin';
+import SanityCheckPlugin from './plugins/SanityCheckPlugin';
 import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
@@ -72,7 +73,7 @@ const transformTreeForBackend = (doc: Document): any => {
 };
 
 function Placeholder() {
-    return <div className={styles.editorPlaceholder}>type / to get started</div>;
+    return <div className={styles.editorPlaceholder}>Type / to get started</div>;
 }
 
 const editorNodes = [
@@ -89,7 +90,7 @@ const editorNodes = [
     LinkNode,
     ImageNode,
     DrawioNode,
-    ArticleMetadataNode,
+    ArticleHeaderNode,
 ];
 
 const AutoSavePlugin: React.FC = () => {
@@ -283,6 +284,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <InitializerPlugin />
                             <TitleSyncPlugin />
                             <AutoSavePlugin />
+                            <SanityCheckPlugin />
                         </div>
                     </div>
                 </div>

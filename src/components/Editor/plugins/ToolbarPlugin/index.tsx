@@ -81,6 +81,20 @@ const blockTypeToBlockName = {
     paragraph: 'Paragraph',
 };
 
+const HEADING_1_STYLE = { 'font-size': '24px', 'font-weight': 'bold' };
+const HEADING_2_STYLE = { 'font-size': '20px', 'font-weight': 'bold' };
+const HEADING_3_STYLE = { 'font-size': '16px', 'font-weight': 'bold' };
+const PARAGRAPH_STYLE = { 'font-size': 'inherit', 'font-weight': 'normal' };
+
+function applyStyleText(editor, stylesToApply) {
+    editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+            $patchStyleText(selection, stylesToApply);
+        }
+    });
+}
+
 function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: keyof typeof blockTypeToBlockName }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const dropDownRef = useRef<HTMLDivElement>(null);
@@ -96,38 +110,17 @@ function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: k
     }, []);
 
     const formatParagraph = () => {
-        if (blockType !== 'paragraph') {
-            editor.update(() => {
-                const selection = $getSelection();
-                if ($isRangeSelection(selection)) {
-                    $setBlocksType(selection, () => $createParagraphNode());
-                }
-            });
-        }
+        applyStyleText(editor, PARAGRAPH_STYLE);
         setShowDropDown(false);
     };
 
-    const formatHeading = (headingSize: HeadingTagType) => {
-        if (blockType !== headingSize) {
-            editor.update(() => {
-                const selection = $getSelection();
-                if ($isRangeSelection(selection)) {
-                    $setBlocksType(selection, () => $createHeadingNode(headingSize));
-                }
-            });
-        }
+    const formatHeading = (style) => {
+        applyStyleText(editor, style);
         setShowDropDown(false);
     };
 
     const formatCode = () => {
-        if (blockType !== 'code') {
-            editor.update(() => {
-                const selection = $getSelection();
-                if ($isRangeSelection(selection)) {
-                    $setBlocksType(selection, () => $createCodeNode());
-                }
-            });
-        }
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
         setShowDropDown(false);
     };
 
@@ -143,28 +136,27 @@ function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: k
                         <Type size={16} style={{ marginRight: '8px' }} />
                         Paragraph
                     </button>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h1')}>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading(HEADING_1_STYLE)}>
                         <span style={{ marginRight: '8px', fontSize: '16px', fontWeight: 'bold' }}>H1</span>
                         Heading 1
                     </button>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h2')}>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading(HEADING_2_STYLE)}>
                         <span style={{ marginRight: '8px', fontSize: '14px', fontWeight: 'bold' }}>H2</span>
                         Heading 2
                     </button>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h3')}>
+                    <button className={styles.dropdownItem} onClick={() => formatHeading(HEADING_3_STYLE)}>
                         <span style={{ marginRight: '8px', fontSize: '12px', fontWeight: 'bold' }}>H3</span>
                         Heading 3
                     </button>
                     <button className={styles.dropdownItem} onClick={formatCode}>
                         <Code size={16} style={{ marginRight: '8px' }} />
-                        Code Block
+                        Code
                     </button>
                 </div>
             )}
         </div>
     );
 }
-
 function InsertDropdown({ editor }: { editor: any }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const dropDownRef = useRef<HTMLDivElement>(null);
@@ -293,31 +285,24 @@ function ComprehensiveToolbarContent({ onEditLink, mode }: { onEditLink: () => v
             setIsStrikethrough(selection.hasFormat('strikethrough'));
             setIsCode(selection.hasFormat('code'));
 
-            // Get font color
             const color = $getSelectionStyleValueForProperty(selection, 'color', '#000000');
             setFontColor(color);
 
-            // Get background color
             const backgroundColor = $getSelectionStyleValueForProperty(selection, 'background-color', '#ffffff');
             setBgColor(backgroundColor);
 
-            const anchorNode = selection.anchor.getNode();
-            const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-            if ($isHeadingNode(element)) {
-                const tag = element.getTag();
-                if (tag in blockTypeToBlockName) {
-                    setBlockType(tag as keyof typeof blockTypeToBlockName);
-                } else {
-                    setBlockType('paragraph');
-                }
+            const fontSize = $getSelectionStyleValueForProperty(selection, 'font-size', 'inherit');
+
+            if (fontSize === '24px') {
+                setBlockType('h1');
+            } else if (fontSize === '20px') {
+                setBlockType('h2');
+            } else if (fontSize === '16px') {
+                setBlockType('h3');
             } else {
-                const type = element.getType();
-                if (type in blockTypeToBlockName) {
-                    setBlockType(type as keyof typeof blockTypeToBlockName);
-                } else {
-                    setBlockType('paragraph');
-                }
+                setBlockType('paragraph');
             }
+
             const node = getSelectedNode(selection);
             const parent = node.getParent();
             setIsLink($isLinkNode(parent) || $isLinkNode(node));
@@ -605,38 +590,59 @@ export default function ToolbarPlugin({ mode = 'floating' }: ToolbarPluginProps)
     const [isLinkEditMode, setIsLinkEditMode] = useState(false);
 
     const updateToolbarLocation = useCallback(() => {
-        if (mode === 'fixed') return; // Skip positioning for fixed mode
+        if (mode === 'fixed') return; // Fixed toolbar doesn't move
 
         const toolbarElement = toolbarRef.current;
-        if (!toolbarElement) {
+        const selection = $getSelection();
+
+        if (!toolbarElement || !selection) {
             return;
         }
 
-        const selection = $getSelection();
         const nativeSelection = window.getSelection();
         const rootElement = editor.getRootElement();
 
+        // Check for a valid, non-collapsed selection
         if (
-            selection !== null &&
-            nativeSelection !== null &&
+            $isRangeSelection(selection) &&
+            nativeSelection &&
             !nativeSelection.isCollapsed &&
             rootElement &&
             rootElement.contains(nativeSelection.anchorNode)
         ) {
-            const domRange = nativeSelection.getRangeAt(0);
-            const selectionRect = domRange.getBoundingClientRect();
-            const positioningContainer = toolbarElement.offsetParent;
-
-            if (!positioningContainer) {
+            const selectedNodes = selection.getNodes();
+            if (selectedNodes.length === 0 && selection.getTextContent() === '') {
+                toolbarElement.style.opacity = '0';
+                toolbarElement.style.top = '-1000px';
                 return;
             }
+
+            // --- THIS IS THE NEW TWO-MODE LOGIC ---
+
+            const selectedBlockElementKeys = new Set();
+            for (const node of selectedNodes) {
+                const topLevelElement = node.getTopLevelElement();
+                if (topLevelElement) {
+                    selectedBlockElementKeys.add(topLevelElement.getKey());
+                }
+            }
+
+            const positioningContainer = toolbarElement.offsetParent as HTMLElement;
+            if (!positioningContainer) return;
             const containerRect = positioningContainer.getBoundingClientRect();
 
-            const relativeTop = selectionRect.top - containerRect.top;
-            const relativeLeft = selectionRect.left - containerRect.left;
+            let top, left;
 
-            const top = relativeTop - toolbarElement.offsetHeight - 5;
-            const left = relativeLeft;
+            if (selectedBlockElementKeys.size > 1) {
+                const rootElementRect = rootElement.getBoundingClientRect();
+                top = rootElementRect.top - containerRect.top + 200;
+                left = rootElementRect.left - containerRect.left + toolbarElement.offsetWidth / 2;
+            } else {
+                const domRange = nativeSelection.getRangeAt(0);
+                const selectionRect = domRange.getBoundingClientRect();
+                top = selectionRect.top - containerRect.top - toolbarElement.offsetHeight - 5;
+                left = selectionRect.left - containerRect.left;
+            }
 
             toolbarElement.style.opacity = '1';
             toolbarElement.style.top = `${top}px`;

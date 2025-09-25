@@ -38,6 +38,8 @@ export default function MetadataFormDialog({
 
     const tagsData = useGlobalData()['docusaurus-tags']['default']['tags'] || {};
 
+    console.log(tagsData);
+
     const { availableTags, labelToKeyMap } = useMemo(() => {
         if (!tagsData || Object.keys(tagsData).length === 0) {
             return { availableTags: [], labelToKeyMap: new Map() };
@@ -140,7 +142,11 @@ export default function MetadataFormDialog({
                 <FormItem labelContent={<Label required>Tags</Label>}>
                     <MultiComboBox onSelectionChange={handleTagUpdate} placeholder="Select at least one tag...">
                         {availableTags.map((tag) => (
-                            <MultiComboBoxItem key={tag.key} text={tag.label} />
+                            <MultiComboBoxItem
+                                key={tag.key}
+                                text={tag.label}
+                                selected={initialData?.tags.includes(tag.key)}
+                            />
                         ))}
                     </MultiComboBox>
                 </FormItem>

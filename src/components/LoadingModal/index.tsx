@@ -1,22 +1,15 @@
 import React, { JSX } from 'react';
-import { Icon, BusyIndicator, Button } from '@ui5/webcomponents-react';
-import '@ui5/webcomponents-icons/dist/pending.js';
-import '@ui5/webcomponents-icons/dist/sys-enter-2.js';
+import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/error.js';
 import styles from './index.module.css';
 
 export type PublishStage = 'idle' | 'forking' | 'packaging' | 'committing' | 'success' | 'error';
 
-interface Stage {
-    key: PublishStage;
-    label: string;
-}
-
-const STAGES: Stage[] = [
-    { key: 'forking', label: 'Forking Repository' },
-    { key: 'packaging', label: 'Packaging Your Work' },
-    { key: 'committing', label: 'Committing to GitHub' },
-];
+const STAGE_PUNS: { [key in PublishStage]?: string } = {
+    forking: 'Charting the course to the cosmos...',
+    packaging: 'Securing the payload for orbit...',
+    committing: 'Final countdown engaged... ignition!',
+};
 
 interface LoadingModalProps {
     status: PublishStage;
@@ -25,29 +18,6 @@ interface LoadingModalProps {
     onClose: () => void;
     onSuccessFinish: () => void;
 }
-
-const StageItem: React.FC<{ stage: Stage; currentStatus: PublishStage }> = ({ stage, currentStatus }) => {
-    const stageIndex = STAGES.findIndex((s) => s.key === stage.key);
-    const currentStatusIndex = STAGES.findIndex((s) => s.key === currentStatus);
-
-    let icon;
-    if (currentStatus === 'error' && stage.key === currentStatus) {
-        icon = <Icon name="error" className={`${styles.icon} ${styles.iconError}`} />;
-    } else if (currentStatusIndex > stageIndex || currentStatus === 'success') {
-        icon = <Icon name="sys-enter-2" className={`${styles.icon} ${styles.iconSuccess}`} />;
-    } else if (currentStatusIndex === stageIndex) {
-        icon = <BusyIndicator active className={styles.spinner} />;
-    } else {
-        icon = <Icon name="pending" className={`${styles.icon} ${styles.iconPending}`} />;
-    }
-
-    return (
-        <li className={styles.stageItem}>
-            {icon}
-            <span>{stage.label}</span>
-        </li>
-    );
-};
 
 export default function LoadingModal({
     status,
@@ -60,41 +30,42 @@ export default function LoadingModal({
         return null;
     }
 
+    const isInProgress = status === 'forking' || status === 'packaging' || status === 'committing';
+    const rocketClassName = status === 'success' ? `${styles.rocket} ${styles.rocketLaunched}` : styles.rocket;
+
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
-                <h2>Publishing Your Document</h2>
+                {status === 'success' && (
+                    <img src="/img/fireworks.gif" alt="Success fireworks" className={styles.fireworks} />
+                )}
 
-                {status !== 'success' && status !== 'error' && (
-                    <ul className={styles.stageList}>
-                        {STAGES.map((stage) => (
-                            <StageItem key={stage.key} stage={stage} currentStatus={status} />
-                        ))}
-                    </ul>
+                {isInProgress && (
+                    <div className={styles.progressContainer}>
+                        <h2>Preparing for Liftoff</h2>
+                        <img src="/img/rocket.gif" alt="Rocket preparing for launch" className={rocketClassName} />
+                        <p className={styles.punText}>{STAGE_PUNS[status]}</p>
+                    </div>
                 )}
 
                 {status === 'success' && (
                     <div className={styles.resultContainer}>
-                        {/* <Icon name="sys-enter-2" className={`${styles.resultIcon} ${styles.iconSuccess}`} /> */}
-                        <h3>Published Successfully!</h3>
-                        {/* <p>Your changes have been committed to your forked repository.</p> */}
+                        <img src="/img/rocket.gif" alt="Rocket launching" className={rocketClassName} />
+                        <h3>We Have Liftoff!</h3>
+                        <p>Your document has been published successfully.</p>
                         <div className={styles.buttonGroup}>
                             <Button design="Emphasized" onClick={onSuccessFinish}>
                                 View on GitHub & Finish
                             </Button>
-                            {/* <Button design="Transparent" onClick={onClose}>
-                                Close
-                            </Button> */}
                         </div>
                     </div>
                 )}
 
                 {status === 'error' && (
                     <div className={styles.resultContainer}>
-                        <Icon name="error" className={`${styles.resultIcon} ${styles.iconError}`} />
-                        <h3>An Error Occurred</h3>
+                        <h3>Mission Aborted</h3>
                         <p className={styles.errorMessage}>{error || 'An unknown error occurred.'}</p>
-                        <Button onClick={onClose}>Close</Button>
+                        <Button onClick={onClose}>Return to Hangar</Button>
                     </div>
                 )}
             </div>

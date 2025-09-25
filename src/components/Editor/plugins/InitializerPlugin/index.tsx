@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $createHeadingNode } from '@lexical/rich-text';
-import { $getRoot, $createTextNode } from 'lexical';
+import { $getRoot, $createParagraphNode } from 'lexical';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
-import { $createArticleMetadataNode } from '../../nodes/ArticleMetadataNode';
+import { ArticleHeaderNode, $createArticleHeaderNode } from '../../nodes/ArticleMetadataNode';
 
 export default function InitializerPlugin() {
     const [editor] = useLexicalComposerContext();
@@ -11,27 +10,40 @@ export default function InitializerPlugin() {
     const isInitialized = useRef(false);
 
     useEffect(() => {
-        const activeDocument = getActiveDocument();
+        if (isInitialized.current) return;
 
-        if (!activeDocument || isInitialized.current) {
-            return;
-        }
+        const activeDocument = getActiveDocument();
+        if (!activeDocument) return;
+
+        let needsSetupAndFocus = false;
 
         editor.update(() => {
             const root = $getRoot();
+            const children = root.getChildren();
 
-            if (root.getChildrenSize() > 0) {
-                isInitialized.current = true;
-                return;
+            if (children.length === 0) {
+                const { title, tags, authors } = activeDocument;
+                root.append(
+                    $createArticleHeaderNode(title || 'Untitled Page', tags || [], authors || []),
+                    $createParagraphNode()
+                );
+                needsSetupAndFocus = true; // Mark for focus
+            } else if (children.length === 1 && children[0] instanceof ArticleHeaderNode) {
+                root.append($createParagraphNode());
+                needsSetupAndFocus = true; // Mark for focus
             }
-
-            root.append(
-                $createHeadingNode('h1').append($createTextNode(activeDocument.title)),
-                $createArticleMetadataNode(activeDocument.tags, activeDocument.authors),
-                $createHeadingNode('h1')
-            );
-            isInitialized.current = true;
         });
+
+        if (needsSetupAndFocus) {
+            setTimeout(() => {
+                editor.update(() => {
+                    $getRoot().selectEnd();
+                });
+                editor.focus();
+            }, 0);
+        }
+
+        isInitialized.current = true;
     }, [editor, getActiveDocument]);
 
     return null;

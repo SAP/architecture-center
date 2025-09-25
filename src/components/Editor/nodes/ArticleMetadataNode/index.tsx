@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useMemo } from 'react';
 import {
+    $getNodeByKey,
     DecoratorNode,
     EditorConfig,
     LexicalEditor,
     NodeKey,
     SerializedLexicalNode,
     Spread,
-    ElementNode,
+    $createParagraphNode,
 } from 'lexical';
-import { $createHeadingNode } from '@lexical/rich-text';
-import { Button, MultiComboBox, MultiComboBoxItem, MultiInput, Token } from '@ui5/webcomponents-react';
+import { Input, Button, MultiComboBox, MultiComboBoxItem, MultiInput, Token } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
+import useGlobalData from '@docusaurus/useGlobalData';
 import styles from './index.module.css';
 
-const AVAILABLE_TAGS = ['Beginner', 'Advanced', 'Tutorial', 'Reference', 'Deep Dive'];
-
-export type SerializedArticleMetadataNode = Spread<
+export type SerializedArticleHeaderNode = Spread<
     {
+        title: string;
         tags: string[];
         authors: string[];
         type: 'article-metadata';
@@ -26,9 +27,29 @@ export type SerializedArticleMetadataNode = Spread<
     SerializedLexicalNode
 >;
 
-function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
+function ArticleHeaderComponent({ title, tags, authors, nodeKey, editor }) {
+    const tagsData = useGlobalData()['docusaurus-tags']['default']['tags'] || {};
+
+    const { availableTags, tagKeyToLabelMap } = useMemo(() => {
+        if (!tagsData || Object.keys(tagsData).length === 0) {
+            return { availableTags: [], tagKeyToLabelMap: new Map() };
+        }
+        const tagsArray = Object.entries(tagsData)
+            .filter(([key]) => key !== 'demo')
+            .map(([key, value]: [string, any]) => ({
+                key: key,
+                label: value.label,
+                description: value.description,
+            }));
+        const map = new Map(tagsArray.map((tag) => [tag.key, tag.label]));
+        return { availableTags: tagsArray, tagKeyToLabelMap: map };
+    }, [tagsData]);
+
     const [isEditing, setIsEditing] = useState(false);
-    const [editableData, setEditableData] = useState({ tags, authors });
+    const [editableData, setEditableData] = useState(() => {
+        const tagObjects = tags.map((key) => availableTags.find((tag) => tag.key === key)).filter(Boolean);
+        return { title, tags: tagObjects, authors };
+    });
     const [authorInputValue, setAuthorInputValue] = useState('');
     const { getActiveDocument, updateDocument } = usePageDataStore();
 
@@ -36,37 +57,30 @@ function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
         const activeDocument = getActiveDocument();
         if (!activeDocument) return;
 
+        const tagKeysToSave = editableData.tags.map((tag) => tag.key);
+
         editor.update(() => {
-            const node = editor.getElementByKey(nodeKey)?.getWritable();
-            if (node instanceof ArticleMetadataNode) {
-                node.setTags(editableData.tags);
+            const node = $getNodeByKey(nodeKey);
+            if (node instanceof ArticleHeaderNode) {
+                node.setTitle(editableData.title);
+                node.setTags(tagKeysToSave);
                 node.setAuthors(editableData.authors);
             }
         });
 
         updateDocument(activeDocument.id, {
-            tags: editableData.tags,
+            title: editableData.title,
+            tags: tagKeysToSave,
             authors: editableData.authors,
         });
 
         setIsEditing(false);
+    };
 
-        setTimeout(() => {
-            editor.update(() => {
-                const node = editor.getElementByKey(nodeKey);
-                if (node) {
-                    const nextSibling = node.getNextSibling();
-                    if (!nextSibling) {
-                        const newHeading = $createHeadingNode('h1');
-                        node.insertAfter(newHeading);
-                        newHeading.select();
-                    } else if (nextSibling instanceof ElementNode) {
-                        nextSibling.selectStart();
-                    }
-                }
-            });
-            editor.focus();
-        }, 0);
+    const handleCancel = () => {
+        setIsEditing(false);
+        const originalTagObjects = tags.map((key) => availableTags.find((tag) => tag.key === key)).filter(Boolean);
+        setEditableData({ title, tags: originalTagObjects, authors });
     };
 
     const handleAuthorAdd = (event) => {
@@ -84,20 +98,33 @@ function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
 
     if (isEditing) {
         return (
-            <div style={{ padding: '1rem', border: '1px dashed #ccc', borderRadius: '4px', margin: '1rem 0 2rem 0' }}>
-                <div style={{ marginBottom: '1rem' }}>
+            <div className={styles.container}>
+                <Input
+                    value={editableData.title}
+                    className={styles.titleInput}
+                    placeholder="Enter a title..."
+                    onInput={(e) => setEditableData((d) => ({ ...d, title: e.target.value }))}
+                />
+                <div className={styles.formField}>
                     <MultiComboBox
                         placeholder="Select tags"
-                        onSelectionChange={(e) =>
-                            setEditableData((d) => ({ ...d, tags: e.detail.items.map((i) => i.text) }))
-                        }
+                        onSelectionChange={(e) => {
+                            const selectedObjects = e.detail.items
+                                .map((item) => availableTags.find((tag) => tag.label === item.text))
+                                .filter(Boolean);
+                            setEditableData((d) => ({ ...d, tags: selectedObjects }));
+                        }}
                     >
-                        {AVAILABLE_TAGS.map((tag) => (
-                            <MultiComboBoxItem key={tag} text={tag} selected={editableData.tags.includes(tag)} />
+                        {availableTags.map((tag) => (
+                            <MultiComboBoxItem
+                                key={tag.key}
+                                text={tag.label}
+                                selected={editableData.tags.some((selectedTag) => selectedTag.key === tag.key)}
+                            />
                         ))}
                     </MultiComboBox>
                 </div>
-                <div style={{ marginBottom: '1rem' }}>
+                <div className={styles.formField}>
                     <MultiInput
                         placeholder="Add authors"
                         value={authorInputValue}
@@ -110,9 +137,9 @@ function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
                     />
                 </div>
                 <Button onClick={handleSave} design="Emphasized">
-                    Save Changes
+                    Save
                 </Button>
-                <Button onClick={() => setIsEditing(false)} style={{ marginLeft: '8px' }}>
+                <Button onClick={handleCancel} className={styles.cancelButton}>
                     Cancel
                 </Button>
             </div>
@@ -120,13 +147,17 @@ function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
     }
 
     return (
-        <div className={styles.metadataContainer}>
+        <div className={styles.container}>
+            <div className={styles.actions}>
+                <Button icon="edit" design="Transparent" onClick={() => setIsEditing(true)} />
+            </div>
+            <h1 className={styles.displayTitle}>{title || 'Untitled Page'}</h1>
             <div className={styles.metadataInfo}>
                 <div>
                     {tags.length > 0 ? (
-                        tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>
-                                {tag}
+                        tags.map((tagKey) => (
+                            <span key={tagKey} className={styles.tag}>
+                                {tagKeyToLabelMap.get(tagKey) || tagKey}
                             </span>
                         ))
                     ) : (
@@ -140,14 +171,12 @@ function ArticleMetadataComponent({ tags, authors, nodeKey, editor }) {
                     </p>
                 </div>
             </div>
-            <div className={styles.actions}>
-                <Button icon="edit" design="Transparent" onClick={() => setIsEditing(true)} />
-            </div>
         </div>
     );
 }
 
-export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
+export class ArticleHeaderNode extends DecoratorNode<React.ReactNode> {
+    __title: string;
     __tags: string[];
     __authors: string[];
 
@@ -155,12 +184,13 @@ export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
         return 'article-metadata';
     }
 
-    static clone(node: ArticleMetadataNode): ArticleMetadataNode {
-        return new ArticleMetadataNode(node.__tags, node.__authors, node.__key);
+    static clone(node: ArticleHeaderNode): ArticleHeaderNode {
+        return new ArticleHeaderNode(node.__title, node.__tags, node.__authors, node.__key);
     }
 
-    exportJSON(): SerializedArticleMetadataNode {
+    exportJSON(): SerializedArticleHeaderNode {
         return {
+            title: this.__title,
             authors: this.__authors,
             tags: this.__tags,
             type: 'article-metadata',
@@ -168,12 +198,13 @@ export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
         };
     }
 
-    static importJSON(serializedNode: SerializedArticleMetadataNode): ArticleMetadataNode {
-        return $createArticleMetadataNode(serializedNode.tags, serializedNode.authors);
+    static importJSON(serializedNode: SerializedArticleHeaderNode): ArticleHeaderNode {
+        return $createArticleHeaderNode(serializedNode.title || '', serializedNode.tags, serializedNode.authors);
     }
 
-    constructor(tags: string[] = [], authors: string[] = [], key?: NodeKey) {
+    constructor(title: string = '', tags: string[] = [], authors: string[] = [], key?: NodeKey) {
         super(key);
+        this.__title = title;
         this.__tags = tags;
         this.__authors = authors;
     }
@@ -186,6 +217,15 @@ export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
         return false;
     }
 
+    getTitle(): string {
+        const self = this.getLatest();
+        return self.__title;
+    }
+
+    setTitle(title: string) {
+        this.getWritable().__title = title;
+    }
+
     setTags(tags: string[]) {
         this.getWritable().__tags = tags;
     }
@@ -196,7 +236,8 @@ export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
 
     decorate(editor: LexicalEditor): React.ReactNode {
         return (
-            <ArticleMetadataComponent
+            <ArticleHeaderComponent
+                title={this.__title}
                 tags={this.__tags}
                 authors={this.__authors}
                 nodeKey={this.getKey()}
@@ -206,6 +247,6 @@ export class ArticleMetadataNode extends DecoratorNode<React.ReactNode> {
     }
 }
 
-export function $createArticleMetadataNode(tags: string[], authors: string[]): ArticleMetadataNode {
-    return new ArticleMetadataNode(tags, authors);
+export function $createArticleHeaderNode(title: string, tags: string[], authors: string[]): ArticleHeaderNode {
+    return new ArticleHeaderNode(title, tags, authors);
 }
