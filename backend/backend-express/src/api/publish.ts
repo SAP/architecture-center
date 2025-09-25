@@ -1,10 +1,20 @@
 import { Router, Request, Response } from 'express';
 import requireAuth from '../middleware/requireAuth';
 import { publishToGitHub } from '../services/githubService';
+import rateLimit from 'express-rate-limit';
+
+// Rate limiter: limit to 10 publish requests per minute per IP
+const publishLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 10, // limit each IP to 10 requests per windowMs
+    message: { error: 'Too many publish requests, please try again later.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 const router = Router();
 
-router.post('/publish', requireAuth, async (req: Request, res: Response) => {
+router.post('/publish', publishLimiter, requireAuth, async (req: Request, res: Response) => {
     try {
         const rootDocument = JSON.parse(req.body.document);
         const githubToken = req.user?.githubAccessToken;
