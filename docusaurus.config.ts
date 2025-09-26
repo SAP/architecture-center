@@ -29,15 +29,21 @@ const config: Config = {
         mermaid: true,
     },
     customFields: {
-        validatorApiUrl : process.env.VALIDATOR_API_URL,
-        xsuaaApiUrl: process.env.XSUAA_API_URL,
-      },
+        validatorApiUrl: process.env.VALIDATOR_API_URL,
+        backendUrl: process.env.BACKEND_API_URL,
+        expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
+        authProviders: {
+            '/ArchitectureValidator': 'btp',
+            '/quickStart': 'github',
+        },
+    },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
         './src/plugins/tags-generator',
+        './src/plugins/tags-plugin',
         [
             '@docusaurus/plugin-content-docs',
             {
@@ -260,7 +266,6 @@ const config: Config = {
                             label: 'What\'s New',
                             to: '/blog',
                         },
-
                     ],
                 },
                 {
@@ -271,9 +276,9 @@ const config: Config = {
                     title: 'Visit GitHub Repository',
                 },
                 {
-                    type: "custom-user-dropdown",
-                    position: "right"
-                }
+                    type: 'custom-user-dropdown',
+                    position: 'right',
+                },
             ],
         },
         footer: {

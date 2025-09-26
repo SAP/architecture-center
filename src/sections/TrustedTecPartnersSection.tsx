@@ -140,11 +140,11 @@ export default function TrustedTecPartnersSection(): JSX.Element {
               },
               {
                 breakpoint: 1024, // iPad portrait
-                settings: { slidesToShow: 3 }
+                settings: { slidesToShow: 4 }
               },
               {
                 breakpoint: 768, // smaller tablets
-                settings: { slidesToShow: 2 }
+                settings: { slidesToShow: 3 }
               },
               {
                 breakpoint: 600, // mobile -> already handled by logoList

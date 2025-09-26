@@ -1,0 +1,48 @@
+.tocContainer {
+    width: 240px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 16px;
+}
+
+.tocList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tocItem {
+    font-size: 14px;
+    color: #555;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.tocItem:hover {
+    background-color: #f0f2f5;
+    color: #111;
+}
+
+.tocItem.active {
+    color: #1d69e5;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+.tocItem[data-level='2'] {
+    padding-left: 20px;
+}
+
+.tocItem[data-level='3'] {
+    padding-left: 30px;
+}

@@ -1,0 +1,13 @@
+.pageContainer {
+    width: 100%;
+}
+
+.noDocumentSelected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--ifm-navbar-height));
+    font-size: 1.5rem;
+    color: #888;
+    background-color: #f0f2f5;
+}

@@ -1,0 +1,62 @@
+.container {
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: var(--ifm-card-border-radius);
+    margin-bottom: 1rem;
+    background-color: var(--ifm-background-color-secondary);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.infoIcon {
+    margin-right: 0.5rem;
+    color: var(--ifm-color-content-secondary);
+}
+
+.title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ifm-color-content);
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contributorItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.avatarPlaceholder {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 0.6rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.link {
+    color: var(--ifm-link-color);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s;
+}
+
+.link:hover {
+    text-decoration-color: var(--ifm-link-color);
+}
