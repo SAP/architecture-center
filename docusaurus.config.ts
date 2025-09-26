@@ -239,7 +239,7 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: 'Explore',
+                    label: 'Navigate',
                     position: 'right',
                     items: [
                         {
@@ -263,7 +263,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: "What's New",
+                            label: 'What\'s New',
                             to: '/blog',
                         },
                     ],
