@@ -43,6 +43,38 @@ async function githubApiRequest(endpoint: string, token: string, options: Reques
     return data;
 }
 
+async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, token: string): Promise<any> {
+    try {
+        // First, get the authenticated user's information
+        const userInfo = await githubApiRequest('/user', token);
+        const username = userInfo.login;
+        
+        // Check if the fork already exists
+        console.log(`[GitHub Flow] => Checking if fork exists for user: ${username}`);
+        try {
+            const existingFork = await githubApiRequest(`/repos/${username}/${targetRepoName}`, token);
+            console.log(`[GitHub Flow] => Fork already exists, using existing fork: ${existingFork.full_name}`);
+            return existingFork;
+        } catch (error: any) {
+            if (error.status === 404) {
+                console.log(`[GitHub Flow] => Fork does not exist, creating new fork...`);
+                // Fork doesn't exist, create it
+                const forkData = await githubApiRequest(`/repos/${targetRepoOwner}/${targetRepoName}/forks`, token, {
+                    method: 'POST',
+                });
+                console.log(`[GitHub Flow] => Fork created successfully: ${forkData.full_name}`);
+                return forkData;
+            } else {
+                // Some other error occurred
+                throw error;
+            }
+        }
+    } catch (error: any) {
+        console.error(`[GitHub Flow] => Error in fork creation/retrieval: ${error.message}`);
+        throw error;
+    }
+}
+
 export async function publishToGitHub(rootDocument: DocumentObject, token: string): Promise<PublishResult> {
     if (!TARGET_REPO_OWNER || !TARGET_REPO_NAME) {
         const error: GitHubApiError = new Error('Target repository is not configured on the server.');
@@ -50,9 +82,7 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
         throw error;
     }
 
-    const forkData = await githubApiRequest(`/repos/${TARGET_REPO_OWNER}/${TARGET_REPO_NAME}/forks`, token, {
-        method: 'POST',
-    });
+    const forkData = await getOrCreateFork(TARGET_REPO_OWNER, TARGET_REPO_NAME, token);
     const {
         owner: { login: repoOwner },
         name: repoName,

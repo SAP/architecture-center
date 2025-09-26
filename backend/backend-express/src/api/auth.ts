@@ -8,30 +8,34 @@ const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = pro
 
 function isTrustedRedirectUrl(candidate: string | undefined): boolean {
     if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
+
     try {
         const trustedUrl = new URL(FRONTEND_URL);
-        if (candidate === FRONTEND_URL) {
+        const candidateUrl = new URL(candidate, FRONTEND_URL);
+
+        // ✅ Case 1: Candidate is just the frontend root (with or without trailing slash)
+        if (candidateUrl.origin === trustedUrl.origin && candidateUrl.pathname.replace(/\/$/, '') === trustedUrl.pathname.replace(/\/$/, '')) {
             return true;
         }
 
-        if (/^\/[^\/\\]/.test(candidate)) {
+        // ✅ Case 2: Candidate is a relative path (e.g., /profile or profile)
+        if (!candidate.startsWith('http') && !candidate.startsWith('//') && !candidate.startsWith('\\')) {
             if (
                 candidate.includes('//') ||
                 candidate.includes('\\') ||
-                candidate.includes('%2f') ||
-                candidate.includes('%2F')
+                candidate.toLowerCase().includes('%2f')
             ) {
                 return false;
             }
-
-            const candidateUrl = new URL(candidate, FRONTEND_URL);
             return candidateUrl.origin === trustedUrl.origin;
         }
+
         return false;
     } catch {
         return false;
     }
 }
+
 router.get('/login', (req: Request, res: Response) => {
     const { origin_uri } = req.query;
     if (!origin_uri || typeof origin_uri !== 'string') {
@@ -41,9 +45,7 @@ router.get('/login', (req: Request, res: Response) => {
 
     console.log('GENERATED CALLBACK URL:', callbackUrl);
 
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        callbackUrl
-    )}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(origin_uri)}&scope=repo`;
 
     res.redirect(githubAuthUrl);
 });
