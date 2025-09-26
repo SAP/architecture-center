@@ -61,9 +61,10 @@ function exportAllDrawios() {
         const dir = dirname(out);
         if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); // Ensure recursive creation
 
+        let cmd = DRAWIO_CLI_BINARY;
+        let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
+
         try {
-            let cmd = DRAWIO_CLI_BINARY;
-            let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
             if (DOCKER) {
                 const d = 'docs/';
                 const relativeOut = d + out.split(d)[1];
