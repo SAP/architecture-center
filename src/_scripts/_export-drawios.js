@@ -69,13 +69,26 @@ function exportAllDrawios() {
                 const relativeOut = d + out.split(d)[1];
                 const relativeInput = d + input.split(d)[1];
                 cmd = 'docker';
-                args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
+                args = [
+                    'run',
+                    '--rm',
+                    '--timeout=300',
+                    '-w', '/data',
+                    '-v', `${ROOT}:/data`,
+                    'rlespinasse/drawio-desktop-headless'
+                ].concat(args);
                 args.push(relativeOut, relativeInput);
+
+                log(`[DEBUG] Docker command: ${cmd} ${args.join(' ')}`);
             } else {
                 args.push(out, input);
             }
 
-            const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
+            const stdout = execFileSync(cmd, args, {
+                encoding: 'utf8',
+                timeout: 300000, // 5 minutes timeout
+                maxBuffer: 1024 * 1024 * 10 // 10MB buffer
+            });
             log(prettyPaths(stdout));
 
             if (GITHUB_ACTIONS) {
@@ -84,8 +97,17 @@ function exportAllDrawios() {
                 execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
             }
         } catch (e) {
-            const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
-            throw new Error(msg, { cause: e });
+            const msg = prettyPaths(`Export failed ${input} -> ${out}`);
+            log(`[ERROR] ${msg}`);
+            log(`[ERROR] Command: ${cmd} ${args ? args.join(' ') : ''}`);
+            log(`[ERROR] Exit code: ${e.status}`);
+            log(`[ERROR] Signal: ${e.signal}`);
+            log(`[ERROR] Stdout: ${e.stdout || 'empty'}`);
+            log(`[ERROR] Stderr: ${e.stderr || 'empty'}`);
+
+            // Don't abort on single file failure, continue with other files
+            log(`[WARNING] Skipping failed export: ${input}`);
+            continue;
         }
     }
     log('\n');
