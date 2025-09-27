@@ -1,4 +1,4 @@
-name: Release V2 Site Build
+name: Test Joule Integration Site Build
 
 permissions:
     contents: write
@@ -8,18 +8,14 @@ on:
     workflow_dispatch:
 
 env:
-    PREVIEW_FOLDER: preview/releasev2
+    PREVIEW_FOLDER: preview/joule-integration
 
 jobs:
     build:
-        name: Build Site for Release V2 preview
+        name: Build Site for Joule Integration preview
         runs-on: ubuntu-latest
-        env:
-            VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
-            BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
-            EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
         steps:
-            - name: Checkout Release V2 Code
+            - name: Checkout Joule Integration Code
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
@@ -42,13 +38,12 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Patch docusaurus.config.ts for Release V2 preview
+            - name: Patch docusaurus.config.ts for Test Joule Integration
               run: |
                   sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
                   sed -E -i "s^baseUrl:(..*)^baseUrl: '/@${{ env.PREVIEW_FOLDER }}',^g" docusaurus.config.ts
-                  sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (Release V2 Preview)',^g" docusaurus.config.ts
-                  sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (Release V2 Preview)'^g" docusaurus.config.ts
-                  sed -E -i "s^logo: \{^logo: \{href: 'https://github.com/${{ github.repository }}/tree/release-v2',^g" docusaurus.config.ts
+                  sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (Test Joule Integration)'^g" docusaurus.config.ts
+                  sed -E -i "s^logo: \{^logo: \{href: 'https://github.com/${{ github.repository }}/tree/joule-integration',^g" docusaurus.config.ts
 
             - name: Verify Patch Application
               run: cat docusaurus.config.ts
@@ -88,7 +83,7 @@ jobs:
                   path: build
 
     deploy:
-        name: Deploy Site for Release V2 Preview
+        name: Deploy Site for Joule Integration
         runs-on: ubuntu-latest
         needs: build
         if: success()
@@ -137,7 +132,7 @@ jobs:
               run: |
                   git add -A
                   if [[ "$(git status -s)" ]]; then
-                    git commit -m "release-v2 build ➝ gh pages"
+                    git commit -m "joule-integration build ➝ site"
                     git push -f origin ${{ env.gh_pages_branch }}
                   fi
 
@@ -151,6 +146,6 @@ jobs:
 
             - name: Output Preview Link
               run: |
-                  echo "🚀 Release V2 preview site has been deployed!"
+                  echo "🚀 Joule Integration preview site has been deployed!"
                   echo "📍 Preview URL: https://architecture.learning.sap.com/@${{ env.PREVIEW_FOLDER }}"
                   echo "🔗 Direct link: https://architecture.learning.sap.com/@${{ env.PREVIEW_FOLDER }}/"
