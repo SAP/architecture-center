@@ -57,6 +57,7 @@ for (const drawio of drawios) {
 
 // Export all drawios to svgs
 function exportAllDrawios() {
+     const failedFiles = [];
     for (let [input, out] of Object.entries(transforms)) {
         const dir = dirname(out);
         if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); // Ensure recursive creation
@@ -75,7 +76,7 @@ function exportAllDrawios() {
                 args.push(out, input);
             }
 
-            const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
+            const stdout = execFileSync(cmd, args, { encoding: 'utf8', timeout: 600000 });
             log(prettyPaths(stdout));
 
             if (GITHUB_ACTIONS) {
@@ -84,9 +85,17 @@ function exportAllDrawios() {
                 execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
             }
         } catch (e) {
-            const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
-            throw new Error(msg, { cause: e });
+            // const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
+            // throw new Error(msg, { cause: e });
+            const msg = prettyPaths(`Export failed ${input} -> ${out}`);
+            console.error(`\n[ERROR] ${msg}. Reason: ${e.message}\n`);
+            failedFiles.push(input);
         }
+    }
+    if (failedFiles.length > 0) {
+        console.error("The following drawio files failed to export:");
+        failedFiles.forEach(file => console.error(`- ${file}`));
+        throw new Error(`${failedFiles.length} file(s) failed to export.`);
     }
     log('\n');
 }
