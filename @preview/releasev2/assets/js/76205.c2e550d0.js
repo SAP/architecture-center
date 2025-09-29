@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksap_architecture_center=self.webpackChunksap_architecture_center||[]).push([[76205],{76205:e=>{e.exports=JSON.parse('{"DRAG_DROP_MULTIPLE_TEXT":"{0} items"}')}}]);
