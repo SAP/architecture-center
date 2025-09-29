@@ -57,7 +57,7 @@ for (const drawio of drawios) {
 
 // Export all drawios to svgs
 function exportAllDrawios() {
-     const failedFiles = [];
+    const failedFiles = [];
     for (let [input, out] of Object.entries(transforms)) {
         const dir = dirname(out);
         if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); // Ensure recursive creation
@@ -85,19 +85,22 @@ function exportAllDrawios() {
                 execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
             }
         } catch (e) {
-            // const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
-            // throw new Error(msg, { cause: e });
             const msg = prettyPaths(`Export failed ${input} -> ${out}`);
             console.error(`\n[ERROR] ${msg}. Reason: ${e.message}\n`);
             failedFiles.push(input);
         }
     }
+
     if (failedFiles.length > 0) {
-        console.error("The following drawio files failed to export:");
-        failedFiles.forEach(file => console.error(`- ${file}`));
-        throw new Error(`${failedFiles.length} file(s) failed to export.`);
+        console.error("==========================================");
+        console.error("         SVG EXPORT FAILED FILES          ");
+        console.error("==========================================");
+        console.error(`\nThe following ${failedFiles.length} drawio files failed to export:`);
+        failedFiles.forEach(file => console.error(`- ${prettyPaths(file)}`));
+        console.error("\nContinuing build process despite errors...");
+    } else {
+        log('\nAll drawio files exported successfully.');
     }
-    log('\n');
 }
 
 // generate qrcode, only get inner part
@@ -110,6 +113,11 @@ async function generateQrSvg(link) {
 // Watermark the svgs, which were created in the previous step
 async function watermarkAll() {
     for (const [drawioPath, svgPath] of Object.entries(transforms)) {
+        if (!existsSync(svgPath)) {
+            log(`[SKIPPING] Watermark for ${prettyPaths(svgPath)} because the file does not exist (export likely failed).`);
+            continue;
+        }
+
         let svg = readFileSync(svgPath, 'utf8');
         const viewBox = svg.match(/viewBox="([^"]*)"/)[1].split(' ');
         const height = parseInt(viewBox[3]);
@@ -192,7 +200,6 @@ async function watermarkAll() {
             log(prettyPaths('Watermarked ' + svgPath));
         } catch (e) {
             log(`[ERROR] Failed to watermark ${svgPath}. Error: ${e.message}`);
-            // Do not throw, continue processing other files
         }
     }
 }
@@ -283,7 +290,7 @@ function prettyPaths(log) {
 
 // Main execution flow
 async function main() {
-    exportAllDrawios(); // Phase 1: Export and watermark all drawios
+    exportAllDrawios(); // Phase 1: Export all drawios
     await watermarkAll(); // Phase 1: Apply watermarks
     await generateArtifacts(); // Phase 2: Generate artifacts for top-level RAs
 }
