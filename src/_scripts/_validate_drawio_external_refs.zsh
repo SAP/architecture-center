@@ -1,17 +1,19 @@
 #!/bin/zsh
 
-# Check if a folder parameter is provided
+# Check if a folder or file parameter is provided
 if [ -z "$1" ]; then
-  echo "Usage: $0 <folder_path>"
+  echo "Usage: $0 <folder_path|file_path>"
+  echo "  folder_path: Directory to scan recursively for .drawio files"
+  echo "  file_path:   Single .drawio file to validate"
   exit 1
 fi
 
-# Assign the folder path from the parameter
-FOLDER_PATH="$1"
+# Assign the path from the parameter
+INPUT_PATH="$1"
 
-# Check if the provided path is a valid directory
-if [ ! -d "$FOLDER_PATH" ]; then
-  echo "Error: $FOLDER_PATH is not a valid directory."
+# Check if the provided path exists
+if [ ! -e "$INPUT_PATH" ]; then
+  echo "Error: $INPUT_PATH does not exist."
   exit 1
 fi
 
@@ -26,8 +28,9 @@ TEMP_FILE=$(mktemp)
 echo "Scanning drawio files for external image references (image=http patterns)..."
 echo "============================================================================"
 
-# Find and validate all drawio files in the folder and its subfolders
-find "$FOLDER_PATH" -type f -name "*.drawio" | while read -r file; do
+# Function to validate a single drawio file
+validate_file() {
+  local file="$1"
   TOTAL_DRAWIO_FILES=$((TOTAL_DRAWIO_FILES + 1))
   echo "Checking: $file"
   
@@ -50,7 +53,27 @@ find "$FOLDER_PATH" -type f -name "*.drawio" | while read -r file; do
     echo "  ✅ OK: No external image references found"
   fi
   echo ""
-done
+}
+
+# Handle both files and directories
+if [ -f "$INPUT_PATH" ]; then
+  # Single file mode
+  if [[ "$INPUT_PATH" != *.drawio ]]; then
+    echo "Error: $INPUT_PATH is not a .drawio file."
+    rm -f "$TEMP_FILE"
+    exit 1
+  fi
+  validate_file "$INPUT_PATH"
+elif [ -d "$INPUT_PATH" ]; then
+  # Directory mode - find and validate all drawio files in the folder and its subfolders
+  find "$INPUT_PATH" -type f -name "*.drawio" | while read -r file; do
+    validate_file "$file"
+  done
+else
+  echo "Error: $INPUT_PATH is neither a file nor a directory."
+  rm -f "$TEMP_FILE"
+  exit 1
+fi
 
 # Read the list of files with external references
 EXTERNAL_REF_FILES=$(cat "$TEMP_FILE" 2>/dev/null)
