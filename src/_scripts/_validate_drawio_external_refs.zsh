@@ -23,10 +23,10 @@ FILES_WITH_EXTERNAL_REFS=0
 # Create temporary file to store files with external references
 TEMP_FILE=$(mktemp)
 
-echo "Scanning DrawIO files for external image references (image=http patterns)..."
+echo "Scanning drawio files for external image references (image=http patterns)..."
 echo "============================================================================"
 
-# Find and validate all DrawIO files in the folder and its subfolders
+# Find and validate all drawio files in the folder and its subfolders
 find "$FOLDER_PATH" -type f -name "*.drawio" | while read -r file; do
   TOTAL_DRAWIO_FILES=$((TOTAL_DRAWIO_FILES + 1))
   echo "Checking: $file"
@@ -57,12 +57,12 @@ EXTERNAL_REF_FILES=$(cat "$TEMP_FILE" 2>/dev/null)
 
 echo "============================================================================"
 echo "Validation Summary:"
-echo "- Total DrawIO files scanned: $TOTAL_DRAWIO_FILES"
+echo "- Total drawio files scanned: $TOTAL_DRAWIO_FILES"
 echo "- Files with external references: $FILES_WITH_EXTERNAL_REFS"
 
 if [ $ERROR_FOUND -eq 1 ]; then
   echo ""
-  echo "🚨 VALIDATION FAILED: DrawIO files with external image references detected!"
+  echo "🚨 VALIDATION FAILED: drawio files with external image references detected!"
   echo ""
   echo "Files with external references:"
   echo "==============================="
