@@ -17,7 +17,7 @@
           <mxGeometry x="-992" y="1036" width="300" height="55" as="geometry" />
         </mxCell>
         <mxCell id="aleImnM5mG5gDYkD4qVE-40" value="" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=light-dark(#1b91ff, #6a6a6a);fillColor=default;strokeWidth=1;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=4;" parent="1" vertex="1">
-          <mxGeometry x="-1253" y="1008" width="203" height="418" as="geometry" />
+          <mxGeometry x="-1253" y="1008" width="203" height="456" as="geometry" />
         </mxCell>
         <mxCell id="aleImnM5mG5gDYkD4qVE-41" value="&lt;span style=&quot;font-weight: 700;&quot;&gt;SAP Data Sources&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;container=0;fillColor=none;fontColor=light-dark(#00185b, #ededed);fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="-1219" y="1020" width="148" height="27" as="geometry" />
@@ -120,10 +120,10 @@
           <mxGeometry x="225.7525388601036" y="29" width="178.7357512953368" height="25" as="geometry" />
         </mxCell>
         <mxCell id="aleImnM5mG5gDYkD4qVE-100" value="&lt;font&gt;&lt;span&gt;SAP Successfactors&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;strokeWidth=1.5;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=11;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
-          <mxGeometry x="-1222" y="1306" width="142.9994350240348" height="38.810126582278485" as="geometry" />
+          <mxGeometry x="-1222" y="1303" width="142.9994350240348" height="38.810126582278485" as="geometry" />
         </mxCell>
         <mxCell id="aleImnM5mG5gDYkD4qVE-101" value="&lt;font&gt;&lt;span&gt;SAP Concur&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;strokeWidth=1.5;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=11;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
-          <mxGeometry x="-1222" y="1365.1898734177216" width="142.9994350240348" height="38.810126582278485" as="geometry" />
+          <mxGeometry x="-1222" y="1358.1898734177216" width="142.9994350240348" height="38.810126582278485" as="geometry" />
         </mxCell>
         <mxCell id="S1Uuoqh9kyUoJCa-Lk6Q-1" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="-901.9949999999999" y="990" width="259.25" height="33" as="geometry" />
@@ -145,6 +145,9 @@
         </mxCell>
         <mxCell id="wImDHW-HejmILBk91w0b-3" value="&lt;p style=&quot;margin-top: 5.4pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; vertical-align: baseline; word-break: normal;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 100%; margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 24, 90), rgb(197, 217, 255)); font-size: 13px;&quot;&gt;SAP Data Products&lt;/b&gt;&lt;span style=&quot;font-size: 13px; background-color: transparent; color: light-dark(rgb(0, 24, 90), rgb(197, 217, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 100%; margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;font-size: 9px; font-weight: 400;&quot;&gt;(data sync managed by SAP LoB Apps)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=none;fillColor=default;strokeWidth=1;fontSize=11;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=#00185A;arcSize=13;gradientColor=none;gradientDirection=south;spacing=0;spacingTop=0;" parent="1" vertex="1">
           <mxGeometry x="-882" y="1443" width="167" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="_6jYlOTGCPD85baWeA2Y-1" value="&lt;font&gt;&lt;span&gt;SAP Spend&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;strokeWidth=1.5;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=11;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" vertex="1" parent="1">
+          <mxGeometry x="-1223" y="1409" width="142.9994350240348" height="38.810126582278485" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
