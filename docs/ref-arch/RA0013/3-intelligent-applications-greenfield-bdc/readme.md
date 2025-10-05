@@ -38,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-05-19
+  date: 2025-10-05
 ---
 
 # Greenfield Implementation of SAP BDC and SAP S/4HANA with SAP-Managed Data Products and Intelligent Applications
