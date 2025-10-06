@@ -38,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: jmsrpp
-  date: 2025-05-19
+  date: 2025-10-05
 ---
 
 # Greenfield Implementation of SAP BDC and SAP S/4HANA with SAP-Managed Data Products and Intelligent Applications
@@ -47,7 +47,7 @@ last_update:
 
 Customers using SAP S/4HANA 2021 or later can provision a connection to SAP Business Data Cloud (SAP BDC). The Unified Customer Landscape (UCL) Services will be utilized to create the SAP BDC formation, integrating the SAP S/4HANA system with SAP Business Data Cloud automatically. This enables metadata from Data Products to be shared with the SAP BDC Cockpit, the Datasphere Catalog, and Business Accelerator Hub, facilitating data transfer from SAP S/4HANA to SAP BDC's Foundation Services layer. SAP BDC Foundation Services, managed by SAP, includes an Object Store and other technical services to transform and publish data products from SAP systems.
 
-This architecture pattern focuses on installing and consuming SAP-managed data products within SAP Analytics Cloud as Intelligent Applicationlications pre-delivered by SAP.
+This architecture pattern focuses on installing and consuming SAP-managed data products within SAP Analytics Cloud as Intelligent Applications pre-delivered by SAP.
 
 ## Installing, Activating, and Visualizing a Standard SAP S/4HANA Data Product
 
@@ -91,7 +91,7 @@ A **Pro Intelligent Application** is a SAP-managed, pro-code application built o
 
 ## Architecture
 
-With the current release of SAP BDC and Intelligent Applicationlications, customers can either use the pre-delivered content as-is or customize the analytical model of the pre-delivered content to develop custom Intelligent Applicationlications.
+With the current release of SAP BDC and Intelligent Applications, customers can either use the pre-delivered content as-is or customize the analytical model of the pre-delivered content to develop custom Intelligent Applications.
 
 Insight packages include data products, base and analytical models, and pre-defined SAC visualizations, planning templates, search-driven insights, and KPI watchlists. In SAP-managed Intelligent Applications, data products reside in the SAP Foundation Services Layer, base models and analytic models are housed in SAP Datasphere, and visualizations are managed in SAP SAC/BTP.
 
@@ -105,7 +105,7 @@ Insight packages include data products, base and analytical models, and pre-defi
 
 ### SAP-Delivered Intelligent Application
 
-SAP-managed data products are installed, and end users utilize the standard Intelligent Applicationlications via SAP Analytics Cloud. Intelligent Applications are pre-built analytical applications within SAP BDC that help uncover hidden insights and enable faster decision-making. These apps are fully managed by SAP, built on curated SAP BDC data products, Datasphere models, and SAC stories, and include predefined metrics, AI models, and planning tools.
+SAP-managed data products are installed, and end users utilize the standard Intelligent Applications via SAP Analytics Cloud. Intelligent Applications are pre-built analytical applications within SAP BDC that help uncover hidden insights and enable faster decision-making. These apps are fully managed by SAP, built on curated SAP BDC data products, Datasphere models, and SAC stories, and include predefined metrics, AI models, and planning tools.
 
 **SAP-Managed Data Products:**
 - Fully managed by SAP throughout their lifecycle.
