@@ -1,0 +1,213 @@
+.floatingToolbarContainer {
+    position: absolute;
+    z-index: 100;
+    top: -1000px;
+    left: -1000px;
+    opacity: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    transition: opacity 0.15s ease-out;
+}
+
+.toolbarContent {
+    display: flex;
+    align-items: center;
+}
+
+.toolbarButtonGroup {
+    display: flex;
+    align-items: center;
+}
+
+.toolbarButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border: none;
+    background-color: transparent;
+    color: #555;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.toolbarButton:hover {
+    background-color: #f0f0f0;
+}
+
+.toolbarButton.active {
+    background-color: #e0e0e0;
+    color: #111;
+}
+
+.textBold {
+    font-weight: 700;
+}
+
+.textItalic {
+    font-style: italic;
+}
+
+.divider {
+    width: 1px;
+    background-color: #e0e0e0;
+    height: 20px;
+    margin: 0 8px;
+}
+
+.dropdownContainer {
+    position: relative;
+}
+
+.dropdownButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dropdownButton:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdownChevron {
+    color: #888;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}
+
+.dropdownItem {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdownChevronSmall {
+    color: #888;
+    margin-left: 2px;
+}
+
+.linkEditorPositioner {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    width: 320px;
+    z-index: 101;
+}
+
+.linkEditor {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+}
+
+.linkInput {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    background-color: #fafafa;
+}
+
+.linkInput:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.fixedToolbarContainer {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar {
+    height: 8px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.fixedToolbarContainer::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.toolbarButton.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.toolbarButton.disabled:hover {
+    background-color: transparent;
+}
+
+.toolbarContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 4px;
+}
+
+.toolbarButtonGroup {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}

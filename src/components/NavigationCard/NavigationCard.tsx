@@ -4,6 +4,8 @@ import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
 import { useColorMode } from '@docusaurus/theme-common';
+import { useAuth } from '@site/src/context/AuthContext';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface CustomButtonProps {
     title: string;
@@ -13,7 +15,7 @@ interface CustomButtonProps {
     logoDark?: string;
     link: string;
     disabled?: boolean;
-    requiresAuth?: boolean;
+    alwaysShowLock?: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
 }
@@ -26,27 +28,37 @@ export default function NavigationCard({
     logoDark,
     link,
     disabled = false,
-    requiresAuth = false,
+    alwaysShowLock = false,
     onMouseEnter,
     onMouseLeave,
 }: CustomButtonProps): JSX.Element {
     const { colorMode } = useColorMode();
-    const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
+    const { user, users } = useAuth();
+    const { siteConfig } = useDocusaurusContext();
 
-    const handleClick = (e: React.MouseEvent) => {
-        if (disabled) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+    const { backendUrl, authProviders } = siteConfig.customFields as {
+        backendUrl: string;
+        authProviders: Record<string, 'btp' | 'github'>;
     };
+
+    const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
+    const requiredProvider = authProviders?.[link];
+
+    // Check if user is logged in with the required provider using the users object
+    const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
+    const isLoggedInWithWrongProvider = user && requiredProvider && !isLoggedInWithRequiredProvider;
+    const isLoggedOutAndProtected = !user && requiredProvider;
+
+    const shouldAppearDisabled = alwaysShowLock || isLoggedInWithWrongProvider || isLoggedOutAndProtected;
+    const isFunctionallyDisabled = disabled || isLoggedInWithWrongProvider;
 
     const cardContent = (
         <Card
-            className={`${styles.default} ${disabled ? styles.disabled : ''}`}
-            onMouseEnter={disabled ? undefined : onMouseEnter}
-            onMouseLeave={disabled ? undefined : onMouseLeave}
+            className={`${styles.default} ${shouldAppearDisabled ? styles.disabled : ''}`}
+            onMouseEnter={isFunctionallyDisabled ? undefined : onMouseEnter}
+            onMouseLeave={isFunctionallyDisabled ? undefined : onMouseLeave}
         >
-            {requiresAuth && disabled && (
+            {shouldAppearDisabled && (
                 <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
             )}
             <span className={styles.inline}>
@@ -67,15 +79,26 @@ export default function NavigationCard({
         </Card>
     );
 
-    if (disabled) {
+    if (isFunctionallyDisabled) {
+        const tooltip = isLoggedInWithWrongProvider
+            ? `Requires ${requiredProvider.toUpperCase()} login. You are logged in with ${user.provider.toUpperCase()}.`
+            : 'This feature is currently disabled.';
+
         return (
-            <div
-                className={`${styles.cardLink} ${styles.disabledLink}`}
-                onClick={handleClick}
-                title={requiresAuth ? 'Authentication Required' : undefined}
-            >
+            <div className={`${styles.cardLink} ${styles.disabledLink}`} title={tooltip}>
                 {cardContent}
             </div>
+        );
+    }
+
+    if (isLoggedOutAndProtected) {
+        const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(link)}&provider=${requiredProvider}`;
+        const tooltip = `Requires ${requiredProvider.toUpperCase()} login. Click to login.`;
+
+        return (
+            <a href={loginUrl} className={styles.cardLink} title={tooltip}>
+                {cardContent}
+            </a>
         );
     }
 

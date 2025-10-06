@@ -8,7 +8,6 @@ import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
-import { useHistory } from '@docusaurus/router';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -175,39 +174,23 @@ const DocSidebarDesktopMemo = React.memo(DocSidebarDesktop);
 const DocSidebarMobileMemo = React.memo(DocSidebarMobile);
 
 export default function DocSidebarWrapper(props) {
-  const windowSize = useWindowSize();
-  const sidebarContext = useDocsSidebar();
-  const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
-  const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
-  const history = useHistory();
+    const windowSize = useWindowSize();
+    const sidebarContext = useDocsSidebar();
+    const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
 
-  useEffect(() => {
-    // Subscribe to history changes
-    return history.listen((location) => {
-      console.log("Route changed:", location.pathname);
+    const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
+    const shouldRenderSidebarMobile = windowSize === 'mobile';
 
-      // Reset only when leaving /docs
-      if (!location.pathname.startsWith('/docs')) {
-        console.log("Resetting filters...");
-        resetFilters();
-      }
-    });
-  }, [history, resetFilters]);
+    useEffect(() => {
+        if (typeof document !== 'undefined') {
+            document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
+        }
+    }, [sidebarContext?.name]);
 
-
-  const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
-  const shouldRenderSidebarMobile = windowSize === 'mobile';
-
-  useEffect(() => {
-      if (typeof document !== 'undefined') {
-          document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
-      }
-  }, [sidebarContext?.name]);
-
-  return (
-      <>
-          {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
-          {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
-      </>
-  );
+    return (
+        <>
+            {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
+            {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
+        </>
+    );
 }

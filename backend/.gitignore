@@ -32,3 +32,6 @@ mta_archives/
 
 # @cap-js/cds-typer
 @cds-models
+backend-express/manifest.yml
+**/package-lock.json
+package-lock.json
