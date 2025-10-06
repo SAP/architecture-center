@@ -150,12 +150,16 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const logout = (provider?: 'github' | 'btp' | 'all') => {
         const BTP_API = siteConfig.customFields.backendUrl as string;
         console.log(`Frontend logout called with provider: ${provider}`);
+
+        // Get baseUrl from site config
+        const baseUrl = siteConfig.baseUrl || '/';
+
         if (!provider || provider === 'all') {
             localStorage.removeItem('jwt_token');
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
-            window.location.href = '/';
+            window.location.href = baseUrl;
         } else if (provider === 'github') {
             localStorage.removeItem('jwt_token');
             const newUsers = { ...users, github: null };
@@ -164,13 +168,14 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 setUser(newUsers.btp);
             } else {
                 setUser(null);
-                window.location.href = '/';
+                window.location.href = baseUrl;
             }
         } else if (provider === 'btp') {
             const authData = authStorage.load();
             const btpToken = authData?.token;
+            authStorage.clear();
             if (btpToken) {
-                window.location.href = '/';
+                window.location.href = baseUrl;
             } else {
                 console.log('No BTP token found, clearing locally and redirecting');
                 authStorage.clear();
@@ -180,7 +185,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                     setUser(newUsers.github);
                 } else {
                     setUser(null);
-                    window.location.href = '/';
+                    window.location.href = baseUrl;
                 }
             }
         }
