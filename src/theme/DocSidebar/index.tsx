@@ -18,31 +18,49 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
 }, {});
 
 function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTags) {
-  // nothing selected
   if (!selectedDomains?.length && !selectedPartners?.length) {
     return items;
   }
 
-  const selectedCategories = [...(selectedDomains ?? []), ...(selectedPartners ?? [])];
+  // Expand each ID into its tags (category expansion)
+  const expand = (ids) =>
+    Array.from(new Set(ids.flatMap((id) => [id, ...(categoryIdToTags[id] ?? [])])));
 
-  // Expand selected categories into all tag keys they cover
-  const searchableTags = Array.from(
-    new Set(
-      selectedCategories.flatMap((categoryId) => [
-        categoryId,
-        ...(categoryIdToTags[categoryId] ?? []),
-      ])
-    )
-  );
+  const partnerTags = expand(selectedPartners ?? []);
+  const domainTags = expand(selectedDomains ?? []);
 
-  // Find doc IDs whose tags intersect with searchableTags
   const matchingIds = new Set(
-    Object.entries(docIdToTags ?? {}).flatMap(([docId, tags]) =>
-      Array.isArray(tags) && tags.some((t) => searchableTags.includes(t)) ? [docId] : []
-    )
+    Object.entries(docIdToTags ?? {}).flatMap(([docId, tags]) => {
+      if (!Array.isArray(tags)) return [];
+
+      let matches = false;
+
+      // CASE 1: Both domains AND partners selected
+      if (domainTags.length && partnerTags.length) {
+        for (const domain of domainTags) {
+          for (const partner of partnerTags) {
+            if (tags.includes(domain) && tags.includes(partner)) {
+              matches = true;
+              break;
+            }
+          }
+          if (matches) break;
+        }
+      }
+      // CASE 2: Only partners selected → OR logic
+      else if (partnerTags.length) {
+        matches = partnerTags.some((p) => tags.includes(p));
+      }
+      // CASE 3: Only domains selected → OR logic
+      else if (domainTags.length) {
+        matches = domainTags.some((d) => tags.includes(d));
+      }
+
+      return matches ? [docId] : [];
+    })
   );
 
-  // Recursive filter of sidebar tree
+  // Recursive filtering of sidebar tree
   const recurse = (nodes) =>
     nodes.reduce((acc, item) => {
       const idToCheck = item.docId || item.id;
