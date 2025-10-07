@@ -238,6 +238,10 @@ const config: Config = {
                     ],
                 },
                 {
+                    type: 'search',
+                    position: 'right',
+                },
+                {
                     type: 'dropdown',
                     label: 'Navigate',
                     position: 'right',

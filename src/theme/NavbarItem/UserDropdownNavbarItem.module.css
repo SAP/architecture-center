@@ -434,19 +434,8 @@
 /* Additional login button for single login mode */
 .additionalLoginButton {
     margin-top: 10px;
-    padding: 8px 16px;
-    font-size: 0.9em;
-    border-radius: 4px;
     width: 100%;
     text-align: center;
-}
-
-.additionalLoginButton:hover {
-    background-color: var(--ifm-color-emphasis-300);
-}
-
-[data-theme='dark'] .additionalLoginButton:hover {
-    background-color: var(--sap-horizon-neutral-9);
 }
 
 /* New vertical dual login layout */
@@ -553,7 +542,6 @@
 
 .logoutAllSection {
     padding: 15px 20px;
-    border-top: 1px solid #eeeeee;
     background-color: #ffffff;
 }
 
@@ -564,7 +552,6 @@
 
 .logoutAllButton {
     width: 100%;
-    padding: 8px 16px;
     font-size: 0.9em;
 }
 

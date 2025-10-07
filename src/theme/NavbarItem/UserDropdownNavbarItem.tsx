@@ -155,7 +155,7 @@ export default function UserDropdownNavbarItem() {
                                         </div>
                                         <div className={styles.accountDetails}>
                                             <span className={styles.accountName}>{users.btp.username}</span>
-                                            <span className={styles.accountProvider}>BTP</span>
+                                            <span className={styles.accountProvider}>SAP</span>
                                         </div>
                                     </div>
                                     <button
