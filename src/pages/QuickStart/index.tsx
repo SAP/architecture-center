@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
 import { useHistory } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import ProtectedRoute from '@site/src/components/ProtectedRoute';
@@ -38,6 +39,8 @@ export default function QuickStart(): JSX.Element {
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
     const { documents, addDocument } = usePageDataStore();
     const history = useHistory();
+    const { siteConfig } = useDocusaurusContext();
+    const baseUrl = siteConfig.baseUrl;
     const { user } = useAuth();
 
     useEffect(() => {
@@ -64,7 +67,7 @@ export default function QuickStart(): JSX.Element {
 
     const handleCancel = () => {
         if (documents.length === 0) {
-            history.push('/');
+            history.push(baseUrl);
         }
         setIsModalOpen(false);
     };
