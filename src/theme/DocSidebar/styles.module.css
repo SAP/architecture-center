@@ -17,15 +17,31 @@
   display: none;
 }
 
+.sidebarMenuList .menu.thin-scrollbar {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .sidebarWithFiltersContainer {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
+  min-height: 0;
 }
 
 .sidebarMenuList {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+[class^="sidebar_"] {
+  border-right: 1px solid var(--ifm-toc-border-color);
+}
+
+:global(button[class*="collapseSidebarButton"]) {
+  border-right: none !important;
 }
