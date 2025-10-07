@@ -1,15 +1,21 @@
 import { create } from 'zustand';
 
-export const useSidebarFilterStore = create((set) => ({
-  // Technology domains
-  techDomains: [] as string[],
-  setTechDomains: (techDomains: string[]) => set({ techDomains }),
+interface SidebarFilterState {
+  techDomains: string[];
+  setTechDomains: (techDomains: string[]) => void;
 
-  // Technology partners
-  partners: [] as string[],
-  setPartners: (partners: string[]) => set({ partners }),
+  partners: string[];
+  setPartners: (partners: string[]) => void;
 
-  // Reset all filters
+  resetFilters: () => void;
+}
+
+export const useSidebarFilterStore = create<SidebarFilterState>((set) => ({
+  techDomains: [],
+  setTechDomains: (techDomains) => set({ techDomains }),
+
+  partners: [],
+  setPartners: (partners) => set({ partners }),
+
   resetFilters: () => set({ techDomains: [], partners: [] }),
 }));
-

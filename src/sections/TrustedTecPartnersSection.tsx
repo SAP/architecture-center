@@ -14,7 +14,7 @@ const logos = [
     name: 'NVIDIA',
     lightImg: 'AC_nvidia_logo_light.webp',
     darkImg: 'AC_nvidia_logo_dark.webp',
-    url: 'https://www.nvidia.com'
+    filter: { partners: ['nvidia'] },
   },
   { 
     name: 'Microsoft',
@@ -24,7 +24,7 @@ const logos = [
   { 
     name: 'IBM',
     lightImg: 'AC_ibm_logo.webp',
-    url: 'https://www.ibm.com'
+    filter: { partners: ['ibm'] },
   },
   { 
     name: 'Google',
@@ -35,7 +35,7 @@ const logos = [
     name: 'Databricks',
     lightImg: 'AC_databricks_logo_light.webp',
     darkImg: 'AC_databricks_logo_dark.webp',
-    url: 'https://www.databricks.com'
+    filter: { partners: ['databricks'] },
   },
   { 
     name: 'Amazon',
