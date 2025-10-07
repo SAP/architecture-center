@@ -22,11 +22,14 @@ const config: Config = {
     trailingSlash: false,
 
     onBrokenLinks: 'warn', //'throw' to fail build
-    onBrokenMarkdownLinks: 'throw',
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
     markdown: {
         mermaid: true,
+        hooks: {
+            onBrokenMarkdownLinks: 'throw',
+            onBrokenMarkdownImages: 'throw',
+          },
     },
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
