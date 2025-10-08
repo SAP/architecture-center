@@ -1,21 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { MultiComboBox, MultiComboBoxItem } from '@ui5/webcomponents-react';
-import jsonSchema from '@site/src/_scripts/_generatedIndexCategories.json';
+import { techDomain, techPartners } from '@site/src/constant/constants';
 import style from './styles.module.css';
 
 export default function SidebarFilters({ onFilterChange, initialValues }) {
-  const { partners, techDomains } = useMemo(() => {
-    const allCategories = jsonSchema.generatedIndexes.map((cat) => ({
-      value: cat.customProps.id ?? 'unknown',
-      label: cat.label,
-    }));
-
-    return {
-      partners: allCategories.slice(0, 3),
-      techDomains: allCategories.slice(-5),
-    };
-  }, []);
-
   const handleSelectionChange = (event, filterGroup) => {
     const selectedKeys = event.detail.items.map(item => item.dataset.key);
     onFilterChange(filterGroup, selectedKeys);
@@ -32,12 +20,12 @@ export default function SidebarFilters({ onFilterChange, initialValues }) {
           placeholder="Filter by partner..."
           onSelectionChange={(event) => handleSelectionChange(event, 'partners')}
         >
-          {partners.map(partner => (
+          {techPartners.map(partner => (
             <MultiComboBoxItem
-              key={partner.value}
-              text={partner.label}
-              data-key={partner.value} 
-              selected={initialValues.partners.includes(partner.value)} 
+              key={partner.id}
+              text={partner.title}
+              data-key={partner.id} 
+              selected={initialValues.partners.includes(partner.id)} 
             />
           ))}
         </MultiComboBox>
@@ -51,12 +39,12 @@ export default function SidebarFilters({ onFilterChange, initialValues }) {
           placeholder="Filter by domain..."
           onSelectionChange={(event) => handleSelectionChange(event, 'techDomains')}
         >
-          {techDomains.map(domain => (
+          {techDomain.map(domain => (
             <MultiComboBoxItem
-              key={domain.value}
-              text={domain.label}
-              data-key={domain.value} 
-              selected={initialValues.techDomains.includes(domain.value)} 
+              key={domain.id}
+              text={domain.title}
+              data-key={domain.id} 
+              selected={initialValues.techDomains.includes(domain.id)} 
             />
           ))}
         </MultiComboBox>
