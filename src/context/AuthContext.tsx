@@ -22,6 +22,7 @@ interface AuthContextType {
     loading: boolean;
     logout: (provider?: 'github' | 'btp' | 'all') => void;
     hasDualLogin: boolean;
+    token: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,6 +35,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [users, setUsers] = useState<DualAuthUsers>({ github: null, btp: null });
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState<string | null>(null);
     const location = useLocation();
     const history = useHistory();
 
@@ -41,6 +43,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const newUsers: DualAuthUsers = { github: null, btp: null };
         try {
             const jwtToken = localStorage.getItem('jwt_token');
+            setToken(jwtToken);
+
             if (jwtToken) {
                 try {
                     const decodedUser = jwtDecode<AuthUser>(jwtToken);
@@ -48,6 +52,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 } catch (jwtError) {
                     console.error('Invalid JWT token found, removing it.', jwtError);
                     localStorage.removeItem('jwt_token');
+                    setToken(null);
                 }
             }
             const authData = authStorage.load();
@@ -74,6 +79,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
+            setToken(null);
         }
     };
 
@@ -86,6 +92,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const logoutProvider = params.get('provider');
             if (githubToken) {
                 localStorage.setItem('jwt_token', githubToken);
+                setToken(githubToken);
+
                 const redirectPath = params.get('redirect');
                 if (redirectPath) {
                     window.location.href = redirectPath;
@@ -99,6 +107,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 } catch (error) {
                     console.error('Invalid GitHub JWT token:', error);
                     localStorage.removeItem('jwt_token');
+                    setToken(null);
                 }
             } else if (btpToken) {
                 authStorage.save({ token: btpToken });
@@ -155,9 +164,11 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
+            setToken(null);
             window.location.href = '/';
         } else if (provider === 'github') {
             localStorage.removeItem('jwt_token');
+            setToken(null);
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
             if (newUsers.btp) {
@@ -189,7 +200,9 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const hasDualLogin = !!(users.github && users.btp);
 
     return (
-        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, token }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 

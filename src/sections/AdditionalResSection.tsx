@@ -9,10 +9,8 @@ export default function HeroSection(): JSX.Element {
     return (
         <section>
             <div className={styles.container}>
-                <Title className={styles.title}>
-                    Additional Resources
-                </Title>
-                <Text className={styles.subtitle}>Explore other external resources</Text>            
+                <Title className={styles.title}>Additional Resources</Title>
+                <Text className={styles.subtitle}>Explore other external resources</Text>
                 {/* Navigation Cards */}
                 <div className={styles.cardsGrid}>
                     {addResData.map((item, index) => (
@@ -25,7 +23,7 @@ export default function HeroSection(): JSX.Element {
                             link={item.link}
                         />
                     ))}
-                </div>               
+                </div>
             </div>
         </section>
     );
