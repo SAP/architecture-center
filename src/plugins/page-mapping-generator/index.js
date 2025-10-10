@@ -11,6 +11,16 @@ const TAG_MAPPING = {
   integration: ['integration'],
 };
 
+// Helper function to normalize paths for cross-platform compatibility
+function normalizePath(filePath) {
+  return filePath.split(path.sep).join('/');
+}
+
+// Helper function to create glob patterns that work on all platforms
+function createGlobPattern(...pathSegments) {
+  return pathSegments.join('/');
+}
+
 module.exports = function (context, options) {
   return {
     name: 'docusaurus-plugin-page-mapping-generator',
@@ -33,39 +43,59 @@ module.exports = function (context, options) {
       }
 
       try {
-        const pattern = path.join(refArchDir, 'RA*', '**', '*.{md,mdx}');
-        const docFiles = glob.sync(pattern);
+        // Create cross-platform glob pattern using forward slashes
+        const normalizedRefArchDir = normalizePath(refArchDir);
+        const pattern = createGlobPattern(normalizedRefArchDir, 'RA*', '**', '*.{md,mdx}');
+        
+        // Use glob with explicit options for cross-platform compatibility
+        const docFiles = glob.sync(pattern, {
+          windowsPathsNoEscape: true,
+          nonull: false
+        });
 
         for (const filePath of docFiles) {
-          const fileContent = fs.readFileSync(filePath, 'utf8');
-          const { data: frontMatter } = matter(fileContent);
-          
-          if (frontMatter.id && frontMatter.title && frontMatter.tags && Array.isArray(frontMatter.tags) && frontMatter.last_update?.date) {
-            const lastUpdatedAt = new Date(frontMatter.last_update.date);
-            const relativePath = path.relative(refArchDir, filePath);
-            const pathParts = relativePath.split(path.sep);
+          try {
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            const { data: frontMatter } = matter(fileContent);
+            
+            if (frontMatter.id && frontMatter.title && frontMatter.tags && 
+                Array.isArray(frontMatter.tags) && frontMatter.last_update?.date) {
+              
+              const lastUpdatedAt = new Date(frontMatter.last_update.date);
+              const relativePath = path.relative(refArchDir, filePath);
+              
+              // Normalize path separators for consistent processing
+              const normalizedRelativePath = normalizePath(relativePath);
+              const pathParts = normalizedRelativePath.split('/');
 
-            let docId;
-            const rootFolder = pathParts[0];
-            const docTitle = frontMatter.title;
-            const docFileId = frontMatter.id;
+              let docId;
+              const rootFolder = pathParts[0];
+              const docTitle = frontMatter.title;
+              const docFileId = frontMatter.id;
 
-            if (pathParts.length > 2) {
-              const subFolder = pathParts[1];
-              const cleanedSubFolder = subFolder.replace(/^\d+-/, '');
-              docId = path.join('ref-arch', rootFolder, cleanedSubFolder, docFileId).replace(/\\/g, '/');
-            } else {
-              docId = path.join('ref-arch', rootFolder, docFileId).replace(/\\/g, '/');
-            }
+              // Build document ID with consistent forward slashes
+              if (pathParts.length > 2) {
+                const subFolder = pathParts[1];
+                const cleanedSubFolder = subFolder.replace(/^\d+-/, '');
+                docId = `ref-arch/${rootFolder}/${cleanedSubFolder}/${docFileId}`;
+              } else {
+                docId = `ref-arch/${rootFolder}/${docFileId}`;
+              }
 
-            for (const [primaryId, associatedTags] of Object.entries(TAG_MAPPING)) {
-              if (frontMatter.tags.some(docTag => associatedTags.includes(docTag))) {
-                pageMapping[primaryId].push({ id: docId, title: docTitle, lastUpdatedAt });
+              // Map documents to their corresponding tags
+              for (const [primaryId, associatedTags] of Object.entries(TAG_MAPPING)) {
+                if (frontMatter.tags.some(docTag => associatedTags.includes(docTag))) {
+                  pageMapping[primaryId].push({ id: docId, title: docTitle, lastUpdatedAt });
+                }
               }
             }
+          } catch (fileError) {
+            console.warn(`Warning: Could not process file ${filePath}:`, fileError.message);
+            continue;
           }
         }
         
+        // Process and sort the mapped documents
         for (const primaryId in pageMapping) {
           const uniqueDocsMap = new Map();
           pageMapping[primaryId].forEach(doc => uniqueDocsMap.set(doc.id, doc));
@@ -76,6 +106,7 @@ module.exports = function (context, options) {
             .map(({ id, title }) => ({ id, title }));
         }
 
+        // Generate TypeScript output
         const outputContent = `
 export interface MappedDoc {
   id: string;
@@ -84,12 +115,15 @@ export interface MappedDoc {
 
 export const pageMapping: Record<string, MappedDoc[]> = ${JSON.stringify(pageMapping, null, 2)};
 `;
+
+        // Ensure output directory exists and write file
         fs.mkdirSync(outputDir, { recursive: true });
         fs.writeFileSync(outputFile, outputContent, 'utf8');
         console.log('✅ Successfully generated and sorted pageMapping.ts with correct IDs.');
 
       } catch (err) {
         console.error('❌ Error generating pageMapping.ts:', err);
+        throw err; // Re-throw to help with debugging
       }
     },
   };
