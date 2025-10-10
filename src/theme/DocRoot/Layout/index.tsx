@@ -23,11 +23,11 @@ export default function DocRootLayout({ children }: Props): JSX.Element {
         const params = new URLSearchParams(location.search);
         const filter = params.get('filter');
         if (filter) {
-        if (['ai', 'data', 'integration', 'appdev', 'opsec'].includes(filter)) {
-            setTechDomains([filter]);
-        } else {
-            setPartners([filter]);
-        }
+            if (['ai', 'data', 'integration', 'appdev', 'opsec'].includes(filter)) {
+                setTechDomains([filter]);
+            } else {
+                setPartners([filter]);
+            }
         }
     }, [location]);
     return (
