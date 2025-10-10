@@ -1,9 +1,5 @@
 name: Test Joule Integration Site Build
 
-permissions:
-    contents: write
-    pages: write
-
 on:
     workflow_dispatch:
 
@@ -87,6 +83,9 @@ jobs:
         runs-on: ubuntu-latest
         needs: build
         if: success()
+        permissions:
+            contents: write
+            pages: write
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -100,8 +99,8 @@ jobs:
 
             - name: Set up Git
               run: |
-                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "paa@sap.com"
+                  git config --global user.name "paasapcom"
 
             - name: Switch to Pages Branch
               run: |
