@@ -1,4 +1,4 @@
-.floatingToolbarContainer {
+/* .floatingToolbarContainer {
     position: absolute;
     z-index: 100;
     top: -1000px;
@@ -210,4 +210,105 @@
     display: flex;
     align-items: center;
     gap: 2px;
+} */
+
+.fixedToolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.button,
+.dropdownToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 6px;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #495057;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.button:hover,
+.dropdownToggle:hover {
+    background-color: #f1f3f5;
+    color: #212529;
+}
+
+.button.active {
+    background-color: #e9ecef;
+    color: #0b65de;
+}
+
+.button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    background-color: #dee2e6;
+    margin: 0 8px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownToggle {
+    gap: 6px;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 100;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #212529;
+}
+
+.dropdownItem:hover {
+    background-color: #f1f3f5;
 }
