@@ -101,7 +101,7 @@ export default function ArticleHeader() {
 
     if (isEditing) {
         return (
-            <div className={styles.containerEditing}>
+            <div id="article-header" className={styles.containerEditing}>
                 <div className={styles.formField}>
                     <Input
                         value={editableData.title}
@@ -154,7 +154,7 @@ export default function ArticleHeader() {
     }
 
     return (
-        <div className={styles.container}>
+        <div id="article-header" className={styles.container}>
             <h1 className={styles.displayTitle}>{activeDocument.title || 'Untitled Page'}</h1>
             <div className={styles.actions}>
                 <Button icon="edit" design="Transparent" onClick={() => setIsEditing(true)} />

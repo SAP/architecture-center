@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getRoot, NodeKey } from 'lexical';
+import { $getRoot } from 'lexical';
 import { $isHeadingNode } from '@lexical/rich-text';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
-import { ArticleHeaderNode } from '../../nodes/ArticleMetadataNode';
-
 import styles from './index.module.css';
 
 interface Heading {
-    key: NodeKey;
+    key: string;
     text: string;
     level: number;
 }
@@ -16,52 +14,54 @@ interface Heading {
 export default function TableOfContentsPlugin() {
     const [editor] = useLexicalComposerContext();
     const [headings, setHeadings] = useState<Heading[]>([]);
-    const [activeKey, setActiveKey] = useState<NodeKey | null>(null);
-    const pageData = usePageDataStore((state) => state.pageData);
+    const [activeKey, setActiveKey] = useState<string | null>(null);
+    const { getActiveDocument } = usePageDataStore();
 
     useEffect(() => {
         const unregister = editor.registerUpdateListener(({ editorState }) => {
+            const activeDocument = getActiveDocument();
+            if (!activeDocument) return;
+
             editorState.read(() => {
                 const root = $getRoot();
+                const newHeadings: Heading[] = [];
 
-                const newHeadings: Heading[] = root.getChildren().reduce((acc, node) => {
-                    if (node instanceof ArticleHeaderNode) {
-                        const title = node.getTitle();
-                        if (title) {
-                            acc.push({
-                                key: node.getKey(),
-                                text: title,
-                                level: 1,
-                            });
-                        }
-                    } else if ($isHeadingNode(node)) {
-                        acc.push({
+                if (activeDocument.title) {
+                    newHeadings.push({
+                        key: 'article-header',
+                        text: activeDocument.title,
+                        level: 1,
+                    });
+                }
+
+                root.getChildren().forEach((node) => {
+                    if ($isHeadingNode(node)) {
+                        newHeadings.push({
                             key: node.getKey(),
                             text: node.getTextContent(),
                             level: parseInt(node.getTag().substring(1), 10),
                         });
                     }
-                    return acc;
-                }, []);
+                });
 
                 if (JSON.stringify(headings) !== JSON.stringify(newHeadings)) {
                     setHeadings(newHeadings);
                 }
             });
         });
-        return () => unregister();
-    }, [editor, headings]);
 
-    const scrollToNode = (key: NodeKey) => {
+        return () => unregister();
+    }, [editor, getActiveDocument, headings]);
+
+    const scrollToNode = (key: string) => {
         editor.update(() => {
-            const domNode = editor.getElementByKey(key);
+            const domNode =
+                key === 'article-header' ? document.getElementById('article-header') : editor.getElementByKey(key);
 
             if (domNode) {
                 const navbar = document.querySelector('.navbar--fixed-top') as HTMLElement;
                 const navbarHeight = navbar ? navbar.offsetHeight : 0;
-
-                const offset = 40;
-
+                const offset = 20;
                 const nodeTop = domNode.getBoundingClientRect().top + window.scrollY;
                 const targetScrollPosition = nodeTop - navbarHeight - offset;
 
@@ -73,12 +73,10 @@ export default function TableOfContentsPlugin() {
         });
     };
 
-    const handleClick = (key: NodeKey) => {
+    const handleClick = (key: string) => {
         scrollToNode(key);
         setActiveKey(key);
     };
-
-    const placeholderTitle = pageData?.title || 'Table of Contents';
 
     return (
         <div className={styles.tocContainer}>
@@ -97,7 +95,7 @@ export default function TableOfContentsPlugin() {
                     ))
                 ) : (
                     <li className={styles.tocItem} data-level="1">
-                        {placeholderTitle}
+                        No headings yet.
                     </li>
                 )}
             </ul>
