@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import rateLimit from 'express-rate-limit';
 
 declare global {
     namespace Express {
@@ -59,6 +60,14 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+const searchLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: { error: 'Too many search requests from this IP, please try again after 15 minutes.' },
+});
+
 router.get('/login', (req: Request, res: Response) => {
     const { origin_uri } = req.query;
     if (!origin_uri || typeof origin_uri !== 'string') {
@@ -112,7 +121,7 @@ router.get('/github/callback', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/github/search-users', authMiddleware, async (req: Request, res: Response) => {
+router.get('/github/search-users', authMiddleware, searchLimiter, async (req: Request, res: Response) => {
     const { q: query } = req.query;
     if (!query || typeof query !== 'string') {
         return res.status(400).send('Missing search query parameter "q".');
