@@ -45,11 +45,9 @@ async function githubApiRequest(endpoint: string, token: string, options: Reques
 
 async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, token: string): Promise<any> {
     try {
-        // First, get the authenticated user's information
         const userInfo = await githubApiRequest('/user', token);
         const username = userInfo.login;
-        
-        // Check if the fork already exists
+
         console.log(`[GitHub Flow] => Checking if fork exists for user: ${username}`);
         try {
             const existingFork = await githubApiRequest(`/repos/${username}/${targetRepoName}`, token);
@@ -58,14 +56,12 @@ async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, 
         } catch (error: any) {
             if (error.status === 404) {
                 console.log(`[GitHub Flow] => Fork does not exist, creating new fork...`);
-                // Fork doesn't exist, create it
                 const forkData = await githubApiRequest(`/repos/${targetRepoOwner}/${targetRepoName}/forks`, token, {
                     method: 'POST',
                 });
                 console.log(`[GitHub Flow] => Fork created successfully: ${forkData.full_name}`);
                 return forkData;
             } else {
-                // Some other error occurred
                 throw error;
             }
         }
@@ -92,17 +88,26 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
         `/repos/${TARGET_REPO_OWNER}/${TARGET_REPO_NAME}/git/ref/heads/${TARGET_BRANCH}`,
         token
     );
-    const startPointSha = upstreamBranchRef.object.sha;
+    const latestUpstreamSha = upstreamBranchRef.object.sha;
+    console.log(
+        `[GitHub Flow] => Latest commit on upstream '${TARGET_BRANCH}' is ${latestUpstreamSha.substring(0, 7)}`
+    );
 
     try {
-        await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
-            method: 'POST',
-            body: JSON.stringify({ ref: `refs/heads/${TARGET_BRANCH}`, sha: startPointSha }),
+        console.log(`[GitHub Flow] => Syncing fork's '${TARGET_BRANCH}' branch...`);
+        await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs/heads/${TARGET_BRANCH}`, token, {
+            method: 'PATCH',
+            body: JSON.stringify({ sha: latestUpstreamSha, force: true }),
         });
-        console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' created successfully in the fork.`);
+        console.log(`[GitHub Flow] => Fork's '${TARGET_BRANCH}' branch successfully synced.`);
     } catch (error: any) {
-        if (error.status === 422 && error.message.includes('Reference already exists')) {
-            console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' already exists in the fork. Continuing...`);
+        if (error.status === 404 || error.status === 422) {
+            console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' not found in fork. Creating it...`);
+            await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
+                method: 'POST',
+                body: JSON.stringify({ ref: `refs/heads/${TARGET_BRANCH}`, sha: latestUpstreamSha }),
+            });
+            console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' created successfully in the fork.`);
         } else {
             throw error;
         }

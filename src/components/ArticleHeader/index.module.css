@@ -1,0 +1,115 @@
+.container {
+    position: relative;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.container:hover .actions {
+    opacity: 1;
+}
+
+.actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.displayTitle {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #1c2a38;
+    margin: 0 0 2rem 0;
+}
+
+.tagsContainer {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.tag {
+    background-color: #ffffff;
+    padding: 0.3rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #0b65de;
+    border: 1px solid #dce5ec;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.tag:hover {
+    border-color: #0b65de;
+    background-color: #f0f6ff;
+}
+
+.placeholder {
+    font-style: italic;
+    color: var(--ifm-color-content-secondary);
+}
+
+.updateInfo {
+    margin: 0;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #5e6c7a;
+}
+
+.updateInfo strong {
+    font-weight: 600;
+    color: #1c2a38;
+    font-style: normal;
+}
+
+.containerEditing {
+    position: relative;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 2px dashed #dce5ec;
+    border-radius: 8px;
+}
+
+.formField {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.formField:last-of-type {
+    margin-bottom: 0;
+}
+
+.titleInput,
+.formField :global(ui5-multi-combobox),
+.formField :global(ui5-multi-input) {
+    width: 100%;
+}
+
+.titleInput::part(input) {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1c2a38;
+    padding: 0.25rem 0;
+}
+
+.formField :global(ui5-multi-combobox)::part(input),
+.formField :global(ui5-multi-input)::part(input) {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.editingActions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.cancelButton {
+    margin-left: 0.5rem;
+}

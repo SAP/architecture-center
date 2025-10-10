@@ -4,16 +4,35 @@ import { $getSelection, $isRangeSelection, COMMAND_PRIORITY_EDITOR } from 'lexic
 import { $createImageNode, ImageNode } from '../../nodes/ImageNode';
 import { INSERT_IMAGE_COMMAND, TOGGLE_IMAGE_DIALOG } from '../commands';
 
+function readFileAsDataURL(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (typeof reader.result === 'string') {
+                resolve(reader.result);
+            } else {
+                reject(new Error('FileReader did not return a string.'));
+            }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
 export default function ImagePlugin(): JSX.Element | null {
     const [editor] = useLexicalComposerContext();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
 
         if (file) {
-            const objectUrl = URL.createObjectURL(file);
-            editor.dispatchCommand(INSERT_IMAGE_COMMAND, { src: objectUrl, altText: file.name });
+            try {
+                const dataUrl = await readFileAsDataURL(file);
+                editor.dispatchCommand(INSERT_IMAGE_COMMAND, { src: dataUrl, altText: file.name });
+            } catch (error) {
+                console.error('Error reading file:', error);
+            }
         }
 
         if (fileInputRef.current) {

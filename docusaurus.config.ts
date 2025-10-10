@@ -24,13 +24,7 @@ const config: Config = {
     onBrokenLinks: 'warn', //'throw' to fail build
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
-    markdown: {
-        mermaid: true,
-        hooks: {
-            onBrokenMarkdownLinks: 'throw',
-            onBrokenMarkdownImages: 'throw',
-          },
-    },
+
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
@@ -38,6 +32,13 @@ const config: Config = {
         authProviders: {
             '/ArchitectureValidator': 'btp',
             '/quickStart': 'github',
+        },
+        markdown: {
+            mermaid: true,
+            hooks: {
+                onBrokenMarkdownLinks: 'throw',
+                onBrokenMarkdownImages: 'throw',
+            },
         },
     },
     themes: ['@docusaurus/theme-mermaid'],
@@ -270,7 +271,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: 'What\'s New',
+                            label: "What's New",
                             to: '/blog',
                         },
                     ],

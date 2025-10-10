@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -24,16 +24,16 @@ import { DrawioNode } from './nodes/DrawioNode';
 import DrawioPlugin from './plugins/DrawioPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
-import { ArticleHeaderNode } from './nodes/ArticleMetadataNode';
 import InitializerPlugin from './plugins/InitializerPlugin';
-import TitleSyncPlugin from './plugins/TitleSyncPlugin';
-import SanityCheckPlugin from './plugins/SanityCheckPlugin';
 import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useHistory } from '@docusaurus/router';
 import LoadingModal, { PublishStage } from '../LoadingModal';
+import ArticleHeader from '../ArticleHeader';
+import Breadcrumbs from '../Breadcrumbs';
+import ContributorsDisplay from '../ContributorsDisplay';
 
 const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
     let currentDoc = allDocs.find((d) => d.id === startDocId);
@@ -72,6 +72,17 @@ const transformTreeForBackend = (doc: Document): any => {
     };
 };
 
+const buildBreadcrumbPath = (docId: string | null, allDocs: Document[]): Document[] => {
+    if (!docId) return [];
+    const path: Document[] = [];
+    let currentDoc = allDocs.find((d) => d.id === docId);
+    while (currentDoc) {
+        path.unshift(currentDoc);
+        currentDoc = allDocs.find((d) => d.id === currentDoc.parentId);
+    }
+    return path;
+};
+
 function Placeholder() {
     return <div className={styles.editorPlaceholder}>Type / to get started</div>;
 }
@@ -90,7 +101,6 @@ const editorNodes = [
     LinkNode,
     ImageNode,
     DrawioNode,
-    ArticleHeaderNode,
 ];
 
 const AutoSavePlugin: React.FC = () => {
@@ -123,8 +133,7 @@ interface PublishStatus {
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
-    const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents, resetStore } =
-        usePageDataStore();
+    const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore } = usePageDataStore();
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const activeDocument = getActiveDocument();
@@ -137,11 +146,14 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     });
     const history = useHistory();
 
+    const breadcrumbPath = useMemo(
+        () => buildBreadcrumbPath(activeDocument?.id, documents),
+        [activeDocument, documents]
+    );
+
     const handleSubmit = async () => {
         setIsLoading(true);
-
         setPublishStatus({ stage: 'forking', error: null, commitUrl: null });
-
         if (!activeDocument) {
             alert('No active document to publish.');
             setIsLoading(false);
@@ -160,50 +172,30 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             return;
         }
         const documentObject = transformTreeForBackend(fullDocumentTree);
-        const payloadForPublish = {
-            document: JSON.stringify(documentObject),
-        };
-
+        const payloadForPublish = { document: JSON.stringify(documentObject) };
         await sleep(3000);
         setPublishStatus((prev) => ({ ...prev, stage: 'packaging' }));
-
         await sleep(5000);
         setPublishStatus((prev) => ({ ...prev, stage: 'committing' }));
-
         try {
             const token = localStorage.getItem('jwt_token');
             if (!token) {
                 alert('Authentication error: You are not logged in. Please log in again.');
                 return;
             }
-
             const response = await fetch(`${expressBackendUrl}/api/publish`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify(payloadForPublish),
             });
-
             const result = await response.json();
             if (!response.ok) {
                 throw new Error(result.error || 'Failed to publish to GitHub.');
             }
-
-            setPublishStatus({
-                stage: 'success',
-                error: null,
-                commitUrl: result.commitUrl,
-            });
+            setPublishStatus({ stage: 'success', error: null, commitUrl: result.commitUrl });
         } catch (error: any) {
             console.error('Publishing failed:', error);
-            console.error('Publishing failed:', error);
-            setPublishStatus({
-                stage: 'error',
-                error: error.message,
-                commitUrl: null,
-            });
+            setPublishStatus({ stage: 'error', error: error.message, commitUrl: null });
         } finally {
             setIsLoading(false);
         }
@@ -217,9 +209,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         if (publishStatus.commitUrl) {
             window.open(publishStatus.commitUrl, '_blank', 'noopener,noreferrer');
         }
-
         resetStore();
-
         history.push('/');
     };
 
@@ -250,9 +240,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit} disabled={isLoading}>
                                 {isLoading ? 'Submitting...' : 'Submit'}
                             </Button>
-                            <Button design="Default" icon="save" onClick={saveState}>
-                                Save
-                            </Button>
                             {activeDocument && (
                                 <Button
                                     design="Negative"
@@ -266,8 +253,11 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         </div>
                     </div>
                     <div className={styles.editorContainer}>
+                        <div className={styles.contentHeader}>
+                            <Breadcrumbs path={breadcrumbPath} />
+                            <ArticleHeader />
+                        </div>
                         <ToolbarPlugin mode="fixed" />
-                        <ToolbarPlugin mode="floating" />
                         <div className={styles.editorInner}>
                             <RichTextPlugin
                                 contentEditable={<ContentEditable className={styles.editorInput} />}
@@ -281,11 +271,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <ImagePlugin />
                             <DrawioPlugin />
                             <SlashCommandPlugin />
-                            <InitializerPlugin />
-                            <TitleSyncPlugin />
                             <AutoSavePlugin />
-                            <SanityCheckPlugin />
+                            <InitializerPlugin />
                         </div>
+                        <ContributorsDisplay contributors={activeDocument?.contributors} />
                     </div>
                 </div>
                 <div className={styles.tocColumn}>

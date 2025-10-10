@@ -39,6 +39,11 @@
     overflow: hidden;
 }
 
+.contentHeader {
+    padding: 2rem 3rem 0 3rem;
+    background-color: #ffffff;
+}
+
 .editorInner {
     position: relative;
     flex-grow: 1;
@@ -51,7 +56,6 @@
     resize: none;
     font-size: 16px;
     caret-color: #212529;
-    position: relative;
     outline: 0;
     padding: 2rem 3rem;
     box-sizing: border-box;
@@ -80,6 +84,7 @@
 }
 
 .saveTimestamp {
+    margin-right: auto;
     font-size: 12px;
     color: #6c757d;
 }
