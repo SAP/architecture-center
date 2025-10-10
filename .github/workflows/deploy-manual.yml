@@ -111,6 +111,6 @@ jobs:
               run: |
                 git add -A
                 if [[ "$(git status -s)" ]]; then
-                  git commit -m "release-v2 build ➝ gh pages"
+                  git commit -m "site build ➝ gh pages"
                   git push -f https://paasapcom:${{ secrets.PAASAPCOM_PAT }}@github.com/${{ github.repository }} ${{ env.gh_pages_branch }}
                 fi
