@@ -8,12 +8,23 @@ export const navigationCardsData = [
     { title: "What's new", icon: 'sap-icon://marketing-campaign', link: '/blog' },
 ];
 
+// Keep items sorted alphabetically by `title`
 export const techDomain = [
     { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
+    { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },    
     { id: 'data', title: 'Data & Analytics', icon: 'sap-icon://database' },
+    { id: 'integration', title: 'Integration', icon: 'sap-icon://exit-full-screen' },    
     { id: 'opsec', title: 'Operation & Security', icon: 'sap-icon://shield' },
-    { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },
-    { id: 'integration', title: 'Integration', icon: 'sap-icon://exit-full-screen' },
+];
+
+// Keep items sorted alphabetically by `title`
+export const techPartners = [
+    { id: 'aws', title: 'Amazon Web Services'},
+    { id: 'databricks', title: 'Databricks'},
+    { id: 'gcp', title: 'Google Cloud Platform'},       
+    { id: 'ibm', title: 'IBM'},         
+    { id: 'azure', title: 'Microsoft Azure'},
+    { id: 'nvidia', title: 'Nvidia'},
 ];
 
 export const addResData = [
