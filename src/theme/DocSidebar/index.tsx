@@ -9,6 +9,7 @@ import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -198,14 +199,14 @@ export default function DocSidebarWrapper(props) {
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
   const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
   const history = useHistory();
+  const docsBase = useBaseUrl('/docs');
 
-  useEffect(() => {
-    // Subscribe to history changes
+  useEffect(() => {   
     return history.listen((location) => {
       console.log("Route changed:", location.pathname);
 
       // Reset only when leaving /docs
-      if (!location.pathname.startsWith('/docs')) {
+      if (!location.pathname.startsWith(docsBase)) {
         console.log("Resetting filters...");
         resetFilters();
       }
