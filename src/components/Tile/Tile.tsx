@@ -30,6 +30,8 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
         versions: { docs: DocFromGlobalData[] }[];
     };
 
+    console.log(docsPluginData);
+
     const allDocs = docsPluginData.versions[0].docs as DocFromGlobalData[];
     const docsById = new Map(allDocs.map((doc) => [doc.id, doc]));
     const docsForCategory: MappedDoc[] = pageMapping[id] || [];

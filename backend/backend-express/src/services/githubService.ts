@@ -9,20 +9,20 @@ const REPO_BASE_PATH = 'docs/ref-arch';
 interface GitHubApiError extends Error {
     status?: number;
 }
-
 interface GitHubBlob {
     path: string;
     mode: '100644';
     type: 'blob';
     sha: string;
 }
-
 interface PublishResult {
     commitUrl: string;
     repoFullName: string;
     pullRequestUrl?: string;
     branchName: string;
 }
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
     const GITHUB_API_URL = 'https://api.github.com';
@@ -36,6 +36,7 @@ async function githubApiRequest(endpoint: string, token: string, options: Reques
             'User-Agent': 'AC-Publishing-Service',
         },
     });
+    if (response.status === 204) return;
     const data = await response.json();
     if (!response.ok) {
         console.error(`[GitHub API Error] <= Endpoint ${endpoint} failed with status ${response.status}`);
@@ -46,30 +47,48 @@ async function githubApiRequest(endpoint: string, token: string, options: Reques
     return data;
 }
 
-async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, token: string): Promise<any> {
-    try {
-        const userInfo = await githubApiRequest('/user', token);
-        const username = userInfo.login;
+export async function syncUserFork(token: string): Promise<{ success: boolean; message: string }> {
+    if (!TARGET_REPO_OWNER || !TARGET_REPO_NAME) throw new Error('Target repository is not configured.');
 
-        console.log(`[GitHub Flow] => Checking if fork exists for user: ${username}`);
-        try {
-            const existingFork = await githubApiRequest(`/repos/${username}/${targetRepoName}`, token);
-            console.log(`[GitHub Flow] => Fork already exists, using existing fork: ${existingFork.full_name}`);
-            return existingFork;
-        } catch (error: any) {
-            if (error.status === 404) {
-                console.log(`[GitHub Flow] => Fork does not exist, creating new fork...`);
-                const forkData = await githubApiRequest(`/repos/${targetRepoOwner}/${targetRepoName}/forks`, token, {
-                    method: 'POST',
-                });
-                console.log(`[GitHub Flow] => Fork created successfully: ${forkData.full_name}`);
-                return forkData;
-            } else {
-                throw error;
-            }
-        }
+    const userInfo = await githubApiRequest('/user', token);
+    const repoOwner = userInfo.login;
+    const repoName = TARGET_REPO_NAME;
+
+    try {
+        console.log(
+            `[GitHub Flow] => Syncing fork ${repoOwner}/${repoName} with upstream branch '${TARGET_BRANCH}'...`
+        );
+        await githubApiRequest(`/repos/${repoOwner}/${repoName}/merge-upstream`, token, {
+            method: 'POST',
+            body: JSON.stringify({ branch: TARGET_BRANCH }),
+        });
+        console.log(`[GitHub Flow] => Fork successfully synced.`);
+        return { success: true, message: 'Fork synced successfully.' };
     } catch (error: any) {
-        console.error(`[GitHub Flow] => Error in fork creation/retrieval: ${error.message}`);
+        if (error.status === 409 || error.status === 422) {
+            console.error(`[GitHub Flow] => Sync conflict detected. Aborting. User action required.`);
+            const conflictError: GitHubApiError = new Error(
+                'SYNC_CONFLICT: Your forked repository is out of sync and could not be updated automatically. Please sync it manually on GitHub.'
+            );
+            conflictError.status = 409;
+            throw conflictError;
+        }
+        console.error(`[GitHub Flow] => Failed to sync fork. Error: ${error.message}`);
+        throw new Error('Could not sync the forked repository with the upstream.');
+    }
+}
+
+async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, token: string): Promise<any> {
+    const userInfo = await githubApiRequest('/user', token);
+    const username = userInfo.login;
+    try {
+        return await githubApiRequest(`/repos/${username}/${targetRepoName}`, token);
+    } catch (error: any) {
+        if (error.status === 404) {
+            return await githubApiRequest(`/repos/${targetRepoOwner}/${targetRepoName}/forks`, token, {
+                method: 'POST',
+            });
+        }
         throw error;
     }
 }
@@ -84,69 +103,42 @@ async function createPullRequest(
     body: string,
     token: string
 ): Promise<string> {
-    try {
-        console.log(`[GitHub Flow] => Creating pull request from ${forkOwner}:${branchName} to ${targetOwner}:${TARGET_BRANCH}`);
-        
-        const prData = await githubApiRequest(`/repos/${targetOwner}/${targetRepo}/pulls`, token, {
-            method: 'POST',
-            body: JSON.stringify({
-                title,
-                head: `${forkOwner}:${branchName}`,
-                base: TARGET_BRANCH,
-                body,
-                maintainer_can_modify: true
-            }),
-        });
-        
-        console.log(`[GitHub Flow] => Pull request created successfully: ${prData.html_url}`);
-        return prData.html_url;
-    } catch (error: any) {
-        console.error(`[GitHub Flow] => Error creating pull request: ${error.message}`);
-        throw error;
-    }
+    const prData = await githubApiRequest(`/repos/${targetOwner}/${targetRepo}/pulls`, token, {
+        method: 'POST',
+        body: JSON.stringify({
+            title,
+            head: `${forkOwner}:${branchName}`,
+            base: TARGET_BRANCH,
+            body,
+            maintainer_can_modify: true,
+        }),
+    });
+    return prData.html_url;
 }
 
-export async function publishToGitHub(rootDocument: DocumentObject, token: string, createPR: boolean = false): Promise<PublishResult> {
+export async function publishToGitHub(
+    rootDocument: DocumentObject,
+    token: string,
+    createPR: boolean = false
+): Promise<PublishResult> {
     if (!TARGET_REPO_OWNER || !TARGET_REPO_NAME) {
         const error: GitHubApiError = new Error('Target repository is not configured on the server.');
         error.status = 500;
         throw error;
     }
 
-    const forkData = await getOrCreateFork(TARGET_REPO_OWNER, TARGET_REPO_NAME, token);
-    const {
-        owner: { login: repoOwner },
-        name: repoName,
-    } = forkData;
+    await getOrCreateFork(TARGET_REPO_OWNER, TARGET_REPO_NAME, token);
+    await syncUserFork(token);
 
-    const upstreamBranchRef = await githubApiRequest(
-        `/repos/${TARGET_REPO_OWNER}/${TARGET_REPO_NAME}/git/ref/heads/${TARGET_BRANCH}`,
+    const userInfo = await githubApiRequest('/user', token);
+    const repoOwner = userInfo.login;
+    const repoName = TARGET_REPO_NAME;
+
+    const syncedBranchRef = await githubApiRequest(
+        `/repos/${repoOwner}/${repoName}/git/ref/heads/${TARGET_BRANCH}`,
         token
     );
-    const latestUpstreamSha = upstreamBranchRef.object.sha;
-    console.log(
-        `[GitHub Flow] => Latest commit on upstream '${TARGET_BRANCH}' is ${latestUpstreamSha.substring(0, 7)}`
-    );
-
-    try {
-        console.log(`[GitHub Flow] => Syncing fork's '${TARGET_BRANCH}' branch...`);
-        await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs/heads/${TARGET_BRANCH}`, token, {
-            method: 'PATCH',
-            body: JSON.stringify({ sha: latestUpstreamSha, force: true }),
-        });
-        console.log(`[GitHub Flow] => Fork's '${TARGET_BRANCH}' branch successfully synced.`);
-    } catch (error: any) {
-        if (error.status === 404 || error.status === 422) {
-            console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' not found in fork. Creating it...`);
-            await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
-                method: 'POST',
-                body: JSON.stringify({ ref: `refs/heads/${TARGET_BRANCH}`, sha: latestUpstreamSha }),
-            });
-            console.log(`[GitHub Flow] => Branch '${TARGET_BRANCH}' created successfully in the fork.`);
-        } else {
-            throw error;
-        }
-    }
+    const latestCommitSha = syncedBranchRef.object.sha;
 
     let latestRaNumber = 0;
     try {
@@ -159,50 +151,35 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
                 .filter((item) => item.type === 'dir' && item.name.startsWith('RA'))
                 .map((item) => parseInt(item.name.substring(2), 10))
                 .filter((num) => !isNaN(num));
-            if (raNumbers.length > 0) {
-                latestRaNumber = Math.max(...raNumbers);
-            }
+            if (raNumbers.length > 0) latestRaNumber = Math.max(...raNumbers);
         }
     } catch (error: any) {
-        if (error.status === 404) {
-            console.log(`[GitHub Flow] => Directory '${REPO_BASE_PATH}' not found in fork. Starting from RA0001.`);
-            latestRaNumber = 0;
-        } else {
-            throw error;
-        }
+        if (error.status !== 404) throw error;
     }
 
     const newRaNumber = latestRaNumber + 1;
     const newRaFolderName = `RA${newRaNumber.toString().padStart(4, '0')}`;
-    
-    // Create branch name from RA number and document title
     const titleSlug = rootDocument.metadata.title
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-        .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
-        .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-    
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
     const branchName = `${newRaFolderName}-${titleSlug}`;
-    console.log(`[GitHub Flow] => Calculated next directory name: ${newRaFolderName}`);
-    console.log(`[GitHub Flow] => Branch name for this publish: ${branchName}`);
-
     const filesToCommit = generateFileTreeInMemory(rootDocument, newRaFolderName);
 
-    // Create a new branch for this feature
-    console.log(`[GitHub Flow] => Creating new branch: ${branchName}`);
     await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
         method: 'POST',
-        body: JSON.stringify({ 
-            ref: `refs/heads/${branchName}`, 
-            sha: latestUpstreamSha 
-        }),
+        body: JSON.stringify({ ref: `refs/heads/${branchName}`, sha: latestCommitSha }),
     });
 
     const commitMessage = `feat: Add new RA document - ${rootDocument.metadata.title}`;
     const refData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/ref/heads/${branchName}`, token);
-    const latestCommitSha = refData.object.sha;
-    const commitData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/commits/${latestCommitSha}`, token);
+    const latestBranchCommitSha = refData.object.sha;
+    const commitData = await githubApiRequest(
+        `/repos/${repoOwner}/${repoName}/git/commits/${latestBranchCommitSha}`,
+        token
+    );
     const baseTreeSha = commitData.tree.sha;
 
     const blobPromises = filesToCommit.map(async (file) => {
@@ -227,7 +204,7 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
     });
     const newCommitData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/commits`, token, {
         method: 'POST',
-        body: JSON.stringify({ message: commitMessage, tree: newTreeData.sha, parents: [latestCommitSha] }),
+        body: JSON.stringify({ message: commitMessage, tree: newTreeData.sha, parents: [latestBranchCommitSha] }),
     });
     await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs/heads/${branchName}`, token, {
         method: 'PATCH',
@@ -238,7 +215,6 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
     if (createPR) {
         const prTitle = `[CONTENT] ${newRaFolderName}- ${rootDocument.metadata.title}`;
         const prBody = generatePRBody(newRaFolderName, rootDocument.metadata.title);
-
         pullRequestUrl = await createPullRequest(
             repoOwner,
             repoName,
@@ -251,10 +227,5 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
         );
     }
 
-    return {
-        commitUrl: newCommitData.html_url,
-        repoFullName: `${repoOwner}/${repoName}`,
-        pullRequestUrl,
-        branchName,
-    };
+    return { commitUrl: newCommitData.html_url, repoFullName: `${repoOwner}/${repoName}`, pullRequestUrl, branchName };
 }

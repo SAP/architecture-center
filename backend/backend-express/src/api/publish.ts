@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import requireAuth from '../middleware/requireAuth';
-import { publishToGitHub } from '../services/githubService';
+import { publishToGitHub, syncUserFork } from '../services/githubService';
 import { generateStandalonePRBody } from '../templates/prTemplate';
 import rateLimit from 'express-rate-limit';
 
@@ -99,7 +99,7 @@ router.post('/create-pr', publishLimiter, requireAuth, async (req: Request, res:
                 head: `${forkOwner}:${branchName}`,
                 base: 'dev',
                 body: prBody,
-                maintainer_can_modify: true
+                maintainer_can_modify: true,
             }),
         });
 
@@ -111,6 +111,20 @@ router.post('/create-pr', publishLimiter, requireAuth, async (req: Request, res:
     } catch (error: any) {
         console.error('Error creating pull request:', error);
         res.status(error.status || 500).json({ error: error.message });
+    }
+});
+
+router.post('/api/sync-fork', async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        if (!token) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        const result = await syncUserFork(token);
+        res.status(200).json(result);
+    } catch (error: any) {
+        const status = error.status || 500;
+        res.status(status).json({ error: error.message });
     }
 });
 

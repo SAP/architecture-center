@@ -164,13 +164,22 @@ function processDocumentTreeRecursively(
     }
 
     const today = new Date().toISOString().split('T')[0];
+
+    // --- START OF CHANGES ---
     const frontMatter = `---
 id: id-${idSegments.join('-')}
 slug: ${currentFullSlug}
 sidebar_position: ${sidebarPosition}
-title: '${metadata.title.replace(/'/g, "''")} [${raFolderName.toUpperCase()}]'
+title: '${metadata.title.replace(/'/g, "''")}'
 description: '${(metadata.description || '').replace(/'/g, "''")}'
 sidebar_label: '${metadata.title.replace(/'/g, "''")}'
+image: img/logo.svg
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 tags:
 ${(metadata.tags || []).map((tag) => `  - ${tag}`).join('\n')}
 contributors:
@@ -182,6 +191,7 @@ last_update:
   author: ${metadata.authors[0] || ''}
 ---
 `;
+    // --- END OF CHANGES ---
 
     if (editorState) {
         const jsonState = JSON.parse(editorState) as LexicalEditorState;

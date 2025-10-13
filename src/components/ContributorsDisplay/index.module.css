@@ -52,3 +52,30 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.editButton {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.editContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.multiComboBox {
+    width: 100%;
+}
+
+.comboItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.noContributors {
+    font-style: italic;
+    color: #586069;
+    font-size: 0.9rem;
+}

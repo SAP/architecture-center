@@ -1,13 +1,17 @@
-.fixedToolbar {
+.floatingToolbar {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    opacity: 0;
+    z-index: 100;
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 8px;
     background-color: #ffffff;
-    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     gap: 4px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 .group {
@@ -43,11 +47,6 @@
     color: #0b65de;
 }
 
-.button.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
 .divider {
     width: 1px;
     height: 20px;
@@ -67,9 +66,9 @@
 
 .dropdownMenu {
     position: absolute;
-    top: calc(100% + 8px);
+    bottom: calc(100% + 8px); /* Position above the toolbar */
     left: 0;
-    z-index: 100;
+    z-index: 101;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
     border-radius: 8px;
@@ -99,7 +98,47 @@
     background-color: #f1f3f5;
 }
 
-.dropdownMenuRight {
-    left: auto;
-    right: 0;
+.dropdownItem .h1,
+.dropdownItem .h2,
+.dropdownItem .h3 {
+    font-weight: bold;
+    color: #495057;
+    width: 24px;
+}
+.dropdownItem .h1 {
+    font-size: 16px;
+}
+.dropdownItem .h2 {
+    font-size: 14px;
+}
+.dropdownItem .h3 {
+    font-size: 12px;
+}
+
+/* Link Editor Styles */
+.linkEditor {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.linkInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    background: none;
+}
+
+.linkTrash {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #adb5bd;
+}
+
+.linkTrash:hover {
+    color: #f03e3e;
 }
