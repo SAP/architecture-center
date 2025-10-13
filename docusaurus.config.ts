@@ -194,23 +194,23 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=appdev">Application Development & Automation</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=appdev">Application Development & Automation</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=ai">Artificial Intelligence</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=ai">Artificial Intelligence</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=data">Data & Analytics</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=data">Data & Analytics</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=integration">Integration</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=integration">Integration</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=opsec">Operation & Security</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=opsec">Operation & Security</a>',
                         },
                         {
                             type: 'html',
@@ -222,27 +222,27 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=aws">Amazon Web Services</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=aws">Amazon Web Services</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=databricks">Databricks</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=databricks">Databricks</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=gcp">Google Cloud Platform</a>`,                          
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=gcp">Google Cloud Platform</a>',                          
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=ibm">IBM</a>`,                          
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=ibm">IBM</a>',                          
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=azure">Microsoft Azure</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=azure">Microsoft Azure</a>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?filter=nvidia">Nvidia</a>`,
+                            value: '<a class="dropdown__link" href="${baseUrl}docs?filter=nvidia">Nvidia</a>',
                         },
                     ],
                 },
