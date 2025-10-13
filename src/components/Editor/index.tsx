@@ -130,6 +130,7 @@ interface PublishStatus {
     stage: PublishStage;
     error: string | null;
     commitUrl: string | null;
+    pullRequestUrl: string | null;
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
@@ -143,6 +144,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         stage: 'idle',
         error: null,
         commitUrl: null,
+        pullRequestUrl: null,
     });
     const history = useHistory();
 
@@ -153,7 +155,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
 
     const handleSubmit = async () => {
         setIsLoading(true);
-        setPublishStatus({ stage: 'forking', error: null, commitUrl: null });
+        setPublishStatus({ stage: 'forking', error: null, commitUrl: null, pullRequestUrl: null });
         if (!activeDocument) {
             alert('No active document to publish.');
             setIsLoading(false);
@@ -192,22 +194,29 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             if (!response.ok) {
                 throw new Error(result.error || 'Failed to publish to GitHub.');
             }
-            setPublishStatus({ stage: 'success', error: null, commitUrl: result.commitUrl });
+            setPublishStatus({
+                stage: 'success',
+                error: null,
+                commitUrl: result.commitUrl,
+                pullRequestUrl: result.pullRequestUrl,
+            });
         } catch (error: any) {
             console.error('Publishing failed:', error);
-            setPublishStatus({ stage: 'error', error: error.message, commitUrl: null });
+            setPublishStatus({ stage: 'error', error: error.message, commitUrl: null, pullRequestUrl: null });
         } finally {
             setIsLoading(false);
         }
     };
 
     const closeLoadingModal = () => {
-        setPublishStatus({ stage: 'idle', error: null, commitUrl: null });
+        setPublishStatus({ stage: 'idle', error: null, commitUrl: null, pullRequestUrl: null });
     };
 
     const handleSuccessAndReset = () => {
-        if (publishStatus.commitUrl) {
-            window.open(publishStatus.commitUrl, '_blank', 'noopener,noreferrer');
+        // Prioritize PR URL over commit URL if available
+        const urlToOpen = publishStatus.pullRequestUrl || publishStatus.commitUrl;
+        if (urlToOpen) {
+            window.open(urlToOpen, '_blank', 'noopener,noreferrer');
         }
         resetStore();
         history.push('/');
@@ -311,6 +320,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 status={publishStatus.stage}
                 error={publishStatus.error}
                 commitUrl={publishStatus.commitUrl}
+                pullRequestUrl={publishStatus.pullRequestUrl}
                 onClose={closeLoadingModal}
                 onSuccessFinish={handleSuccessAndReset}
             />

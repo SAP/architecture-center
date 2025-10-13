@@ -1,4 +1,5 @@
 import { FileForCommit, DocumentObject, generateFileTreeInMemory } from './lexicalService';
+import { generatePRBody } from '../templates/prTemplate';
 
 const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = process.env;
 
@@ -19,6 +20,8 @@ interface GitHubBlob {
 interface PublishResult {
     commitUrl: string;
     repoFullName: string;
+    pullRequestUrl?: string;
+    branchName: string;
 }
 
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
@@ -71,7 +74,39 @@ async function getOrCreateFork(targetRepoOwner: string, targetRepoName: string, 
     }
 }
 
-export async function publishToGitHub(rootDocument: DocumentObject, token: string): Promise<PublishResult> {
+async function createPullRequest(
+    forkOwner: string,
+    forkRepo: string,
+    targetOwner: string,
+    targetRepo: string,
+    branchName: string,
+    title: string,
+    body: string,
+    token: string
+): Promise<string> {
+    try {
+        console.log(`[GitHub Flow] => Creating pull request from ${forkOwner}:${branchName} to ${targetOwner}:${TARGET_BRANCH}`);
+        
+        const prData = await githubApiRequest(`/repos/${targetOwner}/${targetRepo}/pulls`, token, {
+            method: 'POST',
+            body: JSON.stringify({
+                title,
+                head: `${forkOwner}:${branchName}`,
+                base: TARGET_BRANCH,
+                body,
+                maintainer_can_modify: true
+            }),
+        });
+        
+        console.log(`[GitHub Flow] => Pull request created successfully: ${prData.html_url}`);
+        return prData.html_url;
+    } catch (error: any) {
+        console.error(`[GitHub Flow] => Error creating pull request: ${error.message}`);
+        throw error;
+    }
+}
+
+export async function publishToGitHub(rootDocument: DocumentObject, token: string, createPR: boolean = false): Promise<PublishResult> {
     if (!TARGET_REPO_OWNER || !TARGET_REPO_NAME) {
         const error: GitHubApiError = new Error('Target repository is not configured on the server.');
         error.status = 500;
@@ -139,12 +174,33 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
 
     const newRaNumber = latestRaNumber + 1;
     const newRaFolderName = `RA${newRaNumber.toString().padStart(4, '0')}`;
+    
+    // Create branch name from RA number and document title
+    const titleSlug = rootDocument.metadata.title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+        .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+    
+    const branchName = `${newRaFolderName}-${titleSlug}`;
     console.log(`[GitHub Flow] => Calculated next directory name: ${newRaFolderName}`);
+    console.log(`[GitHub Flow] => Branch name for this publish: ${branchName}`);
 
     const filesToCommit = generateFileTreeInMemory(rootDocument, newRaFolderName);
 
+    // Create a new branch for this feature
+    console.log(`[GitHub Flow] => Creating new branch: ${branchName}`);
+    await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
+        method: 'POST',
+        body: JSON.stringify({ 
+            ref: `refs/heads/${branchName}`, 
+            sha: latestUpstreamSha 
+        }),
+    });
+
     const commitMessage = `feat: Add new RA document - ${rootDocument.metadata.title}`;
-    const refData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/ref/heads/${TARGET_BRANCH}`, token);
+    const refData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/ref/heads/${branchName}`, token);
     const latestCommitSha = refData.object.sha;
     const commitData = await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/commits/${latestCommitSha}`, token);
     const baseTreeSha = commitData.tree.sha;
@@ -173,13 +229,32 @@ export async function publishToGitHub(rootDocument: DocumentObject, token: strin
         method: 'POST',
         body: JSON.stringify({ message: commitMessage, tree: newTreeData.sha, parents: [latestCommitSha] }),
     });
-    await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs/heads/${TARGET_BRANCH}`, token, {
+    await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs/heads/${branchName}`, token, {
         method: 'PATCH',
         body: JSON.stringify({ sha: newCommitData.sha }),
     });
 
+    let pullRequestUrl;
+    if (createPR) {
+        const prTitle = `[CONTENT] ${newRaFolderName}- ${rootDocument.metadata.title}`;
+        const prBody = generatePRBody(newRaFolderName, rootDocument.metadata.title);
+
+        pullRequestUrl = await createPullRequest(
+            repoOwner,
+            repoName,
+            TARGET_REPO_OWNER!,
+            TARGET_REPO_NAME!,
+            branchName,
+            prTitle,
+            prBody,
+            token
+        );
+    }
+
     return {
         commitUrl: newCommitData.html_url,
         repoFullName: `${repoOwner}/${repoName}`,
+        pullRequestUrl,
+        branchName,
     };
 }

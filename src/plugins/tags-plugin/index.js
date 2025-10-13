@@ -88,13 +88,10 @@ module.exports = function (context, options) {
           console.error(`[Tags Plugin] Error processing file: ${filePath}. Skipping.`, e);
         }
       }
-      
+
       const sortedTags = Object.fromEntries(
         Object.entries(tagsWithCounts).sort(([, a], [, b]) => b.count - a.count)
       );
-
-      console.log('[Tags Plugin] Final sorted tag data (ignoring "demo"):');
-      console.log(JSON.stringify(sortedTags, null, 2));
 
       return sortedTags;
     },
