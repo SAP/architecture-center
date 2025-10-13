@@ -1,9 +1,5 @@
 name: Deploy main site to GitHub Pages
 
-permissions:
-    contents: write
-    pages: write
-
 on:
     # for local PR builds esp. builds in forked repositories
     workflow_dispatch:
@@ -64,7 +60,10 @@ jobs:
         name: Deploy Site
         runs-on: ubuntu-latest
         needs: build
-
+        if: success()
+        permissions:
+            contents: write
+            pages: write
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -78,8 +77,8 @@ jobs:
 
             - name: Set up Git
               run: |
-                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "paa@sap.com"
+                  git config --global user.name "paasapcom"
 
             - name: Switch to Pages Branch
               run: |
@@ -107,9 +106,11 @@ jobs:
                   fi
 
             - name: Commit and Push Changes
+              env:
+                GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
               run: |
-                  git add -A
-                  if [[ "$(git status -s)" ]]; then
-                    git commit -m "site build ➝ gh pages"
-                    git push -f origin ${{ env.gh_pages_branch }}
-                  fi
+                git add -A
+                if [[ "$(git status -s)" ]]; then
+                  git commit -m "site build ➝ gh pages"
+                  git push -f https://paasapcom:${{ secrets.PAASAPCOM_PAT }}@github.com/${{ github.repository }} ${{ env.gh_pages_branch }}
+                fi
