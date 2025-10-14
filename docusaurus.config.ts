@@ -33,7 +33,6 @@ const config: Config = {
             onBrokenMarkdownImages: 'throw',
           },
     },
-
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
@@ -277,7 +276,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: "What's New",
+                            label: 'What\'s New',
                             to: '/blog',
                         },
                     ],
