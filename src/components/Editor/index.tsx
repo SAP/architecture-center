@@ -289,13 +289,12 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
                         <div className={styles.headerButtons}>
-                            <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit} disabled={isLoading}>
+                            <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
                                 {isLoading ? 'Submitting...' : 'Submit'}
                             </Button>
                             {activeDocument && (
                                 <Button
-                                    design="Negative"
-                                    icon="delete"
+                                    design="Default"
                                     onClick={() => setShowDeleteConfirm(true)}
                                     tooltip="Delete current document"
                                 >
@@ -351,7 +350,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                                 Cancel
                             </Button>
                             <Button
-                                design="Negative"
+                                design="Default"
                                 onClick={() => {
                                     deleteDocument(activeDocument.id);
                                     setShowDeleteConfirm(false);
@@ -383,7 +382,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         endContent={
                             <>
                                 <Button
-                                    design="Emphasized"
+                                    design="Transparent"
+                                    className={styles.transparentButton}
                                     onClick={() => {
                                         setShowSyncDialog(false);
                                         handleSubmit();

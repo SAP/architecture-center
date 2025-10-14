@@ -53,7 +53,7 @@
 }
 
 .updateInfo {
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     font-size: 0.9rem;
     font-style: italic;
     color: #5e6c7a;
@@ -67,7 +67,7 @@
 
 .containerEditing {
     position: relative;
-    padding: 2rem;
+    padding: 2rem 2rem 3rem 2rem;
     margin-bottom: 2rem;
     border: 2px dashed #dce5ec;
     border-radius: 8px;
@@ -84,7 +84,8 @@
 
 .titleInput,
 .formField :global(ui5-multi-combobox),
-.formField :global(ui5-multi-input) {
+.formField :global(ui5-multi-input),
+.descriptionInput {
     width: 100%;
 }
 
@@ -100,6 +101,21 @@
     font-size: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+}
+
+.descriptionInput::part(textarea) {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #dce5ec;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.descriptionInput::part(textarea):focus {
+    border-color: #0b65de;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(11, 101, 222, 0.1);
 }
 
 .editingActions {

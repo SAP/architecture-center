@@ -213,7 +213,7 @@ export async function publishToGitHub(
 
     let pullRequestUrl;
     if (createPR) {
-        const prTitle = `[CONTENT] ${newRaFolderName}- ${rootDocument.metadata.title}`;
+        const prTitle = `[CONTENT] ${newRaFolderName} - ${rootDocument.metadata.title}`;
         const prBody = generatePRBody(newRaFolderName, rootDocument.metadata.title);
         pullRequestUrl = await createPullRequest(
             repoOwner,
