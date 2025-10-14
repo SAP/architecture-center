@@ -1,16 +1,24 @@
 // Pull Request Template for Architecture Center submissions
 
-import * as fs from 'fs';
-import * as path from 'path';
+const PR_TEMPLATE = `## What reference architecture does this PR apply to?
 
-const loadPRTemplate = (): string => {
-    const templatePath = path.join(__dirname, 'prTemplate.md');
-    return fs.readFileSync(templatePath, 'utf-8');
-};
+{{RA_NUMBER}} - {{TITLE}}
+
+## Who should review your contribution? (Use @mention)
+
+@cernus76 @navyakhurana @jmsrpp
+
+## Checklist before submitting
+
+-   [x] My commits are only for the reference architecture mentioned above.
+-   [x] I have followed the folder structure in the [main README](../README.md)
+
+---
+
+_This pull request was automatically generated from the SAP Architecture Center Quick Start._`;
 
 export const generatePRBody = (raNumber: string, title: string): string => {
-    const template = loadPRTemplate();
-    return template.replace('{{RA_NUMBER}}', raNumber).replace('{{TITLE}}', title);
+    return PR_TEMPLATE.replace('{{RA_NUMBER}}', raNumber).replace('{{TITLE}}', title);
 };
 
 export const generateStandalonePRBody = (description?: string): string => {
@@ -18,11 +26,8 @@ export const generateStandalonePRBody = (description?: string): string => {
         return description;
     }
 
-    const template = loadPRTemplate();
-    return template
-        .replace(
-            '{{RA_NUMBER}} - {{TITLE}}',
-            'Please specify the RA number and title (e.g., RA0026 - Cloud Architecture Pattern)'
-        )
-        .replace('automatically generated', 'created via the Architecture Center publishing system');
+    return PR_TEMPLATE.replace(
+        '{{RA_NUMBER}} - {{TITLE}}',
+        'Please specify the RA number and title (e.g., RA0026 - Cloud Architecture Pattern)'
+    ).replace('automatically generated', 'created via the Architecture Center publishing system');
 };

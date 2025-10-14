@@ -147,6 +147,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         pullRequestUrl: null,
     });
     const history = useHistory();
+    const baseUrl = siteConfig.baseUrl;
     const [showSyncDialog, setShowSyncDialog] = useState(false);
     const [userForkUrl, setUserForkUrl] = useState('');
     const [isSyncing, setIsSyncing] = useState(false);
@@ -262,7 +263,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             window.open(urlToOpen, '_blank', 'noopener,noreferrer');
         }
         resetStore();
-        history.push('/');
+        history.push(baseUrl);
     };
 
     if (!activeDocument) return null;
