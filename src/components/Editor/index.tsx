@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -15,25 +15,27 @@ import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { Button } from '@ui5/webcomponents-react/Button';
+import { Button, Dialog, Bar, Title } from '@ui5/webcomponents-react';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
+import { useAuth } from '@site/src/context/AuthContext';
 import { ImageNode } from './nodes/ImageNode';
 import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
+import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import { DrawioNode } from './nodes/DrawioNode';
 import DrawioPlugin from './plugins/DrawioPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
-import { ArticleHeaderNode } from './nodes/ArticleMetadataNode';
 import InitializerPlugin from './plugins/InitializerPlugin';
-import TitleSyncPlugin from './plugins/TitleSyncPlugin';
-import SanityCheckPlugin from './plugins/SanityCheckPlugin';
 import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useHistory } from '@docusaurus/router';
 import LoadingModal, { PublishStage } from '../LoadingModal';
+import ArticleHeader from '../ArticleHeader';
+import Breadcrumbs from '../Breadcrumbs';
+import ContributorsDisplay from '../ContributorsDisplay';
 
 const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
     let currentDoc = allDocs.find((d) => d.id === startDocId);
@@ -72,6 +74,17 @@ const transformTreeForBackend = (doc: Document): any => {
     };
 };
 
+const buildBreadcrumbPath = (docId: string | null, allDocs: Document[]): Document[] => {
+    if (!docId) return [];
+    const path: Document[] = [];
+    let currentDoc = allDocs.find((d) => d.id === docId);
+    while (currentDoc) {
+        path.unshift(currentDoc);
+        currentDoc = allDocs.find((d) => d.id === currentDoc.parentId);
+    }
+    return path;
+};
+
 function Placeholder() {
     return <div className={styles.editorPlaceholder}>Type / to get started</div>;
 }
@@ -90,13 +103,11 @@ const editorNodes = [
     LinkNode,
     ImageNode,
     DrawioNode,
-    ArticleHeaderNode,
 ];
 
 const AutoSavePlugin: React.FC = () => {
     const [editor] = useLexicalComposerContext();
     const { getActiveDocument, updateDocument } = usePageDataStore();
-
     const handleSave = (editorState: any) => {
         const activeDoc = getActiveDocument();
         if (activeDoc) {
@@ -106,25 +117,24 @@ const AutoSavePlugin: React.FC = () => {
             }
         }
     };
-
     return <OnChangePlugin onChange={handleSave} />;
 };
 
 interface EditorProps {
     onAddNew: (parentId?: string | null) => void;
 }
-
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 interface PublishStatus {
     stage: PublishStage;
     error: string | null;
     commitUrl: string | null;
+    pullRequestUrl: string | null;
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
-    const { getActiveDocument, saveState, lastSaveTimestamp, deleteDocument, documents, resetStore } =
+    const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument } =
         usePageDataStore();
+    const { user } = useAuth();
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const activeDocument = getActiveDocument();
@@ -134,13 +144,46 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         stage: 'idle',
         error: null,
         commitUrl: null,
+        pullRequestUrl: null,
     });
     const history = useHistory();
+    const [showSyncDialog, setShowSyncDialog] = useState(false);
+    const [userForkUrl, setUserForkUrl] = useState('');
+    const [isSyncing, setIsSyncing] = useState(false);
+
+    const breadcrumbPath = useMemo(
+        () => buildBreadcrumbPath(activeDocument?.id, documents),
+        [activeDocument, documents]
+    );
+    const handleContributorsUpdate = (updatedContributors: string[]) => {
+        if (activeDocument) {
+            updateDocument(activeDocument.id, { contributors: updatedContributors });
+        }
+    };
+
+    const handleAutomaticSync = async () => {
+        setIsSyncing(true);
+        try {
+            const token = localStorage.getItem('jwt_token');
+            const response = await fetch(`${expressBackendUrl}/api/sync-fork`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+            });
+            if (!response.ok) {
+                throw new Error('Automatic sync failed. Please try the manual method.');
+            }
+            setShowSyncDialog(false);
+            handleSubmit();
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setIsSyncing(false);
+        }
+    };
 
     const handleSubmit = async () => {
         setIsLoading(true);
-
-        setPublishStatus({ stage: 'forking', error: null, commitUrl: null });
+        setPublishStatus({ stage: 'idle', error: null, commitUrl: null, pullRequestUrl: null });
 
         if (!activeDocument) {
             alert('No active document to publish.');
@@ -160,66 +203,65 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             return;
         }
         const documentObject = transformTreeForBackend(fullDocumentTree);
-        const payloadForPublish = {
-            document: JSON.stringify(documentObject),
-        };
-
-        await sleep(3000);
-        setPublishStatus((prev) => ({ ...prev, stage: 'packaging' }));
-
-        await sleep(5000);
-        setPublishStatus((prev) => ({ ...prev, stage: 'committing' }));
+        const payloadForPublish = { document: JSON.stringify(documentObject) };
 
         try {
             const token = localStorage.getItem('jwt_token');
             if (!token) {
                 alert('Authentication error: You are not logged in. Please log in again.');
+                setIsLoading(false);
                 return;
             }
 
+            setPublishStatus((prev) => ({ ...prev, stage: 'forking' }));
             const response = await fetch(`${expressBackendUrl}/api/publish`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                 body: JSON.stringify(payloadForPublish),
             });
-
             const result = await response.json();
+
             if (!response.ok) {
+                if (result.error && result.error.includes('SYNC_CONFLICT')) {
+                    if (user?.username) {
+                        setUserForkUrl(`https://github.com/${user.username}/architecture-center`);
+                    }
+                    setShowSyncDialog(true);
+                    setPublishStatus({ stage: 'idle', error: null, commitUrl: null, pullRequestUrl: null });
+                    setIsLoading(false);
+                    return;
+                }
                 throw new Error(result.error || 'Failed to publish to GitHub.');
             }
+
+            await sleep(1000);
+            setPublishStatus((prev) => ({ ...prev, stage: 'packaging' }));
+            await sleep(1000);
+            setPublishStatus((prev) => ({ ...prev, stage: 'committing' }));
+            await sleep(1000);
 
             setPublishStatus({
                 stage: 'success',
                 error: null,
                 commitUrl: result.commitUrl,
+                pullRequestUrl: result.pullRequestUrl,
             });
         } catch (error: any) {
             console.error('Publishing failed:', error);
-            console.error('Publishing failed:', error);
-            setPublishStatus({
-                stage: 'error',
-                error: error.message,
-                commitUrl: null,
-            });
-        } finally {
-            setIsLoading(false);
+            setPublishStatus({ stage: 'error', error: error.message, commitUrl: null, pullRequestUrl: null });
         }
     };
 
     const closeLoadingModal = () => {
-        setPublishStatus({ stage: 'idle', error: null, commitUrl: null });
+        setPublishStatus({ stage: 'idle', error: null, commitUrl: null, pullRequestUrl: null });
     };
 
     const handleSuccessAndReset = () => {
-        if (publishStatus.commitUrl) {
-            window.open(publishStatus.commitUrl, '_blank', 'noopener,noreferrer');
+        const urlToOpen = publishStatus.pullRequestUrl || publishStatus.commitUrl;
+        if (urlToOpen) {
+            window.open(urlToOpen, '_blank', 'noopener,noreferrer');
         }
-
         resetStore();
-
         history.push('/');
     };
 
@@ -247,16 +289,12 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
                         <div className={styles.headerButtons}>
-                            <Button design="Emphasized" icon="paper-plane" onClick={handleSubmit} disabled={isLoading}>
+                            <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
                                 {isLoading ? 'Submitting...' : 'Submit'}
-                            </Button>
-                            <Button design="Default" icon="save" onClick={saveState}>
-                                Save
                             </Button>
                             {activeDocument && (
                                 <Button
-                                    design="Negative"
-                                    icon="delete"
+                                    design="Default"
                                     onClick={() => setShowDeleteConfirm(true)}
                                     tooltip="Delete current document"
                                 >
@@ -266,8 +304,11 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         </div>
                     </div>
                     <div className={styles.editorContainer}>
-                        <ToolbarPlugin mode="fixed" />
-                        <ToolbarPlugin mode="floating" />
+                        <div className={styles.contentHeader}>
+                            <Breadcrumbs path={breadcrumbPath} />
+                            <ArticleHeader />
+                        </div>
+                        <ToolbarPlugin />
                         <div className={styles.editorInner}>
                             <RichTextPlugin
                                 contentEditable={<ContentEditable className={styles.editorInput} />}
@@ -281,11 +322,14 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                             <ImagePlugin />
                             <DrawioPlugin />
                             <SlashCommandPlugin />
-                            <InitializerPlugin />
-                            <TitleSyncPlugin />
                             <AutoSavePlugin />
-                            <SanityCheckPlugin />
+                            <InitializerPlugin />
+                            <FloatingToolbarPlugin />
                         </div>
+                        <ContributorsDisplay
+                            contributors={activeDocument?.contributors || []}
+                            onContributorsChange={handleContributorsUpdate}
+                        />
                     </div>
                 </div>
                 <div className={styles.tocColumn}>
@@ -306,7 +350,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                                 Cancel
                             </Button>
                             <Button
-                                design="Negative"
+                                design="Default"
                                 onClick={() => {
                                     deleteDocument(activeDocument.id);
                                     setShowDeleteConfirm(false);
@@ -322,9 +366,69 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 status={publishStatus.stage}
                 error={publishStatus.error}
                 commitUrl={publishStatus.commitUrl}
+                pullRequestUrl={publishStatus.pullRequestUrl}
                 onClose={closeLoadingModal}
                 onSuccessFinish={handleSuccessAndReset}
             />
+            <Dialog
+                open={showSyncDialog}
+                header={
+                    <Bar>
+                        <Title>Sync Required</Title>
+                    </Bar>
+                }
+                footer={
+                    <Bar
+                        endContent={
+                            <>
+                                <Button
+                                    design="Transparent"
+                                    className={styles.transparentButton}
+                                    onClick={() => {
+                                        setShowSyncDialog(false);
+                                        handleSubmit();
+                                    }}
+                                    disabled={isSyncing}
+                                >
+                                    I've Synced Manually, Retry
+                                </Button>
+                                {/* <Button design="Default" onClick={handleAutomaticSync} disabled={isSyncing}>
+                                    {isSyncing ? 'Syncing...' : 'Try Automatic Sync Again'}
+                                </Button> */}
+                                <Button onClick={() => setShowSyncDialog(false)} disabled={isSyncing}>
+                                    Cancel
+                                </Button>
+                            </>
+                        }
+                    />
+                }
+            >
+                <div style={{ padding: '1.5rem', fontSize: '1rem', color: '#333' }}>
+                    <p style={{ marginTop: 0, marginBottom: '1rem' }}>
+                        Your fork is out of sync and could not be updated automatically.
+                    </p>
+                    <p style={{ marginBottom: '1.5rem' }}>
+                        Please sync your fork manually on GitHub and then try again, or attempt another automatic sync.
+                    </p>
+                    <h4 style={{ marginBottom: '0.5rem', fontWeight: 600 }}>Manual Sync Instructions:</h4>
+                    <ol style={{ paddingLeft: '20px', margin: 0, lineHeight: '1.8' }}>
+                        <li>
+                            <strong>
+                                <a
+                                    href={userForkUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ color: '#0b65de' }}
+                                >
+                                    Open your fork on GitHub
+                                </a>
+                            </strong>
+                        </li>
+                        <li>Find the "Sync fork" button near the top of the page.</li>
+                        <li>Click "Update branch" to complete the sync.</li>
+                    </ol>
+                </div>
+            </Dialog>
         </LexicalComposer>
     );
 };

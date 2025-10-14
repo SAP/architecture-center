@@ -1,5 +1,3 @@
-// src/components/ProtectedRoute.tsx
-
 import React, { ReactNode } from 'react';
 import { useAuth } from '@site/src/context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -8,11 +6,9 @@ import Layout from '@theme/Layout';
 
 function Redirecting({ provider }: { provider?: string }) {
     return (
-        <Layout>
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-                <h2>Redirecting to {provider ? `${provider.toUpperCase()} ` : ''}login...</h2>
-            </div>
-        </Layout>
+        <div style={{ padding: '2rem', textAlign: 'center' }}>
+            <h2>Redirecting to {provider ? `${provider.toUpperCase()} ` : ''}login...</h2>
+        </div>
     );
 }
 
@@ -28,11 +24,9 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
 
     if (loading) {
         return (
-            <Layout>
-                <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <h2>Loading User...</h2>
-                </div>
-            </Layout>
+            <div style={{ padding: '2rem', textAlign: 'center' }}>
+                <h2>Loading User...</h2>
+            </div>
         );
     }
 
@@ -43,16 +37,14 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
             const isLoggedInWithRequiredProvider = users[requiredProvider] !== null;
             if (!isLoggedInWithRequiredProvider) {
                 return (
-                    <Layout>
-                        <div style={{ padding: '2rem', textAlign: 'center' }}>
-                            <h2>Access Denied</h2>
-                            <p>
-                                This page requires you to be logged in with {requiredProvider.toUpperCase()}. You are
-                                currently logged in with {user.provider.toUpperCase()}.
-                            </p>
-                            <p>Please log out and log in with the correct provider.</p>
-                        </div>
-                    </Layout>
+                    <div style={{ padding: '2rem', textAlign: 'center' }}>
+                        <h2>Access Denied</h2>
+                        <p>
+                            This page requires you to be logged in with {requiredProvider.toUpperCase()}. You are
+                            currently logged in with {user.provider.toUpperCase()}.
+                        </p>
+                        <p>Please log out and log in with the correct provider.</p>
+                    </div>
                 );
             }
         }

@@ -5,6 +5,13 @@ import { useLocation, useHistory } from '@docusaurus/router';
 import siteConfig from '@generated/docusaurus.config';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
+interface GithubJwtPayload {
+    username: string;
+    email?: string;
+    avatar?: string;
+    githubAccessToken?: string;
+}
+
 interface AuthUser {
     username: string;
     email?: string;
@@ -22,6 +29,7 @@ interface AuthContextType {
     loading: boolean;
     logout: (provider?: 'github' | 'btp' | 'all') => void;
     hasDualLogin: boolean;
+    token: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,6 +42,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [users, setUsers] = useState<DualAuthUsers>({ github: null, btp: null });
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState<string | null>(null);
     const location = useLocation();
     const history = useHistory();
 
@@ -41,13 +50,22 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const newUsers: DualAuthUsers = { github: null, btp: null };
         try {
             const jwtToken = localStorage.getItem('jwt_token');
+            setToken(jwtToken);
+
             if (jwtToken) {
                 try {
-                    const decodedUser = jwtDecode<AuthUser>(jwtToken);
-                    newUsers.github = { ...decodedUser, provider: 'github' };
+                    const decodedPayload = jwtDecode<GithubJwtPayload>(jwtToken);
+                    newUsers.github = {
+                        username: decodedPayload.username,
+                        email: decodedPayload.email,
+                        avatar: decodedPayload.avatar,
+                        provider: 'github',
+                        githubAccessToken: decodedPayload.githubAccessToken,
+                    };
                 } catch (jwtError) {
                     console.error('Invalid JWT token found, removing it.', jwtError);
                     localStorage.removeItem('jwt_token');
+                    setToken(null);
                 }
             }
             const authData = authStorage.load();
@@ -74,6 +92,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
+            setToken(null);
         }
     };
 
@@ -86,20 +105,16 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const logoutProvider = params.get('provider');
             if (githubToken) {
                 localStorage.setItem('jwt_token', githubToken);
+                setToken(githubToken);
+
                 const redirectPath = params.get('redirect');
+                history.replace({ ...location, search: '' });
+
                 if (redirectPath) {
                     window.location.href = redirectPath;
                     return;
-                } else {
-                    history.replace({ ...location, search: '' });
                 }
-                try {
-                    const decodedUser = jwtDecode<AuthUser>(githubToken);
-                    setUser(decodedUser);
-                } catch (error) {
-                    console.error('Invalid GitHub JWT token:', error);
-                    localStorage.removeItem('jwt_token');
-                }
+                checkAuthTokens();
             } else if (btpToken) {
                 authStorage.save({ token: btpToken });
                 history.replace({ ...location, search: '' });
@@ -147,21 +162,21 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         };
     }, [location, history]);
 
+    // Get baseUrl from site config
+    const baseUrl = siteConfig.baseUrl || '/';
+
     const logout = (provider?: 'github' | 'btp' | 'all') => {
-        const BTP_API = siteConfig.customFields.backendUrl as string;
         console.log(`Frontend logout called with provider: ${provider}`);
-
-        // Get baseUrl from site config
-        const baseUrl = siteConfig.baseUrl || '/';
-
         if (!provider || provider === 'all') {
             localStorage.removeItem('jwt_token');
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
+            setToken(null);
             window.location.href = baseUrl;
         } else if (provider === 'github') {
             localStorage.removeItem('jwt_token');
+            setToken(null);
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
             if (newUsers.btp) {
@@ -194,7 +209,9 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const hasDualLogin = !!(users.github && users.btp);
 
     return (
-        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, token }}>
+            {children}
+        </AuthContext.Provider>
     );
 };
 
