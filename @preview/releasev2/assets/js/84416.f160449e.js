@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksap_architecture_center=self.webpackChunksap_architecture_center||[]).push([[84416],{84416:e=>{e.exports=JSON.parse('{"DRAG_DROP_MULTIPLE_TEXT":"[[[{0} \u012f\u0163\u0113\u0271\u015f]]]"}')}}]);
