@@ -117,6 +117,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 checkAuthTokens();
             } else if (btpToken) {
                 authStorage.save({ token: btpToken });
+                console.log('BTP token saved to authStorage', btpToken);
                 history.replace({ ...location, search: '' });
                 try {
                     const BTP_API = siteConfig.customFields.backendUrl as string;
@@ -166,31 +167,64 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const baseUrl = siteConfig.baseUrl || '/';
 
     const logout = (provider?: 'github' | 'btp' | 'all') => {
-        console.log(`Frontend logout called with provider: ${provider}`);
+        const BTP_API = siteConfig.customFields.backendUrl as string;
+
         if (!provider || provider === 'all') {
+            // Clear both storage systems locally first
             localStorage.removeItem('jwt_token');
-            authStorage.clear();
+            // authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
-            setToken(null);
-            window.location.href = baseUrl;
+
+            // Use backend logout for BTP if we had BTP authentication
+            if (users.btp) {
+                const logoutUrl = new URL(`${BTP_API}/user/logout`);
+                logoutUrl.searchParams.append('provider', 'btp');
+                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+                window.location.href = logoutUrl.toString();
+            } else {
+                window.location.href = baseUrl;
+            }
         } else if (provider === 'github') {
+            // Clear only GitHub authentication locally
             localStorage.removeItem('jwt_token');
             setToken(null);
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
+
+            // Set BTP as primary user if it exists
             if (newUsers.btp) {
                 setUser(newUsers.btp);
             } else {
                 setUser(null);
                 window.location.href = baseUrl;
             }
+
+            // GitHub doesn't have a logout endpoint, so we're done
         } else if (provider === 'btp') {
+            // Get BTP token before clearing local storage
             const authData = authStorage.load();
             const btpToken = authData?.token;
-            authStorage.clear();
+            // authStorage.clear();
+            const newUsers = { ...users, btp: null };
+            setUsers(newUsers);
+
+            // Use backend logout handler for BTP
             if (btpToken) {
-                window.location.href = baseUrl;
+                const logoutUrl = new URL(`${BTP_API}/user/logout`);
+                // logoutUrl.searchParams.append('provider', 'btp');
+                logoutUrl.searchParams.append('jwt_token', btpToken);
+                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+                authStorage.clear();
+
+                // If we have GitHub user remaining, stay on current page
+                if (newUsers.github) {
+                    setUser(newUsers.github);
+                    logoutUrl.searchParams.set('post_logout_redirect_uri', window.location.href);
+                }
+
+                // Redirect to backend logout handler
+                window.location.href = logoutUrl.toString();
             } else {
                 console.log('No BTP token found, clearing locally and redirecting');
                 authStorage.clear();

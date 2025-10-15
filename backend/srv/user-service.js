@@ -152,7 +152,7 @@ const loginSuccessHandler = async (req) => {
 
             if (token_data.access_token) {
 
-                if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.access_token}`);
+                if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.id_token}`);
 
                 // Create app token with BTP user info
             };
@@ -166,13 +166,15 @@ const logoutHandler = async (req) => {
     const { http } = cds.context;
     const rawProvider = http && http.req.query && http.req.query.provider;
     const provider = rawProvider || 'btp';
-    const jwt_token = http && http.req.query && http.req.query.jwt_token;
-    const origin_uri = http && http.req.query && http.req.query.origin_uri;
+    let jwt_token = http && http.req.query && http.req.query.jwt_token;
+    let origin_uri = http && http.req.query && http.req.query.origin_uri;
+    if (origin_uri === 'undefined' || !origin_uri) origin_uri = FRONTEND_URL + '/';
 
     console.log(`Logout request - Raw provider: ${rawProvider}, Final provider: ${provider}`);
     console.log(`Query parameters:`, http.req.query);
 
-    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
+    // let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
+    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess`;
     callback_url = encodeURIComponent(callback_url);
     let logout_url = '';
 
@@ -182,10 +184,10 @@ const logoutHandler = async (req) => {
 
         // Add required parameters
         if (jwt_token) {
-            logout_url += `id_token_hint=${encodeURIComponent(jwt_token)}&`;
+            logout_url += `id_token_hint=${jwt_token}&`;
         }
 
-        logout_url += `post_logout_redirect_uri=${callback_url}`;
+        logout_url += `post_logout_redirect_uri=${callback_url}&login_hint=`;
 
         console.log(`BTP logout URL: ${logout_url}`);
     } else if (provider === 'github') {
