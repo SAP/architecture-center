@@ -6,7 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
 
-type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
+type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
 interface ValidationRule {
     rule: string;
@@ -25,29 +25,14 @@ interface ManagedFile {
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { user, users, loading } = useAuth();
+    const { users, loading } = useAuth();
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [hasRedirected, setHasRedirected] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Check if user is authenticated with BTP
     const isBtpAuthenticated = users.btp !== null;
 
-    // Redirect to BTP login if user is not authenticated with BTP
-    useEffect(() => {
-        if (!loading && !isBtpAuthenticated && !hasRedirected) {
-            setHasRedirected(true);
-            // Redirect to BTP login
-            const BTP_API = siteConfig.customFields.backendUrl as string;
-            window.location.href = `${BTP_API}/user/login?origin_uri=${encodeURIComponent(
-                window.location.href
-            )}&provider=btp`;
-        }
-    }, [loading, isBtpAuthenticated, hasRedirected, siteConfig.customFields.backendUrl]);
-
-    // Show loading state while checking authentication
     if (loading) {
         return (
             <Layout>
@@ -64,7 +49,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
         );
     }
 
-    // Don't render the main content if user is not authenticated with BTP
     if (!isBtpAuthenticated) {
         return (
             <Layout>
@@ -80,17 +64,10 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 The Architecture Validator requires BTP authentication to ensure secure access to
                                 validation services.
                             </p>
-                            {user && user.provider !== 'btp' ? (
-                                <p>
-                                    You are currently logged in with {user.provider.toUpperCase()}, but this feature
-                                    requires BTP login.
-                                </p>
-                            ) : (
-                                <p>
-                                    You will be redirected to the BTP login page automatically, or you can click the
-                                    button below to login manually.
-                                </p>
-                            )}
+                            <p>
+                                You will be redirected to the BTP login page automatically, or you can click the button
+                                below to login manually.
+                            </p>
                             <button
                                 className={styles.loginButton}
                                 onClick={() => {
@@ -144,7 +121,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) processAndAddFiles(event.target.files);
-        event.target.value = ''; // Allow re-selecting the same file
+        event.target.value = '';
     };
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -157,10 +134,8 @@ export default function ArchitectureValidator(): React.JSX.Element {
         try {
             const formData = new FormData();
             formData.append('file', managedFile.file);
-            console.log('Using API URL:', siteConfig.customFields.validatorApiUrl);
             const apiUrl = siteConfig.customFields.validatorApiUrl as string;
 
-            // Get token from authStorage
             const authData = authStorage.load();
             const token = authData?.token;
 
@@ -175,8 +150,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
             });
 
             const report = response.data.validationReport;
-
-            // Filter out INFO items for display and status determination
             const displayResults = report.filter((v) => v.severity !== 'INFO');
 
             let finalStatus: FileStatus = 'success';
@@ -198,7 +171,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
         let completedCount = 0;
         const totalFiles = filesToValidate.length;
 
-        // Create promises for all validations to run in parallel
         const validationPromises = filesToValidate.map(async (file) => {
             try {
                 await validateFile(file);
@@ -208,7 +180,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
             }
         });
 
-        // Wait for all validations to complete
         await Promise.all(validationPromises);
         setIsProcessingBatch(false);
     };
