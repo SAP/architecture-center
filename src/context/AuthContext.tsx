@@ -214,7 +214,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
                 // logoutUrl.searchParams.append('provider', 'btp');
                 logoutUrl.searchParams.append('jwt_token', btpToken);
-                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+                logoutUrl.searchParams.append('origin_uri', window.location.origin + '/');
                 authStorage.clear();
 
                 // If we have GitHub user remaining, stay on current page

@@ -166,28 +166,18 @@ const logoutHandler = async (req) => {
     const { http } = cds.context;
     const rawProvider = http && http.req.query && http.req.query.provider;
     const provider = rawProvider || 'btp';
-    let jwt_token = http && http.req.query && http.req.query.jwt_token;
-    let origin_uri = http && http.req.query && http.req.query.origin_uri;
-    if (origin_uri === 'undefined' || !origin_uri) origin_uri = FRONTEND_URL + '/';
+    const origin_uri = http && http.req.query && http.req.query.origin_uri;
 
     console.log(`Logout request - Raw provider: ${rawProvider}, Final provider: ${provider}`);
     console.log(`Query parameters:`, http.req.query);
 
-    // let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
-    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess`;
+    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
     callback_url = encodeURIComponent(callback_url);
     let logout_url = '';
 
     if (provider === 'btp') {
-        // BTP logout using SAP Accounts service
-        logout_url = 'https://accounts.sap.com/oauth2/logout?';
 
-        // Add required parameters
-        if (jwt_token) {
-            logout_url += `id_token_hint=${jwt_token}&`;
-        }
-
-        logout_url += `post_logout_redirect_uri=${callback_url}&login_hint=`;
+        logout_url = `${XSUAA_URL}/logout.do?redirect=${callback_url}&client_id=${XSUAA_CLIENTID}`;
 
         console.log(`BTP logout URL: ${logout_url}`);
     } else if (provider === 'github') {
