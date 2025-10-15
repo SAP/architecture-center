@@ -17,9 +17,6 @@ declare global {
 const router = Router();
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = process.env;
-console.log('GITHUB_CLIENT_ID:', GITHUB_CLIENT_ID);
-console.log('FRONTEND_URL:', FRONTEND_URL);
-console.log('GITHUB_CLIENT_SECRET:', GITHUB_CLIENT_SECRET);
 
 if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET || !JWT_SECRET || !FRONTEND_URL) {
     throw new Error('Missing required environment variables for GitHub OAuth or JWT.');
