@@ -31,7 +31,12 @@
   },
   "cds": {
     "requires": {
+      "[production]": {
         "auth": "xsuaa"
+      },
+      "[hybrid]": {
+        "auth": "mocked"
+      }
     }
   }
 }
