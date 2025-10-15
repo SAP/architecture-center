@@ -18,6 +18,10 @@ const router = Router();
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET, FRONTEND_URL } = process.env;
 
+if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET || !JWT_SECRET || !FRONTEND_URL) {
+    throw new Error('Missing required environment variables for GitHub OAuth or JWT.');
+}
+
 function isTrustedRedirectUrl(candidate: string | undefined): boolean {
     if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
     try {
