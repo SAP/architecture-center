@@ -128,8 +128,10 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
+        event.currentTarget.classList.remove(styles.dragOver);
         if (event.dataTransfer.files) processAndAddFiles(event.dataTransfer.files);
     };
+
 
     const validateFile = async (managedFile: ManagedFile) => {
         updateFileState(managedFile.id, { status: 'validating' });
@@ -220,7 +222,11 @@ export default function ArchitectureValidator(): React.JSX.Element {
                 {managedFiles.length === 0 ? (
                     <div
                         className={styles.fioriUploader}
-                        onDragOver={(e) => e.preventDefault()}
+                        onDragOver={(e) => {
+                            e.preventDefault();
+                            e.currentTarget.classList.add(styles.dragOver);
+                        }}
+                        onDragLeave={(e) => e.currentTarget.classList.remove(styles.dragOver)}
                         onDrop={handleDrop}
                         onClick={() => fileInputRef.current?.click()}
                     >

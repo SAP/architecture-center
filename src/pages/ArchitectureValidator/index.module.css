@@ -1,5 +1,4 @@
 .heroBanner {
-    background-color: #0658CD;
     background: url("/img/architectureValidator/architecture_validator_header.svg");
     background-repeat: no-repeat;
     background-position: right center;
@@ -56,9 +55,9 @@
 }
 
 .heroSubtitle {
-  color: white;
-  font-size: var(--sapObjectHeader_Title_FontFamily);
-  line-height: 26px;
+    color: white;
+    font-size: var(--sapObjectHeader_Title_FontFamily);
+    line-height: 26px;
 }
 
 .headerBar {
@@ -118,16 +117,24 @@
 }
 
 .uploaderTitle {
-  font-size: var(--sapFontHeader4Size);
-  font-weight: var(--sapFontHeaderWeight);
-  color: var(--sapTextColor);
-  margin-bottom: 0.25rem;
-  text-align: center;
+    font-size: var(--sapFontHeader4Size);
+    font-weight: var(--sapFontHeaderWeight);
+    color: var(--sapTextColor);
+    margin-bottom: 0.25rem;
+    text-align: center;
 }
 
 .uploaderSubtitle {
-  color: var(--sapContent_LabelColor);
-  text-align: center;
+    color: var(--sapContent_LabelColor);
+    text-align: center;
+}
+
+.fioriUploader.dragOver {
+    border-color: var(--sapHighlightColor);
+    background: var(--sapList_Hover_Background);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sapHighlightColor) 25%, transparent);
+    transform: scale(1.01);
+    transition: all 0.15s ease-in-out;
 }
 
 .contentArea {
