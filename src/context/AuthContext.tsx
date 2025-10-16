@@ -5,6 +5,8 @@ import { useLocation, useHistory } from '@docusaurus/router';
 import siteConfig from '@generated/docusaurus.config';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
+const GITHUB_SESSION_DURATION_HOURS = 2;
+
 interface GithubJwtPayload {
     username: string;
     email?: string;
@@ -46,17 +48,22 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const [token, setToken] = useState<string | null>(null); // This token is specifically for GitHub
     const location = useLocation();
     const history = useHistory();
-    const logoutTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timer ID
+    const btpLogoutTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timer ID for BTP
+    const githubLogoutTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timer ID for GitHub
 
-    const clearLogoutTimer = () => {
-        if (logoutTimerRef.current) {
-            clearTimeout(logoutTimerRef.current);
-            logoutTimerRef.current = null;
+    const clearAllLogoutTimers = () => {
+        if (btpLogoutTimerRef.current) {
+            clearTimeout(btpLogoutTimerRef.current);
+            btpLogoutTimerRef.current = null;
+        }
+        if (githubLogoutTimerRef.current) {
+            clearTimeout(githubLogoutTimerRef.current);
+            githubLogoutTimerRef.current = null;
         }
     };
 
     const scheduleBtpTokenExpiryCheck = (expiresAt: number) => {
-        clearLogoutTimer(); // Clear any existing timer
+        if (btpLogoutTimerRef.current) clearTimeout(btpLogoutTimerRef.current); // Clear any existing BTP timer
 
         const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
         const timeLeft = expiresAt - currentTime; // Time left in seconds
@@ -79,35 +86,57 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             ).toLocaleString()}. Logging out in ~${Math.round(effectiveDelay / 1000)} seconds.`
         );
 
-        logoutTimerRef.current = setTimeout(() => {
+        btpLogoutTimerRef.current = setTimeout(() => {
             console.log('BTP token expired or nearing expiry. Initiating BTP logout.');
             logout('btp');
         }, effectiveDelay);
     };
 
+    const scheduleGithubTokenExpiryCheck = (expiresAt: number) => {
+        if (githubLogoutTimerRef.current) clearTimeout(githubLogoutTimerRef.current);
+        const timeLeft = expiresAt - Date.now();
+        if (timeLeft <= 0) {
+            logout('github');
+            return;
+        }
+        githubLogoutTimerRef.current = setTimeout(() => logout('github'), timeLeft);
+    };
+
     const checkAuthTokens = () => {
         const newUsers: DualAuthUsers = { github: null, btp: null };
-        clearLogoutTimer(); // Clear timer whenever re-checking tokens
+        clearAllLogoutTimers(); // Clear timers whenever re-checking tokens
 
         try {
-            const jwtToken = localStorage.getItem('jwt_token');
-            setToken(jwtToken);
-
-            if (jwtToken) {
+            const githubAuthDataString = localStorage.getItem('jwt_token');
+            if (githubAuthDataString) {
                 try {
-                    const decodedPayload = jwtDecode<GithubJwtPayload>(jwtToken);
-                    newUsers.github = {
-                        username: decodedPayload.username,
-                        email: decodedPayload.email,
-                        avatar: decodedPayload.avatar,
-                        provider: 'github',
-                        githubAccessToken: decodedPayload.githubAccessToken,
-                    };
+                    const githubAuthData = JSON.parse(githubAuthDataString);
+                    // Check if the token wrapper has an expiry and it's in the future
+                    if (githubAuthData.expiresAt && Date.now() < githubAuthData.expiresAt) {
+                        const decodedPayload = jwtDecode<GithubJwtPayload>(githubAuthData.token);
+                        newUsers.github = {
+                            username: decodedPayload.username,
+                            email: decodedPayload.email,
+                            avatar: decodedPayload.avatar,
+                            provider: 'github',
+                            githubAccessToken: decodedPayload.githubAccessToken,
+                            expiresAt: githubAuthData.expiresAt, // Store session expiry
+                        };
+                        setToken(githubAuthData.token);
+                        scheduleGithubTokenExpiryCheck(githubAuthData.expiresAt);
+                    } else {
+                        // If expired, remove it
+                        console.log('GitHub session expired, removing token.');
+                        localStorage.removeItem('jwt_token');
+                        setToken(null);
+                    }
                 } catch (jwtError) {
-                    console.error('Invalid GitHub JWT token found, removing it.', jwtError);
+                    console.error('Invalid GitHub JWT data found, removing it.', jwtError);
                     localStorage.removeItem('jwt_token');
                     setToken(null);
                 }
+            } else {
+                setToken(null);
             }
 
             const authData = authStorage.load();
@@ -162,7 +191,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             setUser(null);
             setUsers({ github: null, btp: null });
             setToken(null);
-            clearLogoutTimer();
+            clearAllLogoutTimers();
         } finally {
             setLoading(false);
         }
@@ -171,23 +200,21 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const initializeAuth = async () => {
             const params = new URLSearchParams(location.search);
-            const githubToken = params.get('token');
+            const githubTokenFromUrl = params.get('token');
             const btpToken = params.get('t');
             const logoutSuccess = params.get('logout');
             const logoutProvider = params.get('provider');
 
-            if (githubToken) {
-                localStorage.setItem('jwt_token', githubToken);
-                setToken(githubToken);
+            if (githubTokenFromUrl) {
+                // Create a session expiry for the GitHub token
+                const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
+                const githubAuthData = { token: githubTokenFromUrl, expiresAt };
+                localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
 
-                const redirectPath = params.get('redirect');
                 history.replace({ ...location, search: '' });
-
-                if (redirectPath) {
-                    window.location.href = redirectPath;
-                    return;
-                }
+                // We will re-check tokens which will also schedule the expiry timer
                 checkAuthTokens();
+                // No immediate return or redirect, let the component re-render
             } else if (btpToken) {
                 // When BTP token is received, save it with expiry
                 authStorage.save({ token: btpToken });
@@ -245,7 +272,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         window.addEventListener('storage', handleStorageChange);
         return () => {
             window.removeEventListener('storage', handleStorageChange);
-            clearLogoutTimer(); // Clear timer on unmount
+            clearAllLogoutTimers(); // Clear timers on unmount
         };
     }, [location, history]);
 
@@ -254,7 +281,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = (provider?: 'github' | 'btp' | 'all') => {
         const BTP_API = siteConfig.customFields.backendUrl as string;
-        clearLogoutTimer();
+        clearAllLogoutTimers();
 
         if (!provider || provider === 'all') {
             // Clear both storage systems locally first
@@ -280,19 +307,17 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
 
-            // Always redirect to base URL for consistency
-            const baseRedirectUrl = window.location.origin + baseUrl;
             if (newUsers.btp) {
                 setUser(newUsers.btp);
+                // Re-schedule BTP timer if BTP user is still logged in
                 if (newUsers.btp.expiresAt) {
-                    scheduleBtpTokenExpiryCheck(newUsers.btp.expiresAt); // Re-schedule BTP timer if still logged in
+                    scheduleBtpTokenExpiryCheck(newUsers.btp.expiresAt);
                 }
             } else {
                 setUser(null);
             }
-            window.location.href = baseRedirectUrl;
-
-            // GitHub doesn't have a logout endpoint, so we're done
+            // Trigger storage event to sync other tabs without a full page reload
+            window.dispatchEvent(new Event('storage'));
         } else if (provider === 'btp') {
             const authData = authStorage.load();
             const btpToken = authData?.token;
@@ -319,9 +344,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 console.log('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
                 if (newUsers.github) {
                     setUser(newUsers.github);
-                    if (newUsers.github.expiresAt) {
-                        scheduleBtpTokenExpiryCheck(newUsers.github.expiresAt); // Unlikely, but for consistency
-                    }
+                    // No need to schedule github timer, it's already running if valid
                 } else {
                     setUser(null);
                 }

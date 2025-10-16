@@ -6,7 +6,6 @@ import { useHistory } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
-import ProtectedRoute from '@site/src/components/ProtectedRoute';
 import { useAuth } from '@site/src/context/AuthContext';
 
 function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
@@ -33,7 +32,7 @@ const initialPageData: PageMetadata = {
     contributors: [],
 };
 
-export default function QuickStart(): JSX.Element {
+function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
@@ -41,7 +40,7 @@ export default function QuickStart(): JSX.Element {
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { user } = useAuth();
+    const { users } = useAuth();
 
     useEffect(() => {
         if (documents.length === 0) {
@@ -52,8 +51,8 @@ export default function QuickStart(): JSX.Element {
     const handleAddNew = (parentId: string | null = null) => {
         const newDocWithAuthor = {
             ...initialPageData,
-            authors: user ? [user.username] : [],
-            contributors: user ? [user.username] : [],
+            authors: users.github ? [users.github.username] : [],
+            contributors: users.github ? [users.github.username] : [],
         };
         setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
@@ -73,19 +72,82 @@ export default function QuickStart(): JSX.Element {
     };
 
     return (
-        <Layout>
-            <ProtectedRoute>
-                <MetadataFormDialog
-                    open={isModalOpen}
-                    initialData={newDocData}
-                    onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
-                    onSave={handleCreate}
-                    onCancel={handleCancel}
-                />
-                <main className={styles.pageContainer}>
-                    <EditorComponent onAddNew={handleAddNew} />
+        <>
+            <MetadataFormDialog
+                open={isModalOpen}
+                initialData={newDocData}
+                onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
+                onSave={handleCreate}
+                onCancel={handleCancel}
+            />
+            <main className={styles.pageContainer}>
+                <EditorComponent onAddNew={handleAddNew} />
+            </main>
+        </>
+    );
+}
+
+export default function QuickStart(): JSX.Element {
+    const { siteConfig } = useDocusaurusContext();
+    const { users, loading } = useAuth();
+
+    const isGithubAuthenticated = users.github !== null;
+    const { expressBackendUrl } = siteConfig.customFields as {
+        expressBackendUrl: string;
+    };
+
+    if (loading) {
+        return (
+            <Layout>
+                <div className={styles.headerBar}>
+                    <h1>Quickstart</h1>
+                    <p>Loading...</p>
+                </div>
+                <main className={styles.mainContainer}>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <p>Checking authentication...</p>
+                    </div>
                 </main>
-            </ProtectedRoute>
+            </Layout>
+        );
+    }
+
+    if (!isGithubAuthenticated) {
+        return (
+            <Layout>
+                <div className={styles.headerBar}>
+                    <h1>Quickstart</h1>
+                    <p>GitHub authentication required to access this feature</p>
+                </div>
+                <main className={styles.mainContainer}>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                        <div className={styles.authRequired}>
+                            <h2>🔒 GitHub Authentication Required</h2>
+                            <p>The Quickstart editor requires GitHub authentication to manage your documents.</p>
+                            <p>Please log in with your GitHub account to continue.</p>
+                            <button
+                                className={styles.loginButton}
+                                onClick={() => {
+                                    window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
+                                        window.location.href
+                                    )}&provider=github`;
+                                }}
+                            >
+                                Login with GitHub to Continue
+                            </button>
+                            <p className={styles.authHelpText}>
+                                After logging in, you'll be redirected back to this page.
+                            </p>
+                        </div>
+                    </div>
+                </main>
+            </Layout>
+        );
+    }
+
+    return (
+        <Layout>
+            <AuthenticatedQuickStartView />
         </Layout>
     );
 }
