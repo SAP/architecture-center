@@ -141,66 +141,28 @@
     width: 100%;
     max-width: 1200px;
 }
+
 .actionsHeader {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
     margin-bottom: 1.5rem;
-    padding: 0 0.5rem;
-}
-.actionButtons {
-    display: flex;
-    gap: 1rem;
-}
-.addFilesButton,
-.validateButton,
-.clearButton {
-    border: none;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.addFilesButton {
-    background-color: #e8f0fe;
-    color: #1967d2;
-    border: 1px solid #1967d2;
-}
-.addFilesButton:hover {
-    background-color: #d2e3fc;
-}
-.validateButton {
-    background-color: #005fba;
-    color: white;
-}
-.validateButton:hover:not(:disabled) {
-    background-color: #004a93;
-}
-.validateButton:disabled {
-    background-color: #a0a0a0;
-    cursor: not-allowed;
-}
-.clearButton {
-    background-color: #f1f3f4;
-    color: #333;
-}
-.clearButton:hover {
-    background-color: #e0e0e0;
 }
 
 .progressBarContainer {
     width: 100%;
     height: 8px;
-    background-color: #e0e0e0;
+    background-color: var(--sapGroup_ContentBackground);
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 1.5rem;
 }
+
 .progressBar {
     height: 100%;
-    background-color: #005fba;
+    background-color: var(--sapHighlightColor);
     border-radius: 4px;
     transition: width 0.4s ease-in-out;
 }
@@ -210,26 +172,31 @@
     flex-direction: column;
     gap: 2rem;
 }
+
 .fileCard {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-left: 6px solid #a0a0a0;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background-color: var(--sapGroup_ContentBackground);
+    border: 1px solid var(--sapList_BorderColor);
+    border-left: 6px solid var(--sapNeutralBorderColor); /* neutral state */
+    border-radius: var(--sapElement_BorderCornerRadius);
+    box-shadow: var(--sapContent_Shadow0); /* subtle elevation shadow */
     transition: border-left-color 0.5s ease, box-shadow 0.5s ease;
     overflow: hidden;
 }
+
 .fileCard.validating {
-    border-left-color: #ffc107;
+    border-left-color: var(--sapInformationBorderColor);
 }
+
 .fileCard.success {
-    border-left-color: #4caf50;
+    border-left-color: var(--sapSuccessBorderColor);
 }
+
 .fileCard.warning {
-    border-left-color: #ff9800;
+    border-left-color: var(--sapWarningBorderColor);
 }
+
 .fileCard.error {
-    border-left-color: #f44336;
+    border-left-color: var(--sapErrorBorderColor);
 }
 
 .fileCardHeader {
@@ -237,57 +204,37 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 1.5rem;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #eee;
+    background-color: var(--sapList_HeaderBackground);
+    border-bottom: 1px solid var(--sapList_BorderColor);
 }
+
 .fileInfo {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
+
 .statusName {
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: #555;
-    background-color: #e0e0e0;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.5rem;
+    font-size: var(--sapFontSize);
+    font-weight: var(--sapFontBoldFamily);
+    text-transform: uppercase;
+    color: var(--sapContent_LabelColor);
+    background-color: var(--sapContent_ForegroundColor);
+    border: 1px solid var(--sapList_BorderColor);
 }
+
 .fileName {
     margin: 0;
     font-size: 1.2rem;
 }
+
 .cardActions {
     display: flex;
     align-items: center;
     gap: 1rem;
-}
-.cardValidateButton {
-    font-size: 0.9rem;
-    font-weight: bold;
-    background-color: #e6f4ea;
-    color: #137333;
-    border: 1px solid #137333;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.cardValidateButton:hover {
-    background-color: #ceead6;
-}
-.cardRemoveButton {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #999;
-    cursor: pointer;
-    padding: 0 0.5rem;
-    line-height: 1;
-    transition: color 0.2s;
-}
-.cardRemoveButton:hover {
-    color: #f44336;
 }
 
 .previewAndResults {
@@ -296,12 +243,14 @@
     gap: 1.5rem;
     padding: 1.5rem;
 }
+
 .previewWrapper {
     position: relative;
     min-height: 450px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--sapGroup_ContentBorderColor);
     border-radius: 8px;
 }
+
 .diagramViewer {
     width: 100%;
     height: 100%;
@@ -335,14 +284,14 @@
 .loadingSpinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #ffc107;
+    border: 4px solid var(--sapGroup_ContentBorderColor);
+    border-top: 4px solid var(--sapInformationBorderColor);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
 
 .validatingText {
-    color: #ffc107;
+    color: var(--sapInformationBorderColor);
     font-weight: 600;
     font-size: 1.1rem;
 }
@@ -357,29 +306,34 @@
 }
 
 .violationCard {
-    background-color: #f8f9fa;
+    background-color: var(--sapGroup_ContentBackground);
     border-left: 4px solid;
     border-radius: 6px;
     padding: 0.75rem 1rem;
     margin-bottom: 0.75rem;
     font-size: 0.9em;
 }
+
 .violationCard.errorCard {
-    border-left-color: #f44336;
-    background-color: #fef6f5;
+    border-left-color: var(--sapErrorBorderColor);
+    background-color: var(--sapErrorBackground);
 }
+
 .violationCard.warningCard {
-    border-left-color: #ff9800;
-    background-color: #fff8f0;
+    border-left-color: var(--sapWarningBorderColor);
+    background-color: var(--sapWarningBackground);
 }
+
 .violationCard.successCard {
-    border-left-color: #4caf50;
-    background-color: #f6fbf6;
+    border-left-color: var(--sapSuccessBorderColor);
+    background-color: var(--sapSuccessBackground);
 }
+
 .violationCard.infoCard {
-    border-left-color: #0969da;
-    background-color: #f6f8fa;
+    border-left-color: var(--sapInformationBorderColor);
+    background-color: var(--sapInformationBackground);
 }
+
 .violationHeader {
     display: flex;
     align-items: center;
@@ -387,25 +341,31 @@
     font-weight: bold;
     margin-bottom: 0.25rem;
 }
+
 .severityBadge {
     padding: 0.1rem 0.4rem;
     border-radius: 4px;
     font-size: 0.8rem;
     color: white;
 }
+
 .errorCard .severityBadge {
-    background-color: #f44336;
+    background-color: var(--sapErrorBorderColor);
 }
+
 .warningCard .severityBadge {
-    background-color: #ff9800;
+    background-color: var(--sapWarningBorderColor);
 }
+
 .infoCard .severityBadge {
-    background-color: #0969da;
+    background-color: var(--sapInformationBorderColor);
 }
+
 .violationRule {
     margin-top: 0.5rem;
     color: #555;
 }
+
 .violationDetails {
     margin-top: 0.5rem;
     color: #555;
@@ -415,20 +375,20 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 3rem 2rem;
-    background-color: #f8f9fa;
+    background-color: var(--sapGroup_ContentBackground);
     border-radius: 12px;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
 }
 
 .authRequired h2 {
-    color: #495057;
+    color: var(--sapTextColor);
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
 
 .authRequired p {
-    color: #6c757d;
+    color: var(--sapContent_LabelColor);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -436,8 +396,8 @@
 .loginButton {
     padding: 12px 24px;
     font-size: 16px;
-    background-color: #0070f2;
-    color: white;
+    background-color: var(--sapButton_Emphasized_Background);
+    color: var(--sapButton_Emphasized_TextColor);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -446,9 +406,9 @@
 }
 
 .loginButton:hover {
-    background-color: #0056d3;
+    background-color: var(--sapButton_Emphasized_Hover_Background);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.3);
+    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
 }
 
 .loginButton:active {

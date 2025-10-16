@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
-import { FlexBox, Title, Text, Icon } from '@ui5/webcomponents-react';
+import { Button, FlexBox, Title, Text, Icon} from '@ui5/webcomponents-react';
 import "@ui5/webcomponents-icons/dist/AllIcons.js";
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
@@ -254,9 +254,20 @@ export default function ArchitectureValidator(): React.JSX.Element {
                 ) : (
                     <div className={styles.contentArea}>
                         <div className={styles.actionsHeader}>
-                            <button className={styles.addFilesButton} onClick={() => fileInputRef.current?.click()}>
-                                + Add More Files
-                            </button>
+                            <Button
+                                design="Emphasized"
+                                onClick={handleValidateBatch}
+                                disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
+                            >
+                                {isProcessingBatch
+                                ? 'Validating...'
+                                : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
+                            </Button>
+
+                            <Button design="Default" onClick={() => fileInputRef.current?.click()}>
+                                Add More Files
+                            </Button>
+
                             <input
                                 ref={fileInputRef}
                                 type="file"
@@ -265,23 +276,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 style={{ display: 'none' }}
                                 multiple
                             />
-                            <div className={styles.actionButtons}>
-                                <button className={styles.clearButton} onClick={clearAll}>
-                                    Clear All
-                                </button>
-                                <button
-                                    className={styles.validateButton}
-                                    onClick={handleValidateBatch}
-                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
-                                >
-                                    {isProcessingBatch
-                                        ? `Validating...`
-                                        : `Validate Batch (${
-                                              managedFiles.filter((f) => f.status === 'batched').length
-                                          })`}
-                                </button>
-                            </div>
+
+                            <Button design="Transparent" onClick={clearAll}>
+                                Remove All
+                            </Button>
                         </div>
+
 
                         {isProcessingBatch && (
                             <div className={styles.progressBarContainer}>
@@ -294,25 +294,23 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 <div key={mf.id} className={`${styles.fileCard} ${styles[mf.status]}`}>
                                     <div className={styles.fileCardHeader}>
                                         <div className={styles.fileInfo}>
-                                            <span className={styles.statusName}>{mf.status.toUpperCase()}</span>
+                                            <span className={styles.statusName}>
+                                                {mf.status === 'batched' ? 'Pending' : mf.status.charAt(0).toUpperCase() + mf.status.slice(1)}
+                                            </span>
                                             <h3 className={styles.fileName}>{mf.file.name}</h3>
                                         </div>
                                         <div className={styles.cardActions}>
                                             {mf.status === 'batched' && (
-                                                <button
-                                                    className={styles.cardValidateButton}
-                                                    onClick={() => validateFile(mf)}
-                                                >
-                                                    Validate
-                                                </button>
+                                                <Button design="Positive" onClick={() => validateFile(mf)}>
+                                                Validate
+                                                </Button>
                                             )}
-                                            <button
-                                                className={styles.cardRemoveButton}
+                                            <Button
+                                                design="Transparent"
+                                                icon="delete"
+                                                tooltip="Remove File"
                                                 onClick={() => handleRemoveFile(mf.id)}
-                                                title="Remove File"
-                                            >
-                                                ✕
-                                            </button>
+                                            />
                                         </div>
                                     </div>
                                     <div className={styles.previewAndResults}>
