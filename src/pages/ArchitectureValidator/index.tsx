@@ -5,6 +5,8 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
+import { FlexBox, Title, Text, Link, Icon } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/home.js';
 
 type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -225,9 +227,23 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     return (
         <Layout>
-            <div className={styles.headerBar}>
-                <h1>Architecture Validator</h1>
-                <p>Upload, preview, and validate your .drawio diagrams against best practices.</p>
+            <div className={styles.heroBanner}>
+                <div className={styles.heroContent}>
+                    <div className={styles.breadCrumbs}>
+                        <a href="/" className={styles.homeLink}>
+                            <Icon name="home" />
+                        </a>
+                        <Text className={styles.breadcrumbSeparator}>&gt;</Text>
+                        <Text className={styles.breadcrumbCurrent}>Architecture Validator</Text>
+                    </div>
+
+                    <FlexBox direction="Column" alignItems="Start" justifyContent="Center">
+                        <Title className={styles.heroTitle}>Architecture Validator</Title>
+                        <Text className={styles.heroSubtitle}>
+                            Upload, preview, and validate your .drawio diagrams against SAP best practices.
+                        </Text>
+                    </FlexBox>
+                </div>
             </div>
 
             <main className={styles.mainContainer}>
