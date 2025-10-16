@@ -80,12 +80,6 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         // Ensure delay is not negative or too small
         const effectiveDelay = Math.max(1000, delay); // Minimum 1 second delay
 
-        console.log(
-            `Scheduling BTP token check for ${new Date(
-                expiresAt * 1000
-            ).toLocaleString()}. Logging out in ~${Math.round(effectiveDelay / 1000)} seconds.`
-        );
-
         btpLogoutTimerRef.current = setTimeout(() => {
             console.log('BTP token expired or nearing expiry. Initiating BTP logout.');
             logout('btp');
@@ -218,7 +212,6 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             } else if (btpToken) {
                 // When BTP token is received, save it with expiry
                 authStorage.save({ token: btpToken });
-                console.log('BTP token saved to authStorage', btpToken);
                 history.replace({ ...location, search: '' });
                 try {
                     const BTP_API = siteConfig.customFields.backendUrl as string;
@@ -257,7 +250,6 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 }
                 window.dispatchEvent(new Event('storage'));
             } else if (logoutSuccess === 'success' && logoutProvider) {
-                console.log(`Logout success callback for provider: ${logoutProvider}`);
                 history.replace({ ...location, search: '' });
                 checkAuthTokens();
             } else {
@@ -295,7 +287,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             if (users.btp) {
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
                 logoutUrl.searchParams.append('provider', 'btp');
-                logoutUrl.searchParams.append('post_logout_redirect_uri', baseRedirectUrl);
+                logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
                 window.location.href = logoutUrl.toString();
             } else {
                 window.location.href = baseRedirectUrl;
@@ -306,7 +298,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             setToken(null);
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
-
+            const baseRedirectUrl = window.location.origin + baseUrl;
             if (newUsers.btp) {
                 setUser(newUsers.btp);
                 // Re-schedule BTP timer if BTP user is still logged in
@@ -317,6 +309,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 setUser(null);
             }
             // Trigger storage event to sync other tabs without a full page reload
+            window.location.href = baseRedirectUrl;
             window.dispatchEvent(new Event('storage'));
         } else if (provider === 'btp') {
             const authData = authStorage.load();
@@ -338,7 +331,6 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 } else {
                     setUser(null);
                 }
-                logoutUrl.searchParams.set('post_logout_redirect_uri', baseRedirectUrl);
                 window.location.href = logoutUrl.toString();
             } else {
                 console.log('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
