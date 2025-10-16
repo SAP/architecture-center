@@ -22,20 +22,35 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET || !JWT_SECRET || !FRONTEND_URL) 
     throw new Error('Missing required environment variables for GitHub OAuth or JWT.');
 }
 
-function isTrustedRedirectUrl(candidateUri: string | undefined): boolean {
-    if (!candidateUri || typeof candidateUri !== 'string' || !FRONTEND_URL) {
-        console.error('[Auth] isTrustedRedirectUrl failed: Invalid input or missing FRONTEND_URL in .env.');
-        return false;
-    }
-
+function isTrustedRedirectUrl(candidate: string | undefined): boolean {
+    if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
     try {
-        const trustedOrigin = new URL(FRONTEND_URL).origin;
-        const candidateOrigin = new URL(candidateUri).origin;
-
-        const originsMatch = candidateOrigin === trustedOrigin;
-        return originsMatch;
-    } catch (error) {
-        console.error(`[Auth] isTrustedRedirectUrl failed: Could not parse URL "${candidateUri}".`);
+        const trustedUrl = new URL(FRONTEND_URL);
+        const candidateUrl = new URL(candidate, FRONTEND_URL);
+        
+        // Check if origins match
+        if (candidateUrl.origin !== trustedUrl.origin) {
+            return false;
+        }
+        
+        // For relative URLs (most common case)
+        if (!candidate.startsWith('http') && !candidate.startsWith('//') && !candidate.startsWith('\\')) {
+            // Reject URLs with suspicious patterns
+            if (candidate.includes('//') || candidate.includes('\\') || candidate.toLowerCase().includes('%2f')) {
+                return false;
+            }
+            // Allow any path on the same origin for relative URLs
+            return true;
+        }
+        
+        // For absolute URLs, check if they match the exact base path or are subpaths
+        const trustedBasePath = trustedUrl.pathname.replace(/\/$/, '');
+        const candidatePath = candidateUrl.pathname.replace(/\/$/, '');
+        
+        // Allow exact match or subpaths of the trusted URL
+        return candidatePath === trustedBasePath || candidatePath.startsWith(trustedBasePath + '/');
+        
+    } catch {
         return false;
     }
 }
