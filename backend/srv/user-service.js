@@ -14,13 +14,12 @@ let xsuaa = {};
 try { xsuaa = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa; }
 catch (e) { console.log('Error loading xsuaa service:', e); }
 
-const upsAuth = process.env.GITHUB_CLIENT_ID ? null : JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'];
+const upsAuth = process.env.VCAP_SERVICES ? null : JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'];
 
 
 // GitHub and general configuration
 const GITHUB_CLIENT_ID = upsAuth ? upsAuth.GITHUB_CLIENT_ID : process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = upsAuth ? upsAuth.GITHUB_CLIENT_SECRET : process.env.GITHUB_CLIENT_SECRET;
-const BTP_API_URL = upsAuth ? upsAuth.XSUAA_API_URL : process.env.XSUAA_API_URL;
 const JWT_SECRET = upsAuth ? upsAuth.JWT_SECRET : process.env.JWT_SECRET;
 const FRONTEND_URL = upsAuth ? upsAuth.FRONTEND_URL : process.env.FRONTEND_URL || 'http://localhost:3000';
 const XSUAA_URL = xsuaa.url || process.env.XSUAA_URL;
@@ -29,7 +28,6 @@ const XSUAA_SECRET = xsuaa.clientsecret || process.env.XSUAA_SECRET;
 
 console.log('--- SERVER STARTING ---');
 console.log('Attempting to load .env from:', envPath);
-console.log('BTP_API_URL Loaded:', BTP_API_URL);
 console.log('GitHub Client ID Loaded:', GITHUB_CLIENT_ID ? 'Yes' : 'No');
 console.log('-----------------------');
 
@@ -46,6 +44,8 @@ class UserService extends cds.ApplicationService {
         // Unified handlers supporting both BTP and GitHub
         this.on('login', (req) => loginHandler(req));
         this.on('loginSuccess', (req) => loginSuccessHandler(req));
+        this.on('logout', (req) => logoutHandler(req));
+        this.on('logoutSuccess', (req) => logoutSuccessHandler(req));
         this.on('getUserInfo', (req) => getUserInfoHandler(req));
 
         await super.init();
@@ -152,7 +152,7 @@ const loginSuccessHandler = async (req) => {
 
             if (token_data.access_token) {
 
-                if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.access_token}`);
+                if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.id_token}`);
 
                 // Create app token with BTP user info
             };
@@ -160,6 +160,54 @@ const loginSuccessHandler = async (req) => {
             console.error('BTP auth callback error:', error.message || error);
         };
     };
+};
+
+const logoutHandler = async (req) => {
+    const { http } = cds.context;
+    const rawProvider = http && http.req.query && http.req.query.provider;
+    const provider = rawProvider || 'btp';
+    const origin_uri = http && http.req.query && http.req.query.origin_uri;
+
+    console.log(`Logout request - Raw provider: ${rawProvider}, Final provider: ${provider}`);
+    console.log(`Query parameters:`, http.req.query);
+
+    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
+    callback_url = encodeURIComponent(callback_url);
+    let logout_url = '';
+
+    if (provider === 'btp') {
+
+        logout_url = `${XSUAA_URL}/logout.do?redirect=${callback_url}&client_id=${XSUAA_CLIENTID}`;
+
+        console.log(`BTP logout URL: ${logout_url}`);
+    } else if (provider === 'github') {
+        // GitHub logout - no official logout URL, so redirect directly to success
+        logout_url = decodeURIComponent(callback_url);
+        console.log('GitHub logout - redirecting directly to success handler');
+    } else {
+        // Unknown provider - redirect to success handler
+        logout_url = decodeURIComponent(callback_url);
+        console.error(`Unknown provider: ${provider} - redirecting to success handler`);
+    }
+
+    if (http && http.res)
+        http.res.redirect(logout_url);
+};
+
+const logoutSuccessHandler = async (req) => {
+    const { http } = cds.context;
+    const provider = (http && http.req.query && http.req.query.provider) || 'btp';
+    const origin_uri = http && http.req.query.origin_uri || FRONTEND_URL;
+
+    console.log(`Logout success for provider: ${provider}`);
+
+    // Clear any server-side session data if needed
+    // For now, just redirect back to the origin
+    if (http && http.res) {
+        http.res.redirect(`${origin_uri}?logout=success&provider=${provider}`);
+    }
+
+    return 'Logout successful';
 };
 
 const getUserInfoHandler = async (req) => {
@@ -175,4 +223,3 @@ const getUserInfoHandler = async (req) => {
     };
     return thisUser;
 };
-
