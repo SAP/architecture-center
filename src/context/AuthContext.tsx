@@ -263,14 +263,15 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             setUser(null);
             setUsers({ github: null, btp: null });
 
-            // Use backend logout for BTP if we had BTP authentication
+            // Always redirect to base URL regardless of authentication type
+            const baseRedirectUrl = window.location.origin + baseUrl;
             if (users.btp) {
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
                 logoutUrl.searchParams.append('provider', 'btp');
-                logoutUrl.searchParams.append('post_logout_redirect_uri', window.location.origin + '/');
+                logoutUrl.searchParams.append('post_logout_redirect_uri', baseRedirectUrl);
                 window.location.href = logoutUrl.toString();
             } else {
-                window.location.href = baseUrl;
+                window.location.href = baseRedirectUrl;
             }
         } else if (provider === 'github') {
             // Clear only GitHub authentication locally
@@ -279,7 +280,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
 
-            // Set BTP as primary user if it exists
+            // Always redirect to base URL for consistency
+            const baseRedirectUrl = window.location.origin + baseUrl;
             if (newUsers.btp) {
                 setUser(newUsers.btp);
                 if (newUsers.btp.expiresAt) {
@@ -287,8 +289,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 }
             } else {
                 setUser(null);
-                window.location.href = baseUrl;
             }
+            window.location.href = baseRedirectUrl;
 
             // GitHub doesn't have a logout endpoint, so we're done
         } else if (provider === 'btp') {
@@ -298,23 +300,23 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const newUsers = { ...users, btp: null };
             setUsers(newUsers);
 
+            // Always redirect to base URL for consistency
+            const baseRedirectUrl = window.location.origin + baseUrl;
+
             if (btpToken) {
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
                 logoutUrl.searchParams.append('jwt_token', btpToken);
-                logoutUrl.searchParams.append('origin_uri', window.location.origin + '/');
+                logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
 
                 if (newUsers.github) {
                     setUser(newUsers.github);
-                    logoutUrl.searchParams.set('post_logout_redirect_uri', window.location.href);
                 } else {
                     setUser(null);
-                    logoutUrl.searchParams.set('post_logout_redirect_uri', window.location.origin + '/');
                 }
+                logoutUrl.searchParams.set('post_logout_redirect_uri', baseRedirectUrl);
                 window.location.href = logoutUrl.toString();
             } else {
-                console.log(
-                    'No BTP token found during BTP logout, clearing locally and redirecting if no GitHub user.'
-                );
+                console.log('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
                 if (newUsers.github) {
                     setUser(newUsers.github);
                     if (newUsers.github.expiresAt) {
@@ -322,8 +324,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                     }
                 } else {
                     setUser(null);
-                    window.location.href = baseUrl;
                 }
+                window.location.href = baseRedirectUrl;
             }
         }
     };
