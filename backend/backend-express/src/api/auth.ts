@@ -22,25 +22,20 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET || !JWT_SECRET || !FRONTEND_URL) 
     throw new Error('Missing required environment variables for GitHub OAuth or JWT.');
 }
 
-function isTrustedRedirectUrl(candidate: string | undefined): boolean {
-    if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
-    try {
-        const trustedUrl = new URL(FRONTEND_URL);
-        const candidateUrl = new URL(candidate, FRONTEND_URL);
-        if (
-            candidateUrl.origin === trustedUrl.origin &&
-            candidateUrl.pathname.replace(/\/$/, '') === trustedUrl.pathname.replace(/\/$/, '')
-        ) {
-            return true;
-        }
-        if (!candidate.startsWith('http') && !candidate.startsWith('//') && !candidate.startsWith('\\')) {
-            if (candidate.includes('//') || candidate.includes('\\') || candidate.toLowerCase().includes('%2f')) {
-                return false;
-            }
-            return candidateUrl.origin === trustedUrl.origin;
-        }
+function isTrustedRedirectUrl(candidateUri: string | undefined): boolean {
+    if (!candidateUri || typeof candidateUri !== 'string' || !FRONTEND_URL) {
+        console.error('[Auth] isTrustedRedirectUrl failed: Invalid input or missing FRONTEND_URL in .env.');
         return false;
-    } catch {
+    }
+
+    try {
+        const trustedOrigin = new URL(FRONTEND_URL).origin;
+        const candidateOrigin = new URL(candidateUri).origin;
+
+        const originsMatch = candidateOrigin === trustedOrigin;
+        return originsMatch;
+    } catch (error) {
+        console.error(`[Auth] isTrustedRedirectUrl failed: Could not parse URL "${candidateUri}".`);
         return false;
     }
 }

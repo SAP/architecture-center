@@ -11,3 +11,94 @@
     color: #888;
     background-color: #f0f2f5;
 }
+
+.headerBar {
+    background: var(--ifm-menu-color-active);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    max-width: 1440px;
+    position: relative;
+    margin: 50px auto 4rem auto;
+    border-radius: 24px;
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+.headerBar h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(22px, 4.2vw, 40px);
+    line-height: 1.15;
+}
+.headerBar p {
+    font-weight: 500;
+    margin-top: 2rem;
+    font-size: clamp(14px, 2.8vw, 22px);
+    opacity: 0.95;
+}
+
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 40vh;
+}
+
+.authRequired {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.authRequired h2 {
+    color: #495057;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.authRequired p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.loginButton {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+    background-color: #111;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.loginButton:active {
+    transform: translateY(0);
+}
+
+.authHelpText {
+    margin-top: 1rem;
+    font-size: 14px;
+    color: #666;
+}
+
+@media (max-width: 996px) {
+    .authRequired {
+        margin: 0 1rem;
+        padding: 2rem 1.5rem;
+    }
+}
