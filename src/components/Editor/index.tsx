@@ -134,7 +134,7 @@ interface PublishStatus {
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument } =
         usePageDataStore();
-    const { user } = useAuth();
+    const { token, user } = useAuth();
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const activeDocument = getActiveDocument();
@@ -207,7 +207,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         const payloadForPublish = { document: JSON.stringify(documentObject) };
 
         try {
-            const token = localStorage.getItem('jwt_token');
             if (!token) {
                 alert('Authentication error: You are not logged in. Please log in again.');
                 setIsLoading(false);
