@@ -5,8 +5,8 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
-import { FlexBox, Title, Text, Link, Icon } from '@ui5/webcomponents-react';
-import '@ui5/webcomponents-icons/dist/home.js';
+import { FlexBox, Title, Text, Icon } from '@ui5/webcomponents-react';
+import "@ui5/webcomponents-icons/dist/AllIcons.js";
 
 type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -236,11 +236,10 @@ export default function ArchitectureValidator(): React.JSX.Element {
                         <Text className={styles.breadcrumbSeparator}>&gt;</Text>
                         <Text className={styles.breadcrumbCurrent}>Architecture Validator</Text>
                     </div>
-
                     <FlexBox direction="Column" alignItems="Start" justifyContent="Center">
                         <Title className={styles.heroTitle}>Architecture Validator</Title>
                         <Text className={styles.heroSubtitle}>
-                            Upload, preview, and validate your .drawio diagrams against SAP best practices.
+                            Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines
                         </Text>
                     </FlexBox>
                 </div>
@@ -249,7 +248,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
             <main className={styles.mainContainer}>
                 {managedFiles.length === 0 ? (
                     <div
-                        className={styles.uploadPrompt}
+                        className={styles.fioriUploader}
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={handleDrop}
                         onClick={() => fileInputRef.current?.click()}
@@ -262,9 +261,18 @@ export default function ArchitectureValidator(): React.JSX.Element {
                             style={{ display: 'none' }}
                             multiple
                         />
-                        <div className={styles.uploadIcon}>⬆️</div>
-                        <h2>Drag & Drop your .drawio files here</h2>
-                        <p>or click to select files</p>
+                        <FlexBox
+                            direction="Column"
+                            alignItems="Center"
+                            justifyContent="Center"
+                            style={{ gap: '0.5rem' }}
+                        >
+                            <Icon name="upload-to-cloud" className={styles.uploadIcon}/>
+                            <Title className={styles.uploaderTitle}>Upload .drawio files</Title>
+                            <Text className={styles.uploaderSubtitle}>
+                                Drag and drop here or click to browse
+                            </Text>
+                        </FlexBox>
                     </div>
                 ) : (
                     <div className={styles.contentArea}>
