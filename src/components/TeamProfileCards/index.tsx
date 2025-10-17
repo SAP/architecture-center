@@ -51,26 +51,28 @@ function TeamProfileCard({ className, name, description, children, githubUrl, li
 export function CoreTeam(): ReactNode {
     return (
         <div className={styles['team-profile-container']}>
+
+            <TeamProfileCard
+                name='Pierre-Olivier "PO" Basseville'
+                description="Research & Development, Design | Product Manager"
+                githubUrl="https://github.com/cernus76"
+                linkedinUrl="https://www.linkedin.com/in/pierreolivierbasseville/"
+            />
+
             <TeamProfileCard
                 name="Navya Khurana"
-                description="Research, Development, GitHub & more"
+                description="Research & Development, GitHub | Technical Lead"
                 githubUrl="https://github.com/navyakhurana"
                 linkedinUrl="https://www.linkedin.com/in/navya-khurana-1b78a6187/"
             />
 
             <TeamProfileCard
                 name='James "Jim" Rapp'
-                description="Research, Development & more | Content Lead"
+                description="Research & Development | Content Lead"
                 githubUrl="https://github.com/jmsrpp"
                 linkedinUrl="https://www.linkedin.com/in/james-rapp"
             />
 
-            <TeamProfileCard
-                name='Pierre-Olivier "PO" Basseville'
-                description="Research, Development, Testing, Design & more | PM"
-                githubUrl="https://github.com/cernus76"
-                linkedinUrl="https://www.linkedin.com/in/pierreolivierbasseville/"
-            />
         </div>
     );
 }
@@ -87,7 +89,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
             name="Julian Schambeck"
-            description="Research & Development | drawio integration"
+            description="Research & Development | Custom components integration"
             githubUrl="https://github.com/julian-schambeck"
             linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
             />
@@ -115,7 +117,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
             name="Ajit Kumar Panda"
-            description="Authentication & Joule implementation"
+            description="Authentication & Joule integration"
             githubUrl="https://github.com/AjitKP91"
             linkedinUrl="https://www.linkedin.com/in/ajit-kumar-panda-22ba1953/"
             />
@@ -147,7 +149,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
             name="Abhishek Sharma"
-            description="Research & Development | QuickStart"
+            description="Research & Development | QuickStart (Lead)"
             githubUrl="https://github.com/abhissharma21"
             linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
             />
@@ -156,7 +158,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
             name=" Tobias Gabriel"
-            description="Guidance & Support on Open Source and GitHub"
+            description="Guidance & Support | GitHub & Open Source"
             githubUrl="https://github.com/shegox"
             linkedinUrl="https://www.linkedin.com/in/tobias-gabriel/"
             />
