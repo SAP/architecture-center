@@ -139,7 +139,7 @@ export function ExtendedTeam(): ReactNode {
             <TeamProfileCard
                 name="Jonas Mohr"
                 description="Research & Development | Architecture Validator"
-                githubUrl=""
+                githubUrl="https://github.com/Jo-Pa-Mo"
                 linkedinUrl="https://www.linkedin.com/in/jonas-mohr-300217374/"
             />
 
