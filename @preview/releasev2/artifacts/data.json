@@ -48,14 +48,6 @@
     "shortDescription": "Develop scalable multitenant SaaS applications on SAP BTP using CAP for cost-effective, tailored solutions."
   },
   {
-    "id": "ra0008",
-    "name": "Edge Integration Cell on Hyperscalers",
-    "drawioLink": "PLACEHOLDER:sap_eic.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/edge-integration-cell-on-hyperscalers.svg",
-    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/263f576c90",
-    "shortDescription": "Deploy SAP Integration Suite - Edge Integration Cell on hyperscalers for secure hybrid integration with architecture diagrams and resources."
-  },
-  {
     "id": "ra0009",
     "name": "Establish a central inbox with SAP Task Center",
     "drawioLink": "PLACEHOLDER:establish-a-central-inbox-with-sap-task-center.drawio",
