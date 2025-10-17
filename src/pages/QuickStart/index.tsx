@@ -116,14 +116,14 @@ export default function QuickStart(): JSX.Element {
         return (
             <Layout>
                 <div className={styles.headerBar}>
-                    <h1>Quickstart</h1>
+                    <h1>QuickStart</h1>
                     <p>GitHub authentication required to access this feature</p>
                 </div>
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <div className={styles.authRequired}>
                             <h2>🔒 GitHub Authentication Required</h2>
-                            <p>The Quickstart editor requires GitHub authentication to manage your documents.</p>
+                            <p>The QuickStart editor requires GitHub authentication to manage your documents.</p>
                             <p>Please log in with your GitHub account to continue.</p>
                             <button
                                 className={styles.loginButton}
