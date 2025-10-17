@@ -21,15 +21,20 @@ export default function DocRootLayout({ children }: Props): JSX.Element {
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        const filter = params.get('filter');
-        if (filter) {
-            if (['ai', 'data', 'integration', 'appdev', 'opsec'].includes(filter)) {
-                setTechDomains([filter]);
-            } else {
-                setPartners([filter]);
-            }
+
+        const partnersParam = params.get('partners');
+        const techDomainsParam = params.get('techDomains');
+
+        // Only update if param is present in the URL
+        if (partnersParam !== null) {
+            setPartners(partnersParam ? partnersParam.split(',') : []);
         }
-    }, [location]);
+
+        if (techDomainsParam !== null) {
+            setTechDomains(techDomainsParam ? techDomainsParam.split(',') : []);
+        }
+    }, [location.search, setPartners, setTechDomains]);
+
     return (
         <div className={styles.docsWrapper}>
             <BackToTopButton />

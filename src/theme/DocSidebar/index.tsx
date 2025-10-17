@@ -105,6 +105,12 @@ function DocSidebarDesktop(props) {
       if (filterGroup === "techDomains") {
         setTechDomains(selectedKeys);
       }
+      // Sync URL
+      const params = new URLSearchParams(location.search);
+      if (selectedKeys.length) params.set(filterGroup, selectedKeys.join(','));
+      else params.delete(filterGroup);
+
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
     };
 
     const filteredSidebar = useMemo(
@@ -197,9 +203,24 @@ export default function DocSidebarWrapper(props) {
   const windowSize = useWindowSize();
   const sidebarContext = useDocsSidebar();
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
+  const setPartners = useSidebarFilterStore((state) => state.setPartners);
+  const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
   const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
+
+  useEffect(() => {
+    if (!location.pathname.startsWith(docsBase)) return;
+
+    const params = new URLSearchParams(location.search);
+
+    const partnersParam = params.get('partners');
+    const techDomainsParam = params.get('techDomains');
+
+    if (partnersParam) setPartners(partnersParam.split(','));
+    if (techDomainsParam) setTechDomains(techDomainsParam.split(','));
+  }, [location.search, docsBase, setPartners, setTechDomains]);
+
 
   useEffect(() => {   
     return history.listen((location) => {

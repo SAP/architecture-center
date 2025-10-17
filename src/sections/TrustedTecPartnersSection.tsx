@@ -59,20 +59,19 @@ export default function TrustedTecPartnersSection(): JSX.Element {
         const handleClick = (e) => {
             e.preventDefault();
 
-            if (item.filter?.partners) {
-                setPartners(item.filter.partners);
-            }
-            if (item.filter?.techDomains) {
-                setTechDomains(item.filter.techDomains);
-            }
+            const partners = item.filter?.partners ?? [];
+            const techDomains = item.filter?.techDomains ?? [];
 
-            if (item.filter) {
-                // internal navigation → docs page with sidebar filters
-                history.push(docsUrl);
-            } else if (item.url) {
-                // external navigation fallback
-                window.open(item.url, '_blank', 'noopener,noreferrer');
-            }
+            // Set the global store
+            if (partners.length) setPartners(partners);
+            if (techDomains.length) setTechDomains(techDomains);
+
+            // Build query string
+            const params = new URLSearchParams();
+            if (partners.length) params.set('partners', partners.join(','));
+            if (techDomains.length) params.set('techDomains', techDomains.join(','));
+
+            history.push(`${docsUrl}?${params.toString()}`);
         };
 
         return (
