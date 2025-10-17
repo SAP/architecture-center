@@ -17,6 +17,9 @@ modules:
       parameters:
           instances: 1
           buildpack: nodejs_buildpack
+          keep-existing-routes: false
+          routes:
+              - route: architecture-center-auth.${default-domain}
       build-parameters:
           builder: npm-ci
       provides:
