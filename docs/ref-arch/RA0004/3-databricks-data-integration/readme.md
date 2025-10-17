@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-3
 slug: /ref-arch/a07a316077/3
-sidebar_position: 1
+sidebar_position: 4
 sidebar_custom_props:
   category_index: []
 title: Integration with Databricks
