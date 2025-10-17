@@ -127,7 +127,7 @@ router.get('/github/callback', async (req: Request, res: Response) => {
         if (isTrustedRedirectUrl(origin_uri as string)) {
             res.redirect(`${origin_uri}?token=${appToken}`);
         } else {
-            res.redirect(`${FRONTEND_URL}/quickStart`);
+            res.redirect(`${FRONTEND_URL}/QuickStart`);
         }
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
