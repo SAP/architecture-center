@@ -39,7 +39,7 @@ const config: Config = {
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
             '/ArchitectureValidator': 'btp',
-            '/quickStart': 'github',
+            '/QuickStart': 'github',
         },
     },
     themes: ['@docusaurus/theme-mermaid'],
@@ -265,7 +265,7 @@ const config: Config = {
                         },
                         {
                             label: 'QuickStart',
-                            to: '/quickStart',
+                            to: '/QuickStart',
                         },
                         {
                             label: 'Solution Diagram Guidelines',
