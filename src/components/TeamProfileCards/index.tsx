@@ -145,7 +145,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
                 name="Praveen Kumar Padegal"
-                description="Research & Development | Architecture Validator"
+                description="Guidance & Support | Architecture Validator"
                 githubUrl="https://github.com/pra1veenk"
                 linkedinUrl="https://www.linkedin.com/in/praveenkumarpadegal/"
             />
