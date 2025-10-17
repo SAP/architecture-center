@@ -51,7 +51,6 @@ function TeamProfileCard({ className, name, description, children, githubUrl, li
 export function CoreTeam(): ReactNode {
     return (
         <div className={styles['team-profile-container']}>
-
             <TeamProfileCard
                 name='Pierre-Olivier "PO" Basseville'
                 description="Research & Development, Design | Product Manager"
@@ -72,7 +71,6 @@ export function CoreTeam(): ReactNode {
                 githubUrl="https://github.com/jmsrpp"
                 linkedinUrl="https://www.linkedin.com/in/james-rapp"
             />
-
         </div>
     );
 }
@@ -81,86 +79,93 @@ export function ExtendedTeam(): ReactNode {
     return (
         <div className={styles['team-profile-container']}>
             <TeamProfileCard
-            name="Johanna Gonzalez"
-            description="Research, Development & Design | SAP UI5 integration"
-            githubUrl="https://github.com/johannagonnzdz"
-            linkedinUrl="https://www.linkedin.com/in/johannagondi/"
+                name="Johanna Gonzalez"
+                description="Research, Development & Design | SAP UI5 integration"
+                githubUrl="https://github.com/johannagonnzdz"
+                linkedinUrl="https://www.linkedin.com/in/johannagondi/"
             />
 
             <TeamProfileCard
-            name="Julian Schambeck"
-            description="Research & Development | Custom components integration"
-            githubUrl="https://github.com/julian-schambeck"
-            linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
+                name="Julian Schambeck"
+                description="Research & Development | Custom components integration"
+                githubUrl="https://github.com/julian-schambeck"
+                linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
             />
 
             <TeamProfileCard
-            name="Gabriel Kevorkian"
-            description="Research & Development | Docusaurus black-belt"
-            githubUrl="https://github.com/g-kevorkian"
-            linkedinUrl="https://www.linkedin.com/in/gabriel-kevorkian-30005b2/"
+                name="Gabriel Kevorkian"
+                description="Research & Development | Docusaurus black-belt"
+                githubUrl="https://github.com/g-kevorkian"
+                linkedinUrl="https://www.linkedin.com/in/gabriel-kevorkian-30005b2/"
             />
 
             <TeamProfileCard
-            name="Robin Purschwitz"
-            description="Research & Development"
-            githubUrl="https://github.com/RobinPurschwitz"
-            linkedinUrl="https://www.linkedin.com/in/robin-purschwitz/"
+                name="Robin Purschwitz"
+                description="Research & Development"
+                githubUrl="https://github.com/RobinPurschwitz"
+                linkedinUrl="https://www.linkedin.com/in/robin-purschwitz/"
             />
 
             <TeamProfileCard
-            name="Max Lienhardt"
-            description="Research & Development"
-            githubUrl="https://github.com/xammaxx"
-            linkedinUrl="https://www.linkedin.com/in/max-lienhardt-a2a157335/"
+                name="Max Lienhardt"
+                description="Research & Development"
+                githubUrl="https://github.com/xammaxx"
+                linkedinUrl="https://www.linkedin.com/in/max-lienhardt-a2a157335/"
             />
 
             <TeamProfileCard
-            name="Ajit Kumar Panda"
-            description="Authentication & Joule integration"
-            githubUrl="https://github.com/AjitKP91"
-            linkedinUrl="https://www.linkedin.com/in/ajit-kumar-panda-22ba1953/"
+                name="Ajit Kumar Panda"
+                description="Authentication & Joule integration"
+                githubUrl="https://github.com/AjitKP91"
+                linkedinUrl="https://www.linkedin.com/in/ajit-kumar-panda-22ba1953/"
             />
 
             {/* Validator */}
 
             <TeamProfileCard
-            name="Vedant Gupta"
-            description="Research & Development | Architecture Validator (Lead)"
-            githubUrl="https://github.com/vedant-aero-ml"
-            linkedinUrl="https://www.linkedin.com/in/vedant-gupta-ai/"
+                name="Vedant Gupta"
+                description="Research & Development | Architecture Validator (Lead)"
+                githubUrl="https://github.com/vedant-aero-ml"
+                linkedinUrl="https://www.linkedin.com/in/vedant-gupta-ai/"
             />
 
             <TeamProfileCard
-            name="Swati Maste"
-            description="Research & Development | Architecture Validator"
-            githubUrl="https://github.com/swatimaste00"
-            linkedinUrl="https://www.linkedin.com/in/swati-maste/"
+                name="Swati Maste"
+                description="Research & Development | Architecture Validator"
+                githubUrl="https://github.com/swatimaste00"
+                linkedinUrl="https://www.linkedin.com/in/swati-maste/"
             />
 
             <TeamProfileCard
-            name="Jonas Mohr"
-            description="Research & Development | Architecture Validator"
-            githubUrl=""
-            linkedinUrl="https://www.linkedin.com/in/jonas-mohr-300217374/"
+                name="Jonas Mohr"
+                description="Research & Development | Architecture Validator"
+                githubUrl=""
+                linkedinUrl="https://www.linkedin.com/in/jonas-mohr-300217374/"
+            />
+
+            <TeamProfileCard
+                name="Praveen Kumar Padegal"
+                description="Research & Development | Architecture Validator"
+                githubUrl="https://github.com/pra1veenk"
+                linkedinUrl="https://www.linkedin.com/in/praveenkumarpadegal/"
             />
 
             {/* QuickStart */}
 
             <TeamProfileCard
-            name="Abhishek Sharma"
-            description="Research & Development | QuickStart (Lead)"
-            githubUrl="https://github.com/abhissharma21"
-            linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
+                name="Abhishek Sharma"
+                description="Research & Development | QuickStart (Lead)"
+                githubUrl="https://github.com/abhissharma21"
+                linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
             />
 
             {/* OSPO */}
 
             <TeamProfileCard
-            name=" Tobias Gabriel"
-            description="Guidance & Support | GitHub & Open Source"
-            githubUrl="https://github.com/shegox"
-            linkedinUrl="https://www.linkedin.com/in/tobias-gabriel/"
+                name=" Tobias Gabriel"
+                description="Guidance & Support | GitHub & Open Source"
+                githubUrl="https://github.com/shegox"
+                linkedinUrl="https://www.linkedin.com/in/tobias-gabriel/"
             />
         </div>
     );
