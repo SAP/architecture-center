@@ -128,9 +128,11 @@ export default function QuickStart(): JSX.Element {
                             <button
                                 className={styles.loginButton}
                                 onClick={() => {
+                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}QuickStart`;
                                     window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
-                                        window.location.href
+                                        originUri
                                     )}&provider=github`;
+                                    console.log('Origin URI:', originUri);
                                 }}
                             >
                                 Login with GitHub to Continue
