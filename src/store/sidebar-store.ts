@@ -10,6 +10,11 @@ interface SidebarFilterState {
   resetFilters: () => void;
 }
 
+interface SidebarContext {
+  sidebarContext: any;
+  setSidebarContext: (sidebarContext: any) => void;
+}
+
 export const useSidebarFilterStore = create<SidebarFilterState>((set) => ({
   techDomains: [],
   setTechDomains: (techDomains) => set({ techDomains }),
@@ -18,4 +23,9 @@ export const useSidebarFilterStore = create<SidebarFilterState>((set) => ({
   setPartners: (partners) => set({ partners }),
 
   resetFilters: () => set({ techDomains: [], partners: [] }),
+}));
+
+export const useDocSidebarContext = create<SidebarContext>((set) => ({
+  sidebarContext: null,
+  setSidebarContext: (sidebarContext) => set({ sidebarContext }),
 }));
