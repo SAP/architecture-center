@@ -1,5 +1,5 @@
 .heroBanner {
-    background: url("/img/architectureValidator/architecture_validator_header.svg");
+    background: url('/img/architectureValidator/architecture_validator_header.svg');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: cover;
@@ -86,7 +86,7 @@
 .fioriUploader {
     width: 100%;
     max-width: 600px;
-    min-height: 400px;  
+    min-height: 400px;
     border: 2px dashed var(--sapList_BorderColor);
     border-radius: var(--sapElement_BorderCornerRadius);
     background: var(--sapGroup_ContentBackground);
@@ -440,5 +440,58 @@
     .authRequired {
         margin: 0 1rem;
         padding: 2rem 1.5rem;
+    }
+}
+
+.deviceWarningOverlay {
+    display: none;
+}
+
+@media (max-width: 1129px) {
+    .deviceWarningOverlay {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(26, 26, 26, 0.95);
+        z-index: 9999;
+
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .messageBox {
+        color: #ffffff;
+        background-color: #1e1e1e;
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        border: 1px solid #444;
+        max-width: 90%;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .messageBox h2 {
+        color: #f0f0f0;
+        margin-top: 0;
+        font-size: 1.5rem;
+    }
+
+    .messageBox p {
+        color: #cccccc;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .countdownTimer {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #ffffff;
+        background-color: #007bff;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin: 0 5px;
     }
 }

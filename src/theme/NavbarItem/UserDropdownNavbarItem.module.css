@@ -564,3 +564,9 @@
         min-width: 280px;
     }
 }
+
+@media (max-width: 1130px) {
+    .userDropdown {
+        display: none;
+    }
+}

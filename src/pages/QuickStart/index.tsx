@@ -73,6 +73,7 @@ function AuthenticatedQuickStartView() {
 
     return (
         <>
+            <MobileDeviceWarning />
             <MetadataFormDialog
                 open={isModalOpen}
                 initialData={newDocData}
@@ -115,6 +116,7 @@ export default function QuickStart(): JSX.Element {
     if (!isGithubAuthenticated) {
         return (
             <Layout>
+                <MobileDeviceWarning />
                 <div className={styles.headerBar}>
                     <h1>QuickStart</h1>
                     <p>GitHub authentication required to access this feature</p>
@@ -151,5 +153,36 @@ export default function QuickStart(): JSX.Element {
         <Layout>
             <AuthenticatedQuickStartView />
         </Layout>
+    );
+}
+
+function MobileDeviceWarning() {
+    const { siteConfig } = useDocusaurusContext();
+    const [secondsLeft, setSecondsLeft] = useState(8);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSecondsLeft((prevSeconds) => prevSeconds - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (secondsLeft <= 0) {
+            window.location.href = siteConfig.baseUrl;
+        }
+    }, [secondsLeft, siteConfig.baseUrl]);
+    return (
+        <div className={styles.deviceWarningOverlay}>
+            <div className={styles.messageBox}>
+                <h2>Optimal Viewing Experience</h2>
+                <p>Best Viewed on a Larger Screen</p>
+                <p>
+                    You will be redirected to the homepage in
+                    <span className={styles.countdownTimer}>{secondsLeft}</span> seconds...
+                </p>
+            </div>
+        </div>
     );
 }

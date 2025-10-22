@@ -11,6 +11,7 @@
     padding-top: 50px;
     flex-shrink: 0;
     width: 250px;
+    overflow-wrap: break-word;
 }
 
 .editorColumn {
@@ -25,6 +26,7 @@
     padding-top: 50px;
     flex-shrink: 0;
     width: 250px;
+    overflow-wrap: break-word;
 }
 
 .editorContainer {
@@ -297,4 +299,18 @@
     pointer-events: none;
     top: 800px;
     left: 150px;
+}
+
+@media (min-width: 1130px) and (max-width: 1180px) {
+    .navColumn,
+    .tocColumn {
+        width: 150px;
+    }
+}
+
+@media (min-width: 1181px) and (max-width: 1366px) {
+    .navColumn,
+    .tocColumn {
+        width: 200px;
+    }
 }

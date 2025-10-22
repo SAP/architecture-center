@@ -5,8 +5,8 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
-import { Button, FlexBox, Title, Text, Icon} from '@ui5/webcomponents-react';
-import "@ui5/webcomponents-icons/dist/AllIcons.js";
+import { Button, FlexBox, Title, Text, Icon } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/AllIcons.js';
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -54,6 +54,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     if (!isBtpAuthenticated) {
         return (
             <Layout>
+                <MobileDeviceWarning />
                 <div className={styles.headerBar}>
                     <h1>Architecture Validator</h1>
                     <p>BTP authentication required to access this feature</p>
@@ -132,7 +133,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
         if (event.dataTransfer.files) processAndAddFiles(event.dataTransfer.files);
     };
 
-
     const validateFile = async (managedFile: ManagedFile) => {
         updateFileState(managedFile.id, { status: 'validating' });
         try {
@@ -200,6 +200,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     return (
         <Layout>
+            <MobileDeviceWarning />
             <div className={styles.heroBanner}>
                 <div className={styles.heroContent}>
                     <div className={styles.breadCrumbs}>
@@ -212,7 +213,8 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     <FlexBox direction="Column" alignItems="Start" justifyContent="Center">
                         <Title className={styles.heroTitle}>Architecture Validator</Title>
                         <Text className={styles.heroSubtitle}>
-                            Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines
+                            Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice
+                            guidelines
                         </Text>
                     </FlexBox>
                 </div>
@@ -244,11 +246,9 @@ export default function ArchitectureValidator(): React.JSX.Element {
                             justifyContent="Center"
                             style={{ gap: '0.5rem' }}
                         >
-                            <Icon name="upload-to-cloud" className={styles.uploadIcon}/>
+                            <Icon name="upload-to-cloud" className={styles.uploadIcon} />
                             <Title className={styles.uploaderTitle}>Upload .drawio files</Title>
-                            <Text className={styles.uploaderSubtitle}>
-                                Drag and drop here or click to browse
-                            </Text>
+                            <Text className={styles.uploaderSubtitle}>Drag and drop here or click to browse</Text>
                         </FlexBox>
                     </div>
                 ) : (
@@ -260,8 +260,8 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
                             >
                                 {isProcessingBatch
-                                ? 'Validating...'
-                                : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
+                                    ? 'Validating...'
+                                    : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
                             </Button>
 
                             <Button design="Default" onClick={() => fileInputRef.current?.click()}>
@@ -282,7 +282,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
                             </Button>
                         </div>
 
-
                         {isProcessingBatch && (
                             <div className={styles.progressBarContainer}>
                                 <div className={styles.progressBar} style={{ width: `${progress}%` }}></div>
@@ -295,14 +294,16 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                     <div className={styles.fileCardHeader}>
                                         <div className={styles.fileInfo}>
                                             <span className={styles.statusName}>
-                                                {mf.status === 'batched' ? 'Pending' : mf.status.charAt(0).toUpperCase() + mf.status.slice(1)}
+                                                {mf.status === 'batched'
+                                                    ? 'Pending'
+                                                    : mf.status.charAt(0).toUpperCase() + mf.status.slice(1)}
                                             </span>
                                             <h3 className={styles.fileName}>{mf.file.name}</h3>
                                         </div>
                                         <div className={styles.cardActions}>
                                             {mf.status === 'batched' && (
                                                 <Button design="Positive" onClick={() => validateFile(mf)}>
-                                                Validate
+                                                    Validate
                                                 </Button>
                                             )}
                                             <Button
@@ -371,5 +372,36 @@ export default function ArchitectureValidator(): React.JSX.Element {
                 )}
             </main>
         </Layout>
+    );
+}
+
+function MobileDeviceWarning() {
+    const { siteConfig } = useDocusaurusContext();
+    const [secondsLeft, setSecondsLeft] = useState(8);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSecondsLeft((prevSeconds) => prevSeconds - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (secondsLeft <= 0) {
+            window.location.href = siteConfig.baseUrl;
+        }
+    }, [secondsLeft, siteConfig.baseUrl]);
+    return (
+        <div className={styles.deviceWarningOverlay}>
+            <div className={styles.messageBox}>
+                <h2>Optimal Viewing Experience</h2>
+                <p>Best Viewed on a Larger Screen</p>
+                <p>
+                    You will be redirected to the homepage in
+                    <span className={styles.countdownTimer}>{secondsLeft}</span> seconds...
+                </p>
+            </div>
+        </div>
     );
 }
