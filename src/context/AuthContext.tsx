@@ -205,7 +205,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 const githubAuthData = { token: githubTokenFromUrl, expiresAt };
                 localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
 
-                history.replace({ ...location, search: '' });
+                history.replace(window.location.pathname);
                 // We will re-check tokens which will also schedule the expiry timer
                 checkAuthTokens();
                 // No immediate return or redirect, let the component re-render
