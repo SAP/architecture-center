@@ -132,6 +132,7 @@ export default function QuickStart(): JSX.Element {
                                     window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
                                         originUri
                                     )}&provider=github`;
+                                    console.log('Redirecting to GitHub login...', { origin_uri: originUri});
                                 }}
                             >
                                 Login with GitHub to Continue
