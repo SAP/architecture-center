@@ -27,12 +27,12 @@ function isTrustedRedirectUrl(candidate: string | undefined): boolean {
     try {
         const trustedUrl = new URL(FRONTEND_URL);
         const candidateUrl = new URL(candidate, FRONTEND_URL);
-        
+
         // Check if origins match
         if (candidateUrl.origin !== trustedUrl.origin) {
             return false;
         }
-        
+
         // For relative URLs (most common case)
         if (!candidate.startsWith('http') && !candidate.startsWith('//') && !candidate.startsWith('\\')) {
             // Reject URLs with suspicious patterns
@@ -42,14 +42,13 @@ function isTrustedRedirectUrl(candidate: string | undefined): boolean {
             // Allow any path on the same origin for relative URLs
             return true;
         }
-        
+
         // For absolute URLs, check if they match the exact base path or are subpaths
         const trustedBasePath = trustedUrl.pathname.replace(/\/$/, '');
         const candidatePath = candidateUrl.pathname.replace(/\/$/, '');
-        
+
         // Allow exact match or subpaths of the trusted URL
         return candidatePath === trustedBasePath || candidatePath.startsWith(trustedBasePath + '/');
-        
     } catch {
         return false;
     }
@@ -127,7 +126,7 @@ router.get('/github/callback', async (req: Request, res: Response) => {
         if (isTrustedRedirectUrl(origin_uri as string)) {
             res.redirect(`${origin_uri}?token=${appToken}`);
         } else {
-            res.redirect(`${FRONTEND_URL}/QuickStart`);
+            res.redirect(`${FRONTEND_URL}/quick-start`);
         }
     } catch (error) {
         console.error('GitHub auth callback error:', error instanceof Error ? error.message : error);
