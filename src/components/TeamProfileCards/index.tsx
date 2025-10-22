@@ -150,11 +150,11 @@ export function ExtendedTeam(): ReactNode {
                 linkedinUrl="https://www.linkedin.com/in/praveenkumarpadegal/"
             />
 
-            {/* QuickStart */}
+            {/* quick-start */}
 
             <TeamProfileCard
                 name="Abhishek Sharma"
-                description="Research & Development | QuickStart (Lead)"
+                description="Research & Development | quick-start (Lead)"
                 githubUrl="https://github.com/abhissharma21"
                 linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
             />
