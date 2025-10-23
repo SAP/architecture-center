@@ -1,5 +1,5 @@
 .heroBanner {
-    background: url("/img/architectureValidator/architecture_validator_header.svg");
+    background: url('/img/architectureValidator/architecture_validator_header.svg');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: cover;
@@ -86,7 +86,7 @@
 .fioriUploader {
     width: 100%;
     max-width: 600px;
-    min-height: 400px;  
+    min-height: 400px;
     border: 2px dashed var(--sapList_BorderColor);
     border-radius: var(--sapElement_BorderCornerRadius);
     background: var(--sapGroup_ContentBackground);
@@ -419,6 +419,23 @@
     margin-top: 1rem;
     font-size: 14px;
     color: #666;
+}
+
+/* Upload Limit Dialog Styles */
+.uploadLimitDialog {
+    padding: 1rem;
+}
+
+.uploadLimitDialogContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.uploadLimitDialogIcon {
+    color: #d9534f;
+    font-size: 2rem;
 }
 
 @media (max-width: 996px) {

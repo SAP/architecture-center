@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
-import { Button, FlexBox, Title, Text, Icon } from '@ui5/webcomponents-react';
+import { Button, FlexBox, Title, Text, Icon, Dialog, Bar } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons.js';
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
@@ -31,6 +31,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [showUploadLimitDialog, setShowUploadLimitDialog] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const isBtpAuthenticated = users.btp !== null;
@@ -97,6 +98,28 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     const processAndAddFiles = (files: FileList) => {
         const fileArray = Array.from(files).filter((file) => file.name.toLowerCase().endsWith('.drawio'));
+
+        // Check if adding these files would exceed the 5 file limit
+        const currentFileCount = managedFiles.length;
+        const newFilesCount = fileArray.length;
+
+        // Don't allow any uploads if already at limit
+        if (currentFileCount >= 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
+
+        // Don't allow if new files would exceed limit
+        if (currentFileCount + newFilesCount > 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
+
+        // If uploading more than 5 files at once, show dialog
+        if (newFilesCount > 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
 
         const filePromises = fileArray.map(
             (file) =>
@@ -262,7 +285,11 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                     : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
                             </Button>
 
-                            <Button design="Default" onClick={() => fileInputRef.current?.click()}>
+                            <Button
+                                design="Default"
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={managedFiles.length >= 5}
+                            >
                                 Add More Files
                             </Button>
 
@@ -369,6 +396,29 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     </div>
                 )}
             </main>
+
+            {/* Upload Limit Dialog */}
+            <Dialog
+                open={showUploadLimitDialog}
+                onClose={() => setShowUploadLimitDialog(false)}
+                headerText="Upload Limit Reached"
+            >
+                <div className={styles.uploadLimitDialog}>
+                    <FlexBox direction="Column" alignItems="Start" className={styles.uploadLimitDialogContent}>
+                        <Icon name="alert" className={styles.uploadLimitDialogIcon} />
+                        <Text>You can upload a maximum of 5 diagrams at once.</Text>
+                        <Text>Please remove some files or try again with fewer diagrams.</Text>
+                    </FlexBox>
+                </div>
+                <Bar
+                    design="Footer"
+                    endContent={
+                        <Button design="Emphasized" onClick={() => setShowUploadLimitDialog(false)}>
+                            OK
+                        </Button>
+                    }
+                />
+            </Dialog>
         </Layout>
     );
 }
