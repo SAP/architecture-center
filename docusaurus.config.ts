@@ -264,7 +264,7 @@ const config: Config = {
                             to: '/architecture-validator',
                         },
                         {
-                            label: 'quick-start',
+                            label: 'Quick Start',
                             to: '/quick-start',
                         },
                         {
