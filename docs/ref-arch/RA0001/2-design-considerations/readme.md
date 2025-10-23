@@ -114,8 +114,8 @@ Based on the generic reference architecture, below can be 2 specific architectur
 
 ### Architecture 1 - Event-driven architecture with AWS as the Event Producer
 
-Go to [Integration with Amazon Web Services](../3-aws-iot-integration/readme.md)
+Go to [Integration with Amazon Web Services](../5-aws-iot-integration/readme.md)
 
 ### Architecture 2 - Event-driven architecture with Microsoft Azure as the Event Producer
 
-Go to [Integration with Microsoft Azure](../4-azure-iot-integration/readme.md)
+Go to [Integration with Microsoft Azure](../6-azure-iot-integration/readme.md)
