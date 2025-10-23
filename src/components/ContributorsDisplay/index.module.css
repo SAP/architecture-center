@@ -79,3 +79,22 @@
     color: #586069;
     font-size: 0.9rem;
 }
+
+:root[data-theme='dark'] .container {
+    background-color: var(--sapTile_Background);
+    color: var(--sapTextColor);
+}
+
+:root[data-theme='dark'] .titleWrapper {
+    background-color: var(--sapToolbar_Background);
+    color: var(--sapTitleColor);
+}
+
+:root[data-theme='dark'] .list {
+    background-color: var(--sapList_Background);
+    color: var(--sapList_TextColor);
+}
+
+:root[data-theme='dark'] .username {
+    color: var(--sapList_TextColor);
+}

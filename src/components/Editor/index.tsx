@@ -15,7 +15,7 @@ import { ListNode, ListItemNode } from '@lexical/list';
 import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { Button, Dialog, Bar, Title } from '@ui5/webcomponents-react';
+import { Button, Dialog, Bar, Text, Title } from '@ui5/webcomponents-react';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
 import { ImageNode } from './nodes/ImageNode';
@@ -337,30 +337,35 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 </div>
             </div>
             {showDeleteConfirm && activeDocument && (
-                <div className={styles.dialogOverlay}>
-                    <div className={styles.dialogContent}>
-                        <h3 className={styles.dialogTitle}>Delete Document</h3>
-                        <p className={styles.dialogMessage}>
-                            Are you sure you want to delete "{activeDocument.title || 'Untitled Page'}"?
-                            <br />
-                            This action cannot be undone.
-                        </p>
-                        <div className={styles.dialogActions}>
-                            <Button design="Default" onClick={() => setShowDeleteConfirm(false)}>
-                                Cancel
-                            </Button>
-                            <Button
-                                design="Default"
-                                onClick={() => {
-                                    deleteDocument(activeDocument.id);
-                                    setShowDeleteConfirm(false);
-                                }}
-                            >
-                                Delete
-                            </Button>
-                        </div>
-                    </div>
-                </div>
+                <Dialog
+                    open={showDeleteConfirm}
+                    headerText="Delete Document"
+                    footer={
+                        <Bar
+                            endContent={
+                                <>
+                                <Button
+                                    design="Emphasized"
+                                    onClick={() => {
+                                        deleteDocument(activeDocument.id);
+                                        setShowDeleteConfirm(false);
+                                    }}
+                                >
+                                    Delete
+                                </Button>
+                                <Button design="Transparent" onClick={() => setShowDeleteConfirm(false)}>
+                                    Cancel
+                                </Button>
+                                </>
+                            }
+                        />
+                    }
+                >
+                    <Text>
+                        Are you sure you want to delete <strong>{activeDocument.title || 'Untitled Page'}</strong>?<br />
+                        This action cannot be undone.
+                    </Text>
+                </Dialog>
             )}
             <LoadingModal
                 status={publishStatus.stage}
