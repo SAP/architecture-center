@@ -18,10 +18,10 @@
   {
     "id": "ra0004",
     "name": "Explore your Hyperscaler data with SAP Business Data Cloud",
-    "drawioLink": "https://architecture.learning.sap.com/explore-hyperscaler-data-69c68cf631499014.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/explore-hyperscaler-data-2dd28bf9ff1e6210.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/explore-your-hyperscaler-data-with-sap-business-data-cloud.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/a07a316077",
-    "shortDescription": "Explore SAP Datasphere for harmonizing hyperscaler data with SAP, enabling impactful, data-driven business decisions."
+    "shortDescription": "Explore how SAP Business Data Cloud (BDC) acts as the business-centric integration layer for enterprises looking to harmonize SAP and non-SAP data across platforms like Snowflake, Azure, GCP, AWS, and Databricks."
   },
   {
     "id": "ra0005",
