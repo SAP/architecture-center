@@ -10,14 +10,15 @@ sidebar_custom_props:
     - gcp
 title: Explore your Hyperscaler data with SAP Business Data Cloud
 description: >-
-  Explore SAP Datasphere for harmonizing hyperscaler data with SAP, enabling
-  impactful, data-driven business decisions.
+  Explore how SAP Business Data Cloud (BDC) acts as the business-centric integration layer for enterprises looking to harmonize SAP and non-SAP data across platforms like Snowflake, Azure, GCP, AWS, and Databricks.
 keywords:
   - sap
   - datasphere
   - federated architecture
   - business-driven decisions
   - cloud hyperscaler data
+  - bdc connect
+  - zero copy
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
@@ -39,46 +40,77 @@ contributors:
   - chaturvedakash
   - karishma-kapur
   - ranbian
+  - jasoncwluo
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-01-23
+  date: 2025-10-23
 ---
 
-SAP Datasphere, which is an integral part of SAP Business Data Cloud, empowers organizations with a comprehensive business data fabric architecture, seamlessly integrating mission-critical data from across the enterprise. This powerful platform enables business experts to make data-driven decisions with unprecedented impact. By providing federated data access and remote table replication from SAP line of business solutions, SAP Datasphere ensures that data is always accessible and up-to-date.
+In this era of AI and multi cloud landscapes, SAP Business Data Cloud helps digital transformation by harmonizing data across <b>all business processes</b> and across the <b>hybrid cloud landscapes</b>, breaking down silos and creating a real-time, holistic view of your business for more agile, informed decision-making. 
 
-In this architecture aimed at an open data ecosystem integration, SAP Datasphere goes beyond merely connecting SAP data; it also integrates non-SAP data from leading hyperscaler services such as AWS, Microsoft Azure, and Google Cloud Platform. This integration allows businesses to combine diverse data sources into unified data models within SAP Datasphere, facilitating faster and more insightful business analytics.
+The core architectural principle of the business data fabric strategy is to enable seamless and scalable access to mission-critical business data with the semantics and business context preserved. SAP Business Data Cloud connects all data by leveraging business data fabric principles, making it easier to discover, share, govern, and model data.  Our business data fabric strategy began with the launch of SAP Datasphere and continues on with SAP Business Data Cloud.
 
-With SAP Datasphere, organizations can:
+In this zoomed-in architecture focused on the open data ecosystem integration that <b>forms the base for AI/ML, application and analytics innovations</b>, and we will see how SAP Business Data Cloud acts as the business-centric integration layer for enterprises looking to harmonize SAP (e.g., S/4HANA, SuccessFactors) and non-SAP data across platforms like Snowflake, Azure, GCP, AWS, and Databricks. SAP BDC is built to bridge fragmented landscapes, unify semantic context, and streamline access, governance, and AI adoption.  
 
-- Harmonize data from various SAP and non-SAP sources, ensuring a single source of truth.
-- Enable real-time data federation, allowing for immediate access and analysis of data without the need for physical data movement.
-- Utilize remote table replication to ensure data consistency and reliability across different systems.
-- Leverage advanced data modeling capabilities to create comprehensive and insightful data models.
-- Enhance decision-making processes by providing business experts with timely and accurate data insights.
+As enterprise architects and data strategists seeking a detailed, zoomed-in view of the foundational data integration architectures that make large-scale, AI-centric solutions possible, you’ll see that the architecture below supports: 
 
-By integrating data from multiple sources and providing robust data management capabilities, SAP Datasphere helps organizations unlock the full potential of their data, driving innovation and achieving strategic business objectives.
+- <b>Lakehouse and Hybrid architectures</b> : The lakehouse model combines the flexibility of data lakes with the reliability and performance of data warehouses, allowing both structured and unstructured data analytics under one roof. SAP Business Data Cloud helps support diverse workloads (BI, AI/ML, streaming) and simplify data access and movement across data lakes and warehouses.
+
+- <b>AI/ML-Driven Data Architectures</b> : By acting as the unified data foundation that keeps business context intact, SAP Business Data Cloud makes it easier to help unlock unparalleled business insights and AI potential across AI/ML platforms.
+
+- <b>Native integration with external platforms</b>: SAP BDC natively integrates and can connect directly to external systems such as Google BigQuery and other cloud lakes, supporting multi-cloud and cross-platform analytics as required by modern enterprise architectures.
+
+- <b>Real-Time Data Management</b> : Enable real-time data federation, allowing for immediate access to business data without the need for physical data movement.
+
+
 
 ## Architecture
 
 ![drawio](drawio/explore-hyperscaler-data.drawio)
 
-## Flow
+## Flows
 
-The reference architecture diagram shows how the data from different hyperscaler stores can be unified with data from SAP sources via SAP Datasphere. Numbers below correspond to the flow numbers in the architecture diagram above.
+The reference architecture diagram above shows how the data from different hyperscaler stores and data from SAP sources can be integrated using SAP Business Data Cloud.
 
-1. Data from SAP sources such as SAP S/4HANA and BW/4HANA are connected to SAP Datasphere using native connections available in SAP Datasphere.
-The data from these sources are then accessed in SAP Datasphere virtually using these connections.
+1. <b>SAP source integration options</b>: 
+   <ul>
+     <li>Business Data from SAP applications such as SAP S/4HANA and SAP SuccessFactors are brought into the Object Store Layer of Business Data Cloud in the form of Data Products ,enabling secured governed access of SAP data [<i><b>recommended</b></i>] </li>
+     <li>SAP Business Data Cloud also allows these systems to be connected natively using direct connections available in the SAP Datasphere layer for remote or replicated data access</li>
+   </ul>
 
-2. SAP source data can also be replicated for persistence in SAP Datasphere using these connections.  
+2. <b> Non-SAP (hyperscaler) data source integration options</b>:
+     <ul>
+       <li><b>BDC Connect / Delta Sharing integration[<i>NEW</i>]: </b> Using the Delta Share protocol via the BDC Connect component, data from the Object Store layer of SAP Business Data cloud can be shared instantly with external hyperscaler partner landscapes such as Databricks, Google BigQuery [<i>Currently</i>, while other partner integrations available soon].  The SAP BDC Connect component also enables sharing of data products from these external sources into SAP Business Data Cloud catalog. This makes is bi-directional dataproduct sharing on a zero copy federated principle, along with added advantage of secured and governed access[<i><b>recommended</b></i>]</li>
+       <li><b>Data Federation - SAP Datasphere : </b>Data from external (non-SAP) sources such as Google BigQuery, Amazon Athena can be connected directly with SAP Datasphere layer of SAP Business Data Cloud as well, while sources such as Amazon Redshift, Microsoft Fabric, and Databricks Delta Lake leverages Smart Data Integration (SDI) and the Data Provisioning (DP) Agent for the connectivity, which hosts the necessary adapters and drivers, acting as the proxy layer, enabling secure and efficient connections to hyperscaler sources. These connections allow federated access in real-time using virtual or remote tables within SAP Datasphere, ensuring real-time access of non-SAP sources.</li>
+      <li><b>Replication Flows - SAP Datasphere : </b>Data from SAP sources are replicated out to the external hyperscalaer stores such as Google BigQuery, Amazon S3, and Azure Data Lake Storage Gen2 via SAP Datasphere through its Replication Flow feature.</li>
+      <li><b>Data Flows - SAP Datasphere : </b>Data from a cost-efficient hyperscaler object stores like Google Cloud Storage or Amazon S3 can be imported into SAP Datasphere via Data Flows . With this approach the data can be transformed during the transfer and persisted "physically" in SAP Datasphere.</li>
+     </ul>
 
-3. Data from external (non-SAP) sources such as Amazon Redshift, Microsoft Fabric, and Databricks Delta Lake can be seamlessly integrated into SAP Datasphere. This integration leverages Smart Data Integration (SDI) and the Data Provisioning (DP) Agent, which host the necessary adapters and drivers. These components act as a proxy layer, enabling secure and efficient connections to the hyperscaler sources. Once connected, data from these sources can be federated in real-time using virtual or remote tables within SAP Datasphere, ensuring immediate access and up-to-date information for analytics and decision-making.
-
-4. Data from SAP sources are replicated out to the external hyperscalaer stores such as Google BigQuery, Amazon S3, and Azure Data Lake Storage Gen2 via SAP Datasphere through its Replication Flow feature.
-
-5. Data from a cost-efficient hyperscaler object stores like Google Cloud Storage or Amazon S3 can be imported into SAP Datasphere via Data Flows . With this approach the data can be transformed during the transfer and persisted "physically" in SAP Datasphere.
 
 ## When to use
+
+### BDC Connect - Delta Sharing integration 
+
+- When a AI/ML or Analytics use case in a hybrid landscape can take advantage of the Zero-Copy / federated access of data from single source of truth (in both direction) , and can benefit from the efficiency of secured, governed access via the Delta Sharing protocol that make the integration possible at the Object Store level. 
+
+- This integration is centered around the concept of 'Data Product', which is an abstraction that represents a type of data or data set within a system, facilitating easier management and sharing across different platforms. Publishing a Data Product allows these systems to access and consume the data, ensuring seamless communication and resource sharing. 
+
+- Each SAP application in a BDC landscape will automatically appear in the SAP Databricks account as a provider. Activating a data product in SAP Business Data Cloud automatically creates a Delta Share from BDC Catalog to SAP Databricks Unity Catalog . These data products can now be used in notebooks, the SQL editor, and AI/ML products. 
+
+- Similarly, after creating assets in SAP Databricks (e.g, as a result of a M/L experiment), they can be published back to SAP Business Data Cloud Catalog as data products using Python SDK (sap-bdc-connect-sdk), so that it becomes discoverable by other consumer applications in SAP Business Data Cloud, for example by SAP Datasphere.
+
+**Differentiation and Benefits**: 
+
+1. **Open Protocol**: Industry standard for data sharing, allowing interoperability across platforms like Spark, Pandas, Power BI, and more. 
+
+2. **Live Data Access**: Share live, ready-to-query data directly from your data lake (e.g., Delta Lake) without replication. 
+
+3. **Data Product Sharing**: Access to curated, SAP-managed data products that provide a harmonized data model across all lines of business while preserving business context and semantics.
+
+4. **Security & Governance**: Includes fine-grained access control, auditing, and centralized governance . Security protocols such as mutual Transport Layer Security (mTLS) and OpenID Connect (OIDC) are implemented for safe data exchanges
+
+
 
 ### Replication Flow
 
@@ -87,58 +119,20 @@ The data from these sources are then accessed in SAP Datasphere virtually using 
 - Data persisted and enriched in SAP Datasphere can also be moved into external environments for use with downstream use cases in hyperscalers.
 - Any data that is moved out into external targets via SAP Datasphere is done with the help of "premium outbound integration" powered by *Replication Flows*.
 
-## Capabilities of Replication Flows in SAP Datasphere
+Replication Flows in SAP Datasphere offer robust capabilities to ensure seamless data movement and integration across various environments. Here are some key features : Bidirectional Data Movement, Real-Time Data Synchronization, Integration with Hyperscaler Storage Solutions, Automated and Scheduled Transfers
 
-Replication Flows in SAP Datasphere offer robust capabilities to ensure seamless data movement and integration across various environments. Here are some key features:
 
-1. **Bidirectional Data Movement**:
-	- Replication Flows support the transfer of data both into and out of SAP Datasphere. This bidirectional capability ensures that data can be ingested from SAP sources for processing and analysis, and subsequently exported to external hyperscaler environments for further use.
-
-2. **Real-Time Data Synchronization**:
-	- With Replication Flows, data synchronization occurs in real-time, ensuring that the most current data is always available. This is crucial for maintaining data consistency and reliability across different systems.
-
-3. **Support for Multiple Data Sources**:
-	- Replication Flows can handle data from a variety of SAP sources, including SAP S/4HANA and SAP BW/4HANA. This versatility allows organizations to consolidate data from multiple SAP systems into a single, unified platform.
-
-4. **Integration with Hyperscaler Storage Solutions**:
-	- Data can be seamlessly transferred to external hyperscaler storage solutions such as Amazon S3, Google Cloud Storage, and Azure Data Lake Storage Gen2. This integration enables organizations to leverage the scalability and cost-efficiency of cloud storage.
-
-5. **Premium Outbound Integration**:
-	- The "premium outbound integration" feature ensures that data exported from SAP Datasphere to external targets is done efficiently and securely. This premium service guarantees high performance and reliability for outbound data transfers.
-
-6. **Data Enrichment and Transformation**:
-	- Before data is moved out of SAP Datasphere, it can be enriched and transformed within the platform. This ensures that the data is in the optimal format and structure for downstream use cases in hyperscaler environments.
-
-7. **Automated and Scheduled Transfers**:
-	- Replication Flows can be configured to run automatically on a scheduled basis. This automation reduces the need for manual intervention and ensures that data transfers occur consistently and reliably.
 
 ### Federation
 
-- When data from external hyperscaler sources needs to be harmonized with SAP data sources in real-time to help derive richer insights for Analytics applications, then the data federation architecture is used.
+- When data from external hyperscaler sources needs to be harmonized with SAP data sources in real-time at the SAP Datasphere layer (as opposed to leveraging the Object Store based secure, centrally-governed Delta Sharing integration mentioned earlier) , then the data federation integration at SAP Datasphere is used.
 - Data from sources are virtually accessed via remote tables in SAP Datasphere.
 - Data remains in its sources and queries are pushed to sources directly.
 - Examples of such real-time virtualized data access include integrations with SAP S/4HANA, SAP BW/4HANA, Amazon Athena, Google BigQuery, and Databricks Delta Lake, to name a few.
 - To benefit from real-time integration that efficiently queries and returns results to SAP Datasphere, the queries are designed with strategies such as filtering, aggregation, and partitioning at the source.
 
-Data federation in SAP Datasphere allows organizations to access and analyze data from multiple sources without the need for physical data movement. This approach ensures that data remains in its original location while still being available for real-time analytics and decision-making. Here are some key aspects of data federation:
+Data federation in SAP Datasphere allows organizations to access and analyze data from multiple sources without the need for physical data movement. This approach ensures that data remains in its original location while still being available for real-time analytics and decision-making. Here are some key aspects of data federation:  Virtual Data Access, Real-Time Insights, Seamless Integration
 
-1. **Virtual Data Access**:
-	- Data federation enables virtual access to data stored in various sources. This means that data can be queried and analyzed in real-time without the need to replicate or move it physically into SAP Datasphere.
-
-2. **Real-Time Insights**:
-	- By leveraging data federation, organizations can gain real-time insights from their data. This is particularly useful for scenarios where timely information is critical for decision-making.
-
-3. **Seamless Integration**:
-	- Data federation supports seamless integration with a wide range of data sources, including SAP systems (such as SAP S/4HANA and SAP BW/4HANA) and non-SAP systems (such as Amazon Athena, Google BigQuery, and Databricks Delta Lake). This flexibility allows organizations to create a unified view of their data landscape.
-
-4. **Optimized Query Performance**:
-	- To ensure efficient query performance, data federation leverages strategies such as filtering, aggregation, and partitioning at the source. This means that only the necessary data is retrieved and processed, reducing the load on both the source systems and SAP Datasphere.
-
-5. **Cost Efficiency**:
-	- Since data federation avoids the need for data replication, it can lead to cost savings in terms of storage and data transfer. Organizations can access and analyze their data without incurring additional costs associated with data movement.
-
-6. **Scalability**:
-	- Data federation is highly scalable, allowing organizations to integrate and analyze data from an increasing number of sources as their data landscape grows. This scalability ensures that the data architecture can evolve with the organization's needs.
 
 ### Data Flow
 
