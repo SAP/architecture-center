@@ -8,20 +8,27 @@ import { createTagSidebarMapping } from '@site/src/utils/tagSidebarMapping';
 type Props = WrapperProps<typeof DocTagDocListPageType>;
 
 export default function DocTagDocListPageWrapper(props: Props): ReactNode {
-  console.log("page context:", props);
-
+  // fetch sidebar context from sidebar-store
   const sidebarContext = useDocSidebarContext((state) => state.sidebarContext);
-  console.log("sidebar context:", sidebarContext);
 
+  let updatedProps = props;
   if (props.tag?.items && sidebarContext?.items) {
-    // create an updated tag items array include labels by mapping tag items and sidebar context
+    // create an updated tag items array including labels by mapping tag items against sidebar items
     const updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.items);
-    console.log("tag items with labels:", updatedTagItems);
+
+    updatedProps = {
+      ...props,
+      tag: {
+        ...props.tag,
+        items: updatedTagItems
+      }
+    };
   }
+  console.log("page context:", updatedProps);
 
   return (
     <>
-      <DocTagDocListPage {...props} />
+      <DocTagDocListPage {...updatedProps} />
     </>
   );
 }

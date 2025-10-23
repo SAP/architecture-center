@@ -13,7 +13,10 @@ interface SidebarItem {
 
 interface MappingResult {
   id: string;
-  labels: string[];
+  title: string;
+  description: string;
+  permalink: string;
+  labels: string[] | null;
 }
 
 
