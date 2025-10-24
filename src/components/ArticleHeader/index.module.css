@@ -3,24 +3,31 @@
     margin-bottom: 2rem;
 }
 
-.container:hover .actions {
-    opacity: 1;
-}
-
 .actions {
     position: absolute;
     top: 0;
     right: 0;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+    transition: color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+
+.actions ui5-button::part(icon) {
+    color: var(--sapButton_IconColor);
+}
+
+.actions ui5-button:hover::part(icon),
+.actions ui5-button:focus::part(icon) {
+    color: var(--sapButton_Hover_IconColor);
 }
 
 .displayTitle {
-    font-size: 2.75rem;
-    font-weight: 800;
-    line-height: 1.2;
-    color: #1c2a38;
-    margin: 0 0 2rem 0;
+    font-size: var(--sapFontHeader2Size);
+    font-weight: var(--sapFontHeaderWeight);
+    line-height: var(--sapContent_LineHeight);
+    color: var(--sapTextColor);
+    margin: 0 0 1.5rem 0;
+    font-family: var(--sapFontHeaderFamily);
+    letter-spacing: var(--sapFontHeaderLetterSpacing);
 }
 
 .tagsContainer {
@@ -90,10 +97,14 @@
 }
 
 .titleInput::part(input) {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1c2a38;
+    font-size: var(--sapFontHeader2Size);
+    font-weight: var(--sapFontHeaderWeight);
+    color: var(--sapTextColor);
+    background-color: transparent;
+    border: none;
     padding: 0.25rem 0;
+    font-family: var(--sapFontHeaderFamily);
+    letter-spacing: var(--sapFontHeaderLetterSpacing);
 }
 
 .formField :global(ui5-multi-combobox)::part(input),

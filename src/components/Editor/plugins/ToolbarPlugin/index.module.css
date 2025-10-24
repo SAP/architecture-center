@@ -103,3 +103,43 @@
     left: auto;
     right: 0;
 }
+
+:root[data-theme='dark'] .fixedToolbar {
+    background-color: var(--sapBackgroundColor);
+    border-bottom: 1px solid var(--sapToolbar_BorderColor);
+}
+
+:root[data-theme='dark'] .button,
+:root[data-theme='dark'] .dropdownToggle {
+    color: var(--sapTextColor);
+}
+
+:root[data-theme='dark'] .button:hover,
+:root[data-theme='dark'] .dropdownToggle:hover {
+    background-color: var(--sapButton_Lite_Hover_Background);
+    color: var(--sapButton_TextColor);
+}
+
+:root[data-theme='dark'] .button.active {
+    background-color: var(--sapButton_Emphasized_Background);
+    color: var(--sapButton_Emphasized_TextColor);
+}
+
+:root[data-theme='dark'] .divider {
+    background-color: var(--sapToolbar_SeparatorColor);
+}
+
+:root[data-theme='dark'] .dropdownMenu {
+    background-color: var(--sapList_Background);
+    border: 1px solid var(--sapList_BorderColor);
+    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
+}
+
+:root[data-theme='dark'] .dropdownItem {
+    color: var(--sapList_TextColor);
+}
+
+:root[data-theme='dark'] .dropdownItem:hover {
+    background-color: var(--sapList_Hover_Background);
+    color: var(--sapList_Hover_TextColor);
+}
