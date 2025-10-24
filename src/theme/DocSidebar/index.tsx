@@ -5,7 +5,7 @@ import { NavbarSecondaryMenuFiller, useWindowSize } from '@docusaurus/theme-comm
 import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
 import styles from './styles.module.css';
-import { useSidebarFilterStore, useDocSidebarContext } from '@site/src/store/sidebar-store';
+import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory } from '@docusaurus/router';
@@ -208,7 +208,6 @@ export default function DocSidebarWrapper(props) {
   const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
-  const storeSidebarContext = useDocSidebarContext((state) => state.setSidebarContext);
 
   useEffect(() => {
     if (!location.pathname.startsWith(docsBase)) return;
@@ -244,11 +243,6 @@ export default function DocSidebarWrapper(props) {
           document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
       }
   }, [sidebarContext?.name]);
-
-  useEffect(() => {
-    // store sidebarContext globally
-    storeSidebarContext(sidebarContext);
-  }, [sidebarContext]);
 
   return (
       <>
