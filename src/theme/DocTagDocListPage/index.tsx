@@ -4,6 +4,7 @@ import type DocTagDocListPageType from '@theme/DocTagDocListPage';
 import type {WrapperProps} from '@docusaurus/types';
 import { useDocSidebarContext } from '@site/src/store/sidebar-store';
 import { createTagSidebarMapping } from '@site/src/utils/tagSidebarMapping';
+import CustomDocTagDocListPage from './CustomDocTagDocListPage';
 
 type Props = WrapperProps<typeof DocTagDocListPageType>;
 
@@ -24,11 +25,17 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
       }
     };
   }
-  console.log("page context:", updatedProps);
 
+  // use custom component when labels are available, otherwise use original
+  const hasLabels = updatedProps.tag?.items?.some((item: any) => item.labels && item.labels.length > 0);
+  
   return (
     <>
-      <DocTagDocListPage {...updatedProps} />
+      {hasLabels ? (
+        <CustomDocTagDocListPage {...(updatedProps as any)} />
+      ) : (
+        <DocTagDocListPage {...updatedProps} />
+      )}
     </>
   );
 }
