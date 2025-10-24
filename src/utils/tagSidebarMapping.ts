@@ -6,8 +6,11 @@ interface TagItem {
 }
 
 interface SidebarItem {
+  id?: string;
   href?: string;
   label: string;
+  type: 'doc' | 'category';
+  link?: { id: string; };
   items?: SidebarItem[];
 }
 
@@ -28,8 +31,15 @@ function findMatchInSidebar(
   for (const sidebarItem of sidebarItems) {
     const newLabels = [...currentLabels, sidebarItem.label];
     
-    // match check on href/permalink instead of docId/id because sidebarItem's docId may not be present!
-    if (sidebarItem.href && sidebarItem.href === tagItem.permalink) {
+    // match on ids based on sidebarItem.type: doc or category
+    let isMatch = false;
+    if (sidebarItem.type === 'doc' && sidebarItem.id) {
+      isMatch = sidebarItem.id === tagItem.id;
+    } else if (sidebarItem.type === 'category' && sidebarItem.link?.id) {
+      isMatch = sidebarItem.link.id === tagItem.id;
+    }
+    
+    if (isMatch) {
       return { found: true, labels: newLabels };
     }
     
@@ -49,7 +59,7 @@ export function createTagSidebarMapping(
   tagItems: TagItem[],
   sidebarItems: SidebarItem[]
 ): MappingResult[] {
-  
+
   return tagItems.map((tagItem) => {
     const result = findMatchInSidebar(sidebarItems, tagItem);
     
