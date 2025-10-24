@@ -8,7 +8,7 @@ sidebar_custom_props:
     - appdev
     - aws
     - azure
-title: Reference Architecture for Event-Driven Applications
+title: Designing Event-Driven Applications
 description: >-
   Guidance for developing applications based on Event-Driven Architecture (EDA)
   patterns and Cloud Application Programming (CAP) framework.
@@ -94,7 +94,7 @@ As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.
 
 This capability plays an important roles in EDA in the following scenarios
 - For providing **event mediation** functionality such as mapping of event structures and data, enrich event payloads etc.
-- Acts as event bridge between third-party event brokers or applications and SAP EDA technology services.
+- Acts as **event bridge** between third-party event brokers or applications and SAP EDA technology services.
 
 ### Event-Enabling of SAP Applications
 SAP delivers standard events to support modular cloud ERP.For any development of derived events(extending SAP Standard events) or defining custom events,ABAP RESTful Application Programming Model(RAP) can be leveraged. For older releases of SAP S/4HANA and SAP ECC releases(since NW 7.31), the SAP Application Interface Framework(AIF) supports the development of custom events and customer interfaces for SAP Business Objects, IDoc Interfaces, and BAPI/RFC Functional Module interfaces.

@@ -4,15 +4,15 @@ slug: /ref-arch/fbdc46aaae/4
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
-title: Events to Business Actions Framework
+title: SAP CAP Framework for Events to Business Actions Integration
 description: >-
- Sample application patterns to build event-driven applications in SAP BTP
+ Custom CAP Application framework to build event-driven applications in SAP BTP
 keywords:
   - sap
   - aws iot integration
   - event-to-business actions
   - cloud application programming
-sidebar_label: Events to Business Actions Framework
+sidebar_label: SAP CAPM Framework for EDA
 image: img/ac-soc-med.png
 tags:
   - cap
@@ -38,14 +38,18 @@ last_update:
 ---
 
 
-This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
+This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP) using custom development application framework using SAP Cloud Application Programming Model.
+
+Note: Evaluate SAP Integration Suite, advanced event mesh offerings and if additional custom management of events are required, this approach can be evaluated and implemented. This framework can be integrated with SAP Integration Suite,advanced event mesh or Event Mesh capability of SAP Integration Suite.
 
 ## Architecture
 
 ![drawio](drawio/e2b-cc.drawio)
 
 This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication via message broker.
-This features a CAP-based application framework (Events-To-Business Actions Framework) which allows you to configure set of actions for a particular business scenario. Based on the events category and type, respective actions are triggered in SAP Line of Business (LoB) applications. It also uses SAP Integration Suite, advanced event mesh / Event Mesh capability in SAP Integration Suite, SAP Build Process Automation, SAP HANA Cloud, SAP Destination Service, SAP Connectivity service with cloud connector. An alternative architecture can be considered with SAP Private Link service for integrating SAP BTP and SAP S/4HANA in scenarios where both SAP BTP and SAP S/4HANA run on the same Hyperscaler environment (Microsoft Azure or AWS).
+This features a CAP-based application framework (Events-To-Business Actions Framework) which allows you to configure set of actions for a particular business scenario. Based on the events category and type, respective actions are triggered in SAP Line of Business (LoB) applications. It also uses SAP Integration Suite, advanced event mesh / Event Mesh capability in SAP Integration Suite, SAP Build Process Automation, SAP HANA Cloud, SAP Destination Service, SAP Connectivity service with cloud connector. 
+
+An alternative architecture can be considered with SAP Private Link service for integrating SAP BTP and SAP S/4HANA in scenarios where both SAP BTP and SAP S/4HANA run on the same Hyperscaler environment (Microsoft Azure or AWS).
 The reference applications with Microsoft Azure and AWS demonstrates and helps to build end-to-end event-based integration scenario.
 
 
@@ -67,7 +71,7 @@ As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.
 
 The SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It supports Java (with Spring Boot), JavaScript, and TypeScript (with Node.js), which are some of the most widely adopted languages. CAP is recommended by the [SAP BTP Developer's Guide](https://help.sap.com/docs/btp/btp-developers-guide/btp-developers-guide), and supports developers with a path of proven best practices and a wealth of out-of-the-box solutions to recurring tasks.
 
-#### Events-To-Business Actions Framework 
+#### Events-To-Business Actions Framework based on SAP CAPM
 In this reference architecture, the events-to-business actions framework is developed as CAP application using Node.js. This serves as the central component and a reusable component. Below are the key characteristics and benefits of using the framework.
 
 - Provides comprehensive programming and configuration model for development of event-based integration scenario with SAP systems.
