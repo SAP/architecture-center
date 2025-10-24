@@ -7,7 +7,6 @@ interface TagItem {
 
 interface SidebarItem {
   id?: string;
-  href?: string;
   label: string;
   type: 'doc' | 'category';
   link?: { id: string; };
