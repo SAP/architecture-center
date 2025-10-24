@@ -31,15 +31,15 @@ const config: Config = {
         hooks: {
             onBrokenMarkdownLinks: 'throw',
             onBrokenMarkdownImages: 'throw',
-          },
+        },
     },
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
-            '/ArchitectureValidator': 'btp',
-            '/QuickStart': 'github',
+            '/architecture-validator': 'btp',
+            '/quick-start': 'github',
         },
     },
     themes: ['@docusaurus/theme-mermaid'],
@@ -230,11 +230,11 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=gcp">Google Cloud Platform</a>`,                          
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=gcp">Google Cloud Platform</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=ibm">IBM</a>`,                          
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=ibm">IBM</a>`,
                         },
                         {
                             type: 'html',
@@ -261,11 +261,11 @@ const config: Config = {
                         },
                         {
                             label: 'Architecture Validator',
-                            to: '/ArchitectureValidator',
+                            to: '/architecture-validator',
                         },
                         {
-                            label: 'QuickStart',
-                            to: '/QuickStart',
+                            label: 'Quick Start',
+                            to: '/quick-start',
                         },
                         {
                             label: 'Solution Diagram Guidelines',
@@ -276,7 +276,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: 'What\'s New',
+                            label: "What's New",
                             to: '/blog',
                         },
                     ],
