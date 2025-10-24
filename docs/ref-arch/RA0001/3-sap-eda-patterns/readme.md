@@ -33,5 +33,5 @@ last_update:
 ---
 
 
-This page will contain EDA Patterns
+This page will contain EDA Patterns for S4
 
