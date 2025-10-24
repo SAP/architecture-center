@@ -3,6 +3,7 @@ id: id-ra0026
 slug: /ref-arch/083f2d968e
 sidebar_position: 1
 sidebar_custom_props: 
+    category_index: []
 title: Embodied AI Agents
 description: >-
   Embodied AI agents extend digital workflows into the physical world, enabling
