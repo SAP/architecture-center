@@ -33,5 +33,21 @@ last_update:
 ---
 
 
-This page will contain EDA Patterns for S4
+## Introduction to SAP Event-Driven Architecture Patterns
+
+SAP Event-Driven Architecture (EDA) patterns provide a framework for designing scalable, decoupled, and responsive business solutions on SAP BTP and SAP S/4HANA. These patterns leverage the power of events—business signals that indicate changes or actions in systems—to enable real-time integration, automation, and extension of core processes.
+
+Common EDA patterns in the SAP ecosystem include:
+- **Event Notification:** Systems publish events to notify other applications of business changes, such as order creation or status updates.
+- **Event-Carried State Transfer:** Events carry the necessary data for consumers to process or update their own state, reducing the need for synchronous calls.
+- **Event Sourcing:** Business state is reconstructed from a sequence of events, supporting auditability and complex business logic.
+- **Event-Driven Workflow:** Events trigger automated workflows or business processes across SAP and non-SAP systems.
+
+By applying these patterns, organizations can:
+- Decouple producers and consumers for greater agility
+- Enable real-time reactions to business events
+- Integrate SAP S/4HANA with cloud services, microservices, and third-party applications
+- Build side-by-side extensions and automate business processes
+
+The following sections illustrate how these EDA patterns are implemented in SAP S/4HANA and SAP BTP, highlighting practical use cases and architectural approaches.
 

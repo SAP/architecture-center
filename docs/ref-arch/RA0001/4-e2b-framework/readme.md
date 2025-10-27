@@ -37,11 +37,14 @@ last_update:
   date: 2025-05-10
 ---
 
+One of the EDA use cases is around SAP BTP extension applications consuming the events from SAP systems or third-party systems and triggering business actions in SAP systems. This reference architecture provides a custom application framework based on SAP Cloud Application Programming Model (CAP) to build event-driven applications in SAP Business Technology Platform (BTP) which can consume events from different source systems and trigger business actions in SAP systems.
 
-This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP) using custom development application framework using SAP Cloud Application Programming Model.
+This is a sample reference application which can be extended and customized to build event-based integration scenarios from different systems/applications into the SAP ecosystem using SAP BTP. 
 
-Note: Evaluate SAP Integration Suite, advanced event mesh offerings and if additional custom management of events are required, this approach can be evaluated and implemented. This framework can be integrated with SAP Integration Suite,advanced event mesh or Event Mesh capability of SAP Integration Suite.
+Note: This is not SAP standard product or service offering. This is a custom developed framework based on SAP CAPM to build event-driven applications in SAP BTP.
 
+Evaluate SAP Integration Suite, advanced event mesh offerings and if additional custom management of events are required, this approach can be evaluated and implemented. This framework can be integrated with SAP Integration Suite,advanced event mesh or Event Mesh capability of SAP Integration Suite.
+ 
 ## Architecture
 
 ![drawio](drawio/e2b-cc.drawio)
@@ -65,7 +68,7 @@ Advanced event mesh is a distributed multi-broker event mesh designed to manage 
 
 The Event Mesh capability of SAP Integration Suite (“Event Mesh capability” for short) is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications.
 
-As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.com/docs/sap-btp-guidance-framework/sap-integration-solution-advisory-methodology/catalog-of-integration-use-case-patterns),either of the options can be selected based on the eventing requirements.
+As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.com/docs/sap-btp-guidance-framework/sap-integration-solution-advisory-methodology/catalog-of-integration-use-case-patterns),either of the options can be selected based on the eventing requirements. 
 
 ### SAP CAP for Extension Application
 
