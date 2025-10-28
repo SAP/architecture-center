@@ -133,12 +133,13 @@ Below are the list of services that are must-have to implement this architecture
 
 ## Examples
 
-- Event-driven SAP Integration Suite,advanced event mesh scenario for buffering extreme peak loads. 
-When releasing new products or promotions, the number of concurrent sales orders via webshop as well as stores increase. The extreme amount of concurrent orders cannot be handles using synchronous approaches. With the below event-driven architecture setup, the web shop stays active as AEM buffers the extreme peak loads and brokers can be started up for specific time frames helping with backends from high loads.
+- Integrate SAP-Based HR business processes with Third-Party Applications.
+- Managing extreme order volumes with Event-Driven Architecture in SAP S/4HANA.
+- Collection and aggregation of events(real-time updates from inventory and pricing)from multiple sources into SAP S/4HANA.
+- Integrate events(business/real-time IoT) from third-party applications and event brokers into SAP Enterprise Business Systems.
+- Integration of SAP Master Data Governance with SAP and non-SAP Systems.
+- Integrate data from diverse sources of SAP backend systems including event transformation with SAP Integration Suite into SAP S/4HANA.
 
-![drawio](drawio/eda_pattern1.drawio)
-
-[Additional Event-Driven Architecture Use Cases](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
 
 ## Resources
 For more information related to this reference architecture, you can check out the following resources:
@@ -147,5 +148,3 @@ For more information related to this reference architecture, you can check out t
 - [Blog Collection | SAP Integration Suite, advanced event mesh](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-integration-suite-advanced-event-mesh-blog-collection/ba-p/14111943)
 - [SAP Developers | Publish and Subscribe to Events in SAP Integration Suite, advanced event mesh](https://developers.sap.com/tutorials/pubsub-view-events.html#51cb3f1a-5861-4802-a4a1-2f154eb40e0b)
 - [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/describing-sap-s-event-driven-ecosystem_ebe634bf-a91d-4276-b538-a3f4026c0f61)
-
-
