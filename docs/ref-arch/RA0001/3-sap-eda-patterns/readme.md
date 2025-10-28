@@ -4,14 +4,14 @@ slug: /ref-arch/fbdc46aaae/3
 sidebar_position: 1
 sidebar_custom_props:
   category_index: []
-title: SAP Event-driven Architecture Use Cases
+title: SAP Event-Driven Reference Architectures 
 description: >-
   Event-driven architecture use cases to highlight real-world applications.
 keywords:
   - sap
   - eda
   - integration
-sidebar_label:  SAP EDA Use Cases
+sidebar_label:  SAP Event-Driven Reference Architectures  
 image: img/ac-soc-med.png
 tags:
   - appdev
@@ -33,21 +33,52 @@ last_update:
 ---
 
 
-## Introduction to SAP Event-Driven Architecture Patterns
+Event-driven architecture use cases are crucial because they highlight real-world applications of this technological strategy. Understanding specific use cases reveals how this architecture is crucial for services that require real-time operations, high responsiveness, and asynchronous communication. 
 
-SAP Event-Driven Architecture (EDA) patterns provide a framework for designing scalable, decoupled, and responsive business solutions on SAP BTP and SAP S/4HANA. These patterns leverage the power of events—business signals that indicate changes or actions in systems—to enable real-time integration, automation, and extension of core processes.
+## Event Sources and Event Enablement for SAP ERP Systems
 
-Common EDA patterns in the SAP ecosystem include:
-- **Event Notification:** Systems publish events to notify other applications of business changes, such as order creation or status updates.
-- **Event-Carried State Transfer:** Events carry the necessary data for consumers to process or update their own state, reducing the need for synchronous calls.
-- **Event Sourcing:** Business state is reconstructed from a sequence of events, supporting auditability and complex business logic.
-- **Event-Driven Workflow:** Events trigger automated workflows or business processes across SAP and non-SAP systems.
+SAP systems generate a variety of business events that can be consumed by other applications or services. Common event sources include:
+- SAP ERP
+- SAP S/4HANA
+- SAP S/4HANA, Public Cloud Edition
 
-By applying these patterns, organizations can:
-- Decouple producers and consumers for greater agility
-- Enable real-time reactions to business events
-- Integrate SAP S/4HANA with cloud services, microservices, and third-party applications
-- Build side-by-side extensions and automate business processes
+The following sections illustrate how these event source systems are enabled to produce events that can be consumed by SAP and non-SAP systems. 
 
-The following sections illustrate how these EDA patterns are implemented in SAP S/4HANA and SAP BTP, highlighting practical use cases and architectural approaches.
+![drawio](drawio/enterprise_eda.drawio)
 
+- SAP ERP
+  - Using SAP Application Interface Framework (AIF) or Event Add-on for ERP, custom events can be defined and published to SAP Event Mesh or SAP Cloud Application Event Hub.
+  - Supports notifications and data events
+  - Supports Inbound and Outbound events
+  - CloudEvents Format
+
+- SAP S/4HANA
+  - 600+ SAP standard business events available out-of-the-box covering various modules like Finance, Sales, Procurement, Manufacturing, etc.
+  - Supports Events Extensibility to create custom events using SAP Cloud Application Programming Model (CAP) or ABAP.
+  -Custom events using SAP AIF or Event Add-on for S/4HANA
+
+- SAP S/4HANA, Public Cloud Edition
+  - 600+ SAP standard business events based on ABAP RESTful application programming model.
+  - Supports Events Extensibility to create custom events using SAP Cloud Application Programming Model (CAP
+
+To build end to end use case for EDA for SAP Enterprise systems, below are the various event enablement options available in SAP ecosystem and the supporting versions for each of the options
+
+![drawio](drawio/event_enablement.drawio)
+
+## Sample Use Case Scenarios 
+
+Below are some sample use case scenarios demonstrating the application of event-driven architecture patterns in SAP environments.
+
+### Use Case 1: Real-time Order Processing in SAP S/4HANA
+![drawio](drawio/eda_pattern1_s4.drawio)
+
+### Use Case 2: Event-Based SAP SuccessFactors Integration
+![drawio](drawio/eda_pattern2_sf.drawio)
+
+### Use Case 3: Third-Party Events to SAP S/4HANA Integration via SAP BTP Extension Application
+![drawio](drawio/eda_inbound_destination.drawio)
+
+### Use Case 4: Event processing from SAP BTP Extension Application to SAP S/4HANA via SAP Cloud Application EventHub
+![drawio](drawio/eda_inbound_eventhub.drawio)
+
+Note: Refer to additional use case patterns in [SAP Learning Journey -Discovering Event-Driven Integration with SAP Integration Suite,advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
