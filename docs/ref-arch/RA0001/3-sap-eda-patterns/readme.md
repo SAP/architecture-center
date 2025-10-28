@@ -46,6 +46,8 @@ The following sections illustrate how these event source systems are enabled to 
 
 ![drawio](drawio/enterprise_eda.drawio)
 
+![plot](./drawio/enterprise_eda.png)
+
 - SAP ERP
   - Using SAP Application Interface Framework (AIF) or Event Add-on for ERP, custom events can be defined and published to SAP Event Mesh or SAP Cloud Application Event Hub.
   - Supports notifications and data events
@@ -65,6 +67,8 @@ To build end to end use case for EDA for SAP Enterprise systems, below are the v
 
 ![drawio](drawio/event_enablement.drawio)
 
+![plot](./drawio/event_enablement.png)
+
 ## Sample Use Case Scenarios 
 
 Below are some sample use case scenarios demonstrating the application of event-driven architecture patterns in SAP environments.
@@ -72,13 +76,21 @@ Below are some sample use case scenarios demonstrating the application of event-
 ### Use Case 1: Real-time Order Processing in SAP S/4HANA
 ![drawio](drawio/eda_pattern1_s4.drawio)
 
+![plot](./drawio/eda_pattern1_s4.png)
+
 ### Use Case 2: Event-Based SAP SuccessFactors Integration
 ![drawio](drawio/eda_pattern2_sf.drawio)
+
+![plot](./drawio/eda_pattern2_sf.png)
 
 ### Use Case 3: Third-Party Events to SAP S/4HANA Integration via SAP BTP Extension Application
 ![drawio](drawio/eda_inbound_destination.drawio)
 
+![plot](./drawio/eda_inbound_destination.png)
+
 ### Use Case 4: Event processing from SAP BTP Extension Application to SAP S/4HANA via SAP Cloud Application EventHub
 ![drawio](drawio/eda_inbound_eventhub.drawio)
+
+![plot](./drawio/eda_inbound_eventhub.png)
 
 Note: Refer to additional use case patterns in [SAP Learning Journey -Discovering Event-Driven Integration with SAP Integration Suite,advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)

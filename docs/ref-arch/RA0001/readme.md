@@ -57,6 +57,8 @@ This reference architecture offers guidance for developing applications based on
 
 ![drawio](drawio/eda_ref_arch.drawio)
 
+![plot](./drawio/eda_ref_arch.png)
+
 This architecture can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. The event producers and consumers can be either of the systems.
 EDA architectural patterns focus on seamless flow of events and the resulting reactions and notifications triggered by these events.EDA solutions are based on multiple connected event brokers, which mediate the communication of event messages between event publishers and event consumers.
 Along with APIs, events are a method of facilitating real-time process integration for intelligent enterprises. SAP cloud applications increasingly support event-driven architecture concepts.
