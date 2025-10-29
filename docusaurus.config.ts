@@ -5,6 +5,8 @@ const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
+const baseUrl = '/';
+
 const config: Config = {
     title: 'SAP Architecture Center',
     tagline:
@@ -12,7 +14,7 @@ const config: Config = {
     favicon: 'img/favicon.ico',
 
     url: 'https://architecture.learning.sap.com',
-    baseUrl: '/',
+    baseUrl: baseUrl,
 
     // GitHub pages deployment config.
     organizationName: 'SAP', //GitHub org

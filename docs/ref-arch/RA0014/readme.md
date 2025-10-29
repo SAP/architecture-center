@@ -127,9 +127,11 @@ Besides service location and the resulting network distances in our distributed 
 
 The network routing itself can have an impact, too. All major hyperscaler IaaS providers operate their own global fibre backbones to connect their different regions but of course you can make use of the public internet, too. However, this is not always transparent to the customer. Different from working with Infrastructure-as-a-Service resources on hyperscalers like Amazon Web Services, Google Cloud or Microsoft Azure, where you are in full control of the Software-Defined-Network (SDN) you rarely get in contact with the low level networking setup when using the SAP BTP Platform-as-a-Service (PaaS).  
 
+Network performance challenges may stem from hybrid environments that combine cloud and on-premise components. Complex enterprise solutions are as of today often not fully cloud-native, and older network segments or gateways can become bottlenecks. Outdated hardware, legacy routing protocols, or static configurations may lack the capabilities of modern, software-defined networking (SDN) approaches. Architects should identify such bottlenecks early in the design process to ensure that connectivity, routing, and performance expectations remain consistent across all layers of the landscape.
+
 To understand the impact of different connection options, several test options have been developed:
 
-To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/$HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API calls are used.
+To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/4HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API calls are used.
 
 The baseline (no BTP involved):
 

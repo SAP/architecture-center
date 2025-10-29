@@ -31,18 +31,30 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-01-23
+  date: 2025-10-23
 ---
 
-Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via SAP Datasphere's unified data models for use with richer analytics and other use cases.
+SAP Business Data Cloud facilitates seamless harmonization of business data from SAP and non-SAP data from Enterprise Dabricks for richer Analytics and AI use cases. 
+<b>BDC Connect</b> for Databricks enables the bi-directional data sharing of curated data products with enterprise databricks leveraging the industry standard open delta share protocol, enabling efficient AI/ML workloads.  SAP Business Data Cloud also allows direct JDBC connectivity with enterprise databricks delta lake at the SAP Datasphere layer, enabling a open data ecosystem integration. 
 
-## Architecture
+In enterprise hybrid landscapes that span diverse computing platforms and cloud sources, Delta Share–based access to AI-ready data products delivers enhanced flexibility, optimized performance, and seamless interoperability.
+
+
+## Architecture 
 
 ![drawio](drawio/databricks-data-integration.drawio)
 
-## 1. Integration with Databricks Delta Lake
+### 1. BDC Connect : Bi-directional delta share integration with enterprise databricks(<i>NEW</i>)
 
-**Mode(s) of Integration:** Federating data live into SAP Datasphere.
+<ul>
+  <li>With the release of BDC Connect for Enterprise Dabricks recently, SAP data products from SAP line of business applications can be shared directly with Enterprise Databricks over governed data access, and discoverable via Unity catalog.</li>
+  <li>Similarly, data from Enterprise Databricks can be shared as data products back to SAP Business Data Cloud catalog via BDC Python SDK.</li>
+
+[Ref: brownfield integration](../../RA0013/5-sap-databricks-in-business-data-cloud/readme.md#2-brownfield-integration-integrating-an-existing-enterprise-databricks-platform-with-sap-bdc)
+
+</ul>
+
+### 2. Integration with Databricks Delta Lake at SAP Datasphere Layer
 
 Delta Lake is an optimized storage layer that provides the foundation for tables in a lakehouse architecture on Databricks. It brings reliability to data lakes, ensuring ACID (Atomicity, Consistency, Isolation, Durability) transactions, scalable metadata handling, and unifying streaming and batch data processing.
 
@@ -50,7 +62,7 @@ Data from Databricks Delta Lake tables can be **federated** live into SAP Datasp
 
 The integration process involves:
 
-1. **Connection Setup**: Establishing a secure connection between SAP Datasphere and Databricks Delta Lake using supported connectors and authentication mechanisms.
+1. **Connection Setup**: Establishing a secure connection between SAP Datasphere and Databricks Delta Lake using supported connectors (JDBC connectivity using CamelJDBC Adapters) and authentication mechanisms.
 2. **Data Federation**: Configuring virtual tables in SAP Datasphere that reference the live data in Databricks Delta Lake without physically moving the data.
 3. **Model Augmentation**: Enhancing the federated data with SAP business data to create comprehensive and unified semantic models.
 4. **Real-time Analytics**: Utilizing SAP Analytics Cloud to build dashboards and reports that leverage the real-time, federated data for actionable insights.

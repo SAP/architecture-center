@@ -42,7 +42,7 @@ last_update:
 AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.
 
 ## AI Agent Development Approaches
-SAP supports two complementary approaches to building AI agents: **Content-Based Agents** and **Code-Based Agents**. These patterns distinguish between configuration-driven and programmatic implementations—helping architects and developers choose the right balance between speed, flexibility and control.
+SAP supports two complementary approaches to building AI agents: **Content-Based Agents** and **Code-Based Agents**. These patterns distinguish between configuration-driven and programmatic implementations  - helping architects and developers choose the right balance between speed, flexibility and control.
 
 ### Content-Based Agents ###
 
@@ -55,8 +55,6 @@ They are designed for rapid development through configuration rather than coding
 - **Secure & Scalable**: Built on top of Generative AI Hub with anonymization, metering and role-based security.
 
 For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/readme.md).
-
-![drawio](../../RA0024/drawio/joule-studio-ref-arch.drawio)
 
 ### Code-Based Agents ###
 
