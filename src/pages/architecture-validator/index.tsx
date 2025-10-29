@@ -7,6 +7,7 @@ import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
 import { Button, FlexBox, Title, Text, Icon, Dialog, Bar } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons.js';
+import Header from '@site/src/components/CustomHeader/Header';
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -55,14 +56,15 @@ export default function ArchitectureValidator(): React.JSX.Element {
     if (!isBtpAuthenticated) {
         return (
             <Layout>
-                <div className={styles.headerBar}>
-                    <h1>Architecture Validator</h1>
-                    <p>BTP authentication required to access this feature</p>
-                </div>
+                <Header
+                    title="Architecture Validator"
+                    subtitle="BTP authentication required to access this feature"
+                    breadcrumbCurrent="Architecture Validator"
+                />
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <div className={styles.authRequired}>
-                            <h2>🔒 BTP Authentication Required</h2>
+                            <h2>BTP Authentication Required</h2>
                             <p>
                                 The Architecture Validator requires BTP authentication to ensure secure access to
                                 validation services.
@@ -222,24 +224,11 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     return (
         <Layout>
-            <div className={styles.heroBanner}>
-                <div className={styles.heroContent}>
-                    <div className={styles.breadCrumbs}>
-                        <a href="/" className={styles.homeLink}>
-                            <Icon name="home" />
-                        </a>
-                        <Text className={styles.breadcrumbSeparator}>&gt;</Text>
-                        <Text className={styles.breadcrumbCurrent}>Architecture Validator</Text>
-                    </div>
-                    <FlexBox direction="Column" alignItems="Start" justifyContent="Center">
-                        <Title className={styles.heroTitle}>Architecture Validator</Title>
-                        <Text className={styles.heroSubtitle}>
-                            Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice
-                            guidelines
-                        </Text>
-                    </FlexBox>
-                </div>
-            </div>
+            <Header
+                title="Architecture Validator"
+                subtitle="Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines"
+                breadcrumbCurrent="Architecture Validator"
+            />
 
             <main className={styles.mainContainer}>
                 {managedFiles.length === 0 ? (
