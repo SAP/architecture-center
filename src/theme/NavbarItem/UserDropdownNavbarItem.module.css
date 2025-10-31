@@ -54,6 +54,10 @@
     font-size: 0.9em;
 }
 
+:root[data-theme='dark'] .userAvatarPlaceholder {
+    background-color: var(--sapButton_Emphasized_Background);
+}
+
 .userDropdown__button {
     background-color: transparent;
     color: var(--ifm-navbar-link-color);
@@ -133,6 +137,10 @@
     font-weight: bold;
     font-size: 2em;
     margin-bottom: 20px;
+}
+
+:root[data-theme='dark'] .userAvatarLargePlaceholder {
+    background-color: var(--sapButton_Emphasized_Background);
 }
 
 .userDropdown__userDetails {
