@@ -12,33 +12,6 @@
     background-color: #f0f2f5;
 }
 
-.headerBar {
-    background: var(--ifm-menu-color-active);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    max-width: 1440px;
-    position: relative;
-    margin: 50px auto 4rem auto;
-    border-radius: 24px;
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
-}
-.headerBar h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: clamp(22px, 4.2vw, 40px);
-    line-height: 1.15;
-}
-.headerBar p {
-    font-weight: 500;
-    margin-top: 2rem;
-    font-size: clamp(14px, 2.8vw, 22px);
-    opacity: 0.95;
-}
-
 .mainContainer {
     display: flex;
     justify-content: center;
@@ -50,20 +23,20 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 3rem 2rem;
-    background-color: #f8f9fa;
+    background-color: var(--sapGroup_ContentBackground);
     border-radius: 12px;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--sapGroup_ContentBorderColor);
+    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
 }
 
 .authRequired h2 {
-    color: #495057;
+    color: var(--sapTextColor);
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
 
 .authRequired p {
-    color: #6c757d;
+    color: var(--sapContent_LabelColor);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -71,8 +44,8 @@
 .loginButton {
     padding: 12px 24px;
     font-size: 16px;
-    background-color: #333;
-    color: white;
+    background-color: var(--sapButton_Emphasized_Background);
+    color: var(--sapButton_Emphasized_TextColor);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -81,9 +54,9 @@
 }
 
 .loginButton:hover {
-    background-color: #111;
+    background-color: var(--sapButton_Emphasized_Hover_Background);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
 }
 
 .loginButton:active {
