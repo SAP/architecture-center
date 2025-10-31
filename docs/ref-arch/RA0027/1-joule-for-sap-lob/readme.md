@@ -15,9 +15,11 @@ sidebar_custom_props:
 title: Joule for SAP S/4HANA Cloud Private Edition
 description: Reference Architectures for Joule and SAP Enterprise Systems
 sidebar_label: Joule for SAP S/4HANA Cloud Private Edition
-keywords: [sap, joule, s4hana, sap sf, ariba, sap btp]
+keywords: 
+- sap
 image: img/logo.svg
-tags: [sap, joule]
+tags: 
+- sap
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

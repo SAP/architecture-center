@@ -15,9 +15,11 @@ sidebar_custom_props:
 title: Extend Joule with Joule Studio
 description: Develop Joule skills and agents with Joule Studio
 sidebar_label: Extend Joule with Joule Studio
-keywords: [sap, joule, joule studio]
+keywords: 
+- sap
 image: img/logo.svg
-tags: [sap, joule]
+tags: 
+- sap
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

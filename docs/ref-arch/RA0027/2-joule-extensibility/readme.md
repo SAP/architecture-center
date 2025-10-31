@@ -15,9 +15,11 @@ sidebar_custom_props:
 title: Joule Extensibility
 description: Reference Architecture for SAP Joule Extensibility
 sidebar_label: Joule Extensibility
-keywords: [sap, joule]
+keywords: 
+- sap
 image: img/logo.svg
-tags: [sap, joule]
+tags: 
+- sap
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
