@@ -27,11 +27,11 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - anbazhagana-uma
+    - pra1veenk
 last_update:
     date: 2025-10-29
-    author: user-4173e60b83
+    author: anbazhagana-uma 
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -53,44 +53,98 @@ Joule Capabilities are categorized into different patterns.
 
 **Navigational Pattern:** - The navigational pattern helps our users handle business processes themselves in the relevant SAP screen. Joule allows users to navigate directly where they want to go. This is especially helpful for users who are not very familiar with navigating SAP applications.
 
-**Informational Pattern:** - The informational pattern we are providing our users knowledge-based results. These are for example policy related questions. We differ between two categories of informational Joule questions:
+**Informational Pattern:** - The informational pattern provides knowledge-based results. These are for example policy related questions. This can be based on SAP-owned content or could be customer-owned content as well using Document Grounding.
 
-
-The navigational pattern helps our users handle business processes themselves in the relevant SAP screen. Joule allows users to navigate directly where they want to go. This is especially helpful for users who are not very familiar with navigating SAP applications.
-The informational pattern we are providing our users knowledge-based results. These are for example policy related questions. We differ between two categories of informational Joule questions:
-One is based on SAP-owned content to have all our knowledge base available via Joule, e.g. with the SAP-help documentation. This is managed by SAP and offered to every Joule user out of the box.
-Additionally, we are enabling customers to upload customer-owned content. This allows customers to upload their HR policies, travel policies, information content, and others. We call this functionality Document Grounding.
-We are also working the 4th the pattern
-
-Analytical pattern, we plan to introduce analytical interactions. Coming later in 2024 we plan to enable analytical interactions based on JustAsk and SAP Analytics Cloud, enabling customers to leverage Joule for analytical queries. In 2025, we plan to integrate Joule into SAP Analytics Cloud and further evolve the analytical capabilities of Joule.
+**Analytical Pattern:** - The analytical pattern provides insights and data analysis capabilities. Users can ask questions related to business metrics, trends, and performance indicators, and Joule will provide relevant insights based on the integrated datasources.
 
 ## Architecture
 
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 <!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
 
-![drawio](drawio/template.drawio)
+The architecture describes the key components and interactions involved in implementing and extending SAP Joule within an enterprise environment. In order to achieve unified experience with Joule, the below architecture outlines the list of components and the activities required for implementation.
+
+![drawio](drawio/unified_joule.drawio)
+
+
+![plot](./drawio/unified_joule.png)
+
 
 ## Flow
 
-<!-- Add your flow content here -->
+The solution architecture flow for implementing and extending SAP Joule involves several key steps:
+
+- **SAP BTP** , Joule and SAP Build Workzone entitlements establish the foundation for implementing and extending Joule capabilities. This serves as the foundation for Joule to interact with SAP Business Applications and other integrated systems.System Landscape, the SAP Business Application systems (e.g., SAP S/4HANA, SAP SuccessFactors) are properly set up and configured. If the systems are under the same customer contract, this should be auto-discovered in the System Landscape or else this can be manually added. 
+
+- **SAP Cloud Identity Services** manages user authentication and authorization for secure access to Joule and integrated systems. A common SAP Cloud Identity Services for multiple SAP Business Applications with common domain URL is recommended.
+
+- **SAP Enterprise Systems:** connects Joule with existing enterprise systems such as SAP S/4HANA, SAP SuccessFactors, and other third-party applications to enable seamless data exchange and process automation.
+
+- **Third-party Identity Providers:** supports integration with external identity providers for enhanced security and user management. (Optional)
+
+
+The application flow for Joule interactions typically involves the following steps:
+
+1. Users interact with Joule through natural language queries or commands within the SAP Business Application interface. 
+
+2. Joule UI forwards the user's request to the Joule Service hosted on SAP BTP.
+
+3. Joule processes the user input using advanced algorithms and large language models (LLM) to understand the intent behind the query.
+
+4. Joule uses pre-configured Destination in SAP BTP and based on the recognized intent, Joule retrieves relevant data from the connected SAP Business Applications via Connectivity Service in SAP BTP and calls the OData API to fetch the required information.
+
+5. Joule generates a response based on the retrieved data and the user's intent, providing insights, recommendations, or actions as needed.
+
+
 
 ## Characteristics
 
 <!-- Add your characteristics content here -->
+- **Revolutionize User Experience:** Joule transforms how users interact with SAP applications by providing contextual assistance, automating routine tasks, and delivering insights that drive better business outcomes.
+
+- **End User Interactions:** Joule enhances end-user interactions by accelerating every process with single AI copilot to get comprehensive insights and perform tasks across all your SAP solutions.
+
+- **Seamless Integration and Reliable Insights from Enterprise Systems:** Joule seamlessly integrates with existing enterprise systems with native access to your data, providing data context with role-based access to ensure reliable insights and recommendations.
+
+- **Customizable and Extensible:** Organizations can build custom skills and agents using Joule Studio and SAP BTP, tailoring the copilot's capabilities to meet specific business needs.
+
+- **Security and Compliance:** Joule adheres to stringent security and compliance standards, ensuring that sensitive business data is protected throughout the interaction process.
+
+- **Human-centric governance:** Build-in responsible AI to safeguard against inappropriate content and ensure compliance with organizational policies.SAP’s AI ethics policy adopts the 10 guiding principles of the UNESCO Recommendation on the Ethics of Artificial Intelligence. The principles aim to ensure that AI technologies are developed and used in ways that respect human rights, promote fairness, and contribute to sustainable development.
+
 
 ## Examples in an SAP context
 
 <!-- Add your SAP context examples here -->
 
+- [SAP Business AI - Joule Capabilities](https://discovery-center.cloud.sap/ai-catalog/?quickFilter=joule)
+
 ## Services and Components
 
 <!-- Add your services and components here -->
+
+-   [SAP Build, Joule Studio](https://discovery-center.cloud.sap/ai-feature/e93aa292-e7f4-449d-9586-f1a8510d5ab6/)
+-   [SAP Build](https://discovery-center.cloud.sap/serviceCatalog/sap-build/?region=all)
+-   [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core/?region=all)
+-   [Document Grounding](https://discovery-center.cloud.sap/ai-feature/fedeca14-3e69-472c-a0ea-82396735c35f/)
+-   [SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation?region=all)
+-   [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all)
+-   [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
+-   [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?region=all)
+
 
 ## Resources
 
 <!-- Add your resources here -->
 
+- [SAP Joule Product Page](https://help.sap.com/docs/joule)
+- [SAP Joule (sap.com)](https://www.sap.com/india/products/artificial-intelligence/ai-assistant.html)
+- [SAP Joule Community](https://community.sap.com/topics/joule)
+- [SAP Learning Journey - Provisioning and Implementing Joule](https://learning.sap.com/learning-journeys/provisioning-and-implementing-joule)
+
 ## Related Missions
 
 <!-- Add related missions here -->
+- [SAP Discovery Center Missions - Joule](https://discovery-center.cloud.sap/missionCatalog/?search=joule)
+
+
