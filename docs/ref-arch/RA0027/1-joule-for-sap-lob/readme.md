@@ -12,9 +12,9 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Joule for SAP S/4HANA Cloud Private Edition and SAP S/4HANA Public Cloud
+title: Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public Edition
 description: Reference Architectures for Joule and SAP S/4HANA(PCE and Public Cloud)
-sidebar_label: Joule for SAP S/4HANA
+sidebar_label: Joule in SAP S/4HANA Cloud
 keywords: 
 - sap
 image: img/logo.svg
@@ -24,7 +24,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - pra1veenk
@@ -46,15 +46,15 @@ This architecture page focuses on Joule integration with SAP S/4HANA cloud priva
 
 ## Key Capabilities and Benefits
 
-    • Conversational AI: Allows users to interact with SAP S/4HANA using natural language, reducing training time and increasing efficiency. 
+• Conversational AI: Allows users to interact with SAP S/4HANA using natural language, reducing training time and increasing efficiency. 
 
-    • Transactional Execution: Goes beyond simple Q&A. Joule can execute tasks like creating purchase orders and checking sales order status, provided the underlying OData services are active.
+• Transactional Execution: Goes beyond simple Q&A. Joule can execute tasks like creating purchase orders and checking sales order status, provided the underlying OData services are active.
 
-    • Secure & Context-Aware: The integration fully respects SAP S/4HANA authorizations. Principal Propagation ensures users can only see data and perform actions they are already authorized for.
+• Secure & Context-Aware: The integration fully respects SAP S/4HANA authorizations. Principal Propagation ensures users can only see data and perform actions they are already authorized for.
 
-    • Accelerated Setup: A dedicated BTP Booster ("Joule – End-to-End Setup Guide") automates much of the complex BTP configuration, including service instance creation, Cloud Foundry enablement, and destination setup.
+• Accelerated Setup: A dedicated BTP Booster ("Joule – End-to-End Setup Guide") automates much of the complex BTP configuration, including service instance creation, Cloud Foundry enablement, and destination setup.
 
-## Joule in SAP S/4HANA cloud private edition
+## Joule in SAP S/4HANA Cloud Public Edition
 
 This solution is exclusively available for RISE with SAP customers and relies on the SAP Business Technology Platform (BTP) as the central integration and service hub.With the latest release, Joule supports the Conversational Search Filter capability, Transactional capabilities, Navigational capabilities to help users find their desired functionality.
 
@@ -88,17 +88,17 @@ The solution architecture consists of the following parts:
 
 Note: For more information on how to access Joule and follow the detailed steps for the activation process in the [Joule for SAP S/4HANA Cloud Private Edition – A Comprehensive Setup Guide](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/joule-for-sap-s-4hana-cloud-private-edition-a-comprehensive-setup-guide/ba-p/13786453).
 
-## Joule in SAP S/4HANA public cloud
+## Joule in SAP S/4HANA Cloud Public 
 
-Joule is natively integrated into the SAP S/4HANA Public Cloud environment, providing users with seamless access to its capabilities directly within the SAP Fiori Launchpad. This integration allows users to leverage Joule's conversational AI features without the need for additional configurations or setups.
+Joule is natively integrated into the SAP S/4HANA Cloud Public Edition, providing users with seamless access to its capabilities directly within the SAP Fiori Launchpad. This integration allows users to leverage Joule's conversational AI features without the need for additional configurations or setups.
 
 With the current release, you can use Joule for:
 
-Quick Navigation: Find and quickly navigate to applications for your next task.
-Instant Insights: Get fast insights on critical business data, such as purchase orders and outbound deliveries.
-Receiving Help: For those needing help, Joule summarizes relevant enablement content and guides users to it, speeding up task completion.
-List of Business Objects Enabled for Joule in SAP S/4HANA Cloud Public Edition - [3545050](https://me.sap.com/notes/3545050)
+- Quick Navigation: Find and quickly navigate to applications for your next task.
+- Instant Insights: Get fast insights on critical business data, such as purchase orders and outbound deliveries.
+- Receiving Help: For those needing help, Joule summarizes relevant enablement content and guides users to it, speeding up task completion.
 
+List of Business Objects Enabled for Joule in SAP S/4HANA Cloud Public Edition - [3545050](https://me.sap.com/notes/3545050)
 
 ## Architecture
 
