@@ -12,9 +12,9 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Integrating and Extending SAP Joule
-description: Explore key topics for implementing and extending SAP Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP
-sidebar_label: Integrating and Extending SAP Joule
+title: Integrating and Extending Joule
+description: Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP
+sidebar_label: Integrating and Extending Joule
 keywords: 
   - sap
 image: img/logo.svg
@@ -44,7 +44,7 @@ Joule is an AI-powered SAP co-pilot designed to enhance productivity and decisio
 
 Joule provides an embedded experience across solution areas, consistent and with memory of interactions across multiple products.The interactions are achieved using advanced algorithms and large language models (LLM) for user queries and user intents. If a user posts a question to Joule, the copilot understands the intent, and with the help of the integration with your SAP Business Applications, it gives the appropriate response.
 
-This reference architecture outlines the key components and best practices for integrating and extending SAP Joule, enabling organizations to effectively leverage its capabilities. This architecture is designed to provide a comprehensive understanding of how to integrate unified Joule with existing enterprise systems, build custom skills and agents, and optimize its performance for specific business needs. 
+This reference architecture outlines the key components and best practices for integrating and extending Joule, enabling organizations to effectively leverage its capabilities. This architecture is designed to provide a comprehensive understanding of how to integrate unified Joule with existing enterprise systems, build custom skills and agents, and optimize its performance for specific business needs. 
 
 
 ## Joule Key Capabilities
@@ -64,7 +64,7 @@ Joule Capabilities are categorized into different patterns.
 <!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
 <!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
 
-The architecture describes the key components and interactions involved in implementing and extending SAP Joule within an enterprise environment. To achieve a unified experience with Joule, the following architecture outlines the components and activities required for implementation.
+The architecture describes the key components and interactions involved in implementing and extending Joule within an enterprise environment. To achieve a unified experience with Joule, the following architecture outlines the components and activities required for implementation.
 
 ![drawio](drawio/unified_joule.drawio)
 
@@ -140,9 +140,9 @@ The application flow for Joule interactions typically involves the following ste
 
 <!-- Add your resources here -->
 
-- [SAP Joule Product Page](https://help.sap.com/docs/joule)
-- [SAP Joule (sap.com)](https://www.sap.com/india/products/artificial-intelligence/ai-assistant.html)
-- [SAP Joule Community](https://community.sap.com/topics/joule)
+- [Joule Product Page](https://help.sap.com/docs/joule)
+- [Joule (sap.com)](https://www.sap.com/india/products/artificial-intelligence/ai-assistant.html)
+- [SAP Community](https://community.sap.com/topics/joule)
 - [SAP Learning Journey - Provisioning and Implementing Joule](https://learning.sap.com/learning-journeys/provisioning-and-implementing-joule)
 
 ## Related Missions
