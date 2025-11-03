@@ -1,20 +1,39 @@
 #!/bin/zsh
 
-# Check if a folder or file parameter is provided
-if [ -z "$1" ]; then
-  echo "Usage: $0 <folder_path|file_path>"
+# Get the script directory and determine the root directory (similar to _export-drawios.js)
+SCRIPT_DIR=$(dirname "$0")
+ROOT_DIR=$(realpath "$SCRIPT_DIR/../..")
+DOCS_DIR="$ROOT_DIR/docs"
+
+# Check if a folder or file parameter is provided (now optional)
+if [ -n "$1" ]; then
+  INPUT_PATH="$1"
+  
+  # Check if the provided path exists
+  if [ ! -e "$INPUT_PATH" ]; then
+    echo "Error: $INPUT_PATH does not exist."
+    exit 1
+  fi
+  
+  echo "Scanning specific path: $INPUT_PATH"
+else
+  # Default behavior: scan all .drawio files in the docs directory (like _export-drawios.js)
+  INPUT_PATH="$DOCS_DIR"
+  echo "No path specified. Scanning all .drawio files in the project..."
+  echo "Root directory: $ROOT_DIR"
+  echo "Docs directory: $DOCS_DIR"
+  echo ""
+  echo "Usage: $0 [folder_path|file_path]"
+  echo "  (no args):   Scan all .drawio files in the docs directory"
   echo "  folder_path: Directory to scan recursively for .drawio files"
   echo "  file_path:   Single .drawio file to validate"
-  exit 1
-fi
-
-# Assign the path from the parameter
-INPUT_PATH="$1"
-
-# Check if the provided path exists
-if [ ! -e "$INPUT_PATH" ]; then
-  echo "Error: $INPUT_PATH does not exist."
-  exit 1
+  echo ""
+  
+  # Check if docs directory exists
+  if [ ! -d "$DOCS_DIR" ]; then
+    echo "Error: Docs directory $DOCS_DIR does not exist."
+    exit 1
+  fi
 fi
 
 # Initialize error flag and counters
