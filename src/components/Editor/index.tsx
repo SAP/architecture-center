@@ -277,6 +277,11 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         editorState: activeDocument.editorState || null,
     };
 
+    const handleInfoClick = () => {
+        const infoUrl = `${baseUrl}community/intro`;
+        window.open(infoUrl, '_blank', 'noopener,noreferrer');
+    };
+
     return (
         <LexicalComposer initialConfig={editorConfig}>
             <div className={styles.editorPageWrapper}>
@@ -285,6 +290,11 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 </div>
                 <div className={styles.editorColumn}>
                     <div className={styles.editorHeader}>
+                        <Button
+                            icon="sap-icon://information"
+                            onClick={handleInfoClick}
+                            tooltip="Learn more about contributing"
+                        ></Button>
                         {lastSaveTimestamp && (
                             <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                         )}
@@ -344,25 +354,26 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         <Bar
                             endContent={
                                 <>
-                                <Button
-                                    design="Emphasized"
-                                    onClick={() => {
-                                        deleteDocument(activeDocument.id);
-                                        setShowDeleteConfirm(false);
-                                    }}
-                                >
-                                    Delete
-                                </Button>
-                                <Button design="Transparent" onClick={() => setShowDeleteConfirm(false)}>
-                                    Cancel
-                                </Button>
+                                    <Button
+                                        design="Emphasized"
+                                        onClick={() => {
+                                            deleteDocument(activeDocument.id);
+                                            setShowDeleteConfirm(false);
+                                        }}
+                                    >
+                                        Delete
+                                    </Button>
+                                    <Button design="Transparent" onClick={() => setShowDeleteConfirm(false)}>
+                                        Cancel
+                                    </Button>
                                 </>
                             }
                         />
                     }
                 >
                     <Text>
-                        Are you sure you want to delete <strong>{activeDocument.title || 'Untitled Page'}</strong>?<br />
+                        Are you sure you want to delete <strong>{activeDocument.title || 'Untitled Page'}</strong>?
+                        <br />
                         This action cannot be undone.
                     </Text>
                 </Dialog>
