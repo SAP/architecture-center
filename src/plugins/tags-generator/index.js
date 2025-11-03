@@ -12,11 +12,12 @@ module.exports = function (context, options) {
           `Tags plugin ERROR: Docs plugin content not found using key "${docsContentKey}".`,
           `Available keys are: ${Object.keys(allContent)}`,
         );
-        setGlobalData({ docIdToTags: {} });
+        setGlobalData({ docIdToTags: {}, sidebarContext: null });
         return;
       }
 
       const docIdToTags = {};
+      let sidebarContext = null;
 
      
       const defaultDocsInstance = docsPluginContent['default'];
@@ -30,12 +31,28 @@ module.exports = function (context, options) {
             }
           });
         });
+
+        // Capture sidebar context from the loaded versions (current/default)
+        if (defaultDocsInstance.loadedVersions.length > 0) {
+          const currentVersion = defaultDocsInstance.loadedVersions[0];
+          if (currentVersion.sidebars) {
+            sidebarContext = currentVersion.sidebars;
+            // Only log in development mode
+            if (process.env.NODE_ENV === 'development') {
+              console.log('✅ Tags plugin captured sidebar context at build time:', Object.keys(sidebarContext));
+            }
+          }
+        }
       }
 
       setGlobalData({
         docIdToTags,
+        sidebarContext,
       });
-      console.log('✅ Tags plugin loaded successfully and processed docs.');
+      // Only log in development mode
+      if (process.env.NODE_ENV === 'development') {
+        console.log('✅ Tags plugin loaded successfully and processed docs with sidebar context.');
+      }
     },
   };
 };
