@@ -19,7 +19,7 @@ keywords:
     - sap
     - joule
     - ai
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags: 
     - genai
     - agents

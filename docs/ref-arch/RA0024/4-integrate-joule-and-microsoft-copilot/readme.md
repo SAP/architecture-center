@@ -20,7 +20,7 @@ keywords:
     - joule
     - ai
     - microsoft
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags: 
     - genai
     - agents

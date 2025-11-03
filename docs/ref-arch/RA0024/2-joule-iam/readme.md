@@ -24,7 +24,7 @@ keywords:
   - erp security solutions
   - access management
 sidebar_label: Joule and IAM
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags: 
   - genai
   - agents

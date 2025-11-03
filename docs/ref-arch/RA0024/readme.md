@@ -20,7 +20,7 @@ keywords:
   - sap btp
   - hybrid landscapes
 sidebar_label: Integrating and Extending Joule
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - genai
   - agents

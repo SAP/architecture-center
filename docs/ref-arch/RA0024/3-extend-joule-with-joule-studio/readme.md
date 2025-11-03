@@ -27,7 +27,7 @@ keywords:
   - automation
   - sap btp
   - hybrid landscapes
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags: 
   - genai
   - agents
