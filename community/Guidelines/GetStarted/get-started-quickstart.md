@@ -31,8 +31,8 @@ last_update:
 It enables contributors to:
 
 - Log in using their **GitHub account**  
-- Create an architecture from scratch using the **intuitive rich-text editor** or upload an existing word document which are automatically converted to Markdown format.
-- Directly add **text, images, and architecture diagrams(.drawio)** in an intuitive editor  
+- Create an architecture from scratch using the **intuitive rich-text editor** or upload an existing word document which is automatically converted to Markdown format.
+- Directly add **text, images, and architecture Draw.io diagrams** in an intuitive editor  
 
 :::info Note
 Behind the scenes, Quick Start automates repository forking, front-matter generation, and pull request creation—significantly reducing manual effort and accelerating the publishing process.
@@ -74,7 +74,7 @@ These details can be edited later in the editor as well.
 Once created, the **architecture editor** will open.  
 Here are the main features and tips to get started:
 
-- **Type `/` to access the toolbar options** which helps in quickly inserting components like text blocks, headings, images, .drawio diagrams and files.  
+- **Type `/` to access the toolbar options** which helps in inserting components like text blocks, headings, images, .drawio diagrams and files.  
 - You can **upload Draw.io diagrams or images** either from the toolbar or using the `/` command.  
 - **Navigate with the Table of Contents** which is automatically generated on the right-hand side of the editor based on your document’s headings, allowing easy navigation across large architectures. 
 - To add content, simply type in the editor or click **Insert File** to upload your architecture document.  
@@ -99,7 +99,7 @@ Once your architecture is ready:
 
 1. Click **Submit** (top-right corner).  
 2. Quick Start will automatically:
-   - Convert all uploaded images, Draw.io files, and documents to Markdown  
+   - Process all uploaded content (images, diagrams, and documents) into the correct Markdown format.
    - Maintain the correct folder structure  
    - Manage your front matter metadata  
    - Create a **Pull Request** for review  
