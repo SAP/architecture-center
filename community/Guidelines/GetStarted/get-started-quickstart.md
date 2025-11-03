@@ -32,7 +32,7 @@ It enables contributors to:
 
 - Log in using their **GitHub account**  
 - Upload **Word files** that are automatically converted to Markdown  
-- Directly add **text, images, and diagrams** in an intuitive editor  
+- Directly add **text, images, and architecture diagrams(.drawio)** in an intuitive editor  
 
 :::info Note
 Behind the scenes, Quick Start automates repository forking, front-matter generation, and pull request creation—significantly reducing manual effort and accelerating the publishing process.
@@ -74,11 +74,11 @@ These details can be edited later in the editor as well.
 Once created, the **architecture editor** will open.  
 Here are the main features and tips to get started:
 
-- **Type `/` to access the toolbar options** — quickly insert components like text blocks, images, and diagrams.  
+- **Type `/` to access the toolbar options** which helps in quickly inserting components like text blocks, headings, images, .drawio diagrams and files.  
 - You can **upload Draw.io diagrams or images** either from the toolbar or using the `/` command.  
 - To add content, simply type in the editor or click **Insert File** to upload your architecture document.  
     :::info Note
-    Supported file type: `.docx` (Word files).  
+    Supported file type: `.docs` or `.docx` (MS Word files).  
     Uploaded files are **automatically converted to Markdown** during submission.  
     :::
 - To edit your architecture [front-matter](community/Guidelines/front-matter.md):
@@ -98,3 +98,5 @@ Once your architecture is ready:
    - Create a **Pull Request** for review  
 
 Your contribution will then go through the standard review and approval process.
+
+![quick-start](images/quick-start.gif)
