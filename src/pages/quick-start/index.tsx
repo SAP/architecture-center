@@ -7,6 +7,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
+import Header from '@site/src/components/CustomHeader/Header';
 
 function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -99,10 +100,11 @@ export default function QuickStart(): JSX.Element {
     if (loading) {
         return (
             <Layout>
-                <div className={styles.headerBar}>
-                    <h1>Quickstart</h1>
-                    <p>Loading...</p>
-                </div>
+                <Header
+                    title='Quick Start'
+                    subtitle='Loading...'
+                    breadcrumbCurrent='Quick Start'
+                />
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <p>Checking authentication...</p>
@@ -115,15 +117,16 @@ export default function QuickStart(): JSX.Element {
     if (!isGithubAuthenticated) {
         return (
             <Layout>
-                <div className={styles.headerBar}>
-                    <h1>QuickStart</h1>
-                    <p>GitHub authentication required to access this feature</p>
-                </div>
+                <Header
+                    title='Quick Start'
+                    subtitle='GitHub authentication required to access the Quick Start tool'
+                    breadcrumbCurrent='Quick Start'
+                />
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <div className={styles.authRequired}>
-                            <h2>🔒 GitHub Authentication Required</h2>
-                            <p>The QuickStart editor requires GitHub authentication to manage your documents.</p>
+                            <h2>GitHub Authentication Required</h2>
+                            <p>The Quick Start editor requires GitHub authentication to manage your documents.</p>
                             <p>Please log in with your GitHub account to continue.</p>
                             <button
                                 className={styles.loginButton}
@@ -138,7 +141,7 @@ export default function QuickStart(): JSX.Element {
                                 Login with GitHub to Continue
                             </button>
                             <p className={styles.authHelpText}>
-                                After logging in, you'll be redirected back to this page.
+                                After logging in, you will be redirected back to this page.
                             </p>
                         </div>
                     </div>

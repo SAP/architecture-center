@@ -10,6 +10,10 @@ jobs:
   build:
     name: Build Site for Joule Integration preview
     runs-on: ubuntu-latest
+    env:
+      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
+      BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+      EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
     steps:
       - name: Checkout Joule Integration Code
         uses: actions/checkout@v4
@@ -83,14 +87,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: success()
-    permissions:
-      contents: write
-      pages: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAASAPCOM_PAT }}
 
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
@@ -128,6 +130,8 @@ jobs:
           fi
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
           git add -A
           if [[ "$(git status -s)" ]]; then
