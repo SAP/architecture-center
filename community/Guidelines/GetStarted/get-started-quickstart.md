@@ -31,7 +31,7 @@ last_update:
 It enables contributors to:
 
 - Log in using their **GitHub account**  
-- Upload **Word files** that are automatically converted to Markdown  
+- Create an architecture from scratch using the **intuitive rich-text editor** or upload an existing word document which are automatically converted to Markdown format.
 - Directly add **text, images, and architecture diagrams(.drawio)** in an intuitive editor  
 
 :::info Note
@@ -76,6 +76,7 @@ Here are the main features and tips to get started:
 
 - **Type `/` to access the toolbar options** which helps in quickly inserting components like text blocks, headings, images, .drawio diagrams and files.  
 - You can **upload Draw.io diagrams or images** either from the toolbar or using the `/` command.  
+- **Navigate with the Table of Contents** which is automatically generated on the right-hand side of the editor based on your document’s headings, allowing easy navigation across large architectures. 
 - To add content, simply type in the editor or click **Insert File** to upload your architecture document.  
     :::info Note
     Supported file type: `.docs` or `.docx` (MS Word files).  
@@ -85,6 +86,12 @@ Here are the main features and tips to get started:
   - Click the **edit (pencil) icon** on the top-right corner to modify the **front matter** (title, description, tags, etc.).
 - To edit **contributors**, scroll to the end of your architecture page and click the **edit (pencil)** icon in the contributors section.  
 - To add **subpages**, click the **“+”** button in the left sidebar and follow the same creation steps.
+
+:::warning Note: Auto-Save and Browser Storage
+- Quick Start auto-saves your progress locally in the browser, not on the server.  
+- Clearing cache, using incognito mode, or switching devices can result in loss of unsaved work.
+:::
+
 
 ### Step 4: Submit for Review
 
