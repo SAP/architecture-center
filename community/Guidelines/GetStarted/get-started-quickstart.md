@@ -3,7 +3,7 @@ sidebar_position: 2
 slug: /get-started-quickstart
 title: Get Started with Quick Start
 description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to contribute using the no-code Quick Start approach.
-sidebar_label: Get Started with Quick Start
+sidebar_label: Quick Start
 keywords:
  - sap
  - get started
@@ -41,7 +41,7 @@ Behind the scenes, Quick Start automates repository forking, front-matter genera
 ## How to Contribute
 
 ### Step 1: Log in with GitHub
-1. Click on the **user icon** in the top-right corner of the taskbar.  
+1. Click on the **user icon** in the top-right corner of the taskbar.
 2. Select **Login with GitHub**.  
 3. During login, you will be prompted to **authorize the SAP Architecture Center by SAP** to access your GitHub account.
 
@@ -81,7 +81,7 @@ Here are the main features and tips to get started:
     Supported file type: `.docx` (Word files).  
     Uploaded files are **automatically converted to Markdown** during submission.  
     :::
-- To edit your architecture [front-matter](front-matter.md):
+- To edit your architecture [front-matter](community/Guidelines/front-matter.md):
   - Click the **edit (pencil) icon** on the top-right corner to modify the **front matter** (title, description, tags, etc.).
 - To edit **contributors**, scroll to the end of your architecture page and click the **edit (pencil)** icon in the contributors section.  
 - To add **subpages**, click the **“+”** button in the left sidebar and follow the same creation steps.

@@ -3,10 +3,12 @@ sidebar_position: 3
 slug: /get-started-vscode
 title: Get Started with VS Code (CLI)
 description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to set up your environment, create or update reference architectures, and test your changes locally.
-sidebar_label: Get Started with VS Code (CLI)
+sidebar_label: VS Code (CLI)
 keywords:
  - sap
  - get started
+ - cli
+ - vscode
 image: img/ac-soc-med.png
 tags:
   - community
@@ -105,7 +107,7 @@ Ensure that you are at the root level of the repository.
 2. Update the front-matter at the top of the `readme.md`.
 
 :::info Know more about Front Matter 
-For more details on front-matter and the necessary changes, refer to the [front-matter guidelines](front-matter.md).
+For more details on front-matter and the necessary changes, refer to the [front-matter guidelines](community/Guidelines/front-matter.md).
 :::
 
 ### 5. Test Changes Locally
@@ -133,7 +135,7 @@ npm run serve
 ```
 
 :::warning Note
-Make sure to set `draft` to `false` in [front-matter](front-matter.md) to render your architecture after the build.
+Make sure to set `draft` to `false` in [front-matter](community/Guidelines/front-matter.md) to render your architecture after the build.
 :::
 
 Your project should now be running at [http://localhost:3000](http://localhost:3000).
