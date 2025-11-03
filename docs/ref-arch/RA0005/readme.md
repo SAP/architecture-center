@@ -161,7 +161,7 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
 
 -   [Sample CAP application using ai-sdk-js](https://github.com/SAP/ai-sdk-js/tree/main/sample-cap)
--   [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://github.com/SAP-samples/btp-cap-genai-rag)
+-   [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://discovery-center.cloud.sap/missiondetail/4371/)
 -   [CAP Application: Semantic Search Integrated with Generative AI Hub and SAP HANA Cloud's Vector Engine](https://github.com/SAP-samples/btp-cap-genai-semantic-search)
 
 ## Resources
