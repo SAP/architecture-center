@@ -17,6 +17,7 @@ keywords:
 sidebar_label: FedML-NVIDIA
 image: img/ac-soc-med.png
 tags:
+  - nvidia
   - data
 hide_table_of_contents: false
 hide_title: false
@@ -36,6 +37,12 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with NVIDIA.**
+
+:::
 
 FedML (fedml-dsp) can be used in notebooks with GPU compute. FedML now has support for NVIDIA RAPIDS™ and CUDA cuDF and cuML and detection of GPU for adding support for RAPIDS™ CUDA. 
 

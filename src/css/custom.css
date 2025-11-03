@@ -15,6 +15,8 @@
     --ifm-font-color-base: #1d2d3e;
     /* Morning Horizon's color for text and titles */
     --ifm-link-color: #0070f2;
+    --navcard-text-default: #4a5d6f;
+    --navcard-text-hover: #0065b3;
     /* Morning Horizon's color for links */
     --ifm-color-primary: #0070f2;
     --ifm-color-primary-dark: #122664;
@@ -40,6 +42,12 @@
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
+    --navcard-border-default: #bbbbbb;
+    --navcard-border-hover: #0065b3;
+
+    /* Morning Horizon's color for icons */
+    --navcard-icon-default: #4a5d6f;
+    --navcard-icon-hover: #0065b3;
 
     /* Custom spacing scale */
     --spacing-xs: 0.25rem;
@@ -87,6 +95,9 @@
     --color-linkedin: #0a66c2;
     --color-text-muted: #666;
     --color-sap-primary: #002a86;
+
+    /* Dark mode colors */
+    --text-color-dark-mode: #ccc;
 }
 
 /* Ensure code blocks do not overflow the page */
@@ -263,12 +274,10 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background-repeat: no-repeat;
     background-position: center;
     color: white;
-    display: block;
-    padding-left: 0;
-    padding-right: 0;
-    box-sizing: border-box;
-    contain: layout style; /* Prevent layout recalculations & style invalidation */
-    content-visibility: auto; /* Browser optimization for off-screen content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .hero_banner img {
@@ -732,13 +741,14 @@ html[data-theme='light'] .navbar {
 }
 
 html[data-theme='light'] .footer {
-    background-color: #e0e0e0;
+    background-color: #ffffff;
 }
 
 html[data-theme='light'] .menu {
     background-color: #f5f6f7;
 }
 
+/*Dark Mode*/
 html[data-theme='dark'] .footer {
     background-color: #0e0f19;
 }
@@ -835,55 +845,17 @@ html[data-footer='false'] .footer {
     display: none;
 }
 
-/* Utility Classes */
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body[data-sidebar-id='refarchSidebar'] [class^="sidebar_"] {
+  padding-top: 5px !important;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
+[class^="sidebarHidden_"] .dropdownDiv {
+  display: none;
 }
 
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.navbar-sidebar__item ul {
+    padding: 0;
 }
-
-.flex-start {
-    display: flex;
-    align-items: flex-start;
-}
-
-.card-shadow {
-    box-shadow: var(--shadow-card);
-}
-
-.card-hover {
-    transition: all 0.3s ease-in-out;
-}
-
-.card-hover:hover {
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-3px);
-}
-
-.standard-button-width {
-    width: var(--button-width-standard);
-}
-
-.responsive-container {
-    width: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    box-sizing: border-box;
-}
-
-/* All Media Queries */
 
 @media (max-width: 1440px) {
     .hero_banner {
