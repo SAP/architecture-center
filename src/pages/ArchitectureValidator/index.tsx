@@ -5,8 +5,9 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
-import { Button, FlexBox, Title, Text, Icon } from '@ui5/webcomponents-react';
+import { Button, FlexBox, Title, Text, Icon, Card, Dialog } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons.js';
+import useIsMobile from '@site/src/hooks/useIsMobile';
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -25,6 +26,27 @@ interface ManagedFile {
     error: string | null;
 }
 
+function MobileDeviceWarning() {
+    return (
+        <Dialog
+            open
+            header={
+                <FlexBox justifyContent="Center">
+                    <Title level="H4">Optimal Viewing Experience</Title>
+                </FlexBox>
+            }
+        >
+            <div className={styles.warningDialogContent}>
+                <Icon name="error" className={styles.warningIcon} />
+                <Text>
+                    The Architecture Validator is best used on a desktop or tablet. Some features may not work as
+                    expected on smaller screens.
+                </Text>
+            </div>
+        </Dialog>
+    );
+}
+
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { users, loading } = useAuth();
@@ -32,8 +54,17 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const isMobile = useIsMobile();
 
     const isBtpAuthenticated = users.btp !== null;
+
+    if (isMobile) {
+        return (
+            <Layout>
+                <MobileDeviceWarning />
+            </Layout>
+        );
+    }
 
     if (loading) {
         return (
@@ -43,9 +74,9 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     <p>Loading...</p>
                 </div>
                 <main className={styles.mainContainer}>
-                    <div style={{ textAlign: 'center', padding: '2rem' }}>
-                        <p>Checking authentication...</p>
-                    </div>
+                    <FlexBox alignItems="Center" justifyContent="Center" style={{ padding: '2rem' }}>
+                        <Text>Checking authentication...</Text>
+                    </FlexBox>
                 </main>
             </Layout>
         );
@@ -54,25 +85,33 @@ export default function ArchitectureValidator(): React.JSX.Element {
     if (!isBtpAuthenticated) {
         return (
             <Layout>
-                <MobileDeviceWarning />
                 <div className={styles.headerBar}>
                     <h1>Architecture Validator</h1>
                     <p>BTP authentication required to access this feature</p>
                 </div>
                 <main className={styles.mainContainer}>
-                    <div style={{ textAlign: 'center', padding: '2rem' }}>
-                        <div className={styles.authRequired}>
-                            <h2>🔒 BTP Authentication Required</h2>
-                            <p>
+                    <Card
+                        header={
+                            <FlexBox className={styles.centeredCardHeader}>
+                                <Icon name="locked" />
+                                <Title level="H5" wrappingType="None">
+                                    BTP Authentication Required
+                                </Title>
+                            </FlexBox>
+                        }
+                        className={styles.authCard}
+                    >
+                        <div className={styles.authCardContent}>
+                            <Text>
                                 The Architecture Validator requires BTP authentication to ensure secure access to
                                 validation services.
-                            </p>
-                            <p>
+                            </Text>
+                            <Text>
                                 You will be redirected to the BTP login page automatically, or you can click the button
                                 below to login manually.
-                            </p>
-                            <button
-                                className={styles.loginButton}
+                            </Text>
+                            <Button
+                                design="Emphasized"
                                 onClick={() => {
                                     const BTP_API = siteConfig.customFields.backendUrl as string;
                                     window.location.href = `${BTP_API}/user/login?origin_uri=${encodeURIComponent(
@@ -81,12 +120,10 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 }}
                             >
                                 Login with BTP to Continue
-                            </button>
-                            <p className={styles.authHelpText}>
-                                After logging in with BTP, you'll be redirected back to this page.
-                            </p>
+                            </Button>
+                            <Text>After logging in with BTP, you'll be redirected back to this page.</Text>
                         </div>
-                    </div>
+                    </Card>
                 </main>
             </Layout>
         );
@@ -200,7 +237,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     return (
         <Layout>
-            <MobileDeviceWarning />
             <div className={styles.heroBanner}>
                 <div className={styles.heroContent}>
                     <div className={styles.breadCrumbs}>
@@ -372,36 +408,5 @@ export default function ArchitectureValidator(): React.JSX.Element {
                 )}
             </main>
         </Layout>
-    );
-}
-
-function MobileDeviceWarning() {
-    const { siteConfig } = useDocusaurusContext();
-    const [secondsLeft, setSecondsLeft] = useState(8);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSecondsLeft((prevSeconds) => prevSeconds - 1);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        if (secondsLeft <= 0) {
-            window.location.href = siteConfig.baseUrl;
-        }
-    }, [secondsLeft, siteConfig.baseUrl]);
-    return (
-        <div className={styles.deviceWarningOverlay}>
-            <div className={styles.messageBox}>
-                <h2>Optimal Viewing Experience</h2>
-                <p>Best Viewed on a Larger Screen</p>
-                <p>
-                    You will be redirected to the homepage in
-                    <span className={styles.countdownTimer}>{secondsLeft}</span> seconds...
-                </p>
-            </div>
-        </div>
     );
 }

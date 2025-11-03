@@ -8,8 +8,8 @@
     align-items: center;
     height: calc(100vh - var(--ifm-navbar-height));
     font-size: 1.5rem;
-    color: #888;
-    background-color: #f0f2f5;
+    color: var(--sapContent_LabelColor);
+    background-color: var(--sapGroup_ContentBackground);
 }
 
 .headerBar {
@@ -42,116 +42,50 @@
 .mainContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 2rem;
     min-height: 40vh;
 }
 
-.authRequired {
+.centeredCardHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--sapList_BorderColor);
+}
+
+.authCard {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    border: 1px solid #e9ecef;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
 }
 
-.authRequired h2 {
-    color: #495057;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+.authCardContent {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
 }
 
-.authRequired p {
-    color: #6c757d;
+.authCardContent > [ui5-text] {
     line-height: 1.6;
-    margin-bottom: 1rem;
+    color: var(--sapContent_LabelColor);
 }
 
-.loginButton {
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.2s ease;
+.warningDialogContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem 0;
 }
 
-.loginButton:hover {
-    background-color: #111;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.loginButton:active {
-    transform: translateY(0);
-}
-
-.authHelpText {
-    margin-top: 1rem;
-    font-size: 14px;
-    color: #666;
-}
-
-@media (max-width: 996px) {
-    .authRequired {
-        margin: 0 1rem;
-        padding: 2rem 1.5rem;
-    }
-}
-
-.deviceWarningOverlay {
-    display: none;
-}
-
-@media (max-width: 1129px) {
-    .deviceWarningOverlay {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(26, 26, 26, 0.95);
-        z-index: 9999;
-
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .messageBox {
-        color: #ffffff;
-        background-color: #1e1e1e;
-        padding: 2rem 3rem;
-        border-radius: 12px;
-        border: 1px solid #444;
-        max-width: 90%;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .messageBox h2 {
-        color: #f0f0f0;
-        margin-top: 0;
-        font-size: 1.5rem;
-    }
-
-    .messageBox p {
-        color: #cccccc;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    .countdownTimer {
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: #ffffff;
-        background-color: #007bff;
-        padding: 2px 8px;
-        border-radius: 4px;
-        margin: 0 5px;
-    }
+.warningIcon {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    color: var(--sapNegativeColor);
 }
