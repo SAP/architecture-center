@@ -8,6 +8,10 @@ jobs:
   build:
     name: Build Site
     runs-on: ubuntu-latest
+    env:
+      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
+      BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+      EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
     steps:
       - uses: actions/checkout@v4
         with:

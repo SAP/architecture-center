@@ -1,11 +1,14 @@
 name: PR Site Build
 
-permissions:
-  contents: write
-  pages: write
-
 on:
-  workflow_dispatch:
+  pull_request_target:
+    branches:
+      - dev
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
 
 env:
   # https://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request
@@ -46,7 +49,6 @@ jobs:
         run: |
           sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
           sed -E -i "s^const baseUrl = '(.*)';^const baseUrl = '/@$PR_FOLDER/';^g" docusaurus.config.ts
-          sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (PR: #${PR_NUMBER})',^g" docusaurus.config.ts
           sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (PR: #${PR_NUMBER})'^g" docusaurus.config.ts
           sed -E -i "s^logo: \{^logo: \{href: '${{ github.event.pull_request.html_url }}',^g" docusaurus.config.ts
         env:
@@ -100,6 +102,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.sha}}
+          token: ${{ secrets.PAASAPCOM_PAT }}
 
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
@@ -108,8 +111,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.email "$$GIT_USER_EMAIL"
-          git config --global user.name "$$GIT_USER"
+          git config --global user.email "paa@sap.com"
+          git config --global user.name "paasapcom"
 
       - name: Switch to Pages Branch
         run: |
@@ -137,6 +140,8 @@ jobs:
           fi
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
           git add -A
           if [[ "$(git status -s)" ]]; then
@@ -172,11 +177,12 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.sha}}
+          token: ${{ secrets.PAASAPCOM_PAT }}
 
       - name: Set up Git
         run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "paa@sap.com"
+          git config --global user.name "paasapcom"
 
       - name: Switch to GitHub Pages Branch
         run: |
@@ -192,6 +198,8 @@ jobs:
           rm -rf @$PR_FOLDER
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
           git add -A
           git commit -m "cleanup: removed folder @$PR_FOLDER after merge" || echo "No changes to commit"

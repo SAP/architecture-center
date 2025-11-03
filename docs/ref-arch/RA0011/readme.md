@@ -130,6 +130,37 @@ Other examples include:
 - **Logistics and Supply Chain Optimization**: Optimize warehouse locations and inventory distribution based on geographical data.
 - **Sales and Marketing Analysis**: Map customer locations to identify market penetration and potential areas for expansion.
 
+## Co-location of Esri Components and SAP HANA Cloud Database
+
+For optimal performance, especially when using **SAP HANA Cloud** as the geodatabase for **ArcGIS Enterprise**, it is strongly recommended to co-locate the **ArcGIS Server** (and associated ArcGIS Data Store components) with the SAP HANA Cloud database within the same cloud region and availability zone (AZ).
+
+## Key Guidance:
+
+### Latency Requirement
+- **Esri certified architectures** require under **5 milliseconds network latency** between ArcGIS Enterprise servers and the database.
+- This is essential for **OLTP-type workloads** and high transaction volumes.
+
+### Deployment Fidelity
+- Avoid **cross-region or cross AZ deployments**, as these introduce additional network hops.
+- Can result in latency well above Esri’s tolerance.
+
+### Security Layers
+- **Network firewalls, proxies, or deep packet inspection** can add measurable latency.
+- These should be carefully tuned to balance **security and performance**.
+
+### Performance Verification
+- Customers are advised to measure **network round-trip latency** between ArcGIS components and HANA Cloud endpoints in their environment before go-live.
+
+### Recommended Setup
+- Host HANA Cloud and ArcGIS Enterprise servers in the same **virtual private cloud (VPC)** or equivalent subnet when possible.
+- Use **private endpoints** rather than public ones to reduce network traversal time and improve reliability.
+
+### Documentation Reference
+- Refer to the [SAP HANA Database Availability Zone and Replicas](https://help.sap.com/docs/hana-cloud/sap-hana-cloud-administration-guide/sap-hana-database-availability-zone-and-replicas?locale=en-US&version=LATEST) for more details.
+- Also, check the architecture guidelines on [Understanding Network Performance in a Multi-Regional Solution](https://architecture.learning.sap.com/docs/ref-arch/0ec83f98fe).
+- Co-location ensures the **Esri-defined performance thresholds** are met, and aligns with SAP’s guidance for **high-fidelity, low-latency deployments**.
+
+
 ## Services and Components
 
 SAP HANA Cloud
@@ -142,3 +173,4 @@ SAP HANA Links:
 - [SAP HANA Cloud on sap.com](https://www.sap.com/products/technology-platform/hana.html)
 - [SAP HANA Cloud Documentation](https://help.sap.com/docs/hana-cloud?locale=en-US)
 - [SAP HANA Cloud Capacity Unit Estimator](https://hcsizingestimator.cfapps.eu10.hana.ondemand.com/)
+- [Configuring an Enterprise Geodatabase with SAP HANA Cloud](https://www.esri.com/arcgis-blog/products/arcgis-enterprise/data-management/configuring-an-enterprise-geodatabase-with-sap-hana-cloud/)

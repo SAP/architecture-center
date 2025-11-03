@@ -19,6 +19,7 @@ keywords:
 sidebar_label: FedML-IBM watsonx
 image: img/ac-soc-med.png
 tags:
+  - ibm
   - data
 hide_table_of_contents: false
 hide_title: false
@@ -38,6 +39,12 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with IBM.**
+
+:::
 
 FedML (fedml-dsp) can be used in notebooks inside the IBM watsonx.ai and Waston Studio environments. 
 
