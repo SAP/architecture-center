@@ -49,8 +49,6 @@ Evaluate SAP Integration Suite, advanced event mesh offerings and if additional 
 
 ![drawio](drawio/e2b-cc.drawio)
 
-![plot](./drawio/e2b-cc.png)
-
 This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication via message broker.
 This features a CAP-based application framework (Events-To-Business Actions Framework) which allows you to configure set of actions for a particular business scenario. Based on the events category and type, respective actions are triggered in SAP Line of Business (LoB) applications. It also uses SAP Integration Suite, advanced event mesh / Event Mesh capability in SAP Integration Suite, SAP Build Process Automation, SAP HANA Cloud, SAP Destination Service, SAP Connectivity service with cloud connector. 
 
