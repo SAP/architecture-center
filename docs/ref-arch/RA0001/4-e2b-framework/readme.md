@@ -95,8 +95,6 @@ SAP Private Link service is a feature offered by cloud providers like Microsoft 
 
 ![drawio](drawio/e2b-privatelink.drawio)
 
-![plot](./drawio/e2b-privatelink.png)
-
 
 ## Flow of events in this architecture
 
