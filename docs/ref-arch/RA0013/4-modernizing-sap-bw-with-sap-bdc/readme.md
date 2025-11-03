@@ -43,7 +43,7 @@ last_update:
 SAP Business Warehouse (BW) has been a cornerstone of enterprise data management for decades, providing essential insights for decision-making. However, the growing complexity of modern data landscapes, the need for real-time analytics, and the shift toward AI-driven processes demand a more scalable and integrated approach. SAP Business Data Cloud (SAP BDC) offers a path to modernize BW environments, enabling organizations to leverage existing investments while transitioning to a future-ready architecture.
 
 With the introduction of SAP Business Warehouse, private cloud edition, SAP offers customers options to lift from:
--  SAP BW NetWeaver to SAP Business Warehouse, private cloud edition (SAP BW 7.5 on HANA) to benefit from maintenance support until the end of 2030
+-  SAP BW NetWeaver to SAP Business Warehouse, private cloud edition for SAP NetWeaver to benefit from maintenance support until the end of 2030
 -  SAP BW/4HANA to SAP BW/4HANA, private cloud edition with maintenance support until 2040
 
 As a result, customers can gradually shift BW use cases to SAP Business Data Cloud and replace respective data flows with proven capabilities within SAP Datasphere as well as data products and Intelligent Applications within SAP Business Data Cloud, instead of spending time and budget on a migration.
@@ -77,7 +77,7 @@ SAP provides a structured three-step approach for migrating SAP BW systems to th
 **Key benefits of SAP Business Warehouse, private cloud edition as part of SAP BDC:**
 
 -   SAP BW data products can be leveraged in SAP Databricks for ML/AI use cases and in SAP Datasphere for analytics scenarios, allowing the native implementation of BW use cases while following a zero-copy approach.
--   HANA Data Lake Files (object store) are used to store large business data, reducing associated storage costs.
+-   HANA Data Lake Files (object store) is used to store large business data, reducing associated storage costs.
     Additionally, customers will benefit from data products and the delta share mechanism, allowing direct consumption in SAP Databricks for AI/ML use cases.
 -   The Spark Engine enables custom coding options to replace existing ABAP code.
     In addition, Spark offers scalable compute capabilities supporting high-volume transformations. Spark compute is isolated from analytics compute, avoiding mutual performance impact.
@@ -155,7 +155,7 @@ With SAP BDC, SAP BW use cases can be gradually transitioned to SAP BDC with SAP
 SAP-managed data products and intelligent applications allow customers to consume and create analytics scenarios, following a clean core principle. Below are high-level approaches to plan for replacing SAP BW use cases:
 
 Reporting:
--   Query and Composite Provider to be replaced with an Analytic Model and View using the onboarding in the Catalog.
+-   Query and Composite Provider to be replaced with an Analytic Models and Views.
 
 Data Foundation:
 -   SAP BW data is pushed via the Data Product Generator into the object store of SAP Datasphere.
