@@ -61,7 +61,7 @@ J:::reduceSize --> K[Associate PR with Issue]:::reduceSize
 
 ## Requirements and Setup
 
-Refer to the [Get Started with Quick Start](community/Guidelines/GetStarted/get-started-quickstart.md) or [Get Started with VSCode (CLI)](community/Guidelines/GetStarted/get-started-vscode.md) page for the requirements & setup.
+Refer to the [Get Started with Quick Start](Guidelines/GetStarted/get-started-quickstart.md) or [Get Started with VSCode (CLI)](Guidelines/GetStarted/get-started-vscode.md) page for the requirements & setup.
 
 ## Support and Feedback
 
