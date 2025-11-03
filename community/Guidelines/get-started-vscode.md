@@ -1,9 +1,9 @@
 ---
-sidebar_position: 2
-slug: /get-started
-title: Get Started
+sidebar_position: 3
+slug: /get-started-vscode
+title: Get Started with VS Code (CLI)
 description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to set up your environment, create or update reference architectures, and test your changes locally.
-sidebar_label: Get Started
+sidebar_label: Get Started with VS Code (CLI)
 keywords:
  - sap
  - get started
