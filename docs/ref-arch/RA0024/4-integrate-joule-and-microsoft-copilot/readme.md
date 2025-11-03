@@ -5,7 +5,7 @@
 #                     [DO NOT MODIFY]                      #
 ############################################################
 id: id-ra0027-4
-slug: /ref-arch/4173e60b83/4
+slug: /ref-arch/06ff6062dc/4
 sidebar_position: 4
 sidebar_custom_props:
     category_index:
@@ -15,9 +15,17 @@ sidebar_custom_props:
 title: Integrate Joule and Microsoft Copilot
 description: Integrate Microsoft Copilot and SAP Joule 
 sidebar_label: Integrate Joule and Microsoft Copilot
-keywords: [sap, microsoft, joule]
+keywords:
+    - sap
+    - joule
+    - ai
+    - microsoft
 image: img/logo.svg
-tags: [sap, microsoft, joule]
+tags: 
+    - genai
+    - agents
+    - build
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -6,11 +6,9 @@ sidebar_custom_props:
   category_index:
     - ai
     - appdev
-title: Extend Joule with Joule Studio
+title: Integrating and Extending Joule
 description: >-
-  Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule
-  Skills and AI Agents for seamless integration across SAP and non-SAP systems,
-  driving automation and innovation.
+  Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP
 keywords:
   - sap build
   - joule studio
@@ -21,7 +19,7 @@ keywords:
   - automation
   - sap btp
   - hybrid landscapes
-sidebar_label: Extend Joule with Joule Studio
+sidebar_label: Integrating and Extending Joule
 image: img/logo.svg
 tags:
   - genai
@@ -35,64 +33,100 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - maria-kondratyeva
-  - miguelmezamartinez
-  - fabianleh
+    - nagesh-caparthy1
+    - anbazhagana-uma
+    - pra1veenk
 discussion:
 last_update:
-  author: fabianleh
-  date: 2025-06-25
+  author: anbazhagana-uma
+  date: 2025-10-29
 ---
 
-Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.
-This reference architecture outlines how Joule Studio can be leveraged to integrate and extend SAP and non-SAP solutions across cloud and hybrid landscapes. By tapping into the expertise of citizen developers, Joule Studio facilitates the adaptation, improvement, and innovation of business processes, driving positive business outcomes through sophisticated AI capabilities.
+Joule is an AI-powered SAP co-pilot designed to enhance productivity and decision-making within enterprise environments.Joule is embedded across the SAP Enterprise Solutions portfolio, accessible to all users, providing contextual assistance, automating routine tasks, and delivering insights that drive better business outcomes. 
+
+Joule provides an embedded experience across solution areas, consistent and with memory of interactions across multiple products.The interactions are achieved using advanced algorithms and large language models (LLM) for user queries and user intents. If a user posts a question to Joule, the copilot understands the intent, and with the help of the integration with your SAP Business Applications, it gives the appropriate response.
+
+This reference architecture outlines the key components and best practices for integrating and extending Joule, enabling organizations to effectively leverage its capabilities. This architecture is designed to provide a comprehensive understanding of how to integrate unified Joule with existing enterprise systems, build custom skills and agents, and optimize its performance for specific business needs. 
+
+
+## Joule Key Capabilities
+
+Joule Capabilities are categorized into different patterns.
+
+**Transactional Pattern:** - Provides our users a direct entry point to SAP, the backend system. Triggering and influencing business processes with the power of natural language and generative AI. E.g., purchase orders which need to be reviewed and approved, job positions which are created, OR any other CRUD (Create, Read, Update, Delete) based interactions. All our Cloud products are currently developing content packages for Joule to facilitate the most relevant user interactions.
+
+**Navigational Pattern:** - The navigational pattern helps our users handle business processes themselves in the relevant SAP screen. Joule allows users to navigate directly to their desired application/screens. This is especially helpful for users who are not very familiar with navigating SAP applications.
+
+**Informational Pattern:** - The informational pattern provides knowledge-based results. These are, for example, policy-related questions. This can be based on SAP-owned content, such as SAP Help Pages, or could be customer-owned content as well, by integrating the SAP Document Grounding services with Joule. 
+
+**Analytical Pattern:** - The analytical pattern provides insights and data analysis capabilities. Users can ask questions related to business metrics, trends, and performance indicators, and Joule will provide relevant insights from the SAP Analytics Cloud system.
 
 ## Architecture
 
-![drawio](drawio/joule-studio-ref-arch.drawio)
+<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
+<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
+
+The architecture describes the key components and interactions involved in implementing and extending Joule within an enterprise environment. To achieve a unified experience with Joule, the following architecture outlines the components and activities required for implementation.
+
+![drawio](drawio/unified_joule.drawio)
+
+The solution architecture consists of the following parts:
+
+- **SAP Business Technology Platform** establishes the foundation for implementing and extending Joule capabilities with Joule and SAP Build Work Zone entitlements. System Landscape in SAP BTP the SAP Business Application systems (e.g., SAP S/4HANA, SAP SuccessFactors,…) are properly set up and configured. If the systems are under the same customer contract, this should be auto-discovered in the System Landscape; otherwise, it can be manually added.
+
+- **SAP Cloud Identity Services** manages user authentication and authorization for secure access to your SAP Applications and Joule. SAP Cloud Identity Services is a prerequisite for all Joule integrations; therefore, a common SAP Cloud Identity Services instance (prod and non-prod) is recommended for your SAP Business Applications, utilizing a single domain URL (cloud.sap.com) for setup.  
+
+- **SAP Enterprise Systems:** connects Joule with your cloud systems such as SAP S/4HANA Cloud, SAP SuccessFactors, SAP Ariba, SAP Concur, SAP Analytics Cloud, etc, and other third-party applications to enable seamless data exchange and process automation.
+
+- **Third-party Identity Providers:** supports integration with external identity providers for enhanced security and user management (Optional). This will require additional configurations with SAP Cloud Identity Services to establish trust and enable single sign-on (SSO) capabilities.
 
 ## Flow
 
-1. The central entry point for consuming custom Joule skills and AI agents created in Joule Studio is the Joule client application, available on both Desktop and Mobile. The Joule conversational interface spans across SAP Cloud applications, providing a unified access point for all SAP out-of-the-box Joule capabilities and custom Joule skills, significantly enhancing efficiency for key business personas.
-2. Joule Studio is part of SAP Build, which includes SAP Build Apps, SAP Build Code, SAP Build Work Zone, and SAP Build Process Automation. It leverages SAP Build's user experience and lifecycle management capabilities. To provision Joule Studio, Joule must be set up in the target landscape along with SAP Build Process Automation as part of the SAP Build tenant with the build-default plan utilizing SAP Identity Authentication Service (IAS). Once these prerequisites are met, Joule Studio is automatically provisioned using formations in the BTP cockpit.
-3. Joule Studio enables extending Joule by creating new capabilities that can be deployed alongside the out-of-the-box capabilities provided by SAP. These capabilities include Joule Skills and AI Agents. Joule Skills automate rule-based, repetitive tasks using APIs, seamlessly integrating into SAP to enhance productivity. AI Agents tackle complex challenges with advanced planning and reasoning, integrating both SAP and non-SAP systems and leveraging Joule Skills. Both extend Joule by adding tailored automation and optimization capabilities.
-4. AI Core plays a crucial role in extending Joule's capabilities. It provides the underlying Large Language Models (LLMs) that can be leveraged to configure AI Agents. Additionally, customers can provision their own document grounding capabilities in AI Core leveraging the Retrieval Augmented Generation (RAG) service and integrate them into their AI Agents to ground them in specific data.
-5. SAP BTP Connectivity integrates existing workflows with Joule Skills and AI Agents, enabling seamless, automated execution across SAP and non-SAP systems. This enhances efficiency while leveraging current investments in automation.
-6. Once customers have created their custom Joule Skills and AI Agents, they can use SAP Build's lifecycle capabilities to compile and deploy these capabilities alongside their Joule central instance. This grants business users access to additional functionalities, helping them in their daily tasks through centralized access via Joule, reducing the need to switch between multiple SAP and non-SAP applications.
-7. Joule Studio integrates via the SAP Connectivity service with other SAP BTP services and external applications. This integration is based on APIs provided through various channels, such as Live API using Graph, SAP Cloud Application Programming Model, ABAP RESTful Application Programming Model, OData destinations, SAP systems, API Business Hub Enterprise, or SAP Business Accelerator Hub. Customers can upload API specifications or build API actions from scratch for robust integration.
-8. Joule Studio relies on SAP Cloud Identity Services - Identity Authentication for identity management and authentication. SAP Cloud Identity Services act as a central facade for identity and access management, offering secure authentication or federation with third-party identity providers. SAP Cloud Identity Directory stores the SAP identities, and SAP Cloud Identity Services can serve as a proxy for customer-owned identity providers.
+The application flow for Joule interactions typically involves the following steps:
+
+1. The users start with their queries in the natively integrated Joule client embedded in our respective SAP cloud applications.
+
+2. Each incoming request is processed and orchestrated based on what is available. Joule takes three categories into consideration:
+
+    - Joule analyzes if the user-prompt is relevant for Joule’s Scenario Catalog. This catalog contains metadata of all available scenarios, functions, and skills of SAP cloud applications.
+
+    - Joule conducts an informational filtering based on the Knowledge Catalog. This contains SAP-knowledge as well as the customer-owned knowledge. This process is based on Retrieval Augmented Generation for enterprise (RAGe) and lets the LLM generate an answer based and grounded on dedicated text that was previously retrieved.
+
+    - Joule is aware of the user's context and history. This includes information about which SAP cloud application the respective user is using and which additional SAP application the customer has licensed and activated with Joule. Also, Joule is aware of the user's role(s) and permissions. This means a user cannot access information or adjust business processes they couldn't do directly in the SAP cloud application without using Joule. Lastly, Joule understands a user's chat history and context, ensuring that the best possible answers are provided in response to questions asked shortly before.
+
+3. Joule takes all of this contextual information and provides a much richer query to the LLM which is responsible for the dialog management. This LLM is based on a rich ecosystem of technology partner LLM offerings also available directly via SAP Business Technology Platform's AI Foundation and the SAP Generative AI Hub. Here we are leveraging the latest LLMs and innovations available in the market under strict contractual agreements with SAP's partners which prohibits them from training any of their AI-models on any customer data. 
+
+4. The LLM provides a grounded response back to the Joule service or identifies the need to leverage Joule functions which includes the Joule scenarios of our SAP Cloud Applications. Joule calls the respective SAP backend system to proceed with the requested query, e.g. requesting time off. 
+
+5. The response is then filtered as appropriate, and the customer gets a response knowing the conversation and output has been processed all with enterprise security, data privacy, and responsible AI considered.
+ 
+![plot](./images/joule_operations.png) 
 
 ## Characteristics
 
-• **Centralized AI Solution Across Hybrid SAP Landscapes**: Joule Studio in SAP Build empowers users to create and deploy custom Joule skills and AI agents, with Joule client applications serving as a centralized access point for managing AI capabilities across desktop and mobile platforms.
+<!-- Add your characteristics content here -->
+- **Revolutionize User Experience:** Joule transforms how users interact with SAP applications by providing contextual assistance, automating routine tasks, and delivering insights that drive better business outcomes.
 
-• **Support for Third-Party Identity Providers**: SAP Cloud Identity Services - Identity Authentication allows federation with third-party identity providers, while SAP Cloud Identity Services - Provisioning facilitates the provisioning of user/role assignments from external sources, ensuring secure and seamless identity management.
+- **End-User Interactions:** Joule enhances end-user interactions by accelerating every process with a single AI copilot, providing comprehensive insights and enabling tasks across all your SAP solutions.
 
-• **Global User ID**: A globally unique user identifier managed by SAP Cloud Identity Services - Identity Authentication ensures consistent and secure user access across Joule Studio integrations and deployments.
+- **Seamless Integration and Reliable Insights from Enterprise Systems:** Joule seamlessly integrates with existing enterprise systems with native access to your data, providing data context with role-based access to ensure reliable insights and recommendations.
 
-• **Cloud and On-Premise Solution Integration**: Joule Studio integrates seamlessly with various SAP and third-party cloud solutions, including SAP ECC, SAP S/4HANA, and S/4HANA Cloud Private Edition, providing comprehensive support for hybrid landscapes.
+- **Customizable and Extensible:** Organizations can build custom skills and agents using Joule Studio and SAP BTP, tailoring the copilot's capabilities to meet specific business needs.
+
+- **Security and Compliance:** Joule adheres to stringent security and compliance standards, ensuring that sensitive business data is protected throughout the interaction process.
+
+- **Human-centric governance:** Built-in responsible AI to safeguard against inappropriate content and ensure compliance with organizational policies. SAP AI ethics policy adopts the 10 guiding principles of the UNESCO Recommendation on the Ethics of Artificial Intelligence. The principles aim to ensure that AI technologies are developed and used in ways that respect human rights, promote fairness, and contribute to sustainable development.
+
 
 ## Examples in an SAP context
 
-• **Automated Customer Support Agent Deployment**: Joule Studio can be used to create AI agents that automatically handle customer inquiries, retrieve order statuses, and escalate issues when necessary. By integrating with SAP S/4HANA and external CRM systems, these agents provide consistent and efficient customer support.
+<!-- Add your SAP context examples here -->
 
-• **Order Management Optimization**: Joule Skills created in Joule Studio streamline the process of order management by automating tasks such as checking stock levels, processing orders, and providing delivery updates. This integration reduces manual work and improves accuracy across SAP and third-party systems.
-
-• **Procurement Negotiation and Compliance**: AI agents built in Joule Studio analyze supplier contracts, monitor compliance, and negotiate procurement deals, leveraging data from SAP ECC and external sources. This automation increases efficiency and ensures adherence to procurement policies.
-
-• **Talent Acquisition Enhancement**: Joule Studio can automate the creation and approval of job requisitions in SAP SuccessFactors, utilizing custom AI agents to streamline the process. These agents extract data from source files, manage approval workflows, and publish job openings, reducing manual effort and accelerating recruitment.
-
-• **Supply Chain Risk Management**: Joule Skills aid in monitoring supply chain risks by retrieving data from SAP S/4HANA and third-party systems. This automation helps businesses proactively manage disruptions, ensure timely deliveries, and maintain operational continuity.
-
-• **Mass Maintenance of Scheduling Agreements**: Business experts can use Joule Studio to automate the creation and modification of scheduling agreements based on specified criteria. This reduces manual intervention, improves transparency, and ensures compliance with business requirements, ultimately streamlining supply chain operations.
-
-• **Non-Repairable Parts Management**: AI agents can accelerate the recording and management of non-repairable parts, automating goods movements to designated storage locations in SAP systems. This reduces labor-intensive processes and minimizes errors associated with high-volume, manual declarations.
-
-• **Creation of Customer Material Info Records**: Joule Skills streamline the creation of CMIRs by automating validation, initiating approval workflows, and generating records upon approval through API integration with SAP S/4HANA. This reduces manual data entry, addressing data inconsistencies and improving efficiency in purchasing and procurement.
-
-By leveraging Joule Studio in SAP Build, organizations can integrate AI capabilities into existing business processes, enhancing automation, productivity, and decision-making across both SAP and non-SAP systems.
+- [SAP Business AI - Joule Capabilities](https://discovery-center.cloud.sap/ai-catalog/?quickFilter=joule)
 
 ## Services and Components
+
+<!-- Add your services and components here -->
 
 -   [SAP Build, Joule Studio](https://discovery-center.cloud.sap/ai-feature/e93aa292-e7f4-449d-9586-f1a8510d5ab6/)
 -   [SAP Build](https://discovery-center.cloud.sap/serviceCatalog/sap-build/?region=all)
@@ -103,17 +137,17 @@ By leveraging Joule Studio in SAP Build, organizations can integrate AI capabili
 -   [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 -   [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?region=all)
 
-## Examples
-
-Take a look at the following examples that build upon or implement elements of the Reference Architecture:
-
--   [Build custom Joule skills for SAP and non-SAP systems using Joule Studio](https://discovery-center.cloud.sap/missiondetail/4643/)
 
 ## Resources
 
--   [Joule Studio (sap.com)](https://www.sap.com/products/artificial-intelligence/joule-studio.html)
--   [Joule Studio in SAP Build, demo (sap.com)](https://www.sap.com/assetdetail/2024/10/1621dba3-d97e-0010-bca6-c68f7e60039b.html)
--   [Build, Deploy, and Extend AI Agents with Joule Studio (SAP Community Blog Posts)](https://community.sap.com/t5/technology-blog-posts-by-sap/build-deploy-and-extend-ai-agents-with-joule-studio/ba-p/14105964)
--   [Meet Joule Studio in SAP Build (YT video)](https://www.youtube.com/watch?v=JdwfjieiOFY)
--   [Agent Builder in Joule Studio (YT video)](https://www.youtube.com/watch?v=C37FkIM83xw)
--   [Interactive Value Journey](https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/2a840b1a-f1d9-4f42-9c75-8f377599de83/intro)
+<!-- Add your resources here -->
+
+- [Joule Product Page](https://help.sap.com/docs/joule)
+- [Joule (sap.com)](https://www.sap.com/india/products/artificial-intelligence/ai-assistant.html)
+- [SAP Community](https://community.sap.com/topics/joule)
+- [SAP Learning Journey - Provisioning and Implementing Joule](https://learning.sap.com/learning-journeys/provisioning-and-implementing-joule)
+
+## Related Missions
+
+<!-- Add related missions here -->
+- [SAP Discovery Center Missions - Joule](https://discovery-center.cloud.sap/missionCatalog/?search=joule)

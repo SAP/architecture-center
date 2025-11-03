@@ -5,7 +5,7 @@
 #                     [DO NOT MODIFY]                      #
 ############################################################
 id: id-ra0027-2
-slug: /ref-arch/4173e60b83/2
+slug: /ref-arch/06ff6062dc/2
 sidebar_position: 2
 sidebar_custom_props:
     category_index:
@@ -26,7 +26,11 @@ keywords:
 sidebar_label: Joule and IAM
 image: img/logo.svg
 tags: 
-- sap
+  - genai
+  - agents
+  - build
+  - appdev
+  - security
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

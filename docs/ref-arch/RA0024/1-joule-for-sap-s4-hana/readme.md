@@ -5,7 +5,7 @@
 #                     [DO NOT MODIFY]                      #
 ############################################################
 id: id-ra0027-1
-slug: /ref-arch/4173e60b83/1
+slug: /ref-arch/06ff6062dc/1
 sidebar_position: 1
 sidebar_custom_props:
     category_index:
@@ -16,10 +16,15 @@ title: Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public E
 description: Reference Architectures for Joule and SAP S/4HANA(PCE and Public Cloud)
 sidebar_label: Joule in SAP S/4HANA Cloud
 keywords: 
-- sap
+    - sap
+    - joule
+    - ai
 image: img/logo.svg
 tags: 
-- sap
+    - genai
+    - agents
+    - build
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
