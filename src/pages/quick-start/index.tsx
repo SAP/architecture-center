@@ -1,4 +1,4 @@
-import React, { useState, useEffect, JSX } from 'react';
+import React, { useState, useEffect, JSX, use } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
@@ -91,6 +91,13 @@ function AuthenticatedQuickStartView() {
 }
 
 function MobileDeviceWarning() {
+    const history = useHistory();
+    const { siteConfig } = useDocusaurusContext();
+    const baseUrl = siteConfig.baseUrl;
+
+    const handleHome = () => {
+        history.push(baseUrl);
+    };
     return (
         <Dialog
             open
@@ -105,6 +112,9 @@ function MobileDeviceWarning() {
                 <Text>
                     The QuickStart editor is best used on a larger screen. Some features may not work as expected.
                 </Text>
+                <Button design="Emphasized" icon="home" onClick={handleHome}>
+                    Home
+                </Button>
             </div>
         </Dialog>
     );

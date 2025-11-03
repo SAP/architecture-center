@@ -163,7 +163,7 @@ export default function HeroSection(): JSX.Element {
             {/* Navigation Cards */}
             <div className={styles.cardsGrid}>
                 {getVisibleNavigationCards().map((item, index) => {
-                    const isSmallScreen = windowWidth && windowWidth < 1130;
+                    const isSmallScreen = windowWidth && windowWidth < 1380;
                     const isExcludedCard = item.title === 'Architecture Validator' || item.title === 'Quick Start';
 
                     if (isSmallScreen && isExcludedCard) {

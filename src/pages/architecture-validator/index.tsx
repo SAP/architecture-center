@@ -9,6 +9,7 @@ import { Button, FlexBox, Title, Text, Icon, Dialog, Bar, Card } from '@ui5/webc
 import '@ui5/webcomponents-icons/dist/AllIcons.js';
 import Header from '@site/src/components/CustomHeader/Header';
 import useIsMobile from '@site/src/hooks/useIsMobile';
+import { useHistory } from '@docusaurus/router';
 
 type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
@@ -28,6 +29,13 @@ interface ManagedFile {
 }
 
 function MobileDeviceWarning() {
+    const history = useHistory();
+    const { siteConfig } = useDocusaurusContext();
+    const baseUrl = siteConfig.baseUrl;
+
+    const handleHome = () => {
+        history.push(baseUrl);
+    };
     return (
         <Dialog
             open
@@ -43,6 +51,9 @@ function MobileDeviceWarning() {
                     The Architecture Validator is best used on a desktop or tablet. Some features may not work as
                     expected on smaller screens.
                 </Text>
+                <Button design="Emphasized" icon="home" onClick={handleHome}>
+                    Home
+                </Button>
             </div>
         </Dialog>
     );
