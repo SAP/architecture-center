@@ -17,15 +17,14 @@
 }
 
 .tocItem {
-    font-size: 14px;
+    font-size: 13px;
     color: #555;
     padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 .tocItem:hover {

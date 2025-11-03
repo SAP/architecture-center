@@ -8,11 +8,29 @@ import styles from './index.module.css';
 // A small helper to safely format dates
 const formatDate = (timestamp) => {
     if (!timestamp) return 'N/A';
+
     try {
-        const date = new Date(timestamp);
-        return isNaN(date.getTime())
-            ? timestamp.split(',')[0]
-            : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const datePart = timestamp.split(',')[0];
+
+        const parts = datePart.split('/');
+
+        if (parts.length !== 3) {
+            return datePart;
+        }
+
+        const [day, month, year] = parts;
+
+        const date = new Date(year, month - 1, day);
+
+        if (isNaN(date.getTime())) {
+            return datePart;
+        }
+
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+        });
     } catch (e) {
         return timestamp.split(',')[0];
     }
