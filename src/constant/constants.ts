@@ -7,7 +7,7 @@ export const navigationCardsData = [
         requiresAuth: true,
     },
     { title: 'Quick Start', icon: 'sap-icon://write-new-document', link: '/quick-start' },
-    { title: 'Solution Diagram Guidelines', icon: 'sap-icon://learning-assistant', link: '' },
+    { title: 'Solution Diagram Guidelines', icon: 'sap-icon://learning-assistant', link: 'https://sap.github.io/btp-solution-diagrams' },
     { title: 'Community of Practice', icon: 'sap-icon://group', link: '/community/intro' },
     { title: "What's new", icon: 'sap-icon://marketing-campaign', link: '/blog' },
 ];
