@@ -35,6 +35,7 @@ unlisted: false
 contributors:
     - contributor1
     - contributor2
+discussion:
 last_update:
     date: 2025-10-29
     author: user-bb83abb390
