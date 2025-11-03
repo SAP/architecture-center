@@ -1,10 +1,18 @@
 ---
-id: id-ra0019-4
-slug: /ref-arch/20c6b29b1e/4
-sidebar_position: 4
+############################################################
+#                Beginning of Front Matter                 #
+############################################################
+#                     [DO NOT MODIFY]                      #
+############################################################
+id: id-ra0027-2
+slug: /ref-arch/06ff6062dc/2
+sidebar_position: 2
 sidebar_custom_props:
-  category_index: []
-title: IAM for SAP Joule
+    category_index:
+############################################################
+#     You can modify the front matter properties below     #
+############################################################
+title: Identity and Access Management for SAP Joule
 description: >-
   This reference architecture describes the IAM related flows for SAP Joule with SAP Build Work Zone and via the SAP Cloud Identity Services.
 keywords:
@@ -17,9 +25,12 @@ keywords:
   - access management
 sidebar_label: Joule and IAM
 image: img/ac-soc-med.png
-tags:
-  - security
+tags: 
   - genai
+  - agents
+  - build
+  - appdev
+  - security
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -27,12 +38,15 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - sapgunnar
-  - gunnar-kosche_sap
-discussion: 
+   - sapgunnar
+   - gunnar-kosche_sap
+discussion:
 last_update:
-  author: fabianleh
-  date: 2025-09-22
+    date: 2025-09-22
+    author: fabianleh
+############################################################
+#                   End of Front Matter                    #
+############################################################
 ---
 
 This architecture page focuses on Identity and Access Management (IAM) for SAP Business AI and SAP Joule. The key advantage of integrating AI is enabling users to leverage cross-domain capabilities, connecting processes and data across multiple business applications. Achieving this requires a robust architecture with comprehensive cybersecurity and IAM features. Note that this approach may differ from traditional project and customer landscapes, where user and access management were typically handled separately for each business application.
@@ -132,8 +146,8 @@ IAM:
 
 ## Resources
 
-- SAP Help Portal:
-  - [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity?version=Cloud&locale=en-US)
-  - [SAP Secure Login Service for SAP GUI](https://help.sap.com/sls)
-  - [SAP Common Data Model](https://github.com/SAP/common-data-model/blob/main/README.md)
-  - [SAP Build Work Zone- About the Common Data Model](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/creating-cdm-json-file-for-multi-tenancy-html5-app)
+
+- [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity?version=Cloud&locale=en-US)
+- [SAP Secure Login Service for SAP GUI](https://help.sap.com/sls)
+- [SAP Common Data Model](https://github.com/SAP/common-data-model/blob/main/README.md)
+- [SAP Build Work Zone- About the Common Data Model](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/creating-cdm-json-file-for-multi-tenancy-html5-app)
