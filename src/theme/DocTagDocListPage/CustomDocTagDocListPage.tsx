@@ -8,6 +8,8 @@ import {
   usePluralForm,
 } from '@docusaurus/theme-common';
 import Translate, {translate} from '@docusaurus/Translate';
+import Heading from '@theme/Heading';
+import SearchMetadata from '@theme/SearchMetadata';
 
 interface DocItemProps {
   doc: {
@@ -40,7 +42,7 @@ function DocItem({doc}: DocItemProps): ReactNode {
   return (
     <article className="margin-vert--lg">
       <Link to={doc.permalink}>
-        <h2 className="margin-bottom--sm">{doc.title}</h2>
+        <Heading as="h2">{doc.title}</Heading>
       </Link>
       {doc.labels && doc.labels.length > 0 && (
         <div className="margin-bottom--sm" style={{
@@ -90,6 +92,7 @@ function DocTagDocListPageMetadata({
   return (
     <>
       <PageMetadata title={title} description={tag.description} />
+      <SearchMetadata tag="doc_tag_doc_list" />
     </>
   );
 }
@@ -106,7 +109,7 @@ function DocTagDocListPageContent({
           <main className="col col--8 col--offset-2">
             {tag.unlisted && <div style={{color: 'var(--ifm-color-warning)', marginBottom: '1rem'}}>This page is unlisted</div>}
             <header className="margin-bottom--xl">
-              <h1>{title}</h1>
+              <Heading as="h1">{title}</Heading>
               {tag.description && <p>{tag.description}</p>}
               <Link href={tag.allTagsPath}>
                 <Translate

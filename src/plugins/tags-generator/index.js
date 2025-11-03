@@ -37,7 +37,10 @@ module.exports = function (context, options) {
           const currentVersion = defaultDocsInstance.loadedVersions[0];
           if (currentVersion.sidebars) {
             sidebarContext = currentVersion.sidebars;
-            console.log('✅ Tags plugin captured sidebar context at build time:', Object.keys(sidebarContext));
+            // Only log in development mode
+            if (process.env.NODE_ENV === 'development') {
+              console.log('✅ Tags plugin captured sidebar context at build time:', Object.keys(sidebarContext));
+            }
           }
         }
       }
@@ -46,7 +49,10 @@ module.exports = function (context, options) {
         docIdToTags,
         sidebarContext,
       });
-      console.log('✅ Tags plugin loaded successfully and processed docs with sidebar context.');
+      // Only log in development mode
+      if (process.env.NODE_ENV === 'development') {
+        console.log('✅ Tags plugin loaded successfully and processed docs with sidebar context.');
+      }
     },
   };
 };
