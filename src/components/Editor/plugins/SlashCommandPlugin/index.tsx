@@ -10,16 +10,7 @@ import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lex
 import { $createHeadingNode } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import * as ReactDOM from 'react-dom';
-import {
-    Type,
-    Heading1,
-    Heading2,
-    List,
-    ListOrdered,
-    Image as ImageIcon,
-    LayoutDashboard,
-    Paperclip,
-} from 'lucide-react';
+import { Type, Heading1, Heading2, List, ListOrdered, Image as ImageIcon, LayoutDashboard } from 'lucide-react';
 
 import { TOGGLE_IMAGE_DIALOG, OPEN_DRAWIO_DIALOG } from '../commands';
 import styles from './index.module.css';
@@ -118,42 +109,11 @@ function CommandMenu({
     );
 }
 
-const onFileSelect = (editor: LexicalEditor) => {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.txt,.md,.js,.css,.html,.json';
-    fileInput.style.display = 'none';
-
-    fileInput.onchange = (e) => {
-        const target = e.target as HTMLInputElement;
-        const file = target.files?.[0];
-
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const fileContent = event.target?.result as string;
-            if (fileContent) {
-                editor.update(() => {
-                    const selection = $getSelection();
-                    if ($isRangeSelection(selection)) {
-                        selection.insertText(fileContent);
-                    }
-                });
-            }
-        };
-        reader.onerror = (error) => console.error('Error reading file:', error);
-        reader.readAsText(file);
-        document.body.removeChild(fileInput);
-    };
-
-    document.body.appendChild(fileInput);
-    fileInput.click();
-};
-
 export default function SlashCommandPlugin() {
     const [editor] = useLexicalComposerContext();
     const [queryString, setQueryString] = useState<string | null>(null);
+
+    console.log('SlashCommandPlugin has mounted.');
 
     const ALL_COMMANDS = useMemo(
         () => [
@@ -258,14 +218,25 @@ export default function SlashCommandPlugin() {
         [editor]
     );
 
+    const handleQueryChange = (query) => {
+        console.log('Query changed:', query);
+        setQueryString(query);
+    };
+
     return (
         <LexicalTypeaheadMenuPlugin<CommandOption>
-            onQueryChange={setQueryString}
+            onQueryChange={handleQueryChange}
             onSelectOption={onSelectOption}
             triggerFn={checkForTriggerMatch}
             options={filteredOptions}
-            menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp }) =>
-                anchorElementRef.current && filteredOptions.length > 0
+            menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp }) => {
+                console.log(
+                    'menuRenderFn is being called. Anchor:',
+                    anchorElementRef.current,
+                    'Options count:',
+                    filteredOptions.length
+                );
+                return anchorElementRef.current && filteredOptions.length > 0
                     ? ReactDOM.createPortal(
                           <CommandMenu
                               options={filteredOptions}
@@ -277,8 +248,8 @@ export default function SlashCommandPlugin() {
                           />,
                           anchorElementRef.current
                       )
-                    : null
-            }
+                    : null;
+            }}
         />
     );
 }

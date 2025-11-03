@@ -5,8 +5,11 @@ import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { authStorage } from '../../utils/authStorage';
 import { useAuth } from '@site/src/context/AuthContext';
+import { Button, FlexBox, Title, Text, Icon, Dialog, Bar } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/AllIcons.js';
+import Header from '@site/src/components/CustomHeader/Header';
 
-type FileStatus = 'batched' | 'batched' | 'validating' | 'success' | 'warning' | 'error';
+type FileStatus = 'batched' | 'validating' | 'success' | 'warning' | 'error';
 
 interface ValidationRule {
     rule: string;
@@ -25,29 +28,15 @@ interface ManagedFile {
 
 export default function ArchitectureValidator(): React.JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { user, users, loading } = useAuth();
+    const { users, loading } = useAuth();
     const [managedFiles, setManagedFiles] = useState<ManagedFile[]>([]);
     const [isProcessingBatch, setIsProcessingBatch] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [hasRedirected, setHasRedirected] = useState(false);
+    const [showUploadLimitDialog, setShowUploadLimitDialog] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Check if user is authenticated with BTP
     const isBtpAuthenticated = users.btp !== null;
 
-    // Redirect to BTP login if user is not authenticated with BTP
-    useEffect(() => {
-        if (!loading && !isBtpAuthenticated && !hasRedirected) {
-            setHasRedirected(true);
-            // Redirect to BTP login
-            const BTP_API = siteConfig.customFields.backendUrl as string;
-            window.location.href = `${BTP_API}/user/login?origin_uri=${encodeURIComponent(
-                window.location.href
-            )}&provider=btp`;
-        }
-    }, [loading, isBtpAuthenticated, hasRedirected, siteConfig.customFields.backendUrl]);
-
-    // Show loading state while checking authentication
     if (loading) {
         return (
             <Layout>
@@ -64,33 +53,26 @@ export default function ArchitectureValidator(): React.JSX.Element {
         );
     }
 
-    // Don't render the main content if user is not authenticated with BTP
     if (!isBtpAuthenticated) {
         return (
             <Layout>
-                <div className={styles.headerBar}>
-                    <h1>Architecture Validator</h1>
-                    <p>BTP authentication required to access this feature</p>
-                </div>
+                <Header
+                    title="Architecture Validator"
+                    subtitle="BTP authentication required to access this feature"
+                    breadcrumbCurrent="Architecture Validator"
+                />
                 <main className={styles.mainContainer}>
                     <div style={{ textAlign: 'center', padding: '2rem' }}>
                         <div className={styles.authRequired}>
-                            <h2>🔒 BTP Authentication Required</h2>
+                            <h2>BTP Authentication Required</h2>
                             <p>
                                 The Architecture Validator requires BTP authentication to ensure secure access to
                                 validation services.
                             </p>
-                            {user && user.provider !== 'btp' ? (
-                                <p>
-                                    You are currently logged in with {user.provider.toUpperCase()}, but this feature
-                                    requires BTP login.
-                                </p>
-                            ) : (
-                                <p>
-                                    You will be redirected to the BTP login page automatically, or you can click the
-                                    button below to login manually.
-                                </p>
-                            )}
+                            <p>
+                                You will be redirected to the BTP login page automatically, or you can click the button
+                                below to login manually.
+                            </p>
                             <button
                                 className={styles.loginButton}
                                 onClick={() => {
@@ -119,6 +101,28 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const processAndAddFiles = (files: FileList) => {
         const fileArray = Array.from(files).filter((file) => file.name.toLowerCase().endsWith('.drawio'));
 
+        // Check if adding these files would exceed the 5 file limit
+        const currentFileCount = managedFiles.length;
+        const newFilesCount = fileArray.length;
+
+        // Don't allow any uploads if already at limit
+        if (currentFileCount >= 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
+
+        // Don't allow if new files would exceed limit
+        if (currentFileCount + newFilesCount > 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
+
+        // If uploading more than 5 files at once, show dialog
+        if (newFilesCount > 5) {
+            setShowUploadLimitDialog(true);
+            return;
+        }
+
         const filePromises = fileArray.map(
             (file) =>
                 new Promise<ManagedFile>((resolve) => {
@@ -144,11 +148,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) processAndAddFiles(event.target.files);
-        event.target.value = ''; // Allow re-selecting the same file
+        event.target.value = '';
     };
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
+        event.currentTarget.classList.remove(styles.dragOver);
         if (event.dataTransfer.files) processAndAddFiles(event.dataTransfer.files);
     };
 
@@ -157,10 +162,8 @@ export default function ArchitectureValidator(): React.JSX.Element {
         try {
             const formData = new FormData();
             formData.append('file', managedFile.file);
-            console.log('Using API URL:', siteConfig.customFields.validatorApiUrl);
             const apiUrl = siteConfig.customFields.validatorApiUrl as string;
 
-            // Get token from authStorage
             const authData = authStorage.load();
             const token = authData?.token;
 
@@ -175,8 +178,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
             });
 
             const report = response.data.validationReport;
-
-            // Filter out INFO items for display and status determination
             const displayResults = report.filter((v) => v.severity !== 'INFO');
 
             let finalStatus: FileStatus = 'success';
@@ -198,7 +199,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
         let completedCount = 0;
         const totalFiles = filesToValidate.length;
 
-        // Create promises for all validations to run in parallel
         const validationPromises = filesToValidate.map(async (file) => {
             try {
                 await validateFile(file);
@@ -208,7 +208,6 @@ export default function ArchitectureValidator(): React.JSX.Element {
             }
         });
 
-        // Wait for all validations to complete
         await Promise.all(validationPromises);
         setIsProcessingBatch(false);
     };
@@ -225,16 +224,21 @@ export default function ArchitectureValidator(): React.JSX.Element {
 
     return (
         <Layout>
-            <div className={styles.headerBar}>
-                <h1>Architecture Validator</h1>
-                <p>Upload, preview, and validate your .drawio diagrams against best practices.</p>
-            </div>
+            <Header
+                title="Architecture Validator"
+                subtitle="Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines"
+                breadcrumbCurrent="Architecture Validator"
+            />
 
             <main className={styles.mainContainer}>
                 {managedFiles.length === 0 ? (
                     <div
-                        className={styles.uploadPrompt}
-                        onDragOver={(e) => e.preventDefault()}
+                        className={styles.fioriUploader}
+                        onDragOver={(e) => {
+                            e.preventDefault();
+                            e.currentTarget.classList.add(styles.dragOver);
+                        }}
+                        onDragLeave={(e) => e.currentTarget.classList.remove(styles.dragOver)}
                         onDrop={handleDrop}
                         onClick={() => fileInputRef.current?.click()}
                     >
@@ -246,16 +250,38 @@ export default function ArchitectureValidator(): React.JSX.Element {
                             style={{ display: 'none' }}
                             multiple
                         />
-                        <div className={styles.uploadIcon}>⬆️</div>
-                        <h2>Drag & Drop your .drawio files here</h2>
-                        <p>or click to select files</p>
+                        <FlexBox
+                            direction="Column"
+                            alignItems="Center"
+                            justifyContent="Center"
+                            style={{ gap: '0.5rem' }}
+                        >
+                            <Icon name="upload-to-cloud" className={styles.uploadIcon} />
+                            <Title className={styles.uploaderTitle}>Upload .drawio files</Title>
+                            <Text className={styles.uploaderSubtitle}>Drag and drop here or click to browse</Text>
+                        </FlexBox>
                     </div>
                 ) : (
                     <div className={styles.contentArea}>
                         <div className={styles.actionsHeader}>
-                            <button className={styles.addFilesButton} onClick={() => fileInputRef.current?.click()}>
-                                + Add More Files
-                            </button>
+                            <Button
+                                design="Emphasized"
+                                onClick={handleValidateBatch}
+                                disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
+                            >
+                                {isProcessingBatch
+                                    ? 'Validating...'
+                                    : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
+                            </Button>
+
+                            <Button
+                                design="Default"
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={managedFiles.length >= 5}
+                            >
+                                Add More Files
+                            </Button>
+
                             <input
                                 ref={fileInputRef}
                                 type="file"
@@ -264,22 +290,10 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 style={{ display: 'none' }}
                                 multiple
                             />
-                            <div className={styles.actionButtons}>
-                                <button className={styles.clearButton} onClick={clearAll}>
-                                    Clear All
-                                </button>
-                                <button
-                                    className={styles.validateButton}
-                                    onClick={handleValidateBatch}
-                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
-                                >
-                                    {isProcessingBatch
-                                        ? `Validating...`
-                                        : `Validate Batch (${
-                                              managedFiles.filter((f) => f.status === 'batched').length
-                                          })`}
-                                </button>
-                            </div>
+
+                            <Button design="Transparent" onClick={clearAll}>
+                                Remove All
+                            </Button>
                         </div>
 
                         {isProcessingBatch && (
@@ -293,25 +307,25 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 <div key={mf.id} className={`${styles.fileCard} ${styles[mf.status]}`}>
                                     <div className={styles.fileCardHeader}>
                                         <div className={styles.fileInfo}>
-                                            <span className={styles.statusName}>{mf.status.toUpperCase()}</span>
+                                            <span className={styles.statusName}>
+                                                {mf.status === 'batched'
+                                                    ? 'Pending'
+                                                    : mf.status.charAt(0).toUpperCase() + mf.status.slice(1)}
+                                            </span>
                                             <h3 className={styles.fileName}>{mf.file.name}</h3>
                                         </div>
                                         <div className={styles.cardActions}>
                                             {mf.status === 'batched' && (
-                                                <button
-                                                    className={styles.cardValidateButton}
-                                                    onClick={() => validateFile(mf)}
-                                                >
+                                                <Button design="Positive" onClick={() => validateFile(mf)}>
                                                     Validate
-                                                </button>
+                                                </Button>
                                             )}
-                                            <button
-                                                className={styles.cardRemoveButton}
+                                            <Button
+                                                design="Transparent"
+                                                icon="delete"
+                                                tooltip="Remove File"
                                                 onClick={() => handleRemoveFile(mf.id)}
-                                                title="Remove File"
-                                            >
-                                                ✕
-                                            </button>
+                                            />
                                         </div>
                                     </div>
                                     <div className={styles.previewAndResults}>
@@ -371,6 +385,29 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     </div>
                 )}
             </main>
+
+            {/* Upload Limit Dialog */}
+            <Dialog
+                open={showUploadLimitDialog}
+                onClose={() => setShowUploadLimitDialog(false)}
+                headerText="Upload Limit Reached"
+            >
+                <div className={styles.uploadLimitDialog}>
+                    <FlexBox direction="Column" alignItems="Start" className={styles.uploadLimitDialogContent}>
+                        <Icon name="alert" className={styles.uploadLimitDialogIcon} />
+                        <Text>You can upload a maximum of 5 diagrams at once.</Text>
+                        <Text>Please remove some files or try again with fewer diagrams.</Text>
+                    </FlexBox>
+                </div>
+                <Bar
+                    design="Footer"
+                    endContent={
+                        <Button design="Emphasized" onClick={() => setShowUploadLimitDialog(false)}>
+                            OK
+                        </Button>
+                    }
+                />
+            </Dialog>
         </Layout>
     );
 }

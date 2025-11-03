@@ -14,8 +14,11 @@ service UserService @(
             type      : String;
     };
 
-    // @(requires: 'authenticated-user')
-    function getUserInfo()  returns userInfo;
-    function login()        returns Boolean;
-    function loginSuccess() returns String;
+    @(requires: 'authenticated-user')
+    function getUserInfo()   returns userInfo;
+
+    function login()         returns Boolean;
+    function loginSuccess()  returns String;
+    function logout()        returns Boolean;
+    function logoutSuccess() returns String;
 }

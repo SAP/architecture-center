@@ -5,6 +5,7 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import Link from '@docusaurus/Link';
 import { pageMapping, MappedDoc } from '@site/src/constant/pageMapping';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 interface TileProps {
     title: string;
@@ -15,12 +16,6 @@ interface TileProps {
 interface DocFromGlobalData {
     id: string;
     path: string;
-}
-
-function truncateWords(text: string, wordLimit: number) {
-    const words = text.split(' ');
-    if (words.length <= wordLimit) return text;
-    return words.slice(0, wordLimit).join(' ') + '...';
 }
 
 export default function Tile({ id, title, icon }: TileProps): JSX.Element {
@@ -51,6 +46,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
     const handleCardClick = () => {
         setTechDomains([id]);
     };
+    const docsUrl = useBaseUrl('/docs');
 
     return (
         <Card className={styles.tileCard}>
@@ -76,11 +72,14 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
                         <p className={styles.noDocsMessage}>No reference architectures found.</p>
                     )}
                 </div>
-
-                <Link onClick={handleCardClick} to="/docs" className={styles.footerLink}>
-                    <div className={styles.footer}>
-                        <span>View All</span>
-                    </div>
+                <Link
+                    to={`${docsUrl}?techDomains=${id}`}
+                    className={styles.footerLink}
+                    onClick={() => setTechDomains([id])}
+                >
+                <div className={styles.footer}>
+                    <span>View All</span>
+                </div>
                 </Link>
             </div>
         </Card>

@@ -6,6 +6,8 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
 
+const baseUrl = '/';
+
 const config: Config = {
     title: 'SAP Architecture Center',
     tagline:
@@ -13,7 +15,7 @@ const config: Config = {
     favicon: 'img/favicon.ico',
 
     url: 'https://architecture.learning.sap.com',
-    baseUrl: '/',
+    baseUrl: baseUrl,
 
     // GitHub pages deployment config.
     organizationName: 'SAP', //GitHub org
@@ -29,15 +31,15 @@ const config: Config = {
         hooks: {
             onBrokenMarkdownLinks: 'throw',
             onBrokenMarkdownImages: 'throw',
-          },
+        },
     },
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
-            '/ArchitectureValidator': 'btp',
-            '/quickStart': 'github',
+            '/architecture-validator': 'btp',
+            '/quick-start': 'github',
         },
     },
     themes: ['@docusaurus/theme-mermaid'],
@@ -191,29 +193,24 @@ const config: Config = {
                             value: '<strong>Technology Domains</strong>',
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'appdev',
-                            label: 'Application Development & Automation',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=appdev">Application Development & Automation</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'ai',
-                            label: 'Artificial Intelligence',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=ai">Artificial Intelligence</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'data',
-                            label: 'Data & Analytics',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=data">Data & Analytics</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'integration',
-                            label: 'Integration',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=integration">Integration</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'opsec',
-                            label: 'Operation & Security',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=opsec">Operation & Security</a>`,
                         },
                         {
                             type: 'html',
@@ -224,19 +221,28 @@ const config: Config = {
                             value: '<strong>Technology Partners</strong>',
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'aws',
-                            label: 'Amazon Web Services',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=aws">Amazon Web Services</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'azure',
-                            label: 'Microsoft Azure',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=databricks">Databricks</a>`,
                         },
                         {
-                            type: 'docSidebar',
-                            sidebarId: 'gcp',
-                            label: 'Google Cloud Platform',
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=gcp">Google Cloud Platform</a>`,
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=ibm">IBM</a>`,
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=azure">Microsoft Azure</a>`,
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=nvidia">Nvidia</a>`,
                         },
                     ],
                 },
@@ -255,11 +261,11 @@ const config: Config = {
                         },
                         {
                             label: 'Architecture Validator',
-                            to: '/ArchitectureValidator',
+                            to: '/architecture-validator',
                         },
                         {
-                            label: 'QuickStart',
-                            to: '/quickStart',
+                            label: 'Quick Start',
+                            to: '/quick-start',
                         },
                         {
                             label: 'Solution Diagram Guidelines',
@@ -270,7 +276,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: 'What\'s New',
+                            label: "What's New",
                             to: '/blog',
                         },
                     ],

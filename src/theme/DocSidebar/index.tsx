@@ -9,6 +9,7 @@ import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -104,6 +105,12 @@ function DocSidebarDesktop(props) {
       if (filterGroup === "techDomains") {
         setTechDomains(selectedKeys);
       }
+      // Sync URL
+      const params = new URLSearchParams(location.search);
+      if (selectedKeys.length) params.set(filterGroup, selectedKeys.join(','));
+      else params.delete(filterGroup);
+
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
     };
 
     const filteredSidebar = useMemo(
@@ -196,16 +203,31 @@ export default function DocSidebarWrapper(props) {
   const windowSize = useWindowSize();
   const sidebarContext = useDocsSidebar();
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
+  const setPartners = useSidebarFilterStore((state) => state.setPartners);
+  const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
   const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
   const history = useHistory();
+  const docsBase = useBaseUrl('/docs');
 
   useEffect(() => {
-    // Subscribe to history changes
+    if (!location.pathname.startsWith(docsBase)) return;
+
+    const params = new URLSearchParams(location.search);
+
+    const partnersParam = params.get('partners');
+    const techDomainsParam = params.get('techDomains');
+
+    if (partnersParam) setPartners(partnersParam.split(','));
+    if (techDomainsParam) setTechDomains(techDomainsParam.split(','));
+  }, [location.search, docsBase, setPartners, setTechDomains]);
+
+
+  useEffect(() => {   
     return history.listen((location) => {
       console.log("Route changed:", location.pathname);
 
       // Reset only when leaving /docs
-      if (!location.pathname.startsWith('/docs')) {
+      if (!location.pathname.startsWith(docsBase)) {
         console.log("Resetting filters...");
         resetFilters();
       }

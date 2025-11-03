@@ -22,21 +22,17 @@
   "devDependencies": {
     "@cap-js/cds-types": "^0.12.0",
     "@cap-js/sqlite": "^2",
-    "@sap/cds-dk": ">=8"
+    "@sap/cds-dk": ">=9"
   },
   "scripts": {
     "start": "cds-serve",
+    "start-local": "cds watch --profile hybrid",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
   "cds": {
     "requires": {
-      "[production]": {
-        "auth": "xsuaa"
-      },
-      "[hybrid]": {
-        "auth": "mocked"
-      }
+      "auth": "xsuaa"
     }
   }
 }

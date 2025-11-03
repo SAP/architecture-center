@@ -15,6 +15,7 @@ interface LoadingModalProps {
     status: PublishStage;
     error: string | null;
     commitUrl: string | null;
+    pullRequestUrl?: string | null;
     onClose: () => void;
     onSuccessFinish: () => void;
 }
@@ -23,6 +24,7 @@ export default function LoadingModal({
     status,
     error,
     commitUrl,
+    pullRequestUrl,
     onClose,
     onSuccessFinish,
 }: LoadingModalProps): JSX.Element | null {
@@ -52,10 +54,10 @@ export default function LoadingModal({
                     <div className={styles.resultContainer}>
                         <img src="/img/rocket.gif" alt="Rocket launching" className={rocketClassName} />
                         <h3>We Have Liftoff!</h3>
-                        <p>Your document has been published successfully.</p>
+                        <p>Your document has been published and a pull request has been created successfully.</p>
                         <div className={styles.buttonGroup}>
                             <Button design="Emphasized" onClick={onSuccessFinish}>
-                                View on GitHub & Finish
+                                {pullRequestUrl ? 'View Pull Request & Finish' : 'View on GitHub & Finish'}
                             </Button>
                         </div>
                     </div>

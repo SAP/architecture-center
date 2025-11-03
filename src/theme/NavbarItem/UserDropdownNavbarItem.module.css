@@ -54,6 +54,10 @@
     font-size: 0.9em;
 }
 
+:root[data-theme='dark'] .userAvatarPlaceholder {
+    background-color: var(--sapButton_Emphasized_Background);
+}
+
 .userDropdown__button {
     background-color: transparent;
     color: var(--ifm-navbar-link-color);
@@ -86,8 +90,8 @@
 }
 
 [data-theme='dark'] .userDropdown__content {
-    background-color: var(--sap-horizon-neutral-11);
-    color: var(--sap-horizon-neutral-1);
+    background-color: var(--sapGroup_ContentBackground);
+    color: var(--sapContent_ForegroundTextColor);
 }
 
 .userDropdown__contentOpen {
@@ -133,6 +137,10 @@
     font-weight: bold;
     font-size: 2em;
     margin-bottom: 20px;
+}
+
+:root[data-theme='dark'] .userAvatarLargePlaceholder {
+    background-color: var(--sapButton_Emphasized_Background);
 }
 
 .userDropdown__userDetails {
@@ -257,8 +265,17 @@
     cursor: pointer;
 }
 
+:root[data-theme='dark'] .logoutButtonLarge {
+  background-color: var(--sapButton_Emphasized_Background);
+  color: var(--sapButton_Emphasized_TextColor);
+}
+
 .logoutButtonLarge:hover {
     background-color: var(--ifm-color-primary-dark);
+}
+
+:root[data-theme='dark'] .logoutButtonLarge:hover {
+  background-color: var(--sapButton_Emphasized_Hover_Background);
 }
 
 .userDropdown__header,

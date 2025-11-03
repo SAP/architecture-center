@@ -20,7 +20,7 @@
 
 .typeahead-popover {
     position: absolute;
-    z-index: 10;
+    z-index: 9999 !important;
     background: var(--slash-menu-bg);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid var(--slash-menu-border);
