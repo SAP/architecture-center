@@ -177,11 +177,12 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.sha}}
+          token: ${{ secrets.PAASAPCOM_PAT }}
 
       - name: Set up Git
         run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "paa@sap.com"
+          git config --global user.name "paasapcom"
 
       - name: Switch to GitHub Pages Branch
         run: |
@@ -197,6 +198,8 @@ jobs:
           rm -rf @$PR_FOLDER
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
           git add -A
           git commit -m "cleanup: removed folder @$PR_FOLDER after merge" || echo "No changes to commit"
