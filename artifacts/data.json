@@ -1,9 +1,9 @@
 [
   {
     "id": "ra0001",
-    "name": "Reference Architecture for Event-Driven Applications",
-    "drawioLink": "https://architecture.learning.sap.com/e2b-cc-19a3058f91d9a2de.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/reference-architecture-for-event-driven-applications.svg",
+    "name": "Designing Event-Driven Applications",
+    "drawioLink": "https://architecture.learning.sap.com/eda_enterprise-46486b19d28409e2.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/designing-event-driven-applications.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/fbdc46aaae",
     "shortDescription": "Guidance for developing applications based on Event-Driven Architecture (EDA) patterns and Cloud Application Programming (CAP) framework."
   },
@@ -18,7 +18,7 @@
   {
     "id": "ra0004",
     "name": "Explore your Hyperscaler data with SAP Business Data Cloud",
-    "drawioLink": "https://architecture.learning.sap.com/explore-hyperscaler-data-2dd28bf9ff1e6210.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/explore-hyperscaler-data-29c0bc1d3567d976.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/explore-your-hyperscaler-data-with-sap-business-data-cloud.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/a07a316077",
     "shortDescription": "Explore how SAP Business Data Cloud (BDC) acts as the business-centric integration layer for enterprises looking to harmonize SAP and non-SAP data across platforms like Snowflake, Azure, GCP, AWS, and Databricks."
@@ -26,7 +26,7 @@
   {
     "id": "ra0005",
     "name": "Generative AI on SAP BTP",
-    "drawioLink": "https://architecture.learning.sap.com/reference-architecture-generative-ai-0d909e9c38e67771.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/reference-architecture-generative-ai-90f644fa4ed700ea.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/generative-ai-on-sap-btp.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d",
     "shortDescription": "Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for similarity search and advanced AI patterns."
@@ -34,7 +34,7 @@
   {
     "id": "ra0006",
     "name": "Secure connectivity with SAP Private Link service",
-    "drawioLink": "https://architecture.learning.sap.com/secure-connectivity-with-sap-private-link-service-e0b535ba961e84fc.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/secure-connectivity-with-sap-private-link-service-fb71bc4f5ebadbd7.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/secure-connectivity-with-sap-private-link-service.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/a2f89cac57",
     "shortDescription": "Secure SAP BTP-hyperscaler connectivity with SAP Private Link service, protecting sensitive data within private networks."
@@ -42,7 +42,7 @@
   {
     "id": "ra0007",
     "name": "Multitenant SaaS Application using CAP",
-    "drawioLink": "https://architecture.learning.sap.com/susaas-app-architecture-7660296ed96a7e1e.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/susaas-app-architecture-891f06388f89c01f.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/multitenant-saas-application-using-cap.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/d31bedf420",
     "shortDescription": "Develop scalable multitenant SaaS applications on SAP BTP using CAP for cost-effective, tailored solutions."
@@ -177,10 +177,10 @@
   },
   {
     "id": "ra0024",
-    "name": "Extend Joule with Joule Studio",
-    "drawioLink": "https://architecture.learning.sap.com/joule-studio-ref-arch-1fcf820aa85ac331.drawio",
-    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/extend-joule-with-joule-studio.svg",
+    "name": "Integrating and Extending Joule",
+    "drawioLink": "https://architecture.learning.sap.com/unified_joule-55dc38499f10d9f4.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/integrating-and-extending-joule.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc",
-    "shortDescription": "Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule Skills and AI Agents for seamless integration across SAP and non-SAP systems, driving automation and innovation."
+    "shortDescription": "Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP"
   }
 ]
