@@ -99,21 +99,12 @@ function MobileDeviceWarning() {
         history.push(baseUrl);
     };
     return (
-        <Dialog
-            open
-            header={
-                <FlexBox justifyContent="Center">
-                    <Title level="H4">Optimal Viewing Experience</Title>
-                </FlexBox>
-            }
-        >
+        <Dialog open>
             <div className={styles.warningDialogContent}>
-                <Icon name="error" className={styles.warningIcon} />
-                <Text>
-                    The QuickStart editor is best used on a larger screen. Some features may not work as expected.
-                </Text>
+                <Icon name="alert" className={styles.warningIcon} />
+                <Text>The QuickStart editor is not available for mobiles and tablets.</Text>
                 <Button design="Emphasized" icon="home" onClick={handleHome}>
-                    Home
+                    Return to Home
                 </Button>
             </div>
         </Dialog>
