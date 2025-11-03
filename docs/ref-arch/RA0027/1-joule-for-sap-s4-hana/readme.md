@@ -54,7 +54,7 @@ This architecture page focuses on Joule integration with SAP S/4HANA cloud priva
 
 • Accelerated Setup: A dedicated BTP Booster ("Joule – End-to-End Setup Guide") automates much of the complex BTP configuration, including service instance creation, Cloud Foundry enablement, and destination setup.
 
-## Joule in SAP S/4HANA Cloud Public Edition
+## Joule in SAP S/4HANA Cloud Private Edition
 
 This solution is exclusively available for RISE with SAP customers and relies on the SAP Business Technology Platform (BTP) as the central integration and service hub.With the latest release, Joule supports the Conversational Search Filter capability, Transactional capabilities, Navigational capabilities to help users find their desired functionality.
 
@@ -88,7 +88,7 @@ The solution architecture consists of the following parts:
 
 Note: For more information on how to access Joule and follow the detailed steps for the activation process in the [Joule for SAP S/4HANA Cloud Private Edition – A Comprehensive Setup Guide](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/joule-for-sap-s-4hana-cloud-private-edition-a-comprehensive-setup-guide/ba-p/13786453).
 
-## Joule in SAP S/4HANA Cloud Public 
+## Joule in SAP S/4HANA Cloud Public Edition
 
 Joule is natively integrated into the SAP S/4HANA Cloud Public Edition, providing users with seamless access to its capabilities directly within the SAP Fiori Launchpad. This integration allows users to leverage Joule's conversational AI features without the need for additional configurations or setups.
 
