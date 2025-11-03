@@ -309,54 +309,32 @@
     color: #555;
 }
 
-.authRequired {
+.centeredCardHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--sapList_BorderColor);
+}
+
+.authCard {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
-    background-color: var(--sapGroup_ContentBackground);
-    border-radius: 12px;
-    border: 1px solid var(--sapGroup_ContentBorderColor);
-    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
+    width: 100%;
 }
 
-.authRequired h2 {
-    color: var(--sapTextColor);
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+.authCardContent {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
 }
 
-.authRequired p {
-    color: var(--sapContent_LabelColor);
+.authCardContent > [ui5-text] {
     line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-.loginButton {
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: var(--sapButton_Emphasized_Background);
-    color: var(--sapButton_Emphasized_TextColor);
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.2s ease;
-}
-
-.loginButton:hover {
-    background-color: var(--sapButton_Emphasized_Hover_Background);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
-}
-
-.loginButton:active {
-    transform: translateY(0);
-}
-
-.authHelpText {
-    margin-top: 1rem;
-    font-size: 14px;
-    color: #666;
+    color: var(--sapContent_LabelColor);
 }
 
 /* Upload Limit Dialog Styles */
@@ -395,5 +373,20 @@
     .authRequired {
         margin: 0 1rem;
         padding: 2rem 1.5rem;
+    }
+
+    .warningDialogContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .warningIcon {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        color: var(--sapNegativeColor);
     }
 }

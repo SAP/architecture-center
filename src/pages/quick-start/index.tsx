@@ -8,6 +8,8 @@ import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
+import { Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
+import useIsMobile from '@site/src/hooks/useIsMobile';
 
 function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -88,27 +90,52 @@ function AuthenticatedQuickStartView() {
     );
 }
 
+function MobileDeviceWarning() {
+    return (
+        <Dialog
+            open
+            header={
+                <FlexBox justifyContent="Center">
+                    <Title level="H4">Optimal Viewing Experience</Title>
+                </FlexBox>
+            }
+        >
+            <div className={styles.warningDialogContent}>
+                <Icon name="error" className={styles.warningIcon} />
+                <Text>
+                    The QuickStart editor is best used on a larger screen. Some features may not work as expected.
+                </Text>
+            </div>
+        </Dialog>
+    );
+}
+
 export default function QuickStart(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { users, loading } = useAuth();
+    const isMobile = useIsMobile();
 
     const isGithubAuthenticated = users.github !== null;
     const { expressBackendUrl } = siteConfig.customFields as {
         expressBackendUrl: string;
     };
 
+    if (isMobile) {
+        return (
+            <Layout>
+                <MobileDeviceWarning />
+            </Layout>
+        );
+    }
+
     if (loading) {
         return (
             <Layout>
-                <Header
-                    title='Quick Start'
-                    subtitle='Loading...'
-                    breadcrumbCurrent='Quick Start'
-                />
+                <Header title="Quick Start" subtitle="Loading..." breadcrumbCurrent="Quick Start" />
                 <main className={styles.mainContainer}>
-                    <div style={{ textAlign: 'center', padding: '2rem' }}>
-                        <p>Checking authentication...</p>
-                    </div>
+                    <FlexBox alignItems="Center" justifyContent="Center" style={{ padding: '2rem' }}>
+                        <Text>Checking authentication...</Text>
+                    </FlexBox>
                 </main>
             </Layout>
         );
@@ -118,33 +145,39 @@ export default function QuickStart(): JSX.Element {
         return (
             <Layout>
                 <Header
-                    title='Quick Start'
-                    subtitle='GitHub authentication required to access the Quick Start tool'
-                    breadcrumbCurrent='Quick Start'
+                    title="Quick Start"
+                    subtitle="GitHub authentication required to access the Quick Start tool"
+                    breadcrumbCurrent="Quick Start"
                 />
                 <main className={styles.mainContainer}>
-                    <div style={{ textAlign: 'center', padding: '2rem' }}>
-                        <div className={styles.authRequired}>
-                            <h2>GitHub Authentication Required</h2>
-                            <p>The Quick Start editor requires GitHub authentication to manage your documents.</p>
-                            <p>Please log in with your GitHub account to continue.</p>
-                            <button
-                                className={styles.loginButton}
+                    <Card
+                        header={
+                            <FlexBox className={styles.centeredCardHeader}>
+                                <Icon name="locked" />
+                                <Title level="H5" wrappingType="None">
+                                    GitHub Authentication Required
+                                </Title>
+                            </FlexBox>
+                        }
+                        className={styles.authCard}
+                    >
+                        <div className={styles.authCardContent}>
+                            <Text>The QuickStart editor requires GitHub authentication to manage your documents.</Text>
+                            <Text>Please log in with your GitHub account to continue.</Text>
+                            <Button
+                                design="Emphasized"
                                 onClick={() => {
-                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
+                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}QuickStart`;
                                     window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
                                         originUri
                                     )}&provider=github`;
-                                    console.log('Redirecting to GitHub login...', { origin_uri: originUri});
                                 }}
                             >
                                 Login with GitHub to Continue
-                            </button>
-                            <p className={styles.authHelpText}>
-                                After logging in, you will be redirected back to this page.
-                            </p>
+                            </Button>
+                            <Text>After logging in, you'll be redirected back to this page.</Text>
                         </div>
-                    </div>
+                    </Card>
                 </main>
             </Layout>
         );
