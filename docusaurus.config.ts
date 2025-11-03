@@ -119,6 +119,7 @@ const config: Config = {
                     sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
                     editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
+                    tags: '../docs/tags.yml',
                 },
                 theme: {
                     customCss: './src/css/custom.css',
