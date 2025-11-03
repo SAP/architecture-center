@@ -37,22 +37,12 @@ function MobileDeviceWarning() {
         history.push(baseUrl);
     };
     return (
-        <Dialog
-            open
-            header={
-                <FlexBox justifyContent="Center">
-                    <Title level="H4">Optimal Viewing Experience</Title>
-                </FlexBox>
-            }
-        >
+        <Dialog open>
             <div className={styles.warningDialogContent}>
-                <Icon name="error" className={styles.warningIcon} />
-                <Text>
-                    The Architecture Validator is best used on a desktop or tablet. Some features may not work as
-                    expected on smaller screens.
-                </Text>
+                <Icon name="alert" className={styles.warningIcon} />
+                <Text>The Architecture Validator is not available for mobiles and tablets.</Text>
                 <Button design="Emphasized" icon="home" onClick={handleHome}>
-                    Home
+                    Return to Home
                 </Button>
             </div>
         </Dialog>

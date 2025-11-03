@@ -57,12 +57,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1rem;
-    padding: 1rem 0;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
 }
 
 .warningIcon {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
-    color: var(--sapNegativeColor);
+    width: 3rem !important;
+    height: 3rem !important;
+    color: #ffc933;
 }
