@@ -56,7 +56,7 @@ This architecture page focuses on Joule integration with SAP S/4HANA cloud priva
 
 ## Joule in SAP S/4HANA Cloud Private Edition
 
-This solution is exclusively available for RISE with SAP customers and relies on the SAP Business Technology Platform (BTP) as the central integration and service hub.With the latest release, Joule supports the Conversational Search Filter capability, Transactional capabilities, Navigational capabilities to help users find their desired functionality.
+This solution is exclusively available for RISE with SAP customers and relies on the SAP Business Technology Platform (BTP) as the central integration and service hub. With the latest release, Joule supports the Conversational Search Filter capability, Transactional capabilities, Navigational capabilities to help users find their desired functionality.
 
 For a full list of supported scenarios, please refer to [conversational patterns](https://help.sap.com/docs/joule/capabilities-guide/joule-in-sap-s-4hana-cloud-private-edition). 
 
