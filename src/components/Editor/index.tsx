@@ -289,57 +289,59 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                     <PageTabs onAddNew={onAddNew} />
                 </div>
                 <div className={styles.editorColumn}>
-                    <div className={styles.editorHeader}>
-                        <Button
-                            icon="sap-icon://information"
-                            onClick={handleInfoClick}
-                            tooltip="Learn more about contributing"
-                        ></Button>
-                        {lastSaveTimestamp && (
-                            <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
-                        )}
-                        <div className={styles.headerButtons}>
-                            <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
-                                {isLoading ? 'Submitting...' : 'Submit'}
-                            </Button>
-                            {activeDocument && (
-                                <Button
-                                    design="Default"
-                                    onClick={() => setShowDeleteConfirm(true)}
-                                    tooltip="Delete current document"
-                                >
-                                    Delete
-                                </Button>
+                    <div className={styles.editorContentWrapper}>
+                        <div className={styles.editorHeader}>
+                            <Button
+                                icon="sap-icon://information"
+                                onClick={handleInfoClick}
+                                tooltip="Learn more about contributing"
+                            ></Button>
+                            {lastSaveTimestamp && (
+                                <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                             )}
+                            <div className={styles.headerButtons}>
+                                <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
+                                    {isLoading ? 'Submitting...' : 'Submit'}
+                                </Button>
+                                {activeDocument && (
+                                    <Button
+                                        design="Default"
+                                        onClick={() => setShowDeleteConfirm(true)}
+                                        tooltip="Delete current document"
+                                    >
+                                        Delete
+                                    </Button>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.editorContainer}>
-                        <div className={styles.contentHeader}>
-                            <Breadcrumbs path={breadcrumbPath} />
-                            <ArticleHeader />
-                        </div>
-                        <ToolbarPlugin />
-                        <div className={styles.editorInner}>
-                            <RichTextPlugin
-                                contentEditable={<ContentEditable className={styles.editorInput} />}
-                                placeholder={<Placeholder />}
-                                ErrorBoundary={LexicalErrorBoundary}
+                        <div className={styles.editorContainer}>
+                            <div className={styles.contentHeader}>
+                                <Breadcrumbs path={breadcrumbPath} />
+                                <ArticleHeader />
+                            </div>
+                            <ToolbarPlugin />
+                            <div className={styles.editorInner}>
+                                <RichTextPlugin
+                                    contentEditable={<ContentEditable className={styles.editorInput} />}
+                                    placeholder={<Placeholder />}
+                                    ErrorBoundary={LexicalErrorBoundary}
+                                />
+                                <HistoryPlugin />
+                                <AutoFocusPlugin />
+                                <ListPlugin />
+                                <LinkPlugin />
+                                <ImagePlugin />
+                                <DrawioPlugin />
+                                <SlashCommandPlugin />
+                                <AutoSavePlugin />
+                                <InitializerPlugin />
+                                <FloatingToolbarPlugin />
+                            </div>
+                            <ContributorsDisplay
+                                contributors={activeDocument?.contributors || []}
+                                onContributorsChange={handleContributorsUpdate}
                             />
-                            <HistoryPlugin />
-                            <AutoFocusPlugin />
-                            <ListPlugin />
-                            <LinkPlugin />
-                            <ImagePlugin />
-                            <DrawioPlugin />
-                            <SlashCommandPlugin />
-                            <AutoSavePlugin />
-                            <InitializerPlugin />
-                            <FloatingToolbarPlugin />
                         </div>
-                        <ContributorsDisplay
-                            contributors={activeDocument?.contributors || []}
-                            onContributorsChange={handleContributorsUpdate}
-                        />
                     </div>
                 </div>
                 <div className={styles.tocColumn}>
