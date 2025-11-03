@@ -16,6 +16,8 @@ export default function HeroSection(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
 
+    const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
+
     const getVisibleNavigationCards = () => {
         const { authProviders } = siteConfig.customFields as {
             authProviders: Record<string, 'btp' | 'github'>;
@@ -104,6 +106,20 @@ export default function HeroSection(): JSX.Element {
         }
     }, [isHoveringCard]);
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const handleResize = () => {
+                setWindowWidth(window.innerWidth);
+            };
+
+            handleResize();
+
+            window.addEventListener('resize', handleResize);
+
+            return () => window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+
     const handleCardHover = (index) => {
         setSelectedIndex(index);
         setIsHoveringCard(true);
@@ -146,17 +162,26 @@ export default function HeroSection(): JSX.Element {
             </div>
             {/* Navigation Cards */}
             <div className={styles.cardsGrid}>
-                {getVisibleNavigationCards().map((item, index) => (
-                    <NavigationCard
-                        key={index}
-                        title={item.title}
-                        icon={item.icon}
-                        link={item.link}
-                        disabled={item.disabled}
-                        onMouseEnter={() => handleCardHover(index)}
-                        onMouseLeave={handleCardLeave}
-                    />
-                ))}
+                {getVisibleNavigationCards().map((item, index) => {
+                    const isSmallScreen = windowWidth && windowWidth < 1380;
+                    const isExcludedCard = item.title === 'Architecture Validator' || item.title === 'Quick Start';
+
+                    if (isSmallScreen && isExcludedCard) {
+                        return null;
+                    }
+
+                    return (
+                        <NavigationCard
+                            key={index}
+                            title={item.title}
+                            icon={item.icon}
+                            link={item.link}
+                            disabled={item.disabled}
+                            onMouseEnter={() => handleCardHover(index)}
+                            onMouseLeave={handleCardLeave}
+                        />
+                    );
+                })}
             </div>
         </section>
     );

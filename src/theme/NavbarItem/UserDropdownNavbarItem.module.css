@@ -266,8 +266,8 @@
 }
 
 :root[data-theme='dark'] .logoutButtonLarge {
-  background-color: var(--sapButton_Emphasized_Background);
-  color: var(--sapButton_Emphasized_TextColor);
+    background-color: var(--sapButton_Emphasized_Background);
+    color: var(--sapButton_Emphasized_TextColor);
 }
 
 .logoutButtonLarge:hover {
@@ -275,7 +275,7 @@
 }
 
 :root[data-theme='dark'] .logoutButtonLarge:hover {
-  background-color: var(--sapButton_Emphasized_Hover_Background);
+    background-color: var(--sapButton_Emphasized_Hover_Background);
 }
 
 .userDropdown__header,
@@ -579,5 +579,11 @@
 @media (max-width: 768px) {
     .dualLoginLayout {
         min-width: 280px;
+    }
+}
+
+@media (max-width: 1130px) {
+    .userDropdown {
+        display: none;
     }
 }
