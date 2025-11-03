@@ -79,7 +79,7 @@ Here are the main features and tips to get started:
 - **Navigate with the Table of Contents** which is automatically generated on the right-hand side of the editor based on your document’s headings, allowing easy navigation across large architectures. 
 - To add content, simply type in the editor or click **Insert File** to upload your architecture document.  
     :::info Note
-    Supported file type: `.docs` or `.docx` (MS Word files).  
+    Supported file type: `.docx` (MS Word files).  
     Uploaded files are **automatically converted to Markdown** during submission.  
     :::
 - To edit your architecture [front-matter](community/Guidelines/front-matter.md):
