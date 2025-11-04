@@ -366,7 +366,7 @@
 .warningIcon {
     width: 3rem !important;
     height: 3rem !important;
-    color: #ffc933;
+    color: var(--alert-color);
 }
 
 @media (max-width: 996px) {
@@ -402,6 +402,6 @@
     .warningIcon {
         width: 2.5rem !important;
         height: 2.5rem !important;
-        color: #ffc933;
+        color: var(--alert-color);
     }
 }
