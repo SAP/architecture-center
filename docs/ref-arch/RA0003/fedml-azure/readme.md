@@ -38,7 +38,13 @@ last_update:
   date: 2025-01-23
 ---
 
-FedML-Azure provides end-to-end integraton for training models in Azure Machine Learning service, using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-azure enables 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Microsoft.**
+
+:::
+
+FedML-Azure provides end-to-end integration for training models in Azure Machine Learning service, using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-azure enables 
 
 - Data discovery
 - Model training

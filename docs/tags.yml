@@ -1,9 +1,6 @@
 # predefined tags
 
-genai:
-  label: "Generative AI"
-  description: "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on."
-
+# technology partners
 aws:
   label: "Amazon Web Services"
   description: "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow."
@@ -15,6 +12,23 @@ azure:
 gcp:
   label: "Google Cloud Platform"
   description: "Google Cloud Platform (GCP) is a suite of cloud computing services provided by Google. It offers a variety of services including computing, data storage, data analytics, and machine learning. GCP enables developers to build, test, and deploy applications on Google's highly scalable and reliable infrastructure."
+
+ibm:
+  label: "IBM Cloud"
+  description: "IBM Cloud is a suite of cloud computing services provided by IBM that offers both platform as a service (PaaS) and infrastructure as a service (IaaS). It provides a range of cloud solutions including AI, data analytics, and IoT, enabling businesses to build, deploy, and manage applications in the cloud."
+
+databricks:
+  label: "Databricks"
+  description: "Databricks is a unified data analytics platform that provides tools for data engineering, data science, and machine learning. It is built on top of Apache Spark and offers a collaborative environment for teams to work with big data and AI."  
+
+nvidia:
+  label: "NVIDIA"
+  description: "NVIDIA is a technology company known for its graphics processing units (GPUs) and AI computing. NVIDIA provides hardware and software solutions for various industries, including gaming, professional visualization, data centers, and automotive."
+
+# technology domains
+genai:
+  label: "Generative AI"
+  description: "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on."
 
 appdev:
   label: "Application Development & Automation"
@@ -28,6 +42,11 @@ integration:
   label: "Integration"
   description: "Connect and automate your processes business-wide."
 
+security:
+  label: "Security"
+  description: "Protect your data and applications with comprehensive security solutions."
+
+# other tags
 cap:
   label: "CAP"
   description: "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks."
@@ -35,10 +54,6 @@ cap:
 abap:
   label: "ABAP"
   description: "ABAP (Advanced Business Application Programming) is a high-level programming language created by SAP. It is used to develop applications for the SAP R/3 system, which is a set of integrated business applications that execute business processes in real-time."
-
-security:
-  label: "Security"
-  description: "Protect your data and applications with comprehensive security solutions."
 
 eda:
   label: "Event-Driven Architecture"
@@ -51,13 +66,16 @@ eic:
 build:
   label: "SAP Build"
   description: "SAP Build is a low-code development environment that enables users to create applications and automate processes with minimal coding. It provides a user-friendly interface and pre-built components to accelerate application development, making it accessible for both technical and non-technical users."
-  
+
 buildworkzone:
   label: "SAP Build Work Zone"
   description: "SAP Build Work Zone is a tool that empowers business users to build and personalize digital workspaces. It provides secure, centralize access to SAP and external apps, processes, and data on any device, helping to drive productivity and engagement. Engage with both internal teams and external stakeholders using interactive workspaces, guided experiences, and knowledge sharing to maximize efficiency."
 
-# generic tags generally not used except for testing
+transition:
+  label: "Transition Architectures"
+  description: "These reference architectures are designed to help organizations transition from legacy systems to cloud-native architectures, ensuring a smooth migration while maintaining business continuity and minimizing disruption."
 
+# generic tags
 demo:
   label: "Demo"
   description: "A demo page is a page designed to showcase features, functionality, or design of a product, service, or concept. It is often used for demonstrations, testing, or marketing purposes."

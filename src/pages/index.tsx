@@ -2,29 +2,32 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
-import CommunitySection from '../sections/Community';
-import ExploreArchitectureSection from '../sections/ExploreArchitectureSection';
+import DomainSection from '../sections/TechnologyDomainSection';
+import AdditionalResSection from '../sections/AdditionalResSection';
+import TrustedTecPartnersSection from '../sections/TrustedTecPartnersSection';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            title='Create reference architectures'
+            // @ts-expect-error
+            title="Welcome"
             description={siteConfig.tagline}
             metadata={[
-                { property: 'og:title', content: 'Create reference architectures' },
+                { property: 'og:title', content: 'Welcome' },
                 { property: 'og:description', content: siteConfig.tagline },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:title', content: 'Create reference architectures' },
+                { name: 'twitter:title', content: 'Welcome' },
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >
             <main>
                 <HeroSection />
-                <ExploreArchitectureSection />
-                <CommunitySection />
+                <DomainSection />
+                <TrustedTecPartnersSection />
+                <AdditionalResSection />
             </main>
         </Layout>
     );
