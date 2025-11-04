@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog</id>
+    <title>SAP Architecture Center Blog</title>
+    <updated>2025-08-12T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog"/>
+    <subtitle>SAP Architecture Center Blog</subtitle>
+    <icon>https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[New Architectures & Contributors (Q3-2025)]]></title>
+        <id>https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog/2025/08/12/whats-new-in-sap-architecture-center</id>
+        <link href="https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog/2025/08/12/whats-new-in-sap-architecture-center"/>
+        <updated>2025-08-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Explore new reference architectures covering AI, DevOps, Integration, and Security, and meet the latest contributors to the SAP Architecture Center.]]></summary>
+        <author>
+            <name>Jim Rapp</name>
+            <uri>https://github.com/jmsrpp</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Launching the SAP Architecture Center]]></title>
+        <id>https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog/2025/05/15/announcing-the-launch-of-sap-architecture-center</id>
+        <link href="https://architecture.learning.sap.com/@preview/navyakhurana-RA0027-test/blog/2025/05/15/announcing-the-launch-of-sap-architecture-center"/>
+        <updated>2025-05-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[The SAP Architecture Center centralizes all resources in one place, enabling organizations to maximize cloud capabilities while ensuring that their solutions are secure, resilient, and optimized to their specific requirements.]]></summary>
+        <author>
+            <name>Anirban Majumdar</name>
+            <uri>https://github.com/anirban-sap</uri>
+        </author>
+    </entry>
+</feed>
