@@ -270,7 +270,7 @@ const config: Config = {
                         },
                         {
                             label: 'Solution Diagram Guidelines',
-                            to: '/solution-diagram-guidelines',
+                            href: 'https://sap.github.io/btp-solution-diagrams'
                         },
                         {
                             label: 'Community of Practice',
