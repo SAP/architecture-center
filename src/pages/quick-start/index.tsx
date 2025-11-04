@@ -168,7 +168,7 @@ export default function QuickStart(): JSX.Element {
                             <Button
                                 design="Emphasized"
                                 onClick={() => {
-                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}QuickStart`;
+                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
                                     window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
                                         originUri
                                     )}&provider=github`;
