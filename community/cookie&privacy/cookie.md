@@ -26,9 +26,9 @@ last_update:
 
 :::info Hosting on GitHub Pages
 
-The **SAP Architecture Center** (this site) is hosted by **[GitHub Pages](https://pages.github.com/)** and doesn't process any personal data by itself.
+The **SAP Architecture Center** (this site), hosted on [GitHub Pages](https://docs.github.com/en/pages), does not use any cookies directly. 
 
-Please see the **[GitHub Privacy Statement](https://docs.github.com/en/github/site-policy/github-privacy-statement)** for any information how GitHub processes your personal data.
+For information about cookies used by GitHub, please refer to GitHub’s cookie policy: **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**.
 
 :::
 
