@@ -1,7 +1,7 @@
 ---
 id: id-ra0026
 slug: /ref-arch/083f2d968e
-sidebar_position: 1
+sidebar_position: 26
 sidebar_custom_props: 
     category_index: []
 title: Embodied AI Agents
