@@ -1,0 +1,64 @@
+.heroBanner {
+    background: url('/img/headers/customHeader.svg') no-repeat right center / cover;
+    padding: 2.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.heroContent {
+    max-width: 1440px;
+    width: 100%;
+    padding: 0 2.5rem;
+    margin: 0 auto;
+}
+
+.breadCrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--sapFontSize);
+    line-height: var(--sapContent_LineHeight);
+    margin-bottom: 1rem;
+}
+
+.homeLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homeLink ui5-icon {
+    color: var(--sapContent_ContrastTextColor);
+}
+
+.breadcrumbSeparator,
+.breadcrumbCurrent {
+    color: var(--sapContent_ContrastTextColor);
+    font-size: var(--sapProgress_FontSize);
+}
+
+.heroTitle {
+    color: var(--sapContent_ContrastTextColor);
+    font-size: var(--sapObjectHeader_Title_FontSize);
+    margin: 1rem 0;
+    line-height: 1.3;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.heroSubtitle {
+    color: var(--sapContent_ContrastTextColor);
+    font-family: var(--sapFontFamily);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+:root[data-theme='dark'] {
+    .heroTitle,
+    .heroSubtitle,
+    .breadcrumbCurrent,
+    .breadcrumbSeparator,
+    .homeLink ui5-icon {
+        color: var(--sapContent_ForegroundTextColor);
+    }
+}

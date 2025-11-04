@@ -1,0 +1,144 @@
+.floatingToolbar {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    opacity: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    gap: 4px;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.button,
+.dropdownToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 6px;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #495057;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.button:hover,
+.dropdownToggle:hover {
+    background-color: #f1f3f5;
+    color: #212529;
+}
+
+.button.active {
+    background-color: #e9ecef;
+    color: #0b65de;
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    background-color: #dee2e6;
+    margin: 0 8px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdownToggle {
+    gap: 6px;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    bottom: calc(100% + 8px); /* Position above the toolbar */
+    left: 0;
+    z-index: 101;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #212529;
+}
+
+.dropdownItem:hover {
+    background-color: #f1f3f5;
+}
+
+.dropdownItem .h1,
+.dropdownItem .h2,
+.dropdownItem .h3 {
+    font-weight: bold;
+    color: #495057;
+    width: 24px;
+}
+.dropdownItem .h1 {
+    font-size: 16px;
+}
+.dropdownItem .h2 {
+    font-size: 14px;
+}
+.dropdownItem .h3 {
+    font-size: 12px;
+}
+
+/* Link Editor Styles */
+.linkEditor {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.linkInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    background: none;
+}
+
+.linkTrash {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #adb5bd;
+}
+
+.linkTrash:hover {
+    color: #f03e3e;
+}

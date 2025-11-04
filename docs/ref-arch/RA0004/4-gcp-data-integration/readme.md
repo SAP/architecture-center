@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-4
 slug: /ref-arch/a07a316077/4
-sidebar_position: 1
+sidebar_position: 5
 sidebar_custom_props:
   category_index: []
 title: Integration with Google Cloud Platform sources
@@ -18,8 +18,8 @@ keywords:
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png
 tags:
-  - data
   - gcp
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

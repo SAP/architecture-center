@@ -1,5 +1,5 @@
 ---
-sidebar_position: 99
+sidebar_position: 98
 slug: /team
 title: The Team
 description: The team behind the SAP Architecture Center.
@@ -19,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-08-01
+  date: 2025-10-16
 ---
 
 import {
@@ -28,7 +28,7 @@ import {
 } from '@site/src/components/TeamProfileCards';
 
 
-We are the **Platform Architecture & Adoption** team within the **Office of the CTO**, driving the development and engagement of SAP’s Architecture Center. 
+We are the **Office of the CTO**, driving the development and engagement of SAP’s Architecture Center. 
 
 We enable community **collaboration** and **innovation** by providing a modern, GitHub-based platform for building, publishing, and governing SAP reference solution architectures.
 

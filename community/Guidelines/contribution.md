@@ -47,18 +47,20 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 ## How to Contribute
 
 1. Make sure the change is welcome (see [General Remarks](#general-remarks)).
-2. Create a branch by forking the repository.
-3. Navigate to the [Get started](get-started.md) section to know how to collaborate on reference architecture.
-4. Apply & Save the changes.
-5. Commit and push your change on that branch.
-6. Sync your forked repository to get latest changes with the main repository to avoid merge conflicts.
-7. Create a pull request in the repository using this branch.
-8. Follow the link posted by the CLA assistant to your pull request and accept it, as described above.
-9. Wait for our code review and approval, possibly enhancing your change on request.
+2. Choose your preferred contribution method:  
+   - [Get Started with Quick Start](Guidelines/GetStarted/get-started-quickstart.md) – a no-code approach.  
+   - [Get Started with VSCode (CLI)](Guidelines/GetStarted/get-started-vscode.md) – a code-based approach.  
+3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts.  
+4. Create a **pull request (PR)** in the repository using your feature or update branch.
+   :::info Note
+   If your contribution was created using **Quick Start**, this step is handled automatically — no manual PR creation needed.
+   ::: 
+5. Follow the link posted by the CLA assistant to your pull request and accept it, as described above.
+6. Wait for our code review and approval, possibly enhancing your change on request.
 :::info Note
 Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
 :::
-10. Once the change has been approved and merged, we will inform you in a comment.
+1. Once the change has been approved and merged, we will inform you in a comment.
 
 The following diagram shows the overall lifecycle of contributor changes in the SAP Architecture Center repository
 

@@ -8,7 +8,7 @@ sidebar_custom_props:
     - appdev
     - aws
     - azure
-title: Reference Architecture for Event-Driven Applications
+title: Designing Event-Driven Applications
 description: >-
   Guidance for developing applications based on Event-Driven Architecture (EDA)
   patterns and Cloud Application Programming (CAP) framework.
@@ -18,6 +18,8 @@ keywords:
   - eda patterns
   - cap framework
   - business event processing
+  - advanced event mesh
+  - event mesh
 sidebar_label: Designing Event-Driven Applications
 image: img/ac-soc-med.png
 tags:
@@ -42,123 +44,113 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-05-10
+  date: 2025-10-10
 ---
 
-Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-drive architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
+Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-driven architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
 
-This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
+Event-driven architecture (EDA) is well-known approach for designing and building software systems in enterprise integration. This is well-suited to modern environments for addressing scalability, loose coupling and building resilient applications. SAP is providing EDA capabilities as services in SAP BTP to support event-driven and real-time processes by enabling a composable event mesh of SAP and non-SAP applications, publishing and subscribing to events.
+
+This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) with SAP Business Technology Platform (BTP) services.
 
 ## Architecture
 
-![drawio](drawio/e2b-cc.drawio)
+SAP's EDA Strategy comprises of two interconnected parts, the SAP Cloud Application Event Hub and the SAP Integration Suite product family as shown below.
 
-This architecture can be leveraged to build event-based integration scenarios from different systems/applications (providers) into the SAP ecosystem (consumers) using SAP BTP. This uses asynchronous communication via message broker.
-This features a CAP-based application framework (Events-To-Business Actions Framework) which allows you to configure set of actions for a particular business scenario. Based on the events category and type, respective actions are triggered in SAP Line of Business (LoB) applications. It also uses SAP Integration Suite, advanced event mesh / Event Mesh capability in SAP Integration Suite, SAP Build Process Automation, SAP HANA Cloud, SAP Destination Service, SAP Connectivity service with cloud connector. An alternative architecture can be considered with SAP Private Link service for integrating SAP BTP and SAP S/4HANA in scenarios where both SAP BTP and SAP S/4HANA run on the same Hyperscaler environment (Microsoft Azure or AWS).
-The reference applications with Microsoft Azure and AWS demonstrates and helps to build end-to-end event-based integration scenario.
+![drawio](drawio/eda_strategy.drawio)
 
+SAP Intelligent Enterprise EDA with SAP Cloud Application Event Hub: This enabled EDA implementations across the SAP Intelligent Enterprise suite. This can be used for event integration between SAP cloud application and applications built on SAP BTP.
 
-## Architecture Components
+EDA in hybrid, heterogenous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
 
-Learn about the roles and interactions of the key services and components in the Reference Architecture to understand how the different services are leveraged to achieve real-time event integration scenarios.
+Below architecture depicts the SAP EDA Stategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
 
-### SAP Integration Suite for Event Broker
+![drawio](drawio/eda_enterprise.drawio)
+
+EDA architectural patterns focus on seamless flow of events and the resulting reactions and notifications triggered by these events.EDA solutions are based on multiple connected event brokers, which mediate the communication of event messages between event publishers and event consumers.
+Along with APIs, events are a method of facilitating real-time process integration for intelligent enterprises. SAP cloud applications increasingly support event-driven architecture concepts.
+It’s frequent for SAP applications to act as event publishers (as systems of records), but, as event-driven concepts become more popular, they can also act as event consumers. 
+
+Note: All business events supported by SAP are published on [SAP Business Accelerator Hub](https://api.sap.com) which can be used for building event-driven extensions in SAP BTP.
+
+## Flow 
+
+The following depicts the different integration flows among different systems for event-driven scenarios.
+
+1. Depicts **pre-built event-based integration** between SAP cloud applications for easy and error-free event distribution between SAP cloud applications.
+
+2. Depicts **customer and partner (extension) applications built on SAP BTP** can use SAP Cloud Application Event Hub for event-based integration with SAP cloud applications to achieve real-time integration while adhering to the clean core concept.
+
+3. Depicts exchange events with **SAP Integration Suite EDA and mediation offerings for 3rd party and on-premise integration**. SAP Cloud Application Event Hub provides a central access point for business events from SAP cloud applications.
+
+## Architecture Components in event-driven architecture
+
+SAP BTP plays significant roles in enabling clean core development, integrating, and building event-driven applications with technical services available. SAP BTP features SAP Integration Suite and SAP Integration Suite, advanced event mesh to support EDA.
+
+### SAP Integration Suite, advanced event mesh
 
 For asynchronous communication, the EDA solution offerings from SAP are SAP Integration Suite, advanced event mesh and SAP Integration Suite, event mesh capability. EDA enables clean core strategy by leveraging the data from all applications to build extension applications on SAP BTP.
 
 Advanced event mesh is a distributed multi-broker event mesh designed to manage and monitor events across enterprise landscapes, including SAP and third-party applications, services, and technologies. It provides centralized visibility and control, distributed event processing, and flexible deployments, making it essential for large businesses.
+In the enterprise scenario, advanced event mesh acts as backbone to help enterprises integrate third-party applications, on-premise application and SAP cloud applications.
 
-The Event Mesh capability of SAP Integration Suite (“Event Mesh capability” for short) is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications.
+### SAP Event Mesh capability of SAP Integration Suite
+The Event Mesh capability of SAP Integration Suite (“Event Mesh capability” for short) is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications. This service will enable a 'start small and expand' EDA strategy.This will be used if enterprise wants to implement small volume event integration scenarios across SAP and third-party applications.
 
 As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.com/docs/sap-btp-guidance-framework/sap-integration-solution-advisory-methodology/catalog-of-integration-use-case-patterns),either of the options can be selected based on the eventing requirements.
 
-### SAP CAP for Extension Application
+### SAP Cloud Application Event Hub Service
+This service will provide access to all business events in the SAP intelligent enterprise suite in the cloud. Supported SAP cloud applications will be natively connected to SAP Cloud Application Event Hub. This is an SAP BTP service.
 
-The SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It supports Java (with Spring Boot), JavaScript, and TypeScript (with Node.js), which are some of the most widely adopted languages. CAP is recommended by the [SAP BTP Developer's Guide](https://help.sap.com/docs/btp/btp-developers-guide/btp-developers-guide), and supports developers with a path of proven best practices and a wealth of out-of-the-box solutions to recurring tasks.
+### Cloud Integration capability of SAP Integration Suite
 
-#### Events-To-Business Actions Framework 
-In this reference architecture, the events-to-business actions framework is developed as CAP application using Node.js. This serves as the central component and a reusable component. Below are the key characteristics and benefits of using the framework.
+This capability plays an important roles in EDA in the following scenarios
+- For providing **event mediation** functionality such as mapping of event structures and data, enrich event payloads etc.
+- Acts as **event bridge** between third-party event brokers or applications and SAP EDA technology services.
 
-- Provides comprehensive programming and configuration model for development of event-based integration scenario with SAP systems.
-- Flexible and generic framework that can be easily extended for any Line of Business (LoB) scenario, workflow, or process, and any source system events.
-- Integrates with fully-managed cloud services for enabling application to communicate asynchronously through events.
-- Supports seamless integration for automation/workflow/business rules requirements.
-- Provides recommendations for chain of actions that needs to be executed for the subscribed events using Generative AI.
+### Event-Enabling of SAP Applications
+SAP delivers standard events to support modular cloud ERP.For any development of derived events(extending SAP Standard events) or defining custom events,ABAP RESTful Application Programming Model(RAP) can be leveraged. For older releases of SAP S/4HANA and SAP ECC releases(since NW 7.31), the SAP Application Interface Framework(AIF) supports the development of custom events and customer interfaces for SAP Business Objects, IDoc Interfaces, and BAPI/RFC Functional Module interfaces.
 
-### SAP HANA Cloud for Application Data
-
-SAP HANA Cloud offers a comprehensive platform combining advanced data management with AI-enhanced applications, each serving distinct but complementary roles in fostering sophisticated and intelligent business solutions.
-
-The Vector Engine in SAP HANA Cloud manages unstructured data, such as text and images, in high-dimensional embedding, enhancing AI models with long-term memory and better context. These features enable Retrieval Augmented Generation (RAG), combining LLMs with private business data to create intelligent applications that support automated decision-making and boost developer productivity. For the Generative AI assisted configuration, the vector engine capabilities can be leveraged.
-
-### Private Link Service for secure connectivity
-
-SAP Private Link service is a feature offered by cloud providers like Microsoft Azure and Amazon Web Services (AWS) that allows customers to expose their services in their virtual networks to consumers in other virtual networks or subscriptions. In this architecture, SAP Private Link service allows to securely connect applications running on SAP BTP to SAP workloads running on Hyperscalers(Microsoft Azure or AWS).
-
-## Flow of events in this architecture
-
-Pre-requisites to be configured:
-- Extension application based on event-to-business actions framework has to be deployed in SAP Cloud Foundry Runtime.
-- Configurations for SAP Integration Suite, advanced event mesh, SAP HANA Cloud, SAP Destination Service, SAP Private Link Service/Cloud Connector, Generative AI Hub(optional).
-- User with Application Admin role should log into the SAP BTP extension application to configure the business rules/decisions and the business actions that need to be triggered in the business systems.
-
-The following depicts the flow of events in a typical event based business scenario.
-
-1. The events are triggered from source systems like Microsoft Azure, AWS, or Telco IoT Platforms (in the case of IoT scenarios).
-2. These events are published on to SAP Integration Suite, advanced event mesh / SAP Event Mesh. As the processor module's (part of the Events-to-Business-Action framework) endpoint subscribes to Event Mesh, the event is received.
-3. The processor module, part of the Events-to-Business-Action framework, leverages the **Decisions** capability of SAP Build Process Automation to initiate business actions. For example, Purchase Order Requisition creation in the SAP S/4HANA system based on characteristics of incoming events.
-4. The defined action is triggered in the SAP S/4HANA system using the SAP Destination Service and SAP Connectivity service leveraging a cloud connector setup. If SAP S/4HANA and SAP BTP are running on the same Hyperscaler, communication with SAP S/4HANA happens via the SAP Private Link Service.
 
 ## Services and Components
 
-Below are the list of services that are must-have to implement this architecture. It also has the list of services that are considered as must-have from best practices perspective.
+Below are the list of services that are must-have to implement this architecture. 
 
-- **[SAP BTP, Cloud Foundry Runtime](https://discovery-center.cloud.sap/serviceCatalog/cloud-foundry-runtime?region=all)**: The SAP BTP, Cloud Foundry runtime lets you develop polyglot cloud-native applications and run them on the SAP BTP Cloud Foundry environment.
-
-- **[SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation?region=all)**: SAP Build Process Automation combines capabilities from SAP Workflow Management and SAP Intelligent RPA with a powerful, yet intuitive no-code development experience. SAP Build Process Automation enables business users and technologists to become citizen developers. With powerful yet intuitive low-code and no-code capabilities, the solution supports you in driving automation by tapping into the expertise of citizen developers.
-
-- **[Either SAP Integration Suite, advanced event mesh/ Event Mesh capability of SAP Integration Suite](https://discovery-center.cloud.sap/viewServices?category=integration)**
+- **[SAP Integration Suite, advanced event mesh/ Event Mesh capability of SAP Integration Suite](https://discovery-center.cloud.sap/viewServices?category=integration)**
 
     - **[SAP Integration Suite, advanced event mesh](https://discovery-center.cloud.sap/serviceCatalog/advanced-event-mesh?region=all)**: This is a complete event streaming, event management, and monitoring platform that incorporates best practices, expertise, and technology for event-driven architecture (EDA) on a single platform.
 
     - **[Event Mesh capability of SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/event-mesh?region=all)**: This capability can be used if an enterprise applications to communicate through asynchronous events.
 
--  **[Choose SAP Private Link  Service, if both the platform are on the either Azure/AWS Infrastructure](https://discovery-center.cloud.sap/viewServices?category=security)**
+- **[SAP Cloud Application Event Hub](https://discovery-center.cloud.sap/serviceCatalog/sap-cloud-application-event-hub?service_plan=standard&region=all&commercialModel=btpea)**: This service supports SAP's strategic event-driven architecture initiative to create a well-defined, easily consumable and extensible ecosystem for exchanging SAP business events.
+
+- **[SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)**: SAP Integration Suite is an industry-leading and enterprise-grade integration platform-as-a-service that helps businesses seamlessly connect and integrate their applications, data, and processes within their organization and beyond.
+
+- **[SAP BTP, Cloud Foundry Runtime](https://discovery-center.cloud.sap/serviceCatalog/cloud-foundry-runtime?region=all)**: The SAP BTP, Cloud Foundry runtime lets you develop polyglot cloud-native applications and run them on the SAP BTP Cloud Foundry environment.
+
+-  **[Connectivity Service or Private Link Service, if both the platform are on the either Azure/AWS Infrastructure](https://discovery-center.cloud.sap/servicessearch/connectivity)**
 
     - **[SAP Connectivity Service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)**: SAP Connectivity service lets you establish connectivity between your cloud applications and on-premise systems running in isolated networks.
 
     - **[SAP Private Link service](https://discovery-center.cloud.sap/serviceCatalog/private-link-service?service_plan=standard&region=all&commercialModel=cloud)**: SAP Private Link service establishes a private connection between selected SAP BTP services and selected services in your own IaaS provider accounts. By reusing the private link functionality of our partner IaaS providers, it lets you access your services through private network connections to avoid data transfer via the public Internet.
 
-- **[SAP HANA Cloud](https://discovery-center.cloud.sap/serviceCatalog/sap-hana-cloud?region=all)**: SAP HANA Cloud is a database-as-a-service that powers mission-critical applications and real-time analytics with one solution at petabyte scale. Converge relational, graph, spatial, and document store and develop smart applications with embedded machine learning. Process mission-critical data at proven in-memory speed and manage it more efficiently with integrated multi-tier storage.
-  
-- **[SAP Business Application Studio](https://discovery-center.cloud.sap/serviceCatalog/business-application-studio?region=all)**: SAP Business Application Studio (the next generation of SAP Web IDE) is a powerful and modern development environment, tailored for efficient development of business applications for the Intelligent Enterprise. Available as a cloud service, it provides developers a desktop-like experience similar to market leading IDEs, while accelerating time-to-market with high-productivity development tools such as wizards and templates, graphical editors, quick deployment, and more.
-
 - **[SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?service_plan=lite&region=all&commercialModel=cloud)**: The Destination service lets you retrieve the backend destination details you need to configure applications in the Cloud Foundry environment.
 
-- **[SAP Build Work Zone, standard edition](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-standard-edition?region=all)**: SAP Build Work Zone, standard edition enables organizations to establish a unified point of access to SAP (e.g. SAP S/4HANA), custom-built, and third party applications and extensions, both on the cloud and on premise. 
 
-- **[SAP Continuous Integration and Delivery service](https://discovery-center.cloud.sap/serviceCatalog/continuous-integration--delivery?region=all)**: SAP Continuous Integration and Delivery lets you configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
+## Examples
 
-- **[SAP Cloud Transport Management](https://discovery-center.cloud.sap/serviceCatalog/cloud-transport-management?region=all)**: SAP Cloud Transport Management service lets you manage software deliverables between accounts of different environments (such as Cloud Foundry, ABAP, and Neo), by transporting them across various runtime. This includes application artifacts as well as their respective application-specific content.
+- Integrate SAP-Based HR business processes with Third-Party Applications.
+- Managing extreme order volumes with Event-Driven Architecture in SAP S/4HANA.
+- Collection and aggregation of events(real-time updates from inventory and pricing)from multiple sources into SAP S/4HANA.
+- Integrate events(business/real-time IoT) from third-party applications and event brokers into SAP Enterprise Business Systems.
+- Integration of SAP Master Data Governance with SAP and non-SAP Systems.
+- Integrate data from diverse sources of SAP backend systems including event transformation with SAP Integration Suite into SAP S/4HANA.
 
-- **[SAP HTML5 Application Repository Service for SAP BTP](https://discovery-center.cloud.sap/serviceCatalog/html5-application-repository-service?region=all)**: The HTML5 Application Repository service for SAP BTP enables central storage of HTML5 applications on SAP BTP. The service allows application developers to manage the lifecycle of their HTML5 applications. In runtime, the service enables the consuming application, typically the application router, to access HTML5 application static content in a secure and efficient manner.
-
-- **[SAP Application Logging Service for SAP BTP](https://discovery-center.cloud.sap/serviceCatalog/application-logging-service?region=all)**: The SAP Application Logging service for SAP BTP lets you stream logs of bound Cloud Foundry applications to a central application logging stack. SAP Application Logging service for SAP BTP uses Elastic Stack to store and visualize your application log data.
-
-- **[SAP Authorization and Trust Management service](https://discovery-center.cloud.sap/serviceCatalog/authorization-and-trust-management-service?region=all)**: The SAP Authorization and Trust Management service lets you manage user authorizations and trust to identity providers. Identity providers are the user base for applications. We recommend that you use an IAS identity authentication tenant, an SAP on-premise system, or a custom corporate identity provider.
-
-- **[Application Autoscaler](https://discovery-center.cloud.sap/serviceCatalog/application-autoscaler?service_plan=standard&region=all&commercialModel=cloud)**: Application Autoscaler lets you automatically increase or decrease the number of your application instances based on the policies you have defined.
-
-
-<!---## Examples
-
-Below are some of the examples and scenarios where this framework has been leveraged to build different business scenarios:
-- [“Events-to-Business Actions": An event-driven architecture on SAP BTP to implement Industry 4.0 scenarios with Microsoft Azure Services](https://community.sap.com/t5/technology-blogs-by-sap/part-1-events-to-business-actions-quot-an-event-driven-architecture-on-sap/ba-p/13555219)
-- [Events-2-Business Action Framework – Create Plant Maintenance Notification in SAP S/4 HANA](https://community.sap.com/t5/technology-blogs-by-members/events-2-business-action-framework-create-plant-maintenance-notification-in/ba-p/13573476#:~:text=Events%2D2%2DBusiness%20Action%20Framework%20%E2%80%93%20Create%20Plant%20Maintenance%20Notification%20in%20SAP%20S/4%20HANA)
-
---->
 
 ## Resources
 For more information related to this reference architecture, you can check out the following resources:
 
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/btp-events-to-business-actions-framework)
+- [Blog Collection | SAP Integration Suite, advanced event mesh](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-integration-suite-advanced-event-mesh-blog-collection/ba-p/14111943)
+- [SAP Developers | Publish and Subscribe to Events in SAP Integration Suite, advanced event mesh](https://developers.sap.com/tutorials/pubsub-view-events.html#51cb3f1a-5861-4802-a4a1-2f154eb40e0b)
+- [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/describing-sap-s-event-driven-ecosystem_ebe634bf-a91d-4276-b538-a3f4026c0f61)

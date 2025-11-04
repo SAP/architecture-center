@@ -31,10 +31,11 @@ contributors:
   - adarshnarayanhegde
   - AFK-Python
   - AndItDontFade
-discussion: 
+  - kay-schmitteckert
+discussion:
 last_update:
-  author: AndItDontFade
-  date: 2025-05-19
+  author: kay-schmitteckert
+  date: 2025-10-29
 ---
 
 # Agent2Agent (A2A) Interoperability in Enterprise AI
@@ -43,7 +44,7 @@ Enterprise users often face complex tasks that depend on data and actions distri
 
 ## Architecture
 
-![drawio](drawio/a2a-ard-l1.drawio)
+![drawio](drawio/architecture.drawio)
 
 ## Flow
 
@@ -51,19 +52,22 @@ SAP adopts the A2A protocol to standardize inter-agent communications, fostering
 
 ### Key Components:
 
-1. **Business Agent Foundation**  
-   At the core of the architecture is SAP’s **Business Agent Foundation**, which enables the creation and orchestration of intelligent agents integrated with SAP’s business systems and processes. It supports both SAP and non-SAP agents through a unified catalog and registration system. When interacting with third-party agents, the **Agent2Agent (A2A) protocol** facilitates secure, standardized communication, enabling seamless collaboration and task execution across organizational and vendor boundaries.
+1. **Agent Builder (Joule Studio)**
+   At the core of the architecture is SAP’s **Agent Builder** in Joule Studio, which enables the creation and orchestration of intelligent agents integrated with SAP’s business systems and processes. It supports both SAP and non-SAP agents through a unified catalog and registration system. When interacting with third-party agents, the **Agent2Agent (A2A) protocol** facilitates secure, standardized communication, enabling seamless collaboration and task execution across organizational and vendor boundaries. If you’d like to learn more about **AI Agents & Agent Builder** at SAP, please explore the following resources:
+   - [AI Agents & Agent Builder](../5-ai-agents/readme.md)
+   - [Agents for Structured Data](../6-agents-structured-data/readme.md)
+   - [Extend Joule with Joule Studio](../../RA0024/readme.md)
 
-2. **Agent Catalog**  
+2. **Agent Catalog**
    The **Agent Catalog** aggregates agent metadata using **[Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/)** and provides a curated directory of both internal and external agents. Internal agents developed and managed within SAP’s ecosystem can register and expose their capabilities. External agents from trusted third-party catalogs (e.g., hosted on hyperscalers) are securely federated into the SAP environment.
 
-3. **Multi-Agent Collaboration**  
+3. **Multi-Agent Collaboration**
    The **A2A protocol** facilitates direct and dynamic communication among **SAP agents**, **Google Cloud agents**, and **Microsoft Azure agents**, enabling them to collaborate on complex tasks in distributed, multi-cloud environments. This interoperability ensures agents can discover each other, exchange intents, and delegate responsibilities while preserving context, trust boundaries, and security policies.
 
-4. **A2A Connector**  
+4. **A2A Connector**
    The **A2A Connector** bridges SAP’s internal agent framework with external agent runtimes, enabling seamless cross-network invocation of agents. It allows SAP agents to orchestrate external capabilities or delegate sub-tasks to agents operating in environments like Google Cloud or Microsoft Azure, facilitating smooth collaboration across platforms.
 
-## A2A @ SAP
+## A2A @SAP
 
 As enterprise AI matures, agents are increasingly used to automate business scenarios. However, most remain restricted to the platforms or vendors that created them. This isolation limits their ability to execute business processes that span multiple environments, leading to disconnected workflows, redundant implementations, and missed opportunities for end-to-end automation.
 
@@ -73,25 +77,30 @@ To fully unlock the potential of AI in the enterprise, organizations need a secu
 
 ### Business Value
 
--   **Interoperability**  
+-   **Interoperability**
     Enterprises typically operate across diverse systems, SAP and non-SAP, cloud and on-premise. By enabling agents to speak a common protocol, the A2A approach allows these agents to coordinate seamlessly across technology stacks, unlocking end-to-end process automation.
 
--   **Productivity Boost**  
+-   **Productivity Boost**
     When agents interoperate behind the scenes, business users experience fewer manual handovers and context switches between systems. For example, a finance agent can collaborate with a procurement agent without user intervention, surfacing consolidated insights or triggering follow-up actions automatically.
 
--   **Scalable AI Integration**  
+-   **Scalable AI Integration**
     Instead of building monolithic agents with tightly coupled logic, enterprises can distribute functionality across specialized agents that interoperate through A2A. This decoupling makes it easier to scale, maintain, and incrementally upgrade the AI landscape.
 
 ### Technical Value
 
--   **Protocol Standardization**  
+-   **Protocol Standardization**
     Using open specifications such as Open Resource Discovery (ORD) and shared trust frameworks minimizes the need for point-to-point custom integrations. This reduces development time and enhances interoperability with partner ecosystems.
 
--   **Plug-and-Play Agents**  
+-   **Plug-and-Play Agents**
     Agents can advertise their capabilities and discover others using standard metadata and registration flows. This self-service onboarding reduces IT overhead and makes it easier to evolve the agent ecosystem dynamically.
 
--   **Security and Governance**  
+-   **Security and Governance**
     Communication between agents is governed by enterprise-grade identity, access, and trust models. This ensures that agents only act within their defined scopes and on behalf of authorized users, maintaining compliance and data integrity.
+
+## Examples
+
+Take a look at the following examples that build upon or implement elements of the Reference Architecture:
+- [Dispute Resolution with Multi-Agent Orchestration (A2A)](https://github.com/SAP-samples/btp-a2a-dispute-resolution)
 
 ## Resources
 

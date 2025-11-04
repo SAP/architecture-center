@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-5
 slug: /ref-arch/a07a316077/5
-sidebar_position: 1
+sidebar_position: 6
 sidebar_custom_props:
   category_index: []
 title: Latency and Performance considerations

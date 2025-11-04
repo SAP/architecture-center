@@ -1,0 +1,353 @@
+.editorPageWrapper {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    min-height: calc(100vh - var(--ifm-navbar-height));
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+.navColumn {
+    padding-top: 50px;
+    flex-shrink: 0;
+    width: 250px;
+}
+
+.mainAndTocWrapper {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.editorColumn {
+    max-width: var(--ifm-container-width, 996px);
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.editorContentWrapper {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tocColumn {
+    padding-top: 50px;
+    flex-shrink: 0;
+    width: 250px;
+}
+
+.editorContainer {
+    flex-grow: 1;
+    background-color: #ffffff;
+    color: #212529;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.contentHeader {
+    padding: 2rem 3rem 0 3rem;
+    background-color: #ffffff;
+}
+
+.editorInner {
+    position: relative;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.editorInput {
+    position: relative;
+    min-height: 100%;
+    resize: none;
+    font-size: 16px;
+    caret-color: #212529;
+    outline: 0;
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+    padding-bottom: 40vh;
+}
+
+.editorPlaceholder {
+    color: #adb5bd;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 2rem;
+    left: 3rem;
+    font-size: 16px;
+    user-select: none;
+    pointer-events: none;
+}
+
+.editorHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    padding-right: 4px;
+}
+
+.saveTimestamp {
+    margin-right: auto;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.headerButtons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.editorTextBold {
+    font-weight: bold;
+}
+
+.editorTextItalic {
+    font-style: italic;
+}
+
+.editorTextUnderline {
+    text-decoration: underline;
+}
+
+.editorTextStrikethrough {
+    text-decoration: line-through;
+}
+
+.editorTextUnderlineStrikethrough {
+    text-decoration: underline line-through;
+}
+
+.editorTextCode {
+    background-color: #f1f3f4;
+    padding: 1px 0.25rem;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+}
+
+.editorParagraph {
+    margin: 0 0 1rem 0;
+}
+
+.editorH1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorH5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+}
+
+.editorQuote {
+    border-left: 4px solid #ccc;
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #666;
+}
+
+.editorUList {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.editorOList {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.editorListItem {
+    margin: 0.25rem 0;
+}
+
+.editorNestedListItem {
+    list-style-type: none;
+}
+
+.editorLink {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.editorLink:hover {
+    text-decoration: underline;
+}
+
+.editorCode {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+}
+
+.editorImage {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.ltr {
+    text-align: left;
+}
+
+.rtl {
+    text-align: right;
+}
+
+.editorTokenComment {
+    color: #6a737d;
+}
+
+.editorTokenPunctuation {
+    color: #24292e;
+}
+
+.editorTokenProperty {
+    color: #005cc5;
+}
+
+.editorTokenSelector {
+    color: #6f42c1;
+}
+
+.editorTokenOperator {
+    color: #d73a49;
+}
+
+.editorTokenAttr {
+    color: #d73a49;
+}
+
+.editorTokenVariable {
+    color: #e36209;
+}
+
+.editorTokenFunction {
+    color: #6f42c1;
+}
+
+:global(.editorPlaceholder) {
+    color: #999;
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    top: 800px;
+    left: 150px;
+}
+
+:root[data-theme='dark'] {
+    --editor-bg: var(--sapBackgroundColor);
+    --editor-surface: var(--sapGroup_ContentBackground);
+    --editor-text: var(--sapTextColor);
+    --editor-border: var(--sapList_BorderColor);
+    --editor-placeholder: var(--sapNeutralColor);
+    --editor-code-bg: var(--sapGroup_ContentBackground);
+    --editor-quote-border: var(--sapAccentColor5);
+    --editor-link: var(--sapLinkColor);
+    --editor-link-hover: var(--sapLink_Hover_Color);
+    --editor-muted: var(--sapNeutralColor);
+}
+
+:root[data-theme='dark'] .editorPageWrapper {
+    background-color: var(--editor-bg);
+}
+
+:root[data-theme='dark'] .editorContainer {
+    background-color: var(--editor-surface);
+    color: var(--editor-text);
+    border-color: var(--editor-border);
+    box-shadow: 0 2px 8px var(--sapContent_ShadowColor);
+}
+
+:root[data-theme='dark'] .contentHeader {
+    background-color: var(--editor-surface);
+    color: var(--editor-text);
+}
+
+:root[data-theme='dark'] .editorInput {
+    color: var(--editor-text);
+    caret-color: var(--editor-text);
+    background-color: var(--editor-surface);
+}
+
+:root[data-theme='dark'] .editorPlaceholder {
+    color: var(--editor-placeholder);
+}
+
+:root[data-theme='dark'] .editorCode {
+    background-color: var(--editor-code-bg);
+    border-color: var(--editor-border);
+    color: var(--editor-text);
+}
+
+:root[data-theme='dark'] .editorQuote {
+    border-left-color: var(--editor-quote-border);
+    color: var(--editor-muted);
+}
+
+:root[data-theme='dark'] .editorLink {
+    color: var(--editor-link);
+}
+
+:root[data-theme='dark'] .editorLink:hover {
+    color: var(--editor-link-hover);
+    text-decoration: underline;
+}
+
+:root[data-theme='dark'] .saveTimestamp {
+    color: var(--editor-muted);
+}
+
+:root[data-theme='dark'] .dialogContent {
+    background-color: var(--editor-surface);
+    color: var(--editor-text);
+    border: 1px solid var(--editor-border);
+    box-shadow: 0 4px 16px var(--sapContent_ShadowColor);
+}
+
+:global(:root[data-theme='dark'] #article-header > p strong) {
+    color: var(--editor-text);
+    font-weight: 700;
+}
