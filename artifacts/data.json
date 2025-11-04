@@ -178,7 +178,7 @@
   {
     "id": "ra0024",
     "name": "Integrating and Extending Joule",
-    "drawioLink": "https://architecture.learning.sap.com/unified_joule-55dc38499f10d9f4.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/unified_joule-29d4436ec54249be.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/integrating-and-extending-joule.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc",
     "shortDescription": "Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP"
