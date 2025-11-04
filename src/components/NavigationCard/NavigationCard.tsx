@@ -61,6 +61,9 @@ export default function NavigationCard({
             {shouldAppearDisabled && (
                 <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
             )}
+            {!shouldAppearDisabled && requiredProvider && (
+                <Icon className={styles.lockIcon} name="sap-icon://unlocked" title="Unlocked" />
+            )}
             <span className={styles.inline}>
                 {resolvedLogo ? (
                     <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />

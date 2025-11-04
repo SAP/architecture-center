@@ -13,8 +13,19 @@
     width: 250px;
 }
 
-.editorColumn {
+.mainAndTocWrapper {
+    display: flex;
     flex-grow: 1;
+    justify-content: center;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.editorColumn {
+    max-width: var(--ifm-container-width, 996px);
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 1;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -23,8 +34,7 @@
 
 .editorContentWrapper {
     width: 100%;
-    max-width: var(--ifm-container-width, 996px);
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     flex-direction: column;
     height: 100%;

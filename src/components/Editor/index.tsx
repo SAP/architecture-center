@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -140,6 +140,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const activeDocument = getActiveDocument();
     const { siteConfig } = useDocusaurusContext();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const editorColumnRef = useRef<HTMLDivElement>(null);
+    const [isToolbarVisible, setIsToolbarVisible] = useState(true);
     const [publishStatus, setPublishStatus] = useState<PublishStatus>({
         stage: 'idle',
         error: null,
@@ -161,6 +163,25 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             updateDocument(activeDocument.id, { contributors: updatedContributors });
         }
     };
+
+    useEffect(() => {
+        const observer = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+                const { width } = entry.contentRect;
+                setIsToolbarVisible(width >= 880);
+            }
+        });
+
+        if (editorColumnRef.current) {
+            observer.observe(editorColumnRef.current);
+        }
+
+        return () => {
+            if (editorColumnRef.current) {
+                observer.unobserve(editorColumnRef.current);
+            }
+        };
+    }, []);
 
     const handleAutomaticSync = async () => {
         setIsSyncing(true);
@@ -278,7 +299,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     };
 
     const handleInfoClick = () => {
-        const infoUrl = `${baseUrl}community/intro`;
+        const infoUrl = `${baseUrl}community/get-started-quickstart`;
         window.open(infoUrl, '_blank', 'noopener,noreferrer');
     };
 
@@ -288,64 +309,66 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 <div className={styles.navColumn}>
                     <PageTabs onAddNew={onAddNew} />
                 </div>
-                <div className={styles.editorColumn}>
-                    <div className={styles.editorContentWrapper}>
-                        <div className={styles.editorHeader}>
-                            <Button
-                                icon="sap-icon://information"
-                                onClick={handleInfoClick}
-                                tooltip="Learn more about contributing"
-                            ></Button>
-                            {lastSaveTimestamp && (
-                                <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
-                            )}
-                            <div className={styles.headerButtons}>
-                                <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
-                                    {isLoading ? 'Submitting...' : 'Submit'}
-                                </Button>
-                                {activeDocument && (
-                                    <Button
-                                        design="Default"
-                                        onClick={() => setShowDeleteConfirm(true)}
-                                        tooltip="Delete current document"
-                                    >
-                                        Delete
-                                    </Button>
+                <div className={styles.mainAndTocWrapper}>
+                    <div className={styles.editorColumn} ref={editorColumnRef}>
+                        <div className={styles.editorContentWrapper}>
+                            <div className={styles.editorHeader}>
+                                <Button
+                                    icon="sap-icon://information"
+                                    onClick={handleInfoClick}
+                                    tooltip="Learn more about contributing"
+                                ></Button>
+                                {lastSaveTimestamp && (
+                                    <span className={styles.saveTimestamp}>Last saved: {lastSaveTimestamp}</span>
                                 )}
+                                <div className={styles.headerButtons}>
+                                    <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
+                                        {isLoading ? 'Submitting...' : 'Submit'}
+                                    </Button>
+                                    {activeDocument && (
+                                        <Button
+                                            design="Default"
+                                            onClick={() => setShowDeleteConfirm(true)}
+                                            tooltip="Delete current document"
+                                        >
+                                            Delete
+                                        </Button>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                        <div className={styles.editorContainer}>
-                            <div className={styles.contentHeader}>
-                                <Breadcrumbs path={breadcrumbPath} />
-                                <ArticleHeader />
-                            </div>
-                            <ToolbarPlugin />
-                            <div className={styles.editorInner}>
-                                <RichTextPlugin
-                                    contentEditable={<ContentEditable className={styles.editorInput} />}
-                                    placeholder={<Placeholder />}
-                                    ErrorBoundary={LexicalErrorBoundary}
+                            <div className={styles.editorContainer}>
+                                <div className={styles.contentHeader}>
+                                    <Breadcrumbs path={breadcrumbPath} />
+                                    <ArticleHeader />
+                                </div>
+                                {isToolbarVisible && <ToolbarPlugin />}
+                                <div className={styles.editorInner}>
+                                    <RichTextPlugin
+                                        contentEditable={<ContentEditable className={styles.editorInput} />}
+                                        placeholder={<Placeholder />}
+                                        ErrorBoundary={LexicalErrorBoundary}
+                                    />
+                                    <HistoryPlugin />
+                                    <AutoFocusPlugin />
+                                    <ListPlugin />
+                                    <LinkPlugin />
+                                    <ImagePlugin />
+                                    <DrawioPlugin />
+                                    <SlashCommandPlugin />
+                                    <AutoSavePlugin />
+                                    <InitializerPlugin />
+                                    <FloatingToolbarPlugin />
+                                </div>
+                                <ContributorsDisplay
+                                    contributors={activeDocument?.contributors || []}
+                                    onContributorsChange={handleContributorsUpdate}
                                 />
-                                <HistoryPlugin />
-                                <AutoFocusPlugin />
-                                <ListPlugin />
-                                <LinkPlugin />
-                                <ImagePlugin />
-                                <DrawioPlugin />
-                                <SlashCommandPlugin />
-                                <AutoSavePlugin />
-                                <InitializerPlugin />
-                                <FloatingToolbarPlugin />
                             </div>
-                            <ContributorsDisplay
-                                contributors={activeDocument?.contributors || []}
-                                onContributorsChange={handleContributorsUpdate}
-                            />
                         </div>
                     </div>
-                </div>
-                <div className={styles.tocColumn}>
-                    <TableOfContentsPlugin />
+                    <div className={styles.tocColumn}>
+                        <TableOfContentsPlugin />
+                    </div>
                 </div>
             </div>
             {showDeleteConfirm && activeDocument && (

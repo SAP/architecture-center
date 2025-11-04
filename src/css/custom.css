@@ -98,6 +98,9 @@
 
     /* Dark mode colors */
     --text-color-dark-mode: #ccc;
+
+    /*alert color*/
+    --alert-color: #ffc933;
 }
 
 /* Ensure code blocks do not overflow the page */
@@ -845,12 +848,12 @@ html[data-footer='false'] .footer {
     display: none;
 }
 
-body[data-sidebar-id='refarchSidebar'] [class^="sidebar_"] {
-  padding-top: 5px !important;
+body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
+    padding-top: 5px !important;
 }
 
-[class^="sidebarHidden_"] .dropdownDiv {
-  display: none;
+[class^='sidebarHidden_'] .dropdownDiv {
+    display: none;
 }
 
 .navbar-sidebar__item ul {
