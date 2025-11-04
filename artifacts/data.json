@@ -182,5 +182,13 @@
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/integrating-and-extending-joule.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc",
     "shortDescription": "Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP"
+  },
+  {
+    "id": "ra0026",
+    "name": "Embodied AI Agents",
+    "drawioLink": "https://architecture.learning.sap.com/reference-architecture-basic-ecdcb620daaf06d0.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/embodied-ai-agents.svg",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/083f2d968e",
+    "shortDescription": "Embodied AI agents extend digital workflows into the physical world, enabling cognitive robots to adapt to changing business needs. SAP's vendor-agnostic approach leverages business semantics, contextual reasoning, and multi-agent interoperability, with Joule as the robotics interface."
   }
 ]
