@@ -103,7 +103,7 @@ function MobileDeviceWarning() {
             <div className={styles.warningDialogContent}>
                 <Icon name="alert" className={styles.warningIcon} />
                 <Text>The QuickStart editor is not available for mobiles and tablets.</Text>
-                <Button design="Emphasized" icon="home" onClick={handleHome}>
+                <Button design="Emphasized" onClick={handleHome}>
                     Return to Home
                 </Button>
             </div>
