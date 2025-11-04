@@ -41,7 +41,7 @@ function MobileDeviceWarning() {
             <div className={styles.warningDialogContent}>
                 <Icon name="alert" className={styles.warningIcon} />
                 <Text>The Architecture Validator is not available for mobiles and tablets.</Text>
-                <Button design="Emphasized" icon="home" onClick={handleHome}>
+                <Button design="Emphasized" onClick={handleHome}>
                     Return to Home
                 </Button>
             </div>
@@ -110,10 +110,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                 The Architecture Validator requires BTP authentication to ensure secure access to
                                 validation services.
                             </Text>
-                            <Text>
-                                You will be redirected to the BTP login page automatically, or you can click the button
-                                below to login manually.
-                            </Text>
+                            <Text>Please log in with your BTP account to continue.</Text>
                             <Button
                                 design="Emphasized"
                                 onClick={() => {

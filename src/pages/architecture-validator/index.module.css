@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    min-height: 60vh;
+    min-height: 40vh;
 }
 
 .fioriUploader {
@@ -402,6 +402,6 @@
     .warningIcon {
         width: 2.5rem !important;
         height: 2.5rem !important;
-        color: var(--sapNegativeColor);
+        color: #ffc933;
     }
 }
