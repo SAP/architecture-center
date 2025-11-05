@@ -26,7 +26,7 @@ last_update:
 
 :::info Hosting on GitHub Pages
 
-The **SAP Architecture Center** (this site), hosted on **[GitHub Pages](https://docs.github.com/en/pages)**, does not use any cookies directly. 
+The **SAP Architecture Center** (this site), hosted on **[GitHub Pages](https://docs.github.com/en/pages)**. 
 
 For information about cookies used by GitHub, please refer to GitHub’s cookie policy: **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**.
 
@@ -53,7 +53,7 @@ The difference between a first party cookie and a third party cookie relates to 
 ## Analytics and Digital Marketing in the United States of America
 In the United States SAP routinely works with third party analytics and digital marketing providers who facilitate and support SAP (and partner) marketing activities including targeted communications. These activities may involve the sharing of limited Personal Information (personal identifiers and contact information, your interests and interactions with SAP, professional/employment information) for those specific business purposes. In addition to the above, SAP may also share your personal data with other third parties, or for other business purposes, with your explicit consent. SAP endeavors to recognize common opt-out preference signals at a browser level, and frictionlessly exclude you from marketing cookies and associated tracking.
 
-## What cookies are used?**
+## What cookies are used?
 SAP wants you to be in a position to make an informed decision for or against the use of cookies which are not strictly necessary for technical features on **[SAP Architecture Center](https://architecture.learning.sap.com/)**. If you elect to reject cookies used for advertising, you will be shown advertising that is less targeted to your interests. This will still allow you to use all of the functionality of **[SAP Architecture Center](https://architecture.learning.sap.com/)**. 
 
 When tracking and evaluating the usage behavior of users of the Web Presence by means of cookies or similar technologies includes the processing of your personal data, SAP conducts the processing based on the following legal permissions:
