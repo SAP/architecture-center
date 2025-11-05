@@ -1,0 +1,198 @@
+.trustedTecPartnersSection {
+  background-color: #c8c8c8;
+  height: auto;
+}
+
+.innerWrapper {
+  width: 1440px;
+  height: 480px;
+  margin: 0 auto;
+  background-image: url("/img/landingPage/worldmap_1440x424_light.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 30px 24px 10px;
+}
+
+:root[data-theme='dark'] .trustedTecPartnersSection {
+    background-color: #000;
+}
+
+:root[data-theme='dark'] .innerWrapper {
+  background-image: url("/img/landingPage/worldmap_1440x424_dark.webp")
+}
+
+.logoWrapper {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.logoImg {
+  height: 80%;
+  width: 80%; 
+  max-height: 80px;
+  max-width: 200px;
+  display: block;
+  object-fit: contain;
+}
+
+.logoImg:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+.title {
+    font-size: var(--sapFontHeader2Size);
+    color: var(--navcard-text-default);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: var(--sapFontHeader4Size);
+    margin-top: 1rem;
+    color: var(--navcard-text-default);
+}
+
+.carouselLogo {
+    padding-top: clamp(40px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+}
+
+.carouselLogo::before,
+.carouselLogo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+:root {
+  --carousel-fade-bg: #c8c8c8;
+}
+:root[data-theme='dark'] {
+  --carousel-fade-bg: #000;
+}
+
+.carouselLogo::before {
+    left: 0;
+    background: linear-gradient(to right, var(--carousel-fade-bg), transparent);
+}
+
+.carouselLogo::after {
+    right: 0;
+    background: linear-gradient(to left, var(--carousel-fade-bg), transparent);
+}
+
+.carouselLogo :global(.slick-slide) {
+    width: auto !important;
+    min-width: 120px;
+    max-width: 300px;
+}
+
+.carouselLogo :global(.slick-slide) > div {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoList { display: none; }
+
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .logoImg {
+        max-width: 140px;
+        max-height: 70px;
+    }
+
+    .carouselLogo {
+        padding: 0 20px;
+    }
+
+    .carouselLogo :global(.slick-slide) {
+        min-width: 100px;
+        max-width: 200px;
+    }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .title {
+        font-size: var(--sapFontHeader3Size);
+    }
+    .subtitle {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .logoImg {
+        max-width: 100px;
+        max-height: 60px;
+    }
+
+    .carouselLogo { display: none; }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
+    }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
+    }
+
+}
+
+/* Small mobile */
+@media (max-width: 430px) {
+    .title {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .subtitle {
+        font-size: var(--sapFontHeader5Size);
+    }
+
+    .logoImg {
+        max-width: 80px;
+        max-height: 50px;
+    }
+
+    .carouselLogo {
+        padding: 0 20px;
+    }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
+    }
+
+    .innerWrapper {
+        width: auto;
+        height: auto;
+    }
+}

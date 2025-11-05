@@ -1,0 +1,78 @@
+:root {
+    --image-modal-bg: #ffffff;
+    --image-modal-text: #1c1e21;
+    --image-modal-border: #ccd0d5;
+    --image-modal-header-text: #1c1e21;
+    --image-modal-button-bg: #f0f2f5;
+    --image-modal-button-hover-bg: #e4e6eb;
+    --image-modal-button-text: #1c1e21;
+}
+
+[data-theme='dark'] {
+    --image-modal-bg: #2d2d2d;
+    --image-modal-text: #e0e0e0;
+    --image-modal-border: #444444;
+    --image-modal-header-text: #e0e0e0;
+    --image-modal-button-bg: #444444;
+    --image-modal-button-hover-bg: #555555;
+    --image-modal-button-text: #e0e0e0;
+}
+
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--image-modal-bg);
+    color: var(--image-modal-text);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    width: 90%;
+    max-width: 450px;
+    border: 1px solid var(--image-modal-border);
+}
+
+.dialogHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--image-modal-border);
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--image-modal-header-text);
+}
+
+.dialogHeader svg {
+    width: 20px;
+    height: 20px;
+}
+
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.uploadButton {
+    background-color: var(--image-modal-button-bg);
+    color: var(--image-modal-button-text);
+    border: 1px solid var(--image-modal-border);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.uploadButton:hover {
+    background-color: var(--image-modal-button-hover-bg);
+}

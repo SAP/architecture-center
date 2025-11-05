@@ -17,8 +17,8 @@ keywords:
 sidebar_label: FedML-GCP for Google Vertex AI
 image: img/ac-soc-med.png
 tags:
-  - data
   - gcp
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -38,7 +38,13 @@ last_update:
   date: 2025-01-23
 ---
 
-FedML-GCP provides end-to-end integraton for training models in Google Vertex AI using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-aws enables 
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Google.**
+
+:::
+
+FedML-GCP provides end-to-end integration for training models in Google Vertex AI using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-aws enables 
 - Data discovery
 - Model training
 - Model deployment, both in Vertex AI and SAP BTP, all while enabling instant access to source business data from SAP systems.

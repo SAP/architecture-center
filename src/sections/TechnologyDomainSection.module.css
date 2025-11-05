@@ -1,0 +1,103 @@
+.domainSection {
+    background: 
+        url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
+        #eaf3fc;
+    padding: 0 0 10px 0; 
+}
+
+:root[data-theme='dark'] .domainSection {
+    background:
+        url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
+        var(--sapShellColor);
+    padding: 0 0 10px 0; 
+}
+
+.title {
+    font-size: var(--sapFontHeader2Size);
+    color: var(--navcard-text-default);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: var(--sapFontHeader4Size);
+    margin-top: 1rem;
+    color: var(--navcard-text-default);
+}
+
+:root[data-theme='dark'] .title,
+:root[data-theme='dark'] .subtitle {
+    color: var(--text-color-dark-mode);
+}
+
+.grid {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+    max-width: 1425px;
+    margin-top: 40px;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 20px auto 40px auto;
+    padding: 20px 24px 0px;
+}
+
+.tilesGrid {
+    display: grid;
+    gap: 24px;
+    width: 100%;
+    max-width: 1425px;
+    margin-top: 40px;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.tileWrapper {
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .domainSection {
+       padding: 25px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+    
+}
+
+/* Tablet (996px breakpoint) */
+@media (min-width: 996px) {
+    .tilesGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Mobile (600px breakpoint) */
+@media (max-width: 600px) {
+    .title {
+        font-size: var(--sapFontHeader3Size);
+    }
+
+    .subtitle {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .container {
+        padding: 20px;
+    }
+}
+
+/* Small mobile (430px breakpoint) */
+@media (max-width: 430px) {
+    .title {
+        font-size: var(--sapFontHeader4Size);
+    }
+
+    .subtitle {
+        font-size: var(--sapFontHeader5Size);
+    }
+}

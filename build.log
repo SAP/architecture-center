@@ -1,0 +1,15 @@
+
+> sap-architecture-center@1.2538.1 build
+> docusaurus build
+
+[dotenv@17.2.2] injecting env (3) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+[INFO] [en] Creating an optimized production build...
+[dotenv@17.2.2] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+✅ Successfully generated and sorted pageMapping.ts with correct IDs.
+✅ Tags plugin loaded successfully and processed docs.
+[webpackbar] ℹ Compiling Client
+[webpackbar] ℹ Compiling Server
+[webpackbar] ✔ Server: Compiled successfully in 21.64s
+[webpackbar] ✔ Client: Compiled successfully in 30.45s
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.

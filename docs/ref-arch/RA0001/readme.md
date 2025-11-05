@@ -49,17 +49,24 @@ last_update:
 
 Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-driven architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
 
-Event-driven architecture (EDA) is well-known approach for designing and building software systems in enterprise integration. This is well-suited to modern environments for addressing scalability, loose coupling and building resilient applications.
+Event-driven architecture (EDA) is well-known approach for designing and building software systems in enterprise integration. This is well-suited to modern environments for addressing scalability, loose coupling and building resilient applications. SAP is providing EDA capabilities as services in SAP BTP to support event-driven and real-time processes by enabling a composable event mesh of SAP and non-SAP applications, publishing and subscribing to events.
 
-This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) on SAP Business Technology Platform (BTP).
+This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) with SAP Business Technology Platform (BTP) services.
 
 ## Architecture
 
-![drawio](drawio/eda_ref_arch.drawio)
+SAP's EDA Strategy comprises of two interconnected parts, the SAP Cloud Application Event Hub and the SAP Integration Suite product family as shown below.
 
-![plot](./drawio/eda_ref_arch.png)
+![drawio](drawio/eda_strategy.drawio)
 
-This architecture can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. The event producers and consumers can be either of the systems.
+SAP Intelligent Enterprise EDA with SAP Cloud Application Event Hub: This enabled EDA implementations across the SAP Intelligent Enterprise suite. This can be used for event integration between SAP cloud application and applications built on SAP BTP.
+
+EDA in hybrid, heterogenous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
+
+Below architecture depicts the SAP EDA Stategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
+
+![drawio](drawio/eda_enterprise.drawio)
+
 EDA architectural patterns focus on seamless flow of events and the resulting reactions and notifications triggered by these events.EDA solutions are based on multiple connected event brokers, which mediate the communication of event messages between event publishers and event consumers.
 Along with APIs, events are a method of facilitating real-time process integration for intelligent enterprises. SAP cloud applications increasingly support event-driven architecture concepts.
 It’s frequent for SAP applications to act as event publishers (as systems of records), but, as event-driven concepts become more popular, they can also act as event consumers. 
@@ -70,14 +77,11 @@ Note: All business events supported by SAP are published on [SAP Business Accele
 
 The following depicts the different integration flows among different systems for event-driven scenarios.
 
-1. The events are triggered from source systems or applications. The event producer systems can be SAP or non-SAP systems.
-2. These events are published on to SAP Integration Suite, advanced event mesh / Event Mesh capability. 
-3. Event consumer systems(SAP or non-SAP systems) subscribe the events from SAP Integration Suite, advanced event mesh / Event Mesh capability.
-4. Depicts events consumption scenario. SAP BTP CAP extension application also can subscribe and consume the event information from advanced event mesh. Post processing of the event, the required action is triggered in the SAP S/4HANA system using the SAP Destination Service and SAP Connectivity service leveraging a cloud connector. If SAP S/4HANA and SAP BTP are running on the same Hyperscaler, communication with SAP S/4HANA happens via the SAP Private Link Service.
-5. Depicts SAP Cloud Application Event Hub in the diagram that enables EDA implementations across the SAP Intelligent Enterprise suite. This can be used for event integration between SAP cloud application and applications built on SAP BTP.
-6. Depicts event publish scenarios where 
-    - SAP On-Premise/private systems publish SAP Standard events to advanced event mesh. 
-    - Third-party application publish events using Advanced event mesh connectors.
+1. Depicts **pre-built event-based integration** between SAP cloud applications for easy and error-free event distribution between SAP cloud applications.
+
+2. Depicts **customer and partner (extension) applications built on SAP BTP** can use SAP Cloud Application Event Hub for event-based integration with SAP cloud applications to achieve real-time integration while adhering to the clean core concept.
+
+3. Depicts exchange events with **SAP Integration Suite EDA and mediation offerings for 3rd party and on-premise integration**. SAP Cloud Application Event Hub provides a central access point for business events from SAP cloud applications.
 
 ## Architecture Components in event-driven architecture
 
@@ -95,6 +99,9 @@ The Event Mesh capability of SAP Integration Suite (“Event Mesh capability” 
 
 As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.com/docs/sap-btp-guidance-framework/sap-integration-solution-advisory-methodology/catalog-of-integration-use-case-patterns),either of the options can be selected based on the eventing requirements.
 
+### SAP Cloud Application Event Hub Service
+This service will provide access to all business events in the SAP intelligent enterprise suite in the cloud. Supported SAP cloud applications will be natively connected to SAP Cloud Application Event Hub. This is an SAP BTP service.
+
 ### Cloud Integration capability of SAP Integration Suite
 
 This capability plays an important roles in EDA in the following scenarios
@@ -103,9 +110,6 @@ This capability plays an important roles in EDA in the following scenarios
 
 ### Event-Enabling of SAP Applications
 SAP delivers standard events to support modular cloud ERP.For any development of derived events(extending SAP Standard events) or defining custom events,ABAP RESTful Application Programming Model(RAP) can be leveraged. For older releases of SAP S/4HANA and SAP ECC releases(since NW 7.31), the SAP Application Interface Framework(AIF) supports the development of custom events and customer interfaces for SAP Business Objects, IDoc Interfaces, and BAPI/RFC Functional Module interfaces.
-
-### SAP Cloud Application Event Hub Service
-This service will provide access to all business events in the SAP intelligent enterprise suite in the cloud. Supported SAP cloud applications will be natively connected to SAP Cloud Application Event Hub. This is an SAP BTP service.
 
 
 ## Services and Components

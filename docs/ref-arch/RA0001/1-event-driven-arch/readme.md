@@ -84,13 +84,33 @@ For businesses now, it is critical to have the system enabled to be able to act 
 
 The SAP EDA Technology Strategy comprises of two interconnected parts, the **SAP Cloud Application Event Hub** for SAP-SAP Integrations and the **SAP Integration Suite,advanced event mesh and SAP Event Mesh capability of SAP Integration Suite**  for SAP - non-SAP / SAP integrations.
 
+### SAP Intelligent Enterprise EDA:
+
+As part of SAP's EDA Strategy, **SAP Cloud Application Event Hub Service** is positioned for EDA implementations across the SAP Intelligent Enterprise suite. This can be used for event integration between SAP cloud application and applications built on SAP BTP.It is used by SAP to route business events between SAP cloud applications where SAP delivers prebuilt subscription content which is activated and adapter by customers.
+
+This will also enable customers and partners to build(extension) applications on SAP BTP by consuming events from SAP Cloud applications supporting SAP's Clean Core Strategy.
+
+![drawio](drawio/eda_sap_enterprise.drawio)
+
+SAP Cloud Application Event Hub support two scenarios:
+- Pre-built event integrations between SAP Cloud Applications (including SAP S/4HANA Cloud, Public and Private Edition). As per SAP Strategy, SAP Cloud applications must use SAP Event Hub to implement SAP event integration scenarios.
+- Customer and partner(extension) application built on SAP BTP can use SAP Event Hub for event integration with SAP cloud applications or applications built on SAP BTP. E.g use case - building side-by-side extensions application on SAP S/4HANA Cloud by consuming the prebuilt(or extended) SAP S/4HANA events.
+
+For SAP-to-SAP event integration scenarios, the necessary subscriptions are built by the SAP Cloud Applications and published to SAP Event Hub.These have to be activated to run these scenarios.
+
+For more details on SAP Cloud Application Event Hub, refer to [SAP Cloud Application Event Hub](https://help.sap.com/docs/SAP_INTEGRATION_SUITE/sap-cloud-application-event-hub)
+
+### Enterprise EDA in hybrid, heterogeneous landscapes 
+
+In a large enterprise IT Landscape, there is presence of non-SAP applications as well, SAP Integration Suite family provides a event network capability for entperprise-wide flexible EDA implementation across SAP and non-SAP components.
+For less advanced enterprises who are focusing on dedicated EDA scenarios across SAP and non-SAP, event mesh capability of SAP Integration Suite can be option to start and later expand to full-fledged AEM.
+
+![drawio](drawio/eda_hybrid_enterprise.drawio)
+
 The **SAP Event Mesh capability of SAP Integration Suite** is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications.The Event Mesh capability will be comparable to the existing SAP Event Mesh7, but it will be bundled into the SAP Integration Suite, standard and premium editions.
 
-**SAP Integration Suite, advanced event mesh**  serves these enterprise use cases. Enterprises use advanced event mesh as a distributed multi-broker event mesh to distribute, manage, and monitor events across broad enterprise landscapes. Advanced event mesh provides distributed event processing and routing across multiple interconnected brokers in the mesh. The mesh architecture allows for flexible deployments of interconnected brokers on hyperscalers in the cloud or in local customer environments, for example, co-deployed with on-premise applications. Advanced event mesh supports different sizes of brokers and different mesh topologies to scale the mesh according to event levels, serving almost any need with great resilience. 
+**SAP Integration Suite, advanced event mesh** serves these enterprise use cases. Enterprises use advanced event mesh as a distributed multi-broker event mesh to distribute, manage, and monitor events across broad enterprise landscapes. Advanced event mesh provides distributed event processing and routing across multiple interconnected brokers in the mesh. The mesh architecture allows for flexible deployments of interconnected brokers on hyperscalers in the cloud or in local customer environments, for example, co-deployed with on-premise applications. Advanced event mesh supports different sizes of brokers and different mesh topologies to scale the mesh according to event levels, serving almost any need with great resilience. 
  
-As part of SAP's EDA Strategy, **SAP Cloud Application Event Hub Service** is positioned for all the exchange of events with the SAP Cloud Applications.
-
-Advanced Event Mesh or Event Mesh Capability in SAP Integration Suite are services that help enterprise third-party applications, on-premise applications and SAP Cloud application either directly or through the SAP Cloud Application Event Hub. 
 
 In the design considerations section, we have detailed the differences between SAP Integration Suite,advanced event mesh and SAP Integration Suite, Event Mesh Capability. 
 
