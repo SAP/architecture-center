@@ -66,5 +66,5 @@ SAP differentiates between Required Cookies that are absolutely necessary to ena
 
 ## How can you manage and delete Cookies?
 
-SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Preferences” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**].
+SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Preferences” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**.
 You can also block and delete cookies by changing your browser settings. To manage cookies using your browser settings, most browsers allow you to refuse or accept all cookies or only to accept certain types of cookies. The process for the management and deletion of cookies can be found in the help function integrated in your browser. If you wish to limit the use of cookies, you may not be able to use all the interactive functions.
