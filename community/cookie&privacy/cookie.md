@@ -26,9 +26,9 @@ last_update:
 
 :::info Hosting on GitHub Pages
 
-The **SAP Architecture Center** (this site) is hosted by **[GitHub Pages](https://pages.github.com/)** and doesn't process any personal data by itself.
+The **SAP Architecture Center** (this site), hosted on **[GitHub Pages](https://docs.github.com/en/pages)**. 
 
-Please see the **[GitHub Privacy Statement](https://docs.github.com/en/github/site-policy/github-privacy-statement)** for any information how GitHub processes your personal data.
+For information about cookies used by GitHub, please refer to GitHub’s cookie policy: **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**.
 
 :::
 
@@ -53,7 +53,7 @@ The difference between a first party cookie and a third party cookie relates to 
 ## Analytics and Digital Marketing in the United States of America
 In the United States SAP routinely works with third party analytics and digital marketing providers who facilitate and support SAP (and partner) marketing activities including targeted communications. These activities may involve the sharing of limited Personal Information (personal identifiers and contact information, your interests and interactions with SAP, professional/employment information) for those specific business purposes. In addition to the above, SAP may also share your personal data with other third parties, or for other business purposes, with your explicit consent. SAP endeavors to recognize common opt-out preference signals at a browser level, and frictionlessly exclude you from marketing cookies and associated tracking.
 
-## What cookies are used?**
+## What cookies are used?
 SAP wants you to be in a position to make an informed decision for or against the use of cookies which are not strictly necessary for technical features on **[SAP Architecture Center](https://architecture.learning.sap.com/)**. If you elect to reject cookies used for advertising, you will be shown advertising that is less targeted to your interests. This will still allow you to use all of the functionality of **[SAP Architecture Center](https://architecture.learning.sap.com/)**. 
 
 When tracking and evaluating the usage behavior of users of the Web Presence by means of cookies or similar technologies includes the processing of your personal data, SAP conducts the processing based on the following legal permissions:
@@ -66,5 +66,5 @@ SAP differentiates between Required Cookies that are absolutely necessary to ena
 
 ## How can you manage and delete Cookies?
 
-SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Preferences” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**].
+SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Statement” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**].
 You can also block and delete cookies by changing your browser settings. To manage cookies using your browser settings, most browsers allow you to refuse or accept all cookies or only to accept certain types of cookies. The process for the management and deletion of cookies can be found in the help function integrated in your browser. If you wish to limit the use of cookies, you may not be able to use all the interactive functions.

@@ -22,7 +22,7 @@ last_update:
   date: 2025-11-04
 ---
 
-## More information on GitHub and SAP
+Below is specific information concerning GitHub’s and SAP’s policies related to cookies and privacy.
 
 ### GitHub information
 - **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**
