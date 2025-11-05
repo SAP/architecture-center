@@ -361,6 +361,10 @@ const config: Config = {
                             href: 'https://architecture.learning.sap.com/community/privacy',
                         },
                         {
+                            label: 'Cookie Statement',
+                            href: 'https://architecture.learning.sap.com/community/cookie',
+                        },
+                        {
                             label: 'Terms of Use',
                             href: 'https://www.sap.com/about/legal/terms-of-use.html',
                         },
