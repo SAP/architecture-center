@@ -1,7 +1,7 @@
 ---
 id: id-ra0013-6
 slug: /ref-arch/f5b6b597a6/6
-sidebar_position: 3
+sidebar_position: 6
 title: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 description: >-
   Unifying Access Across for SAP Business Data Cloud using SAP Cloud Identity Services: IAS for SSO (SAML/OIDC) and IPS for SCIM provisioning. Includes scenarios with/without Enterprise IdP, lifecycle, authorization mapping, and operations.
@@ -19,14 +19,16 @@ keywords:
   - zero trust
 sidebar_label: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 tags:
-  - data
-  - aws
-  - azure
-  - gcp
+  - data 
+  - sap bdc
+  - security
+  - sap-databricks
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - guilherme-segantini 
   - jmsrpp
@@ -54,7 +56,7 @@ To ground the architecture in a real use case, we introduce the persona "Alex," 
 Alex builds data-driven apps that combine using multiple tools, including SAP Analytics Cloud (SAC), governed data products from BDC, and advanced AI notebooks (SAP Databricks). As a member of the `intelligent-app-developers` enterprise group, he expects **consistent privileges** across every tool—meaning the same group yields the same effective rights in SAC roles, Datasphere spaces/roles, SAP BTP role collections, Databricks workspace entitlements, and Unity Catalog data access. He also expects one login (SSO via IAS), immediate workspace access (pre-provisioned via IPS/SCIM), and zero ticket waiting time (IGA-approved automated JML), with MFA and conditional access enforced uniformly and auditable access with centralized logs.
 :::
 
-## Architecture and Design Principles for Unified Identity
+## Design Principles for Unified Identity for SAP BDC
 
 Our approach uses SAP Cloud Identity Services (IAS and IPS) as a central broker to create a consistent identity and authorization model across all platforms. This is guided by the following core principles:
 
@@ -66,7 +68,7 @@ Our approach uses SAP Cloud Identity Services (IAS and IPS) as a central broker 
 
 ## Architecture
 
-The architecture positions SAP Cloud Identity Services as the central hub for identity management. It unifies access by connecting to an authoritative source of truth, which can be an Enterprise IdP or a core business system like **SAP SuccessFactors** (for employee lifecycle) or **SAP S/4HANA** (identity data or business roles). Any such system that can be integrated with SAP Identity Provisioning Service (IPS) and serve as the authoritative source for user lifecycle events. CIS then provides single sign-on (SSO) and user provisioning to SAP BDC.
+The architecture positions SAP Cloud Identity Services as the central hub for identity management. It unifies access by connecting to an authoritative source of truth, which can be an Enterprise IdP or a core business system like **SAP SuccessFactors** (for employee lifecycle) or **SAP S/4HANA** (identity data or business roles). Any such system that can be integrated with SAP Identity Provisioning Service (IPS) and serve as the authoritative source for user lifecycle events. SAP CIS then provides single sign-on (SSO) and user provisioning to SAP BDC.
 
 ![drawio](drawio/cloud-identity-services-bdc.drawio)
 
@@ -225,7 +227,7 @@ The following scenarios are designed to help you choose the best deployment stra
 
 - **Least Privilege** – Grant only required role-collections and Unity Catalog privileges.  
 - **MFA Everywhere** – Enforce multi-factor authentication via IAS conditional access.  
-- **Centralized Logging** – Stream all IAS, IPS, BTP, and BDC audit logs into SIEM and review routinely.  
+- **Centralized Logging** – Stream all SAP IAS, SAP IPS, SAP BTP, and SAP BDC audit logs into SIEM and review routinely.  
 - **Access Certification** – Conduct regular reviews with business data owners.
 
 ## Conclusion
