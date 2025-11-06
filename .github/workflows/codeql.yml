@@ -10,18 +10,13 @@ on:
     - cron: "0 6 * * 1"
 
 jobs:
-  analyze:
-    name: Analyze
+  analyze-javascript:
+    name: Analyze JavaScript
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
       security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ["javascript", "actions"] # JavaScript/TypeScript + GitHub Actions
 
     steps:
       - name: Checkout repository
@@ -30,8 +25,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
-          # Specify additional queries to run
+          languages: javascript
           queries: security-extended,security-and-quality
 
       - name: Setup Node.js
@@ -49,12 +43,12 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{matrix.language}}"
+          category: "/language:javascript"
 
       - name: Post CodeQL Analysis
         if: always()
         run: |
-          echo "CodeQL analysis completed for ${{ matrix.language }}"
+          echo "CodeQL analysis completed for JavaScript"
           echo "Checking analysis results and cleanup..."
 
       - name: Post Initialize CodeQL
@@ -68,6 +62,50 @@ jobs:
         run: |
           echo "Post-checkout verification completed"
           echo "Repository analysis summary:"
-          echo "- Language analyzed: ${{ matrix.language }}"
+          echo "- Language analyzed: JavaScript"
+          echo "- Branch: ${{ github.ref_name }}"
+          echo "- Commit: ${{ github.sha }}"
+
+  analyze-github-actions:
+    name: Analyze GitHub Actions
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: actions
+          queries: security-extended,security-and-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:actions"
+
+      - name: Post CodeQL Analysis
+        if: always()
+        run: |
+          echo "CodeQL analysis completed for GitHub Actions"
+          echo "Checking analysis results and cleanup..."
+
+      - name: Post Initialize CodeQL
+        if: always()
+        run: |
+          echo "Post-initialization cleanup for CodeQL"
+          echo "Verifying CodeQL database integrity..."
+
+      - name: Post Checkout Repository
+        if: always()
+        run: |
+          echo "Post-checkout verification completed"
+          echo "Repository analysis summary:"
+          echo "- Language analyzed: GitHub Actions"
           echo "- Branch: ${{ github.ref_name }}"
           echo "- Commit: ${{ github.sha }}"
