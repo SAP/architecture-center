@@ -19,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-10-16
+  date: 2025-11-05
 ---
 
 import {
@@ -31,6 +31,14 @@ import {
 We are the **Office of the CTO**, driving the development and engagement of SAP’s Architecture Center. 
 
 We enable community **collaboration** and **innovation** by providing a modern, GitHub-based platform for building, publishing, and governing SAP reference solution architectures.
+
+## Our Team Structure
+The Architecture Center does not operate with a traditional, fixed team. Instead, it relies on a dynamic network of contributors who collaborate with us on a temporary basis. These contributors include individuals from our organization as well as external partners.
+This flexible team structure is a deliberate choice that brings several advantages:
+- Flexibility: Without the constraints of a rigid team, we can adapt quickly to changing needs and priorities.
+- Creativity: This open contributor model fosters diverse perspectives and innovative ideas, enhancing our ability to create impactful architectural solutions.
+- Collaboration: By engaging with a broad community, we harness a wide range of expertise and experiences, enriching the outcomes of our efforts.
+Embracing this non-traditional team approach enables the Architecture Center to remain agile and continuously evolve, while encouraging active participation and knowledge sharing across organizational boundaries.
 
 ## The core team
 

@@ -36,8 +36,9 @@ export default function NavigationCard({
     const { user, users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
-    const { backendUrl, authProviders } = siteConfig.customFields as {
+    const { backendUrl, expressBackendUrl, authProviders } = siteConfig.customFields as {
         backendUrl: string;
+        expressBackendUrl: string;
         authProviders: Record<string, 'btp' | 'github'>;
     };
 
@@ -49,19 +50,25 @@ export default function NavigationCard({
     const isLoggedInWithWrongProvider = user && requiredProvider && !isLoggedInWithRequiredProvider;
     const isLoggedOutAndProtected = !user && requiredProvider;
 
-    const shouldAppearDisabled = alwaysShowLock || isLoggedInWithWrongProvider || isLoggedOutAndProtected;
-    const isFunctionallyDisabled = disabled || isLoggedInWithWrongProvider;
+    const shouldShowLockIcon = alwaysShowLock || isLoggedInWithWrongProvider || isLoggedOutAndProtected;
+
+    const handleLogin = (provider: 'btp' | 'github', destinationLink: string) => {
+        const baseUrl = window.location.origin;
+        const originUri = encodeURIComponent(baseUrl + destinationLink);
+
+        if (provider === 'github') {
+            window.location.href = `${expressBackendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
+        } else {
+            window.location.href = `${backendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
+        }
+    };
 
     const cardContent = (
-        <Card
-            className={`${styles.default} ${shouldAppearDisabled ? styles.disabled : ''}`}
-            onMouseEnter={isFunctionallyDisabled ? undefined : onMouseEnter}
-            onMouseLeave={isFunctionallyDisabled ? undefined : onMouseLeave}
-        >
-            {shouldAppearDisabled && (
+        <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            {shouldShowLockIcon && (
                 <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
             )}
-            {!shouldAppearDisabled && requiredProvider && (
+            {!shouldShowLockIcon && requiredProvider && (
                 <Icon className={styles.lockIcon} name="sap-icon://unlocked" title="Unlocked" />
             )}
             <span className={styles.inline}>
@@ -82,27 +89,28 @@ export default function NavigationCard({
         </Card>
     );
 
-    if (isFunctionallyDisabled) {
-        const tooltip = isLoggedInWithWrongProvider
-            ? `Requires ${requiredProvider.toUpperCase()} login. You are logged in with ${user.provider.toUpperCase()}.`
-            : 'This feature is currently disabled.';
+    // Always show lock icon and handle authentication flow when needed
+    if (requiredProvider) {
+        if (!user || user.provider !== requiredProvider) {
+            // User is either not logged in or logged in with wrong provider
+            const providerDisplayName = requiredProvider === 'btp' ? 'SAP' : 'GITHUB';
+            const currentProviderDisplayName = user?.provider === 'btp' ? 'SAP' : 'GITHUB';
 
-        return (
-            <div className={`${styles.cardLink} ${styles.disabledLink}`} title={tooltip}>
-                {cardContent}
-            </div>
-        );
-    }
+            const tooltip = !user
+                ? `Requires ${providerDisplayName} login. Click to login.`
+                : `Requires ${providerDisplayName} login. You are logged in with ${currentProviderDisplayName}. Click to switch.`;
 
-    if (isLoggedOutAndProtected) {
-        const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(link)}&provider=${requiredProvider}`;
-        const tooltip = `Requires ${requiredProvider.toUpperCase()} login. Click to login.`;
-
-        return (
-            <a href={loginUrl} className={styles.cardLink} title={tooltip}>
-                {cardContent}
-            </a>
-        );
+            return (
+                <div
+                    className={styles.cardLink}
+                    title={tooltip}
+                    onClick={() => handleLogin(requiredProvider, link)}
+                    style={{ cursor: 'pointer' }}
+                >
+                    {cardContent}
+                </div>
+            );
+        }
     }
 
     return (

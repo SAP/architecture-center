@@ -19,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-05-19
+  date: 2025-01-05
 ---
 
 Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
@@ -32,9 +32,6 @@ Here is an example of what a page front matter looks like:
 id: id-ra0001
 slug: /ref-arch/a06a959120
 sidebar_position: 1
-sidebar_custom_props:
-  category_index:
-    - aws
 title: SAP Event-Driven Architecture Technology
 description: Please add a description (max 300 characters)
 keywords:
@@ -119,25 +116,6 @@ This information is auto-assigned.
 Example:
 ```yaml
 sidebar_position: 1
-```
-
-:::warning Do Not Modify
-This information is auto-assigned.
-:::
-
-***
-
-## `sidebar_custom_props`
-
-This information defines in which part of the SAP Viewpoints the page will appear.
-
-In the following example, the page will be displayed in the `aws` part of the SAP Viewpoints.
-
-Example:
-```yaml
-sidebar_custom_props:
-  category_index:
-    - aws
 ```
 
 :::warning Do Not Modify

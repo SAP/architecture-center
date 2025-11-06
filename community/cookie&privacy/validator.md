@@ -11,7 +11,7 @@ keywords:
 image: img/ac-soc-med.png
 tags:
   - community
-hide_table_of_contents: true
+hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -22,8 +22,6 @@ last_update:
   author: cernus76
   date: 2025-11-04
 ---
-
-## SAP Architecture Center: Architecture Validator
 
 The **Architecture Validator** uses SAP OAuth for user authentication. This means that users are redirected to SAP Identify Service to log in and authorize the application to use SAP BTP resources. No passwords or direct authentication data are handled or stored by the **Architecture Validator**.
 

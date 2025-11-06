@@ -103,6 +103,16 @@
     --alert-color: #ffc933;
 }
 
+/* LinkedIn icon styling */
+svg[class*="linkedin"], 
+svg[aria-label*="LinkedIn"],
+.linkedin-icon svg,
+a[title*="LinkedIn"] svg,
+a[href*="linkedin"] svg {
+    fill: var(--ifm-link-color) !important;
+    color: var(--ifm-link-color) !important;
+}
+
 /* Ensure code blocks do not overflow the page */
 code,
 pre {
