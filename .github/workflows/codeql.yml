@@ -27,6 +27,9 @@ jobs:
         with:
           languages: javascript
           queries: security-extended,security-and-quality
+          config: |
+            paths-ignore:
+              - .github/workflows/**
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -83,6 +86,9 @@ jobs:
         with:
           languages: actions
           queries: security-extended,security-and-quality
+          config: |
+            paths:
+              - .github/workflows/**
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
