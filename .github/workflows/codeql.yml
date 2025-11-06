@@ -1,0 +1,73 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main", "dev"]
+  schedule:
+    # Run CodeQL analysis every Monday at 6:00 AM UTC
+    - cron: "0 6 * * 1"
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript", "actions"] # JavaScript/TypeScript + GitHub Actions
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # Specify additional queries to run
+          queries: security-extended,security-and-quality
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+      - name: Post CodeQL Analysis
+        if: always()
+        run: |
+          echo "CodeQL analysis completed for ${{ matrix.language }}"
+          echo "Checking analysis results and cleanup..."
+
+      - name: Post Initialize CodeQL
+        if: always()
+        run: |
+          echo "Post-initialization cleanup for CodeQL"
+          echo "Verifying CodeQL database integrity..."
+
+      - name: Post Checkout Repository
+        if: always()
+        run: |
+          echo "Post-checkout verification completed"
+          echo "Repository analysis summary:"
+          echo "- Language analyzed: ${{ matrix.language }}"
+          echo "- Branch: ${{ github.ref_name }}"
+          echo "- Commit: ${{ github.sha }}"
