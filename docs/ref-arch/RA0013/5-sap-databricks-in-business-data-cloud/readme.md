@@ -41,7 +41,7 @@ last_update:
 
 SAP’s partnership with Databricks, a leader in unified data and AI platforms, helps streamline data access and enables businesses to harness SAP data for AI and machine learning use cases. This integration is delivered through SAP Databricks, a fully embedded OEM component of Databricks within the SAP Business Data Cloud.
 
-## 1. SAP Databricks in SAP Business Data Cloud [Greenfield Integration]
+## 1. SAP Databricks in SAP Business Data Cloud 
 
 SAP Databricks is a data intelligence platform designed to bring data and artificial intelligence (AI) together. Integrated within SAP Business Data Cloud, it provides a seamless way to execute machine learning algorithms on SAP data without requiring external ML platforms. By utilizing the Delta Share protocol, data products from SAP Business Data Cloud can be shared with SAP Databricks for processing, and the results can be stored back in the SAP environment, ensuring data security and governance.
 
@@ -124,7 +124,7 @@ classDef largeNode stroke-width:4px;
     style Data_Capabilities stroke-width:4px
 ```
 
-## 2. Integrating an Existing Enterprise Databricks Platform with SAP BDC [Brownfield Integration]
+## 2. Integrating an Existing Enterprise Databricks Platform with SAP BDC 
 
 -   Helps customers safeguard their existing enterprise Databricks investment by enabling integration of their Databricks platform with SAP Business Data Cloud via the BDC Connect service.
 -   One-time setup to provision the 'BDC Connect' service for Databricks that makes this integration possible.
