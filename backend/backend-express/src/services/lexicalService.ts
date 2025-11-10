@@ -258,14 +258,14 @@ last_update:
 
 export function generateFileTreeInMemory(rootDoc: DocumentObject, raFolderName: string): FileForCommit[] {
     const match = raFolderName.match(/\d+/);
-    const initioalSidebarPosition = match ? parseInt(match[0], 10) : 1;
+    const initialSidebarPosition = match ? parseInt(match[0], 10) : 1;
     const initialIdSegments = [raFolderName.toLowerCase()];
     const initialParentSlug = '/ref-arch';
     return processDocumentTreeRecursively(
         rootDoc,
         raFolderName,
         '',
-        initioalSidebarPosition,
+        initialSidebarPosition,
         initialIdSegments,
         initialParentSlug,
         true
