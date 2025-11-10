@@ -60,6 +60,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const isMobile = useIsMobile();
 
     const isBtpAuthenticated = users.btp !== null;
+    const baseUrl = siteConfig.baseUrl;
+
+    const handleInfoClick = () => {
+        const infoUrl = `${baseUrl}community/validation-rules`;
+        window.open(infoUrl, '_blank', 'noopener,noreferrer');
+    };
 
     if (isMobile) {
         return (
@@ -301,35 +307,43 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     <div className={styles.contentArea}>
                         <div className={styles.actionsHeader}>
                             <Button
-                                design="Emphasized"
-                                onClick={handleValidateBatch}
-                                disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
-                            >
-                                {isProcessingBatch
-                                    ? 'Validating...'
-                                    : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
-                            </Button>
+                                icon="sap-icon://information"
+                                onClick={handleInfoClick}
+                                tooltip="View Validation Rules"
+                            ></Button>
 
-                            <Button
-                                design="Default"
-                                onClick={() => fileInputRef.current?.click()}
-                                disabled={managedFiles.length >= 5}
-                            >
-                                Add More Files
-                            </Button>
+                            <div className={styles.flexCenterRow}>
+                                <Button
+                                    design="Emphasized"
+                                    onClick={handleValidateBatch}
+                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
+                                >
+                                    {isProcessingBatch
+                                        ? 'Validating...'
+                                        : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
+                                </Button>
 
-                            <input
-                                ref={fileInputRef}
-                                type="file"
-                                accept=".drawio"
-                                onChange={handleFileSelect}
-                                style={{ display: 'none' }}
-                                multiple
-                            />
+                                <Button
+                                    design="Default"
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={managedFiles.length >= 5}
+                                >
+                                    Add More Files
+                                </Button>
 
-                            <Button design="Transparent" onClick={clearAll}>
-                                Remove All
-                            </Button>
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept=".drawio"
+                                    onChange={handleFileSelect}
+                                    style={{ display: 'none' }}
+                                    multiple
+                                />
+
+                                <Button design="Transparent" onClick={clearAll}>
+                                    Remove All
+                                </Button>
+                            </div>
                         </div>
 
                         {isProcessingBatch && (
