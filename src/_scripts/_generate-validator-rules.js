@@ -152,8 +152,12 @@ This document contains all the validation rules used by the Architecture Validat
   const rows = rules.map((rule, index) => {
     // Escape pipe characters in the content to prevent table formatting issues
     // Handle both possible property name formats (RULENAME/DESCRIPTION or ruleName/description)
-    const ruleName = (rule.RULENAME || rule.ruleName || 'N/A').replace(/\|/g, '\\|');
-    const description = (rule.DESCRIPTION || rule.description || 'N/A').replace(/\|/g, '\\|');
+    const ruleName = (rule.RULENAME || rule.ruleName || 'N/A')
+      .replace(/\\/g, '\\\\')
+      .replace(/\|/g, '\\|');
+    const description = (rule.DESCRIPTION || rule.description || 'N/A')
+      .replace(/\\/g, '\\\\')
+      .replace(/\|/g, '\\|');
 
     return `| ${index + 1} | ${ruleName} | ${description} |`;
   });
