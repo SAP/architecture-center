@@ -146,3 +146,4 @@ Data federation in SAP Datasphere allows organizations to access and analyze dat
 - [Integration with Google Cloud Platform Sources](4-gcp-data-integration/readme.md)
 - [Integration with Azure data sources](2-azure-data-integration/readme.md)
 - [Integration with Databricks](3-databricks-data-integration/readme.md)
+- [Integration with Snowflake](5-snowflake-data-integration/readme.md)
