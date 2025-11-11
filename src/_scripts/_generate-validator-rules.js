@@ -123,6 +123,7 @@ slug: /validation-rules
 title: Architecture Validation Rules
 description: Complete list of validation rules used by the Architecture Validator
 sidebar_label: Architecture Validation Rules
+custom_edit_url: null
 keywords:
  - sap
  - architecture
@@ -143,6 +144,10 @@ last_update:
 ---
 
 This document contains all the validation rules used by the Architecture Validator. These rules ensure that your architecture diagrams follow SAP best practices and guidelines.
+
+:::note Note
+This document is auto-generated and updated automatically.
+:::
 
 ## Validation Rules
 
