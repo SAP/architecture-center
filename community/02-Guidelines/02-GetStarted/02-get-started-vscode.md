@@ -107,7 +107,7 @@ Ensure that you are at the root level of the repository.
 2. Update the front-matter at the top of the `readme.md`.
 
 :::info Know more about Front Matter 
-For more details on front-matter and the necessary changes, refer to the [front-matter guidelines](community/Guidelines/front-matter.md).
+For more details on front-matter and the necessary changes, refer to the [front-matter guidelines](community/02-Guidelines/04-front-matter.md).
 :::
 
 ### 5. Test Changes Locally
@@ -135,7 +135,7 @@ npm run serve
 ```
 
 :::warning Note
-Make sure to set `draft` to `false` in [front-matter](community/Guidelines/front-matter.md) to render your architecture after the build.
+Make sure to set `draft` to `false` in [front-matter](community/02-Guidelines/04-front-matter.md) to render your architecture after the build.
 :::
 
 Your project should now be running at [http://localhost:3000](http://localhost:3000).
