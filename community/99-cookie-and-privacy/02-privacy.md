@@ -35,7 +35,7 @@ For information on how GitHub processes your personal data, please refer to **[G
 ## SAP PRIVACY STATEMENT
 This Privacy Statement was updated on 04-Nov-2025. We have created this Privacy Statement to demonstrate the firm commitment of SAP (hereinafter "We", "SAP", "Us" or "Our") to the individual`s right to data protection and privacy. It outlines how SAP processes information that can be used to directly or indirectly identify an individual (hereinafter “Personal Data”). Processing in the context of this Privacy Statement means any collection, use, transmission, disclosure, erasure or any other similar operation based on Personal Data (hereinafter “Processing” or “Process”).
 
-SAP is processing information including Personal Data about the users of **[SAP Architecture Center](https://architecture.learning.sap.com/)** using cookies or similar technologies for the purposes set out in the [Cookie Statement](cookie.md). You will find further information and have the option to exercise your cookie preferences under the following link: [Cookie Statement](cookie.md).
+SAP is processing information including Personal Data about the users of **[SAP Architecture Center](https://architecture.learning.sap.com/)** using cookies or similar technologies for the purposes set out in the [Cookie Statement](01-cookie.md). You will find further information and have the option to exercise your cookie preferences under the following link: [Cookie Statement](01-cookie.md).
 
 ## A. GENERAL INFORMATION
 ### Who is the responsible SAP entity

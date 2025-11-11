@@ -1,5 +1,5 @@
 ---
-sidebar_position: 98
+sidebar_position: 10
 slug: /team
 title: The Team
 description: The team behind the SAP Architecture Center.
