@@ -146,7 +146,7 @@ This document contains all the validation rules used by the Architecture Validat
 
 ## Validation Rules
 
-| S.No. | Rule Name | Rule Description |
+| # | Rule Name | Rule Description |
 |-------|-----------|------------------|`;
 
   const rows = rules.map((rule, index) => {
