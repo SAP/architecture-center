@@ -52,5 +52,11 @@
   },
   "transition": {
     "categoryid": "integration"
+  },
+  "snowflake": {
+    "categoryid": "data"
+  },
+  "bdc": {
+    "categoryid": "data"
   }
 }

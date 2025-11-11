@@ -26,6 +26,7 @@ tags:
   - aws
   - gcp
   - data
+  - snowflake
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -146,3 +147,4 @@ Data federation in SAP Datasphere allows organizations to access and analyze dat
 - [Integration with Google Cloud Platform Sources](4-gcp-data-integration/readme.md)
 - [Integration with Azure data sources](2-azure-data-integration/readme.md)
 - [Integration with Databricks](3-databricks-data-integration/readme.md)
+- [Integration with Snowflake](5-snowflake-data-integration/readme.md)
