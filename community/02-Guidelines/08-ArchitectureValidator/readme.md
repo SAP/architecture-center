@@ -45,6 +45,6 @@ The **Architecture Validator** is an intelligent review assistant designed to he
 ## Feedback and Collaboration
 We welcome suggestions, ideas on additional rules and general feedback.
 - Please note that **the application does not store uploaded diagrams** due to organizational data and security policies.
-- If you wish to engage in a discussion, you are welcome to reach out directly at: **paa@sap.com**
+- If you wish to engage in a discussion, you can ask it here in [GitHub Discussions](https://github.com/SAP/architecture-center/discussions).
 
 We look forward to your participation and contributions as we continue to refine and enhance the validator experience.
