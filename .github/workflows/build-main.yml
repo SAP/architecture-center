@@ -19,13 +19,13 @@ jobs:
                   fetch-depth: 0
             - uses: actions/setup-node@v4
               with:
-                  node-version: latest
+                  node-version: "24.11.1"
                   cache: npm
 
             - name: Install dependencies
               run: npm ci
             - name: Build website
-              run: mkdir -p .localstorage && node --localstorage-file=.localstorage node_modules/.bin/docusaurus build
+              run: npm run build
 
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3
