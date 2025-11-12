@@ -186,10 +186,15 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const handleAutomaticSync = async () => {
         setIsSyncing(true);
         try {
-            const token = localStorage.getItem('jwt_token');
+            // Use the token from auth context instead of direct localStorage access
+            const authToken = token;
+            if (!authToken) {
+                throw new Error('No authentication token available');
+            }
+
             const response = await fetch(`${expressBackendUrl}/api/sync-fork`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` },
             });
             if (!response.ok) {
                 throw new Error('Automatic sync failed. Please try the manual method.');
