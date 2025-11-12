@@ -100,6 +100,12 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const newUsers: DualAuthUsers = { github: null, btp: null };
         clearAllLogoutTimers(); // Clear timers whenever re-checking tokens
 
+        // Only proceed if we're in browser environment
+        if (typeof window === 'undefined') {
+            setLoading(false);
+            return;
+        }
+
         try {
             const githubAuthDataString = localStorage.getItem('jwt_token');
             if (githubAuthDataString) {
@@ -193,6 +199,12 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         const initializeAuth = async () => {
+            // Only proceed if we're in browser environment
+            if (typeof window === 'undefined') {
+                setLoading(false);
+                return;
+            }
+
             const params = new URLSearchParams(location.search);
             const githubTokenFromUrl = params.get('token');
             const btpToken = params.get('t');
@@ -274,6 +286,11 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const logout = (provider?: 'github' | 'btp' | 'all') => {
         const BTP_API = siteConfig.customFields.backendUrl as string;
         clearAllLogoutTimers();
+
+        // Only proceed if we're in browser environment
+        if (typeof window === 'undefined') {
+            return;
+        }
 
         if (!provider || provider === 'all') {
             // Clear both storage systems locally first

@@ -19,10 +19,19 @@ function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) =>
     }
 
     return (
-        <BrowserOnly>
+        <BrowserOnly fallback={<div>Loading editor...</div>}>
             {() => {
-                const Editor = require('@site/src/components/Editor').default;
-                return <Editor key={activeDocumentId} onAddNew={onAddNew} />;
+                // Only require the Editor component in browser environment
+                if (typeof window === 'undefined') {
+                    return <div>Loading editor...</div>;
+                }
+                try {
+                    const Editor = require('@site/src/components/Editor').default;
+                    return <Editor key={activeDocumentId} onAddNew={onAddNew} />;
+                } catch (error) {
+                    console.error('Failed to load Editor component:', error);
+                    return <div>Failed to load editor</div>;
+                }
             }}
         </BrowserOnly>
     );
