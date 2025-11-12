@@ -87,6 +87,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const scheduleGithubTokenExpiryCheck = (expiresAt: number) => {
+        if (typeof window === 'undefined') return; // Ensure we're in a browser environment
         if (githubLogoutTimerRef.current) clearTimeout(githubLogoutTimerRef.current);
         const timeLeft = expiresAt - Date.now();
         if (timeLeft <= 0) {
@@ -107,7 +108,11 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         }
 
         try {
-            const githubAuthDataString = localStorage.getItem('jwt_token');
+            let githubAuthDataString: string | null = null;
+if (typeof window !== 'undefined') {
+    githubAuthDataString = localStorage.getItem('jwt_token');
+}
+
             if (githubAuthDataString) {
                 try {
                     const githubAuthData = JSON.parse(githubAuthDataString);
@@ -127,12 +132,18 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                     } else {
                         // If expired, remove it
                         console.log('GitHub session expired, removing token.');
-                        localStorage.removeItem('jwt_token');
+                        if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+}
+
                         setToken(null);
                     }
                 } catch (jwtError) {
                     console.error('Invalid GitHub JWT data found, removing it.', jwtError);
-                    localStorage.removeItem('jwt_token');
+                    if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+}
+
                     setToken(null);
                 }
             } else {
@@ -198,6 +209,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     };
 
     useEffect(() => {
+        if (typeof window === 'undefined')  return;
         const initializeAuth = async () => {
             // Only proceed if we're in browser environment
             if (typeof window === 'undefined') {
@@ -215,7 +227,10 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 // Create a session expiry for the GitHub token
                 const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
                 const githubAuthData = { token: githubTokenFromUrl, expiresAt };
-                localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
+                if (typeof window !== 'undefined') {
+    localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
+}
+
 
                 history.replace(window.location.pathname);
                 // We will re-check tokens which will also schedule the expiry timer
@@ -260,7 +275,10 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                     console.error('Error fetching BTP user info:', error);
                     authStorage.clear();
                 }
-                window.dispatchEvent(new Event('storage'));
+                if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('storage'));
+}
+
             } else if (logoutSuccess === 'success' && logoutProvider) {
                 history.replace({ ...location, search: '' });
                 checkAuthTokens();
@@ -294,7 +312,10 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
 
         if (!provider || provider === 'all') {
             // Clear both storage systems locally first
-            localStorage.removeItem('jwt_token');
+            if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+}
+
             authStorage.clear();
             setUser(null);
             setUsers({ github: null, btp: null });
@@ -307,11 +328,17 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
                 window.location.href = logoutUrl.toString();
             } else {
-                window.location.href = baseRedirectUrl;
+                if (typeof window !== 'undefined') {
+    window.location.href = baseRedirectUrl;
+}
+
             }
         } else if (provider === 'github') {
             // Clear only GitHub authentication locally
-            localStorage.removeItem('jwt_token');
+           if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt_token');
+}
+
             setToken(null);
             const newUsers = { ...users, github: null };
             setUsers(newUsers);
@@ -326,8 +353,14 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 setUser(null);
             }
             // Trigger storage event to sync other tabs without a full page reload
-            window.location.href = baseRedirectUrl;
-            window.dispatchEvent(new Event('storage'));
+            if (typeof window !== 'undefined') {
+    window.location.href = baseRedirectUrl;
+}
+
+            if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('storage'));
+}
+
         } else if (provider === 'btp') {
             const authData = authStorage.load();
             const btpToken = authData?.token;
@@ -357,7 +390,10 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 } else {
                     setUser(null);
                 }
-                window.location.href = baseRedirectUrl;
+                if (typeof window !== 'undefined') {
+    window.location.href = baseRedirectUrl;
+}
+
             }
         }
     };

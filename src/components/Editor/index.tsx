@@ -183,30 +183,30 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         };
     }, []);
 
-    const handleAutomaticSync = async () => {
-        setIsSyncing(true);
-        try {
-            // Use the token from auth context instead of direct localStorage access
-            const authToken = token;
-            if (!authToken) {
-                throw new Error('No authentication token available');
-            }
+    // const handleAutomaticSync = async () => {
+    //     setIsSyncing(true);
+    //     try {
+    //         // Use the token from auth context instead of direct localStorage access
+    //         const authToken = token;
+    //         if (!authToken) {
+    //             throw new Error('No authentication token available');
+    //         }
 
-            const response = await fetch(`${expressBackendUrl}/api/sync-fork`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` },
-            });
-            if (!response.ok) {
-                throw new Error('Automatic sync failed. Please try the manual method.');
-            }
-            setShowSyncDialog(false);
-            handleSubmit();
-        } catch (error) {
-            alert(error.message);
-        } finally {
-            setIsSyncing(false);
-        }
-    };
+    //         const response = await fetch(`${expressBackendUrl}/api/sync-fork`, {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` },
+    //         });
+    //         if (!response.ok) {
+    //             throw new Error('Automatic sync failed. Please try the manual method.');
+    //         }
+    //         setShowSyncDialog(false);
+    //         handleSubmit();
+    //     } catch (error) {
+    //         alert(error.message);
+    //     } finally {
+    //         setIsSyncing(false);
+    //     }
+    // };
 
     const handleSubmit = async () => {
         setIsLoading(true);
