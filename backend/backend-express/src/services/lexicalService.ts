@@ -172,7 +172,8 @@ slug: ${currentFullSlug}
 sidebar_position: ${sidebarPosition}
 title: '${metadata.title.replace(/'/g, "''")}'
 description: '${(metadata.description || '').replace(/'/g, "''")}'
-keywords: ${(metadata.tags || []).map((tag) => `  - ${tag}`).join('\n')}
+keywords: 
+${(metadata.tags || []).map((tag) => `  - ${tag}`).join('\n')}
 sidebar_label: '${metadata.title.replace(/'/g, "''")}'
 image: img/logo.svg
 hide_table_of_contents: false
