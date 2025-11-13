@@ -1,6 +1,6 @@
 # SAP Architecture Center - Project Audit Report
 
-**Date**: January 13, 2025  
+**Date**: January 13, 2025 (Updated)  
 **Auditor**: Technical Review  
 **Project Version**: 2.2546.1  
 **Repository**: https://github.com/SAP/architecture-center
@@ -11,10 +11,17 @@
 
 This comprehensive audit reviews the SAP Architecture Center project, a Docusaurus-based documentation platform for SAP reference architectures. The project demonstrates strong use of modern web technologies (React, TypeScript, Docusaurus) and has excellent CI/CD automation. However, critical gaps exist in testing infrastructure, production-readiness, and code quality standards.
 
+### Recent Improvements (Last 24 Hours)
+- ✅ **Code cleanup**: Removed unused sidebar generation scripts (~117 lines)
+- ✅ **Component optimization**: Removed unused DocCategoryGeneratedIndexPage component (~585 lines)
+- ✅ **New component**: Added swizzled DocItem/Layout component for better customization
+- ✅ **Simplified configuration**: Removed unnecessary sidebarItemsGenerator
+
 ### Key Findings
-- ✅ **Strengths**: Modern tech stack, good documentation structure, automated deployments
+- ✅ **Strengths**: Modern tech stack, good documentation structure, automated deployments, active code cleanup
 - ⚠️ **Areas of Concern**: No test coverage, extensive console logging, security hardening needed
 - 📊 **Total Recommendations**: 20 items across 3 priority levels
+- 🎉 **Recent Progress**: Team is actively refactoring and removing dead code
 
 ---
 
@@ -1427,14 +1434,22 @@ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit ${1}'
 ### Project Statistics
 
 ```
-Lines of Code:        ~50,000+ (estimated)
-Components:           80+ React components
+Lines of Code:        ~49,200+ (down from ~50,000 after cleanup)
+Components:           80+ React components (recently optimized)
 Reference Archs:      27 (RA0000-RA0026)
 Dependencies:         100+ npm packages
 Contributors:         Multiple (tracked in docs/contributors.json)
 GitHub Stars:         [Check repository]
 Open Issues:          [Check repository]
+Recent Activity:      Active development with code cleanup efforts
 ```
+
+### Recent Code Changes (Last Commit)
+- ✅ Removed unused `_viewPointsIndex.js` script (117 lines)
+- ✅ Removed unused `DocCategoryGeneratedIndexPage` component (585 lines)
+- ✅ Simplified `docusaurus.config.ts` (removed sidebarItemsGenerator)
+- ✅ Cleaned up `sidebars.ts` configuration
+- ✅ Added custom `DocItem/Layout` component for better control
 
 ---
 
@@ -1462,6 +1477,7 @@ Open Issues:          [Check repository]
 - [ ] Standardize backend error handling
 
 **Week 4: Code Quality**
+- [x] ~~Remove dead code and unused components~~ (✅ Completed: Removed _viewPointsIndex.js and DocCategoryGeneratedIndexPage)
 - [ ] Configure ESLint with strict rules
 - [ ] Set up pre-commit hooks
 - [ ] Add CI pipeline for tests
@@ -1580,6 +1596,22 @@ Following this roadmap will transform the project into a production-ready, maint
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: January 13, 2025  
-**Next Review Date**: April 13, 2025
+**Document Version**: 1.1  
+**Last Updated**: January 13, 2025 (Refreshed after recent code cleanup)  
+**Next Review Date**: April 13, 2025  
+
+---
+
+## Changelog
+
+### Version 1.1 (January 13, 2025)
+- ✅ Updated to reflect recent code cleanup efforts
+- ✅ Noted removal of ~700 lines of unused code
+- ✅ Added swizzled DocItem/Layout component to technical overview
+- ✅ Updated project statistics to reflect cleanup
+- ✅ Marked code cleanup task as completed in action plan
+
+### Version 1.0 (January 13, 2025)
+- Initial comprehensive audit report created
+- 20 recommendations across 3 priority levels
+- Detailed technical analysis and action plan
