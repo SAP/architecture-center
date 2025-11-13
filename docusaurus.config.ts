@@ -1,7 +1,6 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
-const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
@@ -100,7 +99,6 @@ const config: Config = {
                     onInlineTags: 'warn',
                     routeBasePath: 'docs',
                     sidebarPath: require.resolve('./sidebars'),
-                    sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
                     editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                     tags: '../docs/tags.yml',
