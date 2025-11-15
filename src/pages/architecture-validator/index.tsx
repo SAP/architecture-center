@@ -110,7 +110,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                     cursor: 'pointer',
                                 }}
                             >
-                                Validation rules
+                                Validation Rules
                             </a>
                         </>
                     }
@@ -302,7 +302,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                     cursor: 'pointer',
                                 }}
                             >
-                                Validation rules
+                                Validation Rules
                             </a>
                         </b>
                     </>
