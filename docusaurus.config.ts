@@ -33,8 +33,8 @@ const config: Config = {
         },
     },
     customFields: {
-        validatorApiUrl: process.env.VALIDATOR_API_URL,
-        backendUrl: process.env.BACKEND_API_URL,
+        validatorApiUrl: process.env.VALIDATOR_DEV_RULES_API_URL,
+        backendUrl: process.env.BACKEND_DEV_API_URL,
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
             '/architecture-validator': 'btp',
