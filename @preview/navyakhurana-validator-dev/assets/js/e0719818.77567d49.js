@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[5220],{68669:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"community"}')}}]);
