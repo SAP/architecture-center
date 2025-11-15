@@ -96,7 +96,24 @@ export default function ArchitectureValidator(): React.JSX.Element {
             <Layout>
                 <Header
                     title="Architecture Validator"
-                    subtitle="BTP authentication required to access this feature"
+                    subtitle={
+                        <>
+                            BTP authentication required to access this feature.
+                            <br />
+                            Learn more:{' '}
+                            <a
+                                href="#"
+                                onClick={handleInfoClick}
+                                style={{
+                                    color: '#0073e6',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Validation rules
+                            </a>
+                        </>
+                    }
                     breadcrumbCurrent="Architecture Validator"
                 />
                 <main className={styles.mainContainer}>
@@ -268,7 +285,28 @@ export default function ArchitectureValidator(): React.JSX.Element {
         <Layout>
             <Header
                 title="Architecture Validator"
-                subtitle="Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines"
+                subtitle={
+                    <>
+                        Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice
+                        guidelines.
+                        <br />
+                        <br />
+                        <b>
+                            Learn more:{' '}
+                            <a
+                                href="#"
+                                onClick={handleInfoClick}
+                                style={{
+                                    color: '#ffffff',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Validation rules
+                            </a>
+                        </b>
+                    </>
+                }
                 breadcrumbCurrent="Architecture Validator"
             />
 
@@ -307,43 +345,35 @@ export default function ArchitectureValidator(): React.JSX.Element {
                     <div className={styles.contentArea}>
                         <div className={styles.actionsHeader}>
                             <Button
-                                icon="sap-icon://information"
-                                onClick={handleInfoClick}
-                                tooltip="View Validation Rules"
-                            ></Button>
+                                design="Emphasized"
+                                onClick={handleValidateBatch}
+                                disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
+                            >
+                                {isProcessingBatch
+                                    ? 'Validating...'
+                                    : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
+                            </Button>
 
-                            <div className={styles.flexCenterRow}>
-                                <Button
-                                    design="Emphasized"
-                                    onClick={handleValidateBatch}
-                                    disabled={isProcessingBatch || !managedFiles.some((f) => f.status === 'batched')}
-                                >
-                                    {isProcessingBatch
-                                        ? 'Validating...'
-                                        : `Validate All (${managedFiles.filter((f) => f.status === 'batched').length})`}
-                                </Button>
+                            <Button
+                                design="Default"
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={managedFiles.length >= 5}
+                            >
+                                Add More Files
+                            </Button>
 
-                                <Button
-                                    design="Default"
-                                    onClick={() => fileInputRef.current?.click()}
-                                    disabled={managedFiles.length >= 5}
-                                >
-                                    Add More Files
-                                </Button>
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept=".drawio"
+                                onChange={handleFileSelect}
+                                style={{ display: 'none' }}
+                                multiple
+                            />
 
-                                <input
-                                    ref={fileInputRef}
-                                    type="file"
-                                    accept=".drawio"
-                                    onChange={handleFileSelect}
-                                    style={{ display: 'none' }}
-                                    multiple
-                                />
-
-                                <Button design="Transparent" onClick={clearAll}>
-                                    Remove All
-                                </Button>
-                            </div>
+                            <Button design="Transparent" onClick={clearAll}>
+                                Remove All
+                            </Button>
                         </div>
 
                         {isProcessingBatch && (
