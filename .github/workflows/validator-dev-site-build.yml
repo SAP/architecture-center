@@ -1,19 +1,23 @@
-name: Release V2 Site Build
+name: Architecture Validator Dev Site Build
 
 on:
   workflow_dispatch:
 
 env:
-  PREVIEW_FOLDER: preview/releasev2
+  PREVIEW_FOLDER: preview/validator-dev
 
 jobs:
   build:
-    name: Build Site for Release V2 preview
+    name: Build Site for Architecture Validator Dev preview
     runs-on: ubuntu-latest
     env:
-      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
+      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_DEV_API_URL }}
       BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
       EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
+      VALIDATOR_RULES_API_URL: ${{ secrets.VALIDATOR_RULES_API_URL }}
+      VALIDATOR_OAUTH_AUTH_URL: ${{ secrets.VALIDATOR_OAUTH_AUTH_URL }}
+      VALIDATOR_OAUTH_CLIENT_ID: ${{ secrets.VALIDATOR_OAUTH_CLIENT_ID }}
+      VALIDATOR_OAUTH_CLIENT_SECRET: ${{ secrets.VALIDATOR_OAUTH_CLIENT_SECRET }}
     steps:
       - name: Checkout Release V2 Code
         uses: actions/checkout@v4
@@ -22,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: "24"
           cache: npm
 
       - name: Install Dependencies
@@ -42,9 +46,8 @@ jobs:
         run: |
           sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
           sed -E -i "s^const baseUrl = '(.*)';^const baseUrl = '/@${{ env.PREVIEW_FOLDER }}/';^g" docusaurus.config.ts
-          sed -E -i "s^title: 'Build resilient apps with SAP BTP',^title: 'Build resilient apps with SAP BTP (Release V2 Preview)',^g" docusaurus.config.ts
-          sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (Release V2 Preview)'^g" docusaurus.config.ts
-          sed -E -i "s^logo: \{^logo: \{href: 'https://github.com/${{ github.repository }}/tree/release-v2',^g" docusaurus.config.ts
+          sed -E -i "s^title: 'Architecture Center'^title: 'Architecture Center (Architecture Validator Dev Preview)'^g" docusaurus.config.ts
+          sed -E -i "s^logo: \{^logo: \{href: 'https://github.com/${{ github.repository }}/tree/validator-dev',^g" docusaurus.config.ts
 
       - name: Verify Patch Application
         run: cat docusaurus.config.ts
@@ -56,6 +59,9 @@ jobs:
 
       - name: Export drawios to svgs
         run: DOCKER=1 node src/_scripts/_export-drawios.js
+
+      - name: Generate validation rules
+        run: node src/_scripts/_generate-validator-rules.js
 
       - name: Build Website
         run: npm run build
@@ -84,7 +90,7 @@ jobs:
           path: build
 
   deploy:
-    name: Deploy Site for Release V2 Preview
+    name: Deploy Site for Architecture Validator Dev Preview
     runs-on: ubuntu-latest
     needs: build
     if: success()
