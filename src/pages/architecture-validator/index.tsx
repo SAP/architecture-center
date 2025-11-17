@@ -292,7 +292,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                         <br />
                         <br />
                         <b>
-                            Learn more:{' '}
+                            Learn More:{' '}
                             <a
                                 href="#"
                                 onClick={handleInfoClick}
