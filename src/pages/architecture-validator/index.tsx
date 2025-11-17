@@ -100,7 +100,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                         <>
                             BTP authentication required to access this feature.
                             <br />
-                            Learn more:{' '}
+                            Learn More:{' '}
                             <a
                                 href="#"
                                 onClick={handleInfoClick}
