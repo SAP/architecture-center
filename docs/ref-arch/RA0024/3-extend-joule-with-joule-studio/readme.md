@@ -55,17 +55,6 @@ last_update:
 Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.  
 This reference architecture outlines how Joule Studio can be leveraged to integrate and extend SAP and non-SAP solutions across cloud and hybrid landscapes. By tapping into the expertise of citizen developers, Joule Studio facilitates the adaptation, improvement, and innovation of business processes, driving positive business outcomes through sophisticated AI capabilities.
 
-
-:::note Devtoberfest Scavenger Hunt
-
-Congrats! You’ve found another piece of the **[Devtoberfest Scavenger](https://community.sap.com/t5/devtoberfest-blog-posts/introducing-the-devtoberfest-scavenger-hunt/ba-p/14183972)** Hunt secret code. The next 3 digits can be found from the picture of Kasimir the Cat. We suggest downloading the picture and examining it carefully.
-
-<em>![Kasimir the Cat](images/kasimir.png)</em>
-
-:::
-
-
-
 ## Architecture
 
 ![drawio](drawio/joule-studio-ref-arch.drawio)
