@@ -12,8 +12,11 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
   try {
     // get sidebar context directly from global data (build-time)
     const globalData = useGlobalData();
-    const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any } } | undefined;
+    const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any; communitySidebarContext?: any } } | undefined;
     const sidebarContext = tagsPluginData?.default?.sidebarContext;
+    const communitySidebarContext = tagsPluginData?.default?.communitySidebarContext;
+
+    console.log('Community Sidebar Context:', communitySidebarContext);
 
     let updatedProps = props;
     if (props.tag?.items && sidebarContext?.refarchSidebar) {
