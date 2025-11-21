@@ -14,7 +14,10 @@ keywords:
 sidebar_label: Non-Functional Pillars
 image: img/ac-soc-med.png
 tags:
-  - ref-arch
+  - genai
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

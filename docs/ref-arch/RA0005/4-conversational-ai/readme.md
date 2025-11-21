@@ -14,7 +14,11 @@ keywords:
 sidebar_label: Conversational AI & Joule
 image: img/ac-soc-med.png
 tags:
-  - ref-arch
+  - genai
+  - agents
+  - aws
+  - azure
+  - gcp
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
