@@ -100,18 +100,21 @@ export default function ArchitectureValidator(): React.JSX.Element {
                         <>
                             BTP authentication required to access this feature.
                             <br />
-                            Learn More:{' '}
-                            <a
-                                href="#"
-                                onClick={handleInfoClick}
-                                style={{
-                                    color: '#0073e6',
-                                    textDecoration: 'underline',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                Validation Rules
-                            </a>
+                            <br />
+                            <b>
+                                Learn More:{' '}
+                                <a
+                                    href="#"
+                                    onClick={handleInfoClick}
+                                    style={{
+                                        color: '#ffffff',
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Validation Rules
+                                </a>
+                            </b>
                         </>
                     }
                     breadcrumbCurrent="Architecture Validator"
