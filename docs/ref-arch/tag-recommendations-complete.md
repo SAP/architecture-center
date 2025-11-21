@@ -1,6 +1,6 @@
 # Tag Recommendations for Reference Architecture Documents
 
-*Generated: 2025-11-19*
+*Last Updated: 2025-11-21*
 
 **Total Documents:** 92
 
@@ -91,10 +91,10 @@
 | id-ra0021 | integration | integration | avikSap | 2024-08-01 |
 | id-ra0022 | integration | integration | avikSap | 2024-08-01 |
 | id-ra0023 | appdev; build; cap; aws; azure; gcp | appdev; build; cap; aws; azure; gcp | bzarske | 2025-06-06 |
-| id-ra0027-1 | genai; agents; build; appdev | genai; agents; appdev | pra1veenk | 2025-10-29 |
-| id-ra0027-2 | genai; agents; build; appdev; security | genai; agents; build; appdev; security | fabianleh | 2025-09-22 |
-| id-ra0027-3 | genai; agents; build; appdev | genai; agents; build; appdev | fabianleh | 2025-06-25 |
-| id-ra0027-4 | genai; agents; build; appdev | genai; agents; azure | user-bb83abb390 | 2025-10-29 |
+| id-ra0024-1 | genai; agents; build; appdev | genai; agents; build; appdev | pra1veenk | 2025-10-29 |
+| id-ra0024-2 | genai; agents; build; appdev; security | genai; agents; build; appdev; security | fabianleh | 2025-09-22 |
+| id-ra0024-3 | genai; agents; build; appdev | genai; agents; build; appdev | fabianleh | 2025-06-25 |
+| id-ra0024-4 | genai; agents; build; appdev | genai; agents; build; appdev | user-bb83abb390 | 2025-10-29 |
 | id-ra0024 | genai; agents; build; appdev | genai; agents; build; appdev | anbazhagana-uma | 2025-10-29 |
 | id-ra0025-1 | integration; transition | integration; transition | abklgithub | 2025-08-02 |
 | id-ra0025 | integration; transition | integration; transition | abklgithub | 2025-08-02 |
