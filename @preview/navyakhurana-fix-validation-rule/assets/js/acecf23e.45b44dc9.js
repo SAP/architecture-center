@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[1903],{1912:a=>{a.exports=JSON.parse('{"blogBasePath":"/@preview/navyakhurana-fix-validation-rule/blog","blogTitle":"SAP Architecture Center - News","authorsListPath":"/@preview/navyakhurana-fix-validation-rule/blog/authors"}')}}]);
