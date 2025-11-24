@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[1903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/@preview/daemon430-RA0027-generative-ai-on-sap-btp/blog","blogTitle":"SAP Architecture Center - News","authorsListPath":"/@preview/daemon430-RA0027-generative-ai-on-sap-btp/blog/authors"}')}}]);
