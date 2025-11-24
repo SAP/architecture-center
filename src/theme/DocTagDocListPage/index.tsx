@@ -15,21 +15,27 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
     const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any; communitySidebarContext?: any } } | undefined;
     const sidebarContext = tagsPluginData?.default?.sidebarContext;
     const communitySidebarContext = tagsPluginData?.default?.communitySidebarContext;
-
-    console.log('Community Sidebar Context:', communitySidebarContext);
+    // Detect navigation source by checking the allTagsPath
+    const isNavigatingFromCommunity = props.tag?.allTagsPath?.includes('/community/') || false;
 
     let updatedProps = props;
-    if (props.tag?.items && sidebarContext?.refarchSidebar) {
+    if (props.tag?.items) {
       try {
-        const updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
+        // Navigated from Docs section
+        if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
+          const updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
 
-        updatedProps = {
-          ...props,
-          tag: {
-            ...props.tag,
-            items: updatedTagItems
-          }
-        };
+          updatedProps = {
+            ...props,
+            tag: {
+              ...props.tag,
+              items: updatedTagItems
+            }
+          };
+        } else {
+          // Navigated from Community section
+          console.log('Community Sidebar Context:', communitySidebarContext);
+        }
       } catch (mappingError) {
         // Log error but continue with original props if mapping fails
         console.warn('Failed to create tag sidebar mapping:', mappingError);
