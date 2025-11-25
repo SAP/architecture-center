@@ -24,8 +24,9 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
       // Navigated from Docs section
       if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
         updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
-      } else if (isNavigatingFromCommunity && communitySidebarContext?.communitySidebar) {
-        // Navigated from Community section
+      }
+      // Navigated from Community section
+      else if (isNavigatingFromCommunity && communitySidebarContext?.communitySidebar) {
         updatedTagItems = createTagSidebarMapping(props.tag.items, communitySidebarContext.communitySidebar);
       }
       
