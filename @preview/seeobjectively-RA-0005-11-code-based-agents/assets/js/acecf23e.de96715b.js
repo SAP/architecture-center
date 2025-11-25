@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[1903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/@preview/seeobjectively-RA-0005-11-code-based-agents/blog","blogTitle":"SAP Architecture Center - News","authorsListPath":"/@preview/seeobjectively-RA-0005-11-code-based-agents/blog/authors"}')}}]);
