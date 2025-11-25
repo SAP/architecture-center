@@ -20,26 +20,23 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
 
     let updatedProps = props;
     if (props.tag?.items) {
-      try {
-        // Navigated from Docs section
-        if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
-          const updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
-
-          updatedProps = {
-            ...props,
-            tag: {
-              ...props.tag,
-              items: updatedTagItems
-            }
-          };
-        } else {
-          // Navigated from Community section
-          console.log('Community Sidebar Context:', communitySidebarContext);
-        }
-      } catch (mappingError) {
-        // Log error but continue with original props if mapping fails
-        console.warn('Failed to create tag sidebar mapping:', mappingError);
-        updatedProps = props;
+      let updatedTagItems = [];
+      // Navigated from Docs section
+      if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
+        updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
+      } else if (isNavigatingFromCommunity && communitySidebarContext?.communitySidebar) {
+        // Navigated from Community section
+        updatedTagItems = createTagSidebarMapping(props.tag.items, communitySidebarContext.communitySidebar);
+      }
+      
+      if (updatedTagItems.length > 0) {
+        updatedProps = {
+          ...props,
+          tag: {
+            ...props.tag,
+            items: updatedTagItems
+          }
+        };
       }
     }
 
