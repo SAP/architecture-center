@@ -54,7 +54,7 @@ They are designed for rapid development through configuration rather than coding
 - **Enterprise Integration**: Seamless connection via REST/OData APIs to SAP products, BTP services, and third-party applications.
 - **Secure & Scalable**: Built on top of Generative AI Hub with anonymization, metering and role-based security.
 
-For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/readme.md).
+For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md).
 
 ### Code-Based Agents ###
 
