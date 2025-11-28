@@ -7,15 +7,15 @@ sidebar_custom_props:
 title: AI Agents & Agent Builder
 description: >-
   Develop AI agents using SAP Project Agent Builder (PAB) for enterprise
-  automation with content/code-based strategies and multi-step reasoning
+  automation with low-code or pro-based strategies and multi-step reasoning
   capabilities.
 keywords:
   - sap
   - ai
   - project agent builder
   - enterprise AI automation
-  - code-based AI agents
-  - content-based AI
+  - pro-code AI agents
+  - low-code AI
 sidebar_label: AI Agents & Agent Builder
 image: img/ac-soc-med.png
 tags:
@@ -42,11 +42,11 @@ last_update:
 AI agents bridge a critical gap in enterprise automation by autonomously executing multi-step processes, dynamically adjusting their strategies based on real-time context, and integrating seamlessly with enterprise services. They excel where traditional automation and single-turn LLM interactions fall short - handling tasks that require adaptive reasoning, conditional logic, and orchestration across heterogeneous environments. As modern enterprises face increasingly complex, non-linear workflows that span multiple systems, data sources, and decision points, AI agents provide the intelligence and flexibility needed to drive meaningful outcomes.
 
 ## AI Agent Development Approaches
-SAP supports two complementary approaches to building AI agents: **Content-Based Agents** and **Code-Based Agents**. These patterns distinguish between configuration-driven and programmatic implementations  - helping architects and developers choose the right balance between speed, flexibility and control.
+SAP supports two complementary approaches to building AI agents: **Low-Code Agents** and **Pro-Code Agents**. These patterns distinguish between configuration-driven and programmatic implementations  - helping architects and developers choose the right balance between speed, flexibility and control.
 
-### Content-Based Agents ###
+### Low-Code Agents ###
 
-Built using **Joule Studio’s Agent Builder**, SAP’s low-code environment on SAP BTP, these **Content-Based Agents** are ideal for rapid rollout of agent-based automation across the SAP ecosystem with minimal coding effort.
+Built using **Joule Studio’s Agent Builder**, SAP’s low-code environment on SAP BTP, these **Low-Code Agents** are ideal for rapid rollout of agent-based automation across the SAP ecosystem with minimal coding effort.
 
 They are designed for rapid development through configuration rather than coding with key characteristics:
 - **Business Content First**: Structured business context and semantic rules drive agent behavior.
@@ -56,9 +56,9 @@ They are designed for rapid development through configuration rather than coding
 
 For more details on leveraging AI Agents within Joule Studio’s Agent Builder, see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md).
 
-### Code-Based Agents ###
+### Pro-Code Agents ###
 
-Offering maximum flexibility, **Code-Based Agents** enable developers to implement bespoke logic and fine-tuned workflows directly on SAP BTP, making them ideal for complex business requirements that go beyond low-code configurations.
+Offering maximum flexibility, **Pro-Code Agents** enable developers to implement bespoke logic and fine-tuned workflows directly on SAP BTP, making them ideal for complex business requirements that go beyond low-code configurations.
 
 They leverage popular frameworks such as LangGraph, AutoGen, CrewAI, or smolagents to deliver:
 
@@ -90,9 +90,9 @@ The diagram below illustrates the agent’s actions cycle at runtime, which coul
 
 
 ## Choosing the Right Approach
-In most cases, **Content-Based Agents** should be the default, as they minimize maintenance and accelerate deployment. The choice depends on the balance between speed, maintenance effort and level of customization your project requires:
-- Use **Content-Based Agents** when speed, ease of integration and SAP alignment are priorities.
-- Choose **Code-Based Agents** when fine-grained control, advanced customization, or non-standard integrations are required.
+In most cases, **Low-Code Agents** should be the default, as they minimize maintenance and accelerate deployment. The choice depends on the balance between speed, maintenance effort and level of customization your project requires:
+- Use **Low-Code Agents** when speed, ease of integration and SAP alignment are priorities.
+- Choose **Pro-Code Agents** when fine-grained control, advanced customization, or non-standard integrations are required.
 
 ![Agent Design Decision Tree](./images/Agent_FD.svg)
 
