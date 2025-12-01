@@ -66,7 +66,7 @@ They leverage popular frameworks such as LangGraph, AutoGen, CrewAI, or smolagen
 - **Tailored Integrations**: Bespoke connectors and adapters for complex landscapes.
 - **Advanced Use Cases**: Ideal for scenarios that require deep customization or code-level intervention.
 
-![drawio](./drawio/reference-architecture-generative-ai-code-based.drawio)
+![drawio](./drawio/reference-architecture-generative-ai-pro-code.drawio)
 
 ## Elements of AI Agents
 
