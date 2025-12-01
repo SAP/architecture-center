@@ -1,5 +1,5 @@
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
-const { execFileSync, execSync } = require('node:child_process');
+const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
 const { userInfo } = require('os');
 const QRCode = require('qrcode');
@@ -17,7 +17,6 @@ const DRAWIO_CLI_BINARY = isMac
     : 'C:\\Program Files\\draw.io\\draw.io.exe';
 // assuming script is in src/_scripts/
 const ROOT = normalizePath(__dirname + '/../..');
-const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
 const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to BASE_URL for consistency
