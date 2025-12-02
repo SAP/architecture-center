@@ -1,7 +1,7 @@
 ---
-id: id-ra0005-11
-slug: /ref-arch/e5eb3b9b1d/11
-sidebar_position: 11
+id: id-ra0005-5-1
+slug: /ref-arch/e5eb3b9b1d/5/1
+sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Building Code-Based Agents
@@ -119,11 +119,11 @@ Code-based agents are the right choice when:
 - **Fine-Grained Control**: Precise control over reasoning steps, memory, and tool selection
 - **Advanced Patterns**: Implementing sophisticated orchestration like multi-agent systems or self-improving agents
 
-For simpler scenarios focused on rapid deployment within the SAP ecosystem, consider [Content-Based Agents](../5-ai-agents/readme.md#content-based-agents) using Joule Studio's Agent Builder.
+For simpler scenarios focused on rapid deployment within the SAP ecosystem, consider [Content-Based Agents](../readme.md#content-based-agents) using Joule Studio's Agent Builder.
 
 ## Services & Components
 
-For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](./#services--components).
+For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](../../#services--components).
 
 Additional components specific to this architecture:
 
@@ -145,8 +145,8 @@ Examples of code-based agent implementations:
 
 For more information related to code-based agents:
 
-- [AI Agent Development Approaches](../5-ai-agents/readme.md#ai-agent-development-approaches)
-- [Agent Evaluation Framework](../5-ai-agents/readme.md#agent-evaluation)
+- [AI Agent Development Approaches](../readme.md#ai-agent-development-approaches)
+- [Agent Evaluation Framework](../readme.md#agent-evaluation)
 - [SAP AI Core Documentation](https://help.sap.com/docs/sap-ai-core)
 - [Kyma Runtime Documentation](https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-environment)
 - [LiteLLM Documentation](https://docs.litellm.ai/)

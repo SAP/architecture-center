@@ -68,6 +68,8 @@ They leverage popular frameworks such as LangGraph, AutoGen, CrewAI, or smolagen
 
 ![drawio](./drawio/reference-architecture-generative-ai-code-based.drawio)
 
+For a detailed guide on building code-based agents, including deployment approaches with Kyma Runtime, LLM access patterns using LiteLLM, and framework-specific implementation details, see [Building Code-Based Agents](./1-code-based-agents/readme.md).
+
 ## Elements of AI Agents
 
 To understand the technical working of an AI Agent, consider its five core components explained below.
