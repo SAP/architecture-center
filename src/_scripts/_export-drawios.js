@@ -80,7 +80,7 @@ function exportAllDrawios() {
         const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
         drawioPathsToContentHashes[input] = drawioContentHash;
         if  (manifest[drawioContentHash]) {
-            log(`Cache hit for ${prettyPaths(input)}, nothing to do.`);
+            log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`);
         } else { // -> Cache miss
             try {
                 let cmd = DRAWIO_CLI_BINARY;
@@ -138,7 +138,7 @@ async function watermarkAll() {
         const cachedSvgPath = join(DRAWIO_SVGS_CACHE_DIR, `${drawioContentHash}-${basename(svgPath)}`);
         if (manifest[drawioContentHash]) {
             copyFileSync(cachedSvgPath, svgPath);
-            log(`Using watermarked SVG from cache for ${prettyPaths(svgPath)}`);
+            log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
             continue;
         }
         if (!existsSync(svgPath)) {
@@ -225,7 +225,7 @@ async function watermarkAll() {
                 .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
             writeFileSync(svgPath, svg);
-            log(prettyPaths('Watermarked ' + svgPath));
+            log(prettyPaths('Watermarked ' + svgPath, 0));
             try {
                 // Cache the watermarked svg.
                 writeFileSync(cachedSvgPath, svg);
@@ -318,8 +318,8 @@ async function generateArtifacts() {
     log('Successfully generated artifacts data.json.');
 }
 
-function prettyPaths(log) {
-    const strip = DOCKER ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
+function prettyPaths(log, isInDocker = DOCKER) {
+    const strip = isInDocker ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
     return log.replaceAll(strip, '').replaceAll('\n', '');
 }
 
