@@ -2,7 +2,7 @@ const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFil
 const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
 const { userInfo, homedir } = require('node:os');
-const { createHash } = require("node:crypto");
+const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
 
@@ -24,7 +24,7 @@ const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to
 const ARTIFACTS_DIR = ROOT + '/static/artifacts'; // Added for artifacts generation
 const THUMBNAILS_DIR = ARTIFACTS_DIR + '/thumbnails'; // Added for thumbnails generation
 const DRAWIO_SVGS_CACHE_DIR = `${homedir}/.cache/architecture-center/drawio-svgs`; // The SVGs will be cached here
-const DRAWIO_SVGS_CACHE_MANIFEST = DRAWIO_SVGS_CACHE_DIR + "/manifest.json";
+const DRAWIO_SVGS_CACHE_MANIFEST = DRAWIO_SVGS_CACHE_DIR + '/manifest.json';
 
 if (!DOCKER) {
     if (!existsSync(DRAWIO_CLI_BINARY)) {
@@ -46,7 +46,7 @@ if (!existsSync(DRAWIO_SVGS_CACHE_DIR)) mkdirSync(DRAWIO_SVGS_CACHE_DIR, { recur
 // Mapping drawio content hashes -> path of cached watermarked svg
 let manifest;
 try {
-    manifest = JSON.parse(readFileSync(DRAWIO_SVGS_CACHE_MANIFEST, "utf-8"));
+    manifest = JSON.parse(readFileSync(DRAWIO_SVGS_CACHE_MANIFEST, 'utf-8'));
 } catch {
     manifest = {};
 }
@@ -79,7 +79,7 @@ function exportAllDrawios() {
         const drawioContent = readFileSync(input);
         const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
         drawioPathsToContentHashes[input] = drawioContentHash;
-        if  (manifest[drawioContentHash]) {
+        if (manifest[drawioContentHash]) {
             log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`);
         } else { // -> Cache miss
             try {
@@ -97,7 +97,7 @@ function exportAllDrawios() {
                 }
 
                 const stdout = execFileSync(cmd, args, { encoding: 'utf8', timeout: 600000 });
-                log("Export", prettyPaths(stdout));
+                log('Export', prettyPaths(stdout));
 
                 if (GITHUB_ACTIONS) {
                     const user = userInfo().username;
@@ -328,7 +328,7 @@ async function main() {
     exportAllDrawios(); // Phase 1: Export all drawios
     await watermarkAll(); // Phase 1: Apply watermarks
     try {
-       writeFileSync(DRAWIO_SVGS_CACHE_MANIFEST, JSON.stringify(manifest));
+        writeFileSync(DRAWIO_SVGS_CACHE_MANIFEST, JSON.stringify(manifest));
     } catch (e) {
         log(`[WARNING] Could not save updated cache manifest. Error: ${e.message}`);
     }
