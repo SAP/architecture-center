@@ -29,6 +29,7 @@ export const techPartners = [
     { id: 'ibm', title: 'IBM' },
     { id: 'azure', title: 'Microsoft Azure' },
     { id: 'nvidia', title: 'Nvidia' },
+    { id: 'snowflake', title: 'Snowflake' },
 ];
 
 export const addResData = [
