@@ -1,23 +1,84 @@
-.fixedToolbar {
+.toolbarContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     padding: 8px 12px;
     background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
-    gap: 4px;
     position: sticky;
     top: 0;
     z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.group {
+.scrollableToolbar {
+    flex: 1; 
+    display: flex;
+    flex-wrap: wrap; 
+    height: 32px; 
+    overflow: hidden; 
+    align-items: center;
+    gap: 2px; 
+}
+
+.responsiveItemWrapper {
     display: flex;
     align-items: center;
-    gap: 2px;
 }
 
-.button,
-.dropdownToggle {
+.hamburgerContainer {
+    flex-shrink: 0;
+    margin-left: 4px; 
+    padding-left: 8px;
+    border-left: 1px solid #dee2e6;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: white; 
+}
+
+.hamburgerDropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 220px; 
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+}
+
+
+.menuGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menuHeader {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #868e96; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding-left: 2px;
+}
+
+.menuRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+
+.button, .dropdownToggle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,117 +90,44 @@
     border-radius: 6px;
     cursor: pointer;
     color: #495057;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease;
 }
-
-.button:hover,
-.dropdownToggle:hover {
-    background-color: #f1f3f5;
-    color: #212529;
-}
-
-.button.active {
-    background-color: #e9ecef;
-    color: #0b65de;
-}
-
-.button.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+.button:hover, .dropdownToggle:hover { background-color: #f1f3f5; color: #212529; }
+.button.active { background-color: #e9ecef; color: #0b65de; }
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .divider {
     width: 1px;
     height: 20px;
     background-color: #dee2e6;
-    margin: 0 8px;
+    margin: 0 4px; 
 }
 
-.dropdown {
-    position: relative;
-}
 
-.dropdownToggle {
-    gap: 6px;
-    font-size: 14px;
-    padding: 0 8px;
-}
-
+.dropdown { position: relative; }
+.dropdownToggle { gap: 6px; font-size: 14px; padding: 0 8px; }
 .dropdownMenu {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 100;
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    min-width: 180px;
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
+    position: absolute; top: calc(100% + 8px); left: 0; z-index: 100;
+    background-color: #ffffff; border: 1px solid #dee2e6;
+    border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    min-width: 180px; padding: 6px; display: flex; flex-direction: column;
 }
-
+.dropdownMenuRight { left: auto; right: 0; }
 .dropdownItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding: 8px 10px;
-    border: none;
-    background: none;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #212529;
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    padding: 8px 10px; border: none; background: none; text-align: left;
+    cursor: pointer; border-radius: 4px; font-size: 14px; color: #212529;
 }
+.dropdownItem:hover { background-color: #f1f3f5; }
 
-.dropdownItem:hover {
-    background-color: #f1f3f5;
-}
 
-.dropdownMenuRight {
-    left: auto;
-    right: 0;
-}
-
-:root[data-theme='dark'] .fixedToolbar {
-    background-color: var(--sapBackgroundColor);
-    border-bottom: 1px solid var(--sapToolbar_BorderColor);
-}
-
-:root[data-theme='dark'] .button,
-:root[data-theme='dark'] .dropdownToggle {
-    color: var(--sapTextColor);
-}
-
-:root[data-theme='dark'] .button:hover,
-:root[data-theme='dark'] .dropdownToggle:hover {
-    background-color: var(--sapButton_Lite_Hover_Background);
-    color: var(--sapButton_TextColor);
-}
-
-:root[data-theme='dark'] .button.active {
-    background-color: var(--sapButton_Emphasized_Background);
-    color: var(--sapButton_Emphasized_TextColor);
-}
-
-:root[data-theme='dark'] .divider {
-    background-color: var(--sapToolbar_SeparatorColor);
-}
-
+:root[data-theme='dark'] .toolbarContainer,
+:root[data-theme='dark'] .hamburgerContainer,
+:root[data-theme='dark'] .hamburgerDropdown,
 :root[data-theme='dark'] .dropdownMenu {
-    background-color: var(--sapList_Background);
-    border: 1px solid var(--sapList_BorderColor);
-    box-shadow: 0 4px 12px var(--sapContent_ShadowColor);
+    background-color: var(--sapBackgroundColor);
+    border-color: var(--sapToolbar_BorderColor);
 }
-
-:root[data-theme='dark'] .dropdownItem {
-    color: var(--sapList_TextColor);
-}
-
-:root[data-theme='dark'] .dropdownItem:hover {
-    background-color: var(--sapList_Hover_Background);
-    color: var(--sapList_Hover_TextColor);
-}
+:root[data-theme='dark'] .menuHeader { color: var(--sapContent_LabelColor); }
+:root[data-theme='dark'] .button, :root[data-theme='dark'] .dropdownToggle { color: var(--sapTextColor); }
+:root[data-theme='dark'] .button:hover { background-color: var(--sapButton_Lite_Hover_Background); }
