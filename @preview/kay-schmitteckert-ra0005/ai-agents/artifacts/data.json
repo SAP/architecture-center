@@ -24,6 +24,14 @@
     "shortDescription": "Explore how SAP Business Data Cloud (BDC) acts as the business-centric integration layer for enterprises looking to harmonize SAP and non-SAP data across platforms like Snowflake, Azure, GCP, AWS, and Databricks."
   },
   {
+    "id": "ra0005",
+    "name": "Generative AI on SAP BTP",
+    "drawioLink": "PLACEHOLDER:reference-architecture-generative-ai.drawio",
+    "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/generative-ai-on-sap-btp.svg",
+    "acLink": "https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d",
+    "shortDescription": "Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for similarity search and advanced AI patterns."
+  },
+  {
     "id": "ra0006",
     "name": "Secure connectivity with SAP Private Link service",
     "drawioLink": "PLACEHOLDER:secure-connectivity-with-sap-private-link-service.drawio",
