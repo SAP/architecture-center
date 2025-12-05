@@ -227,6 +227,10 @@ const config: Config = {
                             type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs?partners=nvidia">Nvidia</a>`,
                         },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=snowflake">Snowflake</a>`,
+                        },
                     ],
                 },
                 {

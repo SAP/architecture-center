@@ -43,6 +43,12 @@ const logos = [
         darkImg: 'AC_amazon_logo_dark.webp',
         filter: { partners: ['aws'] },
     },
+    {
+        name: 'Snowflake',
+        lightImg: 'AC_snowflake_logo_light.webp',
+        darkImg: 'AC_snowflake_logo_dark.webp',
+        filter: { partners: ['snowflake'] },
+    },
 ];
 
 export default function TrustedTecPartnersSection(): JSX.Element {
