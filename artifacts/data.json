@@ -26,7 +26,7 @@
   {
     "id": "ra0005",
     "name": "Generative AI on SAP BTP",
-    "drawioLink": "https://architecture.learning.sap.com/reference-architecture-generative-ai-90f644fa4ed700ea.drawio",
+    "drawioLink": "https://architecture.learning.sap.com/reference-architecture-generative-ai-5457e6a54f0e70a9.drawio",
     "thumbnailLink": "https://architecture.learning.sap.com/artifacts/thumbnails/generative-ai-on-sap-btp.svg",
     "acLink": "https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d",
     "shortDescription": "Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for similarity search and advanced AI patterns."
