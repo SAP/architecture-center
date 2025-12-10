@@ -24,8 +24,6 @@ last_update:
   date: 2025-05-19
 ---
 
-# Diagram Best Practices
-
 This guide provides best practices for creating and contributing diagrams to the SAP Architecture Center. It covers **Draw.io diagrams** for SAP solution architectures and **Mermaid diagrams** for flow-based visualizations. Follow these guidelines to ensure your diagrams are consistent, visually appealing, and easy to understand.
 
 ## Draw.io Diagrams for SAP BTP Solution Architectures
@@ -64,7 +62,7 @@ Use **Draw.io diagrams** when:
     - Use **Level 1 or Level 2 diagrams** for detailed technical representations.
 
 4. **Follow Repository Structure**:
-    - Place `.drawio` files in the `drawio/` folder and refer to them in your markdown as in the [Components](components.md#calling-the-drawio-component-in-the-page-body-of-the-readmemd-file) reference.
+    - Place `.drawio` files in the `drawio/` folder and refer to them in your markdown as in the [Components](05-components.md#calling-the-drawio-component-in-the-page-body-of-the-readmemd-file) reference.
     - Example structure:
         ```bash
         ref-arch/

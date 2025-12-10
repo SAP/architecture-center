@@ -75,6 +75,14 @@ transition:
   label: "Transition Architectures"
   description: "These reference architectures are designed to help organizations transition from legacy systems to cloud-native architectures, ensuring a smooth migration while maintaining business continuity and minimizing disruption."
 
+snowflake:
+  label: "Snowflake"
+  description: "Snowflake is a cloud-based data warehousing platform that provides data storage, processing, and analytic solutions. It enables organizations to consolidate data from various sources into a single source of truth, allowing for efficient data analysis and business intelligence."
+
+bdc:
+  label: "SAP Business Data Cloud"
+  description: "SAP Business Data Cloud (BDC) is a cloud-based solution that enables businesses to manage and analyze their data effectively. It provides tools for data integration, data quality management, and advanced analytics, helping organizations to derive insights and make informed decisions." 
+
 # generic tags
 demo:
   label: "Demo"

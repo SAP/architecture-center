@@ -12,7 +12,6 @@ import styles from './styles.module.css';
 export default function DocRootLayout({ children }: Props): JSX.Element {
     const sidebar = useDocsSidebar();
     const [hiddenSidebarContainer, setHiddenSidebarContainer] = useState(false);
-    // custom viewpoint sidebars have customProps.id defined (see _generatedIndexCategories.json)
     // we use that information to hide the sidebar in such case
 
     const location = useLocation();

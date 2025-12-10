@@ -82,7 +82,7 @@ This reference architecture also refers to the UI integration use case pattern o
 
 7. When moving business content from one environment to another – for example from development to test – this can be achieved via manual export/import or via the more elaborated integration with SAP Cloud Transport Management. For more information, see:
     - [Transporting Content](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/transporting-content) for SAP Build Work Zone, standard edition
-    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, premium edition
+    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, advanced edition
       
 The SAP Build Work Zone architecture diagram highlights seven key flows when working with business sites to unify access to applications, approvals, content and more.
 

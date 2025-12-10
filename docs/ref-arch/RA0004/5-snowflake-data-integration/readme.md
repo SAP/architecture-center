@@ -1,7 +1,7 @@
 ---
-id: id-ra0004-4
+id: id-ra0004-5
 slug: /ref-arch/a07a316077/5
-sidebar_position: 6
+sidebar_position: 5
 sidebar_custom_props:
   category_index: []
 title: Integration with Snowflake
@@ -20,6 +20,7 @@ image: img/ac-soc-med.png
 tags:
   - snowflake
   - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

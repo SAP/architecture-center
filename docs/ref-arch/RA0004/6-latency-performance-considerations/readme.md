@@ -1,7 +1,7 @@
 ---
-id: id-ra0004-5
+id: id-ra0004-6
 slug: /ref-arch/a07a316077/6
-sidebar_position: 7
+sidebar_position: 6
 sidebar_custom_props:
   category_index: []
 title: Latency and Performance considerations
@@ -18,6 +18,7 @@ sidebar_label: Latency and Performance considerations
 image: img/ac-soc-med.png
 tags:
   - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

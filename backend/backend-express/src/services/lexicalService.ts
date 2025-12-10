@@ -172,6 +172,8 @@ slug: ${currentFullSlug}
 sidebar_position: ${sidebarPosition}
 title: '${metadata.title.replace(/'/g, "''")}'
 description: '${(metadata.description || '').replace(/'/g, "''")}'
+keywords: 
+${(metadata.tags || []).map((tag) => `  - ${tag}`).join('\n')}
 sidebar_label: '${metadata.title.replace(/'/g, "''")}'
 image: img/logo.svg
 hide_table_of_contents: false
@@ -257,7 +259,17 @@ last_update:
 }
 
 export function generateFileTreeInMemory(rootDoc: DocumentObject, raFolderName: string): FileForCommit[] {
+    const match = raFolderName.match(/\d+/);
+    const initialSidebarPosition = match ? parseInt(match[0], 10) : 1;
     const initialIdSegments = [raFolderName.toLowerCase()];
     const initialParentSlug = '/ref-arch';
-    return processDocumentTreeRecursively(rootDoc, raFolderName, '', 1, initialIdSegments, initialParentSlug, true);
+    return processDocumentTreeRecursively(
+        rootDoc,
+        raFolderName,
+        '',
+        initialSidebarPosition,
+        initialIdSegments,
+        initialParentSlug,
+        true
+    );
 }

@@ -30,7 +30,7 @@ You are welcome to contribute content (code, documentation etc.) to this open so
 There are some important things to know:
 
 1. You must **comply to the license of this project**, **accept the Developer Certificate of Origin** (see below) before being able to contribute. The acknowledgement to the DCO will usually be requested from you as part of your first pull request to this project.
-2. Please **adhere to our [Code of Conduct](../code-of-conduct.md)**.
+2. Please **adhere to our [Code of Conduct](../08-code-of-conduct.md)**.
 3. If you plan to use **generative AI for your contribution**, please see our guideline below.
 4. **Not all proposed contributions can be accepted**. Some features may fit another project better or doesn't fit the general direction of this project. Of course, this doesn't apply to most bug fixes, but a major feature implementation for instance needs to be discussed with one of the maintainers first. Possibly, one who touched the related code or module recently. The more effort you invest, the better you should clarify in advance whether the contribution will match the project's direction. The best way would be to just open an issue to discuss the feature you plan to implement (make it clear that you intend to contribute). We will then forward the proposal to the respective code owner. This avoids disappointment.
 
@@ -48,8 +48,8 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 
 1. Make sure the change is welcome (see [General Remarks](#general-remarks)).
 2. Choose your preferred contribution method:  
-   - [Get Started with Quick Start](Guidelines/GetStarted/get-started-quickstart.md) – a no-code approach.  
-   - [Get Started with VSCode (CLI)](Guidelines/GetStarted/get-started-vscode.md) – a code-based approach.  
+   - [Get Started with Quick Start](02-Guidelines/02-GetStarted/01-get-started-quickstart.md) – a no-code approach.  
+   - [Get Started with VSCode (CLI)](02-Guidelines/02-GetStarted/02-get-started-vscode.md) – a code-based approach.  
 3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts.  
 4. Create a **pull request (PR)** in the repository using your feature or update branch.
    :::info Note

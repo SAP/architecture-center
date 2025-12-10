@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-2
 slug: /ref-arch/a07a316077/2
-sidebar_position: 3
+sidebar_position: 2
 sidebar_custom_props:
   category_index: []
 title: Integration with Azure data sources
@@ -19,6 +19,7 @@ image: img/ac-soc-med.png
 tags:
   - azure
   - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

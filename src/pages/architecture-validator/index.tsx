@@ -60,6 +60,12 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const isMobile = useIsMobile();
 
     const isBtpAuthenticated = users.btp !== null;
+    const baseUrl = siteConfig.baseUrl;
+
+    const handleInfoClick = () => {
+        const infoUrl = `${baseUrl}community/validation-rules`;
+        window.open(infoUrl, '_blank', 'noopener,noreferrer');
+    };
 
     if (isMobile) {
         return (
@@ -90,7 +96,27 @@ export default function ArchitectureValidator(): React.JSX.Element {
             <Layout>
                 <Header
                     title="Architecture Validator"
-                    subtitle="BTP authentication required to access this feature"
+                    subtitle={
+                        <>
+                            BTP authentication required to access this feature.
+                            <br />
+                            <br />
+                            <b>
+                                Learn More:{' '}
+                                <a
+                                    href="#"
+                                    onClick={handleInfoClick}
+                                    style={{
+                                        color: '#ffffff',
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Validation Rules
+                                </a>
+                            </b>
+                        </>
+                    }
                     breadcrumbCurrent="Architecture Validator"
                 />
                 <main className={styles.mainContainer}>
@@ -262,7 +288,28 @@ export default function ArchitectureValidator(): React.JSX.Element {
         <Layout>
             <Header
                 title="Architecture Validator"
-                subtitle="Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines"
+                subtitle={
+                    <>
+                        Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice
+                        guidelines.
+                        <br />
+                        <br />
+                        <b>
+                            Learn More:{' '}
+                            <a
+                                href="#"
+                                onClick={handleInfoClick}
+                                style={{
+                                    color: '#ffffff',
+                                    textDecoration: 'underline',
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Validation Rules
+                            </a>
+                        </b>
+                    </>
+                }
                 breadcrumbCurrent="Architecture Validator"
             />
 

@@ -82,7 +82,7 @@ Here are the main features and tips to get started:
     Supported file type: `.docx` (MS Word files).  
     Uploaded files are **automatically converted to Markdown** during submission.  
     :::
-- To edit your architecture [front-matter](community/Guidelines/front-matter.md):
+- To edit your architecture [front-matter](community/02-Guidelines/04-front-matter.md):
   - Click the **edit (pencil) icon** on the top-right corner to modify the **front matter** (title, description, tags, etc.).
 - To edit **contributors**, scroll to the end of your architecture page and click the **edit (pencil)** icon in the contributors section.  
 - To add **subpages**, click the **“+”** button in the left sidebar and follow the same creation steps.

@@ -19,10 +19,10 @@ keywords:
   - zero trust
 sidebar_label: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 tags:
-  - data 
-  - sap bdc
+  - data
   - security
-  - sap-databricks
+  - databricks
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
