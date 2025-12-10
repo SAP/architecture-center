@@ -32,18 +32,20 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - SeeObjective
+  - seeobjectively
   - guilherme-segantini 
   - jmsrpp
   - anbazhagan-uma
 last_update:
-  author: guilherme-segantini
-  date: 2025-12-05
+  author: seeobjectively
+  date: 2025-12-10
 ---
 
 Enterprises possess a wealth of invaluable business data within their SAP systems. However, activating this data for modern Artificial Intelligence is often a complex, disconnected, and risky endeavor. To stay competitive, organizations need a strategy to transform this data into reliable, governed, and actionable AI-driven insights that are deeply integrated with core business processes.
 
 This reference architecture presents a cohesive vision for combining **SAP Business Data Cloud** with **SAP AI Foundation** (including SAP AI Core and the Generative AI Hub). The core architectural concept is the creation of **AI-Enhanced Data Products**—intelligent, context-aware, and dynamic assets that deliver trusted predictive insights and drive business automation at scale. This integrated approach enables the development of AI solutions that are **reliable, relevant, and responsible**, accelerating time-to-value and embedding intelligence directly into the enterprise.
+
+![drawio](drawio/bdc-ai-core-integration.drawio)
 
 ## The Architectural Blueprint
 
@@ -188,6 +190,28 @@ A practical example is a **"Cash Flow Optimization Agent"**, which builds direct
 - **Data Scientists:** Primarily work within **SAP Business Data Cloud (Databricks)** for data exploration, feature engineering, and rapid model experimentation.
 - **ML Engineers & IT Operations:** Primarily work with **SAP AI Core** to manage production model deployments, monitor performance, ensure governance, and maintain the operational integrity of AI services.
 - **Application Developers & Business Users:** Consume the final AI-Enhanced Data Products and AI-powered applications through various channels, including SAP Analytics Cloud, custom BTP applications, or integrated line-of-business solutions.
+
+## Platform Selection Guide
+
+### Use **Databricks** for:
+- **Data science experimentation** and rapid prototyping
+- **Quick validation** by data scientist personas
+- Integrated data science workflows with immediate feedback
+
+### Use **AI Core** for:
+- **Production-ready models** requiring enterprise-grade serving
+- Access to **broader LLM ecosystem** and **SAP's RPT-1** foundational model
+- Scenarios requiring **production infrastructure** and planned **BDC integrations**
+
+## Key Differentiators
+
+| Aspect | AI Core | Databricks |
+|--------|---------|------------|
+| **Use Case** | Production deployment | Experimentation & prototyping |
+| **Infrastructure** | Enterprise-grade serving | Integrated development environment |
+| **Model Access** | Broad LLM ecosystem + RPT-1 | Selected LLMs |
+| **Speed to Value** | Production-ready deployment | Rapid prototyping |
+| **Integration** | Planned BDC integrations | Native data science workflows |
 
 ## Components and Further Reading
 

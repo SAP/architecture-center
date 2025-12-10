@@ -207,7 +207,7 @@ When evaluating a BDC architecture, consider these five critical areas:
 | Decision | Option A | Option B | Choose A When... | Choose B When... |
 |----------|----------|----------|------------------|------------------|
 | Data Access | Federation | Replication | Data freshness critical, storage expensive | Query performance critical, budget allows |
-| Processing | Real-time | Batch | Latency <1 sec required | Cost optimization priority, can tolerate delay |
+| Processing | Real-time | Batch | Latency &lt;1 sec required | Cost optimization priority, can tolerate delay |
 | Data Products | SAP-managed | Customer-managed | Standard use cases, faster deployment | Custom logic, full control needed |
 
 **Reference:** [RA0013: SAP Business Data Cloud](https://architecture.learning.sap.com/docs/ref-arch/f5b6b597a6)
@@ -222,15 +222,15 @@ When evaluating a BDC architecture, consider these five critical areas:
 
 **Strategic Deployment Patterns:**
 
-1. **Greenfield (New Implementation)**
-   - Use IAS as primary identity provider
-   - Simpler setup, faster deployment
-   - Best for: SMEs, new SAP landscape
+**Greenfield (New Implementation):**
+- Use IAS as primary identity provider
+- Simpler setup, faster deployment
+- Best for: SMEs, new SAP landscape
 
-2. **Brownfield (Existing Enterprise IdP)**
-   - Federate enterprise IdP (Azure AD, Okta) with IAS
-   - IAS acts as broker to SAP systems
-   - Best for: Large enterprises, existing IAM infrastructure
+**Brownfield (Existing Enterprise IdP):**
+- Federate enterprise IdP (Azure AD, Okta) with IAS
+- IAS acts as broker to SAP systems
+- Best for: Large enterprises, existing IAM infrastructure
 
 **Zero-Trust Principles:**
 - Multi-factor authentication (MFA) mandatory
