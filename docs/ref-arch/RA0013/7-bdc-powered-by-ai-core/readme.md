@@ -219,12 +219,43 @@ A practical example is a **"Cash Flow Optimization Agent"**, which builds direct
 
 ## Components and Further Reading
 
-This reference architecture is realized through the following key SAP services:
-- SAP Business Data Cloud
-- SAP AI Core
-- SAP Generative AI Hub
-- SAP Databricks
-- SAP Datasphere
-- SAP Analytics Cloud
 
-For detailed implementation guides and "how-to" tutorials, please refer to the official SAP documentation and related technical blog posts.
+This reference architecture is realized through the following key SAP services and components:
+
+### Related Reference Architectures
+
+**SAP Business Data Cloud Series:**
+- [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md) - Understanding data products, their architecture, and consumption patterns
+- [SAP Databricks in SAP BDC](../5-sap-databricks-in-business-data-cloud/readme.md) - Deep dive into SAP Databricks integration and use cases
+- [Intelligent Applications in SAP Business Data Cloud](../2-intelligent-applications-by-sap/readme.md) - Pre-configured analytics and dashboards
+- [Modernizing SAP BW with SAP Business Data Cloud](../4-modernizing-sap-bw-with-sap-bdc/readme.md) - Migration patterns and data product generation
+- [Cloud Identity Services for BDC](../6-cloud-identity-services-bdc/readme.md) - Unified identity and access management
+
+**Generative AI and Machine Learning:**
+- [Generative AI with SAP AI Core](../../RA0005/readme.md) - Comprehensive guide to GenAI patterns, RAG, and AI agents
+- [Federated Machine Learning with SAP Datasphere](../../RA0003/readme.md) - ML integration across hyperscaler platforms
+
+### SAP Services and Documentation
+
+**SAP AI Foundation:**
+- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core) - Enterprise AI platform for model lifecycle management
+- [SAP AI Launchpad](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad) - Multi-tenant SaaS for managing AI scenarios
+- [Generative AI Hub in SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core) - Access to foundation models and LLMs
+- [SAP AI Core SDK](https://pypi.org/project/ai-core-sdk/) - Python SDK for programmatic AI Core integration
+
+**SAP Business Data Cloud:**
+- [SAP Business Data Cloud Overview](https://www.sap.com/products/technology-platform/business-data-cloud.html) - Product overview and capabilities
+- [SAP Datasphere](https://help.sap.com/docs/SAP_DATASPHERE) - Data management, modeling, and integration
+- [SAP Analytics Cloud](https://www.sap.com/products/technology-platform/cloud-analytics.html) - Business intelligence and analytics
+- [SAP Databricks Documentation](https://help.sap.com/docs/sap-datasphere/sap-datasphere-administration-guide-for-sap-datasphere/sap-databricks) - Integration guide for SAP Databricks
+
+**Development and Integration:**
+- [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/) - Framework for building enterprise applications
+- [SAP AI SDK for JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) - SDK for integrating AI capabilities
+- [SAP BDC Connect SDK](https://pypi.org/project/sap-bdc-connect-sdk/) - Python SDK for data product management
+
+### Learning Resources
+
+- [Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud) - Learning journey
+- [SAP AI Core Tutorial](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) - Set up Generative AI Hub
+- [SAP Community: Business Data Cloud](https://community.sap.com/topics/business-data-cloud) - Community discussions and blogs
