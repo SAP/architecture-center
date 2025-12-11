@@ -191,25 +191,13 @@ A practical example is a **"Cash Flow Optimization Agent"**, which builds direct
 - **ML Engineers & IT Operations:** Primarily work with **SAP AI Core** to manage production model deployments, monitor performance, ensure governance, and maintain the operational integrity of AI services.
 - **Application Developers & Business Users:** Consume the final AI-Enhanced Data Products and AI-powered applications through various channels, including SAP Analytics Cloud, custom BTP applications, or integrated line-of-business solutions.
 
-## Platform Selection Guide
-
-### Use **Databricks** for:
-- **Data science experimentation** and rapid prototyping
-- **Quick validation** by data scientist personas
-- Integrated data science workflows with immediate feedback
-
-### Use **AI Core** for:
-- **Production-ready models** requiring enterprise-grade serving
-- Access to **broader LLM ecosystem** and **SAP's RPT-1** foundational model
-- Scenarios requiring **production infrastructure** and planned **BDC integrations**
-
 ## Key Differentiators
 
 | Aspect | AI Core | Databricks |
 |--------|---------|------------|
 | **Use Case** | Production deployment | Experimentation & prototyping |
 | **Infrastructure** | Enterprise-grade serving | Integrated development environment |
-| **Model Access** | Broad LLM ecosystem + RPT-1 | Selected LLMs |
+| **Model Access** | Broad LLM ecosystem & SAP's foundation models like RPT-1 | Selected LLMs |
 | **Speed to Value** | Production-ready deployment | Rapid prototyping |
 | **Integration** | Planned BDC integrations | Native data science workflows |
 
