@@ -17,11 +17,14 @@ keywords:
   - reference architecture
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
 tags:
+  - ai
   - data
+  - sap-ai-core
   - genai
   - databricks
-  - bdc
-  - agents
+  - mlops
+  - architecture
+  - data-products
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,6 +44,10 @@ last_update:
 Enterprises possess a wealth of invaluable business data within their SAP systems. However, activating this data for modern Artificial Intelligence is often a complex, disconnected, and risky endeavor. To stay competitive, organizations need a strategy to transform this data into reliable, governed, and actionable AI-driven insights that are deeply integrated with core business processes.
 
 This reference architecture presents a cohesive vision for combining **SAP Business Data Cloud** with **SAP AI Foundation** (including SAP AI Core and the Generative AI Hub). The core architectural concept is the creation of **AI-Enhanced Data Products**—intelligent, context-aware, and dynamic assets that deliver trusted predictive insights and drive business automation at scale. This integrated approach enables the development of AI solutions that are **reliable, relevant, and responsible**, accelerating time-to-value and embedding intelligence directly into the enterprise.
+
+**Future State: Real-Time Data Access via MCP**
+
+To further enhance real-time consumption patterns, SAP is developing a managed Model Context Protocol (MCP) component that will provide a standardized way to query derived data products directly from SAP Business Data Cloud. This future capability will simplify real-time data access for AI applications, enabling seamless integration of governed BDC data products into live business processes.
 
 ![drawio](drawio/bdc-ai-core-integration.drawio)
 
@@ -103,7 +110,7 @@ The strategy we're outlining provides a clear, governed path to solve this. It's
 
 CAP provides a natural fit for implementing Pattern 3, offering significant advantages for deployments:
 
-* **Integrated Data Access:** CAP applications can seamlessly query SAP Datasphere (which federates BDC data products) and combine this with real-time AI predictions in a single request-response cycle, eliminating the need for separate data and inference layers.
+* **Integrated Data Access:** CAP applications can seamlessly query SAP Datasphere (which federates BDC data products) and combine this with real-time AI predictions in a single request-response cycle, eliminating the need for separate data and inference layers. In the future, the SAP-managed MCP component will further streamline data retrieval by providing a standardized query interface for BDC data products. Applications can then combine this contextual business data with AI Core predictions (via separate API calls) to create a complete real-time intelligence flow.
 * **Built-in Governance:** Authorization, authentication, and audit logging align automatically with SAP standards—the same security model protects both your data retrieval and AI inference calls.
 * **Simplified Development:** Developers work within familiar SAP frameworks (CDS models, OData services) rather than managing low-level HTTP clients, reducing integration complexity and accelerating time-to-market.
 * **Enterprise-Ready:** CAP applications deploy naturally into SAP BTP with built-in observability, scaling, and operational tooling—no additional infrastructure setup required.
@@ -188,54 +195,36 @@ A practical example is a **"Cash Flow Optimization Agent"**, which builds direct
 - **ML Engineers & IT Operations:** Primarily work with **SAP AI Core** to manage production model deployments, monitor performance, ensure governance, and maintain the operational integrity of AI services.
 - **Application Developers & Business Users:** Consume the final AI-Enhanced Data Products and AI-powered applications through various channels, including SAP Analytics Cloud, custom BTP applications, or integrated line-of-business solutions.
 
+## Platform Selection Guide
+
+### Use **Databricks** for:
+- **Data science experimentation** and rapid prototyping
+- **Quick validation** by data scientist personas
+- Integrated data science workflows with immediate feedback
+
+### Use **AI Core** for:
+- **Production-ready models** requiring enterprise-grade serving
+- Access to **broader LLM ecosystem** and **SAP's RPT-1** foundational model
+- Scenarios requiring **production infrastructure** and planned **BDC integrations**
+
 ## Key Differentiators
 
 | Aspect | AI Core | Databricks |
 |--------|---------|------------|
 | **Use Case** | Production deployment | Experimentation & prototyping |
 | **Infrastructure** | Enterprise-grade serving | Integrated development environment |
-| **Model Access** | Broad LLM ecosystem & SAP's foundation models like RPT-1 | Selected LLMs |
+| **Model Access** | Broad LLM ecosystem + RPT-1 | Selected LLMs |
 | **Speed to Value** | Production-ready deployment | Rapid prototyping |
 | **Integration** | Planned BDC integrations | Native data science workflows |
 
 ## Components and Further Reading
 
-This reference architecture is realized through the following key SAP services and components:
+This reference architecture is realized through the following key SAP services:
+- SAP Business Data Cloud
+- SAP AI Core
+- SAP Generative AI Hub
+- SAP Databricks
+- SAP Datasphere
+- SAP Analytics Cloud
 
-### Related Reference Architectures
-
-**SAP Business Data Cloud Series:**
-- [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md) - Understanding data products, their architecture, and consumption patterns
-- [SAP Databricks in SAP BDC](../5-sap-databricks-in-business-data-cloud/readme.md) - Deep dive into SAP Databricks integration and use cases
-- [Intelligent Applications in SAP Business Data Cloud](../2-intelligent-applications-by-sap/readme.md) - Pre-configured analytics and dashboards
-- [Modernizing SAP BW with SAP Business Data Cloud](../4-modernizing-sap-bw-with-sap-bdc/readme.md) - Migration patterns and data product generation
-- [Cloud Identity Services for BDC](../6-cloud-identity-services-bdc/readme.md) - Unified identity and access management
-
-**Generative AI and Machine Learning:**
-- [Generative AI with SAP AI Core](../../RA0005/readme.md) - Comprehensive guide to GenAI patterns, RAG, and AI agents
-- [Federated Machine Learning with SAP Datasphere](../../RA0003/readme.md) - ML integration across hyperscaler platforms
-
-### SAP Services and Documentation
-
-**SAP AI Foundation:**
-- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core) - Enterprise AI platform for model lifecycle management
-- [SAP AI Launchpad](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad) - Multi-tenant SaaS for managing AI scenarios
-- [Generative AI Hub in SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core) - Access to foundation models and LLMs
-- [SAP AI Core SDK](https://pypi.org/project/ai-core-sdk/) - Python SDK for programmatic AI Core integration
-
-**SAP Business Data Cloud:**
-- [SAP Business Data Cloud Overview](https://www.sap.com/products/technology-platform/business-data-cloud.html) - Product overview and capabilities
-- [SAP Datasphere](https://help.sap.com/docs/SAP_DATASPHERE) - Data management, modeling, and integration
-- [SAP Analytics Cloud](https://www.sap.com/products/technology-platform/cloud-analytics.html) - Business intelligence and analytics
-- [SAP Databricks Documentation](https://help.sap.com/docs/sap-datasphere/sap-datasphere-administration-guide-for-sap-datasphere/sap-databricks) - Integration guide for SAP Databricks
-
-**Development and Integration:**
-- [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/) - Framework for building enterprise applications
-- [SAP AI SDK for JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) - SDK for integrating AI capabilities
-- [SAP BDC Connect SDK](https://pypi.org/project/sap-bdc-connect-sdk/) - Python SDK for data product management
-
-### Learning Resources
-
-- [Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud) - Learning journey
-- [SAP AI Core Tutorial](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) - Set up Generative AI Hub
-- [SAP Community: Business Data Cloud](https://community.sap.com/topics/business-data-cloud) - Community discussions and blogs
+For detailed implementation guides and "how-to" tutorials, please refer to the official SAP documentation and related technical blog posts.
