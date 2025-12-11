@@ -17,14 +17,11 @@ keywords:
   - reference architecture
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
 tags:
-  - ai
   - data
-  - sap-ai-core
   - genai
   - databricks
-  - mlops
-  - architecture
-  - data-products
+  - bdc
+  - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
