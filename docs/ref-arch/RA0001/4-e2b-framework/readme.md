@@ -12,7 +12,7 @@ keywords:
   - aws iot integration
   - event-to-business actions
   - cloud application programming
-sidebar_label: SAP CAPM Framework for EDA
+sidebar_label: SAP CAP based Framework for EDA
 image: img/ac-soc-med.png
 tags:
   - cap
@@ -41,7 +41,7 @@ One of the EDA use cases is around SAP BTP extension applications consuming the 
 
 This is a sample reference application which can be extended and customized to build event-based integration scenarios from different systems/applications into the SAP ecosystem using SAP BTP. 
 
-Note: This is not SAP standard product or service offering. This is a custom developed framework based on SAP CAPM to build event-driven applications in SAP BTP.
+Note: This is not SAP standard product or service offering. This is a custom developed framework based on SAP CAP to build event-driven applications in SAP BTP.
 
 Evaluate SAP Integration Suite, advanced event mesh offerings and if additional custom management of events are required, this approach can be evaluated and implemented. This framework can be integrated with SAP Integration Suite,advanced event mesh or Event Mesh capability of SAP Integration Suite.
  
@@ -74,7 +74,7 @@ As per [SAP Integration Solution Advisory Methodology (ISA-M)](https://help.sap.
 
 The SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It supports Java (with Spring Boot), JavaScript, and TypeScript (with Node.js), which are some of the most widely adopted languages. CAP is recommended by the [SAP BTP Developer's Guide](https://help.sap.com/docs/btp/btp-developers-guide/btp-developers-guide), and supports developers with a path of proven best practices and a wealth of out-of-the-box solutions to recurring tasks.
 
-#### Events-To-Business Actions Framework based on SAP CAPM
+#### Events-To-Business Actions Framework based on SAP CAP
 In this reference architecture, the events-to-business actions framework is developed as CAP application using Node.js. This serves as the central component and a reusable component. Below are the key characteristics and benefits of using the framework.
 
 - Provides comprehensive programming and configuration model for development of event-based integration scenario with SAP systems.
