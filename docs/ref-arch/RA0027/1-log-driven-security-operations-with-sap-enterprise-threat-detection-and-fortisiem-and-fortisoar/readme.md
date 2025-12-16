@@ -25,24 +25,24 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
+    - randomstr1ng
 last_update:
     date: 2025-12-16
-    author: randomstr1ng
+    author: Julian Petersohn
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
 
-<!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
+SAP landscapes generate security-relevant logs across application, database, and platform layers, including environments such as SAP RISE and SAP BTP. SAP Enterprise Threat Detection provides deep, domain-specific insights into these SAP logs and identifies suspicious or anomalous activities within SAP systems.
+
+To operate security monitoring at an enterprise level, these SAP-specific detections must be combined with a centralized cybersecurity logging and analytics capability. FortiSIEM serves as the central log collector and correlation layer, aggregating security events from SAP Enterprise Threat Detection alongside signals from other infrastructure, cloud, and security sources.
+
+FortiSOAR complements this architecture by orchestrating and automating incident response workflows triggered by correlated events. It enables consistent investigation, enrichment, and response actions, completing the end-to-end security operations chain from SAP-specific detection to enterprise-wide visibility and automated response.
 
 ## Architecture
 
-<!-- The drawio "image" should appear right after the Solution Diagram SVG image -->
-<!-- Note: [PLACEHOLDER] Please update the drawio with your architecture's drawio  -->
-
-![drawio](drawio/template.drawio)
+![drawio](drawio/siem_soar_etd.drawio)
 
 ## Flow
 
