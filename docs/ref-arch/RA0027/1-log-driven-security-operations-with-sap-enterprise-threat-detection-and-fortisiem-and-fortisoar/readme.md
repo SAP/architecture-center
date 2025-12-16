@@ -46,7 +46,33 @@ FortiSOAR complements this architecture by orchestrating and automating incident
 
 ## Flow
 
-<!-- Add your flow content here -->
+1. **Generate security relevant telemetry**
+
+SAP systems and services (for example SAP RISE workloads and SAP BTP applications and platform services) emit security relevant logs and events such as authentication activity authorization changes administrative actions and application access traces.
+
+2. **Ingest and analyze SAP logs in SAP Enterprise Threat Detection**
+
+SAP Enterprise Threat Detection Cloud ingests SAP specific log sources and applies SAP domain parsing context enrichment and detection logic to identify suspicious activity and produce findings.
+
+3. **Forward detections as security events**
+
+SAP Enterprise Threat Detection outputs findings as security events suitable for enterprise monitoring so they can be consumed outside the SAP domain.
+
+4. **Centralize and correlate in FortiSIEM**
+
+FortiSIEM ingests SAP Enterprise Threat Detection events and combines them with broader enterprise telemetry such as cloud identity network and endpoint signals. FortiSIEM normalizes events applies correlation rules and produces higher confidence incidents that represent cross domain attack narratives.
+
+5. **Trigger incident workflows in FortiSOAR**
+
+Correlated incidents from FortiSIEM are sent to FortiSOAR to create a case. FortiSOAR orchestrates the investigation workflow including enrichment evidence collection task assignment and approval gates.
+
+6. **Execute response actions and document outcomes**
+
+FortiSOAR executes automated and semi automated response actions such as notifications ticket creation and containment steps in integrated systems. It records decisions evidence and outcomes for auditability and repeatability.
+
+7. **Close the loop and improve detection quality**
+
+Case status and response outcomes are synchronized back to the monitoring layer for reporting and operational visibility. Lessons learned can be used to tune correlation and response logic over time.
 
 ## Characteristics
 
@@ -62,7 +88,9 @@ FortiSOAR complements this architecture by orchestrating and automating incident
 
 ## Resources
 
-<!-- Add your resources here -->
+- [SAP Community Webinar: Oh no, someone breached the SAP systems – Cybersecurity for Hybrid SAP Landscapes](https://www.youtube.com/live/AAgAS8JZDq0)
+- [FortiSIEM SAP Enterprise Threat Detection integration](https://docs.fortinet.com/document/fortisiem/7.4.0/external-systems-configuration-guide/200971/sap-enterprise-threat-detection-etd)
+- [FortiSOAR Connectors Content Hub](https://fortisoar.contenthub.fortinet.com//list.html?contentType=all&searchContent=SAP)
 
 ## Related Missions
 
