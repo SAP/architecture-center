@@ -84,7 +84,9 @@ Case status and response outcomes are synchronized back to the monitoring layer 
 
 ## Services and Components
 
-<!-- Add your services and components here -->
+- [SAP Enterprise Threat Detection](https://www.sap.com/products/financial-management/enterprise-threat-detection.html)
+- [FortiSIEM](https://www.fortinet.com/products/siem/fortisiem)
+- [FortiSOAR](https://www.fortinet.com/products/fortisoar)
 
 ## Resources
 
