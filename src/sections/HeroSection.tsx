@@ -60,11 +60,11 @@ export default function HeroSection(): JSX.Element {
             body: 'Ensure your solution diagrams follow a consistent framework with rules developed by our architects, maintaining quality, improving collaboration, and aligning technical accuracy with business needs.',
         },
         {
-            lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
-            darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
-            title: 'Community of Practice',
+            lightImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
+            darkImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
+            title: 'Quick Start',
             subtitle: '',
-            body: 'Our mission is to create a common, collaborative, environment where all SAP experts can co-create, maintain, and enhance reference architectures for every flavor of SAP cloud, on-premises, and partner implementation.',
+            body: 'A no-code editor to publish architectures effortlessly. Log in with GitHub, add in your content, and auto-generate pull requests with front matter generation with ease.',
         },
         {
             lightImg: 'solution_diagram_guidelines_hero_banner_1140x424_light.webp',
@@ -72,6 +72,13 @@ export default function HeroSection(): JSX.Element {
             title: 'Solution Diagram Guidelines',
             subtitle: '',
             body: 'The single source of truth for architects provides the latest updates, best practices, and ready-to-use templates to help you create clear, consistent, and high-quality diagrams of architectural landscapes.',
+        },
+        {
+            lightImg: 'community_of_practice_hero_banner_1140x424_light.webp',
+            darkImg: 'community_of_practice_hero_banner_1140x424_light.webp',
+            title: 'Community of Practice',
+            subtitle: '',
+            body: 'Our mission is to create a common, collaborative, environment where all SAP experts can co-create, maintain, and enhance reference architectures for every flavor of SAP cloud, on-premises, and partner implementation.',
         },
         {
             lightImg: 'whats_new_hero_banner_1140x424_light.webp',

@@ -17,7 +17,13 @@ description: The reference architecture illustrates how to benefit from partner 
 keywords: [IBM, Granite, Generative AI, SAP HANA Cloud, SAP AI Core, RAG]
 sidebar_label: Partner Models
 image: img/logo.svg
-tags: [genai]
+tags: 
+    - genai
+    - aws
+    - azure
+    - gcp
+    - ibm
+
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-4
 slug: /ref-arch/a07a316077/4
-sidebar_position: 5
+sidebar_position: 4
 sidebar_custom_props:
   category_index: []
 title: Integration with Google Cloud Platform sources
@@ -20,6 +20,7 @@ image: img/ac-soc-med.png
 tags:
   - gcp
   - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,7 +42,7 @@ Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google 
 
 <ul>
   <li>With the introduction of BDC Connect for Google BigQuery(<i>GA: to be added to [roadmap](https://roadmaps.sap.com/board?PRODUCT=73555000100800004851&range=CURRENT-LAST&q=Google%20BigQuery#Q4%202025)</i>), SAP data products from SAP line of business applications can be shared directly with Google Big Query over governed data access, and discoverable via Google DataPlex catalog.</li>
-  <li>Data from Google BigQuery can be shared back as data products to SAP Business Data Cloud catalog via Google DataPlex.</li>
+  <li>Data from Google BigQuery can be shared back as data products to SAP Business Data Cloud discoverable via the SAP BDC catalog.</li>
 </ul>
 
 ## Architecture

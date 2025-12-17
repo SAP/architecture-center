@@ -12,14 +12,25 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
   try {
     // get sidebar context directly from global data (build-time)
     const globalData = useGlobalData();
-    const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any } } | undefined;
+    const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any; communitySidebarContext?: any } } | undefined;
     const sidebarContext = tagsPluginData?.default?.sidebarContext;
+    const communitySidebarContext = tagsPluginData?.default?.communitySidebarContext;
+    // Detect navigation source by checking the allTagsPath
+    const isNavigatingFromCommunity = props.tag?.allTagsPath?.includes('/community/') || false;
 
     let updatedProps = props;
-    if (props.tag?.items && sidebarContext?.refarchSidebar) {
-      try {
-        const updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
-
+    if (props.tag?.items) {
+      let updatedTagItems = [];
+      // Navigated from Docs section
+      if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
+        updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
+      }
+      // Navigated from Community section
+      else if (isNavigatingFromCommunity && communitySidebarContext?.communitySidebar) {
+        updatedTagItems = createTagSidebarMapping(props.tag.items, communitySidebarContext.communitySidebar);
+      }
+      
+      if (updatedTagItems.length > 0) {
         updatedProps = {
           ...props,
           tag: {
@@ -27,10 +38,6 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
             items: updatedTagItems
           }
         };
-      } catch (mappingError) {
-        // Log error but continue with original props if mapping fails
-        console.warn('Failed to create tag sidebar mapping:', mappingError);
-        updatedProps = props;
       }
     }
 

@@ -18,6 +18,7 @@ module.exports = function (context, options) {
 
       const docIdToTags = {};
       let sidebarContext = null;
+      let communitySidebarContext = null;
 
      
       const defaultDocsInstance = docsPluginContent['default'];
@@ -45,9 +46,25 @@ module.exports = function (context, options) {
         }
       }
 
+      // Capture community sidebar context
+      const communityDocsInstance = docsPluginContent['community'];
+      if (communityDocsInstance && communityDocsInstance.loadedVersions) {
+        if (communityDocsInstance.loadedVersions.length > 0) {
+          const communityVersion = communityDocsInstance.loadedVersions[0];
+          if (communityVersion.sidebars) {
+            communitySidebarContext = communityVersion.sidebars;
+            // Only log in development mode
+            if (process.env.NODE_ENV === 'development') {
+              console.log('✅ Tags plugin captured community sidebar context at build time:', Object.keys(communitySidebarContext));
+            }
+          }
+        }
+      }
+
       setGlobalData({
         docIdToTags,
         sidebarContext,
+        communitySidebarContext,
       });
       // Only log in development mode
       if (process.env.NODE_ENV === 'development') {

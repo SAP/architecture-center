@@ -141,7 +141,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const { siteConfig } = useDocusaurusContext();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
     const editorColumnRef = useRef<HTMLDivElement>(null);
-    const [isToolbarVisible, setIsToolbarVisible] = useState(true);
     const [publishStatus, setPublishStatus] = useState<PublishStatus>({
         stage: 'idle',
         error: null,
@@ -164,24 +163,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         }
     };
 
-    useEffect(() => {
-        const observer = new ResizeObserver((entries) => {
-            for (let entry of entries) {
-                const { width } = entry.contentRect;
-                setIsToolbarVisible(width >= 880);
-            }
-        });
-
-        if (editorColumnRef.current) {
-            observer.observe(editorColumnRef.current);
-        }
-
-        return () => {
-            if (editorColumnRef.current) {
-                observer.unobserve(editorColumnRef.current);
-            }
-        };
-    }, []);
+  
 
     const handleAutomaticSync = async () => {
         setIsSyncing(true);
@@ -341,7 +323,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                                     <Breadcrumbs path={breadcrumbPath} />
                                     <ArticleHeader />
                                 </div>
-                                {isToolbarVisible && <ToolbarPlugin />}
+                                <ToolbarPlugin />
                                 <div className={styles.editorInner}>
                                     <RichTextPlugin
                                         contentEditable={<ContentEditable className={styles.editorInput} />}

@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-1
 slug: /ref-arch/a07a316077/1
-sidebar_position: 2
+sidebar_position: 1
 sidebar_custom_props:
   category_index: []
 title: Integration with AWS data sources
@@ -19,6 +19,7 @@ image: img/ac-soc-med.png
 tags:
 - aws
 - data
+- bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

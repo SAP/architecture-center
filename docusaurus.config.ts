@@ -1,7 +1,6 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
-const generateSidebarSlices = require('./src/_scripts/_viewPointsIndex');
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
@@ -62,22 +61,6 @@ const config: Config = {
                 editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
             },
         ],
-        [
-            require.resolve('@easyops-cn/docusaurus-search-local'),
-            {
-                hashed: true,
-                indexDocs: true,
-                indexPages: true,
-                docsRouteBasePath: ['/docs', '/community'],
-                docsDir: ['docs', 'community'],
-                indexBlog: true,
-                blogRouteBasePath: '/blog',
-                language: ['en'],
-                highlightSearchTermsOnTargetPage: true,
-                removeDefaultStopWordFilter: true,
-                removeDefaultStemmer: true,
-            },
-        ],
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -116,7 +99,6 @@ const config: Config = {
                     onInlineTags: 'warn',
                     routeBasePath: 'docs',
                     sidebarPath: require.resolve('./sidebars'),
-                    sidebarItemsGenerator: generateSidebarSlices,
                     beforeDefaultRemarkPlugins: [drawioResources],
                     editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                     tags: '../docs/tags.yml',
@@ -245,11 +227,11 @@ const config: Config = {
                             type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs?partners=nvidia">Nvidia</a>`,
                         },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=snowflake">Snowflake</a>`,
+                        },
                     ],
-                },
-                {
-                    type: 'search',
-                    position: 'right',
                 },
                 {
                     type: 'dropdown',
@@ -359,6 +341,10 @@ const config: Config = {
                         {
                             label: 'Privacy Statement',
                             href: 'https://architecture.learning.sap.com/community/privacy',
+                        },
+                        {
+                            label: 'Cookie Statement',
+                            href: 'https://architecture.learning.sap.com/community/cookie',
                         },
                         {
                             label: 'Terms of Use',
