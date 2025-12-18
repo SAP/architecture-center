@@ -125,8 +125,34 @@ Security incidents, actions, and decisions are integrated with enterprise system
 The architecture supports incremental adoption, additional log sources, and evolving detection and response use cases without fundamental changes to the overall design.
 
 ## Examples in an SAP context
+- **Detecting suspicious SAP user activity across hybrid landscapes**
 
-<!-- Add your SAP context examples here -->
+SAP Enterprise Threat Detection identifies anomalous dialog or RFC activity within SAP systems, such as repeated failed logons or unusual access patterns. These detections are correlated in FortiSIEM with identity, network, or endpoint signals to determine whether the activity is part of a broader attack. FortiSOAR coordinates investigation and response actions.
+
+- **Monitoring SAP RISE environments within a centralized SOC**
+
+Security-relevant events from SAP RISE managed systems are analyzed by SAP Enterprise Threat Detection and forwarded to FortiSIEM. This enables the SOC to monitor SAP RISE workloads alongside non-SAP systems using a single SIEM platform, while FortiSOAR ensures consistent incident handling and documentation.
+
+- **Securing SAP BTP applications and services**
+
+Logs from SAP BTP applications and platform services are analyzed by SAP Enterprise Threat Detection to identify suspicious behavior such as unauthorized access or misuse of service credentials. FortiSIEM correlates these events with cloud and identity telemetry, while FortiSOAR orchestrates notifications, investigations, and response actions.
+
+- **Correlating SAP events with enterprise infrastructure attacks**
+
+SAP-specific detections, such as unusual authorization changes or administrative actions, are correlated in FortiSIEM with infrastructure signals such as firewall logs, endpoint alerts, or network anomalies. This enables detection of multi-stage attacks that span SAP and non-SAP systems. FortiSOAR coordinates cross-team response.
+
+- **Automating SAP incident response with governance controls**
+
+When a high-confidence incident is identified, FortiSOAR executes predefined response workflows that may include user notification, ticket creation, or SAP-specific actions such as user locking or session termination. Approval steps can be included to support compliance and separation of duties.
+
+- **Supporting threat hunting in SAP environments**
+
+Security analysts use FortiSIEM to explore historical SAP Enterprise Threat Detection events in combination with enterprise telemetry. FortiSOAR supports threat hunting by enriching events with contextual information and coordinating follow-up actions when suspicious patterns are identified.
+
+- **Aligning SAP security incidents with enterprise ITSM processes**
+
+Security incidents related to SAP systems are automatically synchronized with IT service management platforms. FortiSOAR ensures that SAP-specific context, evidence, and response actions are included in tickets, enabling collaboration between SAP teams and the SOC.
+
 
 ## Services and Components
 
