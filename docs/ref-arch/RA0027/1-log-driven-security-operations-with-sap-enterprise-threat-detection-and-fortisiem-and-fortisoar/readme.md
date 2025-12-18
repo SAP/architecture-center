@@ -76,7 +76,53 @@ Case status and response outcomes are synchronized back to the monitoring layer 
 
 ## Characteristics
 
-<!-- Add your characteristics content here -->
+- **Log-driven security architecture**
+
+The architecture is based on the continuous ingestion and analysis of security-relevant logs as the primary input for detection, correlation, and response.
+
+- **SAP domain-aware threat detection**
+S
+AP Enterprise Threat Detection provides deep visibility into SAP-specific logs and contexts across SAP RISE, SAP BTP, SAP SaaS applications, and on-premises SAP deployments.
+
+- **Real-time SAP event correlation**
+
+SAP-specific events are analyzed and correlated in near real time to identify suspicious activities and attack patterns within SAP applications and platforms.
+
+- **Centralized enterprise log collection**
+
+FortiSIEM aggregates detections from SAP Enterprise Threat Detection together with logs from non-SAP sources such as infrastructure, cloud platforms, networks, operating systems, applications, and security controls.
+
+- **Cross-domain security correlation**
+
+SAP security events are correlated with non-SAP telemetry to detect multi-stage and cross-system attacks that cannot be identified within SAP systems alone.
+
+- **Separation of operational responsibilities**
+
+SAP Enterprise Threat Detection is typically operated by SAP security or SAP Basis teams, while FortiSIEM and FortiSOAR are managed by the Security Operations Center, enabling clear ownership and collaboration.
+
+- **Centralized incident orchestration**
+
+FortiSOAR acts as the central coordination layer for security incidents, consolidating alerts, investigations, and response activities across SAP and non-SAP environments.
+
+- **Contextual enrichment and threat investigation**
+
+Security events are enriched with contextual data such as user information, asset details, locations, indicators of compromise, and threat intelligence to support investigation and threat hunting.
+
+- **Automated and governed response workflows**
+
+Incident response actions are executed through automated playbooks with optional approval steps to support governance, compliance, and separation of duties.
+
+- **SAP-aware response capabilities**
+
+The architecture supports response actions specific to SAP environments, including user session termination, account locking, identity management actions, and role or authorization changes.
+
+- **Enterprise integration and auditability**
+
+Security incidents, actions, and decisions are integrated with enterprise systems such as ITSM platforms and are fully documented to support auditability and continuous improvement.
+
+- **Scalable and extensible design**
+
+The architecture supports incremental adoption, additional log sources, and evolving detection and response use cases without fundamental changes to the overall design.
 
 ## Examples in an SAP context
 
