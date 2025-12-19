@@ -47,6 +47,8 @@ Event-driven Architecture (EDA) is a software design pattern for building and in
 
 Modern enterprises which are either cloud-based or hybrid with cloud and on-premise setup embrace the event-driven architecture as part of the integration strategy and API-first strategy. 
 
+ Refer to SAP's EDA Strategy Paper [Event-Driven Architecture Strategy](https://www.sap.com/documents/2024/10/f41de944-dc7e-0010-bca6-c68f7e60039b.html).
+
 ## Components of an Event-Driven Architecture
 
 ### Event
