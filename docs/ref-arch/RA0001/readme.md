@@ -49,7 +49,7 @@ last_update:
 
 Customers are transitioning to cloud services and embracing a new digital core to achieve greater agility and business process innovation. This shift needs automation and real-time integration with their ERP systems, ensuring the entire ecosystem operates at the pace of the business. As part of digital transformation, enterprises are adopting API-First and Event-First Strategy and embracing event-driven architecture as part of their transformation journey. The need for building flexible and real-time responsive systems is important.
 
-Event-driven architecture (EDA) is well-known approach for designing and building software systems in enterprise integration. This is well-suited to modern environments for addressing scalability, loose coupling and building resilient applications. SAP is providing EDA capabilities as services in SAP BTP to support event-driven and real-time processes by enabling a composable event mesh of SAP and non-SAP applications, publishing and subscribing to events.
+Event-driven architecture (EDA) is well-known approach for designing and building software systems in enterprise integration. This is well-suited to modern environments for addressing scalability, loose coupling and building resilient applications. SAP is providing EDA capabilities as services in SAP BTP to support event-driven and real-time processes by enabling a composable event mesh of SAP and non-SAP applications, publishing, and subscribing to events.
 
 This reference architecture offers guidance for developing applications based on Event-Driven Architecture (EDA) with SAP Business Technology Platform (BTP) services.
 
@@ -61,7 +61,7 @@ SAP's EDA Strategy comprises of two interconnected parts, the SAP Cloud Applicat
 
 SAP Intelligent Enterprise EDA with SAP Cloud Application Event Hub: This enabled EDA implementations across the SAP Intelligent Enterprise suite. This can be used for event integration between SAP cloud application and applications built on SAP BTP.
 
-EDA in hybrid, heterogenous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
+EDA in hybrid, heterogeneous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
 
 Below architecture depicts the SAP EDA Stategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
 
@@ -120,7 +120,7 @@ Below are the list of services that are must-have to implement this architecture
 
     - **[SAP Integration Suite, advanced event mesh](https://discovery-center.cloud.sap/serviceCatalog/advanced-event-mesh?region=all)**: This is a complete event streaming, event management, and monitoring platform that incorporates best practices, expertise, and technology for event-driven architecture (EDA) on a single platform.
 
-    - **[Event Mesh capability of SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/event-mesh?region=all)**: This capability can be used if an enterprise applications to communicate through asynchronous events.
+    - **[Event Mesh capability of SAP Integration Suite](https://www.sap.com/germany/products/technology-platform/integration-suite/capabilities/event-mesh.html)**: This capability can be used if an enterprise applications to communicate through asynchronous events.
 
 - **[SAP Cloud Application Event Hub](https://discovery-center.cloud.sap/serviceCatalog/sap-cloud-application-event-hub?service_plan=standard&region=all&commercialModel=btpea)**: This service supports SAP's strategic event-driven architecture initiative to create a well-defined, easily consumable and extensible ecosystem for exchanging SAP business events.
 
