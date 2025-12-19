@@ -26,10 +26,24 @@ variable "subaccount_admins" {
   type = list(string)
 }
 
+variable "subaccount_service_admins" {
+  type = list(string)
+}
+
 variable "cf_org_admins" {
   type = list(string)
 }
 
+variable "cf_org_users" {
+  type = list(string)
+}
+
+# Note that a user must also be an org user in the CF org
+# to be a space manager or space developer in the space.
 variable "cf_space_managers" {
+  type = list(string)
+}
+
+variable "cf_space_developers" {
   type = list(string)
 }
