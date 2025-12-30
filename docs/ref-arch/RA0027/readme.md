@@ -2,7 +2,7 @@
 id: id-ra0027
 slug: /ref-arch/vuJi1h5F
 sidebar_position: 27
-title: 'Product Family Manager'
+title: 'Test Architecture Diagram'
 description: 'This is a default description.'
 keywords: 
   - genai
