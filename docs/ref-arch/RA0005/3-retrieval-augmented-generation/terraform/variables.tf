@@ -1,6 +1,6 @@
 variable "globalaccount_subdomain" {
   type        = string
-  description = "Looks something like sa1010002681"
+  description = "The subdomain of the global account. It looks similar to sa1010002681"
 }
 
 variable "subaccount_name" {
@@ -9,41 +9,30 @@ variable "subaccount_name" {
 
 variable "region" {
   type        = string
-  description = "The region in which the subaccount will be created"
+  description = "The main region of the subaccount"
 }
 
 variable "cf_landscape_label" {
   type        = string
-  description = "The (extension) landscape to use for Cloud Foundry (CF)"
+  description = "The landscape used for Cloud Foundry (CF). More and more these are extension landscapes such as eu10-004, us10-002"
 }
 
 variable "cf_org_name" {
   type        = string
-  description = "The name to use for the CF org in the subaccount"
+  description = "The name used for the CF org in the subaccount"
 }
 
 variable "subaccount_admins" {
   type = list(string)
 }
 
-variable "subaccount_service_admins" {
+# Don't add the user that is running Terraform or it will throw an error.
+# They will be added anyway to the CF org.
+variable "cf_org_members" {
   type = list(string)
 }
 
-variable "cf_org_admins" {
-  type = list(string)
-}
-
-variable "cf_org_users" {
-  type = list(string)
-}
-
-# Note that a user must also be an org user in the CF org
-# to be a space manager or space developer in the space.
-variable "cf_space_managers" {
-  type = list(string)
-}
-
-variable "cf_space_developers" {
+# User must be in the CF org before they can be added to the CF space
+variable "cf_space_members" {
   type = list(string)
 }

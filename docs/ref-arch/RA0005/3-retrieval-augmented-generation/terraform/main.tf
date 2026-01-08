@@ -4,11 +4,12 @@ resource "btp_subaccount" "subaccount" {
   name      = var.subaccount_name
   subdomain = random_uuid.uuid.result
   region    = lower(var.region)
-  usage     = "USED_FOR_PRODUCTION"
+  # usage     = "USED_FOR_PRODUCTION"
 }
 
-# You still need to make sure that the same services are entitled in your global account.
-# Otherwise they cannot be entitled on the subaccount level.
+# The services AI Core, Destination, CF runtime must be manually entitled and available at the global account level
+# before they can be entitled on the subaccount level.
+
 resource "btp_subaccount_entitlement" "ai_core" {
   subaccount_id = btp_subaccount.subaccount.id
   service_name  = "aicore"
@@ -21,6 +22,7 @@ data "btp_subaccount_service_plan" "ai_core" {
   name          = "extended"
   depends_on    = [btp_subaccount_entitlement.ai_core]
 }
+
 resource "btp_subaccount_service_instance" "ai_core" {
   subaccount_id  = btp_subaccount.subaccount.id
   serviceplan_id = data.btp_subaccount_service_plan.ai_core.id
@@ -34,7 +36,6 @@ resource "btp_subaccount_service_binding" "ai_core_binding" {
   name                = "ai-core-key"
 }
 
-
 resource "btp_subaccount_entitlement" "destination" {
   subaccount_id = btp_subaccount.subaccount.id
   service_name  = "destination"
@@ -47,13 +48,13 @@ data "btp_subaccount_service_plan" "destination" {
   name          = "lite"
   depends_on    = [btp_subaccount_entitlement.destination]
 }
+
 resource "btp_subaccount_service_instance" "destination" {
   subaccount_id  = btp_subaccount.subaccount.id
   serviceplan_id = data.btp_subaccount_service_plan.destination.id
   name           = "destination"
   depends_on     = [btp_subaccount_entitlement.destination]
 }
-
 
 resource "btp_subaccount_entitlement" "cf_runtime" {
   subaccount_id = btp_subaccount.subaccount.id
@@ -80,8 +81,7 @@ resource "cloudfoundry_space" "dev" {
   org  = jsondecode(btp_subaccount_environment_instance.cloudfoundry.labels)["Org ID"]
 }
 
-
-resource "btp_subaccount_role_collection_assignment" "subaccount-admins" {
+resource "btp_subaccount_role_collection_assignment" "subaccount_admins" {
   for_each             = toset(var.subaccount_admins)
   subaccount_id        = btp_subaccount.subaccount.id
   role_collection_name = "Subaccount Administrator"
@@ -89,28 +89,28 @@ resource "btp_subaccount_role_collection_assignment" "subaccount-admins" {
 }
 
 resource "btp_subaccount_role_collection_assignment" "subaccount_service_admins" {
-  for_each             = toset(var.subaccount_service_admins)
+  for_each             = toset(var.subaccount_admins)
   subaccount_id        = btp_subaccount.subaccount.id
   role_collection_name = "Subaccount Service Administrator"
   user_name            = each.value
 }
 
 resource "cloudfoundry_org_role" "organization_manager" {
-  for_each = toset(var.cf_org_admins)
+  for_each = toset(var.cf_org_members)
   username = each.value
   type     = "organization_manager"
   org      = jsondecode(btp_subaccount_environment_instance.cloudfoundry.labels)["Org ID"]
 }
 
 resource "cloudfoundry_org_role" "organization_user" {
-  for_each = toset(var.cf_org_users)
+  for_each = toset(var.cf_org_members)
   username = each.value
   type     = "organization_user"
   org      = jsondecode(btp_subaccount_environment_instance.cloudfoundry.labels)["Org ID"]
 }
 
 resource "cloudfoundry_space_role" "space_manager" {
-  for_each   = toset(var.cf_space_managers)
+  for_each   = toset(var.cf_space_members)
   username   = each.value
   type       = "space_manager"
   space      = cloudfoundry_space.dev.id
@@ -118,7 +118,7 @@ resource "cloudfoundry_space_role" "space_manager" {
 }
 
 resource "cloudfoundry_space_role" "space_developer" {
-  for_each   = toset(var.cf_space_developers)
+  for_each   = toset(var.cf_space_members)
   username   = each.value
   type       = "space_developer"
   space      = cloudfoundry_space.dev.id
