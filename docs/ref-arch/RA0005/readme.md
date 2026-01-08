@@ -167,6 +167,34 @@ Take a look at the following examples that build upon or implement elements of t
 -   [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://discovery-center.cloud.sap/missiondetail/4371/)
 -   [CAP Application: Semantic Search Integrated with Generative AI Hub and SAP HANA Cloud's Vector Engine](https://github.com/SAP-samples/btp-cap-genai-semantic-search)
 
+## Terraform - Infrastructure as Code
+
+Chances are you already use [Terraform](https://developer.hashicorp.com/terraform) to manage your cloud infrastructure. You describe your
+infrastructure in declarative code and keep it under version control with Git to maintain a history of changes. Because every change made through
+Terraform is recorded, you can roll back to a previous state.
+
+If this sounds familiar and you want to build on the reference architecture shown, check out the Terraform files linked
+[here](https://github.com/SAP/architecture-center/tree/main/docs/ref-arch/RA0005/terraform). They include Terraform resources for most of the
+essential infrastructure in the reference architecture. If you’re new to Terraform and want to learn more, click
+[here](https://sap-docs.github.io/terraform-landingpage-for-btp/) to get started with Terraform on SAP BTP.
+
+Run the commands below to set up the infrastructure. Before you run Terraform, fill in the values in the terraform.tfvars file. See variables.tf for
+more information about these variables.
+
+```
+git clone https://github.com/SAP/architecture-center.git
+
+cd architecture-center/docs/ref-arch/RA0005/terraform
+
+terraform init
+
+cf login -a https://api.cf.<cf_landscape_label>.hana.ondemand.com
+
+BTP_ENABLE_SSO=true terraform plan -out=the-plan
+
+BTP_ENABLE_SSO=true terraform apply the-plan
+```
+
 ## Resources
 
 For more information related to this Reference Architecture in general you may check out the following resources:
