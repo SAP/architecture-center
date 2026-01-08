@@ -9,6 +9,10 @@
 .cache-loader
 /src/data
 
+.terraform.lock.hcl
+.terraform/
+terraform.tfstate*
+
 # Misc
 .DS_Store
 .env
