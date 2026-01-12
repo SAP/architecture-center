@@ -107,7 +107,7 @@ const config: Config = {
                     customCss: './src/css/custom.css',
                 },
                 sitemap: {
-                    lastmod: 'date',
+                    lastmod: 'datetime',
                     ignorePatterns: [
                         '/**/tags/**',
                         '/search/**',
