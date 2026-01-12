@@ -149,6 +149,7 @@ const config: Config = {
                 hideable: true,
             },
         },
+
         // Announcement Bar
         announcementBar: {
             id: 'internal-prototype',
