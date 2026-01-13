@@ -33,14 +33,14 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-11-04
+  date: 2026-01-12
 ---
 
 Snowflake’s AI Data Cloud - offered as "SAP Snowflake" - an SAP Solution Extension for SAP Business Data Cloud (GA in Q1 2026), integrates Snowflake into SAP Business Data Cloud(BDC)’s open data ecosystem and business data fabric. 
 
 The integration architecture leverages zero copy, bidirectional data access, enabling data and AI teams to work with semantically rich trusted SAP data products in real time without the added cost and complexity of ETL pipelines. 
 
-SAP BDC Connect for Snowflake, is a cloud service that enables seamless integration between the SAP Snowflake and SAP BDC. It also helps connect the Enterprise Snowflake with SAP BDC for customers that already have Enterprise Snowflake in their ecosystem. 
+SAP Business Data Cloud (BDC) Connect for Snowflake is a new capability that enables secure, bidirectional, zero-copy sharing of data products between SAP BDC and Snowflake AI Data Cloud. With SAP BDC Connect, organizations can integrate their existing Snowflake environments with SAP Business Data Cloud
 
 
 ## Architecture
@@ -52,8 +52,6 @@ SAP BDC Connect for Snowflake, is a cloud service that enables seamless integrat
 ## Key integration - SAP BDC Connect Service for Snowflake
 
 SAP BDC Connect service for Snowflake , built on top of the delta sharing architecture, helps trusted data to be exchanged between SAP and Snowflake with near real-time metadata changes, ensuring users always have access to the most current information.  
-
-Whether a customer adopts SAP Snowflake through SAP Business Data Cloud or operates on an existing Snowflake platform,  the SAP BDC Connect service for Snowflake enables seamless integration in both scenarios.
 
 
 Here are the key differentiation this architecture brings:  
@@ -67,7 +65,7 @@ Here are the key differentiation this architecture brings:
 The bi-directional delta share based integration allows trusted data products to be shared and discoverable via the SAP Business Data Cloud Catalog and the Snowflake Horizon , which is Snowflake's integrated governance solution that governs and protects all data and AI assets across any cloud and any region from a single control plane, ensuring the data is always secure, compliant, and discoverable.
 
 ### 3. SAP Snowflake for SAP-centric use cases ### 
-For customers that already use enterprise Snowflake for their enterprise use cases, they should still consider utilizing SAP Snowflake for SAP-centric use cases and workloads. They can then run their AI models closer to where their data resides for better performance and governance. Minimizing the volume of SAP data leaving allows their SAP teams to maintain the security, governance, andcompliance of your most sensitive SAP data (even if the data is only being federated out of SAP environment).
+Customers can utilize SAP Snowflake for enterprise data and AI workloads including SAP-centric use cases and workloads. They can then run their AI models closer to where their data resides for better performance and governance. Minimizing the volume of SAP data leaving allows their SAP teams to maintain the security, governance, andcompliance of your most sensitive SAP data (even if the data is only being federated out of SAP environment).
 
 
 ### 4. Agent Development at scale with Snowflake's Cortex AI ### 
