@@ -107,7 +107,7 @@ const config: Config = {
                     customCss: './src/css/custom.css',
                 },
                 sitemap: {
-                    lastmod: 'date',
+                    lastmod: 'datetime',
                     ignorePatterns: [
                         '/**/tags/**',
                         '/search/**',
@@ -149,6 +149,7 @@ const config: Config = {
                 hideable: true,
             },
         },
+
         // Announcement Bar
         announcementBar: {
             id: 'internal-prototype',
