@@ -40,8 +40,9 @@ Snowflake’s AI Data Cloud - offered as "SAP Snowflake" - an SAP Solution Exten
 
 The integration architecture leverages zero copy, bidirectional data access, enabling data and AI teams to work with semantically rich trusted SAP data products in real time without the added cost and complexity of ETL pipelines. 
 
-SAP Business Data Cloud (BDC) Connect for Snowflake is a new capability that enables secure, bidirectional, zero-copy sharing of data products between SAP BDC and Snowflake AI Data Cloud. With SAP BDC Connect, organizations can integrate their existing Snowflake environments with SAP Business Data Cloud
+SAP Business Data Cloud (BDC) Connect for Snowflake is a new capability that enables secure, bidirectional, zero-copy sharing of data products between SAP BDC and Snowflake AI Data Cloud. With SAP BDC Connect, organizations can integrate their existing Snowflake environments with SAP Business Data Cloud.
 
+For SAP Snowflake (Solution Extension), SAP BDC Connect is still used behind the scenes for integration, with SAP managing the enrollment and connectivity.
 
 ## Architecture
 
