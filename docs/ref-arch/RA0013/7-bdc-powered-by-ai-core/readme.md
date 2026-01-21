@@ -56,23 +56,11 @@ This blueprint is built on the principle of using each component for its primary
 
 - **SAP Business Data Cloud (with SAP Databricks):** A comprehensive **enterprise data platform** that serves as the unified foundation for AI-driven business intelligence. It provides end-to-end capabilities for **discovering, connecting, preparing, exploring, curating, and governing** both SAP and non-SAP data sources through a semantically rich, business-context-aware layer.
 
-- **SAP AI Foundation (SAP AI Core & Generative AI Hub):** A comprehensive **enterprise AI platform** that offers a complete set of capabilities for managing the full lifecycle of machine learning and generative AI models. It supports scalable training, deployment, and monitoring, along with workflow orchestration, model versioning, and secure integration with SAP applications. SAP AI Core enables customers to use several models or allow customers to bring and operationalize their own AI models. These models can be accessed and governed through the Generative AI Hub, making them reusable services across the enterprise.
-
-## Design Principles and Unique Strengths of SAP AI Core
-
-*   **Rich Portfolio of GenAI Models:** Delivered via the Generative AI Hub and governed as reusable services. This provides a broader selection of foundation models tailored for SAP-centric workloads than is available on many general-purpose platforms.
-
-*   **SAP-First Governance:** Model training, deployment, monitoring, and auditability are all aligned with SAP's identity, policy, and compliance expectations, ensuring enterprise-grade security.
-
-*   **Operational Alignment:** Features such as deployment targets, access controls, observability, and cost management are specifically designed to integrate smoothly with existing SAP applications and business processes.
-
-*   **Complementary by Design:** SAP AI Core is built to work alongside, not replace, existing data platforms. It complements lakehouse analytics and data science environments by operationalizing AI services *inside* the SAP landscape, which accelerates value realization.
+- **SAP AI Foundation (SAP AI Core & Generative AI Hub):** An **enterprise AI platform** for managing the full lifecycle of ML and GenAI models—training, deployment, monitoring, and governance. Customers can use SAP-provided models or bring their own, with the Generative AI Hub providing a rich portfolio of foundation models as reusable, governed services. SAP AI Core is designed to complement (not replace) existing data platforms, integrating seamlessly with SAP identity, policy, and compliance frameworks while providing enterprise-grade access controls, observability, and cost management.
 
 ## Key Architectural Patterns
 
-To compete today, enterprises must activate their most valuable asset — their core business data in SAP — for modern AI. However, this is often a complex, disconnected, and risky endeavor.
-
-The strategy we're outlining provides a clear, governed path to solve this. It's built on the powerful synergy between SAP Business Data Cloud for our data foundation and SAP AI Foundation for our AI capabilities.
+The strategy outlined in this reference architecture provides a clear, governed path to activate your most valuable asset—core business data in SAP—for modern AI. It's built on the powerful synergy between SAP Business Data Cloud for our data foundation and SAP AI Foundation for our AI capabilities.
 
 ### Pattern 1: Train in Databricks, Serve in AI Core (The "Foundational Pattern")
 
@@ -112,7 +100,7 @@ CAP provides a natural fit for implementing Pattern 3, offering significant adva
 * **Simplified Development:** Developers work within familiar SAP frameworks (CDS models, OData services) rather than managing low-level HTTP clients, reducing integration complexity and accelerating time-to-market.
 * **Enterprise-Ready:** CAP applications deploy naturally into SAP BTP with built-in observability, scaling, and operational tooling—no additional infrastructure setup required.
 
-## Business Problem 1: AI-Enhanced Predictive Insights
+## Business Problem: AI-Enhanced Predictive Insights
 
 To make these patterns concrete, let's walk through a tangible, high-value example: **Improving Cash Flow with AI-Enhanced Payment Delay Predictions.**
 
@@ -163,47 +151,6 @@ This end-to-end scenario delivers value at multiple levels:
 
 - **For IT & Governance:** The entire process is governed. Data access is controlled, the model is monitored, and the resulting data product is a managed asset. The architecture provides the robustness and auditability required for a mission-critical financial process.
 
-## Business Problem 2: Autonomous Process Optimization with AI Agents
-
-Beyond providing insights for users to act on, the architecture's true power is realized when the foundational patterns are combined to create **specialized AI data agents**. These are autonomous constructs that monitor, analyze, and act on business events with minimal human intervention, moving the business from a reactive to a proactive and automated posture.
-
-A practical example is a **"Cash Flow Optimization Agent"**, which builds directly on the previous scenario:
-
-1. **Monitor (Powered by Pattern 2):** The agent continuously observes the "Enriched Payment Forecasts" data product. This data is updated daily via **Pattern 2: The Batch Consumption Pattern**.
-
-2. **Analyze (Powered by Pattern 3):** When a high-risk invoice is detected, the agent *executes* **Pattern 3: The Real-Time Consumption Pattern**. It makes a real-time call to the deployed API (the one created by Pattern 1) to get an immediate, deep explanation.
-
-3. **Act (The Next Step):** Based on the analysis from Pattern 3, the agent triggers a workflow in SAP BTP to assign a task or uses a generative AI model to draft a personalized outreach email.
-
-### Key Recommendations and Best Practices for Batch Inference
-
-*   **Utilize Workflow Executions:** Orchestrate batch inference as pipelines/workflow executions in SAP AI Core to manage high-volume, offline processing efficiently.
-*   **Scheduling:** Schedule recurring batch jobs using cron specifications in SAP AI Launchpad to automate periodic tasks (e.g., weekly or monthly reports).
-*   **Efficiency:** Prioritize throughput over latency; leverage GPUs and other compute resources efficiently for large datasets.
-*   **Data Handling:** Design batch programs to process data in bulk, reading from and writing to configured object stores (e.g., S3). Produce an output dataset of predictions for downstream consumption or as a governed data product.
-*   **Containerization:** Package batch inference logic in a user-supplied Docker image containing the necessary code and dependencies (e.g., PyTorch, TensorFlow) for execution in SAP AI Core.
-*   **API-First Approach:** Manage and trigger configurations and executions via SAP AI Core APIs or the Python SDK to integrate with external applications and pipelines.
-*   **Separate from Online Serving:** Do not use real-time serving endpoints for batch; online endpoints are optimized for low-latency single or small-batch requests, whereas workflow executions are designed for high-volume, offline processing.
-*   **Resource Management:** Leverage platform capabilities to dynamically scale compute resources based on job demands to ensure cost-efficiency and performance.
-
-## Summary of Roles and Responsibilities
-
-- **Data Scientists:** Primarily work within **SAP Business Data Cloud (Databricks)** for data exploration, feature engineering, and rapid model experimentation.
-- **ML Engineers & IT Operations:** Primarily work with **SAP AI Core** to manage production model deployments, monitor performance, ensure governance, and maintain the operational integrity of AI services.
-- **Application Developers & Business Users:** Consume the final AI-Enhanced Data Products and AI-powered applications through various channels, including SAP Analytics Cloud, custom BTP applications, or integrated line-of-business solutions.
-
-## Platform Selection Guide
-
-### Use **Databricks** for:
-- **Data science experimentation** and rapid prototyping
-- **Quick validation** by data scientist personas
-- Integrated data science workflows with immediate feedback
-
-### Use **AI Core** for:
-- **Production-ready models** requiring enterprise-grade serving
-- Access to **broader LLM ecosystem** and **SAP's RPT-1** foundational model
-- Scenarios requiring **production infrastructure** and planned **BDC integrations**
-
 ## Key Differentiators
 
 | Aspect | AI Core | Databricks |
@@ -224,13 +171,9 @@ This reference architecture is realized through the following key SAP services a
 **SAP Business Data Cloud Series:**
 - [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md) - Understanding data products, their architecture, and consumption patterns
 - [SAP Databricks in SAP BDC](../5-sap-databricks-in-business-data-cloud/readme.md) - Deep dive into SAP Databricks integration and use cases
-- [Intelligent Applications in SAP Business Data Cloud](../2-intelligent-applications-by-sap/readme.md) - Pre-configured analytics and dashboards
-- [Modernizing SAP BW with SAP Business Data Cloud](../4-modernizing-sap-bw-with-sap-bdc/readme.md) - Migration patterns and data product generation
-- [Cloud Identity Services for BDC](../6-cloud-identity-services-bdc/readme.md) - Unified identity and access management
 
 **Generative AI and Machine Learning:**
 - [Generative AI with SAP AI Core](../../RA0005/readme.md) - Comprehensive guide to GenAI patterns, RAG, and AI agents
-- [Federated Machine Learning with SAP Datasphere](../../RA0003/readme.md) - ML integration across hyperscaler platforms
 
 ### SAP Services and Documentation
 
@@ -249,10 +192,8 @@ This reference architecture is realized through the following key SAP services a
 **Development and Integration:**
 - [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/) - Framework for building enterprise applications
 - [SAP AI SDK for JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) - SDK for integrating AI capabilities
-- [SAP BDC Connect SDK](https://pypi.org/project/sap-bdc-connect-sdk/) - Python SDK for data product management
 
 ### Learning Resources
 
 - [Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud) - Learning journey
 - [SAP AI Core Tutorial](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) - Set up Generative AI Hub
-- [SAP Community: Business Data Cloud](https://community.sap.com/topics/business-data-cloud) - Community discussions and blogs
