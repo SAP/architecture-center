@@ -178,22 +178,17 @@ This reference architecture is realized through the following key SAP services a
 ### SAP Services and Documentation
 
 **SAP AI Foundation:**
-- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core) - Enterprise AI platform for model lifecycle management
-- [SAP AI Launchpad](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad) - Multi-tenant SaaS for managing AI scenarios
+- [SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/what-is-sap-ai-core) - Enterprise AI platform for model lifecycle management
+- [SAP AI Launchpad](https://help.sap.com/docs/ai-launchpad/sap-ai-launchpad/sap-ai-launchpad-overview?q=SAP+AI+Launchpad) - Multi-tenant SaaS for managing AI scenarios
 - [Generative AI Hub in SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core) - Access to foundation models and LLMs
-- [SAP AI Core SDK](https://pypi.org/project/ai-core-sdk/) - Python SDK for programmatic AI Core integration
+- [SAP AI Core SDK](https://help.sap.com/doc/generative-ai-hub-sdk/CLOUD/en-US/_reference/README_sphynx.html) - Python SDK for programmatic AI Core integration
 
 **SAP Business Data Cloud:**
-- [SAP Business Data Cloud Overview](https://www.sap.com/products/technology-platform/business-data-cloud.html) - Product overview and capabilities
+- [SAP Business Data Cloud Overview](https://www.sap.com/products/data-cloud.html) - Product overview and capabilities
 - [SAP Datasphere](https://help.sap.com/docs/SAP_DATASPHERE) - Data management, modeling, and integration
 - [SAP Analytics Cloud](https://www.sap.com/products/technology-platform/cloud-analytics.html) - Business intelligence and analytics
-- [SAP Databricks Documentation](https://help.sap.com/docs/sap-datasphere/sap-datasphere-administration-guide-for-sap-datasphere/sap-databricks) - Integration guide for SAP Databricks
+- [SAP Databricks Documentation](http://help.sap.com/docs/business-data-cloud/sap-databricks/introducing-sap-databricks) - Integration guide for SAP Databricks
 
 **Development and Integration:**
 - [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/) - Framework for building enterprise applications
 - [SAP AI SDK for JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) - SDK for integrating AI capabilities
-
-### Learning Resources
-
-- [Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud) - Learning journey
-- [SAP AI Core Tutorial](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) - Set up Generative AI Hub
