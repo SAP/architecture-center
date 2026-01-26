@@ -12,12 +12,12 @@ sidebar_custom_props:
 ############################################################
 #     You can modify the front matter properties below     #
 ############################################################
-title: Log Driven Security Operations with SAP Enterprise Threat Detection and FortiSIEM and FortiSOAR
+title: Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms
 description: This reference architecture shows how SAP Enterprise Threat Detection provides log-driven security signals that are correlated in FortiSIEM and orchestrated through FortiSOAR to enable centralized monitoring incident investigation and automated response.
-sidebar_label: Log Driven Security Operations with SAP Enterprise Threat Detection and FortiSIEM and FortiSOAR
-keywords: [log management, threat analytics, cloud security, hybrid architectures, siem, soar, security automation, security]
+sidebar_label: Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms
+keywords: [sap enterprise threat detection, sap security, siem, soar, security operations, soc architecture, log-driven security, event correlation, incident response, security automation, hybrid security architecture, cloud security monitoring]
 image: img/logo.svg
-tags: [Log Driven Security, Security Operations, SAP Enterprise Threat Detection, SIEM, SOAR, Security Automation, Threat Detection, Incident Response, Event Correlation, FortiSIEM, FortiSOAR]
+tags: [Reference Architecture, SAP Security, SAP Enterprise Threat Detection, SIEM, SOAR, Security Operations, Event Correlation, Incident Response, Security Automation, Hybrid Landscapes, Cloud and On-Prem Security, FortiSIEM, FortiSOAR]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -27,7 +27,7 @@ unlisted: false
 contributors:
     - randomstr1ng
 last_update:
-    date: 2025-12-16
+    date: 2026-01-26
     author: Julian Petersohn
 ############################################################
 #                   End of Front Matter                    #
