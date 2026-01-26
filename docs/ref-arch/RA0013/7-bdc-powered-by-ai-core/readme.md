@@ -40,10 +40,6 @@ Enterprises possess a wealth of invaluable business data within their SAP system
 
 This reference architecture presents a cohesive vision for combining **SAP Business Data Cloud** with **SAP AI Foundation** (including SAP AI Core and the Generative AI Hub). The core architectural concept is the creation of **AI-Enhanced Data Products**—intelligent, context-aware, and dynamic assets that deliver trusted predictive insights and drive business automation at scale.
 
-:::note Future State
-SAP is developing a managed Model Context Protocol (MCP) component for standardized querying of BDC data products, simplifying real-time data access for AI applications.
-:::
-
 ![drawio](drawio/bdc-ai-core-integration.drawio)
 
 ## The Architectural Blueprint
@@ -94,14 +90,11 @@ The following patterns provide a clear, governed path for activating SAP data fo
 
 **Why:** This pattern creates a **reusable AI asset**—the single model from Pattern 1 serves both massive batch jobs (Pattern 2) and critical real-time processes, embedding intelligence directly into enterprise operations without duplication.
 
-**Implementation with SAP Cloud Application Programming Model (CAP):**
+**Implementation with SAP BTP Extension Applications:**
 
-CAP provides a natural fit for implementing Pattern 3:
+SAP BTP extension applications—built with CAP, Node.js, Java, Python, or other runtimes—are well suited for this pattern. The BTP destination service manages connectivity to AI Core, allowing applications to call the deployment endpoint directly.
 
-* **Integrated Data Access:** CAP applications can seamlessly query SAP Datasphere (which federates BDC data products) and combine this with real-time AI predictions in a single request-response cycle
-* **Built-in Governance:** Authorization, authentication, and audit logging align automatically with SAP standards
-* **Simplified Development:** Developers work within familiar SAP frameworks (CDS models, OData services) rather than managing low-level HTTP clients
-* **Enterprise-Ready:** CAP applications deploy naturally into SAP BTP with built-in observability, scaling, and operational tooling
+This approach enables applications to query SAP Datasphere for BDC data products and obtain AI predictions within the same request cycle. Authorization, authentication, and audit logging align with BTP security standards, while deployment benefits from BTP's built-in observability and scaling capabilities. The pattern also supports AI agents that require real-time model inference combined with SAP data access.
 
 ## Business Problem: AI-Enhanced Predictive Insights
 
