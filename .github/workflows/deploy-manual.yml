@@ -49,6 +49,14 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: node src/_scripts/_fetch-contributors-details.js
 
+      - name: Cache drawio svgs
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/architecture-center/drawio-svgs
+          key: drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-
+
       - name: Export drawios to svgs
         run: DOCKER=1 node src/_scripts/_export-drawios.js
 
