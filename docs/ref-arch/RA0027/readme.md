@@ -22,7 +22,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
     - randomstr1ng
@@ -156,7 +156,3 @@ SAP-related security incidents are synchronized with ITSM platforms, ensuring SA
 - [SAP Community Webinar: Oh no, someone breached the SAP systems – Cybersecurity for Hybrid SAP Landscapes](https://www.youtube.com/live/AAgAS8JZDq0)
 - [FortiSIEM SAP Enterprise Threat Detection integration](https://docs.fortinet.com/document/fortisiem/7.4.0/external-systems-configuration-guide/200971/sap-enterprise-threat-detection-etd)
 - [FortiSOAR Connectors Content Hub](https://fortisoar.contenthub.fortinet.com//list.html?contentType=all&searchContent=SAP)
-
-## Related Missions
-
-<!-- Add related missions here -->
