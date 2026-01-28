@@ -32,8 +32,8 @@ contributors:
   - jmsrpp
   - anbazhagan-uma
 last_update:
-  author: seeobjectively
-  date: 2025-12-10
+  author: guilherme-segantini
+  date: 2026-01-28
 ---
 
 Enterprises possess a wealth of invaluable business data within their SAP systems. However, activating this data for modern Artificial Intelligence is often a complex, disconnected, and risky challenge. To stay competitive, organizations need a strategy to transform this data into reliable, governed, and actionable AI-driven insights that are deeply integrated with core business processes.
