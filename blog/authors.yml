@@ -30,4 +30,14 @@ anirban-sap:
   socials:
     github: anirban-sap
     linkedin: -anirban-majumdar
-    
+
+guilherme-segantini:
+  name: Guilherme Segantini
+  title: Expert Development Architect
+  url: https://github.com/guilherme-segantini
+  image_url: https://github.com/guilherme-segantini.png
+  page: true
+  # valid socials are "x", "github", "twitter", "linkedin", "stackoverflow", "instagram", "bluesky", "mastodon", "threads", "twitch", "youtube"
+  socials:
+    github: guilherme-segantini
+    linkedin: grsegantini
