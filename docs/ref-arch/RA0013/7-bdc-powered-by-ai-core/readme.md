@@ -82,19 +82,23 @@ The following patterns provide a clear, governed path for activating SAP data fo
 
 ### Pattern 3: The Real-Time Consumption Pattern
 
-**What:** Building on Pattern 1's deployed model, this pattern embeds AI into live business processes for immediate predictions. Applications make low-latency API calls to the **deployment endpoint** (distinct from Pattern 2's batch *executions*), receiving instant insights to drive decisions—like checking risk scores before posting a sales order or providing recommendations as a page loads.
+**What:** Building on Pattern 1's deployed model, this pattern embeds AI into live business processes for immediate predictions. A **Data Agent**—built as an SAP BTP extension application—orchestrates three responsibilities: (1) querying business data from Datasphere, (2) running inference against the AI Core **deployment endpoint** (distinct from Pattern 2's batch *executions*), and (3) optionally using GenAI Hub to generate human-readable explanations for the predictions. This enables instant insights to drive decisions—like checking risk scores before posting a sales order or providing recommendations as a page loads.
 
 **Triggers:** Real-time, synchronous calls triggered by user actions (e.g., "Submit," "Approve") or system processes (e.g., S/4HANA BAdI) requiring immediate responses.
 
-**Flow:** The application calls the AI Core deployment endpoint with event-specific records (e.g., line items from a sales order), receives predictions in milliseconds, and acts immediately—blocking transactions, flagging items for review, or displaying recommendations.
+**Flow:** The Data Agent receives a request (e.g., line items from a sales order), queries BDC data products via Datasphere for additional context, calls the AI Core deployment endpoint for predictions, and returns the result in milliseconds—blocking transactions, flagging items for review, or displaying recommendations.
 
 **Why:** This pattern creates a **reusable AI asset**—the single model from Pattern 1 serves both massive batch jobs (Pattern 2) and critical real-time processes, embedding intelligence directly into enterprise operations without duplication.
 
 **Implementation with SAP BTP Extension Applications:**
 
-SAP BTP extension applications—built with CAP, Node.js, Java, Python, or other runtimes—are well suited for this pattern. The BTP destination service manages connectivity to AI Core, allowing applications to call the deployment endpoint directly.
+The Data Agent is an SAP BTP extension application that serves as the integration layer between business processes and AI capabilities. It can be built with CAP, Node.js, Java, Python, or other supported runtimes. The agent handles:
 
-This approach enables applications to query SAP Datasphere for BDC data products and obtain AI predictions within the same request cycle. Authorization, authentication, and audit logging align with BTP security standards, while deployment benefits from BTP's built-in observability and scaling capabilities. The pattern also supports AI agents that require real-time model inference combined with SAP data access.
+- **Data retrieval:** Queries BDC data products via SAP Datasphere using the BTP destination service
+- **Inference:** Calls the AI Core deployment endpoint to generate predictions
+- **Explanation (optional):** Uses GenAI Hub to translate technical outputs (e.g., SHAP values) into business-friendly explanations
+
+SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0005/6-agents-structured-data/readme.md). 
 
 ## Business Problem: AI-Enhanced Predictive Insights
 
