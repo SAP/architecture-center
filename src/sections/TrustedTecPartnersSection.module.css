@@ -29,7 +29,6 @@
   justify-content: center;
   padding: 0 30px;
   box-sizing: border-box;
-  flex-shrink: 0;
 }
 
 .logoImg {
@@ -39,11 +38,11 @@
   max-width: 200px;
   display: block;
   object-fit: contain;
-  transition: transform 0.3s ease;
 }
 
 .logoImg:hover {
   transform: scale(1.2);
+  transition: transform 0.3s ease;
 }
 
 .title {
@@ -62,23 +61,6 @@
     padding-top: clamp(40px, 5vw, 80px);
     position: relative;
     overflow: hidden;
-}
-
-/* Smooth infinite scroll container */
-.carouselTrack {
-    display: flex;
-    width: max-content;
-    animation: scroll 30s linear infinite;
-    will-change: transform;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-33.333%); /* Move by 1/3 since we have 3 sets */
-    }
 }
 
 .carouselLogo::before,
@@ -109,6 +91,19 @@
     background: linear-gradient(to left, var(--carousel-fade-bg), transparent);
 }
 
+.carouselLogo :global(.slick-slide) {
+    width: auto !important;
+    min-width: 120px;
+    max-width: 300px;
+}
+
+.carouselLogo :global(.slick-slide) > div {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .logoList { display: none; }
 
 :root[data-theme='dark'] .title,
@@ -127,8 +122,9 @@
         padding: 0 20px;
     }
 
-    .logoWrapper {
-        padding: 0 20px;
+    .carouselLogo :global(.slick-slide) {
+        min-width: 100px;
+        max-width: 200px;
     }
 
     .innerWrapper {
