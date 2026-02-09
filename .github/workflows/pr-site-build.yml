@@ -165,7 +165,11 @@ jobs:
       - name: Add PR Comment with Preview Link
         uses: thollander/actions-comment-pull-request@v2
         with:
-          message: 'Preview website is available <a href="https://architecture.learning.sap.com/@${{ env.PR_FOLDER }}" target="_blank" rel="noopener noreferrer">here</a>.'
+          message: |
+            🚀 **Preview website is available [here](https://architecture.learning.sap.com/@${{ env.PR_FOLDER }}).**
+
+            ---
+            ⚠️ **Note:** Preview deployments are automatically cleaned up every **Friday** as part of our weekly release cycle. If your preview link stops working, simply **push a new commit or update your PR** to regenerate the preview.
 
   cleanup:
     name: Cleanup Merged PR
