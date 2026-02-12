@@ -46,7 +46,7 @@ This reference architecture presents a cohesive vision for combining **SAP Busin
 
 The architectural vision is centered on a powerful synergy: SAP Business Data Cloud provides the governed, business-ready data foundation, while SAP AI Foundation offers a comprehensive portfolio of enterprise-grade AI capabilities. The value lies in the comprehensive AI capabilities that allow data scientists and developers to move from data preparation to model deployment and inference.
 
-- **SAP Business Data Cloud (with SAP Databricks):** A comprehensive **enterprise data platform** serving as the unified foundation for AI-driven business intelligence. It provides end-to-end capabilities for **discovering, connecting, preparing, exploring, curating, and governing** both SAP and non-SAP data sources through a semantically rich, business-context-aware layer.
+- **SAP Business Data Cloud (with SAP Databricks):** A comprehensive **enterprise data platform** serving as the unified foundation for AI-driven business intelligence. It provides end-to-end capabilities for **discovering, connecting, preparing, exploring, curating, and governing** both SAP and non-SAP data sources through a semantically rich, business-context-aware layer. 
 
 - **SAP AI Foundation (SAP AI Core & Generative AI Hub):** A comprehensive **enterprise AI platform** for managing the full lifecycle of machine learning and generative AI models. It supports scalable training, deployment, monitoring, workflow orchestration, model versioning, and secure integration with SAP applications.
 
@@ -61,24 +61,26 @@ The architectural vision is centered on a powerful synergy: SAP Business Data Cl
 
 The following patterns provide a clear, governed path for activating SAP data for modern AI.
 
-### Pattern 1: Train in Databricks, Serve in AI Core
+### Pattern 1: Model Development in Databricks with AI Core Serving
 
-**What:** A data scientist performs exploratory data science and model training in SAP Databricks, directly against governed, business-ready data products shared from SAP BDC Cockpit. During development, they engineer features within their notebooks—simple transformations stay with the model as preprocessing steps, while reusable features can be promoted back to BDC data products for broader consumption. The goal is to produce a high-quality, production-ready model. The key is a clean separation of roles: the data scientist creates the model or utilizes an existing model and releases the model artifacts to the unity catalog in Databricks, while a client-managed MLOps pipeline pulls these artifacts and handles validation and deployment to AI Core using SAP AI Core SDK.
+**What:** A data scientist performs exploratory data science and model training in SAP Databricks, directly against governed, business-ready data products shared from SAP BDC Cockpit. The BDC Cockpit serves as the central hub for sharing data products to multiple consumers, including SAP Databricks for AI/ML workloads. During development, they engineer features within their notebooks—simple transformations stay with the model as preprocessing steps, while reusable features can be promoted back as an enriched BDC data product for broader consumption. The goal is to produce a high-quality, production-ready model for deployment to SAP AI Core.
 
-**Why:** This pattern provides separation of concerns—data scientists use a pro-code development environment to run experiments in Databricks while AI Core handles the production model serving.
+The data scientist registers trained models to the **Unity Catalog** in Databricks using **MLflow**. A client-managed MLOps pipeline then pulls these MLflow model artifacts, packages them into AI Core-compatible serving templates, and handles validation and deployment using the SAP AI Core SDK. AI Core provides enterprise-grade model serving with built-in governance, scaling, monitoring, and seamless integration with SAP applications—plus the same model serves both batch (Pattern 2) and real-time (Pattern 3) consumption. Use **MLflow** for model versioning and artifact management, as it provides standardized packaging and Unity Catalog integration.
+
+**Why:** This pattern leverages the best of both platforms: Databricks for pro-code model development with governed data access, and SAP AI Core for enterprise-grade serving. While inference in Databricks remains an option for specific use cases (e.g., tight data pipeline integration), deploying to AI Core is the recommended approach because it provides consistent governance, scaling, and the ability to serve the same model across both batch and real-time consumption patterns.
 
 ### Pattern 2: The Batch Consumption Pattern
 
-**What:** Building on Pattern 1's deployed model, this pattern enriches data products through high-throughput batch processing using scheduled or event-driven triggers (e.g., hourly ticket categorization, weekly sales forecasts). The model reads from a source dataset and writes predictions back—either as new columns in the existing dataset or as a separate data product in BDC.
+**What:** Once the model is deployed on SAP AI Core, you can enrich your data products through high-throughput batch processing (e.g., hourly ticket categorization, weekly sales forecasts). A customer-managed batch workflow reads from a source data product, calls the deployed model for inference, and writes predictions back—either as new columns in the existing dataset or as a separate enriched data product in BDC.
 
 **Trigger Options:**
-* **Recurring:** Schedule periodic batch jobs with efficient incremental processing through Delta Lake's Change Data Feed (CDF)
-* **One-Time:** Trigger bulk processing for historical data or initial data product creation
-* **Event-Driven:** Automatically trigger re-scoring in response to events such as new model deployment
+* **Recurring:** Periodic batch jobs scheduled via SAP AI Launchpad cron or external orchestrators (e.g., Databricks Workflows, Apache Airflow), with efficient incremental processing using Delta Lake's Change Data Feed (CDF)
+* **One-Time:** Bulk processing for historical data or initial data product creation
+* **Event-Driven:** Automatic re-scoring triggered by events such as new model deployment or data refresh
 
 **Workflow Implementation:** Use **SAP AI Core workflow executions** for batch processing—distinct from real-time endpoints and optimized for high-throughput operations. Schedule jobs with **cron in SAP AI Launchpad** for simple recurring tasks, or use the **SAP AI Core SDK** for programmatic control.
 
-**Why:** This architecture provides a robust, governable way to handle non-real-time AI processing. It uses the *same governed model* from AI Core for all batch scenarios, separating high-throughput batch workloads from low-latency online serving.
+**Why:** This pattern provides a robust, governable way to handle data batch processing. It uses the *same governed model* from AI Core for all batch scenarios, separating high-throughput batch workloads from low-latency online serving.
 
 ### Pattern 3: The Real-Time Consumption Pattern
 
@@ -98,7 +100,17 @@ The Data Agent is an SAP BTP extension application that serves as the integratio
 - **Inference:** Calls the AI Core deployment endpoint to generate predictions
 - **Explanation (optional):** Uses GenAI Hub to translate technical outputs (e.g., SHAP values) into business-friendly explanations
 
-SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0005/6-agents-structured-data/readme.md). 
+SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0005/6-agents-structured-data/readme.md).
+
+### Pattern 4: Extending AI Insights to SAP HANA Cloud
+
+**What:** SAP HANA Cloud can directly consume BDC data products—including the AI-enriched data products created by Pattern 2. Data products are shared via SAP BDC Cockpit to HANA Cloud, enabling CDS views, calculation views, and CAP applications to leverage governed BDC data without replication.
+
+This means AI-generated predictions (such as payment delay forecasts or risk scores from Pattern 2) become available alongside traditional business data in HANA Cloud. Downstream applications can join AI predictions with transactional data for analytics, reporting, and real-time business logic.
+
+**Why:** This pattern extends the value of AI investments by making predictions consumable across the broader SAP landscape. Applications that already use HANA Cloud can incorporate AI insights without architectural changes—enabling gradual AI adoption while maintaining existing data flows.
+
+For details on data product consumption options, see [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md).
 
 ## Business Problem: AI-Enhanced Predictive Insights
 
@@ -130,6 +142,8 @@ The deployed API is operationalized using *both* consumption patterns:
 * **Pattern 2 (Batch):** A recurring workflow scheduled in SAP AI Launchpad creates the **"Enriched Payment Forecasts" data product** in BDC, which business users view in their SAP Analytics Cloud dashboard.
 
 * **Pattern 3 (Real-Time):** A Fiori app for the collections team makes live calls to the same AI Core API when a user opens a customer account, providing instant predictions.
+
+* **Pattern 4 (HANA Cloud):** The "Enriched Payment Forecasts" data product is also shared with SAP HANA Cloud via the BDC Cockpit, where existing finance applications can join AI predictions with live transactional data for consolidated reporting and downstream business logic.
 
 ### Value Delivered
 

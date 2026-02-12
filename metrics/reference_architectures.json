@@ -1,0 +1,1280 @@
+{
+  "metadata": {
+    "updated_date": "2026-01-23",
+    "description": "Reference architectures organized by master RA with nested articles"
+  },
+  "reference_architectures": [
+    {
+      "id": "RA0001",
+      "title": "Designing Event-Driven Applications",
+      "file_path": "docs/ref-arch/RA0001/readme.md",
+      "status": "published",
+      "contributors": [
+        "anbazhagan-uma",
+        "pra1veenk",
+        "AjitKP91",
+        "swatimaste00",
+        "anirban-sap"
+      ],
+      "articles": [
+        {
+          "id": "RA0001-1",
+          "title": "Introduction and SAP's EDA Strategy",
+          "file_path": "docs/ref-arch/RA0001/1-event-driven-arch/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma",
+            "pra1veenk",
+            "AjitKP91",
+            "swatimaste00"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/1",
+          "release_date": "2025-10-18"
+        },
+        {
+          "id": "RA0001-2",
+          "title": "Design Considerations for EDA Applications",
+          "file_path": "docs/ref-arch/RA0001/2-design-considerations/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma",
+            "pra1veenk",
+            "AjitKP91",
+            "swatimaste00"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/2",
+          "release_date": "2025-10-18"
+        },
+        {
+          "id": "RA0001-3",
+          "title": "EDA Sample Use Cases",
+          "file_path": "docs/ref-arch/RA0001/3-sap-eda-patterns/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/3",
+          "release_date": "2025-10-24"
+        },
+        {
+          "id": "RA0001-4",
+          "title": "SAP CAP Framework for Events to Business Actions Integration",
+          "file_path": "docs/ref-arch/RA0001/4-e2b-framework/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma",
+            "pra1veenk",
+            "AjitKP91",
+            "swatimaste00"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/4",
+          "release_date": "2025-05-10"
+        },
+        {
+          "id": "RA0001-5",
+          "title": "Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise",
+          "file_path": "docs/ref-arch/RA0001/5-aws-iot-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma",
+            "pra1veenk",
+            "AjitKP91",
+            "swatimaste00"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/5",
+          "release_date": "2025-05-10"
+        },
+        {
+          "id": "RA0001-6",
+          "title": "Build Events-to-Business Actions Scenarios with SAP BTP and Microsoft Azure",
+          "file_path": "docs/ref-arch/RA0001/6-azure-iot-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "anbazhagan-uma",
+            "pra1veenk",
+            "AjitKP91",
+            "swatimaste00"
+          ],
+          "slug": "/ref-arch/fbdc46aaae/6",
+          "release_date": "2025-05-10"
+        }
+      ],
+      "slug": "/ref-arch/fbdc46aaae",
+      "release_date": "2025-10-10"
+    },
+    {
+      "id": "RA0002",
+      "title": "Architecting Multi-Region HA/DR resiliency patterns",
+      "file_path": "docs/ref-arch/RA0002/readme.md",
+      "status": "published",
+      "contributors": [
+        "martinfrick",
+        "maxstreifeneder",
+        "kshanth",
+        "mahesh0431",
+        "anirban-sap",
+        "jmsrpp",
+        "uklasing",
+        "alperdedeoglu",
+        "arajsinha"
+      ],
+      "articles": [
+        {
+          "id": "RA0002-1",
+          "title": "Single-region and Multi-region resiliency",
+          "file_path": "docs/ref-arch/RA0002/1-fundamentals/readme.md",
+          "status": "published",
+          "contributors": [],
+          "articles": [
+            {
+              "id": "RA0002-1-1",
+              "title": "Single-region resiliency",
+              "file_path": "docs/ref-arch/RA0002/1-fundamentals/1-single-region-resiliency/readme.md",
+              "status": "published",
+              "contributors": [
+                "martinfrick",
+                "maxstreifeneder",
+                "kshanth",
+                "mahesh0431",
+                "anirban-sap",
+                "jmsrpp",
+                "uklasing",
+                "alperdedeoglu",
+                "arajsinha"
+              ],
+              "slug": "/ref-arch/81805673c0/1/1",
+              "release_date": "2025-05-12"
+            },
+            {
+              "id": "RA0002-1-2",
+              "title": "Multi-region resiliency",
+              "file_path": "docs/ref-arch/RA0002/1-fundamentals/2-multi-region-resiliency/readme.md",
+              "status": "published",
+              "contributors": [
+                "martinfrick",
+                "maxstreifeneder",
+                "kshanth",
+                "mahesh0431",
+                "anirban-sap",
+                "jmsrpp",
+                "uklasing",
+                "alperdedeoglu",
+                "arajsinha"
+              ],
+              "slug": "/ref-arch/81805673c0/1/2",
+              "release_date": "2025-05-12"
+            }
+          ],
+          "slug": "/ref-arch/81805673c0/1",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-2",
+          "title": "Geographic Redundancy",
+          "file_path": "docs/ref-arch/RA0002/2-geographic-redundancy/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/2",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-3",
+          "title": "Load Balancers",
+          "file_path": "docs/ref-arch/RA0002/3-loadbalancers/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/3",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-4",
+          "title": "Data Synchronization",
+          "file_path": "docs/ref-arch/RA0002/4-data-synchronization/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/4",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-5",
+          "title": "Events Synchronization",
+          "file_path": "docs/ref-arch/RA0002/5-event-synchronization/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/5",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-6",
+          "title": "Control Plane for Orchestration",
+          "file_path": "docs/ref-arch/RA0002/6-control-plane/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/6",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0002-7",
+          "title": "HA/DR Sample Implementations",
+          "file_path": "docs/ref-arch/RA0002/7-sample-implementations/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/7",
+          "release_date": "2025-05-12"
+        },
+        {
+          "id": "RA0002-8",
+          "title": "Security",
+          "file_path": "docs/ref-arch/RA0002/8-security/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/8",
+          "release_date": "2025-05-12"
+        },
+        {
+          "id": "RA0002-9",
+          "title": "Cost of Ownership",
+          "file_path": "docs/ref-arch/RA0002/9-tco/readme.md",
+          "status": "published",
+          "contributors": [
+            "martinfrick",
+            "maxstreifeneder",
+            "kshanth",
+            "mahesh0431",
+            "anirban-sap",
+            "jmsrpp",
+            "uklasing",
+            "alperdedeoglu",
+            "arajsinha"
+          ],
+          "slug": "/ref-arch/81805673c0/9",
+          "release_date": "2025-05-12"
+        }
+      ],
+      "slug": "/ref-arch/81805673c0",
+      "release_date": "2025-02-19"
+    },
+    {
+      "id": "RA0003",
+      "title": "Federated Machine Learning with SAP Datasphere",
+      "file_path": "docs/ref-arch/RA0003/readme.md",
+      "status": "published",
+      "contributors": [
+        "s-krishnamoorthy",
+        "jackseeburger",
+        "chaturvedakash",
+        "karishma-kapur",
+        "ranbian",
+        "ThatDodoBird"
+      ],
+      "articles": [
+        {
+          "id": "RA0003-aws",
+          "title": "FedML-AWS for Amazon Sagemaker",
+          "file_path": "docs/ref-arch/RA0003/fedml-aws/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/1",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0003-azure",
+          "title": "FedML-Azure for Azure Machine Learning",
+          "file_path": "docs/ref-arch/RA0003/fedml-azure/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/2",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0003-databricks",
+          "title": "FedML-Databricks for Databricks platform",
+          "file_path": "docs/ref-arch/RA0003/fedml-databricks/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/3",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0003-gcp",
+          "title": "FedML-GCP for Google Vertex AI",
+          "file_path": "docs/ref-arch/RA0003/fedml-gcp/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/4",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0003-nvidia",
+          "title": "FedML's support for NVIDIA GPUs",
+          "file_path": "docs/ref-arch/RA0003/fedml-nvidia/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/5",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0003-watsonx",
+          "title": "FedML and IBM watsonx.ai / IBM Watson Studio integration",
+          "file_path": "docs/ref-arch/RA0003/fedml-watsonx/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "chaturvedakash",
+            "karishma-kapur",
+            "ranbian",
+            "ThatDodoBird"
+          ],
+          "slug": "/ref-arch/8e1a5fbce3/6",
+          "release_date": "2025-01-23"
+        }
+      ],
+      "slug": "/ref-arch/8e1a5fbce3",
+      "release_date": "2025-01-23"
+    },
+    {
+      "id": "RA0004",
+      "title": "Explore your Hyperscaler data with SAP Business Data Cloud",
+      "file_path": "docs/ref-arch/RA0004/readme.md",
+      "status": "published",
+      "contributors": [
+        "sivakumar",
+        "anirban-sap",
+        "s-krishnamoorthy",
+        "jackseeburger",
+        "chaturvedakash",
+        "karishma-kapur",
+        "ranbian",
+        "jasoncwluo"
+      ],
+      "articles": [
+        {
+          "id": "RA0004-1",
+          "title": "Integration with AWS data sources",
+          "file_path": "docs/ref-arch/RA0004/1-aws-data-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "sivakumar",
+            "s-krishnamoorthy",
+            "feng",
+            "karishma-kapur"
+          ],
+          "slug": "/ref-arch/a07a316077/1",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0004-2",
+          "title": "Integration with Azure data sources",
+          "file_path": "docs/ref-arch/RA0004/2-azure-data-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "sivakumar",
+            "s-krishnamoorthy",
+            "karishma-kapur"
+          ],
+          "slug": "/ref-arch/a07a316077/2",
+          "release_date": "2025-01-23"
+        },
+        {
+          "id": "RA0004-3",
+          "title": "Integration with Databricks",
+          "file_path": "docs/ref-arch/RA0004/3-databricks-data-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "chaturvedakash"
+          ],
+          "slug": "/ref-arch/a07a316077/3",
+          "release_date": "2025-10-23"
+        },
+        {
+          "id": "RA0004-4",
+          "title": "Integration with Google Cloud Platform sources",
+          "file_path": "docs/ref-arch/RA0004/4-gcp-data-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "sivakumar",
+            "s-krishnamoorthy",
+            "jackseeburger",
+            "karishma-kapur"
+          ],
+          "slug": "/ref-arch/a07a316077/4",
+          "release_date": "2025-10-23"
+        },
+        {
+          "id": "RA0004-5",
+          "title": "Integration with Snowflake",
+          "file_path": "docs/ref-arch/RA0004/5-snowflake-data-integration/readme.md",
+          "status": "published",
+          "contributors": [
+            "sivakumar",
+            "s-krishnamoorthy"
+          ],
+          "slug": "/ref-arch/a07a316077/5",
+          "release_date": "2025-11-04"
+        },
+        {
+          "id": "RA0004-6",
+          "title": "Latency and Performance considerations",
+          "file_path": "docs/ref-arch/RA0004/6-latency-performance-considerations/readme.md",
+          "status": "published",
+          "contributors": [
+            "sivakumar",
+            "s-krishnamoorthy",
+            "karishma-kapur"
+          ],
+          "slug": "/ref-arch/a07a316077/6",
+          "release_date": "2025-01-23"
+        }
+      ],
+      "slug": "/ref-arch/a07a316077",
+      "release_date": "2025-10-23"
+    },
+    {
+      "id": "RA0005",
+      "title": "Generative AI on SAP BTP",
+      "file_path": "docs/ref-arch/RA0005/readme.md",
+      "status": "published",
+      "contributors": [
+        "kay-schmitteckert",
+        "AdiPleyer",
+        "vedant-aero-ml",
+        "madankumarpichamuthu"
+      ],
+      "articles": [
+        {
+          "id": "RA0005-1",
+          "title": "Basic Prompting",
+          "file_path": "docs/ref-arch/RA0005/1-basics/readme.md",
+          "status": "published",
+          "contributors": [
+            "kay-schmitteckert",
+            "AdiPleyer",
+            "vedant-aero-ml",
+            "madankumarpichamuthu"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/1",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0005-2",
+          "title": "Embeddings & Semantic Search",
+          "file_path": "docs/ref-arch/RA0005/2-semantic-search/readme.md",
+          "status": "published",
+          "contributors": [
+            "kay-schmitteckert",
+            "AdiPleyer",
+            "vedant-aero-ml",
+            "madankumarpichamuthu"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/2",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0005-3",
+          "title": "Retrieval Augmented Generation (RAG)",
+          "file_path": "docs/ref-arch/RA0005/3-retrieval-augmented-generation/readme.md",
+          "status": "published",
+          "contributors": [
+            "kay-schmitteckert",
+            "madankumarpichamuthu",
+            "xammaxx"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/3",
+          "release_date": "2025-07-21"
+        },
+        {
+          "id": "RA0005-4",
+          "title": "Conversational AI & Joule",
+          "file_path": "docs/ref-arch/RA0005/4-conversational-ai/readme.md",
+          "status": "draft",
+          "contributors": [],
+          "slug": "/ref-arch/e5eb3b9b1d/4",
+          "release_date": "2025-01-01"
+        },
+        {
+          "id": "RA0005-5",
+          "title": "AI Agents & Agent Builder",
+          "file_path": "docs/ref-arch/RA0005/5-ai-agents/readme.md",
+          "status": "published",
+          "contributors": [
+            "vedant-aero-ml",
+            "kay-schmitteckert"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/5",
+          "release_date": "2025-09-03"
+        },
+        {
+          "id": "RA0005-6",
+          "title": "Agents for Structured Data",
+          "file_path": "docs/ref-arch/RA0005/6-agents-structured-data/readme.md",
+          "status": "published",
+          "contributors": [
+            "vedant-aero-ml",
+            "kay-schmitteckert"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/6",
+          "release_date": "2025-05-14"
+        },
+        {
+          "id": "RA0005-7",
+          "title": "Non-Functional Pillars",
+          "file_path": "docs/ref-arch/RA0005/7-pillars/readme.md",
+          "status": "draft",
+          "contributors": [],
+          "slug": "/ref-arch/e5eb3b9b1d/7",
+          "release_date": "2025-01-01"
+        },
+        {
+          "id": "RA0005-8",
+          "title": "Agent2Agent Interoperability",
+          "file_path": "docs/ref-arch/RA0005/8-agent2agent-interoperability/readme.md",
+          "status": "published",
+          "contributors": [
+            "adarshnarayanhegde",
+            "AFK-Python",
+            "AndItDontFade",
+            "kay-schmitteckert"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/8",
+          "release_date": "2025-10-29"
+        },
+        {
+          "id": "RA0005-9",
+          "title": "Partner Models",
+          "file_path": "docs/ref-arch/RA0005/9-partner-models/readme.md",
+          "status": "published",
+          "contributors": [
+            "chaturvedakash",
+            "feng-lia",
+            "kevinxhuang"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/9",
+          "release_date": "2025-06-17"
+        },
+        {
+          "id": "RA0005-10",
+          "title": "Vibe Coding with Cline and SAP AI Core",
+          "file_path": "docs/ref-arch/RA0005/10-vibe-code-with-cline/readme.md",
+          "status": "published",
+          "contributors": [
+            "jmsrpp",
+            "mahesh0431",
+            "AjitKP91"
+          ],
+          "slug": "/ref-arch/e5eb3b9b1d/10",
+          "release_date": "2025-07-17"
+        }
+      ],
+      "slug": "/ref-arch/e5eb3b9b1d",
+      "release_date": "2025-09-02"
+    },
+    {
+      "id": "RA0006",
+      "title": "Secure connectivity with SAP Private Link service",
+      "file_path": "docs/ref-arch/RA0006/readme.md",
+      "status": "published",
+      "contributors": [
+        "hterminasyan"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/a2f89cac57",
+      "release_date": "2025-01-22"
+    },
+    {
+      "id": "RA0007",
+      "title": "Multitenant SaaS Application using CAP",
+      "file_path": "docs/ref-arch/RA0007/readme.md",
+      "status": "published",
+      "contributors": [
+        "AjitKP91",
+        "alperdedeoglu"
+      ],
+      "articles": [
+        {
+          "id": "RA0007-2",
+          "title": "Benefits of Multitenant Applications",
+          "file_path": "docs/ref-arch/RA0007/2-mt-benefits/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/1",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0007-3",
+          "title": "Tenant Model on SAP BTP",
+          "file_path": "docs/ref-arch/RA0007/3-mt-models/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/2",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0007-4",
+          "title": "Tenant Lifecycle Management",
+          "file_path": "docs/ref-arch/RA0007/4-mt-lifecycle/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/3",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0007-5",
+          "title": "Reference Architecture",
+          "file_path": "docs/ref-arch/RA0007/5-mt-architecture/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/4",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0007-6",
+          "title": "Cost of Ownership",
+          "file_path": "docs/ref-arch/RA0007/6-mt-tco/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/5",
+          "release_date": "2025-01-31"
+        },
+        {
+          "id": "RA0007-7",
+          "title": "Authentication Strategies",
+          "file_path": "docs/ref-arch/RA0007/7-mt-authentication/readme.md",
+          "status": "published",
+          "contributors": [
+            "AjitKP91",
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/d31bedf420/6",
+          "release_date": "2025-01-31"
+        }
+      ],
+      "slug": "/ref-arch/d31bedf420",
+      "release_date": "2025-01-31"
+    },
+    {
+      "id": "RA0008",
+      "title": "Edge Integration Cell on Hyperscalers",
+      "file_path": "docs/ref-arch/RA0008/readme.md",
+      "status": "published",
+      "contributors": [
+        "adarshnarayanhegde",
+        "madankumarpichamuthu",
+        "AFK-Python"
+      ],
+      "articles": [
+        {
+          "id": "RA0008-1",
+          "title": "Edge Integration Cell on AWS",
+          "file_path": "docs/ref-arch/RA0008/1-edge-integration-cell-on-aws/readme.md",
+          "status": "published",
+          "contributors": [
+            "adarshnarayanhegde"
+          ],
+          "slug": "/ref-arch/263f576c90/1",
+          "release_date": "2025-02-20"
+        },
+        {
+          "id": "RA0008-2",
+          "title": "Edge Integration Cell on Azure",
+          "file_path": "docs/ref-arch/RA0008/2-edge-integration-cell-on-azure/readme.md",
+          "status": "published",
+          "contributors": [
+            "madankumarpichamuthu"
+          ],
+          "slug": "/ref-arch/263f576c90/2",
+          "release_date": "2025-02-20"
+        },
+        {
+          "id": "RA0008-3",
+          "title": "Edge Integration Cell on GCP",
+          "file_path": "docs/ref-arch/RA0008/3-edge-integration-cell-on-gcp/readme.md",
+          "status": "published",
+          "contributors": [
+            "AFK-Python"
+          ],
+          "slug": "/ref-arch/263f576c90/3",
+          "release_date": "2025-02-20"
+        }
+      ],
+      "slug": "/ref-arch/263f576c90",
+      "release_date": "2025-04-18"
+    },
+    {
+      "id": "RA0009",
+      "title": "Establish a central inbox with SAP Task Center",
+      "file_path": "docs/ref-arch/RA0009/readme.md",
+      "status": "published",
+      "contributors": [
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/0245473a99",
+      "release_date": "2025-02-11"
+    },
+    {
+      "id": "RA0010",
+      "title": "Establish a central entry point with SAP Build Work Zone",
+      "file_path": "docs/ref-arch/RA0010/readme.md",
+      "status": "published",
+      "contributors": [
+        "f-buech",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/1311c18c17",
+      "release_date": "2025-07-10"
+    },
+    {
+      "id": "RA0011",
+      "title": "SAP HANA Cloud as an Esri Geodatabase",
+      "file_path": "docs/ref-arch/RA0011/readme.md",
+      "status": "published",
+      "contributors": [
+        "aldapooh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/25a350543b",
+      "release_date": "2025-03-25"
+    },
+    {
+      "id": "RA0012",
+      "title": "Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud",
+      "file_path": "docs/ref-arch/RA0012/readme.md",
+      "status": "published",
+      "contributors": [
+        "aldapooh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/d9b25daf96",
+      "release_date": "2025-04-03"
+    },
+    {
+      "id": "RA0013",
+      "title": "Transforming Enterprise Data Strategy with SAP Business Data Cloud",
+      "file_path": "docs/ref-arch/RA0013/readme.md",
+      "status": "published",
+      "contributors": [
+        "jasoncwluo",
+        "jmsrpp",
+        "anbazhagan-uma",
+        "s-krishnamoorthy",
+        "peterfendt"
+      ],
+      "articles": [
+        {
+          "id": "RA0013-1",
+          "title": "Data Products in SAP Business Data Cloud",
+          "file_path": "docs/ref-arch/RA0013/1-data-products-in-sap-business-data-cloud/readme.md",
+          "status": "published",
+          "contributors": [
+            "jasoncwluo",
+            "jmsrpp",
+            "anbazhagan-uma",
+            "peterfendt"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/1",
+          "release_date": "2025-05-19"
+        },
+        {
+          "id": "RA0013-2",
+          "title": "Intelligent Applications by SAP",
+          "file_path": "docs/ref-arch/RA0013/2-intelligent-applications-by-sap/readme.md",
+          "status": "published",
+          "contributors": [
+            "jasoncwluo",
+            "jmsrpp",
+            "anbazhagan-uma",
+            "peterfendt"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/2",
+          "release_date": "2025-05-19"
+        },
+        {
+          "id": "RA0013-3",
+          "title": "Intelligent Applications Greenfield BDC",
+          "file_path": "docs/ref-arch/RA0013/3-intelligent-applications-greenfield-bdc/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jmsrpp",
+            "anbazhagan-uma",
+            "jasoncwluo",
+            "peterfendt"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/3",
+          "release_date": "2025-10-05"
+        },
+        {
+          "id": "RA0013-4",
+          "title": "Modernizing SAP BW with SAP Business Data Cloud",
+          "file_path": "docs/ref-arch/RA0013/4-modernizing-sap-bw-with-sap-bdc/readme.md",
+          "status": "published",
+          "contributors": [
+            "jasoncwluo",
+            "jmsrpp",
+            "anbazhagan-uma",
+            "peterfendt"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/4",
+          "release_date": "2025-09-16"
+        },
+        {
+          "id": "RA0013-5",
+          "title": "SAP Databricks in SAP BDC",
+          "file_path": "docs/ref-arch/RA0013/5-sap-databricks-in-business-data-cloud/readme.md",
+          "status": "published",
+          "contributors": [
+            "s-krishnamoorthy",
+            "jmsrpp",
+            "peterfendt"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/5",
+          "release_date": "2025-09-09"
+        },
+        {
+          "id": "RA0013-6",
+          "title": "Unifying Access Across SAP BDC with SAP Cloud Identity Services",
+          "file_path": "docs/ref-arch/RA0013/6-cloud-identity-services-bdc/readme.md",
+          "status": "published",
+          "contributors": [
+            "guilherme-segantini",
+            "jmsrpp",
+            "anbazhagan-uma"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/6",
+          "release_date": "2025-11-04"
+        },
+        {
+          "id": "RA0013-7",
+          "title": "SAP Business Data Cloud powered by SAP AI Core",
+          "file_path": "docs/ref-arch/RA0013/7-bdc-powered-by-ai-core/readme.md",
+          "status": "draft",
+          "contributors": [
+            "seeobjectively",
+            "guilherme-segantini",
+            "jmsrpp",
+            "anbazhagan-uma"
+          ],
+          "slug": "/ref-arch/f5b6b597a6/7",
+          "release_date": "2025-12-10"
+        }
+      ],
+      "slug": "/ref-arch/f5b6b597a6",
+      "release_date": "2025-09-19"
+    },
+    {
+      "id": "RA0014",
+      "title": "Understanding Network Performance in a Multi Regional Solution",
+      "file_path": "docs/ref-arch/RA0014/readme.md",
+      "status": "published",
+      "contributors": [
+        "uklasing",
+        "kshanth",
+        "AjitKP91"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/0ec83f98fe",
+      "release_date": "2025-05-07"
+    },
+    {
+      "id": "RA0015",
+      "title": "Business to Government Integration",
+      "file_path": "docs/ref-arch/RA0015/readme.md",
+      "status": "published",
+      "contributors": [
+        "avikSap",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/c5f6fe6cf1",
+      "release_date": "2024-08-01"
+    },
+    {
+      "id": "RA0016",
+      "title": "Secure Service Consumption Across Hyperscalers",
+      "file_path": "docs/ref-arch/RA0016/readme.md",
+      "status": "published",
+      "contributors": [
+        "alperdedeoglu"
+      ],
+      "articles": [
+        {
+          "id": "RA0016-1",
+          "title": "Secure Service Consumption on AWS",
+          "file_path": "docs/ref-arch/RA0016/1-secure-service-consumption-on-aws/readme.md",
+          "status": "published",
+          "contributors": [
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/7e558be8f1/1",
+          "release_date": "2025-05-14"
+        },
+        {
+          "id": "RA0016-2",
+          "title": "Secure Service Consumption on GCP",
+          "file_path": "docs/ref-arch/RA0016/2-secure-service-consumption-on-gcp/readme.md",
+          "status": "published",
+          "contributors": [
+            "alperdedeoglu"
+          ],
+          "slug": "/ref-arch/7e558be8f1/2",
+          "release_date": "2025-05-14"
+        }
+      ],
+      "slug": "/ref-arch/7e558be8f1",
+      "release_date": "2025-05-14"
+    },
+    {
+      "id": "RA0017",
+      "title": "Connect Business Processes with SAP Master Data Integration",
+      "file_path": "docs/ref-arch/RA0017/readme.md",
+      "status": "published",
+      "contributors": [
+        "avikSap",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/7adaecbbaf",
+      "release_date": "2024-08-01"
+    },
+    {
+      "id": "RA0018",
+      "title": "Integrate and Extend with SAP Build Process Automation",
+      "file_path": "docs/ref-arch/RA0018/readme.md",
+      "status": "published",
+      "contributors": [
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/99fd0564be",
+      "release_date": "2025-05-14"
+    },
+    {
+      "id": "RA0019",
+      "title": "SAP IAM integration with SAP Cloud Identity Services",
+      "file_path": "docs/ref-arch/RA0019/readme.md",
+      "status": "published",
+      "contributors": [
+        "sapgunnar",
+        "gunnar-kosche_sap"
+      ],
+      "articles": [
+        {
+          "id": "RA0019-1",
+          "title": "Authentication with SAP Cloud Identity Services",
+          "file_path": "docs/ref-arch/RA0019/1-authentication-and-single-sign-on/readme.md",
+          "status": "published",
+          "contributors": [
+            "sapgunnar",
+            "gunnar-kosche_sap"
+          ],
+          "slug": "/ref-arch/20c6b29b1e/1",
+          "release_date": "2025-05-13"
+        },
+        {
+          "id": "RA0019-2",
+          "title": "Identity lifecycle with SAP Cloud Identity Services",
+          "file_path": "docs/ref-arch/RA0019/2-identity-lifecycle/readme.md",
+          "status": "published",
+          "contributors": [
+            "sapgunnar",
+            "gunnar-kosche_sap"
+          ],
+          "slug": "/ref-arch/20c6b29b1e/2",
+          "release_date": "2025-05-13"
+        },
+        {
+          "id": "RA0019-3",
+          "title": "Authorization with SAP Cloud Identity Services",
+          "file_path": "docs/ref-arch/RA0019/3-authorization-design/readme.md",
+          "status": "published",
+          "contributors": [
+            "sapgunnar",
+            "gunnar-kosche_sap"
+          ],
+          "slug": "/ref-arch/20c6b29b1e/3",
+          "release_date": "2025-05-13"
+        }
+      ],
+      "slug": "/ref-arch/20c6b29b1e",
+      "release_date": "2025-05-13"
+    },
+    {
+      "id": "RA0020",
+      "title": "Business to Business Integration",
+      "file_path": "docs/ref-arch/RA0020/readme.md",
+      "status": "published",
+      "contributors": [
+        "avikSap",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/61f6a1db63",
+      "release_date": "2024-08-01"
+    },
+    {
+      "id": "RA0021",
+      "title": "Application to Application Integration",
+      "file_path": "docs/ref-arch/RA0021/readme.md",
+      "status": "published",
+      "contributors": [
+        "avikSap",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/58f6d88e9a",
+      "release_date": "2024-08-01"
+    },
+    {
+      "id": "RA0022",
+      "title": "API Managed Integration",
+      "file_path": "docs/ref-arch/RA0022/readme.md",
+      "status": "published",
+      "contributors": [
+        "avikSap",
+        "fabianleh"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/309338f0eb",
+      "release_date": "2024-08-01"
+    },
+    {
+      "id": "RA0023",
+      "title": "DevOps with SAP BTP",
+      "file_path": "docs/ref-arch/RA0023/readme.md",
+      "status": "published",
+      "contributors": [
+        "bzarske"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/1c5706feb5",
+      "release_date": "2025-06-06"
+    },
+    {
+      "id": "RA0024",
+      "title": "Integrating and Extending Joule",
+      "file_path": "docs/ref-arch/RA0024/readme.md",
+      "status": "published",
+      "contributors": [
+        "nagesh-caparthy1",
+        "anbazhagan-uma",
+        "pra1veenk"
+      ],
+      "articles": [
+        {
+          "id": "RA0024-1",
+          "title": "Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public Edition",
+          "file_path": "docs/ref-arch/RA0024/1-joule-for-sap-s4-hana/readme.md",
+          "status": "published",
+          "contributors": [
+            "pra1veenk",
+            "anbazhagan-uma",
+            "nagesh-caparthy1"
+          ],
+          "slug": "/ref-arch/06ff6062dc/1",
+          "release_date": "2025-10-29"
+        },
+        {
+          "id": "RA0024-2",
+          "title": "Identity and Access Management for SAP Joule",
+          "file_path": "docs/ref-arch/RA0024/2-joule-iam/readme.md",
+          "status": "published",
+          "contributors": [
+            "sapgunnar",
+            "gunnar-kosche_sap"
+          ],
+          "slug": "/ref-arch/06ff6062dc/2",
+          "release_date": "2025-09-22"
+        },
+        {
+          "id": "RA0024-3",
+          "title": "Extend Joule with Joule Studio",
+          "file_path": "docs/ref-arch/RA0024/3-extend-joule-with-joule-studio/readme.md",
+          "status": "published",
+          "contributors": [
+            "maria-kondratyeva",
+            "miguelmezamartinez",
+            "fabianleh"
+          ],
+          "slug": "/ref-arch/06ff6062dc/3",
+          "release_date": "2025-06-25"
+        },
+        {
+          "id": "RA0024-4",
+          "title": "Integrate Joule and Microsoft Copilot",
+          "file_path": "docs/ref-arch/RA0024/4-integrate-joule-and-microsoft-copilot/readme.md",
+          "status": "draft",
+          "contributors": [
+            "contributor1",
+            "contributor2"
+          ],
+          "slug": "/ref-arch/06ff6062dc/4",
+          "release_date": "2025-10-29"
+        }
+      ],
+      "slug": "/ref-arch/06ff6062dc",
+      "release_date": "2025-10-29"
+    },
+    {
+      "id": "RA0025",
+      "title": "Transitioning Architectures from SAP NetWeaver",
+      "file_path": "docs/ref-arch/RA0025/readme.md",
+      "status": "published",
+      "contributors": [
+        "abklgithub"
+      ],
+      "articles": [
+        {
+          "id": "RA0025-1",
+          "title": "Migrating from SAP Process Integration/Orchestration to SAP Integration Suite",
+          "file_path": "docs/ref-arch/RA0025/1-sap-pi-po-to-integration-suite/readme.md",
+          "status": "published",
+          "contributors": [
+            "abklgithub"
+          ],
+          "slug": "/ref-arch/9a5f7b59dc/1",
+          "release_date": "2025-08-02"
+        }
+      ],
+      "slug": "/ref-arch/9a5f7b59dc",
+      "release_date": "2025-08-02"
+    },
+    {
+      "id": "RA0026",
+      "title": "Embodied AI Agents",
+      "file_path": "docs/ref-arch/RA0026/readme.md",
+      "status": "published",
+      "contributors": [
+        "adelyafatykhova",
+        "niklasweidenfeller",
+        "AjitKP91",
+        "pra1veenk"
+      ],
+      "articles": [],
+      "slug": "/ref-arch/083f2d968e",
+      "release_date": "2025-11-04"
+    }
+  ]
+}
