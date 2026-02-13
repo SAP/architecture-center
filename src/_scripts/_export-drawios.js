@@ -135,9 +135,8 @@ async function generateQrSvg(link) {
 async function watermarkAll() {
     for (const [drawioPath, svgPath] of Object.entries(transforms)) {
         const drawioContentHash = drawioPathsToContentHashes[drawioPath];
-        const cachedSvgPath = join(DRAWIO_SVGS_CACHE_DIR, `${drawioContentHash}-${basename(svgPath)}`);
         if (manifest[drawioContentHash]) {
-            copyFileSync(cachedSvgPath, svgPath);
+            copyFileSync(manifest[drawioContentHash], svgPath);
             log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
             continue;
         }
@@ -227,6 +226,7 @@ async function watermarkAll() {
             writeFileSync(svgPath, svg);
             log(prettyPaths('Watermarked ' + svgPath, 0));
             try {
+                const cachedSvgPath = join(DRAWIO_SVGS_CACHE_DIR, `${drawioContentHash}-${basename(svgPath)}`);
                 // Cache the watermarked svg.
                 writeFileSync(cachedSvgPath, svg);
                 manifest[drawioContentHash] = cachedSvgPath;
