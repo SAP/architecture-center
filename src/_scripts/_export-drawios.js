@@ -23,6 +23,7 @@ const SVG_BACKGROUND_COLOR = '#ffffff';
 const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to BASE_URL for consistency
 const ARTIFACTS_DIR = ROOT + '/static/artifacts'; // Added for artifacts generation
 const THUMBNAILS_DIR = ARTIFACTS_DIR + '/thumbnails'; // Added for thumbnails generation
+const { CACHE_ENABLED = 0 } = process.env;
 const DRAWIO_SVGS_CACHE_DIR = `${homedir}/.cache/architecture-center/drawio-svgs`; // The SVGs will be cached here
 const DRAWIO_SVGS_CACHE_MANIFEST = DRAWIO_SVGS_CACHE_DIR + '/manifest.json';
 
@@ -43,15 +44,17 @@ if (!existsSync(THUMBNAILS_DIR)) mkdirSync(THUMBNAILS_DIR, { recursive: true });
 
 if (!existsSync(DRAWIO_SVGS_CACHE_DIR)) mkdirSync(DRAWIO_SVGS_CACHE_DIR, { recursive: true });
 
-// Mapping drawio content hashes -> path of cached watermarked svg
+// The manifest maps drawio file paths to content hashes of the drawio file
+// contents, and the dates when the cache entries were last updated.
 let manifest;
 try {
-    manifest = JSON.parse(readFileSync(DRAWIO_SVGS_CACHE_MANIFEST, 'utf-8'));
+    if (CACHE_ENABLED) {
+        const manifestContent = readFileSync(DRAWIO_SVGS_CACHE_MANIFEST, 'utf-8');
+        manifest = JSON.parse(manifestContent);
+    }
 } catch {
     manifest = {};
 }
-// for efficient lookup in watermarking phase if there is a cache hit
-const drawioPathsToContentHashes = {};
 
 // --- Phase 1: Export and Watermark all Draw.io files ---
 
@@ -78,8 +81,7 @@ function exportAllDrawios() {
 
         const drawioContent = readFileSync(input);
         const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
-        drawioPathsToContentHashes[input] = drawioContentHash;
-        if (manifest[drawioContentHash]) {
+        if (CACHE_ENABLED && isInCache(input, drawioContentHash)) {
             log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`);
         } else { // -> Cache miss
             try {
@@ -134,9 +136,12 @@ async function generateQrSvg(link) {
 // Watermark the svgs, which were created in the previous step
 async function watermarkAll() {
     for (const [drawioPath, svgPath] of Object.entries(transforms)) {
-        const drawioContentHash = drawioPathsToContentHashes[drawioPath];
-        if (manifest[drawioContentHash]) {
-            copyFileSync(manifest[drawioContentHash], svgPath);
+        const drawioContent = readFileSync(drawioPath);
+        const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
+        const cachedSvgFileName = createHash('sha256').update(drawioPath).digest('hex');
+
+        if (CACHE_ENABLED && isInCache(drawioPath, drawioContentHash)) {
+            copyFileSync(`${DRAWIO_SVGS_CACHE_DIR}/${cachedSvgFileName}`, svgPath);
             log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
             continue;
         }
@@ -226,10 +231,11 @@ async function watermarkAll() {
             writeFileSync(svgPath, svg);
             log(prettyPaths('Watermarked ' + svgPath, 0));
             try {
-                const cachedSvgPath = join(DRAWIO_SVGS_CACHE_DIR, `${drawioContentHash}-${basename(svgPath)}`);
-                // Cache the watermarked svg.
-                writeFileSync(cachedSvgPath, svg);
-                manifest[drawioContentHash] = cachedSvgPath;
+                if (CACHE_ENABLED) {
+                    // Cache the watermarked svg.
+                    writeFileSync(`${DRAWIO_SVGS_CACHE_DIR}/${cachedSvgFileName}`, svg);
+                    manifest[drawioPath] = { drawioContentHash: drawioContentHash, lastUpdate: Date.now() };
+                }
             } catch (e) {
                 log(`Failed to cache watermarked SVG for ${svgPath}. Error: ${e.message}`);
             }
@@ -323,12 +329,22 @@ function prettyPaths(log, isInDocker = DOCKER) {
     return log.replaceAll(strip, '').replaceAll('\n', '');
 }
 
+function isInCache(drawioPath, drawioContentHash) {
+    if (!manifest[drawioPath]) {
+        return false;
+    }
+    return manifest[drawioPath].drawioContentHash === drawioContentHash &&
+        manifest[drawioPath].lastUpdate;
+}
+
 // Main execution flow
 async function main() {
     exportAllDrawios(); // Phase 1: Export all drawios
     await watermarkAll(); // Phase 1: Apply watermarks
     try {
-        writeFileSync(DRAWIO_SVGS_CACHE_MANIFEST, JSON.stringify(manifest));
+        if (CACHE_ENABLED) {
+            writeFileSync(DRAWIO_SVGS_CACHE_MANIFEST, JSON.stringify(manifest));
+        }
     } catch (e) {
         log(`[WARNING] Could not save updated cache manifest. Error: ${e.message}`);
     }
