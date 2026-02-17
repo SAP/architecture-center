@@ -58,7 +58,7 @@ jobs:
             drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-
 
       - name: Export drawios to svgs
-        run: DOCKER=1 node src/_scripts/_export-drawios.js
+        run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios.js
 
       - name: Generate validation rules
         run: node src/_scripts/_generate-validator-rules.js
