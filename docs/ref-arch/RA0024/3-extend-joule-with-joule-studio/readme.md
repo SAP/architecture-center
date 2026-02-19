@@ -43,6 +43,8 @@ contributors:
   - maria-kondratyeva  
   - miguelmezamartinez
   - fabianleh
+  - bernhardthimmel
+  - mar-hol
 discussion:
 last_update:
     date: 2025-06-25
@@ -67,8 +69,8 @@ This reference architecture outlines how Joule Studio can be leveraged to integr
 4. AI Core plays a crucial role in extending Joule's capabilities. It provides the underlying Large Language Models (LLMs) that can be leveraged to configure AI Agents. Additionally, customers can provision their own document grounding capabilities in AI Core leveraging the Retrieval Augmented Generation (RAG) service and integrate them into their AI Agents to ground them in specific data.
 5. SAP BTP Connectivity integrates existing workflows with Joule Skills and AI Agents, enabling seamless, automated execution across SAP and non-SAP systems. This enhances efficiency while leveraging current investments in automation.
 6. Once customers have created their custom Joule Skills and AI Agents, they can use SAP Build's lifecycle capabilities to compile and deploy these capabilities alongside their Joule central instance. This grants business users access to additional functionalities, helping them in their daily tasks through centralized access via Joule, reducing the need to switch between multiple SAP and non-SAP applications.
-7. Joule Studio integrates via the SAP Connectivity service with other SAP BTP services and external applications. This integration is based on APIs provided through various channels, such as Live API using Graph, SAP Cloud Application Programming Model, ABAP RESTful Application Programming Model, OData destinations, SAP systems, API Business Hub Enterprise, or SAP Business Accelerator Hub. Customers can upload API specifications or build API actions from scratch for robust integration.
-8. Joule Studio relies on SAP Cloud Identity Services - Identity Authentication for identity management and authentication. SAP Cloud Identity Services act as a central facade for identity and access management, offering secure authentication or federation with third-party identity providers. SAP Cloud Identity Directory stores the SAP identities, and SAP Cloud Identity Services can serve as a proxy for customer-owned identity providers.
+7. Joule Studio integrates via the SAP Connectivity service with other SAP BTP services and external applications. This integration is based on APIs provided through various channels, such as Live API using Graph, SAP Cloud Application Programming Model, ABAP RESTful Application Programming Model, OData destinations, SAP systems, API Business Hub Enterprise, Unified Customer Landscape or SAP Business Accelerator Hub. Customers can upload API specifications or build API actions from scratch for robust integration.
+8. Joule Studio relies on SAP Cloud Identity Services for identity management, authentication and identity life-cycle management. SAP Cloud Identity Services act as a central facade for identity and access management, offering secure authentication or federation with third-party identity providers. SAP Cloud Identity Directory stores the SAP identities, and SAP Cloud Identity Services can serve as a proxy for customer-owned identity providers.
 
 ## Characteristics
 
