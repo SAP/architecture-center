@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="2">
     <diagram name="SAP Joule Studio (DRAFT)" id="oFvMTZ7YrolDxY1caR5L">
-        <mxGraphModel dx="3548" dy="2421" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="3520" dy="1820" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="-Aj5rOMPWS9pz5DeyN8X-0"/>
                 <mxCell id="-Aj5rOMPWS9pz5DeyN8X-1" parent="-Aj5rOMPWS9pz5DeyN8X-0"/>
@@ -14,7 +14,7 @@
                     <mxGeometry x="-2202.75" y="-1539.56" width="351.75" height="502.56" as="geometry"/>
                 </mxCell>
                 <mxCell id="3-6J5nk3R8EDgc8lyGGh-32" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ecf8ff;perimeterSpacing=0;absoluteArcSize=1;" parent="-Aj5rOMPWS9pz5DeyN8X-1" vertex="1">
-                    <mxGeometry x="-2183.62" y="-1481.5" width="295.62" height="416.5" as="geometry"/>
+                    <mxGeometry x="-2107" y="-1257.5" width="295.62" height="416.5" as="geometry"/>
                 </mxCell>
                 <mxCell id="3-6J5nk3R8EDgc8lyGGh-34" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#FFFFFF;perimeterSpacing=0;absoluteArcSize=1;" parent="-Aj5rOMPWS9pz5DeyN8X-1" vertex="1">
                     <mxGeometry x="-1355" y="-1539.12" width="153" height="153.12" as="geometry"/>
