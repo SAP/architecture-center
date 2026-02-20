@@ -1,0 +1,63 @@
+name: Weekly Preview Cleanup
+
+on:
+  schedule:
+    # Runs every Friday at 00:00 UTC
+    - cron: '0 0 * * 5'
+  workflow_dispatch:
+    # Allow manual trigger for testing
+
+jobs:
+  cleanup-previews:
+    name: Cleanup All PR Previews
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAASAPCOM_PAT }}
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "paa@sap.com"
+          git config --global user.name "paasapcom"
+
+      - name: Switch to GitHub Pages Branch
+        run: |
+          gh_pages_branch=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.branch')
+          git fetch origin $gh_pages_branch
+          git checkout $gh_pages_branch
+          echo "gh_pages_branch=$gh_pages_branch" >> "$GITHUB_ENV"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List Preview Folders
+        run: |
+          echo "Preview folders found:"
+          ls -la | grep "@preview" || echo "No preview folders found"
+
+      - name: Delete All Preview Folders
+        run: |
+          # Find and delete all @preview directories
+          if ls -d @preview* 1> /dev/null 2>&1; then
+            echo "Deleting the following preview folders:"
+            ls -d @preview*
+            rm -rf @preview*
+            echo "All preview folders deleted successfully"
+          else
+            echo "No preview folders to delete"
+          fi
+
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
+        run: |
+          git add -A
+          if [[ "$(git status -s)" ]]; then
+            git commit -m "🧹 Weekly cleanup: removed all PR preview folders"
+            git push origin ${{ env.gh_pages_branch }}
+            echo "Preview folders cleaned up successfully"
+          else
+            echo "No changes to commit - no preview folders were present"
+          fi
