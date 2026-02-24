@@ -99,3 +99,8 @@ community:
 agents:
   label: "Agents"
   description: "An agent is a system, often backed by an LLM, that acts on behalf of a user or another program, often with some degree of autonomy. Agents can perform tasks, make decisions, and interact with other systems or users to achieve specific goals."
+
+successfactors:
+  label: "SAP SuccessFactors"
+  description: "SAP SuccessFactors is a cloud-based human capital management (HCM) software solution that helps organizations manage their workforce effectively. It offers a range of modules for core HR, talent management, payroll, and employee experience, enabling businesses to attract, develop, and retain top talent while optimizing HR processes."
+  
