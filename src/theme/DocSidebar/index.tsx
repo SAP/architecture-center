@@ -1,9 +1,9 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import DocSidebar from '@theme-original/DocSidebar';
 import DocSidebarItems from '@theme-original/DocSidebarItems';
 import { NavbarSecondaryMenuFiller, useWindowSize } from '@docusaurus/theme-common';
 import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
-import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
+import CollapsibleFilterBar from '@site/src/components/FilterBar/CollapsibleFilterBar';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
@@ -93,23 +93,56 @@ function DocSidebarDesktop(props) {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
+    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     if (!shouldShowFilters) {
         return <DocSidebar {...props} />;
     }
 
-    const handleFilterChange = (filterGroup, selectedKeys) => {
-      if (filterGroup === "partners") {
-        setPartners(selectedKeys);
-      }
-      if (filterGroup === "techDomains") {
-        setTechDomains(selectedKeys);
-      }
+    // Prepare options for CollapsibleFilterBar
+    const techDomainOptions = [
+        { value: 'ai', label: 'AI & Machine Learning' },
+        { value: 'appdev', label: 'Application Dev. & Automation' },
+        { value: 'data', label: 'Data & Analytics' },
+        { value: 'integration', label: 'Integration' },
+        { value: 'opsec', label: 'Operation & Security' }
+    ];
+
+    const partnerOptions = [
+        { value: 'aws', label: 'Amazon Web Services' },
+        { value: 'azure', label: 'Microsoft Azure' },
+        { value: 'gcp', label: 'Google Cloud Platform' },
+        { value: 'databricks', label: 'Databricks' },
+        { value: 'snowflake', label: 'Snowflake' },
+        { value: 'nvidia', label: 'Nvidia' },
+        { value: 'ibm', label: 'IBM' }
+    ];
+
+    // Convert string arrays to Option arrays
+    const selectedTechDomainOptions = techDomainOptions.filter(opt => techDomains.includes(opt.value));
+    const selectedPartnerOptions = partnerOptions.filter(opt => partners.includes(opt.value));
+
+    const handleTechDomainsChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setTechDomains(selectedKeys);
+      
       // Sync URL
       const params = new URLSearchParams(location.search);
-      if (selectedKeys.length) params.set(filterGroup, selectedKeys.join(','));
-      else params.delete(filterGroup);
+      if (selectedKeys.length) params.set('techDomains', selectedKeys.join(','));
+      else params.delete('techDomains');
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    };
 
+    const handlePartnersChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setPartners(selectedKeys);
+      
+      // Sync URL
+      const params = new URLSearchParams(location.search);
+      if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
+      else params.delete('partners');
       window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
     };
 
@@ -118,15 +151,37 @@ function DocSidebarDesktop(props) {
       [props.sidebar, techDomains, partners, tagsDocId]
     );
 
+    // Count total filtered docs
+    const countDocs = (items) => {
+      let count = 0;
+      items.forEach(item => {
+        if (item.type === 'doc' || item.type === 'link') {
+          count++;
+        } else if (item.type === 'category' && item.items) {
+          count += countDocs(item.items);
+        }
+      });
+      return count;
+    };
 
+    const resultCount = countDocs(filteredSidebar);
     const newProps = { ...props, sidebar: filteredSidebar };
 
     return (
             <div className={styles.sidebarWithFiltersContainer}>
             <div>
-              <SidebarFilters
-                onFilterChange={handleFilterChange}
-                initialValues={{ partners, techDomains }}
+              <CollapsibleFilterBar
+                techDomains={techDomainOptions}
+                partners={partnerOptions}
+                selectedTechDomains={selectedTechDomainOptions}
+                selectedPartners={selectedPartnerOptions}
+                onTechDomainsChange={handleTechDomainsChange}
+                onPartnersChange={handlePartnersChange}
+                resetFilters={resetFilters}
+                isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                resultCount={resultCount}
               />
             </div>
             <div className={styles.sidebarMenuList}>
@@ -145,14 +200,41 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
+    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
 
-    const handleFilterChange = (filterGroup, selectedKeys) => {
-      if (filterGroup === "partners") {
-        setPartners(selectedKeys);
-      }
-      if (filterGroup === "techDomains") {
-        setTechDomains(selectedKeys);
-      }
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Prepare options for CollapsibleFilterBar
+    const techDomainOptions = [
+        { value: 'ai', label: 'AI & Machine Learning' },
+        { value: 'appdev', label: 'Application Dev. & Automation' },
+        { value: 'data', label: 'Data & Analytics' },
+        { value: 'integration', label: 'Integration' },
+        { value: 'opsec', label: 'Operation & Security' }
+    ];
+
+    const partnerOptions = [
+        { value: 'aws', label: 'Amazon Web Services' },
+        { value: 'azure', label: 'Microsoft Azure' },
+        { value: 'gcp', label: 'Google Cloud Platform' },
+        { value: 'databricks', label: 'Databricks' },
+        { value: 'snowflake', label: 'Snowflake' },
+        { value: 'nvidia', label: 'Nvidia' },
+        { value: 'ibm', label: 'IBM' }
+    ];
+
+    // Convert string arrays to Option arrays
+    const selectedTechDomainOptions = techDomainOptions.filter(opt => techDomains.includes(opt.value));
+    const selectedPartnerOptions = partnerOptions.filter(opt => partners.includes(opt.value));
+
+    const handleTechDomainsChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setTechDomains(selectedKeys);
+    };
+
+    const handlePartnersChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setPartners(selectedKeys);
     };
 
     const filteredSidebar = useMemo(
@@ -160,11 +242,35 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       [sidebar, techDomains, partners, tagsDocId]
     );
 
+    // Count total filtered docs
+    const countDocs = (items) => {
+      let count = 0;
+      items.forEach(item => {
+        if (item.type === 'doc' || item.type === 'link') {
+          count++;
+        } else if (item.type === 'category' && item.items) {
+          count += countDocs(item.items);
+        }
+      });
+      return count;
+    };
+
+    const resultCount = countDocs(filteredSidebar);
+
     return (
         <>
-        <SidebarFilters
-          onFilterChange={handleFilterChange}
-          initialValues={{ partners, techDomains }}
+        <CollapsibleFilterBar
+          techDomains={techDomainOptions}
+          partners={partnerOptions}
+          selectedTechDomains={selectedTechDomainOptions}
+          selectedPartners={selectedPartnerOptions}
+          onTechDomainsChange={handleTechDomainsChange}
+          onPartnersChange={handlePartnersChange}
+          resetFilters={resetFilters}
+          isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          resultCount={resultCount}
         />
         <DocSidebarItems items={filteredSidebar} activePath={path} onItemClick={onItemClick} />
         </>

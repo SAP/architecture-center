@@ -9,77 +9,57 @@
 
 .default {
     max-width: 450px;
-    min-height: 80px;
-    background-color: white;
-    border-radius: 0.5rem;
-    border: 1px solid var(--navcard-border-default);
+    min-height: 120px;
+    background-color: var(--ifm-background-color);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--color-border-light);
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 24px;
-    gap: 0.75rem;
+    padding: 24px;
+    gap: 1rem;
     font-weight: 600;
-    color: var(--navcard-text-default);
-    box-shadow: none;
+    color: var(--ifm-font-color-base);
+    box-shadow: var(--shadow-card);
     position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-:root[data-theme='dark'] .default {
-    background-color: var(--sapBackgroundColor);
-    border: 1px solid var(--sapGroup_ContentBorderColor);
-    color: var(--sapContent_ContrastTextColor);
+.default:hover {
+    background-color: var(--ifm-background-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--ifm-color-primary);
 }
 
 .default ui5-icon,
 .icon {
-    color: var(--navcard-icon-default);
-    margin-right: 12px;
-    font-size: 1.5rem;
-    width: 2rem;
-    height: 1.5rem;
+    color: var(--ifm-color-primary);
+    font-size: 2rem;
+    width: 2.5rem;
+    height: 2rem;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
 }
 
-:root[data-theme='dark'] .default ui5-icon,
-:root[data-theme='dark'] .icon {
-    color: var(--text-color-dark-mode);
+.default:hover ui5-icon,
+.default:hover .icon {
+    color: var(--ifm-color-primary-dark);
 }
 
 .inline {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     flex: 1;
-    color: var(--navcard-text-default);
-    font-size: var(--sapFontHeader5Size);
+    color: var(--ifm-font-color-base);
+    font-size: 1.125rem;
+    transition: color 0.3s ease;
 }
 
-:root[data-theme='dark'] .default,
-:root[data-theme='dark'] .inline {
-    color: var(--text-color-dark-mode);
-}
-
-.default:hover {
-    background-color: white;
-    box-shadow: 0 8px 20px -5px var(--sapUiBrand);
-    border: 1px solid var(--navcard-border-hover);
-    color: var(--navcard-text-hover);
-}
-
-:root[data-theme='dark'] .default:hover {
-    background-color: var(--sapList_Hover_Background);
-    border-color: var(--navcard-text-hover);
-}
-
-.default:hover ui5-icon,
-.default:hover .icon,
 .default:hover .inline {
-    color: var(--navcard-icon-hover);
-}
-
-:root[data-theme='dark'] .default:hover ui5-icon,
-:root[data-theme='dark'] .default:hover .icon,
-:root[data-theme='dark'] .default:hover .inline {
-    color: var(--navcard-icon-hover);
+    color: var(--ifm-color-primary-dark);
 }
 
 .default::part(root) {
@@ -89,9 +69,11 @@
 }
 
 .subtitle {
-    font-size: 0.8rem;
-    color: var(--sapContent_LabelColor, #6a6d70);
-    line-height: 1.2;
+    font-size: 0.875rem;
+    color: var(--ifm-color-content-secondary);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 4px;
 }
 
 .spacing {
@@ -99,17 +81,16 @@
     flex-direction: column;
     justify-content: center;
     line-height: 1.4;
-    padding: 0 8px;
 }
 
 .spacing > div:first-child {
     font-weight: 600;
-    margin-bottom: 4px;
+    font-size: 1.125rem;
 }
 
 .logo {
-    height: 24px;
-    width: 48px;
+    height: 32px;
+    width: 64px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -117,54 +98,54 @@
 /* Lock icon styles */
 .lockIcon {
     position: absolute;
-    top: 4px;
-    right: 8px;
-    font-size: 0.875rem;
-    color: var(--navcard-icon-default);
+    top: 12px;
+    right: 12px;
+    font-size: 1rem;
+    color: var(--ifm-color-content-secondary);
     z-index: 1;
-}
-
-:root[data-theme='dark'] .lockIcon {
-    color: var(--text-color-dark-mode);
+    transition: color 0.3s ease;
 }
 
 .default:hover .lockIcon {
-    color: var(--navcard-icon-hover);
+    color: var(--ifm-color-primary);
 }
 
-:root[data-theme='dark'] .default:hover .lockIcon {
-    color: var(--navcard-icon-hover);
+/* Dark mode styles */
+[data-theme='dark'] .default {
+    background-color: #272729;
+    border-color: #444950;
+    color: var(--ifm-font-color-base);
 }
 
-.disabled .lockIcon {
-    color: var(--navcard-icon-default);
-    opacity: 1;
+[data-theme='dark'] .default:hover {
+    background-color: #272729;
+    border-color: var(--ifm-color-primary-lighter);
 }
 
-:root[data-theme='dark'] .disabled .lockIcon {
-    color: var(--text-color-dark-mode);
-    opacity: 1;
+[data-theme='dark'] .default ui5-icon,
+[data-theme='dark'] .icon {
+    color: var(--ifm-color-primary-lighter);
 }
 
-/* Tablet (996px breakpoint) */
-@media (max-width: 996px) {
-    .inline {
-        font-size: var(--sapFontHeader5Size);
-    }
+[data-theme='dark'] .default:hover ui5-icon,
+[data-theme='dark'] .default:hover .icon {
+    color: var(--ifm-color-primary-lightest);
 }
 
-/* Mobile (600px breakpoint) */
-@media (max-width: 600px) {
-    .inline {
-        font-size: var(--sapFontHeader5Size);
-    }
+[data-theme='dark'] .inline {
+    color: var(--ifm-font-color-base);
 }
 
-/* Small mobile (430px breakpoint) */
-@media (max-width: 430px) {
-    .inline {
-        font-size: var(--sapFontHeader6Size);
-    }
+[data-theme='dark'] .default:hover .inline {
+    color: var(--ifm-color-primary-lightest);
+}
+
+[data-theme='dark'] .lockIcon {
+    color: var(--ifm-color-content-secondary);
+}
+
+[data-theme='dark'] .default:hover .lockIcon {
+    color: var(--ifm-color-primary-lighter);
 }
 
 /* Disabled state styles */
@@ -176,56 +157,132 @@
 
 .disabledLink {
     cursor: not-allowed;
-    pointer-events: auto; /* Allow pointer events on the wrapper to show cursor */
+    pointer-events: auto;
 }
 
 .disabled:hover {
-    background-color: white;
-    box-shadow: none;
-    border: 1px solid var(--navcard-border-default);
-    color: var(--navcard-text-default);
+    background-color: var(--ifm-background-color);
+    box-shadow: var(--shadow-card);
+    border-color: var(--color-border-light);
     transform: none;
 }
 
-:root[data-theme='dark'] .disabled {
-    background-color: var(--sapBackgroundColor);
-    border: 1px solid var(--sapGroup_ContentBorderColor);
-    color: var(--sapContent_ContrastTextColor);
+[data-theme='dark'] .disabled {
     opacity: 0.5;
 }
 
-:root[data-theme='dark'] .disabled:hover {
-    background-color: var(--sapBackgroundColor);
-    border: 1px solid var(--sapGroup_ContentBorderColor);
-    color: var(--sapContent_ContrastTextColor);
-    box-shadow: none;
+[data-theme='dark'] .disabled:hover {
+    background-color: #272729;
+    border-color: #444950;
+    box-shadow: var(--shadow-card);
     transform: none;
 }
 
 .disabled ui5-icon,
 .disabled .icon,
 .disabled .inline {
-    color: var(--navcard-icon-default);
-    opacity: 0.5;
-}
-
-:root[data-theme='dark'] .disabled ui5-icon,
-:root[data-theme='dark'] .disabled .icon,
-:root[data-theme='dark'] .disabled .inline {
-    color: var(--text-color-dark-mode);
     opacity: 0.5;
 }
 
 .disabled:hover ui5-icon,
 .disabled:hover .icon,
 .disabled:hover .inline {
-    color: var(--navcard-icon-default);
-    opacity: 0.5;
+    color: inherit;
 }
 
-:root[data-theme='dark'] .disabled:hover ui5-icon,
-:root[data-theme='dark'] .disabled:hover .icon,
-:root[data-theme='dark'] .disabled:hover .inline {
-    color: var(--text-color-dark-mode);
-    opacity: 0.5;
+.disabled .lockIcon {
+    opacity: 1;
+}
+
+/* Responsive styles */
+@media (max-width: 996px) {
+    .default {
+        min-height: 100px;
+        padding: 20px;
+    }
+
+    .inline {
+        font-size: 1rem;
+    }
+
+    .spacing > div:first-child {
+        font-size: 1rem;
+    }
+
+    .default ui5-icon,
+    .icon {
+        font-size: 1.75rem;
+        width: 2rem;
+        height: 1.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .default {
+        min-height: 90px;
+        padding: 16px;
+        max-width: 100%;
+    }
+
+    .inline {
+        font-size: 0.9375rem;
+    }
+
+    .spacing > div:first-child {
+        font-size: 0.9375rem;
+    }
+
+    .subtitle {
+        font-size: 0.8125rem;
+    }
+
+    .default ui5-icon,
+    .icon {
+        font-size: 1.5rem;
+        width: 1.75rem;
+        height: 1.5rem;
+    }
+
+    .logo {
+        height: 28px;
+        width: 56px;
+    }
+}
+
+@media (max-width: 430px) {
+    .default {
+        min-height: 80px;
+        padding: 14px;
+    }
+
+    .inline {
+        font-size: 0.875rem;
+        gap: 0.75rem;
+    }
+
+    .spacing > div:first-child {
+        font-size: 0.875rem;
+    }
+
+    .subtitle {
+        font-size: 0.75rem;
+    }
+
+    .default ui5-icon,
+    .icon {
+        font-size: 1.25rem;
+        width: 1.5rem;
+        height: 1.25rem;
+    }
+
+    .logo {
+        height: 24px;
+        width: 48px;
+    }
+
+    .lockIcon {
+        top: 8px;
+        right: 8px;
+        font-size: 0.875rem;
+    }
 }

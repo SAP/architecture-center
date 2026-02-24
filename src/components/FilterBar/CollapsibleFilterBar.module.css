@@ -1,0 +1,364 @@
+.filterBarContainer {
+    width: calc(100% - 16px);
+    margin-left: 8px;
+    margin-right: 8px;
+    background: var(--ifm-background-color);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-lg);
+    padding: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Top Bar with Filter Toggle and Clear Button */
+.topBar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.filterToggleButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid var(--ifm-color-primary);
+    border-radius: var(--border-radius-sm);
+    color: var(--ifm-color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.filterToggleButton:hover {
+    background: var(--ifm-color-primary-lightest);
+    transform: translateY(-1px);
+}
+
+.filterToggleButton.active {
+    background: var(--ifm-color-primary);
+    color: white;
+}
+
+.filterBadge {
+    background: var(--ifm-color-primary-dark);
+    color: white;
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+
+.filterToggleButton.active .filterBadge {
+    background: white;
+    color: var(--ifm-color-primary);
+}
+
+.clearFiltersButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid var(--ifm-color-content-secondary);
+    border-radius: var(--border-radius-sm);
+    color: var(--ifm-color-content-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.clearFiltersButton:hover {
+    background: var(--ifm-color-primary-lightest);
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+    transform: translateY(-1px);
+}
+
+/* Active Filters Bar */
+.activeFiltersBar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    border-top: 1px solid var(--color-border-light);
+    margin-top: 8px;
+}
+
+.activeFiltersLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ifm-color-content-secondary);
+}
+
+.activeFiltersList {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.activeFilterChip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--ifm-color-primary-lightest);
+    border: 1px solid var(--ifm-color-primary);
+    border-radius: 12px;
+    color: var(--ifm-color-primary-dark);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.activeFilterChip:hover {
+    background: var(--ifm-color-primary);
+    color: white;
+}
+
+.chipCloseIcon {
+    font-size: 0.875rem;
+}
+
+.clearAllButton {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid var(--ifm-color-content-secondary);
+    border-radius: var(--border-radius-sm);
+    color: var(--ifm-color-content-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clearAllButton:hover:not(:disabled) {
+    background: var(--ifm-color-primary-lightest);
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
+.clearAllButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Result Count */
+.resultCount {
+    padding: 6px 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ifm-color-content-secondary);
+    border-top: 1px solid var(--color-border-light);
+    margin-top: 8px;
+}
+
+/* Collapsible Filter Panel */
+.filterPanel {
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border-light);
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filterTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ifm-font-color-base);
+    margin: 0;
+}
+
+.filterChips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filterChip {
+    padding: 5px 12px;
+    background: var(--ifm-background-color);
+    border: 1px solid var(--color-border-light);
+    border-radius: 16px;
+    color: var(--ifm-font-color-base);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterChip:hover {
+    border-color: var(--ifm-color-primary);
+    background: var(--ifm-color-primary-lightest);
+    color: var(--ifm-color-primary-dark);
+}
+
+.filterChip.selected {
+    background: var(--ifm-color-primary);
+    border-color: var(--ifm-color-primary);
+    color: white;
+}
+
+.filterChip.selected:hover {
+    background: var(--ifm-color-primary-dark);
+    border-color: var(--ifm-color-primary-dark);
+}
+
+/* Dark Mode Styles */
+[data-theme='dark'] .filterBarContainer {
+    background-color: #272729;
+    border-color: #444950;
+}
+
+[data-theme='dark'] .searchInput {
+    background-color: #1e1e1e;
+    border-color: #444950;
+    color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .searchInput:focus {
+    border-color: var(--ifm-color-primary-lighter);
+    box-shadow: 0 0 0 3px rgba(77, 177, 255, 0.15);
+}
+
+[data-theme='dark'] .clearSearchButton:hover {
+    background: rgba(0, 112, 242, 0.2);
+    color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .filterToggleButton {
+    border-color: var(--ifm-color-primary-lighter);
+    color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .filterToggleButton:hover {
+    background: rgba(0, 112, 242, 0.15);
+}
+
+[data-theme='dark'] .filterToggleButton.active {
+    background: var(--ifm-color-primary-lighter);
+    color: #1e1e1e;
+}
+
+[data-theme='dark'] .activeFiltersBar,
+[data-theme='dark'] .filterPanel,
+[data-theme='dark'] .resultCount {
+    border-color: #444950;
+}
+
+[data-theme='dark'] .activeFilterChip {
+    background: rgba(0, 112, 242, 0.2);
+    border-color: var(--ifm-color-primary-lighter);
+    color: var(--ifm-color-primary-lightest);
+}
+
+[data-theme='dark'] .activeFilterChip:hover {
+    background: var(--ifm-color-primary-lighter);
+    color: #1e1e1e;
+}
+
+[data-theme='dark'] .filterChip {
+    background-color: #1e1e1e;
+    border-color: #444950;
+}
+
+[data-theme='dark'] .filterChip:hover {
+    border-color: var(--ifm-color-primary-lighter);
+    background: rgba(0, 112, 242, 0.15);
+    color: var(--ifm-color-primary-lightest);
+}
+
+[data-theme='dark'] .filterChip.selected {
+    background: var(--ifm-color-primary-lighter);
+    border-color: var(--ifm-color-primary-lighter);
+    color: #1e1e1e;
+}
+
+[data-theme='dark'] .filterChip.selected:hover {
+    background: var(--ifm-color-primary-lightest);
+    border-color: var(--ifm-color-primary-lightest);
+}
+
+/* Responsive Styles */
+@media (max-width: 996px) {
+    .filterBarContainer {
+        padding: 16px;
+    }
+
+    .topBar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .filterToggleButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .activeFiltersBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .activeFiltersList {
+        width: 100%;
+    }
+
+    .clearAllButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .filterBarContainer {
+        padding: 12px;
+    }
+
+    .searchInput {
+        padding: 10px 40px 10px 40px;
+        font-size: 0.9375rem;
+    }
+
+    .filterToggleButton {
+        padding: 10px 16px;
+        font-size: 0.9375rem;
+    }
+
+    .filterChip,
+    .activeFilterChip {
+        font-size: 0.8125rem;
+        padding: 6px 12px;
+    }
+}

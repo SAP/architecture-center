@@ -244,6 +244,10 @@ const config: Config = {
                             to: '/docs',
                         },
                         {
+                            label: 'Technology Domains',
+                            to: '/technology-domains',
+                        },
+                        {
                             label: 'Architecture Validator',
                             to: '/architecture-validator',
                         },
@@ -260,7 +264,7 @@ const config: Config = {
                             to: '/community/intro',
                         },
                         {
-                            label: "What's New",
+                            label: 'News',
                             to: '/blog',
                         },
                     ],
