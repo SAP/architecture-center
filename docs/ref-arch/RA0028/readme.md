@@ -6,6 +6,13 @@ title: 'SAP SuccessFactors Suite'
 description: 'Overview of the SAP SuccessFactors modules and how data flows between them'
 keywords: 
   - ref-arch
+  - successfactors
+  - hcm
+  - human capital management
+  - HR
+  - talent management
+  - payroll
+  - employee experience
 sidebar_label: 'SAP SuccessFactors Suite'
 image: img/logo.svg
 hide_table_of_contents: false
@@ -16,10 +23,11 @@ draft: false
 unlisted: false
 tags:
   - ref-arch
+  - successfactors
 contributors:
   - arjenvanhooydonk
 last_update:
-  date: 2026-02-20
+  date: 2026-02-24
   author: arjenvanhooydonk
 ---
 
@@ -31,11 +39,11 @@ Complementing these modules, **SuccessFactors Learning** supports workforce deve
 
 # Architecture
 
+![drawio](drawio/successfactors.module.integration.drawio)
+
 At the heart of SAP SuccessFactors sits the Employee Profile together with the Login Information. These are part of the Foundation layer of SuccessFactors which is available for all SuccessFactors customers, no matter which modules are licensed. Next to that the Foundation layer contains Position Mangement, the Job Profile Builder, the Talent Intelligence Hub and Table Reports.
 
 SAP SuccessFactors leverages some SAP core components like IAS and IPS for login and SAP Joule as an integrated agent.
-
-
 
 # Resources
 
