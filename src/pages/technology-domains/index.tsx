@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { techDomain } from '@site/src/constant/constants';
-import { Icon } from '@ui5/webcomponents-react';
+import { FaBrain, FaCode, FaDatabase, FaNetworkWired, FaShieldAlt } from 'react-icons/fa';
 import styles from './styles.module.css';
 
 interface DomainCardProps {
@@ -13,11 +13,19 @@ interface DomainCardProps {
     };
 }
 
+const iconMap: Record<string, JSX.Element> = {
+    'ai': <FaBrain />,
+    'appdev': <FaCode />,
+    'data': <FaDatabase />,
+    'integration': <FaNetworkWired />,
+    'opsec': <FaShieldAlt />,
+};
+
 function DomainCard({ domain }: DomainCardProps): JSX.Element {
     return (
         <Link to={`/docs?techDomains=${domain.id}`} className={styles.domainCard}>
             <div className={styles.domainIcon}>
-                <Icon name={domain.icon} />
+                {iconMap[domain.id] || <FaCode />}
             </div>
             <h2 className={styles.domainTitle}>{domain.title}</h2>
             <p className={styles.domainDescription}>

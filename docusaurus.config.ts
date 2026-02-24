@@ -85,6 +85,7 @@ const config: Config = {
             {
                 blog: {
                     path: 'blog',
+                    routeBasePath: 'news',
                     blogTitle: 'SAP Architecture Center - News',
                     blogDescription:
                         'This blog covers reference architectures in the SAP Architecture Center and details their well-architected framework principles',
@@ -265,7 +266,7 @@ const config: Config = {
                         },
                         {
                             label: 'News',
-                            to: '/blog',
+                            to: '/news',
                         },
                     ],
                 },

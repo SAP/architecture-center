@@ -38,7 +38,7 @@
     --ifm-footer-link-color: #556b82;
     --ifm-footer-link-hover-color: #6b84a0;
     --ifm-footer-title-color: var(--ifm-font-color-base);
-    --doc-sidebar-width: 400px !important;
+    --doc-sidebar-width: 350px !important;
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
@@ -381,6 +381,10 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 /* Sidebar customization */
+.menu {
+    padding: 0.5rem !important;
+}
+
 .menu__list {
     position: relative;
     list-style: none;
@@ -816,6 +820,7 @@ html[data-theme='dark'] .navbar {
 html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
     border: 1px solid #dadde1;
+    border-radius: var(--border-radius-sm);
     padding: 35px;
     margin: 0 0 0 12px;
     box-sizing: border-box;
@@ -824,6 +829,7 @@ html[data-theme='light'] .docItemCol_VOVn {
 html[data-theme='dark'] .docItemCol_VOVn {
     background-color: #272729;
     border: #444950 1px solid;
+    border-radius: var(--border-radius-sm);
     color: #ffffff;
     padding: 35px;
     margin: 0 0 0 12px;

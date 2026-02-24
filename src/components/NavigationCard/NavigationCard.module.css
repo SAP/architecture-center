@@ -9,9 +9,9 @@
 
 .default {
     max-width: 450px;
-    min-height: 120px;
+    min-height: 160px;
     background-color: var(--ifm-background-color);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-sm);
     border: 2px solid var(--color-border-light);
     display: flex;
     align-items: center;

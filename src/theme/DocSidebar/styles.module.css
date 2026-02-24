@@ -13,6 +13,18 @@
   display: none;
 }
 
+:global(html[data-sidebar-collapsed='true']) .sidebarWithFiltersContainer > div:first-child {
+  display: none !important;
+}
+
+:global(.theme-doc-sidebar-container.theme-doc-sidebar-container-hidden) .sidebarWithFiltersContainer > div:first-child {
+  display: none !important;
+}
+
+:global([class*="docSidebarContainer"][class*="Hidden"]) .sidebarWithFiltersContainer > div:first-child {
+  display: none !important;
+}
+
 .theme-doc-sidebar-container-collapsed .custom-sidebar-filters-container {
   display: none;
 }
