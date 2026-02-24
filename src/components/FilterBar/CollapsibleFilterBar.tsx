@@ -63,7 +63,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                 >
                     <FiFilter />
                     <span>Filters</span>
-                    {hasActiveFilters && !isExpanded && (
+                    {hasActiveFilters && (
                         <span className={styles.filterBadge}>
                             {selectedTechDomains.length + selectedPartners.length}
                         </span>
@@ -150,6 +150,13 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                             })}
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => setIsExpanded(false)}
+                        className={styles.hideFiltersButton}
+                    >
+                        Hide Filters
+                    </button>
                 </div>
             )}
         </div>

@@ -235,6 +235,26 @@
     border-color: var(--ifm-color-primary-dark);
 }
 
+.hideFiltersButton {
+    width: 100%;
+    padding: 8px 16px;
+    margin-top: 8px;
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-sm);
+    color: var(--ifm-color-content-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hideFiltersButton:hover {
+    background: var(--ifm-color-primary-lightest);
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+}
+
 /* Dark Mode Styles */
 [data-theme='dark'] .filterBarContainer {
     background-color: #272729;
