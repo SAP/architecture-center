@@ -77,6 +77,7 @@ export default function HeroSection(): JSX.Element {
                     <NavigationCard
                         key={index}
                         title={item.title}
+                        subtitle={item.subtitle}
                         icon={item.icon}
                         link={item.link}
                         disabled={item.disabled}

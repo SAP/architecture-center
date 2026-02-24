@@ -500,6 +500,14 @@ html[data-theme='dark'] .sourcecode-badge {
     margin-right: auto;
 }
 
+/* Center SVG images in markdown */
+.markdown svg,
+.markdown img[src$=".svg"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .admonitionHeading_Gvgb {
     text-transform: none !important;
 }

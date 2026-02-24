@@ -66,10 +66,14 @@ export default function NavigationCard({
     const cardContent = (
         <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {shouldShowLockIcon && (
-                <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
+                <span className={styles.lockIconWrapper}>
+                    <Icon name="sap-icon://locked" title="Authentication Required" />
+                </span>
             )}
             {!shouldShowLockIcon && requiredProvider && (
-                <Icon className={styles.lockIcon} name="sap-icon://unlocked" title="Unlocked" />
+                <span className={styles.lockIconWrapper}>
+                    <Icon name="sap-icon://unlocked" title="Unlocked" />
+                </span>
             )}
             <span className={styles.inline}>
                 {resolvedLogo ? (

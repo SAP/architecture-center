@@ -9,14 +9,14 @@
 
 .default {
     max-width: 450px;
-    min-height: 140px;
+    min-height: 120px;
     background-color: var(--ifm-background-color);
     border-radius: var(--border-radius-sm);
     border: 2px solid var(--color-border-light);
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 24px;
+    padding: 12px 24px;
     gap: 1rem;
     font-weight: 600;
     color: var(--ifm-font-color-base);
@@ -41,6 +41,7 @@
     height: 2rem;
     flex-shrink: 0;
     transition: color 0.3s ease;
+    align-self: center;
 }
 
 .default:hover ui5-icon,
@@ -93,20 +94,30 @@
     width: 64px;
     object-fit: contain;
     flex-shrink: 0;
+    display: block;
 }
 
 /* Lock icon styles */
-.lockIcon {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 1rem;
+.lockIconWrapper {
+    position: absolute !important;
+    top: 2px !important;
+    right: 7px !important;
+    z-index: 10 !important;
+    font-size: 1.3125rem !important;
     color: var(--ifm-color-content-secondary);
-    z-index: 1;
     transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.default:hover .lockIcon {
+.lockIconWrapper ui5-icon {
+    font-size: 1.3125rem !important;
+    width: 1.3125rem !important;
+    height: 1.3125rem !important;
+}
+
+.default:hover .lockIconWrapper {
     color: var(--ifm-color-primary);
 }
 

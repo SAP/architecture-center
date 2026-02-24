@@ -1,12 +1,23 @@
 export const navigationCardsData = [
     {
         title: 'Architecture Validator',
+        subtitle: 'Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines.',
         icon: 'sap-icon://order-status',
         link: '/architecture-validator',
         requiresAuth: true,
     },
-    { title: 'Quick Start', icon: 'sap-icon://write-new-document', link: '/quick-start' },
-    { title: 'Community of Practice', icon: 'sap-icon://group', link: '/community/intro' },
+    { 
+        title: 'Quick Start',
+        subtitle: 'A no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.',
+        icon: 'sap-icon://write-new-document',
+        link: '/quick-start'
+    },
+    { 
+        title: 'Community of Practice',
+        subtitle: 'A collaborative environment where all SAP experts can co-create, maintain, and enhance reference architectures',
+        icon: 'sap-icon://group',
+        link: '/community/intro'
+    },
 ];
 
 // Keep items sorted alphabetically by `title`
