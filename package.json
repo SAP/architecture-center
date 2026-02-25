@@ -15,7 +15,11 @@
         "write-translations": "docusaurus write-translations",
         "write-heading-ids": "docusaurus write-heading-ids",
         "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch",
-        "generate-news": "node src/_scripts/_generate-latest-news.js"
+        "generate-news": "node src/_scripts/_generate-latest-news.js",
+        "security:audit": "npm audit --production",
+        "security:audit-fix": "npm audit fix",
+        "security:check": "npm run security:audit && npm outdated",
+        "security:update": "npm update && npm audit fix"
     },
     "resolutions": {
         "path-to-regexp": "^8.1.0"

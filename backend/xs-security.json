@@ -5,10 +5,12 @@
   "oauth2-configuration": {
     "token-validity": 3600,
     "redirect-uris": [
-      "http://localhost:4004/**",
-      "http://localhost:3000/**",
-      "https://*.cfapps.*.hana.ondemand.com/**",
-      "https://*.sap.com/**"
+      "http://localhost:4004/auth/callback",
+      "http://localhost:3000/auth/callback",
+      "https://architecture.learning.sap.com/auth/callback",
+      "https://architecture.learning.sap.com/**"
     ]
-  }
+  },
+  "xsappname": "sap-architecture-center",
+  "tenant-mode": "dedicated"
 }

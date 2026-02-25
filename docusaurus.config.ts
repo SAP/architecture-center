@@ -48,6 +48,7 @@ const config: Config = {
         './src/plugins/page-mapping-generator',
         './src/plugins/tags-generator',
         './src/plugins/tags-plugin',
+        './src/plugins/security-headers',
         [
             '@docusaurus/plugin-content-docs',
             {
