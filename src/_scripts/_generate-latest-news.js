@@ -8,7 +8,7 @@ const path = require('path');
 const matter = require('gray-matter');
 
 // Read all blog post files
-const blogDir = path.join(__dirname, '../../blog');
+const blogDir = path.join(__dirname, '../../news');
 const outputPath = path.join(__dirname, '../data/latest-news.json');
 
 // Ensure the data directory exists
@@ -28,13 +28,13 @@ const files = fs.readdirSync(blogDir)
         // Extract date and slug from filename (format: YYYY-MM-DD-slug.md)
         const dateMatch = file.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$/);
         let date = '';
-        let permalink = `/blog/${file.replace('.md', '')}`;
+        let permalink = `/news/${file.replace('.md', '')}`;
         
         if (dateMatch) {
             const [, year, month, day, slug] = dateMatch;
             date = `${year}-${month}-${day}`;
-            // Docusaurus blog URL format: /blog/YYYY/MM/DD/slug
-            permalink = `/blog/${year}/${month}/${day}/${slug}`;
+            // Docusaurus blog URL format: /news/YYYY/MM/DD/slug
+            permalink = `/news/${year}/${month}/${day}/${slug}`;
         }
         
         return {

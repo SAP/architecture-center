@@ -146,6 +146,12 @@ function DocSidebarDesktop(props) {
       window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
     };
 
+    const handleResetFilters = () => {
+      resetFilters();
+      // Clear URL parameters
+      window.history.replaceState({}, '', location.pathname);
+    };
+
     const filteredSidebar = useMemo(
       () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
       [props.sidebar, techDomains, partners, tagsDocId]
@@ -177,7 +183,7 @@ function DocSidebarDesktop(props) {
                 selectedPartners={selectedPartnerOptions}
                 onTechDomainsChange={handleTechDomainsChange}
                 onPartnersChange={handlePartnersChange}
-                resetFilters={resetFilters}
+                resetFilters={handleResetFilters}
                 isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
@@ -237,6 +243,12 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       setPartners(selectedKeys);
     };
 
+    const handleResetFilters = () => {
+      resetFilters();
+      // Clear URL parameters
+      window.history.replaceState({}, '', location.pathname);
+    };
+
     const filteredSidebar = useMemo(
       () => filterSidebarItems(sidebar, techDomains, partners, tagsDocId),
       [sidebar, techDomains, partners, tagsDocId]
@@ -266,7 +278,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
           selectedPartners={selectedPartnerOptions}
           onTechDomainsChange={handleTechDomainsChange}
           onPartnersChange={handlePartnersChange}
-          resetFilters={resetFilters}
+          resetFilters={handleResetFilters}
           isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}

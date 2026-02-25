@@ -84,7 +84,7 @@ const config: Config = {
             'classic',
             {
                 blog: {
-                    path: 'blog',
+                    path: 'news',
                     routeBasePath: 'news',
                     blogTitle: 'SAP Architecture Center - News',
                     blogDescription:
@@ -112,8 +112,8 @@ const config: Config = {
                     ignorePatterns: [
                         '/**/tags/**',
                         '/search/**',
-                        '/blog/authors/**',
-                        '/blog/archive/**',
+                        '/news/authors/**',
+                        '/news/archive/**',
                         '/docs/partners/**',
                         '/docs/sap/**',
                         '/docs/exploreallrefarch/**',
