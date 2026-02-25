@@ -11,10 +11,8 @@
         "deploy": "docusaurus deploy",
         "clear": "docusaurus clear",
         "serve": "docusaurus serve",
-        "setup": "cd generator-refArch && npm install --silent && npm install -g .",
         "write-translations": "docusaurus write-translations",
         "write-heading-ids": "docusaurus write-heading-ids",
-        "gen-ref-arch": "cd generator-refArch && rm -rf node_modules package-lock.json && npm install --silent && cd .. && clear && node generator-refArch",
         "generate-news": "node src/_scripts/_generate-latest-news.js",
         "security:audit": "npm audit --production",
         "security:audit-fix": "npm audit fix",
@@ -26,7 +24,6 @@
     },
     "overrides": {
         "rimraf": "^4.0.0",
-        "glob": "^9.0.0",
         "inflight": "lru-cache",
         "mermaid": "^11.9.0"
     },
@@ -66,6 +63,8 @@
         "dotenv": "^17.2.1",
         "ejs": "^3.1.10",
         "front-matter": "^4.0.2",
+        "glob": "^13.0.6",
+        "gray-matter": "^4.0.3",
         "jwt-decode": "^4.0.0",
         "lexical": "^0.34.0",
         "lucide-react": "^0.542.0",
