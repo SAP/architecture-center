@@ -60,14 +60,10 @@ export default function HeroSection(): JSX.Element {
                     </div>
                 </div>
                 <div className={styles.heroImage}>
-                    <img
-                        src={getImg(
-                            colorMode === 'dark'
-                                ? 'architecture_center_hero_banner_1440x424_light.webp'
-                                : 'architecture_center_hero_banner_1440x424_light.webp'
-                        )}
-                        alt="SAP Architecture Center"
-                    />
+                    <div className={styles.imagePlaceholder}>
+                        <p>Image Placeholder</p>
+                        <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>1440x424 px</p>
+                    </div>
                 </div>
             </div>
 
