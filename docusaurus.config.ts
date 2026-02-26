@@ -125,6 +125,10 @@ const config: Config = {
     ],
 
     themeConfig: {
+        colorMode: {
+            defaultMode: 'dark',
+            respectPrefersColorScheme: false,
+        },
         image: 'img/ac-soc-med.png',
         metadata: [
             {
