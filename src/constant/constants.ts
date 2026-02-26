@@ -6,13 +6,13 @@ export const navigationCardsData = [
         link: '/architecture-validator',
         requiresAuth: true,
     },
-    { 
+    {
         title: 'Quick Start',
         subtitle: 'A no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.',
         icon: 'sap-icon://write-new-document',
         link: '/quick-start'
     },
-    { 
+    {
         title: 'Community of Practice',
         subtitle: 'A collaborative environment where all SAP experts can co-create, maintain, and enhance reference architectures',
         icon: 'sap-icon://group',
@@ -22,8 +22,8 @@ export const navigationCardsData = [
 
 // Keep items sorted alphabetically by `title`
 export const techDomain = [
-    { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
     { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },
+    { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
     { id: 'data', title: 'Data & Analytics', icon: 'sap-icon://database' },
     { id: 'integration', title: 'Integration', icon: 'sap-icon://exit-full-screen' },
     { id: 'opsec', title: 'Operation & Security', icon: 'sap-icon://shield' },

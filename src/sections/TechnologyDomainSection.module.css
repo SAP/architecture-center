@@ -29,33 +29,166 @@
     color: var(--text-color-dark-mode);
 }
 
-.grid {
-    display: grid;
-    gap: 24px;
-    width: 100%;
-    max-width: 1425px;
-    margin-top: 40px;
-}
-
 .container {
     max-width: 1440px;
     margin: 20px auto 40px auto;
     padding: 20px 24px 0px;
 }
 
-.tilesGrid {
+/* ── 5-column portrait grid ── */
+.domainsGrid {
     display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 24px;
     width: 100%;
-    max-width: 1425px;
+    max-width: 1440px;
     margin-top: 40px;
-    grid-auto-rows: 1fr;
-    align-items: stretch;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.tileWrapper {
-    height: 100%;
+/* ── Domain Card (portrait style matching reference) ── */
+.domainCard {
+    background: #ffffff;
+    border: 1px solid #dbe2eb;
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    min-height: 220px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.domainCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    border-color: var(--ifm-color-primary);
+    text-decoration: none;
+}
+
+/* ── Icon container ── */
+.domainIcon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    flex-shrink: 0;
+}
+
+.domainIcon svg {
+    width: 26px;
+    height: 26px;
+    color: var(--ifm-color-primary);
+}
+
+/* ── Title ── */
+.domainTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+/* ── Description ── */
+.domainDescription {
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.55;
+    margin: 0 0 auto 0;
+    flex: 1;
+}
+
+/* ── View link ── */
+.viewLink {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ifm-color-primary);
+    margin-top: 16px;
+    transition: color 0.2s ease;
+}
+
+.domainCard:hover .viewLink {
+    color: var(--ifm-color-primary-dark);
+}
+
+/* ── Dark mode ── */
+:root[data-theme='dark'] .domainCard:not(.highlighted) {
+    background-color: #272729;
+    border-color: #3a3d42;
+}
+
+:root[data-theme='dark'] .domainCard:not(.highlighted):hover {
+    border-color: var(--ifm-color-primary-lighter);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme='dark'] .domainCard:not(.highlighted) .domainIcon {
+    background: linear-gradient(135deg, rgba(0, 112, 242, 0.2) 0%, rgba(0, 112, 242, 0.1) 100%);
+}
+
+:root[data-theme='dark'] .domainCard:not(.highlighted) .domainIcon svg {
+    color: var(--ifm-color-primary-lighter);
+}
+
+:root[data-theme='dark'] .domainCard:not(.highlighted) .domainTitle {
+    color: #f3f4f6;
+}
+
+:root[data-theme='dark'] .domainCard:not(.highlighted) .domainDescription {
+    color: #9ca3af;
+}
+
+/* ── Highlighted cards (AI & ML, Data & Analytics) ── */
+.highlighted {
+    background: linear-gradient(180deg, #5d36ff 0%, #a100c2 100%);
+    border: none;
+    box-shadow: 0 6px 24px rgba(93, 54, 255, 0.25), 0 2px 8px rgba(161, 0, 194, 0.15);
+}
+
+.highlighted:hover {
+    box-shadow: 0 14px 36px rgba(93, 54, 255, 0.35), 0 4px 12px rgba(161, 0, 194, 0.2);
+    border-color: transparent;
+}
+
+.highlighted .domainIcon {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+}
+
+.highlighted .domainIcon svg {
+    color: #a100c2;
+}
+
+.highlighted .domainTitle {
+    color: #ffffff;
+}
+
+.highlighted .domainDescription {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.highlighted .viewLink {
+    color: #ffffff;
+}
+
+.highlighted:hover .viewLink {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Responsive breakpoints ── */
+
+/* Tablet – 3 columns */
+@media (max-width: 1199px) {
+    .domainsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (max-width: 1024px) {
@@ -66,17 +199,16 @@
     .container {
         padding: 20px;
     }
-    
 }
 
-/* Tablet (996px breakpoint) */
-@media (min-width: 996px) {
-    .tilesGrid {
-        grid-template-columns: repeat(3, 1fr);
+/* Smaller tablet – 2 columns */
+@media (max-width: 768px) {
+    .domainsGrid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Mobile (600px breakpoint) */
+/* Mobile */
 @media (max-width: 600px) {
     .title {
         font-size: var(--sapFontHeader3Size);
@@ -89,9 +221,14 @@
     .container {
         padding: 20px;
     }
+
+    .domainsGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 }
 
-/* Small mobile (430px breakpoint) */
+/* Small mobile */
 @media (max-width: 430px) {
     .title {
         font-size: var(--sapFontHeader4Size);

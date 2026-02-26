@@ -2,6 +2,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
+import TechnologyDomainSection from '../sections/TechnologyDomainSection';
 import NewsSection from '../sections/NewsSection';
 import AdditionalResSection from '../sections/AdditionalResSection';
 import TrustedTecPartnersSection from '../sections/TrustedTecPartnersSection';
@@ -25,6 +26,7 @@ export default function Home(): JSX.Element {
         >
             <main>
                 <HeroSection />
+                <TechnologyDomainSection />
                 <NewsSection />
                 <TrustedTecPartnersSection />
                 <AdditionalResSection />
