@@ -23,10 +23,10 @@
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    background: transparent;
-    border: 1px solid var(--ifm-color-primary);
-    border-radius: var(--border-radius-sm);
-    color: var(--ifm-color-primary);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--border-radius-lg);
+    color: white;
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -35,12 +35,13 @@
 }
 
 .filterToggleButton:hover {
-    background: var(--ifm-color-primary-lightest);
-    transform: translateY(-1px);
+    background: var(--gradient-premium);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
 }
 
 .filterToggleButton.active {
-    background: var(--ifm-color-primary);
+    background: var(--gradient-dark);
     color: white;
 }
 
@@ -181,6 +182,7 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -278,17 +280,18 @@
 }
 
 [data-theme='dark'] .filterToggleButton {
-    border-color: var(--ifm-color-primary-lighter);
-    color: var(--ifm-color-primary-lighter);
+    border: none;
+    color: white;
 }
 
 [data-theme='dark'] .filterToggleButton:hover {
-    background: rgba(0, 112, 242, 0.15);
+    background: var(--gradient-premium);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.5);
 }
 
 [data-theme='dark'] .filterToggleButton.active {
-    background: var(--ifm-color-primary-lighter);
-    color: #1e1e1e;
+    background: var(--gradient-dark);
+    color: white;
 }
 
 [data-theme='dark'] .activeFiltersBar,

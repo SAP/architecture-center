@@ -122,7 +122,7 @@
 }
 
 /* LinkedIn icon styling */
-svg[class*="linkedin"], 
+svg[class*="linkedin"],
 svg[aria-label*="LinkedIn"],
 .linkedin-icon svg,
 a[title*="LinkedIn"] svg,
@@ -229,7 +229,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     /* Remove bullet points */
 }
 
-.menu__list-item > .menu__link--active {
+.menu__list-item>.menu__link--active {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
@@ -409,7 +409,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     color: #535353;
 }
 
-.menu__list-item > a {
+.menu__list-item>a {
     display: block;
 
     text-decoration: none;
@@ -437,12 +437,12 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     background: var(--ifm-sidebar-selected-item-background-color);
 }
 
-.menu__list-item-collapsible--active > .menu__link {
+.menu__list-item-collapsible--active>.menu__link {
     background-color: var(--ifm-sidebar-selected-item-background-color);
     color: var(--ifm-menu-color-active) !important;
 }
 
-.menu__list-item > .menu__link--active {
+.menu__list-item>.menu__link--active {
     color: var(--ifm-menu-color-active) !important;
 }
 
@@ -488,17 +488,17 @@ html[data-theme='dark'] .sourcecode-badge {
     color: #24292f;
 }
 
-.markdown > h3 {
+.markdown>h3 {
     font-size: 1.2rem;
     padding-top: 10px;
 }
 
-.markdown > h2 {
+.markdown>h2 {
     font-size: 1.5rem;
     padding-top: 10px;
 }
 
-.markdown > h1 {
+.markdown>h1 {
     font-size: 2rem;
     padding-top: 10px;
 }
@@ -534,7 +534,7 @@ html[data-theme='dark'] .sourcecode-badge {
     display: none;
 }
 
-.markdown > table th,
+.markdown>table th,
 table td,
 table tr,
 table thead {
@@ -594,11 +594,9 @@ table thead {
     --docsearch-hit-background: var(--ifm-color-emphasis-100);
     /* Footer */
     --docsearch-footer-background: var(--ifm-background-surface-color);
-    --docsearch-key-gradient: linear-gradient(
-        -26.5deg,
-        var(--ifm-color-emphasis-200) 0%,
-        var(--ifm-color-emphasis-100) 100%
-    );
+    --docsearch-key-gradient: linear-gradient(-26.5deg,
+            var(--ifm-color-emphasis-200) 0%,
+            var(--ifm-color-emphasis-100) 100%);
 }
 
 .footer_div {
@@ -683,12 +681,12 @@ table thead {
     /* Vertical line */
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link {
     background-color: transparent !important;
     color: #fff !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link {
+[data-theme='dark'] .menu__list-item-collapsible--active>.menu__link {
     background-color: var(--ifm-background-color-selected-item) !important;
     color: #fff !important;
     font-weight: bold !important;
@@ -698,7 +696,7 @@ table thead {
     background: var(--ifm-background-color-selected-item) !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link:not(.menu__link--active) {
     background-color: transparent !important;
     color: #fff !important;
 }
@@ -732,6 +730,7 @@ table thead {
     color: var(--ifm-color-primary-lighter) !important;
     opacity: 1;
 }
+
 [data-theme='dark'] .slick-dots li.slick-active button:before {
     color: var(--ifm-color-primary-lightest) !important;
     opacity: 1;
@@ -1061,7 +1060,7 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
     }
 
     /* Ensure the footer background stretches to fit */
-    #__docusaurus > footer {
+    #__docusaurus>footer {
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -1156,4 +1155,65 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
         margin-bottom: 1rem !important;
         margin-top: 1rem !important;
     }
+}
+
+/* =========================================================================
+   Documentation Pages (/docs) Premium Overrides
+   ========================================================================= */
+
+/* Glassmorphic Sidebars */
+html[data-theme='dark'] .theme-doc-sidebar-container,
+html[data-theme='dark'] .theme-doc-toc-desktop {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-right: 1px solid var(--glass-border);
+}
+
+html[data-theme='dark'] .theme-doc-toc-desktop {
+    border-right: none;
+    border-left: 1px solid var(--glass-border);
+}
+
+/* Premium Typography for Headers */
+.theme-doc-markdown h1,
+.theme-doc-markdown h2 {
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* Interactive Sidebar Links */
+.theme-doc-sidebar-menu .menu__link {
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.theme-doc-sidebar-menu .menu__link:hover {
+    transform: translateX(4px);
+    color: var(--ifm-color-primary) !important;
+}
+
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
+    text-shadow: 0 0 8px rgba(0, 112, 242, 0.6);
+}
+
+/* Content Container Card */
+.theme-doc-markdown {
+    background: var(--ifm-background-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-border-light);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xxl);
+}
+
+html[data-theme='dark'] .theme-doc-markdown {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
