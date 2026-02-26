@@ -2,31 +2,29 @@
     background: 
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 0 0 10px 0; 
+    padding: 80px 0; 
 }
 
 :root[data-theme='dark'] .domainSection {
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
         var(--sapShellColor);
-    padding: 0 0 10px 0; 
+    padding: 80px 0; 
 }
 
 .title {
-    font-size: var(--sapFontHeader2Size);
-    color: var(--navcard-text-default);
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ifm-font-color-base);
+    margin-bottom: 1rem;
 }
 
 .subtitle {
-    font-size: var(--sapFontHeader4Size);
-    margin-top: 1rem;
-    color: var(--navcard-text-default);
-}
-
-:root[data-theme='dark'] .title,
-:root[data-theme='dark'] .subtitle {
-    color: var(--text-color-dark-mode);
+    font-size: 1.25rem;
+    color: var(--ifm-color-content-secondary);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 700px;
 }
 
 .container {
@@ -48,8 +46,8 @@
 /* ── Domain Card (portrait style matching reference) ── */
 .domainCard {
     background: #ffffff;
-    border: 1px solid #dbe2eb;
-    border-radius: 16px;
+    border: 2px solid #dbe2eb;
+    border-radius: var(--border-radius-sm);
     padding: 28px 24px;
     text-decoration: none;
     display: flex;
@@ -62,9 +60,8 @@
 }
 
 .domainCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-    border-color: var(--ifm-color-primary);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
+    border: 2px solid var(--ifm-color-primary);
     text-decoration: none;
 }
 
@@ -121,12 +118,12 @@
 /* ── Dark mode ── */
 :root[data-theme='dark'] .domainCard:not(.highlighted) {
     background-color: #272729;
-    border-color: #3a3d42;
+    border: 2px solid #3a3d42;
 }
 
 :root[data-theme='dark'] .domainCard:not(.highlighted):hover {
-    border-color: var(--ifm-color-primary-lighter);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
 }
 
 :root[data-theme='dark'] .domainCard:not(.highlighted) .domainIcon {
@@ -148,13 +145,13 @@
 /* ── Highlighted cards (AI & ML, Data & Analytics) ── */
 .highlighted {
     background: linear-gradient(180deg, #5d36ff 0%, #a100c2 100%);
-    border: none;
-    box-shadow: 0 6px 24px rgba(93, 54, 255, 0.25), 0 2px 8px rgba(161, 0, 194, 0.15);
+    border: 2px solid transparent;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .highlighted:hover {
-    box-shadow: 0 14px 36px rgba(93, 54, 255, 0.35), 0 4px 12px rgba(161, 0, 194, 0.2);
-    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(93, 54, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .highlighted .domainIcon {
@@ -191,11 +188,13 @@
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 996px) {
     .domainSection {
-       padding: 25px;
+        padding: 60px 16px;
     }
+}
 
+@media (max-width: 1024px) {
     .container {
         padding: 20px;
     }
@@ -208,14 +207,29 @@
     }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
+/* Tablet breakpoint */
+@media (max-width: 996px) {
     .title {
-        font-size: var(--sapFontHeader3Size);
+        font-size: 2rem;
     }
 
     .subtitle {
-        font-size: var(--sapFontHeader4Size);
+        font-size: 1.125rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .domainSection {
+        padding: 48px 16px;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
     }
 
     .container {
@@ -230,11 +244,11 @@
 
 /* Small mobile */
 @media (max-width: 430px) {
-    .title {
-        font-size: var(--sapFontHeader4Size);
+    .domainSection {
+        padding: 40px 16px;
     }
 
-    .subtitle {
-        font-size: var(--sapFontHeader5Size);
+    .title {
+        font-size: 1.5rem;
     }
 }

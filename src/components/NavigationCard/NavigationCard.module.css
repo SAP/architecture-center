@@ -28,9 +28,8 @@
 
 .default:hover {
     background-color: var(--ifm-background-color);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: var(--ifm-color-primary);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
+    border: 2px solid var(--ifm-color-primary);
 }
 
 .default ui5-icon,
@@ -97,6 +96,25 @@
     display: block;
 }
 
+/* NEW badge styles */
+.newBadge {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    background: linear-gradient(180deg, #5d36ff 0%, #a100c2 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    z-index: 9999;
+    text-transform: uppercase;
+    box-shadow: 0 2px 12px rgba(93, 54, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
 /* Lock icon styles */
 .lockIconWrapper {
     position: absolute !important;
@@ -130,7 +148,8 @@
 
 [data-theme='dark'] .default:hover {
     background-color: #272729;
-    border-color: var(--ifm-color-primary-lighter);
+    border: 2px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
 }
 
 [data-theme='dark'] .default ui5-icon,

@@ -13,7 +13,7 @@
 .heroContainer {
     width: 100%;
     max-width: 1440px;
-    margin: 64px auto 60px auto;
+    margin: 64px auto 80px auto;
     padding: 0 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -45,13 +45,13 @@
 
 .heroActions {
     display: flex;
-    gap: 16px;
+    gap: 20px;
     margin-top: 16px;
     flex-wrap: wrap;
 }
 
 .primaryButton {
-    padding: 14px 32px;
+    padding: 10px 32px;
     background: var(--ifm-color-primary);
     color: white;
     border-radius: var(--border-radius-sm);
@@ -67,14 +67,13 @@
 
 .primaryButton:hover {
     background: var(--ifm-color-primary-dark);
-    transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 112, 242, 0.3);
     color: white;
     text-decoration: none;
 }
 
 .secondaryButton {
-    padding: 14px 32px;
+    padding: 10px 32px;
     background: transparent;
     color: var(--ifm-color-primary);
     border: 2px solid var(--ifm-color-primary);
@@ -91,7 +90,7 @@
 .secondaryButton:hover {
     background: var(--ifm-color-primary-lightest);
     color: var(--ifm-color-primary-dark);
-    transform: translateY(-2px);
+    border: 2px solid var(--ifm-color-primary);
     text-decoration: none;
 }
 
@@ -289,6 +288,6 @@
 
 [data-theme='dark'] .secondaryButton:hover {
     background: rgba(0, 112, 242, 0.15);
-    border-color: var(--ifm-color-primary-lightest);
+    border: 2px solid var(--ifm-color-primary-lightest);
     color: var(--ifm-color-primary-lightest);
 }

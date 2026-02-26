@@ -51,9 +51,8 @@
 }
 
 .newsCard:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: var(--ifm-color-primary);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
+    border: 2px solid var(--ifm-color-primary);
     text-decoration: none;
 }
 
@@ -137,7 +136,7 @@
 
 .viewAllButton {
     display: inline-block;
-    padding: 14px 32px;
+    padding: 10px 32px;
     background: var(--ifm-color-primary);
     color: white;
     border-radius: var(--border-radius-sm);
@@ -146,11 +145,12 @@
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 112, 242, 0.2);
+    min-width: 235px;
+    text-align: center;
 }
 
 .viewAllButton:hover {
     background: var(--ifm-color-primary-dark);
-    transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 112, 242, 0.3);
     color: white;
     text-decoration: none;
@@ -163,11 +163,12 @@
 
 [data-theme='dark'] .newsCard {
     background-color: #272729;
-    border-color: #444950;
+    border: 2px solid #444950;
 }
 
 [data-theme='dark'] .newsCard:hover {
-    border-color: var(--ifm-color-primary-lighter);
+    border: 2px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
 }
 
 [data-theme='dark'] .newsImage {

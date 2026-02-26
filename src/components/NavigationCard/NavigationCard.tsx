@@ -16,6 +16,7 @@ interface CustomButtonProps {
     link: string;
     disabled?: boolean;
     alwaysShowLock?: boolean;
+    isNew?: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
 }
@@ -29,6 +30,7 @@ export default function NavigationCard({
     link,
     disabled = false,
     alwaysShowLock = false,
+    isNew = false,
     onMouseEnter,
     onMouseLeave,
 }: CustomButtonProps): JSX.Element {
@@ -64,33 +66,38 @@ export default function NavigationCard({
     };
 
     const cardContent = (
-        <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {shouldShowLockIcon && (
-                <span className={styles.lockIconWrapper}>
-                    <Icon name="sap-icon://locked" title="Authentication Required" />
-                </span>
+        <div style={{ position: 'relative' }}>
+            {isNew && (
+                <span className={styles.newBadge}>NEW</span>
             )}
-            {!shouldShowLockIcon && requiredProvider && (
-                <span className={styles.lockIconWrapper}>
-                    <Icon name="sap-icon://unlocked" title="Unlocked" />
-                </span>
-            )}
-            <span className={styles.inline}>
-                {resolvedLogo ? (
-                    <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
-                ) : (
-                    <Icon className={styles.icon} name={icon} />
+            <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                {shouldShowLockIcon && (
+                    <span className={styles.lockIconWrapper}>
+                        <Icon name="sap-icon://locked" title="Authentication Required" />
+                    </span>
                 )}
-                {subtitle ? (
-                    <div className={styles.spacing}>
+                {!shouldShowLockIcon && requiredProvider && (
+                    <span className={styles.lockIconWrapper}>
+                        <Icon name="sap-icon://unlocked" title="Unlocked" />
+                    </span>
+                )}
+                <span className={styles.inline}>
+                    {resolvedLogo ? (
+                        <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
+                    ) : (
+                        <Icon className={styles.icon} name={icon} />
+                    )}
+                    {subtitle ? (
+                        <div className={styles.spacing}>
+                            <div>{title}</div>
+                            <div className={styles.subtitle}>{subtitle}</div>
+                        </div>
+                    ) : (
                         <div>{title}</div>
-                        <div className={styles.subtitle}>{subtitle}</div>
-                    </div>
-                ) : (
-                    <div>{title}</div>
-                )}
-            </span>
-        </Card>
+                    )}
+                </span>
+            </Card>
+        </div>
     );
 
     // Always show lock icon and handle authentication flow when needed

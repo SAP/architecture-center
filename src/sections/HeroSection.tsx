@@ -54,14 +54,9 @@ export default function HeroSection(): JSX.Element {
                         <Link to="/docs" className={styles.primaryButton}>
                             Browse Architectures
                         </Link>
-                        <a href="#technology-domains" className={styles.secondaryButton}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                document.getElementById('technology-domains')?.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                        >
-                            Explore Domains
-                        </a>
+                        <Link to="/community/intro" className={styles.secondaryButton}>
+                            Community of Practice
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.heroImage}>
@@ -82,6 +77,7 @@ export default function HeroSection(): JSX.Element {
                         icon={item.icon}
                         link={item.link}
                         disabled={item.disabled}
+                        isNew={item.isNew}
                     />
                 ))}
             </div>

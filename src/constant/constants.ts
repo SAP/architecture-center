@@ -1,10 +1,10 @@
 export const navigationCardsData = [
     {
-        title: 'Architecture Validator',
-        subtitle: 'Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines.',
-        icon: 'sap-icon://order-status',
-        link: '/architecture-validator',
-        requiresAuth: true,
+        title: 'AI-Native North Star Architecture',
+        subtitle: 'The AI Native North Star Architecture defines SAP\’s target state and connects AI, data, processes, and the platform as intelligence becomes core.',
+        icon: 'sap-icon://group',
+        link: '/community/intro',
+        isNew: true
     },
     {
         title: 'Quick Start',
@@ -13,10 +13,11 @@ export const navigationCardsData = [
         link: '/quick-start'
     },
     {
-        title: 'Community of Practice',
-        subtitle: 'A collaborative environment where all SAP experts can co-create, maintain, and enhance reference architectures',
-        icon: 'sap-icon://group',
-        link: '/community/intro'
+        title: 'Architecture Validator',
+        subtitle: 'Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines.',
+        icon: 'sap-icon://order-status',
+        link: '/architecture-validator',
+        requiresAuth: true,
     },
 ];
 
@@ -42,21 +43,21 @@ export const techPartners = [
 
 export const addResData = [
     {
-        title: 'Terraform on SAP BTP',
-        subtitle: 'Templates and guidance for provisioning and managing SAP BTP resources with Terraform.',
-        link: 'https://sap-docs.github.io/terraform-landingpage-for-btp/',
-        logoLight: 'img/landingPage/SAPLogo.svg',
-    },
-    {
         title: 'Discovery Center',
         subtitle: 'Explore SAP use cases, misions, and services to accelerate cloud adoption and innovation.',
         link: 'https://discovery-center.cloud.sap/',
         logoLight: 'img/landingPage/SAPLogo.svg',
     },
     {
-        title: 'SAP Business Accelerator Hub',
-        subtitle: 'APIs, integration content, and events to extend and connect SAP solutions.',
-        link: 'https://hub.sap.com/',
+        title: 'SAP Solution Diagram',
+        subtitle: 'The repository offers updates and templates for high-quality architectural diagrams.',
+        link: 'https://sap.github.io/btp-solution-diagrams/',
+        logoLight: 'img/landingPage/SAPLogo.svg',
+    },
+    {
+        title: 'Terraform on SAP BTP',
+        subtitle: 'Templates and guidance for provisioning and managing SAP BTP resources with Terraform.',
+        link: 'https://sap-docs.github.io/terraform-landingpage-for-btp/',
         logoLight: 'img/landingPage/SAPLogo.svg',
     },
     {
@@ -74,7 +75,7 @@ export const addResData = [
     },
     {
         title: 'Google Cloud Platform',
-        subtitle: 'Best practices, topologies, and blueprints for designing and managing Google Cloud workloads.',
+        subtitle: 'Best practices and blueprints for designing and managing Google Cloud workloads.',
         link: 'https://cloud.google.com/architecture',
         logoLight: 'img/landingPage/AC_GCP_Logo.webp',
     },
