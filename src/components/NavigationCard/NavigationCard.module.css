@@ -1,3 +1,8 @@
+.cardWrapper {
+    position: relative;
+    display: flex;
+}
+
 /* kill link coloring so the card decides */
 .cardLink,
 .cardLink:visited,
@@ -10,9 +15,11 @@
 .default {
     max-width: 450px;
     min-height: 120px;
-    background-color: var(--ifm-background-color);
-    border-radius: var(--border-radius-sm);
-    border: 2px solid var(--color-border-light);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -20,16 +27,37 @@
     gap: 1rem;
     font-weight: 600;
     color: var(--ifm-font-color-base);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--glass-shadow);
     position: relative;
-    transition: all 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
     cursor: pointer;
+    overflow: hidden;
 }
 
-.default:hover {
-    background-color: var(--ifm-background-color);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
-    border: 2px solid var(--ifm-color-primary);
+.cardWrapper:hover .default {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.25);
+    border-color: var(--ifm-color-primary);
+}
+
+.default::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    transition: 0.5s;
+}
+
+.cardWrapper:hover .default::before {
+    left: 100%;
 }
 
 .default ui5-icon,
@@ -83,7 +111,7 @@
     line-height: 1.4;
 }
 
-.spacing > div:first-child {
+.spacing>div:first-child {
     font-weight: 600;
     font-size: 1.125rem;
 }
@@ -113,6 +141,13 @@
     box-shadow: 0 2px 12px rgba(93, 54, 255, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease;
+}
+
+.cardWrapper:hover .newBadge {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(93, 54, 255, 0.6);
 }
 
 /* Lock icon styles */
@@ -141,15 +176,15 @@
 
 /* Dark mode styles */
 [data-theme='dark'] .default {
-    background-color: #272729;
-    border-color: #444950;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
     color: var(--ifm-font-color-base);
+    box-shadow: var(--glass-shadow);
 }
 
-[data-theme='dark'] .default:hover {
-    background-color: #272729;
-    border: 2px solid var(--ifm-color-primary-lighter);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
+[data-theme='dark'] .cardWrapper:hover .default {
+    border: 1px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.4);
 }
 
 [data-theme='dark'] .default ui5-icon,
@@ -235,7 +270,7 @@
         font-size: 1rem;
     }
 
-    .spacing > div:first-child {
+    .spacing>div:first-child {
         font-size: 1rem;
     }
 
@@ -258,7 +293,7 @@
         font-size: 0.9375rem;
     }
 
-    .spacing > div:first-child {
+    .spacing>div:first-child {
         font-size: 0.9375rem;
     }
 
@@ -290,7 +325,7 @@
         gap: 0.75rem;
     }
 
-    .spacing > div:first-child {
+    .spacing>div:first-child {
         font-size: 0.875rem;
     }
 

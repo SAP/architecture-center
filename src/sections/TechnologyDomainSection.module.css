@@ -1,15 +1,15 @@
 .domainSection {
-    background: 
+    background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 80px 0; 
+    padding: 80px 0;
 }
 
 :root[data-theme='dark'] .domainSection {
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
         var(--sapShellColor);
-    padding: 80px 0; 
+    padding: 80px 0;
 }
 
 .title {
@@ -45,23 +45,29 @@
 
 /* ── Domain Card (portrait style matching reference) ── */
 .domainCard {
-    background: #ffffff;
-    border: 2px solid #dbe2eb;
-    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
     padding: 28px 24px;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
     cursor: pointer;
     min-height: 220px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
 }
 
 .domainCard:hover {
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
-    border: 2px solid var(--ifm-color-primary);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.2);
+    border: 1px solid var(--ifm-color-primary);
     text-decoration: none;
 }
 
@@ -69,19 +75,20 @@
 .domainIcon {
     width: 56px;
     height: 56px;
-    background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
-    border-radius: 50%;
+    background: var(--gradient-primary);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 18px;
     flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.2);
 }
 
 .domainIcon svg {
     width: 26px;
     height: 26px;
-    color: var(--ifm-color-primary);
+    color: white;
 }
 
 /* ── Title ── */
@@ -116,31 +123,7 @@
 }
 
 /* ── Dark mode ── */
-:root[data-theme='dark'] .domainCard:not(.highlighted) {
-    background-color: #272729;
-    border: 2px solid #3a3d42;
-}
-
-:root[data-theme='dark'] .domainCard:not(.highlighted):hover {
-    border: 2px solid var(--ifm-color-primary-lighter);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
-}
-
-:root[data-theme='dark'] .domainCard:not(.highlighted) .domainIcon {
-    background: linear-gradient(135deg, rgba(0, 112, 242, 0.2) 0%, rgba(0, 112, 242, 0.1) 100%);
-}
-
-:root[data-theme='dark'] .domainCard:not(.highlighted) .domainIcon svg {
-    color: var(--ifm-color-primary-lighter);
-}
-
-:root[data-theme='dark'] .domainCard:not(.highlighted) .domainTitle {
-    color: #f3f4f6;
-}
-
-:root[data-theme='dark'] .domainCard:not(.highlighted) .domainDescription {
-    color: #9ca3af;
-}
+/* Dark mode overrides removed as they are now handled by global variables */
 
 /* ── Highlighted cards (AI & ML, Data & Analytics) ── */
 .highlighted {

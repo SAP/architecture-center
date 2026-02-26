@@ -38,21 +38,26 @@
 }
 
 .newsCard {
-    background: var(--ifm-background-color);
-    border: 2px solid var(--color-border-light);
-    border-radius: var(--border-radius-sm);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
     overflow: hidden;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--glass-shadow);
     min-height: 220px;
 }
 
 .newsCard:hover {
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.15);
-    border: 2px solid var(--ifm-color-primary);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.2);
+    border: 1px solid var(--ifm-color-primary);
     text-decoration: none;
 }
 
@@ -114,6 +119,7 @@
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -136,44 +142,28 @@
 
 .viewAllButton {
     display: inline-block;
-    padding: 10px 32px;
-    background: var(--ifm-color-primary);
+    padding: 14px 40px;
+    background: var(--gradient-primary);
     color: white;
-    border-radius: var(--border-radius-sm);
+    border-radius: 30px;
     font-size: 1.125rem;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
     min-width: 235px;
     text-align: center;
 }
 
 .viewAllButton:hover {
-    background: var(--ifm-color-primary-dark);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.3);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
     color: white;
     text-decoration: none;
 }
 
 /* Dark mode styles */
-[data-theme='dark'] .newsSection {
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 112, 242, 0.05) 100%);
-}
-
-[data-theme='dark'] .newsCard {
-    background-color: #272729;
-    border: 2px solid #444950;
-}
-
-[data-theme='dark'] .newsCard:hover {
-    border: 2px solid var(--ifm-color-primary-lighter);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.25);
-}
-
-[data-theme='dark'] .newsImage {
-    background: rgba(0, 112, 242, 0.1);
-}
+/* Dark mode overrides removed as they are now handled by global variables */
 
 /* Responsive styles */
 @media (max-width: 996px) {

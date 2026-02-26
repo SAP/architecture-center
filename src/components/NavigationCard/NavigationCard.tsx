@@ -66,7 +66,7 @@ export default function NavigationCard({
     };
 
     const cardContent = (
-        <div style={{ position: 'relative' }}>
+        <div className={styles.cardWrapper}>
             {isNew && (
                 <span className={styles.newBadge}>NEW</span>
             )}

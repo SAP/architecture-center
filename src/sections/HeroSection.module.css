@@ -5,8 +5,24 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: linear-gradient(180deg, rgba(0, 112, 242, 0.05) 0%, transparent 100%);
-    padding: 40px 0;
+    background: radial-gradient(circle at 50% -20%, rgba(0, 112, 242, 0.15) 0%, transparent 70%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.section::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -5%;
+    width: 400px;
+    height: 400px;
+    background: var(--gradient-primary);
+    filter: blur(120px);
+    opacity: 0.1;
+    z-index: -1;
+    border-radius: 50%;
 }
 
 /* --- MODERN HERO BANNER --- */
@@ -28,10 +44,14 @@
 }
 
 .heroTitle {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--ifm-font-color-base);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 0;
 }
 
@@ -51,23 +71,23 @@
 }
 
 .primaryButton {
-    padding: 10px 32px;
-    background: var(--ifm-color-primary);
+    padding: 14px 40px;
+    background: var(--gradient-primary);
     color: white;
-    border-radius: var(--border-radius-sm);
+    border-radius: 30px;
     font-size: 1.125rem;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
     display: inline-block;
     min-width: 235px;
     text-align: center;
 }
 
 .primaryButton:hover {
-    background: var(--ifm-color-primary-dark);
-    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.3);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
     color: white;
     text-decoration: none;
 }

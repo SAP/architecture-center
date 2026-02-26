@@ -2,6 +2,8 @@
   margin-top: 65px;
   margin-bottom: 70px;
   width: 100%;
+  background: radial-gradient(circle at 10% 90%, rgba(0, 112, 242, 0.05) 0%, transparent 50%);
+  padding: 60px 0;
 }
 
 .container {
@@ -27,7 +29,7 @@
 
 :root[data-theme='dark'] .title,
 :root[data-theme='dark'] .subtitle {
-    color: var(--text-color-dark-mode);
+  color: var(--text-color-dark-mode);
 }
 
 .cardsGrid {
@@ -38,7 +40,7 @@
   max-width: 1440px;
   margin-top: 40px;
   margin-left: auto;
-  margin-right: auto;  
+  margin-right: auto;
 }
 
 /* Tablet */

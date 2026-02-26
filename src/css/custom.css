@@ -99,8 +99,26 @@
     /* Dark mode colors */
     --text-color-dark-mode: #ccc;
 
+    /* Glassmorphism Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --glass-blur: blur(12px);
+
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, #0070f2 0%, #7858ff 100%);
+    --gradient-premium: linear-gradient(135deg, #002a86 0%, #0070f2 50%, #7858ff 100%);
+    --gradient-dark: linear-gradient(135deg, #001848 0%, #003366 100%);
+
     /*alert color*/
     --alert-color: #ffc933;
+}
+
+[data-theme='dark'] {
+    --glass-bg: rgba(14, 15, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --ifm-sidebar-selected-item-background-color: rgba(10, 110, 209, 0.2);
 }
 
 /* LinkedIn icon styling */
