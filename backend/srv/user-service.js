@@ -4,9 +4,11 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Load environment variables
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
+// Load environment variables for local development
+if (process.env.NODE_ENV !== 'production') {
+    const envPath = path.resolve(__dirname, '../.env');
+    dotenv.config({ path: envPath });
+}
 
 const { Users } = cds.entities;
 let xsuaa = {};
@@ -23,13 +25,29 @@ const XSUAA_URL = xsuaa.url || process.env.XSUAA_URL;
 const XSUAA_CLIENTID = xsuaa.clientid || process.env.XSUAA_CLIENTID;
 const XSUAA_SECRET = xsuaa.clientsecret || process.env.XSUAA_SECRET;
 
-console.log('--- SERVER STARTING ---');
-console.log('Attempting to load .env from:', envPath);
-console.log('-----------------------');
+// Initial log removed for production-ready code.
 
 if (!JWT_SECRET || !FRONTEND_URL) {
     throw new Error('Missing JWT_SECRET or FRONTEND_URL environment variables.');
 }
+
+// Whitelisted domains for redirects
+const ALLOWED_REDIRECT_DOMAINS = [
+    'architecture.learning.sap.com',
+    'localhost',
+    new URL(FRONTEND_URL).hostname
+];
+
+// Helper function to validate redirect URI
+const isValidRedirect = (uri) => {
+    if (!uri) return false;
+    try {
+        const url = new URL(uri);
+        return ALLOWED_REDIRECT_DOMAINS.includes(url.hostname);
+    } catch (e) {
+        return false;
+    }
+};
 
 // Helper function to create app token
 const createAppToken = (payload) => {
@@ -53,7 +71,11 @@ const loginHandler = async (req) => {
     const { http } = cds.context;
     const provider = 'btp';
     const origin_uri = http && http.req.query && http.req.query.origin_uri;
-    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?provider=${provider}&origin_uri=${origin_uri}`;
+
+    // Validate redirect URI
+    const target_origin = isValidRedirect(origin_uri) ? origin_uri : FRONTEND_URL;
+
+    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/loginSuccess?provider=${provider}&origin_uri=${encodeURIComponent(target_origin)}`;
     callback_url = encodeURIComponent(callback_url);
     const authorize_url = `${XSUAA_URL}/oauth/authorize?login_hint=%257B%2522origin%2522%253A%2522sap.default%2522%257D&response_type=code&client_id=${XSUAA_CLIENTID}&redirect_uri=${callback_url}`;
     if (http && http.res) http.res.redirect(authorize_url);
@@ -64,10 +86,11 @@ const loginSuccessHandler = async (req) => {
     const code = (http && http.req.query && http.req.query.code) || null;
     const origin_uri = http && http.req.query.origin_uri;
 
-    // [TODO] Clean Up
+    // Validate redirect URI
+    const target_origin = isValidRedirect(origin_uri) ? origin_uri : FRONTEND_URL;
+
     if (!code) {
-        const origin_uri = http && http.req.query.origin_uri;
-        if (http && http.res) http.res.redirect(`${origin_uri}?e=UNAUTHORIZED`);
+        if (http && http.res) http.res.redirect(`${target_origin}?e=UNAUTHORIZED`);
         return;
     }
 
@@ -87,8 +110,7 @@ const loginSuccessHandler = async (req) => {
         const token_data = await token_response.json();
 
         if (token_data.access_token) {
-            if (http && http.res) http.res.redirect(`${origin_uri}?t=${token_data.id_token}`);
-            // Create app token with BTP user info
+            if (http && http.res) http.res.redirect(`${target_origin}?t=${token_data.id_token}`);
         }
     } catch (error) {
         console.error('BTP auth callback error:', error.message || error);
@@ -100,13 +122,12 @@ const logoutHandler = async (req) => {
     const provider = 'btp';
     const origin_uri = http && http.req.query && http.req.query.origin_uri;
 
-    console.log(`Logout request for provider: ${provider}`);
+    // Validate redirect URI
+    const target_origin = isValidRedirect(origin_uri) ? origin_uri : FRONTEND_URL;
 
-    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${origin_uri}`;
+    let callback_url = `${http.req.protocol}://${http && http.req.get('host')}/user/logoutSuccess?provider=${provider}&origin_uri=${encodeURIComponent(target_origin)}`;
     callback_url = encodeURIComponent(callback_url);
     const logout_url = `${XSUAA_URL}/logout.do?redirect=${callback_url}&client_id=${XSUAA_CLIENTID}`;
-
-    console.log(`BTP logout URL: ${logout_url}`);
 
     if (http && http.res)
         http.res.redirect(logout_url);
@@ -114,15 +135,13 @@ const logoutHandler = async (req) => {
 
 const logoutSuccessHandler = async (req) => {
     const { http } = cds.context;
-    const provider = 'btp';
-    const origin_uri = http && http.req.query.origin_uri || FRONTEND_URL;
+    const origin_uri = (http && http.req.query.origin_uri) || FRONTEND_URL;
 
-    console.log(`Logout success for provider: ${provider}`);
+    // Validate redirect URI
+    const target_origin = isValidRedirect(origin_uri) ? origin_uri : FRONTEND_URL;
 
-    // Clear any server-side session data if needed
-    // For now, just redirect back to the origin
     if (http && http.res) {
-        http.res.redirect(`${origin_uri}?logout=success&provider=${provider}`);
+        http.res.redirect(`${target_origin}?logout=success`);
     }
 
     return 'Logout successful';

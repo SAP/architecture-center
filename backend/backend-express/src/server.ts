@@ -24,5 +24,5 @@ app.use('/user', authRoutes);
 app.use('/api', publishRoutes);
 
 app.listen(PORT, () => {
-    console.log(`🚀 Express backend running on http://localhost:${PORT}`);
+    // Clean startup log
 });
