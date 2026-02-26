@@ -44,7 +44,7 @@ export default function HeroSection(): JSX.Element {
             {/* Modern Hero Banner */}
             <div className={styles.heroContainer}>
                 <div className={styles.heroContent}>
-                    <h1 className={styles.heroTitle}>SAP Architecture Center 2.5 (Experimental)</h1>
+                    <h1 className={styles.heroTitle}>SAP Architecture Center 2.5 (Experiment)</h1>
                     <p className={styles.heroSubtitle}>
                         Empowering architects and developers with best practices, reference architectures,
                         and community-driven guidance for designing, integrating, and optimizing SAP and
