@@ -1,12 +1,12 @@
 .section {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     background: radial-gradient(circle at 50% -20%, rgba(0, 112, 242, 0.15) 0%, transparent 70%);
-    padding: 80px 0;
+    padding: 30px 0;
     position: relative;
     overflow: hidden;
 }
@@ -29,7 +29,7 @@
 .heroContainer {
     width: 100%;
     max-width: 1440px;
-    margin: 64px auto 80px auto;
+    margin: 32px auto 80px auto;
     padding: 0 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -71,17 +71,16 @@
 }
 
 .primaryButton {
-    padding: 14px 40px;
-    background: var(--gradient-primary);
+    padding: 12px 24px;
+    background: #0070f2;
     color: white;
-    border-radius: 30px;
-    font-size: 1.125rem;
+    border-radius: 24px;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
     display: inline-block;
-    min-width: 235px;
     text-align: center;
 }
 
@@ -90,20 +89,20 @@
     box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
     color: white;
     text-decoration: none;
+    background: var(--gradient-primary);
 }
 
 .secondaryButton {
-    padding: 10px 32px;
+    padding: 12px 24px;
     background: transparent;
     color: var(--ifm-color-primary);
     border: 2px solid var(--ifm-color-primary);
-    border-radius: var(--border-radius-sm);
-    font-size: 1.125rem;
-    font-weight: 500;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
-    min-width: 235px;
     text-align: center;
 }
 

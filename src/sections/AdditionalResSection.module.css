@@ -43,10 +43,31 @@
   margin-right: auto;
 }
 
+.addResCard {
+  height: 100px !important;
+  min-height: 100px !important;
+}
+
+@media (max-width: 1200px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    justify-content: center;
+  }
+}
+
 /* Tablet */
 @media (max-width: 996px) {
   .section {
     padding: 60px 16px;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .title {
@@ -55,13 +76,6 @@
 
   .subtitle {
     font-size: 1.125rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
   }
 }
 

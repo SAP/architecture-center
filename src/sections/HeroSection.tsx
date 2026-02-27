@@ -3,6 +3,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { navigationCardsData } from '../constant/constants';
 import NavigationCard from '../components/NavigationCard/NavigationCard';
+import ArchitectureTabs from '../components/ArchitectureTabs/ArchitectureTabs';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './HeroSection.module.css';
@@ -68,7 +69,8 @@ export default function HeroSection(): JSX.Element {
             </div>
 
             {/* Navigation Cards */}
-            <div className={styles.cardsGrid}>
+            {/* HIDDEN: Cards for AI-Native North Star Architecture, Quick Start, and Architecture Validator */}
+            {/* <div className={styles.cardsGrid}>
                 {getVisibleNavigationCards().map((item, index) => (
                     <NavigationCard
                         key={index}
@@ -80,7 +82,10 @@ export default function HeroSection(): JSX.Element {
                         isNew={item.isNew}
                     />
                 ))}
-            </div>
+            </div> */}
+
+            {/* Redundant Architecture Tabs (for Stakeholder Comparison) */}
+            <ArchitectureTabs tabs={getVisibleNavigationCards()} />
         </section>
     );
 }

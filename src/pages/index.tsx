@@ -26,8 +26,8 @@ export default function Home(): JSX.Element {
         >
             <main>
                 <HeroSection />
-                <TechnologyDomainSection />
                 <NewsSection />
+                <TechnologyDomainSection />
                 <TrustedTecPartnersSection />
                 <AdditionalResSection />
             </main>

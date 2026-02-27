@@ -19,6 +19,7 @@ interface CustomButtonProps {
     isNew?: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
+    className?: string;
 }
 
 export default function NavigationCard({
@@ -33,6 +34,7 @@ export default function NavigationCard({
     isNew = false,
     onMouseEnter,
     onMouseLeave,
+    className,
 }: CustomButtonProps): JSX.Element {
     const { colorMode } = useColorMode();
     const { user, users } = useAuth();
@@ -70,7 +72,7 @@ export default function NavigationCard({
             {isNew && (
                 <span className={styles.newBadge}>NEW</span>
             )}
-            <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <Card className={`${styles.default} ${className || ''}`.trim()} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 {shouldShowLockIcon && (
                     <span className={styles.lockIconWrapper}>
                         <Icon name="sap-icon://locked" title="Authentication Required" />
