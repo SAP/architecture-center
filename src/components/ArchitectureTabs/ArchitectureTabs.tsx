@@ -99,28 +99,37 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                     </div>
                 )}
                 <div className={styles.contentLayout}>
-                    <div className={styles.iconContainer}>
-                        <ui5-icon class={styles.icon} name={icon?.replace('sap-icon://', '') || 'initiative'}></ui5-icon>
-                    </div>
-                    <div className={styles.textContent}>
+                    <div className={styles.topRow}>
+                        <div className={styles.iconContainer}>
+                            <ui5-icon class={styles.icon} name={icon?.replace('sap-icon://', '') || 'initiative'}></ui5-icon>
+                        </div>
                         <div className={styles.titleWrapper}>
                             <h3 className={styles.title}>{title}</h3>
                             {isNew && <span className={styles.newBadge}>NEW</span>}
                         </div>
-                        <p className={styles.subtitle}>{subtitle}</p>
-                        <div className={styles.actionWrapper}>
-                            {needsAuth && requiredProvider ? (
-                                <button 
-                                    className={styles.actionButton} 
-                                    onClick={handleButtonClick}
-                                >
-                                    Explore {title}
-                                </button>
-                            ) : (
-                                <Link to={link} className={styles.actionButton}>
-                                    Explore {title}
-                                </Link>
-                            )}
+                    </div>
+                    
+                    <div className={styles.mainContent}>
+                        <div className={styles.leftContent}>
+                            <p className={styles.subtitle}>{subtitle}</p>
+                            <div className={styles.actionWrapper}>
+                                {needsAuth && requiredProvider ? (
+                                    <button 
+                                        className={styles.actionButton} 
+                                        onClick={handleButtonClick}
+                                    >
+                                        {title === 'Quick Start' || title === 'Architecture Validator' ? 'Launch' : 'Explore'} {title}
+                                    </button>
+                                ) : (
+                                    <Link to={link} className={styles.actionButton}>
+                                        {title === 'Quick Start' || title === 'Architecture Validator' ? 'Launch' : 'Explore'} {title}
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
+                        <div className={styles.imagePlaceholder}>
+                            <p>Image Placeholder</p>
+                            <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>4:3 Aspect Ratio</p>
                         </div>
                     </div>
                 </div>

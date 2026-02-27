@@ -86,8 +86,47 @@
 
 .contentLayout {
     display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.topRow {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.mainContent {
+    display: flex;
     gap: 32px;
-    align-items: flex-start;
+    align-items: stretch;
+}
+
+.leftContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.imagePlaceholder {
+    width: 400px;
+    height: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.imagePlaceholder p {
+    margin: 0;
 }
 
 .iconContainer {
@@ -151,7 +190,8 @@
 }
 
 .actionWrapper {
-    margin-top: 20px;
+    margin-top: auto;
+    padding-top: 20px;
 }
 
 .actionButton {
@@ -240,6 +280,12 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+[data-theme='dark'] .imagePlaceholder {
+    background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+    color: #9ca3af;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 996px) {
     .tabList {
@@ -279,6 +325,24 @@
     }
 }
 
+@media (max-width: 996px) {
+    .mainContent {
+        flex-direction: column;
+    }
+
+    .imagePlaceholder {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .topRow {
+        gap: 16px;
+    }
+}
+
 @media (max-width: 600px) {
     .tabsContainer {
         padding: 0 16px;
@@ -293,10 +357,19 @@
         padding-top: 50px;
     }
 
-    .contentLayout {
+    .topRow {
+        gap: 12px;
+    }
+
+    .mainContent {
         flex-direction: column;
         gap: 20px;
-        align-items: flex-start;
+    }
+
+    .imagePlaceholder {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 
     .title {

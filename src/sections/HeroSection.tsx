@@ -63,7 +63,7 @@ export default function HeroSection(): JSX.Element {
                 <div className={styles.heroImage}>
                     <div className={styles.imagePlaceholder}>
                         <p>Image Placeholder</p>
-                        <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>1440x424 px</p>
+                        <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>4:3 Aspect Ratio</p>
                     </div>
                 </div>
             </div>
