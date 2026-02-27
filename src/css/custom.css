@@ -106,8 +106,8 @@
     --glass-blur: blur(12px);
 
     /* Modern Gradients */
-    --gradient-primary: linear-gradient(135deg, #0070f2 0%, #7858ff 100%);
-    --gradient-premium: linear-gradient(135deg, #002a86 0%, #0070f2 50%, #7858ff 100%);
+    --gradient-primary: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
+    --gradient-premium: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
     --gradient-dark: linear-gradient(135deg, #001848 0%, #003366 100%);
 
     /*alert color*/
