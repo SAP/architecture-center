@@ -146,6 +146,19 @@
     margin: 0 0 1rem 0;
 }
 
+.editorEmptyLineCommandHint {
+    position: relative;
+}
+
+.editorEmptyLineCommandHint::before {
+    content: 'Type / for commands';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #adb5bd;
+    pointer-events: none;
+}
+
 .editorH1 {
     font-size: 2rem;
     font-weight: 600;

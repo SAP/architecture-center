@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useIsVisible } from '@site/src/hooks/useIsVisible'; 
 import {
@@ -23,11 +24,9 @@ import { $isListNode, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND
 import {
     ChevronDown, Underline, Link2, Bold, Italic, Strikethrough, Code, Quote, List,
     ListOrdered, AlignLeft, AlignCenter, AlignRight, AlignJustify, Undo, Redo,
-    Heading1, Heading2, Heading3, Indent, Outdent, Plus, Image as ImageIcon,
-    LayoutDashboard, Paperclip, MoreHorizontal 
+    Heading1, Heading2, Heading3, Indent, Outdent, Plus, MoreHorizontal
 } from 'lucide-react';
-import { TOGGLE_IMAGE_DIALOG, OPEN_DRAWIO_DIALOG } from '../commands';
-import { fileUploadCommand } from '../fileUploadCommand';
+import { INSERT_ACTIONS } from '../insertActions';
 import styles from './index.module.css';
 
 interface ToolbarState {
@@ -359,31 +358,86 @@ const BlockFormatDropDown: React.FC<BlockFormatDropDownProps> = ({ editor, block
 };
 
 const InsertDropDown: React.FC<InsertDropDownProps> = ({ editor }) => {
-    const dropDownRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const [showDropDown, setShowDropDown] = useState(false);
-    useClickOutside(dropDownRef, () => setShowDropDown(false));
+    const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
+
+    useEffect(() => {
+        if (!showDropDown) {
+            return;
+        }
+
+        const updatePosition = () => {
+            const button = buttonRef.current;
+            if (!button) {
+                return;
+            }
+            const rect = button.getBoundingClientRect();
+            setMenuPosition({
+                top: rect.bottom + 8,
+                left: rect.right,
+            });
+        };
+
+        const handleOutsideClick = (event: MouseEvent) => {
+            const target = event.target as Node;
+            if (containerRef.current?.contains(target) || menuRef.current?.contains(target)) {
+                return;
+            }
+            setShowDropDown(false);
+        };
+
+        updatePosition();
+        window.addEventListener('resize', updatePosition);
+        window.addEventListener('scroll', updatePosition, true);
+        document.addEventListener('mousedown', handleOutsideClick);
+
+        return () => {
+            window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('scroll', updatePosition, true);
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [showDropDown]);
 
     return (
-        <div className={styles.dropdown} ref={dropDownRef}>
-            <button className={styles.button} onClick={() => setShowDropDown((v) => !v)}>
+        <div className={styles.dropdown} ref={containerRef}>
+            <button ref={buttonRef} className={styles.button} onClick={() => setShowDropDown((v) => !v)}>
                 <Plus size={16} /> <span style={{ marginLeft: '4px' }}>Insert</span>
             </button>
-            {showDropDown && (
-                <div className={`${styles.dropdownMenu} ${styles.dropdownMenuRight}`} style={{ zIndex: 100 }}>
-                    <button className={styles.dropdownItem} onClick={() => editor.dispatchCommand(TOGGLE_IMAGE_DIALOG, undefined)}>
-                        <ImageIcon size={18} /> Image
-                    </button>
-                    <button className={styles.dropdownItem} onClick={() => editor.dispatchCommand(OPEN_DRAWIO_DIALOG, undefined)}>
-                        <LayoutDashboard size={18} /> Draw.io
-                    </button>
-                    <button
-                        className={styles.dropdownItem}
-                        onClick={() => fileUploadCommand.onSelect(editor)}
-                    >
-                        <Paperclip size={18} /> File
-                    </button>
-                </div>
-            )}
+            {showDropDown && menuPosition
+                ? createPortal(
+                      <div
+                          ref={menuRef}
+                          className={styles.dropdownMenu}
+                          style={{
+                              position: 'fixed',
+                              top: menuPosition.top,
+                              left: menuPosition.left,
+                              transform: 'translateX(-100%)',
+                              zIndex: 1000,
+                          }}
+                      >
+                          {INSERT_ACTIONS.map((action) => {
+                              const Icon = action.icon;
+                              return (
+                                  <button
+                                      key={action.id}
+                                      className={styles.dropdownItem}
+                                      onClick={() => {
+                                          action.onSelect(editor);
+                                          setShowDropDown(false);
+                                      }}
+                                  >
+                                      <Icon size={18} /> {action.name === 'Draw.io Diagram' ? 'Draw.io' : action.name}
+                                  </button>
+                              );
+                          })}
+                      </div>,
+                      document.body
+                  )
+                : null}
         </div>
     );
 };
