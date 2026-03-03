@@ -62,7 +62,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
     const token = authHeader.split(' ')[1];
     try {
-        const decoded = jwt.verify(token, JWT_SECRET!) as any;
+        const decoded = jwt.verify(token, JWT_SECRET!, { algorithms: ['HS256'] }) as any;
         req.auth = {
             username: decoded.username,
             githubAccessToken: decoded.githubAccessToken,
@@ -88,7 +88,7 @@ router.get('/login', (req: Request, res: Response) => {
     }
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&state=${encodeURIComponent(
         origin_uri
-    )}&scope=repo`;
+    )}&scope=public_repo`;
     res.redirect(githubAuthUrl);
 });
 
@@ -120,7 +120,7 @@ router.get('/github/callback', async (req: Request, res: Response) => {
                 githubAccessToken: accessToken,
             },
             JWT_SECRET!,
-            { expiresIn: '7d' }
+            { expiresIn: '2h', algorithm: 'HS256' }
         );
 
         if (isTrustedRedirectUrl(origin_uri as string)) {

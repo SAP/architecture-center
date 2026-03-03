@@ -15,7 +15,17 @@ let xsuaa = {};
 try { xsuaa = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa; }
 catch (e) { console.log('Error loading xsuaa service:', e); }
 
-const upsAuth = process.env.VCAP_SERVICES ? null : JSON.parse(process.env.VCAP_SERVICES)['user-provided'][0]['credentials'];
+let upsAuth = null;
+try {
+    if (process.env.VCAP_SERVICES) {
+        const vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+        if (vcapServices['user-provided'] && vcapServices['user-provided'][0]) {
+            upsAuth = vcapServices['user-provided'][0]['credentials'];
+        }
+    }
+} catch (e) {
+    console.error('Error parsing VCAP_SERVICES:', e.message);
+}
 
 
 // General configuration

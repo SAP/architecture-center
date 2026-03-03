@@ -38,7 +38,7 @@ module.exports = function (context, options) {
                         tagName: 'meta',
                         attributes: {
                             'http-equiv': 'X-XSS-Protection',
-                            content: '1; mode=block',
+                            content: '0',
                         },
                     },
                     {
@@ -60,11 +60,11 @@ module.exports = function (context, options) {
             const headersContent = `/*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
+  X-XSS-Protection: 0
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10.hana.ondemand.com; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';
 `;
 
             const headersPath = path.join(outDir, '_headers');
@@ -88,7 +88,7 @@ module.exports = function (context, options) {
                             },
                             {
                                 key: 'X-XSS-Protection',
-                                value: '1; mode=block',
+                                value: '0',
                             },
                             {
                                 key: 'Referrer-Policy',

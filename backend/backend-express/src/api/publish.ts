@@ -4,25 +4,33 @@ import { publishToGitHub, syncUserFork } from '../services/githubService';
 import { generateStandalonePRBody } from '../templates/prTemplate';
 import rateLimit from 'express-rate-limit';
 
-// GitHub API helper function
+// GitHub API helper function with timeout
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
     const GITHUB_API_URL = 'https://api.github.com';
-    const response = await fetch(`${GITHUB_API_URL}${endpoint}`, {
-        ...options,
-        headers: {
-            ...options.headers,
-            Authorization: `token ${token}`,
-            Accept: 'application/vnd.github.v3+json',
-            'User-Agent': 'AC-Publishing-Service',
-        },
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        const error: any = new Error(data.message || `GitHub API error: ${response.status}`);
-        error.status = response.status;
-        throw error;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+    try {
+        const response = await fetch(`${GITHUB_API_URL}${endpoint}`, {
+            ...options,
+            signal: controller.signal,
+            headers: {
+                ...options.headers,
+                Authorization: `token ${token}`,
+                Accept: 'application/vnd.github.v3+json',
+                'User-Agent': 'AC-Publishing-Service',
+            },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            const error: any = new Error(data.message || `GitHub API error: ${response.status}`);
+            error.status = response.status;
+            throw error;
+        }
+        return data;
+    } finally {
+        clearTimeout(timeout);
     }
-    return data;
 }
 
 // Rate limiter: limit to 10 publish requests per minute per IP

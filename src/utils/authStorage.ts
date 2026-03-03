@@ -1,5 +1,7 @@
 /**
- * Authentication storage utility with base64 encryption
+ * Authentication storage utility with base64 encoding
+ * NOTE: base64 is NOT encryption - it is encoding for storage convenience only.
+ * Tokens in localStorage are accessible to any JavaScript on the same origin.
  */
 
 import { jwtDecode } from 'jwt-decode'; // Import jwtDecode
@@ -14,7 +16,9 @@ export interface AuthData {
 }
 
 /**
- * Utility functions for managing encrypted authentication data in localStorage
+ * Utility functions for managing base64-encoded authentication data in localStorage.
+ * WARNING: localStorage is not a secure storage mechanism for sensitive tokens.
+ * Any XSS vulnerability could expose stored tokens. Consider migrating to httpOnly cookies.
  */
 export const authStorage = {
   /**
@@ -36,13 +40,13 @@ export const authStorage = {
         }
       }
 
-      // Convert to JSON string and then encrypt with base64
+      // Convert to JSON string and then encode with base64
       const jsonString = JSON.stringify(data);
-      const encryptedData = btoa(jsonString);
-      localStorage.setItem(AUTH_STORAGE_KEY, encryptedData);
+      const encodedData = btoa(jsonString);
+      localStorage.setItem(AUTH_STORAGE_KEY, encodedData);
     } catch (error) {
-      console.error("Error saving encrypted auth data:", error);
-      // Fallback to unencrypted storage if encryption fails
+      console.error("Error saving auth data:", error);
+      // Fallback to plain JSON storage if encoding fails
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
     }
   },
@@ -57,11 +61,11 @@ export const authStorage = {
     if (!storedData) return null;
 
     try {
-      // Try to decrypt with base64 first
-      const decryptedData = atob(storedData);
-      return JSON.parse(decryptedData) as AuthData;
+      // Try to decode from base64 first
+      const decodedData = atob(storedData);
+      return JSON.parse(decodedData) as AuthData;
     } catch (error) {
-      // Handle legacy format or failed decryption
+      // Handle legacy format or failed decode
       try {
         const parsed = JSON.parse(storedData) as AuthData;
         // If it's a legacy unencrypted token without expiresAt, try to decode

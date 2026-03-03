@@ -25,7 +25,9 @@
     "overrides": {
         "rimraf": "^4.0.0",
         "inflight": "lru-cache",
-        "mermaid": "^11.9.0"
+        "mermaid": "^11.9.0",
+        "serialize-javascript": "^6.0.2",
+        "minimatch": "^3.1.4"
     },
     "dependencies": {
         "@docusaurus/core": "^3.9.2",

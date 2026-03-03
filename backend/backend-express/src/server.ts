@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import authRoutes from './api/auth';
 import publishRoutes from './api/publish';
 
@@ -16,9 +17,14 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
+app.use(helmet({
+    contentSecurityPolicy: false, // CSP is managed at the frontend/CDN level
+    crossOriginEmbedderPolicy: false, // Allow cross-origin resources
+}));
+
 app.use(cors(corsOptions));
 
-app.use(express.json({ limit: 'mb' }));
+app.use(express.json({ limit: '10mb' }));
 
 app.use('/user', authRoutes);
 app.use('/api', publishRoutes);
