@@ -1228,19 +1228,19 @@ html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
 
 /* Content Container Card */
 .theme-doc-markdown {
-    background: var(--ifm-background-color);
+    background: transparent;
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-xxl) var(--spacing-xl);
-    box-shadow: var(--shadow-card);
-    border: 1px solid var(--color-border-light);
+    box-shadow: none;
+    border: none;
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-xxl);
 }
 
 html[data-theme='dark'] .theme-doc-markdown {
-    background: rgba(30, 30, 30, 0.6);
-    border-color: var(--glass-border);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 /* UI5 Emphasized Button with Gradient */
