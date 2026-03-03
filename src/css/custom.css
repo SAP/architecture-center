@@ -462,10 +462,12 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     display: inline-block;
 }
 
-/* Dropdown menu customization*/
+/* Dropdown menu customization with gradient effect */
 .dropdown__link--active {
     font-weight: bold;
-    background-color: var(--ifm-sidebar-selected-item-background-color);
+    background: var(--gradient-premium);
+    color: white !important;
+    border-radius: 6px;
 }
 
 html,
@@ -727,11 +729,12 @@ table thead {
     display: inline-block;
 }
 
-/* Dropdown menu customization*/
+/* Dropdown menu customization with gradient effect */
 [data-theme='dark'] .dropdown__link--active {
     font-weight: bold;
-    background-color: var(--ifm-background-color-selected-item) !important;
-    color: #fff;
+    background: var(--gradient-premium) !important;
+    color: white !important;
+    border-radius: 6px;
 }
 
 /* Dark mode slick button formatting requires global styles to override module defaults */
@@ -1238,4 +1241,16 @@ html[data-theme='dark'] .theme-doc-markdown {
     background: rgba(30, 30, 30, 0.6);
     border-color: var(--glass-border);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* UI5 Emphasized Button with Gradient */
+[ui5-button][design="Emphasized"] {
+    background: var(--gradient-premium) !important;
+    border: none !important;
+    color: white !important;
+}
+
+[ui5-button][design="Emphasized"]:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
 }

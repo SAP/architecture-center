@@ -250,8 +250,8 @@ const config: Config = {
                             to: '/docs',
                         },
                         {
-                            label: 'Technology Domains',
-                            to: '/technology-domains',
+                            label: 'AI-Native North Star Architecture',
+                            to: '/north-star-architecture',
                         },
                         {
                             label: 'Architecture Validator',
@@ -260,10 +260,6 @@ const config: Config = {
                         {
                             label: 'Quick Start',
                             to: '/quick-start',
-                        },
-                        {
-                            label: 'Solution Diagram Guidelines',
-                            href: 'https://sap.github.io/btp-solution-diagrams'
                         },
                         {
                             label: 'Community of Practice',
