@@ -18,6 +18,7 @@ import {
 import { PageMetadata } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
+import { logger } from '../../utils/logger';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface Tag {
@@ -132,7 +133,7 @@ export default React.memo(function MetadataFormDialog({
             });
             if (!response.ok) throw new Error('Failed to fetch users');
             const data: GitHubSearchResponse = await response.json();
-            console.log('Fetched user data:', data);
+            logger.info('Fetched user data:', data);
             const existingContributors = new Set(initialData.contributors || []);
             const filteredResults = data.items.filter((item) => !existingContributors.has(item.login));
             setSearchResults(filteredResults);

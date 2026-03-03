@@ -11,7 +11,7 @@ export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            // @ts-expect-error
+            // @ts-expect-error - Docusaurus Layout component doesn't officially expose title prop in types, but it's supported
             title="Welcome"
             description={siteConfig.tagline}
             metadata={[

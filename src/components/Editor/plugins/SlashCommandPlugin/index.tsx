@@ -15,6 +15,7 @@ import { Type, Heading1, Heading2, List, ListOrdered, Image as ImageIcon, Layout
 import { TOGGLE_IMAGE_DIALOG, OPEN_DRAWIO_DIALOG } from '../commands';
 import styles from './index.module.css';
 import { fileUploadCommand } from '../fileUploadCommand';
+import { logger } from '../../../../utils/logger';
 
 class CommandOption extends MenuOption {
     name: string;
@@ -113,7 +114,7 @@ export default function SlashCommandPlugin() {
     const [editor] = useLexicalComposerContext();
     const [queryString, setQueryString] = useState<string | null>(null);
 
-    console.log('SlashCommandPlugin has mounted.');
+    logger.info('SlashCommandPlugin has mounted.');
 
     const ALL_COMMANDS = useMemo(
         () => [
@@ -219,7 +220,7 @@ export default function SlashCommandPlugin() {
     );
 
     const handleQueryChange = (query) => {
-        console.log('Query changed:', query);
+        logger.info('Query changed:', query);
         setQueryString(query);
     };
 
@@ -230,7 +231,7 @@ export default function SlashCommandPlugin() {
             triggerFn={checkForTriggerMatch}
             options={filteredOptions}
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp }) => {
-                console.log(
+                logger.info(
                     'menuRenderFn is being called. Anchor:',
                     anchorElementRef.current,
                     'Options count:',

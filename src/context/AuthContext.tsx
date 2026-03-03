@@ -4,6 +4,7 @@ import { authStorage } from '../utils/authStorage';
 import { useLocation, useHistory } from '@docusaurus/router';
 import siteConfig from '@generated/docusaurus.config';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import { logger } from '../utils/logger';
 
 const GITHUB_SESSION_DURATION_HOURS = 2;
 
@@ -69,7 +70,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const timeLeft = expiresAt - currentTime; // Time left in seconds
 
         if (timeLeft <= 0) {
-            console.log('BTP token already expired. Logging out BTP user.');
+            logger.info('BTP token already expired. Logging out BTP user.');
             logout('btp');
             return;
         }
@@ -81,7 +82,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const effectiveDelay = Math.max(1000, delay); // Minimum 1 second delay
 
         btpLogoutTimerRef.current = setTimeout(() => {
-            console.log('BTP token expired or nearing expiry. Initiating BTP logout.');
+            logger.info('BTP token expired or nearing expiry. Initiating BTP logout.');
             logout('btp');
         }, effectiveDelay);
     };
@@ -120,7 +121,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                         scheduleGithubTokenExpiryCheck(githubAuthData.expiresAt);
                     } else {
                         // If expired, remove it
-                        console.log('GitHub session expired, removing token.');
+                        logger.info('GitHub session expired, removing token.');
                         localStorage.removeItem('jwt_token');
                         setToken(null);
                     }
@@ -150,7 +151,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             };
                             scheduleBtpTokenExpiryCheck(decodedBtpToken.exp); // Schedule check
                         } else {
-                            console.log('BTP token found but is expired. Clearing BTP auth data.');
+                            logger.info('BTP token found but is expired. Clearing BTP auth data.');
                             authStorage.clear();
                         }
                     } else {
@@ -333,7 +334,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 }
                 window.location.href = logoutUrl.toString();
             } else {
-                console.log('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
+                logger.info('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
                 if (newUsers.github) {
                     setUser(newUsers.github);
                     // No need to schedule github timer, it's already running if valid

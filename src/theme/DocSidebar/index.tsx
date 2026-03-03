@@ -10,6 +10,7 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { logger } from '@site/src/utils/logger';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -340,13 +341,13 @@ export default function DocSidebarWrapper(props) {
   }, [location.search, docsBase, setPartners, setTechDomains]);
 
 
-  useEffect(() => {   
+  useEffect(() => {
     return history.listen((location) => {
-      console.log("Route changed:", location.pathname);
+      logger.info("Route changed:", location.pathname);
 
       // Reset only when leaving /docs
       if (!location.pathname.startsWith(docsBase)) {
-        console.log("Resetting filters...");
+        logger.info("Resetting filters...");
         resetFilters();
       }
     });
