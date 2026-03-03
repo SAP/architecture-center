@@ -5,7 +5,6 @@ import HeroSection from '../sections/HeroSection';
 import TechnologyDomainSection from '../sections/TechnologyDomainSection';
 import NewsSection from '../sections/NewsSection';
 import AdditionalResSection from '../sections/AdditionalResSection';
-import TrustedTecPartnersSection from '../sections/TrustedTecPartnersSection';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
@@ -28,7 +27,6 @@ export default function Home(): JSX.Element {
                 <HeroSection />
                 <NewsSection />
                 <TechnologyDomainSection />
-                <TrustedTecPartnersSection />
                 <AdditionalResSection />
             </main>
         </Layout>

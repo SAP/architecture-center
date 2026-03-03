@@ -2,14 +2,14 @@
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 30px 0 30px 0;
+    padding: 30px 0 50px 0;
 }
 
 :root[data-theme='dark'] .domainSection {
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
         var(--sapShellColor);
-    padding: 30px 0 30px 0;
+    padding: 30px 0 50px 0;
 }
 
 .title {
@@ -252,5 +252,134 @@
 
     .title {
         font-size: 1.5rem;
+    }
+}
+
+/* ── Trusted Technology Partners Carousel Section ── */
+.partnersContainer {
+    margin-top: 80px;
+    padding-top: 40px;
+}
+
+.logoWrapper {
+    flex: 0 0 auto;
+    width: 220px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin: 0 20px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logoWrapper:hover {
+    transform: scale(1.1) translateY(-5px);
+}
+
+.logoImg {
+    height: 80%;
+    width: 80%;
+    max-height: 80px;
+    max-width: 200px;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logoImg:hover {
+    transform: scale(1.2);
+}
+
+.carouselLogo {
+    padding-top: clamp(40px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Smooth infinite scroll container */
+.carouselTrack {
+    display: flex;
+    width: max-content;
+    animation: scroll 60s linear infinite;
+    will-change: transform;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-33.33333%);
+        /* Move exactly by 1/3 since we have 3 identical sets */
+    }
+}
+
+.logoList {
+    display: none;
+}
+
+/* ── Responsive for Partners Section ── */
+@media (max-width: 1024px) {
+    .logoImg {
+        max-width: 140px;
+        max-height: 70px;
+    }
+
+    .carouselLogo {
+        padding: 0 20px;
+    }
+
+    .logoWrapper {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .logoImg {
+        max-width: 100px;
+        max-height: 60px;
+    }
+
+    .carouselLogo {
+        display: none;
+    }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
+    }
+
+    .partnersContainer {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 430px) {
+    .logoImg {
+        max-width: 80px;
+        max-height: 50px;
+    }
+
+    .carouselLogo {
+        padding: 0 20px;
+    }
+
+    .logoList {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 20px 40px;
+        width: max-content;
+        margin: 30px auto 20px;
+    }
+
+    .partnersContainer {
+        margin-top: 40px;
     }
 }
