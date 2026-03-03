@@ -2,14 +2,14 @@
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_2.svg"),
         #eaf3fc;
-    padding: 30px 0 50px 0;
+    padding: 30px 0 15px 0;
 }
 
 :root[data-theme='dark'] .domainSection {
     background:
         url("/img/landingPage/Anvil_RipplePattern_RGB_blue_10.svg"),
         var(--sapShellColor);
-    padding: 30px 0 50px 0;
+    padding: 30px 0 15px 0;
 }
 
 .title {
@@ -261,6 +261,17 @@
     padding-top: 40px;
 }
 
+.partnersTitle {
+    font-size: 1.25rem;
+    color: var(--ifm-color-content-secondary);
+    margin: 0 auto 1rem auto;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 700px;
+    display: block;
+    width: 100%;
+}
+
 .logoWrapper {
     flex: 0 0 auto;
     width: 220px;
@@ -294,7 +305,7 @@
 }
 
 .carouselLogo {
-    padding-top: clamp(40px, 5vw, 80px);
+    padding-top: 20px;
     position: relative;
     overflow: hidden;
 }

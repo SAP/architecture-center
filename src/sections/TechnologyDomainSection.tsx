@@ -182,10 +182,7 @@ export default function TechnologyDomainSection(): JSX.Element {
 
                 {/* Trusted Technology Partners Section */}
                 <div className={styles.partnersContainer}>
-                    <Title level="H1" className={styles.title}>
-                        Trusted Technology Partners
-                    </Title>
-                    <Text className={styles.subtitle}>Empowering Innovation Together</Text>
+                    <Text className={styles.partnersTitle}>Innovating with trusted technology partners</Text>
 
                     <div className={styles.carouselLogo}>
                         <div className={styles.carouselTrack} ref={trackRef}>
