@@ -1,7 +1,7 @@
 export const navigationCardsData = [
     {
         title: 'AI-Native North Star Architecture',
-        subtitle: 'The AI Native North Star Architecture defines SAP\’s target state and connects AI, data, processes, and the platform as intelligence becomes core.',
+        subtitle: 'The AI Native North Star Architecture defines the target state of SAP\’s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
         icon: 'sap-icon://group',
         link: '/community/intro',
         isNew: true

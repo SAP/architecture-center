@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React, { JSX, useRef, useEffect } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { navigationCardsData } from '../constant/constants';
@@ -15,6 +15,55 @@ export default function HeroSection(): JSX.Element {
     const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
+    const videoSrc = useBaseUrl('/video/297893_gettyimages-1396007643_video_web.mp4');
+
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        let isReversing = false;
+        let reverseStartWall = 0;
+        let reverseFromTime = 0;
+
+        // Called once per completed seek while reversing.
+        // Uses wall-clock elapsed time so the reverse plays at exactly 1× speed
+        // regardless of how long each seek takes.
+        const stepBack = () => {
+            const elapsed = (performance.now() - reverseStartWall) / 1000;
+            const target = reverseFromTime - elapsed;
+            if (target <= 0) {
+                isReversing = false;
+                video.currentTime = 0;
+                video.play();
+            } else {
+                video.currentTime = target;
+            }
+        };
+
+        const handleEnded = () => {
+            isReversing = true;
+            reverseStartWall = performance.now();
+            reverseFromTime = video.duration;
+            stepBack();
+        };
+
+        // Fire the next seek only after the previous one has completed,
+        // preventing seek-queue flooding that caused the earlier jank.
+        const handleSeeked = () => {
+            if (isReversing) {
+                stepBack();
+            }
+        };
+
+        video.addEventListener('ended', handleEnded);
+        video.addEventListener('seeked', handleSeeked);
+        return () => {
+            video.removeEventListener('ended', handleEnded);
+            video.removeEventListener('seeked', handleSeeked);
+        };
+    }, []);
 
     const getVisibleNavigationCards = () => {
         const { authProviders } = siteConfig.customFields as {
@@ -45,7 +94,7 @@ export default function HeroSection(): JSX.Element {
             {/* Modern Hero Banner */}
             <div className={styles.heroContainer}>
                 <div className={styles.heroContent}>
-                    <h1 className={styles.heroTitle}>SAP Architecture Center NEO (Experiment)</h1>
+                    <h1 className={styles.heroTitle}>SAP Architecture Center NEO</h1>
                     <p className={styles.heroSubtitle}>
                         Empowering architects and developers with best practices, reference architectures,
                         and community-driven guidance for designing, integrating, and optimizing SAP and
@@ -61,10 +110,14 @@ export default function HeroSection(): JSX.Element {
                     </div>
                 </div>
                 <div className={styles.heroImage}>
-                    <div className={styles.imagePlaceholder}>
-                        <p>Image Placeholder</p>
-                        <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>4:3 Aspect Ratio</p>
-                    </div>
+                    <video
+                        ref={videoRef}
+                        className={styles.heroVideo}
+                        src={videoSrc}
+                        autoPlay
+                        muted
+                        playsInline
+                    />
                 </div>
             </div>
 

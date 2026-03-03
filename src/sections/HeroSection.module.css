@@ -33,7 +33,7 @@
     padding: 0 24px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -65,12 +65,14 @@
 
 .heroActions {
     display: flex;
+    align-items: center;
     gap: 20px;
     margin-top: 16px;
     flex-wrap: wrap;
 }
 
 .primaryButton {
+    display: inline-block;
     padding: 12px 24px;
     background: #0070f2;
     color: white;
@@ -80,7 +82,6 @@
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
-    display: inline-block;
     text-align: center;
 }
 
@@ -93,6 +94,7 @@
 }
 
 .secondaryButton {
+    display: inline-block;
     padding: 12px 24px;
     background: transparent;
     color: var(--ifm-color-primary);
@@ -102,7 +104,6 @@
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    display: inline-block;
     text-align: center;
 }
 
@@ -150,6 +151,15 @@
     margin: 0;
 }
 
+.heroVideo {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+    display: block;
+}
+
 /* --- Navigation Cards --- */
 .cardsGrid {
     display: grid;
@@ -167,7 +177,7 @@
 @media (max-width: 1024px) {
     .heroContainer {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 20px;
         margin: 48px auto 48px auto;
         padding: 0 24px;
     }
@@ -290,7 +300,8 @@
 }
 
 /* Dark mode adjustments */
-[data-theme='dark'] .heroImage img {
+[data-theme='dark'] .heroImage img,
+[data-theme='dark'] .heroVideo {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
