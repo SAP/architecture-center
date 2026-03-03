@@ -17,25 +17,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-const frontendOrigin = process.env.FRONTEND_URL || 'https://architecture.learning.sap.com';
-
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'", "data:", "https:"],
-            fontSrc: ["'self'", "data:"],
-            connectSrc: ["'self'", frontendOrigin, "https://api.github.com"],
-            objectSrc: ["'none'"],
-            frameAncestors: ["'none'"],
-            baseUri: ["'self'"],
-            formAction: ["'self'"],
-        },
-    },
-    crossOriginEmbedderPolicy: false, // Allow cross-origin resources
-}));
+app.use(helmet());
 
 app.use(cors(corsOptions));
 
