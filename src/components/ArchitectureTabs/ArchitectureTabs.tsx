@@ -1,4 +1,4 @@
-import React, { useState, JSX } from 'react';
+import React, { useState, useRef, useEffect, JSX } from 'react';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './ArchitectureTabs.module.css';
@@ -20,6 +20,9 @@ interface ArchitectureTabsProps {
 
 export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.Element {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+    const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const { user, users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
@@ -60,23 +63,64 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         return provider === 'btp' ? 'SAP' : 'GITHUB';
     };
 
+    const handleTabChange = (newIndex: number) => {
+        if (newIndex === activeIndex || isTransitioning) return;
+
+        setIsTransitioning(true);
+        setTimeout(() => {
+            setActiveIndex(newIndex);
+            setTimeout(() => {
+                setIsTransitioning(false);
+            }, 50);
+        }, 200);
+    };
+
+    useEffect(() => {
+        const updateIndicator = () => {
+            const activeTab = tabRefs.current[activeIndex];
+            if (activeTab) {
+                const tabList = activeTab.parentElement;
+                if (tabList) {
+                    const tabListRect = tabList.getBoundingClientRect();
+                    const activeTabRect = activeTab.getBoundingClientRect();
+                    setIndicatorStyle({
+                        left: activeTabRect.left - tabListRect.left - 6,
+                        width: activeTabRect.width,
+                    });
+                }
+            }
+        };
+
+        updateIndicator();
+        window.addEventListener('resize', updateIndicator);
+        return () => window.removeEventListener('resize', updateIndicator);
+    }, [activeIndex]);
+
     return (
         <div className={styles.tabsContainer}>
             {/* Tab Header/Buttons */}
             <div className={styles.tabListWrapper}>
                 <div className={styles.tabList} role="tablist">
+                    <div
+                        className={styles.slidingBackground}
+                        style={{
+                            transform: `translateX(${indicatorStyle.left}px)`,
+                            width: `${indicatorStyle.width}px`,
+                        }}
+                    />
                     {tabs.map((tab, index) => {
                         const isActive = index === activeIndex;
                         return (
                             <button
                                 key={index}
+                                ref={(el) => (tabRefs.current[index] = el)}
                                 role="tab"
                                 aria-selected={isActive}
                                 aria-controls={`panel-${index}`}
                                 id={`tab-${index}`}
                                 tabIndex={isActive ? 0 : -1}
                                 className={`${styles.tabButton} ${isActive ? styles.activeTab : ''}`}
-                                onClick={() => setActiveIndex(index)}
+                                onClick={() => handleTabChange(index)}
                             >
                                 {tab.title}
                             </button>
@@ -87,7 +131,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
 
             {/* Tab Content Panel */}
             <div
-                className={styles.tabPanel}
+                className={`${styles.tabPanel} ${isTransitioning ? styles.fadeOut : ''}`}
                 role="tabpanel"
                 id={`panel-${activeIndex}`}
                 aria-labelledby={`tab-${activeIndex}`}
