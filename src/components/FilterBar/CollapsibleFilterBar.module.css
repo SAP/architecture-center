@@ -75,6 +75,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    margin-left: auto;
 }
 
 .clearFiltersButton:hover {
@@ -227,14 +228,15 @@
 }
 
 .filterChip.selected {
-    background: var(--ifm-color-primary);
-    border-color: var(--ifm-color-primary);
+    background: var(--gradient-premium);
+    border-color: transparent;
     color: white;
 }
 
 .filterChip.selected:hover {
-    background: var(--ifm-color-primary-dark);
-    border-color: var(--ifm-color-primary-dark);
+    background: var(--gradient-premium);
+    border-color: transparent;
+    opacity: 0.9;
 }
 
 .hideFiltersButton {
@@ -323,14 +325,15 @@
 }
 
 [data-theme='dark'] .filterChip.selected {
-    background: var(--ifm-color-primary-lighter);
-    border-color: var(--ifm-color-primary-lighter);
-    color: #1e1e1e;
+    background: var(--gradient-premium);
+    border-color: transparent;
+    color: white;
 }
 
 [data-theme='dark'] .filterChip.selected:hover {
-    background: var(--ifm-color-primary-lightest);
-    border-color: var(--ifm-color-primary-lightest);
+    background: var(--gradient-premium);
+    border-color: transparent;
+    opacity: 0.9;
 }
 
 /* Responsive Styles */

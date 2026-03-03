@@ -434,12 +434,14 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 .menu__list-item-collapsible--active {
-    background: var(--ifm-sidebar-selected-item-background-color);
+    background: var(--gradient-premium);
 }
 
 .menu__list-item-collapsible--active>.menu__link {
-    background-color: var(--ifm-sidebar-selected-item-background-color);
-    color: var(--ifm-menu-color-active) !important;
+    background-color: var(--gradient-premium);
+    color: white !important;
+    font-weight: bold;
+    border-radius: 8px;
 }
 
 .menu__list-item>.menu__link--active {
@@ -450,11 +452,14 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     color: #000 !important;
 }
 
-/* Breadcrumbs customization*/
+/* Breadcrumbs customization with gradient effect */
 .breadcrumbs__item--active .breadcrumbs__link {
-    background: var(--ifm-sidebar-selected-item-background-color);
-    color: var(--ifm-menu-color-active);
+    background: var(--gradient-premium);
+    color: white !important;
     font-weight: bold;
+    border-radius: 6px;
+    padding: 4px 8px;
+    display: inline-block;
 }
 
 /* Dropdown menu customization*/
@@ -687,13 +692,14 @@ table thead {
 }
 
 [data-theme='dark'] .menu__list-item-collapsible--active>.menu__link {
-    background-color: var(--ifm-background-color-selected-item) !important;
-    color: #fff !important;
+    background-color: var(--gradient-premium) !important;
+    color: white !important;
     font-weight: bold !important;
+    border-radius: 8px;
 }
 
 [data-theme='dark'] .menu__list-item-collapsible--active {
-    background: var(--ifm-background-color-selected-item) !important;
+    background: var(--gradient-premium) !important;
 }
 
 [data-theme='dark'] .menu__list-item-collapsible>.menu__link:not(.menu__link--active) {
@@ -713,9 +719,12 @@ table thead {
 
 /*Breadcrumbs customization*/
 [data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
-    background: var(--ifm-background-color-selected-item);
-    color: #fff;
+    background: var(--gradient-premium);
+    color: white !important;
     font-weight: bold;
+    border-radius: 6px;
+    padding: 4px 8px;
+    display: inline-block;
 }
 
 /* Dropdown menu customization*/
@@ -1175,15 +1184,20 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
     border-left: 1px solid var(--glass-border);
 }
 
-/* Premium Typography for Headers */
+/* Gradient effect on table of contents active link */
+.table-of-contents__link--active,
+.theme-doc-toc-desktop .table-of-contents__link--active {
+    background: var(--gradient-premium);
+    color: white !important;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 4px 8px;
+    display: inline-block;
+}
+
+/* Document headings use standard colors (gradient removed) */
 .theme-doc-markdown h1,
 .theme-doc-markdown h2 {
-    background: var(--gradient-premium);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    display: inline-block;
     margin-bottom: 1rem;
 }
 
@@ -1195,6 +1209,14 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
 .theme-doc-sidebar-menu .menu__link:hover {
     transform: translateX(4px);
     color: var(--ifm-color-primary) !important;
+}
+
+/* Gradient effect on selected sidebar item */
+.theme-doc-sidebar-menu .menu__link--active {
+    background: var(--gradient-premium);
+    color: white !important;
+    font-weight: bold;
+    border-radius: 8px;
 }
 
 html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
