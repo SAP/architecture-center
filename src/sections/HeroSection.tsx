@@ -36,7 +36,11 @@ export default function HeroSection(): JSX.Element {
             if (target <= 0) {
                 isReversing = false;
                 video.currentTime = 0;
-                video.play();
+                if (!document.hidden) {
+                    video.play().catch(() => {
+                        // Ignore play errors
+                    });
+                }
             } else {
                 video.currentTime = target;
             }
@@ -57,11 +61,33 @@ export default function HeroSection(): JSX.Element {
             }
         };
 
+        // Pause video when page is not visible
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                video.pause();
+            } else {
+                // Only try to play if we're not reversing
+                if (!isReversing) {
+                    video.play().catch(() => {
+                        // Ignore play errors when page becomes visible
+                    });
+                }
+            }
+        };
+
+        // Start playing the video manually
+        video.play().catch(() => {
+            // Ignore initial play errors
+        });
+
         video.addEventListener('ended', handleEnded);
         video.addEventListener('seeked', handleSeeked);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
         return () => {
             video.removeEventListener('ended', handleEnded);
             video.removeEventListener('seeked', handleSeeked);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, []);
 
@@ -114,7 +140,6 @@ export default function HeroSection(): JSX.Element {
                         ref={videoRef}
                         className={styles.heroVideo}
                         src={videoSrc}
-                        autoPlay
                         muted
                         playsInline
                     />
