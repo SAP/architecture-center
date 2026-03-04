@@ -92,8 +92,8 @@
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-25" parent="OdQHVJ1Rcee0M5euzhVP-28" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Connectivity_Service;fontColor=#556B82;" value="SAP Connectivity Service" vertex="1">
           <mxGeometry height="50" width="50" x="90" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-5" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" value="&lt;b style=&quot;border-color: var(--border-color); color: rgb(0, 112, 242); font-size: 16px;&quot;&gt;Solution Diagram Example: Work Zone&lt;/b&gt;" vertex="1">
-          <mxGeometry height="30" width="320" x="10" y="-40" as="geometry" />
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-5" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" value="&lt;font color=&quot;#0070f2&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;BTP Recommendation for 3-Tier Landscape&amp;nbsp;&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="360" x="10" y="-40" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-43" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" value="" vertex="1">
           <mxGeometry height="230" width="1080" x="680" y="564" as="geometry" />
