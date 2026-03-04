@@ -206,6 +206,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
+          git checkout --orphan site-anew
           git add -A
           git commit -m "cleanup: removed folder @$PR_FOLDER after merge" || echo "No changes to commit"
-          git push origin ${{ env.gh_pages_branch }}
+          git push -f origin HEAD:${{ env.gh_pages_branch }}
