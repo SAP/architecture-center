@@ -78,11 +78,11 @@ Private Cloud / Public Cloud
 Staged also 3+ possible
 
 ## Services and Components
-- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core?region=all)
+
 - [Joule](https://help.sap.com/docs/joule/integrating-joule-with-sap/introduction?version=CLOUD)
 - [Joule Studio](https://help.sap.com/docs/Joule_Studio/45f9d2b8914b4f0ba731570ff9a85313/b323c5a639a5428eb05fdafcca9bc9df.html)
-- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core)
 - [SAP Build Work Zone](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-advanced-edition?region=all)
+- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core?region=all)
 - [SAP Cloud Identity Services -  Identity Authentication](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 - [SAP Cloud Identity Services -  IdentityProvisioning](https://discovery-center.cloud.sap/serviceCatalog/identity-provisioning?region=all)
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
@@ -103,3 +103,7 @@ Staged also 3+ possible
 - [Activate Joule for SAP SuccessFactors](https://discovery-center.cloud.sap/missiondetail/4451/4737/)
 - [Activate Joule with SAP Ariba](https://discovery-center.cloud.sap/missiondetail/4697/4981/)
 - [Activate Joule with SAP Integrated Business Planning (IBP)](https://discovery-center.cloud.sap/missiondetail/4631/4920/)
+- [Get started with Business AI](https://discovery-center.cloud.sap/missiondetail/4338/4621/)
+- [Get Started with SAP BTP - Cloud Identity Service Provider (SAP IdP)](https://discovery-center.cloud.sap/missiondetail/4325/4605/)
+- [Activate Joule for SAP Success](https://discovery-center.cloud.sap/missiondetail/4451/4737/)
+- [Set Up Joule Studio and start with Joule Skills and Agents in BTP Enterprise Account](https://discovery-center.cloud.sap/missiondetail/4651/4940/)
