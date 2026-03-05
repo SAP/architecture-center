@@ -163,9 +163,6 @@
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-166" parent="1" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" value="BTP" vertex="1">
           <mxGeometry height="19" width="37" x="700" y="583" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-170" parent="1" style="shape=mxgraph.sap.icon;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_AI_Core;fontStyle=1" value="SAP AI Core" vertex="1">
-          <mxGeometry height="32" width="32" x="1409.75" y="-200" as="geometry" />
-        </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;verticalAlign=top;align=left;fontSize=16;fontStyle=1;spacingLeft=10;spacingTop=10;" value="Subaccount&lt;div&gt;&lt;span style=&quot;font-size: 12px; font-weight: 400;&quot;&gt;AI Core&lt;/span&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="167.22" width="240" x="970" y="353" as="geometry" />
         </mxCell>
