@@ -46,10 +46,6 @@ last_update:
 
 ![drawio](drawio/btp_sa_3_staged.drawio)
 
-## Flow
-
-<!-- Add your flow content here -->
-
 ## Characteristics
 
 - **topic1s**: fill out
@@ -68,7 +64,7 @@ Private Cloud / Public Cloud
 Staged also 3+ possible
 
 ## Services and Components
-
+- [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core?region=all)
 - [SAP Build Work Zone](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-advanced-edition?region=all)
 - [SAP Cloud Identity Authentication](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 - [SAP Cloud Identity Provisioning](https://discovery-center.cloud.sap/serviceCatalog/identity-provisioning?region=all)
@@ -81,4 +77,7 @@ Staged also 3+ possible
 
 ## Related Missions
 
-<!-- Add related missions here -->
+- [Get started with Business AI](https://discovery-center.cloud.sap/missiondetail/4338/4621/)
+- [Get Started with SAP BTP - Cloud Identity Service Provider (SAP IdP)](https://discovery-center.cloud.sap/missiondetail/4325/4605/)
+- [Activate Joule for SAP Success](https://discovery-center.cloud.sap/missiondetail/4451/4737/)
+- [Set Up Joule Studio and start with Joule Skills and Agents in BTP Enterprise Account](https://discovery-center.cloud.sap/missiondetail/4651/4940/)
