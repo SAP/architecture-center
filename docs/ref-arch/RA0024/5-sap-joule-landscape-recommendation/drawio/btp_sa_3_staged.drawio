@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0" version="29.6.0">
   <diagram name="Page-1" id="bPT-TJSTpvH1KBLdiW0m">
-    <mxGraphModel dx="1954" dy="1968" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="2946" dy="1997" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -107,20 +107,17 @@
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-152" parent="OdQHVJ1Rcee0M5euzhVP-155" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgaGVpZ2h0PSIyNCIgd2lkdGg9IjI0Ij4mI3hhOzxwYXRoIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl85OTVfMjIwKSIgZD0iTTIyLjQ3NjIgNi4xNDA2MkMyMi44MjU0IDYuMzU5MzcgMjMgNi42NDA2MyAyMyA2Ljk4NDM4QzIzIDcuMDc4MTMgMjIuOTg0MSA3LjE1NjI1IDIyLjk1MjQgNy4yMTg3NVYxNi43ODEzQzIyLjk1MjQgMTcuMjUgMjIuNzQ2IDE3LjYwOTQgMjIuMzMzMyAxNy44NTk0TDEyLjY2NjcgMjMuODEyNUMxMi40NDQ0IDIzLjkzNzUgMTIuMjA2MyAyNCAxMS45NTI0IDI0QzExLjY2NjcgMjQgMTEuNDYwMyAyMy45Mzc1IDExLjMzMzMgMjMuODEyNUwxLjYxOTA1IDE3Ljg1OTRDMS40Mjg1NyAxNy43MzQ0IDEuMjY5ODQgMTcuNTYyNSAxLjE0Mjg2IDE3LjM0MzdDMS4wNDc2MiAxNy4xMjUgMSAxNi45Mzc1IDEgMTYuNzgxM1Y3LjIxODc1QzEgNi43NSAxLjIwNjM1IDYuMzkwNjIgMS42MTkwNSA2LjE0MDYyTDYuNDc2MTkgMy4xNDA2M0M2LjczMDE2IDMuMDQ2ODggNi45NjgyNSAzIDcuMTkwNDggM0M3LjQxMjcgMyA3LjYxOTA1IDMuMDQ2ODggNy44MDk1MiAzLjE0MDYzTDE3LjUyMzggOS4xNDA2MkMxNy42ODI1IDkuMjAzMTIgMTcuODA5NSA5LjM0Mzc1IDE3LjkwNDggOS41NjI1QzE4LjAzMTcgOS43NSAxOC4wOTUyIDkuOTIxODcgMTguMDk1MiAxMC4wNzgxVjE0LjI1QzE4LjA5NTIgMTUuMDYyNSAxNy42OTg0IDE1LjQ2ODcgMTYuOTA0OCAxNS40Njg3QzE2LjU1NTYgMTUuNDY4NyAxNi4yNTQgMTUuMzU5NCAxNiAxNS4xNDA2QzE1Ljc3NzggMTQuOTIxOSAxNS42NjY3IDE0LjYyNSAxNS42NjY3IDE0LjI1VjEwLjc4MTJMNy4xOTA0OCA1LjUzMTI1TDMuNTcxNDMgNy44MjgxMlYxNi4wNzgxTDEyLjA0NzYgMjEuMzI4MUwyMC41MjM4IDE2LjA3ODFWNy44MjgxMkwxMS40Mjg2IDIuMjAzMTJDMTEuMDQ3NiAxLjk1MzEyIDEwLjg1NzEgMS42MjUgMTAuODU3MSAxLjIxODc1QzEwLjg1NzEgMS4wNjI1IDEwLjkyMDYgMC44MjgxMjUgMTEuMDQ3NiAwLjUxNTYyNUMxMS4zMzMzIDAuMTcxODc1IDExLjY5ODQgMCAxMi4xNDI5IDBDMTIuMzk2OCAwIDEyLjYwMzIgMC4wNjI1IDEyLjc2MTkgMC4xODc1TDIyLjQ3NjIgNi4xNDA2MlpNMTAuMzgxIDE1LjMyODFDMTAuNzYxOSAxNS41NDY5IDEwLjk1MjQgMTUuODc1IDEwLjk1MjQgMTYuMzEyNUMxMC45NTI0IDE2LjU2MjUgMTAuODg4OSAxNi43OTY5IDEwLjc2MTkgMTcuMDE1NkMxMC41MDc5IDE3LjM1OTQgMTAuMTQyOSAxNy41MzEyIDkuNjY2NjcgMTcuNTMxMkM5LjQ0NDQ0IDE3LjUzMTIgOS4yMzgxIDE3LjQ4NDQgOS4wNDc2MiAxNy4zOTA2TDYuNjE5MDUgMTUuOTM3NUM2LjIzODEgMTUuNjg3NSA2LjA0NzYyIDE1LjM3NSA2LjA0NzYyIDE1QzYuMDQ3NjIgMTQuNzUgNi4xMjY5OCAxNC41IDYuMjg1NzEgMTQuMjVDNi41NzE0MyAxMy45MDYyIDYuOTIwNjMgMTMuNzM0NCA3LjMzMzMzIDEzLjczNDRDNy41ODczIDEzLjczNDQgNy43OTM2NSAxMy43OTY5IDcuOTUyMzggMTMuOTIxOUwxMC4zODEgMTUuMzI4MVoiLz4mI3hhOzxkZWZzPiYjeGE7PGxpbmVhckdyYWRpZW50IGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB5Mj0iMTMuMTQxOSIgeDI9IjI0LjA5NjgiIHkxPSIyLjI1NzYzIiB4MT0iMy44NDMyOSIgaWQ9InBhaW50MF9saW5lYXJfOTk1XzIyMCI+JiN4YTs8c3RvcCBzdG9wLWNvbG9yPSIjMjM5NUZGIi8+JiN4YTs8c3RvcCBzdG9wLWNvbG9yPSIjMDA1N0QyIiBvZmZzZXQ9IjEiLz4mI3hhOzwvbGluZWFyR3JhZGllbnQ+JiN4YTs8L2RlZnM+JiN4YTs8L3N2Zz4=;fontSize=10;" value="AI Models" vertex="1">
           <mxGeometry height="24" width="24" x="41.75" y="55.99999999999977" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-5" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" value="&lt;font color=&quot;#0070f2&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;BTP recommendation for 3-staged Joule landscape&amp;nbsp;&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" vertex="1">
-          <mxGeometry height="30" width="420" x="10" y="-40" as="geometry" />
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-5" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" value="&lt;b style=&quot;color: rgb(0, 112, 242); font-size: 16px;&quot;&gt;Recommended SAP BTP Subaccount model for a 3-staged Joule landscape&amp;nbsp;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="600" x="10" y="-40" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-43" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;container=0;" value="" vertex="1">
           <mxGeometry height="230" width="1080" x="680" y="564" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-77" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="68" width="641" x="20" y="820" as="geometry" />
+          <mxGeometry height="71" width="850" x="20" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-78" parent="OdQHVJ1Rcee0M5euzhVP-77" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" value="&lt;font face=&quot;arial&quot; color=&quot;#475e75&quot;&gt;This BTP Solution Diagram depicts the BTP services setup within a customer&#39;s subaccount for&lt;br&gt;SAP Task Center. It includes user access, key components like SAP Build Work Zone, &lt;br&gt;SAP Cloud Identity Services and other integrated services&lt;br&gt;&lt;/font&gt;" vertex="1">
-          <mxGeometry height="55" width="517" y="13" as="geometry" />
-        </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-79" parent="OdQHVJ1Rcee0M5euzhVP-77" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" value="&lt;font face=&quot;arial&quot; color=&quot;#475e75&quot;&gt;&lt;b&gt;Recommend BTP Subaccount structure for unified Joule in SAP landsacpes&lt;/b&gt;&lt;/font&gt;" vertex="1">
-          <mxGeometry height="30" width="460" y="-6" as="geometry" />
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-79" parent="OdQHVJ1Rcee0M5euzhVP-77" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" value="&lt;b style=&quot;color: rgb(71, 94, 117); font-family: arial;&quot;&gt;Recommended SAP BTP Subaccount model setup for unified Joule experience within a 3-staged landscape&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="640" y="-6" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-83" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=default;fontFamily=Helvetica;rotation=-90;" value="&lt;font color=&quot;#1d2d3e&quot; size=&quot;1&quot; face=&quot;arial&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Development&lt;/b&gt;&lt;/font&gt;" vertex="1">
           <mxGeometry height="30" width="110" x="-20" y="140" as="geometry" />
@@ -159,7 +156,7 @@
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-118" parent="OdQHVJ1Rcee0M5euzhVP-121" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;dashed=1;dashPattern=8 8;" value="" vertex="1">
           <mxGeometry height="160" width="160" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-119" parent="OdQHVJ1Rcee0M5euzhVP-121" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Cloud_Identity_Service;fontStyle=1" value="SAP Cloud Identity&#xa;Services" vertex="1">
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-119" parent="OdQHVJ1Rcee0M5euzhVP-121" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Cloud_Identity_Service;fontStyle=1" value="SAP Cloud Identity&#xa;Services &#xa;(Test)" vertex="1">
           <mxGeometry height="50" width="50" x="50" y="40" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-122" connectable="0" parent="1" style="group" value="" vertex="1">
@@ -168,7 +165,7 @@
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-123" parent="OdQHVJ1Rcee0M5euzhVP-122" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;dashed=1;dashPattern=8 8;" value="" vertex="1">
           <mxGeometry height="160" width="160" as="geometry" />
         </mxCell>
-        <mxCell id="OdQHVJ1Rcee0M5euzhVP-124" parent="OdQHVJ1Rcee0M5euzhVP-122" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Cloud_Identity_Service;fontStyle=1" value="SAP Cloud Identity&#xa;Services" vertex="1">
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-124" parent="OdQHVJ1Rcee0M5euzhVP-122" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Cloud_Identity_Service;fontStyle=1" value="SAP Cloud Identity&#xa;Services&#xa;(Productive)" vertex="1">
           <mxGeometry height="50" width="50" x="50" y="40" as="geometry" />
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-131" connectable="0" parent="1" style="group" value="" vertex="1">
@@ -286,6 +283,9 @@
         </mxCell>
         <mxCell id="OdQHVJ1Rcee0M5euzhVP-166" parent="1" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" value="BTP" vertex="1">
           <mxGeometry height="19" width="37" x="700" y="583" as="geometry" />
+        </mxCell>
+        <mxCell id="OdQHVJ1Rcee0M5euzhVP-78" parent="1" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" value="&lt;font face=&quot;arial&quot; color=&quot;#475e75&quot;&gt;This SAP BTP Solution Diagram depicts the SAP BTP Subaccount setup for a 3-staged environment covering a development, testing and production stage.&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#475e75&quot;&gt;Besides the pure SAP BTP Subaccount model, it shows the integration with the the stages of the SAP Cloud Identity Service tenants and the connectivity to the SAP S/4HANA Cloud Private Edition.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#475e75&quot;&gt;The services running in separate subaccounts might also be merged depending on the overall customers SAP BTP Subaccount Model.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="1070" x="20" y="844" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
