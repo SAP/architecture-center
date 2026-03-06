@@ -27,6 +27,7 @@ import DrawioPlugin from './plugins/DrawioPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
 import InitializerPlugin from './plugins/InitializerPlugin';
+import EmptyLineCommandHintPlugin from './plugins/EmptyLineCommandHintPlugin';
 import EditorTheme from './EditorTheme';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
@@ -86,7 +87,7 @@ const buildBreadcrumbPath = (docId: string | null, allDocs: Document[]): Documen
 };
 
 function Placeholder() {
-    return <div className={styles.editorPlaceholder}>Type / to get started</div>;
+    return null;
 }
 
 const editorNodes = [
@@ -337,6 +338,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                                     <ImagePlugin />
                                     <DrawioPlugin />
                                     <SlashCommandPlugin />
+                                    <EmptyLineCommandHintPlugin />
                                     <AutoSavePlugin />
                                     <InitializerPlugin />
                                     <FloatingToolbarPlugin />
