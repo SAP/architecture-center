@@ -238,7 +238,7 @@
     line-height: 1.5;
     color: white;
     background: #0070f2;
-    border: none;
+    border: 2px solid #0070f2;
     border-radius: 24px;
     text-decoration: none;
     cursor: pointer;
@@ -253,6 +253,7 @@
     text-decoration: none;
     color: white;
     background: var(--gradient-primary);
+    border: 2px solid #0070f2;
 }
 
 .actionButton:active {
@@ -377,13 +378,45 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .tabsContainer {
         padding: 0 16px;
     }
 
     .tabListWrapper {
-        justify-content: flex-start;
+        justify-content: center;
+        overflow-x: visible;
+        width: 100%;
+    }
+
+    .tabList {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 16px;
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .slidingBackground {
+        display: none;
+    }
+
+    .tabButton {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        height: auto;
+        min-height: 44px;
+        border-radius: 12px;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .activeTab {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 112, 242, 0.3);
     }
 
     .tabPanel {

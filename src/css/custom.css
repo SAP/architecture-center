@@ -780,7 +780,13 @@ html[data-theme='dark'] .navbar-item-github {
 
 /* Custom styling for main content (excludes header, footer, sidebar) */
 html[data-theme='light'] .main-wrapper {
-    background-color: #f5f6f7;
+    background: linear-gradient(to bottom, #d0e0ed 0%, #ffffff 30%, #ffffff 70%, #d0e0ed 100%);
+    min-height: 100vh;
+}
+
+html[data-theme='dark'] .main-wrapper {
+    background: linear-gradient(to bottom, #1e2030 0%, #070810 30%, #070810 70%, #1e2030 100%);
+    min-height: 100vh;
 }
 
 html[data-theme='light'] .navbar {
@@ -799,7 +805,7 @@ html[data-theme='light'] .footer {
 }
 
 html[data-theme='light'] .menu {
-    background-color: #f5f6f7;
+    background: transparent;
 }
 
 /*Dark Mode*/
@@ -808,9 +814,8 @@ html[data-theme='dark'] .footer {
 }
 
 html[data-theme='dark'] .navbar {
-    /* background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);*/
-    background: #001848;
-    border-bottom: 2px solid #003366;
+    background: #0e0f19;
+    border-bottom: 2px solid #1a1a2e;
     backdrop-filter: blur(10px);
 }
 
@@ -1254,3 +1259,5 @@ html[data-theme='dark'] .theme-doc-markdown {
     opacity: 0.9;
     transform: translateY(-1px);
 }
+
+/* Technology Domains Section background is defined as critical CSS in docusaurus.config.ts headTags */

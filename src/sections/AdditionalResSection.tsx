@@ -7,7 +7,7 @@ import styles from './AdditionalResSection.module.css';
 
 export default function HeroSection(): JSX.Element {
     return (
-        <section>
+        <section className={styles.section}>
             <div className={styles.container}>
                 <Title className={styles.title}>
                     Additional Resources
