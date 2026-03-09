@@ -3,6 +3,11 @@ name: Architecture Validator Dev Site Build
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
   PREVIEW_FOLDER: preview/validator-dev
 
