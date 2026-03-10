@@ -173,6 +173,16 @@ pre {
 ui5-button::part(button) {
     font-weight: bold;
     font-family: '72';
+    border-radius: 24px;
+}
+
+ui5-button {
+    border-radius: 24px !important;
+}
+
+ui5-button::part(button),
+ui5-button::shadow button {
+    border-radius: 24px !important;
 }
 
 button.iconButton {
@@ -430,22 +440,24 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 .menu__list-item .menu__list .menu__link--active {
     font-weight: bold;
-    background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
 .menu__list-item-collapsible--active {
-    background: var(--gradient-premium);
+    background: transparent !important;
 }
 
+/* Parent folder nodes - regular text color, just bold */
 .menu__list-item-collapsible--active>.menu__link {
-    background-color: var(--gradient-premium);
-    color: white !important;
-    font-weight: bold;
-    border-radius: 8px;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #535353 !important;
+    color: #535353 !important;
+    font-weight: bold !important;
 }
 
 .menu__list-item>.menu__link--active {
-    color: var(--ifm-menu-color-active) !important;
+    color: #535353 !important;
 }
 
 .menu__link:not(.menu__link--active):hover {
@@ -455,19 +467,19 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 /* Breadcrumbs customization with gradient effect */
 .breadcrumbs__item--active .breadcrumbs__link {
     background: var(--gradient-premium);
-    color: white !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
-    border-radius: 6px;
-    padding: 4px 8px;
-    display: inline-block;
 }
 
 /* Dropdown menu customization with gradient effect */
 .dropdown__link--active {
     font-weight: bold;
     background: var(--gradient-premium);
-    color: white !important;
-    border-radius: 6px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 html,
@@ -694,14 +706,16 @@ table thead {
 }
 
 [data-theme='dark'] .menu__list-item-collapsible--active>.menu__link {
-    background-color: var(--gradient-premium) !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: white !important;
     color: white !important;
     font-weight: bold !important;
-    border-radius: 8px;
 }
 
 [data-theme='dark'] .menu__list-item-collapsible--active {
-    background: var(--gradient-premium) !important;
+    background: transparent !important;
 }
 
 [data-theme='dark'] .menu__list-item-collapsible>.menu__link:not(.menu__link--active) {
@@ -722,19 +736,19 @@ table thead {
 /*Breadcrumbs customization*/
 [data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
     background: var(--gradient-premium);
-    color: white !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
-    border-radius: 6px;
-    padding: 4px 8px;
-    display: inline-block;
 }
 
 /* Dropdown menu customization with gradient effect */
 [data-theme='dark'] .dropdown__link--active {
     font-weight: bold;
     background: var(--gradient-premium) !important;
-    color: white !important;
-    border-radius: 6px;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 /* Dark mode slick button formatting requires global styles to override module defaults */
@@ -1178,12 +1192,12 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
    Documentation Pages (/docs) Premium Overrides
    ========================================================================= */
 
-/* Glassmorphic Sidebars */
+/* Transparent Sidebars */
 html[data-theme='dark'] .theme-doc-sidebar-container,
 html[data-theme='dark'] .theme-doc-toc-desktop {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-right: 1px solid var(--glass-border);
 }
 
@@ -1192,15 +1206,24 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
     border-left: 1px solid var(--glass-border);
 }
 
+/* Light theme - transparent sidebars */
+.theme-doc-sidebar-container,
+.theme-doc-toc-desktop {
+    background: transparent;
+}
+
+.theme-doc-toc-desktop {
+    border-right: none;
+}
+
 /* Gradient effect on table of contents active link */
 .table-of-contents__link--active,
 .theme-doc-toc-desktop .table-of-contents__link--active {
     background: var(--gradient-premium);
-    color: white !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
-    border-radius: 6px;
-    padding: 4px 8px;
-    display: inline-block;
 }
 
 /* Document headings use standard colors (gradient removed) */
@@ -1219,12 +1242,67 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
     color: var(--ifm-color-primary) !important;
 }
 
-/* Gradient effect on selected sidebar item */
+/* All active links get bold */
 .theme-doc-sidebar-menu .menu__link--active {
-    background: var(--gradient-premium);
-    color: white !important;
     font-weight: bold;
-    border-radius: 8px;
+}
+
+/* Gradient effect on document links (all documents, not folders) */
+.theme-doc-sidebar-menu .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Folder nodes - default light theme */
+.theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
+.menu__list-item-collapsible > .menu__link {
+    color: #535353;
+    -webkit-text-fill-color: #535353;
+}
+
+/* Parent folder (expanded but NOT selected) - light theme */
+.theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active),
+.menu__list-item-collapsible--active > .menu__link:not(.menu__link--active) {
+    color: #535353 !important;
+    -webkit-text-fill-color: #535353 !important;
+    font-weight: bold !important;
+}
+
+/* Selected folder (with menu__link--active) - gradient */
+.theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link.menu__link--active,
+.menu__list-item-collapsible--active > .menu__link.menu__link--active {
+    background: var(--gradient-premium) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+}
+
+/* Folder nodes - default dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
+html[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+/* Parent folder (expanded but NOT selected) - dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active),
+html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active) {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    font-weight: bold !important;
+}
+
+/* Selected folder (with menu__link--active) - gradient - dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link.menu__link--active,
+html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link.menu__link--active {
+    background: var(--gradient-premium) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
 }
 
 html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
@@ -1248,16 +1326,48 @@ html[data-theme='dark'] .theme-doc-markdown {
     box-shadow: none;
 }
 
-/* UI5 Emphasized Button with Gradient */
+/* UI5 Primary Button (Emphasized) - matching landing page primary button */
 [ui5-button][design="Emphasized"] {
-    background: var(--gradient-premium) !important;
-    border: none !important;
+    background: #0070f2 !important;
+    border: 2px solid #0070f2 !important;
+    border-radius: 24px !important;
     color: white !important;
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
 [ui5-button][design="Emphasized"]:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4) !important;
+    background: var(--gradient-primary) !important;
+    border: 2px solid #0070f2 !important;
+}
+
+/* UI5 Secondary Button (Default) - matching landing page secondary button */
+[ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]) {
+    background: transparent !important;
+    color: var(--ifm-color-primary) !important;
+    border: 2px solid var(--ifm-color-primary) !important;
+    border-radius: 24px !important;
+    transition: all 0.3s ease !important;
+}
+
+[ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]):hover {
+    background: var(--ifm-color-primary-lightest) !important;
+    color: var(--ifm-color-primary-dark) !important;
+    border: 2px solid var(--ifm-color-primary) !important;
+}
+
+/* Dark mode for UI5 secondary button */
+[data-theme='dark'] [ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]) {
+    border-color: var(--ifm-color-primary-lighter) !important;
+    color: var(--ifm-color-primary-lighter) !important;
+}
+
+[data-theme='dark'] [ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]):hover {
+    background: rgba(0, 112, 242, 0.15) !important;
+    border: 2px solid var(--ifm-color-primary-lightest) !important;
+    color: var(--ifm-color-primary-lightest) !important;
 }
 
 /* Technology Domains Section background is defined as critical CSS in docusaurus.config.ts headTags */
