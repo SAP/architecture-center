@@ -93,7 +93,7 @@
 .domainIcon {
     width: 56px;
     height: 56px;
-    background: var(--gradient-primary);
+    background: white;
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -106,7 +106,31 @@
 .domainIcon svg {
     width: 26px;
     height: 26px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Highlighted cards (AI & Data) keep gradient background with white icon */
+.highlighted .domainIcon {
+    background: var(--gradient-primary);
+    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.3);
+}
+
+.highlighted .domainIcon svg {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
     color: white;
+}
+
+.highlighted .viewLink {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* ── Title ── */
