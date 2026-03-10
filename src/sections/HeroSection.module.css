@@ -50,7 +50,7 @@
 }
 
 .heroTitle {
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 900;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -79,7 +79,7 @@
 
 .primaryButton {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 6px 24px;
     background: #0070f2;
     color: white;
     border: 2px solid #0070f2;
@@ -103,7 +103,7 @@
 
 .secondaryButton {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 6px 24px;
     background: transparent;
     color: var(--ifm-color-primary);
     border: 2px solid var(--ifm-color-primary);

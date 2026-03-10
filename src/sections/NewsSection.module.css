@@ -154,12 +154,15 @@
 .readMore {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--ifm-color-primary);
-    transition: color 0.2s ease;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: opacity 0.2s ease;
 }
 
 .newsCard:hover .readMore {
-    color: var(--ifm-color-primary-dark);
+    opacity: 0.8;
 }
 
 .viewAllContainer {
@@ -169,7 +172,7 @@
 
 .viewAllButton {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 6px 24px;
     background: #0070f2;
     color: white;
     border: 2px solid #0070f2;
