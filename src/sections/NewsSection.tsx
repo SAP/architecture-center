@@ -55,7 +55,10 @@ export default function NewsSection(): JSX.Element {
                                 <p className={styles.newsDescription}>
                                     {post.description}
                                 </p>
-                                <span className={styles.readMore}>Read More →</span>
+                                <span className={styles.readMore}>
+                                    <span className={styles.readMoreText}>Read More</span>
+                                    <span className={styles.readMoreArrow}>→</span>
+                                </span>
                             </div>
                         </Link>
                     ))}

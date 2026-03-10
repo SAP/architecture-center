@@ -86,6 +86,7 @@
     border-radius: 24px;
     font-size: 1rem;
     font-weight: 600;
+    line-height: 1.5;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);

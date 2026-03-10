@@ -126,13 +126,6 @@
     color: white;
 }
 
-.highlighted .viewLink {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 /* ── Title ── */
 .domainTitle {
     font-size: 1.05rem;
@@ -153,19 +146,60 @@
 
 /* ── View link ── */
 .viewLink {
-    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
     font-weight: 600;
-    color: var(--ifm-color-primary);
     margin-top: 16px;
-    transition: color 0.2s ease;
+    overflow: hidden;
 }
 
-.domainCard:hover .viewLink {
-    color: var(--ifm-color-primary-dark);
+.viewLinkText {
+    font-size: 0.875rem;
+    color: var(--ifm-color-primary);
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-right 0.4s ease;
+    margin-right: 0;
+}
+
+.viewLinkArrow {
+    font-size: 1.75rem;
+    color: var(--ifm-color-primary);
+    transition: transform 0.3s ease;
+}
+
+.domainCard:hover .viewLinkText {
+    max-width: 150px;
+    opacity: 1;
+    margin-right: 4px;
+}
+
+.domainCard:hover .viewLinkArrow {
+    transform: translateX(4px);
+}
+
+/* Highlighted cards use gradient for the link */
+.highlighted .viewLinkText {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlighted .viewLinkArrow {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* ── Dark mode ── */
-/* Dark mode overrides removed as they are now handled by global variables */
+[data-theme='dark'] .domainCard:hover {
+    border: 1px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.4);
+}
 
 /* ── Responsive breakpoints ── */
 

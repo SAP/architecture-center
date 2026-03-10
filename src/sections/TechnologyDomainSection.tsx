@@ -47,7 +47,10 @@ function DomainCard({ domain }: DomainCardProps): JSX.Element {
             <p className={styles.domainDescription}>
                 Explore architectures and best practices for {domain.title.toLowerCase()}
             </p>
-            <span className={styles.viewLink}>View Architectures →</span>
+            <span className={styles.viewLink}>
+                <span className={styles.viewLinkText}>View Architectures</span>
+                <span className={styles.viewLinkArrow}>→</span>
+            </span>
         </Link>
     );
 }

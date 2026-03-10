@@ -88,6 +88,12 @@
     left: 100%;
 }
 
+/* Dark mode hover */
+[data-theme='dark'] .newsCard:hover {
+    border: 1px solid var(--ifm-color-primary-lighter);
+    box-shadow: 0 12px 40px rgba(0, 112, 242, 0.4);
+}
+
 .newsImage {
     width: 100%;
     height: 200px;
@@ -152,17 +158,43 @@
 }
 
 .readMore {
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
     font-weight: 500;
+    overflow: hidden;
+}
+
+.readMoreText {
+    font-size: 1rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: opacity 0.2s ease;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-right 0.4s ease;
+    margin-right: 0;
 }
 
-.newsCard:hover .readMore {
-    opacity: 0.8;
+.readMoreArrow {
+    font-size: 2rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.newsCard:hover .readMoreText {
+    max-width: 100px;
+    opacity: 1;
+    margin-right: 4px;
+}
+
+.newsCard:hover .readMoreArrow {
+    transform: translateX(4px);
 }
 
 .viewAllContainer {
