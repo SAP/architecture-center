@@ -60,7 +60,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
     };
 
     const getProviderDisplayName = (provider: 'btp' | 'github') => {
-        return provider === 'btp' ? 'SAP' : 'GITHUB';
+        return provider === 'btp' ? 'SAP' : 'GitHub';
     };
 
     const handleTabChange = (newIndex: number) => {
@@ -140,6 +140,12 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                     <div className={styles.loginBadge}>
                         <ui5-icon name="locked" class={styles.lockIcon}></ui5-icon>
                         Requires {getProviderDisplayName(requiredProvider)} Login
+                    </div>
+                )}
+                {!needsAuth && requiredProvider && isLoggedInWithRequiredProvider && (
+                    <div className={styles.authenticatedBadge}>
+                        <ui5-icon name="unlocked" class={styles.lockIcon}></ui5-icon>
+                        Authenticated with {getProviderDisplayName(requiredProvider)}
                     </div>
                 )}
                 <div className={styles.contentLayout}>

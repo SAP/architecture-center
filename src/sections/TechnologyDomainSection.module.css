@@ -57,7 +57,7 @@
         border-color 0.4s ease;
     cursor: pointer;
     min-height: 220px;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     position: relative;
 }
@@ -81,6 +81,8 @@
             rgba(255, 255, 255, 0.2),
             transparent);
     transition: 0.5s;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .domainCard:hover::before {
@@ -140,43 +142,6 @@
 
 /* ── Dark mode ── */
 /* Dark mode overrides removed as they are now handled by global variables */
-
-/* ── Highlighted cards (AI & ML, Data & Analytics) ── */
-.highlighted {
-    background: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
-    border: 2px solid transparent;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.highlighted:hover {
-    box-shadow: 0 6px 16px rgba(93, 54, 255, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.highlighted .domainIcon {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 50%;
-}
-
-.highlighted .domainIcon svg {
-    color: #a100c2;
-}
-
-.highlighted .domainTitle {
-    color: #ffffff;
-}
-
-.highlighted .domainDescription {
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.highlighted .viewLink {
-    color: #ffffff;
-}
-
-.highlighted:hover .viewLink {
-    color: rgba(255, 255, 255, 0.9);
-}
 
 /* ── Responsive breakpoints ── */
 
