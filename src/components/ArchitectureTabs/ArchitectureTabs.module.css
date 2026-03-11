@@ -69,8 +69,8 @@
     color: white;
 }
 
-.activeTab {
-    color: white;
+.tabButton.activeTab {
+    color: white !important;
 }
 
 /* --- TAB CONTENT PANEL --- */
