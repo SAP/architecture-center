@@ -133,6 +133,19 @@
     color: #1a1a2e;
     margin: 0 0 8px 0;
     line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.domainCard:hover .domainTitle {
+    color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .domainTitle {
+    color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .domainCard:hover .domainTitle {
+    color: var(--ifm-color-primary-lightest);
 }
 
 /* ── Description ── */
