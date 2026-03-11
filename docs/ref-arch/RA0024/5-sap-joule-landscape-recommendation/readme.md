@@ -52,7 +52,7 @@ last_update:
 ############################################################
 ---
 
-Setting up unified Joule in an existing SAP landscape requires a staged development process to qualify changes before bringing them to production. As organizations develop custom Joule skills and agents using Joule Studio, or configure Joule integrations across multiple SAP cloud applications, they need a structured approach to develop, test, and deploy these capabilities safely. This reference architecture provides a recommended SAP BTP subaccount model that supports a 3-staged landscape (Development, Test, Production), ensuring proper isolation, governance, and lifecycle management for Joule-related workloads.
+Setting up unified Joule in an existing SAP landscape requires a staged implementation process to qualify changes before bringing them to production. As organizations develop custom Joule skills and agents using Joule Studio, or configure Joule integrations across multiple SAP cloud applications, they need a structured approach to develop, test, and deploy these capabilities safely. This reference architecture provides a recommended SAP BTP subaccount model that supports a 3-staged landscape (Development, Test, Production), ensuring proper isolation, governance, and lifecycle management for Joule-related workloads.
 
 The staged approach aligns with enterprise best practices for change management, allowing teams to iterate on Joule configurations in development, validate them in test environments connected to non-productive SAP systems, and finally promote qualified changes to production where they interact with live business data and processes.
 
@@ -67,9 +67,9 @@ The solution architecture consists of the following key elements:
 - **Three staged environments** (Development, Test, Production): Each stage is represented as a horizontal row in the diagram, containing its own set of SAP BTP subaccounts and connected systems. This separation ensures that changes can be developed and validated before affecting production workloads.
 
 - **SAP BTP Global Account with dedicated subaccounts per stage**: Each stage contains multiple subaccounts serving distinct purposes. *Depending on the activated scenarios and use cases, actual setup and deployment of services might vary accordingly. This architecture illustrates a possible approach. Main focus is on the interplay between the actual Joule instance, system connectivity and integration with SAP Cloud Identity services*:
-  - **AI Core Subaccount**: Hosts SAP AI Core with Grounding Management and AI Models, providing the foundation model access and document grounding capabilities that power Joule's intelligent responses.
-  - **Joule Studio Subaccount**: Provides the development environment for building custom Joule skills and agents using Joule Studio.
-  - **Joule Subaccount**: Runs the Joule runtime with SAP Build Work Zone (Foundation), serving as the unified entry point for end users across SAP applications.
+  - **AI Core Subaccount**: Hosts SAP AI Core with Grounding Management and AI Models, providing the foundation model access and document grounding capabilities that power custom AI solutions build on top of th BTP AI foundation. 
+  - **Joule Studio Subaccount**: Provides the development environment for building custom Joule skills and agents using Joule Studio. Joule Studio is part of SAP Build Process Automation. 
+  - **Joule Subaccount**: Runs the Joule runtime with SAP Build Work Zone, serving as the unified entry point for end users across SAP applications. SAP Build Work Zone can also be reused from other Subaccounts. In the development or test stage, you might consider using Joule preview to validate upcoming capabilities and features. 
   - **Connectivity Subaccount** (Pre-prod/Prod): Hosts the SAP Connectivity service for secure connections to SAP S/4HANA Cloud Private Edition or on-premise systems per stage.
 
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves Development and Test stages, while the Productive tenant serves Production. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
@@ -86,7 +86,7 @@ The solution architecture consists of the following key elements:
 
 - **Hybrid connectivity support**: The dedicated Connectivity subaccounts per stage enable secure access to SAP S/4HANA Cloud Private Edition or on-premise systems. This ensures that Joule can interact with backend systems while maintaining the stage isolation required for proper testing and validation.
 
-- **Flexibility and scalability**: While this reference architecture depicts a 3-staged model, organizations can adapt it to their specific needs. Additional stages (e.g., Quality Assurance, Pre-Production) can be added, or subaccounts can be consolidated based on organizational requirements and governance policies. The model supports both public cloud and private cloud SAP deployments.
+- **Flexibility and scalability**: While this reference architecture depicts a 3-staged model, organizations can adapt it to their specific needs. Additional stages (e.g., Quality Assurance, Sandbox, Pre-Production) can be added, or subaccounts can be consolidated based on organizational requirements and governance policies. The model supports both public cloud and private cloud SAP deployments.
 
 ## Examples in an SAP context
 
@@ -103,6 +103,7 @@ The solution architecture consists of the following key elements:
 ## Services and Components
 
 - [Joule](https://help.sap.com/docs/joule/integrating-joule-with-sap/introduction?version=CLOUD)
+- [Joule Preview](https://help.sap.com/docs/joule/integrating-joule-with-sap/joule-preview-landscape)
 - [Joule Studio](https://help.sap.com/docs/Joule_Studio/45f9d2b8914b4f0ba731570ff9a85313/b323c5a639a5428eb05fdafcca9bc9df.html)
 - [SAP Build Work Zone](https://discovery-center.cloud.sap/serviceCatalog/sap-build-work-zone-advanced-edition?region=all)
 - [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core?region=all)
