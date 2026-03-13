@@ -10,11 +10,10 @@ import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lex
 import { $createHeadingNode } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import * as ReactDOM from 'react-dom';
-import { Type, Heading1, Heading2, List, ListOrdered, Image as ImageIcon, LayoutDashboard } from 'lucide-react';
+import { Type, Heading1, Heading2, List, ListOrdered } from 'lucide-react';
 
-import { TOGGLE_IMAGE_DIALOG, OPEN_DRAWIO_DIALOG } from '../commands';
 import styles from './index.module.css';
-import { fileUploadCommand } from '../fileUploadCommand';
+import { INSERT_ACTIONS } from '../insertActions';
 
 class CommandOption extends MenuOption {
     name: string;
@@ -171,21 +170,14 @@ export default function SlashCommandPlugin() {
                     editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
                 },
             }),
-            new CommandOption('Image', {
-                icon: <ImageIcon size={20} />,
-                keywords: ['image', 'photo', 'picture', 'img'],
-                onSelect: (editor) => {
-                    editor.dispatchCommand(TOGGLE_IMAGE_DIALOG, undefined);
-                },
-            }),
-            new CommandOption('Draw.io Diagram', {
-                icon: <LayoutDashboard size={20} />,
-                keywords: ['drawio', 'diagram', 'draw', 'flowchart'],
-                onSelect: (editor) => {
-                    editor.dispatchCommand(OPEN_DRAWIO_DIALOG, undefined);
-                },
-            }),
-            new CommandOption(fileUploadCommand.name, { ...fileUploadCommand }),
+            ...INSERT_ACTIONS.map(
+                (action) =>
+                    new CommandOption(action.name, {
+                        icon: <action.icon size={20} />,
+                        keywords: action.keywords,
+                        onSelect: action.onSelect,
+                    })
+            ),
         ],
         []
     );
