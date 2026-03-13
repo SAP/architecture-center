@@ -43,16 +43,18 @@ contributors:
   - maria-kondratyeva  
   - miguelmezamartinez
   - fabianleh
+  - bernhardthimmel
+  - mar-hol
 discussion:
 last_update:
-    date: 2025-06-25
+    date: 2026-03-12
     author: fabianleh
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
 ---
 
-Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automations.  
+Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automation.  
 This reference architecture outlines how Joule Studio can be leveraged to integrate and extend SAP and non-SAP solutions across cloud and hybrid landscapes. By tapping into the expertise of citizen developers, Joule Studio facilitates the adaptation, improvement, and innovation of business processes, driving positive business outcomes through sophisticated AI capabilities.
 
 ## Architecture
@@ -62,13 +64,13 @@ This reference architecture outlines how Joule Studio can be leveraged to integr
 ## Flow
 
 1. The central entry point for consuming custom Joule skills and AI agents created in Joule Studio is the Joule client application, available on both Desktop and Mobile. The Joule conversational interface spans across SAP Cloud applications, providing a unified access point for all SAP out-of-the-box Joule capabilities and custom Joule skills, significantly enhancing efficiency for key business personas.
-2. Joule Studio is part of SAP Build, which includes SAP Build Apps, SAP Build Code, SAP Build Work Zone, and SAP Build Process Automation. It leverages SAP Build's user experience and lifecycle management capabilities. To provision Joule Studio, Joule must be set up in the target landscape along with SAP Build Process Automation as part of the SAP Build tenant with the build-default plan utilizing SAP Identity Authentication Service (IAS). Once these prerequisites are met, Joule Studio is automatically provisioned using formations in the BTP cockpit.
+2. Joule Studio is part of SAP Build, which includes SAP Build Apps, SAP Build Code, SAP Build Work Zone, and SAP Build Process Automation. It leverages SAP Build's user experience and lifecycle management capabilities. To provision Joule Studio, Joule must be set up in the target landscape along with SAP Build Process Automation as part of the SAP Build tenant with the build-default plan utilizing SAP Identity Authentication Service (IAS). Once these prerequisites are met, Joule Studio is automatically provisioned using formations in the BTP cockpit. Besides Joule Studio as design time environment, you can also leverage Pro-Code Development Tools for Joule, like Joule Studio CLI to build, compile and deploy capabilities for Joule.
 3. Joule Studio enables extending Joule by creating new capabilities that can be deployed alongside the out-of-the-box capabilities provided by SAP. These capabilities include Joule Skills and AI Agents. Joule Skills automate rule-based, repetitive tasks using APIs, seamlessly integrating into SAP to enhance productivity. AI Agents tackle complex challenges with advanced planning and reasoning, integrating both SAP and non-SAP systems and leveraging Joule Skills. Both extend Joule by adding tailored automation and optimization capabilities.
 4. AI Core plays a crucial role in extending Joule's capabilities. It provides the underlying Large Language Models (LLMs) that can be leveraged to configure AI Agents. Additionally, customers can provision their own document grounding capabilities in AI Core leveraging the Retrieval Augmented Generation (RAG) service and integrate them into their AI Agents to ground them in specific data.
 5. SAP BTP Connectivity integrates existing workflows with Joule Skills and AI Agents, enabling seamless, automated execution across SAP and non-SAP systems. This enhances efficiency while leveraging current investments in automation.
 6. Once customers have created their custom Joule Skills and AI Agents, they can use SAP Build's lifecycle capabilities to compile and deploy these capabilities alongside their Joule central instance. This grants business users access to additional functionalities, helping them in their daily tasks through centralized access via Joule, reducing the need to switch between multiple SAP and non-SAP applications.
-7. Joule Studio integrates via the SAP Connectivity service with other SAP BTP services and external applications. This integration is based on APIs provided through various channels, such as Live API using Graph, SAP Cloud Application Programming Model, ABAP RESTful Application Programming Model, OData destinations, SAP systems, API Business Hub Enterprise, or SAP Business Accelerator Hub. Customers can upload API specifications or build API actions from scratch for robust integration.
-8. Joule Studio relies on SAP Cloud Identity Services - Identity Authentication for identity management and authentication. SAP Cloud Identity Services act as a central facade for identity and access management, offering secure authentication or federation with third-party identity providers. SAP Cloud Identity Directory stores the SAP identities, and SAP Cloud Identity Services can serve as a proxy for customer-owned identity providers.
+7. Joule Studio integrates via the SAP Connectivity service with other SAP BTP services and external applications. This integration is based on APIs provided through various channels, such as Live API using Graph, SAP Cloud Application Programming Model, ABAP RESTful Application Programming Model, OData destinations, SAP systems, API Business Hub Enterprise, Unified Customer Landscape or SAP Business Accelerator Hub. Customers can upload API specifications or build API actions from scratch for robust integration.
+8. Joule Studio relies on SAP Cloud Identity Services for identity management, authentication and identity life-cycle management. SAP Cloud Identity Services act as a central facade for identity and access management, offering secure authentication or federation with third-party identity providers. SAP Cloud Identity Directory stores the SAP identities, and SAP Cloud Identity Services can serve as a proxy for customer-owned identity providers.
 
 ## Characteristics
 
@@ -119,3 +121,4 @@ By leveraging Joule Studio in SAP Build, organizations can integrate AI capabili
 -   [Meet Joule Studio in SAP Build (YT video)](https://www.youtube.com/watch?v=JdwfjieiOFY)
 -   [Agent Builder in Joule Studio (YT video)](https://www.youtube.com/watch?v=C37FkIM83xw)
 -   [Interactive Value Journey](https://ivj-vx.cfapps.eu10.hana.ondemand.com/public/journey/2a840b1a-f1d9-4f42-9c75-8f377599de83/intro)
+-   [Joule Development - Pro-Code Development Tools for Joule](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/pro-code-development-tools-for-joule?version=CLOUD)
