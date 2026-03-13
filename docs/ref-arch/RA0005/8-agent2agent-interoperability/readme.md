@@ -4,7 +4,7 @@ slug: /ref-arch/e5eb3b9b1d/8
 sidebar_position: 6
 sidebar_custom_props:
   category_index: []
-title: Agent2Agent Interoperability
+title: Agent Interoperability (A2A) in Enterprise AI
 description: >-
   Enable interoperability between AI agents with Agent2Agent protocol, fostering
   collaboration across enterprise landscapes.
@@ -14,7 +14,7 @@ keywords:
   - joule platform
   - ai communication protocols
   - agent2agent communication
-sidebar_label: Agent2Agent Interoperability
+sidebar_label: Agent Interoperability (A2A)
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -36,10 +36,13 @@ contributors:
 discussion:
 last_update:
   author: kay-schmitteckert
-  date: 2025-10-29
+  date: 2026-03-04
 ---
 
-# Agent2Agent (A2A) Interoperability in Enterprise AI
+:::warning Disclaimer
+This content represents an **early SAP vision** utilizing custom components. The architecture is **currently being updated** and may not reflect the final product direction or current standards.
+
+:::
 
 Enterprise users often face complex tasks that depend on data and actions distributed across various systems, applications, and organizational boundaries. AI-powered assistants (agents) offer a promising new interface to access and act on this business context. However, without a common foundation for collaboration, these agents remain confined to their respective ecosystems, limiting their effectiveness. The **[Agent2Agent (A2A)](https://google.github.io/A2A/)** protocol introduces a shared framework that allows agents to interoperate securely and intelligently across platforms. This document provides an enriched overview of how the A2A protocol can be applied within the SAP business landscape to enable scalable, trusted, and interoperable multi-agent collaboration.
 

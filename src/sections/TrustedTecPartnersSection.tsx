@@ -1,11 +1,9 @@
-import React, { JSX, useRef } from 'react';
+import React, { JSX, useRef, useEffect } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { Title, Text } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './TrustedTecPartnersSection.module.css';
-import ReactCarousel from '@site/src/components/ReactCarousel';
-import Slider from 'react-slick';
 import { useHistory } from '@docusaurus/router';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 
@@ -55,12 +53,12 @@ export default function TrustedTecPartnersSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
     const docsUrl = useBaseUrl('/docs');
-    const sliderRef = useRef<Slider>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
-    function renderLogo(item, idx) {
+    function renderLogo(item, idx, isDuplicate = false) {
         const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
         const handleClick = (e) => {
             e.preventDefault();
@@ -81,42 +79,47 @@ export default function TrustedTecPartnersSection(): JSX.Element {
         };
 
         return (
-            <div className={styles.logoWrapper}>
+            <div key={`logo-${idx}-${isDuplicate ? 'dup' : 'orig'}`} className={styles.logoWrapper}>
                 <a
                     href={item.url}
                     onClick={handleClick}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onMouseEnter={() => {
-                        if (sliderRef.current) {
-                            sliderRef.current.slickPause();
-                            const track = sliderRef.current.innerSlider?.list?.querySelector(
-                                '.slick-track'
-                            ) as HTMLElement | null;
-                            if (track) {
-                                const computed = window.getComputedStyle(track).transform;
-                                track.style.transform = computed;
-                                track.style.transition = 'none';
-                            }
-                        }
-                    }}
-                    onMouseLeave={() => {
-                        if (sliderRef.current) {
-                            const track = sliderRef.current.innerSlider?.list?.querySelector(
-                                '.slick-track'
-                            ) as HTMLElement | null;
-                            if (track) {
-                                track.style.transition = ''; // reset
-                            }
-                            sliderRef.current.slickPlay(); // resume
-                        }
-                    }}
                 >
                     <img src={imgSrc} alt={item.name} className={styles.logoImg} />
                 </a>
             </div>
         );
     }
+
+    // Smooth infinite scroll animation using CSS
+    useEffect(() => {
+        const track = trackRef.current;
+        if (!track) return;
+
+        let animationId: number;
+        let isPaused = false;
+        
+        // Pause on hover
+        const handleMouseEnter = () => {
+            isPaused = true;
+            track.style.animationPlayState = 'paused';
+        };
+
+        const handleMouseLeave = () => {
+            isPaused = false;
+            track.style.animationPlayState = 'running';
+        };
+
+        track.addEventListener('mouseenter', handleMouseEnter);
+        track.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            track.removeEventListener('mouseenter', handleMouseEnter);
+            track.removeEventListener('mouseleave', handleMouseLeave);
+            if (animationId) cancelAnimationFrame(animationId);
+        };
+    }, []);
 
     return (
         <section className={styles.trustedTecPartnersSection}>
@@ -125,39 +128,12 @@ export default function TrustedTecPartnersSection(): JSX.Element {
                 <Text className={styles.subtitle}>Empowering Innovation Together</Text>
 
                 <div className={styles.carouselLogo}>
-                    <ReactCarousel
-                        ref={sliderRef}
-                        items={[...logos, ...logos]}
-                        renderItem={renderLogo}
-                        slidesToShow={5}
-                        infinite={true}
-                        autoplay={true}
-                        speed={4000}
-                        autoplaySpeed={10}
-                        showHeader={false}
-                        pauseOnHover={false}
-                        cssEase="linear"
-                        centerPadding="40px"
-                        centerMode={true}
-                        responsive={[
-                            {
-                                breakpoint: 1200, // e.g. iPad landscape
-                                settings: { slidesToShow: 4 },
-                            },
-                            {
-                                breakpoint: 1024, // iPad portrait
-                                settings: { slidesToShow: 4 },
-                            },
-                            {
-                                breakpoint: 768, // smaller tablets
-                                settings: { slidesToShow: 3 },
-                            },
-                            {
-                                breakpoint: 600, // mobile -> already handled by logoList
-                                settings: 'unslick', // disables carousel
-                            },
-                        ]}
-                    />
+                    <div className={styles.carouselTrack} ref={trackRef}>
+                        {/* Render logos three times for seamless infinite scroll */}
+                        {logos.map((logo, idx) => renderLogo(logo, idx, false))}
+                        {logos.map((logo, idx) => renderLogo(logo, idx, true))}
+                        {logos.map((logo, idx) => renderLogo(logo, idx + 100, true))}
+                    </div>
                 </div>
 
                 {/* Static vertical list (mobile) */}
