@@ -1,7 +1,7 @@
 ---
 id: id-ra0004-2
 slug: /ref-arch/a07a316077/2
-sidebar_position: 1
+sidebar_position: 2
 sidebar_custom_props:
   category_index: []
 title: Integration with Azure data sources
@@ -19,6 +19,7 @@ image: img/ac-soc-med.png
 tags:
   - azure
   - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -34,6 +35,12 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Microsoft.**
+
+:::
 
 Microsoft Fabric is an end-to-end, unified analytics platform that integrates technologies like Azure Data Factory, Azure Synapse Analytics and Power BI into a single unified product.
 

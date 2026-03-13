@@ -1,7 +1,8 @@
-const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } = require('node:fs');
-const { execFileSync, execSync } = require('node:child_process');
+const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } = require('node:fs');
+const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
-const { userInfo } = require('os');
+const { userInfo, homedir } = require('node:os');
+const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
 
@@ -17,12 +18,14 @@ const DRAWIO_CLI_BINARY = isMac
     : 'C:\\Program Files\\draw.io\\draw.io.exe';
 // assuming script is in src/_scripts/
 const ROOT = normalizePath(__dirname + '/../..');
-const SEARCH_DIR = ROOT + '/docs/ref-arch';
 const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
 const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to BASE_URL for consistency
 const ARTIFACTS_DIR = ROOT + '/static/artifacts'; // Added for artifacts generation
 const THUMBNAILS_DIR = ARTIFACTS_DIR + '/thumbnails'; // Added for thumbnails generation
+const { CACHE_ENABLED = 0 } = process.env;
+const DRAWIO_SVGS_CACHE_DIR = `${homedir}/.cache/architecture-center/drawio-svgs`; // The SVGs will be cached here
+const DRAWIO_SVGS_CACHE_MANIFEST = DRAWIO_SVGS_CACHE_DIR + '/manifest.json';
 
 if (!DOCKER) {
     if (!existsSync(DRAWIO_CLI_BINARY)) {
@@ -39,11 +42,25 @@ if (!DOCKER) {
 if (!existsSync(ARTIFACTS_DIR)) mkdirSync(ARTIFACTS_DIR, { recursive: true });
 if (!existsSync(THUMBNAILS_DIR)) mkdirSync(THUMBNAILS_DIR, { recursive: true });
 
+if (!existsSync(DRAWIO_SVGS_CACHE_DIR)) mkdirSync(DRAWIO_SVGS_CACHE_DIR, { recursive: true });
+
+// The manifest maps drawio file paths to content hashes of the drawio file
+// contents, and the dates when the cache entries were last updated.
+let manifest;
+try {
+    if (CACHE_ENABLED) {
+        const manifestContent = readFileSync(DRAWIO_SVGS_CACHE_MANIFEST, 'utf-8');
+        manifest = JSON.parse(manifestContent);
+    }
+} catch {
+    manifest = {};
+}
+
 // --- Phase 1: Export and Watermark all Draw.io files ---
 
 const files = readdirSync(ROOT + '/docs', { recursive: true }); // Scan all docs for drawio files
 const drawios = files.filter((file) => file.match(/\.drawio$/));
-log(`Found ${drawios.length} drawios to export to svg\n`);
+log(`Found ${drawios.length} drawios to process\n`);
 
 const transforms = {}; // Maps original drawio path to output SVG path
 for (const drawio of drawios) {
@@ -57,38 +74,56 @@ for (const drawio of drawios) {
 
 // Export all drawios to svgs
 function exportAllDrawios() {
+    const failedFiles = [];
     for (let [input, out] of Object.entries(transforms)) {
         const dir = dirname(out);
         if (!existsSync(dir)) mkdirSync(dir, { recursive: true }); // Ensure recursive creation
 
-        try {
-            let cmd = DRAWIO_CLI_BINARY;
-            let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
-            if (DOCKER) {
-                const d = 'docs/';
-                const relativeOut = d + out.split(d)[1];
-                const relativeInput = d + input.split(d)[1];
-                cmd = 'docker';
-                args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
-                args.push(relativeOut, relativeInput);
-            } else {
-                args.push(out, input);
-            }
+        const drawioContent = readFileSync(input);
+        const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
+        if (CACHE_ENABLED && isInCache(input, drawioContentHash)) {
+            log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`);
+        } else { // -> Cache miss
+            try {
+                let cmd = DRAWIO_CLI_BINARY;
+                let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
+                if (DOCKER) {
+                    const d = 'docs/';
+                    const relativeOut = d + out.split(d)[1];
+                    const relativeInput = d + input.split(d)[1];
+                    cmd = 'docker';
+                    args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
+                    args.push(relativeOut, relativeInput);
+                } else {
+                    args.push(out, input);
+                }
 
-            const stdout = execFileSync(cmd, args, { encoding: 'utf8' });
-            log(prettyPaths(stdout));
+                const stdout = execFileSync(cmd, args, { encoding: 'utf8', timeout: 600000 });
+                log('Export', prettyPaths(stdout));
 
-            if (GITHUB_ACTIONS) {
-                const user = userInfo().username;
-                const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
-                execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
+                if (GITHUB_ACTIONS) {
+                    const user = userInfo().username;
+                    const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
+                    execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
+                }
+            } catch (e) {
+                const msg = prettyPaths(`Export failed ${input} -> ${out}`);
+                console.error(`\n[ERROR] ${msg}. Reason: ${e.message}\n`);
+                failedFiles.push(input);
             }
-        } catch (e) {
-            const msg = prettyPaths(`Export failed ${input} -> ${out}, aborting now`);
-            throw new Error(msg, { cause: e });
         }
     }
-    log('\n');
+
+    if (failedFiles.length > 0) {
+        console.error("==========================================");
+        console.error("         SVG EXPORT FAILED FILES          ");
+        console.error("==========================================");
+        console.error(`\nThe following ${failedFiles.length} drawio files failed to export:`);
+        failedFiles.forEach(file => console.error(`- ${prettyPaths(file)}`));
+        console.error("\nContinuing build process despite errors...");
+    } else {
+        log('\nAll drawio files exported successfully.');
+    }
 }
 
 // generate qrcode, only get inner part
@@ -101,6 +136,20 @@ async function generateQrSvg(link) {
 // Watermark the svgs, which were created in the previous step
 async function watermarkAll() {
     for (const [drawioPath, svgPath] of Object.entries(transforms)) {
+        const drawioContent = readFileSync(drawioPath);
+        const drawioContentHash = createHash('sha256').update(drawioContent).digest('hex');
+        const cachedSvgFileName = createHash('sha256').update(drawioPath).digest('hex');
+
+        if (CACHE_ENABLED && isInCache(drawioPath, drawioContentHash)) {
+            copyFileSync(`${DRAWIO_SVGS_CACHE_DIR}/${cachedSvgFileName}`, svgPath);
+            log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
+            continue;
+        }
+        if (!existsSync(svgPath)) {
+            log(`[SKIPPING] Watermark for ${prettyPaths(svgPath)} because the file does not exist (export likely failed).`);
+            continue;
+        }
+
         let svg = readFileSync(svgPath, 'utf8');
         const viewBox = svg.match(/viewBox="([^"]*)"/)[1].split(' ');
         const height = parseInt(viewBox[3]);
@@ -180,10 +229,18 @@ async function watermarkAll() {
                 .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
 
             writeFileSync(svgPath, svg);
-            log(prettyPaths('Watermarked ' + svgPath));
+            log(prettyPaths('Watermarked ' + svgPath, 0));
+            try {
+                if (CACHE_ENABLED) {
+                    // Cache the watermarked svg.
+                    writeFileSync(`${DRAWIO_SVGS_CACHE_DIR}/${cachedSvgFileName}`, svg);
+                    manifest[drawioPath] = { drawioContentHash: drawioContentHash, lastUpdate: Date.now() };
+                }
+            } catch (e) {
+                log(`Failed to cache watermarked SVG for ${svgPath}. Error: ${e.message}`);
+            }
         } catch (e) {
             log(`[ERROR] Failed to watermark ${svgPath}. Error: ${e.message}`);
-            // Do not throw, continue processing other files
         }
     }
 }
@@ -267,15 +324,30 @@ async function generateArtifacts() {
     log('Successfully generated artifacts data.json.');
 }
 
-function prettyPaths(log) {
-    const strip = DOCKER ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
+function prettyPaths(log, isInDocker = DOCKER) {
+    const strip = isInDocker ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
     return log.replaceAll(strip, '').replaceAll('\n', '');
+}
+
+function isInCache(drawioPath, drawioContentHash) {
+    if (!manifest[drawioPath]) {
+        return false;
+    }
+    return manifest[drawioPath].drawioContentHash === drawioContentHash &&
+        manifest[drawioPath].lastUpdate;
 }
 
 // Main execution flow
 async function main() {
-    exportAllDrawios(); // Phase 1: Export and watermark all drawios
+    exportAllDrawios(); // Phase 1: Export all drawios
     await watermarkAll(); // Phase 1: Apply watermarks
+    try {
+        if (CACHE_ENABLED) {
+            writeFileSync(DRAWIO_SVGS_CACHE_MANIFEST, JSON.stringify(manifest));
+        }
+    } catch (e) {
+        log(`[WARNING] Could not save updated cache manifest. Error: ${e.message}`);
+    }
     await generateArtifacts(); // Phase 2: Generate artifacts for top-level RAs
 }
 

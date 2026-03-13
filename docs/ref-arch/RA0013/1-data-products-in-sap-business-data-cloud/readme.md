@@ -21,6 +21,7 @@ tags:
   - aws
   - azure
   - gcp
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -61,7 +62,17 @@ Data Products in SAP Business Data Cloud serve as a standardized and efficient w
 
 ## Integration and Consumption
 
-Data Products are exposed for consumption via APIs, Events, or [Delta Sharing](https://www.databricks.com/product/delta-sharing) protocols. They are described using [Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/) metadata, which includes attributes such as visibility, release status, and integration dependencies. 
+Data Products are exposed for consumption via APIs, Events, or [Delta Sharing](https://www.databricks.com/product/delta-sharing) protocols. They are described using [Open Resource Discovery (ORD)](https://open-resource-discovery.github.io/specification/) metadata, which includes attributes such as visibility, release status, and integration dependencies.
+
+### Supported Consumers
+
+Data Products can be consumed by various SAP and third-party applications:
+
+- **SAP HANA Cloud**: Consumes data products via Delta Sharing protocol, enabling HANA Cloud workloads such as CDS views, calculation views, and CAP applications to leverage governed BDC data without replication.
+- **SAP Databricks**: Accesses data products directly through Unity Catalog integration for AI/ML and advanced analytics workloads.
+- **SAP Analytics Cloud**: Consumes data products for visualization, reporting, and planning scenarios.
+- **Third-party Databricks**: Uses Delta Sharing protocol for zero-copy data access in external Databricks environments.
+- **Any Delta Sharing Client**: Any application supporting the Delta Sharing protocol can consume BDC data products.
 
 ### Components of Data Products
 

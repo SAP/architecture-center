@@ -17,8 +17,9 @@ keywords:
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:
-  - data
-  - aws
+- aws
+- data
+- bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -35,6 +36,12 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
+
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Amazon.**
+
+:::
 
 Data from AWS data sources can be harmonized with SAP and non-sap data via SAP Datasphere's data fabric architecture. 
 

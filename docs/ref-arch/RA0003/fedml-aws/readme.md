@@ -39,7 +39,14 @@ last_update:
   date: 2025-01-23
 ---
 
-FedML-AWS provides end-to-end integraton for training models in Amazon Sagemaker using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-aws enables 
+
+:::note Joint Reference Architecture
+
+**This content was developed in collaboration with Amazon.**
+
+:::
+
+FedML-AWS provides end-to-end integration for training models in Amazon Sagemaker using live business data from SAP systems and eliminates the need for duplicating the data. With only few lines of code, fedml-aws enables 
 
 - Data discovery
 - Model training

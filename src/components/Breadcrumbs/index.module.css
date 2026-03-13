@@ -1,0 +1,53 @@
+.breadcrumbNav {
+    margin-bottom: 1rem;
+}
+
+.breadcrumbList {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.breadcrumbItem {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumbLink,
+.breadcrumbCurrent {
+    text-decoration: none;
+    color: #5e6c7a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumbCurrent {
+    margin-left: 10px;
+}
+.breadcrumbLink:hover {
+    background-color: #f0f1f2;
+    color: #1c2a38;
+}
+
+.homeIcon {
+    font-size: 16px;
+}
+
+.breadcrumbCurrent {
+    color: #0b65de;
+    background-color: #eaf2ff;
+    font-weight: 600;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    color: #aeb8c4;
+    font-size: 14px;
+}

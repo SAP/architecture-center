@@ -82,7 +82,7 @@ This reference architecture also refers to the UI integration use case pattern o
 
 7. When moving business content from one environment to another – for example from development to test – this can be achieved via manual export/import or via the more elaborated integration with SAP Cloud Transport Management. For more information, see:
     - [Transporting Content](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/transporting-content) for SAP Build Work Zone, standard edition
-    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, premium edition
+    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, advanced edition
       
 The SAP Build Work Zone architecture diagram highlights seven key flows when working with business sites to unify access to applications, approvals, content and more.
 
@@ -94,7 +94,7 @@ The SAP Build Work Zone architecture diagram highlights seven key flows when wor
 
 - **Global User ID**: Globally unique user identifier defined by SAP Cloud Identity Services-Identity Authentication and used by SAP Build Work Zone.
 
-- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
+- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
 
 - **Different application clients**: Business content created in and/or integrated with SAP Build Work Zone can be accessed from the SAP Build Work Zone web experience as well as the native mobile client, specifically SAP Build Work Zone Advanced or SAP Mobile Start (only SAP Start and standard edition for now). Joule is another client using the SAP Build Work Zone navigation service to find business applications.
 

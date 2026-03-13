@@ -24,6 +24,8 @@ tags:
   - aws
   - azure
   - gcp
+  - databricks
+  - snowflake
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -138,6 +138,7 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                         <Slider
                             ref={sliderRef}
                             {...settings}
+                            arrows={false}
                             slidesToShow={slidesToShow}
                             afterChange={handleAfterChange}
                         >
