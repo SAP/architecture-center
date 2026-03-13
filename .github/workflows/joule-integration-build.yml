@@ -133,10 +133,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
         run: |
+          git checkout --orphan site-anew
           git add -A
           if [[ "$(git status -s)" ]]; then
             git commit -m "joule-integration build ➝ site"
-            git push -f origin ${{ env.gh_pages_branch }}
+            git push -f origin HEAD:${{ env.gh_pages_branch }}
           fi
 
   notify:

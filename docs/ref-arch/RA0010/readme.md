@@ -94,7 +94,7 @@ The SAP Build Work Zone architecture diagram highlights seven key flows when wor
 
 - **Global User ID**: Globally unique user identifier defined by SAP Cloud Identity Services-Identity Authentication and used by SAP Build Work Zone.
 
-- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
+- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
 
 - **Different application clients**: Business content created in and/or integrated with SAP Build Work Zone can be accessed from the SAP Build Work Zone web experience as well as the native mobile client, specifically SAP Build Work Zone Advanced or SAP Mobile Start (only SAP Start and standard edition for now). Joule is another client using the SAP Build Work Zone navigation service to find business applications.
 

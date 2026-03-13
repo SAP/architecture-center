@@ -124,9 +124,11 @@ jobs:
       - name: Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
+        # prevent history build-up and .git bloat with orphan
         run: |
+          git checkout --orphan site-anew
           git add -A
           if [[ "$(git status -s)" ]]; then
             git commit -m "site build ➝ gh pages"
-            git push -f origin ${{ env.gh_pages_branch }}
+            git push -f origin HEAD:${{ env.gh_pages_branch }}
           fi
