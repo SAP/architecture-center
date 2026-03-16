@@ -12,6 +12,7 @@ interface TabItem {
     link: string;
     disabled?: boolean;
     isNew?: boolean;
+    image?: string;
 }
 
 interface ArchitectureTabsProps {
@@ -36,7 +37,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         return null; // Don't render if no tabs
     }
 
-    const { title, subtitle, icon, link, disabled, isNew } = tabs[activeIndex];
+    const { title, subtitle, icon, link, disabled, isNew, image } = tabs[activeIndex];
     const requiredProvider = authProviders?.[link];
     const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
@@ -178,8 +179,18 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                             </div>
                         </div>
                         <div className={styles.imagePlaceholder}>
-                            <p>Image Placeholder</p>
-                            <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>4:3 Aspect Ratio</p>
+                            {image ? (
+                                <img
+                                    src={image}
+                                    alt={title}
+                                    className={styles.tabImage}
+                                />
+                            ) : (
+                                <>
+                                    <p>Image Placeholder</p>
+                                    <p style={{ fontSize: '0.875rem', marginTop: '8px' }}>4:3 Aspect Ratio</p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

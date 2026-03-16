@@ -1,16 +1,18 @@
 export const navigationCardsData = [
     {
         title: 'AI-Native North Star Architecture',
-        subtitle: 'The AI Native North Star Architecture defines the target state of SAP\’s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
+        subtitle: 'The AI Native North Star Architecture defines the target state of SAP\'s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
         icon: 'sap-icon://group',
         link: '/north-star-architecture',
-        isNew: true
+        isNew: true,
+        image: '/img/ArchitectureTabs/nsa.png'
     },
     {
         title: 'Quick Start',
         subtitle: 'A no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.',
         icon: 'sap-icon://write-new-document',
-        link: '/quick-start'
+        link: '/quick-start',
+        image: '/img/ArchitectureTabs/qs.png'
     },
     {
         title: 'Architecture Validator',
