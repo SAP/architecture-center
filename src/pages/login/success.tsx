@@ -27,7 +27,14 @@ function LoginSuccess() {
         const redirectPath = params.get('redirect');
 
         if (token) {
-            localStorage.setItem('jwt_token', token);
+            // Create a short-lived session for the GitHub token and avoid keeping it in the URL history
+            const GITHUB_SESSION_DURATION_HOURS = 2;
+            const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
+            const githubAuthData = { token, expiresAt };
+            localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
+
+            // Remove token from the current history entry before navigating away
+            window.history.replaceState(null, '', window.location.pathname);
 
             // Validate redirect path to prevent open redirect attacks
             const safeRedirect = isSafeRedirectPath(redirectPath) ? redirectPath! : '/';

@@ -81,6 +81,7 @@ module.exports = [
             // React rules
             'react/react-in-jsx-scope': 'off', // Not needed in React 18+
             'react/prop-types': 'off', // Using TypeScript for prop validation
+            'react/jsx-no-target-blank': 'error',
 
             // React Hooks rules
             'react-hooks/rules-of-hooks': 'error',
