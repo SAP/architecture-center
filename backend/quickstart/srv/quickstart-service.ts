@@ -1,4 +1,5 @@
 import cds from '@sap/cds';
+import crypto from 'node:crypto';
 
 class QuickstartService extends cds.ApplicationService {
     async init() {
@@ -35,12 +36,12 @@ class QuickstartService extends cds.ApplicationService {
             await this.cascadeDeleteSubpages(req, rootId);
         });
 
-        this.on('assignDocumentContributors', this.assignDocumentContributors.bind(this));
+        this.on('assignDocumentContributors', this.handleAssignDocumentContributors.bind(this));
 
         return super.init();
     }
 
-    public async assignDocumentContributors(req: cds.Request) {
+    public async handleAssignDocumentContributors(req: cds.Request) {
         const tx = cds.tx(req);
         const { Documents, Users, DocumentContributors } = this.entities as any;
         const SELECT = cds.ql.SELECT;
@@ -74,7 +75,9 @@ class QuickstartService extends cds.ApplicationService {
                 continue;
             }
 
-            const newId = cds.utils.uuid();
+            const newId = typeof (cds as any).utils?.uuid === 'function'
+                ? (cds as any).utils.uuid()
+                : crypto.randomUUID().toUpperCase();
             await tx.run(INSERT.into(Users).entries({ ID: newId, ghUsername }));
             userIds.push(newId);
         }

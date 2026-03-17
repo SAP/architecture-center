@@ -11,12 +11,14 @@
     "@cap-js/sqlite": "^2",
     "@sap/cds-dk": "^9",
     "@types/node": "^24.0.0",
+    "mocha": "^10.8.2",
     "tsx": "^4",
     "typescript": "^5"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch": "npx cds watch --profile dev"
+    "watch": "npx cds watch --profile dev",
+    "test": "mocha \"test/**/*.test.js\""
   },
   "private": true,
   "imports": {
