@@ -1,4 +1,4 @@
-import React, { JSX, useRef, useEffect } from 'react';
+import React, { JSX } from 'react';
 import { Title, Text } from '@ui5/webcomponents-react';
 import { techDomain } from '../constant/constants';
 import Link from '@docusaurus/Link';
@@ -111,8 +111,6 @@ const logos: LogoItem[] = [
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const docsUrl = useBaseUrl('/docs');
-    const carouselRef = useRef<HTMLDivElement>(null);
-    const trackRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
@@ -154,30 +152,6 @@ export default function TechnologyDomainSection(): JSX.Element {
         );
     }
 
-    // Smooth infinite scroll animation using CSS
-    useEffect(() => {
-        const carousel = carouselRef.current;
-        const track = trackRef.current;
-        if (!carousel || !track) return;
-
-        // Pause on hover - attach to carousel container for full coverage
-        const handleMouseEnter = () => {
-            track.style.animationPlayState = 'paused';
-        };
-
-        const handleMouseLeave = () => {
-            track.style.animationPlayState = 'running';
-        };
-
-        carousel.addEventListener('mouseenter', handleMouseEnter);
-        carousel.addEventListener('mouseleave', handleMouseLeave);
-
-        return () => {
-            carousel.removeEventListener('mouseenter', handleMouseEnter);
-            carousel.removeEventListener('mouseleave', handleMouseLeave);
-        };
-    }, []);
-
     return (
         <section id="technology-domains" className={styles.domainSection}>
             <div className={styles.container}>
@@ -196,8 +170,8 @@ export default function TechnologyDomainSection(): JSX.Element {
                 <div className={styles.partnersContainer}>
                     <Text className={styles.partnersTitle}>Innovating with trusted technology partners</Text>
 
-                    <div className={styles.carouselLogo} ref={carouselRef}>
-                        <div className={styles.carouselTrack} ref={trackRef}>
+                    <div className={styles.carouselLogo}>
+                        <div className={styles.carouselTrack}>
                             {/* Render logos three times for seamless infinite scroll */}
                             {logos.map((logo, idx) => renderLogo(logo, idx, false))}
                             {logos.map((logo, idx) => renderLogo(logo, idx, true))}

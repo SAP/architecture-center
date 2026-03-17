@@ -330,11 +330,6 @@
     max-width: 200px;
     display: block;
     object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-.logoImg:hover {
-    transform: scale(1.2);
 }
 
 .carouselLogo {
@@ -349,6 +344,10 @@
     width: max-content;
     animation: scroll 60s linear infinite;
     will-change: transform;
+}
+
+.carouselLogo:hover .carouselTrack {
+    animation-play-state: paused;
 }
 
 @keyframes scroll {
