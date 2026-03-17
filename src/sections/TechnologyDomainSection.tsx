@@ -59,7 +59,6 @@ interface LogoItem {
     name: string;
     lightImg: string;
     darkImg?: string;
-    url?: string;
     filter?: {
         partners?: string[];
         techDomains?: string[];
@@ -108,15 +107,15 @@ const logos: LogoItem[] = [
     },
 ];
 
+// Helper function to get image URL
+const getImg = (name: string) => `/img/landingPage/${name}`;
+
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const docsUrl = useBaseUrl('/docs');
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
-
-    // Helper function to get image URL - must be defined inside component to use hooks
-    const getImg = (name: string) => `/img/landingPage/${name}`;
 
     function renderLogo(item: LogoItem, idx: number, isDuplicate = false) {
         const imgSrc = colorMode === 'dark' && item.darkImg ? getImg(item.darkImg) : getImg(item.lightImg);
@@ -141,10 +140,8 @@ export default function TechnologyDomainSection(): JSX.Element {
         return (
             <div key={`logo-${idx}-${isDuplicate ? 'dup' : 'orig'}`} className={styles.logoWrapper}>
                 <a
-                    href={item.url}
+                    href="#"
                     onClick={handleClick}
-                    target="_blank"
-                    rel="noopener noreferrer"
                 >
                     <img src={imgSrc} alt={item.name} className={styles.logoImg} />
                 </a>
