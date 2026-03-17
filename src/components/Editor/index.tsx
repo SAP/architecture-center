@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { LexicalComposer, InitialConfigType } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -59,7 +59,21 @@ const buildDocumentTree = (docId: string, allDocs: Document[]): Document | null 
     return { ...rootDoc, children };
 };
 
-const transformTreeForBackend = (doc: Document): any => {
+interface TransformedDocument {
+    id: string;
+    editorState: string;
+    parentId: string | null;
+    children: TransformedDocument[];
+    metadata: {
+        title: string;
+        tags: string[];
+        authors: string[];
+        contributors: string[];
+        description: string;
+    };
+}
+
+const transformTreeForBackend = (doc: Document): TransformedDocument => {
     return {
         id: doc.id,
         editorState: doc.editorState,
@@ -107,9 +121,9 @@ const editorNodes = [
 ];
 
 const AutoSavePlugin: React.FC = () => {
-    const [editor] = useLexicalComposerContext();
+    useLexicalComposerContext(); // Hook must be called even if editor instance isn't used
     const { getActiveDocument, updateDocument } = usePageDataStore();
-    const handleSave = (editorState: any) => {
+    const handleSave = (editorState: EditorState) => {
         const activeDoc = getActiveDocument();
         if (activeDoc) {
             const editorStateJSON = JSON.stringify(editorState.toJSON());
@@ -164,8 +178,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         }
     };
 
-  
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleAutomaticSync = async () => {
         setIsSyncing(true);
         try {
@@ -250,9 +263,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 commitUrl: result.commitUrl,
                 pullRequestUrl: result.pullRequestUrl,
             });
-        } catch (error: any) {
+        } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
             console.error('Publishing failed:', error);
-            setPublishStatus({ stage: 'error', error: error.message, commitUrl: null, pullRequestUrl: null });
+            setPublishStatus({ stage: 'error', error: errorMessage, commitUrl: null, pullRequestUrl: null });
         }
     };
 

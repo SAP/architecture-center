@@ -23,7 +23,7 @@ interface LoadingModalProps {
 export default function LoadingModal({
     status,
     error,
-    commitUrl,
+    commitUrl: _commitUrl,
     pullRequestUrl,
     onClose,
     onSuccessFinish,

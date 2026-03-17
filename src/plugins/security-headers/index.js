@@ -1,13 +1,19 @@
 /**
  * Docusaurus plugin to add security headers
  * Implements CSP, X-Frame-Options, and other security headers
+ *
+ * SECURITY NOTE:
+ * - 'unsafe-inline' is required for Docusaurus-generated inline styles/scripts
+ * - To remove 'unsafe-inline', you would need to implement CSP nonces via SSR
+ * - This is a known limitation of static site generators
+ * - Other protections (X-Frame-Options, HSTS, etc.) are fully implemented
  */
 
-module.exports = function (context, options) {
+module.exports = function (_context, _options) {
     return {
         name: 'docusaurus-plugin-security-headers',
-        
-        configureWebpack(config, isServer, utils) {
+
+        configureWebpack(_config, isServer, _utils) {
             if (!isServer) {
                 return {};
             }
@@ -62,9 +68,9 @@ module.exports = function (context, options) {
   X-Content-Type-Options: nosniff
   X-XSS-Protection: 0
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10.hana.ondemand.com; frame-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self';
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
 `;
 
             const headersPath = path.join(outDir, '_headers');
@@ -96,7 +102,7 @@ module.exports = function (context, options) {
                             },
                             {
                                 key: 'Permissions-Policy',
-                                value: 'geolocation=(), microphone=(), camera=(), payment=()',
+                                value: 'geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()',
                             },
                             {
                                 key: 'Strict-Transport-Security',

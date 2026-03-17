@@ -99,15 +99,17 @@ const logos = [
 
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
-    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
     const docsUrl = useBaseUrl('/docs');
     const trackRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
 
+    // Helper function to get image URL - must be defined inside component to use hooks
+    const getImg = (name: string) => `/img/landingPage/${name}`;
+
     function renderLogo(item, idx, isDuplicate = false) {
-        const imgSrc = getImg(colorMode === 'dark' && item.darkImg ? item.darkImg : item.lightImg);
+        const imgSrc = colorMode === 'dark' && item.darkImg ? getImg(item.darkImg) : getImg(item.lightImg);
         const handleClick = (e) => {
             e.preventDefault();
 
@@ -145,8 +147,7 @@ export default function TechnologyDomainSection(): JSX.Element {
         const track = trackRef.current;
         if (!track) return;
 
-        let animationId: number;
-        let isPaused = false;
+        let _animationId: number;
 
         // Pause on hover
         const handleMouseEnter = () => {
@@ -165,7 +166,7 @@ export default function TechnologyDomainSection(): JSX.Element {
         return () => {
             track.removeEventListener('mouseenter', handleMouseEnter);
             track.removeEventListener('mouseleave', handleMouseLeave);
-            if (animationId) cancelAnimationFrame(animationId);
+            if (_animationId) cancelAnimationFrame(_animationId);
         };
     }, []);
 

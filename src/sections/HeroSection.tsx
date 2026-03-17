@@ -1,8 +1,6 @@
 import React, { JSX, useRef, useEffect } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { useColorMode } from '@docusaurus/theme-common';
 import { navigationCardsData } from '../constant/constants';
-import NavigationCard from '../components/NavigationCard/NavigationCard';
 import ArchitectureTabs from '../components/ArchitectureTabs/ArchitectureTabs';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
@@ -11,10 +9,8 @@ import { useAuth } from '../context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function HeroSection(): JSX.Element {
-    const { colorMode } = useColorMode();
     const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
-    const getImg = (name: string) => useBaseUrl(`/img/landingPage/${name}`);
     const videoSrc = useBaseUrl('/video/297893_gettyimages-1396007643_video_web.mp4');
 
     const videoRef = useRef<HTMLVideoElement>(null);

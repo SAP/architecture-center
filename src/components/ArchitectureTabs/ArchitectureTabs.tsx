@@ -19,12 +19,12 @@ interface ArchitectureTabsProps {
     tabs: TabItem[];
 }
 
-export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.Element {
+export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.Element | null {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-    const { user, users } = useAuth();
+    const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
     const { backendUrl, expressBackendUrl, authProviders } = siteConfig.customFields as {
@@ -33,11 +33,36 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         authProviders: Record<string, 'btp' | 'github'>;
     };
 
+    // Move useEffect BEFORE any conditional returns (React hooks rule)
+    useEffect(() => {
+        if (!tabs || tabs.length === 0) return;
+
+        const updateIndicator = () => {
+            const activeTab = tabRefs.current[activeIndex];
+            if (activeTab) {
+                const tabList = activeTab.parentElement;
+                if (tabList) {
+                    const tabListRect = tabList.getBoundingClientRect();
+                    const activeTabRect = activeTab.getBoundingClientRect();
+                    setIndicatorStyle({
+                        left: activeTabRect.left - tabListRect.left - 6,
+                        width: activeTabRect.width,
+                    });
+                }
+            }
+        };
+
+        updateIndicator();
+        window.addEventListener('resize', updateIndicator);
+        return () => window.removeEventListener('resize', updateIndicator);
+    }, [activeIndex, tabs]);
+
+    // Early return AFTER all hooks
     if (!tabs || tabs.length === 0) {
-        return null; // Don't render if no tabs
+        return null;
     }
 
-    const { title, subtitle, icon, link, disabled, isNew, image } = tabs[activeIndex];
+    const { title, subtitle, icon, link, isNew, image } = tabs[activeIndex];
     const requiredProvider = authProviders?.[link];
     const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
@@ -75,27 +100,6 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
             }, 50);
         }, 200);
     };
-
-    useEffect(() => {
-        const updateIndicator = () => {
-            const activeTab = tabRefs.current[activeIndex];
-            if (activeTab) {
-                const tabList = activeTab.parentElement;
-                if (tabList) {
-                    const tabListRect = tabList.getBoundingClientRect();
-                    const activeTabRect = activeTab.getBoundingClientRect();
-                    setIndicatorStyle({
-                        left: activeTabRect.left - tabListRect.left - 6,
-                        width: activeTabRect.width,
-                    });
-                }
-            }
-        };
-
-        updateIndicator();
-        window.addEventListener('resize', updateIndicator);
-        return () => window.removeEventListener('resize', updateIndicator);
-    }, [activeIndex]);
 
     return (
         <div className={styles.tabsContainer}>

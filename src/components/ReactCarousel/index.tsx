@@ -13,9 +13,13 @@ import '@ui5/webcomponents-icons/dist/navigation-down-arrow';
 
 type ArrowOrientation = 'H' | 'V';
 
+interface CarouselItem {
+    [key: string]: unknown;
+}
+
 interface ReactCarouselProps extends Settings {
-    items: any[];
-    renderItem: (item: any, idx: number) => React.ReactNode;
+    items: CarouselItem[];
+    renderItem: (item: CarouselItem, idx: number) => React.ReactNode;
     className?: string;
     containerClassName?: string;
     cardClassName?: string;

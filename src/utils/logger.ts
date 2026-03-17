@@ -4,14 +4,16 @@
  * Use this instead of console.log/error/warn throughout the application
  */
 
+/* eslint-disable no-console */
+
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 interface Logger {
-    debug: (message: string, ...args: any[]) => void;
-    info: (message: string, ...args: any[]) => void;
-    warn: (message: string, ...args: any[]) => void;
-    error: (message: string, ...args: any[]) => void;
-    log: (message: string, ...args: any[]) => void;
+    debug: (message: string, ...args: unknown[]) => void;
+    info: (message: string, ...args: unknown[]) => void;
+    warn: (message: string, ...args: unknown[]) => void;
+    error: (message: string, ...args: unknown[]) => void;
+    log: (message: string, ...args: unknown[]) => void;
 }
 
 class ProductionLogger implements Logger {
@@ -26,10 +28,10 @@ class ProductionLogger implements Logger {
     private shouldLog(level: LogLevel): boolean {
         // Always log errors
         if (level === 'error') return true;
-        
+
         // In production, only log errors
         if (!this.isDevelopment && !this.isTest) return false;
-        
+
         // In development/test, log everything
         return true;
     }
@@ -44,25 +46,25 @@ class ProductionLogger implements Logger {
             .replace(/secret["\s:=]+\S+/gi, 'secret: [REDACTED]');
     }
 
-    debug(message: string, ...args: any[]): void {
+    debug(message: string, ...args: unknown[]): void {
         if (this.shouldLog('debug')) {
             console.log(`[DEBUG] ${this.sanitize(message)}`, ...args);
         }
     }
 
-    info(message: string, ...args: any[]): void {
+    info(message: string, ...args: unknown[]): void {
         if (this.shouldLog('info')) {
             console.info(`[INFO] ${this.sanitize(message)}`, ...args);
         }
     }
 
-    warn(message: string, ...args: any[]): void {
+    warn(message: string, ...args: unknown[]): void {
         if (this.shouldLog('warn')) {
             console.warn(`[WARN] ${this.sanitize(message)}`, ...args);
         }
     }
 
-    error(message: string, ...args: any[]): void {
+    error(message: string, ...args: unknown[]): void {
         if (this.shouldLog('error')) {
             // In production, sanitize error messages to avoid leaking sensitive info
             const sanitizedMessage = this.isDevelopment ? message : this.sanitize(message);
@@ -70,7 +72,7 @@ class ProductionLogger implements Logger {
         }
     }
 
-    log(message: string, ...args: any[]): void {
+    log(message: string, ...args: unknown[]): void {
         // Alias for info
         this.info(message, ...args);
     }

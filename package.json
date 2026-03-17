@@ -30,7 +30,7 @@
     "overrides": {
         "rimraf": "^4.0.0",
         "mermaid": "^11.9.0",
-        "serialize-javascript": "^6.0.2",
+        "serialize-javascript": "^7.0.4",
         "minimatch": "^3.1.4"
     },
     "dependencies": {

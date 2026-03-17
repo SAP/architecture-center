@@ -125,8 +125,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                         localStorage.removeItem('jwt_token');
                         setToken(null);
                     }
-                } catch (jwtError) {
-                    console.error('Invalid GitHub JWT data found, removing it.', jwtError);
+                } catch {
+                    logger.error('Invalid GitHub JWT data found, removing it.');
                     localStorage.removeItem('jwt_token');
                     setToken(null);
                 }
@@ -163,8 +163,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             provider: 'btp',
                         };
                     }
-                } catch (btpJwtError) {
-                    console.error('Invalid BTP token found in authStorage, removing it.', btpJwtError);
+                } catch {
+                    logger.error('Invalid BTP token found in authStorage, removing it.');
                     authStorage.clear();
                 }
             }
@@ -179,8 +179,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             } else {
                 setUser(null);
             }
-        } catch (error) {
-            console.error('Error processing authentication tokens:', error);
+        } catch {
+            logger.error('Error processing authentication tokens');
             localStorage.removeItem('jwt_token');
             authStorage.clear();
             setUser(null);
@@ -242,11 +242,11 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             }
                         }
                     } else {
-                        console.error('Failed to fetch BTP user info');
+                        logger.error('Failed to fetch BTP user info');
                         authStorage.clear();
                     }
-                } catch (error) {
-                    console.error('Error fetching BTP user info:', error);
+                } catch {
+                    logger.error('Error fetching BTP user info');
                     authStorage.clear();
                 }
                 window.dispatchEvent(new Event('storage'));
@@ -267,6 +267,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             window.removeEventListener('storage', handleStorageChange);
             clearAllLogoutTimers(); // Clear timers on unmount
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location, history]);
 
     // Get baseUrl from site config
@@ -323,8 +324,9 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const baseRedirectUrl = window.location.origin + baseUrl;
 
             if (btpToken) {
+                // NOTE: We don't pass the token in URL to avoid exposure in browser history/logs
+                // The backend should use session cookies for logout verification
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
-                logoutUrl.searchParams.append('jwt_token', btpToken);
                 logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
 
                 if (newUsers.github) {

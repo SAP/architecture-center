@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import { useAuth } from '@site/src/context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useLocation } from '@docusaurus/router';
-import Layout from '@theme/Layout';
 
 function Redirecting({ provider }: { provider?: string }) {
     return (

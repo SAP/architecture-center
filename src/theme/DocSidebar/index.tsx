@@ -85,6 +85,25 @@ function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTag
 // ============================================================================
 // Desktop Version
 // ============================================================================
+// Constant options defined outside component to avoid recreating on each render
+const TECH_DOMAIN_OPTIONS = [
+    { value: 'ai', label: 'AI & Machine Learning' },
+    { value: 'appdev', label: 'Application Dev. & Automation' },
+    { value: 'data', label: 'Data & Analytics' },
+    { value: 'integration', label: 'Integration' },
+    { value: 'opsec', label: 'Operation & Security' }
+];
+
+const PARTNER_OPTIONS = [
+    { value: 'aws', label: 'Amazon Web Services' },
+    { value: 'azure', label: 'Microsoft Azure' },
+    { value: 'gcp', label: 'Google Cloud Platform' },
+    { value: 'databricks', label: 'Databricks' },
+    { value: 'snowflake', label: 'Snowflake' },
+    { value: 'nvidia', label: 'Nvidia' },
+    { value: 'ibm', label: 'IBM' }
+];
+
 function DocSidebarDesktop(props) {
     const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const sidebar = useDocsSidebar();
@@ -98,37 +117,30 @@ function DocSidebarDesktop(props) {
 
     const [searchTerm, setSearchTerm] = useState('');
 
+    // All hooks must be called before any conditional returns
+    const filteredSidebar = useMemo(
+      () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
+      [props.sidebar, techDomains, partners, tagsDocId]
+    );
+
+    // Convert string arrays to Option arrays
+    const selectedTechDomainOptions = useMemo(
+      () => TECH_DOMAIN_OPTIONS.filter(opt => techDomains.includes(opt.value)),
+      [techDomains]
+    );
+    const selectedPartnerOptions = useMemo(
+      () => PARTNER_OPTIONS.filter(opt => partners.includes(opt.value)),
+      [partners]
+    );
+
     if (!shouldShowFilters) {
         return <DocSidebar {...props} />;
     }
 
-    // Prepare options for CollapsibleFilterBar
-    const techDomainOptions = [
-        { value: 'ai', label: 'AI & Machine Learning' },
-        { value: 'appdev', label: 'Application Dev. & Automation' },
-        { value: 'data', label: 'Data & Analytics' },
-        { value: 'integration', label: 'Integration' },
-        { value: 'opsec', label: 'Operation & Security' }
-    ];
-
-    const partnerOptions = [
-        { value: 'aws', label: 'Amazon Web Services' },
-        { value: 'azure', label: 'Microsoft Azure' },
-        { value: 'gcp', label: 'Google Cloud Platform' },
-        { value: 'databricks', label: 'Databricks' },
-        { value: 'snowflake', label: 'Snowflake' },
-        { value: 'nvidia', label: 'Nvidia' },
-        { value: 'ibm', label: 'IBM' }
-    ];
-
-    // Convert string arrays to Option arrays
-    const selectedTechDomainOptions = techDomainOptions.filter(opt => techDomains.includes(opt.value));
-    const selectedPartnerOptions = partnerOptions.filter(opt => partners.includes(opt.value));
-
     const handleTechDomainsChange = (selected) => {
       const selectedKeys = selected.map(opt => opt.value);
       setTechDomains(selectedKeys);
-      
+
       // Sync URL
       const params = new URLSearchParams(location.search);
       if (selectedKeys.length) params.set('techDomains', selectedKeys.join(','));
@@ -139,7 +151,7 @@ function DocSidebarDesktop(props) {
     const handlePartnersChange = (selected) => {
       const selectedKeys = selected.map(opt => opt.value);
       setPartners(selectedKeys);
-      
+
       // Sync URL
       const params = new URLSearchParams(location.search);
       if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
@@ -152,11 +164,6 @@ function DocSidebarDesktop(props) {
       // Clear URL parameters
       window.history.replaceState({}, '', location.pathname);
     };
-
-    const filteredSidebar = useMemo(
-      () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
-      [props.sidebar, techDomains, partners, tagsDocId]
-    );
 
     // Count total filtered docs
     const countDocs = (items) => {
@@ -178,8 +185,8 @@ function DocSidebarDesktop(props) {
             <div className={styles.sidebarWithFiltersContainer}>
             <div>
               <CollapsibleFilterBar
-                techDomains={techDomainOptions}
-                partners={partnerOptions}
+                techDomains={TECH_DOMAIN_OPTIONS}
+                partners={PARTNER_OPTIONS}
                 selectedTechDomains={selectedTechDomainOptions}
                 selectedPartners={selectedPartnerOptions}
                 onTechDomainsChange={handleTechDomainsChange}
@@ -211,28 +218,9 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
 
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Prepare options for CollapsibleFilterBar
-    const techDomainOptions = [
-        { value: 'ai', label: 'AI & Machine Learning' },
-        { value: 'appdev', label: 'Application Dev. & Automation' },
-        { value: 'data', label: 'Data & Analytics' },
-        { value: 'integration', label: 'Integration' },
-        { value: 'opsec', label: 'Operation & Security' }
-    ];
-
-    const partnerOptions = [
-        { value: 'aws', label: 'Amazon Web Services' },
-        { value: 'azure', label: 'Microsoft Azure' },
-        { value: 'gcp', label: 'Google Cloud Platform' },
-        { value: 'databricks', label: 'Databricks' },
-        { value: 'snowflake', label: 'Snowflake' },
-        { value: 'nvidia', label: 'Nvidia' },
-        { value: 'ibm', label: 'IBM' }
-    ];
-
     // Convert string arrays to Option arrays
-    const selectedTechDomainOptions = techDomainOptions.filter(opt => techDomains.includes(opt.value));
-    const selectedPartnerOptions = partnerOptions.filter(opt => partners.includes(opt.value));
+    const selectedTechDomainOptions = TECH_DOMAIN_OPTIONS.filter(opt => techDomains.includes(opt.value));
+    const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
 
     const handleTechDomainsChange = (selected) => {
       const selectedKeys = selected.map(opt => opt.value);
@@ -273,8 +261,8 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     return (
         <>
         <CollapsibleFilterBar
-          techDomains={techDomainOptions}
-          partners={partnerOptions}
+          techDomains={TECH_DOMAIN_OPTIONS}
+          partners={PARTNER_OPTIONS}
           selectedTechDomains={selectedTechDomainOptions}
           selectedPartners={selectedPartnerOptions}
           onTechDomainsChange={handleTechDomainsChange}
@@ -338,20 +326,20 @@ export default function DocSidebarWrapper(props) {
 
     if (partnersParam) setPartners(partnersParam.split(','));
     if (techDomainsParam) setTechDomains(techDomainsParam.split(','));
-  }, [location.search, docsBase, setPartners, setTechDomains]);
+  }, [docsBase, setPartners, setTechDomains]);
 
 
   useEffect(() => {
-    return history.listen((location) => {
-      logger.info("Route changed:", location.pathname);
+    return history.listen((loc) => {
+      logger.info("Route changed:", loc.pathname);
 
       // Reset only when leaving /docs
-      if (!location.pathname.startsWith(docsBase)) {
+      if (!loc.pathname.startsWith(docsBase)) {
         logger.info("Resetting filters...");
         resetFilters();
       }
     });
-  }, [history, resetFilters]);
+  }, [history, resetFilters, docsBase]);
 
 
   const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';

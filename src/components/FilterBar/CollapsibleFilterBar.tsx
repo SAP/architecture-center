@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { FiFilter, FiSearch } from 'react-icons/fi';
+import { FiFilter } from 'react-icons/fi';
 import styles from './CollapsibleFilterBar.module.css';
 
 interface Option {
@@ -32,7 +32,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     resetFilters,
     isResetEnabled,
     searchTerm,
-    onSearchChange,
+    onSearchChange: _onSearchChange,
     resultCount,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);

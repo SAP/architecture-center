@@ -35,7 +35,7 @@ function LoginSuccess() {
         } else {
             window.location.href = '/login/failure';
         }
-    }, []);
+    }, [location.search]);
 
     return (
         <div style={{ textAlign: 'center', padding: '50px' }}>

@@ -29,7 +29,7 @@ export default function NavigationCard({
     logoLight,
     logoDark,
     link,
-    disabled = false,
+    disabled: _disabled = false,
     alwaysShowLock = false,
     isNew = false,
     onMouseEnter,
