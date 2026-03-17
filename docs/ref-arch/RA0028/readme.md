@@ -6,7 +6,7 @@ sidebar_custom_props:
   category_index:
     - ai
     - appdev
-title: AI Agents at SAP
+title: Agentic AI & AI Agents
 description: >-
   Build, integrate and orchestrate AI agents. This reference architecture covers low-code and pro-code development, integration with Joule and leveraging agent-to-agent interoperability with A2A and tool connectivity via MCP.
 keywords:
@@ -20,7 +20,7 @@ keywords:
   - low-code
   - btp
   - generative ai
-sidebar_label: AI Agents at SAP
+sidebar_label: Agentic AI & AI Agents
 image: img/ac-soc-med.png
 tags:
   - genai

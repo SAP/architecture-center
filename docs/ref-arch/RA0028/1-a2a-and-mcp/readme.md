@@ -50,13 +50,13 @@ The [**Agent-to-Agent (A2A) protocol**](https://a2a-protocol.org/latest/) is an 
 
 For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanism for integrating with Joule. Joule acts as an A2A client, sending requests to the agent and processing its responses according to the A2A-defined contract.
 
-## Flow
+## Simplified Flow
 
-1.  **Agent Invocation:** A user interacts with Joule, which determines that a specific task should be handled by a pro-code agent.
-2.  **A2A Communication:** Joule, acting as an **A2A client**, sends a request to the pro-code agent's **A2A server** endpoint. The request contains the task details and necessary context.
-3.  **Agent Reasoning and Tool Discovery:** The pro-code agent receives the request and begins its reasoning process. It determines that it needs a specific tool to complete the task. It queries a relevant **MCP server** to discover available tools.
+1.  **Agent Invocation:** A user interacts with Joule, which determines that a specific task should be handled by a specialized remote agent.
+2.  **A2A Communication:** Joule, acting as an **A2A client**, sends a request to the remote agent's **A2A server** endpoint. The request contains the task details and necessary context.
+3.  **Agent Reasoning and Tool Discovery:** The remote agent receives the request and begins its reasoning process. It determines that it needs a specific tool to complete the task. It queries relevant **MCP servers** to discover available tools.
 4.  **MCP Tool Invocation:** The agent invokes the required tool via the MCP interface, passing the necessary parameters. The MCP server processes the request and returns the result.
-5.  **Task Completion and Response:** The agent uses the tool's output to complete its task and formulates a response.
-6.  **A2A Response:** The agent sends the final response back to Joule via the A2A protocol. Joule then presents the result to the user.
+5.  **Task Completion and Response:** The remote agent uses the tool's output to complete its task and formulates a response.
+6.  **A2A Response:** The remote agent sends the final response back to Joule via the A2A protocol. Joule then presents the result to the user.
 
 By leveraging A2A and MCP, SAP ensures a flexible and future-proof architecture for AI agents, where components are reusable, maintainable, and can evolve independently.

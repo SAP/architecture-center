@@ -19,7 +19,7 @@ keywords:
 sidebar_label: Pro-Code AI Agents on SAP BTP
 ---
 
-While low-code development accelerates the creation of many AI agents, some scenarios demand the power and flexibility that only a pro-code approach can offer. Pro-code AI agents are implemented using standard programming languages and open-source frameworks, giving developers full control over every aspect of the agent's behavior, from its reasoning logic to its integration with external systems.
+While low-code development via Joule Studio accelerates the creation of many AI agents, some scenarios demand the power and flexibility that only a pro-code approach can offer. Pro-code AI agents are implemented using standard programming languages and open-source frameworks, giving developers full control over every aspect of the agent's behavior, from its reasoning logic to its integration with external systems.
 
 This approach is ideal for complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems.
 
