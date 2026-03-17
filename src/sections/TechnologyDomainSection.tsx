@@ -55,7 +55,18 @@ function DomainCard({ domain }: DomainCardProps): JSX.Element {
     );
 }
 
-const logos = [
+interface LogoItem {
+    name: string;
+    lightImg: string;
+    darkImg?: string;
+    url?: string;
+    filter?: {
+        partners?: string[];
+        techDomains?: string[];
+    };
+}
+
+const logos: LogoItem[] = [
     {
         name: 'NVIDIA',
         lightImg: 'AC_nvidia_logo_light.webp',
@@ -100,6 +111,7 @@ const logos = [
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const docsUrl = useBaseUrl('/docs');
+    const carouselRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
@@ -108,9 +120,9 @@ export default function TechnologyDomainSection(): JSX.Element {
     // Helper function to get image URL - must be defined inside component to use hooks
     const getImg = (name: string) => `/img/landingPage/${name}`;
 
-    function renderLogo(item, idx, isDuplicate = false) {
+    function renderLogo(item: LogoItem, idx: number, isDuplicate = false) {
         const imgSrc = colorMode === 'dark' && item.darkImg ? getImg(item.darkImg) : getImg(item.lightImg);
-        const handleClick = (e) => {
+        const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
             e.preventDefault();
 
             const partners = item.filter?.partners ?? [];
@@ -144,29 +156,25 @@ export default function TechnologyDomainSection(): JSX.Element {
 
     // Smooth infinite scroll animation using CSS
     useEffect(() => {
+        const carousel = carouselRef.current;
         const track = trackRef.current;
-        if (!track) return;
+        if (!carousel || !track) return;
 
-        let _animationId: number;
-
-        // Pause on hover
+        // Pause on hover - attach to carousel container for full coverage
         const handleMouseEnter = () => {
-            isPaused = true;
             track.style.animationPlayState = 'paused';
         };
 
         const handleMouseLeave = () => {
-            isPaused = false;
             track.style.animationPlayState = 'running';
         };
 
-        track.addEventListener('mouseenter', handleMouseEnter);
-        track.addEventListener('mouseleave', handleMouseLeave);
+        carousel.addEventListener('mouseenter', handleMouseEnter);
+        carousel.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-            track.removeEventListener('mouseenter', handleMouseEnter);
-            track.removeEventListener('mouseleave', handleMouseLeave);
-            if (_animationId) cancelAnimationFrame(_animationId);
+            carousel.removeEventListener('mouseenter', handleMouseEnter);
+            carousel.removeEventListener('mouseleave', handleMouseLeave);
         };
     }, []);
 
@@ -188,7 +196,7 @@ export default function TechnologyDomainSection(): JSX.Element {
                 <div className={styles.partnersContainer}>
                     <Text className={styles.partnersTitle}>Innovating with trusted technology partners</Text>
 
-                    <div className={styles.carouselLogo}>
+                    <div className={styles.carouselLogo} ref={carouselRef}>
                         <div className={styles.carouselTrack} ref={trackRef}>
                             {/* Render logos three times for seamless infinite scroll */}
                             {logos.map((logo, idx) => renderLogo(logo, idx, false))}
