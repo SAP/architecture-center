@@ -1,6 +1,6 @@
 using { ac.quickstart as my } from '../db/schema';
 
-service QuickstartService @(odata:'/quickstart') {
+service DocumentService @(odata:'/quickstart/document-service') {
 
   entity Documents as projection on my.Documents;
   entity Users as projection on my.Users;

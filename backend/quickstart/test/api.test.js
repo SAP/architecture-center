@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 
 const BASE_URL = process.env.CAP_BASE_URL || 'http://localhost:4004';
-const SERVICE_PATH = process.env.CAP_SERVICE_PATH || '/quickstart';
+const SERVICE_PATH = process.env.CAP_SERVICE_PATH || '/quickstart/document-service';
 const SERVICE_URL = `${BASE_URL}${SERVICE_PATH}`;
 
 // Seeded user IDs from db/data/ac.quickstart-Users.csv
