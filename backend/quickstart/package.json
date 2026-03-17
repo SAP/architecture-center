@@ -1,6 +1,9 @@
 {
   "name": "quickstart",
   "version": "1.0.0",
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@cap-js/hana": "^2",
     "@sap/cds": "^9"
@@ -18,7 +21,8 @@
   "scripts": {
     "start": "cds-serve",
     "watch": "npx cds watch --profile dev",
-    "test": "mocha \"test/**/*.test.js\""
+    "test": "mocha \"test/**/*.test.js\"",
+    "build-deploy": "mbt build && cf deploy mta_archives/*"
   },
   "private": true,
   "imports": {

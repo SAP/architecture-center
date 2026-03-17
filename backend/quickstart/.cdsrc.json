@@ -2,6 +2,9 @@
     "requires": {
         "[dev]": {
             "auth": "dummy"
+        },
+        "[production]": {
+            "auth": "dummy"
         }
     }
 }
