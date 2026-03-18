@@ -5,14 +5,14 @@ export const navigationCardsData = [
         icon: 'sap-icon://group',
         link: '/north-star-architecture',
         isNew: true,
-        image: '/img/ArchitectureTabs/nsa.png'
+        image: '/img/ArchitectureTabs/nsa.webp'
     },
     {
         title: 'Quick Start',
         subtitle: 'A no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.',
         icon: 'sap-icon://write-new-document',
         link: '/quick-start',
-        image: '/img/ArchitectureTabs/qs.png'
+        image: '/img/ArchitectureTabs/quickstart.webp'
     },
     {
         title: 'Architecture Validator',
@@ -20,6 +20,7 @@ export const navigationCardsData = [
         icon: 'sap-icon://order-status',
         link: '/architecture-validator',
         requiresAuth: true,
+        image: '/img/ArchitectureTabs/validator.webp'
     },
 ];
 
