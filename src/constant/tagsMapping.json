@@ -58,5 +58,8 @@
   },
   "bdc": {
     "categoryid": "data"
+  },
+  "successfactors": {
+    "categoryid": "data"
   }
 }
