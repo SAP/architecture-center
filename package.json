@@ -42,7 +42,7 @@
         "@lexical/markdown": "^0.34.0",
         "@lexical/react": "^0.34.0",
         "@lexical/rich-text": "^0.34.0",
-        "@lexical/table": "^0.41.0",
+        "@lexical/table": "^0.34.0",
         "@mdx-js/react": "^3.1.1",
         "@mui/icons-material": "^7.3.9",
         "@mui/material": "^7.3.9",
