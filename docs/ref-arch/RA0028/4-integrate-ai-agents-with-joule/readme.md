@@ -1,5 +1,5 @@
 ---
-id: id-ra0027-4
+id: id-ra0028-4
 slug: /ref-arch/ca1d2a3e/4
 sidebar_position: 4
 title: Integrating AI Agents with Joule
@@ -15,6 +15,12 @@ keywords:
   - pro-code
   - low-code
 sidebar_label: Integrating AI Agents with Joule
+contributors:
+  - kay-schmitteckert
+discussion:
+last_update:
+  author: kay-schmitteckert
+  date: 2026-03-19
 ---
 
 For AI agents to deliver value in an enterprise context, they must be easily accessible to end-users within their natural workflow. In the SAP ecosystem, **Joule** is the single, trusted AI copilot that provides a consistent conversational interface across all SAP applications.
@@ -25,9 +31,9 @@ Therefore, a critical step in the agent development lifecycle is integrating you
 
 Joule acts as the central orchestrator and entry point for all user interactions. When a user makes a request, Joule's planning and reasoning engine determines the best way to fulfill it. This may involve using a built-in skill, retrieving information, or delegating the task to a custom AI agent.
 
-The integration pattern differs slightly depending on whether the agent is a low-code (content-based) or pro-code agent.
+The integration pattern differs slightly depending on whether the agent is built with Joule Studio (low-code) or using frameworks (pro-code).
 
-![drawio](./drawio/template.drawio)
+![drawio](./drawio/architecture.drawio)
 
 ### Integrating Low-Code Agents
 
@@ -38,15 +44,17 @@ The integration of low-code agents built with **Joule Studio** is a seamless and
 1.  **Development & Deployment:** When you build an agent in Joule Studio and deploy it, the platform handles the integration work behind the scenes.
 2.  **Artifact Generation:** The deployment process automatically creates all the necessary Joule artifacts, including a **Joule Scenario** and a **Joule Dialog Function**.
 3.  **Joule Registration:** This scenario is registered in Joule's **Scenario Catalog**, making the agent's capabilities known to Joule's orchestrator.
-4.  **Execution:** When a user's prompt matches the agent's purpose, Joule invokes the corresponding Dialog Function, which in turn delegates the execution to the **Business Agent Foundation (BAF)** runtime where the agent logic resides.
+4.  **Execution:** When a user's prompt matches the agent's purpose, Joule invokes the corresponding Dialog Function, which in turn delegates the execution to the managed runtime on SAP AI Core where the agent logic resides.
 
 This tight integration means that developers using Joule Studio don't need to manually manage API endpoints or integration protocols. The platform abstracts away the complexity, allowing them to focus on the agent's business logic.
 
-### Integrating Pro-Code Agents
+### Integrating Pro-Code Agents (Bring Your Own Agent)
 
-Pro-code agents, which run in their own independent runtime environments, are integrated with Joule using the open **Agent-to-Agent (A2A) protocol**.
+Pro-code agents, which run in their own independent runtime environments, are integrated with Joule using the open **Agent2Agent (A2A) protocol**. This "Bring Your Own Agent" (BYOA) approach enables integration of code-based agents built with any framework that supports A2A.
 
-**Flow:**
+Joule prepares an A2A message request using the `message/send` method with a user utterance in accordance with the [Agent2Agent (A2A) Protocol, version 0.3.0](https://a2a-protocol.org/v0.3.0/specification/).
+
+**Integration Flow:**
 
 1.  **Expose an A2A Endpoint:** The pro-code agent must be designed as an **A2A server**, exposing an HTTP endpoint that adheres to the A2A protocol specification. This is the contract through which Joule will communicate with the agent.
 2.  **Create a Joule Scenario:** In Joule, you must manually create a **Joule Scenario** to represent the pro-code agent.
@@ -54,7 +62,17 @@ Pro-code agents, which run in their own independent runtime environments, are in
 4.  **Point to the A2A Endpoint:** You configure this Dialog Function to call the A2A endpoint of your pro-code agent.
 5.  **Execution:** At runtime, when a user's request triggers this scenario, Joule acts as an **A2A client**. It sends a request to your agent's A2A endpoint, waits for the response, and then presents the result to the user.
 
-This A2A-based pattern provides a clean, decoupled architecture that allows any A2A-compliant agent, regardless of the framework it's built with, to be plugged into the Joule ecosystem. It supports both synchronous (request/response) and asynchronous (long-running) agent executions, with Joule managing the user interaction throughout the process.
+**Key Integration Capabilities:**
+
+-   **Synchronous Communication:** Joule expects a response from the agent server within 60 seconds. The agent's response handling is delegated to capability development or scripting within dialog functions.
+-   **Asynchronous Communication:** For long-running tasks, Joule supports asynchronous updates using push notifications. The A2A server actively notifies a Joule-provided webhook when significant task updates occur.
+-   **Multi-Turn Conversations:** For agents that require runtime context handling, Joule enables the usage of context and task IDs generated by the agent server. These IDs can be captured from the agent response and propagated in subsequent agent requests.
+
+To ensure secure communication and validate server updates, an Identity Authentication Service (IAS) App2App trust relationship must be established between Joule and the target agent server.
+
+This A2A-based pattern provides a clean, decoupled architecture that allows any A2A-compliant agent, regardless of the framework it's built with, to be plugged into the Joule ecosystem. It supports both synchronous and asynchronous agent executions, with Joule managing the user interaction throughout the process.
+
+For detailed action definitions, authentication setup, and implementation guidance, see [Bring Your Own Agent](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/code-based-agents-bring-your-own-agent) in the Joule Development Guide. For architectural context on A2A integration patterns, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
 
 ## Summary of Integration Patterns
 

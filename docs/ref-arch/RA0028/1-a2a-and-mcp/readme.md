@@ -1,30 +1,50 @@
 ---
-id: id-ra0027-1
+id: id-ra0028-1
 slug: /ref-arch/ca1d2a3e/1
 sidebar_position: 1
 title: A2A and MCP for Interoperability
 description: >-
-  Learn how the Agent-to-Agent (A2A) and Model Context Protocol (MCP) enable a decoupled, interoperable, and scalable AI agent ecosystem on SAP BTP.
+  Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a decoupled, interoperable, and scalable AI agent ecosystem on SAP BTP.
 keywords:
   - sap
   - ai agents
   - a2a
   - mcp
   - interoperability
-  - agent-to-agent
+  - Agent2Agent
   - model context protocol
 sidebar_label: A2A and MCP for Interoperability
+contributors:
+  - kay-schmitteckert
+discussion:
+last_update:
+  author: kay-schmitteckert
+  date: 2026-03-19
 ---
 
-A robust and scalable AI agent ecosystem relies on standardized communication protocols that enable seamless interoperability between agents and the tools they use. SAP has adopted two open standards, the **Agent-to-Agent (A2A) protocol** and the **Model Context Protocol (MCP)**, to create a decoupled architecture where agents and tools can be developed, deployed, and updated independently.
+A robust and scalable AI agent ecosystem relies on standardized communication protocols that enable seamless interoperability between agents and the tools they use. SAP has adopted two open standards, the **Agent2Agent (A2A) protocol** and the **Model Context Protocol (MCP)**, to create a decoupled architecture where agents and tools can be developed, deployed, and updated independently. While MCP standardizes the connection between models and external resources, A2A complements it by enabling autonomous, multi-turn collaboration between independent AI agents.
 
-This approach prevents monolithic agent design, promotes reusability, and ensures that the SAP agent ecosystem remains open and extensible.
+This approach prevents monolithic agent design, promotes reusability and ensures that the SAP agent ecosystem remains open and extensible.
+
+The diagram below illustrates how A2A and MCP fit into the overall agent architecture. Joule acts as an A2A client to communicate with external agents, while agents themselves use MCP to discover and consume tools from MCP servers.
+
+![A2A_MCP](./images/a2a-mcp.svg)
 
 ## Architecture
 
-The diagram below illustrates how A2A and MCP fit into the overall agent architecture. Joule acts as an A2A client to communicate with external, pro-code agents, while agents themselves use MCP to discover and consume tools from MCP servers.
+![drawio](./drawio/architecture.drawio)
 
-![drawio](./drawio/template.drawio)
+### Agent2Agent (A2A) Protocol
+
+The [**Agent2Agent (A2A) protocol**](https://a2a-protocol.org/latest/) is an open standard for communication and collaboration between autonomous AI agents. It enables one agent to delegate tasks to another, inquire about its capabilities, and exchange information in a structured manner.
+
+**Key Functions of A2A:**
+
+-   **Agent Integration:** A2A provides the standard contract for integrating externally developed agents (e.g., pro-code agents) into the SAP ecosystem. By exposing an agent as an A2A server, it becomes discoverable and usable by other systems, most notably Joule.
+-   **Task Delegation:** It allows for the creation of sophisticated, multi-agent workflows where a primary agent can orchestrate specialized sub-agents to solve a complex problem.
+-   **Interoperability:** Because A2A is an open standard, agents built with different frameworks and by different teams or organizations can communicate seamlessly, fostering a diverse and powerful agent landscape.
+
+For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanism for integrating with Joule. Joule acts as an A2A client, sending requests to the agent and processing its responses according to the A2A-defined contract.
 
 ### Model Context Protocol (MCP)
 
@@ -36,19 +56,40 @@ The diagram below illustrates how A2A and MCP fit into the overall agent archite
 -   **Standardized Interaction:** It provides a consistent way for an agent to call a tool and receive a response, abstracting away the specifics of the tool's implementation (e.g., REST API, OData service, or a simple function).
 -   **Decoupling:** By placing tools behind an MCP interface, they can be developed, versioned, and deployed independently of the agents that use them. This is critical for maintainability and scalability.
 
-At SAP, MCP is the recommended standard for exposing capabilities to AI agents. Application teams can expose existing APIs as MCP tools using central generation services or implement native MCP servers for more complex, AI-focused logic.
+At SAP, MCP is used to provide Joule Agents with semantically enriched access to SAP business capabilities and domain knowledge, including content from SAP Knowledge Graph. For external interoperability between vendors and third-party agents, SAP uses the Agent2Agent (A2A) protocol as the preferred approach, ensuring enterprise-grade security, governance, and controlled access.
 
-### Agent-to-Agent (A2A) Protocol
+## Agent & Tool Gateway (Inbound)
 
-The [**Agent-to-Agent (A2A) protocol**](https://a2a-protocol.org/latest/) is an open standard for communication and collaboration between autonomous AI agents. It enables one agent to delegate tasks to another, inquire about its capabilities, and exchange information in a structured manner.
+SAP provides an Agent & Tool Gateway that enables external clients and applications to consume Joule Agents through standardized protocols. This represents the **inbound direction** where external systems call into SAP.
 
-**Key Functions of A2A:**
+The **Agent & Tool Gateway** exposes Joule Agents via the A2A protocol with an externally reachable endpoint. This enables third-party AI Agents, applications, partner systems and custom business applications to consume SAP-native agents.
 
--   **Agent Integration:** A2A provides the standard contract for integrating externally developed agents (e.g., pro-code agents) into the SAP ecosystem. By exposing an agent as an A2A server, it becomes discoverable and usable by other systems, most notably Joule.
--   **Task Delegation:** It allows for the creation of sophisticated, multi-agent workflows where a primary agent can orchestrate specialized sub-agents to solve a complex problem.
--   **Interoperability:** Because A2A is an open standard, agents built with different frameworks and by different teams or organizations can communicate seamlessly, fostering a diverse and powerful agent landscape.
+**Key Characteristics:**
 
-For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanism for integrating with Joule. Joule acts as an A2A client, sending requests to the agent and processing its responses according to the A2A-defined contract.
+-   **External Endpoint:** Accessible at `<joule-dc>.access.sapdas.cloud.sap`
+-   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
+-   **Authentication:** Secured through SAP Cloud Identity Services (IAS) App2App tokens with named user context
+-   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions
+
+External clients authenticate using IAS App2App dependencies, invoke a specific Joule scenario by providing capability and scenario identifiers, and receive responses either synchronously (task submission confirmation) or asynchronously (via callback URL).
+
+## Bring Your Own Agent (Outbound)
+
+In the **outbound direction**, Joule can call external agents developed using third-party frameworks rather than Joule Studio. This "Bring Your Own Agent" (BYOA) approach enables integration of code-based agents built with any framework that supports the A2A protocol.
+
+Joule prepares an A2A message request using the `message/send` method with a user utterance in accordance with the [Agent2Agent (A2A) Protocol, version 0.3.0](https://a2a-protocol.org/v0.3.0/specification/). Only the `text` message type is currently supported.
+
+**Key Integration Capabilities:**
+
+-   **Synchronous Communication:** Joule expects a response from the agent server within 60 seconds. The agent's response handling is delegated to capability development or scripting within dialog functions.
+-   **Asynchronous Communication:** For long-running tasks or when persistent connections are not feasible, Joule supports asynchronous updates using push notifications. The A2A server actively notifies a Joule-provided webhook when significant task updates occur.
+-   **Multi-Turn Conversations:** For agents that require runtime context handling to support multi-turn conversations, Joule enables the usage of context and task IDs generated by the agent server. These IDs can be captured from the agent response and stored into runtime variables, then propagated in subsequent agent requests.
+
+To ensure secure inbound communication and validate server updates, an Identity Authentication Service (IAS) App2App trust relationship must be established between Joule and the target agent server.
+
+For detailed action definitions, authentication setup and implementation guidance, see [Bring Your Own Agent](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/code-based-agents-bring-your-own-agent) in the Joule Development Guide.
+
+By supporting both inbound (Agent & Tool Gateway) and outbound (Bring Your Own Agent) integration patterns, SAP enables true bidirectional A2A communication—allowing external systems to consume SAP agents and Joule to orchestrate external agents seamlessly.
 
 ## Simplified Flow
 
@@ -60,3 +101,17 @@ For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanis
 6.  **A2A Response:** The remote agent sends the final response back to Joule via the A2A protocol. Joule then presents the result to the user.
 
 By leveraging A2A and MCP, SAP ensures a flexible and future-proof architecture for AI agents, where components are reusable, maintainable, and can evolve independently.
+
+## SAP's Commitment to Open Standards
+
+SAP is advancing AI interoperability through strategic investments in open standards and industry collaboration. By deeply integrating **Agent2Agent (A2A)** and **Model Context Protocol (MCP)** into Joule and the broader SAP Business Technology Platform, SAP ensures that customers benefit from flexible, cross-system AI workflows without vendor lock-in.
+
+**Strategic Approach:**
+
+-   **Agent2Agent (A2A) as the Foundation:** SAP fully embraces A2A as the **preferred standard** for multi-agent collaboration and vendor-to-vendor interoperability. A2A enables Joule Agents to communicate seamlessly with both SAP-native agents and third-party agents across platforms like Google Vertex AI, Microsoft Copilot Studio, and AWS Bedrock AgentCore.
+
+-   **MCP for Internal Enrichment:** SAP leverages MCP internally to provide Joule Agents with semantically enriched access to SAP business capabilities, including domain knowledge from SAP Knowledge Graph and business APIs. This ensures agents can reason over authoritative enterprise data with full semantic context.
+
+-   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A over direct MCP server exposure. This design ensures enterprise-grade security, governance, and controlled access to SAP systems while maintaining the flexibility of open standards.
+
+SAP's roadmap includes continuous enhancements to both protocols, with significant investments planned through 2026 to expand agent-to-agent collaboration, MCP gateway capabilities in SAP Integration Suite, and MCP support for development frameworks.

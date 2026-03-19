@@ -1,63 +1,61 @@
 ---
-id: id-ra0027-2
+id: id-ra0028-2
 slug: /ref-arch/ca1d2a3e/2
 sidebar_position: 2
 title: Low-Code AI Agents with Joule Studio
 description: >-
-  Learn how to rapidly develop and deploy AI agents using the low-code capabilities of Joule Studio, built on the Business Agent Foundation (BAF).
+  Learn how to rapidly develop and deploy AI agents using the low-code capabilities of Joule Studio in SAP Build.
 keywords:
   - sap
   - ai agents
   - low-code
   - joule studio
-  - business agent foundation
-  - baf
   - sap build
+  - managed runtime
 sidebar_label: Low-Code AI Agents with Joule Studio
+contributors:
+  - kay-schmitteckert
+discussion:
+last_update:
+  author: kay-schmitteckert
+  date: 2026-03-19
 ---
 
-For many enterprise use cases, the fastest and most efficient way to build and deploy AI agents is through a low-code approach. SAP provides **Joule Studio**, an integrated development environment within SAP Build, designed for creating AI agents with minimal effort and maintenance.
+For many enterprise use cases, the fastest and most efficient way to build and deploy AI agents is through a low-code approach. SAP provides **Joule Studio** within SAP Build, enabling the creation of custom Joule Skills and AI Agents with minimal coding effort.
 
-This approach is ideal for business analysts, citizen developers and professional developers who need to quickly automate business processes, integrate with SAP systems and extend the capabilities of Joule without getting into the complexities of pro-code frameworks and infrastructure management.
+This approach is ideal for business analysts, citizen developers and professional developers who need to quickly automate business processes, integrate with SAP systems and extend Joule's capabilities without the complexities of pro-code frameworks and infrastructure management.
 
-## Architecture
+## What are Low-Code AI Agents?
 
-Low-code agents run on a managed runtime supported by SAP AI Core. Joule Studio provides the visual interface for defining the agent's logic, tools and behavior, which is then deployed as metadata to the managed runtime for execution.
+Low-code AI agents are designed for rapid development through configuration rather than coding:
 
-![drawio](./drawio/template.drawio)
+-   **Business Content First:** Structured business context and semantic rules drive agent behavior
+-   **Low-Code Orchestration:** Multi-step reasoning, tool orchestration, and RAG (Retrieval-Augmented Generation) without custom runtimes
+-   **Enterprise Integration:** Seamless connection via REST/OData APIs to SAP products, BTP services, and third-party applications
+-   **Secure & Scalable:** Built on Generative AI Hub with data anonymization, metering, and role-based security
 
-The key components of this architecture are:
+## How SAP Implements Low-Code Agents
 
--   **Joule Studio:** Part of the SAP Build portfolio, Joule Studio is the low-code/no-code environment for developing Joule skills and content-based AI agents. It provides a graphical interface for:
-    -   Defining agent instructions and goals.
-    -   Configuring tools, including connecting to SAP and third-party APIs (REST/OData).
-    -   Orchestrating multi-step reasoning and workflows.
-    -   Specifying human-in-the-loop (HITL) interaction points.
--   **Business Agent Foundation (BAF):** The managed runtime environment for low-code agents, hosted on SAP AI Core. BAF executes the agent's "reason and act" loop based on the metadata deployed from Joule Studio. It handles the orchestration, tool invocation and state management, abstracting the complexity from the developer.
--   **Joule Integration:** When a Joule Studio project is deployed, it automatically creates the necessary artifacts in Joule (like Joule Scenarios and Dialog Functions) to make the agent available to end-users through the Joule copilot interface.
--   **SAP Build Integration:** Being part of SAP Build, Joule Studio allows agents to seamlessly reuse resources from **SAP Build Process Automation**, such as workflows, business rules (decisions) and automations (bots), as tools.
+**Joule Studio** in SAP Build provides a comprehensive low-code platform with two primary capabilities:
 
-## Characteristics of Low-Code Agents
+-   **Joule Skills:** Automate rule-based, repetitive tasks using APIs, seamlessly integrating into SAP to enhance productivity
+-   **AI Agents:** Tackle complex challenges with advanced planning and reasoning, leveraging both Joule Skills and external integrations
 
--   **Configuration-Driven:** Agent behavior is defined through graphical interfaces and configuration, not code. This accelerates development and simplifies maintenance.
--   **Managed Runtime:** Agents run on the scalable and secure BAF environment, with cross-cutting concerns like metering, tracing and security handled out of the box.
--   **Seamless SAP Integration:** Built-in connectors make it easy to consume SAP APIs and business processes as tools for the agent.
--   **Unified Lifecycle Management:** Joule Studio and SAP Build provide a complete lifecycle management solution, including versioning, deployment to different environments (dev, test, prod) and transport management.
--   **Human-in-the-Loop:** The agent definition can include steps that require human confirmation or input, with Joule facilitating these interactions.
+For detailed architecture, integration patterns, lifecycle management, and comprehensive examples, see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md).
 
-## Flow
+### Key Components
 
-1.  **Development:** A developer uses Joule Studio to create an agent. They define the agent's instructions, add tools by connecting to APIs or reusing SAP Build components and design the overall orchestration logic.
-2.  **Deployment:** The developer deploys the project from Joule Studio. This action pushes the agent's definition (metadata) to the Business Agent Foundation (BAF) and registers the agent as a skill within Joule.
-3.  **User Interaction:** An end-user interacts with Joule. Joule's orchestrator identifies that the user's request should be handled by the custom-built agent.
-4.  **Execution:** Joule delegates the task to the BAF runtime. BAF executes the agent's logic, invoking the necessary tools, managing the conversation state and handling any human-in-the-loop steps by communicating back with the user through Joule.
-5.  **Response:** Once the agent completes its task, BAF returns the final result to Joule, which then presents it to the user.
+-   **Joule Studio:** Visual development environment for defining agent instructions, configuring tools, orchestrating workflows, and specifying human-in-the-loop interactions. Built with enterprise governance and security from the ground up.
+-   **Managed Runtime on SAP AI Core:** Agents run on a scalable and secure runtime environment with built-in metering, tracing, and security. Executes agent logic based on metadata deployed from Joule Studio.
+-   **Generative AI Hub:** Provides foundation models, document grounding (RAG), prompt optimization, and orchestration capabilities including data masking, I/O filtering, and translation.
+-   **SAP Build Integration:** Seamlessly reuses resources from SAP Build Process Automation, such as workflows, business rules, and automations as tools for agents.
+-   **Joule Integration:** Deployed agents automatically register as Joule Scenarios and Dialog Functions, making them available to end-users through the Joule interface.
 
-## When to Use Low-Code Agents
+### When to Use Low-Code Agents
 
-Low-code agents should be the default choice for most enterprise automation scenarios due to their rapid development cycle and lower maintenance overhead. They are particularly well-suited for:
+Low-code agents should be the default choice for most enterprise automation scenarios:
 
--   Automating well-defined business processes (e.g., "approve purchase order" or "check invoice status").
--   Use cases where business experts or citizen developers are involved in the development process.
--   Scenarios that heavily rely on standard SAP APIs and SAP Build Process Automation capabilities.
--   Projects where speed of delivery and alignment with SAP's standard tooling are key priorities.
+-   Automating well-defined business processes (e.g., "approve purchase order" or "check invoice status")
+-   Use cases where business experts or citizen developers are involved in development
+-   Scenarios that heavily rely on standard SAP APIs and SAP Build Process Automation capabilities
+-   Projects where speed of delivery and alignment with SAP's standard tooling are priorities

@@ -46,7 +46,7 @@ Agents in this scenario can cater to two core use case ideas: _Descriptive_ and 
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
 The architecture illustrates how Agents in this scenario operate within the SAP Business Technology Platform (BTP) ecosystem, enabling seamless integration of the AI component and structured data sources. At the core, the [SAP Cloud Application Programming Model](../../RA0005/readme.md#sap-cloud-application-programming-model) (CAP)
-serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in _Code-Based Agent_ approach. The agent can be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/readme.md)) and integrated with data in the _Content-Based Agent_ approach. More information about Code- and Content-Based Agents can be found here: [AI Agent Development Approaches](../../RA0005/5-ai-agents/readme.md#ai-agent-development-approaches).
+serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in the pro-code agent approach. The agent can also be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/readme.md)) and integrated with data using the low-code approach. More information about these development approaches can be found here: [AI Agent Development Approaches](../../RA0005/5-ai-agents/readme.md#ai-agent-development-approaches).
 
 [SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile, the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 
@@ -65,13 +65,3 @@ For a comprehensive list of services, components and descriptions, please explor
 
 - **Replenishment Recommendation Engine - _Prescriptive_**
   Agents combine inventory levels, sales forecasts, and lead‑time tables to calculate optimal reorder points and suggest purchase orders—automating replenishment planning to prevent stock‑outs.
-
-
-
-
-<!-- ## Business Agent Foundation (BAF)
-The aim of the Business Agent Foundation (prototype) is to enable the efficient realization of business AI scenarios by providing reusable AI business agents as a service.
-Through various integration and development tools provided via the Business Agent Foundation (prototype),
-AI agents can be seamlessly integrated into existing and new business applications.
-The innovation offers various features that empower agents with the skills required to complete enterprise processes and tasks,
-while understanding business context and semantics. For more information, read the blog post [AI Business Agents and the Evolution of Business Automation: Join the Innovation Journey](https://community.sap.com/t5/technology-blogs-by-sap/ai-business-agents-and-the-evolution-of-business-automation-join-the/ba-p/13614232). -->
