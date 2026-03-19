@@ -1,5 +1,5 @@
 ---
-id: id-ra0028-1
+id: id-ra0029-1
 slug: /ref-arch/ca1d2a3e/1
 sidebar_position: 1
 title: A2A and MCP for Interoperability
