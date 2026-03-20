@@ -13,6 +13,21 @@ keywords:
   - sap build
   - managed runtime
 sidebar_label: Low-Code AI Agents with Joule Studio
+image: img/ac-soc-med.png
+tags:
+  - agents
+  - genai
+  - cap
+  - aws
+  - gcp
+  - azure
+  - ibm
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - kay-schmitteckert
 discussion:
@@ -30,9 +45,9 @@ This approach is ideal for business analysts, citizen developers and professiona
 Low-code AI agents are designed for rapid development through configuration rather than coding:
 
 -   **Business Content First:** Structured business context and semantic rules drive agent behavior
--   **Low-Code Orchestration:** Multi-step reasoning, tool orchestration, and RAG (Retrieval-Augmented Generation) without custom runtimes
--   **Enterprise Integration:** Seamless connection via REST/OData APIs to SAP products, BTP services, and third-party applications
--   **Secure & Scalable:** Built on Generative AI Hub with data anonymization, metering, and role-based security
+-   **Low-Code Orchestration:** Multi-step reasoning, tool orchestration and RAG (Retrieval-Augmented Generation) without custom runtimes
+-   **Enterprise Integration:** Seamless connection via REST/OData APIs to SAP products, BTP services and third-party applications
+-   **Secure & Scalable:** Built on Generative AI Hub with data anonymization, metering and role-based security
 
 ## How SAP Implements Low-Code Agents
 
@@ -41,14 +56,14 @@ Low-code AI agents are designed for rapid development through configuration rath
 -   **Joule Skills:** Automate rule-based, repetitive tasks using APIs, seamlessly integrating into SAP to enhance productivity
 -   **AI Agents:** Tackle complex challenges with advanced planning and reasoning, leveraging both Joule Skills and external integrations
 
-For detailed architecture, integration patterns, lifecycle management, and comprehensive examples, see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md).
+For detailed architecture, integration patterns, lifecycle management and comprehensive examples, see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md).
 
 ### Key Components
 
--   **Joule Studio:** Visual development environment for defining agent instructions, configuring tools, orchestrating workflows, and specifying human-in-the-loop interactions. Built with enterprise governance and security from the ground up.
--   **Managed Runtime on SAP AI Core:** Agents run on a scalable and secure runtime environment with built-in metering, tracing, and security. Executes agent logic based on metadata deployed from Joule Studio.
--   **Generative AI Hub:** Provides foundation models, document grounding (RAG), prompt optimization, and orchestration capabilities including data masking, I/O filtering, and translation.
--   **SAP Build Integration:** Seamlessly reuses resources from SAP Build Process Automation, such as workflows, business rules, and automations as tools for agents.
+-   **Joule Studio:** Visual development environment for defining agent instructions, configuring tools, orchestrating workflows and specifying human-in-the-loop interactions. Built with enterprise governance and security from the ground up.
+-   **Managed Runtime on SAP AI Core:** Agents run on a scalable and secure runtime environment with built-in metering, tracing and security. Executes agent logic based on metadata deployed from Joule Studio.
+-   **Generative AI Hub:** Provides foundation models, document grounding (RAG), prompt optimization and orchestration capabilities including data masking, I/O filtering and translation.
+-   **SAP Build Integration:** Seamlessly reuses resources from SAP Build Process Automation, such as workflows, business rules and automations as tools for agents.
 -   **Joule Integration:** Deployed agents automatically register as Joule Scenarios and Dialog Functions, making them available to end-users through the Joule interface.
 
 ### When to Use Low-Code Agents

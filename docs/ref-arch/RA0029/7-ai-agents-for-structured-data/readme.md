@@ -50,18 +50,18 @@ serves as the orchestration layer, leveraging AI frameworks like LangChain and L
 
 [SAP Datasphere](./#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile, the [Vector Engine](./#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 
-These elements work together in unison to create an application that unifies data and AI, enabling real-time analytics and proactive decision-making. When combined with platforms like SAP Datasphere, agents can drive value across industries such as supply chain, logistics, financial services, and operations.
+These elements work together in unison to create an application that unifies data and AI, enabling real-time analytics and proactive decision-making. When combined with platforms like SAP Datasphere, agents can drive value across industries such as supply chain, logistics, financial services and operations.
 
 ## Services & Components
 For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](./#services--components).
-- [SAP Datasphere](https://discovery-center.cloud.sap/serviceCatalog/a62771ea-b7bf-4746-9d4b-fec20ade5281) enables a business data fabric architecture that uniquely harmonizes mission-critical data across the organization, unleashing business experts to make the most impactful decisions. It combines previously discrete capabilities into a unified service for data integration, cataloging, semantic modeling, data warehousing, and virtualizing workloads across SAP and non-SAP data.
+- [SAP Datasphere](https://discovery-center.cloud.sap/serviceCatalog/a62771ea-b7bf-4746-9d4b-fec20ade5281) enables a business data fabric architecture that uniquely harmonizes mission-critical data across the organization, unleashing business experts to make the most impactful decisions. It combines previously discrete capabilities into a unified service for data integration, cataloging, semantic modeling, data warehousing and virtualizing workloads across SAP and non-SAP data.
 ## Example Use Cases
 
 - **Finance KPI Exploration - _Descriptive_**
     Finance agents empower sales & finance teams to “ask” for key performance indicators across massive, structured datasets without manual SQL or BI modeling.
 
 - **Procurement Spend Classification -&nbsp;_Descriptive_**
-  Leveraging detailed purchase order and supplier master data, agents classify spend by category, vendor, and region—highlighting consolidation opportunities and non‑contracted purchases directly in a single NL query.
+  Leveraging detailed purchase order and supplier master data, agents classify spend by category, vendor and region—highlighting consolidation opportunities and non‑contracted purchases directly in a single NL query.
 
 - **Replenishment Recommendation Engine - _Prescriptive_**
-  Agents combine inventory levels, sales forecasts, and lead‑time tables to calculate optimal reorder points and suggest purchase orders—automating replenishment planning to prevent stock‑outs.
+  Agents combine inventory levels, sales forecasts and lead‑time tables to calculate optimal reorder points and suggest purchase orders—automating replenishment planning to prevent stock‑outs.

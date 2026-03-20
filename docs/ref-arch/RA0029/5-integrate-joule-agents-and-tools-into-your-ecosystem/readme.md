@@ -15,6 +15,21 @@ keywords:
   - agent gateway
   - third-party
 sidebar_label: Integrating Joule Agents into Your Ecosystem
+image: img/ac-soc-med.png
+tags:
+  - agents
+  - genai
+  - cap
+  - aws
+  - gcp
+  - azure
+  - ibm
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - kay-schmitteckert
 discussion:
@@ -64,7 +79,7 @@ SAP provides the **Agent & Tool Gateway** that enables external clients and appl
 3.  **Invocation:** The external application (acting as an A2A client) sends a request to the Agent & Tool Gateway endpoint, specifying the target Joule Scenario and providing the necessary input data
 4.  **Execution:** The Agent & Tool Gateway routes the request to the appropriate Joule Agent, which executes its logic and may invoke internal tools or integrate with SAP systems
 5.  **Response:** The agent returns a response via the A2A protocol. For long-running tasks, the agent can use asynchronous callbacks to notify the external application when processing is complete
-6.  **Security & Audit:** All interactions are secured through SAP BTP's identity and trust management services. Enterprise-grade security includes SAP Cloud Identity Services, role-based access control, and comprehensive audit logging through SAP Cloud ALM
+6.  **Security & Audit:** All interactions are secured through SAP BTP's identity and trust management services. Enterprise-grade security includes SAP Cloud Identity Services, role-based access control and comprehensive audit logging through SAP Cloud ALM
 
 ## Use Cases for External Consumption
 
@@ -82,6 +97,6 @@ SAP provides the **Agent & Tool Gateway** that enables external clients and appl
 -   External orchestration platforms can coordinate multi-system workflows involving Joule Agents
 -   Integration platforms can expose Joule Agents as reusable services in broader automation scenarios
 
-For detailed implementation guidance on the Agent & Tool Gateway, authentication setup, and A2A protocol specifications, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
+For detailed implementation guidance on the Agent & Tool Gateway, authentication setup and A2A protocol specifications, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
 
 By providing the Agent & Tool Gateway, SAP enables external systems to consume Joule Agents as part of their own workflows, positioning SAP as a central, interoperable component of the modern enterprise AI ecosystem.

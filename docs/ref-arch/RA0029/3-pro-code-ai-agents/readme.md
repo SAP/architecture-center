@@ -4,7 +4,7 @@ slug: /ref-arch/ca1d2a3e/3
 sidebar_position: 3
 title: Pro-Code AI Agents on SAP BTP
 description: >-
-  Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK for AI with popular frameworks like LangGraph, AutoGen, and CrewAI for maximum flexibility and control over complex business logic.
+  Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK for AI with popular frameworks like LangGraph, AutoGen and CrewAI for maximum flexibility and control over complex business logic.
 keywords:
   - sap
   - ai agents
@@ -19,6 +19,21 @@ keywords:
   - crewai
   - smolagents
 sidebar_label: Pro-Code AI Agents on SAP BTP
+image: img/ac-soc-med.png
+tags:
+  - agents
+  - genai
+  - cap
+  - aws
+  - gcp
+  - azure
+  - ibm
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - kay-schmitteckert
 discussion:
@@ -31,7 +46,7 @@ For complex, mission-critical use cases that require deep customization, fine-tu
 
 ## Architecture
 
-Pro-code agents on SAP BTP are built using the **SAP Cloud SDK for AI**, which provides seamless integration with SAP's Generative AI Hub, foundation models, and enterprise services. The **SAP Cloud Application Programming Model (CAP)** serves as the orchestration framework for structuring agent use case logic, data management, and service integration.
+Pro-code agents on SAP BTP are built using the **SAP Cloud SDK for AI**, which provides seamless integration with SAP's Generative AI Hub, foundation models and enterprise services. The **SAP Cloud Application Programming Model (CAP)** serves as the orchestration framework for structuring agent use case logic, data management and service integration.
 
 ![drawio](./drawio/reference-architecture-generative-ai-pro-code.drawio)
 
@@ -39,17 +54,17 @@ The architecture consists of several integrated layers:
 
 ### Development & Orchestration Layer
 
--   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models, and AI-specific services. Supports both Python and TypeScript/JavaScript development, and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents, and others.
--   **SAP Cloud Application Programming Model (CAP):** Framework that structures agent use case logic, data management, and service integration. CAP provides domain modeling, service exposure, and seamless connectivity to SAP and non-SAP systems.
+-   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports both Python and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
+-   **SAP Cloud Application Programming Model (CAP):** Framework that structures agent use case logic, data management and service integration. CAP provides domain modeling, service exposure and seamless connectivity to SAP and non-SAP systems.
 
 ### AI Services Layer
 
 -   **Generative AI Hub:** Central AI capabilities platform delivered as features within SAP AI Core and SAP AI Launchpad:
-    -   **SAP AI Launchpad:** Centralized interface for managing AI scenarios, deployments, and configurations
+    -   **SAP AI Launchpad:** Centralized interface for managing AI scenarios, deployments and configurations
     -   **SAP AI Core:** Runtime environment providing the foundation for AI operations
     -   **Harmonized Orchestration Service Layer:** Unified API layer providing access to foundation models with built-in capabilities including:
         -   **Prompt Registry & Optimization:** Centralized prompt management and optimization services
-        -   **Orchestration Capabilities:** Grounding, templating, data masking, I/O filtering, and translation
+        -   **Orchestration Capabilities:** Grounding, templating, data masking, I/O filtering and translation
         -   **Foundation Model Access:** Unified access to both partner-built (Azure OpenAI, AWS Bedrock, Google Vertex AI) and SAP-built foundation models
 
 ### Data & Knowledge Layer
@@ -61,8 +76,8 @@ The architecture consists of several integrated layers:
 ### Connectivity & Integration Layer
 
 -   **SAP Connectivity Service:** Secure connectivity to on-premise systems via SAP Cloud Connector
--   **SAP Destination Service:** Centralized destination management for accessing SAP Cloud Solutions, third-party applications, and on-premise systems via HTTPS protocols
--   **Integration with SAP Systems:** Seamless connectivity to SAP S/4HANA, SAP SuccessFactors, SAP Concur, SAP Customer Experience, SAP Business Networks, and other SAP Cloud Solutions
+-   **SAP Destination Service:** Centralized destination management for accessing SAP Cloud Solutions, third-party applications and on-premise systems via HTTPS protocols
+-   **Integration with SAP Systems:** Seamless connectivity to SAP S/4HANA, SAP SuccessFactors, SAP Concur, SAP Customer Experience, SAP Business Networks and other SAP Cloud Solutions
 
 ### Agent Integration Layer
 
@@ -71,8 +86,8 @@ The architecture consists of several integrated layers:
 
 ## Development Workflow
 
-1.  **Development:** Developers implement agent logic using SAP Cloud SDK for AI with their chosen agent framework (LangGraph, AG2, CrewAI, etc.). They define use case orchestration, data models, and integration points using CAP.
-2.  **Foundation Model Access:** The agent leverages Generative AI Hub's harmonized orchestration service layer to access foundation models through a unified API, utilizing prompt templates, grounding data, and safety controls (data masking, I/O filtering).
+1.  **Development:** Developers implement agent logic using SAP Cloud SDK for AI with their chosen agent framework (LangGraph, AG2, CrewAI, etc.). They define use case orchestration, data models and integration points using CAP.
+2.  **Foundation Model Access:** The agent leverages Generative AI Hub's harmonized orchestration service layer to access foundation models through a unified API, utilizing prompt templates, grounding data and safety controls (data masking, I/O filtering).
 3.  **Data & Knowledge Integration:** Agents query SAP HANA Cloud's Vector Engine for semantic search and leverage Knowledge Graph for domain-specific reasoning over SAP business objects.
 4.  **Service Integration:** Through CAP's built-in connectivity, agents access SAP and non-SAP systems using SAP Destination Service and SAP Connectivity Service, ensuring secure and governed integrations.
 5.  **Deployment:** Applications are deployed to SAP BTP (Cloud Foundry or Kyma runtime) using CI/CD pipelines, with automated testing and rollout strategies.
@@ -82,12 +97,12 @@ The architecture consists of several integrated layers:
 
 Pro-code agents are ideal for scenarios that require:
 
--   **Advanced Customization:** Complete control over reasoning logic, state management, and orchestration beyond configuration-driven approaches
+-   **Advanced Customization:** Complete control over reasoning logic, state management and orchestration beyond configuration-driven approaches
 -   **Complex Workflows:** Multi-step, conditional, or dynamic workflows that require programmatic control
 -   **Bespoke Integrations:** Custom connectors and adapters for legacy systems, specialized hardware, or proprietary APIs not covered by standard connectivity
 -   **Framework Flexibility:** Use of specific AI frameworks (LangGraph, AG2/AutoGen, CrewAI, Smolagents) that best match team skills and technical requirements
--   **Performance Optimization:** Fine-tuned control over prompt engineering, model selection, caching strategies, and resource utilization
--   **Enterprise-Scale Operations:** Scenarios requiring sophisticated error handling, retry logic, circuit breakers, and observability integration
+-   **Performance Optimization:** Fine-tuned control over prompt engineering, model selection, caching strategies and resource utilization
+-   **Enterprise-Scale Operations:** Scenarios requiring sophisticated error handling, retry logic, circuit breakers and observability integration
 
 ## Agent Frameworks
 
@@ -95,7 +110,7 @@ SAP Cloud SDK for AI supports integration with popular open-source agent framewo
 
 | Framework                     | Language         | Key Differentiator                                                              |
 | ----------------------------- | ---------------- | ------------------------------------------------------------------------------- |
-| **LangGraph**                 | Python, JS/TS    | Graph-based control flow for complex, cyclic, and stateful multi-agent workflows |
+| **LangGraph**                 | Python, JS/TS    | Graph-based control flow for complex, cyclic and stateful multi-agent workflows |
 | **AG2 (AutoGen)**             | Python           | Facilitates cooperation between multiple specialized agents to solve tasks       |
 | **CrewAI**                    | Python           | Role-based agent design for collaborative task execution                         |
 | **Smolagents**                | Python           | Lightweight agent framework with tool-use optimization                           |
@@ -103,7 +118,7 @@ SAP Cloud SDK for AI supports integration with popular open-source agent framewo
 | **Pydantic AI**               | Python           | Type-safe agent construction and automatic self-correction for reliability       |
 | **AI SDK**                    | JS/TS            | TypeScript toolkit from Vercel, ideal for building AI-powered web applications   |
 
-These frameworks integrate with SAP Cloud SDK for AI to access Generative AI Hub services, SAP HANA Cloud data, and enterprise connectivity while maintaining full control over agent orchestration patterns.
+These frameworks integrate with SAP Cloud SDK for AI to access Generative AI Hub services, SAP HANA Cloud data and enterprise connectivity while maintaining full control over agent orchestration patterns.
 
 ## Specialized Use Cases
 

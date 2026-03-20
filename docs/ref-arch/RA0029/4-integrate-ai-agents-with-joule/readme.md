@@ -15,6 +15,21 @@ keywords:
   - pro-code
   - low-code
 sidebar_label: Integrating AI Agents with Joule
+image: img/ac-soc-med.png
+tags:
+  - agents
+  - genai
+  - cap
+  - aws
+  - gcp
+  - azure
+  - ibm
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - kay-schmitteckert
 discussion:
@@ -66,7 +81,7 @@ Joule prepares an A2A message request using the `message/send` method with a use
 2.  **Create a Joule Scenario:** In Joule, you must manually create a **Joule Scenario** to represent the pro-code agent.
 3.  **Configure the Dialog Function:** Within this scenario, you add a **Joule Dialog Function** with an action of type `agent-request`.
 4.  **Point to the A2A Endpoint:** You configure this Dialog Function to call the A2A endpoint of your pro-code agent.
-5.  **Execution:** At runtime, when a user's request triggers this scenario, Joule acts as an **A2A client**. It sends a request to your agent's A2A endpoint, waits for the response, and then presents the result to the user.
+5.  **Execution:** At runtime, when a user's request triggers this scenario, Joule acts as an **A2A client**. It sends a request to your agent's A2A endpoint, waits for the response and then presents the result to the user.
 
 **Key Integration Capabilities:**
 
@@ -78,7 +93,7 @@ To ensure secure communication and validate server updates, an Identity Authenti
 
 This A2A-based pattern provides a clean, decoupled architecture that allows any A2A-compliant agent, regardless of the framework it's built with, to be plugged into the Joule ecosystem. It supports both synchronous and asynchronous agent executions, with Joule managing the user interaction throughout the process.
 
-For detailed action definitions, authentication setup, and implementation guidance, see [Bring Your Own Agent](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/code-based-agents-bring-your-own-agent) in the Joule Development Guide. For architectural context on A2A integration patterns, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
+For detailed action definitions, authentication setup and implementation guidance, see [Bring Your Own Agent](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/code-based-agents-bring-your-own-agent) in the Joule Development Guide. For architectural context on A2A integration patterns, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
 
 ## Summary of Integration Patterns
 
