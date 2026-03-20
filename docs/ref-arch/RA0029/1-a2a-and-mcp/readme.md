@@ -22,6 +22,12 @@ last_update:
   date: 2026-03-19
 ---
 
+::: Disclaimer
+The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+
+This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+:::
+
 A robust and scalable AI agent ecosystem relies on standardized communication protocols that enable seamless interoperability between agents and the tools they use. SAP has adopted two open standards, the **Agent2Agent (A2A) protocol** and the **Model Context Protocol (MCP)**, to create a decoupled architecture where agents and tools can be developed, deployed, and updated independently. While MCP standardizes the connection between models and external resources, A2A complements it by enabling autonomous, multi-turn collaboration between independent AI agents.
 
 This approach prevents monolithic agent design, promotes reusability and ensures that the SAP agent ecosystem remains open and extensible.
@@ -66,7 +72,7 @@ The **Agent & Tool Gateway** exposes Joule Agents via the A2A protocol with an e
 
 **Key Characteristics:**
 
--   **External Endpoint:** Accessible at `<joule-dc>.access.sapdas.cloud.sap`
+-   **External Endpoint:** Accessible via a SAP-managed domain
 -   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
 -   **Authentication:** Secured through SAP Cloud Identity Services (IAS) App2App tokens with named user context
 -   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions

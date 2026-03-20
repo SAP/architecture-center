@@ -43,6 +43,12 @@ last_update:
   date: 2026-03-19
 ---
 
+::: Disclaimer
+The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+
+This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+:::
+
 AI agents represent a new paradigm in enterprise software, combining large language models (LLMs) with tools, memory and reasoning capabilities to autonomously execute complex, multi-step tasks. In the SAP ecosystem, AI agents bridge the gap between intelligent automation and core business processes, enabling systems to dynamically adapt, reason and act in real-time.
 
 This reference architecture provides a comprehensive guide to developing, deploying and managing AI agents in your SAP ecosystem powered by SAP Business Technology Platform (BTP). It details the architectural patterns, components and best practices for building both low-code and pro-code agents, integrating them with Joule through bidirectional A2A communication, and ensuring seamless interoperability across the enterprise landscape.

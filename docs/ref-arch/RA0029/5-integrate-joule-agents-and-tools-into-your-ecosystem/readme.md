@@ -23,6 +23,12 @@ last_update:
   date: 2026-03-19
 ---
 
+::: Disclaimer
+The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+
+This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+:::
+
 While a primary use case is integrating external agents *into* Joule, the architecture is designed to be bidirectional. Agents built within the SAP ecosystem can also be exposed for consumption by third-party applications and external agentic systems. This enables SAP to act as a central hub of enterprise intelligence that can be leveraged across a heterogeneous IT landscape.
 
 This outbound interoperability is achieved through the **Agent & Tool Gateway**, which exposes Joule Agents via the **Agent2Agent (A2A) protocol**.
@@ -39,7 +45,7 @@ SAP provides the **Agent & Tool Gateway** that enables external clients and appl
 
 **Key Characteristics:**
 
--   **External Endpoint:** Accessible at `<joule-dc>.access.sapdas.cloud.sap`
+-   **External Endpoint:** Accessible via a SAP-managed domain
 -   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
 -   **Authentication:** Secured through SAP Cloud Identity Services (IAS) App2App tokens with named user context
 -   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions

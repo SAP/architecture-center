@@ -23,6 +23,12 @@ last_update:
   date: 2026-03-19
 ---
 
+::: Disclaimer
+The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+
+This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+:::
+
 For AI agents to deliver value in an enterprise context, they must be easily accessible to end-users within their natural workflow. In the SAP ecosystem, **Joule** is the single, trusted AI copilot that provides a consistent conversational interface across all SAP applications.
 
 Therefore, a critical step in the agent development lifecycle is integrating your custom-built agents—whether low-code or pro-code—with Joule. This ensures that users can interact with your agent's specialized capabilities through the same familiar interface they use for all other SAP-related tasks.
