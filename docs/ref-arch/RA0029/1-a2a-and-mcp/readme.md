@@ -37,7 +37,7 @@ last_update:
   date: 2026-03-19
 ---
 
-::: Disclaimer
+:::info Disclaimer
 The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
 
 This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
