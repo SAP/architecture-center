@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, JSX } from 'react';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './ArchitectureTabs.module.css';
 import { useAuth } from '../../context/AuthContext';
@@ -63,6 +64,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
     }
 
     const { title, subtitle, icon, link, isNew, image } = tabs[activeIndex];
+    const imageUrl = useBaseUrl(image || '');
     const requiredProvider = authProviders?.[link];
     const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
@@ -185,7 +187,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                         <div className={styles.imagePlaceholder}>
                             {image ? (
                                 <img
-                                    src={image}
+                                    src={imageUrl}
                                     alt={title}
                                     className={styles.tabImage}
                                 />
