@@ -62,6 +62,22 @@ const config: Config = {
                 editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
             },
         ],
+        [
+            require.resolve('@easyops-cn/docusaurus-search-local'),
+            {
+                hashed: true,
+                indexDocs: true,
+                indexPages: true,
+                docsRouteBasePath: ['/docs', '/community'],
+                docsDir: ['docs', 'community'],
+                indexBlog: true,
+                blogRouteBasePath: '/news',
+                language: ['en'],
+                highlightSearchTermsOnTargetPage: true,
+                removeDefaultStopWordFilter: true,
+                removeDefaultStemmer: true,
+            },
+        ],
         async function tailwindcss() {
             return {
                 name: 'docusaurus-tailwindcss',
@@ -239,6 +255,10 @@ const config: Config = {
                             value: `<a class="dropdown__link" href="${baseUrl}docs?partners=snowflake">Snowflake</a>`,
                         },
                     ],
+                },
+                {
+                    type: 'search',
+                    position: 'right',
                 },
                 {
                     type: 'dropdown',

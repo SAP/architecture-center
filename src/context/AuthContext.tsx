@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode';
 import { authStorage } from '../utils/authStorage';
 import { useLocation, useHistory } from '@docusaurus/router';
 import siteConfig from '@generated/docusaurus.config';
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import { logger } from '../utils/logger';
 
 const GITHUB_SESSION_DURATION_HOURS = 2;
@@ -39,7 +38,32 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    return <BrowserOnly>{() => <AuthLogicProvider>{children}</AuthLogicProvider>}</BrowserOnly>;
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    // During SSR or initial render, provide default values and render children
+    if (!isClient) {
+        return (
+            <AuthContext.Provider
+                value={{
+                    user: null,
+                    users: { github: null, btp: null },
+                    loading: true,
+                    logout: () => {},
+                    hasDualLogin: false,
+                    token: null,
+                }}
+            >
+                {children}
+            </AuthContext.Provider>
+        );
+    }
+
+    // On client, use the full auth logic
+    return <AuthLogicProvider>{children}</AuthLogicProvider>;
 };
 
 const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
