@@ -618,6 +618,19 @@ table thead {
             var(--ifm-color-emphasis-100) 100%);
 }
 
+/* Search Local Plugin - Selected item gradient styling */
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] {
+    background: var(--gradient-primary) !important;
+}
+
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] mark,
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitTree"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitIcon"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitPath"] {
+    color: #fff !important;
+}
+
 .footer_div {
     margin-top: 0rem 0rem;
 }
