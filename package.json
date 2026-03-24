@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v2.2612.1",
+    "version": "v2.2612.2",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -29,15 +29,22 @@
     },
     "overrides": {
         "rimraf": "^4.0.0",
+<<<<<<< HEAD
         "mermaid": "^11.9.0",
         "serialize-javascript": "^7.0.4",
         "minimatch": "^3.1.4"
+=======
+        "inflight": "lru-cache",
+        "mermaid": "^11.9.0",
+        "serialize-javascript": "^7.0.4"
+>>>>>>> dev
     },
     "dependencies": {
         "@docusaurus/core": "^3.9.2",
         "@docusaurus/plugin-content-docs": "^3.9.2",
         "@docusaurus/preset-classic": "^3.9.2",
         "@docusaurus/theme-mermaid": "^3.9.2",
+<<<<<<< HEAD
         "@easyops-cn/docusaurus-search-local": "^0.55.1",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
@@ -53,40 +60,76 @@
         "@mui/icons-material": "^7.1.0",
         "@mui/material": "^7.1.0",
         "@tailwindcss/typography": "^0.5.14",
+=======
+        "@easyops-cn/docusaurus-search-local": "^0.44.6",
+        "@emotion/styled": "^11.14.1",
+        "@fortawesome/fontawesome-svg-core": "^6.7.2",
+        "@fortawesome/free-brands-svg-icons": "^6.7.2",
+        "@fortawesome/free-solid-svg-icons": "^6.7.2",
+        "@github-docs/frontmatter": "^1.3.1",
+        "@lexical/code": "^0.34.0",
+        "@lexical/link": "^0.34.0",
+        "@lexical/list": "^0.34.0",
+        "@lexical/markdown": "^0.34.0",
+        "@lexical/react": "^0.34.0",
+        "@lexical/rich-text": "^0.34.0",
+        "@lexical/table": "^0.34.0",
+        "@mdx-js/react": "^3.1.1",
+        "@mui/icons-material": "^7.3.9",
+        "@mui/material": "^7.3.9",
+        "@tailwindcss/typography": "^0.5.19",
+>>>>>>> dev
         "@types/uuid": "^10.0.0",
         "@ui5/webcomponents": "^2.7.0",
-        "@ui5/webcomponents-fiori": "^2.7.0",
+        "@ui5/webcomponents-fiori": "^2.20.1",
         "@ui5/webcomponents-icons": "^2.7.0",
-        "@ui5/webcomponents-react": "^2.7.0",
-        "axios": "^1.13.5",
-        "chalk": "^5.4.1",
+        "@ui5/webcomponents-react": "^2.20.1",
+        "axios": "^1.13.6",
+        "chalk": "^5.6.2",
         "clsx": "^2.0.0",
+<<<<<<< HEAD
         "docusaurus-plugin-image-zoom": "^2.0.0",
         "dotenv": "^17.2.1",
+=======
+        "cookie": "^0.7.2",
+        "docusaurus-plugin-image-zoom": "^2.0.0",
+        "dotenv": "^17.3.1",
+        "ejs": "^3.1.10",
+>>>>>>> dev
         "front-matter": "^4.0.2",
         "glob": "^13.0.6",
         "gray-matter": "^4.0.3",
         "jwt-decode": "^4.0.0",
         "lexical": "^0.41.0",
         "lucide-react": "^0.542.0",
+<<<<<<< HEAD
         "mammoth": "^1.10.0",
+=======
+        "mammoth": "^1.12.0",
+        "micromatch": "^4.0.8",
+>>>>>>> dev
         "pako": "^2.1.0",
-        "path-to-regexp": "^8.1.0",
-        "prism-react-renderer": "^2.3.0",
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0",
-        "react-icons": "^5.4.0",
-        "react-select": "^5.10.0",
+        "path-to-regexp": "^8.3.0",
+        "prism-react-renderer": "^2.4.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-icons": "^5.6.0",
+        "react-select": "^5.10.2",
         "react-slick": "^0.30.3",
+<<<<<<< HEAD
+=======
+        "react-tooltip": "^5.30.0",
+>>>>>>> dev
         "slick-carousel": "^1.8.1",
-        "unist-util-visit": "^5.0.0",
+        "unist-util-visit": "^5.1.0",
         "uuid": "^13.0.0",
-        "zustand": "^5.0.8"
+        "zustand": "^5.0.12"
     },
     "devDependencies": {
         "@docusaurus/module-type-aliases": "^3.9.2",
         "@docusaurus/tsconfig": "^3.9.2",
         "@docusaurus/types": "^3.9.2",
+<<<<<<< HEAD
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^14.6.1",
@@ -101,12 +144,23 @@
         "eslint-plugin-react-hooks": "^7.0.1",
         "jest": "^30.2.0",
         "jest-environment-jsdom": "^30.2.0",
+=======
+        "@types/react": "^19.2.14",
+        "@types/react-slick": "^0.23.13",
+        "autoprefixer": "^10.4.27",
+        "glob": "^13.0.6",
+>>>>>>> dev
         "npm-force-resolutions": "^0.0.10",
-        "postcss": "^8.4.41",
+        "postcss": "^8.5.8",
         "qrcode": "^1.5.4",
+<<<<<<< HEAD
         "tailwindcss": "^3.4.10",
         "ts-jest": "^29.4.6",
         "typescript": "^5.8.2"
+=======
+        "tailwindcss": "^3.4.19",
+        "typescript": "^5.9.3"
+>>>>>>> dev
     },
     "prettier": {
         "arrowParens": "always",
