@@ -71,6 +71,7 @@ const config: Config = {
                 docsRouteBasePath: ['/docs', '/community'],
                 docsDir: ['docs', 'community'],
                 indexBlog: true,
+                blogDir: 'news',
                 blogRouteBasePath: '/news',
                 language: ['en'],
                 highlightSearchTermsOnTargetPage: true,
@@ -200,23 +201,23 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=appdev">Application Development & Automation</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=appdev">Application Development & Automation</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=ai">Artificial Intelligence</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=ai">Artificial Intelligence</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=data">Data & Analytics</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=data">Data & Analytics</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=integration">Integration</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=integration">Integration</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=opsec">Operation & Security</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=opsec">Operation & Security</a>`,
                         },
                         {
                             type: 'html',
@@ -228,31 +229,31 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=aws">Amazon Web Services</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=aws">Amazon Web Services</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=databricks">Databricks</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=databricks">Databricks</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=gcp">Google Cloud Platform</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=gcp">Google Cloud Platform</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=ibm">IBM</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=ibm">IBM</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=azure">Microsoft Azure</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=azure">Microsoft Azure</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=nvidia">Nvidia</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=nvidia">Nvidia</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=snowflake">Snowflake</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=snowflake">Snowflake</a>`,
                         },
                     ],
                 },
@@ -267,11 +268,11 @@ const config: Config = {
                     items: [
                         {
                             label: 'Browse Architectures',
-                            to: '/docs',
+                            to: '/docs/ref-arch',
                         },
                         {
                             label: 'AI-Native North Star Architecture',
-                            to: '/north-star-architecture',
+                            to: '/docs/nsa/',
                         },
                         {
                             label: 'Architecture Validator',

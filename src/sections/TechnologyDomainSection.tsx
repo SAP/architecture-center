@@ -27,7 +27,7 @@ interface DomainCardProps {
 
 function DomainCard({ domain }: DomainCardProps): JSX.Element {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
-    const docsUrl = useBaseUrl('/docs');
+    const docsUrl = useBaseUrl('/docs/ref-arch');
     const isHighlighted = domain.id === 'ai' || domain.id === 'data';
 
     const handleClick = () => {
@@ -112,7 +112,7 @@ const getImg = (name: string) => `/img/landingPage/${name}`;
 
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
-    const docsUrl = useBaseUrl('/docs');
+    const docsUrl = useBaseUrl('/docs/ref-arch');
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);

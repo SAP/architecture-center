@@ -123,7 +123,7 @@ export default function HeroSection(): JSX.Element {
                         cloud solutions.
                     </p>
                     <div className={styles.heroActions}>
-                        <Link to="/docs" className={styles.primaryButton}>
+                        <Link to="/docs/ref-arch" className={styles.primaryButton}>
                             Browse Architectures
                         </Link>
                         <Link to="/community/intro" className={styles.secondaryButton}>
