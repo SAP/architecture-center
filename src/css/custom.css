@@ -1384,3 +1384,38 @@ html[data-theme='dark'] .theme-doc-markdown {
 }
 
 /* Technology Domains Section background is defined as critical CSS in docusaurus.config.ts headTags */
+
+/* =========================================================================
+   Blog/News Page Gradient Styling
+   ========================================================================= */
+
+/* Read more link gradient */
+.blog-post-item footer a,
+article footer a[href*="/news/"],
+[class*="blogPostItemReadMoreLink"],
+footer a b {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.blog-post-item footer a:hover,
+article footer a[href*="/news/"]:hover,
+[class*="blogPostItemReadMoreLink"]:hover,
+footer a b:hover {
+    opacity: 0.8;
+}
+
+/* Blog author name gradient */
+[class*="authorName"],
+.blog-post-author-name,
+[class*="blogPostAuthor"] [class*="authorName"] {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+}
