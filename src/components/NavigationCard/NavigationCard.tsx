@@ -3,6 +3,7 @@ import { Card, Icon } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { useAuth } from '@site/src/context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -47,6 +48,7 @@ export default function NavigationCard({
     };
 
     const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
+    const resolvedLogoUrl = useBaseUrl(resolvedLogo || '');
     const requiredProvider = authProviders?.[link];
 
     // Check if user is logged in with the required provider using the users object
@@ -85,7 +87,7 @@ export default function NavigationCard({
                 )}
                 <span className={styles.inline}>
                     {resolvedLogo ? (
-                        <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
+                        <img src={resolvedLogoUrl} alt={`${title} logo`} className={styles.logo} />
                     ) : (
                         <Icon className={styles.icon} name={icon} />
                     )}

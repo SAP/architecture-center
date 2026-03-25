@@ -107,15 +107,16 @@ const logos: LogoItem[] = [
     },
 ];
 
-// Helper function to get image URL
-const getImg = (name: string) => `/img/landingPage/${name}`;
-
 export default function TechnologyDomainSection(): JSX.Element {
     const { colorMode } = useColorMode();
     const docsUrl = useBaseUrl('/docs/ref-arch');
+    const imgBaseUrl = useBaseUrl('/img/landingPage/');
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+
+    // Helper function to get image URL with baseUrl
+    const getImg = (name: string) => `${imgBaseUrl}${name}`;
 
     function renderLogo(item: LogoItem, idx: number, isDuplicate = false) {
         const imgSrc = colorMode === 'dark' && item.darkImg ? getImg(item.darkImg) : getImg(item.lightImg);
