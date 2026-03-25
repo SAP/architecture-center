@@ -2,21 +2,29 @@ export const navigationCardsData = [
     {
         title: 'AI-Native North Star Architecture',
         subtitle: 'The AI Native North Star Architecture defines the target state of SAP\'s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
-        icon: 'sap-icon://group',
+        icon: 'sap-icon://initiative',
         link: '/docs/nsa/',
         isNew: true,
         image: '/img/ArchitectureTabs/nsa.webp'
     },
     {
+        title: 'AI Golden Path',
+        subtitle: 'The SAP AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.\n\nIt serves as a central entry point into our approach for building AI-native applications, covering everything from data and AI foundation services to agentic architectures and Joule.',
+        icon: 'sap-icon://initiative',
+        link: '/aigp',
+        isNew: true,
+        image: '/img/ArchitectureTabs/aigoldenpath.webp'
+    },
+    {
         title: 'Quick Start',
-        subtitle: 'A no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.',
+        subtitle: 'Quick Start is a no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.\nIt enables contributors to:\n- Log in using their GitHub account\n- Create an architecture from scratch using the intuitive rich-text editor or upload an existing word document which is automatically converted to Markdown format.\n- Directly add text, images, and architecture Draw.io diagrams in an intuitive editor',
         icon: 'sap-icon://write-new-document',
         link: '/quick-start',
         image: '/img/ArchitectureTabs/quickstart.webp'
     },
     {
         title: 'Architecture Validator',
-        subtitle: 'Upload, preview, and validate your .drawio architecture diagrams based on SAP best-practice guidelines.',
+        subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',
         icon: 'sap-icon://order-status',
         link: '/architecture-validator',
         requiresAuth: true,

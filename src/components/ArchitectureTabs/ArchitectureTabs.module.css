@@ -228,6 +228,7 @@
     line-height: 1.6;
     margin: 0;
     max-width: 700px;
+    white-space: pre-line;
 }
 
 .actionWrapper {
