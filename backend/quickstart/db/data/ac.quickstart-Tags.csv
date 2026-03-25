@@ -1,0 +1,8 @@
+code,label,description
+genai,Generative AI,Generative AI domain tag
+integration,Integration,Integration domain tag
+cap,CAP,SAP Cloud Application Programming Model
+root,Root,Root document level tag
+level1,Level 1,Hierarchy level 1 tag
+level2,Level 2,Hierarchy level 2 tag
+level3,Level 3,Hierarchy level 3 tag
