@@ -1,10 +1,10 @@
 ---
 id: id-nsa-0
 slug: /nsa
-sidebar_position: 0
+sidebar_position: 10
 sidebar_custom_props:
     category_index: []
-title: SAP Reference Architecture - North Star Architecture
+title: SAP AI-Native North Star Architecture
 description: >-
     The AI Native North Star Architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.
 keywords:
@@ -30,7 +30,7 @@ keywords:
     - North Star Architecture
     - NSA
     - Golden Path
-sidebar_label: North Star Architecture
+sidebar_label: AI-Native North Star Architecture
 image: img/ac-soc-med.png
 tags:
     - ref-arch
@@ -47,7 +47,7 @@ last_update:
     date: 2026-03-24
 ---
 
-# SAP Reference Architecture: North Star Architecture
+# SAP AI-Native North Star Architecture
 
 ## Lorem ipsum dolor
 

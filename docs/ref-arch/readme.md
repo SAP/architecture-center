@@ -1,7 +1,7 @@
 ---
 id: id-intro-0
 slug: /ref-arch
-sidebar_position: 0
+sidebar_position: 30
 sidebar_custom_props:
     category_index: []
 title: SAP Reference Architecture - Building Blocks for Business Success

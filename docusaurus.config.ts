@@ -267,12 +267,16 @@ const config: Config = {
                     position: 'right',
                     items: [
                         {
-                            label: 'Browse Architectures',
-                            to: '/docs/ref-arch',
-                        },
-                        {
                             label: 'AI-Native North Star Architecture',
                             to: '/docs/nsa/',
+                        },
+                        {
+                            label: 'AI Golden Path',
+                            to: '/docs/aigp/',
+                        },
+                        {
+                            label: 'Browse Architectures',
+                            to: '/docs/ref-arch',
                         },
                         {
                             label: 'Architecture Validator',

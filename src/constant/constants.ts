@@ -11,7 +11,7 @@ export const navigationCardsData = [
         title: 'AI Golden Path',
         subtitle: 'The SAP AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.\n\nIt serves as a central entry point into our approach for building AI-native applications, covering everything from data and AI foundation services to agentic architectures and Joule.',
         icon: 'sap-icon://initiative',
-        link: '/aigp',
+        link: '/docs/aigp/',
         isNew: true,
         image: '/img/ArchitectureTabs/aigoldenpath.webp'
     },
