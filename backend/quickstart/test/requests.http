@@ -12,3 +12,27 @@ Authorization: Basic alice:
   "contributorsUsernames": ["alice", "bob", "fred"],
   "editorState": "{\"state\":{\"someProperty\":\"property value\"}}"
 }
+
+###
+
+# Replace the full contributor set of one document
+POST http://localhost:4004/quickstart/document-service/setDocumentContributors HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "documentId": "657E1690-0A34-4882-BEDC-25CEA8641BA2",
+  "contributorsUsernames": ["bob"]
+}
+
+###
+
+# Replace the full tag set of one document
+POST http://localhost:4004/quickstart/document-service/setDocumentTags HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "documentId": "657E1690-0A34-4882-BEDC-25CEA8641BA2",
+  "tags": ["agents", "data"]
+}

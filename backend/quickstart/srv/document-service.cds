@@ -10,4 +10,7 @@ service DocumentService @(odata:'/quickstart/document-service') {
 
   action createNewDocument(title: String, description: String, parentId: UUID, tags: array of String,
     contributorsUsernames: array of String, editorState: String) returns Documents;
+
+  action setDocumentContributors(documentId: UUID, contributorsUsernames: array of String) returns Documents;
+  action setDocumentTags(documentId: UUID, tags: array of String) returns Documents;
 }
