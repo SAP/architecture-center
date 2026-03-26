@@ -32,7 +32,7 @@ namespace ac.quickstart;
 
   entity DocumentAssets: cuid {
     mediaType: String(127) not null @Core.IsMediaType;
-    content: LargeBinary not null @Core.MediaType: mediaType;
+    content: LargeBinary @Core.MediaType: mediaType;
     filename: String(255) not null;
     document: Association to Documents not null;
   }
