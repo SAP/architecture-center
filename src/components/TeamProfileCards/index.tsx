@@ -66,6 +66,13 @@ export function CoreTeam(): ReactNode {
             />
 
             <TeamProfileCard
+                name="Julian Schambeck"
+                description="Research & Development | Custom components integration"
+                githubUrl="https://github.com/julian-schambeck"
+                linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
+            />
+            
+            <TeamProfileCard
                 name='James "Jim" Rapp'
                 description="Research & Development | Content Lead"
                 githubUrl="https://github.com/jmsrpp"
@@ -83,13 +90,6 @@ export function ExtendedTeam(): ReactNode {
                 description="Research, Development & Design | SAP UI5 integration"
                 githubUrl="https://github.com/johannagonnzdz"
                 linkedinUrl="https://www.linkedin.com/in/johannagondi/"
-            />
-
-            <TeamProfileCard
-                name="Julian Schambeck"
-                description="Research & Development | Custom components integration"
-                githubUrl="https://github.com/julian-schambeck"
-                linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
             />
 
             <TeamProfileCard
