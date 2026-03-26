@@ -7,4 +7,7 @@ service DocumentService @(odata:'/quickstart/document-service') {
   entity DocumentTags as projection on my.DocumentTags;
   entity DocumentAssets as projection on my.DocumentAssets;
   entity Documents as projection on my.Documents;
+
+  action createNewDocument(title: String, description: String, parentId: UUID, tags: array of String,
+    contributorsUsernames: array of String, editorState: String) returns Documents;
 }

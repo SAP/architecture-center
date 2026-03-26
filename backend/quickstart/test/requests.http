@@ -1,0 +1,14 @@
+
+# Create a new document from scratch
+POST http://localhost:4004/quickstart/document-service/createNewDocument HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "title": "Business Data Cloud - The Data Foundation for Agentic AI",
+  "description": "This reference architecture is about Business Data Cloud, the data foundation for agentic AI.",
+  "parentId": null,
+  "tags": ["genai", "agents", "data"],
+  "contributorsUsernames": ["alice", "bob", "fred"],
+  "editorState": "{\"state\":{\"someProperty\":\"property value\"}}"
+}

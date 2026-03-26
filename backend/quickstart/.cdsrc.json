@@ -1,7 +1,7 @@
 {
     "requires": {
         "[dev]": {
-            "auth": "dummy"
+            "auth": "mocked"
         },
         "[production]": {
             "auth": "dummy"

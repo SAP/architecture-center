@@ -1,5 +1,7 @@
 code,label,description
 genai,Generative AI,Generative AI domain tag
+data,Data,Data domain tag
+agents,Agents and Agentic AI, Agents and Agentic AI domain tag
 integration,Integration,Integration domain tag
 cap,CAP,SAP Cloud Application Programming Model
 root,Root,Root document level tag
