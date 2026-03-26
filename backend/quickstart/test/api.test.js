@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
+const fs = require('node:fs/promises');
+const path = require('node:path');
 
 const BASE_URL = process.env.CAP_BASE_URL || 'http://localhost:4004';
 const SERVICE_PATH = process.env.CAP_SERVICE_PATH || '/quickstart/document-service';
@@ -67,6 +69,30 @@ async function requestJson(session, path, { method = 'GET', body } = {}) {
   const text = await res.text();
   const json = text ? safeJsonParse(text) : undefined;
   return { res, json, text };
+}
+
+async function requestRaw(session, requestPath, {
+  method = 'GET',
+  body,
+  contentType,
+  accept,
+} = {}) {
+  const headers = {};
+  if (contentType) headers['content-type'] = contentType;
+  if (accept) headers.accept = accept;
+
+  if (session?.authorization) headers.authorization = session.authorization;
+  if (session?.token) headers['x-csrf-token'] = session.token;
+  if (session?.cookie) headers.cookie = session.cookie;
+
+  const res = await fetch(`${SERVICE_URL}${requestPath}`, {
+    method,
+    headers,
+    body,
+  });
+
+  const bytes = Buffer.from(await res.arrayBuffer());
+  return { res, bytes };
 }
 
 function safeJsonParse(text) {
@@ -196,6 +222,84 @@ describe('QuickstartService API (integration)', function () {
     // Cleanup children created for this test.
     await requestJson(session, `/Documents(${childId})`, { method: 'DELETE' });
     await requestJson(session, `/Documents(${grandChildId})`, { method: 'DELETE' });
+  });
+
+  it('uploads and downloads a draw.io asset', async () => {
+    const created = await createDocumentViaAction(session, {
+      title: `Asset Drawio ${crypto.randomUUID().slice(0, 8)}`,
+    });
+    const documentId = created.ID;
+    const assetId = uuid();
+    const mediaType = 'application/vnd.jgraph.mxfile+xml';
+    const filename = 'reference-architecture-generative-ai-basic.drawio';
+
+    const { res: metaRes, json: metaJson } = await requestJson(session, '/DocumentAssets', {
+      method: 'POST',
+      body: {
+        ID: assetId,
+        mediaType,
+        filename,
+        document_ID: documentId,
+      },
+    });
+    assert.ok([200, 201].includes(metaRes.status), `Asset metadata create failed: ${metaRes.status} ${JSON.stringify(metaJson)}`);
+
+    const sourcePath = path.join(__dirname, 'assets', filename);
+    const sourceBytes = await fs.readFile(sourcePath);
+
+    const { res: uploadRes } = await requestRaw(session, `/DocumentAssets(${assetId})/content`, {
+      method: 'PUT',
+      body: sourceBytes,
+      contentType: mediaType,
+    });
+    assert.ok([200, 204].includes(uploadRes.status), `Asset upload failed, got ${uploadRes.status}`);
+
+    const { res: downloadRes, bytes: downloadedBytes } = await requestRaw(session, `/DocumentAssets(${assetId})/content`, {
+      method: 'GET',
+      accept: mediaType,
+    });
+    assert.equal(downloadRes.status, 200);
+    assert.match(downloadRes.headers.get('content-type') || '', /application\/vnd\.jgraph\.mxfile\+xml/i);
+    assert.equal(downloadedBytes.compare(sourceBytes), 0, 'Downloaded draw.io bytes must match uploaded content');
+  });
+
+  it('uploads and downloads a png asset', async () => {
+    const created = await createDocumentViaAction(session, {
+      title: `Asset Png ${crypto.randomUUID().slice(0, 8)}`,
+    });
+    const documentId = created.ID;
+    const assetId = uuid();
+    const mediaType = 'image/png';
+    const filename = 'eda-sap.png';
+
+    const { res: metaRes, json: metaJson } = await requestJson(session, '/DocumentAssets', {
+      method: 'POST',
+      body: {
+        ID: assetId,
+        mediaType,
+        filename,
+        document_ID: documentId,
+      },
+    });
+    assert.ok([200, 201].includes(metaRes.status), `Asset metadata create failed: ${metaRes.status} ${JSON.stringify(metaJson)}`);
+
+    const sourcePath = path.join(__dirname, 'assets', filename);
+    const sourceBytes = await fs.readFile(sourcePath);
+
+    const { res: uploadRes } = await requestRaw(session, `/DocumentAssets(${assetId})/content`, {
+      method: 'PUT',
+      body: sourceBytes,
+      contentType: mediaType,
+    });
+    assert.ok([200, 204].includes(uploadRes.status), `Asset upload failed, got ${uploadRes.status}`);
+
+    const { res: downloadRes, bytes: downloadedBytes } = await requestRaw(session, `/DocumentAssets(${assetId})/content`, {
+      method: 'GET',
+      accept: mediaType,
+    });
+    assert.equal(downloadRes.status, 200);
+    assert.match(downloadRes.headers.get('content-type') || '', /image\/png/i);
+    assert.equal(downloadedBytes.compare(sourceBytes), 0, 'Downloaded PNG bytes must match uploaded content');
   });
 });
 
