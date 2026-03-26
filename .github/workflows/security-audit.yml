@@ -96,7 +96,7 @@ jobs:
           echo "✅ No suspicious patterns detected."
 
       - name: Audit dependencies
-        run: npm audit --audit-level=high || true
+        run: npm audit --audit-level=high
 
   audit-workflows:
     name: Audit GitHub Workflows

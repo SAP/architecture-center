@@ -108,6 +108,10 @@ module.exports = function (_context, _options) {
                                 key: 'Strict-Transport-Security',
                                 value: 'max-age=31536000; includeSubDomains; preload',
                             },
+                            {
+                                key: 'Content-Security-Policy',
+                                value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
+                            },
                         ],
                     },
                 ],
