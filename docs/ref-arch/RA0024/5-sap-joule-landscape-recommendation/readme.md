@@ -96,8 +96,6 @@ The solution architecture consists of the following key elements:
 
 - **SAP SuccessFactors**: HR-focused Joule skills and agents can be developed and tested against SuccessFactors test instances, validating employee self-service scenarios and HR process automations before enabling them for the workforce.
 
-- **SAP SuccessFactors**: SAP SuccessFactors is owning an own identifier for a person, the Person UID, required for Embedded Analytics. This UID has an independent lifecycle than the Global User UID, which is owned by the SAP Cloud Identity Services. Connecting multiple instances of SAP SuccessFactors with a single instance of SAP Cloud Identity Services may lead to conflicts when synchronizing the identities from SAP SuccessFactors to SAP Cloud Identity Services. There are different possibilities to avoid such conflicts, for example by using different user accounts in different instances of SAP Success Factors, while authentication via Global User UID can allow single sign on even with different mail addresses in the different instances of SAP Success Factors.
-
 - **Multi-application landscapes**: Organizations with multiple Joule-enabled SAP applications benefit from the unified Joule instance approach, where a single staged BTP setup serves as the foundation for Joule across SAP S/4HANA, SAP SuccessFactors, SAP Ariba, and other connected systems.
 
 - **Extended staging models**: The 3-staged model can be extended to 4 or more stages for organizations with additional quality gates, regulatory requirements, or geographic considerations that necessitate further separation of environments.
