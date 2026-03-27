@@ -318,7 +318,24 @@ describe('QuickstartService API (authorization)', function () {
 
   it('does not expose Users directly', async () => {
     const { res } = await requestJson(alice, '/Users');
-    assert.equal(res.status, 404);
+    assert.equal(res.status, 403);
+  });
+
+  it('returns author and contributor usernames via Documents expand', async () => {
+    const created = await createDocumentViaAction(alice, {
+      title: `Expand Users ${crypto.randomUUID().slice(0, 8)}`,
+      contributorsUsernames: ['bob'],
+    });
+
+    const { res, json } = await requestJson(alice, `/Documents(${created.ID})?$expand=author,contributors($expand=user)`);
+    assert.equal(res.status, 200);
+
+    assert.equal(json?.author?.username, 'alice', 'Expected author username in expanded document');
+
+    const contributorUsernames = (json?.contributors || [])
+      .map((entry) => entry?.user?.username)
+      .filter(Boolean);
+    assert.ok(contributorUsernames.includes('bob'), 'Expected contributor username in expanded document');
   });
 
   it('rejects direct POST to Documents', async () => {

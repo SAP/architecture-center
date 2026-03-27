@@ -114,6 +114,12 @@ Authorization: Basic alice:
 
 ###
 
+# A1) Documents expand still returns usernames for author + contributors
+GET http://localhost:4004/quickstart/document-service/Documents({{authDocId}})?$expand=author,contributors($expand=user) HTTP/1.1
+Authorization: Basic alice:
+
+###
+
 # A2) Direct POST on Documents is blocked (use createNewDocument action)
 POST http://localhost:4004/quickstart/document-service/Documents HTTP/1.1
 Content-Type: application/json

@@ -1,6 +1,8 @@
 using { ac.quickstart as my } from '../db/schema';
 
 service DocumentService @(odata:'/quickstart/document-service', requires: 'authenticated-user') {
+  @readonly
+  entity Users as projection on my.Users;
   @restrict: [
     {
       grant: 'READ',

@@ -19,11 +19,25 @@ class DocumentService extends cds.ApplicationService {
         this.on("createNewDocument", this.createNewDocument);
         this.on("setDocumentContributors", this.setDocumentContributors);
         this.on("setDocumentTags", this.setDocumentTags);
+        this.before(["READ"], "Users", this.rejectDirectUsersRead);
+        this.before(["CREATE", "UPDATE", "PATCH", "DELETE"], "Users", this.rejectUsersWrite);
         this.before(["CREATE", "UPDATE", "PATCH"], "DocumentAssets", this.validateDocumentAssetMutation);
         this.before(["CREATE", "UPDATE", "PATCH", "DELETE"], "DocumentTags", this.validateDocumentTagMutation);
         this.before(["CREATE", "UPDATE", "PATCH", "DELETE"], "DocumentContributors", this.validateDocumentContributorMutation);
         return super.init();
     }
+
+    private rejectDirectUsersRead = (req: cds.Request): void => {
+        const fromRef = (req.query as any)?.SELECT?.from?.ref;
+        const isDirectUsersRequest = Array.isArray(fromRef) && fromRef.length === 1;
+        if (isDirectUsersRequest) {
+            req.reject(403, 'Users cannot be accessed directly');
+        }
+    };
+
+    private rejectUsersWrite = (req: cds.Request): void => {
+        req.reject(403, 'Users cannot be modified directly');
+    };
 
     private normalizeMediaType = (mediaType?: string): string => {
         if (typeof mediaType !== 'string') return '';
@@ -178,12 +192,7 @@ class DocumentService extends cds.ApplicationService {
             })
             .where({ ID: documentId });
 
-        return {
-            ...document,
-            tags: Array.isArray(document?.tags)
-                ? document.tags.map((entry: any) => entry.tag).filter(Boolean)
-                : []
-        };
+        return document;
     };
 
     private resolveOrCreateUser = async (username: string): Promise<string> => {
