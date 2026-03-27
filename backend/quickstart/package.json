@@ -21,6 +21,7 @@
   "scripts": {
     "start": "cds-serve",
     "watch": "npx cds watch --profile dev",
+    "watch:hybrid": "npx cds watch --profile hybrid",
     "test": "mocha \"test/**/*.test.js\"",
     "build-deploy": "mbt build && cf deploy mta_archives/*"
   },
