@@ -48,7 +48,7 @@ last_update:
 ---
 
 :::info Disclaimer
-The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+The Agent Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
 
 This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
@@ -67,7 +67,7 @@ The core architecture for AI agents at SAP is based on the [AI Foundation](https
 
 The architecture centers around **Joule** as the orchestrator, with custom agents on **SAP BTP** connected to **SAP Cloud Solutions** and **3rd Party Systems**:
 
--   **Joule:** Central AI copilot providing unified user interface and orchestration. Routes requests to agents and skills, manages conversations and enables bidirectional A2A communication through the Agent & Tool Gateway (inbound) and Joule Capabilities (outbound).
+-   **Joule:** Central AI copilot providing unified user interface and orchestration. Routes requests to agents and skills, manages conversations and enables bidirectional A2A communication through the Agent Gateway (inbound) and Joule Capabilities (outbound).
 
 -   **Custom Agents on SAP BTP:** Two development approaches - **Low-Code** via Joule Studio with visual configuration and automatic Joule registration and **Pro-Code** using SAP Cloud SDK for AI with frameworks (LangGraph, AG2, CrewAI, Smolagents) integrated via A2A protocol.
 
@@ -75,7 +75,7 @@ The architecture centers around **Joule** as the orchestrator, with custom agent
 
 -   **SAP Cloud Solutions:** Seamless integration with SAP S/4HANA, SuccessFactors, Business Data Cloud, Concur, Customer Experience and Business Networks.
 
--   **3rd Party Integration:** External (AI) platforms (Google Cloud, Microsoft Azure, AWS, IBM Cloud) and (AI) clients consume Joule Agents via the Agent & Tool Gateway or are orchestrated by Joule. MCP Servers and APIs provide tools and data sources.
+-   **3rd Party Integration:** External (AI) platforms (Google Cloud, Microsoft Azure, AWS, IBM Cloud) and (AI) clients consume Joule Agents via the Agent Gateway or are orchestrated by Joule. MCP Servers and APIs provide tools and data sources.
 
 -   **Security:** SAP Cloud Identity Services manages authentication, authorization and identity federation across all connections.
 
@@ -91,7 +91,7 @@ SAP supports two complementary paths for building AI agents, each optimized for 
 
 AI agents integrate with Joule through bidirectional A2A communication, enabling seamless orchestration and external consumption.
 
-**Inbound Integration (Agent & Tool Gateway):** External systems consume Joule Agents through a publicly accessible gateway supporting synchronous and asynchronous A2A patterns. Third-party platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock can delegate SAP-specific tasks to Joule Agents. See [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
+**Inbound Integration (Agent Gateway):** External systems consume Joule Agents through a publicly accessible gateway supporting synchronous and asynchronous A2A patterns. Third-party platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock can delegate SAP-specific tasks to Joule Agents. See [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
 
 **Outbound Integration (Bring Your Own Agent):** Joule orchestrates external code-based agents built with any A2A-compliant framework. Supports synchronous communication, asynchronous callbacks for long-running tasks and multi-turn conversations with context handling. See [Integrating AI Agents with Joule](./4-integrate-ai-agents-with-joule/readme.md).
 
