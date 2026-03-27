@@ -37,8 +37,8 @@ last_update:
   date: 2026-03-19
 ---
 
-::: Disclaimer
-The Agent & Tool Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
+:::info Disclaimer
+The Agent Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
 
 This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
@@ -79,11 +79,11 @@ For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanis
 
 At SAP, MCP is used to provide Joule Agents with semantically enriched access to SAP business capabilities and domain knowledge, including content from SAP Knowledge Graph. For external interoperability between vendors and third-party agents, SAP uses the Agent2Agent (A2A) protocol as the preferred approach, ensuring enterprise-grade security, governance and controlled access.
 
-## Agent & Tool Gateway (Inbound)
+## Agent Gateway (Inbound)
 
-SAP provides an Agent & Tool Gateway that enables external clients and applications to consume Joule Agents through standardized protocols. This represents the **inbound direction** where external systems call into SAP.
+SAP provides an Agent Gateway that enables external clients and applications to consume Joule Agents through standardized protocols. This represents the **inbound direction** where external systems call into SAP.
 
-The **Agent & Tool Gateway** exposes Joule Agents via the A2A protocol with an externally reachable endpoint. This enables third-party AI Agents, applications, partner systems and custom business applications to consume SAP-native agents.
+The **Agent Gateway** exposes Joule Agents via the A2A protocol with an externally reachable endpoint. This enables third-party AI Agents, applications, partner systems and custom business applications to consume SAP-native agents.
 
 **Key Characteristics:**
 
@@ -110,7 +110,7 @@ To ensure secure inbound communication and validate server updates, an Identity 
 
 For detailed action definitions, authentication setup and implementation guidance, see [Bring Your Own Agent](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/code-based-agents-bring-your-own-agent) in the Joule Development Guide.
 
-By supporting both inbound (Agent & Tool Gateway) and outbound (Bring Your Own Agent) integration patterns, SAP enables true bidirectional A2A communication—allowing external systems to consume SAP agents and Joule to orchestrate external agents seamlessly.
+By supporting both inbound (Agent Gateway) and outbound (Bring Your Own Agent) integration patterns, SAP enables true bidirectional A2A communication—allowing external systems to consume SAP agents and Joule to orchestrate external agents seamlessly.
 
 ## Simplified Flow
 
