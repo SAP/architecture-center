@@ -1,118 +1,182 @@
-# API usage (DocumentService)
+# Document Service API
 
-Base URL (local): `http://localhost:4004`
+This API is used by Quickstart to store and manage documents, contributors, tags, and attached assets. It is implemented with SAP CAP (Cloud Application Programming Model) as an OData service. Persistent data is stored in SAP HANA Cloud.
 
-Service root: `/quickstart/document-service`
+## Endpoint Overview
 
-The service exposes:
+- `GET /quickstart/document-service/Documents?$expand=author,contributors($expand=user),assets,tags($expand=tag)`
+- `POST /quickstart/document-service/createNewDocument`
+- `POST /quickstart/document-service/setDocumentContributors`
+- `POST /quickstart/document-service/setDocumentTags`
+- `POST /quickstart/document-service/DocumentAssets`
+- `PUT /quickstart/document-service/DocumentAssets(<ASSET_ID>)/content`
+- `GET /quickstart/document-service/DocumentAssets(<ASSET_ID>)/content`
+- `DELETE /quickstart/document-service/Documents(<DOCUMENT_ID>)`
 
-- `Documents`
-- `Users`
-- `DocumentContributors`
-- action `assignDocumentContributors(documentId, contributors)`
+## Endpoint Details (REST Client Format)
 
-Below are common frontend scenarios and the recommended call sequences.
+### 1) Authentication for Testing
 
-## 1) Fetch “my documents” for the logged-in user
+Two test users are available for API testing: `alice` and `bob`.
 
-Goal: list documents where the current GitHub username is either the **author** or a **contributor**, including expanded user details.
+At the moment, requests use Basic authentication and the service executes actions on behalf of the authenticated user. Soon, this will be replaced by the Quickstart backend authentication flow via GitHub identity provider, where the user is derived from the decoded token.
 
-Readable format (as you’d write it conceptually):
+Basic auth reminder:
 
-```text
-/quickstart/document-service/Documents?$filter=author/ghUsername eq 'alice' or contributors/any(c:c/user/ghUsername eq 'alice')&$expand=author,contributors($expand=user)
-```
+- Send an `Authorization` header with `Basic <BASE64(username:password)>`
+- Use one of the test usernames (`alice` or `bob`)
+- Passwords are managed separately and are intentionally not documented here
 
-Important: that string must be **URL-encoded** when used as an actual HTTP URL (at minimum: spaces as `%20`, quotes as `%27` if your client doesn’t handle them).
-
-Example request (encoded so it works as a URL):
-
-```http
-GET /quickstart/document-service/Documents?$filter=author/ghUsername%20eq%20'alice'%20or%20contributors/any(c:c/user/ghUsername%20eq%20'alice')&$expand=author,contributors($expand=user)
-```
-
-Notes:
-
-- `contributors/any(...)` is the OData way to express “at least one contributor matches”.
-- If your HTTP client doesn’t auto-encode spaces, encode them as `%20` (as shown).
-- The response contains `author_ID` (the user’s technical key) which the frontend can reuse when creating new documents.
-
-## 2) Create a new document, then assign contributors (by GitHub username)
-
-This is intentionally a **two-step** flow:
-
-1) create the document with `POST /Documents`
-2) overwrite its contributors with the custom action `assignDocumentContributors`
-
-### Step 1: create the document
-
-Use `author_ID` from the “my documents” fetch (scenario 1). This keeps the payload small and avoids the frontend having to resolve users by username.
+Example header pattern:
 
 ```http
-POST /quickstart/document-service/Documents
+Authorization: Basic <BASE64(alice:<PASSWORD>)>
+```
+
+### 2) Read Documents for Current User
+
+This is the main read endpoint. It returns only documents visible to the current user and expands related metadata.
+
+```http
+GET <BASE_URL>/quickstart/document-service/Documents?$expand=author,contributors($expand=user),assets,tags($expand=tag) HTTP/1.1
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+```
+
+### 3) Create a New Document
+
+Creates a document and optionally sets contributors, tags, and editor state in one request.
+
+```http
+POST <BASE_URL>/quickstart/document-service/createNewDocument HTTP/1.1
 Content-Type: application/json
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 
 {
-	"title": "My New Page",
-	"description": "...",
-	"author_ID": "A0B1C2D3-1111-4A11-8111-111111111111",
-	"editorState": "{}"
+	"title": "<DOCUMENT_TITLE>",
+	"description": "<DOCUMENT_DESCRIPTION>",
+	"parentId": null,
+	"tags": ["<TAG_CODE_1>", "<TAG_CODE_2>"],
+	"contributorsUsernames": ["<CONTRIBUTOR_USERNAME_1>", "<CONTRIBUTOR_USERNAME_2>"],
+	"editorState": "<EDITOR_STATE_JSON_AS_STRING>"
 }
 ```
 
-The response includes the new document’s `ID`.
+### 4) Overwrite Contributors of an Existing Document
 
-### Step 2: assign contributors (overwrites existing)
-
-Call the action with a list of GitHub usernames. The backend will:
-
-- create missing `Users` rows for usernames that don’t exist yet (treating `ghUsername` as a natural key at the API boundary)
-- delete existing `DocumentContributors` rows for this document
-- insert the new contributor set
+Replaces the complete contributor set of a document.
 
 ```http
-POST /quickstart/document-service/assignDocumentContributors
+POST <BASE_URL>/quickstart/document-service/setDocumentContributors HTTP/1.1
 Content-Type: application/json
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 
 {
-	"documentId": "<DOCUMENT_ID_FROM_STEP_1>",
-	"contributors": ["bob", "fred"]
+	"documentId": "<DOCUMENT_ID>",
+	"contributorsUsernames": ["<CONTRIBUTOR_USERNAME_1>", "<CONTRIBUTOR_USERNAME_2>"]
 }
 ```
 
-Tip: if you want “no contributors”, pass an empty array: `"contributors": []`.
+### 5) Overwrite Tags of an Existing Document
 
-## 3) Move a document as a subpage of another document
-
-Update the document’s `parent_ID` via `PATCH`. The backend validates that the move does not create cycles.
+Replaces the complete tag set of a document.
 
 ```http
-PATCH /quickstart/document-service/Documents(<CHILD_DOCUMENT_ID>)
+POST <BASE_URL>/quickstart/document-service/setDocumentTags HTTP/1.1
 Content-Type: application/json
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 
 {
-	"parent_ID": "<NEW_PARENT_DOCUMENT_ID>"
+	"documentId": "<DOCUMENT_ID>",
+	"tags": ["<TAG_CODE_1>", "<TAG_CODE_2>"]
 }
 ```
 
-To un-parent a document (make it a root page), set `parent_ID` to `null`:
+### 6) Upload a Document Asset (Two Steps)
+
+Document assets are modeled as metadata plus binary content:
+
+- Metadata is stored on `DocumentAssets` (for example media type, filename, and document association)
+- File bytes are uploaded separately to the media stream endpoint (`/content`)
+
+Step 1: create the metadata row.
 
 ```http
-PATCH /quickstart/document-service/Documents(<CHILD_DOCUMENT_ID>)
+POST <BASE_URL>/quickstart/document-service/DocumentAssets HTTP/1.1
 Content-Type: application/json
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 
 {
-	"parent_ID": null
+	"ID": "<ASSET_ID>",
+	"mediaType": "application/vnd.jgraph.mxfile+xml",
+	"filename": "<FILENAME>",
+	"document_ID": "<DOCUMENT_ID>"
 }
 ```
 
-## 4) Delete a document (including cascade delete of subpages)
-
-Delete the document via `DELETE`. The service implementation performs a subtree delete:
-
-- deletes nested subpages (all descendants, not only direct children)
-- deletes the related `DocumentContributors` join rows
+Step 2: upload the binary content to the media property.
 
 ```http
-DELETE /quickstart/document-service/Documents(<DOCUMENT_ID>)
+PUT <BASE_URL>/quickstart/document-service/DocumentAssets(<ASSET_ID>)/content HTTP/1.1
+Content-Type: application/vnd.jgraph.mxfile+xml
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+
+< ./assets/<DRAWIO_FILENAME>.drawio
 ```
+
+JavaScript example for uploading a `.drawio` file:
+
+```javascript
+import { readFile } from 'node:fs/promises';
+
+const baseUrl = '<BASE_URL>';
+const assetId = '<ASSET_ID>';
+const filePath = './assets/<DRAWIO_FILENAME>.drawio';
+const username = '<USERNAME>';
+const password = '<PASSWORD>';
+
+const drawioContent = await readFile(filePath);
+const auth = Buffer.from(`${username}:${password}`).toString('base64');
+
+const response = await fetch(
+	`${baseUrl}/quickstart/document-service/DocumentAssets(${assetId})/content`,
+	{
+		method: 'PUT',
+		headers: {
+			Authorization: `Basic ${auth}`,
+			'Content-Type': 'application/vnd.jgraph.mxfile+xml'
+		},
+		body: drawioContent
+	}
+);
+
+if (!response.ok) {
+	throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+}
+```
+
+### 7) Download a Specific Document Asset
+
+The expanded `Documents` read returns asset metadata only. To fetch the actual file bytes, call the asset content endpoint.
+
+```http
+GET <BASE_URL>/quickstart/document-service/DocumentAssets(<ASSET_ID>)/content HTTP/1.1
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Accept: <EXPECTED_MEDIA_TYPE>
+```
+
+### 8) Delete a Document
+
+Deletes a document by ID.
+
+```http
+DELETE <BASE_URL>/quickstart/document-service/Documents(<DOCUMENT_ID>) HTTP/1.1
+Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+```
+
+## Authentication and Authorization Rules
+
+- Authentication currently uses Basic auth for test users (`alice`, `bob`).
+- Authorization is enforced per document.
+- Authors can perform write operations on their own documents, including update, delete, and managing contributors, tags, and assets.
+- Contributors have view access only for documents where they are assigned as contributors.
+- Users who are neither author nor contributor cannot read the document.
