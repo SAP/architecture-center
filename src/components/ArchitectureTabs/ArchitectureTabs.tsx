@@ -58,13 +58,16 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         return () => window.removeEventListener('resize', updateIndicator);
     }, [activeIndex, tabs]);
 
+    // Get image URL - must be called before conditional return (React hooks rule)
+    const activeTab = tabs?.[activeIndex];
+    const imageUrl = useBaseUrl(activeTab?.image || '');
+
     // Early return AFTER all hooks
     if (!tabs || tabs.length === 0) {
         return null;
     }
 
     const { title, subtitle, icon, link, isNew, image } = tabs[activeIndex];
-    const imageUrl = useBaseUrl(image || '');
     const requiredProvider = authProviders?.[link];
     const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
@@ -120,7 +123,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                         return (
                             <button
                                 key={index}
-                                ref={(el) => (tabRefs.current[index] = el)}
+                                ref={(el) => { tabRefs.current[index] = el; }}
                                 role="tab"
                                 aria-selected={isActive}
                                 aria-controls={`panel-${index}`}

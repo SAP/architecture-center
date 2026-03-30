@@ -382,9 +382,7 @@
         font-size: 0.8rem;
         padding: 6px 12px;
     }
-}
 
-@media (max-width: 996px) {
     .mainContent {
         flex-direction: column;
     }

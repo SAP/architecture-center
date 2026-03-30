@@ -4,7 +4,7 @@ import styles from './ScrollArrow.module.css';
 export default function ScrollArrow(): JSX.Element {
     const arrowRef = useRef<HTMLDivElement>(null);
 
-    const handleClick = () => {
+    const scrollToNextSection = () => {
         if (!arrowRef.current) return;
 
         // Find the parent section (FullPageSection)
@@ -18,9 +18,27 @@ export default function ScrollArrow(): JSX.Element {
         }
     };
 
+    const handleClick = () => {
+        scrollToNextSection();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            scrollToNextSection();
+        }
+    };
+
     return (
         <div ref={arrowRef} className={styles.scrollArrowContainer}>
-            <div className={styles.scrollArrow} onClick={handleClick}>
+            <div
+                className={styles.scrollArrow}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+                role="button"
+                tabIndex={0}
+                aria-label="Scroll to next section"
+            >
                 <span></span>
             </div>
         </div>
