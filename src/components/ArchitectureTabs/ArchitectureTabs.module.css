@@ -1,7 +1,7 @@
 .tabsContainer {
     width: 100%;
     max-width: 1440px;
-    margin: 40px auto 0 auto;
+    margin: 0 auto;
     padding: 0 24px;
     display: flex;
     flex-direction: column;

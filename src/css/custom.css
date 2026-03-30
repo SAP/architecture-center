@@ -1419,3 +1419,68 @@ footer a b:hover {
     -webkit-text-fill-color: transparent;
     font-weight: 500;
 }
+
+/* =========================================================================
+   Home Page Continuous Gradient Background
+   ========================================================================= */
+
+/* Light mode - continuous gradient from hero to footer */
+html[data-theme='light'] .homepage-main {
+    background: linear-gradient(
+        to bottom,
+        #d0e0ed 0%,
+        #dce8f2 8%,
+        #e8f1f8 15%,
+        #f5f9fd 25%,
+        #ffffff 40%,
+        #ffffff 60%,
+        #f5f9fd 75%,
+        #e8f1f8 85%,
+        #dce8f2 92%,
+        #d0e0ed 100%
+    );
+}
+
+/* Dark mode - continuous gradient from hero to footer */
+html[data-theme='dark'] .homepage-main {
+    background: linear-gradient(
+        to bottom,
+        #1e2030 0%,
+        #181a28 8%,
+        #121420 15%,
+        #0c0e18 25%,
+        #070810 40%,
+        #070810 60%,
+        #0c0e18 75%,
+        #121420 85%,
+        #181a28 92%,
+        #1e2030 100%
+    );
+}
+
+/* Full-page scroll - hide navbar shadow and adjust layout */
+.homepage-main {
+    position: relative;
+}
+
+/* Footer should snap as part of the last section */
+body:has(.homepage-main) footer.footer {
+    scroll-snap-align: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .homepage-main {
+        scroll-snap-type: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* On mobile, allow normal scrolling */
+@media (max-width: 768px) {
+    .homepage-main {
+        scroll-snap-type: none !important;
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+}

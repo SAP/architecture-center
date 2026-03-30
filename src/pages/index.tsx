@@ -2,9 +2,12 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
+import ArchitectureTabsSection from '../sections/ArchitectureTabsSection';
 import TechnologyDomainSection from '../sections/TechnologyDomainSection';
 import NewsSection from '../sections/NewsSection';
 import AdditionalResSection from '../sections/AdditionalResSection';
+import FullPageSection from '../components/FullPageSection/FullPageSection';
+import styles from './index.module.css';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
@@ -23,11 +26,22 @@ export default function Home(): JSX.Element {
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >
-            <main>
-                <HeroSection />
-                <NewsSection />
-                <TechnologyDomainSection />
-                <AdditionalResSection />
+            <main className={`homepage-main ${styles.fullPageContainer}`}>
+                <FullPageSection>
+                    <HeroSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <ArchitectureTabsSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <NewsSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <TechnologyDomainSection />
+                </FullPageSection>
+                <FullPageSection showArrow={false} isLast>
+                    <AdditionalResSection />
+                </FullPageSection>
             </main>
         </Layout>
     );

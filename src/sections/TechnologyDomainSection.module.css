@@ -1,12 +1,10 @@
 .domainSection {
-    /* Light mode: brightest point, then getting darker */
-    background: linear-gradient(to bottom, #ffffff 0%, #f5f9fd 50%, #e8f1f8 100%);
-    padding: 30px 0 15px 0;
+    background: transparent;
+    padding: 0;
 }
 
 [data-theme='dark'] .domainSection {
-    /* Dark mode: darkest point then getting brighter */
-    background: linear-gradient(to bottom, #070810 0%, #0c0e18 50%, #121420 100%);
+    background: transparent;
 }
 
 .title {
@@ -26,8 +24,8 @@
 
 .container {
     max-width: 1440px;
-    margin: 0 auto 40px auto;
-    padding: 0 24px 0px;
+    margin: 0 auto 20px auto;
+    padding: 0 24px;
 }
 
 /* ── 5-column portrait grid ── */
@@ -290,8 +288,8 @@
 
 /* ── Trusted Technology Partners Carousel Section ── */
 .partnersContainer {
-    margin-top: 80px;
-    padding-top: 40px;
+    margin-top: 40px;
+    padding-top: 20px;
 }
 
 .partnersTitle {
