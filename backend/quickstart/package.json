@@ -19,11 +19,11 @@
     "typescript": "^5"
   },
   "scripts": {
-    "start": "cds-serve",
-    "watch": "npx cds watch --profile dev",
-    "watch:hybrid": "npx cds watch --profile hybrid",
+    "watch": "npx cds watch --profile development",
     "test": "mocha \"test/**/*.test.js\"",
-    "build-deploy": "mbt build && cf deploy mta_archives/*"
+    "build": "mbt build",
+    "deploy": "cf deploy mta_archives/*",
+    "start": "cds-serve"
   },
   "private": true,
   "imports": {
