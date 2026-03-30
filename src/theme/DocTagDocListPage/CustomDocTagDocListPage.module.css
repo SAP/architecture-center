@@ -1,0 +1,26 @@
+.docItem {
+  padding: 1rem 0px;
+  border-bottom: 1px solid rgb(223, 227, 232);
+}
+
+.docItem > *:last-child {
+  margin-bottom: 0;
+}
+
+.docItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+[data-theme='dark'] .docItem:last-child {
+  border-bottom: none;
+}
+
+[data-theme='dark'] .docItem a h2 {
+  color: var(--ifm-link-color);
+}
+
+.docItemLabels {
+  font-size: 0.8rem;
+  color: var(--ifm-color-content-secondary);
+}
