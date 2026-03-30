@@ -24,9 +24,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
-    const [isPaused, setIsPaused] = useState(false);
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-    const autoRotateIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
@@ -59,38 +57,6 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         window.addEventListener('resize', updateIndicator);
         return () => window.removeEventListener('resize', updateIndicator);
     }, [activeIndex, tabs]);
-
-    // Auto-rotation carousel effect
-    useEffect(() => {
-        if (!tabs || tabs.length === 0 || isPaused || isTransitioning) {
-            if (autoRotateIntervalRef.current) {
-                clearInterval(autoRotateIntervalRef.current);
-                autoRotateIntervalRef.current = null;
-            }
-            return;
-        }
-
-        autoRotateIntervalRef.current = setInterval(() => {
-            setIsTransitioning(true);
-            setTimeout(() => {
-                setActiveIndex((prevIndex) => (prevIndex + 1) % tabs.length);
-                setTimeout(() => {
-                    setIsTransitioning(false);
-                }, 50);
-            }, 200);
-        }, 3000);
-
-        return () => {
-            if (autoRotateIntervalRef.current) {
-                clearInterval(autoRotateIntervalRef.current);
-                autoRotateIntervalRef.current = null;
-            }
-        };
-    }, [tabs, isPaused, isTransitioning]);
-
-    // Handlers for mouse hover (pause/resume auto-rotation)
-    const handleMouseEnter = () => setIsPaused(true);
-    const handleMouseLeave = () => setIsPaused(false);
 
     // Early return AFTER all hooks
     if (!tabs || tabs.length === 0) {
@@ -138,11 +104,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
     };
 
     return (
-        <div
-            className={styles.tabsContainer}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
+        <div className={styles.tabsContainer}>
             {/* Tab Header/Buttons */}
             <div className={styles.tabListWrapper}>
                 <div className={styles.tabList} role="tablist">
