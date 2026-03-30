@@ -31,7 +31,7 @@
 .subtitle {
     font-size: 1.25rem;
     color: var(--ifm-color-content-secondary);
-    max-width: 700px;
+
     margin: 0;
     line-height: 1.6;
 }

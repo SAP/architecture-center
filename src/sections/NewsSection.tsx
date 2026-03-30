@@ -29,7 +29,7 @@ export default function NewsSection(): JSX.Element {
                 <div className={styles.header}>
                     <h2 className={styles.title}>Latest News</h2>
                     <p className={styles.subtitle}>
-                        Stay updated with the latest reference architectures, features, and community contributions
+                        A curated space dedicated to the latest advancements in research, publications, innovations, reference architectures, feature releases, and community contributions.
                     </p>
                 </div>
 
