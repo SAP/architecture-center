@@ -1,5 +1,5 @@
 {
-  "name": "quickstart",
+  "name": "quickstart-backend",
   "version": "1.0.0",
   "engines": {
     "node": "24.x"

@@ -1,5 +1,5 @@
 _schema-version: 3.3.0
-ID: quickstart
+ID: quickstart-backend
 version: 1.0.0
 description: "Port the existing Quickstart backend to CAP and store data in SAP HANA Cloud"
 parameters:
