@@ -33,3 +33,4 @@ src/constant/pageMapping.ts
 # Local-only files
 CLAUDE.md
 metrics/
+blog/agentic-engineering/
