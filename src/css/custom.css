@@ -642,6 +642,8 @@ table thead {
     height: 290px;
     min-height: 290px;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
 }
 
 .footer__links {
