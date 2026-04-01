@@ -95,6 +95,8 @@ Equipping the coding agent looks like this in practice:
 - XML views only — no JavaScript views
 ```
 
+**A note on trust:** MCP servers execute with your local privileges — filesystem access, shell commands, network calls. A compromised or malicious server can exfiltrate code, inject backdoors, or leak credentials silently. Only adopt MCP servers validated by your organization.
+
 Keep your CLAUDE.md short — under 200 lines — and specific. "Run `npm test` before committing" is enforceable; "make sure tests pass" is not. Reference supporting documents by description rather than importing them: writing "see docs/architecture.md for service boundaries" loads the file only when the task needs it, keeping your context window lean for the work that matters.
 
 A few lines of configuration, and the same coding agent that generated plausible code now engineers correct code. The speed was always there. The tooling adds the judgment.
@@ -111,6 +113,12 @@ Behind that gateway, **Gen AI Hub** in AI Core handles what you would otherwise 
 
 The full-stack picture: **Fiori** on the frontend, **CAP** on the backend, **Gen AI Hub** for intelligent services, **BTP** for runtime — Cloud Foundry or Kyma — and backing services like Destination and HANA Cloud for connectivity and persistence. The coding agent works across this entire stack, guided at every layer by SAP-specific tooling. Your extension application connects to SAP's data through the same integration patterns your team already uses.
 
+## Secure the Code Your Agent Writes. It Won't Do It for You.
+
+MCP servers teach convention, not security. A CAP service with correct CDS modeling can still expose an unprotected OData endpoint. **Treat all AI-generated code as untrusted.** Apply secure coding review — input validation, authorization checks, secrets management, OWASP top-10 — the same way you would for human-written code. Security hardening (CORS, CSP headers, OData authorization scoping) remains your responsibility.
+
+Protect your sessions too. Never enter personal data or customer data into coding agent prompts — use synthetic data. Never open files containing credentials or service keys while the agent is active — anything it reads becomes model context. Use `.claudeignore` to exclude `.env`, `default-env.json`, and service keys.
+
 ## You're Still the Architect. Agents Are the Builders.
 
 Agentic Engineering is not fully autonomous — and that is the point. Agentic engineering is a partnership. The human brings judgment, works with AI to define clear product guardrails, and sets the project context where humans still remain accountable for the overall agentic engineering process. The coding agent brings speed, consistency, and tireless execution.
@@ -119,7 +127,11 @@ That partnership breaks down the moment requirements live only in chat history. 
 
 In practice, you set up the coding agent with MCP servers for domain knowledge, skills for repeatable workflows, and SDD tools for requirements clarity. The coding agent writes the code. SAP tooling ensures it is written correctly. Subagents handle parallel, isolated work — code review, research, exploration — each running in its own context window and returning only a concise summary, keeping your primary context focused on what matters. The human reviews, decides, and ships.
 
-Session after session, the coding agent accumulates your team's institutional memory — conventions, corrections, architectural decisions — making it more effective every time it runs. When you find yourself giving the same correction three times, that is a skill candidate. Write it once, and the coding agent never makes that mistake again. For organizations scaling this across multiple teams, a governed and centralized MCP server registry becomes essential: curated, approved tooling that any developer in your organization can safely adopt. And as agentic workflows mature, **A2A (Agent-to-Agent protocol)** opens the next frontier — letting a planning agent delegate to a coding agent, or a testing agent report results back to an orchestrator. MCP equips individual agents with tools; A2A lets those agents work together.
+Session after session, the coding agent accumulates your team's institutional memory — conventions, corrections, architectural decisions — making it more effective every time it runs. When you find yourself giving the same correction three times, that is a skill candidate. Write it once, and the coding agent never makes that mistake again.
+
+For organizations scaling this across multiple teams, a **governed and centralized MCP server registry** is not optional — it is a security requirement. MCP servers execute with developer privileges. An unvetted server is an unvetted dependency with shell access. Curate an approved catalog of MCP servers and skills so that any developer in your organization adopts only tooling that has been reviewed for security, data handling, and access scope.
+
+And as agentic workflows mature, **A2A (Agent-to-Agent protocol)** opens the next frontier — letting a planning agent delegate to a coding agent, or a testing agent report results back to an orchestrator. MCP equips individual agents with tools; A2A lets those agents work together.
 
 Start with one extension application. Equip Claude Code with SAP's MCP servers, Context7, and Playwright. And see the difference between generating code and engineering it.
 
