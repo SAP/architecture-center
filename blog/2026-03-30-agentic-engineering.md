@@ -8,36 +8,22 @@ date: 2026-03-30
 draft: false
 ---
 
-After seeing what Claude Code could do, I wanted to push it further. I decided to build something real: a Financial Risk Analyzer connected to the SAP solution stack. CAP backend, Fiori Elements list report, OData endpoints, risk classification powered by AI inference. Ten minutes in, I had a full application scaffold. The code landed fast. I was genuinely impressed, but not for too long.
+Less than thirty minutes. That is how long it took Claude Code and Opus 4.6 to build a full SAP extension app from scratch. After grounding Claude on my use cases and technical requirements, utilizing a spec-driven tool, I was trully impressed how quickly Claude built my Financial Risk Analyzer, utilizing CAP as the backend, Fiori Elements list report, OData endpoints to display financial risk classifications powered by AI Core. I said, that's it, not longer spending a lot time to build extension apps! Happy, oh yes, but that excitement unfortunetely didn't last too long.
 
-The Fiori Elements frontend would not render at all. After several iterations of debugging with the agent, I got the page to display, but columns that should have shown data from the CAP backend came up empty. More back-and-forth. Then I discovered the "Analyze Risks" button did nothing when clicked. The root cause turned out to be three issues compounding: the button was wired through a deprecated `controlConfiguration.actions` pattern in manifest.json that modern Fiori Elements silently ignores, the CDS model was missing a `UI.DataFieldForAction` annotation that Fiori Elements actually needs to render action buttons, and the controller function was named `onAnalyzeRisks` when Fiori Elements auto-binds to the action name itself, `analyzeRisks`. Three plausible-looking patterns, all wrong in ways that only surface at runtime.
+The Fiori Elements frontend would not render at all! After several iterations of debugging with the coding agent, I got the page to display finally, but then columns that should have shown data from the CAP backend came up empty. More back-and-forth. Then I discovered the "Analyze Risks" button did nothing when clicked. The root cause was not a single bug but several issues caused by deprecated patterns, annotations that were never wired up, and naming mismatches between the controller and what Fiori Elements actually looks for. 
 
-The coding agent's speed was real, but debugging after the fact turned out to be the most expensive way to use AI. Every round-trip back to the agent to fix what it should have gotten right the first time eroded the speed advantage I signed up for. The tension at the heart of using coding agents for SAP development is not whether they can write code, but whether they can write *correct* code at speed. The answer is not better prompting. It is better equipping.
+Yes! Coding agents like Claude write code fast, no question, but debugging after the fact turned out to be the most expensive way to use AI. That initial rush of excitement faded fast. Each fix cycle, wait for a new attempt, test again was slowly turning my enthusiasm into frustration. The real question then is not about writing code fast, but writing *correct* code. And the answer to that is not just a contextual gap. It is better equipping the agent. 
 
-<!-- truncate -->
-
-## From Vibe Coding to Agentic Engineering
-
-In early 2025, Andrej Karpathy popularized "vibe coding": the freewheeling, accept-everything approach where you paste errors back into the chat and hope for the best. For quick prototypes and solo experiments, it still has a place. But the industry has moved on. The next step is **agentic engineering**, grounded on reliable enterprise best practices and authoritative sources of truth.
-
-Simon Willison defines it clearly: building software using coding agents that generate and execute code, testing, iterating, and debugging independently. You set the direction and make the judgment calls. The coding agent does the heavy lifting with real autonomy, not autocomplete.
-
-Code generation is now trivially cheap. The bottleneck has moved to quality, maintainability, correctness within SAP conventions, security, and team collaboration between humans and agents. That is what separates a demo from a production application. Agentic engineering closes the gap by treating AI-assisted development with the same discipline you would apply to any production-grade engineering workflow.
 
 ## The Problem With Unequipped Agents
 
-My Financial Risk Analyzer was not an isolated case. Point any general-purpose coding agent at an SAP extension project without domain-specific tooling, and you will see the same patterns:
+We all understand code generation is cheap. The challenge is to build applications that trully work. The bottleneck has moved to many other areas, including but not limited to quality, security, maintainability, etc. Besides, an application that works, doesn't qualify it as an Enterprise solution. As an architect, we should ensure that the most solid architectural principles are applied too, including performance effiency, reliability, scalability, security. That's what differents an Enterprise Solution from a PoC.
 
-- UI5 modules built with global variables instead of `sap.ui.define`, dependencies loaded synchronously, user-facing strings hardcoded in English instead of using i18n resource bundles. Basic conventions ignored across the board.
-- Deprecated APIs everywhere. The agent's training data includes years of legacy patterns, so it reaches for `jQuery.sap.*` calls and API signatures that changed two releases ago. You only discover the mismatch at runtime.
-- A Fiori Elements page that compiles, passes linting, and looks correct on paper, but renders as a blank page in the browser because the bootstrap wiring is subtly wrong. Without browser access, the agent cannot catch this class of bug.
-- CDS entities structured in ways that technically work but ignore CAP conventions. In my case, the agent wired an action button through a pattern that Fiori Elements silently ignores, and it took three compounding fixes to get it working.
+Worse, fixes do not always stick. After I corrected my Analyze Risks button, the agent later reintroduced that problem because it had forgotten and applied the same old deprecated patterns in a later session. Without persistent memory of the correct approach, every session is a fresh opportunity to make the same mistakes.
 
-Worse, fixes do not always stick. After I corrected the Analyze Risks button, the agent reintroduced the same deprecated patterns in a later session. Without persistent memory of the correct approach, every session is a fresh opportunity to make the same mistakes.
+Frontier models are not lacking intelligence at all. That's not my point. Tools and Frameworks evolve very rapidly. New versions are released constantly but these models suffer from old technical specifications used while they were trained. They can't be trained at the speed that tools and frameworks evolve! That's why the challenge here is ingesting the right context to them, Lessons learned on my side, without access to SAP's current best practices at development time, the agent has no way to distinguish a correct pattern from a plausible one.
 
-The output looks professional. It runs. And it creates technical debt from the first commit.
-
-The model is not lacking intelligence. It is lacking context. Without access to SAP's current best practices at development time, the agent has no way to distinguish a correct pattern from a plausible one.
+My Point is: any general-purpose coding agent without domain-specific knowledge will lead you to similar problems.
 
 ## The On-Premise AI Gap Is a Business Problem
 
