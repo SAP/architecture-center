@@ -8,6 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface TabItem {
     title: string;
+    tabLabel?: string;
     subtitle: string;
     icon: string;
     link: string;
@@ -132,7 +133,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                                 className={`${styles.tabButton} ${isActive ? styles.activeTab : ''}`}
                                 onClick={() => handleTabChange(index)}
                             >
-                                {tab.title}
+                                {tab.tabLabel || tab.title}
                             </button>
                         );
                     })}

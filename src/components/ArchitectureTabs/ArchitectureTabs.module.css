@@ -387,7 +387,12 @@
         flex-direction: column;
     }
 
+    .leftContent {
+        order: 2;
+    }
+
     .imagePlaceholder {
+        order: 1;
         width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
@@ -397,6 +402,10 @@
 
     .topRow {
         gap: 16px;
+    }
+
+    .titleWrapper {
+        flex-wrap: nowrap;
     }
 }
 
@@ -416,7 +425,7 @@
         width: 100%;
         max-width: 320px;
         border-radius: 16px;
-        padding: 6px;
+        padding: 4px;
         gap: 4px;
     }
 
@@ -426,13 +435,16 @@
 
     .tabButton {
         width: 100%;
-        padding: 12px 16px;
-        font-size: 0.95rem;
+        padding: 10px 16px;
+        font-size: 0.9rem;
         height: auto;
-        min-height: 44px;
+        min-height: 40px;
         border-radius: 12px;
-        white-space: normal;
+        white-space: nowrap;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .activeTab {
@@ -455,10 +467,19 @@
         gap: 20px;
     }
 
+    .leftContent {
+        order: 2;
+    }
+
     .imagePlaceholder {
+        order: 1;
         width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
+    }
+
+    .titleWrapper {
+        flex-wrap: nowrap;
     }
 
     .title {
@@ -473,6 +494,9 @@
     .disabledButton {
         font-size: 0.95rem;
         padding: 12px 24px;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
     }
 
     .loginBadge {

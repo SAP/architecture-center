@@ -1,6 +1,7 @@
 export const navigationCardsData = [
     {
         title: 'AI-Native North Star Architecture',
+        tabLabel: 'AI-Native North Star Architecture',
         subtitle: 'The AI Native North Star Architecture defines the target state of SAP\'s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
         icon: 'sap-icon://initiative',
         link: '/docs/nsa/',
@@ -9,6 +10,7 @@ export const navigationCardsData = [
     },
     {
         title: 'AI Golden Path',
+        tabLabel: 'AI Golden Path',
         subtitle: 'The SAP AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.',
         icon: 'sap-icon://initiative',
         link: '/docs/aigp/',
