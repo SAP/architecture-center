@@ -59,9 +59,7 @@ export default function HeroSection(): JSX.Element {
                         {!typingDone && <span className={styles.cursor}>█</span>}
                     </h1>
                     <p className={styles.heroSubtitle}>
-                        Empowering architects and developers with best practices, reference architectures,
-                        and community-driven guidance for designing, integrating, and optimizing SAP and
-                        cloud solutions.
+                        Empowering architects and developers to design, integrate, and optimize SAP Solutions through best practices, reference architectures, and community-driven guidance.
                     </p>
                     <div className={styles.heroActions}>
                         <Link to="/docs/ref-arch" className={styles.primaryButton}>
