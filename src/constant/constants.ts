@@ -15,21 +15,21 @@ export const navigationCardsData = [
         isNew: true,
         image: '/img/ArchitectureTabs/aigoldenpath.webp'
     },
-    {
-        title: 'Quick Start',
-        subtitle: 'Quick Start is a no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.\nIt enables contributors to:\n- Log in using their GitHub account\n- Create an architecture from scratch using the intuitive rich-text editor or upload an existing word document which is automatically converted to Markdown format.\n- Directly add text, images, and architecture Draw.io diagrams in an intuitive editor',
-        icon: 'sap-icon://write-new-document',
-        link: '/quick-start',
-        image: '/img/ArchitectureTabs/quickstart.webp'
-    },
-    {
-        title: 'Architecture Validator',
-        subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',
-        icon: 'sap-icon://order-status',
-        link: '/architecture-validator',
-        requiresAuth: true,
-        image: '/img/ArchitectureTabs/validator.webp'
-    },
+    // {
+    //     title: 'Quick Start',
+    //     subtitle: 'Quick Start is a no-code architecture editor designed to help users quickly publish reference architectures without using command-line tools.\nIt enables contributors to:\n- Log in using their GitHub account\n- Create an architecture from scratch using the intuitive rich-text editor or upload an existing word document which is automatically converted to Markdown format.\n- Directly add text, images, and architecture Draw.io diagrams in an intuitive editor',
+    //     icon: 'sap-icon://write-new-document',
+    //     link: '/quick-start',
+    //     image: '/img/ArchitectureTabs/quickstart.webp'
+    // },
+    // {
+    //     title: 'Architecture Validator',
+    //     subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',
+    //     icon: 'sap-icon://order-status',
+    //     link: '/architecture-validator',
+    //     requiresAuth: true,
+    //     image: '/img/ArchitectureTabs/validator.webp'
+    // },
 ];
 
 // Keep items sorted alphabetically by `title`
