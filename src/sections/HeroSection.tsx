@@ -1,4 +1,4 @@
-import React, { JSX, useRef, useEffect } from 'react';
+import React, { JSX, useRef, useEffect, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
@@ -13,6 +13,23 @@ declare global {
 export default function HeroSection(): JSX.Element {
     const particlesConfigUrl = useBaseUrl('/particlesjs-config.json');
     const particlesInitialized = useRef(false);
+    const [displayedText, setDisplayedText] = useState('');
+    const [typingDone, setTypingDone] = useState(false);
+    const fullText = 'SAP Architecture Center';
+
+    // Typewriter effect
+    useEffect(() => {
+        let index = 0;
+        const interval = setInterval(() => {
+            index++;
+            setDisplayedText(fullText.slice(0, index));
+            if (index >= fullText.length) {
+                clearInterval(interval);
+                setTypingDone(true);
+            }
+        }, 100);
+        return () => clearInterval(interval);
+    }, []);
 
     // Initialize particles.js
     useEffect(() => {
@@ -37,7 +54,10 @@ export default function HeroSection(): JSX.Element {
             <div id="particles-js" className={styles.particlesContainer}></div>
             <div className={styles.heroContainer}>
                 <div className={styles.heroContent}>
-                    <h1 className={styles.heroTitle}>SAP Architecture Center</h1>
+                    <h1 className={styles.heroTitle}>
+                        {displayedText}
+                        {!typingDone && <span className={styles.cursor}>█</span>}
+                    </h1>
                     <p className={styles.heroSubtitle}>
                         Empowering architects and developers with best practices, reference architectures,
                         and community-driven guidance for designing, integrating, and optimizing SAP and
