@@ -8,7 +8,7 @@ date: 2026-03-30
 draft: false
 ---
 
-Less than thirty minutes. That is how long it took Claude Code and Opus 4.6 to build a full SAP extension app from scratch. After grounding Claude on my use cases and technical requirements, utilizing a spec-driven tool, I was trully impressed how quickly Claude built my Financial Risk Analyzer, utilizing CAP as the backend, Fiori Elements list report, OData endpoints to display financial risk classifications powered by AI Core. I said, that's it, not longer spending a lot time to build extension apps! Happy, oh yes, but that excitement unfortunetely didn't last too long.
+Less than thirty minutes. That is how long it took Claude Code and Opus 4.6 to build a full SAP extension app from scratch. After grounding Claude on my use cases and technical requirements, utilizing a spec-driven tool, I was trully impressed how quickly Claude built my Financial Risk Analyzer, utilizing CAP as the backend, Fiori Elements list report, OData endpoints to display financial risk classifications. I was trully happy, but that excitement unfortunetely didn't last too long.
 
 The Fiori Elements frontend would not render at all! After several iterations of debugging with the coding agent, I got the page to display finally, but then columns that should have shown data from the CAP backend came up empty. More back-and-forth. Then I discovered the "Analyze Risks" button did nothing when clicked. The root cause was not a single bug but several issues caused by deprecated patterns, annotations that were never wired up, and naming mismatches between the controller and what Fiori Elements actually looks for. 
 
