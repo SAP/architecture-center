@@ -10,30 +10,22 @@ draft: false
 
 Less than thirty minutes. That is how long it took Claude Code and Opus 4.6 to build a full SAP extension app from scratch. After grounding Claude on my use cases and technical requirements, utilizing a spec-driven tool, I was trully impressed how quickly Claude built my Financial Risk Analyzer, utilizing CAP as the backend, Fiori Elements list report, OData endpoints to display financial risk classifications. I was trully happy, but that excitement unfortunetely didn't last too long.
 
-The Fiori Elements frontend would not render at all! After several iterations of debugging with the coding agent, I got the page to display finally, but then columns that should have shown data from the CAP backend came up empty. More back-and-forth. Then I discovered the "Analyze Risks" button did nothing when clicked. The root cause was not a single bug but several issues caused by deprecated patterns, annotations that were never wired up, and naming mismatches between the controller and what Fiori Elements actually looks for. 
+The frontend would not render at all! I got a blank page and after several iterations of debugging with the coding agent, I got the page to display finally, but then columns that should have shown data from the CAP backend came up empty. More back-and-forth. Then I discovered the "Analyze Risks" button did nothing when clicked. The root cause was not a single bug but several issues caused by deprecated patterns, annotations that were never wired up, and naming mismatches between the controller and what Fiori Elements actually looks for. 
 
 Yes! Coding agents like Claude write code fast, no question, but debugging after the fact turned out to be the most expensive way to use AI. That initial rush of excitement faded fast. Each fix cycle, wait for a new attempt, test again was slowly turning my enthusiasm into frustration. The real question then is not about writing code fast, but writing *correct* code. And the answer to that is not just a contextual gap. It is better equipping the agent. 
 
 
 ## The Problem With Unequipped Agents
 
-We all understand code generation is cheap. The challenge is to build applications that trully work. The bottleneck has moved to many other areas, including but not limited to quality, security, maintainability, etc. Besides, an application that works, doesn't qualify it as an Enterprise solution. As an architect, we should ensure that the most solid architectural principles are applied too, including performance effiency, reliability, scalability, security. That's what differents an Enterprise Solution from a PoC.
+The challenge goes beyond on building apps that work. They need to be Enterprise-ready. An app has to be built on top of solid architectural principles, including performance effiency, reliability, scalability, security. That's what differents it from a PoC.
 
-Worse, fixes do not always stick. After I corrected my Analyze Risks button, the agent later reintroduced that problem because it had forgotten and applied the same old deprecated patterns in a later session. Without persistent memory of the correct approach, every session is a fresh opportunity to make the same mistakes.
+But wait, there is more to come. Fixes that took a number of iterations to fix, would not always stick. After I corrected my Analyze Risks button, the agent later reintroduced that very same problem again because it had forgotten and applied the same old deprecated patterns in a later session. Without persistent memory of the correct approach, every session is a fresh opportunity to make the same mistakes despite using a top-of-the line frontier model, Opus 4.6 from Anthropic.
 
-Frontier models are not lacking intelligence at all. That's not my point. Tools and Frameworks evolve very rapidly. New versions are released constantly but these models suffer from old technical specifications used while they were trained. They can't be trained at the speed that tools and frameworks evolve! That's why the challenge here is ingesting the right context to them, Lessons learned on my side, without access to SAP's current best practices at development time, the agent has no way to distinguish a correct pattern from a plausible one.
+Here's the reality.
+
+Frontier models are not lacking intelligence at all. They are really good. But the SDKs, APIs, Tools, Frameworks evolve very rapidly. New versions of libraries are released constantly but these models suffer from been trained on top of technical specifications that become obsolute by the time they are released. They can't be trained at the speed that tools and frameworks evolve! Our challenge therefore is to ingest the model with the right context grounded on best practices, tooling and sources of truth for specifications that are up-to-date. 
 
 My Point is: any general-purpose coding agent without domain-specific knowledge will lead you to similar problems.
-
-## The On-Premise AI Gap Is a Business Problem
-
-And for one group of customers, the stakes could not be higher.
-
-If you run S/4HANA on-premise, you have watched Joule, intelligent scenarios, and embedded AI capabilities land via RISE and public or private cloud editions — somewhere else. The gap is not technical curiosity. It is time to value, and it widens every quarter. Migration to Cloud is not happening tomorrow. But the business cases that demand intelligent applications should not wait for infrastructure decisions. A warehouse manager needs predictive restocking now. A procurement team needs automated supplier risk scoring now. Unlocking AI value in this scenario is a challenge - unless you use agentic engineering the right way.
-
-Your core S/4 system does not need to change. Your ERP stays where it is. The extension application gets created quickly by a coding agent (e.g. Claude Code) and can be deployed on BTP, connected through Destination service and SAP's standard connectivity framework. Equipping your coding agent with SAP-specific tooling writes production-quality CAP services and Fiori interfaces against your existing data — and what used to take a development team weeks of requirements gathering, prototyping, and iteration compresses into days. Same access to frontier models. Same quality standards. Built side-by-side with your existing landscape, not instead of it.
-
-On-premise customers can absolutely build intelligent applications. The question is whether their coding agents are equipped to build them *correctly*.
 
 ## The SAP Tooling Advantage
 
@@ -103,6 +95,8 @@ With that foundation in place, the practical advantages follow. Your coding agen
 Behind that gateway, **Gen AI Hub** in AI Core handles what you would otherwise build yourself: multi-model proxy routing across SAP and non-SAP models, content filters and PII masking on every request, guardrails that apply before any response reaches your application. These are table stakes for enterprise development, not optional extras. Gen AI Hub ships them as infrastructure so your team builds on top of them instead of rebuilding them. Layer your security from the client side too: Claude Code restricts writes to the launch directory by default, and per-tool allow and deny lists in settings.json provide enforcement that does not depend on the model's judgment.
 
 The full-stack picture: **Fiori** on the frontend, **CAP** on the backend, **Gen AI Hub** for intelligent services, **BTP** for runtime (Cloud Foundry or Kyma) and backing services like Destination and HANA Cloud for connectivity and persistence. The coding agent works across this entire stack, guided at every layer by SAP-specific tooling.
+
+This stack works just as well for organizations running S/4HANA on-premise. Your ERP stays where it is. BTP extension apps connect to your on-premise landscape through Destination service and Cloud Connector, keeping a clean separation between your stable core and the AI solutions built on top. **Business Data Cloud (BDC)** federates on-premise data into a governed layer where AI services can consume it without extracting or duplicating it. No migration required — your coding agent builds side-by-side extensions against your existing data, in your existing landscape, with the same governed infrastructure backing every request.
 
 ## You're Still the Architect. Agents Are the Builders.
 
