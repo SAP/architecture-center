@@ -1,6 +1,8 @@
 .domainSection {
+    width: 100%;
     background: transparent;
     padding: 0;
+    overflow: hidden;
 }
 
 [data-theme='dark'] .domainSection {
@@ -221,15 +223,18 @@
     }
 }
 
+/* Tablet */
 @media (max-width: 996px) {
     .domainSection {
         padding: 60px 16px;
     }
-}
 
-@media (max-width: 1024px) {
-    .container {
-        padding: 20px;
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.125rem;
     }
 }
 
@@ -237,17 +242,6 @@
 @media (max-width: 768px) {
     .domainsGrid {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Tablet breakpoint */
-@media (max-width: 996px) {
-    .title {
-        font-size: 2rem;
-    }
-
-    .subtitle {
-        font-size: 1.125rem;
     }
 }
 
@@ -263,10 +257,6 @@
 
     .subtitle {
         font-size: 1rem;
-    }
-
-    .container {
-        padding: 20px;
     }
 
     .domainsGrid {
