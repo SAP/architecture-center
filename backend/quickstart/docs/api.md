@@ -22,7 +22,7 @@ Obtain a JWT through GitHub OAuth:
 - `GET /user/login?origin_uri=<FRONTEND_RETURN_URL>`
 - `GET /user/github/callback` (called by GitHub after consent)
 
-After successful login, the backend redirects to `origin_uri` with a `token` query parameter. Use this token in all protected API calls:
+After successful login, use the issued JWT in all protected API calls:
 
 ```http
 Authorization: Bearer <JWT_FROM_GITHUB_CALLBACK>
