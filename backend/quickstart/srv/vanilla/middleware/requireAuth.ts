@@ -29,7 +29,7 @@ const requireAuth = (req: Request, res: Response, next: NextFunction) => {
         // CAP looks here for the authenticated user
         const context = cds.context;
         if (context) {
-            context.user = new cds.User(decoded.user.username);
+            context.user = new cds.User(decoded.username);
         }
         next();
     } catch (err) {
