@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import cds from '@sap/cds';
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET } = cds.env;
 
 interface UserPayload {
     user: { username: string };

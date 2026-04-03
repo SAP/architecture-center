@@ -3,6 +3,7 @@ import requireAuth from '../middleware/requireAuth';
 import { publishToGitHub, syncUserFork } from '../services/githubService';
 import { generateStandalonePRBody } from '../templates/prTemplate';
 import rateLimit from 'express-rate-limit';
+import cds from '@sap/cds';
 
 // GitHub API helper function
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
@@ -74,7 +75,7 @@ router.post('/create-pr', publishLimiter, requireAuth, async (req: Request, res:
     try {
         const { branchName, title, description } = req.body;
         const githubToken = req.user?.githubAccessToken;
-        const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = process.env;
+        const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = cds.env;
 
         if (!branchName || !title) {
             return res.status(400).json({ error: 'Branch name and title are required.' });

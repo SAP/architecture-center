@@ -8,6 +8,7 @@ default-*.json
 gen/
 node_modules/
 target/
+/quickstart/.cdsrc.json
 
 # Web IDE, App Studio
 .che/

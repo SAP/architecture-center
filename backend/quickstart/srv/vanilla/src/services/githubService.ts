@@ -1,7 +1,8 @@
 import { FileForCommit, DocumentObject, generateFileTreeInMemory } from './lexicalService';
 import { generatePRBody } from '../templates/prTemplate';
+import cds from '@sap/cds';
 
-const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = process.env;
+const { TARGET_REPO_OWNER, TARGET_REPO_NAME } = cds.env;
 
 const TARGET_BRANCH = 'dev';
 const REPO_BASE_PATH = 'docs/ref-arch';

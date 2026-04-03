@@ -1,0 +1,16 @@
+{
+    "requires": {
+        "[dev]": {
+            "auth": "mocked"
+        },
+        "[production]": {
+            "auth": "dummy"
+        }
+    },
+    "FRONTEND_URL": "",
+    "TARGET_REPO_OWNER": "",
+    "TARGET_REPO_NAME": "",
+    "GITHUB_CLIENT_ID": "",
+    "GITHUB_CLIENT_SECRET": "",
+    "JWT_SECRET": ""
+}
