@@ -4,7 +4,9 @@
             "auth": "mocked"
         },
         "[production]": {
-            "auth": "dummy"
+            "auth": {
+                "impl": "srv/vanilla/src/middleware/requireAuth.js"
+            }
         }
     },
     "FRONTEND_URL": "",

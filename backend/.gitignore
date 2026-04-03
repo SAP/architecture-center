@@ -36,3 +36,4 @@ mta_archives/
 backend-express/manifest.yml
 **/package-lock.json
 package-lock.json
+!/quickstart/package-lock.json
