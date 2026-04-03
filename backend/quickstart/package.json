@@ -6,14 +6,25 @@
   },
   "dependencies": {
     "@cap-js/hana": "^2",
-    "@sap/cds": "^9"
+    "@octokit/app": "^16.1.0",
+    "@octokit/rest": "^22.0.0",
+    "@sap/cds": "^9",
+    "axios": "^1.12.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express-rate-limit": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.1.5"
   },
   "devDependencies": {
     "@cap-js/cds-typer": ">=0.1",
     "@cap-js/cds-types": "^0.16.0",
     "@cap-js/sqlite": "^2",
     "@sap/cds-dk": "^9",
-    "@types/node": "^24.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.12.1",
     "mocha": "^10.8.2",
     "tsx": "^4",
     "typescript": "^5"
