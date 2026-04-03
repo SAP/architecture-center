@@ -1,22 +1,42 @@
-# Getting Started
+# Quickstart Backend
 
-Welcome to your new CAP project.
+This service is the backend of Quickstart, built with SAP CAP on top of Express. It stores and manages draft reference architectures, including document metadata, contributor assignments, tags, and assets, until content is ready to be published.
 
-It contains these folders and files, following our recommended project layout:
+The repository also contains the previous vanilla Express implementation in `srv/vanilla/`. That part still handles GitHub OAuth and publishing-related flows, while CAP powers the document persistence model and authorization-aware data access.
 
-File or Folder | Purpose
----------|----------
-`app/` | content for UI frontends goes here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`readme.md` | this getting started guide
+API details are documented in `docs/api.md`.
 
-## Next Steps
+## Local Setup
 
-- Open a new terminal and run `cds watch`
-- (in VS Code simply choose _**Terminal** > Run Task > cds watch_)
-- Start with your domain model, in a CDS file in `db/`
+To run locally, create a GitHub OAuth app and provide the required credentials in CAP configuration.
 
-## Learn More
+1. Copy `.cdsrc.sample.json` to `.cdsrc.json`.
+2. Fill in the OAuth and runtime settings (`FRONTEND_URL`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `JWT_SECRET`, and repository target fields if publishing is used).
+3. Use Node.js 24.x.
 
-Learn more at <https://cap.cloud.sap>.
+Run commands:
+
+```bash
+npm install
+npm run watch
+```
+
+The watch profile runs CAP with a local in-memory SQLite database by default.
+
+Run the integration tests:
+
+```bash
+npm run test
+```
+
+## Deployment
+
+Run the deployment steps in order:
+
+```bash
+cf login -a <CF_API_URL>
+npm run build
+npm run deploy
+```
+
+This builds the MTA archive and deploys it to SAP BTP (Cloud Foundry).

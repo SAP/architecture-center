@@ -2,6 +2,8 @@
 
 This API is used by Quickstart to store and manage documents, contributors, tags, and attached assets. It is implemented with SAP CAP (Cloud Application Programming Model) as an OData service. Persistent data is stored in SAP HANA Cloud.
 
+Authentication is token-based. Clients authenticate through the backend GitHub OAuth flow and then call the API with a Bearer JWT.
+
 ## Endpoint Overview
 
 - `GET /quickstart/document-service/Documents?$expand=author,contributors($expand=user),assets,tags($expand=tag)`
@@ -13,43 +15,45 @@ This API is used by Quickstart to store and manage documents, contributors, tags
 - `GET /quickstart/document-service/DocumentAssets(<ASSET_ID>)/content`
 - `DELETE /quickstart/document-service/Documents(<DOCUMENT_ID>)`
 
-## Endpoint Details (REST Client Format)
+## Authentication Flow
 
-### 1) Authentication for Testing
+Obtain a JWT through GitHub OAuth:
 
-Two test users are available for API testing: `alice` and `bob`.
+- `GET /user/login?origin_uri=<FRONTEND_RETURN_URL>`
+- `GET /user/github/callback` (called by GitHub after consent)
 
-At the moment, requests use Basic authentication and the service executes actions on behalf of the authenticated user. Soon, this will be replaced by the Quickstart backend authentication flow via GitHub identity provider, where the user is derived from the decoded token.
-
-Basic auth reminder:
-
-- Send an `Authorization` header with `Basic <BASE64(username:password)>`
-- Use one of the test usernames (`alice` or `bob`)
-- Passwords are managed separately and are intentionally not documented here
-
-Example header pattern:
+After successful login, the backend redirects to `origin_uri` with a `token` query parameter. Use this token in all protected API calls:
 
 ```http
-Authorization: Basic <BASE64(alice:<PASSWORD>)>
+Authorization: Bearer <JWT_FROM_GITHUB_CALLBACK>
 ```
 
-### 2) Read Documents for Current User
+## Authorization Model
+
+- The CAP service requires an authenticated user.
+- Authors can update/delete their own documents and manage contributors, tags, and assets.
+- Contributors have read access only.
+- Users who are neither author nor contributor cannot access the document.
+
+## Endpoint Details (REST Client Format)
+
+### 1) Read Documents for Current User
 
 This is the main read endpoint. It returns only documents visible to the current user and expands related metadata.
 
 ```http
 GET <BASE_URL>/quickstart/document-service/Documents?$expand=author,contributors($expand=user),assets,tags($expand=tag) HTTP/1.1
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 ```
 
-### 3) Create a New Document
+### 2) Create a New Document
 
 Creates a document and optionally sets contributors, tags, and editor state in one request.
 
 ```http
 POST <BASE_URL>/quickstart/document-service/createNewDocument HTTP/1.1
 Content-Type: application/json
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 
 {
 	"title": "<DOCUMENT_TITLE>",
@@ -61,14 +65,14 @@ Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 }
 ```
 
-### 4) Overwrite Contributors of an Existing Document
+### 3) Overwrite Contributors of an Existing Document
 
 Replaces the complete contributor set of a document.
 
 ```http
 POST <BASE_URL>/quickstart/document-service/setDocumentContributors HTTP/1.1
 Content-Type: application/json
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 
 {
 	"documentId": "<DOCUMENT_ID>",
@@ -76,14 +80,14 @@ Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 }
 ```
 
-### 5) Overwrite Tags of an Existing Document
+### 4) Overwrite Tags of an Existing Document
 
 Replaces the complete tag set of a document.
 
 ```http
 POST <BASE_URL>/quickstart/document-service/setDocumentTags HTTP/1.1
 Content-Type: application/json
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 
 {
 	"documentId": "<DOCUMENT_ID>",
@@ -91,7 +95,7 @@ Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
 }
 ```
 
-### 6) Upload a Document Asset (Two Steps)
+### 5) Upload a Document Asset (Two Steps)
 
 Document assets are modeled as metadata plus binary content:
 
@@ -103,7 +107,7 @@ Step 1: create the metadata row.
 ```http
 POST <BASE_URL>/quickstart/document-service/DocumentAssets HTTP/1.1
 Content-Type: application/json
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 
 {
 	"ID": "<ASSET_ID>",
@@ -118,7 +122,7 @@ Step 2: upload the binary content to the media property.
 ```http
 PUT <BASE_URL>/quickstart/document-service/DocumentAssets(<ASSET_ID>)/content HTTP/1.1
 Content-Type: application/vnd.jgraph.mxfile+xml
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 
 < ./assets/<DRAWIO_FILENAME>.drawio
 ```
@@ -131,18 +135,16 @@ import { readFile } from 'node:fs/promises';
 const baseUrl = '<BASE_URL>';
 const assetId = '<ASSET_ID>';
 const filePath = './assets/<DRAWIO_FILENAME>.drawio';
-const username = '<USERNAME>';
-const password = '<PASSWORD>';
+const jwt = '<JWT_FROM_GITHUB_CALLBACK>';
 
 const drawioContent = await readFile(filePath);
-const auth = Buffer.from(`${username}:${password}`).toString('base64');
 
 const response = await fetch(
 	`${baseUrl}/quickstart/document-service/DocumentAssets(${assetId})/content`,
 	{
 		method: 'PUT',
 		headers: {
-			Authorization: `Basic ${auth}`,
+			Authorization: `Bearer ${jwt}`,
 			'Content-Type': 'application/vnd.jgraph.mxfile+xml'
 		},
 		body: drawioContent
@@ -154,29 +156,21 @@ if (!response.ok) {
 }
 ```
 
-### 7) Download a Specific Document Asset
+### 6) Download a Specific Document Asset
 
 The expanded `Documents` read returns asset metadata only. To fetch the actual file bytes, call the asset content endpoint.
 
 ```http
 GET <BASE_URL>/quickstart/document-service/DocumentAssets(<ASSET_ID>)/content HTTP/1.1
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 Accept: <EXPECTED_MEDIA_TYPE>
 ```
 
-### 8) Delete a Document
+### 7) Delete a Document
 
 Deletes a document by ID.
 
 ```http
 DELETE <BASE_URL>/quickstart/document-service/Documents(<DOCUMENT_ID>) HTTP/1.1
-Authorization: Basic <BASE64(<USERNAME>:<PASSWORD>)>
+Authorization: Bearer <JWT>
 ```
-
-## Authentication and Authorization Rules
-
-- Authentication currently uses Basic auth for test users (`alice`, `bob`).
-- Authorization is enforced per document.
-- Authors can perform write operations on their own documents, including update, delete, and managing contributors, tags, and assets.
-- Contributors have view access only for documents where they are assigned as contributors.
-- Users who are neither author nor contributor cannot read the document.

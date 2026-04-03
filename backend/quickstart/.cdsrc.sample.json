@@ -5,7 +5,7 @@
         },
         "[production]": {
             "auth": {
-                "impl": "srv/vanilla/src/middleware/requireAuth.js"
+                "impl": "srv/vanilla/middleware/requireAuth.js"
             }
         }
     },
