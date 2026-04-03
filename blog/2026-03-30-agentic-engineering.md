@@ -17,37 +17,35 @@ Yes! Coding agents like Claude write code fast, no question, but debugging after
 
 ## The Problem With Unequipped Agents
 
-The challenge goes beyond on building apps that work. They need to be Enterprise-ready. An app has to be built on top of solid architectural principles, including performance effiency, reliability, scalability, security. That's what differents it from a PoC.
+Even after I fixed every bug in the Financial Risk Analyzer, I knew the app was not enterprise-ready. It worked, but it was not built on top of solid architectural principles — performance efficiency, reliability, scalability, security. That is what separates a working prototype from something you can actually ship.
 
-But wait, there is more to come. Fixes that took a number of iterations to fix, would not always stick. After I corrected my Analyze Risks button, the agent later reintroduced that very same problem again because it had forgotten and applied the same old deprecated patterns in a later session. Without persistent memory of the correct approach, every session is a fresh opportunity to make the same mistakes despite using a top-of-the line frontier model, Opus 4.6 from Anthropic.
+And the fixes did not always stick. After I corrected my Analyze Risks button, the agent later reintroduced that very same problem because it had forgotten and applied the same old deprecated patterns in a later session. Without persistent memory of the correct approach, every session was a fresh opportunity to make the same mistakes — despite using a top-of-the-line frontier model, Opus 4.6 from Anthropic.
 
-Here's the reality.
+Here is what I came to understand. Frontier models are not lacking intelligence at all. They are really good. But the SDKs, APIs, tools, and frameworks evolve rapidly. New versions of libraries are released constantly, yet these models are trained on technical specifications that become obsolete by the time they ship. They simply cannot be trained at the speed that tools and frameworks evolve. The challenge, then, is to feed the model the right context — grounded in best practices, tooling, and sources of truth for specifications that are up to date.
 
-Frontier models are not lacking intelligence at all. They are really good. But the SDKs, APIs, Tools, Frameworks evolve very rapidly. New versions of libraries are released constantly but these models suffer from been trained on top of technical specifications that become obsolute by the time they are released. They can't be trained at the speed that tools and frameworks evolve! Our challenge therefore is to ingest the model with the right context grounded on best practices, tooling and sources of truth for specifications that are up-to-date. 
-
-My Point is: any general-purpose coding agent without domain-specific knowledge will lead you to similar problems.
+Any general-purpose coding agent without domain-specific knowledge will lead you to the same problems I hit.
 
 ## The SAP Tooling Advantage
 
-**Model Context Protocol (MCP) servers** change the equation. While your coding agent builds code fast, MCP gives your agent structured, real-time access to domain expertise. Not static documentation, but callable tools the coding agent consults while it works. MCP servers provide *capability*: they connect the coding agent to external systems and domain knowledge. For *procedural knowledge* (your team's deploy process, review checklist, CDS modeling conventions) you write skills. The two work together: a skill can tell the coding agent which MCP tools to call and in what order.
+That realization led me to **Model Context Protocol (MCP) servers**, and they changed the equation entirely. While the coding agent builds code fast, MCP gives it structured, real-time access to domain expertise — not static documentation, but callable tools the agent consults while it works. MCP servers provide *capability*: they connect the coding agent to external systems and domain knowledge. For *procedural knowledge* (your team's deploy process, review checklist, CDS modeling conventions) you write skills. The two work together: a skill can tell the coding agent which MCP tools to call and in what order.
 
-Three MCP servers form the core of the SAP developer toolkit:
+For my SAP projects, three MCP servers made the biggest difference:
 
 - **CAP MCP Server** — guides CDS entity modeling, service definitions, and backend patterns according to current CAP conventions
 - **Fiori MCP Server** — ensures Fiori Elements applications follow SAP UX guidelines, annotation patterns, and page configurations
 - **UI5 MCP Server** — provides UI5 Web Components guidance, control usage, and binding patterns
 
-When Claude Code is equipped with these servers, it does not guess at SAP conventions. It checks. The coding agent queries the CAP MCP server before defining an entity, consults the Fiori MCP server before configuring a list report page, and validates control usage against the UI5 MCP server before writing a view. Each decision is grounded in current SAP guidance, not in whatever pattern happened to appear most frequently in the training data.
+Once I equipped Claude Code with these servers, it stopped guessing at SAP conventions. It checked. The coding agent queried the CAP MCP server before defining an entity, consulted the Fiori MCP server before configuring a list report page, and validated control usage against the UI5 MCP server before writing a view. Each decision was grounded in current SAP guidance, not in whatever pattern happened to appear most frequently in the training data.
 
 When I ran the same Financial Risk Analyzer project with the CAP MCP server equipped, it got the `UI.DataFieldForAction` annotation right on the first pass. That single change saved me the hours I had spent debugging the button.
 
-**Context7** closes a separate gap. LLMs rely on outdated or generic information about the libraries you use — producing code based on year-old training data, hallucinating APIs that do not exist, and giving generic answers for old package versions. Context7 feeds the coding agent up-to-date, version-specific library documentation at development time, so every API call reflects what the framework actually supports *today*. SAP MCP servers guide *how* to build. Context7 ensures the coding agent builds against *what actually exists right now*.
+**Context7** closed a separate gap I kept running into. The model would rely on outdated or generic information about the libraries I was using — producing code based on year-old training data, hallucinating APIs that do not exist, and giving generic answers for old package versions. Context7 feeds the coding agent up-to-date, version-specific library documentation at development time, so every API call reflects what the framework actually supports *today*. SAP MCP servers guided *how* to build. Context7 ensured my agent built against *what actually exists right now*.
 
 ## Verifying What the Coding Agent Built
 
-Code that compiles is not code that works. Fiori Elements apps have complex runtime wiring (ushell containers, annotation bindings, OData initialization) and a page that passes linting can still render as a blank screen. Without browser access, the coding agent cannot catch this class of bug. A developer opens the app, sees the blank page, pastes the error back into the chat, and you are back to vibe coding with extra steps.
+As we know,code that compiles is not code that works. My Fiori Elements app had complex runtime wiring — ushell containers, annotation bindings, OData initialization — and a page that passed linting still rendered as a blank screen. Without browser access, the coding agent could not catch this class of bug. I would open the app, see the blank page, paste the error back into the chat, and repeat. 
 
-**Playwright MCP** gives the coding agent eyes on the running application. After generating a Fiori Elements page, the coding agent launches a headless browser, takes screenshots, and verifies the page actually renders. If something is broken, it iterates without waiting for a human to open a browser and report what went wrong. That is the concrete mechanism behind agentic engineering: coding agents that create code, test, iterate, and debug *independently*.
+**Playwright MCP** gave my coding agent eyes on the running application. After generating a Fiori Elements page, the agent launched a headless browser, took screenshots, and verified the page actually rendered. When something was broken, it iterated without waiting for me to open a browser and report what went wrong. That is the concrete mechanism behind agentic engineering: coding agents that create code, test, iterate, and debug *independently*.
 
 Equipping the coding agent looks like this in practice:
 
@@ -72,67 +70,61 @@ Equipping the coding agent looks like this in practice:
 - XML views only — no JavaScript views
 ```
 
-**A note on trust:** MCP servers execute with your local privileges: filesystem access, shell commands, network calls. A compromised or malicious server can exfiltrate code, inject backdoors, or leak credentials silently. Only adopt MCP servers validated by your organization.
+**A note on trust:** MCP servers execute with your local privileges: filesystem access, shell commands, network calls. A compromised or malicious server can exfiltrate code, inject backdoors, or leak credentials silently. My recommendation to you: only adopt MCP servers that have been verified from the security standpoint entirely.
 
-Keep your CLAUDE.md short (under 200 lines) and specific. "Run `npm test` before committing" is enforceable; "make sure tests pass" is not. Reference supporting documents by description rather than importing them: writing "see docs/architecture.md for service boundaries" loads the file only when the task needs it, keeping your context window lean for the work that matters.
+Also, as you know, you don't want to dump a lof of instructions to Claude due to Context Rot concerns, instead, keep your CLAUDE.md short (under 200 lines) and be very specific. It's okay to reference other md files there. Claude won't need them all, but keep them as reference when needed. 
 
-A few lines of configuration, and the same coding agent that generated plausible code now engineers correct code. The speed was always there. The tooling adds the judgment.
+Do you think that's all? No, because code that runs is not code ready for the enterprise. The agent was capable of writing valid SAP code but it wasn't yet grounded with technical specifications based on the enterprise  architecture principles.
+
+## Beyond Correctness: Architecture Principles
+
+When I reviewed my working Financial Risk Analyzer — the one MCP had gotten right on the first pass — I found an unscoped OData endpoint and no input validation. The SAP patterns were correct but security was missing. And security was just the first gap. Performance efficiency, reliability, scalability — the principles you apply before you design any enterprise solution, were not considered entirely for the generated code.
+
+A system design methodology was needed. Tradicionally, by experience, I'd write the technical specification with certain level of information. Even documentation the most important parts would take me some time. You might have heard about spec-driven development, where AI helps you documenting the project scope and ellaborate the necessary documentation needed. That lead me to **GSD (Get Shit Done)**, a spec-driven development framework for Claude Code. That was a life changing moment for me. Even before I let my agent procude the code, GSD interviewed me about each architecture principle — security posture, performance budgets, reliability expectations, scalability constraints. But only after I grounded it on my architectural principles from the SAP Architecture Center. Those were the questions I would ask as an architect before designing any solution, but now the agent was asking them. My answers became a technical specification grounded in the same enterprise principles that the [SAP Architecture Center](https://architecture.sap.com) codifies as reference architectures.
+
+The difference was immediate. That was the right moment I really started realizing the time savings benefits.  With a spec shaped by architecture principles, the agent did not just write correct SAP code — it wrote code that reflected the non-functional requirements an enterprise application actually needs. Every session inherited that spec. No context rot. No re-explaining the same constraints. 
 
 ## Secure the Code Your Agent Writes. It Won't Do It for You.
 
-The tooling gets the code right. But correct is not the same as secure. MCP servers teach convention, not security. A CAP service with correct CDS modeling can still expose an unprotected OData endpoint. **Treat all AI-generated code as untrusted.** Apply secure coding review (input validation, authorization checks, secrets management, OWASP top-10) the same way you would for human-written code. Security hardening like CORS, CSP headers, and OData authorization scoping remains your responsibility.
+Here's a piece of advice. Even after equipping your agent, **always assume code is untrusted**. MCP servers teach convention. GSD captures technical spec. But neither can guarantee the generated code is hardened. That's why my recommendation to you is simple. Continue applying the same rigor to to safeguard your clients. The same secure coding review I would apply to human-written code — input validation, authorization checks, secrets management, OWASP top-10, etc. Security hardening like CORS, CSP headers, and OData authorization scoping remains your responsibility, not to your agent. In a case of a data breach, I'm sure they aren't going to escalate it to your agent, but you. 
 
-Protect your sessions too. Never enter personal data or customer data into coding agent prompts. Use synthetic data. Never open files containing credentials or service keys while the agent is active, because anything it reads becomes model context. Use `.claudeignore` to exclude `.env`, `default-env.json`, and service keys.
+I also learned to protect my sessions. This principle is easy and simple to understand. You should only expose data it needs. And never enter any personal data or customer data into coding agent prompts. I never open files containing credentials or service keys while the agent is active, because anything it reads becomes model context. Ensure to tell Claude which files it should absolutely not read. List them in the `.claudeignore` to exclude the `.env`, `default-env.json`, and service keys in general from the agent's view. Although contracts guarantee data protection by model providers, a data breach problem tomorrow on their side may compromise your company.
+
+I'm sorry to share the bad news, but there's more you should know. And this one is not dimished in value just because shows up here after all you've read so far.
 
 ## Enterprise Agents Need Governed Infrastructure.
 
-With the code secured, the next concern is your data. When your coding agent sends code, business logic, and enterprise context to frontier models, you need a contractual guarantee that your data will not be used for training or improving those models. Going direct to provider APIs does not give you that through a single, SAP-governed agreement. Running through SAP's Gen AI Hub does. SAP's agreements with model providers ensure your data stays yours, and that guarantee is the foundation everything else builds on.
+When my coding agent sends code to a model, it carries business logic and intellectual property. I need a contractual guarantee that none of it gets used for training or sold to a third party. Going direct to model providers does not give me that through a single agreement. Running through SAP's **Gen AI Hub** does — SAP's agreements with providers ensure your data stays yours.
 
-With that foundation in place, the practical advantages follow. Your coding agent benefits from access to multiple frontier models — model strengths vary by use case, and being able to switch models or get a second opinion from a different model is a genuine advantage in agentic workflows. But without a proxy layer, that means each project negotiating its own API keys, spinning up its own guardrails, and building its own content filtering for every provider.
+That same infrastructure solves a second problem. Agentic workflows benefit from multiple frontier models — strengths vary by task, and a second opinion from a different model is a real advantage. **LiteLLM** gives me a single gateway into Gen AI Hub: one integration point, one SAP API key, every frontier model available immediately, at volume pricing SAP negotiates with hyperscalers. Behind that gateway, Gen AI Hub handles content filters and PII masking on every request — guardrails I would otherwise have built myself.
 
-**LiteLLM** solves this as a gateway into SAP Gen AI Hub. One integration point. One SAP API key. Every frontier model available to your coding agent immediately. Because SAP negotiates volume pricing with hyperscalers, the economics work at scale without a separate procurement exercise per project. In practice, this means frontier model access at a fraction of the direct-to-provider cost.
+The full-stack picture: **Fiori** on the frontend, **CAP** on the backend, **Gen AI Hub** for intelligent services, **BTP** for runtime and backing services like Destination and HANA Cloud. The coding agent works across this entire stack, guided at every layer by SAP-specific tooling.
 
-Behind that gateway, **Gen AI Hub** in AI Core handles what you would otherwise build yourself: multi-model proxy routing across SAP and non-SAP models, content filters and PII masking on every request, guardrails that apply before any response reaches your application. These are table stakes for enterprise development, not optional extras. Gen AI Hub ships them as infrastructure so your team builds on top of them instead of rebuilding them. Layer your security from the client side too: Claude Code restricts writes to the launch directory by default, and per-tool allow and deny lists in settings.json provide enforcement that does not depend on the model's judgment.
+## You Are the Architect of Your Agents
 
-The full-stack picture: **Fiori** on the frontend, **CAP** on the backend, **Gen AI Hub** for intelligent services, **BTP** for runtime (Cloud Foundry or Kyma) and backing services like Destination and HANA Cloud for connectivity and persistence. The coding agent works across this entire stack, guided at every layer by SAP-specific tooling.
+Here is how I work now. I write the spec before I write any code — architecture principles, security posture, non-functional requirements, all captured upfront. I equip my coding agent with SAP MCP servers so it checks conventions instead of guessing. I give it Playwright so it verifies its own work in the browser. I run every request through governed infrastructure so my company's IP stays protected. And I review every entity definition, every annotation, every endpoint — not because the agent cannot be trusted, but because I am the one who ships it.
 
-This stack works just as well for organizations running S/4HANA on-premise. Your ERP stays where it is. BTP extension apps connect to your on-premise landscape through Destination service and Cloud Connector, keeping a clean separation between your stable core and the AI solutions built on top. **Business Data Cloud (BDC)** federates on-premise data into a governed layer where AI services can consume it without extracting or duplicating it. No migration required — your coding agent builds side-by-side extensions against your existing data, in your existing landscape, with the same governed infrastructure backing every request.
+That is the AI way of building software. Not faster typing — better engineering.
 
-## You're Still the Architect. Agents Are the Builders.
+What I took away from building the Financial Risk Analyzer is simple: the coding agent was never the bottleneck. I was — when I let it work without the right context. MCP servers, architecture principles, and a spec-driven workflow turned the same model that cost me hours of debugging into one that produced enterprise-grade code I could actually ship. And this applies beyond cloud-native apps — the same workflow extends to S/4HANA on-premise scenarios, BTP extensions, anywhere SAP customers need to move faster without touching the core.
 
-I still review every entity definition and annotation the agent writes. That has not changed. What changed is what I find during those reviews: refinements, not fundamental mistakes. Agentic engineering is a partnership, not autopilot. You bring the judgment, set the guardrails, and own the project context. The agent brings speed, consistency, and the patience to execute the same patterns correctly at 2 AM.
-
-That partnership breaks down the moment requirements live only in chat history. Without a persistent spec, the agent fills gaps with assumptions, each new session starts from scratch, and the further you get the harder it is to course-correct. **Spec-driven development (SDD)** solves this. Tools like **OpenSpec** and **GSD** add a lightweight specification layer (markdown files organized by capability) where you and the coding agent co-create requirements and acceptance criteria *before* any code is written. The spec becomes the contract. Every session inherits the same requirements. The agent builds to spec, not to vibes.
-
-In practice, you set up the coding agent with MCP servers for domain knowledge, skills for repeatable workflows, and SDD tools for requirements clarity. The coding agent writes the code. SAP tooling ensures it is written correctly. Subagents handle parallel, isolated work (code review, research, exploration), each running in its own context window and returning only a concise summary, keeping your primary context focused on what matters.
-
-The human reviews, decides, and ships.
-
-Session after session, the coding agent accumulates your team's institutional memory — conventions, corrections, architectural decisions — making it more effective every time it runs. When you find yourself giving the same correction three times, that is a skill candidate. Write it once, and the coding agent never makes that mistake again.
-
-For organizations scaling this across multiple teams, a **governed and centralized MCP server registry** is a security requirement, not a nice-to-have. MCP servers execute with developer privileges. An unvetted server is an unvetted dependency with shell access. Curate an approved catalog of MCP servers and skills so that any developer in your organization adopts only tooling that has been reviewed for security, data handling, and access scope.
-
-As agentic workflows mature, **A2A (Agent-to-Agent protocol)** opens the next frontier, letting a planning agent delegate to a coding agent, or a testing agent report results back to an orchestrator. MCP equips individual agents with tools; A2A lets those agents work together. Whether that scales to a team of twenty agents working in parallel is still an open question, but one extension app is enough to prove the tooling model works.
-
-What I took away from this experiment is simple: the coding agent was never the bottleneck. My mistake was letting it work without the right context. Once I equipped it with SAP's MCP servers, Context7, and Playwright, the same agent that had cost me hours of debugging started producing code I could actually ship.
+**Start with equipping your coding agent with the [CAP](https://www.npmjs.com/package/@cap-js/mcp-server), [Fiori](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server), and [UI5](https://github.com/niclas-nickel/ui5-mcp-server) MCP servers. Write the spec before any code. Review everything. Ship with confidence.** The tooling exists. The architecture principles are documented. And the competitive advantage? It is not the agent itself. It's about combining it to build intelligent apps to work on top top of your master data, and business processes that your SAP systems already hold. Equipped agents turn that data into applications in hours instead of months. The companies that ground their agents in the right tooling and build on the data they already own will not just move faster — they will set the pace. Are you ready to apply these best practices to accelerate transformations?
 
 ## References
 
 **SAP MCP Servers**
-- [CAP MCP Server](https://www.npmjs.com/package/@cap-js/mcp-server) — MCP server for SAP Cloud Application Programming Model (CAP) development
-- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server) — Helps AI models create and modify SAP Fiori applications
-- [UI5 MCP Server](https://github.com/niclas-nickel/ui5-mcp-server) — UI5 Web Components development assistance
+- [CAP MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/boost-your-cap-development-with-ai-introducing-the-mcp-server-for-cap/ba-p/14202849) — MCP server for SAP Cloud Application Programming Model (CAP) development
+- [Fiori MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-fiori-tools-update-first-release-of-the-sap-fiori-mcp-server-for/ba-p/14204694) — Helps AI models create and modify SAP Fiori applications
+- [UI5 MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/give-your-ai-agent-some-tools-introducing-the-ui5-mcp-server/ba-p/14200825) — UI5 Web Components development assistance
 
 **Agentic Engineering & Spec-Driven Development**
-- [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development tool that adds a lightweight specification layer before code is written
 - [GSD (Get Shit Done)](https://github.com/gsd-build/get-shit-done) — Meta-prompting, context engineering, and spec-driven development system for coding agents
+- [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development tool that adds a lightweight specification layer before code is written
 
 **Developer Tooling MCP Servers**
-- [GitHub MCP Server](https://github.com/github/github-mcp-server) — Manage issues, PRs, and workflows through natural language
 - [Context7](https://github.com/upstash/context7) — Up-to-date code documentation for any prompt
 - [Playwright MCP](https://github.com/anthropics/anthropic-quickstarts/tree/main/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
 
 **SAP Platform**
 - [LiteLLM SAP Provider](https://docs.litellm.ai/docs/providers/sap) — Gateway to SAP AI Foundation via Gen AI Hub
 - [Claude Code Documentation](https://code.claude.com/docs) — Official Claude Code docs, skills, MCP, and quickstart guides
-- [Anthropic Skills Repository](https://github.com/anthropics/skills) — Reference patterns for Claude Code skills
