@@ -1,7 +1,7 @@
 import cds from '@sap/cds';
 import express from 'express';
-import authRoutes from './vanilla/src/api/auth';
-import publishRoutes from './vanilla/src/api/publish';
+import authRoutes from './vanilla/api/auth';
+import publishRoutes from './vanilla/api/publish';
 
 cds.on('bootstrap', app => {
   // configure cors
@@ -19,7 +19,6 @@ cds.on('bootstrap', app => {
   });
 
   app.use(express.json({ limit: '5mb' }));
-
   app.use('/user', authRoutes);
   app.use('/api', publishRoutes);
 });

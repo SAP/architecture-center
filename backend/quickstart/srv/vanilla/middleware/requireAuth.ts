@@ -5,7 +5,7 @@ import cds from '@sap/cds';
 const { JWT_SECRET } = cds.env;
 
 interface UserPayload {
-    user: { username: string };
+    username: string;
     githubAccessToken: string;
 }
 
@@ -26,6 +26,11 @@ const requireAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const decoded = jwt.verify(token, JWT_SECRET!) as UserPayload;
         req.user = decoded;
+        // CAP looks here for the authenticated user
+        const context = cds.context;
+        if (context) {
+            context.user = new cds.User(decoded.user.username);
+        }
         next();
     } catch (err) {
         return res.status(401).json({ error: 'Authentication failed: Invalid token.' });
