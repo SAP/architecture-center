@@ -1,0 +1,40 @@
+{
+  "name": "quickstart-backend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@octokit/app": "^16.1.0",
+    "@octokit/rest": "^22.0.0",
+    "@sap/cds": "^9",
+    "axios": "^1.12.2",
+    "express-rate-limit": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
+    "@cap-js/cds-types": "^0.16.0",
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.12.1",
+    "mocha": "^10.8.2",
+    "tsx": "^4",
+    "typescript": "^5"
+  },
+  "scripts": {
+    "watch": "npx cds watch --profile development",
+    "test": "mocha \"test/**/*.test.js\"",
+    "build": "mbt build",
+    "deploy": "cf deploy mta_archives/*",
+    "start": "cds-serve"
+  },
+  "private": true,
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
+}

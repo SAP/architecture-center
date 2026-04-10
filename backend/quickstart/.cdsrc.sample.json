@@ -1,0 +1,18 @@
+{
+    "requires": {
+        "[dev]": {
+            "auth": "mocked"
+        },
+        "[production]": {
+            "auth": {
+                "impl": "srv/vanilla/middleware/requireAuth.js"
+            }
+        }
+    },
+    "FRONTEND_URL": "",
+    "TARGET_REPO_OWNER": "",
+    "TARGET_REPO_NAME": "",
+    "GITHUB_CLIENT_ID": "",
+    "GITHUB_CLIENT_SECRET": "",
+    "JWT_SECRET": ""
+}

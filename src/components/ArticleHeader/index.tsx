@@ -1,8 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Input, Button, MultiComboBox, MultiComboBoxItem, Label, TextArea } from '@ui5/webcomponents-react';
+import React, { useState, useMemo } from 'react';
+import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/edit.js';
-import { usePageDataStore } from '@site/src/store/pageDataStore';
+import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import useGlobalData from '@docusaurus/useGlobalData';
+import MetadataFormDialog from '../MetaFormDialog';
 import styles from './index.module.css';
 
 // A small helper to safely format dates
@@ -37,7 +38,13 @@ const formatDate = (timestamp) => {
 };
 
 export default function ArticleHeader() {
-    const { getActiveDocument, updateDocument, lastSaveTimestamp } = usePageDataStore();
+    const {
+        getActiveDocument,
+        updateDocumentLocal,
+        lastSaveTimestamp,
+        setDocumentTagsAsync,
+        setDocumentContributorsAsync,
+    } = usePageDataStore();
     const activeDocument = getActiveDocument();
     const tagsData = useGlobalData()['docusaurus-tags']['default']['tags'] || {};
 
@@ -46,7 +53,6 @@ export default function ArticleHeader() {
             return { availableTags: [], tagKeyToLabelMap: new Map() };
         }
         const tagsArray = Object.entries(tagsData)
-            // FIX: Corrected the syntax error that caused all subsequent errors
             .filter(([key]) => key !== 'demo')
             .map(([key, value]: [string, any]) => ({
                 key: key,
@@ -57,123 +63,106 @@ export default function ArticleHeader() {
         return { availableTags: tagsArray, tagKeyToLabelMap: map };
     }, [tagsData]);
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [editableData, setEditableData] = useState({ title: '', tags: [], description: '' });
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editableData, setEditableData] = useState<PageMetadata>({
+        title: '',
+        tags: [],
+        authors: [],
+        contributors: [],
+        description: '',
+    });
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
 
     if (!activeDocument) {
         return null;
     }
 
     const handleEdit = () => {
-        const tagObjects = activeDocument.tags
-            .map((key) => availableTags.find((tag) => tag.key === key))
-            .filter(Boolean);
-
         setEditableData({
-            title: activeDocument.title,
-            tags: tagObjects,
+            title: activeDocument.title || '',
+            tags: activeDocument.tags || [],
+            authors: activeDocument.authors || [],
+            contributors: activeDocument.contributors || [],
             description: activeDocument.description || '',
         });
-        setIsEditing(true);
+        setSaveError(null);
+        setIsDialogOpen(true);
     };
 
-    const handleSave = () => {
-        const tagKeysToSave = editableData.tags.map((tag) => tag.key);
-        updateDocument(activeDocument.id, {
-            title: editableData.title,
-            tags: tagKeysToSave,
-            description: editableData.description,
-        });
-        setIsEditing(false);
+    const handleDataChange = (updates: Partial<PageMetadata>) => {
+        setEditableData((prev) => ({ ...prev, ...updates }));
+    };
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        setSaveError(null);
+
+        try {
+            // Update local state for title and description
+            updateDocumentLocal(activeDocument.id, {
+                title: editableData.title,
+                description: editableData.description,
+            });
+
+            // Update tags via API if changed
+            const tagsChanged =
+                JSON.stringify(activeDocument.tags) !== JSON.stringify(editableData.tags);
+            if (tagsChanged) {
+                await setDocumentTagsAsync(activeDocument.id, editableData.tags);
+            }
+
+            // Update contributors via API if changed
+            const contributorsChanged =
+                JSON.stringify(activeDocument.contributors) !== JSON.stringify(editableData.contributors);
+            if (contributorsChanged) {
+                await setDocumentContributorsAsync(activeDocument.id, editableData.contributors || []);
+            }
+
+            setIsDialogOpen(false);
+        } catch (error) {
+            setSaveError(error instanceof Error ? error.message : 'Failed to save changes');
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const handleCancel = () => {
-        setIsEditing(false);
+        setIsDialogOpen(false);
+        setSaveError(null);
     };
 
-    if (isEditing) {
-        return (
-            <div id="article-header" className={styles.containerEditing}>
-                <div className={styles.formField}>
-                    <Label for="titleInput">Title</Label>
-                    <Input
-                        id="titleInput"
-                        value={editableData.title}
-                        className={styles.titleInput}
-                        placeholder="Enter a title..."
-                        onInput={(e) => setEditableData((d) => ({ ...d, title: e.target.value }))}
-                    />
-                </div>
-
-                <div className={styles.formField}>
-                    <div className={styles.formField}>
-                        <Label for="descriptionInput">Description</Label>
-                        <TextArea
-                            id="descriptionInput"
-                            value={editableData.description}
-                            className={styles.descriptionInput}
-                            placeholder="Enter a description"
-                            rows={3}
-                            onInput={(e) => setEditableData((d) => ({ ...d, description: e.target.value }))}
-                        />
-                    </div>
-                    <Label for="tagsInput">Tags</Label>
-                    <MultiComboBox
-                        id="tagsInput"
-                        placeholder="Select tags"
-                        onSelectionChange={(e) => {
-                            const selectedObjects = e.detail.items
-                                .map((item) => availableTags.find((tag) => tag.label === item.text))
-                                .filter(Boolean);
-                            setEditableData((d) => ({ ...d, tags: selectedObjects }));
-                        }}
-                    >
-                        {availableTags.map((tag) => (
-                            <MultiComboBoxItem
-                                key={tag.key}
-                                text={tag.label}
-                                selected={editableData.tags.some((selectedTag) => selectedTag.key === tag.key)}
-                            />
-                        ))}
-                    </MultiComboBox>
-                </div>
-                <div className={styles.formField}>
-                    <Label for="authorsInput">Author</Label>
-                    <div className={styles.authorDisplay}>
-                        {activeDocument.authors.length > 0 ? activeDocument.authors.join(', ') : 'N/A'}
-                    </div>
-                </div>
-                <div className={styles.editingActions}>
-                    <Button onClick={handleSave} design="Emphasized">
-                        Save
-                    </Button>
-                    <Button onClick={handleCancel} design="Transparent" className={styles.cancelButton}>
-                        Cancel
-                    </Button>
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div id="article-header" className={styles.container}>
-            <h1 className={styles.displayTitle}>{activeDocument.title || 'Untitled Page'}</h1>
-            <div className={styles.actions}>
-                <Button icon="edit" design="Transparent" onClick={handleEdit} />
+        <>
+            <div id="article-header" className={styles.container}>
+                <h1 className={styles.displayTitle}>{activeDocument.title || 'Untitled Page'}</h1>
+                <div className={styles.actions}>
+                    <Button icon="edit" design="Transparent" onClick={handleEdit} tooltip="Edit metadata" />
+                </div>
+                <div className={styles.tagsContainer}>
+                    {activeDocument.tags.length > 0 &&
+                        activeDocument.tags.map((tagKey) => (
+                            <span key={tagKey} className={styles.tag}>
+                                {tagKeyToLabelMap.get(tagKey) || tagKey}
+                            </span>
+                        ))}
+                </div>
+                <p className={styles.updateInfo}>
+                    Last updated on <strong>{formatDate(lastSaveTimestamp)}</strong> by{' '}
+                    <strong>{activeDocument.authors.length > 0 ? activeDocument.authors.join(', ') : 'Unknown'}</strong>
+                </p>
             </div>
-            {/* <p className={styles.description}>{activeDocument.description || 'No description provided.'}</p> */}
-            <div className={styles.tagsContainer}>
-                {activeDocument.tags.length > 0 &&
-                    activeDocument.tags.map((tagKey) => (
-                        <span key={tagKey} className={styles.tag}>
-                            {tagKeyToLabelMap.get(tagKey) || tagKey}
-                        </span>
-                    ))}
-            </div>
-            <p className={styles.updateInfo}>
-                Last updated on <strong>{formatDate(lastSaveTimestamp)}</strong> by{' '}
-                <strong>{activeDocument.authors.length > 0 ? activeDocument.authors.join(', ') : 'Unknown'}</strong>
-            </p>
-        </div>
+
+            <MetadataFormDialog
+                open={isDialogOpen}
+                initialData={editableData}
+                onDataChange={handleDataChange}
+                onSave={handleSave}
+                onCancel={handleCancel}
+                isLoading={isSaving}
+                error={saveError}
+                isEditMode={true}
+            />
+        </>
     );
 }

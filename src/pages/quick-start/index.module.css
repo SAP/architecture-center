@@ -66,3 +66,8 @@
     height: 3rem !important;
     color: var(--alert-color);
 }
+
+.migrationDialogContent {
+    padding: 1rem;
+    min-width: 400px;
+}

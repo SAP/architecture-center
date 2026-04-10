@@ -1,0 +1,223 @@
+
+# Create a new document from scratch
+POST http://localhost:4004/quickstart/document-service/createNewDocument HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "title": "Business Data Cloud - The Data Foundation for Agentic AI",
+  "description": "This reference architecture is about Business Data Cloud, the data foundation for agentic AI.",
+  "parentId": null,
+  "tags": ["genai", "agents", "data"],
+  "contributorsUsernames": ["alice", "bob", "fred"],
+  "editorState": "{\"state\":{\"someProperty\":\"property value\"}}"
+}
+
+###
+
+# Replace the full contributor set of one document
+POST http://localhost:4004/quickstart/document-service/setDocumentContributors HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "documentId": "657E1690-0A34-4882-BEDC-25CEA8641BA2",
+  "contributorsUsernames": ["bob"]
+}
+
+###
+
+# Replace the full tag set of one document
+POST http://localhost:4004/quickstart/document-service/setDocumentTags HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "documentId": "657E1690-0A34-4882-BEDC-25CEA8641BA2",
+  "tags": ["agents", "data"]
+}
+
+###
+
+# Media test setup variables
+@documentId = 657E1690-0A34-4882-BEDC-25CEA8641BA2
+@drawioAssetId = 11111111-1111-1111-1111-111111111111
+@pngAssetId = 22222222-2222-2222-2222-222222222222
+
+###
+
+# 1) Create metadata row for a draw.io asset (replace IDs if needed)
+POST http://localhost:4004/quickstart/document-service/DocumentAssets HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "ID": "{{drawioAssetId}}",
+  "mediaType": "application/vnd.jgraph.mxfile+xml",
+  "filename": "reference-architecture-generative-ai-basic.drawio",
+  "document_ID": "{{documentId}}"
+}
+
+###
+
+# 2) Upload the draw.io file bytes to the media property
+PUT http://localhost:4004/quickstart/document-service/DocumentAssets({{drawioAssetId}})/content HTTP/1.1
+Content-Type: application/vnd.jgraph.mxfile+xml
+Authorization: Basic alice:
+
+< ./assets/reference-architecture-generative-ai-basic.drawio
+
+###
+
+# 3) Create metadata row for a PNG asset (for download test)
+POST http://localhost:4004/quickstart/document-service/DocumentAssets HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "ID": "{{pngAssetId}}",
+  "mediaType": "image/png",
+  "filename": "eda-sap.png",
+  "document_ID": "{{documentId}}"
+}
+
+###
+
+# 4) Upload PNG bytes
+PUT http://localhost:4004/quickstart/document-service/DocumentAssets({{pngAssetId}})/content HTTP/1.1
+Content-Type: image/png
+Authorization: Basic alice:
+
+< ./assets/eda-sap.png
+
+###
+
+# 5) Download PNG bytes
+GET http://localhost:4004/quickstart/document-service/DocumentAssets({{pngAssetId}})/content HTTP/1.1
+Accept: image/png
+Authorization: Basic alice:
+
+###
+
+# ------------------------------
+# Authorization checks (manual)
+# ------------------------------
+
+@authDocId = 657E1690-0A34-4882-BEDC-25CEA8641BA2
+@authAssetId = 33333333-3333-3333-3333-333333333333
+
+###
+
+# A) Users entity is not directly exposed
+GET http://localhost:4004/quickstart/document-service/Users HTTP/1.1
+Authorization: Basic alice:
+
+###
+
+# A1) Documents expand still returns usernames for author + contributors
+GET http://localhost:4004/quickstart/document-service/Documents({{authDocId}})?$expand=author,contributors($expand=user) HTTP/1.1
+Authorization: Basic alice:
+
+###
+
+# A2) Direct POST on Documents is blocked (use createNewDocument action)
+POST http://localhost:4004/quickstart/document-service/Documents HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "title": "Blocked direct create",
+  "description": "Should fail",
+  "author_ID": "A0B1C2D3-1111-4A11-8111-111111111111",
+  "editorState": "{}"
+}
+
+###
+
+# A3) Supported create path via custom action
+POST http://localhost:4004/quickstart/document-service/createNewDocument HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "title": "Created via action",
+  "description": "Author comes from req.user.id",
+  "parentId": null,
+  "tags": ["agents"],
+  "contributorsUsernames": ["bob"],
+  "editorState": "{}"
+}
+
+###
+
+# B) Tags are read-only: write attempts should fail
+POST http://localhost:4004/quickstart/document-service/Tags HTTP/1.1
+Content-Type: application/json
+Authorization: Basic alice:
+
+{
+  "code": "manual-auth-test",
+  "label": "Manual Auth Test",
+  "description": "Write should fail because Tags is @readonly"
+}
+
+###
+
+# C) Contributor can read document (bob must be contributor of authDocId)
+GET http://localhost:4004/quickstart/document-service/Documents({{authDocId}}) HTTP/1.1
+Authorization: Basic bob:
+
+###
+
+# D) Unrelated user cannot read document
+GET http://localhost:4004/quickstart/document-service/Documents({{authDocId}}) HTTP/1.1
+Authorization: Basic fred:
+
+###
+
+# E) Contributor cannot update document
+PATCH http://localhost:4004/quickstart/document-service/Documents({{authDocId}}) HTTP/1.1
+Content-Type: application/json
+Authorization: Basic bob:
+
+{
+  "description": "bob should not be able to update this"
+}
+
+###
+
+# F) Contributor cannot create document tags directly
+POST http://localhost:4004/quickstart/document-service/DocumentTags HTTP/1.1
+Content-Type: application/json
+Authorization: Basic bob:
+
+{
+  "document_ID": "{{authDocId}}",
+  "tag_code": "data"
+}
+
+###
+
+# G) Contributor cannot create document assets directly
+POST http://localhost:4004/quickstart/document-service/DocumentAssets HTTP/1.1
+Content-Type: application/json
+Authorization: Basic bob:
+
+{
+  "ID": "{{authAssetId}}",
+  "mediaType": "image/png",
+  "filename": "should-fail.png",
+  "document_ID": "{{authDocId}}"
+}
+
+###
+
+# H) Contributor cannot replace contributors via action
+POST http://localhost:4004/quickstart/document-service/setDocumentContributors HTTP/1.1
+Content-Type: application/json
+Authorization: Basic bob:
+
+{
+  "documentId": "{{authDocId}}",
+  "contributorsUsernames": ["alice", "bob", "fred"]
+}

@@ -4,6 +4,7 @@ import {
     $getSelection,
     $isParagraphNode,
     $isRangeSelection,
+    $isTextNode,
     SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import { useEffect, useRef } from 'react';
@@ -25,8 +26,18 @@ export default function EmptyLineCommandHintPlugin() {
 
                 const anchorNode = selection.anchor.getNode();
                 const topLevel = anchorNode.getTopLevelElementOrThrow();
+
+                // Only show hint on truly empty paragraph nodes
+                // Check: is paragraph, has no text, AND only contains empty text nodes (no images, etc.)
                 if ($isParagraphNode(topLevel) && topLevel.getTextContent().trim() === '') {
-                    nextNodeKey = topLevel.getKey();
+                    const children = topLevel.getChildren();
+                    // Empty or only contains a single empty text node
+                    const isTrulyEmpty = children.length === 0 ||
+                        (children.length === 1 && $isTextNode(children[0]) && children[0].getTextContent() === '');
+
+                    if (isTrulyEmpty) {
+                        nextNodeKey = topLevel.getKey();
+                    }
                 }
             });
 

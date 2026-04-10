@@ -8,6 +8,7 @@ default-*.json
 gen/
 node_modules/
 target/
+/quickstart/.cdsrc.json
 
 # Web IDE, App Studio
 .che/
@@ -35,3 +36,4 @@ mta_archives/
 backend-express/manifest.yml
 **/package-lock.json
 package-lock.json
+!/quickstart/package-lock.json

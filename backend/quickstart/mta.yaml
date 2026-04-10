@@ -1,0 +1,43 @@
+_schema-version: 3.3.0
+ID: quickstart-backend
+version: 1.0.0
+description: "Port the existing Quickstart backend to CAP and store data in SAP HANA Cloud"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: quickstart-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+      ignore:
+        - node_modules
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: quickstart-db
+
+  - name: quickstart-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: quickstart-db
+
+resources:
+  - name: quickstart-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared

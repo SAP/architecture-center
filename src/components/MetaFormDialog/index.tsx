@@ -14,6 +14,8 @@ import {
     FlexBox,
     Avatar,
     Text,
+    BusyIndicator,
+    MessageStrip,
 } from '@ui5/webcomponents-react';
 import { PageMetadata } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
@@ -42,6 +44,9 @@ interface MetadataFormDialogProps {
     onDataChange: (data: Partial<PageMetadata>) => void;
     onSave: () => void;
     onCancel: () => void;
+    isLoading?: boolean;
+    error?: string | null;
+    isEditMode?: boolean;
 }
 
 export default React.memo(function MetadataFormDialog({
@@ -50,6 +55,9 @@ export default React.memo(function MetadataFormDialog({
     onDataChange,
     onSave,
     onCancel,
+    isLoading = false,
+    error = null,
+    isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { user, token } = useAuth();
@@ -229,22 +237,36 @@ export default React.memo(function MetadataFormDialog({
             style={{ width: '650px' }}
             header={
                 <Bar>
-                    <Title>Create New Reference Architecture</Title>
+                    <Title>{isEditMode ? 'Edit Metadata' : 'Create New Reference Architecture'}</Title>
                 </Bar>
             }
             footer={
                 <Bar
                     endContent={
                         <>
-                            <Button design="Emphasized" onClick={onSave} disabled={!isFormValid}>
-                                Create
+                            <Button design="Emphasized" onClick={onSave} disabled={!isFormValid || isLoading}>
+                                {isLoading ? (
+                                    <>
+                                        <BusyIndicator size="S" active style={{ marginRight: '0.5rem' }} />
+                                        {isEditMode ? 'Saving...' : 'Creating...'}
+                                    </>
+                                ) : (
+                                    isEditMode ? 'Save' : 'Create'
+                                )}
                             </Button>
-                            <Button onClick={onCancel}>Cancel</Button>
+                            <Button onClick={onCancel} disabled={isLoading}>
+                                Cancel
+                            </Button>
                         </>
                     }
                 />
             }
         >
+            {error && (
+                <MessageStrip design="Negative" style={{ margin: '1rem 1rem 0 1rem' }}>
+                    {error}
+                </MessageStrip>
+            )}
             <Form style={{ padding: '1rem' }}>
                 <FormItem labelContent={<Label required>Title</Label>}>
                     <Input

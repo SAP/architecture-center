@@ -1,0 +1,192 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    z-index: 9999;
+    backdrop-filter: blur(2px);
+}
+
+.modal {
+    width: 100%;
+    max-width: 560px;
+    background: var(--sapGroup_ContentBackground, #fff);
+    border-radius: 12px;
+    box-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.searchHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--sapGroup_ContentBorderColor, #e0e0e0);
+}
+
+.searchIcon {
+    color: var(--sapContent_IconColor, #666);
+    flex-shrink: 0;
+}
+
+.searchInput {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--sapTextColor, #333);
+    outline: none;
+}
+
+.searchInput::placeholder {
+    color: var(--sapContent_LabelColor, #999);
+}
+
+.shortcutHint {
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor, #888);
+    white-space: nowrap;
+}
+
+.results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.noResults {
+    padding: 2rem;
+    text-align: center;
+    color: var(--sapContent_LabelColor, #888);
+    font-size: 0.9rem;
+}
+
+.resultItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.resultItem:hover,
+.resultItem.selected {
+    background: var(--sapList_Hover_Background, #f0f7ff);
+}
+
+.resultIcon {
+    color: var(--sapContent_IconColor, #666);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.resultContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+}
+
+.resultTitle {
+    font-size: 0.9rem;
+    color: var(--sapTextColor, #333);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.headingLevel {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.125rem 0.375rem;
+    background: var(--sapAccentColor6, #0a6ed1);
+    color: white;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.resultMeta {
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor, #888);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.enterHint {
+    font-size: 0.85rem;
+    color: var(--sapContent_LabelColor, #888);
+    flex-shrink: 0;
+}
+
+.footer {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--sapGroup_ContentBorderColor, #e0e0e0);
+    background: var(--sapGroup_TitleBackground, #f8f9fa);
+    font-size: 0.75rem;
+    color: var(--sapContent_LabelColor, #888);
+}
+
+.footer kbd {
+    display: inline-block;
+    padding: 0.125rem 0.375rem;
+    background: var(--sapButton_Background, #fff);
+    border: 1px solid var(--sapButton_BorderColor, #ccc);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    margin-right: 0.25rem;
+}
+
+/* Dark mode */
+:root[data-theme='dark'] .overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+:root[data-theme='dark'] .modal {
+    background: var(--sapGroup_ContentBackground, #1a1a2e);
+    box-shadow: 0 16px 70px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='dark'] .searchInput {
+    color: var(--sapTextColor, #fff);
+}
+
+:root[data-theme='dark'] .resultItem:hover,
+:root[data-theme='dark'] .resultItem.selected {
+    background: var(--sapList_Hover_Background, #2d2d44);
+}
+
+:root[data-theme='dark'] .footer {
+    background: var(--sapGroup_TitleBackground, #2d2d44);
+}
+
+:root[data-theme='dark'] .footer kbd {
+    background: var(--sapButton_Background, #3d3d5c);
+    border-color: var(--sapButton_BorderColor, #555);
+}
