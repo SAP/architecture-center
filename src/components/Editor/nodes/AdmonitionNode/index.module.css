@@ -1,0 +1,122 @@
+.admonition {
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    position: relative;
+    border-left: 4px solid #6c757d;
+    background-color: #f8f9fa;
+}
+
+.note {
+    background-color: #f8f9fa;
+    border-left-color: #6c757d;
+}
+
+.info {
+    background-color: #e7f3ff;
+    border-left-color: #4dabf7;
+}
+
+.tip {
+    background-color: #e6fcf5;
+    border-left-color: #38d9a9;
+}
+
+.warning {
+    background-color: #fff9db;
+    border-left-color: #ffc107;
+}
+
+.danger {
+    background-color: #ffe3e3;
+    border-left-color: #ff6b6b;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.icon {
+    font-size: 16px;
+}
+
+.typeSelect {
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.typeSelect:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.typeSelectNote {
+    color: #495057;
+}
+
+.typeSelectInfo {
+    color: #1971c2;
+}
+
+.typeSelectTip {
+    color: #099268;
+}
+
+.typeSelectWarning {
+    color: #e67700;
+}
+
+.typeSelectDanger {
+    color: #c92a2a;
+}
+
+.deleteButton {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.deleteButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.content {
+    position: relative;
+}
+
+.contentEditable {
+    min-height: 40px;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.contentEditable:focus {
+    outline: none;
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #999;
+    font-size: 14px;
+    pointer-events: none;
+    user-select: none;
+}

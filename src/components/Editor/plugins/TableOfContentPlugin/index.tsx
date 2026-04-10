@@ -26,14 +26,6 @@ export default function TableOfContentsPlugin() {
                 const root = $getRoot();
                 const newHeadings: Heading[] = [];
 
-                if (activeDocument.title) {
-                    newHeadings.push({
-                        key: 'article-header',
-                        text: activeDocument.title,
-                        level: 1,
-                    });
-                }
-
                 root.getChildren().forEach((node) => {
                     if ($isHeadingNode(node)) {
                         newHeadings.push({
@@ -55,8 +47,7 @@ export default function TableOfContentsPlugin() {
 
     const scrollToNode = (key: string) => {
         editor.update(() => {
-            const domNode =
-                key === 'article-header' ? document.getElementById('article-header') : editor.getElementByKey(key);
+            const domNode = editor.getElementByKey(key);
 
             if (domNode) {
                 const navbar = document.querySelector('.navbar--fixed-top') as HTMLElement;

@@ -23,6 +23,16 @@ interface PublishResult {
     branchName: string;
 }
 
+/**
+ * Asset data structure passed from publish.ts
+ */
+export interface AssetData {
+    ID: string;
+    mediaType: string;
+    filename: string;
+    content: Buffer | null;
+}
+
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
@@ -120,7 +130,8 @@ async function createPullRequest(
 export async function publishToGitHub(
     rootDocument: DocumentObject,
     token: string,
-    createPR: boolean = false
+    createPR: boolean = false,
+    assetsMap?: Map<string, AssetData>
 ): Promise<PublishResult> {
     if (!TARGET_REPO_OWNER || !TARGET_REPO_NAME) {
         const error: GitHubApiError = new Error('Target repository is not configured on the server.');
@@ -167,7 +178,9 @@ export async function publishToGitHub(
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '');
     const branchName = `${newRaFolderName}-${titleSlug}`;
-    const filesToCommit = generateFileTreeInMemory(rootDocument, newRaFolderName);
+
+    // Pass assetsMap to generateFileTreeInMemory
+    const filesToCommit = generateFileTreeInMemory(rootDocument, newRaFolderName, assetsMap);
 
     await githubApiRequest(`/repos/${repoOwner}/${repoName}/git/refs`, token, {
         method: 'POST',

@@ -1,0 +1,122 @@
+.pillBar {
+    background: var(--sapGroup_ContentBackground, #f8f9fa);
+    border-bottom: 1px solid var(--sapGroup_ContentBorderColor, #e0e0e0);
+    padding: 0.625rem 1rem;
+    flex-shrink: 0;
+}
+
+.pillScroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+.pillScroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.pillScroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pillScroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--sapButton_Background, #fff);
+    border: 1px solid var(--sapButton_BorderColor, #e0e0e0);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    color: var(--sapTextColor, #333);
+}
+
+.pill:hover {
+    border-color: var(--sapButton_Hover_BorderColor, #0a6ed1);
+    background: var(--sapButton_Hover_Background, #f0f7ff);
+}
+
+.pill:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 110, 209, 0.2);
+}
+
+.pillActive {
+    background: var(--sapButton_Emphasized_Background, #0a6ed1);
+    color: var(--sapButton_Emphasized_TextColor, #fff);
+    border-color: var(--sapButton_Emphasized_BorderColor, #0a6ed1);
+}
+
+.pillActive:hover {
+    background: var(--sapButton_Emphasized_Hover_Background, #0854a0);
+    border-color: var(--sapButton_Emphasized_Hover_BorderColor, #0854a0);
+}
+
+.pillActive .pillDot {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.pillDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.pillDot.draft {
+    background: #ffc107;
+}
+
+.pillDot.submitted {
+    background: #28a745;
+}
+
+.pillTitle {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addPill {
+    background: transparent;
+    border-style: dashed;
+    color: var(--sapContent_LabelColor, #666);
+}
+
+.addPill:hover {
+    border-color: var(--sapButton_Hover_BorderColor, #0a6ed1);
+    color: var(--sapLink_Color, #0a6ed1);
+    background: transparent;
+}
+
+/* Dark mode support */
+:root[data-theme='dark'] .pillBar {
+    background: var(--sapGroup_ContentBackground, #1a1a2e);
+    border-color: var(--sapGroup_ContentBorderColor, #3d3d5c);
+}
+
+:root[data-theme='dark'] .pill {
+    background: var(--sapButton_Background, #2d2d44);
+    border-color: var(--sapButton_BorderColor, #3d3d5c);
+    color: var(--sapTextColor, #fff);
+}
+
+:root[data-theme='dark'] .pill:hover {
+    background: var(--sapButton_Hover_Background, #3d3d5c);
+}
+
+:root[data-theme='dark'] .addPill {
+    background: transparent;
+    color: var(--sapContent_LabelColor, #aaa);
+}

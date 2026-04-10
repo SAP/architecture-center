@@ -21,6 +21,16 @@ export interface DocumentObject {
     };
 }
 
+/**
+ * Asset data structure passed from publish.ts
+ */
+export interface AssetData {
+    ID: string;
+    mediaType: string;
+    filename: string;
+    content: Buffer | null;
+}
+
 interface LexicalNode {
     type: string;
     src?: string;
@@ -31,7 +41,15 @@ interface LexicalNode {
     altText?: string;
     start?: number;
     diagramXML?: string;
+    assetId?: string; // NEW: Reference to DocumentAsset
     children?: LexicalNode[];
+    // Additional fields for specific node types
+    language?: string; // for code blocks
+    admonitionType?: string; // for admonition nodes
+    nestedEditorState?: LexicalEditorState; // for admonition content
+    content?: string; // legacy admonition content
+    listType?: string; // for list nodes
+    indent?: number; // for nested lists
 }
 
 interface LexicalEditorState {
@@ -44,55 +62,197 @@ const slugify = (text: string): string =>
         .replace(/\s+/g, '-')
         .replace(/[^\w-]+/g, '');
 
-function processNodeAndExtractFiles(node: LexicalNode, assetFiles: FileForCommit[]): string {
+/**
+ * Get file extension from media type
+ */
+function getExtensionFromMediaType(mediaType: string): string {
+    const mediaTypeMap: Record<string, string> = {
+        'image/png': 'png',
+        'image/jpeg': 'jpg',
+        'image/jpg': 'jpg',
+        'image/webp': 'webp',
+        'image/gif': 'gif',
+        'image/svg+xml': 'svg',
+        'application/vnd.jgraph.mxfile+xml': 'drawio',
+        'application/xml': 'xml',
+        'text/xml': 'xml',
+    };
+    return mediaTypeMap[mediaType] || 'bin';
+}
+
+function processNodeAndExtractFiles(
+    node: LexicalNode,
+    assetFiles: FileForCommit[],
+    assetsMap?: Map<string, AssetData>,
+    indentLevel: number = 0
+): string {
     if (!node) {
         return '';
     }
 
+    const indent = '  '.repeat(indentLevel);
+
     switch (node.type) {
         case 'root': {
-            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
+            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
         }
         case 'heading': {
             const childrenText =
-                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
-            const level = node.tag === 'h1' ? 1 : node.tag === 'h2' ? 2 : 3;
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
+            const level = node.tag === 'h1' ? 1 : node.tag === 'h2' ? 2 : node.tag === 'h3' ? 3 : node.tag === 'h4' ? 4 : node.tag === 'h5' ? 5 : 6;
             return `${'#'.repeat(level)} ${childrenText}\n\n`;
         }
         case 'paragraph': {
             const childrenText =
-                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
+            // Handle indented paragraphs in lists
+            if (indentLevel > 0) {
+                return `${indent}${childrenText}\n`;
+            }
             return `${childrenText}\n\n`;
         }
         case 'text': {
             let text = node.text || '';
-            if (node.format && node.format & 1) text = `**${text}**`;
-            if (node.format && node.format & 2) text = `*${text}*`;
+            // Format flags: 1=bold, 2=italic, 4=strikethrough, 8=underline, 16=code, 32=subscript, 64=superscript
+            if (node.format) {
+                // Apply code first (innermost)
+                if (node.format & 16) text = `\`${text}\``;
+                // Apply strikethrough
+                if (node.format & 4) text = `~~${text}~~`;
+                // Apply italic
+                if (node.format & 2) text = `*${text}*`;
+                // Apply bold
+                if (node.format & 1) text = `**${text}**`;
+                // Underline - no standard markdown, use HTML
+                if (node.format & 8) text = `<u>${text}</u>`;
+                // Subscript
+                if (node.format & 32) text = `<sub>${text}</sub>`;
+                // Superscript
+                if (node.format & 64) text = `<sup>${text}</sup>`;
+            }
             return text;
         }
+        case 'linebreak': {
+            return '  \n'; // Two spaces + newline for markdown line break
+        }
         case 'list': {
+            const listIndent = node.indent || 0;
             const start = node.start || 1;
             return (
                 (node.children
                     ?.map((child, index) => {
                         const prefix = node.tag === 'ol' ? `${start + index}. ` : '- ';
-                        const childMarkdown = processNodeAndExtractFiles(child, assetFiles);
-                        return `${prefix}${childMarkdown}`;
+                        const childMarkdown = processNodeAndExtractFiles(child, assetFiles, assetsMap, listIndent);
+                        return `${'  '.repeat(listIndent)}${prefix}${childMarkdown}`;
                     })
                     .join('') || '') + '\n'
             );
         }
         case 'listitem': {
             const childrenText =
-                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, indentLevel)).join('') || '';
             return `${childrenText.trimEnd()}\n`;
         }
         case 'link': {
             const childrenText =
-                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
             return `[${childrenText}](${node.url})`;
         }
+        case 'quote': {
+            const childrenText =
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
+            // Add > prefix to each line
+            const quotedLines = childrenText
+                .trim()
+                .split('\n')
+                .map((line) => `> ${line}`)
+                .join('\n');
+            return `${quotedLines}\n\n`;
+        }
+        case 'code': {
+            // Code block node
+            const code = node.children?.map((child) => child.text || '').join('') || '';
+            const language = node.language || '';
+            return `\`\`\`${language}\n${code}\n\`\`\`\n\n`;
+        }
+        case 'code-highlight': {
+            // Code highlight inside code block - just return the text
+            return node.text || '';
+        }
+        case 'table': {
+            if (!node.children || node.children.length === 0) return '';
+
+            const rows = node.children.filter((child) => child.type === 'tablerow');
+            if (rows.length === 0) return '';
+
+            let tableMarkdown = '';
+
+            rows.forEach((row, rowIndex) => {
+                const cells = row.children?.filter((child) => child.type === 'tablecell') || [];
+                const cellContents = cells.map((cell) => {
+                    const content = cell.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
+                    return content.trim().replace(/\|/g, '\\|').replace(/\n/g, ' ');
+                });
+
+                tableMarkdown += `| ${cellContents.join(' | ')} |\n`;
+
+                // Add header separator after first row
+                if (rowIndex === 0) {
+                    tableMarkdown += `| ${cells.map(() => '---').join(' | ')} |\n`;
+                }
+            });
+
+            return `${tableMarkdown}\n`;
+        }
+        case 'tablerow': {
+            // Handled by table
+            return '';
+        }
+        case 'tablecell': {
+            // Handled by table
+            return '';
+        }
+        case 'horizontalrule': {
+            return `---\n\n`;
+        }
+        case 'admonition': {
+            // Convert admonition to Docusaurus admonition format
+            const admonitionType = node.admonitionType || 'note';
+            let content = '';
+
+            // Handle nested editor state (new format)
+            if (node.nestedEditorState && node.nestedEditorState.root) {
+                content = processNodeAndExtractFiles(node.nestedEditorState.root, assetFiles, assetsMap, 0).trim();
+            }
+            // Handle legacy content string
+            else if (node.content) {
+                content = node.content;
+            }
+
+            // Indent content for admonition
+            const indentedContent = content
+                .split('\n')
+                .map((line) => line)
+                .join('\n');
+
+            return `:::${admonitionType}\n\n${indentedContent}\n\n:::\n\n`;
+        }
         case 'drawio': {
+            // NEW: Handle assetId reference
+            if (node.assetId && assetsMap) {
+                const asset = assetsMap.get(node.assetId);
+                if (asset && asset.content) {
+                    const fileName = `diagram-${nanoid(10)}.drawio`;
+                    // Draw.io files are XML text
+                    assetFiles.push({
+                        path: `drawio/${fileName}`,
+                        content: asset.content.toString('utf-8'),
+                        encoding: 'utf-8',
+                    });
+                    return `![drawio](drawio/${fileName})\n\n`;
+                }
+            }
+            // Fallback: embedded XML (legacy format)
             if (node.diagramXML) {
                 const fileName = `diagram-${nanoid(10)}.drawio`;
                 assetFiles.push({ path: `drawio/${fileName}`, content: node.diagramXML });
@@ -101,6 +261,21 @@ function processNodeAndExtractFiles(node: LexicalNode, assetFiles: FileForCommit
             return '';
         }
         case 'image': {
+            // NEW: Handle assetId reference
+            if (node.assetId && assetsMap) {
+                const asset = assetsMap.get(node.assetId);
+                if (asset && asset.content) {
+                    const extension = getExtensionFromMediaType(asset.mediaType);
+                    const fileName = `image-${nanoid(10)}.${extension}`;
+                    assetFiles.push({
+                        path: `images/${fileName}`,
+                        content: asset.content.toString('base64'),
+                        encoding: 'base64',
+                    });
+                    return `![${node.altText || ''}](images/${fileName})\n\n`;
+                }
+            }
+            // Fallback: embedded base64 data URL (legacy format)
             if (node.src && node.src.startsWith('data:image/')) {
                 const dataUrl = node.src;
                 const commaIndex = dataUrl.indexOf(',');
@@ -129,7 +304,7 @@ function processNodeAndExtractFiles(node: LexicalNode, assetFiles: FileForCommit
             return '';
         }
         default: {
-            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles)).join('') || '';
+            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, indentLevel)).join('') || '';
         }
     }
 }
@@ -151,7 +326,8 @@ function processDocumentTreeRecursively(
     sidebarPosition: number,
     idSegments: string[],
     parentSlug: string,
-    isRoot: boolean = false
+    isRoot: boolean = false,
+    assetsMap?: Map<string, AssetData>
 ): FileForCommit[] {
     let filesForThisLevel: FileForCommit[] = [];
     const { metadata, editorState } = doc;
@@ -172,7 +348,7 @@ slug: ${currentFullSlug}
 sidebar_position: ${sidebarPosition}
 title: '${metadata.title.replace(/'/g, "''")}'
 description: '${(metadata.description || '').replace(/'/g, "''")}'
-keywords: 
+keywords:
 ${(metadata.tags || []).map((tag) => `  - ${tag}`).join('\n')}
 sidebar_label: '${metadata.title.replace(/'/g, "''")}'
 image: img/logo.svg
@@ -220,7 +396,7 @@ last_update:
         }
 
         const assetFiles: FileForCommit[] = [];
-        const markdownContent = processNodeAndExtractFiles(stateForProcessing.root, assetFiles);
+        const markdownContent = processNodeAndExtractFiles(stateForProcessing.root, assetFiles, assetsMap, 0);
 
         assetFiles.forEach((assetFile) => {
             filesForThisLevel.push({
@@ -249,7 +425,8 @@ last_update:
                 childPosition,
                 childIdSegments,
                 currentFullSlug,
-                false
+                false,
+                assetsMap
             );
             filesForThisLevel.push(...childFiles);
         });
@@ -258,7 +435,11 @@ last_update:
     return filesForThisLevel;
 }
 
-export function generateFileTreeInMemory(rootDoc: DocumentObject, raFolderName: string): FileForCommit[] {
+export function generateFileTreeInMemory(
+    rootDoc: DocumentObject,
+    raFolderName: string,
+    assetsMap?: Map<string, AssetData>
+): FileForCommit[] {
     const match = raFolderName.match(/\d+/);
     const initialSidebarPosition = match ? parseInt(match[0], 10) : 1;
     const initialIdSegments = [raFolderName.toLowerCase()];
@@ -270,6 +451,7 @@ export function generateFileTreeInMemory(rootDoc: DocumentObject, raFolderName: 
         initialSidebarPosition,
         initialIdSegments,
         initialParentSlug,
-        true
+        true,
+        assetsMap
     );
 }

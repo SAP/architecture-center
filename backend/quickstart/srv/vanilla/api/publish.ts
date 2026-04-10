@@ -4,6 +4,7 @@ import { publishToGitHub, syncUserFork } from '../services/githubService';
 import { generateStandalonePRBody } from '../templates/prTemplate';
 import rateLimit from 'express-rate-limit';
 import cds from '@sap/cds';
+import { DocumentObject } from '../services/lexicalService';
 
 // GitHub API helper function
 async function githubApiRequest(endpoint: string, token: string, options: RequestInit = {}): Promise<any> {
@@ -37,20 +38,176 @@ const publishLimiter = rateLimit({
 
 const router = Router();
 
+/**
+ * Asset data structure for passing to lexicalService
+ */
+interface AssetData {
+    ID: string;
+    mediaType: string;
+    filename: string;
+    content: Buffer | null;
+}
+
+/**
+ * Fetch a document tree with all assets from the database
+ */
+async function fetchDocumentTreeWithAssets(
+    rootId: string,
+    username: string
+): Promise<{ document: DocumentObject; assets: Map<string, AssetData> } | null> {
+    const db = await cds.connect.to('db');
+    const { Documents, DocumentAssets, Users } = db.entities('ac.quickstart');
+
+    // Recursive function to fetch document and its children
+    const fetchDocWithChildren = async (docId: string): Promise<DocumentObject | null> => {
+        // Fetch the document with relations
+        const doc = await SELECT.one
+            .from(Documents)
+            .columns(
+                'ID',
+                'title',
+                'description',
+                'editorState',
+                'parent_ID',
+                'author_ID'
+            )
+            .where({ ID: docId });
+
+        if (!doc) return null;
+
+        // Fetch author
+        const author = await SELECT.one.from(Users).columns('username').where({ ID: doc.author_ID });
+
+        // Fetch contributors
+        const contributors = await SELECT.from('ac.quickstart.DocumentContributors')
+            .columns('user_ID')
+            .where({ document_ID: docId });
+
+        const contributorUsernames: string[] = [];
+        for (const c of contributors) {
+            const user = await SELECT.one.from(Users).columns('username').where({ ID: c.user_ID });
+            if (user) contributorUsernames.push(user.username);
+        }
+
+        // Fetch tags
+        const tags = await SELECT.from('ac.quickstart.DocumentTags')
+            .columns('tag_code')
+            .where({ document_ID: docId });
+
+        // Fetch children
+        const childDocs = await SELECT.from(Documents).columns('ID').where({ parent_ID: docId });
+        const children: DocumentObject[] = [];
+        for (const child of childDocs) {
+            const childDoc = await fetchDocWithChildren(child.ID);
+            if (childDoc) children.push(childDoc);
+        }
+
+        return {
+            id: doc.ID,
+            editorState: doc.editorState || '',
+            parentId: doc.parent_ID || null,
+            children,
+            metadata: {
+                title: doc.title,
+                tags: tags.map((t: any) => t.tag_code),
+                authors: author ? [author.username] : [],
+                contributors: contributorUsernames,
+                description: doc.description || '',
+            },
+        };
+    };
+
+    // Fetch root document
+    const rootDoc = await SELECT.one
+        .from(Documents)
+        .columns('ID', 'author_ID')
+        .where({ ID: rootId });
+
+    if (!rootDoc) return null;
+
+    // Verify ownership
+    const author = await SELECT.one.from(Users).columns('username').where({ ID: rootDoc.author_ID });
+    if (!author || author.username !== username) {
+        return null; // Not authorized
+    }
+
+    // Fetch full document tree
+    const document = await fetchDocWithChildren(rootId);
+    if (!document) return null;
+
+    // Collect all document IDs in the tree
+    const collectDocIds = (doc: DocumentObject): string[] => {
+        const ids = [doc.id];
+        if (doc.children) {
+            for (const child of doc.children) {
+                ids.push(...collectDocIds(child));
+            }
+        }
+        return ids;
+    };
+    const allDocIds = collectDocIds(document);
+
+    // Fetch all assets for all documents in the tree
+    const assets = new Map<string, AssetData>();
+    for (const docId of allDocIds) {
+        const docAssets = await SELECT.from(DocumentAssets)
+            .columns('ID', 'mediaType', 'filename', 'content')
+            .where({ document_ID: docId });
+
+        for (const asset of docAssets) {
+            assets.set(asset.ID, {
+                ID: asset.ID,
+                mediaType: asset.mediaType,
+                filename: asset.filename,
+                content: asset.content,
+            });
+        }
+    }
+
+    return { document, assets };
+}
+
 router.post('/publish', publishLimiter, requireAuth, async (req: Request, res: Response) => {
     try {
-        const rootDocument = JSON.parse(req.body.document);
         const githubToken = req.user?.githubAccessToken;
-        const createPR = true; // Always create PR for publish requests
+        const username = req.user?.username;
 
-        if (!rootDocument || !rootDocument.metadata) {
-            return res.status(400).json({ error: 'Invalid document data received.' });
-        }
         if (!githubToken) {
             return res.status(403).json({ error: 'Forbidden: Valid GitHub token not found in JWT.' });
         }
 
-        const commitResult = await publishToGitHub(rootDocument, githubToken, createPR);
+        if (!username) {
+            return res.status(401).json({ error: 'User not authenticated.' });
+        }
+
+        // Support both old format (document JSON) and new format (rootDocumentId)
+        let rootDocument: DocumentObject;
+        let assetsMap: Map<string, AssetData> | undefined;
+
+        if (req.body.rootDocumentId) {
+            // New format: fetch from database
+            const result = await fetchDocumentTreeWithAssets(req.body.rootDocumentId, username);
+
+            if (!result) {
+                return res.status(404).json({ error: 'Document not found or you do not have permission to publish it.' });
+            }
+
+            rootDocument = result.document;
+            assetsMap = result.assets;
+        } else if (req.body.document) {
+            // Legacy format: document JSON in request body
+            rootDocument = JSON.parse(req.body.document);
+
+            if (!rootDocument || !rootDocument.metadata) {
+                return res.status(400).json({ error: 'Invalid document data received.' });
+            }
+        } else {
+            return res.status(400).json({ error: 'Missing rootDocumentId or document in request body.' });
+        }
+
+        const createPR = true; // Always create PR for publish requests
+
+        const commitResult = await publishToGitHub(rootDocument, githubToken, createPR, assetsMap);
 
         const response: any = {
             message: `Successfully published to ${commitResult.repoFullName}`,

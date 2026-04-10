@@ -9,7 +9,7 @@ interface PageTabsProps {
 }
 
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
-    const { documents, activeDocumentId, setActiveDocumentId } = usePageDataStore();
+    const { documents, activeDocumentId, setActiveDocumentId, selectedArchitectureId } = usePageDataStore();
 
     const handleActionClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -52,9 +52,14 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
         );
     };
 
-    const rootDocuments = documents.filter((doc) => doc.parentId === null);
+    // Only show the selected architecture and its children
+    const selectedArchitecture = documents.find((doc) => doc.id === selectedArchitectureId);
 
-    return <div className={styles.navContainer}>{rootDocuments.map((doc) => renderDocumentTree(doc))}</div>;
+    if (!selectedArchitecture) {
+        return <div className={styles.navContainer}>No architecture selected</div>;
+    }
+
+    return <div className={styles.navContainer}>{renderDocumentTree(selectedArchitecture)}</div>;
 };
 
 export default PageTabs;

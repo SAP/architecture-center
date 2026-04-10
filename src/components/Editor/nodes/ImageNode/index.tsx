@@ -4,7 +4,6 @@ import type {
     DOMConversionOutput,
     DOMExportOutput,
     EditorConfig,
-    LexicalEditor,
     LexicalNode,
     NodeKey,
     SerializedLexicalNode,
@@ -14,6 +13,7 @@ import type {
 import { $applyNodeReplacement, DecoratorNode } from 'lexical';
 
 import ImageComponent from './ImageComponent';
+import { getAssetContentUrl } from '@site/src/services/documentApi';
 
 function convertImageElement(domNode: Node): null | DOMConversionOutput {
     if (domNode instanceof HTMLImageElement) {
@@ -27,7 +27,8 @@ function convertImageElement(domNode: Node): null | DOMConversionOutput {
 export type SerializedImageNode = Spread<
     {
         altText: string;
-        src: string;
+        assetId?: string; // NEW: Reference to DocumentAsset
+        src?: string; // Keep for backward compatibility and migration
         width?: number;
         height?: number;
         type: 'image';
@@ -41,22 +42,40 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     __altText: string;
     __width: number | 'inherit';
     __height: number | 'inherit';
+    __assetId: string | null;
 
     static getType(): string {
         return 'image';
     }
 
     static clone(node: ImageNode): ImageNode {
-        return new ImageNode(node.__src, node.__altText, node.__width, node.__height, node.__key);
+        return new ImageNode(
+            node.__src,
+            node.__altText,
+            node.__width,
+            node.__height,
+            node.__assetId,
+            node.__key
+        );
     }
 
     static importJSON(serializedNode: SerializedImageNode): ImageNode {
-        const { altText, height, width, src } = serializedNode;
+        const { altText, height, width, src, assetId } = serializedNode;
+
+        // Determine the source URL
+        let resolvedSrc = src || '';
+
+        // If we have an assetId, use it to construct the URL
+        if (assetId) {
+            resolvedSrc = getAssetContentUrl(assetId);
+        }
+
         const node = $createImageNode({
             altText,
             height,
             width,
-            src,
+            src: resolvedSrc,
+            assetId: assetId || null,
         });
         return node;
     }
@@ -65,6 +84,9 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
         const element = document.createElement('img');
         element.setAttribute('src', this.__src);
         element.setAttribute('alt', this.__altText);
+        if (this.__assetId) {
+            element.setAttribute('data-asset-id', this.__assetId);
+        }
         return { element };
     }
 
@@ -91,23 +113,41 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
         return false;
     }
 
-    constructor(src: string, altText: string, width?: number | 'inherit', height?: number | 'inherit', key?: NodeKey) {
+    constructor(
+        src: string,
+        altText: string,
+        width?: number | 'inherit',
+        height?: number | 'inherit',
+        assetId?: string | null,
+        key?: NodeKey
+    ) {
         super(key);
         this.__src = src;
         this.__altText = altText;
         this.__width = width || 'inherit';
         this.__height = height || 'inherit';
+        this.__assetId = assetId || null;
     }
 
     exportJSON(): SerializedImageNode {
-        return {
+        const result: SerializedImageNode = {
             altText: this.getAltText(),
             height: this.__height === 'inherit' ? 0 : this.__height,
-            src: this.getSrc(),
             type: 'image',
             version: 1,
             width: this.__width === 'inherit' ? 0 : this.__width,
         };
+
+        // Prefer assetId over src for serialization
+        if (this.__assetId) {
+            result.assetId = this.__assetId;
+            // Don't include src when we have assetId - it will be reconstructed on import
+        } else {
+            // Fallback: include src (base64 or URL) for backward compatibility
+            result.src = this.getSrc();
+        }
+
+        return result;
     }
 
     getSrc(): string {
@@ -116,6 +156,25 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 
     getAltText(): string {
         return this.__altText;
+    }
+
+    getAssetId(): string | null {
+        return this.__assetId;
+    }
+
+    setAssetId(assetId: string, newSrc?: string): void {
+        const writable = this.getWritable();
+        writable.__assetId = assetId;
+        if (newSrc) {
+            writable.__src = newSrc;
+        }
+    }
+
+    /**
+     * Check if this image has embedded base64 data (needs migration to asset)
+     */
+    hasEmbeddedData(): boolean {
+        return !this.__assetId && this.__src.startsWith('data:image/');
     }
 
     decorate(): JSX.Element {
@@ -136,6 +195,7 @@ export function $createImageNode({
     height,
     src,
     width,
+    assetId,
     key,
 }: {
     altText: string;
@@ -143,8 +203,9 @@ export function $createImageNode({
     key?: NodeKey;
     src: string;
     width?: number | 'inherit';
+    assetId?: string | null;
 }): ImageNode {
-    return $applyNodeReplacement(new ImageNode(src, altText, width, height, key));
+    return $applyNodeReplacement(new ImageNode(src, altText, width, height, assetId, key));
 }
 
 export function $isImageNode(node: LexicalNode | null | undefined): node is ImageNode {

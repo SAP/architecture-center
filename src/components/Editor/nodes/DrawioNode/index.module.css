@@ -12,3 +12,18 @@
     border-radius: 8px;
     background-color: #fff;
 }
+
+.drawioLoading,
+.drawioError,
+.drawioPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: var(--ifm-color-emphasis-600);
+    font-size: 14px;
+}
+
+.drawioError {
+    color: var(--ifm-color-danger);
+}

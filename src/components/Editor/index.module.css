@@ -1,14 +1,20 @@
 .editorPageWrapper {
     display: flex;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    flex-direction: column;
     min-height: calc(100vh - var(--ifm-navbar-height));
     background-color: #f8f9fa;
     box-sizing: border-box;
 }
 
+.editorMainLayout {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    flex: 1;
+}
+
 .navColumn {
-    padding-top: 50px;
+    padding-top: 46px;
     flex-shrink: 0;
     width: 250px;
 }
@@ -41,7 +47,7 @@
 }
 
 .tocColumn {
-    padding-top: 50px;
+    padding-top: 46px;
     flex-shrink: 0;
     width: 250px;
 }
@@ -106,6 +112,39 @@
     margin-right: auto;
     font-size: 12px;
     color: #6c757d;
+}
+
+.saveStatus {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: auto;
+    font-size: 12px;
+}
+
+.savingText {
+    color: #6c757d;
+}
+
+.saveError {
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.retryButton {
+    font-size: 11px;
+    padding: 2px 6px;
+    min-height: auto;
+}
+
+.uploadError {
+    color: #dc3545;
+    font-size: 12px;
+    background-color: #f8d7da;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 .headerButtons {
@@ -304,6 +343,10 @@
 }
 
 :root[data-theme='dark'] .editorPageWrapper {
+    background-color: var(--editor-bg);
+}
+
+:root[data-theme='dark'] .editorMainLayout {
     background-color: var(--editor-bg);
 }
 

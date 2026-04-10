@@ -1,0 +1,148 @@
+.selectorContainer {
+    position: relative;
+}
+
+.selectorButton {
+    min-width: 200px;
+    max-width: 300px;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.selectedTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+.popover {
+    min-width: 320px;
+    max-width: 400px;
+}
+
+.popoverContent {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+}
+
+.searchContainer {
+    padding: 12px;
+    border-bottom: 1px solid var(--sapList_BorderColor);
+}
+
+.searchInput {
+    width: 100%;
+}
+
+.architectureList {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 280px;
+}
+
+.architectureItem {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid var(--sapList_BorderColor);
+    transition: background-color 0.15s ease;
+}
+
+.architectureItem:hover {
+    background-color: var(--sapList_Hover_Background);
+}
+
+.architectureItem.selected {
+    background-color: var(--sapList_SelectionBackgroundColor);
+}
+
+.architectureItem:last-child {
+    border-bottom: none;
+}
+
+.archHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.archTitle {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--sapTextColor);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.statusBadge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background-color: #fff3cd;
+    color: #856404;
+    white-space: nowrap;
+}
+
+.statusBadge.submitted {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.archMeta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--sapContent_LabelColor);
+}
+
+.pageCount {
+    color: var(--sapContent_LabelColor);
+}
+
+.tags {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+.emptyState {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--sapContent_LabelColor);
+    font-size: 14px;
+}
+
+.createNewContainer {
+    padding: 8px 12px;
+    border-top: 1px solid var(--sapList_BorderColor);
+}
+
+.createNewButton {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Dark mode support */
+:root[data-theme='dark'] .statusBadge {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+:root[data-theme='dark'] .statusBadge.submitted {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
