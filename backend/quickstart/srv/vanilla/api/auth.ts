@@ -23,25 +23,29 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET || !JWT_SECRET || !FRONTEND_URL) 
     throw new Error('Missing required environment variables for GitHub OAuth or JWT.');
 }
 
-function isTrustedRedirectUrl(candidate: string | undefined): boolean {
-    if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return false;
+/**
+ * Validates and sanitizes a redirect URL.
+ * Returns the sanitized URL if valid, or null if invalid.
+ */
+function getSafeRedirectUrl(candidate: string | undefined): string | null {
+    if (!candidate || typeof candidate !== 'string' || !FRONTEND_URL) return null;
     try {
         const trustedUrl = new URL(FRONTEND_URL);
         const candidateUrl = new URL(candidate, FRONTEND_URL);
 
-        // Check if origins match
+        // Check if origins match exactly
         if (candidateUrl.origin !== trustedUrl.origin) {
-            return false;
+            return null;
         }
 
         // For relative URLs (most common case)
         if (!candidate.startsWith('http') && !candidate.startsWith('//') && !candidate.startsWith('\\')) {
             // Reject URLs with suspicious patterns
             if (candidate.includes('//') || candidate.includes('\\') || candidate.toLowerCase().includes('%2f')) {
-                return false;
+                return null;
             }
-            // Allow any path on the same origin for relative URLs
-            return true;
+            // Return sanitized absolute URL constructed from trusted origin
+            return `${trustedUrl.origin}${candidateUrl.pathname}${candidateUrl.search}`;
         }
 
         // For absolute URLs, check if they match the exact base path or are subpaths
@@ -49,9 +53,14 @@ function isTrustedRedirectUrl(candidate: string | undefined): boolean {
         const candidatePath = candidateUrl.pathname.replace(/\/$/, '');
 
         // Allow exact match or subpaths of the trusted URL
-        return candidatePath === trustedBasePath || candidatePath.startsWith(trustedBasePath + '/');
+        if (candidatePath === trustedBasePath || candidatePath.startsWith(trustedBasePath + '/')) {
+            // Return sanitized URL constructed from validated parts
+            return `${trustedUrl.origin}${candidateUrl.pathname}${candidateUrl.search}`;
+        }
+
+        return null;
     } catch {
-        return false;
+        return null;
     }
 }
 
@@ -74,6 +83,16 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+// Rate limiter for authentication routes (stricter)
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 10, // 10 requests per window
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: { error: 'Too many authentication requests from this IP, please try again after 15 minutes.' },
+});
+
+// Rate limiter for search routes
 const searchLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 100,
@@ -82,7 +101,7 @@ const searchLimiter = rateLimit({
     message: { error: 'Too many search requests from this IP, please try again after 15 minutes.' },
 });
 
-router.get('/login', (req: Request, res: Response) => {
+router.get('/login', authLimiter, (req: Request, res: Response) => {
     const { origin_uri } = req.query;
     if (!origin_uri || typeof origin_uri !== 'string') {
         return res.status(400).send('Missing required origin_uri parameter.');
@@ -93,7 +112,7 @@ router.get('/login', (req: Request, res: Response) => {
     res.redirect(githubAuthUrl);
 });
 
-router.get('/github/callback', async (req: Request, res: Response) => {
+router.get('/github/callback', authLimiter, async (req: Request, res: Response) => {
     const { code, state: origin_uri } = req.query;
     if (!code || typeof code !== 'string') {
         return res.redirect(`${FRONTEND_URL}/login/failure?error=NoCode`);
@@ -124,8 +143,12 @@ router.get('/github/callback', async (req: Request, res: Response) => {
             { expiresIn: '7d' }
         );
 
-        if (isTrustedRedirectUrl(origin_uri as string)) {
-            res.redirect(`${origin_uri}?token=${appToken}`);
+        // Get sanitized redirect URL - never use user input directly
+        const safeRedirectUrl = getSafeRedirectUrl(origin_uri as string);
+        if (safeRedirectUrl) {
+            // Construct final URL with token, using only the sanitized URL
+            const separator = safeRedirectUrl.includes('?') ? '&' : '?';
+            res.redirect(`${safeRedirectUrl}${separator}token=${appToken}`);
         } else {
             res.redirect(`${FRONTEND_URL}/quick-start`);
         }

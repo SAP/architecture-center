@@ -80,6 +80,9 @@ function getExtensionFromMediaType(mediaType: string): string {
     return mediaTypeMap[mediaType] || 'bin';
 }
 
+// Maximum allowed nesting depth to prevent resource exhaustion
+const MAX_INDENT_LEVEL = 10;
+
 function processNodeAndExtractFiles(
     node: LexicalNode,
     assetFiles: FileForCommit[],
@@ -90,7 +93,9 @@ function processNodeAndExtractFiles(
         return '';
     }
 
-    const indent = '  '.repeat(indentLevel);
+    // Clamp indent level to prevent resource exhaustion from deeply nested structures
+    const safeIndentLevel = Math.min(Math.max(0, indentLevel), MAX_INDENT_LEVEL);
+    const indent = '  '.repeat(safeIndentLevel);
 
     switch (node.type) {
         case 'root': {
@@ -136,21 +141,23 @@ function processNodeAndExtractFiles(
             return '  \n'; // Two spaces + newline for markdown line break
         }
         case 'list': {
-            const listIndent = node.indent || 0;
+            // Clamp indent level to prevent resource exhaustion (max 10 levels = 20 spaces)
+            const listIndent = Math.min(Math.max(0, node.indent || 0), MAX_INDENT_LEVEL);
+            const listIndentStr = '  '.repeat(listIndent); // Safe: listIndent is clamped to MAX_INDENT_LEVEL
             const start = node.start || 1;
             return (
                 (node.children
                     ?.map((child, index) => {
                         const prefix = node.tag === 'ol' ? `${start + index}. ` : '- ';
                         const childMarkdown = processNodeAndExtractFiles(child, assetFiles, assetsMap, listIndent);
-                        return `${'  '.repeat(listIndent)}${prefix}${childMarkdown}`;
+                        return `${listIndentStr}${prefix}${childMarkdown}`;
                     })
                     .join('') || '') + '\n'
             );
         }
         case 'listitem': {
             const childrenText =
-                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, indentLevel)).join('') || '';
+                node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, safeIndentLevel)).join('') || '';
             return `${childrenText.trimEnd()}\n`;
         }
         case 'link': {
@@ -191,7 +198,8 @@ function processNodeAndExtractFiles(
                 const cells = row.children?.filter((child) => child.type === 'tablecell') || [];
                 const cellContents = cells.map((cell) => {
                     const content = cell.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, 0)).join('') || '';
-                    return content.trim().replace(/\|/g, '\\|').replace(/\n/g, ' ');
+                    // Escape backslashes first, then pipes, then replace newlines
+                    return content.trim().replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\n/g, ' ');
                 });
 
                 tableMarkdown += `| ${cellContents.join(' | ')} |\n`;
@@ -304,7 +312,7 @@ function processNodeAndExtractFiles(
             return '';
         }
         default: {
-            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, indentLevel)).join('') || '';
+            return node.children?.map((child) => processNodeAndExtractFiles(child, assetFiles, assetsMap, safeIndentLevel)).join('') || '';
         }
     }
 }
