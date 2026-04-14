@@ -13,7 +13,8 @@
  * - Never store sensitive tokens client-side
  */
 
-import { jwtDecode } from 'jwt-decode'; // Import jwtDecode
+import { jwtDecode } from 'jwt-decode';
+import { logger } from './logger';
 
 const AUTH_STORAGE_KEY = process.env.NODE_ENV === "development" ? "sap-architecture-center-dev" : "sap-architecture-center";
 const isBrowser = typeof window !== "undefined";
@@ -48,7 +49,7 @@ export const authStorage = {
             data.expiresAt = decoded.exp; // Store the expiry timestamp
           }
         } catch {
-          console.warn("Could not decode token to get expiry date for BTP");
+          logger.warn("Could not decode token to get expiry date for BTP");
         }
       }
 
@@ -56,8 +57,8 @@ export const authStorage = {
       const jsonString = JSON.stringify(data);
       const encodedData = btoa(jsonString);
       localStorage.setItem(AUTH_STORAGE_KEY, encodedData);
-    } catch {
-      console.error("Error saving auth data");
+    } catch (error) {
+      logger.error("Error saving auth data", error);
       // Fallback to plain JSON storage if encoding fails
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
     }
@@ -90,7 +91,7 @@ export const authStorage = {
                     authStorage.save(parsed);
                 }
             } catch (jwtError) {
-                console.warn("Could not decode legacy token to get expiry date for BTP:", jwtError);
+                logger.warn("Could not decode legacy token to get expiry date for BTP", jwtError);
             }
         }
         return parsed;
@@ -105,7 +106,7 @@ export const authStorage = {
                 authStorage.save(tokenOnly);
             }
         } catch (jwtError) {
-            console.warn("Could not decode plain token string to get expiry date for BTP:", jwtError);
+            logger.warn("Could not decode plain token string to get expiry date for BTP", jwtError);
         }
         return tokenOnly;
       }
@@ -136,7 +137,7 @@ export const authStorage = {
           updated.expiresAt = decoded.exp;
         }
       } catch {
-        console.warn("Could not decode token during update to get expiry date for BTP");
+        logger.warn("Could not decode token during update to get expiry date for BTP");
       }
     }
 

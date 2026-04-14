@@ -2,11 +2,28 @@
  * Docusaurus plugin to add security headers
  * Implements CSP, X-Frame-Options, and other security headers
  *
- * SECURITY NOTE:
- * - 'unsafe-inline' is required for Docusaurus-generated inline styles/scripts
- * - To remove 'unsafe-inline', you would need to implement CSP nonces via SSR
- * - This is a known limitation of static site generators
- * - Other protections (X-Frame-Options, HSTS, etc.) are fully implemented
+ * SECURITY CONFIGURATION:
+ * ✅ X-Frame-Options: DENY - Prevents clickjacking attacks
+ * ✅ X-Content-Type-Options: nosniff - Prevents MIME type sniffing
+ * ✅ X-XSS-Protection: 0 - Disabled per modern best practices (CSP is better)
+ * ✅ Strict-Transport-Security: Enforces HTTPS with preload
+ * ✅ Permissions-Policy: Restricts browser features (geolocation, camera, etc.)
+ * ✅ Referrer-Policy: Limits referrer information leakage
+ * ⚠️  Content-Security-Policy: Includes 'unsafe-inline' (see below)
+ *
+ * CSP LIMITATIONS (Static Site Generator):
+ * - 'unsafe-inline' is currently required for Docusaurus-generated inline styles/scripts
+ * - To remove 'unsafe-inline':
+ *   1. Implement CSP nonces via Server-Side Rendering (SSR)
+ *   2. Configure Docusaurus to use external CSS/JS only
+ *   3. Use strict-dynamic with hashes for all inline scripts
+ * - This is a known trade-off for static site generators
+ * - All other security headers are fully hardened
+ *
+ * FUTURE IMPROVEMENTS:
+ * - Implement CSP nonces when moving to SSR
+ * - Add CSP reporting endpoint: report-uri, report-to
+ * - Consider CSP Level 3 features (strict-dynamic, trusted-types)
  */
 
 module.exports = function (_context, _options) {

@@ -225,19 +225,26 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const logoutProvider = params.get('provider');
 
             if (githubTokenFromUrl) {
+                // SECURITY: Immediately clear token from URL to prevent exposure in:
+                // - Browser history
+                // - Server logs
+                // - Referer headers
+                history.replace(window.location.pathname);
+
                 // Create a session expiry for the GitHub token
                 const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
                 const githubAuthData = { token: githubTokenFromUrl, expiresAt };
                 localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
 
-                history.replace(window.location.pathname);
                 // We will re-check tokens which will also schedule the expiry timer
                 checkAuthTokens();
                 // No immediate return or redirect, let the component re-render
             } else if (btpToken) {
+                // SECURITY: Immediately clear token from URL to prevent exposure
+                history.replace({ ...location, search: '' });
+
                 // When BTP token is received, save it with expiry
                 authStorage.save({ token: btpToken });
-                history.replace({ ...location, search: '' });
                 try {
                     const BTP_API = siteConfig.customFields.backendUrl as string;
                     const userInfoUrl = new URL(`${BTP_API}/user/getUserInfo`);
