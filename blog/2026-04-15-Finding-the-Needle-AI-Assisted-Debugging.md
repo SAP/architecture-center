@@ -9,7 +9,7 @@ date: 2026-04-15
 
 ## What happens when you let Claude Code run the full debugging loop
 
-**TL;DR:** Intermittent HTTP 400, full agent flow only, every isolated test passing. Root cause: two conflicting sets of SAP AI Core credentials coexisting silently in the same Kubernetes secret - standalone production vars that the SDK prioritised over the staging service key, causing every token request to fetch from the wrong OAuth endpoint. The agent connected to staging with a production token. SAP's proxy rejected it: tenant not found. We were stuck. Nothing pointed anywhere obvious. A team of 2–3 engineers would have spent 12–15 hours total on this. Claude Code did it in 60 minutes, on claude-sonnet-4.5, averaging ~20 tokens of human input per turn.
+**TL;DR:** Intermittent HTTP 400, full agent flow only, every isolated test passing. Root cause: two conflicting sets of SAP AI Core credentials coexisting silently in the same Kubernetes secret - standalone production vars that the SDK prioritised over the staging service key, causing every token request to fetch from the wrong OAuth endpoint. The agent connected to staging with a production token. SAP's proxy rejected it: tenant not found. We were stuck. Nothing pointed anywhere obvious. A team of 2–3 engineers would have spent 12–15 hours total on this. Claude Code did it in 60 minutes, on claude-sonnet-4.5, averaging ~20 tokens of human input per turn. We've encoded the debugging patterns into a reusable [Claude Code skill](#the-claude-code-skill-reusable-debugging-pattern) you can drop into your own projects.
 
 <!-- truncate -->
 
@@ -235,5 +235,5 @@ Add fast-fail validation, cache invalidation, and observability.
 **SAP-Specific:**
 - [SAP AI Core Documentation](https://help.sap.com/docs/sap-ai-core) - Official SAP AI Core guides
 - [SAP AI SDK for Python](https://pypi.org/project/generative-ai-hub-sdk/) - The SDK with the credential resolution logic discussed
-- [SAP BTP / Gardener](https://gardener.cloud/) - Kubernetes management for SAP environments
-
+- [SAP Business Technology Platform (BTP)](https://www.sap.com/products/technology-platform.html) - SAP's enterprise cloud platform
+- [Gardener](https://gardener.cloud/) - Kubernetes-as-a-Service for multi-cloud environments
