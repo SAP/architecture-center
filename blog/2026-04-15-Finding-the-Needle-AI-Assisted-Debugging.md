@@ -19,6 +19,7 @@ The prompt that unlocked it:
 
 ### What We Were Dealing With
 
+**Quick SAP Context:** [SAP AI Core](https://help.sap.com/docs/sap-ai-core) is SAP's managed AI/ML runtime on [SAP Business Technology Platform (BTP)](https://www.sap.com/products/technology-platform.html). It handles model serving, training, and inference at enterprise scale. Authentication uses service keys (JSON blobs containing OAuth client credentials) that get injected into your applications via the [SAP AI SDK](https://pypi.org/project/generative-ai-hub-sdk/). The SDK supports two credential paths: a composite service key JSON, or individual environment variables. This flexibility is convenient — and, as we discovered, a source of subtle bugs when both coexist.
 
 WebRTC based voice agent on Kubernetes, connected to SAP AI Core to reach a Speech to Speech model. Every staging deployment failing with HTTP 400: server rejected WebSocket connection. Live environment fine. Every isolated test passed. Direct WebSocket, raw SDK connect, synthetic session - all worked. Endpoint, headers, token format - all correct. The failure only appeared in the full agent flow, and only sometimes. The kind of intermittent bug where you can't even confirm it's real without spending half a day first. We tried everything we could think of. Nothing pointed anywhere obvious. That's when we handed it to Claude Code - not with a neat hypothesis, just the error, the logs, and "figure it out."
 
@@ -96,6 +97,22 @@ We run on Gardener - SAP's opinionated Kubernetes distribution with its own conc
 **We gave it operational context, not just code.** Claude Code reads code structure. It can't know runtime behavior - deployment order, environment injection timing, what actually happens when the pod starts. Telling it "this variable comes from the K8s secret, not the code" cut entire categories of wrong hypotheses before they started. Think of it as onboarding a very fast engineer who has read all the code but never run the system.
 
 **No context-switching penalty.** This is the real reason it's fast. A human loses the mental model a little every time they switch between files, log streams, and components. Rebuilding it costs minutes each time and compounds over hours. Claude Code held the full startup sequence, token cache state, log timestamps, and test results in context simultaneously for the entire session. It wasn't faster because it worked in parallel. It was faster because it never lost the thread.
+
+### So What? — Patterns You Can Apply Today
+
+This wasn't just about one bug. Here's what engineers should take away:
+
+1. **SDK credential priority matters.** Any SDK that supports multiple credential sources (env vars, files, service keys) has a resolution order. Know it. Document it. Add startup validation that fails fast if conflicting credentials are detected.
+
+2. **Test startup, not just functions.** Unit tests that call `init()` directly don't catch prewarm race conditions. Write integration tests that mimic actual container startup sequence.
+
+3. **HTTP 400 ≠ bad request body.** In multi-tenant OAuth systems, 400 often means "valid request, wrong context." Decode the JWT, check the issuer/audience, compare to the endpoint you're calling.
+
+4. **AI debugging works best with full context.** Don't feed the AI one file at a time. Give it the error, logs, and codebase access simultaneously. The bug is often in the gap between components.
+
+5. **Human operational knowledge is irreplaceable.** AI can trace code and correlate logs. It can't know that your K8s secrets get injected after container start, or that prewarm runs before init. Tell it.
+
+---
 
 ### Try It
 
