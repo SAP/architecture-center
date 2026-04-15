@@ -26,7 +26,7 @@ The SAP Architecture Center is a GitHub-based repository designed to enhance how
 - Structured governance with clear review and approval workflows.
 
 #### Architecture Center Vision
-![Architecture Center Vision](images/architecture-center-vision.png)
+![Architecture Center Vision](img/architecture-center-vision.png)
 
 :::info Disclaimer
 This diagram represents the holistic vision of the SAP Architecture Center, combining both current capabilities and future roadmap elements. Some features are forward-looking and may evolve over time as the platform continues to develop.
