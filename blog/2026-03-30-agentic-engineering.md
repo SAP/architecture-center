@@ -8,15 +8,15 @@ date: 2026-03-30
 draft: false
 ---
 
-The prototype took less than thirty minutes — CAP backend, Fiori Elements frontend, OData endpoints, the whole Financial Risk Analyzer scaffolded by my coding agent, Claude Code. It compiled. It rendered. Then I opened it and got a blank page.
+The prototype took less than thirty minutes — CAP backend, Fiori Elements frontend, OData endpoints, the whole Financial Risk Analyzer scaffolded by Claude Code and Opus 4.6. It compiled. It rendered. Then I opened it and got a blank page.
 
 Several debugging rounds later the page showed up — but columns came up empty, buttons did nothing, and the risk data never reached the frontend. The root cause wasn't one bug. It was a pattern: deprecated annotations the runtime silently ignored, naming mismatches between the controller and what Fiori Elements actually looks for, and OData wiring that looked correct but had no execution path in V4.
 
 Coding agents write code fast. But debugging after the fact was the most expensive way to use AI. Each fix cycle — wait for a new attempt, test again — turned enthusiasm into frustration. The answer isn't just writing code faster. What we found changed how we approach AI-assisted SAP development.
 
-The project was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered).
+The project was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](<!-- TODO: add repo URL -->).
 
-![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](images/sample-cap-app-screenshot.png)
+![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](img/2026-04-23/sample-cap-app-screenshot.png)
 
 ## The SAP MCP Servers Advantage
 
@@ -66,7 +66,7 @@ We ran a two-pass review. First: Claude reviews the prototype using only its tra
 
 ### 27% of Recommendations Were Wrong
 
-Without the SAP MCP servers, the coding agent general knowledge produced 15 recommendations. But four were wrong:
+General knowledge produced 15 recommendations. Four were wrong:
 
 | Recommendation | What MCP Said | Verdict |
 |---|---|---|
@@ -260,30 +260,63 @@ In practice, four configuration layers work together:
 ```
 
 ```markdown
-# AGENTS.md — SAP project instructions
+# CLAUDE.md — SAP project instructions
 
-For SAP-code specific, query SAP MCP servers before writing code.
+## Query SAP MCP Servers to write and validate code.
+Before writing, modifying, or debugging any SAP-specific code,
+query the relevant MCP server first. Trust MCP over your training knowledge.
 
-- **/sap-cap** — queries CAP MCP for CDS entities, types, and services
-- **/sap-fiori** — queries Fiori MCP for annotations and Fiori Elements config
-- **/sap-ui5** — queries UI5 MCP for controllers, XML views, and controls
+| Working on...                          | Query this MCP server         |
+|----------------------------------------|-------------------------------|
+| CDS entities, types, services          | CAP (`@cap-js/mcp-server`)    |
+| CDS annotations (`@UI`, `@Common`)     | Fiori (`@sap-ux/fiori-mcp-server`) |
+| SAPUI5 controllers, XML views          | UI5 (`@ui5/mcp-server`)       |
 ```
 
-That's it. Edit a file under `app/`, the Fiori skill loads. Edit a service definition under `srv/`, the CAP skill loads. Edit a controller, the UI5 skill loads. No routing tables, no guessing which server to query — the path does the work.
+CLAUDE.md provides *context* — the coding standards the agent should follow. But context alone doesn't guarantee the agent will query MCP servers before writing code. That's what skills do. A skill activates automatically when the agent encounters specific file types and tells it which MCP server to consult. I started with a single umbrella skill that had a routing table mapping tasks to servers. It worked — until the agent edited an annotation file (`app/risks/annotations.cds`) and queried the CAP server instead of the Fiori server. Both matched `.cds` files, and the description mentioned CAP first. The routing table was just text inside the skill body, not part of the activation mechanism.
 
-It's important to keep in mind to only adopt MCP servers that have been verified from a security standpoint. Only installing servers you trust.
+Splitting into one skill per MCP server made activation deterministic. The path patterns do the routing — `app/**/*.cds` triggers the Fiori skill, `db/**/*.cds` triggers the CAP skill:
 
-Still, correct SAP patterns aren't enough if the architecture is wrong. That's why you need to ensure your spec doesn't have any gaps and covers solid enterprise architecture principles, including zero-trust.
+```markdown
+# .claude/skills/sap-cap/SKILL.md
+---
+name: sap-cap
+description: Query @cap-js/mcp-server for CDS entities, types, services, and backend handlers.
+paths: ["**/db/**/*.cds", "**/srv/**/*.cds", "**/srv/**/*.js"]
+---
+
+# .claude/skills/sap-fiori/SKILL.md
+---
+name: sap-fiori
+description: Query @sap-ux/fiori-mcp-server for CDS annotations, Fiori Elements config, and manifest.json.
+paths: ["**/app/**/*.cds", "**/app/**/manifest.json"]
+---
+
+# .claude/skills/sap-ui5/SKILL.md
+---
+name: sap-ui5
+description: Query @ui5/mcp-server for SAPUI5 controllers, XML views, and control APIs.
+paths: ["**/app/**/*.xml", "**/app/**/ext/**/*.js", "**/app/**/ext/**/*.ts"]
+---
+```
+
+Each skill also carries procedural knowledge specific to its domain — the Fiori skill includes Fiori Elements app rules (List Report/ObjectPage patterns, UUID keys, no screen personalization), the UI5 skill carries code standards (`sap.ui.define`, async loading, no deprecated APIs). Without the skill, the agent has the tools but no prompt to use them. Without settings, there's nothing to use. Without CLAUDE.md, there are no standards to follow. Each layer is insufficient on its own.
+
+**A note on trust:** MCP servers execute with your local privileges: filesystem access, shell commands, network calls. A compromised or malicious server can exfiltrate code, inject backdoors, or leak credentials silently. Only adopt MCP servers that have been verified from a security standpoint. Claude Code's permission system lets you scope what each server can do — per-tool allow/deny lists, trust prompts on new servers, writes scoped to the launch directory — but the first line of defense is only installing servers you trust.
+
+Keep your CLAUDE.md short — under 200 lines — and specific. Reference other markdown files there. Claude won't need them all, but they're available when relevant.
+
+Correct SAP patterns aren't enough if the architecture is wrong.
 
 ## Beyond Correctness: Architecture Principles
 
 I reviewed the working Financial Risk Analyzer — the one MCP had gotten right on the first pass — and found an unscoped OData endpoint and no input validation. The SAP patterns were correct but security was missing. And security was just the first gap. Performance efficiency, reliability, scalability — the principles you apply before designing any enterprise solution weren't considered for the generated code.
 
-I needed a system design methodology. Traditionally, I'd write the technical specification with a certain level of detail. Even documenting just the important parts would take time. That led me to a spec-driven-development tool, (e.g [superpowers](https://github.com/obra/superpowers)). 
+I needed a system design methodology. Traditionally, I'd write the technical specification with a certain level of detail. Even documenting just the important parts would take time. That led me to **GSD (Get Shit Done)**, a spec-driven development framework for Claude Code.
 
-Before I let the agent produce any code, an SDD tool when grounded with your architecture principles, will interview you and ensure there are not gaps from the security posture, performance budgets, reliability expectations, scalability constraints. Those were the some of the fundamental pillars I'd define as an architect before designing any solution.
+Before I let the agent produce any code, GSD interviewed me about each architecture principle — security posture, performance budgets, reliability expectations, scalability constraints. But only after I grounded it on my architectural principles from the SAP Architecture Center. Those were the questions I'd ask as an architect before designing any solution, but now the agent was asking them. My answers became a technical specification grounded in the same enterprise principles that the [SAP Architecture Center](https://architecture.sap.com) codifies as reference architectures.
 
-The difference was immediate. With a complete spec shaped by architecture principles along with sap mcp skills, the agent didn't just write correct SAP code — it wrote code that reflected the non-functional requirements an enterprise application actually needs. Every session inherited that spec. No context rot. No re-explaining the same constraints.
+The difference was immediate. With a spec shaped by architecture principles, the agent didn't just write correct SAP code — it wrote code that reflected the non-functional requirements an enterprise application actually needs. Every session inherited that spec. No context rot. No re-explaining the same constraints.
 
 The agent built a working Risk Service — correct CDS entity, proper annotations, functional action handler. But it shipped without any authorization:
 
@@ -310,9 +343,13 @@ service RiskService @(requires: 'authenticated-user') {
 
 `authenticated-user` locks down the OData endpoint. `RiskAnalyst` restricts the expensive AI Core call to users who actually need it. The MCP server didn't invent the security requirement — the architecture spec did. MCP made sure the implementation followed current CAP conventions.
 
+Whether GSD's interview process scales to a ten-person team or becomes a bottleneck — I don't know yet. For a solo architect driving an agent, it works. For a team of architects each with their own agents and their own specs, I'm watching.
+
 ## Secure the Code Your Agent Writes. It Won't Do It for You.
 
-Even after equipping your agent, we should **always assume code is untrusted**. MCP servers teach convention. An SDD tool improves the specs quality. Still, the security scan flagged 53 vulnerabilities! The agent had scaffolded the project with older versions of the libraries instead of pulling `@latest`, and those older versions carried vulnerable dependencies underneath. 
+Even after equipping your agent, **always assume code is untrusted**. MCP servers teach convention. GSD captures the spec. But neither guarantees the generated code is hardened. Apply the same rigor you'd apply to human-written code — input validation, authorization checks, secrets management, OWASP top-10. Security hardening like CORS, CSP headers, and OData authorization scoping remains your responsibility. When a breach happens, the escalation lands on you, not your agent.
+
+I was preparing the prototype for publication when an internal security scan flagged 53 dependency vulnerabilities. The agent had scaffolded the project with older versions of the libraries instead of pulling `@latest`, and those older versions carried vulnerable dependencies underneath. The application code was correct, every test passed — but the foundation was exposed.
 
 The spec never told the agent to use `@latest` or run `npm audit` after scaffolding. Security starts in the spec — install dependencies at their latest versions, audit what's underneath, and make that a gate before any application code is written.
 
@@ -376,7 +413,7 @@ sequenceDiagram
     A-->>H: Code ready for review
     H->>H: Review, approve & commit
 ```
- To see the complete implementation — CAP backend, Fiori Elements frontend, and AI Core integration — explore the [source code on GitHub](https://github.com/SAP-samples/cap-agentic-engineered). Your SAP investment already includes the platform. The question is whether you equip your agents to use it.
+ Your SAP investment already includes the platform. The question is whether you equip your agents to use it.
 
 ## References
 
@@ -386,12 +423,11 @@ sequenceDiagram
 - [UI5 MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/give-your-ai-agent-some-tools-introducing-the-ui5-mcp-server/ba-p/14200825) — UI5 Web Components development assistance
 
 **Agentic Engineering & Spec-Driven Development**
-- [superpowers](https://github.com/obra/superpowers) — Spec-driven development framework that guides coding agents through structured requirements gathering
-- [GSD](https://github.com/gsd-build/get-shit-done) — Meta-prompting, context engineering, and spec-driven development system for coding agents
+- [GSD (Get Shit Done)](https://github.com/gsd-build/get-shit-done) — Meta-prompting, context engineering, and spec-driven development system for coding agents
 - [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development tool that adds a lightweight specification layer before code is written
 
 **Developer Tooling MCP Servers**
-- [Playwright MCP](https://github.com/microsoft/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
+- [Playwright MCP](https://github.com/anthropics/anthropic-quickstarts/tree/main/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
 
 **SAP Platform**
 - [LiteLLM SAP Provider](https://docs.litellm.ai/docs/providers/sap) — Gateway to SAP AI Foundation via Gen AI Hub
