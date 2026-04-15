@@ -78,7 +78,7 @@ The governance layer isn't friction. It's what makes it safe to give the AI real
 
 ### The Setup
 
-![Claude Code System Setup](./images/ai-debugging/setup-diagram.svg)
+![Claude Code System Setup](./images/ai-debugging/setup-diagram.png)
 
 **GitHub MCP server** - full repo read access. Claude Code traced imports, followed call chains, read any file without being handed anything manually.
 
