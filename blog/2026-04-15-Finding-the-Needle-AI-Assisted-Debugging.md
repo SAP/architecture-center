@@ -53,7 +53,7 @@ Then without being asked - Claude Code argued against its own fix. "Are there ot
 
 ### The Numbers
 
-![Time Breakdown: Human vs Claude Code](./images/ai-debugging/time-breakdown.svg)
+![Time Breakdown: Human vs Claude Code](./images/ai-debugging/time-breakdown.png)
 
 - **617K output tokens** - code written, hypotheses reasoned, tests generated
 - **166K token peak context** - codebase, logs, SDK source, all held simultaneously at peak
