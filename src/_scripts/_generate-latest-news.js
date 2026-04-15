@@ -44,7 +44,7 @@ const files = fs.readdirSync(blogDir)
             date: date || frontMatter.date || new Date().toISOString().split('T')[0],
             authors: frontMatter.authors || [],
             permalink: permalink,
-            image: frontMatter.image || null,
+            image: frontMatter.spotlight_image || frontMatter.image || null,
         };
     });
 
