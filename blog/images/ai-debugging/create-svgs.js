@@ -74,92 +74,156 @@ const timeBreakdown = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 
 fs.writeFileSync(__dirname + '/time-breakdown.svg', timeBreakdown);
 console.log('Created time-breakdown.svg');
 
-// Setup Diagram - Claude Code's system setup
-const setupDiagram = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="900" height="550">
-  <rect width="900" height="550" fill="#ffffff"/>
-  <text x="450" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#111">Claude Code — Full System Setup</text>
-  <text x="450" y="48" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#666">Everything Claude Code could read, trace, and act on — and the governance layer that made it safe</text>
-  
+// Setup Diagram - Claude Code's system setup with grouped icons
+const setupDiagram = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 850" width="950" height="850">
+  <rect width="950" height="850" fill="#ffffff"/>
+  <text x="475" y="35" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="bold" fill="#111">Claude Code — Full System Setup</text>
+  <text x="475" y="55" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888">Everything Claude Code could read, trace, and act on — and the governance layer that made it safe</text>
+
   <!-- Legend -->
-  <g transform="translate(180, 70)">
-    <circle cx="0" cy="0" r="4" fill="#181717"/><text x="10" y="4" font-family="sans-serif" font-size="9" fill="#666">Code</text>
-    <circle cx="60" cy="0" r="4" fill="#326ce5"/><text x="70" y="4" font-family="sans-serif" font-size="9" fill="#666">Kubernetes</text>
-    <circle cx="150" cy="0" r="4" fill="#0faaff"/><text x="160" y="4" font-family="sans-serif" font-size="9" fill="#666">SAP BTP</text>
-    <circle cx="230" cy="0" r="4" fill="#c0392b"/><text x="240" y="4" font-family="sans-serif" font-size="9" fill="#666">Voice</text>
-    <circle cx="290" cy="0" r="4" fill="#7b2d8b"/><text x="300" y="4" font-family="sans-serif" font-size="9" fill="#666">Governance</text>
+  <g transform="translate(170, 75)">
+    <circle cx="0" cy="0" r="5" fill="#181717"/><text x="12" y="4" font-family="sans-serif" font-size="10" fill="#666">Code &amp; Docs</text>
+    <circle cx="120" cy="0" r="5" fill="#326ce5"/><text x="132" y="4" font-family="sans-serif" font-size="10" fill="#666">Kubernetes &amp; Gardener</text>
+    <circle cx="290" cy="0" r="5" fill="#0faaff"/><text x="302" y="4" font-family="sans-serif" font-size="10" fill="#666">SAP BTP / AI Core</text>
+    <circle cx="430" cy="0" r="5" fill="#c0392b"/><text x="442" y="4" font-family="sans-serif" font-size="10" fill="#666">Voice &amp; WebRTC</text>
+    <circle cx="560" cy="0" r="5" fill="#7b2d8b"/><text x="572" y="4" font-family="sans-serif" font-size="10" fill="#666">Governance &amp; Safety</text>
   </g>
 
-  <!-- Connector lines -->
-  <line x1="140" y1="130" x2="390" y2="260" stroke="#181717" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.4"/>
-  <line x1="760" y1="130" x2="510" y2="260" stroke="#326ce5" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
-  <line x1="100" y1="300" x2="375" y2="300" stroke="#0faaff" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
-  <line x1="140" y1="460" x2="390" y2="340" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
-  <line x1="760" y1="460" x2="510" y2="340" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
-  <line x1="330" y1="170" x2="410" y2="248" stroke="#7b2d8b" stroke-width="2" opacity="0.6"/>
-  <line x1="570" y1="170" x2="490" y2="248" stroke="#7b2d8b" stroke-width="2" opacity="0.6"/>
-  <line x1="450" y1="100" x2="450" y2="248" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4"/>
+  <!-- GROUP CONTAINERS -->
+  <!-- Governance Group (Top) -->
+  <rect x="200" y="100" width="550" height="170" rx="16" fill="rgba(123,45,139,0.04)" stroke="rgba(123,45,139,0.25)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <rect x="216" y="90" width="160" height="18" rx="4" fill="#f5eefa"/>
+  <text x="226" y="103" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7b2d8b">GOVERNANCE &amp; SAFETY LAYER</text>
 
-  <!-- CENTER: Claude Code -->
-  <circle cx="450" cy="300" r="55" fill="#fff" stroke="#D97757" stroke-width="2.5"/>
-  <text x="450" y="295" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#D97757">Claude Code</text>
-  <text x="450" y="310" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">claude-sonnet-4.5</text>
+  <!-- Code Group (Left) -->
+  <rect x="10" y="290" width="150" height="130" rx="16" fill="rgba(24,23,23,0.03)" stroke="rgba(24,23,23,0.2)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <rect x="26" y="280" width="75" height="18" rx="4" fill="#f5f5f5"/>
+  <text x="36" y="293" font-family="sans-serif" font-size="9" font-weight="bold" fill="#181717">CODE &amp; DOCS</text>
 
-  <!-- TOP: Memory -->
-  <rect x="390" y="90" width="120" height="45" rx="8" fill="#fff" stroke="#444" stroke-width="1.5"/>
-  <text x="450" y="110" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#333">Session Memory</text>
-  <text x="450" y="122" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">.claude/ in repo</text>
+  <!-- SAP Group (Left-Bottom) -->
+  <rect x="10" y="440" width="150" height="130" rx="16" fill="rgba(15,170,255,0.04)" stroke="rgba(15,170,255,0.25)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <rect x="26" y="430" width="80" height="18" rx="4" fill="#e6f7ff"/>
+  <text x="36" y="443" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0088cc">SAP PLATFORM</text>
 
-  <!-- TOP-LEFT: LLM Gateway -->
-  <rect x="243" y="140" width="120" height="50" rx="8" fill="#fff" stroke="#7b2d8b" stroke-width="1.5"/>
-  <text x="303" y="160" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7b2d8b">LLM Gateway</text>
-  <text x="303" y="172" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">every token logged</text>
+  <!-- Infrastructure Group (Right) -->
+  <rect x="790" y="290" width="150" height="130" rx="16" fill="rgba(50,108,229,0.04)" stroke="rgba(50,108,229,0.25)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <rect x="806" y="280" width="85" height="18" rx="4" fill="#eef2fd"/>
+  <text x="816" y="293" font-family="sans-serif" font-size="9" font-weight="bold" fill="#326ce5">INFRASTRUCTURE</text>
 
-  <!-- TOP-RIGHT: Approval Gate -->
-  <rect x="537" y="140" width="120" height="50" rx="8" fill="#fff" stroke="#7b2d8b" stroke-width="1.5"/>
-  <text x="597" y="160" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7b2d8b">Approval Gates</text>
-  <text x="597" y="172" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">human reviews writes</text>
+  <!-- Voice Group (Bottom) -->
+  <rect x="200" y="590" width="550" height="150" rx="16" fill="rgba(192,57,43,0.04)" stroke="rgba(192,57,43,0.25)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <rect x="216" y="580" width="130" height="18" rx="4" fill="#fdecea"/>
+  <text x="226" y="593" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c0392b">VOICE &amp; WEBRTC STACK</text>
 
-  <!-- LEFT: GitHub -->
-  <rect x="72" y="100" width="120" height="55" rx="8" fill="#fff" stroke="#181717" stroke-width="1.5"/>
-  <text x="132" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#181717">GitHub MCP</text>
-  <text x="132" y="137" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">full repo access</text>
+  <!-- CONNECTOR LINES -->
+  <line x1="150" y1="370" x2="408" y2="420" stroke="#181717" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.4"/>
+  <line x1="800" y1="370" x2="542" y2="420" stroke="#326ce5" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <line x1="150" y1="510" x2="408" y2="460" stroke="#0faaff" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <line x1="300" y1="660" x2="440" y2="505" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <line x1="475" y1="660" x2="475" y2="511" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <line x1="650" y1="660" x2="510" y2="505" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <line x1="300" y1="235" x2="440" y2="385" stroke="#7b2d8b" stroke-width="2" opacity="0.6"/>
+  <line x1="475" y1="235" x2="475" y2="379" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4"/>
+  <line x1="650" y1="235" x2="510" y2="385" stroke="#7b2d8b" stroke-width="2" opacity="0.6"/>
 
-  <!-- LEFT: SAP BTP -->
-  <rect x="15" y="275" width="130" height="50" rx="8" fill="#fff" stroke="#0faaff" stroke-width="1.5"/>
-  <text x="80" y="295" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0088cc">SAP BTP / AI Core</text>
-  <text x="80" y="310" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">staging + prod</text>
+  <!-- CENTRE NODE - Claude Code -->
+  <circle cx="475" cy="445" r="65" fill="#fff" stroke="#D97757" stroke-width="2.5"/>
+  <text x="475" y="440" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#D97757">Claude Code</text>
+  <text x="475" y="458" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">claude-sonnet-4.5</text>
 
-  <!-- LEFT: Voice Agent -->
-  <rect x="72" y="435" width="120" height="50" rx="8" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
-  <text x="132" y="455" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c0392b">Voice Agent</text>
-  <text x="132" y="470" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">Python / LiveKit</text>
+  <!-- GOVERNANCE GROUP NODES -->
+  <!-- LLM Gateway -->
+  <rect x="240" y="145" width="120" height="80" rx="12" fill="#fff" stroke="#7b2d8b" stroke-width="1.5"/>
+  <rect x="265" y="135" width="70" height="14" rx="7" fill="#f5eefa" stroke="#7b2d8b" stroke-width="1"/>
+  <text x="300" y="145" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#7b2d8b">GOVERNANCE</text>
+  <text x="300" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#7b2d8b">Internal LLM Gateway</text>
+  <text x="300" y="195" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">every token logged</text>
+  <text x="300" y="208" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">attributed · auditable</text>
 
-  <!-- RIGHT: Kubernetes -->
-  <rect x="700" y="100" width="136" height="55" rx="8" fill="#fff" stroke="#326ce5" stroke-width="1.5"/>
-  <text x="768" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#326ce5">Kubernetes + Gardener</text>
-  <text x="768" y="137" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">kubectl · SSO token</text>
+  <!-- Session Memory -->
+  <rect x="415" y="145" width="120" height="80" rx="12" fill="#fff" stroke="#444" stroke-width="1.5"/>
+  <rect x="448" y="135" width="54" height="14" rx="7" fill="#f5f5f5" stroke="#aaa" stroke-width="1"/>
+  <text x="475" y="145" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#444">PERSISTS</text>
+  <text x="475" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#333">Session Memory</text>
+  <text x="475" y="195" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">.claude/ in repo</text>
+  <text x="475" y="208" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">cross-session context</text>
 
-  <!-- RIGHT: Voice Client -->
-  <rect x="700" y="435" width="120" height="50" rx="8" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
-  <text x="760" y="455" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#c0392b">Voice Client</text>
-  <text x="760" y="470" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">browser / mobile</text>
+  <!-- Approval Gates -->
+  <rect x="590" y="145" width="120" height="80" rx="12" fill="#fff" stroke="#7b2d8b" stroke-width="1.5"/>
+  <rect x="615" y="135" width="70" height="14" rx="7" fill="#f5eefa" stroke="#7b2d8b" stroke-width="1"/>
+  <text x="650" y="145" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#7b2d8b">GOVERNANCE</text>
+  <text x="650" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#7b2d8b">Approval Gates</text>
+  <text x="650" y="195" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">human reviews</text>
+  <text x="650" y="208" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">every write op</text>
 
-  <!-- Bottom pills -->
-  <g transform="translate(100, 520)">
-    <rect x="0" y="0" width="160" height="22" rx="11" fill="#f7f8fc" stroke="#dde1ee"/>
-    <text x="80" y="14" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#555">Read-only MCP access</text>
+  <!-- CODE GROUP NODE - GitHub -->
+  <rect x="25" y="320" width="120" height="80" rx="12" fill="#fff" stroke="#181717" stroke-width="1.5"/>
+  <rect x="50" y="310" width="70" height="14" rx="7" fill="#f0f8ff" stroke="#0faaff" stroke-width="1"/>
+  <text x="85" y="320" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#0088cc">READ-ONLY</text>
+  <text x="85" y="355" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#181717">GitHub MCP</text>
+  <text x="85" y="370" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">code + docs access</text>
+  <text x="85" y="383" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">trace any file</text>
+
+  <!-- SAP GROUP NODE -->
+  <rect x="18" y="470" width="134" height="80" rx="12" fill="#fff" stroke="#0faaff" stroke-width="1.5"/>
+  <rect x="55" y="460" width="40" height="14" rx="7" fill="#f0f8ff" stroke="#0faaff" stroke-width="1"/>
+  <text x="75" y="470" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#0088cc">READ</text>
+  <text x="85" y="505" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0088cc">SAP BTP / AI Core</text>
+  <text x="85" y="520" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">staging + prod</text>
+  <text x="85" y="533" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">GenAI Hub</text>
+
+  <!-- INFRASTRUCTURE GROUP NODE - K8s + Gardener -->
+  <rect x="797" y="320" width="136" height="80" rx="12" fill="#fff" stroke="#326ce5" stroke-width="1.5"/>
+  <rect x="827" y="310" width="76" height="14" rx="7" fill="#eef2fd" stroke="#326ce5" stroke-width="1"/>
+  <text x="865" y="320" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#326ce5">SSO TOKEN</text>
+  <text x="865" y="355" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#326ce5">Kubernetes + Gardener</text>
+  <text x="865" y="370" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">kubectl · shoot cluster</text>
+  <text x="865" y="383" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">short-lived SSO</text>
+
+  <!-- VOICE GROUP NODES -->
+  <!-- Voice Agent -->
+  <rect x="240" y="625" width="120" height="80" rx="12" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="257" y="615" width="66" height="14" rx="7" fill="#eef2fd" stroke="#326ce5" stroke-width="1"/>
+  <text x="290" y="625" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#326ce5">READ + EXEC</text>
+  <text x="300" y="660" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b">Voice Agent</text>
+  <text x="300" y="675" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">Python / LiveKit</text>
+  <text x="300" y="688" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">logs · code · config</text>
+
+  <!-- WebRTC -->
+  <rect x="415" y="625" width="120" height="80" rx="12" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="450" y="615" width="50" height="14" rx="7" fill="#f0f8ff" stroke="#0faaff" stroke-width="1"/>
+  <text x="475" y="625" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#0088cc">READ</text>
+  <text x="475" y="660" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b">WebRTC</text>
+  <text x="475" y="675" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">room · ICE · TURN</text>
+  <text x="475" y="688" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">agent signalling</text>
+
+  <!-- Voice Client -->
+  <rect x="590" y="625" width="120" height="80" rx="12" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="625" y="615" width="50" height="14" rx="7" fill="#f0f8ff" stroke="#0faaff" stroke-width="1"/>
+  <text x="650" y="625" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#0088cc">READ</text>
+  <text x="650" y="660" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#c0392b">Voice Client</text>
+  <text x="650" y="675" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">browser / mobile</text>
+  <text x="650" y="688" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">WebRTC peer</text>
+
+  <!-- BOTTOM SECTION - Categories -->
+  <g transform="translate(100, 765)">
+    <line x1="0" y1="20" x2="180" y2="20" stroke="#7b2d8b" stroke-width="2"/>
+    <text x="0" y="14" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7b2d8b">🔒 GOVERNANCE</text>
+    <text x="0" y="38" font-family="sans-serif" font-size="10" fill="#555">• Read-only MCP — observe everything</text>
+    <text x="0" y="54" font-family="sans-serif" font-size="10" fill="#555">• Every token logged — auditable</text>
   </g>
-  <g transform="translate(280, 520)">
-    <rect x="0" y="0" width="160" height="22" rx="11" fill="#f7f8fc" stroke="#dde1ee"/>
-    <text x="80" y="14" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#555">Short-lived SSO tokens</text>
+
+  <g transform="translate(370, 765)">
+    <line x1="0" y1="20" x2="200" y2="20" stroke="#326ce5" stroke-width="2"/>
+    <text x="0" y="14" font-family="sans-serif" font-size="9" font-weight="bold" fill="#326ce5">🏗️ INFRASTRUCTURE</text>
+    <text x="0" y="38" font-family="sans-serif" font-size="10" fill="#555">• Short-lived SSO — rotated per session</text>
+    <text x="0" y="54" font-family="sans-serif" font-size="10" fill="#555">• Gardener docs — non-vanilla context</text>
   </g>
-  <g transform="translate(460, 520)">
-    <rect x="0" y="0" width="160" height="22" rx="11" fill="#f7f8fc" stroke="#dde1ee"/>
-    <text x="80" y="14" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#555">Every token logged</text>
-  </g>
-  <g transform="translate(640, 520)">
-    <rect x="0" y="0" width="160" height="22" rx="11" fill="#f7f8fc" stroke="#dde1ee"/>
-    <text x="80" y="14" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#555">Memory across sessions</text>
+
+  <g transform="translate(660, 765)">
+    <line x1="0" y1="20" x2="150" y2="20" stroke="#444" stroke-width="2"/>
+    <text x="0" y="14" font-family="sans-serif" font-size="9" font-weight="bold" fill="#444">💾 MEMORY</text>
+    <text x="0" y="38" font-family="sans-serif" font-size="10" fill="#555">• Cross-session — no re-reading files</text>
   </g>
 </svg>`;
 
