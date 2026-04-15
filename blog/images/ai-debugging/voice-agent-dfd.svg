@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+  <rect width="900" height="600" fill="#ffffff"/>
+  <text x="450" y="28" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#111">Voice Agent — Data Flow Diagram</text>
+  <text x="450" y="48" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">WebRTC Client → Voice Framework → Voice Agent → Realtime LLM + Enterprise Agent → Speaker</text>
+  
+  <!-- Legend -->
+  <g transform="translate(150, 70)">
+    <rect x="0" y="-4" width="28" height="4" rx="2" fill="#326ce5"/>
+    <text x="35" y="0" font-family="sans-serif" font-size="8" fill="#555">Audio / RTC</text>
+    <rect x="100" y="-4" width="28" height="4" rx="2" fill="#D97757"/>
+    <text x="135" y="0" font-family="sans-serif" font-size="8" fill="#555">Agent control</text>
+    <rect x="210" y="-4" width="28" height="4" rx="2" fill="#0faaff"/>
+    <text x="245" y="0" font-family="sans-serif" font-size="8" fill="#555">Enterprise agent</text>
+    <rect x="330" y="-4" width="28" height="4" rx="2" fill="#7b2d8b"/>
+    <text x="365" y="0" font-family="sans-serif" font-size="8" fill="#555">LLM inference</text>
+    <rect x="440" y="-4" width="28" height="4" rx="2" fill="#009F76"/>
+    <text x="475" y="0" font-family="sans-serif" font-size="8" fill="#555">TTS audio</text>
+  </g>
+
+  <!-- Phase bands -->
+  <rect x="20" y="90" width="100" height="450" rx="6" fill="#eef2fd" stroke="#326ce5" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <text x="70" y="105" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#326ce5">Client</text>
+  
+  <rect x="130" y="90" width="120" height="450" rx="6" fill="#eef2fd" stroke="#326ce5" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <text x="190" y="105" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#326ce5">Voice Framework</text>
+  
+  <rect x="260" y="90" width="280" height="450" rx="6" fill="#fff9f7" stroke="#D97757" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <text x="400" y="105" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#D97757">Voice Agent (Python)</text>
+  
+  <rect x="550" y="90" width="330" height="450" rx="6" fill="#f0f9ff" stroke="#0faaff" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  <text x="715" y="105" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#0088cc">AI Platform + Enterprise Agent</text>
+
+  <!-- Voice Client (mic) -->
+  <rect x="30" y="140" width="80" height="50" rx="4" fill="#fff" stroke="#333" stroke-width="2"/>
+  <text x="70" y="162" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#111">Voice Client</text>
+  <text x="70" y="175" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">mic input</text>
+
+  <!-- Voice Client (speaker) -->
+  <rect x="30" y="440" width="80" height="50" rx="4" fill="#fff" stroke="#333" stroke-width="2"/>
+  <text x="70" y="462" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#111">Voice Client</text>
+  <text x="70" y="475" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">speaker</text>
+
+  <!-- Voice Framework (inbound) -->
+  <circle cx="190" cy="165" r="40" fill="#fff" stroke="#326ce5" stroke-width="2"/>
+  <text x="190" y="160" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#326ce5">WebRTC</text>
+  <text x="190" y="172" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#666">Voice Framework</text>
+
+  <!-- Voice Framework (outbound) -->
+  <circle cx="190" cy="465" r="40" fill="#fff" stroke="#326ce5" stroke-width="2"/>
+  <text x="190" y="460" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="bold" fill="#326ce5">WebRTC</text>
+  <text x="190" y="472" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#666">audio out</text>
+
+  <!-- Voice Agent core -->
+  <circle cx="400" cy="200" r="55" fill="#fff" stroke="#D97757" stroke-width="2"/>
+  <text x="400" y="195" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#D97757">Voice Agent</text>
+  <text x="400" y="210" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">orchestrator</text>
+
+  <!-- Enterprise query tool -->
+  <circle cx="400" cy="360" r="45" fill="#fff" stroke="#0faaff" stroke-width="2"/>
+  <text x="400" y="355" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#0088cc">Query</text>
+  <text x="400" y="368" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">Enterprise Agent</text>
+
+  <!-- TTS -->
+  <circle cx="400" cy="490" r="35" fill="#fff" stroke="#009F76" stroke-width="2"/>
+  <text x="400" y="488" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#007a5a">TTS</text>
+  <text x="400" y="500" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#666">speech synthesis</text>
+
+  <!-- Realtime LLM -->
+  <circle cx="715" cy="200" r="50" fill="#fff" stroke="#7b2d8b" stroke-width="2"/>
+  <text x="715" y="195" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#7b2d8b">Realtime LLM</text>
+  <text x="715" y="210" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">multimodal audio</text>
+
+  <!-- Auth endpoint -->
+  <rect x="640" y="290" width="100" height="40" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="690" y="308" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#111">Auth Endpoint</text>
+  <text x="690" y="320" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#666">OAuth 2.0</text>
+
+  <!-- Enterprise Agent API -->
+  <rect x="640" y="360" width="100" height="40" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="690" y="378" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#111">Enterprise API</text>
+  <text x="690" y="390" text-anchor="middle" font-family="sans-serif" font-size="6" fill="#666">REST + WebSocket</text>
+
+  <!-- Token cache -->
+  <rect x="330" y="270" width="140" height="30" fill="#fff" stroke="#555" stroke-width="1"/>
+  <line x1="330" y1="270" x2="330" y2="300" stroke="#555" stroke-width="1"/>
+  <line x1="470" y1="270" x2="470" y2="300" stroke="#555" stroke-width="1"/>
+  <text x="400" y="290" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#333">Auth Token Cache</text>
+
+  <!-- Flow arrows -->
+  <line x1="110" y1="165" x2="150" y2="165" stroke="#326ce5" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="230" y1="165" x2="345" y2="185" stroke="#326ce5" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="455" y1="185" x2="665" y2="185" stroke="#7b2d8b" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <line x1="665" y1="215" x2="455" y2="215" stroke="#7b2d8b" stroke-width="2" marker-end="url(#arrow-purple-rev)"/>
+  <line x1="445" y1="360" x2="640" y2="380" stroke="#0faaff" stroke-width="2" marker-end="url(#arrow-sap)"/>
+  <line x1="640" y1="385" x2="445" y2="365" stroke="#0faaff" stroke-width="2" marker-end="url(#arrow-sap-rev)"/>
+  <line x1="400" y1="415" x2="400" y2="455" stroke="#009F76" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="345" y1="485" x2="230" y2="470" stroke="#326ce5" stroke-width="2" marker-end="url(#arrow-blue-rev)"/>
+  <line x1="150" y1="465" x2="110" y2="465" stroke="#326ce5" stroke-width="2" marker-end="url(#arrow-blue-rev)"/>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#326ce5"/></marker>
+    <marker id="arrow-blue-rev" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#326ce5"/></marker>
+    <marker id="arrow-purple" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#7b2d8b"/></marker>
+    <marker id="arrow-purple-rev" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#7b2d8b"/></marker>
+    <marker id="arrow-sap" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#0faaff"/></marker>
+    <marker id="arrow-sap-rev" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#0faaff"/></marker>
+    <marker id="arrow-green" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#009F76"/></marker>
+  </defs>
+
+  <!-- Flow labels -->
+  <text x="130" y="155" font-family="sans-serif" font-size="6" fill="#444">mic audio</text>
+  <text x="280" y="160" font-family="sans-serif" font-size="6" fill="#444">audio + VAD</text>
+  <text x="530" y="175" font-family="sans-serif" font-size="6" fill="#444">audio + instructions</text>
+  <text x="530" y="228" font-family="sans-serif" font-size="6" fill="#444">audio tokens + text</text>
+  <text x="500" y="355" font-family="sans-serif" font-size="6" fill="#444">query</text>
+  <text x="500" y="400" font-family="sans-serif" font-size="6" fill="#444">streamed response</text>
+  <text x="408" y="440" font-family="sans-serif" font-size="6" fill="#444">text → speech</text>
+  <text x="280" y="495" font-family="sans-serif" font-size="6" fill="#444">audio out</text>
+  <text x="130" y="455" font-family="sans-serif" font-size="6" fill="#444">speaker</text>
+</svg>

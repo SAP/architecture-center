@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#0f1117"/>
+  <text x="400" y="35" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#ffffff">Where Does the Time Actually Go?</text>
+  <text x="400" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#666">Debugging the same bug — human vs AI-assisted investigation</text>
+  <text x="175" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#e63946">HUMAN INVESTIGATION</text>
+  <text x="175" y="108" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">~15 hours across 3 days</text>
+  <g transform="translate(175, 220)">
+    <path d="M0,0 L0,-80 A80,80 0 0,1 66.7,41 Z" fill="#e63946" opacity="0.9"/>
+    <path d="M0,0 L66.7,41 A80,80 0 0,1 -29,75.3 Z" fill="#9b72cf" opacity="0.85"/>
+    <path d="M0,0 L-29,75.3 A80,80 0 0,1 -80,0 Z" fill="#e9c46a" opacity="0.85"/>
+    <path d="M0,0 L-80,0 A80,80 0 0,1 0,-80 Z" fill="#2a9d8f" opacity="0.9"/>
+    <circle r="44" fill="#0f1117"/>
+    <text y="-8" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="800" fill="#e63946">10%</text>
+    <text y="12" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">ACTUAL FIX</text>
+  </g>
+  <g transform="translate(60, 330)">
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="#e63946"/>
+    <text x="18" y="10" font-family="sans-serif" font-size="10" fill="#bbb">Chasing wrong hypotheses</text>
+    <text x="210" y="10" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e63946">35%</text>
+    <rect x="0" y="22" width="12" height="12" rx="2" fill="#9b72cf"/>
+    <text x="18" y="32" font-family="sans-serif" font-size="10" fill="#bbb">Rebuilding context</text>
+    <text x="210" y="32" font-family="sans-serif" font-size="10" font-weight="bold" fill="#9b72cf">30%</text>
+    <rect x="0" y="44" width="12" height="12" rx="2" fill="#e9c46a"/>
+    <text x="18" y="54" font-family="sans-serif" font-size="10" fill="#bbb">Waiting for redeployments</text>
+    <text x="210" y="54" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e9c46a">25%</text>
+    <rect x="0" y="66" width="12" height="12" rx="2" fill="#2a9d8f"/>
+    <text x="18" y="76" font-family="sans-serif" font-size="10" fill="#bbb">Actual fix work</text>
+    <text x="210" y="76" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2a9d8f">10%</text>
+  </g>
+  <line x1="400" y1="75" x2="400" y2="420" stroke="#222" stroke-width="1"/>
+  <text x="625" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#2a9d8f">CLAUDE CODE</text>
+  <text x="625" y="108" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#555">60 minutes</text>
+  <g transform="translate(625, 220)">
+    <path d="M0,0 L0,-80 A80,80 0 0,1 76,-24.7 Z" fill="#457b9d" opacity="0.9"/>
+    <path d="M0,0 L76,-24.7 A80,80 1,1,1 -47,-64.8 Z" fill="#2a9d8f" opacity="0.9"/>
+    <path d="M0,0 L-47,-64.8 A80,80 0 0,1 0,-80 Z" fill="#e9c46a" opacity="0.85"/>
+    <circle r="44" fill="#0f1117"/>
+    <text y="-8" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="800" fill="#2a9d8f">65%</text>
+    <text y="12" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">ACTUAL FIX</text>
+  </g>
+  <g transform="translate(510, 330)">
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="#2a9d8f"/>
+    <text x="18" y="10" font-family="sans-serif" font-size="10" fill="#bbb">Actual fix + regression tests</text>
+    <text x="210" y="10" font-family="sans-serif" font-size="10" font-weight="bold" fill="#2a9d8f">65%</text>
+    <rect x="0" y="22" width="12" height="12" rx="2" fill="#457b9d"/>
+    <text x="18" y="32" font-family="sans-serif" font-size="10" fill="#bbb">Hypothesis elimination</text>
+    <text x="210" y="32" font-family="sans-serif" font-size="10" font-weight="bold" fill="#457b9d">20%</text>
+    <rect x="0" y="44" width="12" height="12" rx="2" fill="#e9c46a"/>
+    <text x="18" y="54" font-family="sans-serif" font-size="10" fill="#bbb">Planning + self-challenge</text>
+    <text x="210" y="54" font-family="sans-serif" font-size="10" font-weight="bold" fill="#e9c46a">15%</text>
+    <rect x="0" y="66" width="12" height="12" rx="2" fill="#333" opacity="0.3"/>
+    <text x="18" y="76" font-family="sans-serif" font-size="10" fill="#444">Dead ends</text>
+    <text x="210" y="76" font-family="sans-serif" font-size="10" fill="#444">0%</text>
+  </g>
+  <g transform="translate(135, 455)">
+    <rect x="0" y="0" width="100" height="40" rx="8" fill="#1a1d27" stroke="#2a2d3a"/>
+    <text x="50" y="18" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="800" fill="#e63946">90%</text>
+    <text x="50" y="32" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">HUMAN: NOT FIXING</text>
+  </g>
+  <g transform="translate(350, 455)">
+    <rect x="0" y="0" width="100" height="40" rx="8" fill="#1a1d27" stroke="#2a2d3a"/>
+    <text x="50" y="18" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="800" fill="#2a9d8f">15x</text>
+    <text x="50" y="32" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">FASTER RESOLUTION</text>
+  </g>
+  <g transform="translate(565, 455)">
+    <rect x="0" y="0" width="100" height="40" rx="8" fill="#1a1d27" stroke="#2a2d3a"/>
+    <text x="50" y="18" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="800" fill="#2a9d8f">+55%</text>
+    <text x="50" y="32" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#666">MORE FIX TIME</text>
+  </g>
+</svg>
