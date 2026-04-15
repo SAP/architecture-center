@@ -243,6 +243,9 @@ Add fast-fail validation, cache invalidation, and observability.
 
 ### Helpful Links
 
+**This Post:**
+- [Read on Medium](https://medium.com/@anujag24/finding-the-needle-ai-assisted-debugging-across-thousands-of-lines-and-megabytes-of-logs-601e04bfb79e) - Shortened version with discussion
+
 **Claude Code & MCP:**
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) - Official guide
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) - The protocol that enables Claude Code to access external tools and data
