@@ -109,3 +109,132 @@ Review the plan it produces before you let it run. Push back on anything that do
 Set up MCP access. Use short-lived credentials. Gate writes behind approval. Enable memory. Hand it docs for anything non-vanilla.
 
 Then watch it curl through logs, write and validate tests and re-direct it when needed (i.e. provide more context) while sipping your coffee….
+
+### The Claude Code Skill: Reusable Debugging Pattern
+
+We've encoded the hard-won patterns from this debugging session into a reusable Claude Code skill. Drop this into your `.claude/commands/` directory and invoke it whenever you hit an HTTP 400 in any authenticated distributed system.
+
+<details>
+<summary><strong>debug-http400.md</strong> - Click to expand</summary>
+
+```markdown
+---
+name: debug-http400
+description: Diagnose HTTP 400 errors in systems that use OAuth tokens, service keys, API gateways, or multi-provider credential configs. Goes beyond "bad request" — encodes hard-won patterns where 400 is caused by correct-but-wrong-environment tokens, credential mixing, proxy masking, and startup auth race conditions.
+argument-hint: [error message, endpoint, or affected component]
+---
+
+You are debugging an HTTP 400 error. The context is: $ARGUMENTS
+
+HTTP 400 in authenticated distributed systems almost never means "malformed request body".
+It usually means **the request is structurally valid but contextually wrong** — wrong environment,
+wrong token, wrong endpoint, mixed credentials. Work through every phase below.
+
+---
+
+## Phase 1: Establish What 400 Actually Means Here
+
+First, determine which layer is returning the 400:
+
+- **Your own validation code** — a required field is missing or wrong type
+- **An API gateway / proxy** — the gateway rejected it before it reached the upstream service
+- **The upstream service itself** — the service received the request but rejected it
+- **An auth server** — the token request itself returned 400 (malformed grant, wrong client_id)
+
+How to tell:
+- Check response headers for gateway fingerprints (`x-envoy`, `x-kong`, `via`, `x-request-id` patterns)
+- Check if the response body is HTML or a generic error page (proxy) vs structured JSON (service)
+- Check if the 400 comes back instantly (proxy reject) or after a round-trip delay (service reject)
+- Check whether the same request works against the service directly (bypassing the gateway)
+
+**If it is a gateway/proxy 400:** the upstream error is being masked. The real error is likely a
+401 or 403 that the proxy is converting. Do not debug the request body — debug the token.
+
+---
+
+## Phase 2: Read All Credential and Config Code First
+
+Before forming hypotheses, read the entire credential resolution path:
+
+- How are credentials loaded? (env vars, JSON service key, file mount, secret store)
+- Is there a priority order? Which credential source wins when multiple are present?
+- Is there any startup / prewarm code that fetches and caches a token early?
+- Are tokens cached in memory? What is the TTL? When is the cache invalidated?
+- Are there multiple credential sets (staging + prod, service A + service B) that could coexist?
+
+Read ALL config/secret files that could be active — not just the one you think is in use.
+
+---
+
+## Phase 3: Fan Out — All HTTP 400 Hypotheses
+
+Generate all plausible causes before investigating any single one:
+
+### 🔑 Credential & Token Hypotheses
+
+**H1 — Token from wrong environment**
+Token is valid and well-formed, but was issued by staging auth and sent to prod endpoint (or vice versa).
+
+**H2 — Credential mixing: composite key + individual vars coexist**
+A service key JSON (composite) and individual auth vars are both present. The SDK resolves them in a fixed priority order.
+
+**H3 — Prewarm auth race: token cached before config is fully loaded**
+Auth is fetched eagerly at startup before env vars are fully set.
+
+**H4 — Wrong OAuth grant type or missing parameter**
+The token request itself returns 400.
+
+**H5 — Expired or revoked token sent**
+Token was valid when cached, expired server-side before local TTL.
+
+### 🌐 Gateway & Proxy Hypotheses
+
+**H6 — Enterprise proxy is masking the real error**
+Proxies sometimes convert upstream 401/403 into 400.
+
+**H7 — Wrong base URL: request routed to wrong environment**
+
+**H8 — Missing or malformed required header**
+
+### 📦 Request Body Hypotheses
+
+**H9 — Body encoding or content-type mismatch**
+
+**H10 — Payload too large or silently truncated upstream**
+
+---
+
+## Phase 4: Eliminate in Parallel
+
+For each hypothesis, gather evidence that confirms or rules it out.
+
+## Phase 5: Root Cause Statement
+
+Write out what exactly triggers the 400 and why it returns 400 instead of 401/403.
+
+## Phase 6: Fix with Minimal Blast Radius
+
+Fix only the confirmed root cause. Verify ALL secret/config files.
+
+## Phase 7: Prevent Recurrence
+
+Add fast-fail validation, cache invalidation, and observability.
+```
+
+</details>
+
+**Key insight encoded in this skill:** HTTP 400 in authenticated distributed systems almost never means "malformed request body." It usually means the request is structurally valid but contextually wrong — wrong environment, wrong token, wrong endpoint, mixed credentials. The skill walks through 10 hypotheses in parallel, ensuring you don't get tunnel-visioned on the wrong layer.
+
+### Helpful Links
+
+**Claude Code & MCP:**
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) - Official guide
+- [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) - The protocol that enables Claude Code to access external tools and data
+- [MCP Servers Directory](https://github.com/modelcontextprotocol/servers) - Pre-built MCP servers for GitHub, Kubernetes, databases, and more
+- [Claude Code Skills/Commands](https://docs.anthropic.com/en/docs/claude-code/memory#project-specific-commands) - How to create reusable skills like the one above
+
+**SAP-Specific:**
+- [SAP AI Core Documentation](https://help.sap.com/docs/sap-ai-core) - Official SAP AI Core guides
+- [SAP AI SDK for Python](https://pypi.org/project/generative-ai-hub-sdk/) - The SDK with the credential resolution logic discussed
+- [SAP BTP / Gardener](https://gardener.cloud/) - Kubernetes management for SAP environments
+
