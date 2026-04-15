@@ -48,10 +48,10 @@ const files = fs.readdirSync(blogDir)
         };
     });
 
-// Sort by date (newest first) and take the latest 3
+// Sort by date (newest first) and take the latest 6
 const latestPosts = files
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 3)
+    .slice(0, 6)
     .map(post => ({
         ...post,
         formattedDate: new Date(post.date).toLocaleDateString('en-US', {

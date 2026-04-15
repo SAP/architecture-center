@@ -84,15 +84,15 @@
     border-radius: var(--border-radius-lg);
     padding: 40px;
     box-shadow: var(--glass-shadow);
-    transition: all 0.3s ease;
-    animation: fadeIn 0.4s ease-out;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
 
     to {
@@ -109,7 +109,7 @@
 
     to {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-8px);
     }
 }
 
@@ -157,6 +157,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     color: #6b7280;
     font-weight: 500;
+    /* Note: Source images should be at least 800px × 600px for retina display quality */
 }
 
 .imagePlaceholder p {

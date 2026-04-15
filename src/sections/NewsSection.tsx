@@ -16,7 +16,8 @@ interface BlogPost {
 }
 
 export default function NewsSection(): JSX.Element {
-    const latestPosts: BlogPost[] = latestNewsData || [];
+    // Skip the first article (it's displayed in Spotlight tab) and take the next 3
+    const latestPosts: BlogPost[] = latestNewsData.slice(1, 4) || [];
 
     // If no blog posts available, return null (don't show the section)
     if (latestPosts.length === 0) {
