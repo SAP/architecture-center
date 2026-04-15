@@ -1,6 +1,6 @@
 ---
 title: How Swiss Robotics Company ANYbotics and SAP Are Turning Dirty, Dusty, and Dangerous Industrial Inspections into Business Insights
-description: How Swiss Robotics Company ANYbotics and SAP Are Turning Dirty, Dusty, and Dangerous Industrial Inspections into Business Insights.
+description: In some of the world’s most dangerous industrial environments, including oil refineries, offshore wind platforms, cement plants, and chemical facilities, human access is often limited, risky, or prohibitively expensive. 
 authors: [ cernus76 ]
 keywords: ["ANYbotics", "Reference Architecture"]
 hide_table_of_contents: true
