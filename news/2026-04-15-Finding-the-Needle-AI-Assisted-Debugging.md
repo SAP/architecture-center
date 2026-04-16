@@ -29,7 +29,7 @@ The codebase spans multiple modules. Startup touches auth, plugin initialization
 
 ### What Claude Code Found
 
-![Human vs Claude Code Investigation Paths](./images/ai-debugging/investigation.svg)
+![Human vs Claude Code Investigation Paths](img/ai-debugging/investigation.svg)
 
 The Kubernetes secret had been populated with two overlapping sets of AI Core credentials:
 
@@ -53,7 +53,7 @@ Then without being asked - Claude Code argued against its own fix. "Are there ot
 
 ### The Numbers
 
-![Time Breakdown: Human vs Claude Code](./images/ai-debugging/time-breakdown.png)
+![Time Breakdown: Human vs Claude Code](img/ai-debugging/time-breakdown.png)
 
 - **617K output tokens** - code written, hypotheses reasoned, tests generated
 - **166K token peak context** - codebase, logs, SDK source, all held simultaneously at peak
@@ -78,7 +78,7 @@ The governance layer isn't friction. It's what makes it safe to give the AI real
 
 ### The Setup
 
-![Claude Code System Setup](./images/ai-debugging/setup-diagram.png)
+![Claude Code System Setup](img/ai-debugging/setup-diagram.png)
 
 **GitHub MCP server** - full repo read access. Claude Code traced imports, followed call chains, read any file without being handed anything manually.
 
