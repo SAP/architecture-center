@@ -27,7 +27,7 @@ export default function HeroSection(): JSX.Element {
                 clearInterval(interval);
                 setTypingDone(true);
             }
-        }, 50);
+        }, 100);
         return () => clearInterval(interval);
     }, []);
 
