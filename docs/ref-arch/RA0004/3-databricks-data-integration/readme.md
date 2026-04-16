@@ -15,6 +15,7 @@ keywords:
   - data federation
   - analytics harmonization
   - integration models
+  - bdc connect
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:
@@ -33,7 +34,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-10-23
+  date: 2026-04-10
 ---
 
 SAP Business Data Cloud facilitates seamless harmonization of business data from SAP and non-SAP data from Enterprise Dabricks for richer Analytics and AI use cases. 

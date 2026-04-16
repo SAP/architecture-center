@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, JSX } from 'react';
+import React, { useState, useRef, useEffect, JSX, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import '@ui5/webcomponents-icons/dist/AllIcons';
@@ -9,7 +9,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 interface TabItem {
     title: string;
     tabLabel?: string;
-    subtitle: string;
+    subtitle: string | ReactNode;
     icon: string;
     link: string;
     disabled?: boolean;
@@ -19,9 +19,17 @@ interface TabItem {
 
 interface ArchitectureTabsProps {
     tabs: TabItem[];
+    enableScrollActivation?: boolean;
+    scrollActiveIndex?: number;
+    onManualTabChange?: () => void;
 }
 
-export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.Element | null {
+export default function ArchitectureTabs({
+    tabs,
+    enableScrollActivation = false,
+    scrollActiveIndex,
+    onManualTabChange,
+}: ArchitectureTabsProps): JSX.Element | null {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
@@ -35,12 +43,42 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         authProviders: Record<string, 'btp' | 'github'>;
     };
 
+    // Determine the effective active index
+    // Use scrollActiveIndex if scroll activation is enabled, otherwise use internal state
+    const effectiveActiveIndex =
+        enableScrollActivation && scrollActiveIndex !== undefined ? scrollActiveIndex : activeIndex;
+
+    console.log('ArchitectureTabs render:', {
+        enableScrollActivation,
+        scrollActiveIndex,
+        activeIndex,
+        effectiveActiveIndex
+    });
+
+    // Sync internal state when scroll-controlled index changes
+    useEffect(() => {
+        if (enableScrollActivation && scrollActiveIndex !== undefined && scrollActiveIndex !== activeIndex) {
+            console.log('Syncing activeIndex from scroll:', scrollActiveIndex);
+
+            // Trigger fade out
+            setIsTransitioning(true);
+
+            // Quick fade out, then update, then fade in
+            setTimeout(() => {
+                setActiveIndex(scrollActiveIndex);
+                setTimeout(() => {
+                    setIsTransitioning(false);
+                }, 25); // Minimal delay before fade in
+            }, 150); // Faster fade out (was 200ms)
+        }
+    }, [enableScrollActivation, scrollActiveIndex, activeIndex]);
+
     // Move useEffect BEFORE any conditional returns (React hooks rule)
     useEffect(() => {
         if (!tabs || tabs.length === 0) return;
 
         const updateIndicator = () => {
-            const activeTab = tabRefs.current[activeIndex];
+            const activeTab = tabRefs.current[effectiveActiveIndex];
             if (activeTab) {
                 const tabList = activeTab.parentElement;
                 if (tabList) {
@@ -57,10 +95,10 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         updateIndicator();
         window.addEventListener('resize', updateIndicator);
         return () => window.removeEventListener('resize', updateIndicator);
-    }, [activeIndex, tabs]);
+    }, [effectiveActiveIndex, tabs]);
 
     // Get image URL - must be called before conditional return (React hooks rule)
-    const activeTab = tabs?.[activeIndex];
+    const activeTab = tabs?.[effectiveActiveIndex];
     const imageUrl = useBaseUrl(activeTab?.image || '');
 
     // Early return AFTER all hooks
@@ -68,7 +106,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
         return null;
     }
 
-    const { title, subtitle, icon, link, isNew, image } = tabs[activeIndex];
+    const { title, subtitle, icon, link, isNew, image } = tabs[effectiveActiveIndex];
     const requiredProvider = authProviders?.[link];
     const isLoggedInWithRequiredProvider = requiredProvider ? users[requiredProvider] !== null : true;
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
@@ -96,7 +134,12 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
     };
 
     const handleTabChange = (newIndex: number) => {
-        if (newIndex === activeIndex || isTransitioning) return;
+        if (newIndex === effectiveActiveIndex || isTransitioning) return;
+
+        // Notify parent that user manually selected a tab
+        if (onManualTabChange) {
+            onManualTabChange();
+        }
 
         setIsTransitioning(true);
         setTimeout(() => {
@@ -120,7 +163,7 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                         }}
                     />
                     {tabs.map((tab, index) => {
-                        const isActive = index === activeIndex;
+                        const isActive = index === effectiveActiveIndex;
                         return (
                             <button
                                 key={index}
@@ -144,8 +187,8 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
             <div
                 className={`${styles.tabPanel} ${isTransitioning ? styles.fadeOut : ''}`}
                 role="tabpanel"
-                id={`panel-${activeIndex}`}
-                aria-labelledby={`tab-${activeIndex}`}
+                id={`panel-${effectiveActiveIndex}`}
+                aria-labelledby={`tab-${effectiveActiveIndex}`}
             >
                 {needsAuth && requiredProvider && (
                     <div className={styles.loginBadge}>
@@ -175,15 +218,19 @@ export default function ArchitectureTabs({ tabs }: ArchitectureTabsProps): JSX.E
                             <p className={styles.subtitle}>{subtitle}</p>
                             <div className={styles.actionWrapper}>
                                 {needsAuth && requiredProvider ? (
-                                    <button 
-                                        className={styles.actionButton} 
+                                    <button
+                                        className={styles.actionButton}
                                         onClick={handleButtonClick}
                                     >
                                         {title === 'Quick Start' || title === 'Architecture Validator' ? 'Launch' : 'Explore'} {title}
                                     </button>
                                 ) : (
                                     <Link to={link} className={styles.actionButton}>
-                                        {title === 'Quick Start' || title === 'Architecture Validator' ? 'Launch' : 'Explore'} {title}
+                                        {title === 'Latest Article'
+                                            ? 'Read Latest Article'
+                                            : title === 'Quick Start' || title === 'Architecture Validator'
+                                                ? `Launch ${title}`
+                                                : `Explore ${title}`}
                                     </Link>
                                 )}
                             </div>
