@@ -1,7 +1,6 @@
-.refarchSidebarActive {
-  height: 100%; 
-  display: flex;
-  flex-direction: column;
+/* Make sidebarViewport take full width of its container */
+:global([class*="sidebarViewport"]) {
+  width: 100% !important;
 }
 
 .scrollableContent {
@@ -9,31 +8,10 @@
   flex-grow: 1;
 }
 
-:global(html[data-sidebar-collapsed='true']) .scrollableContent {
-  display: none;
-}
-
-:global(html[data-sidebar-collapsed='true']) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-:global(.theme-doc-sidebar-container.theme-doc-sidebar-container-hidden) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-:global([class*="docSidebarContainer"][class*="Hidden"]) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-.theme-doc-sidebar-container-collapsed .custom-sidebar-filters-container {
-  display: none;
-}
-
-.sidebarMenuList .menu.thin-scrollbar {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+/* Hide filter bar and sidebar content when collapsed */
+.sidebarHidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .sidebarWithFiltersContainer {
@@ -51,6 +29,14 @@
   flex-direction: column;
 }
 
+.sidebar {
+  border-right: 1px solid var(--ifm-toc-border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: var(--doc-sidebar-width);
+}
+
 [class^="sidebar_"] {
   border-right: 1px solid var(--ifm-toc-border-color);
 }
@@ -58,3 +44,33 @@
 :global(button[class*="collapseSidebarButton"]) {
   border-right: none !important;
 }
+
+/* Ensure expand button icon is visible */
+:global([class*="expandButton"]) {
+  cursor: pointer;
+}
+
+:global([class*="expandButtonIcon"]) {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+/* Domain Sidebar Categories */
+.domainSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.domainSidebarMobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+/* Remove custom viewport styling - let Docusaurus handle it */
