@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /architecture-validator
+slug: /community/architecture-validator
 title: Architecture Validator
 description: Architecture Validator
 sidebar_label: Architecture Validator

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-slug: /validator
+slug: /community/validator
 title: SAP Architecture Center - Architecture Validator Statement
 description: The SAP Architecture Center - Architecture Validator Statement.
 sidebar_label: SAP AC Architecture Validator Statement

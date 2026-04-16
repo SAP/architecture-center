@@ -65,7 +65,7 @@ export default function HeroSection(): JSX.Element {
                         <Link to="/docs/ref-arch" className={styles.primaryButton}>
                             Browse Architectures
                         </Link>
-                        <Link to="/community/intro" className={styles.secondaryButton}>
+                        <Link to="/docs/community/intro" className={styles.secondaryButton}>
                             Community of Practice
                         </Link>
                     </div>

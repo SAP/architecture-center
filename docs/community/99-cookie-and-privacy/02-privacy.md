@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /privacy
+slug: /community/privacy
 title: Privacy Statement
 description: The SAP Architecture Center (this site) - Privacy Statement.
 sidebar_label: Privacy Statement

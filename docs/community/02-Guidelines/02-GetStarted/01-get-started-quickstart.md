@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /get-started-quickstart
+slug: /community/get-started-quickstart
 title: Get Started with Quick Start
 description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to contribute using the no-code Quick Start approach.
 sidebar_label: Quick Start

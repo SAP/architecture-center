@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /cookie
+slug: /community/cookie
 title: Cookie Statement
 description: The SAP Architecture Center (this site) - Cookie Statement.
 sidebar_label: Cookie Statement
