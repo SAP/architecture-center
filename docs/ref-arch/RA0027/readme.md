@@ -115,7 +115,7 @@ Security events are enriched with user, asset, identity, location, and threat in
 Response actions are executed through automated playbooks with optional approval steps to support governance, compliance, and separation of duties.
 
 - **SAP-aware response capabilities**
-The architecture supports SAP-specific response actions such as user session termination, account locking, and authorization or role changes. This heavily depends on the intergations provided by the SOAR platform.
+The architecture supports SAP-specific response actions such as user session termination, account locking, and authorization or role changes. This heavily depends on the integrations provided by the SOAR platform.
 
 - **Enterprise integration and auditability**
 Security incidents, actions, and decisions are integrated with enterprise systems such as ITSM platforms and are fully documented.
