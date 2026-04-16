@@ -6,9 +6,9 @@ import { useAuth } from '../context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import latestNewsData from '../data/latest-news.json';
 
-// Dynamically import all images from news/img folder
+// Dynamically import all images from news/img folder (including subdirectories)
 // @ts-ignore - require.context is a webpack feature
-const newsImagesContext = require.context('@site/news/img', false, /\.(png|jpe?g|svg|webp)$/);
+const newsImagesContext = require.context('@site/news/img', true, /\.(png|jpe?g|svg|webp)$/);
 
 // Helper function to get the image URL for blog posts
 function getBlogImageUrl(imagePath: string | null): string {
@@ -17,14 +17,11 @@ function getBlogImageUrl(imagePath: string | null): string {
     }
 
     try {
-        // Extract just the filename from the path (e.g., "img/photo.jpg" -> "photo.jpg")
-        const filename = imagePath.split('/').pop();
-        if (!filename) {
-            return '/img/ArchitectureTabs/default-1000x750.webp';
-        }
+        // Remove 'img/' prefix if present (e.g., "img/2026-04-15/photo.jpg" -> "2026-04-15/photo.jpg")
+        const relativePath = imagePath.startsWith('img/') ? imagePath.substring(4) : imagePath;
 
         // Try to load the image from the webpack context
-        const imageModule = newsImagesContext(`./${filename}`);
+        const imageModule = newsImagesContext(`./${relativePath}`);
         return imageModule.default || imageModule;
     } catch (e) {
         console.warn(`Could not load spotlight image: ${imagePath}`, e);
@@ -47,7 +44,7 @@ export default function ArchitectureTabsSection(): JSX.Element {
 
         // Create the latest article tab with formatted subtitle (title + description)
         const latestArticleTab = {
-            title: 'Under the Spotlight',
+            title: 'Under the Spotlight: In Focus',
             tabLabel: 'Spotlight',
             subtitle: (
                 <>
