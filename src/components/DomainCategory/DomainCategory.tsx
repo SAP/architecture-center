@@ -64,7 +64,10 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
     // Handle categories (nested collapsible)
     if (item.type === 'category') {
       const categoryKey = `${domainId}-${item.label || item.id}`;
-      const isCategoryExpanded = expandedCategories.has(categoryKey);
+
+      // CUSTOM: Make "Reference Architectures" always expanded and non-collapsible
+      const isReferenceArchitectures = item.label === 'Reference Architectures';
+      const isCategoryExpanded = isReferenceArchitectures ? true : expandedCategories.has(categoryKey);
 
       // Check if category has a link (parent document)
       // The href can be directly on item.href or in item.link.href
@@ -81,7 +84,10 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
       const categoryDuplicateCount = categoryDocId ? (duplicateCounts[categoryDocId] || 0) : 0;
 
       const handleCategoryClick = () => {
-        toggleCategory(categoryKey);
+        // CUSTOM: Don't toggle if it's Reference Architectures
+        if (!isReferenceArchitectures) {
+          toggleCategory(categoryKey);
+        }
         // Let Link component handle navigation if there's an href
       };
 
@@ -95,9 +101,12 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
                 onClick={handleCategoryClick}
                 style={{ paddingLeft: `${level * 16 + 8}px` }}
               >
-                <span className={styles.chevron}>
-                  {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
-                </span>
+                {/* CUSTOM: Hide chevron for Reference Architectures */}
+                {!isReferenceArchitectures && (
+                  <span className={styles.chevron}>
+                    {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
+                  </span>
+                )}
                 <span className={styles.itemLabel}>{item.label}</span>
                 {categoryDuplicateCount > 0 && (
                   <span className={styles.duplicateIndicator} title={`Also appears in ${categoryDuplicateCount} other ${categoryDuplicateCount === 1 ? 'domain' : 'domains'}`}>
@@ -112,9 +121,12 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
                 style={{ paddingLeft: `${level * 16 + 8}px` }}
                 aria-expanded={isCategoryExpanded}
               >
-                <span className={styles.chevron}>
-                  {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
-                </span>
+                {/* CUSTOM: Hide chevron for Reference Architectures */}
+                {!isReferenceArchitectures && (
+                  <span className={styles.chevron}>
+                    {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
+                  </span>
+                )}
                 <span className={styles.itemLabel}>{item.label}</span>
               </button>
             )}
