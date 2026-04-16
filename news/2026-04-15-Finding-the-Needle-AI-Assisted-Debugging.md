@@ -1,17 +1,20 @@
 ---
-title: "Finding the Needle: AI-Assisted Debugging Across Thousands of Lines and Megabytes of Logs"
-description: A deep dive into how Claude Code helped debug a complex intermittent HTTP 400 error caused by conflicting SAP AI Core credentials in Kubernetes, reducing 12-15 hours of debugging to 60 minutes.
-authors: [anujag24]
-keywords: ["AI-Assisted Debugging", "Claude Code", "SAP AI Core", "Kubernetes", "WebRTC", "SDK Debugging", "Token Authentication", "MCP", "Developer Productivity"]
+title: "Finding the Needle: AI Cloud API Debugging with Claude and SAP"
+description: AI-Assisted Debugging Across Thousands of Lines of Cloud API Logs with Claude and SAP — Tracing a Hidden Credential Bug in Less Than 60 Minutes.
+keywords: ["ai", "claude", "sap", "cloud", "api"]
 hide_table_of_contents: true
+spotlight_image: img/2026-04-15/setup-diagram.webp
+authors: [anujag24]
 date: 2026-04-15
 ---
 
 ## What happens when you let Claude Code run the full debugging loop
 
-**TL;DR:** Intermittent HTTP 400, full agent flow only, every isolated test passing. Root cause: two conflicting sets of SAP AI Core credentials coexisting silently in the same Kubernetes secret - standalone production vars that the SDK prioritised over the staging service key, causing every token request to fetch from the wrong OAuth endpoint. The agent connected to staging with a production token. SAP's proxy rejected it: tenant not found. We were stuck. Nothing pointed anywhere obvious. A team of 2–3 engineers would have spent 12–15 hours total on this. Claude Code did it in 60 minutes, on claude-sonnet-4.5, averaging ~20 tokens of human input per turn. We've encoded the debugging patterns into a reusable [Claude Code skill](#the-claude-code-skill-reusable-debugging-pattern) you can drop into your own projects.
+**TL;DR:** Intermittent HTTP 400, full agent flow only, every isolated test passing. Root cause: two conflicting sets of SAP AI Core credentials coexisting silently in the same Kubernetes secret - standalone production vars that the SDK prioritised over the staging service key, causing every token request to fetch from the wrong OAuth endpoint. The agent connected to staging with a production token. SAP's proxy rejected it: tenant not found. We were stuck. Nothing pointed anywhere obvious. A team of 2–3 engineers would have spent 12–15 hours total on this. Claude Code did it in 60 minutes, on claude-sonnet-4.5, averaging ~20 tokens of human input per turn.
 
 <!-- truncate -->
+
+We've encoded the debugging patterns into a reusable [Claude Code skill](#the-claude-code-skill---reusable-debugging-pattern) you can drop into your own projects.
 
 The prompt that unlocked it:
 
@@ -29,7 +32,7 @@ The codebase spans multiple modules. Startup touches auth, plugin initialization
 
 ### What Claude Code Found
 
-![Human vs Claude Code Investigation Paths](img/ai-debugging/investigation.svg)
+![Human vs Claude Code Investigation Paths](img/2026-04-15/investigation.svg)
 
 The Kubernetes secret had been populated with two overlapping sets of AI Core credentials:
 
@@ -53,7 +56,7 @@ Then without being asked - Claude Code argued against its own fix. "Are there ot
 
 ### The Numbers
 
-![Time Breakdown: Human vs Claude Code](img/ai-debugging/time-breakdown.png)
+![Time Breakdown: Human vs Claude Code](img/2026-04-15/time-breakdown.webp)
 
 - **617K output tokens** - code written, hypotheses reasoned, tests generated
 - **166K token peak context** - codebase, logs, SDK source, all held simultaneously at peak
@@ -78,7 +81,7 @@ The governance layer isn't friction. It's what makes it safe to give the AI real
 
 ### The Setup
 
-![Claude Code System Setup](img/ai-debugging/setup-diagram.png)
+![Claude Code System Setup](img/2026-04-15/setup-diagram.webp)
 
 **GitHub MCP server** - full repo read access. Claude Code traced imports, followed call chains, read any file without being handed anything manually.
 
@@ -126,7 +129,7 @@ Set up MCP access. Use short-lived credentials. Gate writes behind approval. Ena
 
 Then watch it curl through logs, write and validate tests and re-direct it when needed (i.e. provide more context) while sipping your coffee….
 
-### The Claude Code Skill: Reusable Debugging Pattern
+### The Claude Code Skill - Reusable Debugging Pattern
 
 We've encoded the hard-won patterns from this debugging session into a reusable Claude Code skill. Drop this into your `.claude/commands/` directory and invoke it whenever you hit an HTTP 400 in any authenticated distributed system.
 

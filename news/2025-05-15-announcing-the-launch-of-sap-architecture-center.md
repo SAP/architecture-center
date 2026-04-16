@@ -1,9 +1,10 @@
 ---
 title: Launching the SAP Architecture Center
 description: The SAP Architecture Center centralizes all resources in one place, enabling organizations to maximize cloud capabilities while ensuring that their solutions are secure, resilient, and optimized to their specific requirements.
-authors: [ anirban-sap ]
 keywords: ["SAP Architecture Center", "Reference Architecture", "SAP BTP"]
+spotlight_image: news/img/2025-05-15/architecture-center-vision.png
 hide_table_of_contents: true
+authors: [ anirban-sap ]
 date: 2025-05-15
 ---
 
@@ -26,7 +27,7 @@ The SAP Architecture Center is a GitHub-based repository designed to enhance how
 - Structured governance with clear review and approval workflows.
 
 #### Architecture Center Vision
-![Architecture Center Vision](img/architecture-center-vision.png)
+![Architecture Center Vision](img/2025-05-15/architecture-center-vision.png)
 
 :::info Disclaimer
 This diagram represents the holistic vision of the SAP Architecture Center, combining both current capabilities and future roadmap elements. Some features are forward-looking and may evolve over time as the platform continues to develop.
