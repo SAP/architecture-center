@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v2.2612.2",
+    "version": "v2.2615.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -59,7 +59,8 @@
         "@ui5/webcomponents-fiori": "^2.20.1",
         "@ui5/webcomponents-icons": "^2.7.0",
         "@ui5/webcomponents-react": "^2.20.1",
-        "axios": "^1.13.6",
+        "axios": "^1.15.0",
+        "chalk": "^5.6.2",
         "clsx": "^2.0.0",
         "cookie": "^0.7.2",
         "docusaurus-plugin-image-zoom": "^2.0.0",
@@ -74,7 +75,7 @@
         "open-ask-ai": "^0.7.3",
         "pako": "^2.1.0",
         "particles.js": "^2.0.0",
-        "path-to-regexp": "^8.3.0",
+        "path-to-regexp": "^8.4.0",
         "prism-react-renderer": "^2.4.1",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

@@ -28,10 +28,11 @@ draft: false
 unlisted: false
 contributors:
   - AFK-Python
+  - adarshnarayanhegde
 discussion: 
 last_update:
-  author: AFK-Python
-  date: 2025-02-20
+  author: adarshnarayanhegde
+  date: 2026-04-13
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Google Cloud Platform (GCP) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines GCP-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
@@ -88,7 +89,7 @@ EIC workloads require a **containerized runtime**, making **[Google Kubernetes E
 
 EIC requires multiple storage solutions for transaction logs, runtime data, and caching.
 
-- **Amazon RDS**  
+- **Google Cloud SQL**  
   - **[Google Cloud SQL](https://cloud.google.com/sql/docs/introduction)** provides a fully managed relational database for storing EIC runtime data.  
   - **[Cloud SQL for PostgreSQL](https://cloud.google.com/sql/docs/postgres)** is recommended for EIC.
   - Enable **[Multi-AZ replication](https://cloud.google.com/sql/docs/postgres/configure-ha)** for high availability.
@@ -122,7 +123,7 @@ EIC requires multiple storage solutions for transaction logs, runtime data, and 
 
 You can find detailed, step-by-step instructions for both the basic and high availability (HA) setup, including SAP and GCP configuration and deployment steps, in the following GitHub repository:
 
-[**Deploy SAP Integration Suite - Edge Integration Cell on Google Cloud Platform**](https://github.tools.sap/btp-use-case-factory/edge-integration-cell-gcp)
+[**Deploy SAP Integration Suite - Edge Integration Cell on Google Cloud Platform**](https://github.com/SAP-samples/btp-edge-integration-cell-gcp)
 
 ## Recommendation
 The architecture and setup instructions in the GitHub repository above outline a small production deployment. Since deployments vary depending on business needs, these recommendations should be treated as a starting point.
