@@ -28,7 +28,7 @@ The **Architecture Validator** is an intelligent review assistant designed to he
 
 ## Usage Notes
 - Only **draw.io** diagrams are supported at this time.
-- Since the validator relies on how diagrams are modeled in draw.io, it is recommended to follow the diagramming guidelines provided here:  **[Architecture Modelling Guidelines](/community/architecture-validator-modelling-guidelines)** for best validation results.
+- Since the validator relies on how diagrams are modeled in draw.io, it is recommended to follow the diagramming guidelines provided here:  **[Architecture Modelling Guidelines](/docs/community/architecture-validator-modelling-guidelines)** for best validation results.
 - Up to **five validations** can run in parallel. If capacity is full, validation will queue briefly.
 - Validation typically takes **10–90 seconds**, depending on diagram size, complexity & execution load.
 - The validator **supports the review process**, it does not replace human architectural judgment.

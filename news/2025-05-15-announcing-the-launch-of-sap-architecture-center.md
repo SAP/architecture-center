@@ -42,7 +42,7 @@ Special acknowledgment to [Philipp Herzig](https://www.linkedin.com/in/philipp-h
 
 Join us in shaping the future of SAP architecture.
 
-[Start contributing](/community/contribution) today!
+[Start contributing](/docs/community/contribution) today!
 
 Anirban
 Office of the CTO

@@ -64,4 +64,4 @@ We are thrilled to welcome new contributors who have joined our efforts to expan
 *   [maria-kondratyeva](https://github.com/maria-kondratyeva)
 *   [miguelmezamartinez](https://github.com/miguelmezamartinez)
 
-We hope you enjoyed reading these details. Please join us in shaping the future of SAP architecture and [start contributing](/community/contribution) today!
+We hope you enjoyed reading these details. Please join us in shaping the future of SAP architecture and [start contributing](/docs/community/contribution) today!
