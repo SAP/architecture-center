@@ -34,6 +34,12 @@ last_update:
 ############################################################
 ---
 
+:::note External Contribution
+
+**This content is brought to you by [Fortinet](https://www.fortinet.com/), an SAP partner.**
+
+:::
+
 SAP landscapes generate security-relevant telemetry across application, database, and platform layers, including environments such as SAP RISE, SAP BTP, SAP SaaS applications, and on-premises SAP systems.
 SAP Enterprise Threat Detection (ETD) provides deep, domain-specific analysis of SAP logs and identifies suspicious or anomalous activities within SAP environments.
 
