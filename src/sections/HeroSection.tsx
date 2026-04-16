@@ -27,7 +27,7 @@ export default function HeroSection(): JSX.Element {
                 clearInterval(interval);
                 setTypingDone(true);
             }
-        }, 100);
+        }, 70);
         return () => clearInterval(interval);
     }, []);
 
@@ -56,7 +56,7 @@ export default function HeroSection(): JSX.Element {
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>
                         {displayedText}
-                        {!typingDone && <span className={styles.cursor}>█</span>}
+                        {!typingDone && <span className={styles.cursor}>|</span>}
                     </h1>
                     <p className={styles.heroSubtitle}>
                         Empowering architects and developers to design, integrate, and optimize SAP Solutions through best practices, reference architectures, and community-driven guidance.
