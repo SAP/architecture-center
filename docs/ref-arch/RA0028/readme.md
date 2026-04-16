@@ -31,6 +31,12 @@ last_update:
   author: arjenvanhooydonk
 ---
 
+:::note External Contribution
+
+**This content is brought to you by [SD Worx](https://www.sdworx.com), an SAP partner.**
+
+:::
+
 The SAP SuccessFactors Suite is a cloud‑based Human Experience Management (HXM) platform designed to support the full employee lifecycle through an integrated set of talent, core HR, and analytics solutions. At the foundation sits the BizX platform, which houses core modules such as **Employee Central (EC)** for global master data management, **Recruiting Management**, **Onboarding**, **Performance & Goals**, **Compensation**, and more. These modules share a common data model, user interface, and extensibility framework, enabling consistent data flows and streamlined HR operations across the organization.
 
 ## Architecture
