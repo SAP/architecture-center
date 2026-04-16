@@ -23,6 +23,7 @@ draft: false
 unlisted: false
 tags:
   - ref-arch
+  - community-contrib
   - successfactors
 contributors:
   - arjenvanhooydonk

@@ -17,7 +17,7 @@ description: This reference architecture shows how SAP Enterprise Threat Detecti
 sidebar_label: Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms
 keywords: [sap enterprise threat detection, sap security, siem, soar, security operations, soc architecture, log-driven security, event correlation, incident response, security automation, hybrid security architecture, cloud security monitoring]
 image: img/logo.svg
-tags: [ref-arch, security, integration, eda]
+tags: [ref-arch, community-contrib, security, integration, eda]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

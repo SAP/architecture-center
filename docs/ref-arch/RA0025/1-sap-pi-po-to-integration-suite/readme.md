@@ -18,6 +18,8 @@ keywords:
 sidebar_label: SAP PI/PO to SAP Integration Suite
 image: img/logo.svg
 tags:
+  - ref-arch
+  - community-contrib
   - integration
   - transition
 hide_table_of_contents: false

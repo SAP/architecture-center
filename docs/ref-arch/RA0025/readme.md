@@ -19,6 +19,8 @@ keywords:
 sidebar_label: Transitioning Architectures from SAP NetWeaver
 image: img/logo.svg
 tags:
+  - ref-arch
+  - community-contrib
   - integration
   - transition
 hide_table_of_contents: false
