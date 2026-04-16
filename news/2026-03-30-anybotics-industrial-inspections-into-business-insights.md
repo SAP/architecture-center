@@ -74,4 +74,6 @@ In that future, robots like ANYmal are no longer novelties. They are coworkers, 
 
 Alexa MacDonald
 
+---
+
 Top image courtesy of ANYbotics
