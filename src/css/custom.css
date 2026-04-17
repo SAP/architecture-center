@@ -809,7 +809,7 @@ html[data-theme='dark'] .navbar-item-github {
 
 /* Custom styling for main content (excludes header, footer, sidebar) */
 html[data-theme='light'] .main-wrapper {
-    background: linear-gradient(to bottom, #d0e0ed 0%, #ffffff 30%, #ffffff 70%, #d0e0ed 100%);
+    background: linear-gradient(to bottom, #e8f2f7 0%, #ffffff 30%, #ffffff 70%, #e8f2f7 100%);
     min-height: 100vh;
 }
 
@@ -1430,16 +1430,16 @@ footer a b:hover {
 html[data-theme='light'] .homepage-main {
     background: linear-gradient(
         to bottom,
-        #d0e0ed 0%,
-        #dce8f2 8%,
-        #e8f1f8 15%,
-        #f5f9fd 25%,
+        #e8f2f7 0%,
+        #eef5f9 8%,
+        #f3f8fb 15%,
+        #f8fbfd 25%,
         #ffffff 40%,
         #ffffff 60%,
-        #f5f9fd 75%,
-        #e8f1f8 85%,
-        #dce8f2 92%,
-        #d0e0ed 100%
+        #f8fbfd 75%,
+        #f3f8fb 85%,
+        #eef5f9 92%,
+        #e8f2f7 100%
     );
 }
 
