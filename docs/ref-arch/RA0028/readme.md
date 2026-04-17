@@ -1,7 +1,7 @@
 ---
 id: id-ra0028
 slug: /ref-arch/5Hlvofqg
-sidebar_position: 28
+sidebar_position: 290
 title: 'SAP SuccessFactors Suite'
 description: 'Overview of the SAP SuccessFactors modules and how data flows between them'
 keywords: 
