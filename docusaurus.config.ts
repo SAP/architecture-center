@@ -251,8 +251,12 @@ const config: Config = {
                 {
                     type: 'dropdown',
                     label: 'Navigate',
-                    position: 'right',
+                    position: 'left',
                     items: [
+                        {
+                            label: 'News',
+                            to: '/news-all',
+                        },
                         {
                             label: 'AI-Native North Star Architecture',
                             to: '/docs/nsa/',
@@ -279,10 +283,6 @@ const config: Config = {
                             label: 'Community of Practice',
                             to: '/docs/community/intro/',
                             sidebarId: 'communitySidebar',
-                        },
-                        {
-                            label: 'News',
-                            to: '/news',
                         },
                     ],
                 },
