@@ -394,6 +394,5 @@ sequenceDiagram
 - [Playwright MCP](https://github.com/microsoft/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
 
 **SAP Platform**
-
 - [LiteLLM SAP Provider](https://docs.litellm.ai/docs/providers/sap) — Gateway to SAP AI Foundation via Gen AI Hub
 - [Claude Code Documentation](https://code.claude.com/docs) — Official Claude Code docs, skills, MCP, and quickstart guides
