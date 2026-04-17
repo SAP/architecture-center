@@ -50,26 +50,13 @@ const config: Config = {
         './src/plugins/tags-plugin',
         './src/plugins/security-headers',
         [
-            '@docusaurus/plugin-content-docs',
-            {
-                id: 'community',
-                path: 'community',
-                routeBasePath: 'community',
-                sidebarPath: require.resolve('./sidebarsCommunity'),
-                showLastUpdateTime: true,
-                showLastUpdateAuthor: true,
-                onInlineTags: 'warn',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
-            },
-        ],
-        [
             require.resolve('@easyops-cn/docusaurus-search-local'),
             {
                 hashed: true,
                 indexDocs: true,
                 indexPages: true,
-                docsRouteBasePath: ['/docs', '/community'],
-                docsDir: ['docs', 'community'],
+                docsRouteBasePath: ['/docs'],
+                docsDir: ['docs'],
                 indexBlog: true,
                 blogDir: 'news',
                 blogRouteBasePath: '/news',
@@ -269,10 +256,12 @@ const config: Config = {
                         {
                             label: 'AI-Native North Star Architecture',
                             to: '/docs/nsa/',
+                            sidebarId: 'northStarSidebar',
                         },
                         {
                             label: 'AI Golden Path',
                             to: '/docs/aigp/',
+                            sidebarId: 'goldenPathSidebar',
                         },
                         {
                             label: 'Browse Architectures',
@@ -288,7 +277,8 @@ const config: Config = {
                         },
                         {
                             label: 'Community of Practice',
-                            to: '/community/intro',
+                            to: '/docs/community/intro/',
+                            sidebarId: 'communitySidebar',
                         },
                         {
                             label: 'News',

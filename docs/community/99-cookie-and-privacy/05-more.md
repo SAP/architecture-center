@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-slug: /more-github-sap
+slug: /community/more-github-sap
 title: More information on GitHub and SAP
 description: More information on GitHub and SAP.
 sidebar_label: More information on GitHub and SAP

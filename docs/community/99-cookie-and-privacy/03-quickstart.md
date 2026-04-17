@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-slug: /quickstart
+slug: /community/quickstart
 title: SAP Architecture Center - Quick Start Statement
 description: The SAP Architecture Center - Quick Start Statement.
 sidebar_label: SAP AC Quick Start Statement

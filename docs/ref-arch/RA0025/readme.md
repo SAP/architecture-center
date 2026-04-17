@@ -19,6 +19,8 @@ keywords:
 sidebar_label: Transitioning Architectures from SAP NetWeaver
 image: img/logo.svg
 tags:
+  - ref-arch
+  - community-contrib
   - integration
   - transition
 hide_table_of_contents: false
@@ -34,6 +36,12 @@ last_update:
   author: abklgithub
   date: 2025-08-02
 ---
+
+:::note External Contribution
+
+**This content is brought to you by [Glencore](https://www.glencore.com/), an SAP customer.**
+
+:::
 
 A large base of SAP customers is on NetWeaver-based products. These products are approaching the end of standard maintenance in 2027 ([see note 1648480](https://me.sap.com/notes/1648480)). SAP has either made successor products available or named the successor products, which can be found in [PAM](https://userapps.support.sap.com/sap/support/pam). This section of the Architecture Center is dedicated to outlining the options for customers for various use cases.
 

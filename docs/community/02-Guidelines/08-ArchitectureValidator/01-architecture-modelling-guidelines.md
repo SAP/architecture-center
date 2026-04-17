@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /architecture-validator-modelling-guidelines
+slug: /community/architecture-validator-modelling-guidelines
 title: Architecture Validator Modeling Guidelines
 description: Architecture Validator Modeling Guidelines
 sidebar_label: Architecture Validator Modeling Guidelines

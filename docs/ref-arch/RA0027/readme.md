@@ -17,7 +17,7 @@ description: This reference architecture shows how SAP Enterprise Threat Detecti
 sidebar_label: Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms
 keywords: [sap enterprise threat detection, sap security, siem, soar, security operations, soc architecture, log-driven security, event correlation, incident response, security automation, hybrid security architecture, cloud security monitoring]
 image: img/logo.svg
-tags: [ref-arch, security, integration, eda]
+tags: [ref-arch, community-contrib, security, integration, eda]
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,6 +33,12 @@ last_update:
 #                   End of Front Matter                    #
 ############################################################
 ---
+
+:::note External Contribution
+
+**This content is brought to you by [Fortinet](https://www.fortinet.com/), an SAP partner.**
+
+:::
 
 SAP landscapes generate security-relevant telemetry across application, database, and platform layers, including environments such as SAP RISE, SAP BTP, SAP SaaS applications, and on-premises SAP systems.
 SAP Enterprise Threat Detection (ETD) provides deep, domain-specific analysis of SAP logs and identifies suspicious or anomalous activities within SAP environments.
@@ -115,7 +121,7 @@ Security events are enriched with user, asset, identity, location, and threat in
 Response actions are executed through automated playbooks with optional approval steps to support governance, compliance, and separation of duties.
 
 - **SAP-aware response capabilities**
-The architecture supports SAP-specific response actions such as user session termination, account locking, and authorization or role changes. This heavily depends on the intergations provided by the SOAR platform.
+The architecture supports SAP-specific response actions such as user session termination, account locking, and authorization or role changes. This heavily depends on the integrations provided by the SOAR platform.
 
 - **Enterprise integration and auditability**
 Security incidents, actions, and decisions are integrated with enterprise systems such as ITSM platforms and are fully documented.

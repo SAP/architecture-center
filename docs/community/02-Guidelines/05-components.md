@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-slug: /components
+slug: /community/components
 title: Components
 description: Find details about custom components developed for the SAP Architecture Center. Use them in your own contributions to the site. 
 sidebar_label: Components

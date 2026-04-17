@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-slug: /content-structure
+slug: /community/content-structure
 title: Content Structure
 description: Learn how to organize folders, diagrams, images, and documentation for consistency and clarity in your SAP Architecture Center contribution.
 sidebar_label: Content Structure

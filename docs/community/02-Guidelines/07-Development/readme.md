@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /development
+slug: /community/development
 title: Developers' Corner
 description: Examples for CSS, responsive design, and performance in the SAP Architecture Center.
 sidebar_label: Developers' Corner

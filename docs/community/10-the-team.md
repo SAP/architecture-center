@@ -1,6 +1,6 @@
 ---
 sidebar_position: 10
-slug: /team
+slug: /community/team
 title: The Team
 description: The team behind the SAP Architecture Center.
 sidebar_label: The Team

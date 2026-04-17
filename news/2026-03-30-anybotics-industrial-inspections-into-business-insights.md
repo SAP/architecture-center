@@ -3,7 +3,7 @@ title: How Swiss Robotics Company ANYbotics and SAP Are Turning Dirty, Dusty, an
 description: In some of the world’s most dangerous industrial environments, including oil refineries, offshore wind platforms, cement plants, and chemical facilities, human access is often limited, risky, or prohibitively expensive. 
 keywords: ["ANYbotics", "SAP", "robotic", "ANYmak"]
 hide_table_of_contents: true
-spotlight_image: img/ANY_25_11-AnyMal-North-Star-Bluescope-94-1920x600.jpg
+spotlight_image: img/2026-03-30/ANY_25_11-AnyMal-North-Star-Bluescope-94-1920x600.jpg
 authors: [ cernus76 ]
 date: 2026-03-30
 ---
@@ -16,7 +16,7 @@ ANYbotics, a Swiss robotics company, has stepped into this space with a vision t
 
 This vision is embodied in the company’s “ANYmal”: a four-legged inspection robot designed specifically for heavy industry.
 
-![ANYbotics industrial inspections](img/ANY_25_11-AnyMal-North-Star-Bluescope-94-1920x600.jpg)
+![ANYbotics industrial inspections](img/2026-03-30/ANY_25_11-AnyMal-North-Star-Bluescope-94-1920x600.jpg)
 
 Unlike general-purpose robotics platforms, ANYmal is engineered to operate in “big, dirty, dusty, and dangerous” environments, says Nicole Zingg, director of Technology Partnerships at ANYbotics. Places where stairs, corrosion, heat, and unreliable connectivity are the norm, not the exception.
 
@@ -73,5 +73,7 @@ In the future, industrial inspection will be powered by AI, not as disembodied d
 In that future, robots like ANYmal are no longer novelties. They are coworkers, albeit mechanical four-legged ones, quietly extending human capability into places humans were never meant to go. These robots, together with SAP, are shaping for a future where dirty, dangerous, and dusty industrial inspections are being transformed into business insights.
 
 Alexa MacDonald
+
+---
 
 Top image courtesy of ANYbotics

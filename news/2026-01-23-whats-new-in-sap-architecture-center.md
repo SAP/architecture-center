@@ -51,4 +51,4 @@ We are thrilled to welcome new contributors who have joined our efforts to expan
 *   [nagesh-caparthy1](https://github.com/nagesh-caparthy1)
 *   [seeobjectively](https://github.com/seeobjectively)
 
-We hope you enjoyed reading these details. Please join us in shaping the future of SAP architecture and [start contributing](/community/contribution) today!
+We hope you enjoyed reading these details. Please join us in shaping the future of SAP architecture and [start contributing](/docs/community/contribution) today!
