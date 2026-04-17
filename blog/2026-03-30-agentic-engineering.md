@@ -14,7 +14,7 @@ Several debugging rounds later the page showed up — but columns came up empty,
 
 Coding agents write code fast. But debugging after the fact was the most expensive way to use AI. Each fix cycle — wait for a new attempt, test again — turned enthusiasm into frustration. The answer isn't just writing code faster. What we found changed how we approach AI-assisted SAP development.
 
-The project was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](<!-- TODO: add repo URL -->).
+The project was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered).
 
 ![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](images/sample-cap-app-screenshot.png)
 
@@ -413,7 +413,7 @@ sequenceDiagram
     A-->>H: Code ready for review
     H->>H: Review, approve & commit
 ```
- Your SAP investment already includes the platform. The question is whether you equip your agents to use it.
+ To see the complete implementation — CAP backend, Fiori Elements frontend, and AI Core integration — explore the [source code on GitHub](https://github.com/SAP-samples/cap-agentic-engineered). Your SAP investment already includes the platform. The question is whether you equip your agents to use it.
 
 ## References
 
@@ -430,5 +430,6 @@ sequenceDiagram
 - [Playwright MCP](https://github.com/anthropics/anthropic-quickstarts/tree/main/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
 
 **SAP Platform**
+- [Financial Risk Analyzer — Source Code](https://github.com/SAP-samples/cap-agentic-engineered) — Full CAP + Fiori Elements application built in this post
 - [LiteLLM SAP Provider](https://docs.litellm.ai/docs/providers/sap) — Gateway to SAP AI Foundation via Gen AI Hub
 - [Claude Code Documentation](https://code.claude.com/docs) — Official Claude Code docs, skills, MCP, and quickstart guides
