@@ -1,10 +1,11 @@
-.newsSection {
+.newsAllPage {
     width: 100%;
-    padding: 30px 0 50px 0;
+    padding: 80px 0 80px 0;
     background: transparent;
+    min-height: calc(100vh - 60px);
 }
 
-[data-theme='dark'] .newsSection {
+[data-theme='dark'] .newsAllPage {
     background: transparent;
 }
 
@@ -29,7 +30,6 @@
 .subtitle {
     font-size: 1.25rem;
     color: var(--ifm-color-content-secondary);
-
     margin: 0;
     line-height: 1.6;
 }
@@ -211,43 +211,78 @@
     transform: translateX(4px);
 }
 
-.viewAllContainer {
-    text-align: center;
-    margin-top: 40px;
-    position: relative;
-    z-index: 20;
+/* Pagination styles */
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 60px;
+    padding: 20px 0;
 }
 
-.viewAllButton {
-    display: inline-block;
-    padding: 6px 24px;
-    background: #0070f2;
+.paginationButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--ifm-color-primary);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.2);
+}
+
+.paginationButton:hover:not(.disabled) {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
+    background: var(--ifm-color-primary);
+}
+
+.paginationButton:hover:not(.disabled) .arrow {
     color: white;
-    border: 2px solid #0070f2;
+}
+
+.paginationButton.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: var(--ifm-color-content-secondary);
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: var(--ifm-color-primary);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.paginationButton.disabled .arrow {
+    color: var(--ifm-color-content-secondary);
+}
+
+.pageInfo {
+    padding: 8px 24px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+}
+
+.pageText {
     font-size: 1rem;
     font-weight: 600;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
-    text-align: center;
+    color: var(--ifm-font-color-base);
 }
-
-.viewAllButton:hover {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
-    color: white;
-    text-decoration: none;
-    background: var(--gradient-primary);
-    border: 2px solid #0070f2;
-}
-
-/* Dark mode styles */
-/* Dark mode overrides removed as they are now handled by global variables */
 
 /* Responsive styles */
 @media (max-width: 996px) {
-    .newsSection {
+    .newsAllPage {
         padding: 60px 16px;
     }
 
@@ -275,10 +310,24 @@
     .newsTitle {
         font-size: 1.25rem;
     }
+
+    .paginationContainer {
+        gap: 16px;
+        margin-top: 48px;
+    }
+
+    .paginationButton {
+        width: 44px;
+        height: 44px;
+    }
+
+    .arrow {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 600px) {
-    .newsSection {
+    .newsAllPage {
         padding: 48px 16px;
     }
 
@@ -315,14 +364,31 @@
         font-size: 0.9375rem;
     }
 
-    .viewAllButton {
-        width: 100%;
-        padding: 12px 24px;
+    .paginationContainer {
+        gap: 12px;
+        margin-top: 40px;
+    }
+
+    .paginationButton {
+        width: 40px;
+        height: 40px;
+    }
+
+    .arrow {
+        font-size: 1.125rem;
+    }
+
+    .pageInfo {
+        padding: 6px 16px;
+    }
+
+    .pageText {
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 430px) {
-    .newsSection {
+    .newsAllPage {
         padding: 40px 16px;
     }
 
@@ -336,5 +402,14 @@
 
     .newsContent {
         padding: 16px;
+    }
+
+    .paginationButton {
+        width: 36px;
+        height: 36px;
+    }
+
+    .arrow {
+        font-size: 1rem;
     }
 }

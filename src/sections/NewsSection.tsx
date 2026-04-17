@@ -66,7 +66,7 @@ export default function NewsSection(): JSX.Element {
                 </div>
 
                 <div className={styles.viewAllContainer}>
-                    <Link to="/news" className={styles.viewAllButton}>
+                    <Link to="/news-all" className={styles.viewAllButton}>
                         View All News
                     </Link>
                 </div>
