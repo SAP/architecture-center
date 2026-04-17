@@ -386,14 +386,14 @@ sequenceDiagram
 - [UI5 MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/give-your-ai-agent-some-tools-introducing-the-ui5-mcp-server/ba-p/14200825) — UI5 Web Components development assistance
 
 **Agentic Engineering & Spec-Driven Development**
-- [superpowers](https://github.com/obra/superpowers)
+- [superpowers](https://github.com/obra/superpowers) — Spec-driven development framework that guides coding agents through structured requirements gathering
 - [GSD](https://github.com/gsd-build/get-shit-done) — Meta-prompting, context engineering, and spec-driven development system for coding agents
 - [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development tool that adds a lightweight specification layer before code is written
 
 **Developer Tooling MCP Servers**
-- [Playwright MCP](https://github.com/anthropics/anthropic-quickstarts/tree/main/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
+- [Playwright MCP](https://github.com/microsoft/playwright-mcp) — Headless browser automation for coding agents — navigate, screenshot, and verify UI
 
 **SAP Platform**
-- [Financial Risk Analyzer — Source Code](https://github.com/SAP-samples/cap-agentic-engineered) — Full CAP + Fiori Elements application built in this post
+
 - [LiteLLM SAP Provider](https://docs.litellm.ai/docs/providers/sap) — Gateway to SAP AI Foundation via Gen AI Hub
 - [Claude Code Documentation](https://code.claude.com/docs) — Official Claude Code docs, skills, MCP, and quickstart guides
