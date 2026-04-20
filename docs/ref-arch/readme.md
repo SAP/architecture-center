@@ -1,7 +1,7 @@
 ---
 id: id-intro-0
 slug: /ref-arch
-sidebar_position: 30
+sidebar_position: 1
 sidebar_custom_props:
     category_index: []
 title: SAP Reference Architecture - Building Blocks for Business Success
@@ -45,8 +45,6 @@ last_update:
     author: Cameron Khorsandi
     date: 2025-09-15
 ---
-
-# SAP Reference Architecture: Building Blocks for Business Success
 
 ## What are SAP Reference Architectures?
 

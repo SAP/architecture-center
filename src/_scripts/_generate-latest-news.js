@@ -1,5 +1,5 @@
 /**
- * Script to generate a JSON file with the latest 6 blog posts
+ * Script to generate a JSON file with all blog posts
  * This runs as part of the build process to make blog data available to the landing page
  */
 
@@ -48,10 +48,9 @@ const files = fs.readdirSync(blogDir)
         };
     });
 
-// Sort by date (newest first) and take the latest 6
+// Sort by date (newest first) - include all posts
 const latestPosts = files
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 6)
     .map(post => ({
         ...post,
         formattedDate: new Date(post.date).toLocaleDateString('en-US', {

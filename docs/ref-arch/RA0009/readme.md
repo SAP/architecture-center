@@ -1,7 +1,7 @@
 ---
 id: id-ra0009
 slug: /ref-arch/0245473a99
-sidebar_position: 9
+sidebar_position: 100
 sidebar_custom_props:
   category_index:
     - aws

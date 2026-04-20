@@ -233,6 +233,28 @@
     white-space: pre-line;
 }
 
+.subtitle strong {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 16px;
+    display: block;
+    white-space: normal;
+}
+
+.subtitle br + * {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
 .actionWrapper {
     margin-top: auto;
     padding-top: 20px;
