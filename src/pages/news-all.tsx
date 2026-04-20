@@ -58,6 +58,34 @@ export default function NewsAll(): JSX.Element {
                         </p>
                     </div>
 
+                    {totalPages > 1 && (
+                        <div className={styles.paginationContainer}>
+                            <button
+                                className={`${styles.paginationButton} ${currentPage === 0 ? styles.disabled : ''}`}
+                                onClick={handlePrevious}
+                                disabled={currentPage === 0}
+                                aria-label="Previous page"
+                            >
+                                <span className={styles.arrow}>←</span>
+                            </button>
+
+                            <div className={styles.pageInfo}>
+                                <span className={styles.pageText}>
+                                    Page {currentPage + 1} of {totalPages}
+                                </span>
+                            </div>
+
+                            <button
+                                className={`${styles.paginationButton} ${currentPage === totalPages - 1 ? styles.disabled : ''}`}
+                                onClick={handleNext}
+                                disabled={currentPage === totalPages - 1}
+                                aria-label="Next page"
+                            >
+                                <span className={styles.arrow}>→</span>
+                            </button>
+                        </div>
+                    )}
+
                     <div className={styles.newsGrid}>
                         {currentNews.map((post) => (
                             <Link
@@ -88,34 +116,6 @@ export default function NewsAll(): JSX.Element {
                             </Link>
                         ))}
                     </div>
-
-                    {totalPages > 1 && (
-                        <div className={styles.paginationContainer}>
-                            <button
-                                className={`${styles.paginationButton} ${currentPage === 0 ? styles.disabled : ''}`}
-                                onClick={handlePrevious}
-                                disabled={currentPage === 0}
-                                aria-label="Previous page"
-                            >
-                                <span className={styles.arrow}>←</span>
-                            </button>
-
-                            <div className={styles.pageInfo}>
-                                <span className={styles.pageText}>
-                                    Page {currentPage + 1} of {totalPages}
-                                </span>
-                            </div>
-
-                            <button
-                                className={`${styles.paginationButton} ${currentPage === totalPages - 1 ? styles.disabled : ''}`}
-                                onClick={handleNext}
-                                disabled={currentPage === totalPages - 1}
-                                aria-label="Next page"
-                            >
-                                <span className={styles.arrow}>→</span>
-                            </button>
-                        </div>
-                    )}
                 </div>
             </main>
         </Layout>
