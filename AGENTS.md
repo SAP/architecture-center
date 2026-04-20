@@ -1,41 +1,56 @@
 # Repository Context
 
-This repository contains the source code and, more importantly, the content for SAP Architecture Center (AC), a public site hosting so called reference architectures (RA). Go read `docs/ref-arch/readme.md` to internalize what these are conceptually. The main AC repo is hosted on the public GitHub at [Architecture Center](https://github.com/SAP/architecture-center)
+This repository contains the source code and, more importantly, the content (based on Markdown files) for SAP Architecture Center, a public site hosting so called reference architectures (RA). Before doing anything else, go read `docs/ref-arch/readme.md` to internalize what they are conceptually. The main repo is hosted on the public GitHub at [Architecture Center](https://github.com/SAP/architecture-center)
+
+## Technical Environment
+
+The site is built with Node.js and Docusaurus, a static-site generator, which relies on React for any interactive JavaScript. Thus the site runs in the browser as a single-page application.
+
+### Commands
+
+- `npm start` - start a local development server with hot reloading and the site running in the browser.
+- `npm run build` - create an optimized build ready for production
+- `npm run serve` - use in conjunction with the build command above to serve the build
+- `npm run clear` - clear the Docusaurus cache. useful if Docusaurus is clearly getting confused. for example, after removing assets such as images, switching between branches or pulling in new changes.
+
+Never use the `genrefarch` command, even if you see it mentioned somewhere. It will be removed soon.
 
 ## Key Directories
 
-- `docs/ref-arch/` - hierarchy of RA and sub-pages (also RA)
-- `blog/` - standalone news articles somewhat independent from RA
-- `community/` - additional info and guidance for how to contribute
-- `src/` - source for Docusaurus frontend. can skip if it's just about contributing content 
+- `docs/ref-arch/` - hierarchy of RA and sub-pages, which are also RA
+- `docs/community/` - additional info and most importantly guidance on how to contribute
+- `news/` - standalone news articles. somewhat independent from the RA in `docs/ref-arch/`
+- `src/` - source for Docusaurus and the frontend
 
 ## Contribution Process
 
-The project follows an open source approach and is actively looking for contributions on the content side. Follow the "Contribution Process" in `./community/intro.md` and the "How to Contribute" steps in `community/02-Guidelines/01-contribution.md`. Don't forget to silently make sense of the _mermaid_ code blocks therein.
+The project is open source and is looking for contributions on the content side.
 
-Things to look out for:
+Go read the "Contribution Process" section in `./community/intro.md` and the "How to Contribute" steps in `community/02-Guidelines/01-contribution.md`. Afterwards, go through the process steps for a contribution one by one in order to really internalize the process. Don't forget to silently make sense of the _mermaid_ code blocks therein.
 
-- Some contributors may insist on working with the main AC repo as remote because they have write access.
-- Ask first before creating a pull request (PR)
-- After creating a PR, kindly ask the contributor to sign the Contributor License Agreement (CLA) if they haven't done so already. In that case, there would be a comment from the CLA assistant with a link, which they would need to click.
+### Other things to look out for
 
-When it is time to create a PR, see if the GitHub CLI (gh) is in PATH. If not, suggest installing it, so that you can take care of creating the PR.
+A contributor may create branches directly on the remote of the main repo because they were added to it and have write access. These are core developers/contributors. Don't be suprised by that.
+The general guidance is still to work with a fork.
 
-## Commands
+If a PR was created and it's the first one within the current session, kindly ask the contributor to sign the Contributor License Agreement (CLA) if they haven't done so already. There would be a comment from the CLA assistant with a clickable link to sign it.
 
-- `npm start` - serve local dev server with hot reloading. preferred initial command to see a rendered version.
-- `npm run build` - create an optimized build ready for production. resort to this command once the changes are becoming mature for a final test.
-- `npm run serve` - use in combination (after) the build command above for final testing locally and seeing a rendered version
-- `npm run clear` - clearing the Docusaurus cache. run this if Docusaurus is getting confused during serve. for example, after switching branches
+When it is time to create a PR, see if the GitHub CLI (gh) is in the PATH and leverage it to create the PR. Otherwise, make a suggestion to install the CLI, so that you can create the PR, but ask before installing the CLI.
 
-## Create New RA
 
-Don't rely on the `genrefarch` CLI to create a new RA even if you see it mentioned somewhere. It was removed.
+## Creating a New Reference Architecture
 
-Do some reading first:
+Go through the following files in order to familiarize yourself with the structure that a new RA is expected to have. Don't deviate from it:
 
-1. `community/02-Guidelines/03-content-structure.md` - for the folder structure of a new RA. follow it precisely
-2. `community/02-Guidelines/04-front-matter.md` - metadata (front matter) about the RA. title, description, keywords are important for SEO, also take note of tags
-3. `community/02-Guidelines/05-components.md` - provided components used as part of every RA
+1. `docs/community/02-Guidelines/03-content-structure.md` - lays out the expected folder structure
+2. `docs/community/02-Guidelines/04-front-matter.md` - essential metadata (front matter) about the RA. title, description, and keywords are especially important for SEO.
+3. `docs/community/02-Guidelines/05-components.md` - custom components to be embedded in every RA `readme.md` and translated into the actual custom React components at build time.
+4. `docs/tags.yml` - list of existing tags. add new tags only if absolutely necessary. tags in the front matter of a RA must always exist.
 
-Always choose tags from `docs/tags.yml`, which fit to the RA. And never include `category_index` in the front matter. It's a thing from the past.
+### Additional Constraints
+
+- Never include `category_index` in the front matter. It's a thing from the past and will eventually be removed.
+- If you are asked to create a new RA, create only a minimal skeleton for it.
+- Never add sub-pages preemptively or fill the RA with a bunch of written content, unless you were explicitly asked to do that.
+- Copy `docs/ref-arch/RA0000/drawio/demo.drawio` to have something to work with.
+
