@@ -254,16 +254,16 @@ const config: Config = {
                     position: 'left',
                     items: [
                         {
-                            label: 'News',
+                            label: 'Access All News',
                             to: '/news-all',
                         },
                         {
-                            label: 'AI-Native North Star Architecture',
+                            label: 'Read the AI-Native North Star Architecture',
                             to: '/docs/nsa/',
                             sidebarId: 'northStarSidebar',
                         },
                         {
-                            label: 'AI Golden Path',
+                            label: 'Read the AI Golden Path',
                             to: '/docs/aigp/',
                             sidebarId: 'goldenPathSidebar',
                         },
@@ -272,15 +272,15 @@ const config: Config = {
                             to: '/docs/ref-arch',
                         },
                         {
-                            label: 'Architecture Validator',
+                            label: 'Launch the Architecture Validator',
                             to: '/architecture-validator',
                         },
                         {
-                            label: 'Quick Start',
+                            label: 'Launch Quick Start',
                             to: '/quick-start',
                         },
                         {
-                            label: 'Community of Practice',
+                            label: 'Access the Community of Practice',
                             to: '/docs/community/intro/',
                             sidebarId: 'communitySidebar',
                         },
