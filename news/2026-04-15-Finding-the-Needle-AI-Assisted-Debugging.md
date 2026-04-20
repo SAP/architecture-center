@@ -20,17 +20,17 @@ The prompt that unlocked it:
 
 > "I have a bug that only reproduces in the full system flow. Here is the error and the logs. Read the code end-to-end, correlate log timestamps across all components, trace the full execution path from startup through the failure point. Use process of elimination - what do the logs rule out, what does the code rule out, what remains. Generate tests that reproduce the failure condition, not just unit tests for individual functions, but tests that exercise the sequence and state that leads to the bug."
 
-### What We Were Dealing With
+## What We Were Dealing With
 
 **Quick SAP Context:** [SAP AI Core](https://help.sap.com/docs/sap-ai-core) is SAP's managed AI/ML runtime on [SAP Business Technology Platform (BTP)](https://www.sap.com/products/technology-platform.html). It handles model serving, training, and inference at enterprise scale. Authentication uses service keys (JSON blobs containing OAuth client credentials) that get injected into your applications via the [SAP AI SDK](https://pypi.org/project/generative-ai-hub-sdk/). The SDK supports two credential paths: a composite service key JSON, or individual environment variables. This flexibility is convenient — and, as we discovered, a source of subtle bugs when both coexist.
 
 WebRTC based voice agent on Kubernetes, connected to SAP AI Core to reach a Speech to Speech model. Every staging deployment failing with HTTP 400: server rejected WebSocket connection. Live environment fine. Every isolated test passed. Direct WebSocket, raw SDK connect, synthetic session - all worked. Endpoint, headers, token format - all correct. The failure only appeared in the full agent flow, and only sometimes. The kind of intermittent bug where you can't even confirm it's real without spending half a day first. We tried everything we could think of. Nothing pointed anywhere obvious. That's when we handed it to Claude Code - not with a neat hypothesis, just the error, the logs, and "figure it out."
 
-### The Scale Problem
+## The Scale Problem
 
 The codebase spans multiple modules. Startup touches auth, plugin initialization, session construction, and model factory - each in a different file. Kubernetes adds environment variable injection from secrets, adding ordering sensitivity on top. The logs aren't a single file. They're timestamped output from the agent worker, WebRTC room, WebSocket handshake, and OAuth exchange - all interleaved. The signal was matching a WebSocket rejection at T+8s to a token fetch at T+0.2s during prewarm. Across multiple streams. Manually. Not hard to reason about - hard to hold all at once. Thousands of lines of code, megabytes of logs, a bug that only fires under a specific sequence.
 
-### What Claude Code Found
+## What Claude Code Found
 
 ![Human vs Claude Code Investigation Paths](img/2026-04-15/investigation.svg)
 
@@ -54,7 +54,7 @@ What made this so hard to find: the conflict was invisible at the code level. `_
 
 Then without being asked - Claude Code argued against its own fix. "Are there other code paths that could fetch a token before `_init_aicore_env` runs?" Traced the callers, confirmed `prewarm_auth()` now correctly initialises from the service key before fetching, wrote two regression tests that reproduce the exact startup sequence that triggers the conflict.
 
-### The Numbers
+## The Numbers
 
 ![Time Breakdown: Human vs Claude Code](img/2026-04-15/time-breakdown.webp)
 
@@ -67,7 +67,7 @@ Twenty tokens of human input per turn driving 617K tokens of reasoning and fixin
 
 One more thing: this ran across multiple days. Claude Code's automatic context compaction summarized earlier history as the session grew, keeping the window within limits without losing conclusions. Without it, a multi-day investigation stalls. With it, the session just keeps going.
 
-### Governance First
+## Governance First
 
 Claude Code was routed through an internal LLM gateway. Every token in, every token out, every model call logged, attributed, and visible centrally. No API keys scattered across laptops. No blind spots on spend. No model version drift across teams. For enterprise environments, the ability to answer "what did our AI tooling do last month, who used it" without scraping individual machines is non-negotiable.
 
@@ -79,7 +79,7 @@ On top of that:
 
 The governance layer isn't friction. It's what makes it safe to give the AI real access to real systems in the first place. Get that right first. Then give it access. In that order.
 
-### The Setup
+## The Setup
 
 ![Claude Code System Setup](img/2026-04-15/setup-diagram.webp)
 
@@ -91,7 +91,7 @@ We run on Gardener - SAP's opinionated Kubernetes distribution with its own conc
 
 **Memory on by default** via `.claude/` in the repo root. Findings carried across sessions - no re-running tests already run, no re-reading files already understood.
 
-### What Actually Made It Work
+## What Actually Made It Work
 
 **The plan came first.** Before any code was written or command run, Claude Code produced a plan - hypotheses, layers to eliminate, sequence to follow. We reviewed it and pushed back on assumptions that didn't match how the system actually behaves at runtime. That review was the highest-leverage moment in the session. A wrong plan executed fast still produces the wrong result. A few minutes challenging the plan saved hours of misdirected work.
 
@@ -101,7 +101,7 @@ We run on Gardener - SAP's opinionated Kubernetes distribution with its own conc
 
 **No context-switching penalty.** This is the real reason it's fast. A human loses the mental model a little every time they switch between files, log streams, and components. Rebuilding it costs minutes each time and compounds over hours. Claude Code held the full startup sequence, token cache state, log timestamps, and test results in context simultaneously for the entire session. It wasn't faster because it worked in parallel. It was faster because it never lost the thread.
 
-### So What? — Patterns You Can Apply Today
+## So What? — Patterns You Can Apply Today
 
 This wasn't just about one bug. Here's what engineers should take away:
 
@@ -117,7 +117,7 @@ This wasn't just about one bug. Here's what engineers should take away:
 
 ---
 
-### Try It
+## Try It
 
 If you have a bug that only shows up in the full system flow - give Claude Code the error, the logs, and codebase access together, not sequentially. Ask it to correlate timestamps, trace from startup to failure, use process of elimination.
 
@@ -129,7 +129,7 @@ Set up MCP access. Use short-lived credentials. Gate writes behind approval. Ena
 
 Then watch it curl through logs, write and validate tests and re-direct it when needed (i.e. provide more context) while sipping your coffee….
 
-### The Claude Code Skill - Reusable Debugging Pattern
+## The Claude Code Skill - Reusable Debugging Pattern
 
 We've encoded the hard-won patterns from this debugging session into a reusable Claude Code skill. Drop this into your `.claude/commands/` directory and invoke it whenever you hit an HTTP 400 in any authenticated distributed system.
 
@@ -244,7 +244,7 @@ Add fast-fail validation, cache invalidation, and observability.
 
 **Key insight encoded in this skill:** HTTP 400 in authenticated distributed systems almost never means "malformed request body." It usually means the request is structurally valid but contextually wrong — wrong environment, wrong token, wrong endpoint, mixed credentials. The skill walks through 10 hypotheses in parallel, ensuring you don't get tunnel-visioned on the wrong layer.
 
-### Helpful Links
+## Helpful Links
 
 **This Post:**
 - [Read on Medium](https://medium.com/@anujag24/finding-the-needle-ai-assisted-debugging-across-thousands-of-lines-and-megabytes-of-logs-601e04bfb79e) - Shortened version with discussion
