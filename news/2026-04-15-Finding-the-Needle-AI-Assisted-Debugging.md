@@ -2,7 +2,7 @@
 title: "Finding the Needle: AI Cloud API Debugging with Claude and SAP"
 description: AI-Assisted Debugging Across Thousands of Lines of Cloud API Logs with Claude and SAP — Tracing a Hidden Credential Bug in Less Than 60 Minutes.
 keywords: ["ai", "claude", "sap", "cloud", "api"]
-hide_table_of_contents: true
+hide_table_of_contents: false
 spotlight_image: img/2026-04-15/setup-diagram.webp
 authors: [anujag24]
 date: 2026-04-15

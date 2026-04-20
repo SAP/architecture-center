@@ -3,7 +3,7 @@ title: Launching the SAP Architecture Center
 description: The SAP Architecture Center centralizes all resources in one place, enabling organizations to maximize cloud capabilities while ensuring that their solutions are secure, resilient, and optimized to their specific requirements.
 keywords: ["SAP Architecture Center", "Reference Architecture", "SAP BTP"]
 spotlight_image: news/img/2025-05-15/architecture-center-vision.png
-hide_table_of_contents: true
+hide_table_of_contents: false
 authors: [ anirban-sap ]
 date: 2025-05-15
 ---

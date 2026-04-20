@@ -11,7 +11,7 @@ jmsrpp:
 
 cernus76:
   name: Pierre-Olivier Basseville
-  title: Chief Project Expert - Development (sort of Product Owner)
+  title: Chief Project Expert - Development
   url: https://github.com/cernus76
   image_url: https://github.com/cernus76.png
   page: true
@@ -51,3 +51,12 @@ anujag24:
   socials:
     github: anujag24
     linkedin: anuj-gupta-lk
+
+AlexaMacDonald:
+  name: Alexa MacDonald
+  title: Content Specialist
+  url: https://www.linkedin.com/in/alexa-macdonald-she-96a68254/
+  image_url: https://riseof.ai/wp-content/uploads/2024/07/Alexa-MacDonald.jpeg
+  page: true
+  socials:
+    linkedin: alexa-macdonald-she-96a68254
