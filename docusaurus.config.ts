@@ -91,10 +91,11 @@ const config: Config = {
                 blog: {
                     path: 'news',
                     routeBasePath: 'news',
-                    blogTitle: 'SAP Architecture Center - News',
+                    blogTitle: 'SAP Architecture Center News',
                     blogDescription:
-                        'This blog covers reference architectures in the SAP Architecture Center and details their well-architected framework principles',
-                    blogSidebarTitle: 'Architecture Center news',
+                        'A curated space dedicated to the latest advancements in research, publications, innovations, reference architectures, feature releases, and community contributions.',
+                    blogSidebarTitle: 'Architecture Center News',
+                    blogSidebarCount: 0,
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
                 },
@@ -254,21 +255,21 @@ const config: Config = {
                     position: 'left',
                     items: [
                         {
-                            label: 'Access All News',
+                            label: 'Explore All News Articles',
                             to: '/news-all',
                         },
                         {
-                            label: 'Read the AI-Native North Star Architecture',
+                            label: 'Discover the AI-Native North Star Architecture',
                             to: '/docs/nsa/',
                             sidebarId: 'northStarSidebar',
                         },
                         {
-                            label: 'Read the AI Golden Path',
+                            label: 'Discover the AI Golden Path',
                             to: '/docs/aigp/',
                             sidebarId: 'goldenPathSidebar',
                         },
                         {
-                            label: 'Browse Architectures',
+                            label: 'Browse the Reference Architectures',
                             to: '/docs/ref-arch',
                         },
                         {

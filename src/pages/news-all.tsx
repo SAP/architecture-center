@@ -66,7 +66,7 @@ export default function NewsAll(): JSX.Element {
                                 disabled={currentPage === 0}
                                 aria-label="Previous page"
                             >
-                                <span className={styles.arrow}>←</span>
+                                <span className={`${styles.arrow} ${styles.arrowLeft}`}></span>
                             </button>
 
                             <div className={styles.pageInfo}>
@@ -81,7 +81,7 @@ export default function NewsAll(): JSX.Element {
                                 disabled={currentPage === totalPages - 1}
                                 aria-label="Next page"
                             >
-                                <span className={styles.arrow}>→</span>
+                                <span className={`${styles.arrow} ${styles.arrowRight}`}></span>
                             </button>
                         </div>
                     )}
