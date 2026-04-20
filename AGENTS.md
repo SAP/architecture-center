@@ -1,6 +1,6 @@
 # Repository Context
 
-This repository contains the source code and, more importantly, the content (based on Markdown files) for SAP Architecture Center, a public site hosting so called reference architectures (RA). Before doing anything else, go read `docs/ref-arch/readme.md` to internalize what they are conceptually. The main repo is hosted on the public GitHub at [Architecture Center](https://github.com/SAP/architecture-center)
+The repository contains the source code and, more importantly, the content (based on Markdown files) for SAP Architecture Center, a public site hosting reference architectures (RA). The first step is always to read `docs/ref-arch/readme.md` and internalize what RA are conceptually. The main repo is hosted on GitHub at [Architecture Center](https://github.com/SAP/architecture-center)
 
 ## Technical Environment
 
@@ -20,37 +20,39 @@ Never use the `genrefarch` command, even if you see it mentioned somewhere. It w
 - `docs/ref-arch/` - hierarchy of RA and sub-pages, which are also RA
 - `docs/community/` - additional info and most importantly guidance on how to contribute
 - `news/` - standalone news articles. somewhat independent from the RA in `docs/ref-arch/`
-- `src/` - source for Docusaurus and the frontend
+- `src/` - source code for the frontend and some Docusaurus plugins 
 
 ## Contribution Process
 
 The project is open source and is looking for contributions on the content side.
 
-Go read the "Contribution Process" section in `./community/intro.md` and the "How to Contribute" steps in `community/02-Guidelines/01-contribution.md`. Afterwards, go through the process steps for a contribution one by one in order to really internalize the process. Don't forget to silently make sense of the _mermaid_ code blocks therein.
+Go read the "Contribution Process" section in `./community/intro.md` and the "How to Contribute" steps in `community/02-Guidelines/01-contribution.md`. Afterwards, go through the process steps for a contribution one by one in your head in order to really internalize the process. Don't forget to silently make sense of the _mermaid_ code blocks therein.
 
 ### Other things to look out for
 
-A contributor may create branches directly on the remote of the main repo because they were added to it and have write access. These are core developers/contributors. Don't be suprised by that.
-The general guidance is still to work with a fork.
+A contributor may create branches directly on the remote of the main repo because they were added to it and have write access. These are core developers/contributors. Don't be suprised by that. The general guidance is still to work with a fork.
 
-If a PR was created and it's the first one within the current session, kindly ask the contributor to sign the Contributor License Agreement (CLA) if they haven't done so already. There would be a comment from the CLA assistant with a clickable link to sign it.
+If a PR was created and it's the first one within the current session, kindly ask the contributor to sign the Contributor License Agreement (CLA) if they haven't done so already. There would be a PR comment from the CLA assistant with a clickable link in order to sign it.
 
-When it is time to create a PR, see if the GitHub CLI (gh) is in the PATH and leverage it to create the PR. Otherwise, make a suggestion to install the CLI, so that you can create the PR, but ask before installing the CLI.
+When it's time to create a PR, try using the GitHub CLI (gh). If it doesn't seem to be installed yet, suggest installing it, so that you can create the PR. But ask before installing it yourself.
 
 
 ## Creating a New Reference Architecture
 
-Go through the following files in order to familiarize yourself with the structure that a new RA is expected to have. Don't deviate from it:
+Go through the files below and familiarize yourself with the expected structure of a new RA:
 
 1. `docs/community/02-Guidelines/03-content-structure.md` - lays out the expected folder structure
 2. `docs/community/02-Guidelines/04-front-matter.md` - essential metadata (front matter) about the RA. title, description, and keywords are especially important for SEO.
-3. `docs/community/02-Guidelines/05-components.md` - custom components to be embedded in every RA `readme.md` and translated into the actual custom React components at build time.
-4. `docs/tags.yml` - list of existing tags. add new tags only if absolutely necessary. tags in the front matter of a RA must always exist.
+3. `docs/community/02-Guidelines/05-components.md` - custom components declared in the `readme.md` of every new RA and translated into custom React components at build time.
+4. `docs/tags.yml` - lists the existing tags for RA
+
+Never deviate from the structure.
 
 ### Additional Constraints
 
+- If you are asked to create a new RA, create only a skeleton for it, including two headings and short paragraphs, and a declaration for the drawio component in the `readme.md`.
+- Never add sub-pages preemptively, unless you were explicitly asked to do that.
+- Copy `docs/ref-arch/RA0000/drawio/demo.drawio` to have an initial drawio
+- Add new tags only if absolutely necessary. Tags used in the front matter must always exist.
 - Never include `category_index` in the front matter. It's a thing from the past and will eventually be removed.
-- If you are asked to create a new RA, create only a minimal skeleton for it.
-- Never add sub-pages preemptively or fill the RA with a bunch of written content, unless you were explicitly asked to do that.
-- Copy `docs/ref-arch/RA0000/drawio/demo.drawio` to have something to work with.
 
