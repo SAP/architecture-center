@@ -59,7 +59,7 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
   const renderItem = (item: SidebarItem, level: number = 0): React.ReactNode => {
     const itemId = item.docId || item.id || '';
     const duplicateCount = duplicateCounts[itemId] || 0;
-    const isActive = activePath && (activePath.includes(itemId) || activePath === item.href);
+    const isActive = activePath && (activePath === item.href || activePath.endsWith(`/${itemId}`));
 
     // Handle categories (nested collapsible)
     if (item.type === 'category') {
@@ -73,52 +73,66 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
 
       // Check if this category is the active page
       const isCategoryActive = activePath && categoryHref && (
-        activePath === categoryHref ||
-        activePath.includes(categoryHref)
+        activePath === categoryHref
       );
 
       // Use the category's docId for duplicate count if it has a link
       const categoryDuplicateCount = categoryDocId ? (duplicateCounts[categoryDocId] || 0) : 0;
 
-      const handleCategoryClick = () => {
+      const handleChevronClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         toggleCategory(categoryKey);
-        // Let Link component handle navigation if there's an href
+      };
+
+      const handleCategoryLinkClick = () => {
+        // Clicking the category link should also expand/collapse the category
+        toggleCategory(categoryKey);
       };
 
       return (
         <li key={categoryKey} className={styles.categoryItem}>
-          <div className={styles.categoryWrapper}>
-            {categoryHref ? (
-              <Link
-                to={categoryHref}
-                className={`${styles.categoryToggle} ${styles.categoryLink} ${isCategoryActive ? styles.active : ''}`}
-                onClick={handleCategoryClick}
-                style={{ paddingLeft: `${level * 16 + 8}px` }}
-              >
-                <span className={styles.chevron}>
+          {categoryHref ? (
+            // Category with a link - show link + separate chevron button
+            <div className={styles.categoryWrapper}>
+              <div className={styles.categoryRow}>
+                <Link
+                  to={categoryHref}
+                  className={`${styles.categoryLink} ${isCategoryActive ? styles.active : ''}`}
+                  onClick={handleCategoryLinkClick}
+                >
+                  <span className={styles.itemLabel}>{item.label}</span>
+                  {categoryDuplicateCount > 0 && (
+                    <span className={styles.duplicateIndicator} title={`Also appears in ${categoryDuplicateCount} other ${categoryDuplicateCount === 1 ? 'domain' : 'domains'}`}>
+                      +{categoryDuplicateCount}
+                    </span>
+                  )}
+                </Link>
+                <button
+                  className={styles.chevronButton}
+                  onClick={handleChevronClick}
+                  aria-expanded={isCategoryExpanded}
+                  aria-label={`${isCategoryExpanded ? 'Collapse' : 'Expand'} ${item.label}`}
+                >
                   {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
-                </span>
-                <span className={styles.itemLabel}>{item.label}</span>
-                {categoryDuplicateCount > 0 && (
-                  <span className={styles.duplicateIndicator} title={`Also appears in ${categoryDuplicateCount} other ${categoryDuplicateCount === 1 ? 'domain' : 'domains'}`}>
-                    +{categoryDuplicateCount}
-                  </span>
-                )}
-              </Link>
-            ) : (
+                </button>
+              </div>
+            </div>
+          ) : (
+            // Category without a link - just a button
+            <div className={styles.categoryWrapper}>
               <button
                 className={styles.categoryToggle}
                 onClick={() => toggleCategory(categoryKey)}
-                style={{ paddingLeft: `${level * 16 + 8}px` }}
                 aria-expanded={isCategoryExpanded}
               >
+                <span className={styles.itemLabel}>{item.label}</span>
                 <span className={styles.chevron}>
                   {isCategoryExpanded ? <FiChevronDown /> : <FiChevronRight />}
                 </span>
-                <span className={styles.itemLabel}>{item.label}</span>
               </button>
-            )}
-          </div>
+            </div>
+          )}
           {isCategoryExpanded && item.items && (
             <ul className={styles.nestedItems}>
               {item.items.map((child) => renderItem(child, level + 1))}
@@ -137,7 +151,6 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
           <Link
             to={href}
             className={`${styles.itemLink} ${isActive ? styles.active : ''}`}
-            style={{ paddingLeft: `${level * 16 + 8}px` }}
           >
             <span className={styles.itemLabel}>{item.label}</span>
             {duplicateCount > 0 && (
@@ -161,15 +174,10 @@ const DomainCategory: React.FC<DomainCategoryProps> = ({
         aria-expanded={isExpanded}
         aria-controls={`domain-${domainId}-content`}
       >
+        <span className={styles.domainLabel}>{domainLabel}</span>
+        <span className={styles.domainBadge}>({itemCount})</span>
         <span className={styles.chevron}>
           {isExpanded ? <FiChevronDown /> : <FiChevronRight />}
-        </span>
-        <span className={styles.domainLabel}>{domainLabel}</span>
-        <span
-          className={styles.domainBadge}
-          title="Total documents in this domain (some may appear in multiple domains)"
-        >
-          {itemCount}
         </span>
       </button>
 
