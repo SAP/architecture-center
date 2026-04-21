@@ -29,12 +29,12 @@ export default function LoadingModal({
     onClose,
     onSuccessFinish,
 }: LoadingModalProps): JSX.Element | null {
+    const fireworksImg = useBaseUrl('/img/fireworks.gif');
+    const rocketImg = useBaseUrl('/img/rocket.gif');
+
     if (status === 'idle') {
         return null;
     }
-
-    const fireworksImg = useBaseUrl('/img/fireworks.gif');
-    const rocketImg = useBaseUrl('/img/rocket.gif');
     const isInProgress = status === 'forking' || status === 'packaging' || status === 'committing';
     const rocketClassName = status === 'success' ? `${styles.rocket} ${styles.rocketLaunched}` : styles.rocket;
 
