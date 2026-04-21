@@ -261,12 +261,12 @@ const config: Config = {
                         {
                             label: 'Discover the AI-Native North Star Architecture',
                             to: '/docs/nsa/',
-                            sidebarId: 'northStarSidebar',
+                            sidebarid: 'northStarSidebar',
                         },
                         {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/aigp/',
-                            sidebarId: 'goldenPathSidebar',
+                            sidebarid: 'goldenPathSidebar',
                         },
                         {
                             label: 'Browse the Reference Architectures',
@@ -283,7 +283,7 @@ const config: Config = {
                         {
                             label: 'Access the Community of Practice',
                             to: '/docs/community/intro/',
-                            sidebarId: 'communitySidebar',
+                            sidebarid: 'communitySidebar',
                         },
                     ],
                 },
