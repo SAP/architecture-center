@@ -49,7 +49,7 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 1. Make sure the change is welcome (see [General Remarks](#general-remarks)).
 2. Choose your preferred contribution method:  
    - [Get Started with Quick Start](../02-Guidelines/02-GetStarted/01-get-started-quickstart.md) – a no-code approach. 
-   - Please note that the CLI is now deprecated.
+   - Please note that the CLI is not available anymore.
 3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts.  
 4. Create a **pull request (PR)** in the repository using your feature or update branch.
    :::info Note
