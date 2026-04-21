@@ -28,7 +28,7 @@ import {
 } from '@site/src/components/TeamProfileCards';
 
 
-We are the **Office of the CTO**, driving the development and engagement of SAP’s Architecture Center. 
+We are the **Office of the CTO**, driving the development and engagement around the SAP Architecture Center. 
 
 We enable community **collaboration** and **innovation** by providing a modern, GitHub-based platform for building, publishing, and governing SAP reference solution architectures.
 
@@ -44,13 +44,37 @@ Embracing this non-traditional team approach enables the Architecture Center to 
 
 They have been there from the very beginning, contributing to everything from framework exploration to small proof-of-concepts, while also shaping the architecture and governance.
 
-<CoreTeam />
+<!-- <CoreTeam /> -->
 
-## The evolving team
+| Name | Activity | Role | GitHub | LinkedIn |
+|------|----------|------|--------|----------|
+| Pierre-Olivier 'PO' Basseville | Research & Development, Design | Project Lead | [GitHub](https://github.com/cernus76) | [LinkedIn](https://www.linkedin.com/in/pierreolivierbasseville/) |
+| Navya Khurana | Research & Development | Technical Lead | [GitHub](https://github.com/navyakhurana) | [LinkedIn](https://www.linkedin.com/in/navya-khurana-1b78a6187/) |
+| Julian Schambeck | Research & Development | Custom components integration | [GitHub](https://github.com/julian-schambeck) | [LinkedIn](https://www.linkedin.com/in/julian-s-41b9a8253/) |
+
+
+## The evolving team (extended)
 
 When professional support was needed, a team of skilled colleagues stepped in to push the boundaries with expertise and dedication.
 
-<ExtendedTeam />
+<!-- <ExtendedTeam /> -->
+
+| Name | Activity | Role | GitHub | LinkedIn |
+|------|----------|------|--------|----------|
+| James 'Jim' Rapp | Research & Development | Co-Lead & Content Lead | [GitHub](https://github.com/jmsrpp) | [LinkedIn](https://www.linkedin.com/in/james-rapp) |
+| Johanna Gonzalez | Research & Development, Design | SAP UI5 integration | [GitHub](https://github.com/johannagonnzdz) | [LinkedIn](https://www.linkedin.com/in/johannagondi/) |
+| Gabriel Kevorkian | Research & Development | Docusaurus black-belt | [GitHub](https://github.com/g-kevorkian) | [LinkedIn](https://www.linkedin.com/in/gabriel-kevorkian-30005b2/) |
+| Robin Purschwitz | Research & Development | - | [GitHub](https://github.com/RobinPurschwitz) | [LinkedIn](https://www.linkedin.com/in/robin-purschwitz/) |
+| Max Lienhardt | Research & Development | - | [GitHub](https://github.com/xammaxx) | [LinkedIn](https://www.linkedin.com/in/max-lienhardt-a2a157335/) |
+| MHD Iyad Al Hafez | Research & Development | - | [GitHub](https://github.com/Iyad-Alhafez) | - |
+| Ajit Kumar Panda | Authentication & Joule integration | - | [GitHub](https://github.com/AjitKP91) | [LinkedIn](https://www.linkedin.com/in/ajit-kumar-panda-22ba1953/) |
+| Vedant Gupta | Research & Development | Architecture Validator (Lead) | [GitHub](https://github.com/vedant-aero-ml) | [LinkedIn](https://www.linkedin.com/in/vedant-gupta-ai/) |
+| Swati Maste | Research & Development | Architecture Validator | [GitHub](https://github.com/swatimaste00) | [LinkedIn](https://www.linkedin.com/in/swati-maste/) |
+| Jonas Mohr | Research & Development | Architecture Validator | [GitHub](https://github.com/Jo-Pa-Mo) | [LinkedIn](https://www.linkedin.com/in/jonas-mohr-300217374/) |
+| Praveen Kumar Padegal | Guidance & Support | Architecture Validator | [GitHub](https://github.com/pra1veenk) | [LinkedIn](https://www.linkedin.com/in/praveenkumarpadegal/) |
+| Abhishek Sharma | Research & Development | Quick Start (Lead) | [GitHub](https://github.com/abhissharma21) | [LinkedIn](https://www.linkedin.com/in/abhishek-sharma21) |
+| Tobias Gabriel | Guidance & Support | GitHub & Open Source | [GitHub](https://github.com/shegox) | [LinkedIn](https://www.linkedin.com/in/tobias-gabriel/) |
+
 
 ## The other contributors
 

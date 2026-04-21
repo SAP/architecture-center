@@ -52,22 +52,22 @@ export function CoreTeam(): ReactNode {
     return (
         <div className={styles['team-profile-container']}>
             <TeamProfileCard
-                name='Pierre-Olivier "PO" Basseville'
-                description="Research & Development, Design | Lead"
+                name="Pierre-Olivier 'PO' Basseville"
+                description="Research & Development, Design | Project Lead"
                 githubUrl="https://github.com/cernus76"
                 linkedinUrl="https://www.linkedin.com/in/pierreolivierbasseville/"
             />
 
             <TeamProfileCard
                 name="Navya Khurana"
-                description="Research & Development, GitHub | Technical Lead"
+                description="Research & Development | Technical Lead"
                 githubUrl="https://github.com/navyakhurana"
                 linkedinUrl="https://www.linkedin.com/in/navya-khurana-1b78a6187/"
             />
 
             <TeamProfileCard
                 name="Julian Schambeck"
-                description="Research & Development | Technical Lead"
+                description="Research & Development | Custom components integration"
                 githubUrl="https://github.com/julian-schambeck"
                 linkedinUrl="https://www.linkedin.com/in/julian-s-41b9a8253/"
             />
@@ -82,7 +82,7 @@ export function ExtendedTeam(): ReactNode {
             
             <TeamProfileCard
                 name="James 'Jim' Rapp"
-                description="Research & Development | Co-Lead"
+                description="Research & Development | Co-Lead & Content Lead"
                 githubUrl="https://github.com/jmsrpp"
                 linkedinUrl="https://www.linkedin.com/in/james-rapp"
             />
@@ -162,7 +162,7 @@ export function ExtendedTeam(): ReactNode {
 
             <TeamProfileCard
                 name="Abhishek Sharma"
-                description="Research & Development | quick-start (Lead)"
+                description="Research & Development | Quick Start (Lead)"
                 githubUrl="https://github.com/abhissharma21"
                 linkedinUrl="https://www.linkedin.com/in/abhishek-sharma21"
             />
