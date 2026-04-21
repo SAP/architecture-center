@@ -13,9 +13,6 @@ interface ThrottleOptions {
     trailing?: boolean;
 }
 
-interface DebounceOptions {
-    delay: number;
-}
 
 interface RateLimitOptions {
     maxRequests: number;
