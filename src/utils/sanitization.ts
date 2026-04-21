@@ -157,7 +157,8 @@ export function sanitizeObjectKeys<T extends Record<string, any>>(obj: T): Parti
     const dangerousKeys = ['__proto__', 'constructor', 'prototype'];
 
     for (const [key, value] of Object.entries(obj)) {
-        if (!dangerousKeys.includes(key.toLowerCase())) {
+        // Check both exact case and lowercase to prevent bypass attempts
+        if (!dangerousKeys.includes(key) && !dangerousKeys.includes(key.toLowerCase())) {
             sanitized[key] = value;
         }
     }

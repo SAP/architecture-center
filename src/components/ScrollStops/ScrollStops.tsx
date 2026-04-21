@@ -18,26 +18,20 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
     const sectionEnteredTime = useRef(0);
     const hasInitialized = useRef(false);
 
-    console.log('ScrollStops render - currentStop:', currentStop);
-
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
-
-        console.log('ScrollStops initialized with', stops, 'stops, currentStop:', currentStop);
 
         const handleWheel = (e: WheelEvent) => {
             const now = Date.now();
 
             // Wait 1 second after section enters viewport before responding to scroll
             if (now - sectionEnteredTime.current < 1000) {
-                console.log('Ignoring wheel event - section just entered viewport');
                 return;
             }
 
             // Reduce throttle for more responsive feel (500ms instead of 800ms)
             if (now - lastScrollTime.current < 1000) {
-                console.log('Throttling wheel event');
                 e.preventDefault();
                 return;
             }
@@ -47,11 +41,8 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
             const isInView = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
 
             if (!isInView) {
-                console.log('Section not in view, allowing natural scroll');
                 return;
             }
-
-            console.log('Wheel event in section:', { deltaY: e.deltaY, currentStop });
 
             // Scrolling down
             if (e.deltaY > 0) {
@@ -62,11 +53,8 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
                     lastScrollTime.current = now;
 
                     const nextStop = currentStop + 1;
-                    console.log('Advancing from stop', currentStop, 'to stop', nextStop);
                     setCurrentStop(nextStop);
                     onStopChange?.(nextStop);
-                } else {
-                    console.log('At last stop, allowing scroll to next section');
                 }
             }
             // Scrolling up
@@ -78,11 +66,8 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
                     lastScrollTime.current = now;
 
                     const prevStop = currentStop - 1;
-                    console.log('Going back from stop', currentStop, 'to stop', prevStop);
                     setCurrentStop(prevStop);
                     onStopChange?.(prevStop);
-                } else {
-                    console.log('At first stop, allowing scroll to previous section');
                 }
             }
         };
@@ -91,7 +76,7 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
         window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
 
         return () => {
-            window.removeEventListener('wheel', handleWheel, { capture: true } as any);
+            window.removeEventListener('wheel', handleWheel, { passive: false, capture: true } as AddEventListenerOptions);
         };
     }, [currentStop, stops, onStopChange]);
 
@@ -105,7 +90,6 @@ export default function ScrollStops({ stops, onStopChange, children }: ScrollSto
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && !hasInitialized.current) {
                         const now = Date.now();
-                        console.log('Section entered viewport - resetting to stop 0');
                         setCurrentStop(0);
                         sectionEnteredTime.current = now; // Record when section entered
                         hasInitialized.current = true;

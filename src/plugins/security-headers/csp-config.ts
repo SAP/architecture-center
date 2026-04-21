@@ -4,6 +4,13 @@
  * This file provides an enhanced CSP configuration with reporting
  * and stricter policies for production environments.
  *
+ * KNOWN LIMITATION (v3.2617.1):
+ * - CSP currently uses 'unsafe-inline' for both script-src and style-src
+ * - This is a Docusaurus limitation that requires inline scripts/styles
+ * - To remove 'unsafe-inline', we need to implement CSP nonces via SSR
+ * - Track implementation: [Create GitHub issue for CSP nonce implementation]
+ * - Priority: Post-release (does not block v3.2617.1 release)
+ *
  * USAGE:
  * Import this in security-headers plugin when CSP nonces are implemented
  */
@@ -14,18 +21,28 @@ interface CSPDirectives {
 
 /**
  * Base CSP directives (current implementation with unsafe-inline)
+ *
+ * SECURITY NOTE: 'unsafe-inline' weakens XSS protection but is required for:
+ * - Docusaurus inline scripts for routing and hydration
+ * - UI5 Web Components inline styles
+ * - React inline event handlers
+ *
+ * MITIGATION: While not ideal, we compensate with:
+ * - Input sanitization (src/utils/sanitization.ts)
+ * - No user-generated content directly rendered as HTML
+ * - Strict validation of all external data
  */
 export const baseCSP: CSPDirectives = {
     'default-src': ["'self'"],
     'script-src': [
         "'self'",
-        "'unsafe-inline'", // TODO: Remove when nonces are implemented
+        "'unsafe-inline'", // REQUIRED: Docusaurus limitation - see header comment
         'https://www.googletagmanager.com',
         'https://www.google-analytics.com',
     ],
     'style-src': [
         "'self'",
-        "'unsafe-inline'", // TODO: Remove when nonces are implemented
+        "'unsafe-inline'", // REQUIRED: Docusaurus + UI5 limitation - see header comment
     ],
     'img-src': ["'self'", 'data:', 'https:'],
     'font-src': ["'self'", 'data:'],

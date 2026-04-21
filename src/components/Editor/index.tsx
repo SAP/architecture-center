@@ -265,7 +265,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             });
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-            console.error('Publishing failed:', error);
             setPublishStatus({ stage: 'error', error: errorMessage, commitUrl: null, pullRequestUrl: null });
         }
     };

@@ -144,7 +144,7 @@ export default React.memo(function MetadataFormDialog({
             setSearchResults(filteredResults);
         } catch (error) {
             if (error instanceof Error && error.name !== 'AbortError') {
-                console.error('Error searching for contributors:', error);
+                logger.error('Error searching for contributors:', error);
                 setSearchResults([]);
             }
         } finally {
@@ -166,7 +166,7 @@ export default React.memo(function MetadataFormDialog({
             const data = await response.json();
             return data.avatar_url || null;
         } catch (error) {
-            console.error('Error fetching single user:', error);
+            logger.error('Error fetching single user:', error);
             return null;
         }
     };

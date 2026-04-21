@@ -33,40 +33,32 @@ export function useScrollActivatedTabs(
     const [manualOverride, setManualOverride] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const lastScrollY = useRef<number>(0);
-    const hasEnteredSection = useRef<boolean>(false);
 
     // Callback to disable scroll control when user manually clicks a tab
     const disableScrollControl = useCallback(() => {
-        console.log('Manual override activated');
         setManualOverride(true);
     }, []);
 
     useEffect(() => {
         // Don't attach listeners if disabled or manually overridden
         if (!enabled || manualOverride || totalTabs <= 1) {
-            console.log('Scroll activation disabled:', { enabled, manualOverride, totalTabs });
             return;
         }
 
         // Check for reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) {
-            console.log('Scroll activation disabled: prefers-reduced-motion');
             return;
         }
 
         const targetElement = sectionRef?.current || containerRef.current;
         if (!targetElement) {
-            console.log('No target element found for scroll tracking');
             return;
         }
-
-        console.log('Scroll activation enabled with', totalTabs, 'tabs');
 
         // Track scroll progress through the section
         const handleScroll = throttle(() => {
             const currentScrollY = window.scrollY;
-            const scrollingDown = currentScrollY > lastScrollY.current;
             lastScrollY.current = currentScrollY;
 
             const rect = targetElement.getBoundingClientRect();
@@ -94,18 +86,7 @@ export function useScrollActivatedTabs(
                 totalTabs - 1
             );
 
-            console.log('Scroll event:', {
-                scrollingDown,
-                isInViewport,
-                sectionTop: rect.top.toFixed(0),
-                visibleTop: visibleTop.toFixed(0),
-                scrollProgress: (scrollProgress * 100).toFixed(1) + '%',
-                currentIndex: scrollActiveIndex,
-                newIndex,
-            });
-
             if (newIndex !== scrollActiveIndex) {
-                console.log('Switching from tab', scrollActiveIndex, 'to tab', newIndex);
                 setScrollActiveIndex(newIndex);
             }
         }, 100, { leading: true, trailing: true });

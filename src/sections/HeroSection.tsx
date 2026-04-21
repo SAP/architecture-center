@@ -3,6 +3,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './HeroSection.module.css';
+import { logger } from '@site/src/utils/logger';
 
 declare global {
     interface Window {
@@ -46,7 +47,9 @@ export default function HeroSection(): JSX.Element {
             particlesInitialized.current = true;
         };
 
-        loadParticles().catch(console.error);
+        loadParticles().catch((error) => {
+            logger.error('Failed to load particles.js', error);
+        });
     }, [particlesConfigUrl]);
 
     return (

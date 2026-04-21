@@ -52,11 +52,9 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
         const [currentSlide, setCurrentSlide] = useState(0);
         const [currentSlidesToShow, setCurrentSlidesToShow] = useState(slidesToShow as number);
         const totalSlides = items.length;
-        const [, forceUpdate] = useState(0);
 
         const handleAfterChange = (index: number) => {
             setCurrentSlide(index);
-            forceUpdate((t) => t + 1);
         };
 
         // Track responsive slidesToShow changes
@@ -112,10 +110,6 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                                     onClick={() => {
                                         if (sliderRef.current && typeof sliderRef.current.slickPrev === 'function') {
                                             sliderRef.current.slickPrev();
-                                        } else {
-                                            console.warn(
-                                                'Previous slide is not a function or slider reference is null'
-                                            );
                                         }
                                     }}
                                 />
@@ -127,8 +121,6 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                                     onClick={() => {
                                         if (sliderRef.current && typeof sliderRef.current.slickNext === 'function') {
                                             sliderRef.current.slickNext();
-                                        } else {
-                                            console.warn('Next slide is not a function or slider reference is null');
                                         }
                                     }}
                                 />
@@ -146,11 +138,15 @@ const ReactCarousel = forwardRef<Slider, ReactCarouselProps>(
                             slidesToShow={slidesToShow}
                             afterChange={handleAfterChange}
                         >
-                            {items.map((item, idx) => (
-                                <div key={idx} className={cardClassName}>
-                                    {renderItem(item, idx)}
-                                </div>
-                            ))}
+                            {items.map((item, idx) => {
+                                // Try to use a unique identifier from the item, fallback to index
+                                const key = (item.id as string) || (item.link as string) || (item.title as string) || `item-${idx}`;
+                                return (
+                                    <div key={key} className={cardClassName}>
+                                        {renderItem(item, idx)}
+                                    </div>
+                                );
+                            })}
                         </Slider>
                     </div>
                 </div>
