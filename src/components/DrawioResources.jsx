@@ -1,5 +1,5 @@
 import { FlexBox, Button } from '@ui5/webcomponents-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '@ui5/webcomponents-icons/dist/copy.js';
 import '@ui5/webcomponents-icons/dist/accept.js';
 import IconButton from '@mui/material/IconButton';
@@ -14,9 +14,31 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 // locally, use fallback image
 const FALLBACK_IMG = '/img/fallback-drawio-img.svg';
 
-export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
+export default function DrawioResources({ drawioFile, drawioXml, drawioImg, drawioTitle }) {
     const path = useBaseUrl(FALLBACK_IMG);
     const [copied, setCopied] = useState(false);
+    const [imgSrc, setImgSrc] = useState(drawioImg ?? path);
+
+    useEffect(() => {
+        if (!drawioImg || !drawioTitle) {
+            setImgSrc(drawioImg ?? path);
+            return;
+        }
+        fetch(drawioImg)
+            .then((r) => r.text())
+            .then((svgText) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgText, 'image/svg+xml');
+                const titleEl = doc.getElementById('drawio-title');
+                if (titleEl) {
+                    titleEl.textContent = drawioTitle;
+                }
+                const blob = new Blob([new XMLSerializer().serializeToString(doc.documentElement)], {
+                    type: 'image/svg+xml',
+                });
+                setImgSrc(URL.createObjectURL(blob));
+            });
+    }, [drawioImg, drawioTitle]);
 
     function utf8ToBase64(str) {
         const utf8Bytes = new TextEncoder().encode(str);
@@ -25,7 +47,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
         return btoa(binary);
     }
     function handleDownload() {
-        fetch(drawioImg)
+        fetch(imgSrc)
             .then((r) => r.text())
             .then((text) => {
                 const viewBox = text.match(/viewBox="([^"]*)"/)[1].split(' ');
@@ -63,7 +85,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg }) {
                 <img
                     decoding="async"
                     loading="lazy"
-                    src={drawioImg ?? path}
+                    src={imgSrc}
                     alt="image of solution diagram"
                     className={drawioImg ? '' : 'fallback-image'}
                     style={{ height: 'auto' }}
