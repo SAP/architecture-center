@@ -258,16 +258,16 @@ const config: Config = {
                             label: 'Explore All News Articles',
                             to: '/news-all',
                         },
-                        {
+                    /*    {
                             label: 'Discover the AI-Native North Star Architecture',
                             to: '/docs/nsa/',
                             sidebarid: 'northStarSidebar',
-                        },
-                        {
+                        }, */
+                    /*    {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/aigp/',
                             sidebarid: 'goldenPathSidebar',
-                        },
+                        }, */
                         {
                             label: 'Browse the Reference Architectures',
                             to: '/docs/ref-arch',
