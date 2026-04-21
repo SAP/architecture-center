@@ -16,7 +16,7 @@ interface BlogPost {
     image: string | null;
 }
 
-const NEWS_PER_PAGE = 12;
+const NEWS_PER_PAGE = 6;
 
 export default function NewsAll(): JSX.Element {
     const [currentPage, setCurrentPage] = useState(0);
