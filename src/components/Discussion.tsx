@@ -4,8 +4,8 @@ import Admonition from '@theme/Admonition';
 import { FlexBox } from '@ui5/webcomponents-react';
 import { Button } from '@ui5/webcomponents-react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import "@ui5/webcomponents-icons/dist/discussion.js";
-import "@ui5/webcomponents-icons/dist/write-new-document.js";
+import '@ui5/webcomponents-icons/dist/discussion.js';
+import '@ui5/webcomponents-icons/dist/write-new-document.js';
 
 const CONVERSATION_URI_PREFIX_GH = 'github:';
 const CONVERSATION_URI_PREFIX_SC = 'community:';

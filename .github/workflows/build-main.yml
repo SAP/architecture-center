@@ -1,5 +1,9 @@
 name: Build for GitHub Pages
 
+permissions:
+    contents: read
+    pages: write
+
 on:
     push:
         branches:
@@ -15,7 +19,7 @@ jobs:
                   fetch-depth: 0
             - uses: actions/setup-node@v4
               with:
-                  node-version: latest
+                  node-version: '24'
                   cache: npm
 
             - name: Install dependencies

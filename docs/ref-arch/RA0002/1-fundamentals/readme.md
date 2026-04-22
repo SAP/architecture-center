@@ -8,19 +8,16 @@ title: Single-region and Multi-region resiliency
 description: Overview for Single and Multi-region resiliency
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
+  - multi-region
+  - resiliency architecture
+  - regional outages
+  - cloud disaster recovery
 sidebar_label: Single-region and Multi-region resiliency
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
 hide_table_of_contents: true
@@ -30,15 +27,6 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - martinfrick
-  - maxstreifeneder
-  - kshanth
-  - mahesh0431
-  - anirban-sap
-  - jmsrpp
-  - uklasing
-  - alperdedeoglu
-  - arajsinha
 discussion: 
 last_update:
   author: arajsinha

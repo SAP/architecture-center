@@ -16,7 +16,10 @@ export default function ShareSite() {
     const url = isBrowser ? window.location.toString() : '';
 
     const mailSubject = 'SAP Architecture Center - ' + pgTitle;
-    const mailBody = 'Hey,\n\nI came across this on the SAP Architecture Center and thought you would find it interesting.\n\nCheck it out here: ' + url + '\n\nEnjoy the read!\n';
+    const mailBody =
+        'Hey,\n\nI came across this on the SAP Architecture Center and thought you would find it interesting.\n\nCheck it out here: ' +
+        url +
+        '\n\nEnjoy the read!\n';
 
     return (
         <>
@@ -31,7 +34,7 @@ export default function ShareSite() {
                     height: MAIL_ICON_SIZE,
                 }}
             >
-                <Icon style={{ width: MAIL_ICON_SIZE, height: MAIL_ICON_SIZE, color: '#0070F2' }} name="paper-plane" />
+                <Icon style={{ width: MAIL_ICON_SIZE, height: MAIL_ICON_SIZE, color: 'var(--ifm-link-color)' }} name="paper-plane" />
             </a>
             <a
                 href={LINKEDIN_SHARE_URL + encodeURIComponent(url)}

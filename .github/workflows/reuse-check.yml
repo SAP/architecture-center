@@ -1,6 +1,9 @@
 name: REUSE Compliance Check
 # To manually verify/falsify reuse check results
 
+permissions:
+    contents: read
+
 on:
     workflow_dispatch:
 

@@ -7,9 +7,11 @@
 # Generated files
 .docusaurus
 .cache-loader
+/src/data
 
 # Misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -20,5 +22,14 @@ yarn-debug.log*
 yarn-error.log*
 
 /.vscode
+backend/.vscode
 
 *.drawio.bkp
+
+# Ignoring the mapping file
+src/constant/pageMapping.ts
+**/dist
+
+# Local-only files
+CLAUDE.md
+metrics/

@@ -10,21 +10,19 @@ sidebar_custom_props:
     - appdev
 title: Establish a central entry point with SAP Build Work Zone
 description: >-
-  SAP Build Work Zone offers a comprehensive solution architecture designed to
-  elevate user productivity and engagement by providing a digital workplace
-  platform that supports single-sign-on. This innovative approach centralizes
-  access to essential business applications, processes, information, and
-  communication, serving as a unified entry point accessible from desktop or
-  mobile devices. It harmonizes business content, applications, workflows, and
-  processes across your landscape, ensuring a seamless integration and
-  interaction within your digital ecosystem.
+  SAP Build Work Zone centralizes business applications, workflows, and
+  communication for a seamless digital workplace experience.
 keywords:
   - sap
   - btp
-  - cloud
-  - build work zone
+  - digital workplace
+  - sap build work zone
+  - integration ecosystem
+  - business applications
+  - sap mobile start
+  - joule
 sidebar_label: Establish a central entry point with SAP Build Work Zone
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
@@ -38,11 +36,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
+  - f-buech
   - fabianleh
 discussion: 
 last_update:
   author: fabianleh
-  date: 2025-02-24
+  date: 2025-07-10
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
@@ -60,19 +59,17 @@ This reference architecture also refers to the UI integration use case pattern o
 
 ## Flow
 
-1. End users can access SAP Build Work Zone via the web and mobile native application(s).
+1. End users can access SAP Build Work Zone via the web and mobile native application.
 
-    a. SAP Build Work Zone Web (standard / advanced edition)
+    a. SAP Build Work Zone Web (standard edition / advanced edition / SAP SuccessFactors Work Zone)
 
-    b. SAP Build Work Zone Advanced (mobile application for advanced edition)
-
-    c. SAP Mobile Start (only SAP Start & standard edition for now)
+    b. SAP Mobile Start
 
 2. For identity management and authentication, SAP Build Work Zone relies on SAP Cloud Identity Services-Identity Authentication as the identity provider (IdP). SAP Cloud Identity Services serve as central facade for the identity & access management. In this context, SAP Cloud Identity Services - Identity Authentication (IAS) offer secure authentication or a federation with third-party Identity Providers. The SAP Cloud Identity Services - Identity Directory (IdDS) stores the SAP identities. The SAP Cloud Identity Services - Provisioning (IPS) allow to provision users and their role assignments directly into the SAP Build Work Zone user store. For more information, see [Trust Setup and Authentication Flows](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#trust-setup-and-authentication-flows).
 
-3. SAP Build Work Zone as a solution consists of multiple components directly part of the product stack enabling different capabilities out of the box which cannot be decoupled from the product. When SAP Build Work Zone is activated in a subaccount of SAP BTP, these components will be invisible in the list of subscriptions and service instances: they are all an integral part of the solution itself (SAP Build Work Zone subscription). This includes services like Notifications, Mobile Services and UI Theme Designer also used by other SAP products as well as Digital Workplace Service (DWS) exclusively part of SAP Build Work Zone. For more information, see [Components](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#components).
+3. SAP Build Work Zone as a solution consists of multiple components directly part of the product stack enabling different capabilities out of the box which cannot be decoupled from the product. When SAP Build Work Zone is activated in a subaccount of SAP BTP, these components will be invisible in the list of subscriptions and service instances: they are all an integral part of the solution itself (SAP Build Work Zone subscription). This includes services like Notifications, Mobile Services and UI Theme Designer also used by other SAP products as well as Digital Workplace Service (DWS) exclusively part of SAP Build Work Zone. For more information, see [Components](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#components). SAP Mobile Services is included for the runtime of SAP Mobile Start. When creating custom mobile applications, a dedicated subscription to SAP Mobile Services is required.
 
-4. Via the pre-built content channel integration into the SAP BTP subaccount-level HTML5 application repository, custom applications can be made available in SAP Build Work Zone – these can be created via SAP Build Apps or SAP Business Application Studio. In addition, SAP Build Process Automation and SAP Task Center also provide out of the box applications that can be made available in Work Zone via the same channel.
+4. Via the pre-built content channel integration into the SAP BTP subaccount-level HTML5 application repository, custom applications can be made available in SAP Build Work Zone – these can be created via SAP Build. In addition, SAP Build Process Automation and SAP Task Center also provide out of the box applications that can be made available in Work Zone via the same channel.
 
 5. Manually integrated content or content exposed by content channels allow connecting exposed business content from a source to make it accessible from SAP Build Work Zone. Two types of content channels are supported: So-called “content providers” (API based content exposure) and “content packages” (file-based content upload). Content providers can expose content from cloud or on-premise systems alike. When using on-premise systems, SAP Cloud Connector is used in addition for a secure connection to the backend. In addition to integrating with SAP on-premise and cloud solutions, the same integration concepts are also applicable to third-party solutions and APIs. SAP Build Work Zone communicates with SAP and third-party backend systems integrated as a content channel (as well as for manually integrated content) via Destinations and the Connectivity service. For more information, see:
 
@@ -85,7 +82,7 @@ This reference architecture also refers to the UI integration use case pattern o
 
 7. When moving business content from one environment to another – for example from development to test – this can be achieved via manual export/import or via the more elaborated integration with SAP Cloud Transport Management. For more information, see:
     - [Transporting Content](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/transporting-content) for SAP Build Work Zone, standard edition
-    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, premium edition
+    - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, advanced edition
       
 The SAP Build Work Zone architecture diagram highlights seven key flows when working with business sites to unify access to applications, approvals, content and more.
 
@@ -97,7 +94,7 @@ The SAP Build Work Zone architecture diagram highlights seven key flows when wor
 
 - **Global User ID**: Globally unique user identifier defined by SAP Cloud Identity Services-Identity Authentication and used by SAP Build Work Zone.
 
-- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
+- **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
 
 - **Different application clients**: Business content created in and/or integrated with SAP Build Work Zone can be accessed from the SAP Build Work Zone web experience as well as the native mobile client, specifically SAP Build Work Zone Advanced or SAP Mobile Start (only SAP Start and standard edition for now). Joule is another client using the SAP Build Work Zone navigation service to find business applications.
 

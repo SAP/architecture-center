@@ -1,0 +1,10 @@
+.image {
+    display: block;
+    max-width: 100%;
+    cursor: default;
+}
+
+.image.focused {
+    outline: 2px solid #3b82f6;
+    user-select: none;
+}

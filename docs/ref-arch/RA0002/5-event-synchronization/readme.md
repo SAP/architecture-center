@@ -6,26 +6,20 @@ sidebar_custom_props:
   category_index: []
 title: Events Synchronization
 description: >-
-  Event synchronization in multi-region setups is enabled by SAP's Advanced
-  Event Mesh (AEM) with Dynamic Message Routing (DMR), ensuring real-time,
-  resilient, and scalable event processing across regions, maintaining
-  continuity and high availability during infrastructure failures.
+  Enable resilient multi-region event processing with SAP Advanced Event Mesh,
+  ensuring real-time synchronization and scalability.
 keywords:
   - sap
-  - integration
-  - application development
-  - ha dr
-  - high availability
-  - disaster recovery
-  - resiliency
-  - business continuity
-  - failover
-  - eda
+  - resiliency design
+  - multi-region
+  - event synchronization
+  - advanced event mesh
 sidebar_label: Events Synchronization across regions
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - aws
   - azure
+  - gcp
   - appdev
   - integration
   - eda
@@ -59,7 +53,8 @@ For more insights on EDA:
 - [Martin Fowler's blog on Event-Driven Architecture](https://martinfowler.com/articles/201701-event-driven.html).
 - [SAP Learning Journey - Event-Driven Architecture](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/explaining-event-driven-architecture_d02a51bb-1ce4-4c2d-a25d-8b9c9198ffd2)
 
-![Events Synchronization](images/event-replication.svg?raw=true)
+
+![drawio](drawio/event-replication.drawio)
 
 While services such as SAP Event Mesh and SAP Event Broker, including JMS queues from SAP Cloud Integration flows, may not offer multi-region resiliency, SAP Integration Suite's Advanced Event Mesh (AEM) excels in this area. AEM provides robust multi-region capabilities, enabling the construction of resilient and geo-distributed event meshes. By utilizing Dynamic Message Routing (DMR), messages can be seamlessly replicated across different regions, ensuring continuous availability and maintaining business continuity even during infrastructure outages. This feature is pivotal for enterprises aiming to achieve high availability and fault tolerance in their event-driven architectures.
 

@@ -6,17 +6,20 @@ sidebar_custom_props:
   category_index: []
 title: Edge Integration Cell on Azure
 description: >-
-  Explore the reference architecture for deploying SAP Integration Suite - Edge
-  Integration Cell on Azure. Learn about the required resources, and key
-  considerations for setup and implementation on Azure.
+  Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid
+  integration, leveraging secure infrastructure.
 keywords:
   - azure
-  - eic
+  - edge integration
+  - sap integration suite
+  - real-time architecture
 sidebar_label: Edge Integration Cell on Azure
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - azure
   - eic
+  - integration
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,10 +28,11 @@ draft: false
 unlisted: false
 contributors:
   - madankumarpichamuthu
+  - adarshnarayanhegde
 discussion: 
 last_update:
-  author: madankumarpichamuthu
-  date: 2025-02-20
+  author: adarshnarayanhegde
+  date: 2026-04-13
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Azure to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines Azure-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
@@ -106,11 +110,11 @@ EIC requires multiple storage solutions for transaction logs, runtime data, and 
 
 You can find detailed, step-by-step instructions for both the basic and high availability (HA) setup, including SAP and Azure configuration and deployment steps, in the following GitHub repository:
 
-[**Deploy SAP Integration Suite - Edge Integration Cell on on Microsoft Azure**](https://github.tools.sap/btp-use-case-factory/edge-integration-cell-azure)
+[**Deploy SAP Integration Suite - Edge Integration Cell on Microsoft Azure**](https://github.com/SAP-samples/btp-edge-integration-cell-on-azure)
 
 ## Recommendation
 The architecture and setup instructions in the GitHub repository above outline a small production deployment. Since deployments vary depending on business needs, these recommendations should be treated as a starting point.
 
 ## Explore More
-- [**Blog:** Getting Started with Edge Integration Cell on AZure: A Setup Guide Using SAP Integration Suite](https://www.youtube.com/watch?si=y-OM-2GC-q-FnOxm&v=PHPPnma7Y1A&feature=youtu.be)
+- [Getting Started with Edge Integration Cell on Azure: A Setup Guide Using SAP Integration Suite](https://www.youtube.com/watch?si=y-OM-2GC-q-FnOxm&v=PHPPnma7Y1A&feature=youtu.be)
 - [Setting Up and Managing Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/setting-up-and-managing-edge-integration-cell)

@@ -11,22 +11,22 @@ sidebar_custom_props:
         - gcp
 title: Generative AI on SAP BTP
 description: >-
-    Harness Generative AI on SAP BTP using a CAP-based backend with SAP HANA
-    Cloud's Vector Engine for similarity search. The Generative AI Hub allows
-    seamless integration of LLMs, supporting RAG and other advanced patterns.
-    Compatible with Cloud Foundry and Kyma, it optimizes AI-driven app
-    development.
+  Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
+  similarity search and advanced AI patterns.
 keywords:
-    - sap
-    - ai
-    - genai
+  - sap
+  - generative ai hub
+  - cloud foundry
+  - vector engine integration
+  - advanced ai solutions
 sidebar_label: Generative AI on SAP BTP
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
     - aws
     - azure
     - gcp
     - genai
+    - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -40,8 +40,8 @@ contributors:
     - madankumarpichamuthu
 discussion:
 last_update:
-    author: kay-schmitteckert
-    date: 2025-01-14
+  author: kay-schmitteckert
+  date: 2025-09-02
 ---
 
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
@@ -70,21 +70,22 @@ In the provided Reference Architecture, CAP serves as the central hub for applic
 
 The [Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core) incorporates Generative AI into your AI activities in [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core?region=all) and [SAP AI Launchpad](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad?region=all).
 
-To achieve this, the Generative AI Hub offers secure and reliable access to Foundation Models, primarily Large Language Models (LLMs), hosted on SAP BTP or by external partners such as Microsoft Azure, Google, and AWS, but also simplifies their integration into business processes. These models can be used for different domain-specific applications, utilizing patterns like Retrieval Augmented Generation (RAG), AI Agents, or Conversational AI, all accessed via standardized APIs to streamline the implementation of Generative AI.
+To achieve this, the Generative AI Hub offers secure and reliable access to Foundation Models, primarily Large Language Models (LLMs), hosted on SAP BTP or by external partners such as Microsoft Azure, Google, and AWS, but also simplifies their integration into business processes. These models can be used for different domain-specific applications, utilizing patterns like Retrieval Augmented Generation (RAG), AI Agents, or Conversational AI, all accessed via standardized APIs to streamline the implementation of Generative AI. Also, see Additional Concepts like a [Prompt Registry](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/prompt-registry) to manage prompt lifecycles or [Prompt Optimization](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/prompt-optimization) to refine prompts against target datasets, improving end-to-end model performance.
 
 An important feature of the Generative AI Hub is [Orchestration](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/orchestration), which combines content generation via an [Harmonized API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/harmonized-api) with essential functions often required in business AI scenarios. These functions include:
 
--   **Templating**: Allows you to compose prompts with placeholders filled during inference.
--   **Content Filtering**: Enables restriction of the type of content passed to and from a generative AI model.
--   **Data Masking**: Provides anonymization or pseudonymization of data before it's processed by a generative AI model. In cases of pseudonymization, masked data appearing in the model's response will be unmasked.
 -   **Gounding**: Allows to integrate external, contextually relevant, domain-specific, or real-time data into AI processes. This data supplements the natural language processing capabilities of pre-trained models, which are trained on general material.
+-   **Templating**: Allows you to compose prompts with placeholders filled during inference.
+-   **Translation**: Allows you to translate LLM text prompts into a chosen target language.
+-   **Data Masking**: Provides anonymization or pseudonymization of data before it's processed by a generative AI model. In cases of pseudonymization, masked data appearing in the model's
+-   **Content Filtering**: Enables restriction of the type of content passed to and from a generative AI model.response will be unmasked.
 
-In a basic orchestration scenario, different modules from orchestration can be combined into a pipeline and executed with a single API call. Within this pipeline, the response from one module is used as the input for the next module. The order of execution within the pipeline is centrally defined in orchestration. However, details for each module can be configured, and optional modules can be omitted by including an orchestration configuration in JSON format with the request body or even easier leveraging the SAP Cloud SDK for AI ([JavaScript/TypeScript](https://github.com/SAP/ai-sdk-js) or [Java](https://github.com/SAP/ai-sdk-java)).
+In a basic orchestration scenario, different modules from orchestration can be combined into a pipeline and executed with a single API call. Within this pipeline, the response from one module is used as the input for the next module. The order of execution within the pipeline is centrally defined in orchestration. However, details for each module can be configured, and optional modules can be omitted by including an orchestration configuration in JSON format with the request body or even easier leveraging the [SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/).
 
 <center>
   <div className="video-container-16-9">
     <iframe id="kaltura_player_1869760013" src="https://cdnapisec.kaltura.com/p/1921661/embedPlaykitJs/uiconf_id/54739572?iframeembed=true&entry_id=1_imwqek4c" allow="autoplay *; fullscreen *; encrypted-media *" className="video-responsive-iframe"></iframe>
-  </div> 
+  </div>
   <div>
     <i>Generative AI Hub: Rethinking Business Applications on SAP BTP</i>
   </div>
@@ -130,7 +131,11 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 -   [Basic Prompting](1-basics/readme.md) introduces the fundamentals of prompting foundation models by interacting with the Generative AI Hub, providing essential techniques for effective AI engagement within your SAP BTP application.
 -   [Semantic Search & Embeddings](2-semantic-search/readme.md) demonstrates how to leverage vector representations in SAP HANA Cloud's Vector Engine for context-aware, meaning-based search.
 -   [Retrieval Augmented Generation](3-retrieval-augmented-generation/readme.md) extends on how to support and ground generative AI with actual documents and data.
+-   [AI Agents](5-ai-agents/readme.md) enable autonomous, adaptive execution of complex enterprise processes.
+-   [A2A Agent-to-Agent Interoperability](8-agent2agent-interoperability/readme.md) illustrates how multiple agents collaborate with the A2A protocol.
+-   [Agents for Structured Data](6-agents-structured-data/readme.md) enable natural language queries into enterprise data for descriptive and prescriptive analytics.
 -   [Multi-Tenancy](../RA0007/readme.md) explains the multi-tenant aspect for generative AI on SAP BTP.
+-   [Vibe Coding with Cline and SAP AI Core](10-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
 
 ## Services & Components
 
@@ -159,7 +164,11 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
 
 -   [Sample CAP application using ai-sdk-js](https://github.com/SAP/ai-sdk-js/tree/main/sample-cap)
+<<<<<<< HEAD
 -   [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://github.com/SAP-samples/btp-cap-genai-rag)
+=======
+-   [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://discovery-center.cloud.sap/missiondetail/4371/)
+>>>>>>> 0882d62d6857279f77be7c248250a6be10bd5a27
 -   [CAP Application: Semantic Search Integrated with Generative AI Hub and SAP HANA Cloud's Vector Engine](https://github.com/SAP-samples/btp-cap-genai-semantic-search)
 
 ## Resources
@@ -173,4 +182,4 @@ For more information related to this Reference Architecture in general you may c
 -   [SAP Learning: Generative AI at SAP](https://learning.sap.com/courses/generative-ai-at-sap)
 -   [SAP Learning: AI Ethics at SAP](https://learning.sap.com/courses/ai-ethics-at-sap)
 -   [SAP AI Ethics Handbook](https://news.sap.com/sea/files/2024/01/11/SAP-AI-Ethics-Handbook.pdf)
--   [SAP Cloud SDK for AI](https://github.com/SAP/ai-sdk-js)
+-   [SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)

@@ -1,0 +1,230 @@
+/* Parent for ReactCarousel component */
+.sectionContainer {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    border-radius: var(--border-radius-sm);
+}
+
+.noVerticalPadding {
+    padding: 2px 0 !important;
+}
+
+/* Inner container for content alignment */
+.innerContainer {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.headerRow {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 36px;
+    min-width: 260px;
+    flex-wrap: nowrap;
+    gap: var(--spacing-sm);
+}
+
+.titleStyle {
+    padding-bottom: var(--spacing-xs);
+    padding-left: clamp(var(--spacing-sm), 1vw, 60px);
+    font-size: var(--sapFontHeader3Size);
+}
+
+/* Controls container (arrows, browse button) */
+.headerControls {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: var(--spacing-sm);
+}
+
+.noLink {
+    justify-content: flex-end;
+}
+
+/* Carousel container */
+.carouselContainer {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding-top: 10px;
+    max-width: 1440px;
+    height: auto !important;
+}
+
+.carouselContainer .slick-track,
+.carouselContainer .slick-list {
+    height: auto !important;
+    min-height: unset !important;
+}
+
+/* Allow slides to have proper fixed heights for vertical mode */
+.carouselContainer .slick-slide,
+.carouselContainer .slick-slide>div {
+    min-height: unset !important;
+    max-height: none !important;
+}
+
+/* Card container with minimum space reserved */
+.cardContainer {
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+    min-height: 320px;
+    max-width: var(--card-max-width);
+    width: 100%;
+}
+
+/* New padded container for consistent spacing */
+.paddedCardContainer {
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+    min-height: 320px;
+    width: 100%;
+}
+
+/* Updated selector for grid card container */
+.gridCardContainer {
+    padding: 0 var(--spacing-md);
+    box-sizing: border-box;
+    min-height: 320px;
+    max-width: none;
+    width: 100%;
+}
+
+.gridContainer {
+    height: auto;
+}
+
+.gridContainer,
+.filters,
+.filterRow {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Hide scrollbar for Webkit (Chrome, Safari) */
+.carouselContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 16px;
+    width: 100%;
+    height: auto;
+}
+
+/* Tablet styles (996px breakpoint) */
+@media (max-width: 996px) {
+    .sectionContainer {
+        padding: 24px 0;
+        min-height: 0;
+    }
+
+    .innerContainer {
+        padding: 0 8px;
+    }
+
+    .headerRow {
+        padding-right: 18px;
+    }
+
+    .carouselContainer .slick-slide,
+    .carouselContainer .slick-slide>div {
+        display: flex !important;
+        justify-content: center;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cardContainer {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .gridContainer {
+        grid-template-columns: 1fr;
+        gap: 16px; /* Maintain consistent gap */
+    }
+
+    .gridCardContainer {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 8px; /* Add horizontal padding for mobile cards */
+        display: flex !important;
+        flex-direction: column;
+        margin-bottom: 16px; /* Add vertical spacing between cards on mobile */
+    }
+}
+
+/* Mobile styles (600px breakpoint) */
+@media (max-width: 600px) {
+    .sectionContainer {
+        padding: 24px 0;
+        min-height: 0;
+    }
+
+    .cardContainer {
+        min-height: 340px;
+        padding: 0 2px;
+    }
+
+    .gridCardContainer {
+        min-height: 340px;
+        padding: 0 6px; /* Consistent padding for mobile cards */
+        margin-bottom: 16px; /* Add vertical spacing between cards on mobile */
+    }
+
+    .gridContainer {
+        gap: 16px; /* Maintain consistent gap */
+    }
+}
+
+/* Small mobile styles (430px breakpoint) */
+@media (max-width: 430px) {
+    .sectionContainer {
+        padding: 16px 0;
+        min-height: 0;
+    }
+
+    .innerContainer {
+        padding: 0 4px;
+    }
+
+    .cardContainer {
+        min-height: 360px;
+        padding: 0 1px;
+    }
+
+    .paddedCardContainer {
+        padding: 0 8px; /* Consistent padding for small mobile */
+    }
+
+    .gridCardContainer {
+        min-height: 360px;
+        padding: 0 4px; /* Minimal but visible padding for very small screens */
+        margin-bottom: 12px; /* Slightly smaller spacing for very small screens */
+    }
+
+    .gridContainer {
+        gap: 12px; /* Slightly smaller gap for very small screens */
+    }
+}

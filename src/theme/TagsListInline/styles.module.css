@@ -5,11 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
- .tags {
+.tags {
     display: inline;
-  }
-  
-  .tag {
-    margin: 0 0.4rem 0.5rem 0;
+}
+
+.tag {
+    margin: 0 var(--spacing-sm) var(--spacing-sm) 0;
     display: inline-block;
-  }
+}

@@ -1,0 +1,98 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="Zi_3xN67nWYaaA9T_EYX">
+    <mxGraphModel dx="1242" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1181" pageHeight="394" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-1" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="110" y="100" width="920" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-28" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="390" y="110" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-3" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="120" y="110" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-4" value="Worker Node" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="140" y="112.47" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-5" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="150" y="150" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-6" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;JMeter&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="170" y="165" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-9" value="A" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="750" y="111" width="270" height="109" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-10" value="Private Edition" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#F5F6F7;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="840" y="120" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-13" value="&lt;b&gt;&lt;font style=&quot;color: rgb(102, 102, 102);&quot;&gt;SAP Gateway&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#F5F6F7;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;dashed=1;dashPattern=1 2;" parent="1" vertex="1">
+          <mxGeometry x="869.9952173913043" y="180" width="108.69565217391303" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-20" value="S/4HANA Cloud" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" parent="1" vertex="1">
+          <mxGeometry x="847" y="134.93" width="37" height="19" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-15" value="" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.04;entryY=0.54;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5U30cNDtQMpAbmY5_7fr-3" target="5U30cNDtQMpAbmY5_7fr-29" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="290" y="173" as="sourcePoint" />
+            <mxPoint x="420" y="166" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-21" value="OData API Call" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="247" y="134.93" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-23" value="&lt;font face=&quot;arial&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;OData API call to SAP S/4HANA Cloud via SAP Cloud Connector using Cloud Foundry App Router on BTP&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1d2d3e;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="30" y="10" width="1030" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-26" value="Hyperscaler" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="743" y="108.00000000000003" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-29" value="" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_BTP,_Cloud_Foundry_runtime" parent="1" vertex="1">
+          <mxGeometry x="410" y="139" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-30" value="" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.06;entryY=0.51;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5U30cNDtQMpAbmY5_7fr-34" target="5U30cNDtQMpAbmY5_7fr-38" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="160" as="sourcePoint" />
+            <mxPoint x="720" y="165" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-32" value="SAP BTP" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#1A2733;fontFamily=Helvetica;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="400" y="112.47000000000003" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-33" value="Cloud Foundry App Router" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;labelBackgroundColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="350" y="190" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-34" value="" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Connectivity_Service" parent="1" vertex="1">
+          <mxGeometry x="560" y="139" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-35" value="Connectivity Service" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="520" y="190" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-37" value="" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="5U30cNDtQMpAbmY5_7fr-29" target="5U30cNDtQMpAbmY5_7fr-34" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="465" y="165" as="sourcePoint" />
+            <mxPoint x="540" y="164" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-38" value="" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=Cloud_Connector2" parent="1" vertex="1">
+          <mxGeometry x="770" y="140.5" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-39" value="" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="5U30cNDtQMpAbmY5_7fr-38" target="5U30cNDtQMpAbmY5_7fr-10" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="820" y="165" as="sourcePoint" />
+            <mxPoint x="840" y="167" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5U30cNDtQMpAbmY5_7fr-40" value="Cloud &lt;br&gt;Connector" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="755" y="185" width="80" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
