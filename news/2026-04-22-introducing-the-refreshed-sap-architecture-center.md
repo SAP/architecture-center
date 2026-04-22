@@ -12,6 +12,8 @@ We are pleased to announce the launch of a refreshed SAP Architecture Center. Af
 
 <!-- truncate -->
 
+![Architecture Center NEO](img/2026-04-22/AC3.0.webp)
+
 ## A Broader Mission for a Changing Landscape
 
 Beyond the visual redesign, the SAP Architecture Center is evolving to reflect a fundamental shift in both our industry and SAP's strategic direction. The pace of technological change, particularly with AI, cloud transformation, and evolving enterprise needs, requires a more dynamic and transparent approach to architectural guidance.
