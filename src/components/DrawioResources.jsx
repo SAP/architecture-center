@@ -38,7 +38,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
                 });
                 setImgSrc(URL.createObjectURL(blob));
             });
-    }, [drawioImg, drawioTitle]);
+    }, [drawioImg, drawioTitle, path]);
 
     function utf8ToBase64(str) {
         const utf8Bytes = new TextEncoder().encode(str);
