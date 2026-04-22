@@ -82,8 +82,13 @@ npm run lint:fix      # Auto-fix linting errors
 #### 7. Security Audit
 
 ```bash
-npm run security:audit    # Check for security vulnerabilities
+npm run security:audit        # Check production dependencies for vulnerabilities
+npm run security:audit-fix    # Automatically fix vulnerabilities where possible
+npm run security:check        # Run audit and check for outdated packages
+npm run security:update       # Update packages and fix vulnerabilities
 ```
+
+**Note**: The security audit checks only production dependencies (excludes devDependencies) to focus on what gets deployed.
 
 For detailed contribution guidelines, refer to the [Community of Practice | Intro](community/intro.md). 
 
