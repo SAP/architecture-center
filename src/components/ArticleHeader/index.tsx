@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Input, Button, MultiComboBox, MultiComboBoxItem, Label, TextArea } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
@@ -6,7 +6,7 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import styles from './index.module.css';
 
 // A small helper to safely format dates
-const formatDate = (timestamp) => {
+const formatDate = (timestamp: string | null | undefined): string => {
     if (!timestamp) return 'N/A';
 
     try {
@@ -20,7 +20,7 @@ const formatDate = (timestamp) => {
 
         const [day, month, year] = parts;
 
-        const date = new Date(year, month - 1, day);
+        const date = new Date(Number(year), Number(month) - 1, Number(day));
 
         if (isNaN(date.getTime())) {
             return datePart;
@@ -31,34 +31,51 @@ const formatDate = (timestamp) => {
             month: 'short',
             day: 'numeric',
         });
-    } catch (e) {
+    } catch {
         return timestamp.split(',')[0];
     }
 };
 
+interface TagData {
+    label: string;
+    description?: string;
+}
+
+interface EditableTag {
+    key: string;
+    label: string;
+    description?: string;
+}
+
+interface EditableData {
+    title: string;
+    tags: EditableTag[];
+    description: string;
+}
+
 export default function ArticleHeader() {
     const { getActiveDocument, updateDocument, lastSaveTimestamp } = usePageDataStore();
     const activeDocument = getActiveDocument();
-    const tagsData = useGlobalData()['docusaurus-tags']['default']['tags'] || {};
+    const globalTagsData = useGlobalData()['docusaurus-tags']['default']['tags'] as Record<string, TagData> | undefined;
 
     const { availableTags, tagKeyToLabelMap } = useMemo(() => {
-        if (!tagsData || Object.keys(tagsData).length === 0) {
-            return { availableTags: [], tagKeyToLabelMap: new Map() };
+        const tagsData = globalTagsData || {};
+        if (Object.keys(tagsData).length === 0) {
+            return { availableTags: [] as EditableTag[], tagKeyToLabelMap: new Map<string, string>() };
         }
-        const tagsArray = Object.entries(tagsData)
-            // FIX: Corrected the syntax error that caused all subsequent errors
+        const tagsArray: EditableTag[] = Object.entries(tagsData)
             .filter(([key]) => key !== 'demo')
-            .map(([key, value]: [string, any]) => ({
+            .map(([key, value]) => ({
                 key: key,
                 label: value.label,
                 description: value.description,
             }));
         const map = new Map(tagsArray.map((tag) => [tag.key, tag.label]));
         return { availableTags: tagsArray, tagKeyToLabelMap: map };
-    }, [tagsData]);
+    }, [globalTagsData]);
 
     const [isEditing, setIsEditing] = useState(false);
-    const [editableData, setEditableData] = useState({ title: '', tags: [], description: '' });
+    const [editableData, setEditableData] = useState<EditableData>({ title: '', tags: [], description: '' });
 
     if (!activeDocument) {
         return null;
@@ -67,7 +84,7 @@ export default function ArticleHeader() {
     const handleEdit = () => {
         const tagObjects = activeDocument.tags
             .map((key) => availableTags.find((tag) => tag.key === key))
-            .filter(Boolean);
+            .filter((tag): tag is EditableTag => tag !== undefined);
 
         setEditableData({
             title: activeDocument.title,
@@ -124,7 +141,7 @@ export default function ArticleHeader() {
                         onSelectionChange={(e) => {
                             const selectedObjects = e.detail.items
                                 .map((item) => availableTags.find((tag) => tag.label === item.text))
-                                .filter(Boolean);
+                                .filter((tag): tag is EditableTag => tag !== undefined);
                             setEditableData((d) => ({ ...d, tags: selectedObjects }));
                         }}
                     >

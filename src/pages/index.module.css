@@ -35,3 +35,20 @@
 .btp_sol_img {
     width: 75%;
 }
+
+/* Full-page scroll snap sections */
+.fullPageContainer {
+    /* Remove height constraint - let page scroll naturally */
+}
+
+/* Apply scroll-snap to the whole page when homepage is displayed */
+:global(html:has(.homepage-main)) {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+:global(body:has(.homepage-main)) {
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+}

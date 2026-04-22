@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import type { LexicalEditor } from 'lexical';
 import {
     $getSelection,
     $isRangeSelection,
@@ -9,7 +10,7 @@ import {
 } from 'lexical';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $wrapNodes, $isAtNodeEnd } from '@lexical/selection';
-import { $isHeadingNode, $createHeadingNode, HeadingTagType } from '@lexical/rich-text';
+import { $isHeadingNode, $createHeadingNode } from '@lexical/rich-text';
 import { mergeRegister } from '@lexical/utils';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Underline, Link2, Bold, Italic, Type } from 'lucide-react';
@@ -32,7 +33,7 @@ function getSelectedNode(selection) {
     return $isAtNodeEnd(anchor) ? anchorNode : anchorNode.getParent();
 }
 
-function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: keyof typeof blockTypeToBlockName }) {
+function BlockOptionsDropdown({ editor, blockType }: { editor: LexicalEditor; blockType: keyof typeof blockTypeToBlockName }) {
     const [showDropDown, setShowDropDown] = useState(false);
     const dropDownRef = useRef<HTMLDivElement>(null);
 
@@ -88,7 +89,7 @@ function BlockOptionsDropdown({ editor, blockType }: { editor: any; blockType: k
     );
 }
 
-function FloatingLinkEditor({ editor, onClose }: { editor: any; onClose: () => void }) {
+function FloatingLinkEditor({ editor, onClose }: { editor: LexicalEditor; onClose: () => void }) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [linkUrl, setLinkUrl] = useState('');
     const [isEdit, setIsEdit] = useState(false);

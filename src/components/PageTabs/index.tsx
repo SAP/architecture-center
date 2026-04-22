@@ -1,6 +1,6 @@
 import React from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
-import { Button, Icon } from '@ui5/webcomponents-react';
+import { Button } from '@ui5/webcomponents-react';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import styles from './index.module.css';
 

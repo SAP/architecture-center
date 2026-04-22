@@ -1,0 +1,143 @@
+name: Security Audit
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
+  push:
+    branches: [dev, main]
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  audit-scripts:
+    name: Audit npm Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for dangerous npm lifecycle scripts
+        run: |
+          echo "🔍 Checking package.json for suspicious scripts..."
+
+          # List of dangerous lifecycle scripts that can execute code automatically
+          DANGEROUS_HOOKS="preinstall postinstall preuninstall postuninstall prepublish preprepare prepare postprepare"
+
+          FOUND_ISSUES=0
+
+          for hook in $DANGEROUS_HOOKS; do
+            if jq -e ".scripts[\"$hook\"]" package.json > /dev/null 2>&1; then
+              SCRIPT_VALUE=$(jq -r ".scripts[\"$hook\"]" package.json)
+              echo "⚠️  ALERT: Found lifecycle script '$hook': $SCRIPT_VALUE"
+
+              # Check for especially dangerous patterns
+              if echo "$SCRIPT_VALUE" | grep -qE '(curl|wget|bash|sh |nc |/dev/tcp|eval|base64)'; then
+                echo "🚨 CRITICAL: Script '$hook' contains potentially dangerous commands!"
+                FOUND_ISSUES=1
+              fi
+            fi
+          done
+
+          # Check for scripts that reference external files
+          if jq -r '.scripts | to_entries[] | .value' package.json | grep -qE '\.(sh|bash|ps1)'; then
+            echo "⚠️  WARNING: Some scripts reference shell script files. Please review them manually."
+          fi
+
+          if [ $FOUND_ISSUES -eq 1 ]; then
+            echo ""
+            echo "❌ Security audit failed! Please review the flagged scripts."
+            exit 1
+          else
+            echo "✅ No critical issues found in npm scripts."
+          fi
+
+      - name: Check for suspicious patterns in scripts
+        run: |
+          echo "🔍 Scanning all scripts for suspicious patterns..."
+
+          SUSPICIOUS_PATTERNS=(
+            "curl.*\|.*sh"
+            "wget.*\|.*bash"
+            "base64.*-d"
+            "/dev/tcp"
+            "nc -e"
+            "eval\s*\("
+            "\$\(curl"
+            "\$\(wget"
+            "railway.app"
+            "ngrok"
+            "pipedream"
+            "requestbin"
+            "webhook.site"
+          )
+
+          FOUND=0
+          for pattern in "${SUSPICIOUS_PATTERNS[@]}"; do
+            if jq -r '.scripts | to_entries[] | .value' package.json | grep -qiE "$pattern"; then
+              echo "🚨 CRITICAL: Found suspicious pattern '$pattern' in scripts!"
+              FOUND=1
+            fi
+          done
+
+          if [ $FOUND -eq 1 ]; then
+            exit 1
+          fi
+
+          echo "✅ No suspicious patterns detected."
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+  audit-workflows:
+    name: Audit GitHub Workflows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for dangerous workflow patterns
+        run: |
+          echo "🔍 Auditing GitHub Actions workflows..."
+
+          FOUND_ISSUES=0
+
+          for workflow in .github/workflows/*.yml .github/workflows/*.yaml; do
+            [ -f "$workflow" ] || continue
+            echo "Checking: $workflow"
+
+            # Check for pull_request_target with checkout of PR code
+            if grep -q "pull_request_target" "$workflow"; then
+              if grep -qE "ref:.*\.(head|pull_request)" "$workflow"; then
+                echo "🚨 CRITICAL: $workflow uses pull_request_target with PR code checkout!"
+                echo "   This is a known attack vector. See: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/"
+                FOUND_ISSUES=1
+              fi
+            fi
+
+            # Check for workflow_run with unchecked inputs
+            if grep -q "workflow_run" "$workflow"; then
+              echo "⚠️  WARNING: $workflow uses workflow_run trigger. Ensure inputs are validated."
+            fi
+
+            # Check for missing permissions block
+            if ! grep -q "permissions:" "$workflow"; then
+              echo "⚠️  WARNING: $workflow lacks explicit permissions. Consider adding least-privilege permissions."
+            fi
+
+          done
+
+          if [ $FOUND_ISSUES -eq 1 ]; then
+            exit 1
+          fi
+
+          echo "✅ Workflow audit passed."

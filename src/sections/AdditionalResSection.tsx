@@ -7,12 +7,12 @@ import styles from './AdditionalResSection.module.css';
 
 export default function HeroSection(): JSX.Element {
     return (
-        <section>
+        <section className={styles.section}>
             <div className={styles.container}>
                 <Title className={styles.title}>
                     Additional Resources
                 </Title>
-                <Text className={styles.subtitle}>Explore other external resources</Text>            
+                <Text className={styles.subtitle}>Explore other external resources</Text>
                 {/* Navigation Cards */}
                 <div className={styles.cardsGrid}>
                     {addResData.map((item, index) => (
@@ -23,9 +23,10 @@ export default function HeroSection(): JSX.Element {
                             logoLight={item.logoLight}
                             logoDark={item.logoDark}
                             link={item.link}
+                            className={styles.addResCard}
                         />
                     ))}
-                </div>               
+                </div>
             </div>
         </section>
     );

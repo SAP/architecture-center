@@ -28,6 +28,12 @@
     cursor: pointer;
 }
 
+.homeIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--sapContent_ContrastTextColor);
+}
+
 .homeLink ui5-icon {
     color: var(--sapContent_ContrastTextColor);
 }
@@ -58,6 +64,7 @@
     .heroSubtitle,
     .breadcrumbCurrent,
     .breadcrumbSeparator,
+    .homeIcon,
     .homeLink ui5-icon {
         color: var(--sapContent_ForegroundTextColor);
     }

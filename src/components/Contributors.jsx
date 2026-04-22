@@ -11,7 +11,10 @@ export default function Contributors() {
     const { metadata } = useDoc();
     const usernames = metadata.frontMatter.contributors;
     // the GitHub usernames of the contributors
-    console.assert(Array.isArray(usernames), 'usernames should be an array of strings');
+    if (!Array.isArray(usernames)) {
+        console.warn('usernames should be an array of strings');
+        return null;
+    }
     return (
         <Admonition type="note" title="Contributors">
             <FlexBox direction="Row" wrap="Wrap" style={{ gap: 8 }}>

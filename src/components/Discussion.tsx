@@ -17,6 +17,10 @@ export default function Discussion(): JSX.Element | null {
     const { metadata } = useDoc();
     const discussion: string = metadata.frontMatter.discussion as string;
 
+    // Call hooks unconditionally (React rules of hooks)
+    const discussionsUrl = useBaseUrl(`discussions/${discussion?.substring(CONVERSATION_URI_PREFIX_GH.length) || ''}`);
+    const issuesUrl = useBaseUrl('issues/new/choose/');
+
     if (!discussion) {
         return null;
     }
@@ -33,10 +37,7 @@ export default function Discussion(): JSX.Element | null {
             <FlexBox direction="Row" justifyContent="SpaceAround" wrap="Wrap" style={{ gap: 8 }}>
                 {discussion.startsWith(CONVERSATION_URI_PREFIX_GH) ? (
                     <a
-                        href={
-                            GITHUB_HOST +
-                            useBaseUrl(`discussions/${discussion.substring(CONVERSATION_URI_PREFIX_GH.length)}`)
-                        }
+                        href={GITHUB_HOST + discussionsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -56,14 +57,12 @@ export default function Discussion(): JSX.Element | null {
                     </a>
                 ) : null}
                 {discussion.startsWith(CONVERSATION_URI_PREFIX_GH) ? (
-                    <a href={GITHUB_HOST + useBaseUrl(`issues/new/choose/`)} target="_blank">
+                    <a href={GITHUB_HOST + issuesUrl} target="_blank" rel="noopener noreferrer">
                         <Button design="Emphasized" icon="write-new-document">
                             Create a new GitHub issue
                         </Button>
                     </a>
-                ) : (
-                    <></>
-                )}
+                ) : null}
             </FlexBox>
         </Admonition>
     );

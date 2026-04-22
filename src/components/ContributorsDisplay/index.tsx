@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef, KeyboardEvent } from 'react';
+import React, { useState, useMemo, useRef, KeyboardEvent } from 'react';
 import { Icon, MultiComboBox, MultiComboBoxItem, Avatar, Button, FlexBox } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/information.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
@@ -30,30 +30,16 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
     const [contributorSearchQuery, setContributorSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GitHubUser[]>([]);
     const [isSearching, setIsSearching] = useState(false);
-    const [userAvatars, setUserAvatars] = useState<Record<string, string>>({});
     const abortControllerRef = useRef<AbortController | null>(null);
+    const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
-        if (!backendUrl || contributorSearchQuery.trim().length < 3 || !isEditing) {
-            setSearchResults([]);
-            setIsSearching(false);
-            return;
-        }
-        setIsSearching(true);
-        const debounceTimer = setTimeout(() => fetchUsers(), 300);
-        return () => {
-            clearTimeout(debounceTimer);
-            if (abortControllerRef.current) abortControllerRef.current.abort();
-        };
-    }, [contributorSearchQuery, isEditing]);
-
-    const fetchUsers = async () => {
+    const fetchUsers = async (query: string) => {
         if (abortControllerRef.current) abortControllerRef.current.abort();
         abortControllerRef.current = new AbortController();
         const signal = abortControllerRef.current.signal;
 
         try {
-            const apiUrl = `${backendUrl}/user/github/search-users?q=${contributorSearchQuery}`;
+            const apiUrl = `${backendUrl}/user/github/search-users?q=${query}`;
             const response = await fetch(apiUrl, {
                 headers: { Authorization: `Bearer ${token}` },
                 cache: 'no-store',
@@ -63,18 +49,33 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
             const data: GitHubSearchResponse = await response.json();
             const existingContributors = new Set(editingContributors || []);
             setSearchResults(data.items.filter((item) => !existingContributors.has(item.login)));
-        } catch (error: any) {
-            if (error.name !== 'AbortError') console.error('Error searching:', error);
+        } catch (error: unknown) {
+            const err = error as Error;
+            if (err.name !== 'AbortError') console.error('Error searching:', err);
         } finally {
             setIsSearching(false);
         }
     };
 
-    const handleContributorInput = (event: any) => {
-        setContributorSearchQuery(event.target.value || '');
+    const handleContributorInput = (event: React.ChangeEvent<HTMLInputElement> & { target: { value: string } }) => {
+        const query = event.target.value || '';
+        setContributorSearchQuery(query);
+
+        // Debounced search
+        if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+        if (abortControllerRef.current) abortControllerRef.current.abort();
+
+        if (!backendUrl || query.trim().length < 3 || !isEditing) {
+            setSearchResults([]);
+            setIsSearching(false);
+            return;
+        }
+
+        setIsSearching(true);
+        debounceTimerRef.current = setTimeout(() => fetchUsers(query), 300);
     };
 
-    const handleContributorSelection = (event: any) => {
+    const handleContributorSelection = (event: { detail: { items: { text: string }[] } }) => {
         const selectedItems: { text: string }[] = event.detail.items || [];
         const newlySelectedLogins = selectedItems.map((item) => item.text);
 
@@ -103,7 +104,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
     const contributorOptions = useMemo(() => {
         const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string }>();
         editingContributors?.forEach((login) => {
-            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login] });
+            optionsMap.set(login, { id: login, login: login });
         });
         searchResults.forEach((user) => {
             optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url });
@@ -119,7 +120,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
         });
 
         return options;
-    }, [searchResults, editingContributors, userAvatars]);
+    }, [searchResults, editingContributors]);
 
     const handleEditClick = () => {
         setEditingContributors([...contributors]);

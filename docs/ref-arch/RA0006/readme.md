@@ -1,7 +1,7 @@
 ---
 id: id-ra0006
 slug: /ref-arch/a2f89cac57
-sidebar_position: 6
+sidebar_position: 70
 sidebar_custom_props:
   category_index:
     - appdev

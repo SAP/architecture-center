@@ -2,7 +2,18 @@
     "extends": "@docusaurus/tsconfig",
     "compilerOptions": {
         "jsx": "react",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src"]
 }
