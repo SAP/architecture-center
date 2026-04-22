@@ -3,9 +3,9 @@ title: "Finding the Needle: AI Cloud API Debugging with Claude and SAP"
 description: AI-Assisted Debugging Across Thousands of Lines of Cloud API Logs with Claude and SAP — Tracing a Hidden Credential Bug in Less Than 60 Minutes.
 keywords: ["ai", "claude", "sap", "cloud", "api"]
 hide_table_of_contents: false
-spotlight_image: img/2026-04-15/setup-diagram.webp
+spotlight_image: img/2026-04-23/setup-diagram.webp
 authors: [anujag24]
-date: 2026-04-15
+date: 2026-04-23
 ---
 
 ## What happens when you let Claude Code run the full debugging loop
@@ -32,7 +32,7 @@ The codebase spans multiple modules. Startup touches auth, plugin initialization
 
 ## What Claude Code Found
 
-![Human vs Claude Code Investigation Paths](img/2026-04-15/investigation.svg)
+![Human vs Claude Code Investigation Paths](img/2026-04-23/investigation.svg)
 
 The Kubernetes secret had been populated with two overlapping sets of AI Core credentials:
 
@@ -56,7 +56,7 @@ Then without being asked - Claude Code argued against its own fix. "Are there ot
 
 ## The Numbers
 
-![Time Breakdown: Human vs Claude Code](img/2026-04-15/time-breakdown.webp)
+![Time Breakdown: Human vs Claude Code](img/2026-04-23/time-breakdown.webp)
 
 - **617K output tokens** - code written, hypotheses reasoned, tests generated
 - **166K token peak context** - codebase, logs, SDK source, all held simultaneously at peak
@@ -81,7 +81,7 @@ The governance layer isn't friction. It's what makes it safe to give the AI real
 
 ## The Setup
 
-![Claude Code System Setup](img/2026-04-15/setup-diagram.webp)
+![Claude Code System Setup](img/2026-04-23/setup-diagram.webp)
 
 **GitHub MCP server** - full repo read access. Claude Code traced imports, followed call chains, read any file without being handed anything manually.
 
