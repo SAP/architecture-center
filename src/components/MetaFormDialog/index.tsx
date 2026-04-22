@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, JSX, KeyboardEvent, useRef } from 'react';
+import React, { useState, useMemo, useEffect, JSX, KeyboardEvent, useRef, useCallback } from 'react';
 import {
     Button,
     Dialog,
@@ -18,6 +18,7 @@ import {
 import { PageMetadata } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
+import { logger } from '../../utils/logger';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface Tag {
@@ -60,12 +61,13 @@ export default React.memo(function MetadataFormDialog({
     const [userAvatars, setUserAvatars] = useState<Record<string, string>>({});
 
     const pluginData: { tags?: TagsData } | undefined = usePluginData('docusaurus-tags');
-    const tagsData: TagsData = pluginData?.tags || {};
+    const globalTagsData = pluginData?.tags;
     const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
 
     const { availableTags, labelToKeyMap } = useMemo(() => {
-        if (!tagsData || Object.keys(tagsData).length === 0) {
-            return { availableTags: [], labelToKeyMap: new Map() };
+        const tagsData = globalTagsData || {};
+        if (Object.keys(tagsData).length === 0) {
+            return { availableTags: [], labelToKeyMap: new Map<string, string>() };
         }
         const tagsArray = Object.entries(tagsData).map(([key, value]) => ({
             key,
@@ -75,10 +77,10 @@ export default React.memo(function MetadataFormDialog({
         }));
         const map = new Map(tagsArray.map((tag) => [tag.label, tag.key]));
         return { availableTags: tagsArray, labelToKeyMap: map };
-    }, [tagsData]);
+    }, [globalTagsData]);
 
     const abortControllerRef = useRef<AbortController | null>(null);
-    const multiComboRef = useRef<any>(null);
+    const multiComboRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         if (!backendUrl || contributorSearchQuery.trim().length < 3) {
@@ -96,25 +98,29 @@ export default React.memo(function MetadataFormDialog({
                 abortControllerRef.current.abort();
             }
         };
-    }, [contributorSearchQuery, initialData.contributors, backendUrl, token]);
+    }, [contributorSearchQuery, backendUrl, fetchUsers]);
 
     useEffect(() => {
         if (!isSearching && searchResults.length > 0 && multiComboRef.current) {
-            multiComboRef.current.open = true;
+            (multiComboRef.current as HTMLElement & { open: boolean }).open = true;
         }
     }, [isSearching, searchResults]);
 
     useEffect(() => {
-        const newAvatars = { ...userAvatars };
-        searchResults.forEach((user) => {
-            if (!newAvatars[user.login]) {
-                newAvatars[user.login] = user.avatar_url;
-            }
+        setUserAvatars((prevAvatars) => {
+            const newAvatars = { ...prevAvatars };
+            let hasChanges = false;
+            searchResults.forEach((user) => {
+                if (!newAvatars[user.login]) {
+                    newAvatars[user.login] = user.avatar_url;
+                    hasChanges = true;
+                }
+            });
+            return hasChanges ? newAvatars : prevAvatars;
         });
-        setUserAvatars(newAvatars);
     }, [searchResults]);
 
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         if (abortControllerRef.current) {
             abortControllerRef.current.abort();
         }
@@ -132,20 +138,20 @@ export default React.memo(function MetadataFormDialog({
             });
             if (!response.ok) throw new Error('Failed to fetch users');
             const data: GitHubSearchResponse = await response.json();
-            console.log('Fetched user data:', data);
+            logger.info('Fetched user data:', data);
             const existingContributors = new Set(initialData.contributors || []);
             const filteredResults = data.items.filter((item) => !existingContributors.has(item.login));
             setSearchResults(filteredResults);
-        } catch (error: any) {
-            if (error.name !== 'AbortError') {
-                console.error('Error searching for contributors:', error);
+        } catch (error) {
+            if (error instanceof Error && error.name !== 'AbortError') {
+                logger.error('Error searching for contributors:', error);
                 setSearchResults([]);
             }
         } finally {
             setIsSearching(false);
             abortControllerRef.current = null;
         }
-    };
+    }, [backendUrl, contributorSearchQuery, token, initialData.contributors]);
 
     const fetchSingleUserAvatar = async (login: string): Promise<string | null> => {
         try {
@@ -160,12 +166,20 @@ export default React.memo(function MetadataFormDialog({
             const data = await response.json();
             return data.avatar_url || null;
         } catch (error) {
-            console.error('Error fetching single user:', error);
+            logger.error('Error fetching single user:', error);
             return null;
         }
     };
 
-    const handleTagUpdate = (event: any) => {
+    interface SelectionChangeEvent {
+        detail: { items: { text: string }[] };
+    }
+
+    interface InputEvent {
+        target: { value: string };
+    }
+
+    const handleTagUpdate = (event: SelectionChangeEvent) => {
         const selectedItems: { text: string }[] = event.detail.items;
         const selectedKeys = selectedItems
             .map((item) => {
@@ -176,11 +190,11 @@ export default React.memo(function MetadataFormDialog({
         onDataChange({ tags: selectedKeys });
     };
 
-    const handleContributorInput = (event: any) => {
+    const handleContributorInput = (event: InputEvent) => {
         setContributorSearchQuery(event.target.value || '');
     };
 
-    const handleContributorSelection = (event: any) => {
+    const handleContributorSelection = (event: SelectionChangeEvent) => {
         const selectedItems: { text: string }[] = event.detail.items || [];
         onDataChange({ contributors: selectedItems.map((item) => item.text) });
     };
@@ -249,7 +263,7 @@ export default React.memo(function MetadataFormDialog({
                 <FormItem labelContent={<Label required>Title</Label>}>
                     <Input
                         value={initialData?.title || ''}
-                        onInput={(e: any) => onDataChange({ title: e.target.value })}
+                        onInput={(e: InputEvent) => onDataChange({ title: e.target.value })}
                         required
                         placeholder="Add your title..."
                     />
@@ -259,7 +273,7 @@ export default React.memo(function MetadataFormDialog({
                     <TextArea
                         style={{ minHeight: '80px', width: '100%' }}
                         value={initialData?.description || ''}
-                        onInput={(e: any) => onDataChange({ description: e.target.value })}
+                        onInput={(e: InputEvent) => onDataChange({ description: e.target.value })}
                         placeholder="Add a short description (max 300 characters)..."
                     />
                 </FormItem>

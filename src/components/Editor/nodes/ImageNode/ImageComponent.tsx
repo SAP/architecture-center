@@ -1,8 +1,7 @@
-import React, { useState, useCallback, JSX } from 'react';
-import type { NodeKey, EditorConfig, LexicalEditor } from 'lexical';
+import React, { useCallback, JSX } from 'react';
+import type { NodeKey } from 'lexical';
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getNodeByKey } from 'lexical';
 
 import styles from './index.module.css';
 
@@ -14,9 +13,9 @@ interface ImageComponentProps {
     height: 'inherit' | number;
 }
 
-export default function ImageComponent({ src, altText, nodeKey, width, height }: ImageComponentProps): JSX.Element {
+export default function ImageComponent({ src, altText, nodeKey, width: _width, height: _height }: ImageComponentProps): JSX.Element {
     const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey);
-    const [editor] = useLexicalComposerContext();
+    useLexicalComposerContext(); // Hook must be called even if editor instance isn't used
 
     const onClick = useCallback(
         (payload) => {

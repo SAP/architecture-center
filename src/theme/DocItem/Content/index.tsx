@@ -30,8 +30,6 @@ export default function DocItemContent({ children }: Props): ReactNode {
     const canDisplayTagsRow = tags.length > 0;
     const canDisplayEditMetaRow = !!(editUrl || lastUpdatedAt || lastUpdatedBy);
 
-    const canDisplayContent = canDisplayTagsRow || canDisplayEditMetaRow;
-
     return (
         <div>
             <div className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}>

@@ -8,11 +8,30 @@ import useGlobalData from '@docusaurus/useGlobalData';
 
 type Props = WrapperProps<typeof DocTagDocListPageType>;
 
+interface SidebarContext {
+  refarchSidebar?: unknown;
+}
+
+interface CommunitySidebarContext {
+  communitySidebar?: unknown;
+}
+
+interface TagsPluginData {
+  default?: {
+    sidebarContext?: SidebarContext;
+    communitySidebarContext?: CommunitySidebarContext;
+  };
+}
+
+interface TagItem {
+  labels?: string[];
+}
+
 export default function DocTagDocListPageWrapper(props: Props): ReactNode {
   try {
     // get sidebar context directly from global data (build-time)
     const globalData = useGlobalData();
-    const tagsPluginData = globalData['docusaurus-tags-plugin'] as { default?: { sidebarContext?: any; communitySidebarContext?: any } } | undefined;
+    const tagsPluginData = globalData['docusaurus-tags-plugin'] as TagsPluginData | undefined;
     const sidebarContext = tagsPluginData?.default?.sidebarContext;
     const communitySidebarContext = tagsPluginData?.default?.communitySidebarContext;
     // Detect navigation source by checking the allTagsPath
@@ -20,7 +39,7 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
 
     let updatedProps = props;
     if (props.tag?.items) {
-      let updatedTagItems = [];
+      let updatedTagItems: typeof props.tag.items = [];
       // Navigated from Docs section
       if (!isNavigatingFromCommunity && sidebarContext?.refarchSidebar) {
         updatedTagItems = createTagSidebarMapping(props.tag.items, sidebarContext.refarchSidebar);
@@ -29,7 +48,7 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
       else if (isNavigatingFromCommunity && communitySidebarContext?.communitySidebar) {
         updatedTagItems = createTagSidebarMapping(props.tag.items, communitySidebarContext.communitySidebar);
       }
-      
+
       if (updatedTagItems.length > 0) {
         updatedProps = {
           ...props,
@@ -42,12 +61,12 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
     }
 
     // use custom component when labels are available, otherwise use original
-    const hasLabels = updatedProps.tag?.items?.some((item: any) => item.labels && item.labels.length > 0);
-    
+    const hasLabels = updatedProps.tag?.items?.some((item: TagItem) => item.labels && item.labels.length > 0);
+
     return (
       <>
         {hasLabels ? (
-          <CustomDocTagDocListPage {...(updatedProps as any)} />
+          <CustomDocTagDocListPage {...(updatedProps as Parameters<typeof CustomDocTagDocListPage>[0])} />
         ) : (
           <DocTagDocListPage {...updatedProps} />
         )}

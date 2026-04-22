@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, JSX } from 'react';
+import React, { useEffect, useRef, JSX, useCallback } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $getSelection, $isRangeSelection, COMMAND_PRIORITY_EDITOR } from 'lexical';
 import { $createDrawioNode, DrawioNode } from '../../nodes/DrawioNode';
@@ -8,7 +8,7 @@ export default function DrawioPlugin(): JSX.Element | null {
     const [editor] = useLexicalComposerContext();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const processFile = (file: File) => {
+    const processFile = useCallback((file: File) => {
         if (!file || !file.name.toLowerCase().endsWith('.drawio')) {
             console.warn('Invalid file type. Please upload a .drawio file.');
             return;
@@ -22,7 +22,7 @@ export default function DrawioPlugin(): JSX.Element | null {
             }
         };
         reader.readAsText(file);
-    };
+    }, [editor]);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -90,7 +90,7 @@ export default function DrawioPlugin(): JSX.Element | null {
                 editorRootElement.removeEventListener('drop', handleDrop);
             }
         };
-    }, [editor]);
+    }, [editor, processFile]);
 
     return (
         <input

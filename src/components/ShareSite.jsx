@@ -39,6 +39,7 @@ export default function ShareSite() {
             <a
                 href={LINKEDIN_SHARE_URL + encodeURIComponent(url)}
                 target="_blank"
+                rel="noopener noreferrer"
                 role="button"
                 title="Share on LinkedIn"
                 style={{

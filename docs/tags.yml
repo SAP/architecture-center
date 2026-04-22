@@ -1,6 +1,8 @@
 # predefined tags
 
+# --------------------------------------------------------------------------------------------------------------------------------
 # technology partners
+# --------------------------------------------------------------------------------------------------------------------------------
 aws:
   label: "Amazon Web Services"
   description: "Amazon Web Services (AWS) is a cloud computing platform that provides a wide range of services, including computing power, storage, and databases, to help businesses scale and grow."
@@ -24,8 +26,11 @@ databricks:
 nvidia:
   label: "NVIDIA"
   description: "NVIDIA is a technology company known for its graphics processing units (GPUs) and AI computing. NVIDIA provides hardware and software solutions for various industries, including gaming, professional visualization, data centers, and automotive."
+# --------------------------------------------------------------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------------------------------------------------------------
 # technology domains
+# --------------------------------------------------------------------------------------------------------------------------------
 genai:
   label: "Generative AI"
   description: "Generative AI is a type of AI that is capable of generating new data, such as images, videos, and text, based on the data it has been trained on."
@@ -45,8 +50,11 @@ integration:
 security:
   label: "Security"
   description: "Protect your data and applications with comprehensive security solutions."
+# --------------------------------------------------------------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------------------------------------------------------------
 # other tags
+# --------------------------------------------------------------------------------------------------------------------------------
 cap:
   label: "CAP"
   description: "SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks."
@@ -83,7 +91,26 @@ bdc:
   label: "SAP Business Data Cloud"
   description: "SAP Business Data Cloud (BDC) is a cloud-based solution that enables businesses to manage and analyze their data effectively. It provides tools for data integration, data quality management, and advanced analytics, helping organizations to derive insights and make informed decisions." 
 
+agents:
+  label: "Agents"
+  description: "An agent is a system, often backed by an LLM, that acts on behalf of a user or another program, often with some degree of autonomy. Agents can perform tasks, make decisions, and interact with other systems or users to achieve specific goals."
+
+successfactors:
+  label: "SAP SuccessFactors"
+  description: "SAP SuccessFactors is a cloud-based human capital management (HCM) software solution that helps organizations manage their workforce effectively. It offers a range of modules for core HR, talent management, payroll, and employee experience, enabling businesses to attract, develop, and retain top talent while optimizing HR processes."
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------------------------------------------------
+# community tags
+# --------------------------------------------------------------------------------------------------------------------------------
+community:
+  label: "Community of Practice"
+  description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------------------------------------------------
 # generic tags
+# --------------------------------------------------------------------------------------------------------------------------------
 demo:
   label: "Demo"
   description: "A demo page is a page designed to showcase features, functionality, or design of a product, service, or concept. It is often used for demonstrations, testing, or marketing purposes."
@@ -92,15 +119,18 @@ ref-arch:
   label: "Reference Architectures"
   description: "Reference Architectures offer standardized, reusable templates for software architecture, providing best practices, guidelines, and blueprints to streamline design, development, and deployment."
 
-community:
-  label: "Community of Practice"
-  description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."
+community-contrib:
+  label: "Community Contributions"
+  description: "Content contributed by SAP customers, partners, and community members, showcasing real-world architecture solutions and implementation experiences to build shared knowledge and strengthen the broader SAP community."
 
-agents:
-  label: "Agents"
-  description: "An agent is a system, often backed by an LLM, that acts on behalf of a user or another program, often with some degree of autonomy. Agents can perform tasks, make decisions, and interact with other systems or users to achieve specific goals."
+ai-native-north-star:
+  label: "AI-Native North Star Architecture"
+  description: "The AI Native North Star Architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on."
 
-successfactors:
-  label: "SAP SuccessFactors"
-  description: "SAP SuccessFactors is a cloud-based human capital management (HCM) software solution that helps organizations manage their workforce effectively. It offers a range of modules for core HR, talent management, payroll, and employee experience, enabling businesses to attract, develop, and retain top talent while optimizing HR processes."
+ai-golden-path:
+  label: "AI-Golden Path"
+  description: "The AI Golden Path represents the recommended approach or best practices for implementing AI solutions within SAP's technology landscape. It provides guidance on how to achieve the AI-Native North Star Architecture, ensuring consistency, efficiency, and alignment with strategic objectives."
+
+
+# --------------------------------------------------------------------------------------------------------------------------------
   

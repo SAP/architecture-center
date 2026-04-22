@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Layout from '@theme/Layout';
 import axios from 'axios';
 import styles from './index.module.css';
@@ -417,6 +417,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                                 src={`https://viewer.diagrams.net/?lightbox=1&edit=_blank&layers=1&nav=1#R${encodeURIComponent(
                                                     mf.content
                                                 )}`}
+                                                sandbox="allow-same-origin allow-scripts allow-popups"
                                                 className={styles.diagramViewer}
                                                 title={mf.file.name}
                                             />

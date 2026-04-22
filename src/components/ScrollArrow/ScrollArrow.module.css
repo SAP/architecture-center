@@ -1,0 +1,62 @@
+.scrollArrowContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px 0;
+    overflow: visible;
+}
+
+.scrollArrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.scrollArrow span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-bottom: 3px solid var(--ifm-color-primary);
+    border-right: 3px solid var(--ifm-color-primary);
+    transform: rotate(45deg);
+    margin: -8px;
+    animation: scrollBounce 2s infinite;
+}
+
+.scrollArrow span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes scrollBounce {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(30px, 30px);
+    }
+    50% {
+        opacity: 1;
+        transform: rotate(45deg) translate(45px, 45px);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(60px, 60px);
+    }
+}
+
+[data-theme='dark'] .scrollArrow span {
+    border-color: var(--ifm-color-primary-lighter);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .scrollArrow span {
+        animation: none;
+        opacity: 1;
+        transform: rotate(45deg);
+    }
+}
