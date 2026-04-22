@@ -5,7 +5,6 @@ import DocSidebarItems from '@theme-original/DocSidebarItems';
 import { NavbarSecondaryMenuFiller, useWindowSize, useThemeConfig } from '@docusaurus/theme-common';
 import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
 import CollapsibleFilterBar from '@site/src/components/FilterBar/CollapsibleFilterBar';
-import DomainCategory from '@site/src/components/DomainCategory';
 import CollapseButton from '@theme/DocSidebar/Desktop/CollapseButton';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
@@ -14,6 +13,7 @@ import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { logger } from '@site/src/utils/logger';
+import { useSidebarCounterStyling } from '@site/src/hooks/useSidebarCounterStyling';
 
 // Domain definitions with labels
 const DOMAIN_DEFINITIONS = [
@@ -276,24 +276,24 @@ function DocSidebarDesktop(props) {
         },
     } = useThemeConfig();
 
+    // Apply counter styling hook
+    useSidebarCounterStyling();
+
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
     const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
-    const toggleDomain = useSidebarFilterStore((state) => state.toggleDomain);
-    const expandAll = useSidebarFilterStore((state) => state.expandAll);
-    const collapseAll = useSidebarFilterStore((state) => state.collapseAll);
 
     // Group sidebar items by domain
-    const { grouped, duplicateCounts } = useMemo(
+    const grouped = useMemo(
       () => groupSidebarByDomain(props.sidebar, tagsDocId),
       [props.sidebar, tagsDocId]
     );
 
     // Filter by selected partners
     const filteredGrouped = useMemo(
-      () => filterGroupedByPartner(grouped, partners, tagsDocId),
-      [grouped, partners, tagsDocId]
+      () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
+      [grouped.grouped, partners, tagsDocId]
     );
 
     // Convert string arrays to Option arrays
@@ -339,6 +339,54 @@ function DocSidebarDesktop(props) {
     Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
     const resultCount = uniqueDocIds.size;
 
+    // Helper function to add duplicate counters to item labels
+    const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
+      return items.map(item => {
+        const itemId = item.docId || item.id || '';
+        const duplicateCount = duplicateCounts[itemId] || 0;
+
+        if (item.type === 'category') {
+          // For categories, also check if the category itself has a link
+          const categoryId = item.docId || item.id || item.link?.id || '';
+          const categoryDuplicateCount = duplicateCounts[categoryId] || 0;
+
+          return {
+            ...item,
+            label: categoryDuplicateCount > 0 ? `${item.label} +${categoryDuplicateCount}` : item.label,
+            items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
+          };
+        } else if ((item.type === 'doc' || item.type === 'link') && duplicateCount > 0) {
+          // Add counter to doc/link labels
+          return {
+            ...item,
+            label: `${item.label} +${duplicateCount}`
+          };
+        }
+
+        return item;
+      });
+    };
+
+    // Transform domain-grouped data into Docusaurus category structure
+    const domainCategories = DOMAIN_DEFINITIONS.map(domain => {
+      const domainItems = filteredGrouped[domain.id] || [];
+      const docCount = countTotalDocsInItems(domainItems);
+
+      // Add duplicate counters to items
+      const itemsWithCounters = addDuplicateCountersToItems(domainItems, grouped.duplicateCounts);
+
+      return {
+        type: 'category',
+        label: `${domain.label} (${docCount})`,
+        items: itemsWithCounters,
+        collapsible: true,
+        collapsed: !expandedDomains.includes(domain.id),
+        customProps: {
+          domainId: domain.id
+        }
+      };
+    }).filter(category => category.items.length > 0);
+
     return (
       <div className={clsx(
         styles.sidebarWithFiltersContainer,
@@ -352,8 +400,6 @@ function DocSidebarDesktop(props) {
             resetFilters={handleResetFilters}
             isResetEnabled={partners.length > 0}
             resultCount={resultCount}
-            onExpandAll={expandAll}
-            onCollapseAll={collapseAll}
           />
         </div>
         <div className={styles.sidebarMenuList}>
@@ -361,20 +407,13 @@ function DocSidebarDesktop(props) {
             styles.sidebar,
             hideOnScroll && styles.sidebarWithHideableNavbar
           )}>
-            <nav className={styles.domainSidebar}>
-              {DOMAIN_DEFINITIONS.map((domain) => (
-                <DomainCategory
-                  key={domain.id}
-                  domainId={domain.id}
-                  domainLabel={domain.label}
-                  items={filteredGrouped[domain.id] || []}
-                  isExpanded={expandedDomains.includes(domain.id)}
-                  onToggle={() => toggleDomain(domain.id)}
-                  duplicateCounts={duplicateCounts}
-                  activePath={location.pathname}
-                  totalDocCount={countTotalDocsInItems(filteredGrouped[domain.id] || [])}
-                />
-              ))}
+            <nav className={`${styles.domainSidebar} thin-scrollbar`}>
+              <DocSidebarItems
+                items={domainCategories}
+                activePath={location.pathname}
+                level={0}
+                index={0}
+              />
             </nav>
             {hideable && <CollapseButton onClick={props.onCollapse} />}
           </div>
@@ -392,23 +431,20 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
     const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
-    const toggleDomain = useSidebarFilterStore((state) => state.toggleDomain);
-    const expandAll = useSidebarFilterStore((state) => state.expandAll);
-    const collapseAll = useSidebarFilterStore((state) => state.collapseAll);
 
     // Convert string arrays to Option arrays
     const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
 
     // Group sidebar items by domain
-    const { grouped, duplicateCounts } = useMemo(
+    const grouped = useMemo(
       () => groupSidebarByDomain(sidebar, tagsDocId),
       [sidebar, tagsDocId]
     );
 
     // Filter by selected partners
     const filteredGrouped = useMemo(
-      () => filterGroupedByPartner(grouped, partners, tagsDocId),
-      [grouped, partners, tagsDocId]
+      () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
+      [grouped.grouped, partners, tagsDocId]
     );
 
     const handlePartnersChange = (selected) => {
@@ -437,6 +473,54 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
     const resultCount = uniqueDocIds.size;
 
+    // Helper function to add duplicate counters to item labels
+    const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
+      return items.map(item => {
+        const itemId = item.docId || item.id || '';
+        const duplicateCount = duplicateCounts[itemId] || 0;
+
+        if (item.type === 'category') {
+          // For categories, also check if the category itself has a link
+          const categoryId = item.docId || item.id || item.link?.id || '';
+          const categoryDuplicateCount = duplicateCounts[categoryId] || 0;
+
+          return {
+            ...item,
+            label: categoryDuplicateCount > 0 ? `${item.label} +${categoryDuplicateCount}` : item.label,
+            items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
+          };
+        } else if ((item.type === 'doc' || item.type === 'link') && duplicateCount > 0) {
+          // Add counter to doc/link labels
+          return {
+            ...item,
+            label: `${item.label} +${duplicateCount}`
+          };
+        }
+
+        return item;
+      });
+    };
+
+    // Transform domain-grouped data into Docusaurus category structure
+    const domainCategories = DOMAIN_DEFINITIONS.map(domain => {
+      const domainItems = filteredGrouped[domain.id] || [];
+      const docCount = countTotalDocsInItems(domainItems);
+
+      // Add duplicate counters to items
+      const itemsWithCounters = addDuplicateCountersToItems(domainItems, grouped.duplicateCounts);
+
+      return {
+        type: 'category',
+        label: `${domain.label} (${docCount})`,
+        items: itemsWithCounters,
+        collapsible: true,
+        collapsed: !expandedDomains.includes(domain.id),
+        customProps: {
+          domainId: domain.id
+        }
+      };
+    }).filter(category => category.items.length > 0);
+
     return (
         <>
         <CollapsibleFilterBar
@@ -446,23 +530,15 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
           resetFilters={handleResetFilters}
           isResetEnabled={partners.length > 0}
           resultCount={resultCount}
-          onExpandAll={expandAll}
-          onCollapseAll={collapseAll}
         />
         <nav className={styles.domainSidebarMobile}>
-          {DOMAIN_DEFINITIONS.map((domain) => (
-            <DomainCategory
-              key={domain.id}
-              domainId={domain.id}
-              domainLabel={domain.label}
-              items={filteredGrouped[domain.id] || []}
-              isExpanded={expandedDomains.includes(domain.id)}
-              onToggle={() => toggleDomain(domain.id)}
-              duplicateCounts={duplicateCounts}
-              activePath={path}
-              totalDocCount={countTotalDocsInItems(filteredGrouped[domain.id] || [])}
-            />
-          ))}
+          <DocSidebarItems
+            items={domainCategories}
+            activePath={path}
+            onItemClick={onItemClick}
+            level={0}
+            index={0}
+          />
         </nav>
         </>
     );

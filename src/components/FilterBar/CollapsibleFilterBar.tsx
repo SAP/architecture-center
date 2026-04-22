@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { FiFilter, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { FiFilter } from 'react-icons/fi';
 import styles from './CollapsibleFilterBar.module.css';
 
 interface Option {
@@ -15,8 +15,6 @@ interface CollapsibleFilterBarProps {
     resetFilters: () => void;
     isResetEnabled: boolean;
     resultCount?: number;
-    onExpandAll?: () => void;
-    onCollapseAll?: () => void;
 }
 
 const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
@@ -26,8 +24,6 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     resetFilters,
     isResetEnabled,
     resultCount,
-    onExpandAll,
-    onCollapseAll,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -63,29 +59,6 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                         </span>
                     )}
                 </button>
-
-                <div className={styles.expandCollapseButtons}>
-                    {onExpandAll && (
-                        <button
-                            onClick={onExpandAll}
-                            className={styles.expandCollapseButton}
-                            aria-label="Expand all categories"
-                            title="Expand all"
-                        >
-                            <FiChevronDown />
-                        </button>
-                    )}
-                    {onCollapseAll && (
-                        <button
-                            onClick={onCollapseAll}
-                            className={styles.expandCollapseButton}
-                            aria-label="Collapse all categories"
-                            title="Collapse all"
-                        >
-                            <FiChevronUp />
-                        </button>
-                    )}
-                </div>
 
                 {isResetEnabled && (
                     <button onClick={resetFilters} className={styles.clearFiltersButton}>

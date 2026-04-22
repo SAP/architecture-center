@@ -84,38 +84,6 @@
     transform: translateY(-1px);
 }
 
-/* Expand/Collapse Buttons */
-.expandCollapseButtons {
-    display: flex;
-    gap: 4px;
-}
-
-.expandCollapseButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    background: transparent;
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--border-radius-sm);
-    color: var(--ifm-color-content-secondary);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.expandCollapseButton:hover {
-    background: var(--ifm-color-emphasis-100);
-    border-color: var(--ifm-color-primary);
-    color: var(--ifm-color-primary);
-}
-
-[data-theme='dark'] .expandCollapseButton:hover {
-    background: var(--ifm-color-emphasis-200);
-}
-
 /* Active Filters Bar */
 .activeFiltersBar {
     display: flex;

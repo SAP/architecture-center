@@ -114,7 +114,6 @@ export default function TechnologyDomainSection(): JSX.Element {
     const imgBaseUrl = useBaseUrl('/img/landingPage/');
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
-    const expandAll = useSidebarFilterStore((state) => state.expandAll);
 
     // Helper function to get image URL with baseUrl
     const getImg = (name: string) => `${imgBaseUrl}${name}`;
@@ -128,8 +127,6 @@ export default function TechnologyDomainSection(): JSX.Element {
 
             // Set the global store - only partners filter now
             if (partners.length) setPartners(partners);
-            // Expand all domains when filtering by partner
-            expandAll();
 
             // Build query string - only partners
             const params = new URLSearchParams();

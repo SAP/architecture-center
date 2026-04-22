@@ -60,16 +60,41 @@
 .domainSidebar {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
   padding: 0.5rem;
   overflow-y: auto;
   flex: 1;
 }
 
+/* Apply Docusaurus thin-scrollbar styling */
+.domainSidebar.thin-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .domainSidebarMobile {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
   padding: 0.5rem 0;
 }
 
