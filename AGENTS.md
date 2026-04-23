@@ -42,22 +42,3 @@ If a PR was created and it's the first one within the current session, kindly as
 
 When it's time to create a PR, try using the GitHub CLI (gh). If it doesn't seem to be installed yet, suggest installing it, so that you can create the PR. But ask before installing it yourself.
 
-## Creating a New Reference Architecture
-
-Go through the files below and familiarize yourself with the expected structure of a new RA:
-
-1. `docs/community/02-Guidelines/03-content-structure.md` - lays out the expected folder structure
-2. `docs/community/02-Guidelines/04-front-matter.md` - essential metadata (front matter) about the RA. title, description, and keywords are especially important for SEO.
-3. `docs/community/02-Guidelines/05-components.md` - custom components declared in the `readme.md` of every new RA and translated into custom React components at build time.
-4. `docs/tags.yml` - lists the existing tags for RA
-
-Never deviate from the structure.
-
-### Additional Constraints
-
-- If you are asked to create a new RA, create only a skeleton for it, including two headings and short paragraphs, and a declaration for the drawio component in the `readme.md`.
-- Never add sub-pages preemptively, unless you were explicitly asked to do that.
-- Copy `docs/ref-arch/RA0000/drawio/demo.drawio` to have an initial drawio
-- Add new tags only if absolutely necessary. Tags used in the front matter must always exist.
-- Never include `category_index` in the front matter. It's a thing from the past and will eventually be removed.
-
