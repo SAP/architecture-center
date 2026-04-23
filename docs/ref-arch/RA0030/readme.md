@@ -39,29 +39,30 @@ contributors:
 discussion:
 last_update:
   author: guilherme-segantini
-  date: 2026-04-22
+  date: 2026-04-23
 ---
 
-AI coding agents generate code rapidly, but without grounding in authoritative sources they produce incorrect APIs, deprecated patterns and insecure dependencies. The cost of ungrounded generation spans quality, security and rework. Agentic engineering addresses this by connecting coding agents to a layered infrastructure of SAP knowledge sources, automated quality gates and governed model access so that generated code is correct by construction.
+AI coding agents generate code rapidly, but without grounding in authoritative sources they produce incorrect APIs, deprecated patterns and insecure dependencies. The cost of ungrounded generation compounds across quality, security, rework and time to value. Agentic engineering addresses this by connecting coding agents to a layered infrastructure of SAP knowledge sources, automated quality gates and governed model access so that generated code is correct by construction.
 
-This reference architecture defines the system that makes agentic engineering work in SAP environments. Five layers connect to form that system: grounding feeds agents authoritative SAP knowledge, quality enforcement blocks non-conforming code before it reaches a branch, orchestration coordinates parallel agent work, model access routes to foundation models on SAP AI Core and the SAP runtime layer provides the deployment target. The patterns are tooling-agnostic; named tools serve as recommended examples, not requirements.
+This reference architecture defines the system that makes agentic engineering work in SAP environments. Humans and agents collaborate on structured specifications before code generation begins. Six layers form the runtime system: grounding feeds agents authoritative SAP knowledge, quality enforcement blocks non-conforming code before it reaches a branch, orchestration coordinates parallel agent work, governance controls which tools and models are available, model access routes to foundation models on SAP AI Core and the SAP runtime layer provides the deployment target. The patterns are tooling-agnostic; named tools serve as recommended examples, not requirements.
 
 ## Architecture
 
 ![drawio](./drawio/agentic-engineering-overview.drawio)
 
-The architecture comprises five interconnected layers.
+The architecture comprises six interconnected layers.
 
--   **Grounding Layer:** SAP Build MCP servers for CAP, Fiori Elements, SAPUI5 and MDK provide authoritative, current knowledge. Context Hub aggregates additional domain sources. Project-level rules, structured specifications capturing non-functional requirements and context-activated skills route agent queries to these sources before code generation begins.
+-   **Grounding Layer:** SAP Build MCP servers for CAP, Fiori Elements, SAPUI5 and MDK provide authoritative, current knowledge. Context Hub aggregates additional domain sources. Structured specifications capture requirements and acceptance criteria co-created by humans and agents. Project-level rules, persistent instructions and context-activated skills accumulate institutional knowledge across sessions, routing agent queries to authoritative sources before code generation begins.
 -   **Quality Enforcement Layer:** Pre-commit and pre-push hooks execute linters, test suites, security scans and browser-based runtime verification at defined lifecycle points. Security scans cover credential scanning, dependency auditing, dependency freshness validation and injection-pattern detection. All agent-generated code is treated as untrusted by default, and context boundary controls prevent secrets from entering the agent’s working context. These gates operate deterministically without relying on the agent’s judgment.
--   **Orchestration Layer:** A lead agent decomposes work into tasks with explicit dependencies, delegates to specialized agents operating in isolated git worktrees and coordinates task completion across dependency waves.
--   **Model Access Layer:** An LLM proxy such as LiteLLM with SAP Generative AI Hub provides a single compliant endpoint to multiple foundation models on SAP AI Core. Strength-based routing directs generation, review and routine tasks to different models without requiring changes to agent code.
+-   **Orchestration Layer:** A lead agent decomposes work into tasks with explicit dependencies, delegates to specialized agents operating in isolated git worktrees and coordinates task completion across dependency waves. The Agent-to-Agent (A2A) protocol provides the interoperability contract for integrating agents across provider boundaries.
+-   **Governance Layer:** A centralized registry controls which MCP servers, skills and foundation models are available to agents. Organizations curate and approve tooling through this registry, ensuring that agent capabilities align with enterprise security and compliance requirements.
+-   **Model Access Layer:** An LLM proxy such as LiteLLM routes through SAP Generative AI Hub to multiple foundation models on SAP AI Core. The hub provides content filtering, PII masking, guardrails, data grounding and audit logging behind a single API key. Strength-based routing directs generation, review and routine tasks to different models without requiring changes to agent code. SAP passes through hyperscaler pricing, reducing model access cost compared to direct provider contracts.
 -   **SAP Runtime Layer:** SAP Business Technology Platform provides the deployment target. SAP Business Data Cloud supplies governed data products for design-time context and runtime data access. SAP AI Core hosts the foundation models.
 
 ## Flow
 
-1.  **Grounding Configuration:** Project-level rules, structured specifications, context-activated skills and MCP server connections load into the agent environment from version control. The grounding layer is fully configured before code generation begins.
-2.  **Task Decomposition:** The orchestration layer receives a development objective, decomposes it into discrete tasks with dependency mappings and assigns each task to a specialized agent operating in an isolated worktree.
+1.  **Specification and Grounding:** Structured specifications co-created by humans and agents define requirements and acceptance criteria. Project-level rules, persistent instructions, context-activated skills and MCP server connections load from version control, fully configuring the grounding layer before code generation begins.
+2.  **Task Decomposition:** The orchestration layer receives a development objective from the co-created specification, decomposes it into discrete tasks with dependency mappings and assigns each task to a specialized agent operating in an isolated worktree.
 3.  **MCP-Grounded Generation:** Each agent queries SAP MCP servers for current API patterns, annotation semantics and framework conventions before generating code. The grounding layer overrides the agent’s training knowledge when the two conflict.
 4.  **Quality Gate Execution:** Pre-commit hooks execute the test suite, linters, security scans and browser-based verification against the generated output. Non-conforming code is rejected and returned to the agent for correction. No code advances without passing all gates.
 5.  **Merge Gate Enforcement:** The version control system enforces branch protection rules requiring passing automated gates and an approved review before accepting any merge. Each merged change carries a semantic commit with testing evidence and traceability to requirements.
@@ -72,8 +73,8 @@ The architecture comprises five interconnected layers.
 -   **Deterministic Enforcement:** Quality gates execute automatically at lifecycle hooks without relying on agent judgment. A hook that blocks a commit on test failure cannot be reasoned away or bypassed by the agent.
 -   **Unified Model Access:** The model access layer normalizes provider differences behind a single proxy endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
 -   **Progressive Trust:** The permission layer enforces least-privilege defaults and exposes escalation paths gated by quality evidence. Permission scopes widen only after the agent passes defined quality thresholds, balancing safety with development velocity.
--   **Compounding Knowledge:** Every fix, edge case and workaround feeds back into the grounding layer as updated rules, skills or annotations. The system produces higher-quality output with each iteration without requiring manual knowledge transfer.
--   **Tooling Agnosticism:** The same layered architecture of grounding, orchestration, quality enforcement and model access applies across coding agent implementations. The integration mechanism differs; the architectural pattern holds.
+-   **Compounding Knowledge:** Every fix, edge case and workaround feeds back into the grounding layer as updated project instructions, skills or persistent memory. This institutional knowledge accumulates across sessions, producing higher-quality output with each iteration without requiring manual knowledge transfer.
+-   **Governed Toolchain:** A centralized registry controls which MCP servers, skills and models agents access. Organizations curate approved capabilities through this registry, preventing unvetted tools from entering the development workflow.
 
 ## Examples in an SAP Context
 
@@ -81,6 +82,7 @@ The architecture comprises five interconnected layers.
 -   **Multi-Agent Team Delivery:** The orchestration layer assigns backend, frontend and testing concerns to individual agents, each operating in an isolated git worktree. Agents execute tasks within dependency waves, communicating through the task coordination system. Features converge through pull requests reviewed by the architect.
 -   **Cross-Model Review:** The model access layer routes CAP service generation to one model, annotation review to a second and structured output validation to a third. SAP Generative AI Hub ensures every model is enterprise-approved. No agent code changes are required to switch or add models.
 -   **Discovery Before Custom Build:** A project-level skill directs the agent to query SAP Joule and existing agent registries before provisioning new capabilities. Only functionality that is unique to the organization proceeds to custom development.
+-   **On-Premise Extension with Cloud AI:** The model access layer connects an S/4HANA on-premise extension to foundation models on SAP AI Core through SAP Generative AI Hub. The on-premise system retains its existing deployment while the extension gains AI-assisted development capabilities without requiring migration to Rise or public cloud.
 
 ## Services and Components
 
@@ -90,6 +92,8 @@ The architecture comprises five interconnected layers.
 - [SAP Business Technology Platform](https://www.sap.com/products/technology-platform.html)
 - [SAP Cloud SDK for AI](https://pages.community.sap.com/topics/cloud-sdk)
 - [SAP Build MCP Servers](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-build-introduces-new-mcp-servers-to-enable-agentic-development-for/ba-p/14205602)
+- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server)
+- [UI5 Web Components MCP Server](https://github.com/niclas-nicklaus/ui5-webcomponents-mcp-server)
 - [SAP Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core)
 - [SAP BTP Audit Log Service](https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-service)
 - [LiteLLM](https://docs.litellm.ai/docs/providers/sap)
@@ -106,5 +110,8 @@ The architecture comprises five interconnected layers.
 - [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/)
 - [SAP Cloud SDK for AI](https://pages.community.sap.com/topics/cloud-sdk)
 - [Building Effective Agents — Anthropic](https://www.anthropic.com/research/building-effective-agents)
+- [OpenSpec — Spec-Driven Development](https://github.com/Fission-AI/OpenSpec)
+- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server)
+- [UI5 Web Components MCP Server](https://github.com/niclas-nicklaus/ui5-webcomponents-mcp-server)
 
 ## Related Missions
