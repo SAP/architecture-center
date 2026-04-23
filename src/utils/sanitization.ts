@@ -111,7 +111,7 @@ export function stripHtml(html: string): string {
 /**
  * Validate and sanitize URL parameters
  */
-export function sanitizeUrlParams(params: Record<string, any>): Record<string, string> {
+export function sanitizeUrlParams(params: Record<string, unknown>): Record<string, string> {
     const sanitized: Record<string, string> = {};
 
     for (const [key, value] of Object.entries(params)) {
@@ -152,8 +152,8 @@ export function validateInputLength(
 /**
  * Sanitize object keys to prevent prototype pollution
  */
-export function sanitizeObjectKeys<T extends Record<string, any>>(obj: T): Partial<T> {
-    const sanitized: any = {};
+export function sanitizeObjectKeys<T extends Record<string, unknown>>(obj: T): Partial<T> {
+    const sanitized: Record<string, unknown> = {};
     const dangerousKeys = ['__proto__', 'constructor', 'prototype'];
 
     for (const [key, value] of Object.entries(obj)) {
@@ -163,7 +163,7 @@ export function sanitizeObjectKeys<T extends Record<string, any>>(obj: T): Parti
         }
     }
 
-    return sanitized;
+    return sanitized as Partial<T>;
 }
 
 /**
@@ -192,7 +192,7 @@ export function validateTokenFormat(token: string): { valid: boolean; error?: st
 /**
  * Sanitize JSON input to prevent injection
  */
-export function sanitizeJson(jsonString: string): { valid: boolean; data?: any; error?: string } {
+export function sanitizeJson(jsonString: string): { valid: boolean; data?: unknown; error?: string } {
     try {
         const parsed = JSON.parse(jsonString);
 

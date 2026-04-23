@@ -185,6 +185,27 @@ ui5-button::shadow button {
     border-radius: 24px !important;
 }
 
+/* Suppress mouse-click focus rings on all native buttons; keep keyboard focus visible */
+button:focus {
+    outline: none;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
+/*
+ * UI5 buttons on desktop use :focus-within (fires on mouse click too) to draw an inner focus rectangle.
+ * Override the border variable to none so the rectangle doesn't appear on mouse clicks.
+ * Non-desktop uses :focus-visible (keyboard-only) which is unaffected.
+ */
+ui5-button[desktop] {
+    --_ui5_button_focused_border: none;
+    --_ui5_button_emphasized_focused_border_before: none;
+    --_ui5_button_pressed_focused_border_color: transparent;
+}
+
 button.iconButton {
     color: #0070f2;
     width: 28px;

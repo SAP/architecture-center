@@ -63,7 +63,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const baseUrl = siteConfig.baseUrl;
 
     const handleInfoClick = () => {
-        const infoUrl = `${baseUrl}community/validation-rules`;
+        const infoUrl = `${baseUrl}docs/validation-rules`;
         window.open(infoUrl, '_blank', 'noopener,noreferrer');
     };
 
