@@ -5,15 +5,16 @@ description: >-
   Build, deploy and run document processing solutions using SAP Document AI on SAP
   BTP.
 keywords:
-- sap
-- document ai
-- document processing
-- machine learning
+    - sap
+    - document ai
+    - document processing
+    - machine learning
 sidebar_label: Document AI
 image: img/ac-soc-med.png
 tags:
-- genai
-- appdev
+    - ai-golden-path
+    - genai
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

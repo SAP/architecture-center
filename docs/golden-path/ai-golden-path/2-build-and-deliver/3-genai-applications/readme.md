@@ -5,19 +5,20 @@ description: >-
   Build, deploy and run LLM and GenAI applications on SAP BTP using SAP AI Core, Generative
   AI Hub and CAP.
 keywords:
-- sap
-- genai
-- llm
-- ai core
-- generative ai hub
-- cap
-- rag
+    - sap
+    - genai
+    - llm
+    - ai core
+    - generative ai hub
+    - cap
+    - rag
 sidebar_label: GenAI Applications
 image: img/ac-soc-med.png
 tags:
-- genai
-- cap
-- appdev
+    - ai-golden-path
+    - genai
+    - cap
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

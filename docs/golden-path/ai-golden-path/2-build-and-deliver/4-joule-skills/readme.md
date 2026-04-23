@@ -5,19 +5,20 @@ description: >-
   Build, deploy and run custom Joule Skills using Joule Studio on SAP BTP for extending
   SAP Joule capabilities.
 keywords:
-- sap
-- joule
-- joule studio
-- joule skills
-- sap build
-- low-code
+    - sap
+    - joule
+    - joule studio
+    - joule skills
+    - sap build
+    - low-code
 sidebar_label: Joule Skills
 image: img/ac-soc-med.png
 tags:
-- genai
-- agents
-- build
-- appdev
+    - ai-golden-path
+    - genai
+    - agents
+    - build
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -5,19 +5,20 @@ description: >-
   Build, deploy and run machine learning use cases on SAP BTP using RPT-1, HANA Cloud
   PAL/APL and SAP AI Core.
 keywords:
-- sap
-- machine learning
-- rpt-1
-- hana cloud
-- pal
-- apl
-- ai core
+    - sap
+    - machine learning
+    - rpt-1
+    - hana cloud
+    - pal
+    - apl
+    - ai core
 sidebar_label: Classic ML Scenarios
 image: img/ac-soc-med.png
 tags:
-- genai
-- data
-- appdev
+    - ai-golden-path
+    - genai
+    - data
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -5,20 +5,21 @@ description: >-
   A structured decision framework for selecting the right AI approach on SAP BTP,
   covering relational foundation models, classic ML, LLMs and AI agents.
 keywords:
-- sap
-- ai
-- decision tree
-- rpt-1
-- machine learning
-- llm
-- ai agents
-- technology assessment
+    - sap
+    - ai
+    - decision tree
+    - rpt-1
+    - machine learning
+    - llm
+    - ai agents
+    - technology assessment
 sidebar_label: Technology Decision Tree
 image: img/ac-soc-med.png
 tags:
-- genai
-- agents
-- appdev
+    - ai-golden-path
+    - genai
+    - agents
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -175,7 +176,7 @@ Before investing in any AI solution, it's critical to establish whether your pro
 
 ```mermaid
 ---
-title: Graph 1 - Intial Assessment
+title: Graph 1 - Initial Assessment
 ---
 flowchart TD
     Start("Start: Problem/Use Case Identification")
@@ -216,12 +217,12 @@ flowchart TD
     R6("⚠️️ Reassess Requirements<br>Consider if automation<br>is actually needed")
 
     %% Styling
-    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
+    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
 
     class Start startNode
     class R1,R2,R3 recommendation
@@ -259,12 +260,12 @@ flowchart TD
     R2("✅ RECOMMENDATION:<br>Train Task-specific Model<br><br>Consult <a href='https://scikit-learn.org/stable/machine_learning_map.html'>cheat sheet</a>"<br>to select the correct<br>method)
 
     %% Styling
-    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
+    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
 
     class Start startNode
     class R1,R2 recommendation
@@ -317,12 +318,12 @@ flowchart TD
     R2("✅ RESULT: Medium/High Agency<br>➡️ Continue with GRAPH 4:<br>Agentic AI Implementation")
 
     %% Styling
-    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
+    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
 
     class DataCheck,B,C,D,RulesEngine decision
     class Readiness warning
@@ -357,12 +358,12 @@ flowchart TD
     R2("✅ RECOMMENDATION:<br>Joule Skill<br>(Low Agency)<br>Characteristics:<br>- Conversational interface via Joule<br>- Structured workflow<br>- Predefined steps<br>- Natural language interaction<br>Implementation:<br>- Create as Joule Skill<br>- Define intents & entities<br>- Connect to backend GenAI")
 
     %% Styling
-    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
+    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
 
     class StartG3 continueNext
     class ConvLow decision
@@ -433,12 +434,12 @@ flowchart TD
     R3("✅ RECOMMENDATION:<br>Dev IDE (Pro-code) Path<br>Code-based Agent<br><br>Characteristics:<br>- Full customization<br>- Maximum control<br>- IDE workflows (VSCode, etc.)<br>- Unified Agent Fabric runtime")
 
     %% Styling
-    classDef decision fill:#fff,stroke:#757575,stroke-width:0px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
+    classDef decision fill:#fff,stroke:#757575,stroke-width:2px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
 
     class StartG4 continueNext
     class E,ConvAgentic,Control,Skills,Disclaimer,PathChoice decision
