@@ -4,6 +4,7 @@ import {
     $getSelection,
     $isParagraphNode,
     $isRangeSelection,
+    $isDecoratorNode,
     SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import { useEffect, useRef } from 'react';
@@ -25,7 +26,15 @@ export default function EmptyLineCommandHintPlugin() {
 
                 const anchorNode = selection.anchor.getNode();
                 const topLevel = anchorNode.getTopLevelElementOrThrow();
-                if ($isParagraphNode(topLevel) && topLevel.getTextContent().trim() === '') {
+
+                // Skip if this paragraph is adjacent to a decorator node (like DrawioNode or ImageNode)
+                const prevSibling = topLevel.getPreviousSibling();
+                const nextSibling = topLevel.getNextSibling();
+                const isAdjacentToDecorator =
+                    (prevSibling && $isDecoratorNode(prevSibling)) ||
+                    (nextSibling && $isDecoratorNode(nextSibling));
+
+                if ($isParagraphNode(topLevel) && topLevel.getTextContent().trim() === '' && !isAdjacentToDecorator) {
                     nextNodeKey = topLevel.getKey();
                 }
             });
