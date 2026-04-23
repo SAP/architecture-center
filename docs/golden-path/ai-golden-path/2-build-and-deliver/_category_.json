@@ -1,6 +1,6 @@
 {
     "label": "Build and Deliver",
-    "position": 2,
-    "collapsible": true,
+    "position": 3,
+    "collapsible": false,
     "collapsed": false
 }

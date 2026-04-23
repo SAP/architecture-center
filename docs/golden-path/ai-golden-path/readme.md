@@ -1,9 +1,7 @@
 ---
-id: id-aigp-0
+id: id-aigp-1
 slug: /aigp
-sidebar_position: 0
-sidebar_custom_props:
-    category_index: []
+sidebar_position: 1
 title: SAP AI Golden Path
 description: >-
     The SAP AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.
