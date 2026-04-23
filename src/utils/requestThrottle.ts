@@ -25,7 +25,7 @@ interface RateLimitOptions {
  * @param delay Minimum time between executions in milliseconds
  * @param options Configuration options
  */
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number,
     options: Partial<ThrottleOptions> = {}
@@ -34,7 +34,7 @@ export function throttle<T extends (...args: any[]) => any>(
     let lastRan: number = 0;
     const { leading = true, trailing = true } = options;
 
-    return function (this: any, ...args: Parameters<T>) {
+    return function (this: unknown, ...args: Parameters<T>) {
         const now = Date.now();
 
         if (!lastRan && !leading) {
@@ -65,13 +65,13 @@ export function throttle<T extends (...args: any[]) => any>(
  * @param func Function to debounce
  * @param delay Time to wait before executing in milliseconds
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
 ): (...args: Parameters<T>) => void {
     let timeoutId: NodeJS.Timeout | null = null;
 
-    return function (this: any, ...args: Parameters<T>) {
+    return function (this: unknown, ...args: Parameters<T>) {
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
@@ -141,13 +141,13 @@ export class RateLimiter {
  * @param options Rate limit configuration
  * @returns Rate-limited function that throws error if limit exceeded
  */
-export function rateLimit<T extends (...args: any[]) => Promise<any>>(
+export function rateLimit<T extends (...args: unknown[]) => Promise<unknown>>(
     func: T,
     options: RateLimitOptions
 ): (...args: Parameters<T>) => Promise<ReturnType<T>> {
     const limiter = new RateLimiter(options);
 
-    return async function (this: any, ...args: Parameters<T>): Promise<ReturnType<T>> {
+    return async function (this: unknown, ...args: Parameters<T>): Promise<ReturnType<T>> {
         if (!limiter.allowRequest()) {
             const waitTime = limiter.getTimeUntilReset();
             throw new Error(
@@ -155,7 +155,7 @@ export function rateLimit<T extends (...args: any[]) => Promise<any>>(
             );
         }
 
-        return func.apply(this, args);
+        return func.apply(this, args) as ReturnType<T>;
     };
 }
 
@@ -164,14 +164,14 @@ export function rateLimit<T extends (...args: any[]) => Promise<any>>(
  */
 export const rateLimiters = {
     /** Strict rate limiter: 5 requests per minute */
-    strict: (func: (...args: any[]) => Promise<any>) =>
+    strict: (func: (...args: unknown[]) => Promise<unknown>) =>
         rateLimit(func, { maxRequests: 5, windowMs: 60000 }),
 
     /** Normal rate limiter: 10 requests per minute */
-    normal: (func: (...args: any[]) => Promise<any>) =>
+    normal: (func: (...args: unknown[]) => Promise<unknown>) =>
         rateLimit(func, { maxRequests: 10, windowMs: 60000 }),
 
     /** Relaxed rate limiter: 30 requests per minute */
-    relaxed: (func: (...args: any[]) => Promise<any>) =>
+    relaxed: (func: (...args: unknown[]) => Promise<unknown>) =>
         rateLimit(func, { maxRequests: 30, windowMs: 60000 }),
 };

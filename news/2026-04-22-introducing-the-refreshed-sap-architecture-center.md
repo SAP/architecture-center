@@ -12,17 +12,19 @@ We are pleased to announce the launch of a refreshed SAP Architecture Center. Af
 
 <!-- truncate -->
 
+![Architecture Center NEO](img/2026-04-22/AC3.0.webp)
+
 ## A Broader Mission for a Changing Landscape
 
 Beyond the visual redesign, the SAP Architecture Center is evolving to reflect a fundamental shift in both our industry and SAP's strategic direction. The pace of technological change, particularly with AI, cloud transformation, and evolving enterprise needs, requires a more dynamic and transparent approach to architectural guidance.
 
-Our mandate has expanded. The Architecture Center is no longer simply a repository of reference architectures. It has become a communication channel between SAP's architectural vision and the global community of practitioners implementing these solutions. We are committed to bringing greater transparency to our work, sharing not just finished architectures but also insights into what we are currently developing, the challenges we are addressing, and the strategic directions we are pursuing.
+Our mandate has expanded. The Architecture Center is no longer simply a repository of reference architectures. It has become a communication channel between SAP's architectural vision and the global community of practitioners implementing these solutions. We are committed to bringing greater transparency to our work, sharing not just finished architectures but also insights into what we are currently developing, the challenges we are addressing, new research initiatives, and the strategic directions we are pursuing.
 
 This shift recognises that architecture is a continuous conversation, not a set of static documents. As the industry evolves and SAP's strategy adapts to new market realities, the Architecture Center will serve as a living platform where these changes are communicated clearly, openly, and in a way that helps you make informed decisions about your own architectural choices.
 
 ## Comprehensive Reference Architectures
 
-The platform now hosts 30 reference architectures across 88 different documents. Each architecture provides detailed guidance on integrating SAP solutions with major cloud providers including AWS, Azure, and Google Cloud Platform.
+The platform now hosts 30 reference architectures across 88 different documents. Each architecture provides detailed guidance on integrating SAP solutions with cloud providers and technology partners.
 
 Recent additions include practical implementations for:
 

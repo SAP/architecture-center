@@ -263,14 +263,18 @@ const config: Config = {
                             to: '/docs/nsa/',
                             sidebarid: 'northStarSidebar',
                         }, */
-                    /*    {
+                       {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/aigp/',
                             sidebarid: 'goldenPathSidebar',
-                        }, */
+                        },
                         {
                             label: 'Browse the Reference Architectures',
                             to: '/docs/ref-arch',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Launch the Architecture Validator',
@@ -279,6 +283,10 @@ const config: Config = {
                         {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Access the Community of Practice',
