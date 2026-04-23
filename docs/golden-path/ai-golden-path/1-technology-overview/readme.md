@@ -5,20 +5,21 @@ description: >-
   A structured decision framework for selecting the right AI approach on SAP BTP,
   covering relational foundation models, classic ML, LLMs and AI agents.
 keywords:
-- sap
-- ai
-- decision tree
-- rpt-1
-- machine learning
-- llm
-- ai agents
-- technology assessment
+    - sap
+    - ai
+    - decision tree
+    - rpt-1
+    - machine learning
+    - llm
+    - ai agents
+    - technology assessment
 sidebar_label: Technology Decision Tree
 image: img/ac-soc-med.png
 tags:
-- genai
-- agents
-- appdev
+    - ai-golden-path
+    - genai
+    - agents
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

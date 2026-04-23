@@ -5,21 +5,22 @@ description: >-
   Build, integrate and orchestrate AI agents on SAP BTP using Joule Studio, SAP Cloud
   SDK for AI, A2A and MCP protocols.
 keywords:
-- sap
-- ai agents
-- joule
-- joule studio
-- a2a
-- mcp
-- pro-code
-- low-code
-- sap cloud sdk for ai
+    - sap
+    - ai agents
+    - joule
+    - joule studio
+    - a2a
+    - mcp
+    - pro-code
+    - low-code
+    - sap cloud sdk for ai
 sidebar_label: Build AI Agents
 image: img/ac-soc-med.png
 tags:
-- genai
-- agents
-- appdev
+    - ai-golden-path
+    - genai
+    - agents
+    - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
