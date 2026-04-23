@@ -1,22 +1,22 @@
 ---
 title: Accelerating SAP Extensions with Agentic Engineering
 description: Accelerate SAP extension development with agentic engineering — coding agents equipped with SAP MCP servers, architecture specs, and browser automation to build enterprise-quality CAP and Fiori applications.
-authors: [guilherme-segantini]
-keywords: ["SAP Architecture Center", "Claude Code", "Agentic Engineering", "MCP Servers", "SAP BTP", "CAP", "Fiori", "LiteLLM", "Gen AI Hub"]
+keywords: ["ai", "SAP Architecture Center", "claude", "agentic engineering", "mcp", "CAP", "Fiori", "LiteLLM"]
 hide_table_of_contents: true
-date: 2026-03-30
-draft: false
+spotlight_image: img/2026-04-27/agentic-engineering-architecture.svg
+date: 2026-04-27
+authors: [guilherme-segantini]
 ---
 
 The prototype took less than thirty minutes — CAP backend, Fiori Elements frontend, OData endpoints, the whole Financial Risk Analyzer scaffolded by my coding agent, Claude Code. It compiled. It rendered. Then I opened it and got a blank page.
 
 Several debugging rounds later the page showed up — but columns came up empty, buttons did nothing, and the risk data never reached the frontend. The root cause wasn't one bug. It was a pattern: deprecated annotations the runtime silently ignored, naming mismatches between the controller and what Fiori Elements actually looks for, and OData wiring that looked correct but had no execution path in V4.
 
-Coding agents write code fast. But debugging after the fact was the most expensive way to use AI. Each fix cycle — wait for a new attempt, test again — turned enthusiasm into frustration. The answer isn't just writing code faster. What we found changed how we approach AI-assisted SAP development.
+AI coding agents excel at writing code quickly, but debugging their output after the fact is often the most expensive way to utilize AI. Every fix cycle—waiting for a new attempt, then testing it again—can quickly turn enthusiasm into frustration. For example, my colleague Anuj Gupta recently wrote about an [intermittent authentication failure across Kubernetes and SAP AI Core](/news/2026/04/23/finding-the-needle-ai-assisted-debugging) that would have taken 12+ hours to trace manually. In this article, we explore the crucial difference between merely producing code faster and producing high-quality code, and we share our approach to achieving the latter in SAP Extensions development.
 
-The project was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered).
+The experiment was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered).
 
-![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](img/2026-04-23/sample-cap-app-screenshot.png)
+![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](img/2026-04-27/sample-cap-app-screenshot.png)
 
 ## The SAP MCP Servers Advantage
 
@@ -243,6 +243,8 @@ Four focused filter fields with proper range sliders instead of twenty-four. Tha
 
 MCP servers, skills, and project instructions make this work. Here's how they fit together.
 
+![Agentic Engineering for SAP Extensions — Coding agent equipped with domain expertise, architecture spec, and browser verification](img/2026-04-27/agentic-engineering-architecture.svg)
+
 ## How to Equip Your Agent to Get It Right
 
 In practice, four configuration layers work together:
@@ -386,6 +388,7 @@ sequenceDiagram
 - [UI5 MCP Server](https://community.sap.com/t5/technology-blog-posts-by-sap/give-your-ai-agent-some-tools-introducing-the-ui5-mcp-server/ba-p/14200825) — UI5 Web Components development assistance
 
 **Agentic Engineering & Spec-Driven Development**
+- [Finding the Needle: AI-Assisted Debugging Across Thousands of Lines and Megabytes of Logs](/news/2026/04/23/finding-the-needle-ai-assisted-debugging) — How a coding agent resolved an intermittent auth failure across Kubernetes and SAP AI Core in 60 minutes instead of 12+ hours, by correlating logs and tracing credential conflicts no single engineer could spot at once
 - [superpowers](https://github.com/obra/superpowers) — Spec-driven development framework that guides coding agents through structured requirements gathering
 - [GSD](https://github.com/gsd-build/get-shit-done) — Meta-prompting, context engineering, and spec-driven development system for coding agents
 - [OpenSpec](https://github.com/Fission-AI/OpenSpec) — Spec-driven development tool that adds a lightweight specification layer before code is written
