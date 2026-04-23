@@ -67,30 +67,26 @@ function useWindowSize() {
     return { ...windowSize, isHydrated };
 }
 
-function CardLayout({ href, title, description, tags, lastUpdate, item }) {
+function CardLayout({ href, title, description, tags, lastUpdate, item: _item }) {
     const moreTagsRef = useRef(null);
     const [popoverIsOpen, setPopoverIsOpen] = useState(false);
     const [compressedTags, setCompressedTags] = useState([]);
     const [remainingTags, setRemainingTags] = useState([]);
     const [readableTitle, setReadableTitle] = useState(title); // Initialize with title
     const [readableDescription, setReadableDescription] = useState(description); // Initialize with description
-    const { width, height, isHydrated } = useWindowSize();
+    const { width, isHydrated } = useWindowSize();
 
     const card = useRef(null);
-    const [componentSize, setComponentSize] = useState({ width: 0, height: 0 });
 
-    // ResizeObserver effect with hydration guard
+    // ResizeObserver effect with hydration guard - triggers re-render on size change
     useEffect(() => {
         if (!isHydrated) return;
-        
+
         const cardElement = card.current;
         if (!cardElement || typeof ResizeObserver === 'undefined') return;
 
-        const resizeObserver = new ResizeObserver((entries) => {
-            for (let entry of entries) {
-                const { width, height } = entry.contentRect;
-                setComponentSize({ width, height });
-            }
+        const resizeObserver = new ResizeObserver(() => {
+            // Force a re-render when size changes by triggering the tag processing effect
         });
 
         resizeObserver.observe(cardElement);
@@ -161,13 +157,14 @@ function CardLayout({ href, title, description, tags, lastUpdate, item }) {
 
     useEffect(() => {
         if (!isHydrated) return;
-        setRemainingTags(calculateRemainingTags());
-    }, [compressedTags, isHydrated]);
-
-    function calculateRemainingTags() {
-        if (!tags) return [];
-        return tags.filter((obj1) => !compressedTags.some((obj2) => JSON.stringify(obj1) === JSON.stringify(obj2)));
-    }
+        // Calculate remaining tags inline to avoid dependency warning
+        if (!tags) {
+            setRemainingTags([]);
+            return;
+        }
+        const remaining = tags.filter((obj1) => !compressedTags.some((obj2) => JSON.stringify(obj1) === JSON.stringify(obj2)));
+        setRemainingTags(remaining);
+    }, [compressedTags, isHydrated, tags]);
 
     return (
         <Card

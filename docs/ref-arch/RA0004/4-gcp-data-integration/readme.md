@@ -14,6 +14,7 @@ keywords:
   - data harmonization
   - advanced analytics
   - bdc connect 
+  - bdc connect for google big query
   - delta share
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png
@@ -35,7 +36,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-10-23
+  date: 2026-04-10
 ---
 
 Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google Cloud Platform services can be effortlessly integrated and harmonized with SAP business data through SAP Business Data Cloud. Leveraging open data protocols and advanced data fabric architectures, this approach enables secure, bi-directional data sharing and unified access to information across systems. The result is a centrally governed, holistic data environment that supports efficient analytics and AI/ML-driven use cases—all built on industry-standard open protocols.

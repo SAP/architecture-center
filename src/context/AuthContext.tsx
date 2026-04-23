@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 import { authStorage } from '../utils/authStorage';
 import { useLocation, useHistory } from '@docusaurus/router';
 import siteConfig from '@generated/docusaurus.config';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import { logger } from '../utils/logger';
 
 const GITHUB_SESSION_DURATION_HOURS = 2;
 
@@ -38,7 +38,32 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    return <BrowserOnly>{() => <AuthLogicProvider>{children}</AuthLogicProvider>}</BrowserOnly>;
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    // During SSR or initial render, provide default values and render children
+    if (!isClient) {
+        return (
+            <AuthContext.Provider
+                value={{
+                    user: null,
+                    users: { github: null, btp: null },
+                    loading: true,
+                    logout: () => {},
+                    hasDualLogin: false,
+                    token: null,
+                }}
+            >
+                {children}
+            </AuthContext.Provider>
+        );
+    }
+
+    // On client, use the full auth logic
+    return <AuthLogicProvider>{children}</AuthLogicProvider>;
 };
 
 const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
@@ -69,7 +94,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const timeLeft = expiresAt - currentTime; // Time left in seconds
 
         if (timeLeft <= 0) {
-            console.log('BTP token already expired. Logging out BTP user.');
+            logger.info('BTP token already expired. Logging out BTP user.');
             logout('btp');
             return;
         }
@@ -81,7 +106,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         const effectiveDelay = Math.max(1000, delay); // Minimum 1 second delay
 
         btpLogoutTimerRef.current = setTimeout(() => {
-            console.log('BTP token expired or nearing expiry. Initiating BTP logout.');
+            logger.info('BTP token expired or nearing expiry. Initiating BTP logout.');
             logout('btp');
         }, effectiveDelay);
     };
@@ -120,12 +145,12 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                         scheduleGithubTokenExpiryCheck(githubAuthData.expiresAt);
                     } else {
                         // If expired, remove it
-                        console.log('GitHub session expired, removing token.');
+                        logger.info('GitHub session expired, removing token.');
                         localStorage.removeItem('jwt_token');
                         setToken(null);
                     }
-                } catch (jwtError) {
-                    console.error('Invalid GitHub JWT data found, removing it.', jwtError);
+                } catch {
+                    logger.error('Invalid GitHub JWT data found, removing it.');
                     localStorage.removeItem('jwt_token');
                     setToken(null);
                 }
@@ -150,7 +175,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             };
                             scheduleBtpTokenExpiryCheck(decodedBtpToken.exp); // Schedule check
                         } else {
-                            console.log('BTP token found but is expired. Clearing BTP auth data.');
+                            logger.info('BTP token found but is expired. Clearing BTP auth data.');
                             authStorage.clear();
                         }
                     } else {
@@ -162,8 +187,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             provider: 'btp',
                         };
                     }
-                } catch (btpJwtError) {
-                    console.error('Invalid BTP token found in authStorage, removing it.', btpJwtError);
+                } catch {
+                    logger.error('Invalid BTP token found in authStorage, removing it.');
                     authStorage.clear();
                 }
             }
@@ -178,8 +203,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             } else {
                 setUser(null);
             }
-        } catch (error) {
-            console.error('Error processing authentication tokens:', error);
+        } catch {
+            logger.error('Error processing authentication tokens');
             localStorage.removeItem('jwt_token');
             authStorage.clear();
             setUser(null);
@@ -200,19 +225,26 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const logoutProvider = params.get('provider');
 
             if (githubTokenFromUrl) {
+                // SECURITY: Immediately clear token from URL to prevent exposure in:
+                // - Browser history
+                // - Server logs
+                // - Referer headers
+                history.replace(window.location.pathname);
+
                 // Create a session expiry for the GitHub token
                 const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
                 const githubAuthData = { token: githubTokenFromUrl, expiresAt };
                 localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
 
-                history.replace(window.location.pathname);
                 // We will re-check tokens which will also schedule the expiry timer
                 checkAuthTokens();
                 // No immediate return or redirect, let the component re-render
             } else if (btpToken) {
+                // SECURITY: Immediately clear token from URL to prevent exposure
+                history.replace({ ...location, search: '' });
+
                 // When BTP token is received, save it with expiry
                 authStorage.save({ token: btpToken });
-                history.replace({ ...location, search: '' });
                 try {
                     const BTP_API = siteConfig.customFields.backendUrl as string;
                     const userInfoUrl = new URL(`${BTP_API}/user/getUserInfo`);
@@ -241,11 +273,11 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             }
                         }
                     } else {
-                        console.error('Failed to fetch BTP user info');
+                        logger.error('Failed to fetch BTP user info');
                         authStorage.clear();
                     }
-                } catch (error) {
-                    console.error('Error fetching BTP user info:', error);
+                } catch {
+                    logger.error('Error fetching BTP user info');
                     authStorage.clear();
                 }
                 window.dispatchEvent(new Event('storage'));
@@ -266,6 +298,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             window.removeEventListener('storage', handleStorageChange);
             clearAllLogoutTimers(); // Clear timers on unmount
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location, history]);
 
     // Get baseUrl from site config
@@ -322,8 +355,9 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
             const baseRedirectUrl = window.location.origin + baseUrl;
 
             if (btpToken) {
+                // NOTE: We don't pass the token in URL to avoid exposure in browser history/logs
+                // The backend should use session cookies for logout verification
                 const logoutUrl = new URL(`${BTP_API}/user/logout`);
-                logoutUrl.searchParams.append('jwt_token', btpToken);
                 logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
 
                 if (newUsers.github) {
@@ -333,7 +367,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 }
                 window.location.href = logoutUrl.toString();
             } else {
-                console.log('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
+                logger.info('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
                 if (newUsers.github) {
                     setUser(newUsers.github);
                     // No need to schedule github timer, it's already running if valid

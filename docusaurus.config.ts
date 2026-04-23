@@ -48,17 +48,22 @@ const config: Config = {
         './src/plugins/page-mapping-generator',
         './src/plugins/tags-generator',
         './src/plugins/tags-plugin',
+        './src/plugins/security-headers',
         [
-            '@docusaurus/plugin-content-docs',
+            require.resolve('@easyops-cn/docusaurus-search-local'),
             {
-                id: 'community',
-                path: 'community',
-                routeBasePath: 'community',
-                sidebarPath: require.resolve('./sidebarsCommunity'),
-                showLastUpdateTime: true,
-                showLastUpdateAuthor: true,
-                onInlineTags: 'warn',
-                editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
+                hashed: true,
+                indexDocs: true,
+                indexPages: true,
+                docsRouteBasePath: ['/docs'],
+                docsDir: ['docs'],
+                indexBlog: true,
+                blogDir: 'news',
+                blogRouteBasePath: '/news',
+                language: ['en'],
+                highlightSearchTermsOnTargetPage: true,
+                removeDefaultStopWordFilter: true,
+                removeDefaultStemmer: true,
             },
         ],
         async function tailwindcss() {
@@ -84,11 +89,13 @@ const config: Config = {
             'classic',
             {
                 blog: {
-                    path: 'blog',
-                    blogTitle: 'SAP Architecture Center - News',
+                    path: 'news',
+                    routeBasePath: 'news',
+                    blogTitle: 'SAP Architecture Center News',
                     blogDescription:
-                        'This blog covers reference architectures in the SAP Architecture Center and details their well-architected framework principles',
-                    blogSidebarTitle: 'Architecture Center news',
+                        'A curated space dedicated to the latest advancements in research, publications, innovations, reference architectures, feature releases, and community contributions.',
+                    blogSidebarTitle: 'Architecture Center News',
+                    blogSidebarCount: 0,
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
                 },
@@ -111,8 +118,8 @@ const config: Config = {
                     ignorePatterns: [
                         '/**/tags/**',
                         '/search/**',
-                        '/blog/authors/**',
-                        '/blog/archive/**',
+                        '/news/authors/**',
+                        '/news/archive/**',
                         '/docs/partners/**',
                         '/docs/sap/**',
                         '/docs/exploreallrefarch/**',
@@ -123,6 +130,39 @@ const config: Config = {
     ],
 
     themeConfig: {
+        colorMode: {
+            defaultMode: 'dark',
+            respectPrefersColorScheme: false,
+        },
+        mermaid: {
+            theme: { light: 'base', dark: 'base' },
+            options: {
+                fontFamily: '72, Arial, Helvetica, sans-serif',
+                themeVariables: {
+                    // Force black text for all elements - comprehensive list
+                    primaryTextColor: '#000000',
+                    secondaryTextColor: '#000000',
+                    tertiaryTextColor: '#000000',
+                    textColor: '#000000',
+                    labelTextColor: '#000000',
+                    nodeTextColor: '#000000',
+                    edgeLabelBackground: '#ffffff',
+                    // Node backgrounds and borders
+                    mainBkg: '#ffffff',
+                    secondaryBkg: '#FFC933',
+                    tertiaryBkg: '#89D1FF',
+                    primaryColor: '#97DD40',
+                    primaryBorderColor: '#757575',
+                    lineColor: '#757575',
+                    nodeBorder: '#757575',
+                    clusterBkg: '#f5f5f5',
+                    clusterBorder: '#0070f2',
+                    // Additional text color overrides
+                    labelColor: '#000000',
+                    titleColor: '#000000',
+                },
+            },
+        },
         image: 'img/ac-soc-med.png',
         metadata: [
             {
@@ -151,14 +191,14 @@ const config: Config = {
         },
 
         // Announcement Bar
-        announcementBar: {
-            id: 'internal-prototype',
-            content:
-                '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
-            backgroundColor: '#0053CB',
-            textColor: '#FFFFFF',
-            isCloseable: true,
-        },
+        // announcementBar: {
+        //     id: 'internal-prototype',
+        //     content:
+        //         '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
+        //     backgroundColor: '#0053CB',
+        //     textColor: '#FFFFFF',
+        //     isCloseable: true,
+        // },
         navbar: {
             title: 'Architecture Center',
             hideOnScroll: false,
@@ -178,23 +218,23 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=appdev">Application Development & Automation</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=appdev">Application Development & Automation</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=ai">Artificial Intelligence</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=ai">Artificial Intelligence</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=data">Data & Analytics</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=data">Data & Analytics</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=integration">Integration</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=integration">Integration</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?techDomains=opsec">Operation & Security</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=opsec">Operation & Security</a>`,
                         },
                         {
                             type: 'html',
@@ -206,62 +246,81 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=aws">Amazon Web Services</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=aws">Amazon Web Services</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=databricks">Databricks</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=databricks">Databricks</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=gcp">Google Cloud Platform</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=gcp">Google Cloud Platform</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=ibm">IBM</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=ibm">IBM</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=azure">Microsoft Azure</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=azure">Microsoft Azure</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=nvidia">Nvidia</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=nvidia">Nvidia</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs?partners=snowflake">Snowflake</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=snowflake">Snowflake</a>`,
                         },
                     ],
                 },
                 {
+                    type: 'search',
+                    position: 'right',
+                },
+                {
                     type: 'dropdown',
                     label: 'Navigate',
-                    position: 'right',
+                    position: 'left',
                     items: [
                         {
-                            label: 'Browse Architectures',
-                            to: '/docs',
+                            label: 'Explore All News Articles',
+                            to: '/news-all',
+                        },
+                    /*    {
+                            label: 'Discover the AI-Native North Star Architecture',
+                            to: '/docs/nsa/',
+                            sidebarid: 'northStarSidebar',
+                        }, */
+                       {
+                            label: 'Discover the AI Golden Path',
+                            to: '/docs/aigp/',
+                            sidebarid: 'goldenPathSidebar',
                         },
                         {
-                            label: 'Architecture Validator',
+                            label: 'Browse the Reference Architectures',
+                            to: '/docs/ref-arch',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
+                            label: 'Launch the Architecture Validator',
                             to: '/architecture-validator',
                         },
                         {
-                            label: 'Quick Start',
+                            label: 'Launch Quick Start',
                             to: '/quick-start',
                         },
                         {
-                            label: 'Solution Diagram Guidelines',
-                            href: 'https://sap.github.io/btp-solution-diagrams'
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
-                            label: 'Community of Practice',
-                            to: '/community/intro',
-                        },
-                        {
-                            label: "What's New",
-                            to: '/blog',
+                            label: 'Access the Community of Practice',
+                            to: '/docs/community/intro/',
+                            sidebarid: 'communitySidebar',
                         },
                     ],
                 },
@@ -358,7 +417,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.`,
         },
         prism: {
             theme: lightCodeTheme,

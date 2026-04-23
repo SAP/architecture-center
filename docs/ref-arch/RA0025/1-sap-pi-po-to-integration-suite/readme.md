@@ -18,6 +18,8 @@ keywords:
 sidebar_label: SAP PI/PO to SAP Integration Suite
 image: img/logo.svg
 tags:
+  - ref-arch
+  - community-contrib
   - integration
   - transition
 hide_table_of_contents: false
@@ -33,6 +35,12 @@ last_update:
   author: abklgithub
   date: 2025-08-02
 ---
+
+:::note External Contribution
+
+**This content is brought to you by [Glencore](https://www.glencore.com/), an SAP customer.**
+
+:::
 
 SAP Process Integration / Process Orchestration (PI/PO) is a NetWeaver-based solution for meeting cross-domain integration needs that serve both intra- and inter-company scenarios. As it approaches the end of standard maintenance in 2027, customers need to plan migrations to a modern integration solution that offers robust, scalable, and secure integration capabilities. Customers do have the option to extend maintenance until 2030, after which SAP support comes to an end.
 

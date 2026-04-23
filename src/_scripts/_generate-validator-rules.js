@@ -171,7 +171,7 @@ This document is auto-generated and updated automatically.
 }
 
 async function saveMarkdownFile(content) {
-  const outputDir = path.join(__dirname, '../../community/02-Guidelines/08-ArchitectureValidator');
+  const outputDir = path.join(__dirname, '../../docs/community/02-Guidelines/08-ArchitectureValidator');
   const outputPath = path.join(outputDir, '02-validation-rules.md');
 
   // Ensure directory exists

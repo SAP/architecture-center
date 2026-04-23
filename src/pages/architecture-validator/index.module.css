@@ -13,6 +13,11 @@
     text-align: center;
 }
 
+[data-theme='dark'] .headerBar {
+    background: var(--gradient-dark);
+    color: var(--sapContent_ForegroundTextColor);
+}
+
 .mainContainer {
     display: flex;
     justify-content: center;
@@ -164,6 +169,30 @@
     border: 1px solid var(--sapList_BorderColor);
 }
 
+.validating .statusName {
+    color: var(--sapInformationBorderColor);
+    background-color: var(--sapInformationBackground);
+    border-color: var(--sapInformationBorderColor);
+}
+
+.success .statusName {
+    color: var(--sapSuccessBorderColor);
+    background-color: var(--sapSuccessBackground);
+    border-color: var(--sapSuccessBorderColor);
+}
+
+.warning .statusName {
+    color: var(--sapWarningBorderColor);
+    background-color: var(--sapWarningBackground);
+    border-color: var(--sapWarningBorderColor);
+}
+
+.error .statusName {
+    color: var(--sapErrorBorderColor);
+    background-color: var(--sapErrorBackground);
+    border-color: var(--sapErrorBorderColor);
+}
+
 .fileName {
     margin: 0;
     font-size: 1.2rem;
@@ -301,12 +330,12 @@
 
 .violationRule {
     margin-top: 0.5rem;
-    color: #555;
+    color: var(--sapTextColor);
 }
 
 .violationDetails {
     margin-top: 0.5rem;
-    color: #555;
+    color: var(--sapTextColor);
 }
 
 .centeredCardHeader {

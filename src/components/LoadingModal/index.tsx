@@ -1,6 +1,7 @@
 import React, { JSX } from 'react';
 import { Button } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/error.js';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
 export type PublishStage = 'idle' | 'forking' | 'packaging' | 'committing' | 'success' | 'error';
@@ -23,15 +24,17 @@ interface LoadingModalProps {
 export default function LoadingModal({
     status,
     error,
-    commitUrl,
+    commitUrl: _commitUrl,
     pullRequestUrl,
     onClose,
     onSuccessFinish,
 }: LoadingModalProps): JSX.Element | null {
+    const fireworksImg = useBaseUrl('/img/fireworks.gif');
+    const rocketImg = useBaseUrl('/img/rocket.gif');
+
     if (status === 'idle') {
         return null;
     }
-
     const isInProgress = status === 'forking' || status === 'packaging' || status === 'committing';
     const rocketClassName = status === 'success' ? `${styles.rocket} ${styles.rocketLaunched}` : styles.rocket;
 
@@ -39,20 +42,20 @@ export default function LoadingModal({
         <div className={styles.overlay}>
             <div className={styles.modal}>
                 {status === 'success' && (
-                    <img src="/img/fireworks.gif" alt="Success fireworks" className={styles.fireworks} />
+                    <img src={fireworksImg} alt="Success fireworks" className={styles.fireworks} />
                 )}
 
                 {isInProgress && (
                     <div className={styles.progressContainer}>
                         <h2>Preparing for Liftoff</h2>
-                        <img src="/img/rocket.gif" alt="Rocket preparing for launch" className={rocketClassName} />
+                        <img src={rocketImg} alt="Rocket preparing for launch" className={rocketClassName} />
                         <p className={styles.punText}>{STAGE_PUNS[status]}</p>
                     </div>
                 )}
 
                 {status === 'success' && (
                     <div className={styles.resultContainer}>
-                        <img src="/img/rocket.gif" alt="Rocket launching" className={rocketClassName} />
+                        <img src={rocketImg} alt="Rocket launching" className={rocketClassName} />
                         <h3>We Have Liftoff!</h3>
                         <p>Your document has been published and a pull request has been created successfully.</p>
                         <div className={styles.buttonGroup}>

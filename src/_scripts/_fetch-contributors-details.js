@@ -3,6 +3,14 @@ const { normalize: normalizePath } = require('path');
 
 const GITHUB_API = 'https://api.github.com';
 const { GITHUB_TOKEN } = process.env;
+
+// Validate required environment variables
+if (!GITHUB_TOKEN) {
+    console.error('ERROR: GITHUB_TOKEN environment variable is required but not set');
+    console.error('Please set GITHUB_TOKEN in your .env file or environment');
+    process.exit(1);
+}
+
 // assuming script is in src/_scripts/
 const docs = normalizePath(__dirname + '/../../docs');
 const OUT = docs + '/contributors.json';

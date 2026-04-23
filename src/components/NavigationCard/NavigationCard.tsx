@@ -3,6 +3,7 @@ import { Card, Icon } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './NavigationCard.module.css';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useColorMode } from '@docusaurus/theme-common';
 import { useAuth } from '@site/src/context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -16,8 +17,10 @@ interface CustomButtonProps {
     link: string;
     disabled?: boolean;
     alwaysShowLock?: boolean;
+    isNew?: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
+    className?: string;
 }
 
 export default function NavigationCard({
@@ -27,10 +30,12 @@ export default function NavigationCard({
     logoLight,
     logoDark,
     link,
-    disabled = false,
+    disabled: _disabled = false,
     alwaysShowLock = false,
+    isNew = false,
     onMouseEnter,
     onMouseLeave,
+    className,
 }: CustomButtonProps): JSX.Element {
     const { colorMode } = useColorMode();
     const { user, users } = useAuth();
@@ -43,6 +48,7 @@ export default function NavigationCard({
     };
 
     const resolvedLogo = colorMode === 'dark' && logoDark ? logoDark : logoLight;
+    const resolvedLogoUrl = useBaseUrl(resolvedLogo || '');
     const requiredProvider = authProviders?.[link];
 
     // Check if user is logged in with the required provider using the users object
@@ -64,29 +70,38 @@ export default function NavigationCard({
     };
 
     const cardContent = (
-        <Card className={styles.default} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {shouldShowLockIcon && (
-                <Icon className={styles.lockIcon} name="sap-icon://locked" title="Authentication Required" />
+        <div className={styles.cardWrapper}>
+            {isNew && (
+                <span className={styles.newBadge}>NEW</span>
             )}
-            {!shouldShowLockIcon && requiredProvider && (
-                <Icon className={styles.lockIcon} name="sap-icon://unlocked" title="Unlocked" />
-            )}
-            <span className={styles.inline}>
-                {resolvedLogo ? (
-                    <img src={resolvedLogo} alt={`${title} logo`} className={styles.logo} />
-                ) : (
-                    <Icon className={styles.icon} name={icon} />
+            <Card className={`${styles.default} ${className || ''}`.trim()} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                {shouldShowLockIcon && (
+                    <span className={styles.lockIconWrapper}>
+                        <Icon name="sap-icon://locked" title="Authentication Required" />
+                    </span>
                 )}
-                {subtitle ? (
-                    <div className={styles.spacing}>
+                {!shouldShowLockIcon && requiredProvider && (
+                    <span className={styles.lockIconWrapper}>
+                        <Icon name="sap-icon://unlocked" title="Unlocked" />
+                    </span>
+                )}
+                <span className={styles.inline}>
+                    {resolvedLogo ? (
+                        <img src={resolvedLogoUrl} alt={`${title} logo`} className={styles.logo} />
+                    ) : (
+                        <Icon className={styles.icon} name={icon} />
+                    )}
+                    {subtitle ? (
+                        <div className={styles.spacing}>
+                            <div>{title}</div>
+                            <div className={styles.subtitle}>{subtitle}</div>
+                        </div>
+                    ) : (
                         <div>{title}</div>
-                        <div className={styles.subtitle}>{subtitle}</div>
-                    </div>
-                ) : (
-                    <div>{title}</div>
-                )}
-            </span>
-        </Card>
+                    )}
+                </span>
+            </Card>
+        </div>
     );
 
     // Always show lock icon and handle authentication flow when needed
