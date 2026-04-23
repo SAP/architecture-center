@@ -9,7 +9,7 @@ export const navigationCardsData = [
         isNew: true,
         image: '/img/ArchitectureTabs/nsa.webp'
     }, */
-    /* {
+    {
         title: 'AI Golden Path',
         tabLabel: 'AI Golden Path',
         subtitle: 'The SAP AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.',
@@ -17,7 +17,7 @@ export const navigationCardsData = [
         link: '/docs/aigp/',
         isNew: true,
         image: '/img/ArchitectureTabs/aigoldenpath.webp'
-    }, */
+    },
     {
         title: 'Quick Start',
         subtitle: 'Quick Start is a no-code architecture editor for publishing reference architectures without command-line tools. Users can sign in with GitHub, create content in a rich-text editor or import Word files as Markdown, and add text, images, and Draw.io diagrams.',
