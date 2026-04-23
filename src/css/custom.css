@@ -1287,13 +1287,44 @@ nav[class*="domainSidebar"] .menu__link--active {
 }
 
 /* Gradient effect on document links (all documents, not folders) */
-.theme-doc-sidebar-menu .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active,
-nav[class*="domainSidebar"] .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+/* Generic selector that works for desktop, mobile, both themes */
+.menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    color: var(--ifm-color-primary) !important;
     background: var(--gradient-premium) !important;
     background-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Dark theme - ensure gradient variable works */
+html[data-theme='dark'] .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    color: var(--ifm-color-primary) !important;
+    background: var(--gradient-premium) !important;
+    background-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) {
+    .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+        color: var(--ifm-color-primary) !important;
+        -webkit-text-fill-color: var(--ifm-color-primary) !important;
+        background: none !important;
+    }
 }
 
 /* Folder nodes - default light theme */
@@ -1319,6 +1350,11 @@ nav[class*="domainSidebar"] .menu__list-item:not(.menu__list-item-collapsible) >
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Folder nodes - default dark theme */
@@ -1344,6 +1380,11 @@ html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link.menu_
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
