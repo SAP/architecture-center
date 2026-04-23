@@ -10,7 +10,64 @@ A reference architecture outlines the interactions between various services, sho
 
 ## Requirements and Setup
 
-Refer to the [Community of Practice | Intro](community/intro.md) for getting started and contribution guidelines. 
+### Prerequisites
+
+- **Node.js** >= 20.0
+- **npm** or **pnpm**
+- **Git**
+
+### Local Development Setup
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/SAP/architecture-center.git
+cd architecture-center
+```
+
+#### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+#### 3. Start Development Server
+
+```bash
+npm start
+```
+
+This will start the Docusaurus development server. Open http://localhost:3000 in your browser to view the site.
+
+The development server supports hot reloading - changes to source files will automatically refresh the browser.
+
+#### 4. Build for Production
+
+```bash
+npm run build
+```
+
+This generates static content in the `build` directory that can be served by any static hosting service.
+
+#### 5. Run Linting
+
+```bash
+npm run lint          # Check for linting errors
+npm run lint:fix      # Auto-fix linting errors
+```
+
+#### 6. Security Audit
+
+```bash
+npm run security:audit        # Check production dependencies for vulnerabilities
+npm run security:audit-fix    # Automatically fix vulnerabilities where possible
+npm run security:check        # Run audit and check for outdated packages
+npm run security:update       # Update packages and fix vulnerabilities
+```
+
+**Note**: The security audit checks only production dependencies (excludes devDependencies) to focus on what gets deployed.
+
+For detailed contribution guidelines, refer to the [Community of Practice | Intro](community/intro.md). 
 
 ## Support, Feedback, Contributing
 

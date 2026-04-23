@@ -13,6 +13,7 @@ import * as ReactDOM from 'react-dom';
 import { Type, Heading1, Heading2, List, ListOrdered } from 'lucide-react';
 
 import styles from './index.module.css';
+import { logger } from '../../../../utils/logger';
 import { INSERT_ACTIONS } from '../insertActions';
 
 class CommandOption extends MenuOption {
@@ -112,7 +113,7 @@ export default function SlashCommandPlugin() {
     const [editor] = useLexicalComposerContext();
     const [queryString, setQueryString] = useState<string | null>(null);
 
-    console.log('SlashCommandPlugin has mounted.');
+    logger.info('SlashCommandPlugin has mounted.');
 
     const ALL_COMMANDS = useMemo(
         () => [
@@ -211,7 +212,7 @@ export default function SlashCommandPlugin() {
     );
 
     const handleQueryChange = (query) => {
-        console.log('Query changed:', query);
+        logger.info('Query changed:', query);
         setQueryString(query);
     };
 
@@ -222,7 +223,7 @@ export default function SlashCommandPlugin() {
             triggerFn={checkForTriggerMatch}
             options={filteredOptions}
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp }) => {
-                console.log(
+                logger.info(
                     'menuRenderFn is being called. Anchor:',
                     anchorElementRef.current,
                     'Options count:',

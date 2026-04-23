@@ -6,11 +6,15 @@ import { useDoc } from '@docusaurus/plugin-content-docs/client';
 import Contributors from '../../../components/Contributors';
 import Discussion from '../../../components/Discussion';
 
+interface FrontMatter {
+    contributors?: string[];
+}
+
 export default function DocItemFooter(): React.ReactElement | null {
     const { metadata } = useDoc();
     const { frontMatter } = metadata;
 
-    const canDisplayContributorsRow = (frontMatter as any).contributors?.length > 0;
+    const canDisplayContributorsRow = (frontMatter as FrontMatter).contributors?.length ?? 0 > 0;
 
     const canDisplayFooter = canDisplayContributorsRow;
 

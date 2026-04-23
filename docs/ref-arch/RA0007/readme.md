@@ -1,7 +1,7 @@
 ---
 id: id-ra0007
 slug: /ref-arch/d31bedf420
-sidebar_position: 7
+sidebar_position: 80
 sidebar_custom_props:
   category_index:
     - appdev

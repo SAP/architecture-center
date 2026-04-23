@@ -33,9 +33,10 @@
 }
 
 .navItem.active {
-    color: #1d69e5;
+    color: white;
     font-weight: 600;
-    background-color: #e7f1ff;
+    background: var(--gradient-premium);
+    border-radius: 8px;
 }
 
 .rootItem {

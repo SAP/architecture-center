@@ -1,0 +1,532 @@
+.tabsContainer {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+/* --- TAB BUTTONS (AWS Style Pill/Segmented Control) --- */
+.tabListWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    /* Room for scrollbar if needed on tiny screens */
+}
+
+.tabList {
+    display: inline-flex;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 6px;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.slidingBackground {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    height: calc(100% - 12px);
+    background: #0070f2;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.3);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tabButton {
+    background: transparent;
+    border: none;
+    padding: 8px 28px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ifm-color-content-secondary);
+    cursor: pointer;
+    transition: color 0.3s ease, background 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabButton:hover:not(.activeTab) {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.tabButton.activeTab {
+    color: white !important;
+}
+
+/* --- TAB CONTENT PANEL --- */
+.tabPanel {
+    width: 100%;
+    max-width: 900px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    box-shadow: var(--glass-shadow);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+.fadeOut {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+
+.contentLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.topRow {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.mainContent {
+    display: flex;
+    gap: 32px;
+    align-items: stretch;
+}
+
+.leftContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.imagePlaceholder {
+    width: 400px;
+    height: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #6b7280;
+    font-weight: 500;
+    /* Note: Source images should be at least 800px × 600px for retina display quality */
+}
+
+.imagePlaceholder p {
+    margin: 0;
+}
+
+.tabImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--border-radius-md);
+}
+
+.iconContainer {
+    width: 72px;
+    height: 72px;
+    background: var(--gradient-primary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 8px 16px rgba(0, 112, 242, 0.2);
+}
+
+.icon {
+    font-size: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: white;
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--ifm-font-color-base);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.newBadge {
+    background: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(93, 54, 255, 0.4);
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: var(--ifm-color-content-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
+    white-space: pre-line;
+}
+
+.subtitle strong {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 16px;
+    display: block;
+    white-space: normal;
+}
+
+.subtitle br + * {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.actionWrapper {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.actionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: white;
+    background: #0070f2;
+    border: 2px solid #0070f2;
+    border-radius: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3);
+    font-family: inherit;
+}
+
+.actionButton:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4);
+    text-decoration: none;
+    color: white;
+    background: var(--gradient-primary);
+    border: 2px solid #0070f2;
+}
+
+.actionButton:active {
+    transform: translateY(0px);
+}
+
+.disabledButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 32px;
+    min-height: 42px;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--ifm-color-content-secondary);
+    background: var(--ifm-color-emphasis-200);
+    border: none;
+    border-radius: 28px;
+    cursor: not-allowed;
+    opacity: 0.6;
+    font-family: inherit;
+}
+
+.loginBadge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 152, 0, 0.1);
+    border: 1px solid rgba(255, 152, 0, 0.3);
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ifm-color-warning);
+}
+
+.authenticatedBadge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+.lockIcon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* --- DARK MODE --- */
+[data-theme='dark'] .tabList {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .tabButton:hover:not(.activeTab) {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+[data-theme='dark'] .tabPanel {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .imagePlaceholder {
+    background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+    color: #9ca3af;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 996px) {
+    .tabList {
+        max-width: 100%;
+    }
+
+    .tabButton {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+
+    .tabPanel {
+        padding: 30px 24px;
+        padding-top: 60px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .iconContainer {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .loginBadge {
+        top: 16px;
+        right: 16px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .mainContent {
+        flex-direction: column;
+    }
+
+    .leftContent {
+        order: 2;
+    }
+
+    .imagePlaceholder {
+        order: 1;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .topRow {
+        gap: 16px;
+    }
+
+    .titleWrapper {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .tabsContainer {
+        padding: 0 16px;
+    }
+
+    .tabListWrapper {
+        justify-content: center;
+        overflow-x: visible;
+        width: 100%;
+    }
+
+    .tabList {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 16px;
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .slidingBackground {
+        display: none;
+    }
+
+    .tabButton {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        height: auto;
+        min-height: 40px;
+        border-radius: 12px;
+        white-space: nowrap;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .activeTab {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 112, 242, 0.3);
+    }
+
+    .tabPanel {
+        padding: 24px 16px;
+        padding-top: 50px;
+    }
+
+    .topRow {
+        gap: 12px;
+    }
+
+    .mainContent {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .leftContent {
+        order: 2;
+    }
+
+    .imagePlaceholder {
+        order: 1;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
+
+    .titleWrapper {
+        flex-wrap: nowrap;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .actionButton,
+    .disabledButton {
+        font-size: 0.95rem;
+        padding: 12px 24px;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .loginBadge {
+        top: 12px;
+        right: 12px;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}

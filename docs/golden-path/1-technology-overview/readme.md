@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 title: Technology Decision Tree for AI
 description: >-
   A structured decision framework for selecting the right AI approach on SAP BTP,

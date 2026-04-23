@@ -38,7 +38,7 @@
     --ifm-footer-link-color: #556b82;
     --ifm-footer-link-hover-color: #6b84a0;
     --ifm-footer-title-color: var(--ifm-font-color-base);
-    --doc-sidebar-width: 400px !important;
+    --doc-sidebar-width: 350px !important;
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
@@ -99,12 +99,30 @@
     /* Dark mode colors */
     --text-color-dark-mode: #ccc;
 
+    /* Glassmorphism Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --glass-blur: blur(12px);
+
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
+    --gradient-premium: linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%);
+    --gradient-dark: linear-gradient(135deg, #001848 0%, #003366 100%);
+
     /*alert color*/
     --alert-color: #ffc933;
 }
 
+[data-theme='dark'] {
+    --glass-bg: rgba(14, 15, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --ifm-sidebar-selected-item-background-color: rgba(10, 110, 209, 0.2);
+}
+
 /* LinkedIn icon styling */
-svg[class*="linkedin"], 
+svg[class*="linkedin"],
 svg[aria-label*="LinkedIn"],
 .linkedin-icon svg,
 a[title*="LinkedIn"] svg,
@@ -155,6 +173,37 @@ pre {
 ui5-button::part(button) {
     font-weight: bold;
     font-family: '72';
+    border-radius: 24px;
+}
+
+ui5-button {
+    border-radius: 24px !important;
+}
+
+ui5-button::part(button),
+ui5-button::shadow button {
+    border-radius: 24px !important;
+}
+
+/* Suppress mouse-click focus rings on all native buttons; keep keyboard focus visible */
+button:focus {
+    outline: none;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
+/*
+ * UI5 buttons on desktop use :focus-within (fires on mouse click too) to draw an inner focus rectangle.
+ * Override the border variable to none so the rectangle doesn't appear on mouse clicks.
+ * Non-desktop uses :focus-visible (keyboard-only) which is unaffected.
+ */
+ui5-button[desktop] {
+    --_ui5_button_focused_border: none;
+    --_ui5_button_emphasized_focused_border_before: none;
+    --_ui5_button_pressed_focused_border_color: transparent;
 }
 
 button.iconButton {
@@ -211,7 +260,7 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     /* Remove bullet points */
 }
 
-.menu__list-item > .menu__link--active {
+.menu__list-item>.menu__link--active {
     background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
@@ -381,13 +430,17 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 }
 
 /* Sidebar customization */
+.menu {
+    padding: 0.5rem !important;
+}
+
 .menu__list {
     position: relative;
     list-style: none;
     color: #535353;
 }
 
-.menu__list-item > a {
+.menu__list-item>a {
     display: block;
 
     text-decoration: none;
@@ -408,37 +461,46 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 
 .menu__list-item .menu__list .menu__link--active {
     font-weight: bold;
-    background-color: var(--ifm-sidebar-selected-item-background-color);
 }
 
 .menu__list-item-collapsible--active {
-    background: var(--ifm-sidebar-selected-item-background-color);
+    background: transparent !important;
 }
 
-.menu__list-item-collapsible--active > .menu__link {
-    background-color: var(--ifm-sidebar-selected-item-background-color);
-    color: var(--ifm-menu-color-active) !important;
+/* Parent folder nodes - regular text color, just bold */
+.menu__list-item-collapsible--active>.menu__link {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #535353 !important;
+    color: #535353 !important;
+    font-weight: bold !important;
 }
 
-.menu__list-item > .menu__link--active {
-    color: var(--ifm-menu-color-active) !important;
+.menu__list-item>.menu__link--active {
+    color: #535353 !important;
 }
 
 .menu__link:not(.menu__link--active):hover {
     color: #000 !important;
 }
 
-/* Breadcrumbs customization*/
+/* Breadcrumbs customization with gradient effect */
 .breadcrumbs__item--active .breadcrumbs__link {
-    background: var(--ifm-sidebar-selected-item-background-color);
-    color: var(--ifm-menu-color-active);
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
 }
 
-/* Dropdown menu customization*/
+/* Dropdown menu customization with gradient effect */
 .dropdown__link--active {
     font-weight: bold;
-    background-color: var(--ifm-sidebar-selected-item-background-color);
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 html,
@@ -466,17 +528,17 @@ html[data-theme='dark'] .sourcecode-badge {
     color: #24292f;
 }
 
-.markdown > h3 {
+.markdown>h3 {
     font-size: 1.2rem;
     padding-top: 10px;
 }
 
-.markdown > h2 {
+.markdown>h2 {
     font-size: 1.5rem;
     padding-top: 10px;
 }
 
-.markdown > h1 {
+.markdown>h1 {
     font-size: 2rem;
     padding-top: 10px;
 }
@@ -496,6 +558,14 @@ html[data-theme='dark'] .sourcecode-badge {
     margin-right: auto;
 }
 
+/* Center SVG images in markdown */
+.markdown svg,
+.markdown img[src$=".svg"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .admonitionHeading_Gvgb {
     text-transform: none !important;
 }
@@ -504,7 +574,7 @@ html[data-theme='dark'] .sourcecode-badge {
     display: none;
 }
 
-.markdown > table th,
+.markdown>table th,
 table td,
 table tr,
 table thead {
@@ -564,11 +634,22 @@ table thead {
     --docsearch-hit-background: var(--ifm-color-emphasis-100);
     /* Footer */
     --docsearch-footer-background: var(--ifm-background-surface-color);
-    --docsearch-key-gradient: linear-gradient(
-        -26.5deg,
-        var(--ifm-color-emphasis-200) 0%,
-        var(--ifm-color-emphasis-100) 100%
-    );
+    --docsearch-key-gradient: linear-gradient(-26.5deg,
+            var(--ifm-color-emphasis-200) 0%,
+            var(--ifm-color-emphasis-100) 100%);
+}
+
+/* Search Local Plugin - Selected item gradient styling */
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] {
+    background: var(--gradient-primary) !important;
+}
+
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] mark,
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitTree"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitIcon"],
+[class*="searchBar"] [class*="dropdownMenu"] [class*="suggestion"][class*="cursor"] [class*="hitPath"] {
+    color: #fff !important;
 }
 
 .footer_div {
@@ -582,6 +663,8 @@ table thead {
     height: 290px;
     min-height: 290px;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
 }
 
 .footer__links {
@@ -653,22 +736,25 @@ table thead {
     /* Vertical line */
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link {
     background-color: transparent !important;
     color: #fff !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link {
-    background-color: var(--ifm-background-color-selected-item) !important;
-    color: #fff !important;
+[data-theme='dark'] .menu__list-item-collapsible--active>.menu__link {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: white !important;
+    color: white !important;
     font-weight: bold !important;
 }
 
 [data-theme='dark'] .menu__list-item-collapsible--active {
-    background: var(--ifm-background-color-selected-item) !important;
+    background: transparent !important;
 }
 
-[data-theme='dark'] .menu__list-item-collapsible > .menu__link:not(.menu__link--active) {
+[data-theme='dark'] .menu__list-item-collapsible>.menu__link:not(.menu__link--active) {
     background-color: transparent !important;
     color: #fff !important;
 }
@@ -685,16 +771,20 @@ table thead {
 
 /*Breadcrumbs customization*/
 [data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link {
-    background: var(--ifm-background-color-selected-item);
-    color: #fff;
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: bold;
 }
 
-/* Dropdown menu customization*/
+/* Dropdown menu customization with gradient effect */
 [data-theme='dark'] .dropdown__link--active {
     font-weight: bold;
-    background-color: var(--ifm-background-color-selected-item) !important;
-    color: #fff;
+    background: var(--gradient-premium) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 /* Dark mode slick button formatting requires global styles to override module defaults */
@@ -702,6 +792,7 @@ table thead {
     color: var(--ifm-color-primary-lighter) !important;
     opacity: 1;
 }
+
 [data-theme='dark'] .slick-dots li.slick-active button:before {
     color: var(--ifm-color-primary-lightest) !important;
     opacity: 1;
@@ -739,7 +830,13 @@ html[data-theme='dark'] .navbar-item-github {
 
 /* Custom styling for main content (excludes header, footer, sidebar) */
 html[data-theme='light'] .main-wrapper {
-    background-color: #f5f6f7;
+    background: linear-gradient(to bottom, #e8f2f7 0%, #ffffff 30%, #ffffff 70%, #e8f2f7 100%);
+    min-height: 100vh;
+}
+
+html[data-theme='dark'] .main-wrapper {
+    background: linear-gradient(to bottom, #1e2030 0%, #070810 30%, #070810 70%, #1e2030 100%);
+    min-height: 100vh;
 }
 
 html[data-theme='light'] .navbar {
@@ -758,7 +855,7 @@ html[data-theme='light'] .footer {
 }
 
 html[data-theme='light'] .menu {
-    background-color: #f5f6f7;
+    background: transparent;
 }
 
 /*Dark Mode*/
@@ -767,9 +864,8 @@ html[data-theme='dark'] .footer {
 }
 
 html[data-theme='dark'] .navbar {
-    /* background: linear-gradient(to top left, #0a6ed1 0%, #001848 50%);*/
-    background: #001848;
-    border-bottom: 2px solid #003366;
+    background: #0e0f19;
+    border-bottom: 2px solid #1a1a2e;
     backdrop-filter: blur(10px);
 }
 
@@ -816,6 +912,7 @@ html[data-theme='dark'] .navbar {
 html[data-theme='light'] .docItemCol_VOVn {
     background-color: #ffffff;
     border: 1px solid #dadde1;
+    border-radius: var(--border-radius-sm);
     padding: 35px;
     margin: 0 0 0 12px;
     box-sizing: border-box;
@@ -824,6 +921,7 @@ html[data-theme='light'] .docItemCol_VOVn {
 html[data-theme='dark'] .docItemCol_VOVn {
     background-color: #272729;
     border: #444950 1px solid;
+    border-radius: var(--border-radius-sm);
     color: #ffffff;
     padding: 35px;
     margin: 0 0 0 12px;
@@ -1029,7 +1127,7 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
     }
 
     /* Ensure the footer background stretches to fit */
-    #__docusaurus > footer {
+    #__docusaurus>footer {
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -1123,5 +1221,289 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
     .slick-dots {
         margin-bottom: 1rem !important;
         margin-top: 1rem !important;
+    }
+}
+
+/* =========================================================================
+   Documentation Pages (/docs) Premium Overrides
+   ========================================================================= */
+
+/* Transparent Sidebars */
+html[data-theme='dark'] .theme-doc-sidebar-container,
+html[data-theme='dark'] .theme-doc-toc-desktop {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-right: 1px solid var(--ifm-toc-border-color);
+}
+
+html[data-theme='dark'] .theme-doc-toc-desktop {
+    border-right: none;
+    border-left: 1px solid var(--ifm-toc-border-color);
+}
+
+/* Light theme - transparent sidebars */
+.theme-doc-sidebar-container,
+.theme-doc-toc-desktop {
+    background: transparent;
+}
+
+.theme-doc-toc-desktop {
+    border-right: none;
+}
+
+/* Gradient effect on table of contents active link */
+.table-of-contents__link--active,
+.theme-doc-toc-desktop .table-of-contents__link--active {
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+/* Document headings use standard colors (gradient removed) */
+.theme-doc-markdown h1,
+.theme-doc-markdown h2 {
+    margin-bottom: 1rem;
+}
+
+/* Interactive Sidebar Links */
+.theme-doc-sidebar-menu .menu__link {
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.theme-doc-sidebar-menu .menu__link:hover {
+    transform: translateX(4px);
+    color: var(--ifm-color-primary) !important;
+}
+
+/* All active links get bold */
+.theme-doc-sidebar-menu .menu__link--active {
+    font-weight: bold;
+}
+
+/* Gradient effect on document links (all documents, not folders) */
+.theme-doc-sidebar-menu .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Folder nodes - default light theme */
+.theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
+.menu__list-item-collapsible > .menu__link {
+    color: #535353;
+    -webkit-text-fill-color: #535353;
+}
+
+/* Parent folder (expanded but NOT selected) - light theme */
+.theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active),
+.menu__list-item-collapsible--active > .menu__link:not(.menu__link--active) {
+    color: #535353 !important;
+    -webkit-text-fill-color: #535353 !important;
+    font-weight: bold !important;
+}
+
+/* Selected folder (with menu__link--active) - gradient */
+.theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link.menu__link--active,
+.menu__list-item-collapsible--active > .menu__link.menu__link--active {
+    background: var(--gradient-premium) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+}
+
+/* Folder nodes - default dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
+html[data-theme='dark'] .menu__list-item-collapsible > .menu__link {
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+/* Parent folder (expanded but NOT selected) - dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active),
+html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link:not(.menu__link--active) {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    font-weight: bold !important;
+}
+
+/* Selected folder (with menu__link--active) - gradient - dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__list-item-collapsible--active > .menu__link.menu__link--active,
+html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link.menu__link--active {
+    background: var(--gradient-premium) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+}
+
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
+    text-shadow: 0 0 8px rgba(0, 112, 242, 0.6);
+}
+
+/* Content Container Card */
+.theme-doc-markdown {
+    background: transparent;
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    box-shadow: none;
+    border: none;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xxl);
+}
+
+html[data-theme='dark'] .theme-doc-markdown {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* UI5 Primary Button (Emphasized) - matching landing page primary button */
+[ui5-button][design="Emphasized"] {
+    background: #0070f2 !important;
+    border: 2px solid #0070f2 !important;
+    border-radius: 24px !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(0, 112, 242, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+[ui5-button][design="Emphasized"]:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.4) !important;
+    background: var(--gradient-primary) !important;
+    border: 2px solid #0070f2 !important;
+}
+
+/* UI5 Secondary Button (Default) - matching landing page secondary button */
+[ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]) {
+    background: transparent !important;
+    color: var(--ifm-color-primary) !important;
+    border: 2px solid var(--ifm-color-primary) !important;
+    border-radius: 24px !important;
+    transition: all 0.3s ease !important;
+}
+
+[ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]):hover {
+    background: var(--ifm-color-primary-lightest) !important;
+    color: var(--ifm-color-primary-dark) !important;
+    border: 2px solid var(--ifm-color-primary) !important;
+}
+
+/* Dark mode for UI5 secondary button */
+[data-theme='dark'] [ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]) {
+    border-color: var(--ifm-color-primary-lighter) !important;
+    color: var(--ifm-color-primary-lighter) !important;
+}
+
+[data-theme='dark'] [ui5-button]:not([design="Emphasized"]):not([design="Negative"]):not([design="Positive"]):not([design="Attention"]):not([design="Transparent"]):hover {
+    background: rgba(0, 112, 242, 0.15) !important;
+    border: 2px solid var(--ifm-color-primary-lightest) !important;
+    color: var(--ifm-color-primary-lightest) !important;
+}
+
+/* Technology Domains Section background is defined as critical CSS in docusaurus.config.ts headTags */
+
+/* =========================================================================
+   Blog/News Page Gradient Styling
+   ========================================================================= */
+
+/* Read more link gradient */
+.blog-post-item footer a,
+article footer a[href*="/news/"],
+[class*="blogPostItemReadMoreLink"],
+footer a b {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.blog-post-item footer a:hover,
+article footer a[href*="/news/"]:hover,
+[class*="blogPostItemReadMoreLink"]:hover,
+footer a b:hover {
+    opacity: 0.8;
+}
+
+/* Blog author name gradient */
+[class*="authorName"],
+.blog-post-author-name,
+[class*="blogPostAuthor"] [class*="authorName"] {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+}
+
+/* =========================================================================
+   Home Page Continuous Gradient Background
+   ========================================================================= */
+
+/* Light mode - continuous gradient from hero to footer */
+html[data-theme='light'] .homepage-main {
+    background: linear-gradient(
+        to bottom,
+        #e8f2f7 0%,
+        #eef5f9 8%,
+        #f3f8fb 15%,
+        #f8fbfd 25%,
+        #ffffff 40%,
+        #ffffff 60%,
+        #f8fbfd 75%,
+        #f3f8fb 85%,
+        #eef5f9 92%,
+        #e8f2f7 100%
+    );
+}
+
+/* Dark mode - continuous gradient from hero to footer */
+html[data-theme='dark'] .homepage-main {
+    background: linear-gradient(
+        to bottom,
+        #1e2030 0%,
+        #181a28 8%,
+        #121420 15%,
+        #0c0e18 25%,
+        #070810 40%,
+        #070810 60%,
+        #0c0e18 75%,
+        #121420 85%,
+        #181a28 92%,
+        #1e2030 100%
+    );
+}
+
+/* Full-page scroll - hide navbar shadow and adjust layout */
+.homepage-main {
+    position: relative;
+}
+
+/* Footer should snap as part of the last section */
+body:has(.homepage-main) footer.footer {
+    scroll-snap-align: none;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .homepage-main {
+        scroll-snap-type: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* On mobile, allow normal scrolling */
+@media (max-width: 768px) {
+    .homepage-main {
+        scroll-snap-type: none !important;
+        height: auto !important;
+        overflow-y: visible !important;
     }
 }

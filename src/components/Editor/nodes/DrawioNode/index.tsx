@@ -47,7 +47,7 @@ export class DrawioNode extends DecoratorNode<JSX.Element> {
         };
     }
 
-    createDOM(config: EditorConfig): HTMLElement {
+    createDOM(_config: EditorConfig): HTMLElement {
         const div = document.createElement('div');
         div.style.display = 'contents';
         return div;

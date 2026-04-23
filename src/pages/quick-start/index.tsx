@@ -1,4 +1,4 @@
-import React, { useState, useEffect, JSX, use } from 'react';
+import React, { useState, useEffect, JSX, useCallback } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
@@ -45,13 +45,7 @@ function AuthenticatedQuickStartView() {
     const baseUrl = siteConfig.baseUrl;
     const { users } = useAuth();
 
-    useEffect(() => {
-        if (documents.length === 0) {
-            handleAddNew(null);
-        }
-    }, [documents.length]);
-
-    const handleAddNew = (parentId: string | null = null) => {
+    const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
             ...initialPageData,
             authors: users.github ? [users.github.username] : [],
@@ -60,7 +54,13 @@ function AuthenticatedQuickStartView() {
         setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
         setIsModalOpen(true);
-    };
+    }, [users.github]);
+
+    useEffect(() => {
+        if (documents.length === 0) {
+            handleAddNew(null);
+        }
+    }, [documents.length, handleAddNew]);
 
     const handleCreate = () => {
         addDocument(newDocData, currentParentId);
