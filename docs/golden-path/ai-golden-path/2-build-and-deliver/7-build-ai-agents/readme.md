@@ -143,6 +143,10 @@ SAP agents are not limited to consumption within the SAP landscape. Through the 
 
 **What the Agent Gateway provides:**
 
+:::info Agent Gateway Availability
+The Agent Gateway is not yet generally available (GA). Current architecture supports unidirectional (outbound) communication. Key components enabling full bidirectional capabilities are expected to be released soon.
+:::
+
 - A publicly accessible A2A endpoint managed by SAP
 - A2A 0.3.0 specification support with HTTP+JSON transport
 - Authentication via SAP Cloud Identity Services (IAS) App2App tokens
@@ -153,11 +157,6 @@ SAP agents are not limited to consumption within the SAP landscape. Through the 
 - **Third-party AI platforms**: Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock can delegate SAP-specific tasks to Joule Agents
 - **Custom applications**: Mobile apps, partner applications and custom chatbots can access Joule Agent capabilities
 - **Cross-system orchestration**: External orchestration platforms can coordinate multi-system workflows involving Joule Agents
-
-:::info Agent Gateway Availability
-The Agent Gateway is not yet generally available (GA). Current architecture supports unidirectional (outbound) communication. Key components enabling full bidirectional capabilities are expected to be released soon.
-:::
-
 
 **Resources:**
 

@@ -52,10 +52,13 @@ The RPT-1 model on AI Core is a productive model, hence it can be used as is for
 ## What's Next
 We are continuously working to improve your developer experience. for AI, allowing your developers to seamlessly integrate the model into their applications with just a few lines of code. Stay tuned for more updates!  
 
-## References
+:::info References
+
+**Most Important Links:**
 
 - [SAP-RPT-1 Help Portal](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/sap-rpt-1)
 - [Blog: A New Paradigm for Enterprise AI: In-Context Learning for Relational Data](https://community.sap.com/t5/technology-blog-posts-by-sap/a-new-paradigm-for-enterprise-ai-in-context-learning-for-relational-data/ba-p/14260221)
 - [Blog: SAP-RPT-1: Enterprise AI for Relational Data Now Generally Available!](https://community.sap.com/t5/artificial-intelligence-blogs-posts/sap-rpt-1-enterprise-ai-for-relational-data-now-generally-available/ba-p/14287926)
 - [Blog: SAP-RPT-1: A Step-by-Step Guide on Getting Started - SAP Community](https://community.sap.com/t5/artificial-intelligence-blogs-posts/sap-rpt-1-a-step-by-step-guide-on-getting-started/ba-p/14290171)
 - [API Collection and Code Snippets](https://github.com/SAP-samples/sap-rpt-samples)
+:::
