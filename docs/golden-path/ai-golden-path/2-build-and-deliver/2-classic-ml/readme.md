@@ -29,8 +29,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run ML cases
-
 ## What you will build
 
 Machine Learning (ML) on SAP platforms enables organizations to build predictive and prescriptive analytics capabilities directly within their business applications. This guide covers three primary approaches:

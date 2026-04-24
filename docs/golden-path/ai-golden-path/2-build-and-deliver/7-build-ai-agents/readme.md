@@ -1,6 +1,6 @@
 ---
 sidebar_position: 7
-title: Build AI Agents
+title: Build AI Agents on SAP BTP
 description: >-
   Build, integrate and orchestrate AI agents on SAP BTP using Joule Studio, SAP Cloud
   SDK for AI, A2A and MCP protocols.
@@ -30,8 +30,6 @@ last_update:
   author: SAP
   date: '2026-04-23'
 ---
-
-# Build AI Agents on SAP BTP
 
 AI agents are autonomous software components that use large language models (LLMs) to reason, plan and take actions on behalf of users. They go beyond simple chatbots by dynamically selecting tools, retrieving context and orchestrating multi-step workflows to accomplish complex business tasks.
 
