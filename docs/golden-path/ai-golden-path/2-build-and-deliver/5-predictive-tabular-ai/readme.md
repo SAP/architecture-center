@@ -28,8 +28,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run with RPT-1
-
 SAP-RPT-1 (in short for Relational Pre-trained Transformer) is our first-ever relational foundation model. Unlike traditional large language models that works primarily with unstructured text, SAP-RPT-1 is a table-native model that excels at understanding and predicting on your relational business data. It enables in-context learning on your relational business data. This allows you to use the model out-of-the-box to gain business insights from your data, without the need for model training or fine-tuning.  
 
 ## How to Get Started with SAP RPT 1  

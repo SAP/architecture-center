@@ -42,8 +42,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# SAP's AI Golden Path
-
 The **SAP's AI Golden Path** is the starting point for developing AI applications across the SAP ecosystem. It contains **recommendations**, **best practices**, and **tutorials** to help you understand the AI technology stack, identify
 suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.
 
