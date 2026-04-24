@@ -284,7 +284,7 @@ const config: Config = {
                     position: 'left',
                     items: [
                         {
-                            label: 'Explore All News Articles',
+                            label: 'Explore the News Articles',
                             to: '/news-all',
                         },
                     /*    {
