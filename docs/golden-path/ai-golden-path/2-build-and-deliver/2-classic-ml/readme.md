@@ -39,11 +39,6 @@ Machine Learning (ML) on SAP platforms enables organizations to build predictive
 - **Embedded ML with SAP HANA Cloud (PAL/APL)**: Train and deploy models directly in-database using built-in libraries. Preferred for time series, anomaly detection, clustering, and as a fallback for classification/regression when RPT-1 cannot meet specific operational requirements.
 - **Custom ML with SAP AI Core**: Build, deploy, and serve custom ML models on Kubernetes infrastructure. Use when custom or customer-specific model training is required.
 
-:::note All-in-on-AI Decision: Start with RPT-1 for classification and regression
-Per the All-in-on-AI architectural decision (Feb 2026), development teams must **always start with RPT-1** for classification and regression use cases. Switch to HANA PAL or AI Core only if a use case has specific requirements RPT-1 cannot meet — see the [Decision Framework](#decision-framework) below.
-:::
-
-
 Whether you need in-database ML for real-time predictions or custom deep learning models with MLOps capabilities, SAP provides comprehensive infrastructure for the complete ML lifecycle — from data preparation and model training to deployment and monitoring in production environments.
 
 ## Prerequisites & setup

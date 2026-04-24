@@ -103,7 +103,7 @@ It offers instant predictive insights from structured business data through in-c
 * You can formulate your problem as a task with **clearly defined output** (e.g., a label, score, numeric value).
 * You can **engineer features** and have historical data for training.
 * Interpretability, explainability, and performance tuning are important.
-* For **classification/regression**: you have evaluated `sap-rpt-1` first (required per the Feb 2026 decision) and it cannot meet your specific requirements (e.g., latency &lt;200ms, data gravity, context window limits, or GPU availability). For **time series, anomaly detection, clustering**: classic ML (e.g., HANA PAL) is the default choice.
+* For **classification/regression**: It is recommended to first evaluate `sap-rpt-1` for classification/regression, as benchmarks show strong performance with lower engineering effort. Only move away if it cannot meet constraints (e.g. latency  &lt;200 ms, data locality, context limits, GPU availability). For **time series, anomaly detection, clustering**: use classic ML (e.g. HANA PAL) as the default.
 * You can bear costs and complexity of lifecycle management of per-customer trained models, or you do not have per-customer trained model.
 * Processing needs to happen close to the data via in-database ML.
 
@@ -447,3 +447,7 @@ flowchart TD
     class R1,R2,R3 recommendation
     class CheckBroad,CheckSpecific,CheckCustom,CheckSimple,CheckProCode,CheckVibe,CheckOrchestration indicator
 ```
+
+:::info References
+- [Forbes: Why 95% Of AI Pilots Fail, And What Business Leaders Should Do Instead](https://www.forbes.com/sites/andreahill/2025/08/21/why-95-of-ai-pilots-fail-and-what-business-leaders-should-do-instead/)
+:::
