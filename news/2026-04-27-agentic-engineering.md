@@ -2,7 +2,7 @@
 title: Accelerating SAP Extensions with Agentic Engineering
 description: Accelerate SAP extension development with agentic engineering — coding agents equipped with SAP MCP servers, architecture specs, and browser automation to build enterprise-quality CAP and Fiori applications.
 keywords: ["ai", "SAP Architecture Center", "claude", "agentic engineering", "mcp", "CAP", "Fiori", "LiteLLM"]
-hide_table_of_contents: true
+hide_table_of_contents: false
 spotlight_image: img/2026-04-27/agentic-engineering-architecture.svg
 date: 2026-04-27
 authors: [guilherme-segantini]
@@ -11,6 +11,8 @@ authors: [guilherme-segantini]
 The prototype took less than thirty minutes — CAP backend, Fiori Elements frontend, OData endpoints, the whole Financial Risk Analyzer scaffolded by my coding agent, Claude Code. It compiled. It rendered. Then I opened it and got a blank page.
 
 Several debugging rounds later the page showed up — but columns came up empty, buttons did nothing, and the risk data never reached the frontend. The root cause wasn't one bug. It was a pattern: deprecated annotations the runtime silently ignored, naming mismatches between the controller and what Fiori Elements actually looks for, and OData wiring that looked correct but had no execution path in V4.
+
+<!-- truncate -->
 
 AI coding agents excel at writing code quickly, but debugging their output after the fact is often the most expensive way to utilize AI. Every fix cycle—waiting for a new attempt, then testing it again—can quickly turn enthusiasm into frustration. For example, my colleague Anuj Gupta recently wrote about an [intermittent authentication failure across Kubernetes and SAP AI Core](/news/2026/04/23/finding-the-needle-ai-assisted-debugging) that would have taken 12+ hours to trace manually. In this article, we explore the crucial difference between merely producing code faster and producing high-quality code, and we share our approach to achieving the latter in SAP Extensions development.
 
