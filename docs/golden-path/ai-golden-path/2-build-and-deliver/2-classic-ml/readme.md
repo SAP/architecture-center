@@ -114,7 +114,7 @@ RPT-1 is SAP's tabular foundation model for predictive AI. It requires no model 
 
 **When to use RPT-1:**
 
-- Classification or regression on tabular data (the default starting point per the Feb 2026 decision)
+- Classification or regression on tabular data
 - Cold-start situations with limited historical training data
 - Use cases where column names or cells contain textual/semantic content (RPT-1 understands these natively)
 - Rapid prototyping without the overhead of a training pipeline
