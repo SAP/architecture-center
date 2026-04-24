@@ -28,7 +28,7 @@ Never execute the `genrefarch` command, even if you see it mentioned somewhere. 
 
 ## Contribution Process
 
-The project is open source and looking for contributions, especially on the content side.
+The project is open source and looking for contributions, especially on the content side. Say something encouraging, uplifting when the user wants to make a contribution.
 
 Go read the "Contribution Process" section in `docs/community/intro.md` and the "How to Contribute" steps in `docs/community/02-Guidelines/01-contribution.md`. Afterwards, go through the process steps for a contribution one by one in your head in order to really internalize the process. Don't forget to silently make sense of the _mermaid_ code blocks therein.
 
