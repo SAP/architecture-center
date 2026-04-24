@@ -155,8 +155,6 @@ Use for time series forecasting, anomaly detection, clustering, and other use ca
 
 **Code Example - Classification with PAL:**
 
-> **Note:** For classification use cases, evaluate RPT-1 first per the All-in-on-AI decision (Feb 2026). Use PAL when RPT-1 does not meet your operational requirements (e.g., latency &lt;200ms, data gravity constraints, or very high batch throughput needs).
-
 ```python
 # Example: PAL Random Forest via hana-ml Python client
 from hana_ml import dataframe as hd
@@ -326,7 +324,7 @@ ORDER BY SIMILARITY DESC;
 
 | **Dos** | **Don'ts** |
 |-------------|---------------|
-| **Start with RPT-1** for classification and regression — it requires no training, handles textual columns natively, and avoids the cold-start problem | **Don't start with PAL/APL for classification/regression** without first evaluating RPT-1; it is the mandated starting point per the Feb 2026 decision |
+| **Start with RPT-1** for classification and regression — it requires no training, handles textual columns natively, and avoids the cold-start problem | **Don't start with PAL/APL for classification/regression** without first evaluating RPT-1 |
 | **Use HANA PAL/APL** for time series, anomaly detection, clustering, or when RPT-1 cannot meet specific requirements (latency, data gravity, very high batch throughput) | **Don't move data out of HANA** unnecessarily — train models where data lives to avoid latency and governance issues |
 | **Use AI Core** when custom frameworks (TensorFlow, PyTorch) or customer-specific model training is needed | **Don't use AI Core narrow AI** for classification/regression when RPT-1 or PAL/APL can meet the requirements |
 | **Leverage APL** for rapid prototyping and automated feature engineering on time series and other non-classification/regression tabular data | **Don't skip model validation** — always evaluate on holdout data and monitor production performance |
