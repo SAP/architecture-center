@@ -1,7 +1,7 @@
 ---
 id: id-ra0024
 slug: /ref-arch/06ff6062dc
-sidebar_position: 24
+sidebar_position: 250
 sidebar_custom_props:
   category_index:
     - ai
@@ -33,13 +33,16 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
+    - fabianleh
+    - marvinklose
+    - dermats
     - nagesh-caparthy1
     - anbazhagana-uma
     - pra1veenk
 discussion:
 last_update:
-  author: anbazhagana-uma
-  date: 2025-10-29
+  date: 2026-03-16
+  author: fabianleh
 ---
 
 Joule is an AI-powered SAP co-pilot designed to enhance productivity and decision-making within enterprise environments.Joule is embedded across the SAP Enterprise Solutions portfolio, accessible to all users, providing contextual assistance, automating routine tasks, and delivering insights that drive better business outcomes. 

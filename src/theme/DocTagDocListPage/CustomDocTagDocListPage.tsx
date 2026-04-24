@@ -10,6 +10,7 @@ import {
 import Translate, {translate} from '@docusaurus/Translate';
 import Heading from '@theme/Heading';
 import SearchMetadata from '@theme/SearchMetadata';
+import styles from './CustomDocTagDocListPage.module.css';
 
 interface DocItemProps {
   doc: {
@@ -40,15 +41,12 @@ interface Props {
 
 function DocItem({doc}: DocItemProps): ReactNode {
   return (
-    <article className="margin-vert--lg">
+    <article className={styles.docItem}>
       <Link to={doc.permalink}>
         <Heading as="h2">{doc.title}</Heading>
       </Link>
       {doc.labels && doc.labels.length > 0 && (
-        <div className="margin-bottom--sm" style={{
-          fontSize: '0.8rem',
-          color: 'var(--ifm-color-content-secondary)'
-        }}>
+        <div className={clsx('margin-bottom--sm', styles.docItemLabels)}>
           {doc.labels.join(' > ')}
         </div>
       )}
@@ -105,27 +103,23 @@ function DocTagDocListPageContent({
     <HtmlClassNameProvider
       className={clsx(ThemeClassNames.page.docsTagDocListPage)}>
       <div className="container margin-vert--lg">
-        <div className="row">
-          <main className="col col--8 col--offset-2">
-            {tag.unlisted && <div style={{color: 'var(--ifm-color-warning)', marginBottom: '1rem'}}>This page is unlisted</div>}
-            <header className="margin-bottom--xl">
-              <Heading as="h1">{title}</Heading>
-              {tag.description && <p>{tag.description}</p>}
-              <Link href={tag.allTagsPath}>
-                <Translate
-                  id="theme.tags.tagsPageLink"
-                  description="The label of the link targeting the tag list page">
-                  View all tags
-                </Translate>
-              </Link>
-            </header>
-            <section className="margin-vert--lg">
-              {tag.items.map((doc) => (
-                <DocItem key={doc.id} doc={doc} />
-              ))}
-            </section>
-          </main>
-        </div>
+        {tag.unlisted && <div style={{color: 'var(--ifm-color-warning)', marginBottom: '1rem'}}>This page is unlisted</div>}
+        <header className="margin-bottom--md">
+          <Heading as="h1">{title}</Heading>
+          {tag.description && <p>{tag.description}</p>}
+          <Link href={tag.allTagsPath}>
+            <Translate
+              id="theme.tags.tagsPageLink"
+              description="The label of the link targeting the tag list page">
+              View all tags
+            </Translate>
+          </Link>
+        </header>
+        <section className="margin-vert--lg">
+          {tag.items.map((doc) => (
+            <DocItem key={doc.id} doc={doc} />
+          ))}
+        </section>
       </div>
     </HtmlClassNameProvider>
   );

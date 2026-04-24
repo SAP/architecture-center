@@ -1,15 +1,16 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import DocSidebar from '@theme-original/DocSidebar';
 import DocSidebarItems from '@theme-original/DocSidebarItems';
 import { NavbarSecondaryMenuFiller, useWindowSize } from '@docusaurus/theme-common';
 import { useDocsSidebar } from '@docusaurus/plugin-content-docs/client';
-import SidebarFilters from '@site/src/components/SidebarFilters/SidebarFilters';
+import CollapsibleFilterBar from '@site/src/components/FilterBar/CollapsibleFilterBar';
 import styles from './styles.module.css';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { logger } from '@site/src/utils/logger';
 
 const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -84,6 +85,25 @@ function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTag
 // ============================================================================
 // Desktop Version
 // ============================================================================
+// Constant options defined outside component to avoid recreating on each render
+const TECH_DOMAIN_OPTIONS = [
+    { value: 'ai', label: 'AI & Machine Learning' },
+    { value: 'appdev', label: 'Application Dev. & Automation' },
+    { value: 'data', label: 'Data & Analytics' },
+    { value: 'integration', label: 'Integration' },
+    { value: 'opsec', label: 'Operation & Security' }
+];
+
+const PARTNER_OPTIONS = [
+    { value: 'aws', label: 'Amazon Web Services' },
+    { value: 'azure', label: 'Microsoft Azure' },
+    { value: 'gcp', label: 'Google Cloud Platform' },
+    { value: 'databricks', label: 'Databricks' },
+    { value: 'snowflake', label: 'Snowflake' },
+    { value: 'nvidia', label: 'Nvidia' },
+    { value: 'ibm', label: 'IBM' }
+];
+
 function DocSidebarDesktop(props) {
     const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
     const sidebar = useDocsSidebar();
@@ -93,40 +113,89 @@ function DocSidebarDesktop(props) {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
+    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
 
-    if (!shouldShowFilters) {
-        return <DocSidebar {...props} />;
-    }
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const handleFilterChange = (filterGroup, selectedKeys) => {
-      if (filterGroup === "partners") {
-        setPartners(selectedKeys);
-      }
-      if (filterGroup === "techDomains") {
-        setTechDomains(selectedKeys);
-      }
-      // Sync URL
-      const params = new URLSearchParams(location.search);
-      if (selectedKeys.length) params.set(filterGroup, selectedKeys.join(','));
-      else params.delete(filterGroup);
-
-      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-    };
-
+    // All hooks must be called before any conditional returns
     const filteredSidebar = useMemo(
       () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
       [props.sidebar, techDomains, partners, tagsDocId]
     );
 
+    // Convert string arrays to Option arrays
+    const selectedTechDomainOptions = useMemo(
+      () => TECH_DOMAIN_OPTIONS.filter(opt => techDomains.includes(opt.value)),
+      [techDomains]
+    );
+    const selectedPartnerOptions = useMemo(
+      () => PARTNER_OPTIONS.filter(opt => partners.includes(opt.value)),
+      [partners]
+    );
 
+    if (!shouldShowFilters) {
+        return <DocSidebar {...props} />;
+    }
+
+    const handleTechDomainsChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setTechDomains(selectedKeys);
+
+      // Sync URL
+      const params = new URLSearchParams(location.search);
+      if (selectedKeys.length) params.set('techDomains', selectedKeys.join(','));
+      else params.delete('techDomains');
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    };
+
+    const handlePartnersChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setPartners(selectedKeys);
+
+      // Sync URL
+      const params = new URLSearchParams(location.search);
+      if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
+      else params.delete('partners');
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    };
+
+    const handleResetFilters = () => {
+      resetFilters();
+      // Clear URL parameters
+      window.history.replaceState({}, '', location.pathname);
+    };
+
+    // Count total filtered docs
+    const countDocs = (items) => {
+      let count = 0;
+      items.forEach(item => {
+        if (item.type === 'doc' || item.type === 'link') {
+          count++;
+        } else if (item.type === 'category' && item.items) {
+          count += countDocs(item.items);
+        }
+      });
+      return count;
+    };
+
+    const resultCount = countDocs(filteredSidebar);
     const newProps = { ...props, sidebar: filteredSidebar };
 
     return (
             <div className={styles.sidebarWithFiltersContainer}>
             <div>
-              <SidebarFilters
-                onFilterChange={handleFilterChange}
-                initialValues={{ partners, techDomains }}
+              <CollapsibleFilterBar
+                techDomains={TECH_DOMAIN_OPTIONS}
+                partners={PARTNER_OPTIONS}
+                selectedTechDomains={selectedTechDomainOptions}
+                selectedPartners={selectedPartnerOptions}
+                onTechDomainsChange={handleTechDomainsChange}
+                onPartnersChange={handlePartnersChange}
+                resetFilters={handleResetFilters}
+                isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                resultCount={resultCount}
               />
             </div>
             <div className={styles.sidebarMenuList}>
@@ -145,14 +214,28 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
+    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
 
-    const handleFilterChange = (filterGroup, selectedKeys) => {
-      if (filterGroup === "partners") {
-        setPartners(selectedKeys);
-      }
-      if (filterGroup === "techDomains") {
-        setTechDomains(selectedKeys);
-      }
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Convert string arrays to Option arrays
+    const selectedTechDomainOptions = TECH_DOMAIN_OPTIONS.filter(opt => techDomains.includes(opt.value));
+    const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
+
+    const handleTechDomainsChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setTechDomains(selectedKeys);
+    };
+
+    const handlePartnersChange = (selected) => {
+      const selectedKeys = selected.map(opt => opt.value);
+      setPartners(selectedKeys);
+    };
+
+    const handleResetFilters = () => {
+      resetFilters();
+      // Clear URL parameters
+      window.history.replaceState({}, '', location.pathname);
     };
 
     const filteredSidebar = useMemo(
@@ -160,11 +243,35 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       [sidebar, techDomains, partners, tagsDocId]
     );
 
+    // Count total filtered docs
+    const countDocs = (items) => {
+      let count = 0;
+      items.forEach(item => {
+        if (item.type === 'doc' || item.type === 'link') {
+          count++;
+        } else if (item.type === 'category' && item.items) {
+          count += countDocs(item.items);
+        }
+      });
+      return count;
+    };
+
+    const resultCount = countDocs(filteredSidebar);
+
     return (
         <>
-        <SidebarFilters
-          onFilterChange={handleFilterChange}
-          initialValues={{ partners, techDomains }}
+        <CollapsibleFilterBar
+          techDomains={TECH_DOMAIN_OPTIONS}
+          partners={PARTNER_OPTIONS}
+          selectedTechDomains={selectedTechDomainOptions}
+          selectedPartners={selectedPartnerOptions}
+          onTechDomainsChange={handleTechDomainsChange}
+          onPartnersChange={handlePartnersChange}
+          resetFilters={handleResetFilters}
+          isResetEnabled={techDomains.length > 0 || partners.length > 0 || searchTerm.length > 0}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          resultCount={resultCount}
         />
         <DocSidebarItems items={filteredSidebar} activePath={path} onItemClick={onItemClick} />
         </>
@@ -219,20 +326,20 @@ export default function DocSidebarWrapper(props) {
 
     if (partnersParam) setPartners(partnersParam.split(','));
     if (techDomainsParam) setTechDomains(techDomainsParam.split(','));
-  }, [location.search, docsBase, setPartners, setTechDomains]);
+  }, [docsBase, setPartners, setTechDomains]);
 
 
-  useEffect(() => {   
-    return history.listen((location) => {
-      console.log("Route changed:", location.pathname);
+  useEffect(() => {
+    return history.listen((loc) => {
+      logger.info("Route changed:", loc.pathname);
 
       // Reset only when leaving /docs
-      if (!location.pathname.startsWith(docsBase)) {
-        console.log("Resetting filters...");
+      if (!loc.pathname.startsWith(docsBase)) {
+        logger.info("Resetting filters...");
         resetFilters();
       }
     });
-  }, [history, resetFilters]);
+  }, [history, resetFilters, docsBase]);
 
 
   const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';

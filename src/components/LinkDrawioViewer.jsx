@@ -23,8 +23,8 @@ export default function LinkDrawioViewer({ drawioXml }) {
     }, [drawioXml]);
 
     return (
-        <a href={encodedLink} target="_blank">
-            <Button style={{ width: 150 }}>Edit</Button>
+        <a href={encodedLink} target="_blank" rel="noopener noreferrer">
+            <Button style={{ width: 150, borderRadius: '24px' }}>Edit</Button>
         </a>
     );
 }

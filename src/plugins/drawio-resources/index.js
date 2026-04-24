@@ -41,6 +41,9 @@ export default (options) => {
                     root.children.unshift(imgImport);
                     props.push(passProp('drawioImg', `drawioImg${counter}`));
                 }
+                if (node.title) {
+                    props.push(passProp('drawioTitle', node.title));
+                }
                 node.attributes = props;
                 counter++;
             }
@@ -99,12 +102,15 @@ function fileExists(path) {
 }
 
 function passProp(prop, value) {
+    if (prop === 'drawioTitle') {
+        return { type: 'mdxJsxAttribute', name: prop, value: value };
+    }
     return {
         type: 'mdxJsxAttribute',
         name: prop,
         value: {
             type: 'mdxJsxAttributeValueExpression',
-            value: value, // prop value
+            value: value,
             data: {
                 estree: {
                     type: 'Program',

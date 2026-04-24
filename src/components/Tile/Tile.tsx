@@ -46,7 +46,7 @@ export default function Tile({ id, title, icon }: TileProps): JSX.Element {
     const handleCardClick = () => {
         setTechDomains([id]);
     };
-    const docsUrl = useBaseUrl('/docs');
+    const docsUrl = useBaseUrl('/docs/ref-arch');
 
     return (
         <Card className={styles.tileCard}>

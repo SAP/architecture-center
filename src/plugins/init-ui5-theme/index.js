@@ -9,7 +9,7 @@ const callInitTheme = `(function() {
         if (window['localStorage'].getItem('theme') === 'dark') theme = 'sap_horizon_dark';
     } catch {}
     
-    configScript.innerHTML = JSON.stringify({ theme: theme });
+    configScript.textContent = JSON.stringify({ theme: theme });
     document.head.appendChild(configScript);
 })();`;
 

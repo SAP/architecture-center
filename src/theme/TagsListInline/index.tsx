@@ -7,7 +7,6 @@
 
 import React, { type ReactNode } from 'react';
 import clsx from 'clsx';
-import Translate from '@docusaurus/Translate';
 import Tag from '@theme/Tag';
 import type { Props } from '@theme/TagsListInline';
 

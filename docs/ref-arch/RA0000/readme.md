@@ -10,7 +10,7 @@ id: id-ra0000
 slug: /ref-arch/demo
 
 # SIDEBAR_POSITION: [DO NOT MODIFY] - Position is automatically assigned.
-sidebar_position: 0
+sidebar_position: 10
 
 # SIDEBAR_CUSTOM_PROPS: [DO NOT MODIFY] - In which additional sidebar this page should be displayed? Check its presence on the 'SAP ViewPoints'.
 sidebar_custom_props: 

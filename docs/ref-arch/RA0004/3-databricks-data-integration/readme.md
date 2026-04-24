@@ -15,6 +15,7 @@ keywords:
   - data federation
   - analytics harmonization
   - integration models
+  - bdc connect
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:
@@ -33,7 +34,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-10-23
+  date: 2026-04-10
 ---
 
 SAP Business Data Cloud facilitates seamless harmonization of business data from SAP and non-SAP data from Enterprise Dabricks for richer Analytics and AI use cases. 
@@ -52,7 +53,7 @@ In enterprise hybrid landscapes that span diverse computing platforms and cloud 
   <li>With the release of BDC Connect for Enterprise Dabricks recently, SAP data products from SAP line of business applications can be shared directly with Enterprise Databricks over governed data access, and discoverable via Unity catalog.</li>
   <li>Similarly, data from Enterprise Databricks can be shared as data products back to SAP Business Data Cloud catalog via BDC Python SDK.</li>
 
-[Ref: brownfield integration](../../RA0013/5-sap-databricks-in-business-data-cloud/readme.md#2-brownfield-integration-integrating-an-existing-enterprise-databricks-platform-with-sap-bdc)
+[Ref: brownfield integration](../../RA0013/5-sap-databricks-in-business-data-cloud/readme.md#2-integrating-an-existing-enterprise-databricks-platform-with-sap-bdc)
 
 </ul>
 

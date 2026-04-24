@@ -2,15 +2,18 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React, { JSX } from 'react';
 import HeroSection from '../sections/HeroSection';
-import DomainSection from '../sections/TechnologyDomainSection';
+import ArchitectureTabsSection from '../sections/ArchitectureTabsSection';
+import TechnologyDomainSection from '../sections/TechnologyDomainSection';
+import NewsSection from '../sections/NewsSection';
 import AdditionalResSection from '../sections/AdditionalResSection';
-import TrustedTecPartnersSection from '../sections/TrustedTecPartnersSection';
+import FullPageSection from '../components/FullPageSection/FullPageSection';
+import styles from './index.module.css';
 
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
-            // @ts-expect-error
+            // @ts-expect-error - Docusaurus Layout component doesn't officially expose title prop in types, but it's supported
             title="Welcome"
             description={siteConfig.tagline}
             metadata={[
@@ -23,11 +26,22 @@ export default function Home(): JSX.Element {
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >
-            <main>
-                <HeroSection />
-                <DomainSection />
-                <TrustedTecPartnersSection />
-                <AdditionalResSection />
+            <main className={`homepage-main ${styles.fullPageContainer}`}>
+                <FullPageSection>
+                    <HeroSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <ArchitectureTabsSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <NewsSection />
+                </FullPageSection>
+                <FullPageSection>
+                    <TechnologyDomainSection />
+                </FullPageSection>
+                <FullPageSection showArrow={false} isLast>
+                    <AdditionalResSection />
+                </FullPageSection>
             </main>
         </Layout>
     );

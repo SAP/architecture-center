@@ -1,8 +1,8 @@
 ---
 id: id-ra0026
 slug: /ref-arch/083f2d968e
-sidebar_position: 26
-sidebar_custom_props: 
+sidebar_position: 270
+sidebar_custom_props:
     category_index: []
 title: Embodied AI Agents
 description: >-
@@ -33,7 +33,7 @@ contributors:
   - niklasweidenfeller
   - AjitKP91
   - pra1veenk
-discussion: 
+discussion:
 last_update:
   author: AjitKP91
   date: 2025-11-04
@@ -46,8 +46,8 @@ Embodied AI agents take the next step: extending the impact of SAP Business AI i
 
 ![drawio](drawio/reference-architecture-basic.drawio)
 
-:::tip Joule    
-Joule is the one AI copilot for the SAP ecosystem, providing a consistent user experience across SAP applications. It integrates natively with your SAP landscape, enabling employees to interact with systems through natural language to perform tasks, retrieve data, and generate insights. Joule leverages deep access to SAP functionality and business context to streamline work and enhance productivity. It provides secure, role-based insights grounded in your enterprise data, ensuring compliance with SAP governance and AI ethics principles. Joule keeps humans in control while driving efficiency, data-driven decisions, and continuous business transformation.      
+:::tip Joule
+Joule is the one AI copilot for the SAP ecosystem, providing a consistent user experience across SAP applications. It integrates natively with your SAP landscape, enabling employees to interact with systems through natural language to perform tasks, retrieve data, and generate insights. Joule leverages deep access to SAP functionality and business context to streamline work and enhance productivity. It provides secure, role-based insights grounded in your enterprise data, ensuring compliance with SAP governance and AI ethics principles. Joule keeps humans in control while driving efficiency, data-driven decisions, and continuous business transformation.
 :::
 
 ## Key Components
@@ -63,10 +63,10 @@ The Embodied AI Agents architecture consists of following key components:
     In the provided reference architecture, Joule Agents serve as the cognitive layer that bridges autonomous physical systems with SAP's business applications, providing real-time context and decision-making capabilities.
     With Joule Studio, users can create, deploy, monitor, and manage custom agents and skills for Joule, with drag and drop simplicity. The low-code, no-code experience dramatically accelerates the deployment of these capabilities, which extends Joule’s value and optimizes business workflows.
 
--   ### Embodied AI Agents 
+-   ### Embodied AI Agents
     SAP Embodied AI Agents are intelligent systems which integrate directly with physical devices operating in real-world environments. They serve as cognitive cores that understand business context as well as physical environment observations and execute autonomous actions aligned with enterprise priorities. These agents can be deployed across various roles such as replenishment, visual inspection, retail compliance, and customer fulfilment etc.
 
-    Embodied AI Agents can be equipped to perform tasks such as: 
+    Embodied AI Agents can be equipped to perform tasks such as:
     -   Sense and interpret physical environment in real time
     -   Adapt dynamically to errors, delays, or environmental changes
     -   Act autonomously in accordance with business priorities and operational constraints
