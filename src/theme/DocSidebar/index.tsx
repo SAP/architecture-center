@@ -13,7 +13,6 @@ import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { logger } from '@site/src/utils/logger';
-import { useSidebarCounterStyling } from '@site/src/hooks/useSidebarCounterStyling';
 
 // Domain definitions with labels
 const DOMAIN_DEFINITIONS = [
@@ -100,8 +99,15 @@ function countDocsInItems(items, docId): number {
   for (const item of items) {
     if ((item.type === 'doc' || item.type === 'link') && (item.docId === docId || item.id === docId)) {
       count++;
-    } else if (item.type === 'category' && item.items) {
-      count += countDocsInItems(item.items, docId);
+    } else if (item.type === 'category') {
+      // Check if the category itself matches (for parent architectures with href)
+      if (item.href === docId) {
+        count++;
+      }
+      // Recursively check children
+      if (item.items) {
+        count += countDocsInItems(item.items, docId);
+      }
     }
   }
   return count;
@@ -113,8 +119,15 @@ function countTotalDocsInItems(items): number {
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
       count++;
-    } else if (item.type === 'category' && item.items) {
-      count += countTotalDocsInItems(item.items);
+    } else if (item.type === 'category') {
+      // Count the category itself if it has a link (parent architecture that's also a document)
+      if (item.link || item.docId || item.href) {
+        count++;
+      }
+      // Also count children recursively
+      if (item.items) {
+        count += countTotalDocsInItems(item.items);
+      }
     }
   }
   return count;
@@ -125,7 +138,6 @@ function groupSidebarByDomain(items, docIdToTags) {
   const domainIds = DOMAIN_DEFINITIONS.map((d) => d.id);
   const grouped: Record<string, any[]> = {};
   const duplicateCounts: Record<string, number> = {};
-  const allDocIds = new Set<string>();
 
   // Initialize empty arrays for each domain
   domainIds.forEach((id) => { grouped[id] = []; });
@@ -158,6 +170,33 @@ function groupSidebarByDomain(items, docIdToTags) {
     return false;
   };
 
+  // First pass: Collect ALL document IDs (including parent architectures) from the entire sidebar
+  const collectAllDocIds = (itemList: any[]): Set<string> => {
+    const docIds = new Set<string>();
+
+    const traverse = (item: any) => {
+      if (item.type === 'doc' || item.type === 'link') {
+        const docId = item.docId || item.id;
+        if (docId) docIds.add(docId);
+      } else if (item.type === 'category') {
+        // If category has href and children, it's a parent architecture (expandable document)
+        if (item.href && item.items && item.items.length > 0) {
+          docIds.add(item.href);
+        }
+        // Recursively process children
+        if (item.items) {
+          item.items.forEach(traverse);
+        }
+      }
+    };
+
+    itemList.forEach(traverse);
+    return docIds;
+  };
+
+  // Collect all doc IDs first
+  const allDocIds = collectAllDocIds(items);
+
   // Helper: Recursively filter category items by domain
   const filterCategoryForDomain = (category, domainId) => {
     const filteredItems = [];
@@ -165,7 +204,6 @@ function groupSidebarByDomain(items, docIdToTags) {
     for (const child of category.items || []) {
       if ((child.type === 'doc' || child.type === 'link') && itemBelongsToDomain(child, domainId)) {
         filteredItems.push(child);
-        allDocIds.add(child.docId || child.id || '');
       } else if (child.type === 'category' && categoryHasDocsForDomain(child, domainId)) {
         filteredItems.push(filterCategoryForDomain(child, domainId));
       }
@@ -179,7 +217,6 @@ function groupSidebarByDomain(items, docIdToTags) {
     domainIds.forEach((domainId) => {
       if ((item.type === 'doc' || item.type === 'link') && itemBelongsToDomain(item, domainId)) {
         grouped[domainId].push(item);
-        allDocIds.add(item.docId || item.id || '');
       } else if (item.type === 'category' && categoryHasDocsForDomain(item, domainId)) {
         const filteredCategory = filterCategoryForDomain(item, domainId);
         grouped[domainId].push(filteredCategory);
@@ -187,7 +224,7 @@ function groupSidebarByDomain(items, docIdToTags) {
     });
   });
 
-  // Calculate duplicate counts
+  // Calculate duplicate counts for all doc IDs
   allDocIds.forEach((docId) => {
     let count = 0;
     domainIds.forEach((domainId) => {
@@ -276,9 +313,6 @@ function DocSidebarDesktop(props) {
         },
     } = useThemeConfig();
 
-    // Apply counter styling hook
-    useSidebarCounterStyling();
-
     const partners = useSidebarFilterStore((state) => state.partners);
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
@@ -331,35 +365,48 @@ function DocSidebarDesktop(props) {
         if (item.type === 'doc' || item.type === 'link') {
           const id = item.docId || item.id || '';
           if (id) uniqueDocIds.add(id);
-        } else if (item.type === 'category' && item.items) {
-          countDocsRecursive(item.items);
+        } else if (item.type === 'category') {
+          // Count the category itself if it has href (parent architecture)
+          if (item.href) {
+            uniqueDocIds.add(item.href);
+          }
+          // Recursively count children
+          if (item.items) {
+            countDocsRecursive(item.items);
+          }
         }
       });
     };
     Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
     const resultCount = uniqueDocIds.size;
 
-    // Helper function to add duplicate counters to item labels
+    // Helper function to add duplicate counters to item customProps
     const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
       return items.map(item => {
-        const itemId = item.docId || item.id || '';
-        const duplicateCount = duplicateCounts[itemId] || 0;
-
         if (item.type === 'category') {
-          // For categories, also check if the category itself has a link
-          const categoryId = item.docId || item.id || item.link?.id || '';
-          const categoryDuplicateCount = duplicateCounts[categoryId] || 0;
+          // For parent architectures (categories with href), use href for matching
+          const categoryId = item.href || item.docId || item.id || '';
+          const categoryDuplicateCount = duplicateCounts[categoryId];
 
           return {
             ...item,
-            label: categoryDuplicateCount > 0 ? `${item.label} +${categoryDuplicateCount}` : item.label,
+            customProps: {
+              ...item.customProps,
+              ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
+            },
             items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
           };
-        } else if ((item.type === 'doc' || item.type === 'link') && duplicateCount > 0) {
-          // Add counter to doc/link labels
+        } else if (item.type === 'doc' || item.type === 'link') {
+          const itemId = item.docId || item.id || '';
+          const duplicateCount = duplicateCounts[itemId];
+
+          // Add counter to doc/link customProps only if it exists
           return {
             ...item,
-            label: `${item.label} +${duplicateCount}`
+            customProps: {
+              ...item.customProps,
+              ...(duplicateCount && { duplicateCount: duplicateCount })
+            }
           };
         }
 
@@ -465,35 +512,48 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         if (item.type === 'doc' || item.type === 'link') {
           const id = item.docId || item.id || '';
           if (id) uniqueDocIds.add(id);
-        } else if (item.type === 'category' && item.items) {
-          countDocsRecursive(item.items);
+        } else if (item.type === 'category') {
+          // Count the category itself if it has href (parent architecture)
+          if (item.href) {
+            uniqueDocIds.add(item.href);
+          }
+          // Recursively count children
+          if (item.items) {
+            countDocsRecursive(item.items);
+          }
         }
       });
     };
     Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
     const resultCount = uniqueDocIds.size;
 
-    // Helper function to add duplicate counters to item labels
+    // Helper function to add duplicate counters to item customProps
     const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
       return items.map(item => {
-        const itemId = item.docId || item.id || '';
-        const duplicateCount = duplicateCounts[itemId] || 0;
-
         if (item.type === 'category') {
-          // For categories, also check if the category itself has a link
-          const categoryId = item.docId || item.id || item.link?.id || '';
-          const categoryDuplicateCount = duplicateCounts[categoryId] || 0;
+          // For parent architectures (categories with href), use href for matching
+          const categoryId = item.href || item.docId || item.id || '';
+          const categoryDuplicateCount = duplicateCounts[categoryId];
 
           return {
             ...item,
-            label: categoryDuplicateCount > 0 ? `${item.label} +${categoryDuplicateCount}` : item.label,
+            customProps: {
+              ...item.customProps,
+              ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
+            },
             items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
           };
-        } else if ((item.type === 'doc' || item.type === 'link') && duplicateCount > 0) {
-          // Add counter to doc/link labels
+        } else if (item.type === 'doc' || item.type === 'link') {
+          const itemId = item.docId || item.id || '';
+          const duplicateCount = duplicateCounts[itemId];
+
+          // Add counter to doc/link customProps only if it exists
           return {
             ...item,
-            label: `${item.label} +${duplicateCount}`
+            customProps: {
+              ...item.customProps,
+              ...(duplicateCount && { duplicateCount: duplicateCount })
+            }
           };
         }
 

@@ -1262,6 +1262,17 @@ nav[class*="domainSidebar"] .menu__link:hover {
     color: var(--ifm-color-primary) !important;
 }
 
+/* Change [+N] counter color on link hover - Light mode only */
+html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover .sidebar-duplicate-counter,
+html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover .sidebar-duplicate-counter {
+    color: var(--ifm-color-primary) !important;
+}
+
+/* Prevent [+N] counter color change on hover in dark mode */
+html[data-theme='dark'] .sidebar-duplicate-counter:hover {
+    color: var(--ifm-color-content-secondary) !important;
+}
+
 /* For domain category items, cancel link transform and only transform text */
 .menu__link--sublist-caret {
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -1331,7 +1342,6 @@ html[data-theme='dark'] .menu__list-item:not(.menu__list-item-collapsible) > .me
 .theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
 .menu__list-item-collapsible > .menu__link {
     color: #535353;
-    -webkit-text-fill-color: #535353;
 }
 
 /* Parent folder (expanded but NOT selected) - light theme */
@@ -1389,7 +1399,26 @@ html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link.menu_
 
 html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
 html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover {
+    transform: translateX(4px);
     text-shadow: 0 0 8px rgba(0, 112, 242, 0.6);
+}
+
+/* Disable slide animation and color change on mobile - light theme only */
+@media (max-width: 996px) {
+    .theme-doc-sidebar-menu .menu__link:hover,
+    nav[class*="domainSidebar"] .menu__link:hover,
+    html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
+    html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover,
+    .menu__link--sublist-caret:hover [class*="categoryLinkLabel"] {
+        transform: none !important;
+    }
+
+    /* Disable color change on mobile in light theme */
+    html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover,
+    html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover,
+    html[data-theme='light'] .menu__link:hover .sidebar-duplicate-counter {
+        color: inherit !important;
+    }
 }
 
 /* Content Container Card */
@@ -1547,6 +1576,7 @@ body:has(.homepage-main) footer.footer {
 }
 
 /* On mobile, allow normal scrolling */
+
 @media (max-width: 768px) {
     .homepage-main {
         scroll-snap-type: none !important;
