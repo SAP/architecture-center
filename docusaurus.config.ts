@@ -134,6 +134,35 @@ const config: Config = {
             defaultMode: 'dark',
             respectPrefersColorScheme: false,
         },
+        mermaid: {
+            theme: { light: 'base', dark: 'base' },
+            options: {
+                fontFamily: '72, Arial, Helvetica, sans-serif',
+                themeVariables: {
+                    // Force black text for all elements - comprehensive list
+                    primaryTextColor: '#000000',
+                    secondaryTextColor: '#000000',
+                    tertiaryTextColor: '#000000',
+                    textColor: '#000000',
+                    labelTextColor: '#000000',
+                    nodeTextColor: '#000000',
+                    edgeLabelBackground: '#ffffff',
+                    // Node backgrounds and borders
+                    mainBkg: '#ffffff',
+                    secondaryBkg: '#FFC933',
+                    tertiaryBkg: '#89D1FF',
+                    primaryColor: '#97DD40',
+                    primaryBorderColor: '#757575',
+                    lineColor: '#757575',
+                    nodeBorder: '#757575',
+                    clusterBkg: '#f5f5f5',
+                    clusterBorder: '#0070f2',
+                    // Additional text color overrides
+                    labelColor: '#000000',
+                    titleColor: '#000000',
+                },
+            },
+        },
         image: 'img/ac-soc-med.png',
         metadata: [
             {
@@ -263,14 +292,18 @@ const config: Config = {
                             to: '/docs/nsa/',
                             sidebarid: 'northStarSidebar',
                         }, */
-                    /*    {
+                       {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/aigp/',
                             sidebarid: 'goldenPathSidebar',
-                        }, */
+                        },
                         {
                             label: 'Browse the Reference Architectures',
                             to: '/docs/ref-arch',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Launch the Architecture Validator',
@@ -279,6 +312,10 @@ const config: Config = {
                         {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Access the Community of Practice',

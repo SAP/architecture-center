@@ -296,7 +296,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     };
 
     const handleInfoClick = () => {
-        const infoUrl = `${baseUrl}community/get-started-quickstart`;
+        const infoUrl = `${baseUrl}docs/community/get-started-quickstart`;
         window.open(infoUrl, '_blank', 'noopener,noreferrer');
     };
 
