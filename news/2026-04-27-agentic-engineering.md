@@ -1,22 +1,22 @@
 ---
-title: Accelerating SAP Extensions with Agentic Engineering
-description: Accelerate SAP extension development with agentic engineering — coding agents equipped with SAP MCP servers, architecture specs, and browser automation to build enterprise-quality CAP and Fiori applications.
+title: The Agentic Code Quality Funnel
+description: The quality layers that let your coding agents move fast without leaving reliability behind.
 keywords: ["ai", "SAP Architecture Center", "claude", "agentic engineering", "mcp", "CAP", "Fiori", "LiteLLM"]
 hide_table_of_contents: false
-spotlight_image: img/2026-04-27/agentic-engineering-architecture.svg
+spotlight_image: img/2026-04-27/agentic-code-quality-funnel.webp
 date: 2026-04-27
 authors: [guilherme-segantini]
 ---
 
-The prototype took less than thirty minutes — CAP backend, Fiori Elements frontend, OData endpoints, the whole Financial Risk Analyzer scaffolded by my coding agent, Claude Code. It compiled. It rendered. Then I opened it and got a blank page.
+**TL;DR:** Coding agents excel at writing code fast, but code produced fast is not the same as code that truly works. Debugging it after the fact is often the most expensive way to utilize AI. Every fix cycle with the agent, waiting for a new attempt, then testing it again can quickly turn enthusiasm into frustration. Our agentic code quality funnel changed the equation. 
 
-Several debugging rounds later the page showed up — but columns came up empty, buttons did nothing, and the risk data never reached the frontend. The root cause wasn't one bug. It was a pattern: deprecated annotations the runtime silently ignored, naming mismatches between the controller and what Fiori Elements actually looks for, and OData wiring that looked correct but had no execution path in V4.
+![The Agentic Code Quality Funnel](img/2026-04-27/agentic-code-quality-funnel.webp)
 
 <!-- truncate -->
 
-AI coding agents excel at writing code quickly, but debugging their output after the fact is often the most expensive way to utilize AI. Every fix cycle—waiting for a new attempt, then testing it again—can quickly turn enthusiasm into frustration. For example, my colleague Anuj Gupta recently wrote about an [intermittent authentication failure across Kubernetes and SAP AI Core](/news/2026/04/23/finding-the-needle-ai-assisted-debugging) that would have taken 12+ hours to trace manually. In this article, we explore the crucial difference between merely producing code faster and producing high-quality code, and we share our approach to achieving the latter in SAP Extensions development.
+Let's use Claude Code to build an SAP Extensions app. With a grounded spec, it built our prototype in less than thirty minutes. A **Financial Risk Analyzer** built as a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered). 
 
-The experiment was a **Financial Risk Analyzer** — a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. Every code example in this post comes from building it. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered).
+Excitement is not just getting code done fast but code that's reliable and truly works for the enterprise. Claude fully tested the app. Then I opened it and got a blank page. Several debugging rounds later the page showed up but columns came up empty, buttons did nothing, and the risk data never reached the frontend. It was not one bug. Several issues including deprecated annotations the runtime silently ignored, naming mismatches between the controller and what Fiori Elements actually looks for, and OData wiring that looked correct but had no execution path in V4.  
 
 ![Financial Risk Analyzer — Fiori Elements List Report showing GL transactions with risk classifications, criticality indicators, and anomaly scores](img/2026-04-27/sample-cap-app-screenshot.png)
 
@@ -38,32 +38,7 @@ Once I equipped Claude Code with these servers, it stopped guessing at SAP conve
 
 Here is how that improves the development loop:
 
-```mermaid
-sequenceDiagram
-    participant Dev as Developer
-    participant CC as Claude Code
-    participant MCP as SAP MCP Servers
-    participant App as CAP + Fiori App
-
-    Dev->>CC: "Add authorization to the risk service"
-
-    rect rgb(255, 235, 235)
-        Note over CC: Without MCP
-        CC->>CC: Rely on training data
-        CC->>App: Write code (may use outdated patterns)
-        App-->>Dev: Silent failures, wrong behavior
-        Dev->>CC: "That's not right, try again..."
-        Note over Dev,CC: Debug cycle repeats
-    end
-
-    rect rgb(235, 255, 235)
-        Note over CC: With MCP
-        CC->>MCP: "How does @requires work on services and actions?"
-        MCP-->>CC: Current CAP docs: service-level + action-level pattern
-        CC->>App: Write code grounded in current framework behavior
-        App-->>Dev: Correct on first pass
-    end
-```
+![The development loop, before and after MCP](img/2026-04-27/sequence-dev-loop.webp)
 We ran a two-pass review. First: Claude reviews the prototype using only its training knowledge. Second: we validate every recommendation against the three MCP servers.
 
 ### 27% of Recommendations Were Wrong
@@ -93,7 +68,7 @@ annotate RiskService.GLTransactions with @(
 );
 ```
 
-The button rendered in the toolbar. Looked correct. But clicking it — nothing. No network request, no error, completely silent. The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
+The button rendered in the toolbar. Looked correct. But clicking it — nothing. No network request, no error, completely silent (a classic 'needle in a haystack' problem, as my colleague recently [wrote about](/news/2026-04-23-finding-the-needle-ai-assisted-debugging)). The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
 
 ```json
 // ✅ With Fiori MCP — manifest custom action for unbound actions
@@ -243,10 +218,6 @@ annotate RiskService.GLTransactions with @(
 
 Four focused filter fields with proper range sliders instead of twenty-four. That's the line between a demo and a tool someone uses daily.
 
-MCP servers, skills, and project instructions make this work. Here's how they fit together.
-
-![Agentic Engineering for SAP Extensions — Coding agent equipped with domain expertise, architecture spec, and browser verification](img/2026-04-27/agentic-engineering-architecture.svg)
-
 ## How to Equip Your Agent to Get It Right
 
 In practice, four configuration layers work together:
@@ -275,7 +246,7 @@ For SAP-code specific, query SAP MCP servers before writing code.
 
 That's it. Edit a file under `app/`, the Fiori skill loads. Edit a service definition under `srv/`, the CAP skill loads. Edit a controller, the UI5 skill loads. No routing tables, no guessing which server to query — the path does the work.
 
-It's important to keep in mind to only adopt MCP servers that have been verified from a security standpoint. Only installing servers you trust.
+It's important to keep in mind to only adopt MCP servers that have been verified from a security standpoint. Only install servers you trust.
 
 Still, correct SAP patterns aren't enough if the architecture is wrong. That's why you need to ensure your spec doesn't have any gaps and covers solid enterprise architecture principles, including zero-trust.
 
@@ -283,11 +254,11 @@ Still, correct SAP patterns aren't enough if the architecture is wrong. That's w
 
 I reviewed the working Financial Risk Analyzer — the one MCP had gotten right on the first pass — and found an unscoped OData endpoint and no input validation. The SAP patterns were correct but security was missing. And security was just the first gap. Performance efficiency, reliability, scalability — the principles you apply before designing any enterprise solution weren't considered for the generated code.
 
-I needed a system design methodology. Traditionally, I'd write the technical specification with a certain level of detail. Even documenting just the important parts would take time. That led me to a spec-driven-development tool, (e.g [superpowers](https://github.com/obra/superpowers)). 
+I needed a system design methodology. Traditionally, I'd write the technical specification with a certain level of detail. Even documenting just the important parts would take time. That led me to a spec-driven-development tool (e.g., [superpowers](https://github.com/obra/superpowers)). 
 
-Before I let the agent produce any code, an SDD tool when grounded with your architecture principles, will interview you and ensure there are not gaps from the security posture, performance budgets, reliability expectations, scalability constraints. Those were the some of the fundamental pillars I'd define as an architect before designing any solution.
+Before I let the agent produce any code, an SDD tool when grounded with your architecture principles, will interview you and ensure there are no gaps from the security posture, performance budgets, reliability expectations, scalability constraints. Those were some of the fundamental pillars I'd define as an architect before designing any solution.
 
-The difference was immediate. With a complete spec shaped by architecture principles along with sap mcp skills, the agent didn't just write correct SAP code — it wrote code that reflected the non-functional requirements an enterprise application actually needs. Every session inherited that spec. No context rot. No re-explaining the same constraints.
+The difference was immediate. With a complete spec shaped by architecture principles along with SAP MCP skills, the agent didn't just write correct SAP code — it wrote code that reflected the non-functional requirements an enterprise application actually needs. Every session inherited that spec. No context rot. No re-explaining the same constraints.
 
 The agent built a working Risk Service — correct CDS entity, proper annotations, functional action handler. But it shipped without any authorization:
 
@@ -316,7 +287,7 @@ service RiskService @(requires: 'authenticated-user') {
 
 ## Secure the Code Your Agent Writes. It Won't Do It for You.
 
-Even after equipping your agent, we should **always assume code is untrusted**. MCP servers teach convention. An SDD tool improves the specs quality. Still, the security scan flagged 53 vulnerabilities! The agent had scaffolded the project with older versions of the libraries instead of pulling `@latest`, and those older versions carried vulnerable dependencies underneath. 
+Even after equipping your agent, we should **always assume code is untrusted**. MCP servers teach convention. An SDD tool improves the spec's quality. Still, the security scan flagged 53 vulnerabilities! The agent had scaffolded the project with older versions of the libraries instead of pulling `@latest`, and those older versions carried vulnerable dependencies underneath. 
 
 The spec never told the agent to use `@latest` or run `npm audit` after scaffolding. Security starts in the spec — install dependencies at their latest versions, audit what's underneath, and make that a gate before any application code is written.
 
@@ -343,7 +314,7 @@ The full-stack picture: **Fiori** on the frontend, **CAP** on the backend, **Gen
 
 ## What This Means For Your Team
 
-The prototypes made one thing clear: agents write code fast, but they're working from training data that's already stale. SDKs, APIs spec change. The code written by AI compiles, but breaks at runtime — and AI can't fix them easily without several iterations leading to an enormous waste of time and effort.
+The prototypes made one thing clear: agents write code fast, but they're working from training data that's already stale. SDKs and API specs change. The code written by AI compiles, but breaks at runtime — and AI can't fix them easily without several iterations leading to an enormous waste of time and effort.
 
 SAP's extension ecosystem has always been powerful, and it has always demanded deep professional knowledge to get right. That knowledge barrier is real. It is why SAP projects take months and why extension backlogs grow faster than teams can deliver.
 
@@ -351,35 +322,7 @@ MCP servers do not eliminate that barrier. They democratize access to it. The se
 
 Here's what that workflow looks like end to end:
 
-```mermaid
-sequenceDiagram
-    participant H as Human
-    participant S as Spec (specs/*.md)
-    participant A as AI Agent
-    participant E as External Tools (SDD CLI, MCPs)
-
-    Note over H,A: Phase 0 — Equip the Agents
-    H->>A: Skills, CLI tools, MCP servers
-
-    Note over H,E: Each Iteration
-    H->>S: Write or update specs/*.md
-    rect rgb(183, 223, 185)
-        Note over H,A: AI Spec-Driven Interview
-        A->>S: Read specs
-        A->>E: Query latest APIs, patterns, conventions
-        E-->>A: Up-to-date guidance
-        A-->>H: Technical questions
-        H->>A: Answers & decisions
-        A->>S: Enrich specs with technical details
-        H->>S: Review, adjust & commit
-    end
-    A->>A: Generate code & tests
-    A->>E: Validate code quality
-    E-->>A: Linting, conformance, best practices
-    A->>A: Fix issues
-    A-->>H: Code ready for review
-    H->>H: Review, approve & commit
-```
+![The agentic development loop, end to end](img/2026-04-27/sequence-sdd-loop.webp)
  To see the complete implementation — CAP backend, Fiori Elements frontend, and AI Core integration — explore the [source code on GitHub](https://github.com/SAP-samples/cap-agentic-engineered). Your SAP investment already includes the platform. The question is whether you equip your agents to use it.
 
 ## References
