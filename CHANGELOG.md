@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-04-25
+
+Critiqued and restructured RA0030 architecture from six "layers" to five components with coding agent as central actor; elevated Context Engineering to first-class pillar; anchored Clean Core extension acceleration value; fixed links and voice issues. Changes written to readme-v2.md for side-by-side comparison. See [log/04-2026-04-25-ra0030-architecture-critique-restructure.md](log/04-2026-04-25-ra0030-architecture-critique-restructure.md).
+
 ## 2026-04-23
 
 Analyzed RA0030 against the idea.md knowledge source and closed 9 content gaps on the main page: added Governance Layer, A2A protocol, Gen AI Hub depth, hyperscaler pricing, human-AI collaboration, institutional memory, on-prem example and spec-driven development framing. Architecture moved from 5 to 6 layers. See [log/03-2026-04-23-ra0030-gap-analysis-against-idea.md](log/03-2026-04-23-ra0030-gap-analysis-against-idea.md).
