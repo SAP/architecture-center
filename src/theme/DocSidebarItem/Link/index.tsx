@@ -12,6 +12,7 @@ import {isActiveSidebarItem} from '@docusaurus/plugin-content-docs/client';
 import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
+import DuplicateCounter from '@theme/DocSidebarItem/DuplicateCounter';
 import type {Props} from '@theme/DocSidebarItem/Link';
 
 import styles from './styles.module.css';
@@ -20,28 +21,7 @@ function LinkLabel({label, duplicateCount}: {label: string; duplicateCount?: num
   return (
     <span className={styles.linkLabel}>
       {label}
-      {duplicateCount && duplicateCount > 0 && (
-        <span
-          className="sidebar-duplicate-counter"
-          title={`Also appears in ${duplicateCount} other ${duplicateCount === 1 ? 'domain' : 'domains'}`}
-          style={{
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: 'var(--ifm-color-content-secondary)',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap',
-            marginLeft: '0.25rem'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--ifm-color-primary)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--ifm-color-content-secondary)';
-          }}
-        >
-          [+{duplicateCount}]
-        </span>
-      )}
+      {duplicateCount && <DuplicateCounter count={duplicateCount} />}
     </span>
   );
 }
@@ -51,7 +31,6 @@ export default function DocSidebarItemLink({
   onItemClick,
   activePath,
   level,
-  index,
   ...props
 }: Props): ReactNode {
   const {href, label, className, autoAddBaseUrl} = item;

@@ -37,6 +37,7 @@ import type {
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from '@docusaurus/plugin-content-docs';
+import DuplicateCounter from '@theme/DocSidebarItem/DuplicateCounter';
 import styles from './styles.module.css';
 
 // If we navigate to a category and it becomes active, it should automatically
@@ -138,28 +139,7 @@ function CategoryLinkLabel({label, duplicateCount}: {label: string; duplicateCou
   return (
     <span className={styles.categoryLinkLabel}>
       {label}
-      {duplicateCount && duplicateCount > 0 && (
-        <span
-          className="sidebar-duplicate-counter"
-          title={`Also appears in ${duplicateCount} other ${duplicateCount === 1 ? 'domain' : 'domains'}`}
-          style={{
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: 'var(--ifm-color-content-secondary)',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap',
-            marginLeft: '0.25rem'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = 'var(--ifm-color-primary)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = 'var(--ifm-color-content-secondary)';
-          }}
-        >
-          [+{duplicateCount}]
-        </span>
-      )}
+      {duplicateCount && <DuplicateCounter count={duplicateCount} />}
     </span>
   );
 }

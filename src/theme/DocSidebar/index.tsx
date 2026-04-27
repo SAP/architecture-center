@@ -289,6 +289,93 @@ function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
 }
 
 // ============================================================================
+// Shared Helper Functions
+// ============================================================================
+
+// Collect unique doc IDs from grouped items (for result count display)
+function collectUniqueDocIds(groupedItems: Record<string, any[]>): Set<string> {
+  const uniqueDocIds = new Set<string>();
+
+  const traverse = (items: any[]) => {
+    items.forEach(item => {
+      if (item.type === 'doc' || item.type === 'link') {
+        const id = item.docId || item.id || '';
+        if (id) uniqueDocIds.add(id);
+      } else if (item.type === 'category') {
+        // Count the category itself if it has href (parent architecture)
+        if (item.href) {
+          uniqueDocIds.add(item.href);
+        }
+        // Recursively count children
+        if (item.items) {
+          traverse(item.items);
+        }
+      }
+    });
+  };
+
+  Object.values(groupedItems).forEach(items => traverse(items));
+  return uniqueDocIds;
+}
+
+// Add duplicate counters to item customProps recursively
+function addDuplicateCountersToItems(items: any[], duplicateCounts: Record<string, number>): any[] {
+  return items.map(item => {
+    if (item.type === 'category') {
+      // For parent architectures (categories with href), use href for matching
+      const categoryId = item.href || item.docId || item.id || '';
+      const categoryDuplicateCount = duplicateCounts[categoryId];
+
+      return {
+        ...item,
+        customProps: {
+          ...item.customProps,
+          ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
+        },
+        items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
+      };
+    } else if (item.type === 'doc' || item.type === 'link') {
+      const itemId = item.docId || item.id || '';
+      const duplicateCount = duplicateCounts[itemId];
+
+      return {
+        ...item,
+        customProps: {
+          ...item.customProps,
+          ...(duplicateCount && { duplicateCount })
+        }
+      };
+    }
+
+    return item;
+  });
+}
+
+// Transform domain-grouped data into Docusaurus category structure
+function buildDomainCategories(
+  filteredGrouped: Record<string, any[]>,
+  duplicateCounts: Record<string, number>,
+  expandedDomains: string[]
+) {
+  return DOMAIN_DEFINITIONS.map(domain => {
+    const domainItems = filteredGrouped[domain.id] || [];
+    const docCount = countTotalDocsInItems(domainItems);
+    const itemsWithCounters = addDuplicateCountersToItems(domainItems, duplicateCounts);
+
+    return {
+      type: 'category',
+      label: `${domain.label} (${docCount})`,
+      items: itemsWithCounters,
+      collapsible: true,
+      collapsed: !expandedDomains.includes(domain.id),
+      customProps: {
+        domainId: domain.id
+      }
+    };
+  }).filter(category => category.items.length > 0);
+}
+
+// ============================================================================
 // Desktop Version
 // ============================================================================
 const PARTNER_OPTIONS = [
@@ -359,80 +446,14 @@ function DocSidebarDesktop(props) {
     };
 
     // Count unique documents (across all domains, no duplicates)
-    const uniqueDocIds = new Set<string>();
-    const countDocsRecursive = (items) => {
-      items.forEach(item => {
-        if (item.type === 'doc' || item.type === 'link') {
-          const id = item.docId || item.id || '';
-          if (id) uniqueDocIds.add(id);
-        } else if (item.type === 'category') {
-          // Count the category itself if it has href (parent architecture)
-          if (item.href) {
-            uniqueDocIds.add(item.href);
-          }
-          // Recursively count children
-          if (item.items) {
-            countDocsRecursive(item.items);
-          }
-        }
-      });
-    };
-    Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
-    const resultCount = uniqueDocIds.size;
-
-    // Helper function to add duplicate counters to item customProps
-    const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
-      return items.map(item => {
-        if (item.type === 'category') {
-          // For parent architectures (categories with href), use href for matching
-          const categoryId = item.href || item.docId || item.id || '';
-          const categoryDuplicateCount = duplicateCounts[categoryId];
-
-          return {
-            ...item,
-            customProps: {
-              ...item.customProps,
-              ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
-            },
-            items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
-          };
-        } else if (item.type === 'doc' || item.type === 'link') {
-          const itemId = item.docId || item.id || '';
-          const duplicateCount = duplicateCounts[itemId];
-
-          // Add counter to doc/link customProps only if it exists
-          return {
-            ...item,
-            customProps: {
-              ...item.customProps,
-              ...(duplicateCount && { duplicateCount: duplicateCount })
-            }
-          };
-        }
-
-        return item;
-      });
-    };
+    const resultCount = collectUniqueDocIds(filteredGrouped).size;
 
     // Transform domain-grouped data into Docusaurus category structure
-    const domainCategories = DOMAIN_DEFINITIONS.map(domain => {
-      const domainItems = filteredGrouped[domain.id] || [];
-      const docCount = countTotalDocsInItems(domainItems);
-
-      // Add duplicate counters to items
-      const itemsWithCounters = addDuplicateCountersToItems(domainItems, grouped.duplicateCounts);
-
-      return {
-        type: 'category',
-        label: `${domain.label} (${docCount})`,
-        items: itemsWithCounters,
-        collapsible: true,
-        collapsed: !expandedDomains.includes(domain.id),
-        customProps: {
-          domainId: domain.id
-        }
-      };
-    }).filter(category => category.items.length > 0);
+    const domainCategories = buildDomainCategories(
+      filteredGrouped,
+      grouped.duplicateCounts,
+      expandedDomains
+    );
 
     return (
       <div className={clsx(
@@ -506,80 +527,14 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     };
 
     // Count unique documents
-    const uniqueDocIds = new Set<string>();
-    const countDocsRecursive = (items) => {
-      items.forEach(item => {
-        if (item.type === 'doc' || item.type === 'link') {
-          const id = item.docId || item.id || '';
-          if (id) uniqueDocIds.add(id);
-        } else if (item.type === 'category') {
-          // Count the category itself if it has href (parent architecture)
-          if (item.href) {
-            uniqueDocIds.add(item.href);
-          }
-          // Recursively count children
-          if (item.items) {
-            countDocsRecursive(item.items);
-          }
-        }
-      });
-    };
-    Object.values(filteredGrouped).forEach(items => countDocsRecursive(items));
-    const resultCount = uniqueDocIds.size;
-
-    // Helper function to add duplicate counters to item customProps
-    const addDuplicateCountersToItems = (items: any[], duplicateCounts: Record<string, number>): any[] => {
-      return items.map(item => {
-        if (item.type === 'category') {
-          // For parent architectures (categories with href), use href for matching
-          const categoryId = item.href || item.docId || item.id || '';
-          const categoryDuplicateCount = duplicateCounts[categoryId];
-
-          return {
-            ...item,
-            customProps: {
-              ...item.customProps,
-              ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
-            },
-            items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
-          };
-        } else if (item.type === 'doc' || item.type === 'link') {
-          const itemId = item.docId || item.id || '';
-          const duplicateCount = duplicateCounts[itemId];
-
-          // Add counter to doc/link customProps only if it exists
-          return {
-            ...item,
-            customProps: {
-              ...item.customProps,
-              ...(duplicateCount && { duplicateCount: duplicateCount })
-            }
-          };
-        }
-
-        return item;
-      });
-    };
+    const resultCount = collectUniqueDocIds(filteredGrouped).size;
 
     // Transform domain-grouped data into Docusaurus category structure
-    const domainCategories = DOMAIN_DEFINITIONS.map(domain => {
-      const domainItems = filteredGrouped[domain.id] || [];
-      const docCount = countTotalDocsInItems(domainItems);
-
-      // Add duplicate counters to items
-      const itemsWithCounters = addDuplicateCountersToItems(domainItems, grouped.duplicateCounts);
-
-      return {
-        type: 'category',
-        label: `${domain.label} (${docCount})`,
-        items: itemsWithCounters,
-        collapsible: true,
-        collapsed: !expandedDomains.includes(domain.id),
-        customProps: {
-          domainId: domain.id
-        }
-      };
-    }).filter(category => category.items.length > 0);
+    const domainCategories = buildDomainCategories(
+      filteredGrouped,
+      grouped.duplicateCounts,
+      expandedDomains
+    );
 
     return (
         <>
