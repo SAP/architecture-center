@@ -252,7 +252,18 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
 /* Align domain category arrows with nested level arrows */
 /* Target domain-level links by the --sublist-caret modifier */
 a.menu__link--sublist-caret {
-    padding-right: 0.1875rem; /* 3px */
+    padding-right: 0.1875rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Keep domain category arrows fixed on hover - only shift the text */
+.menu__link--sublist-caret:hover {
+    transform: none !important;
+}
+
+.menu__link--sublist-caret:hover [class*="categoryLinkLabel"] {
+    transform: translateX(4px);
 }
 
 /* Changing the padding size of the symbol to expand the content in the sidebar */
