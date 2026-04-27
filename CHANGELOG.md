@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-04-27
+
+Applied nine ref-arch-voice style fixes to the RA0030 Flow section: removed inline bold emphasis, Oxford commas and parenthetical asides; converted passive constructions to active; renamed the "Merge to Main" verb-phrase label to "Main Branch Integration". See [log/05-2026-04-27-ra0030-flow-style-fixes.md](log/05-2026-04-27-ra0030-flow-style-fixes.md).
+
 ## 2026-04-25
 
 Critiqued and restructured RA0030 architecture from six "layers" to five components with coding agent as central actor; elevated Context Engineering to first-class pillar; anchored Clean Core extension acceleration value; fixed links and voice issues. Changes written to readme-v2.md for side-by-side comparison. See [log/04-2026-04-25-ra0030-architecture-critique-restructure.md](log/04-2026-04-25-ra0030-architecture-critique-restructure.md).
