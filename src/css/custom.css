@@ -1273,28 +1273,15 @@ html[data-theme='dark'] .sidebar-duplicate-counter:hover {
     color: var(--ifm-color-content-secondary) !important;
 }
 
-/* For domain category items, cancel link transform and only transform text */
-.menu__link--sublist-caret {
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.menu__link--sublist-caret:hover {
-    transform: none;
-}
-
-.menu__link--sublist-caret [class*="categoryLinkLabel"] {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.menu__link--sublist-caret:hover [class*="categoryLinkLabel"] {
-    transform: translateX(4px);
-}
-
 /* All active links get bold */
 .theme-doc-sidebar-menu .menu__link--active,
 nav[class*="domainSidebar"] .menu__link--active {
     font-weight: bold;
+}
+
+/* Active document links (not folders) - hover animation combining both transforms */
+.menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active:hover {
+    transform: translateX(4px) translateZ(0) !important;
 }
 
 /* Gradient effect on document links (all documents, not folders) */
@@ -1409,7 +1396,8 @@ html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover {
     nav[class*="domainSidebar"] .menu__link:hover,
     html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
     html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover,
-    .menu__link--sublist-caret:hover [class*="categoryLinkLabel"] {
+    .menu__link--sublist-caret:hover [class*="categoryLinkLabel"],
+    .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active:hover {
         transform: none !important;
     }
 
