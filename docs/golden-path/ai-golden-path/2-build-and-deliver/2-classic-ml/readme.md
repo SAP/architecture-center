@@ -29,8 +29,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run ML cases
-
 ## What you will build
 
 Machine Learning (ML) on SAP platforms enables organizations to build predictive and prescriptive analytics capabilities directly within their business applications. This guide covers three primary approaches:
@@ -38,11 +36,6 @@ Machine Learning (ML) on SAP platforms enables organizations to build predictive
 - **Tabular AI with RPT-1** *(start here for classification and regression)*: Foundation model for predictive use cases on tabular data. No model training required — leverages in-context learning based on a globally pre-trained model. Available via AI Core and directly in HANA Cloud via SQL stored procedure.
 - **Embedded ML with SAP HANA Cloud (PAL/APL)**: Train and deploy models directly in-database using built-in libraries. Preferred for time series, anomaly detection, clustering, and as a fallback for classification/regression when RPT-1 cannot meet specific operational requirements.
 - **Custom ML with SAP AI Core**: Build, deploy, and serve custom ML models on Kubernetes infrastructure. Use when custom or customer-specific model training is required.
-
-:::note All-in-on-AI Decision: Start with RPT-1 for classification and regression
-Per the All-in-on-AI architectural decision (Feb 2026), development teams must **always start with RPT-1** for classification and regression use cases. Switch to HANA PAL or AI Core only if a use case has specific requirements RPT-1 cannot meet — see the [Decision Framework](#decision-framework) below.
-:::
-
 
 Whether you need in-database ML for real-time predictions or custom deep learning models with MLOps capabilities, SAP provides comprehensive infrastructure for the complete ML lifecycle — from data preparation and model training to deployment and monitoring in production environments.
 
@@ -119,7 +112,7 @@ RPT-1 is SAP's tabular foundation model for predictive AI. It requires no model 
 
 **When to use RPT-1:**
 
-- Classification or regression on tabular data (the default starting point per the Feb 2026 decision)
+- Classification or regression on tabular data
 - Cold-start situations with limited historical training data
 - Use cases where column names or cells contain textual/semantic content (RPT-1 understands these natively)
 - Rapid prototyping without the overhead of a training pipeline
@@ -159,8 +152,6 @@ Use for time series forecasting, anomaly detection, clustering, and other use ca
 - **Performance Optimization**: Leverage HANA's columnar storage and parallel processing for large-scale datasets
 
 **Code Example - Classification with PAL:**
-
-> **Note:** For classification use cases, evaluate RPT-1 first per the All-in-on-AI decision (Feb 2026). Use PAL when RPT-1 does not meet your operational requirements (e.g., latency &lt;200ms, data gravity constraints, or very high batch throughput needs).
 
 ```python
 # Example: PAL Random Forest via hana-ml Python client
@@ -331,7 +322,7 @@ ORDER BY SIMILARITY DESC;
 
 | **Dos** | **Don'ts** |
 |-------------|---------------|
-| **Start with RPT-1** for classification and regression — it requires no training, handles textual columns natively, and avoids the cold-start problem | **Don't start with PAL/APL for classification/regression** without first evaluating RPT-1; it is the mandated starting point per the Feb 2026 decision |
+| **Start with RPT-1** for classification and regression — it requires no training, handles textual columns natively, and avoids the cold-start problem | **Don't start with PAL/APL for classification/regression** without first evaluating RPT-1 |
 | **Use HANA PAL/APL** for time series, anomaly detection, clustering, or when RPT-1 cannot meet specific requirements (latency, data gravity, very high batch throughput) | **Don't move data out of HANA** unnecessarily — train models where data lives to avoid latency and governance issues |
 | **Use AI Core** when custom frameworks (TensorFlow, PyTorch) or customer-specific model training is needed | **Don't use AI Core narrow AI** for classification/regression when RPT-1 or PAL/APL can meet the requirements |
 | **Leverage APL** for rapid prototyping and automated feature engineering on time series and other non-classification/regression tabular data | **Don't skip model validation** — always evaluate on holdout data and monitor production performance |
