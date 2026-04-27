@@ -3,9 +3,6 @@
 ## Overview
 
 - **Reference Architecture**: `docs/ref-arch/RA0030/readme.md`
-- **Blog Post**: `docs/ref-arch/RA0030/context/2026-03-30-agentic-engineering.md`
-- **Audience**: Architects and developers
-- **Depth**: Architecture patterns & decision frameworks (not implementation guides)
 
 ## Topic Structure
 
@@ -28,7 +25,6 @@
 
 | # | Topic | Core Concern | Context Sources |
 |---|-------|--------------|-----------------|
-| 6 | **Multi-Agent Orchestration** | Coordinating multiple agents — topologies, state, decomposition | Sequential/parallel/hierarchical, orchestrator-workers, A2A protocol, shared vs. isolated state |
 | 7 | **Human Governance & Safety** | Keeping humans in control — gates, enforcement, auditability | HITL gates, hooks, provenance logging, anti-patterns (Willison ch.3) |
 | 8 | **MCP & Tool Integration for SAP** | Connecting agents to SAP ecosystem | SAP Build MCP servers, BDC pattern, LiteLLM proxy, Cloud SDK for AI, discovery hierarchy |
 
@@ -39,10 +35,9 @@
 These represent the core trade-offs and decision points in agentic engineering:
 
 1. **Speed vs. Quality**: Vibe coding vs. disciplined agentic engineering
-2. **Context Explosion vs. Coverage**: MCP eager-loading vs. CLI discovery
-3. **Agent Autonomy vs. Oversight**: Free-roaming vs. HITL gates
-4. **Grounding Infrastructure Investment**: Heavy upfront vs. on-demand prompting
-5. **Specification Overhead vs. Maintenance**: GSD structure vs. pure vibe
+2. **Agent Autonomy vs. Oversight**: Free-roaming vs. HITL gates
+3. **Grounding Infrastructure Investment**: Heavy upfront vs. on-demand prompting
+4. **Specification Overhead vs. Maintenance**: GSD structure vs. pure vibe
 
 ## Detailed Topic Scope
 
@@ -80,13 +75,6 @@ These represent the core trade-offs and decision points in agentic engineering:
 - **Manual testing patterns**: CLI, curl, Playwright
 - **UI bootstrap testing hole**
 - **Proof-of-work** in PRs
-
-### 6. Multi-Agent Orchestration
-
-- **Topologies**: Sequential, parallel, hierarchical, evaluator-optimizer
-- **A2A protocol**
-- **Shared state vs. isolated context**
-- **Task decomposition and coordination**
 
 ### 7. Human Governance & Safety
 
