@@ -2,11 +2,19 @@
 
 ## 2026-04-27
 
+Moved RA0030 context and draft files into `human-only/` directory; removed superseded `context/` sources and `readme-v2.md`; updated `AGENTS.md` with open issues linked to the fork.
+
+Reworked RA0030 Flow section from six generic steps to an explicit 8-step agentic engineering lifecycle: split agent setup into two activation steps (project skills and SAP MCP knowledge), added specification co-creation as a human+agent step before generation, surfaced parallel code production with inter-agent communication and agent-driven spec updates, added reviewer agent pre-screening before developer review, and separated the main branch merge from automated quality gates. Framed steps 1-3 as one-time setup and steps 4-8 as the repeating development cycle. Replaced all em dashes throughout.
+
 Applied nine ref-arch-voice style fixes to the RA0030 Flow section: removed inline bold emphasis, Oxford commas and parenthetical asides; converted passive constructions to active; renamed the "Merge to Main" verb-phrase label to "Main Branch Integration". See [log/05-2026-04-27-ra0030-flow-style-fixes.md](log/05-2026-04-27-ra0030-flow-style-fixes.md).
 
 ## 2026-04-25
 
 Critiqued and restructured RA0030 architecture from six "layers" to five components with coding agent as central actor; elevated Context Engineering to first-class pillar; anchored Clean Core extension acceleration value; fixed links and voice issues. Changes written to readme-v2.md for side-by-side comparison. See [log/04-2026-04-25-ra0030-architecture-critique-restructure.md](log/04-2026-04-25-ra0030-architecture-critique-restructure.md).
+
+Elevated the governance registry to a first-class Skill Registry component in RA0030, mediating between Context Engineering and the Coding Agent; added Federated Governance characteristic; promoted Capability Discovery as flow step 3. Updated diagram task to reflect the six-component model.
+
+Removed the Vibe Coding with Cline sub-page from RA0005 and its index reference.
 
 ## 2026-04-23
 
