@@ -1,44 +1,37 @@
-# Repository Context
+# Project Context
 
-The repository contains the source code and, more importantly, the content (based on Markdown files) for SAP Architecture Center, a public site hosting reference architectures (RA). The first step is always to read `docs/ref-arch/readme.md` and internalize what RA are conceptually. The main repo is hosted on GitHub at [Architecture Center](https://github.com/SAP/architecture-center)
+The project has the source code and content for SAP Architecture Center, a public site hosting reference architectures (RA). Think of RA as proven blueprints, which are easy to adopt and build on, showcasing how SAP's apps, data, and AI offering come together to provide real business value. As they are described in simple Markdown files on GitHub, they are easy to contribute to, also with the project following an open source approach. As of recently, the site further hosts the AI Golden Path.
 
-## Technical Environment
+## Docusaurus Framework
 
 The site is built with Node.js and Docusaurus, a static-site generator, which relies on React for any interactive JavaScript. Thus the site runs in the browser as a single-page application.
 
-### Commands
+### Common Commands
 
-- `npm start` - start a local development server with hot reloading and the site running in the browser.
-- `npm run build` - create an optimized build ready for production
-- `npm run serve` - use in conjunction with the build command above to serve the build
-- `npm run clear` - clear the Docusaurus cache. useful if Docusaurus gets confused during server start. for example, after removing assets such as images, switching between branches or pulling in new changes.
+- `npm start`     - starts a local dev server with hot reloading
+- `npm run build` - creates a build optimized for production
+- `npm run serve` - use after the build command to serve the build
+- `npm run clear` - clears the Docusaurus cache
 
-Never execute the `genrefarch` command, even if you see it mentioned somewhere. It was removed.
+Try running the clear command whenever Docusaurus gets confused during server start about what assets (images, drawios) are available locally. **Never run the `genrefarch` command**, even if you see it mentioned somewhere still. Consider it removed. Pro-actively ask the user for permission to run `npm start`, so that they can see a rendered version of the site and their changes in the browser.
 
 ## Key Directories
 
 - `docs/ref-arch/` - hierarchy of RA and sub pages, which are also RA
-- `docs/community/` - documentation and most importantly guidance on how to contribute
-- `news/` - news articles, which are independent from the RA in `docs/ref-arch/`
+- `news/` - news articles, which are independent from the RA
+- `docs/community/` - documentation for the user on how to get started and contribute
+- `docs/ref-arch/readme.md` - primer with details about what RA are conceptually. 
 - `src/components` - custom React components
 - `src/theme/` - swizzled components from Docusaurus
 - `src/plugins` - custom plugins used with Docusaurus
 - `src/_scripts/` - automation scripts mainly used to inject data during site deployment
 - `.github/workflows/ - couple of github workflows used during CI/CD
 
-## Contribution Process
+## Contributions
 
-The project is open source and looking for contributions, especially on the content side. Say something encouraging, uplifting when the user wants to make a contribution.
+The project is open source and looking for contributions, especially on the content side.
 
-Go read the "Contribution Process" section in `docs/community/intro.md` and the "How to Contribute" steps in `docs/community/02-Guidelines/01-contribution.md`. Afterwards, go through the process steps for a contribution one by one in your head in order to really internalize the process. Don't forget to silently make sense of the _mermaid_ code blocks therein.
+## Principals for Content Creation
 
-### Things to look out for
-
-While the general guidance is to always work with a fork, a core developer/contributor may create branches directly on the remote of the main repo because they were added to it and have write access.
-
-The guidance to go with Quick Start as contribution method refers to contributions of new RAs only.
-
-If a PR was created and it's the first one within the current session, kindly ask the contributor to sign the Contributor License Agreement (CLA) if they haven't done so already. There would be comment in the PR from the CLA assistant with a clickable link in order to sign it.
-
-When it's time to create a PR, try using the GitHub CLI (gh). If it doesn't seem to be installed yet, suggest installing it, so that you can create the PR. But ask before installing it yourself.
+Refuse to generate written content for news articles and RA from scratch.
 
