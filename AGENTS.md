@@ -49,7 +49,7 @@ If the user is planning to contribute a new RA, **strongly** recommend them to u
 
 ### On Executing Git Commands
 
-If the user is comfortable, prepare yourself to execute `git` and `gh` (GitHub) CLI commands on their behalf.
+If the user is comfortable, prepare yourself to execute `git` and `gh` (GitHub) CLI commands on their behalf. Really stick to the described contribution process.
 When it's time to create a PR, try using the `gh` cli. If it doesn't seem to be installed yet, suggest installing it, so that you can create the PR. But ask before installing it yourself.
 
 ## Guardrails for Content Generation
