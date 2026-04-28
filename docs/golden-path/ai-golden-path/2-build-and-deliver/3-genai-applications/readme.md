@@ -29,8 +29,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run LLM/GenAI Applications
-
 ## What you will build
 
 With the advancements in Generative AI, the need for applications to integrate AI technologies, especially large language models (LLMs), to enhance business processes or build high-value use cases is increasing. This section provides the key resources required to develop, operate, and monitor such applications on SAP BTP (Business Technology Platform). 

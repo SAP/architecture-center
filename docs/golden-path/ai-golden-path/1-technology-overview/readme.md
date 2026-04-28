@@ -30,8 +30,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# Technology Decision Tree for AI
-
 ## When to use AI
 
 The journey to successful AI implementation begins with a sobering reality: 95% of enterprise AI initiatives deliver zero measurable return. Success isn't determined by model quality or regulatory constraints — it is determined by the value provided. Organizations must move beyond the technology hype and, instead, ground their AI exploration in concrete business problems where the technology's strengths genuinely align with operational needs.
@@ -103,7 +101,7 @@ It offers instant predictive insights from structured business data through in-c
 * You can formulate your problem as a task with **clearly defined output** (e.g., a label, score, numeric value).
 * You can **engineer features** and have historical data for training.
 * Interpretability, explainability, and performance tuning are important.
-* For **classification/regression**: you have evaluated `sap-rpt-1` first (required per the Feb 2026 decision) and it cannot meet your specific requirements (e.g., latency &lt;200ms, data gravity, context window limits, or GPU availability). For **time series, anomaly detection, clustering**: classic ML (e.g., HANA PAL) is the default choice.
+* For **classification/regression**: It is recommended to first evaluate `sap-rpt-1` for classification/regression, as benchmarks show strong performance with lower engineering effort. Only move away if it cannot meet constraints (e.g. latency  &lt;200 ms, data locality, context limits, GPU availability). For **time series, anomaly detection, clustering**: use classic ML (e.g. HANA PAL) as the default.
 * You can bear costs and complexity of lifecycle management of per-customer trained models, or you do not have per-customer trained model.
 * Processing needs to happen close to the data via in-database ML.
 
@@ -447,3 +445,7 @@ flowchart TD
     class R1,R2,R3 recommendation
     class CheckBroad,CheckSpecific,CheckCustom,CheckSimple,CheckProCode,CheckVibe,CheckOrchestration indicator
 ```
+
+:::info References
+- [Forbes: Why 95% Of AI Pilots Fail, And What Business Leaders Should Do Instead](https://www.forbes.com/sites/andreahill/2025/08/21/why-95-of-ai-pilots-fail-and-what-business-leaders-should-do-instead/)
+:::
