@@ -14,6 +14,8 @@ interface CollapsibleFilterBarProps {
     onPartnersChange: (values: Option[]) => void;
     resetFilters: () => void;
     isResetEnabled: boolean;
+    searchTerm: string;
+    onSearchChange: (value: string) => void;
     resultCount?: number;
 }
 
@@ -23,6 +25,8 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     onPartnersChange,
     resetFilters,
     isResetEnabled,
+    searchTerm,
+    onSearchChange: _onSearchChange,
     resultCount,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -40,7 +44,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
         onChange(currentSelection.filter((item) => item.value !== option.value));
     };
 
-    const hasActiveFilters = selectedPartners.length > 0;
+    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0;
 
     return (
         <div className={styles.filterBarContainer}>

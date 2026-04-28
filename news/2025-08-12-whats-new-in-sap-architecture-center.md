@@ -3,7 +3,7 @@ title: New Architectures & Contributors (Q3-2025)
 description: Explore new reference architectures covering AI, DevOps, Integration, and Security, and meet the latest contributors to the SAP Architecture Center.
 authors: [ jmsrpp ]
 keywords: ["SAP Architecture Center", "Reference Architectures", "SAP BTP", "Joule Studio", "AI Agents", "DevOps", "B2B Integration"]
-hide_table_of_contents: true
+hide_table_of_contents: false
 date: 2025-08-12
 ---
 

@@ -18,8 +18,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: jmsrpp
-  date: 2025-05-19
+  author: cernus76
+  date: 2026-04-21
 ---
 
 ## About this project
@@ -61,7 +61,7 @@ J:::reduceSize --> K[Associate PR with Issue]:::reduceSize
 
 ## Requirements and Setup
 
-Refer to the [Get Started with Quick Start](community/02-Guidelines/02-GetStarted/02-get-started-vscode.md) or [Get Started with VSCode (CLI)](community/02-Guidelines/02-GetStarted/02-get-started-vscode.md) page for the requirements & setup.
+Refer to the [Get Started with Quick Start](02-Guidelines/02-GetStarted/01-get-started-quickstart.md) page for the requirements & setup.
 
 ## Support and Feedback
 

@@ -28,7 +28,7 @@ export default function UserDropdownNavbarItem() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [dropdownRef]);
+    }, []); // Empty array - event handler doesn't depend on ref changes
 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 

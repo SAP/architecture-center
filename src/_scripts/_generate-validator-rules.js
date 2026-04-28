@@ -119,7 +119,7 @@ async function fetchValidationRules() {
 function generateMarkdownTable(rules) {
   const header = `---
 sidebar_position: 3
-slug: /validation-rules
+slug: /community/validation-rules
 title: Architecture Validation Rules
 description: Complete list of validation rules used by the Architecture Validator
 sidebar_label: Architecture Validation Rules
@@ -171,7 +171,7 @@ This document is auto-generated and updated automatically.
 }
 
 async function saveMarkdownFile(content) {
-  const outputDir = path.join(__dirname, '../../community/02-Guidelines/08-ArchitectureValidator');
+  const outputDir = path.join(__dirname, '../../docs/community/02-Guidelines/08-ArchitectureValidator');
   const outputPath = path.join(outputDir, '02-validation-rules.md');
 
   // Ensure directory exists

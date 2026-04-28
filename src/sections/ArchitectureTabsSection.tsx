@@ -87,12 +87,8 @@ export default function ArchitectureTabsSection(): JSX.Element {
     return (
         <ScrollStops
             stops={visibleCards.length}
-            onStopChange={(stopIndex) => {
-                console.log('Stop changed to:', stopIndex);
-            }}
         >
             {(currentStop) => {
-                console.log('Rendering ArchitectureTabs with currentStop:', currentStop);
                 return (
                     <ArchitectureTabs
                         tabs={visibleCards}

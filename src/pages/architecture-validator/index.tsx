@@ -63,7 +63,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
     const baseUrl = siteConfig.baseUrl;
 
     const handleInfoClick = () => {
-        const infoUrl = `${baseUrl}community/validation-rules`;
+        const infoUrl = `${baseUrl}docs/community/validation-rules`;
         window.open(infoUrl, '_blank', 'noopener,noreferrer');
     };
 
@@ -417,6 +417,7 @@ export default function ArchitectureValidator(): React.JSX.Element {
                                                 src={`https://viewer.diagrams.net/?lightbox=1&edit=_blank&layers=1&nav=1#R${encodeURIComponent(
                                                     mf.content
                                                 )}`}
+                                                sandbox="allow-same-origin allow-scripts allow-popups"
                                                 className={styles.diagramViewer}
                                                 title={mf.file.name}
                                             />

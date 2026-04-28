@@ -1,6 +1,6 @@
 jmsrpp:
   name: Jim Rapp
-  title: Head of Architecture
+  title: Head of Architecture - Office of the CTO
   url: https://github.com/jmsrpp
   image_url: https://github.com/jmsrpp.png
   page: true
@@ -11,7 +11,7 @@ jmsrpp:
 
 cernus76:
   name: Pierre-Olivier Basseville
-  title: Program Manager / Product Owner
+  title: Product Manager - Office of the CTO
   url: https://github.com/cernus76
   image_url: https://github.com/cernus76.png
   page: true
@@ -33,7 +33,7 @@ anirban-sap:
 
 guilherme-segantini:
   name: Guilherme Segantini
-  title: Expert Development Architect
+  title: Expert Development Architect - Office of the CTO
   url: https://github.com/guilherme-segantini
   image_url: https://github.com/guilherme-segantini.png
   page: true
@@ -44,10 +44,19 @@ guilherme-segantini:
 
 anujag24:
   name: Anuj Gupta
-  title: Principal Architect, Office of the CTO
+  title: Principal Architect - Office of the CTO
   url: https://github.com/anujag24
   image_url: https://github.com/anujag24.png
   page: true
   socials:
     github: anujag24
     linkedin: anuj-gupta-lk
+
+AlexaMacDonald:
+  name: Alexa MacDonald
+  title: Content Specialist
+  url: https://www.linkedin.com/in/alexa-macdonald-she-96a68254/
+  image_url: https://riseof.ai/wp-content/uploads/2024/07/Alexa-MacDonald.jpeg
+  page: true
+  socials:
+    linkedin: alexa-macdonald-she-96a68254

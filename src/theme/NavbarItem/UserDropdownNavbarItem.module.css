@@ -3,14 +3,20 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    height: 35px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     border: 1px solid transparent;
     background-color: transparent;
 }
 
 .loginButton:hover {
     background: var(--ifm-color-emphasis-200);
+}
+
+.loginButton::part(button) {
+    border-radius: 50% !important;
+    padding: 0;
 }
 
 .loginButton ui5-icon {
@@ -68,6 +74,16 @@
     display: flex;
     align-items: center;
     position: relative;
+}
+
+.userDropdown__button:focus {
+    outline: none;
+}
+
+.userDropdown__button:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 .userDropdown__content {

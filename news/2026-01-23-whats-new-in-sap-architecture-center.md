@@ -3,7 +3,7 @@ title: New Architectures & Contributors (Q4-2025)
 description: Explore new reference architectures covering Embodied AI Agents, SAP Business Data Cloud, Joule extensions, and Event-Driven Applications. Meet the latest contributors to the SAP Architecture Center.
 authors: [ guilherme-segantini ]
 keywords: ["SAP Architecture Center", "Reference Architectures", "SAP BTP", "Embodied AI Agents", "SAP Business Data Cloud", "Joule", "Event-Driven Applications", "SAP AI Core"]
-hide_table_of_contents: true
+hide_table_of_contents: false
 date: 2026-01-23
 ---
 

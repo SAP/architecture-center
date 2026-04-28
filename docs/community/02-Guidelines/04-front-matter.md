@@ -50,8 +50,8 @@ contributors:
   - cernus76
   - jmsrpp
 last_update:
-  author: jmsrpp
-  date: 2025-01-01
+  author: cernus76
+  date: 2026-04-21
 ---
 ```
 
@@ -70,7 +70,6 @@ The front matter starts and ends with `---`.
 This `id` is structured as the following:
 
 * `id` `-` `< assigned RAXXXX of the page >` for the landing page.
-* `id` `-` `< assigned RAXXXX of the page >` `-` `< number from 1 to 99... >` for a subpage.
 
 Let's take the following example: `id: id-ra0001`.
 This id indicates this is the landing page of the reference architecture 0001.
@@ -81,7 +80,7 @@ id: id-ra0001
 ```
 
 :::warning Do Not Modify
-This information is auto-assigned.
+This information is auto-assigned during the technical validation.
 :::
 
 ***
@@ -94,8 +93,6 @@ This `slug` is structured as the following:
 
 * `/ref-arch/` is followed by a short UUID `XXXXXXXXXX` 
 * `/ref-arch/XXXXXXXXXX` is reserved for the landing page of the reference architecture.
-* `/ref-arch/XXXXXXXXXX/1` will be assigned to the first subpage of the reference architecture.
-* `/ref-arch/XXXXXXXXXX/1/1` will be assigned to the first sub-subpage of the reference architecture.
 
 Example: 
 ```yaml
@@ -104,7 +101,7 @@ slug: /ref-arch/a06a959120
 This id indicates this is the landing page of the reference architecture.
 
 :::warning Do Not Modify
-This information is auto-assigned.
+This information is auto-assigned during the technical validation.
 :::
 
 ***
@@ -119,7 +116,7 @@ sidebar_position: 1
 ```
 
 :::warning Do Not Modify
-This information is auto-assigned.
+This information is auto-assigned during the technical validation.
 :::
 
 ***

@@ -48,18 +48,9 @@ export default function ArchitectureTabs({
     const effectiveActiveIndex =
         enableScrollActivation && scrollActiveIndex !== undefined ? scrollActiveIndex : activeIndex;
 
-    console.log('ArchitectureTabs render:', {
-        enableScrollActivation,
-        scrollActiveIndex,
-        activeIndex,
-        effectiveActiveIndex
-    });
-
     // Sync internal state when scroll-controlled index changes
     useEffect(() => {
         if (enableScrollActivation && scrollActiveIndex !== undefined && scrollActiveIndex !== activeIndex) {
-            console.log('Syncing activeIndex from scroll:', scrollActiveIndex);
-
             // Trigger fade out
             setIsTransitioning(true);
 

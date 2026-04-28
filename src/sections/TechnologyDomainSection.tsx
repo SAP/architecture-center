@@ -26,13 +26,12 @@ interface DomainCardProps {
 }
 
 function DomainCard({ domain }: DomainCardProps): JSX.Element {
-    const setExpandedDomains = useSidebarFilterStore((state) => state.setExpandedDomains);
+    const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const docsUrl = useBaseUrl('/docs/ref-arch');
     const isHighlighted = domain.id === 'ai' || domain.id === 'data';
 
     const handleClick = () => {
-        // Only expand the clicked domain
-        setExpandedDomains([domain.id]);
+        setTechDomains([domain.id]);
     };
 
     return (

@@ -405,6 +405,8 @@ function DocSidebarDesktop(props) {
     const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
     const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
 
+    const [searchTerm, setSearchTerm] = useState('');
+
     // Group sidebar items by domain
     const grouped = useMemo(
       () => groupSidebarByDomain(props.sidebar, tagsDocId),
@@ -466,7 +468,9 @@ function DocSidebarDesktop(props) {
             selectedPartners={selectedPartnerOptions}
             onPartnersChange={handlePartnersChange}
             resetFilters={handleResetFilters}
-            isResetEnabled={partners.length > 0}
+            isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
             resultCount={resultCount}
           />
         </div>
@@ -499,6 +503,8 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
     const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
     const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     // Convert string arrays to Option arrays
     const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
@@ -543,7 +549,9 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
           selectedPartners={selectedPartnerOptions}
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
-          isResetEnabled={partners.length > 0}
+          isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
           resultCount={resultCount}
         />
         <nav className={styles.domainSidebarMobile}>

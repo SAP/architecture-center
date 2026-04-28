@@ -195,7 +195,7 @@ async function watermarkAll() {
             const qrSvgContent = await generateQrSvg(qrLink);
             const qrSize = 33 * 2.4 * scaleDown;
 
-            const mark = `<text x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(27 * scaleDown)}">
+            const mark = `<text id="drawio-title" x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(27 * scaleDown)}">
                             <![CDATA[${title}]]>
                         </text>
                         <g transform="translate(0, ${yShift})">

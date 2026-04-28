@@ -265,8 +265,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             });
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-            console.error('Publishing failed:', error);
             setPublishStatus({ stage: 'error', error: errorMessage, commitUrl: null, pullRequestUrl: null });
+            setIsLoading(false);
         }
     };
 
@@ -296,7 +296,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     };
 
     const handleInfoClick = () => {
-        const infoUrl = `${baseUrl}community/get-started-quickstart`;
+        const infoUrl = `${baseUrl}docs/community/get-started-quickstart`;
         window.open(infoUrl, '_blank', 'noopener,noreferrer');
     };
 
