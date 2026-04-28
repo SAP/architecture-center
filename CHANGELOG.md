@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-04-28
+
+Reduced density of RA0030 Architecture and Flow sections: rebuilt component descriptions from paragraph blocks into sub-bullet format (1 intro sentence + 2-4 bullets each); trimmed flow steps from 3-7 sentences to 1-2 each; updated ref-arch-structure skill flow benchmark from 3-5 to 3-8 based on corpus evidence. See [log/06-2026-04-28-ra0030-architecture-flow-density.md](log/06-2026-04-28-ra0030-architecture-flow-density.md).
+
 ## 2026-04-27
 
 Moved RA0030 context and draft files into `human-only/` directory; removed superseded `context/` sources and `readme-v2.md`; updated `AGENTS.md` with open issues linked to the fork.
