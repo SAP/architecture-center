@@ -2,6 +2,8 @@
 
 ## 2026-04-28
 
+Rebuilt RA0030 Architecture table and Services section: replaced abstract "Context Engineering" and "Coding Agent" rows with "Agent Harness" carrying named MCP server sub-components; renamed "Foundation Model Access" to "Foundation Model Proxy"; expanded SAP BTP Runtime with HANA Cloud, Integration Suite and Audit Log Service; trimmed Services list to only services named in the body. See [log/08-2026-04-28-ra0030-services-architecture-table.md](log/08-2026-04-28-ra0030-services-architecture-table.md).
+
 Redesigned RA0030 structure for decision-maker scanning: created readme-v4.md with Inverted Pyramid layout, Alex persona, Design Principles promoted before Architecture, component table replacing dense paragraphs, 5-phase mermaid lifecycle replacing 8-step flow, new Deployment Scenarios, Best-Practice Checklist and Conclusion sections. See [log/07-2026-04-28-ra0030-v4-structure-redesign.md](log/07-2026-04-28-ra0030-v4-structure-redesign.md).
 
 Reduced density of RA0030 Architecture and Flow sections: rebuilt component descriptions from paragraph blocks into sub-bullet format (1 intro sentence + 2-4 bullets each); trimmed flow steps from 3-7 sentences to 1-2 each; updated ref-arch-structure skill flow benchmark from 3-5 to 3-8 based on corpus evidence. See [log/06-2026-04-28-ra0030-architecture-flow-density.md](log/06-2026-04-28-ra0030-architecture-flow-density.md).
