@@ -8,9 +8,10 @@
 }
 
 .navColumn {
-    padding-top: 50px;
     flex-shrink: 0;
     width: 250px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mainAndTocWrapper {
@@ -55,7 +56,21 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.editorScrollArea {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.stickyToolbarWrapper {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: #ffffff;
+    overflow: visible;
 }
 
 .contentHeader {
@@ -66,7 +81,6 @@
 .editorInner {
     position: relative;
     flex-grow: 1;
-    overflow-y: auto;
 }
 
 .editorInput {
@@ -76,9 +90,8 @@
     font-size: 16px;
     caret-color: #212529;
     outline: 0;
-    padding: 2rem 3rem;
+    padding: 2rem 3rem 40vh 5rem;
     box-sizing: border-box;
-    padding-bottom: 40vh;
 }
 
 .editorPlaceholder {
@@ -87,7 +100,7 @@
     position: absolute;
     text-overflow: ellipsis;
     top: 2rem;
-    left: 3rem;
+    left: 5rem;
     font-size: 16px;
     user-select: none;
     pointer-events: none;
@@ -144,6 +157,20 @@
 
 .editorParagraph {
     margin: 0 0 1rem 0;
+}
+
+:global(.editorEmptyBlock.editorFocusedBlock) {
+    position: relative;
+}
+
+:global(.editorEmptyBlock.editorFocusedBlock)::before {
+    content: 'Type / for commands';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #9ca3af;
+    pointer-events: none;
+    font-style: normal;
 }
 
 .editorEmptyLineCommandHint {
@@ -241,6 +268,224 @@
     margin: 1rem 0;
 }
 
+:global(.editorImageWrapper) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block;
+}
+
+:global(.editorImageWrapper img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+:global(.editorDrawioWrapper) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #fafafa;
+}
+
+:global(.editorDrawioIframe) {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+    border: none;
+}
+
+:root[data-theme='dark'] :global(.editorImageWrapper img) {
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorDrawioWrapper) {
+    border-color: #374151;
+    background: #1f2937;
+}
+
+/* Table styles */
+:global(.editorTableWrapper) {
+    margin: 1.5rem 0;
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 4px;
+    max-width: 100%;
+}
+
+:global(.editorTableControls) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    position: absolute;
+    left: -28px;
+    top: 0;
+}
+
+:global(.editorTableWrapper:hover .editorTableControls) {
+    opacity: 1;
+}
+
+:global(.editorTableDragHandle) {
+    width: 20px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 4px;
+    cursor: grab;
+    color: #6b7280;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+:global(.editorTableDragHandle:hover) {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+:global(.editorTable) {
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+:global(.editorTableRow) {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+:global(.editorTableRow:last-child) {
+    border-bottom: none;
+}
+
+:global(.editorTableCell) {
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    min-width: 120px;
+    width: 120px;
+    vertical-align: top;
+    position: relative;
+    outline: none;
+}
+
+:global(.editorTableCell:focus-within) {
+    box-shadow: inset 0 0 0 2px #8b5cf6;
+    z-index: 1;
+}
+
+:global(.editorTableCell.selected) {
+    background: rgba(139, 92, 246, 0.1);
+    box-shadow: inset 0 0 0 2px #8b5cf6;
+}
+
+/* Add row/column buttons */
+:global(.editorTableAddRow) {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+:global(.editorTableAddCol) {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+:global(.editorTableWrapper:hover .editorTableAddRow),
+:global(.editorTableWrapper:hover .editorTableAddCol) {
+    opacity: 1;
+}
+
+:global(.editorTableAddRow:hover),
+:global(.editorTableAddCol:hover) {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* Column resize handle */
+:global(.editorTableResizeHandle) {
+    position: absolute;
+    top: 0;
+    right: -3px;
+    bottom: 0;
+    width: 6px;
+    cursor: col-resize;
+    background: transparent;
+    z-index: 10;
+}
+
+:global(.editorTableResizeHandle:hover),
+:global(.editorTableResizeHandle.resizing) {
+    background: #8b5cf6;
+}
+
+/* Dark mode table styles */
+:root[data-theme='dark'] :global(.editorTableDragHandle) {
+    background: #374151;
+    color: #9ca3af;
+}
+
+:root[data-theme='dark'] :global(.editorTableDragHandle:hover) {
+    background: #4b5563;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] :global(.editorTable) {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableRow) {
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableCell) {
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableCell.selected) {
+    background: rgba(139, 92, 246, 0.2);
+}
+
 .ltr {
     text-align: left;
 }
@@ -301,6 +546,10 @@
     --editor-link: var(--sapLinkColor);
     --editor-link-hover: var(--sapLink_Hover_Color);
     --editor-muted: var(--sapNeutralColor);
+}
+
+:root[data-theme='dark'] .stickyToolbarWrapper {
+    background-color: var(--sapBackgroundColor);
 }
 
 :root[data-theme='dark'] .editorPageWrapper {

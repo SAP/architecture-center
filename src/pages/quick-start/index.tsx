@@ -39,11 +39,23 @@ function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
-    const { documents, addDocument } = usePageDataStore();
+    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading } = usePageDataStore();
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users } = useAuth();
+    const { users, token } = useAuth();
+    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const [initialized, setInitialized] = useState(false);
+
+    // Initialize backend config and fetch documents
+    useEffect(() => {
+        if (expressBackendUrl && token && !initialized) {
+            setBackendConfig(expressBackendUrl, token);
+            fetchDocuments().then(() => {
+                setInitialized(true);
+            });
+        }
+    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -57,10 +69,10 @@ function AuthenticatedQuickStartView() {
     }, [users.github]);
 
     useEffect(() => {
-        if (documents.length === 0) {
+        if (initialized && documents.length === 0) {
             handleAddNew(null);
         }
-    }, [documents.length, handleAddNew]);
+    }, [documents.length, handleAddNew, initialized]);
 
     const handleCreate = () => {
         addDocument(newDocData, currentParentId);
@@ -73,6 +85,16 @@ function AuthenticatedQuickStartView() {
         }
         setIsModalOpen(false);
     };
+
+    if (isLoading || !initialized) {
+        return (
+            <main className={styles.mainContainer}>
+                <FlexBox alignItems="Center" justifyContent="Center" style={{ padding: '2rem' }}>
+                    <Text>Loading documents...</Text>
+                </FlexBox>
+            </main>
+        );
+    }
 
     return (
         <>
