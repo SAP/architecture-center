@@ -12,6 +12,7 @@ import {
   TableNode,
   TableRowNode,
   TableCellNode,
+  AdmonitionNode,
   RootNode,
   isElementNode,
   isTextNode,
@@ -273,6 +274,40 @@ export class DOMReconciler {
         }
         break;
 
+      case 'admonition':
+        element = document.createElement('div');
+        const admonitionNode = node as AdmonitionNode;
+        element.className = `editorAdmonition editorAdmonition--${admonitionNode.admonitionType}`;
+        element.setAttribute('data-admonition-type', admonitionNode.admonitionType);
+
+        // Add admonition title FIRST (above content)
+        const titleEl = document.createElement('div');
+        titleEl.className = 'editorAdmonitionTitle';
+        titleEl.setAttribute('contenteditable', 'false');
+        titleEl.textContent = admonitionNode.admonitionType.charAt(0).toUpperCase() + admonitionNode.admonitionType.slice(1);
+        element.appendChild(titleEl);
+
+        // Add content wrapper AFTER title
+        const contentEl = document.createElement('div');
+        contentEl.className = 'editorAdmonitionContent';
+
+        // Recursively create children into content wrapper
+        admonitionNode.children.forEach(childKey => {
+          const childNode = getNode(state, childKey);
+          if (childNode) {
+            const childElement = this.createElement(state, childNode);
+            if (childElement) {
+              contentEl.appendChild(childElement);
+            }
+          }
+        });
+
+        element.appendChild(contentEl);
+
+        // Set DATA_KEY_ATTR
+        element.setAttribute(DATA_KEY_ATTR, node.key);
+        return element;
+
       default:
         element = document.createElement('div');
     }
@@ -448,12 +483,16 @@ export class DOMReconciler {
     }
 
     if (isElementNode(node)) {
-      // Update children
-      const childContainer = node.type === 'code'
-        ? element.querySelector('code') || element
-        : element;
+      // Update children - use appropriate container
+      let childContainer: HTMLElement = element;
 
-      this.reconcileChildren(state, node.children, childContainer as HTMLElement);
+      if (node.type === 'code') {
+        childContainer = element.querySelector('code') as HTMLElement || element;
+      } else if (node.type === 'admonition') {
+        childContainer = element.querySelector('.editorAdmonitionContent') as HTMLElement || element;
+      }
+
+      this.reconcileChildren(state, node.children, childContainer);
     }
 
     // Update empty block class for paragraphs

@@ -15,7 +15,12 @@ import {
   Code,
   Minus,
   Table,
-  Filter
+  Filter,
+  Info,
+  Lightbulb,
+  AlertTriangle,
+  AlertCircle,
+  StickyNote
 } from 'lucide-react';
 import styles from './index.module.css';
 
@@ -423,6 +428,77 @@ export default function SlashCommandPlugin() {
           editor.dispatchCommand({
             type: 'INSERT_TEXT',
             payload: { text: '/Filter...' }
+          });
+        },
+      },
+      // Admonitions
+      {
+        id: 'note',
+        name: 'Note',
+        description: 'Add a note callout',
+        icon: <StickyNote size={20} />,
+        keywords: ['note', 'admonition', 'callout'],
+        category: 'Callouts',
+        onSelect: () => {
+          editor.dispatchCommand({
+            type: 'INSERT_ADMONITION',
+            payload: { admonitionType: 'note' }
+          });
+        },
+      },
+      {
+        id: 'info',
+        name: 'Info',
+        description: 'Add an info callout',
+        icon: <Info size={20} />,
+        keywords: ['info', 'information', 'admonition', 'callout'],
+        category: 'Callouts',
+        onSelect: () => {
+          editor.dispatchCommand({
+            type: 'INSERT_ADMONITION',
+            payload: { admonitionType: 'info' }
+          });
+        },
+      },
+      {
+        id: 'tip',
+        name: 'Tip',
+        description: 'Add a tip callout',
+        icon: <Lightbulb size={20} />,
+        keywords: ['tip', 'hint', 'admonition', 'callout'],
+        category: 'Callouts',
+        onSelect: () => {
+          editor.dispatchCommand({
+            type: 'INSERT_ADMONITION',
+            payload: { admonitionType: 'tip' }
+          });
+        },
+      },
+      {
+        id: 'warning',
+        name: 'Warning',
+        description: 'Add a warning callout',
+        icon: <AlertTriangle size={20} />,
+        keywords: ['warning', 'caution', 'admonition', 'callout'],
+        category: 'Callouts',
+        onSelect: () => {
+          editor.dispatchCommand({
+            type: 'INSERT_ADMONITION',
+            payload: { admonitionType: 'warning' }
+          });
+        },
+      },
+      {
+        id: 'danger',
+        name: 'Danger',
+        description: 'Add a danger callout',
+        icon: <AlertCircle size={20} />,
+        keywords: ['danger', 'error', 'critical', 'admonition', 'callout'],
+        category: 'Callouts',
+        onSelect: () => {
+          editor.dispatchCommand({
+            type: 'INSERT_ADMONITION',
+            payload: { admonitionType: 'danger' }
           });
         },
       },

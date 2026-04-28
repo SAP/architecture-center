@@ -13,10 +13,12 @@ export type NodeType =
   | 'drawio'
   | 'table'
   | 'tablerow'
-  | 'tablecell';
+  | 'tablecell'
+  | 'admonition';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5;
 export type ListType = 'bullet' | 'number';
+export type AdmonitionType = 'note' | 'info' | 'tip' | 'warning' | 'danger';
 
 export interface TextFormat {
   bold?: boolean;
@@ -131,6 +133,13 @@ export interface TableCellNode extends BaseNode {
   isHeader?: boolean;
 }
 
+// Admonition node (note, info, tip, warning, danger)
+export interface AdmonitionNode extends BaseNode {
+  type: 'admonition';
+  admonitionType: AdmonitionType;
+  children: string[];
+}
+
 // Union of all node types
 export type EditorNode =
   | RootNode
@@ -146,7 +155,8 @@ export type EditorNode =
   | DrawioNode
   | TableNode
   | TableRowNode
-  | TableCellNode;
+  | TableCellNode
+  | AdmonitionNode;
 
 // Element nodes (have children)
 export type ElementNode =
@@ -160,7 +170,8 @@ export type ElementNode =
   | LinkNode
   | TableNode
   | TableRowNode
-  | TableCellNode;
+  | TableCellNode
+  | AdmonitionNode;
 
 // Type guards
 export function isElementNode(node: EditorNode): node is ElementNode {
@@ -226,6 +237,7 @@ export type CommandType =
   | 'DUPLICATE_TABLE_ROW'
   | 'DUPLICATE_TABLE_COL'
   | 'INSERT_LINK'
+  | 'INSERT_ADMONITION'
   | 'DUPLICATE_BLOCK'
   | 'DELETE_BLOCK'
   | 'MOVE_BLOCK'

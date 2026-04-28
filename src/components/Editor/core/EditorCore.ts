@@ -5,6 +5,7 @@ import {
   TextFormat,
   HeadingLevel,
   ListType,
+  AdmonitionType,
   ListNode,
   TextNode,
   isTextNode,
@@ -28,6 +29,7 @@ import {
   createListItemNode,
   createImageNode,
   createDrawioNode,
+  createAdmonitionNode,
   createTableNode,
   createTableRowNode,
   createTableCellNode,
@@ -236,6 +238,10 @@ export class EditorCore {
         const dupColPayload = command.payload as { tableKey: string; colIndex: number };
         this.duplicateTableCol(dupColPayload.tableKey, dupColPayload.colIndex);
         break;
+      case 'INSERT_ADMONITION':
+        const admonitionPayload = command.payload as { admonitionType: 'note' | 'info' | 'tip' | 'warning' | 'danger' };
+        this.insertAdmonition(admonitionPayload.admonitionType);
+        break;
       case 'DUPLICATE_BLOCK':
         const dupBlockPayload = command.payload as { blockKey: string };
         this.duplicateBlock(dupBlockPayload.blockKey);
@@ -363,6 +369,16 @@ export class EditorCore {
       e.preventDefault();
       this.formatText('underline');
       return;
+    }
+
+    // Shift+Enter to exit admonition
+    if (e.key === 'Enter' && e.shiftKey) {
+      const admonitionAncestor = this.getAdmonitionAncestor();
+      if (admonitionAncestor) {
+        e.preventDefault();
+        this.exitAdmonition(admonitionAncestor.key);
+        return;
+      }
     }
 
     // Escape to exit table
@@ -1220,6 +1236,40 @@ export class EditorCore {
     this.render();
   }
 
+  private insertAdmonition(admonitionType: AdmonitionType): void {
+    if (!this.selection) return;
+
+    const block = getBlockAncestor(this.state, this.selection.anchor.key);
+    if (!block || !block.parent) return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(block.key);
+
+    // Create text node for admonition content
+    const textNode = createTextNode('', {});
+    const paragraphNode = createParagraphNode([textNode.key]);
+    textNode.parent = paragraphNode.key;
+
+    // Create admonition node with paragraph inside
+    const admonitionNode = createAdmonitionNode(admonitionType, [paragraphNode.key]);
+    paragraphNode.parent = admonitionNode.key;
+
+    // Insert admonition after current block
+    this.state = insertNode(this.state, block.parent, admonitionNode, blockIndex + 1);
+    this.state.nodeMap.set(paragraphNode.key, paragraphNode);
+    this.state.nodeMap.set(textNode.key, textNode);
+
+    // Move selection to the text inside admonition
+    this.selection = createCollapsedSelection(textNode.key, 0);
+
+    this.render();
+  }
+
   private insertDrawio(diagramXML: string): void {
     if (!this.selection) return;
 
@@ -1765,6 +1815,44 @@ export class EditorCore {
       this.selection = createCollapsedSelection(newText.key, 0);
       this.render();
     }
+  }
+
+  private getAdmonitionAncestor(): { key: string; type: string } | null {
+    if (!this.selection) return null;
+
+    let currentKey = this.selection.anchor.key;
+    while (currentKey) {
+      const node = getNode(this.state, currentKey);
+      if (!node) break;
+      if (node.type === 'admonition') {
+        return { key: node.key, type: node.type };
+      }
+      if (!node.parent) break;
+      currentKey = node.parent;
+    }
+    return null;
+  }
+
+  private exitAdmonition(admonitionKey: string): void {
+    const admonition = getNode(this.state, admonitionKey);
+    if (!admonition || !admonition.parent) return;
+
+    const parent = getNode(this.state, admonition.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    const admonitionIndex = parent.children.indexOf(admonitionKey);
+
+    // Create a new paragraph after the admonition
+    const newText = createTextNode('', {});
+    const newParagraph = createParagraphNode([newText.key]);
+    newText.parent = newParagraph.key;
+    this.state.nodeMap.set(newText.key, newText);
+    this.state = insertNode(this.state, admonition.parent, newParagraph, admonitionIndex + 1);
+    this.selection = createCollapsedSelection(newText.key, 0);
+    this.render();
   }
 
   private insertHtml(html: string): void {

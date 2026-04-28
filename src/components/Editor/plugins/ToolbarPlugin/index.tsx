@@ -3,7 +3,8 @@ import { useEditor } from '../../hooks/useEditor';
 import { useIsVisible } from '@site/src/hooks/useIsVisible';
 import {
   ChevronDown, Underline, Bold, Italic, Strikethrough, Code, Quote, List,
-  ListOrdered, Undo, Redo, Heading1, Heading2, Heading3, MoreHorizontal
+  ListOrdered, Undo, Redo, Heading1, Heading2, Heading3, MoreHorizontal,
+  Info, Lightbulb, AlertTriangle, AlertCircle, StickyNote
 } from 'lucide-react';
 import styles from './index.module.css';
 
@@ -74,6 +75,11 @@ const blockTypeToBlockName: Record<string, string> = {
   paragraph: 'Paragraph',
   quote: 'Quote',
   heading: 'Heading',
+  note: 'Note',
+  info: 'Info',
+  tip: 'Tip',
+  warning: 'Warning',
+  danger: 'Danger',
 };
 
 function BlockFormatDropDown() {
@@ -120,6 +126,46 @@ function BlockFormatDropDown() {
           </button>
           <button className={styles.dropdownItem} onClick={formatQuote}>
             <Quote size={18} /> Quote
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AdmonitionDropDown() {
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const editor = useEditor();
+
+  useClickOutside(dropDownRef, () => setShowDropDown(false));
+
+  const insertAdmonition = (type: 'note' | 'info' | 'tip' | 'warning' | 'danger') => {
+    editor.dispatchCommand({ type: 'INSERT_ADMONITION', payload: { admonitionType: type } });
+    setShowDropDown(false);
+  };
+
+  return (
+    <div className={styles.dropdown} ref={dropDownRef}>
+      <button className={styles.dropdownToggle} onClick={() => setShowDropDown((v) => !v)}>
+        <Info size={16} /> Callout <ChevronDown size={14} />
+      </button>
+      {showDropDown && (
+        <div className={styles.dropdownMenu} style={{ zIndex: 100 }}>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('note')}>
+            <StickyNote size={18} /> Note
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('info')}>
+            <Info size={18} /> Info
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('tip')}>
+            <Lightbulb size={18} /> Tip
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('warning')}>
+            <AlertTriangle size={18} /> Warning
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('danger')}>
+            <AlertCircle size={18} /> Danger
           </button>
         </div>
       )}
@@ -302,6 +348,8 @@ export default function ToolbarPlugin() {
         </button>
       ),
     },
+    { id: 'divider-4', type: 'divider' },
+    { id: 'admonition', group: 'Callouts', component: <AdmonitionDropDown /> },
   ];
 
   const getGroupedHiddenTools = () => {

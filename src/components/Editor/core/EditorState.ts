@@ -15,6 +15,8 @@ import {
   TableNode,
   TableRowNode,
   TableCellNode,
+  AdmonitionNode,
+  AdmonitionType,
   TextFormat,
   HeadingLevel,
   ListType,
@@ -284,6 +286,16 @@ export function createDrawioNode(diagramXML: string): DrawioNode {
     type: 'drawio',
     parent: null,
     diagramXML,
+  };
+}
+
+export function createAdmonitionNode(admonitionType: AdmonitionType, children: string[] = []): AdmonitionNode {
+  return {
+    key: generateKey(),
+    type: 'admonition',
+    parent: null,
+    admonitionType,
+    children,
   };
 }
 

@@ -307,6 +307,121 @@
     background: #1f2937;
 }
 
+/* Admonition styles */
+:global(.editorAdmonition) {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+:global(.editorAdmonitionTitle) {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+:global(.editorAdmonitionContent) {
+    font-size: 0.95rem;
+}
+
+:global(.editorAdmonitionContent p) {
+    margin: 0;
+}
+
+:global(.editorAdmonition--note) {
+    background-color: #f0f0f0;
+    border-left-color: #6b7280;
+}
+
+:global(.editorAdmonition--note .editorAdmonitionTitle) {
+    color: #4b5563;
+}
+
+:global(.editorAdmonition--info) {
+    background-color: #eff6ff;
+    border-left-color: #3b82f6;
+}
+
+:global(.editorAdmonition--info .editorAdmonitionTitle) {
+    color: #1d4ed8;
+}
+
+:global(.editorAdmonition--tip) {
+    background-color: #ecfdf5;
+    border-left-color: #10b981;
+}
+
+:global(.editorAdmonition--tip .editorAdmonitionTitle) {
+    color: #047857;
+}
+
+:global(.editorAdmonition--warning) {
+    background-color: #fffbeb;
+    border-left-color: #f59e0b;
+}
+
+:global(.editorAdmonition--warning .editorAdmonitionTitle) {
+    color: #b45309;
+}
+
+:global(.editorAdmonition--danger) {
+    background-color: #fef2f2;
+    border-left-color: #ef4444;
+}
+
+:global(.editorAdmonition--danger .editorAdmonitionTitle) {
+    color: #b91c1c;
+}
+
+/* Dark mode admonitions */
+:root[data-theme='dark'] :global(.editorAdmonition--note) {
+    background-color: #374151;
+    border-left-color: #9ca3af;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--note .editorAdmonitionTitle) {
+    color: #d1d5db;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--info) {
+    background-color: #1e3a5f;
+    border-left-color: #60a5fa;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--info .editorAdmonitionTitle) {
+    color: #93c5fd;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--tip) {
+    background-color: #064e3b;
+    border-left-color: #34d399;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--tip .editorAdmonitionTitle) {
+    color: #6ee7b7;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--warning) {
+    background-color: #78350f;
+    border-left-color: #fbbf24;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--warning .editorAdmonitionTitle) {
+    color: #fcd34d;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--danger) {
+    background-color: #7f1d1d;
+    border-left-color: #f87171;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--danger .editorAdmonitionTitle) {
+    color: #fca5a5;
+}
+
 /* Table styles */
 :global(.editorTableWrapper) {
     margin: 1.5rem 0;
