@@ -82,7 +82,7 @@ The architecture comprises five components with the agent harness as the central
 | Fiori MCP Server | Provides current annotation schemas and Fiori Elements patterns for UI generation |
 | UI5 Web Components MCP Server | Exposes UI5 component APIs and usage patterns for frontend code generation |
 | Skill Registry | Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution |
-| Quality Pipeline | Deterministic enforcement boundary that treats all agent-generated code as untrusted. Executes linters, tests, security scans and browser verification at commit, push and CI hooks without agent involvement |
+| Quality Pipeline | Deterministic enforcement boundary that executes linters, tests, security scans and browser verification at commit, push and CI hooks |
 | Foundation Model Proxy | LiteLLM hosted on SAP BTP routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization |
 | SAP BTP Runtime | Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core |
 | SAP HANA Cloud | Provides the managed persistence layer for CAP services and vector storage for grounding use cases |
@@ -107,7 +107,7 @@ flowchart LR
 1. **Grounding** - The developer loads project skills from the governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
 2. **Planning** - The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents (backend, frontend, testing) operating in isolated worktrees. The developer approves the plan before execution begins.
 3. **Production** - Specialized agents execute tasks concurrently, querying SAP MCP servers for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
-4. **Enforcement** - The quality pipeline treats all agent-generated code as untrusted, executing the test suite, linters, security scans and browser-based verification against the full codebase. Non-conforming code returns to agents for correction.
+4. **Enforcement** - The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement: test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
 5. **Integration** - A reviewer agent pre-screens the consolidated pull request, flagging code that does not trace to a specification requirement. The developer validates against acceptance criteria, and the reviewed branch merges with semantic commits carrying testing evidence and requirement traceability.
 
 ## Deployment Scenarios
