@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-04-29
+
+Restructured RA0030 to align with industry patterns (AWS/Azure/GCP): renamed "Design Principles" to "Design Considerations" and moved it after Development Lifecycle section. Research of AWS Well-Architected Framework, Google Cloud Architecture Framework, and Azure reference architectures revealed that all three major cloud providers position design guidance **after** architecture diagrams, not before. This aligns with both industry standards (12/12 SAP RAs and all major cloud providers) and the principle that reference architectures document results (what the system is) rather than process (how to design it). Updated ref-arch-structure skill to recognize "Design Considerations" as valid alternative to "Characteristics" when content includes prescriptive guidance alongside system properties.
+
+Updated RA0030 Design Considerations with "Specification-Driven Grounding" principle: replaced generic "Context Engineering" with specific concept describing how humans and agents co-create specifications before code generation. Added GSD and Superpowers as examples of spec-driven development tools that identify gaps and increase specification detail. Clarifies that enhanced specifications combined with MCP servers, persistent rules and context-activated skills eliminate hallucinated APIs, deprecated syntax and incorrect annotation patterns at generation time.
+
 ## 2026-04-28
 
 Rebuilt RA0030 Architecture table and Services section: replaced abstract "Context Engineering" and "Coding Agent" rows with "Agent Harness" carrying named MCP server sub-components; renamed "Foundation Model Access" to "Foundation Model Proxy"; expanded SAP BTP Runtime with HANA Cloud, Integration Suite and Audit Log Service; trimmed Services list to only services named in the body. See [log/08-2026-04-28-ra0030-services-architecture-table.md](log/08-2026-04-28-ra0030-services-architecture-table.md).
