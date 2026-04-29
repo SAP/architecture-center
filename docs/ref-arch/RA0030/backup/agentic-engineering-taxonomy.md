@@ -11,7 +11,7 @@
 | # | Topic | Core Concern | Context Sources |
 |---|-------|--------------|-----------------|
 | 1 | **The Economics of Agentic Development** | Code cost collapse — what's cheap now, what remains expensive, how this changes planning | Willison ch.1, ch.4, parallel agent economics, quality vs. speed tension |
-| 2 | **Context Engineering** | Managing context as the scarcest resource — persistent rules, progressive disclosure, isolation | Grounding pyramid, CLAUDE.md architecture, skills, subagent isolation, <50% window |
+| 2 | **Context Engineering** | Managing context as the scarcest resource — persistent rules, progressive disclosure, isolation | Grounding pyramid, CLAUDE.md architecture, skills, subagent isolation, &lt;50% window |
 | 3 | **Grounding & Hallucination Reduction** | Eliminating fabricated APIs/patterns — connecting agents to authoritative sources | Context Hub (chub), MCP servers, CLI vs. MCP framework, trust policies |
 
 ### Execution
@@ -53,7 +53,7 @@ These represent the core trade-offs and decision points in agentic engineering:
 - **Context window** as scarcest resource
 - **Three-tier model**: Always-on (CLAUDE.md), on-demand (skills), isolated (subagents)
 - **Progressive disclosure patterns**
-- **Budget management**: <50% utilization target
+- **Budget management**: &lt;50% utilization target
 
 ### 3. Grounding & Hallucination Reduction
 

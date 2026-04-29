@@ -1,6 +1,6 @@
 ---
-id: id-ra0030
-slug: /ref-arch/a3f7c2d1e8
+id: id-ra0030-v2
+slug: /ref-arch/a3f7c2d1e8-v2
 sidebar_position: 30
 sidebar_custom_props:
   category_index:
@@ -50,16 +50,46 @@ This reference architecture defines the system that makes agentic engineering ac
 
 ![drawio](./drawio/agentic-engineering-overview.drawio)
 
+The architecture comprises six components with the coding agent as the central actor.
+
+-   **Context Engineering:** The discipline of managing what knowledge reaches an agent and when.
+    -   SAP Build MCP servers for CAP, Fiori Elements and SAPUI5 expose authoritative framework knowledge as callable tools
+    -   Structured specifications in markdown capture requirements, test cases, acceptance criteria and non-functional constraints
+    -   Authoritative MCP knowledge overrides the agent's training data when the two conflict
+    -   Agents update specifications directly when encountering gaps or implementation constraints, keeping requirements accurate as development progresses
+-   **Skill Registry:** The governance and distribution layer for reusable agent behaviors.
+    -   A client-managed resource deployed as a version-controlled repository or a dedicated instance on BTP
+    -   Catalogs approved agent behaviors, project rule templates, prompt patterns and tool configurations
+    -   Agents query the registry to discover existing capabilities before provisioning new ones
+-   **Coding Agent:** The agent harness serving as the central orchestration actor.
+    -   Decomposes specifications into dependency-mapped plans and assigns tasks to specialized agents
+    -   Specialized agents execute concurrently in isolated git worktrees, coordinating interface contracts through the harness
+    -   A reviewer agent pre-screens pull requests, flagging code that does not trace to a spec requirement
+    -   The orchestrating agent consolidates agent branches into a single integration branch
+-   **Quality Pipeline:** The deterministic enforcement boundary between agent-generated code and the repository.
+    -   Pre-commit hooks execute linters, test suites, security scans and browser-based runtime verification
+    -   Gates run against the full codebase, catching regressions in existing features alongside new code
+    -   Non-conforming code returns to the agent for correction; no code advances without passing all gates
+    -   Branch protection rules require passing automated gates and an approved review before accepting any merge
+-   **Foundation Model Access:** An LLM proxy routing through SAP Generative AI Hub to multiple foundation models on SAP AI Core.
+    -   Content filtering, PII masking, guardrails and audit logging behind a single API key
+    -   Strength-based routing directs generation, review and routine tasks to different models
+    -   SAP Generative AI Hub controls model availability and enforces enterprise compliance
+-   **SAP BTP Runtime:** SAP Business Technology Platform providing the deployment target and runtime infrastructure.
+    -   Extension applications deploy as side-by-side extensions, preserving the clean core of the S/4HANA system
+    -   SAP AI Core hosts the foundation models accessed through SAP Generative AI Hub
+    -   SAP Business Data Cloud supplies governed data products for design-time context and runtime data access
+
 ## Flow
 
-1.  **Project Skills Activation:** The developer loads project-specific skills and project-level rules from the governed skill registry into the agent session. The registry is a client-managed resource on BTP or a version-controlled repository that catalogs approved behaviors, prompt patterns and tool configurations.
-2.  **SAP Knowledge Activation:** The developer connects the coding agent to client-managed SAP MCP servers on BTP, exposing current CAP, Fiori Elements and UI5 knowledge as callable tools that activate during generation and validation.
-3.  **Specification and Grounding:** A Spec-Driven-Development tool co-creates a markdown specification with the developer, capturing requirements, test cases, acceptance criteria and non-functional constraints including security posture, performance budgets and scalability limits.
+1.  **Project Skills Activation:** The developer loads project-specific skills from the governed skill registry into the agent session, activating approved behaviors and tools for the project.
+2.  **SAP Knowledge Activation:** The developer connects the coding agent to client-managed SAP MCP servers on BTP, exposing current CAP, Fiori Elements and UI5 framework knowledge as callable tools.
+3.  **Specification and Grounding:** A Spec-Driven-Development tool co-creates a markdown specification with the developer, capturing requirements, test cases, acceptance criteria and non-functional constraints that the generated code must satisfy.
 4.  **Task Decomposition:** The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents operating in isolated worktrees. The developer approves the plan before execution begins.
-5.  **Code Production:** Specialized agents execute tasks concurrently, each accessing foundation models through SAP Generative AI Hub via LiteLLM with strength-based routing. Agents query SAP MCP servers for authoritative patterns that override training data, coordinate interface contracts through the agent harness and update the specification when encountering implementation gaps.
-6.  **Quality Gate Execution:** The quality pipeline treats all agent-generated code as untrusted, executing the test suite, linters, security scans and browser-based verification against the full codebase. Context boundary controls prevent secrets from entering the agent's working context and non-conforming code returns to the agent for correction.
-7.  **Developer Review and Testing:** A reviewer agent pre-screens the pull request, flagging code that does not trace to a specification requirement. The developer validates the implemented behavior against acceptance criteria and returns rejected work to agents with feedback captured in the specification.
-8.  **Main Branch Integration:** The developer merges the reviewed integration branch into the project's main branch on SAP BTP, where extension applications deploy as side-by-side extensions preserving the clean core. Branch protection rules require passing automated gates and an approved review, and each merged change carries a semantic commit with testing evidence and requirement traceability.
+5.  **Code Production:** Specialized agents execute assigned tasks concurrently, querying SAP MCP servers and generating code through foundation models routed via SAP Generative AI Hub. The orchestrating agent consolidates completed branches into a single integration branch.
+6.  **Quality Gate Execution:** The quality pipeline executes the test suite, linters, security scans and browser-based verification against the full codebase. Non-conforming code returns to the agent for correction.
+7.  **Developer Review and Testing:** A reviewer agent pre-screens the pull request before the developer validates implemented behavior against acceptance criteria. Rejected work returns to the agents with feedback captured in the specification.
+8.  **Main Branch Integration:** Branch protection rules require passing automated gates and an approved review before the integration branch merges to main. Each merged change carries a semantic commit with testing evidence and requirement traceability.
 
 ## Characteristics
 

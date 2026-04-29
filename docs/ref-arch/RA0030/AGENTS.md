@@ -7,7 +7,7 @@ We are building a new reference architecture on agentic engineering at [docs/ref
 ## Purpose
 
 This reference architecture shows the synergy between coding agents (Claude Code, Codex, etc.) in the context of building rapid intelligent apps that are then deployed in BTP and utilizing other combined SAP solutions. Example: a BTP extension to S4/HANA using CAP/Fiori.
-
+x
 > Coding agents grounded in SAP domain expertise — via MCP servers, architecture specs, and curated skills — produce enterprise-quality results that ungrounded agents cannot. This is agentic engineering applied to the SAP ecosystem.
 
 **Human-AI collaboration.** Humans set up the agent for the project — the right skills, CLIs, and MCP servers, not a universal giant list. Then humans and AI co-create the product spec, requirements, plan, and acceptance criteria using spec-driven development tools (OpenSpec, GSD, superpowers).
@@ -61,7 +61,7 @@ Advantages include but not limited to:
 
 ## Related Content
 
-- Blog on Coding Agents for BTP Extensions, CAP/Fiori: [news/2026-04-27-agentic-engineering.md](news/2026-04-27-agentic-engineering.md)
+- Blog on Coding Agents for BTP Extensions, CAP/Fiori: [The Agentic Code Quality Funnel](/news/2026/04/27/agentic-engineering)
   
 - `docs/ref-arch/RA0029/readme.md` provides a comprehensive guide to developing, deploying and managing AI agents in your SAP ecosystem powered by SAP Business Technology Platform (BTP). It details the architectural patterns, components and best practices for building both low-code and pro-code agents, integrating them with Joule through bidirectional A2A communication and ensuring seamless interoperability across the enterprise landscape. 
 
