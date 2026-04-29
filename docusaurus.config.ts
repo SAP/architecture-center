@@ -109,6 +109,7 @@ const config: Config = {
                     beforeDefaultRemarkPlugins: [drawioResources],
                     editUrl: 'https://github.com/SAP/architecture-center/edit/dev/',
                     tags: '../docs/tags.yml',
+                    exclude: ['**/backup/**', '**/AGENTS.md'],
                 },
                 theme: {
                     customCss: './src/css/custom.css',
