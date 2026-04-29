@@ -216,6 +216,13 @@ function DocSidebarItemCategoryCollapsible({
     },
   });
 
+  // Sync collapsed state when item.collapsed prop changes
+  useEffect(() => {
+    if (collapsible && !isActive) {
+      setCollapsed(item.collapsed ?? false);
+    }
+  }, [item.collapsed, collapsible, isActive, setCollapsed]);
+
   const {expandedItem, setExpandedItem} = useDocSidebarItemsExpandedState();
   // Use this instead of `setCollapsed`, because it is also reactive
   const updateCollapsed = (toCollapsed: boolean = !collapsed) => {
