@@ -11,7 +11,7 @@ description: >-
   Agentic engineering for BTP Extensions: context engineering, grounding through MCP
   servers and SDKs, multi-agent orchestration and architecture patterns for
   AI-native development on SAP BTP.
-sidebar_label: Agentic Engineering for SAP BTP Extensions
+sidebar_label: Agentic Engineering for SAP Extensions
 keywords:
   - sap
   - agentic engineering
@@ -43,7 +43,7 @@ last_update:
 
 AI coding agents generate code rapidly, but ungrounded generation compounds costs across quality, security, rework and time to value. Without authoritative sources these agents produce code based on incorrect APIs, deprecated patterns and insecure dependencies. Agentic engineering with context engineering addresses this by connecting coding agents to an infrastructure of SAP knowledge sources, automated quality pipelines and governed model access. Generated code is produced rapidly with quality appropriate for enterprise deployment.
 
-This reference architecture defines the system that enables agentic engineering to accelerate BTP extensions while preserving the clean S/4HANA core. Context engineering is central: humans and agents co-create specifications before code generation begins, agents follow authoritative SAP knowledge sources, code is produced in parallel across isolated worktrees, and LiteLLM with SAP Generative AI Hub provides the enterprise foundation for model access.
+This reference architecture defines the system that enables agentic engineering to accelerate BTP extensions while preserving the clean S/4HANA core. Context engineering is central: developers and agents co-create specifications before code generation begins, agents follow authoritative SAP knowledge sources, code is produced in parallel across isolated worktrees, and LiteLLM with SAP Generative AI Hub provides the enterprise foundation for model access.
 
 ### User Journey: SAP Developer (Alex)
 
@@ -59,9 +59,9 @@ graph TB
         AH[Agent Harness<br/>Claude Code + GSD]
     end
     
-    subgraph "Client-managed Context"
+    subgraph "Customer-managed Context"
         MCP[SAP MCP Servers<br/>CAP · Fiori · UI5]
-        SR[Client Skill Registry<br/>Governed behaviors]
+        SR[Customer-managed Skill Registry<br/>Governed behaviors]
     end
     
     subgraph "SAP BTP - Quality & AI"
@@ -71,6 +71,7 @@ graph TB
     end
     
     subgraph "SAP BTP - Application Layer"
+        IAS[SAP Cloud Identity Services<br/>Authentication + authorization]
         APP[Generated App<br/>CAP on BTP Runtime]
         HANA[SAP HANA Cloud<br/>Persistence + vector]
         IS[SAP Integration Suite<br/>Events + APIs]
@@ -88,6 +89,7 @@ graph TB
     
     MP -->|route requests| GAH
     
+    IAS -->|authenticate| APP
     APP -->|persist data| HANA
     APP -->|events/APIs| IS
     
@@ -103,20 +105,22 @@ graph TB
     style S4 fill:#f8f8f8,stroke:#4a5d6f,stroke-width:1px
     style HANA fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
     style IS fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
+    style IAS fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
 ```
 
 The architecture comprises several components with the agent harness as the central actor.
 
-### Component Details
+### Key Components
 
 -   **Agent Harness:** Coding agent produces code in grounded context containing project specifications, skills and orchestrates specialized agents across isolated worktrees.
--   **Client-managed MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data. Includes SAP Build MCP Servers, Fiori MCP Server, and UI5 Web Components MCP Server.
--   **Client-managed Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
+-   **Customer-managed MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data. Includes SAP Build MCP Servers, Fiori MCP Server, and UI5 Web Components MCP Server.
+-   **Customer-managed Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
 -   **Quality Pipeline:** Deterministic enforcement boundary that executes linters, tests, security scans and CI hooks. Implemented through SAP Continuous Integration and Delivery service on BTP.
 -   **Foundation Model Proxy:** LiteLLM hosted on SAP BTP routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
 -   **SAP BTP Runtime:** Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core.
--   **SAP HANA Cloud:** Provides the managed persistence layer for CAP services and vector storage for grounding use cases.
+-   **SAP HANA Cloud:** Provides the managed persistence layer for the generated CAP services.
 -   **SAP Integration Suite:** Connects extensions to S/4HANA and other systems through events and APIs.
+-   **SAP Cloud Identity Services:** Manages authentication and authorization for BTP applications through identity providers, single sign-on and role-based access control.
 
 ## Flow
 
@@ -126,13 +130,13 @@ Alex writes the acceptance criteria, approves the plan that grounds the agent. T
 
 1. **Grounding:** The developer loads project skills from the governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
 2. **Planning:** The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents (backend, frontend, testing) operating in isolated worktrees. The developer approves the plan before execution begins.
-3. **Production:** Specialized agents execute tasks concurrently, querying SAP MCP servers for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
+3. **Code Creation:** Specialized agents execute tasks concurrently, querying SAP MCP servers for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
 4. **Enforcement:** The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement. Test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
-5. **Integration:** A reviewer agent pre-screens the consolidated pull request, flagging code that does not trace to a specification requirement. The developer validates against acceptance criteria, and the reviewed branch merges with semantic commits carrying testing evidence and requirement traceability.
+5. **Integration:** A reviewer agent pre-screens the generated application, flagging code that does not trace to a specification requirement. The developer validates the application against spectifications and agent pushes a PR containing testing evidence and requirement traceability.
 
 ## Characteristics
 
--   **Specification-Driven Grounding:** Humans and agents co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing agents with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
+-   **Specification-Driven Grounding:** Agent interviews developer to co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing the agent harness with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
 -   **Unified Model Access:** The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
 -   **Zero Trust:** The coding agent operates under the least-privilege principle. Permission scopes widen only after the agent passes defined quality thresholds, balancing safety with development velocity.
 -   **Deterministic Enforcement:** The traditional quality pipeline remains in place and runs automatically at git hooks and CI/CD gates without relying on agent judgment. Linters, tests, security scans and required status checks enforce correctness mechanically, independent of what the agent produces or suggests.
