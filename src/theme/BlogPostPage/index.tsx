@@ -48,7 +48,7 @@ function BlogPostPageContent({
       <Link
         to="/news-all"
         className={styles.backButton}>
-        <span className={styles.arrow}>←</span>
+        <span className={styles.arrow}></span>
         All News
       </Link>
 

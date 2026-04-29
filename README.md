@@ -49,41 +49,23 @@ npm run build
 
 This generates static content in the `build` directory that can be served by any static hosting service.
 
-#### 5. Backend Services (Optional)
-
-If you need to work with authentication or publishing features:
-
-##### Backend Express (GitHub OAuth)
-
-```bash
-cd backend/backend-express
-cp .env.example .env  # Configure your environment variables
-npm install
-npm start
-```
-
-##### Backend CAP (SAP BTP Auth)
-
-```bash
-cd backend
-npm install
-npm start
-```
-
-**Note**: Backend services require proper configuration of secrets and API credentials. See `.env.example` files for required variables.
-
-#### 6. Run Linting
+#### 5. Run Linting
 
 ```bash
 npm run lint          # Check for linting errors
 npm run lint:fix      # Auto-fix linting errors
 ```
 
-#### 7. Security Audit
+#### 6. Security Audit
 
 ```bash
-npm run security:audit    # Check for security vulnerabilities
+npm run security:audit        # Check production dependencies for vulnerabilities
+npm run security:audit-fix    # Automatically fix vulnerabilities where possible
+npm run security:check        # Run audit and check for outdated packages
+npm run security:update       # Update packages and fix vulnerabilities
 ```
+
+**Note**: The security audit checks only production dependencies (excludes devDependencies) to focus on what gets deployed.
 
 For detailed contribution guidelines, refer to the [Community of Practice | Intro](community/intro.md). 
 

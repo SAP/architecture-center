@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2617.1",
+    "version": "v3.2618.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -19,7 +19,7 @@
         "test:coverage": "jest --coverage",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "security:audit": "npm audit --production",
+        "security:audit": "npm audit --omit=dev",
         "security:audit-fix": "npm audit fix",
         "security:check": "npm run security:audit && npm outdated",
         "security:update": "npm update && npm audit fix"
@@ -84,7 +84,7 @@
         "react-slick": "^0.30.3",
         "slick-carousel": "^1.8.1",
         "unist-util-visit": "^5.1.0",
-        "uuid": "^13.0.0",
+        "uuid": "^14.0.0",
         "zustand": "^5.0.12"
     },
     "devDependencies": {

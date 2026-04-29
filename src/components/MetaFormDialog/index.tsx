@@ -82,6 +82,39 @@ export default React.memo(function MetadataFormDialog({
     const abortControllerRef = useRef<AbortController | null>(null);
     const multiComboRef = useRef<HTMLElement | null>(null);
 
+    const fetchUsers = useCallback(async () => {
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+        abortControllerRef.current = new AbortController();
+        const signal = abortControllerRef.current.signal;
+
+        try {
+            const apiUrl = `${backendUrl}/user/github/search-users?q=${contributorSearchQuery}`;
+            const response = await fetch(apiUrl, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                cache: 'no-store',
+                signal,
+            });
+            if (!response.ok) throw new Error('Failed to fetch users');
+            const data: GitHubSearchResponse = await response.json();
+            logger.info('Fetched user data:', data);
+            const existingContributors = new Set(initialData.contributors || []);
+            const filteredResults = data.items.filter((item) => !existingContributors.has(item.login));
+            setSearchResults(filteredResults);
+        } catch (error) {
+            if (error instanceof Error && error.name !== 'AbortError') {
+                logger.error('Error searching for contributors:', error);
+                setSearchResults([]);
+            }
+        } finally {
+            setIsSearching(false);
+            abortControllerRef.current = null;
+        }
+    }, [backendUrl, contributorSearchQuery, token, initialData.contributors]);
+
     useEffect(() => {
         if (!backendUrl || contributorSearchQuery.trim().length < 3) {
             setSearchResults([]);
@@ -119,39 +152,6 @@ export default React.memo(function MetadataFormDialog({
             return hasChanges ? newAvatars : prevAvatars;
         });
     }, [searchResults]);
-
-    const fetchUsers = useCallback(async () => {
-        if (abortControllerRef.current) {
-            abortControllerRef.current.abort();
-        }
-        abortControllerRef.current = new AbortController();
-        const signal = abortControllerRef.current.signal;
-
-        try {
-            const apiUrl = `${backendUrl}/user/github/search-users?q=${contributorSearchQuery}`;
-            const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                cache: 'no-store',
-                signal,
-            });
-            if (!response.ok) throw new Error('Failed to fetch users');
-            const data: GitHubSearchResponse = await response.json();
-            logger.info('Fetched user data:', data);
-            const existingContributors = new Set(initialData.contributors || []);
-            const filteredResults = data.items.filter((item) => !existingContributors.has(item.login));
-            setSearchResults(filteredResults);
-        } catch (error) {
-            if (error instanceof Error && error.name !== 'AbortError') {
-                logger.error('Error searching for contributors:', error);
-                setSearchResults([]);
-            }
-        } finally {
-            setIsSearching(false);
-            abortControllerRef.current = null;
-        }
-    }, [backendUrl, contributorSearchQuery, token, initialData.contributors]);
 
     const fetchSingleUserAvatar = async (login: string): Promise<string | null> => {
         try {
