@@ -56,7 +56,19 @@ Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP B
 
 ![drawio](./drawio/agentic-engineering-overview.drawio)
 
-The architecture comprises five components with the agent harness as the central actor.
+The architecture comprises several components with the agent harness as the central actor.
+
+### To design the diagram, consider this as high level: 
+
+- Agent Harness implements a SDD tool, example GSD
+- Agent Harness implements SAP MCP servers hosted in BTP
+- Agent Harness implements skills from a governed skill registry running in BTP.
+- Agent Harness connects to the Foundation Model Proxy app running in BTP.
+- The Model Proxy app connects to Gen AI Hub in AI Core.
+- The generated app connects to S4/HANA via Integration Suite (Destination Service)
+- The generated app connects to SAP HANA Cloud
+  
+### Component Details
 
 -   **Agent Harness:** Coding agent produces code in grounded context containing project specifications, skills and orchestrates specialized agents across isolated worktrees.
 -   **SAP Build MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data.
@@ -68,7 +80,6 @@ The architecture comprises five components with the agent harness as the central
 -   **SAP BTP Runtime:** Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core.
 -   **SAP HANA Cloud:** Provides the managed persistence layer for CAP services and vector storage for grounding use cases.
 -   **SAP Integration Suite:** Connects extensions to S/4HANA and other systems through events and APIs.
--   **SAP BTP Audit Log Service:** Records model interactions and agent actions for enterprise compliance and auditability.
 
 ## Flow
 

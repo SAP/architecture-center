@@ -33,6 +33,7 @@ src/constant/pageMapping.ts
 
 # Local-only files
 CLAUDE.md
+AGENTS.md
 metrics/
 
 .claude

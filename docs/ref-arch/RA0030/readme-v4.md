@@ -80,20 +80,11 @@ The architecture comprises five components with the agent harness as the central
 | SAP Integration Suite | Connects extensions to S/4HANA and other systems via events and APIs |
 | SAP BTP Audit Log Service | Records model interactions and agent actions for enterprise compliance and auditability |
 
-## Development Lifecycle
+## Flow
 
 :::note[User Journey: Alex]
 Alex writes the acceptance criteria, approves the plan, and reviews the final PR. The agents handle everything in between: grounding, decomposition, parallel generation, and quality enforcement.
 :::
-
-```mermaid
-flowchart LR
-    A[Grounding] --> B[Planning]
-    B --> C[Production]
-    C --> D[Enforcement]
-    D -->|Pass| E[Integration]
-    D -->|Fail| C
-```
 
 1. **Grounding** - The developer loads project skills from the governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
 2. **Planning** - The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents (backend, frontend, testing) operating in isolated worktrees. The developer approves the plan before execution begins.
@@ -101,7 +92,7 @@ flowchart LR
 4. **Enforcement** - The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement: test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
 5. **Integration** - A reviewer agent pre-screens the consolidated pull request, flagging code that does not trace to a specification requirement. The developer validates against acceptance criteria, and the reviewed branch merges with semantic commits carrying testing evidence and requirement traceability.
 
-## Design Considerations
+## Characteristics
 
 - **Specification-Driven Grounding**: Humans and agents co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing agents with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
 - **Unified Model Access**: The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
@@ -110,67 +101,20 @@ flowchart LR
 - **Federated Governance**: The skill registry controls which skills and tools including MCP servers are available to agents across the organization. Version pinning, approval workflows and a deprecation lifecycle align agent behaviors with enterprise security and compliance requirements.
 - **Compounding Knowledge**: Every fix, edge case and workaround feeds back into markdowns as updated specifications, project rules, skills or persistent memory. Reusable behaviors publish to the skill registry, turning project-local knowledge into organization-wide assets.
 
-## Deployment Scenarios
+## Business Problem
 
-:::note[User Journey: Alex]
-Alex's team started brownfield: they retrofitted agentic engineering into an existing CAP extension project, adding MCP servers and quality gates incrementally over two sprints.
-:::
+Accelerating S/4HANA extension delivery with coding agents while maintaining enterprise requirements for security, performance and reliability requires addressing the knowledge barrier inherent in CAP, Fiori Elements and UI5. Annotation semantics, OData wiring and CDS conventions appear correct after implemented by the coding agent but fail silently at runtime, producing blank pages, empty columns and non-functional UI elements that require extensive debugging cycles to identify and correct.
 
-### Greenfield
-
-**Scenario A: Full Agentic Setup from Day One**
-
-For new BTP extension projects starting without existing code. The team provisions the complete infrastructure upfront: skill registry, MCP server connections, quality pipeline hooks, LiteLLM configuration and SAP Generative AI Hub integration. This approach delivers maximum velocity from the first sprint but requires initial investment in infrastructure setup.
-
-**Recommendation**: Best for teams with prior agentic engineering experience or dedicated platform engineering support.
-
-**Scenario B: Incremental Adoption**
-
-For new projects where the team is learning agentic engineering practices. Start with a single coding agent, one MCP server (CAP or Fiori) and basic pre-commit hooks. Add the skill registry, multi-agent orchestration and strength-based routing as the team builds confidence.
-
-**Recommendation**: Best for teams adopting agentic engineering for the first time on a new project.
-
-### Brownfield
-
-**Scenario C: Retrofit into Existing BTP Extension**
-
-For active projects with established codebases. Introduce agentic engineering incrementally: first add project rules and persistent instructions that encode existing conventions, then connect MCP servers for grounding, then layer in quality pipeline hooks. The existing test suite becomes the initial enforcement boundary.
-
-**Recommendation**: Best for teams that want to accelerate an in-flight project without disrupting current delivery cadence.
-
-**Scenario D: Phased Rollout Across Teams**
-
-For organizations adopting agentic engineering across multiple projects. A platform team provisions shared infrastructure (skill registry, LiteLLM proxy, MCP server hosting) and onboards project teams in waves. Each wave produces validated skills and rules that feed the registry for subsequent teams.
-
-**Recommendation**: Best for enterprise-scale adoption where governance, consistency and knowledge sharing across teams are priorities.
-
-## Examples in an SAP Context
-
-- **CAP Application Grounded by MCP**: Skills route every CDS decision through the CAP MCP server and every annotation through the Fiori MCP server. The quality pipeline runs the UI5 linter and Fiori annotation validator before any commit advances, producing code that follows current best practices from the first generation.
-- **On-Premise Extension with Cloud AI**: Foundation model access connects an S/4HANA on-premise extension to models on SAP AI Core through SAP Generative AI Hub. The on-premise system retains its existing deployment while the extension gains AI-assisted development capabilities without requiring migration to Rise or public cloud.
-- **Multi-Agent Team Delivery**: The coding agent assigns backend, frontend and testing concerns to specialized agents, each operating in an isolated git worktree. Agents execute tasks within dependency waves, communicating through the built-in task coordination system. Features converge through pull requests gated by the quality pipeline.
-- **Cross-Model Review**: Foundation model access routes CAP service generation to one model, annotation review to a second and structured output validation to a third. SAP Generative AI Hub ensures every model is enterprise-approved. No agent code changes are required to switch or add models.
-
-## Best-Practice Checklist
-
-- **Spec Before Code** - Co-create specifications with acceptance criteria before any agent generates code. Ambiguous requirements produce ambiguous output.
-- **Ground Every Decision** - Connect MCP servers for every SAP framework in use. Ungrounded generation defaults to training data, which drifts from current APIs.
-- **Treat Agent Output as Untrusted** - Run the full quality pipeline on every commit regardless of which agent produced it. No exceptions, no bypasses.
-- **Least-Privilege Defaults** - Start agents with minimal permissions. Expand scope only after quality thresholds are met.
-- **Pin Skill Versions** - Lock skill and MCP server versions per project. Uncontrolled updates propagate breaking changes across teams.
-- **Semantic Commits** - Require detailed commit messages that explain what changed and why. Agents use commit history as a knowledge source for future generations.
-- **Isolate Worktrees** - Each agent operates in its own git worktree. Shared working directories create merge conflicts and race conditions.
-- **Feed Back Learnings** - After every fix or edge case, update project rules, skills or specifications. Knowledge that stays in a developer's head does not compound.
-- **Review the Spec, Not Just the Code** - When a PR fails review, update the specification with the feedback before re-entering the production cycle.
-- **Audit Model Usage** - Monitor SAP Generative AI Hub logs for cost, latency and compliance. Strength-based routing is only effective when informed by usage data.
+### Solution
+Connecting coding agents to SAP MCP servers for CAP, Fiori and UI5 reduced architectural error rates by grounding generation in authoritative sources that override stale training data. Specifications co-created before generation, quality pipelines treating all output as untrusted, and model access routed through SAP Generative AI Hub transformed debugging cycles that previously consumed days per feature into rapid delivery with enhanced code quality.
 
 ## Conclusion
 
 :::note[User Journey: Alex]
-With agentic engineering in place, Alex's team delivers extensions faster with fewer defects. He focuses on architecture and acceptance criteria while agents handle grounded code production, and the quality pipeline ensures nothing reaches main without passing every gate.
+With this architecture, Alex's team delivers high quality BTP extensions for S4/HANA faster with agentic engineering. He focuses on architecture and acceptance criteria while agents handle grounded code production, and the quality pipeline ensures nothing reaches main without passing every gate.
 :::
 
-Agentic engineering transforms how SAP development teams build BTP extensions. By connecting coding agents to authoritative SAP knowledge through context engineering, enforcing quality through deterministic pipelines, and governing model access through SAP Generative AI Hub, organizations can accelerate delivery while improving code quality. The architecture scales from a single developer with one coding agent to enterprise teams with federated governance, and the knowledge infrastructure compounds value with every session.
+Agentic engineering transforms how development teams build BTP extensions. By connecting coding agents to authoritative SAP knowledge through context engineering, enforcing quality through deterministic pipelines, and governing model access through SAP Generative AI Hub, organizations can accelerate delivery while improving code quality. The architecture scales from a single developer with one coding agent to enterprise teams with federated governance, and the knowledge infrastructure compounds value with every session.
 
 ## Services and Components
 
