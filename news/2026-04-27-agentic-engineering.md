@@ -68,7 +68,7 @@ annotate RiskService.GLTransactions with @(
 );
 ```
 
-The button rendered in the toolbar. Looked correct. But clicking it? Nothing. No network request, no error, completely silent (a classic 'needle in a haystack' problem, as my colleague recently [wrote about](/news/2026-04-23-finding-the-needle-ai-assisted-debugging)). The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
+The button rendered in the toolbar. Looked correct. But clicking it? Nothing. No network request, no error, completely silent (a classic 'needle in a haystack' problem, as my colleague recently [wrote about](news/2026-04-23-finding-the-needle-ai-assisted-debugging.md)). The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
 
 ```json
 // ✅ With Fiori MCP: manifest custom action for unbound actions
