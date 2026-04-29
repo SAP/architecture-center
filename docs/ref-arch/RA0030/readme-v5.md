@@ -54,20 +54,61 @@ Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP B
 
 ## Architecture
 
-![drawio](./drawio/agentic-engineering-overview.drawio)
+```mermaid
+graph TB
+    subgraph "Developer Workspace"
+        AH[Agent Harness<br/>Claude Code + GSD]
+    end
+    
+    subgraph "SAP BTP - Context Layer"
+        MCP[MCP Servers<br/>CAP · Fiori · UI5]
+        SR[Skill Registry<br/>Governed behaviors]
+        QP[Quality Pipeline<br/>tests · lint · security]
+    end
+    
+    subgraph "SAP BTP - AI Layer"
+        MP[Model Proxy<br/>LiteLLM]
+        GAH[Gen AI Hub<br/>AI Core]
+    end
+    
+    subgraph "SAP BTP - Application Layer"
+        APP[Generated App<br/>CAP on BTP Runtime]
+    end
+    
+    subgraph "SAP Systems"
+        S4[S/4HANA]
+        HANA[HANA Cloud<br/>Persistence + vector]
+        IS[Integration Suite<br/>Events + APIs]
+    end
+    
+    AH -->|query patterns| MCP
+    AH -->|load skills| SR
+    AH -->|commit code| QP
+    AH -->|LLM requests| MP
+    AH -->|generate code| APP
+    
+    MP -->|route requests| GAH
+    
+    APP -->|API calls| S4
+    APP -->|persist data| HANA
+    APP -->|events/APIs| IS
+    
+    IS -.->|connect| S4
+    
+    style AH fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
+    style MP fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
+    style APP fill:#fff,stroke:#1d2d3e,stroke-width:1px
+    style MCP fill:#fff,stroke:#1d2d3e,stroke-width:1px
+    style SR fill:#fff,stroke:#1d2d3e,stroke-width:1px
+    style QP fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
+    style GAH fill:#f8f8f8,stroke:#4a5d6f,stroke-width:1px
+    style S4 fill:#f8f8f8,stroke:#4a5d6f,stroke-width:1px
+    style HANA fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
+    style IS fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
+```
 
 The architecture comprises several components with the agent harness as the central actor.
 
-### To design the diagram, consider this as high level: 
-
-- Agent Harness implements a SDD tool, example GSD
-- Agent Harness implements SAP MCP servers hosted in BTP
-- Agent Harness implements skills from a governed skill registry running in BTP.
-- Agent Harness connects to the Foundation Model Proxy app running in BTP.
-- The Model Proxy app connects to Gen AI Hub in AI Core.
-- The generated app connects to S4/HANA via Integration Suite (Destination Service)
-- The generated app connects to SAP HANA Cloud
-  
 ### Component Details
 
 -   **Agent Harness:** Coding agent produces code in grounded context containing project specifications, skills and orchestrates specialized agents across isolated worktrees.
@@ -124,33 +165,17 @@ Agentic engineering transforms how development teams build BTP extensions. By co
 -   **Governed Model Access:** A single proxy endpoint enforces enterprise compliance, content filtering and audit logging across all foundation model interactions.
 -   **Compounding Returns:** Every fix, edge case and workaround feeds back into the knowledge infrastructure, making each subsequent generation more accurate than the last.
 
-## Services and Components
+## Resources
 
+- [LiteLLM SAP Provider Documentation](https://docs.litellm.ai/docs/providers/sap)
+- [SAP CAP MCP Server](https://github.com/cap-js/mcp-server?tab=readme-ov-file#cli-usage)
+- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server)
+- [UI5 Web Components MCP Server](https://github.com/UI5/webcomponents-mcp-server)
 - [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core)
 - [SAP Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core)
 - [SAP Cloud Application Programming Model](https://cap.cloud.sap/docs/)
 - [SAP HANA Cloud](https://discovery-center.cloud.sap/serviceCatalog/sap-hana-cloud)
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite)
 - [SAP Business Technology Platform](https://www.sap.com/products/technology-platform.html)
-- [SAP Build MCP Servers](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-build-introduces-new-mcp-servers-to-enable-agentic-development-for/ba-p/14205602)
-- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server)
-- [UI5 Web Components MCP Server](https://github.com/UI5/webcomponents-mcp-server)
-- [SAP BTP Audit Log Service](https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-service)
-
-## Resources
-
-- [SAP Build Introduces New MCP Servers](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-build-introduces-new-mcp-servers-to-enable-agentic-development-for/ba-p/14205602)
-- [LiteLLM SAP Provider Documentation](https://docs.litellm.ai/docs/providers/sap)
-- [Set Up Generative AI Hub in SAP AI Core](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html)
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code/overview)
-- [Cline Documentation](https://docs.cline.bot/getting-started/what-is-cline)
-- [SAP Architecture Center](https://architecture.learning.sap.com/)
-- [Context Hub](https://github.com/andrewyng/context-hub)
 - [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/)
 - [SAP Cloud SDK for AI](https://help.sap.com/docs/sap-ai-core)
-- [Building Effective Agents (Anthropic)](https://www.anthropic.com/research/building-effective-agents)
-- [OpenSpec: Spec-Driven Development](https://github.com/Fission-AI/OpenSpec)
-- [Fiori MCP Server](https://www.npmjs.com/package/@sap-ux/fiori-mcp-server)
-- [UI5 Web Components MCP Server](https://github.com/UI5/webcomponents-mcp-server)
-
-## Related Missions
