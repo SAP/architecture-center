@@ -60,16 +60,6 @@ This reference architecture defines the system that makes agentic engineering ac
 Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP BTP. His team delivers 3-4 extensions per quarter and has adopted agentic engineering to accelerate delivery without sacrificing quality. Alex expects **grounded code** that uses current CAP and Fiori APIs from day one, **parallel execution** across backend and frontend concerns, **deterministic quality gates** that catch regressions before review, and **governed model access** through SAP Generative AI Hub. He wants to focus on architecture decisions and acceptance criteria, not on fixing hallucinated annotations or chasing deprecated APIs.
 :::
 
-## Design Principles
-
-- **Specification-Driven Grounding**: Humans and agents co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing agents with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
-- **Unified Model Access**: The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
-- **Zero Trust**: The coding agent operates under the least-previlege principle. Permission scopes widen only after the agent passes defined quality thresholds, balancing safety with development velocity.
-- **Deterministic Enforcement**: The traditional quality pipeline remains in place and runs automatically at git hooks and CI/CD gates without relying on agent judgment. Linters, tests, security scans and required status checks enforce correctness mechanically, independent of what the agent produces or suggests.
-
-- **Federated Governance**: The skill registry controls which skills and tools including MCP servers are available to agents across the organization. Version pinning, approval workflows and a deprecation lifecycle align agent behaviors with enterprise security and compliance requirements.
-- **Compounding Knowledge**: Every fix, edge case and workaround feeds back into markdowns as updated specifications, project rules, skills or persistent memory. Reusable behaviors publish to the skill registry, turning project-local knowledge into organization-wide assets.
-
 ## Architecture
 
 ![drawio](./drawio/agentic-engineering-overview.drawio)
@@ -110,6 +100,15 @@ flowchart LR
 3. **Production** - Specialized agents execute tasks concurrently, querying SAP MCP servers for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
 4. **Enforcement** - The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement: test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
 5. **Integration** - A reviewer agent pre-screens the consolidated pull request, flagging code that does not trace to a specification requirement. The developer validates against acceptance criteria, and the reviewed branch merges with semantic commits carrying testing evidence and requirement traceability.
+
+## Design Considerations
+
+- **Specification-Driven Grounding**: Humans and agents co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing agents with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
+- **Unified Model Access**: The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
+- **Zero Trust**: The coding agent operates under the least-previlege principle. Permission scopes widen only after the agent passes defined quality thresholds, balancing safety with development velocity.
+- **Deterministic Enforcement**: The traditional quality pipeline remains in place and runs automatically at git hooks and CI/CD gates without relying on agent judgment. Linters, tests, security scans and required status checks enforce correctness mechanically, independent of what the agent produces or suggests.
+- **Federated Governance**: The skill registry controls which skills and tools including MCP servers are available to agents across the organization. Version pinning, approval workflows and a deprecation lifecycle align agent behaviors with enterprise security and compliance requirements.
+- **Compounding Knowledge**: Every fix, edge case and workaround feeds back into markdowns as updated specifications, project rules, skills or persistent memory. Reusable behaviors publish to the skill registry, turning project-local knowledge into organization-wide assets.
 
 ## Deployment Scenarios
 
