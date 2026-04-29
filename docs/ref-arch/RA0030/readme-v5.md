@@ -60,25 +60,25 @@ graph TB
         AH[Agent Harness<br/>Claude Code + GSD]
     end
     
-    subgraph "SAP BTP - Context Layer"
-        MCP[MCP Servers<br/>CAP · Fiori · UI5]
-        SR[Skill Registry<br/>Governed behaviors]
-        QP[Quality Pipeline<br/>tests · lint · security]
+    subgraph "Client-managed Context"
+        MCP[SAP MCP Servers<br/>CAP · Fiori · UI5]
+        SR[Client Skill Registry<br/>Governed behaviors]
     end
     
-    subgraph "SAP BTP - AI Layer"
+    subgraph "SAP BTP - Quality & AI"
+        QP[SAP Continuous Integration<br/>and Delivery]
         MP[Model Proxy<br/>LiteLLM]
-        GAH[Gen AI Hub<br/>AI Core]
+        GAH[SAP Gen AI Hub<br/>SAP AI Core]
     end
     
     subgraph "SAP BTP - Application Layer"
         APP[Generated App<br/>CAP on BTP Runtime]
+        HANA[SAP HANA Cloud<br/>Persistence + vector]
+        IS[SAP Integration Suite<br/>Events + APIs]
     end
     
     subgraph "SAP Systems"
         S4[S/4HANA]
-        HANA[HANA Cloud<br/>Persistence + vector]
-        IS[Integration Suite<br/>Events + APIs]
     end
     
     AH -->|query patterns| MCP
@@ -89,11 +89,10 @@ graph TB
     
     MP -->|route requests| GAH
     
-    APP -->|API calls| S4
     APP -->|persist data| HANA
     APP -->|events/APIs| IS
     
-    IS -.->|connect| S4
+    IS -->|connect| S4
     
     style AH fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
     style MP fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
@@ -112,11 +111,9 @@ The architecture comprises several components with the agent harness as the cent
 ### Component Details
 
 -   **Agent Harness:** Coding agent produces code in grounded context containing project specifications, skills and orchestrates specialized agents across isolated worktrees.
--   **SAP Build MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data.
--   **Fiori MCP Server:** Provides current annotation schemas and Fiori Elements patterns for UI generation.
--   **UI5 Web Components MCP Server:** Exposes UI5 component APIs and usage patterns for frontend code generation.
--   **Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
--   **Quality Pipeline:** Deterministic enforcement boundary that executes linters, tests, security scans and CI hooks.
+-   **Client-managed MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data. Includes SAP Build MCP Servers, Fiori MCP Server, and UI5 Web Components MCP Server.
+-   **Client-managed Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
+-   **Quality Pipeline:** Deterministic enforcement boundary that executes linters, tests, security scans and CI hooks. Implemented through SAP Continuous Integration and Delivery service on BTP.
 -   **Foundation Model Proxy:** LiteLLM hosted on SAP BTP routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
 -   **SAP BTP Runtime:** Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core.
 -   **SAP HANA Cloud:** Provides the managed persistence layer for CAP services and vector storage for grounding use cases.
