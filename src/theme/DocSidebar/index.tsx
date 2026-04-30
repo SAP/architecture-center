@@ -70,9 +70,29 @@ function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTag
       if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
         acc.push(item);
       } else if (item.type === 'category') {
-        const filteredChildren = recurse(item.items);
-        if (filteredChildren.length > 0) {
-          acc.push({ ...item, items: filteredChildren });
+        const filteredChildren = recurse(item.items || []);
+        // Check if the category itself has a linked document that matches
+        const categoryLinkId = item.link?.id;
+        const categoryMatches = categoryLinkId && matchingIds.has(categoryLinkId);
+
+        console.log('[Filter Debug Category]', {
+          label: item.label,
+          categoryLinkId,
+          categoryMatches,
+          filteredChildrenCount: filteredChildren.length,
+          hasLink: !!item.link
+        });
+
+        // Include category if either its link matches OR it has matching children
+        if (categoryMatches || filteredChildren.length > 0) {
+          // Keep as category (even with empty children), but only include link if it matches
+          const { link: _link, items: _items, ...restProps } = item;
+          const categoryItem = {
+            ...restProps,
+            items: filteredChildren,
+            ...(categoryMatches && { link: item.link })
+          };
+          acc.push(categoryItem);
         }
       }
 
@@ -105,7 +125,9 @@ const PARTNER_OPTIONS = [
 ];
 
 function DocSidebarDesktop(props) {
-    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+    const globalData = useGlobalData()['docusaurus-tags-plugin']?.default as any;
+    const tagsDocId = globalData?.docIdToTags;
+    const sidebarContext = globalData?.sidebarContext;
     const sidebar = useDocsSidebar();
     const shouldShowFilters = sidebar?.name === 'refarchSidebar';
 
@@ -117,10 +139,48 @@ function DocSidebarDesktop(props) {
 
     const [searchTerm, setSearchTerm] = useState('');
 
+    // Enrich props.sidebar with link info from sidebarContext
+    const enrichedSidebar = useMemo(() => {
+      if (!shouldShowFilters || !sidebarContext?.refarchSidebar) {
+        return props.sidebar;
+      }
+
+      // Create a map of category labels to their link info
+      const linkMap = new Map();
+      const buildLinkMap = (items: any[]) => {
+        items.forEach((item: any) => {
+          if (item.type === 'category' && item.link) {
+            linkMap.set(item.label, item.link);
+          }
+          if (item.items) {
+            buildLinkMap(item.items);
+          }
+        });
+      };
+      buildLinkMap(sidebarContext.refarchSidebar);
+
+      // Enrich props.sidebar with links
+      const enrichItems = (items: any[]): any[] => {
+        return items.map((item: any) => {
+          if (item.type === 'category') {
+            const link = linkMap.get(item.label);
+            return {
+              ...item,
+              ...(link && { link }),
+              items: item.items ? enrichItems(item.items) : []
+            };
+          }
+          return item;
+        });
+      };
+
+      return enrichItems(props.sidebar);
+    }, [props.sidebar, sidebarContext, shouldShowFilters]);
+
     // All hooks must be called before any conditional returns
     const filteredSidebar = useMemo(
-      () => filterSidebarItems(props.sidebar, techDomains, partners, tagsDocId),
-      [props.sidebar, techDomains, partners, tagsDocId]
+      () => filterSidebarItems(enrichedSidebar, techDomains, partners, tagsDocId),
+      [enrichedSidebar, techDomains, partners, tagsDocId]
     );
 
     // Convert string arrays to Option arrays
@@ -171,14 +231,39 @@ function DocSidebarDesktop(props) {
       items.forEach(item => {
         if (item.type === 'doc' || item.type === 'link') {
           count++;
-        } else if (item.type === 'category' && item.items) {
-          count += countDocs(item.items);
+        } else if (item.type === 'category') {
+          // Count category itself if it has a linked document
+          if (item.link) {
+            count++;
+          }
+          // Count children
+          if (item.items) {
+            count += countDocs(item.items);
+          }
         }
       });
       return count;
     };
 
     const resultCount = countDocs(filteredSidebar);
+
+    // Debug logging for Snowflake/IBM filtering
+    if (techDomains.length === 0 && partners.length > 0) {
+      console.log('[Filter Debug] Partners:', partners);
+      console.log('[Filter Debug] Filtered sidebar items:', filteredSidebar.length);
+      console.log('[Filter Debug] Result count:', resultCount);
+      filteredSidebar.forEach((item: any, idx: number) => {
+        console.log(`[Filter Debug] Item ${idx}:`, {
+          type: item.type,
+          label: item.label,
+          id: item.id,
+          hasLink: !!item.link,
+          linkId: item.link?.id,
+          childrenCount: item.items?.length
+        });
+      });
+    }
+
     const newProps = { ...props, sidebar: filteredSidebar };
 
     return (
@@ -209,7 +294,9 @@ function DocSidebarDesktop(props) {
 // Mobile Version
 // ============================================================================
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
-    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+    const globalData = useGlobalData()['docusaurus-tags-plugin']?.default as any;
+    const tagsDocId = globalData?.docIdToTags;
+    const sidebarContext = globalData?.sidebarContext;
     const techDomains = useSidebarFilterStore((state) => state.techDomains);
     const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
     const partners = useSidebarFilterStore((state) => state.partners);
@@ -238,9 +325,47 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       window.history.replaceState({}, '', location.pathname);
     };
 
+    // Enrich sidebar with link info from sidebarContext
+    const enrichedSidebar = useMemo(() => {
+      if (!sidebarContext?.refarchSidebar) {
+        return sidebar;
+      }
+
+      // Create a map of category labels to their link info
+      const linkMap = new Map();
+      const buildLinkMap = (items: any[]) => {
+        items.forEach((item: any) => {
+          if (item.type === 'category' && item.link) {
+            linkMap.set(item.label, item.link);
+          }
+          if (item.items) {
+            buildLinkMap(item.items);
+          }
+        });
+      };
+      buildLinkMap(sidebarContext.refarchSidebar);
+
+      // Enrich sidebar with links
+      const enrichItems = (items: any[]): any[] => {
+        return items.map((item: any) => {
+          if (item.type === 'category') {
+            const link = linkMap.get(item.label);
+            return {
+              ...item,
+              ...(link && { link }),
+              items: item.items ? enrichItems(item.items) : []
+            };
+          }
+          return item;
+        });
+      };
+
+      return enrichItems(sidebar);
+    }, [sidebar, sidebarContext]);
+
     const filteredSidebar = useMemo(
-      () => filterSidebarItems(sidebar, techDomains, partners, tagsDocId),
-      [sidebar, techDomains, partners, tagsDocId]
+      () => filterSidebarItems(enrichedSidebar, techDomains, partners, tagsDocId),
+      [enrichedSidebar, techDomains, partners, tagsDocId]
     );
 
     // Count total filtered docs
@@ -249,8 +374,15 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       items.forEach(item => {
         if (item.type === 'doc' || item.type === 'link') {
           count++;
-        } else if (item.type === 'category' && item.items) {
-          count += countDocs(item.items);
+        } else if (item.type === 'category') {
+          // Count category itself if it has a linked document
+          if (item.link) {
+            count++;
+          }
+          // Count children
+          if (item.items) {
+            count += countDocs(item.items);
+          }
         }
       });
       return count;

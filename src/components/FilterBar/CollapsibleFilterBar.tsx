@@ -108,7 +108,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
             {/* Result Count */}
             {resultCount !== undefined && (
                 <div className={styles.resultCount}>
-                    {resultCount} {resultCount === 1 ? 'document' : 'documents'} found
+                    {resultCount} {resultCount === 1 ? 'unique document' : 'unique documents'} found
                 </div>
             )}
 
