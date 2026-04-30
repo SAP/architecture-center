@@ -51,7 +51,7 @@ This approach prevents monolithic agent design, promotes reusability and ensures
 To enable governed, production-grade agentic access, SAP recommends two complementary approaches:
 
 -   **Agent Gateway**, using the A2A protocol, for multi-agent collaboration scenarios where an external client or third-party agent needs to delegate tasks to, or receive results from, SAP-managed agents. It enables secure, standardized communication and task delegation across agents from different vendors and systems.
--   **MCP Gateway on SAP Integration Suite**, for governed, enterprise-grade exposure and consumption of SAP and non-SAP APIs as MCP-compliant tools. It acts as a customer-managed platform covering the full lifecycle from creating MCP servers out of existing APIs and integrations, to securing, monitoring and governing agent access at scale.
+-   **MCP Gateway in SAP Integration Suite**, for governed, enterprise-grade exposure and consumption of SAP and non-SAP APIs as MCP-compliant tools. It acts as a customer-managed platform covering the full lifecycle from creating MCP servers out of existing APIs and integrations, to securing, monitoring and governing agent access at scale.
 
 The diagram below illustrates how A2A and MCP fit into the overall agent architecture. Joule acts as an A2A client to communicate with external agents, while agents themselves use MCP to discover and consume tools from MCP servers.
 
@@ -155,7 +155,7 @@ SAP is advancing AI interoperability through strategic investments in open stand
   
 -   **MCP for External Exposure:** SAP Integration Suite's MCP Gateway empowers customers to create, manage and expose their own MCP servers, making SAP and non-SAP APIs, integrations and data sources accessible as governed, MCP-compliant tools for any AI agent to consume.  
 
--   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration, and offers the MCP Gateway on SAP Integration Suite for governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
+-   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration, and offers the MCP Gateway in SAP Integration Suite for governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
 
 SAP's roadmap includes continuous enhancements to both protocols, with significant investments planned through 2026 to expand agent-to-agent collaboration and MCP support for development frameworks.
 
