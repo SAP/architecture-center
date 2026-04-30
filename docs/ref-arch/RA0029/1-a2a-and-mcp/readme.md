@@ -31,6 +31,7 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
+  - hterminasyan
 discussion:
 last_update:
   author: kay-schmitteckert
@@ -46,6 +47,10 @@ This reflects a transitional state - key components enabling full bidirectional 
 A robust and scalable AI agent ecosystem relies on standardized communication protocols that enable seamless interoperability between agents and the tools they use. SAP has adopted two open standards, the **Agent2Agent (A2A) protocol** and the **Model Context Protocol (MCP)**, to create a decoupled architecture where agents and tools can be developed, deployed and updated independently. While MCP standardizes the connection between models and external resources, A2A complements it by enabling autonomous, multi-turn collaboration between independent AI agents.
 
 This approach prevents monolithic agent design, promotes reusability and ensures that the SAP agent ecosystem remains open and extensible.
+
+To enable governed, production-grade agentic access, SAP recommends two complementary approaches:
+-   **Agent Gateway**, using the A2A protocol, for multi-agent collaboration scenarios where an external client or third-party agent needs to delegate tasks to, or receive results from, SAP-managed agents. It enables secure, standardized communication and task delegation across agents from different vendors and systems.
+-   **MCP Gateway on SAP Integration Suite**, for governed, enterprise-grade exposure and consumption of SAP and non-SAP capabilities as MCP-compliant tools. It acts as a customer-managed platform covering the full lifecycle — from creating MCP servers out of existing APIs and integrations, to securing, monitoring and governing agent access at scale.
 
 The diagram below illustrates how A2A and MCP fit into the overall agent architecture. Joule acts as an A2A client to communicate with external agents, while agents themselves use MCP to discover and consume tools from MCP servers.
 
@@ -94,6 +99,20 @@ The **Agent Gateway** exposes Joule Agents via the A2A protocol with an external
 
 External clients authenticate using IAS App2App dependencies, invoke a specific Joule scenario by providing capability and scenario identifiers and receive responses either synchronously (task submission confirmation) or asynchronously (via callback URL).
 
+## MCP Gateway in Integration Suite
+
+SAP Integration Suite provides an **MCP Gateway** that enables customers to expose SAP and non-SAP APIs as governed, MCP-compliant tools making them consumable by any AI agent.
+
+This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP business capabilities and Knowledge Graph content directly. The MCP Gateway is a **customer-managed platform** designed for external-facing, governed tool exposure, allowing customers to bring their own API landscape, including SAP APIs, third-party APIs, external MCP servers, and integration flows, under a single governed entry point for agent consumption.
+
+**Key Characteristics:**
+
+-   **Flexible Exposure:** SAP APIs, third-party APIs, external MCP servers, integrations, and data sources can all be exposed as MCP-compliant tools 
+-   **Enterprise-Grade Security:** Authentication and authorization based on OIDC, rate limiting, payload protection and traffic management ensure controlled access regardless of the underlying source
+-   **Governance and Observability:** Comprehensive monitoring, tracing and analytics provide visibility into how agents consume tools, supporting compliance and adoption governance
+-   **Developer and Ecosystem Enablement:** Tools and workflows to manage the full MCP tool lifecycle, from creation and documentation enrichment to discovery and consumption by agents
+
+  
 ## Bring Your Own Agent (Outbound)
 
 In the **outbound direction**, Joule can call external agents developed using third-party frameworks rather than Joule Studio. This "Bring Your Own Agent" (BYOA) approach enables integration of code-based agents built with any framework that supports the A2A protocol.
@@ -133,6 +152,8 @@ SAP is advancing AI interoperability through strategic investments in open stand
 
 -   **MCP for Internal Enrichment:** SAP leverages MCP internally to provide Joule Agents with semantically enriched access to SAP business capabilities, including domain knowledge from SAP Knowledge Graph and business APIs. This ensures agents can reason over authoritative enterprise data with full semantic context.
 
--   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A over direct MCP server exposure. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
+-   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration, and offers the MCP Gateway on SAP Integration Suite for governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
 
 SAP's roadmap includes continuous enhancements to both protocols, with significant investments planned through 2026 to expand agent-to-agent collaboration, MCP gateway capabilities in SAP Integration Suite and MCP support for development frameworks.
+
+
