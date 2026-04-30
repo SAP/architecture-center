@@ -152,7 +152,7 @@ SAP is advancing AI interoperability through strategic investments in open stand
 -   **Agent2Agent (A2A) as the Foundation:** SAP fully embraces A2A as the **preferred standard** for multi-agent collaboration and vendor-to-vendor interoperability. A2A enables Joule Agents to communicate seamlessly with both SAP-native agents and third-party agents across platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock AgentCore.
 
 -   **MCP for Internal Enrichment:** SAP leverages MCP internally to provide Joule Agents with semantically enriched access to SAP business capabilities, including domain knowledge from SAP Knowledge Graph and business APIs. This ensures agents can reason over authoritative enterprise data with full semantic context.
--   
+  
 -   **MCP for External Exposure:** SAP Integration Suite's MCP Gateway empowers customers to create, manage and expose their own MCP servers, making SAP and non-SAP APIs, integrations and data sources accessible as governed, MCP-compliant tools for any AI agent to consume.  
 
 -   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration, and offers the MCP Gateway on SAP Integration Suite for governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
