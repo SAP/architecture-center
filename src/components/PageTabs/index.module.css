@@ -3,6 +3,39 @@
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+
+.newRefArchButton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: var(--gradient-premium);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    text-align: left;
+}
+
+.newRefArchButton:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.newRefArchButton:active {
+    transform: translateY(0);
+}
+
+.documentsList {
+    flex: 1;
+    overflow-y: auto;
 }
 
 .header {

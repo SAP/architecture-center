@@ -4,21 +4,18 @@
     padding: 8px 12px;
     background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
-    position: sticky;
-    top: 0;
-    z-index: 10;
     width: 100%;
     box-sizing: border-box;
 }
 
 .scrollableToolbar {
-    flex: 1; 
+    flex: 1;
     display: flex;
-    flex-wrap: wrap; 
-    height: 32px; 
-    overflow: hidden; 
+    flex-wrap: wrap;
+    height: 32px;
+    overflow: hidden;
     align-items: center;
-    gap: 2px; 
+    gap: 2px;
 }
 
 .responsiveItemWrapper {
@@ -28,14 +25,14 @@
 
 .hamburgerContainer {
     flex-shrink: 0;
-    margin-left: 4px; 
+    margin-left: 4px;
     padding-left: 8px;
     border-left: 1px solid #dee2e6;
     height: 32px;
     display: flex;
     align-items: center;
     position: relative;
-    background: white; 
+    background: white;
 }
 
 .hamburgerDropdown {
@@ -47,13 +44,12 @@
     border: 1px solid #dee2e6;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 220px; 
+    min-width: 220px;
     padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 12px; 
+    gap: 12px;
 }
-
 
 .menuGroup {
     display: flex;
@@ -64,7 +60,7 @@
 .menuHeader {
     font-size: 11px;
     text-transform: uppercase;
-    color: #868e96; 
+    color: #868e96;
     font-weight: 600;
     letter-spacing: 0.5px;
     padding-left: 2px;
@@ -76,7 +72,6 @@
     gap: 4px;
     align-items: center;
 }
-
 
 .button, .dropdownToggle {
     display: flex;
@@ -100,9 +95,8 @@
     width: 1px;
     height: 20px;
     background-color: #dee2e6;
-    margin: 0 4px; 
+    margin: 0 4px;
 }
-
 
 .dropdown { position: relative; }
 .dropdownToggle { gap: 6px; font-size: 14px; padding: 0 8px; }
@@ -119,7 +113,6 @@
     cursor: pointer; border-radius: 4px; font-size: 14px; color: #212529;
 }
 .dropdownItem:hover { background-color: #f1f3f5; }
-
 
 :root[data-theme='dark'] .toolbarContainer,
 :root[data-theme='dark'] .hamburgerContainer,
