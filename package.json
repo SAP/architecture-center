@@ -34,7 +34,8 @@
         "minimatch": "^3.1.4",
         "langium": "^4.2.2",
         "webpack": "~5.105.0",
-        "webpackbar": "^7.0.0"
+        "webpackbar": "^7.0.0",
+        "uuid": "^14.0.0"
     },
     "dependencies": {
         "@docusaurus/core": "^3.10.0",
