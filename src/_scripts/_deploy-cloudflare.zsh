@@ -48,28 +48,46 @@ fi
 print_message "$GREEN" "✓ npx is available"
 
 # Parse command line arguments
+ENVIRONMENT=""
 BRANCH=""
 PROJECT_NAME=""
+
+# Environment configuration
+declare -A ENV_BRANCHES
+ENV_BRANCHES[DEV]="dev"
+ENV_BRANCHES[TEST]="test"
+ENV_BRANCHES[PROD]="prod"
+
+declare -A ENV_COLORS
+ENV_COLORS[DEV]="$YELLOW"
+ENV_COLORS[TEST]="$BLUE"
+ENV_COLORS[PROD]="$GREEN"
 
 print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ""
     echo "Options:"
-    echo "  --branch, -b BRANCH    Deploy to a preview branch (e.g., dev, staging)"
+    echo "  --env, -e ENV          Environment to deploy to: DEV, TEST, or PROD (required)"
     echo "  --project, -p NAME     Specify project name (optional, uses cached value if not provided)"
     echo "  --help, -h             Show this help message"
     echo ""
+    echo "Environments:"
+    echo "  DEV    - Development environment (deploys to dev branch)"
+    echo "  TEST   - Test/Staging environment (deploys to test branch)"
+    echo "  PROD   - Production environment (deploys to main branch)"
+    echo ""
     echo "Examples:"
-    echo "  $0                     # Deploy to production"
-    echo "  $0 --branch dev        # Deploy to dev preview branch"
-    echo "  $0 -p my-site -b dev   # Deploy to dev branch of my-site project"
+    echo "  $0 --env DEV           # Deploy to development"
+    echo "  $0 -e TEST             # Deploy to test/staging"
+    echo "  $0 -e PROD             # Deploy to production"
+    echo "  $0 -e DEV -p my-site   # Deploy to dev with specific project name"
 }
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-        -b|--branch)
-            BRANCH="$2"
+        -e|--env)
+            ENVIRONMENT="${2:u}"  # Convert to uppercase
             shift 2
             ;;
         -p|--project)
@@ -88,6 +106,25 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Validate environment
+if [ -z "$ENVIRONMENT" ]; then
+    print_message "$RED" "✗ Error: Environment is required"
+    print_message "$YELLOW" "  Please specify an environment: --env DEV, --env TEST, or --env PROD"
+    echo ""
+    print_usage
+    exit 1
+fi
+
+if [[ ! "$ENVIRONMENT" =~ ^(DEV|TEST|PROD)$ ]]; then
+    print_message "$RED" "✗ Error: Invalid environment '$ENVIRONMENT'"
+    print_message "$YELLOW" "  Valid environments are: DEV, TEST, PROD"
+    exit 1
+fi
+
+# Set branch based on environment
+BRANCH="${ENV_BRANCHES[$ENVIRONMENT]}"
+ENV_COLOR="${ENV_COLORS[$ENVIRONMENT]}"
+
 # Check authentication
 print_message "$BLUE" "\n→ Checking Cloudflare authentication..."
 if npx wrangler whoami &> /dev/null; then
@@ -98,6 +135,12 @@ else
     npx wrangler login
 fi
 
+# Display environment information
+print_message "$ENV_COLOR" "\n╔═══════════════════════════════════════════════════════════╗"
+print_message "$ENV_COLOR" "║   Deploying to: $ENVIRONMENT Environment"
+print_message "$ENV_COLOR" "║   Branch: $BRANCH"
+print_message "$ENV_COLOR" "╚═══════════════════════════════════════════════════════════╝"
+
 # Build deployment command
 DEPLOY_CMD="npx wrangler pages deploy \"$BUILD_DIR\""
 
@@ -107,12 +150,9 @@ fi
 
 if [ -n "$BRANCH" ]; then
     DEPLOY_CMD="$DEPLOY_CMD --branch=\"$BRANCH\""
-    print_message "$BLUE" "\n→ Deploying to preview branch: $BRANCH"
-else
-    print_message "$BLUE" "\n→ Deploying to production"
 fi
 
-print_message "$BLUE" "→ Executing: $DEPLOY_CMD"
+print_message "$BLUE" "\n→ Executing: $DEPLOY_CMD"
 print_message "$BLUE" "════════════════════════════════════════════════════════════\n"
 
 # Execute deployment
