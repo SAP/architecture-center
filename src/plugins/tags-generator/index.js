@@ -18,9 +18,8 @@ module.exports = function (context, options) {
 
       const docIdToTags = {};
       let sidebarContext = null;
-      let communitySidebarContext = null;
 
-     
+
       const defaultDocsInstance = docsPluginContent['default'];
 
       if (defaultDocsInstance && defaultDocsInstance.loadedVersions) {
@@ -33,30 +32,11 @@ module.exports = function (context, options) {
           });
         });
 
-        // Capture sidebar context from the loaded versions (current/default)
+        // Capture sidebar context from the loaded versions (includes all sidebars)
         if (defaultDocsInstance.loadedVersions.length > 0) {
           const currentVersion = defaultDocsInstance.loadedVersions[0];
           if (currentVersion.sidebars) {
             sidebarContext = currentVersion.sidebars;
-            // Only log in development mode
-            if (process.env.NODE_ENV === 'development') {
-              console.log('✅ Tags plugin captured sidebar context at build time:', Object.keys(sidebarContext));
-            }
-          }
-        }
-      }
-
-      // Capture community sidebar context
-      const communityDocsInstance = docsPluginContent['community'];
-      if (communityDocsInstance && communityDocsInstance.loadedVersions) {
-        if (communityDocsInstance.loadedVersions.length > 0) {
-          const communityVersion = communityDocsInstance.loadedVersions[0];
-          if (communityVersion.sidebars) {
-            communitySidebarContext = communityVersion.sidebars;
-            // Only log in development mode
-            if (process.env.NODE_ENV === 'development') {
-              console.log('✅ Tags plugin captured community sidebar context at build time:', Object.keys(communitySidebarContext));
-            }
           }
         }
       }
@@ -64,12 +44,7 @@ module.exports = function (context, options) {
       setGlobalData({
         docIdToTags,
         sidebarContext,
-        communitySidebarContext,
       });
-      // Only log in development mode
-      if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Tags plugin loaded successfully and processed docs with sidebar context.');
-      }
     },
   };
 };
