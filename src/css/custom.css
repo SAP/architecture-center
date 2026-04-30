@@ -185,6 +185,27 @@ ui5-button::shadow button {
     border-radius: 24px !important;
 }
 
+/* Suppress mouse-click focus rings on all native buttons; keep keyboard focus visible */
+button:focus {
+    outline: none;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
+/*
+ * UI5 buttons on desktop use :focus-within (fires on mouse click too) to draw an inner focus rectangle.
+ * Override the border variable to none so the rectangle doesn't appear on mouse clicks.
+ * Non-desktop uses :focus-visible (keyboard-only) which is unaffected.
+ */
+ui5-button[desktop] {
+    --_ui5_button_focused_border: none;
+    --_ui5_button_emphasized_focused_border_before: none;
+    --_ui5_button_pressed_focused_border_color: transparent;
+}
+
 button.iconButton {
     color: #0070f2;
     width: 28px;
@@ -229,6 +250,109 @@ div:has(> svg[aria-roledescription='flowchart-v2']) {
     margin: auto;
     text-align: center;
     width: 100%;
+}
+
+/* GLOBAL MERMAID STYLING - FORCE BLACK TEXT EVERYWHERE */
+/* Nuclear option: target EVERYTHING that could contain text */
+.mermaid *,
+.mermaid svg *,
+.mermaid text,
+.mermaid tspan,
+.mermaid span,
+.mermaid div,
+.mermaid p,
+.mermaid foreignObject *,
+.mermaid g *,
+.mermaid [class*="label"] *,
+.mermaid .nodeLabel,
+.mermaid .nodeLabel *,
+.mermaid .edgeLabel,
+.mermaid .edgeLabel *,
+svg[aria-roledescription="flowchart-v2"] text,
+svg[aria-roledescription="flowchart-v2"] tspan,
+svg[aria-roledescription="flowchart-v2"] span {
+    color: #000000 !important;
+    fill: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    stroke: none !important;
+    font-family: '72', Arial, Helvetica, sans-serif !important;
+}
+
+/* Force visible borders on all node shapes */
+.mermaid .node rect,
+.mermaid .node polygon,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node path {
+    stroke-width: 2px !important;
+}
+
+/* Light mode specific overrides */
+[data-theme='light'] .mermaid svg {
+    background-color: transparent;
+}
+
+[data-theme='light'] .mermaid .node rect[fill="#FFF"],
+[data-theme='light'] .mermaid .node rect[fill="#FFFFFF"],
+[data-theme='light'] .mermaid .node rect[fill="rgb(255, 255, 255)"],
+[data-theme='light'] .mermaid .node polygon[fill="#FFF"],
+[data-theme='light'] .mermaid .node polygon[fill="#FFFFFF"] {
+    fill: #ffffff !important;
+    stroke: #757575 !important;
+    stroke-width: 2px !important;
+}
+
+[data-theme='light'] .mermaid .edgeLabel,
+[data-theme='light'] .mermaid .edgeLabel span,
+[data-theme='light'] .mermaid .edgeLabel text {
+    color: #000000 !important;
+    fill: #000000 !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Dark mode specific overrides */
+[data-theme='dark'] .mermaid svg {
+    background-color: transparent;
+}
+
+/* Dark mode - flowchart title should be white */
+[data-theme='dark'] .mermaid .flowchartTitleText,
+[data-theme='dark'] .mermaid text.flowchartTitleText,
+[data-theme='dark'] svg[aria-roledescription="flowchart-v2"] .flowchartTitleText {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Dark mode - convert ALL white/light fills to light gray for visibility */
+[data-theme='dark'] .mermaid .node rect[fill="#FFF"],
+[data-theme='dark'] .mermaid .node rect[fill="#FFFFFF"],
+[data-theme='dark'] .mermaid .node rect[fill="rgb(255, 255, 255)"],
+[data-theme='dark'] .mermaid .node rect[fill="#fff"],
+[data-theme='dark'] .mermaid .node rect[fill="white"],
+[data-theme='dark'] .mermaid .node rect[fill="#f5f5f5"],
+[data-theme='dark'] .mermaid .node polygon[fill="#FFF"],
+[data-theme='dark'] .mermaid .node polygon[fill="#FFFFFF"],
+[data-theme='dark'] .mermaid .node polygon[fill="#fff"],
+[data-theme='dark'] .mermaid .node polygon[fill="white"],
+[data-theme='dark'] .mermaid .node polygon[fill="#f5f5f5"] {
+    fill: #f0f0f0 !important;
+    stroke: #757575 !important;
+    stroke-width: 2px !important;
+}
+
+/* Dark mode - also target any node shapes directly, regardless of fill attribute */
+[data-theme='dark'] .mermaid g.node rect,
+[data-theme='dark'] .mermaid g.node polygon {
+    filter: brightness(1.5) !important;
+}
+
+[data-theme='dark'] .mermaid .edgeLabel,
+[data-theme='dark'] .mermaid .edgeLabel span,
+[data-theme='dark'] .mermaid .edgeLabel text {
+    color: #000000 !important;
+    fill: #000000 !important;
+    background-color: rgba(240, 240, 240, 0.9) !important;
 }
 
 /* General list item styling */
