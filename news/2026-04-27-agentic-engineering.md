@@ -10,9 +10,9 @@ authors: [guilherme-segantini]
 
 **TL;DR:** Coding agents excel at writing code fast, but code produced fast is not the same as code that truly works. Debugging it after the fact is often the most expensive way to utilize AI. Every fix cycle with the agent, waiting for a new attempt, then testing it again can quickly turn enthusiasm into frustration. Our agentic code quality funnel changed the equation. 
 
-![The Agentic Code Quality Funnel](img/2026-04-27/agentic-code-quality-funnel.webp)
-
 <!-- truncate -->
+
+![The Agentic Code Quality Funnel](img/2026-04-27/agentic-code-quality-funnel.webp)
 
 Let's use Claude Code to build an SAP Extensions app. With a grounded spec, it built our prototype in less than thirty minutes. A **Financial Risk Analyzer** built as a CAP backend with a Fiori Elements frontend that reads GL transaction data, runs anomaly detection through SAP AI Core, and surfaces risk classifications in a List Report. The full source is on [GitHub](https://github.com/SAP-samples/cap-agentic-engineered). 
 
@@ -68,7 +68,7 @@ annotate RiskService.GLTransactions with @(
 );
 ```
 
-The button rendered in the toolbar. Looked correct. But clicking it? Nothing. No network request, no error, completely silent (a classic 'needle in a haystack' problem, as my colleague recently [wrote about](/news/2026-04-23-finding-the-needle-ai-assisted-debugging)). The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
+The button rendered in the toolbar. Looked correct. But clicking it? Nothing. No network request, no error, completely silent (a classic 'needle in a haystack' problem, as my colleague recently [wrote about](news/2026-04-23-finding-the-needle-ai-assisted-debugging.md)). The Fiori MCP server flags this pattern: `UI.DataFieldForAction` with an unbound action has no execution path in OData V4. The runtime renders the button but never wires it. With MCP, the agent was guided to a manifest custom action instead:
 
 ```json
 // ✅ With Fiori MCP: manifest custom action for unbound actions

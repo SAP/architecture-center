@@ -11,7 +11,10 @@ sidebar_custom_props:
 title: Designing Event-Driven Applications
 description: >-
   Guidance for developing applications based on Event-Driven Architecture (EDA)
-  patterns and Cloud Application Programming (CAP) framework.
+  patterns and Cloud Application Programming (CAP) framework. EDA is a required
+  architecture pattern for building loosely coupled, scalable, and resilient
+  applications that react to real-time business events across distributed
+  systems.
 keywords:
   - sap
   - event-driven applications
@@ -25,7 +28,6 @@ image: img/ac-soc-med.png
 tags:
   - azure
   - aws
-  - genai
   - integration
   - appdev
   - eda
