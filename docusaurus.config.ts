@@ -218,11 +218,11 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=appdev">Application Development & Automation</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=ai">AI & Machine Learning</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=ai">Artificial Intelligence</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=appdev">Application Development & Automation</a>`,
                         },
                         {
                             type: 'html',
