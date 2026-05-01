@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[67472],{55513(e){e.exports=JSON.parse('{"title":"Architecture Center News","items":[]}')}}]);

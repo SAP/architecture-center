@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[52422],{52422(e,a,c){c.d(a,{createRadarServices:()=>r.f});var r=c(12480);c(72519)}}]);
