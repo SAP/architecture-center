@@ -119,18 +119,17 @@ The architecture comprises several components with the agent harness as the cent
 -   **Foundation Model Proxy:** LiteLLM hosted on SAP BTP routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
 -   **SAP BTP Runtime:** Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core.
 -   **SAP HANA Cloud:** Provides the managed persistence layer for the generated CAP services.
--   **SAP Integration Suite:** Connects extensions to S/4HANA and other systems through events and APIs.
--   **SAP Cloud Identity Services:** Manages authentication and authorization for BTP applications through identity providers, single sign-on and role-based access control.
+-   **SAP Destination Service:** Connects extensions to S/4HANA and other systems through managed destinations and connectivity configuration.
 
-## Flow
+## Development Flow
 
 :::note[User Journey: Alex]
 Alex writes the acceptance criteria, approves the plan that grounds the agent. The agents handle everything in between: task decomposition, parallel generation with increased code quality.
 :::
 
-1. **Grounding:** The developer loads project skills from the governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
+1. **Grounding:** The developer loads project skills from the customer-hosted governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
 2. **Planning:** The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents (backend, frontend, testing) operating in isolated worktrees. The developer approves the plan before execution begins.
-3. **Code Creation:** Specialized agents execute tasks concurrently, querying SAP MCP servers for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
+3. **Code Creation:** Specialized agents execute tasks concurrently, querying the customer-managed SAP MCP servers hosted in BTP for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
 4. **Enforcement:** The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement. Test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
 5. **Integration:** A reviewer agent pre-screens the generated application, flagging code that does not trace to a specification requirement. The developer validates the application against spectifications and agent pushes a PR containing testing evidence and requirement traceability.
 
