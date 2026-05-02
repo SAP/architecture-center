@@ -4,7 +4,7 @@ slug: /ref-arch/f5b6b597a6/2
 sidebar_position: 2
 sidebar_custom_props:
   category_index: []
-title: Intelligent Applications by SAP
+title: Intelligent Content by SAP
 description: >-
   Configure Intelligent Applications in SAP BDC for streamlined analytics using
   prebuilt data products and stories.
