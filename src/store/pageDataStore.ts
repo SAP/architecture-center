@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
+import type { Operation } from '@site/src/components/Editor/core/Operations';
 
 export interface PageMetadata {
     title: string;
@@ -38,7 +39,7 @@ interface PageDataState {
 
     // Local actions
     addDocument: (metadata: PageMetadata, parentId?: string | null) => void;
-    updateDocument: (id: string, updates: Partial<Document>) => void;
+    updateDocument: (id: string, updates: Partial<Document>, skipRemoteSync?: boolean) => void;
     setActiveDocumentId: (id: string | null) => void;
     openDocument: (id: string) => void;
     closeDocument: (id: string) => void;
@@ -49,6 +50,7 @@ interface PageDataState {
     setBackendConfig: (backendUrl: string, authToken: string) => void;
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
+    syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
     createRemoteDocument: (metadata: PageMetadata, parentId?: string | null) => Promise<Document | null>;
     deleteRemoteDocument: (id: string) => Promise<void>;
 }
@@ -291,6 +293,57 @@ export const usePageDataStore = create<PageDataState>()(
                 }, SYNC_DEBOUNCE_MS);
             },
 
+            // Sync operations (delta sync) instead of full state
+            syncOperations: async (documentId: string, operations: Operation[]): Promise<string | null> => {
+                const { backendUrl, authToken, syncDocument } = get();
+                if (!backendUrl || !authToken || operations.length === 0) return null;
+
+                set({ isSyncing: true });
+
+                try {
+                    // CAP action endpoint - serialize payload for each operation
+                    const serializedOps = operations.map(op => ({
+                        ...op,
+                        payload: typeof op.payload === 'string' ? op.payload : JSON.stringify(op.payload),
+                    }));
+
+                    const response = await fetch(
+                        `${backendUrl}/quickstart/document-service/syncOperations`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${authToken}`,
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                documentId,
+                                operations: serializedOps,
+                            }),
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Operations sync failed');
+                    }
+
+                    const result = await response.json();
+
+                    set({
+                        isSyncing: false,
+                        lastSaveTimestamp: new Date().toLocaleString(),
+                        syncError: null,
+                    });
+
+                    return result.lastOpId || null;
+                } catch (error) {
+                    console.warn('Operation sync failed, falling back to full state sync:', error);
+                    // Fallback to full state sync
+                    await syncDocument(documentId);
+                    set({ isSyncing: false });
+                    return null;
+                }
+            },
+
             // Create a new document on remote
             createRemoteDocument: async (metadata, parentId = null) => {
                 const { backendUrl, authToken, openDocumentIds } = get();
@@ -437,8 +490,8 @@ export const usePageDataStore = create<PageDataState>()(
                 createRemoteDocument(metadata, parentId);
             },
 
-            // Update document locally and trigger sync
-            updateDocument: (id, updates) => {
+            // Update document locally and optionally trigger sync
+            updateDocument: (id, updates, skipRemoteSync = false) => {
                 const { syncDocument, backendUrl, authToken } = get();
 
                 set((state) => ({
@@ -448,8 +501,9 @@ export const usePageDataStore = create<PageDataState>()(
                     lastSaveTimestamp: new Date().toLocaleString(),
                 }));
 
-                // Auto-sync to remote if configured
-                if (backendUrl && authToken) {
+                // Auto-sync to remote if configured and not skipped
+                // Skip when delta sync (onSyncOperations) is handling remote sync
+                if (!skipRemoteSync && backendUrl && authToken) {
                     syncDocument(id);
                 }
             },

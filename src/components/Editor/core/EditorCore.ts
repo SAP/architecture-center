@@ -8,10 +8,13 @@ import {
   AdmonitionType,
   ListNode,
   TextNode,
+  EditorNode,
   isTextNode,
   isElementNode,
   ParagraphNode,
 } from './types';
+import { OperationLogger } from './OperationLogger';
+import { Operation } from './Operations';
 import {
   createEmptyState,
   cloneState,
@@ -52,6 +55,8 @@ export type EditorListener = (state: EditorState, selection: EditorSelection | n
 export interface EditorCoreConfig {
   initialState?: string;
   onChange?: (serializedState: string) => void;
+  onSyncOperations?: (ops: Operation[]) => void;
+  syncDebounceMs?: number;
 }
 
 export class EditorCore {
@@ -64,6 +69,7 @@ export class EditorCore {
   private config: EditorCoreConfig;
   private isComposing: boolean = false;
   private isRendering: boolean = false;
+  private opLogger: OperationLogger | null = null;
 
   constructor(config: EditorCoreConfig = {}) {
     this.config = config;
@@ -84,6 +90,14 @@ export class EditorCore {
 
     this.reconciler = new DOMReconciler();
     this.history = new HistoryManager();
+
+    // Initialize operation logger for delta sync
+    if (config.onSyncOperations) {
+      this.opLogger = new OperationLogger(
+        config.onSyncOperations,
+        config.syncDebounceMs || 1000
+      );
+    }
 
     // Push initial state to history
     this.history.forcePush(this.state, null);
@@ -125,6 +139,7 @@ export class EditorCore {
       this.container.removeEventListener('paste', this.handlePaste);
       document.removeEventListener('selectionchange', this.handleSelectionChange);
     }
+    this.opLogger?.clear();
     this.listeners.clear();
   }
 
@@ -147,6 +162,33 @@ export class EditorCore {
   // Get container element
   getContainer(): HTMLElement | null {
     return this.container;
+  }
+
+  // Update node for display only (doesn't trigger onChange - used for loading cached media)
+  updateNodeDisplay(nodeKey: string, updates: Partial<EditorNode>): void {
+    const node = this.state.nodeMap.get(nodeKey);
+    if (node) {
+      this.state.nodeMap.set(nodeKey, { ...node, ...updates } as EditorNode);
+      if (this.container) {
+        this.reconciler.reconcile(this.state, this.container);
+      }
+      // Don't notify listeners or call onChange - this is display-only update
+    }
+  }
+
+  // Mark operations as synced (called after successful backend sync)
+  markSynced(lastOpId: string): void {
+    this.opLogger?.markSynced(lastOpId);
+  }
+
+  // Get unsynced operations for manual sync
+  getUnsyncedOperations(): Operation[] {
+    return this.opLogger?.getUnsynced() || [];
+  }
+
+  // Force flush pending operations
+  flushOperations(): void {
+    this.opLogger?.flushNow();
   }
 
   // Dispatch a command
@@ -179,12 +221,12 @@ export class EditorCore {
         this.toggleList((command.payload as { listType: ListType }).listType);
         break;
       case 'INSERT_IMAGE':
-        const imagePayload = command.payload as { src: string; alt: string };
-        this.insertImage(imagePayload.src, imagePayload.alt);
+        const imagePayload = command.payload as { src: string; alt: string; assetId?: string };
+        this.insertImage(imagePayload.src, imagePayload.alt, imagePayload.assetId);
         break;
       case 'INSERT_DRAWIO':
-        const drawioPayload = command.payload as { diagramXML: string };
-        this.insertDrawio(drawioPayload.diagramXML);
+        const drawioPayload = command.payload as { diagramXML: string; assetId?: string };
+        this.insertDrawio(drawioPayload.diagramXML, drawioPayload.assetId);
         break;
       case 'INSERT_HTML':
         const htmlPayload = command.payload as { html: string };
@@ -599,6 +641,11 @@ export class EditorCore {
     const currentNode = getNode(this.state, this.selection.anchor.key);
     if (!currentNode || !isTextNode(currentNode)) return;
 
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logTextInsert(currentNode.key, this.selection.anchor.offset, text);
+    }
+
     // Insert text at cursor
     const before = currentNode.text.slice(0, this.selection.anchor.offset);
     const after = currentNode.text.slice(this.selection.anchor.offset);
@@ -773,6 +820,11 @@ export class EditorCore {
     this.history.push(this.state, this.selection);
 
     if (this.selection.anchor.offset > 0) {
+      // Log operation for delta sync
+      if (this.opLogger) {
+        this.opLogger.logTextDelete(node.key, this.selection.anchor.offset - 1, 1);
+      }
+
       // Delete character before cursor
       const newText = node.text.slice(0, this.selection.anchor.offset - 1) +
                       node.text.slice(this.selection.anchor.offset);
@@ -1202,7 +1254,7 @@ export class EditorCore {
     this.render();
   }
 
-  private insertImage(src: string, alt: string): void {
+  private insertImage(src: string, alt: string, assetId?: string): void {
     if (!this.selection) return;
 
     const block = getBlockAncestor(this.state, this.selection.anchor.key);
@@ -1216,22 +1268,52 @@ export class EditorCore {
 
     const blockIndex = parent.children.indexOf(block.key);
 
-    // Create image node
-    const imageNode = createImageNode(src, alt);
+    // Check if current block is empty (only contains empty text)
+    const textNode = getNode(this.state, this.selection.anchor.key);
+    const isBlockEmpty = textNode && isTextNode(textNode) && textNode.text === '';
 
-    // Insert image after current block
-    this.state = insertNode(this.state, block.parent, imageNode, blockIndex + 1);
+    // Create image node with optional assetId
+    const imageNode = createImageNode(src, alt, assetId);
 
-    // Create a new paragraph after the image for continued editing
-    const newText = createTextNode('', {});
-    const newParagraph = createParagraphNode([newText.key]);
-    newText.parent = newParagraph.key;
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeInsert(imageNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
+        type: 'image',
+        assetId,
+        alt,
+      });
+    }
 
-    this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
-    this.state.nodeMap.set(newText.key, newText);
+    if (isBlockEmpty) {
+      // Replace empty block with image
+      this.state = removeNode(this.state, block.key);
+      this.state = insertNode(this.state, parent.key, imageNode, blockIndex);
 
-    // Move selection to the new paragraph
-    this.selection = createCollapsedSelection(newText.key, 0);
+      // Create a new paragraph after the image for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, parent.key, newParagraph, blockIndex + 1);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    } else {
+      // Insert image after current block
+      this.state = insertNode(this.state, block.parent, imageNode, blockIndex + 1);
+
+      // Create a new paragraph after the image for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    }
 
     this.render();
   }
@@ -1250,6 +1332,10 @@ export class EditorCore {
 
     const blockIndex = parent.children.indexOf(block.key);
 
+    // Check if current block is empty (only contains empty text)
+    const currentTextNode = getNode(this.state, this.selection.anchor.key);
+    const isBlockEmpty = currentTextNode && isTextNode(currentTextNode) && currentTextNode.text === '';
+
     // Create text node for admonition content
     const textNode = createTextNode('', {});
     const paragraphNode = createParagraphNode([textNode.key]);
@@ -1259,10 +1345,18 @@ export class EditorCore {
     const admonitionNode = createAdmonitionNode(admonitionType, [paragraphNode.key]);
     paragraphNode.parent = admonitionNode.key;
 
-    // Insert admonition after current block
-    this.state = insertNode(this.state, block.parent, admonitionNode, blockIndex + 1);
-    this.state.nodeMap.set(paragraphNode.key, paragraphNode);
-    this.state.nodeMap.set(textNode.key, textNode);
+    if (isBlockEmpty) {
+      // Replace empty block with admonition
+      this.state = removeNode(this.state, block.key);
+      this.state = insertNode(this.state, parent.key, admonitionNode, blockIndex);
+      this.state.nodeMap.set(paragraphNode.key, paragraphNode);
+      this.state.nodeMap.set(textNode.key, textNode);
+    } else {
+      // Insert admonition after current block
+      this.state = insertNode(this.state, block.parent, admonitionNode, blockIndex + 1);
+      this.state.nodeMap.set(paragraphNode.key, paragraphNode);
+      this.state.nodeMap.set(textNode.key, textNode);
+    }
 
     // Move selection to the text inside admonition
     this.selection = createCollapsedSelection(textNode.key, 0);
@@ -1270,7 +1364,7 @@ export class EditorCore {
     this.render();
   }
 
-  private insertDrawio(diagramXML: string): void {
+  private insertDrawio(diagramXML: string, assetId?: string): void {
     if (!this.selection) return;
 
     const block = getBlockAncestor(this.state, this.selection.anchor.key);
@@ -1284,22 +1378,51 @@ export class EditorCore {
 
     const blockIndex = parent.children.indexOf(block.key);
 
-    // Create drawio node
-    const drawioNode = createDrawioNode(diagramXML);
+    // Check if current block is empty (only contains empty text)
+    const textNode = getNode(this.state, this.selection.anchor.key);
+    const isBlockEmpty = textNode && isTextNode(textNode) && textNode.text === '';
 
-    // Insert drawio after current block
-    this.state = insertNode(this.state, block.parent, drawioNode, blockIndex + 1);
+    // Create drawio node with optional assetId
+    const drawioNode = createDrawioNode(diagramXML, assetId);
 
-    // Create a new paragraph after the diagram for continued editing
-    const newText = createTextNode('', {});
-    const newParagraph = createParagraphNode([newText.key]);
-    newText.parent = newParagraph.key;
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeInsert(drawioNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
+        type: 'drawio',
+        assetId,
+      });
+    }
 
-    this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
-    this.state.nodeMap.set(newText.key, newText);
+    if (isBlockEmpty) {
+      // Replace empty block with drawio
+      this.state = removeNode(this.state, block.key);
+      this.state = insertNode(this.state, parent.key, drawioNode, blockIndex);
 
-    // Move selection to the new paragraph
-    this.selection = createCollapsedSelection(newText.key, 0);
+      // Create a new paragraph after the diagram for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, parent.key, newParagraph, blockIndex + 1);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    } else {
+      // Insert drawio after current block
+      this.state = insertNode(this.state, block.parent, drawioNode, blockIndex + 1);
+
+      // Create a new paragraph after the diagram for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    }
 
     this.render();
   }
@@ -1318,12 +1441,24 @@ export class EditorCore {
 
     const blockIndex = parent.children.indexOf(block.key);
 
+    // Check if current block is empty (only contains empty text)
+    const currentTextNode = getNode(this.state, this.selection.anchor.key);
+    const isBlockEmpty = currentTextNode && isTextNode(currentTextNode) && currentTextNode.text === '';
+
     // Create table structure
     const tableNode = createTableNode([]);
     let firstCellTextKey: string | null = null;
 
-    // First, insert the table node to get the new state
-    this.state = insertNode(this.state, block.parent, tableNode, blockIndex + 1);
+    // Determine insert index
+    const insertIndex = isBlockEmpty ? blockIndex : blockIndex + 1;
+
+    // Remove empty block if needed
+    if (isBlockEmpty) {
+      this.state = removeNode(this.state, block.key);
+    }
+
+    // Insert the table node to get the new state
+    this.state = insertNode(this.state, parent.key, tableNode, insertIndex);
 
     // Now build the table structure in the new state
     for (let r = 0; r < rows; r++) {
@@ -1359,7 +1494,7 @@ export class EditorCore {
     const newParagraph = createParagraphNode([newText.key]);
     newText.parent = newParagraph.key;
 
-    this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
+    this.state = insertNode(this.state, parent.key, newParagraph, insertIndex + 1);
     this.state.nodeMap.set(newText.key, newText);
 
     // Move selection to the first cell

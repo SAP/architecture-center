@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useEditor } from '../../hooks/useEditor';
+import { useAuth } from '@site/src/context/AuthContext';
+import { usePageDataStore } from '@site/src/store/pageDataStore';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { getApiService } from '@site/src/services/api';
 import {
   Type,
   Heading1,
@@ -143,10 +147,16 @@ function CommandMenu({
 
 export default function SlashCommandPlugin() {
   const editor = useEditor();
+  const { token } = useAuth();
+  const { getActiveDocument } = usePageDataStore();
+  const { siteConfig } = useDocusaurusContext();
+  const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
+
   const [isOpen, setIsOpen] = useState(false);
   const [queryString, setQueryString] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerNodeKey = useRef<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -205,14 +215,30 @@ export default function SlashCommandPlugin() {
     if (!file) return;
 
     const type = pendingFileType.current;
+    const activeDocument = getActiveDocument();
 
     try {
+      setIsUploading(true);
+
       switch (type) {
         case 'image': {
           const dataUrl = await readFileAsDataURL(file);
+          let assetId: string | undefined;
+
+          // Upload to backend if configured
+          if (backendUrl && token && activeDocument?.id) {
+            try {
+              const api = getApiService(backendUrl);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              assetId = asset.ID;
+            } catch (uploadError) {
+              console.warn('Asset upload failed, using inline data URL:', uploadError);
+            }
+          }
+
           editor.dispatchCommand({
             type: 'INSERT_IMAGE',
-            payload: { src: dataUrl, alt: file.name }
+            payload: { src: dataUrl, alt: file.name, assetId }
           });
           break;
         }
@@ -222,9 +248,22 @@ export default function SlashCommandPlugin() {
             return;
           }
           const xml = await readFileAsText(file);
+          let assetId: string | undefined;
+
+          // Upload to backend if configured
+          if (backendUrl && token && activeDocument?.id) {
+            try {
+              const api = getApiService(backendUrl);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              assetId = asset.ID;
+            } catch (uploadError) {
+              console.warn('Asset upload failed, using inline XML:', uploadError);
+            }
+          }
+
           editor.dispatchCommand({
             type: 'INSERT_DRAWIO',
-            payload: { diagramXML: xml }
+            payload: { diagramXML: xml, assetId }
           });
           break;
         }
@@ -248,12 +287,14 @@ export default function SlashCommandPlugin() {
     } catch (error) {
       console.error('Error processing file:', error);
       alert('Error processing file. Please try again.');
+    } finally {
+      setIsUploading(false);
     }
 
     // Reset input
     e.target.value = '';
     pendingFileType.current = null;
-  }, [editor]);
+  }, [editor, backendUrl, token, getActiveDocument]);
 
   const allCommands: CommandOption[] = useMemo(
     () => [

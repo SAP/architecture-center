@@ -222,14 +222,18 @@ export default React.memo(function MetadataFormDialog({
     };
 
     const contributorOptions = useMemo(() => {
-        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string }>();
+        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string; isSelected: boolean }>();
 
+        // Always include currently selected contributors first
         initialData.contributors?.forEach((login) => {
-            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login] });
+            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login], isSelected: true });
         });
 
+        // Add search results (that aren't already selected)
         searchResults.forEach((user) => {
-            optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url });
+            if (!optionsMap.has(user.login)) {
+                optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url, isSelected: false });
+            }
         });
 
         return Array.from(optionsMap.values());
@@ -309,14 +313,9 @@ export default React.memo(function MetadataFormDialog({
                                 <MultiComboBoxItem
                                     key={user.id}
                                     text={user.login}
-                                    selected={initialData.contributors?.includes(user.login)}
-                                    // additionalText={<Avatar size="XS" icon={user.avatar_url} />}
-                                >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Avatar size="XS" icon={user.avatar_url} />
-                                        <span>{user.login}</span>
-                                    </div>
-                                </MultiComboBoxItem>
+                                    selected={user.isSelected}
+                                    image={user.avatar_url}
+                                />
                             ))}
                     </MultiComboBox>
                 </FormItem>

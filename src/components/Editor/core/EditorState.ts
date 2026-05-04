@@ -270,22 +270,24 @@ export function createLinkNode(url: string, children: string[] = []): LinkNode {
   };
 }
 
-export function createImageNode(src: string, alt: string): ImageNode {
+export function createImageNode(src: string, alt: string, assetId?: string): ImageNode {
   return {
     key: generateKey(),
     type: 'image',
     parent: null,
     src,
     alt,
+    assetId,
   };
 }
 
-export function createDrawioNode(diagramXML: string): DrawioNode {
+export function createDrawioNode(diagramXML: string, assetId?: string): DrawioNode {
   return {
     key: generateKey(),
     type: 'drawio',
     parent: null,
     diagramXML,
+    assetId,
   };
 }
 
@@ -394,9 +396,25 @@ export function updateNode(
 
 // Serialize/deserialize for persistence
 export function serializeState(state: EditorState): string {
+  const cleanNodeMap: Record<string, any> = {};
+
+  state.nodeMap.forEach((node, key) => {
+    if (node.type === 'image') {
+      // Strip transient src field, keep assetId
+      const { src, ...rest } = node as ImageNode;
+      cleanNodeMap[key] = rest;
+    } else if (node.type === 'drawio') {
+      // Strip transient diagramXML field, keep assetId
+      const { diagramXML, ...rest } = node as DrawioNode;
+      cleanNodeMap[key] = rest;
+    } else {
+      cleanNodeMap[key] = node;
+    }
+  });
+
   const obj = {
     root: state.root,
-    nodeMap: Object.fromEntries(state.nodeMap),
+    nodeMap: cleanNodeMap,
     version: state.version,
   };
   return JSON.stringify(obj);

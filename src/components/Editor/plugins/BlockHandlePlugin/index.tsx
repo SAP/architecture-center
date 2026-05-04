@@ -115,6 +115,9 @@ export default function BlockHandlePlugin() {
     const containerRect = container.getBoundingClientRect();
     const blocks = getBlockElements();
 
+    let closestTarget: DropTarget | null = null;
+    let closestDistance = Infinity;
+
     for (const block of blocks) {
       const blockKey = block.getAttribute('data-editor-key');
       if (!blockKey || blockKey === draggedKey) continue;
@@ -122,12 +125,16 @@ export default function BlockHandlePlugin() {
       const rect = block.getBoundingClientRect();
       const blockMiddle = rect.top + rect.height / 2;
 
-      // Check if mouse is near this block
-      if (clientY >= rect.top - 20 && clientY <= rect.bottom + 20) {
+      // Calculate distance from mouse to block middle
+      const distance = Math.abs(clientY - blockMiddle);
+
+      // Find the closest block to determine drop position
+      if (distance < closestDistance) {
+        closestDistance = distance;
         const position = clientY < blockMiddle ? 'before' : 'after';
         const indicatorTop = position === 'before' ? rect.top : rect.bottom;
 
-        return {
+        closestTarget = {
           top: indicatorTop + window.scrollY,
           left: containerRect.left + 12,
           width: containerRect.width - 24,
@@ -137,7 +144,7 @@ export default function BlockHandlePlugin() {
       }
     }
 
-    return null;
+    return closestTarget;
   }, [editor, getBlockElements]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {

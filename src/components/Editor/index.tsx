@@ -1,10 +1,11 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { Button, Dialog, Bar, Text, Title } from '@ui5/webcomponents-react';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
 import { EditorCore } from './core';
 import { EditorContext, EditorContextValue } from './hooks/useEditor';
+import { ImageNode, DrawioNode } from './core/types';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
@@ -12,6 +13,7 @@ import BlockHandlePlugin from './plugins/BlockHandlePlugin';
 import TableMenuPlugin from './plugins/TableMenuPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
 import { convertToLexicalFormat } from './utils/convertToLexical';
+import { getApiService } from '@site/src/services/api';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -116,7 +118,7 @@ interface PublishStatus {
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
-  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError } =
+  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
     usePageDataStore();
   const { token, user } = useAuth();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -139,6 +141,91 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
   const [showSyncDialog, setShowSyncDialog] = useState(false);
   const [userForkUrl, setUserForkUrl] = useState('');
 
+  const loadAssetsForState = useCallback(async (core: EditorCore) => {
+    console.log('[Editor] loadAssetsForState called', { hasToken: !!token, hasBackendUrl: !!expressBackendUrl });
+    if (!token || !expressBackendUrl) {
+      console.log('[Editor] Skipping asset load - missing token or backend URL');
+      return;
+    }
+
+    const state = core.getState();
+    const api = getApiService(expressBackendUrl);
+
+    const assetPromises: Promise<void>[] = [];
+
+    state.nodeMap.forEach((node, key) => {
+      if (node.type === 'image') {
+        const imageNode = node as ImageNode;
+        console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
+        if (imageNode.assetId && !imageNode.src) {
+          assetPromises.push(
+            api.getAssetWithContent(token, imageNode.assetId)
+              .then((asset) => {
+                console.log('[Editor] Image asset fetched:', {
+                  assetId: imageNode.assetId,
+                  hasContent: !!asset.content,
+                  mediaType: asset.mediaType,
+                  contentLength: asset.content?.length,
+                });
+                if (asset.content) {
+                  let src: string;
+                  // Check if content is already a data URL
+                  if (asset.content.startsWith('data:')) {
+                    src = asset.content;
+                  } else {
+                    // Content is base64 encoded, create proper data URL
+                    src = `data:${asset.mediaType || 'image/png'};base64,${asset.content}`;
+                  }
+                  console.log('[Editor] Setting image src, length:', src.length);
+                  core.updateNodeDisplay(key, { src });
+                }
+              })
+              .catch((err) => console.warn(`Failed to load image asset ${imageNode.assetId}:`, err))
+          );
+        }
+      } else if (node.type === 'drawio') {
+        const drawioNode = node as DrawioNode;
+        if (drawioNode.assetId && !drawioNode.diagramXML) {
+          assetPromises.push(
+            api.getAssetWithContent(token, drawioNode.assetId)
+              .then((asset) => {
+                console.log('[Editor] Drawio asset fetched:', {
+                  assetId: drawioNode.assetId,
+                  hasContent: !!asset.content,
+                  contentLength: asset.content?.length,
+                });
+                if (asset.content) {
+                  let xml: string;
+                  // Check if content is XML or base64-encoded XML
+                  if (asset.content.startsWith('<?xml') || asset.content.startsWith('<mxfile')) {
+                    xml = asset.content;
+                  } else {
+                    // Decode from base64
+                    try {
+                      xml = decodeURIComponent(escape(atob(asset.content)));
+                    } catch {
+                      try {
+                        xml = atob(asset.content);
+                      } catch {
+                        console.warn('Could not decode drawio content');
+                        xml = asset.content;
+                      }
+                    }
+                  }
+                  console.log('[Editor] Setting drawio XML, length:', xml.length, 'preview:', xml.substring(0, 50));
+                  core.updateNodeDisplay(key, { diagramXML: xml });
+                }
+              })
+              .catch((err) => console.warn(`Failed to load drawio asset ${drawioNode.assetId}:`, err))
+          );
+        }
+      }
+    });
+
+    console.log('[Editor] Loading', assetPromises.length, 'assets');
+    await Promise.all(assetPromises);
+  }, [token, expressBackendUrl]);
+
   useEffect(() => {
     const activeDoc = getActiveDocument();
     if (!containerRef.current) return;
@@ -148,9 +235,24 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
       onChange: (serializedState) => {
         const doc = getActiveDocument();
         if (doc && serializedState !== doc.editorState) {
-          updateDocument(doc.id, { editorState: serializedState });
+          // Only update local state - don't trigger remote sync here
+          // Remote sync is handled by onSyncOperations (delta) or as fallback
+          updateDocument(doc.id, { editorState: serializedState }, true); // skipRemoteSync flag
         }
       },
+      onSyncOperations: (ops) => {
+        const doc = getActiveDocument();
+        if (doc) {
+          console.log('[Editor] Delta sync - operations:', ops.length, ops);
+          syncOperations(doc.id, ops).then((lastOpId) => {
+            if (lastOpId) {
+              core.markSynced(lastOpId);
+              console.log('[Editor] Operations synced, lastOpId:', lastOpId);
+            }
+          });
+        }
+      },
+      syncDebounceMs: 1000,
     });
 
     core.mount(containerRef.current);
@@ -172,11 +274,20 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     updateContext();
     const unsubscribe = core.subscribe(updateContext);
 
+    loadAssetsForState(core);
+
     return () => {
       unsubscribe();
       core.destroy();
     };
-  }, [getActiveDocument, updateDocument]);
+  }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
+
+  // Reload assets when token becomes available (after initial mount)
+  useEffect(() => {
+    if (token && coreRef.current) {
+      loadAssetsForState(coreRef.current);
+    }
+  }, [token, loadAssetsForState]);
 
   const breadcrumbPath = useMemo(
     () => buildBreadcrumbPath(activeDocument?.id ?? null, documents),

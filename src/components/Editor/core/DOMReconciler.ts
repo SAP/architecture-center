@@ -155,6 +155,11 @@ export class DOMReconciler {
     // Build formatted content
     let content = node.text || ZERO_WIDTH_SPACE;
 
+    // Replace trailing space with non-breaking space to prevent browser from collapsing it
+    if (content.endsWith(' ')) {
+      content = content.slice(0, -1) + ' ';
+    }
+
     // Clear existing content
     element.textContent = '';
 
@@ -356,11 +361,19 @@ export class DOMReconciler {
     wrapper.className = 'editorImageWrapper';
 
     const img = document.createElement('img');
-    img.src = node.src;
-    img.alt = node.alt;
+    if (node.src) {
+      img.src = node.src;
+    }
+    img.alt = node.alt || '';
     img.className = 'editorImage';
     if (node.width) img.width = node.width;
     if (node.height) img.height = node.height;
+
+    // Show placeholder if no src yet (loading)
+    if (!node.src) {
+      img.style.minHeight = '100px';
+      img.style.backgroundColor = '#f0f0f0';
+    }
 
     if (this.config.onImageClick) {
       wrapper.style.cursor = 'pointer';
@@ -383,12 +396,67 @@ export class DOMReconciler {
     iframe.width = '100%';
     iframe.height = '400';
 
-    // Encode the XML and create the viewer URL
-    const encodedXML = encodeURIComponent(node.diagramXML);
-    iframe.src = `https://viewer.diagrams.net/?lightbox=1&nav=1&edit=_blank#R${encodedXML}`;
+    // Use srcdoc with embedded viewer for large diagrams (URL length limits)
+    if (node.diagramXML) {
+      iframe.srcdoc = this.createDrawioSrcdoc(node.diagramXML);
+    } else {
+      // Show loading placeholder
+      iframe.srcdoc = '<html><body style="display:flex;align-items:center;justify-content:center;height:100%;margin:0;background:#f0f0f0;color:#666;">Loading diagram...</body></html>';
+    }
 
     wrapper.appendChild(iframe);
     return wrapper;
+  }
+
+  private createDrawioSrcdoc(diagramXML: string): string {
+    // Base64 encode the XML to avoid any escaping issues
+    const base64XML = btoa(unescape(encodeURIComponent(diagramXML)));
+
+    return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { margin: 0; padding: 0; overflow: hidden; background: #fff; }
+    #diagram { width: 100%; height: 100vh; }
+    .loading { display: flex; align-items: center; justify-content: center; height: 100vh; color: #666; }
+  </style>
+</head>
+<body>
+  <div id="diagram" class="loading">Rendering diagram...</div>
+  <script src="https://viewer.diagrams.net/js/viewer-static.min.js"><\/script>
+  <script>
+    (function() {
+      try {
+        var base64 = "${base64XML}";
+        var xml = decodeURIComponent(escape(atob(base64)));
+
+        var container = document.getElementById('diagram');
+        container.innerHTML = '';
+        container.className = '';
+
+        var div = document.createElement('div');
+        div.className = 'mxgraph';
+        div.setAttribute('data-mxgraph', JSON.stringify({
+          highlight: '#0000ff',
+          nav: true,
+          resize: true,
+          toolbar: 'zoom layers lightbox',
+          xml: xml
+        }));
+        container.appendChild(div);
+
+        if (typeof GraphViewer !== 'undefined') {
+          GraphViewer.createViewerForElement(div);
+        }
+      } catch (e) {
+        document.getElementById('diagram').innerHTML = '<div class="loading">Error: ' + e.message + '</div>';
+        console.error('Drawio render error:', e);
+      }
+    })();
+  <\/script>
+</body>
+</html>`;
   }
 
   private createTableElement(state: EditorState, node: TableNode): HTMLElement {
@@ -479,6 +547,27 @@ export class DOMReconciler {
   private updateElement(state: EditorState, node: EditorNode, element: HTMLElement): void {
     if (isTextNode(node)) {
       this.updateTextContent(element, node);
+      return;
+    }
+
+    // Handle image node updates (for lazy-loaded assets)
+    if (node.type === 'image') {
+      const imageNode = node as ImageNode;
+      const img = element.querySelector('img');
+      if (img && imageNode.src && img.src !== imageNode.src) {
+        img.src = imageNode.src;
+      }
+      return;
+    }
+
+    // Handle drawio node updates (for lazy-loaded assets)
+    if (node.type === 'drawio') {
+      const drawioNode = node as DrawioNode;
+      const iframe = element.querySelector('iframe');
+      if (iframe && drawioNode.diagramXML) {
+        // Use srcdoc with embedded viewer (same as createDrawioElement)
+        iframe.srcdoc = this.createDrawioSrcdoc(drawioNode.diagramXML);
+      }
       return;
     }
 

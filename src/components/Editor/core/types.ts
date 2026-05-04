@@ -99,7 +99,8 @@ export interface LinkNode extends BaseNode {
 // Image node - decorator/void node
 export interface ImageNode extends BaseNode {
   type: 'image';
-  src: string;
+  assetId?: string;  // Reference to DocumentAsset (persisted)
+  src?: string;      // Data URL for display (transient, not persisted)
   alt: string;
   width?: number;
   height?: number;
@@ -108,7 +109,8 @@ export interface ImageNode extends BaseNode {
 // Draw.io diagram node - decorator/void node
 export interface DrawioNode extends BaseNode {
   type: 'drawio';
-  diagramXML: string;
+  assetId?: string;    // Reference to DocumentAsset (persisted)
+  diagramXML?: string; // XML for display (transient, not persisted)
 }
 
 // Table node

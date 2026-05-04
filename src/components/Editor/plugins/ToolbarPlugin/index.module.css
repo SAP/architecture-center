@@ -6,6 +6,7 @@
     border-bottom: 1px solid #dee2e6;
     width: 100%;
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .scrollableToolbar {
@@ -13,7 +14,7 @@
     display: flex;
     flex-wrap: wrap;
     height: 32px;
-    overflow: hidden;
+    overflow: visible;
     align-items: center;
     gap: 2px;
 }
@@ -115,12 +116,18 @@
 .dropdownItem:hover { background-color: #f1f3f5; }
 
 :root[data-theme='dark'] .toolbarContainer,
-:root[data-theme='dark'] .hamburgerContainer,
-:root[data-theme='dark'] .hamburgerDropdown,
-:root[data-theme='dark'] .dropdownMenu {
+:root[data-theme='dark'] .hamburgerContainer {
     background-color: var(--sapBackgroundColor);
     border-color: var(--sapToolbar_BorderColor);
 }
+:root[data-theme='dark'] .hamburgerDropdown,
+:root[data-theme='dark'] .dropdownMenu {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 :root[data-theme='dark'] .menuHeader { color: var(--sapContent_LabelColor); }
 :root[data-theme='dark'] .button, :root[data-theme='dark'] .dropdownToggle { color: var(--sapTextColor); }
-:root[data-theme='dark'] .button:hover { background-color: var(--sapButton_Lite_Hover_Background); }
+:root[data-theme='dark'] .button:hover, :root[data-theme='dark'] .dropdownToggle:hover { background-color: #3b5998; }
+:root[data-theme='dark'] .dropdownItem { color: #e5e7eb; }
+:root[data-theme='dark'] .dropdownItem:hover { background-color: #3b5998; }
