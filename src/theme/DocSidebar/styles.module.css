@@ -1,7 +1,6 @@
-.refarchSidebarActive {
-  height: 100%; 
-  display: flex;
-  flex-direction: column;
+/* Make sidebarViewport take full width of its container */
+:global([class*="sidebarViewport"]) {
+  width: 100% !important;
 }
 
 .scrollableContent {
@@ -9,31 +8,10 @@
   flex-grow: 1;
 }
 
-:global(html[data-sidebar-collapsed='true']) .scrollableContent {
-  display: none;
-}
-
-:global(html[data-sidebar-collapsed='true']) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-:global(.theme-doc-sidebar-container.theme-doc-sidebar-container-hidden) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-:global([class*="docSidebarContainer"][class*="Hidden"]) .sidebarWithFiltersContainer > div:first-child {
-  display: none !important;
-}
-
-.theme-doc-sidebar-container-collapsed .custom-sidebar-filters-container {
-  display: none;
-}
-
-.sidebarMenuList .menu.thin-scrollbar {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+/* Hide filter bar and sidebar content when collapsed */
+.sidebarHidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .sidebarWithFiltersContainer {
@@ -51,6 +29,14 @@
   flex-direction: column;
 }
 
+.sidebar {
+  border-right: 1px solid var(--ifm-toc-border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: var(--doc-sidebar-width);
+}
+
 [class^="sidebar_"] {
   border-right: 1px solid var(--ifm-toc-border-color);
 }
@@ -58,3 +44,58 @@
 :global(button[class*="collapseSidebarButton"]) {
   border-right: none !important;
 }
+
+/* Ensure expand button icon is visible */
+:global([class*="expandButton"]) {
+  cursor: pointer;
+}
+
+:global([class*="expandButtonIcon"]) {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+/* Domain Sidebar Categories */
+.domainSidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Apply Docusaurus thin-scrollbar styling */
+.domainSidebar.thin-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .domainSidebar.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.domainSidebarMobile {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+/* Remove custom viewport styling - let Docusaurus handle it */
