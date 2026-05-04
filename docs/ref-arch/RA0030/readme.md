@@ -112,14 +112,11 @@ The architecture comprises several components with the agent harness as the cent
 
 ### Key Components
 
--   **Agent Harness:** Coding agent produces code in grounded context containing project specifications, skills and orchestrates specialized agents across isolated worktrees.
--   **Customer-managed MCP Servers:** Expose authoritative CAP and Fiori patterns to the agent at generation time, overriding stale training data. Includes SAP Build MCP Servers, Fiori MCP Server, and UI5 Web Components MCP Server.
+-   **Agent Harness:** Orchestrates specialized agents across isolated worktrees, coordinating code generation with project specifications and skills loaded from the registry.
+-   **Customer-managed MCP Servers:** Expose authoritative CAP, Fiori and UI5 patterns that override training data at generation time.
 -   **Customer-managed Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
--   **Quality Pipeline:** Deterministic enforcement boundary that executes linters, tests, security scans and CI hooks. Implemented through SAP Continuous Integration and Delivery service on BTP.
--   **Foundation Model Proxy:** LiteLLM hosted on SAP BTP routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
--   **SAP BTP Runtime:** Deployment target for CAP-based side-by-side extensions preserving the clean S/4HANA core.
--   **SAP HANA Cloud:** Provides the managed persistence layer for the generated CAP services.
--   **SAP Destination Service:** Connects extensions to S/4HANA and other systems through managed destinations and connectivity configuration.
+-   **Foundation Model Proxy:** LiteLLM routes requests through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
+-   **SAP BTP Services:** Quality enforcement through SAP Continuous Integration and Delivery, persistence through SAP HANA Cloud, connectivity through SAP Destination Service, and runtime for CAP-based extensions.
 
 ## Development Flow
 
@@ -127,20 +124,22 @@ The architecture comprises several components with the agent harness as the cent
 Alex writes the acceptance criteria, approves the plan that grounds the agent. The agents handle everything in between: task decomposition, parallel generation with increased code quality.
 :::
 
-1. **Grounding:** The developer loads project skills from the customer-hosted governed registry, connects SAP MCP servers for CAP, Fiori and UI5, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
-2. **Planning:** The coding agent decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents (backend, frontend, testing) operating in isolated worktrees. The developer approves the plan before execution begins.
-3. **Code Creation:** Specialized agents execute tasks concurrently, querying the customer-managed SAP MCP servers hosted in BTP for authoritative patterns that override training data, coordinating interface contracts through the agent harness, and updating the specification when encountering implementation gaps.
-4. **Enforcement:** The quality pipeline treats all agent-generated code as untrusted and executes without agent involvement. Test suites, linters, security scans and browser-based verification run against the full codebase at commit, push and CI hooks. Non-conforming code returns to agents for correction.
-5. **Integration:** A reviewer agent pre-screens the generated application, flagging code that does not trace to a specification requirement. The developer validates the application against spectifications and agent pushes a PR containing testing evidence and requirement traceability.
+1. **Grounding:** The developer loads skills from the governed registry, connects MCP servers, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
+2. **Planning:** The agent harness decomposes the specification into a dependency-mapped plan and assigns tasks to specialized agents operating in isolated worktrees. The developer approves the plan before execution begins.
+3. **Generation:** Specialized agents execute tasks concurrently, querying MCP servers for authoritative patterns, coordinating interface contracts through the harness, and updating the specification when encountering implementation gaps.
+4. **Enforcement:** The quality pipeline executes linters, tests, security scans and browser-based verification at commit, push and CI hooks without agent involvement. Non-conforming code returns to agents for correction.
+5. **Integration:** A reviewer agent pre-screens the generated application, flagging code that does not trace to specification requirements. The developer validates against specifications and the agent pushes a PR with testing evidence and requirement traceability.
 
 ## Characteristics
 
--   **Specification-Driven Grounding:** Agent interviews developer to co-create specifications before code generation begins. Spec-driven development tools such as GSD and Superpowers enhance specifications by identifying gaps and increasing detail, providing the agent harness with complete instructions that eliminate ambiguity. MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
+-   **Specification-Driven Grounding:** Agent harness interviews developer to co-create specifications before code generation begins. Test-driven development tools (e.g superpowers) enhance specifications by identifying gaps and increasing detail, providing the agent harness with complete instructions and comphreensive test cases that eliminate ambiguity.
+
+-   **SAP MCP-context Generation:** SAP MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
+  
 -   **Unified Model Access:** The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
--   **Zero Trust:** The coding agent operates under the least-privilege principle. Permission scopes widen only after the agent passes defined quality thresholds, balancing safety with development velocity.
--   **Deterministic Enforcement:** The traditional quality pipeline remains in place and runs automatically at git hooks and CI/CD gates without relying on agent judgment. Linters, tests, security scans and required status checks enforce correctness mechanically, independent of what the agent produces or suggests.
--   **Federated Governance:** The skill registry controls which skills and tools including MCP servers are available to agents across the organization. Version pinning, approval workflows and a deprecation lifecycle align agent behaviors with enterprise security and compliance requirements.
--   **Compounding Knowledge:** Every fix, edge case and workaround feeds back into markdowns as updated specifications, project rules, skills or persistent memory. Reusable behaviors publish to the skill registry, turning project-local knowledge into organization-wide assets.
+-   **Zero Trust Enforcement:** Agents operate under least-privilege with permission scopes widening only after passing quality thresholds. The quality pipeline executes deterministically at git hooks and CI gates, enforcing correctness mechanically independent of agent judgment.
+-   **Federated Governance:** The skill registry controls agent access to skills and MCP servers across the organization. Version pinning, approval workflows and deprecation lifecycle align agent behaviors with enterprise requirements.
+-   **Compounding Knowledge:** Fixes, edge cases and workarounds feed back as updated specifications, project rules, skills or persistent memory. Reusable behaviors publish to the registry, turning project-local knowledge into organization-wide assets.
 
 ## Business Problem
 
