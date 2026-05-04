@@ -37,8 +37,8 @@ export const navigationCardsData = [
 
 // Keep items sorted alphabetically by `title`
 export const techDomain = [
-    { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },
     { id: 'ai', title: 'AI & Machine Learning', icon: 'sap-icon://da' },
+    { id: 'appdev', title: 'Application Dev. & Automation', icon: 'sap-icon://syntax' },
     { id: 'data', title: 'Data & Analytics', icon: 'sap-icon://database' },
     { id: 'integration', title: 'Integration', icon: 'sap-icon://exit-full-screen' },
     { id: 'opsec', title: 'Operation & Security', icon: 'sap-icon://shield' },
