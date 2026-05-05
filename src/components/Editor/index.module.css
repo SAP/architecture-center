@@ -268,13 +268,6 @@
     margin: 1rem 0;
 }
 
-:global(.editorImageWrapper) {
-    margin: 1.5rem 0;
-    border-radius: 8px;
-    overflow: hidden;
-    display: block;
-}
-
 :global(.editorImageWrapper img) {
     max-width: 100%;
     height: auto;
@@ -286,9 +279,21 @@
 :global(.editorDrawioWrapper) {
     margin: 1.5rem 0;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     border: 1px solid #e5e7eb;
     background: #fafafa;
+    position: relative;
+}
+
+/* Invisible hover area on the left for block handle detection */
+:global(.editorDrawioWrapper::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80px;
+    width: 80px;
+    height: 100%;
+    z-index: 10;
 }
 
 :global(.editorDrawioIframe) {
@@ -296,6 +301,44 @@
     width: 100%;
     min-height: 400px;
     border: none;
+}
+
+:global(.editorDrawioOverlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: grab;
+    z-index: 5;
+}
+
+:global(.editorDrawioOverlay:active) {
+    cursor: grabbing;
+}
+
+/* Double-click to interact with the diagram */
+:global(.editorDrawioWrapper.interacting .editorDrawioOverlay) {
+    display: none;
+}
+
+:global(.editorImageWrapper) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: visible;
+    display: block;
+    position: relative;
+}
+
+/* Invisible hover area on the left for block handle detection */
+:global(.editorImageWrapper::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80px;
+    width: 80px;
+    height: 100%;
+    z-index: 10;
 }
 
 :root[data-theme='dark'] :global(.editorImageWrapper img) {

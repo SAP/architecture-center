@@ -816,10 +816,10 @@ export class EditorCore {
     const node = getNode(this.state, this.selection.anchor.key);
     if (!node || !isTextNode(node)) return;
 
-    // Save to history
-    this.history.push(this.state, this.selection);
-
     if (this.selection.anchor.offset > 0) {
+      // Save to history
+      this.history.push(this.state, this.selection);
+
       // Log operation for delta sync
       if (this.opLogger) {
         this.opLogger.logTextDelete(node.key, this.selection.anchor.offset - 1, 1);
@@ -830,6 +830,7 @@ export class EditorCore {
                       node.text.slice(this.selection.anchor.offset);
       this.state = updateNode(this.state, node.key, { text: newText });
       this.selection = createCollapsedSelection(node.key, this.selection.anchor.offset - 1);
+      this.render();
     } else {
       // At start of text node
       const block = getBlockAncestor(this.state, node.key);
@@ -837,6 +838,9 @@ export class EditorCore {
 
       // If block is a heading/quote at start, convert to paragraph
       if (block.type === 'heading' || block.type === 'quote') {
+        // Save to history
+        this.history.push(this.state, this.selection);
+
         const children = isElementNode(block) ? [...block.children] : [];
         const parent = block.parent;
         if (!parent) return;
@@ -863,29 +867,39 @@ export class EditorCore {
 
         // Keep cursor at start
         this.selection = createCollapsedSelection(node.key, 0);
+        this.render();
       } else {
         // Try to merge with previous block
         const prevBlock = getPreviousSibling(this.state, block.key);
         if (prevBlock && isElementNode(prevBlock)) {
           const lastText = findLastTextNode(this.state, prevBlock.key);
           if (lastText) {
+            // Save to history
+            this.history.push(this.state, this.selection);
+
             const cursorPos = lastText.text.length;
 
             // Merge text content
             const mergedText = lastText.text + node.text;
             this.state = updateNode(this.state, lastText.key, { text: mergedText });
 
+            // Log operation for delta sync
+            if (this.opLogger) {
+              this.opLogger.logNodeDelete(block.key);
+            }
+
             // Remove current block
             this.state = removeNode(this.state, block.key);
 
             // Set cursor to merge point
             this.selection = createCollapsedSelection(lastText.key, cursorPos);
+            this.render();
           }
         }
+        // If no previous block, do nothing - cursor stays at start of first block
+        // The e.preventDefault() in handleBeforeInput prevents cursor from escaping
       }
     }
-
-    this.render();
   }
 
   private deleteSelection(): void {
@@ -1277,6 +1291,9 @@ export class EditorCore {
 
     // Log operation for delta sync
     if (this.opLogger) {
+      if (isBlockEmpty) {
+        this.opLogger.logNodeDelete(block.key);
+      }
       this.opLogger.logNodeInsert(imageNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
         type: 'image',
         assetId,
@@ -1387,6 +1404,9 @@ export class EditorCore {
 
     // Log operation for delta sync
     if (this.opLogger) {
+      if (isBlockEmpty) {
+        this.opLogger.logNodeDelete(block.key);
+      }
       this.opLogger.logNodeInsert(drawioNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
         type: 'drawio',
         assetId,
@@ -2261,6 +2281,11 @@ export class EditorCore {
     this.history.push(this.state, this.selection);
 
     const blockIndex = parent.children.indexOf(blockKey);
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+    }
 
     // Find the block to focus after deletion
     const nextBlockKey = blockIndex > 0

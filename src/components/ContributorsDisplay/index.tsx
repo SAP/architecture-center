@@ -171,7 +171,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                                 selected={editingContributors.includes(user.login)}
                             >
                                 <div className={styles.comboItem}>
-                                    <Avatar size="XS" icon={`https://github.com/${user.login}.png`} />
+                                    <Avatar size="XS" image={`https://github.com/${user.login}.png`} />
                                     <span>{user.login}</span>
                                 </div>
                             </MultiComboBoxItem>

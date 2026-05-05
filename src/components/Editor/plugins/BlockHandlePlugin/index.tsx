@@ -64,6 +64,7 @@ export default function BlockHandlePlugin() {
 
     let closestBlock: HTMLElement | null = null;
     let closestDistance = Infinity;
+    let exactMatch: HTMLElement | null = null;
 
     for (const block of blocks) {
       const rect = block.getBoundingClientRect();
@@ -71,17 +72,13 @@ export default function BlockHandlePlugin() {
 
       if (!blockKey) continue;
 
-      // Check if mouse is directly on the block
+      // Check if mouse is directly on the block (within vertical bounds)
       if (clientY >= rect.top && clientY <= rect.bottom) {
-        return {
-          top: rect.top + window.scrollY,
-          left: containerRect.left + 12,
-          blockKey,
-          blockElement: block,
-        };
+        exactMatch = block;
       }
 
-      // Calculate distance to block (for snapping to nearest)
+      // Always calculate distance to find closest block
+      // This ensures we can find blocks even when mouse is over iframe
       const blockCenter = rect.top + rect.height / 2;
       const distance = Math.abs(clientY - blockCenter);
       if (distance < closestDistance) {
@@ -90,16 +87,18 @@ export default function BlockHandlePlugin() {
       }
     }
 
-    // If mouse is between blocks, snap to the closest one
-    if (closestBlock) {
-      const rect = closestBlock.getBoundingClientRect();
-      const blockKey = closestBlock.getAttribute('data-editor-key');
+    // Prefer exact match, but fall back to closest block
+    const targetBlock = exactMatch || closestBlock;
+
+    if (targetBlock) {
+      const rect = targetBlock.getBoundingClientRect();
+      const blockKey = targetBlock.getAttribute('data-editor-key');
       if (blockKey) {
         return {
           top: rect.top + window.scrollY,
           left: containerRect.left + 12,
           blockKey,
-          blockElement: closestBlock,
+          blockElement: targetBlock,
         };
       }
     }
@@ -194,8 +193,8 @@ export default function BlockHandlePlugin() {
       const firstRect = firstBlock.getBoundingClientRect();
       const lastRect = lastBlock.getBoundingClientRect();
 
-      // Add some padding below the last block (3 lines ~ 72px)
-      const topBound = firstRect.top - 20;
+      // Add some padding above and below (allow handles for first/last blocks)
+      const topBound = firstRect.top - 50;
       const bottomBound = lastRect.bottom + 72;
 
       if (e.clientY < topBound || e.clientY > bottomBound) {
@@ -206,8 +205,9 @@ export default function BlockHandlePlugin() {
       }
     }
 
-    // Show handles when mouse is anywhere within the editor container width
-    if (e.clientX < containerRect.left - 60 || e.clientX > containerRect.right + 20) {
+    // Show handles when mouse is anywhere within or to the left of the editor
+    // Extended range to the left to catch mouse near drag handles
+    if (e.clientX < containerRect.left - 100 || e.clientX > containerRect.right + 20) {
       if (!isHoveringHandle) {
         setActiveBlock(null);
       }
@@ -222,7 +222,7 @@ export default function BlockHandlePlugin() {
     } else if (!isHoveringHandle) {
       setIsVisible(false);
     }
-  }, [editor, findBlockAtPosition, findDropTarget, isHoveringHandle, showMenu, isDragging, draggedBlock]);
+  }, [editor, findBlockAtPosition, findDropTarget, isHoveringHandle, showMenu, isDragging, draggedBlock, getBlockElements]);
 
   const handleMouseLeave = useCallback(() => {
     if (!isHoveringHandle && !showMenu) {

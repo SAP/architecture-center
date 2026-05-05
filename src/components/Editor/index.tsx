@@ -235,24 +235,24 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
       onChange: (serializedState) => {
         const doc = getActiveDocument();
         if (doc && serializedState !== doc.editorState) {
-          // Only update local state - don't trigger remote sync here
-          // Remote sync is handled by onSyncOperations (delta) or as fallback
-          updateDocument(doc.id, { editorState: serializedState }, true); // skipRemoteSync flag
+          // Update local state and trigger full sync (delta sync not yet supported by backend)
+          updateDocument(doc.id, { editorState: serializedState });
         }
       },
-      onSyncOperations: (ops) => {
-        const doc = getActiveDocument();
-        if (doc) {
-          console.log('[Editor] Delta sync - operations:', ops.length, ops);
-          syncOperations(doc.id, ops).then((lastOpId) => {
-            if (lastOpId) {
-              core.markSynced(lastOpId);
-              console.log('[Editor] Operations synced, lastOpId:', lastOpId);
-            }
-          });
-        }
-      },
-      syncDebounceMs: 1000,
+      // Delta sync disabled - backend endpoint not ready
+      // onSyncOperations: (ops) => {
+      //   const doc = getActiveDocument();
+      //   if (doc) {
+      //     console.log('[Editor] Delta sync - operations:', ops.length, ops);
+      //     syncOperations(doc.id, ops).then((lastOpId) => {
+      //       if (lastOpId) {
+      //         core.markSynced(lastOpId);
+      //         console.log('[Editor] Operations synced, lastOpId:', lastOpId);
+      //       }
+      //     });
+      //   }
+      // },
+      // syncDebounceMs: 1000,
     });
 
     core.mount(containerRef.current);

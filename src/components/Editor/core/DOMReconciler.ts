@@ -398,13 +398,38 @@ export class DOMReconciler {
 
     // Use srcdoc with embedded viewer for large diagrams (URL length limits)
     if (node.diagramXML) {
+      // Store XML in data attribute for change detection
+      wrapper.setAttribute('data-diagram-xml', node.diagramXML);
       iframe.srcdoc = this.createDrawioSrcdoc(node.diagramXML);
     } else {
       // Show loading placeholder
       iframe.srcdoc = '<html><body style="display:flex;align-items:center;justify-content:center;height:100%;margin:0;background:#f0f0f0;color:#666;">Loading diagram...</body></html>';
     }
 
+    // Add invisible overlay for mouse event handling (allows drag detection)
+    const overlay = document.createElement('div');
+    overlay.className = 'editorDrawioOverlay';
+
+    // Double-click to interact with diagram
+    overlay.addEventListener('dblclick', () => {
+      wrapper.classList.add('interacting');
+    });
+
+    // Click outside to exit interaction mode
+    const exitInteraction = (e: MouseEvent) => {
+      if (!wrapper.contains(e.target as Node)) {
+        wrapper.classList.remove('interacting');
+        document.removeEventListener('click', exitInteraction);
+      }
+    };
+    wrapper.addEventListener('click', () => {
+      if (wrapper.classList.contains('interacting')) {
+        setTimeout(() => document.addEventListener('click', exitInteraction), 0);
+      }
+    });
+
     wrapper.appendChild(iframe);
+    wrapper.appendChild(overlay);
     return wrapper;
   }
 
@@ -420,6 +445,8 @@ export class DOMReconciler {
     body { margin: 0; padding: 0; overflow: hidden; background: #fff; }
     #diagram { width: 100%; height: 100vh; }
     .loading { display: flex; align-items: center; justify-content: center; height: 100vh; color: #666; }
+    .error { color: #c00; padding: 20px; }
+    .mxgraph { max-width: 100%; overflow: auto; }
   </style>
 </head>
 <body>
@@ -446,11 +473,22 @@ export class DOMReconciler {
         }));
         container.appendChild(div);
 
-        if (typeof GraphViewer !== 'undefined') {
-          GraphViewer.createViewerForElement(div);
-        }
+        // Wait for viewer library to load, then initialize
+        var initViewer = function() {
+          if (typeof GraphViewer !== 'undefined') {
+            try {
+              GraphViewer.createViewerForElement(div);
+            } catch (viewerError) {
+              // Viewer error but diagram might still be partially rendered
+              console.warn('GraphViewer warning:', viewerError.message);
+            }
+          } else {
+            setTimeout(initViewer, 100);
+          }
+        };
+        initViewer();
       } catch (e) {
-        document.getElementById('diagram').innerHTML = '<div class="loading">Error: ' + e.message + '</div>';
+        document.getElementById('diagram').innerHTML = '<div class="error">Error loading diagram: ' + e.message + '</div>';
         console.error('Drawio render error:', e);
       }
     })();
@@ -563,10 +601,14 @@ export class DOMReconciler {
     // Handle drawio node updates (for lazy-loaded assets)
     if (node.type === 'drawio') {
       const drawioNode = node as DrawioNode;
-      const iframe = element.querySelector('iframe');
+      const iframe = element.querySelector('iframe') as HTMLIFrameElement;
       if (iframe && drawioNode.diagramXML) {
-        // Use srcdoc with embedded viewer (same as createDrawioElement)
-        iframe.srcdoc = this.createDrawioSrcdoc(drawioNode.diagramXML);
+        // Only update if XML changed - check stored XML in data attribute
+        const currentXML = element.getAttribute('data-diagram-xml');
+        if (currentXML !== drawioNode.diagramXML) {
+          element.setAttribute('data-diagram-xml', drawioNode.diagramXML);
+          iframe.srcdoc = this.createDrawioSrcdoc(drawioNode.diagramXML);
+        }
       }
       return;
     }
