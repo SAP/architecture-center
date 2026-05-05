@@ -23,22 +23,24 @@ unlisted: false
 contributors:
 last_update:
     author: julian-schambeck
-    date: 2026-05-04
+    date: 2026-05-05
 ---
 
-AI coding agents have become an integral part of how the community works with the SAP Architecture Center — from writing code that changes the look and feel of the site, to putting the final touches on reference architecture content.
+AI (coding) agents have become an integral part of how the community works with the SAP Architecture Center, from writing code that changes the look and feel of the site to putting the final touches on reference architecture content.
 
-The repository comes with an `AGENTS.md` file that provides agents with project context, conventions, and predefined skills located under `.agents/skills`. You can also invoke skills manually as slash commands. With this context loaded, agents respond faster and stay aligned with the project because the answer is either already available or the agent knows exactly where to look.
+The repository comes with an `AGENTS.md` file that provides agents with project context, conventions, and predefined skills located under `.agents/skills`. You can also invoke skills manually as slash commands. With this context loaded, agents respond faster and stay aligned with the project because the answer is either already in the context or the agent knows where to look.
 
 :::info Note
-We do not endorse generating reference architecture content from scratch. The topic, main ideas, tradeoffs, and structure are expected to come from you — the contributing expert.
+We do not endorse generating reference architecture content from scratch. The topic, main ideas, tradeoffs, and structure are expected to come from you, the contributing expert.
 :::
 
 ## Setup
 
 Think of `AGENTS.md` as a project README tailored for agents. Many AI agents look for this file by default and load its content into the starting context on every new session.
 
-The repository also includes a symlink named `CLAUDE.md` that points to `AGENTS.md` for contributors working with **Claude Code**. On Windows, where symlink support is limited, copy the contents of `AGENTS.md` into a new file named `CLAUDE.local.md` instead.
+Other context files in the repository such as `CLAUDE.md` symlink to `AGENTS.md`, and `.claude/skills` symlinks to `.agents/skills`. This makes `AGENTS.md` and `.agents/skills` the single source of truth. If you want to propose changes to the project context, edit `AGENTS.md`. For skills, work in the `.agents/skills` folder.
+
+If you are working with **Claude Code** and want to override the project instructions with your own custom instructions, create a `CLAUDE.local.md` file in the repository root. Claude Code reads it automatically but it is git-ignored, so your personal overrides stay local.
 
 ### What to Ask
 
@@ -55,5 +57,5 @@ Once you are ready to contribute, let the agent handle the formalities:
 - *My contribution is ready for review. Go through the contribution process and create the PR.*
 
 :::tip Best practice
-For creating new reference architectures, [Quick Start](01-get-started-quickstart.md) remains the recommended path — it is purpose-built for that workflow.
+For creating new reference architectures, [Quick Start](01-get-started-quickstart.md) remains the recommended path since it is purpose-built for that workflow.
 :::
