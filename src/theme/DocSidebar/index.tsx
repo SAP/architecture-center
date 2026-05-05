@@ -30,69 +30,6 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   return acc;
 }, {});
 
-function filterSidebarItems(items, selectedDomains, selectedPartners, docIdToTags) {
-  if (!selectedDomains?.length && !selectedPartners?.length) {
-    return items;
-  }
-
-  // Expand each ID into its tags (category expansion)
-  const expand = (ids) =>
-    Array.from(new Set(ids.flatMap((id) => [id, ...(categoryIdToTags[id] ?? [])])));
-
-  const partnerTags = expand(selectedPartners ?? []);
-  const domainTags = expand(selectedDomains ?? []);
-
-  const matchingIds = new Set(
-    Object.entries(docIdToTags ?? {}).flatMap(([docId, tags]) => {
-      if (!Array.isArray(tags)) return [];
-
-      let matches = false;
-
-      // CASE 1: Both domains AND partners selected
-      if (domainTags.length && partnerTags.length) {
-        for (const domain of domainTags) {
-          for (const partner of partnerTags) {
-            if (tags.includes(domain) && tags.includes(partner)) {
-              matches = true;
-              break;
-            }
-          }
-          if (matches) break;
-        }
-      }
-      // CASE 2: Only partners selected → OR logic
-      else if (partnerTags.length) {
-        matches = partnerTags.some((p) => tags.includes(p));
-      }
-      // CASE 3: Only domains selected → OR logic
-      else if (domainTags.length) {
-        matches = domainTags.some((d) => tags.includes(d));
-      }
-
-      return matches ? [docId] : [];
-    })
-  );
-
-  // Recursive filtering of sidebar tree
-  const recurse = (nodes) =>
-    nodes.reduce((acc, item) => {
-      const idToCheck = item.docId || item.id;
-
-      if ((item.type === 'doc' || item.type === 'link') && matchingIds.has(idToCheck)) {
-        acc.push(item);
-      } else if (item.type === 'category') {
-        const filteredChildren = recurse(item.items);
-        if (filteredChildren.length > 0) {
-          acc.push({ ...item, items: filteredChildren });
-        }
-      }
-
-      return acc;
-    }, []);
-
-  return recurse(items);
-}
-
 // Helper to count occurrences of a docId in items (recursive)
 function countDocsInItems(items, docId): number {
   let count = 0;
@@ -133,6 +70,32 @@ function countTotalDocsInItems(items): number {
   return count;
 }
 
+// Helper to infer parent document ID from children
+const inferParentDocId = (category, docIdToTags): string | null => {
+  if (!category.items || category.items.length === 0) return null;
+
+  const firstChild = category.items[0];
+  const childId = firstChild.docId || firstChild.id;
+  if (!childId) return null;
+
+  // Extract the parent path from the child ID
+  const match = childId.match(/^(ref-arch\/RA\d+)\//);
+  if (match) {
+    const parentPath = match[1];
+    // Construct parent document ID
+    const raNumber = parentPath.match(/RA(\d+)/)?.[1];
+    if (raNumber) {
+      const parentDocId = `${parentPath}/id-ra${raNumber.padStart(4, '0')}`;
+      // Verify it exists in docIdToTags before returning
+      if (docIdToTags?.[parentDocId]) {
+        return parentDocId;
+      }
+    }
+  }
+
+  return null;
+};
+
 // Group sidebar items by technology domain (preserving hierarchy)
 function groupSidebarByDomain(items, docIdToTags) {
   const domainIds = DOMAIN_DEFINITIONS.map((d) => d.id);
@@ -157,6 +120,23 @@ function groupSidebarByDomain(items, docIdToTags) {
 
   // Helper: Recursively check if a category contains any docs for this domain
   const categoryHasDocsForDomain = (category, domainId): boolean => {
+    // Check if the category itself (parent document) belongs to this domain
+    let categoryDocId = category.link?.id || category.href;
+
+    // If we don't have a direct ID, try to infer it from children
+    if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
+      categoryDocId = inferParentDocId(category, docIdToTags);
+    }
+
+    if (categoryDocId) {
+      const categoryTags = docIdToTags?.[categoryDocId] || [];
+      if (categoryTags.includes(domainId)) return true;
+
+      const domainTags = categoryIdToTags[domainId] || [];
+      if (domainTags.some((tag) => categoryTags.includes(tag))) return true;
+    }
+
+    // Check if any children belong to this domain
     if (!category.items || category.items.length === 0) return false;
 
     for (const child of category.items) {
@@ -254,6 +234,19 @@ function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
     return partnerTags.some((p) => tags.includes(p));
   };
 
+  // Helper: Check if category itself (parent document) matches partner filter
+  const categoryMatchesPartner = (category) => {
+    let categoryDocId = category.link?.id || category.href;
+
+    if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
+      categoryDocId = inferParentDocId(category, docIdToTags);
+    }
+
+    if (!categoryDocId) return false;
+    const tags = docIdToTags?.[categoryDocId] || [];
+    return partnerTags.some((p) => tags.includes(p));
+  };
+
   // Helper: Recursively filter category
   const filterCategory = (category) => {
     const filteredItems = [];
@@ -262,7 +255,7 @@ function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
         filteredItems.push(child);
       } else if (child.type === 'category') {
         const filteredChild = filterCategory(child);
-        if (filteredChild.items.length > 0) {
+        if (filteredChild.items.length > 0 || categoryMatchesPartner(child)) {
           filteredItems.push(filteredChild);
         }
       }
@@ -273,13 +266,27 @@ function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
   const filtered: Record<string, any[]> = {};
   Object.entries(grouped).forEach(([domainId, items]) => {
     filtered[domainId] = [];
+
     for (const item of items) {
       if ((item.type === 'doc' || item.type === 'link') && itemMatchesPartner(item)) {
         filtered[domainId].push(item);
       } else if (item.type === 'category') {
         const filteredCategory = filterCategory(item);
-        if (filteredCategory.items.length > 0) {
-          filtered[domainId].push(filteredCategory);
+        const categoryMatches = categoryMatchesPartner(item);
+
+        // Include category if it has matching children OR the parent document itself matches
+        if (filteredCategory.items.length > 0 || categoryMatches) {
+          // Preserve the inferred parent document ID for counting purposes, when a parent matches but has no matching children
+          let categoryDocId = item.link?.id || item.href;
+          if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
+            categoryDocId = inferParentDocId(item, docIdToTags);
+          }
+
+          filtered[domainId].push({
+            ...filteredCategory,
+            // Store the parent doc ID in metadata for later counting
+            _inferredDocId: categoryDocId
+          });
         }
       }
     }
@@ -293,7 +300,7 @@ function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
 // ============================================================================
 
 // Collect unique doc IDs from grouped items (for result count display)
-function collectUniqueDocIds(groupedItems: Record<string, any[]>): Set<string> {
+function collectUniqueDocIds(groupedItems: Record<string, any[]>, docIdToTags): Set<string> {
   const uniqueDocIds = new Set<string>();
 
   const traverse = (items: any[]) => {
@@ -302,9 +309,19 @@ function collectUniqueDocIds(groupedItems: Record<string, any[]>): Set<string> {
         const id = item.docId || item.id || '';
         if (id) uniqueDocIds.add(id);
       } else if (item.type === 'category') {
-        // Count the category itself if it has href (parent architecture)
-        if (item.href) {
-          uniqueDocIds.add(item.href);
+        // Count the category itself if it has a linked document (parent architecture)
+        let categoryDocId = item._inferredDocId;
+
+        if (!categoryDocId) {
+          categoryDocId = item.link?.id || item.href;
+        }
+
+        if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
+          categoryDocId = inferParentDocId(item, docIdToTags);
+        }
+
+        if (categoryDocId) {
+          uniqueDocIds.add(categoryDocId);
         }
         // Recursively count children
         if (item.items) {
@@ -448,7 +465,7 @@ function DocSidebarDesktop(props) {
     };
 
     // Count unique documents (across all domains, no duplicates)
-    const resultCount = collectUniqueDocIds(filteredGrouped).size;
+    const resultCount = collectUniqueDocIds(filteredGrouped, tagsDocId).size;
 
     // Transform domain-grouped data into Docusaurus category structure
     const domainCategories = buildDomainCategories(
@@ -533,7 +550,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     };
 
     // Count unique documents
-    const resultCount = collectUniqueDocIds(filteredGrouped).size;
+    const resultCount = collectUniqueDocIds(filteredGrouped, tagsDocId).size;
 
     // Transform domain-grouped data into Docusaurus category structure
     const domainCategories = buildDomainCategories(
