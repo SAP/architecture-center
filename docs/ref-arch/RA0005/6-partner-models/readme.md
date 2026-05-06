@@ -4,9 +4,9 @@
 ############################################################
 #                     [DO NOT MODIFY]                      #
 ############################################################
-id: id-ra0005-9
-slug: /ref-arch/e5eb3b9b1d/9
-sidebar_position: 9
+id: id-ra0005-6
+slug: /ref-arch/e5eb3b9b1d/6
+sidebar_position: 6
 sidebar_custom_props:
     category_index:
 ############################################################

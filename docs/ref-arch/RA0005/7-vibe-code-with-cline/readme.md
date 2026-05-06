@@ -1,7 +1,7 @@
 ---
-id: id-ra0005-10
-slug: /ref-arch/e5eb3b9b1d/10
-sidebar_position: 10
+id: id-ra0005-7
+slug: /ref-arch/e5eb3b9b1d/7
+sidebar_position: 7
 title: Vibe Coding with Cline and SAP AI Core
 description: Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.
 keywords:

@@ -132,10 +132,10 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 -   [Semantic Search & Embeddings](2-semantic-search/readme.md) demonstrates how to leverage vector representations in SAP HANA Cloud's Vector Engine for context-aware, meaning-based search.
 -   [Retrieval Augmented Generation](3-retrieval-augmented-generation/readme.md) extends on how to support and ground generative AI with actual documents and data.
 -   [AI Agents](../RA0029/2-ai-agents/readme.md) enable autonomous, adaptive execution of complex enterprise processes.
--   [A2A Agent-to-Agent Interoperability](8-agent2agent-interoperability/readme.md) illustrates how multiple agents collaborate with the A2A protocol.
+-   [A2A Agent-to-Agent Interoperability](../RA0029/1-a2a-and-mcp/readme.md) illustrates how multiple agents collaborate with the A2A protocol.
 -   [Agents for Structured Data](../RA0029/7-ai-agents-for-structured-data/readme.md) enable natural language queries into enterprise data for descriptive and prescriptive analytics.
 -   [Multi-Tenancy](../RA0007/readme.md) explains the multi-tenant aspect for generative AI on SAP BTP.
--   [Vibe Coding with Cline and SAP AI Core](10-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
+-   [Vibe Coding with Cline and SAP AI Core](./7-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
 
 ## Services & Components
 
