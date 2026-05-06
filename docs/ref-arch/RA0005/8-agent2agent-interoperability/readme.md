@@ -58,8 +58,7 @@ SAP adopts the A2A protocol to standardize inter-agent communications, fostering
 
 1. **Agent Builder (Joule Studio)**
    At the core of the architecture is SAP’s **Agent Builder** in Joule Studio, which enables the creation and orchestration of intelligent agents integrated with SAP’s business systems and processes. It supports both SAP and non-SAP agents through a unified catalog and registration system. When interacting with third-party agents, the **Agent2Agent (A2A) protocol** facilitates secure, standardized communication, enabling seamless collaboration and task execution across organizational and vendor boundaries. If you’d like to learn more about **AI Agents & Agent Builder** at SAP, please explore the following resources:
-   - [AI Agents & Agent Builder](../5-ai-agents/readme.md)
-   - [Agents for Structured Data](../6-agents-structured-data/readme.md)
+   - [AI Agents & Agent Builder](../../RA0029/2-ai-agents/readme.md)
    - [Extend Joule with Joule Studio](../../RA0024/readme.md)
 
 2. **Agent Catalog**

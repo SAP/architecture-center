@@ -1,7 +1,7 @@
 ---
-id: id-ra0029-3
-slug: /ref-arch/ca1d2a3e/3
-sidebar_position: 3
+id: id-ra0029-4
+slug: /ref-arch/ca1d2a3e/4
+sidebar_position: 4
 title: Pro-Code AI Agents on SAP BTP
 description: >-
   Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK for AI with popular frameworks like LangGraph, AutoGen and CrewAI for maximum flexibility and control over complex business logic.
@@ -125,7 +125,7 @@ These frameworks integrate with SAP Cloud SDK for AI to access Generative AI Hub
 Pro-code agents enable advanced scenarios that require deep technical customization:
 
 -   [AI Agents for Structured Data](../7-ai-agents-for-structured-data/readme.md): Build agents that enable natural language queries and analytics on structured enterprise data in SAP HANA Cloud, leveraging vector search and knowledge graphs.
--   [Embodied AI Agents](../6-embodied-ai-agents/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
+-   [Embodied AI Agents](../../RA0026/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
