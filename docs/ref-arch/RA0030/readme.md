@@ -18,11 +18,9 @@ keywords:
   - context engineering
   - grounding
   - mcp servers
-  - sap sdks
-  - multi-agent orchestration
   - ai coding agents
   - sap ai core
-  - intelligent applications
+  - SAP Fiori CAP UI5
   - sap btp
 image: img/ac-soc-med.png
 tags:
