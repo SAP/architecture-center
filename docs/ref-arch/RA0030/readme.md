@@ -34,7 +34,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 contributors:
-  - guilherme-segantini
+  - guilherme-segantini, mponce
 discussion:
 last_update:
   author: guilherme-segantini
@@ -45,68 +45,9 @@ AI coding agents generate code rapidly, but ungrounded generation compounds cost
 
 This reference architecture defines the system that enables agentic engineering to accelerate BTP extensions while preserving the clean S/4HANA core. Context engineering is central: developers and agents co-create specifications before code generation begins, agents follow authoritative SAP knowledge sources, code is produced in parallel across isolated worktrees, and LiteLLM with SAP Generative AI Hub provides the enterprise foundation for model access.
 
-### User Journey: SAP Developer (Alex)
-
-:::note[Introducing Alex]
-Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP BTP. His team has adopted agentic engineering to accelerate delivery while maintaining quality. Alex expects grounded code that uses current CAP and Fiori APIs, parallel execution across backend and frontend concerns, deterministic quality gates that catch regressions before review, and governed model access through SAP Generative AI Hub. He focuses on architecture decisions and acceptance criteria rather than on fixing hallucinated annotations or tracking deprecated APIs.
-:::
-
 ## Architecture
 
-```mermaid
-graph TB
-    subgraph "Developer Workspace"
-        AH[Agent Harness<br/>Claude Code + GSD]
-    end
-    
-    subgraph "Customer-managed Context"
-        MCP[SAP MCP Servers<br/>CAP · Fiori · UI5]
-        SR[Customer-managed Skill Registry<br/>Governed behaviors]
-    end
-    
-    subgraph "SAP BTP - Quality & AI"
-        QP[SAP Continuous Integration<br/>and Delivery]
-        MP[Model Proxy<br/>LiteLLM]
-        GAH[SAP Gen AI Hub<br/>SAP AI Core]
-    end
-    
-    subgraph "SAP BTP - Application Layer"
-        IAS[SAP Cloud Identity Services<br/>Authentication + authorization]
-        APP[Generated App<br/>CAP on BTP Runtime]
-        HANA[SAP HANA Cloud<br/>Persistence + vector]
-        IS[SAP Integration Suite<br/>Events + APIs]
-    end
-    
-    subgraph "SAP Systems"
-        S4[S/4HANA]
-    end
-    
-    AH -->|query patterns| MCP
-    AH -->|load skills| SR
-    AH -->|commit code| QP
-    AH -->|LLM requests| MP
-    AH -->|generate code| APP
-    
-    MP -->|route requests| GAH
-    
-    IAS -->|authenticate| APP
-    APP -->|persist data| HANA
-    APP -->|events/APIs| IS
-    
-    IS -->|connect| S4
-    
-    style AH fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
-    style MP fill:#e6f2ff,stroke:#0070f2,stroke-width:2px
-    style APP fill:#fff,stroke:#1d2d3e,stroke-width:1px
-    style MCP fill:#fff,stroke:#1d2d3e,stroke-width:1px
-    style SR fill:#fff,stroke:#1d2d3e,stroke-width:1px
-    style QP fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
-    style GAH fill:#f8f8f8,stroke:#4a5d6f,stroke-width:1px
-    style S4 fill:#f8f8f8,stroke:#4a5d6f,stroke-width:1px
-    style HANA fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
-    style IS fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
-    style IAS fill:#f0f0f0,stroke:#4a5d6f,stroke-width:1px
-```
+![drawio](./drawio/agentic-for-sap-extensions.drawio)
 
 The architecture comprises several components with the agent harness as the central actor.
 
@@ -120,8 +61,8 @@ The architecture comprises several components with the agent harness as the cent
 
 ## Development Flow
 
-:::note[User Journey: Alex]
-Alex writes the acceptance criteria, approves the plan that grounds the agent. The agents handle everything in between: task decomposition, parallel generation with increased code quality.
+:::note[Introducing Alex]
+Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP BTP. His team has adopted agentic engineering to accelerate delivery while maintaining quality. Alex expects high quality code for SAP that uses current CAP and Fiori APIs, parallel execution across backend and frontend concerns, deterministic quality gates that catch regressions before review, and governed model access through SAP Generative AI Hub. He focuses on the specifications, architecture decisions and acceptance criteria rather than on fixing hallucinated annotations or tracking deprecated APIs.
 :::
 
 1. **Grounding:** The developer loads skills from the governed registry, connects MCP servers, and co-creates a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
@@ -133,9 +74,7 @@ Alex writes the acceptance criteria, approves the plan that grounds the agent. T
 ## Characteristics
 
 -   **Specification-Driven Grounding:** Agent harness interviews developer to co-create specifications before code generation begins. Test-driven development tools (e.g superpowers) enhance specifications by identifying gaps and increasing detail, providing the agent harness with complete instructions and comphreensive test cases that eliminate ambiguity.
-
 -   **SAP MCP-context Generation:** SAP MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
-  
 -   **Unified Model Access:** The foundation model proxy normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
 -   **Zero Trust Enforcement:** Agents operate under least-privilege with permission scopes widening only after passing quality thresholds. The quality pipeline executes deterministically at git hooks and CI gates, enforcing correctness mechanically independent of agent judgment.
 -   **Federated Governance:** The skill registry controls agent access to skills and MCP servers across the organization. Version pinning, approval workflows and deprecation lifecycle align agent behaviors with enterprise requirements.
