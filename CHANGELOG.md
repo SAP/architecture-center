@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-06
+
+Replaced RA0030 inline Mermaid diagram with drawio reference to support visual diagram editing. Added new agentic-for-sap-extensions.drawio diagram and removed draft/empty drawio files.
+
 ## 2026-05-04
 
 Consolidated RA0030 Key Components, Development Flow, and Characteristics sections using ref-arch-structure skill to eliminate redundancy while preserving architectural content. Merged 8 Key Components bullets to 5 (grouped SAP BTP services), refined Flow steps to remove repeated qualifiers, consolidated 6 Characteristics to 5 by merging overlapping Zero Trust and Deterministic Enforcement concepts. See [log/09-2026-05-04-ra0030-consolidate-redundancy.md](log/09-2026-05-04-ra0030-consolidate-redundancy.md).
