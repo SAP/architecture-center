@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2618.2",
+    "version": "v3.2619.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -41,10 +41,10 @@
         "uuid": "^14.0.0"
     },
     "dependencies": {
-        "@docusaurus/core": "^3.10.0",
-        "@docusaurus/plugin-content-docs": "^3.10.0",
-        "@docusaurus/preset-classic": "^3.10.0",
-        "@docusaurus/theme-mermaid": "^3.10.0",
+        "@docusaurus/core": "^3.10.1",
+        "@docusaurus/plugin-content-docs": "^3.10.1",
+        "@docusaurus/preset-classic": "^3.10.1",
+        "@docusaurus/theme-mermaid": "^3.10.1",
         "@easyops-cn/docusaurus-search-local": "^0.55.1",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
@@ -92,9 +92,9 @@
         "zustand": "^5.0.12"
     },
     "devDependencies": {
-        "@docusaurus/module-type-aliases": "^3.10.0",
-        "@docusaurus/tsconfig": "^3.10.0",
-        "@docusaurus/types": "^3.10.0",
+        "@docusaurus/module-type-aliases": "^3.10.1",
+        "@docusaurus/tsconfig": "^3.10.1",
+        "@docusaurus/types": "^3.10.1",
         "@testing-library/jest-dom": "^6.9.1",
         "@testing-library/react": "^16.3.2",
         "@testing-library/user-event": "^14.6.1",
