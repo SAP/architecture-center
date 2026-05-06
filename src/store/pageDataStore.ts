@@ -328,6 +328,19 @@ export const usePageDataStore = create<PageDataState>()(
 
                     const result = await response.json();
 
+                    // Check if operations were actually applied
+                    // If appliedCount is 0, the backend state might be invalid - fall back to full sync
+                    if (result.appliedCount === 0 && operations.length > 0) {
+                        console.warn('[PageDataStore] No operations were applied, falling back to full sync');
+                        throw new Error('No operations applied - backend state may be invalid');
+                    }
+
+                    console.log('[PageDataStore] syncOperations result:', {
+                        lastOpId: result.lastOpId,
+                        appliedCount: result.appliedCount,
+                        sentCount: operations.length
+                    });
+
                     set({
                         isSyncing: false,
                         lastSaveTimestamp: new Date().toLocaleString(),

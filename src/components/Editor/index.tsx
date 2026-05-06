@@ -6,6 +6,7 @@ import { useAuth } from '@site/src/context/AuthContext';
 import { EditorCore } from './core';
 import { EditorContext, EditorContextValue } from './hooks/useEditor';
 import { ImageNode, DrawioNode } from './core/types';
+import { serializeState } from './core/EditorState';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import SlashCommandPlugin from './plugins/SlashCommandPlugin';
@@ -230,29 +231,103 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     const activeDoc = getActiveDocument();
     if (!containerRef.current) return;
 
+    // Check if document has valid editorState with proper structure
+    // Delta sync only works if backend already has the node structure
+    const hasValidState = (() => {
+      if (!activeDoc?.editorState) return false;
+      try {
+        const parsed = JSON.parse(activeDoc.editorState);
+        const isValid = parsed.root && parsed.nodeMap && Object.keys(parsed.nodeMap).length > 0;
+        console.log('[Editor] Checking state validity:', {
+          hasEditorState: !!activeDoc.editorState,
+          root: parsed.root,
+          nodeMapKeys: Object.keys(parsed.nodeMap || {}).length,
+          isValid
+        });
+        return isValid;
+      } catch (e) {
+        console.log('[Editor] Failed to parse editorState:', e);
+        return false;
+      }
+    })();
+
+    // Track whether delta sync is safe to use
+    // Start with hasValidState - if backend has valid state, we can use delta sync immediately
+    let canUseDeltaSync = hasValidState;
+    // Track if a full sync is in progress (to avoid race conditions)
+    let fullSyncInProgress = false;
+    let fullSyncTimeout: NodeJS.Timeout | null = null;
+
+    console.log('[Editor] Initial canUseDeltaSync:', canUseDeltaSync);
+
     const core = new EditorCore({
       initialState: activeDoc?.editorState ?? undefined,
       onChange: (serializedState) => {
         const doc = getActiveDocument();
         if (doc && serializedState !== doc.editorState) {
-          // Update local state and trigger full sync (delta sync not yet supported by backend)
-          updateDocument(doc.id, { editorState: serializedState });
+          if (canUseDeltaSync && !fullSyncInProgress) {
+            // Delta sync is active - just update local state, operations handle remote sync
+            updateDocument(doc.id, { editorState: serializedState }, true);
+          } else if (!fullSyncInProgress) {
+            // Need to do full sync first to establish base state
+            fullSyncInProgress = true;
+            console.log('[Editor] Starting initial full sync mode...');
+
+            // Clear any pending operations - we'll use full sync instead
+            core.clearOperations();
+
+            // Update local state only for now
+            updateDocument(doc.id, { editorState: serializedState }, true);
+
+            // Schedule full sync after typing settles
+            // During this window, all changes go to local state only
+            fullSyncTimeout = setTimeout(() => {
+              // Clear operations accumulated during the wait
+              core.clearOperations();
+
+              // Get the CURRENT state (which includes ALL typing so far)
+              const currentState = serializeState(core.getState());
+              const currentDoc = getActiveDocument();
+
+              if (currentDoc) {
+                console.log('[Editor] Performing full sync with state length:', currentState.length);
+                // Do full sync with current complete state
+                updateDocument(currentDoc.id, { editorState: currentState }, false);
+              }
+
+              // Wait for sync to complete, then enable delta sync
+              setTimeout(() => {
+                // Final clear before enabling delta sync
+                core.clearOperations();
+                canUseDeltaSync = true;
+                fullSyncInProgress = false;
+                console.log('[Editor] Full sync complete, delta sync enabled');
+              }, 2500);
+            }, 3000);
+          } else {
+            // Full sync in progress - just update local state
+            updateDocument(doc.id, { editorState: serializedState }, true);
+          }
         }
       },
-      // Delta sync disabled - backend endpoint not ready
-      // onSyncOperations: (ops) => {
-      //   const doc = getActiveDocument();
-      //   if (doc) {
-      //     console.log('[Editor] Delta sync - operations:', ops.length, ops);
-      //     syncOperations(doc.id, ops).then((lastOpId) => {
-      //       if (lastOpId) {
-      //         core.markSynced(lastOpId);
-      //         console.log('[Editor] Operations synced, lastOpId:', lastOpId);
-      //       }
-      //     });
-      //   }
-      // },
-      // syncDebounceMs: 1000,
+      onSyncOperations: (ops) => {
+        const doc = getActiveDocument();
+        // Only use delta sync if backend has valid state structure and not during initial full sync
+        if (doc && canUseDeltaSync && !fullSyncInProgress) {
+          console.log('[Editor] Delta sync - operations:', ops.length, ops);
+          syncOperations(doc.id, ops).then((lastOpId) => {
+            if (lastOpId) {
+              core.markSynced(lastOpId);
+              console.log('[Editor] Operations synced, lastOpId:', lastOpId);
+            }
+          }).catch((error) => {
+            console.error('[Editor] Delta sync failed:', error);
+          });
+        } else {
+          console.log('[Editor] Skipping delta sync - canUseDeltaSync:', canUseDeltaSync, 'fullSyncInProgress:', fullSyncInProgress);
+        }
+      },
+      syncDebounceMs: 1000,
     });
 
     core.mount(containerRef.current);
@@ -277,6 +352,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     loadAssetsForState(core);
 
     return () => {
+      // Clear any pending full sync timeout
+      if (fullSyncTimeout) {
+        clearTimeout(fullSyncTimeout);
+      }
       unsubscribe();
       core.destroy();
     };

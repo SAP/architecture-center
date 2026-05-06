@@ -191,6 +191,11 @@ export class EditorCore {
     this.opLogger?.flushNow();
   }
 
+  // Clear all pending operations (used after full state sync)
+  clearOperations(): void {
+    this.opLogger?.clear();
+  }
+
   // Dispatch a command
   dispatchCommand(command: EditorCommand): void {
     switch (command.type) {
@@ -709,6 +714,20 @@ export class EditorCore {
       const blockIndex = parent.children.indexOf(block.key);
       this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 1);
       this.state.nodeMap.set(newText.key, newText);
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        // Log text update for the split
+        if (before !== node.text) {
+          this.opLogger.logNodeUpdate(node.key, { text: before });
+        }
+        // Log new paragraph insertion (including its children structure)
+        const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, block.parent, blockIndex + 1, paragraphWithoutParent);
+        // Log the text node inside the paragraph
+        const { parent: _textParent, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
     }
 
     // Move selection to start of new paragraph
@@ -753,8 +772,11 @@ export class EditorCore {
     // Insert paragraph after the list
     grandParentInNewState.children.splice(listIndex + 1, 0, newParagraph.key);
 
+    // Track if list will be removed
+    const listWillBeRemoved = listInNewState.children.length === 0;
+
     // If list is now empty, remove it
-    if (listInNewState.children.length === 0) {
+    if (listWillBeRemoved) {
       const listIdx = grandParentInNewState.children.indexOf(listNode.key);
       if (listIdx !== -1) {
         grandParentInNewState.children.splice(listIdx, 1);
@@ -763,6 +785,16 @@ export class EditorCore {
     }
 
     this.state = newState;
+
+    // Log operations for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(listItem.key);
+      if (listWillBeRemoved) {
+        this.opLogger.logNodeDelete(listNode.key);
+      }
+      const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+      this.opLogger.logNodeInsert(newParagraph.key, listNode.parent!, listIndex + 1, paragraphWithoutParent);
+    }
 
     // Update selection to new paragraph
     const firstText = findFirstTextNode(this.state, newParagraph.key);
@@ -800,6 +832,18 @@ export class EditorCore {
 
     this.state = newState;
     this.selection = createCollapsedSelection(newText.key, 0);
+
+    // Log operations for delta sync
+    if (this.opLogger) {
+      if (before !== textNode.text) {
+        this.opLogger.logNodeUpdate(textNode.key, { text: before });
+      }
+      const { parent: _parent, ...listItemWithoutParent } = newListItem;
+      this.opLogger.logNodeInsert(newListItem.key, listNode.key, itemIndex + 1, listItemWithoutParent);
+      // Also log the text node inside the list item
+      const { parent: _textParent, ...textWithoutParent } = newText;
+      this.opLogger.logNodeInsert(newText.key, newListItem.key, 0, textWithoutParent);
+    }
 
     this.render();
   }
@@ -850,23 +894,35 @@ export class EditorCore {
 
         const blockIndex = parentNode.children.indexOf(block.key);
 
-        // Remove old block
-        this.state = removeNode(this.state, block.key);
-
-        // Create new paragraph with same children
-        const newParagraph = createParagraphNode(children);
+        // Save children data BEFORE removing the block (since removeNode deletes descendants)
+        const childrenData: EditorNode[] = [];
         children.forEach(childKey => {
           const child = this.state.nodeMap.get(childKey);
           if (child) {
-            child.parent = newParagraph.key;
+            childrenData.push({ ...child });
           }
+        });
+
+        // Remove old block (this also removes children from nodeMap)
+        this.state = removeNode(this.state, block.key);
+
+        // Create new paragraph with same children keys
+        const newParagraph = createParagraphNode(children);
+
+        // Re-add children to nodeMap with updated parent
+        childrenData.forEach(child => {
+          child.parent = newParagraph.key;
+          this.state.nodeMap.set(child.key, child);
         });
 
         // Insert new paragraph
         this.state = insertNode(this.state, parent, newParagraph, blockIndex);
 
-        // Keep cursor at start
-        this.selection = createCollapsedSelection(node.key, 0);
+        // Keep cursor at start - use the first child's key if available
+        const cursorKey = children.length > 0 ? children[0] : null;
+        if (cursorKey && this.state.nodeMap.has(cursorKey)) {
+          this.selection = createCollapsedSelection(cursorKey, 0);
+        }
         this.render();
       } else {
         // Try to merge with previous block
@@ -1065,6 +1121,11 @@ export class EditorCore {
 
     this.state = updateNode(this.state, node.key, { format: newFormat });
 
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeUpdate(node.key, { format: newFormat });
+    }
+
     this.render();
   }
 
@@ -1135,6 +1196,13 @@ export class EditorCore {
 
     this.state = newState;
 
+    // Log operations for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(block.key);
+      const { parent: _parent, ...nodeWithoutParent } = newBlock;
+      this.opLogger.logNodeInsert(newBlock.key, block.parent, blockIndex, nodeWithoutParent);
+    }
+
     // Update selection - find first text node and set cursor at end of text
     const firstText = findFirstTextNode(this.state, newBlock.key);
     console.log('setBlockType: firstText:', firstText?.key, 'text:', JSON.stringify(firstText?.text));
@@ -1202,8 +1270,11 @@ export class EditorCore {
       // Insert paragraph at list position
       grandParent.children.splice(listIndex, 0, newParagraph.key);
 
+      // Track if list will be removed
+      const listWillBeRemoved = listNode.children.length === 0;
+
       // If list is now empty, remove it
-      if (listNode.children.length === 0) {
+      if (listWillBeRemoved) {
         const listIdx = grandParent.children.indexOf(listNode.key);
         if (listIdx !== -1) {
           grandParent.children.splice(listIdx, 1);
@@ -1212,6 +1283,16 @@ export class EditorCore {
       }
 
       this.state = newState;
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeDelete(block.key);
+        if (listWillBeRemoved) {
+          this.opLogger.logNodeDelete(listNode.key);
+        }
+        const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, listNode.parent!, listIndex, paragraphWithoutParent);
+      }
 
       // Update selection
       const firstText = findFirstTextNode(this.state, newParagraph.key);
@@ -1257,6 +1338,15 @@ export class EditorCore {
       parentNode.children.splice(blockIndex, 0, newList.key);
 
       this.state = newState;
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeDelete(block.key);
+        const { parent: _listParent, ...listWithoutParent } = newList;
+        const { parent: _itemParent, ...listItemWithoutParent } = newListItem;
+        this.opLogger.logNodeInsert(newList.key, block.parent, blockIndex, listWithoutParent);
+        this.opLogger.logNodeInsert(newListItem.key, newList.key, 0, listItemWithoutParent);
+      }
 
       // Update selection
       const firstText = findFirstTextNode(this.state, newListItem.key);
@@ -1314,6 +1404,14 @@ export class EditorCore {
       this.state = insertNode(this.state, parent.key, newParagraph, blockIndex + 1);
       this.state.nodeMap.set(newText.key, newText);
 
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, parent.key, blockIndex + 1, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
       // Move selection to the new paragraph
       this.selection = createCollapsedSelection(newText.key, 0);
     } else {
@@ -1327,6 +1425,14 @@ export class EditorCore {
 
       this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
       this.state.nodeMap.set(newText.key, newText);
+
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, block.parent, blockIndex + 2, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
 
       // Move selection to the new paragraph
       this.selection = createCollapsedSelection(newText.key, 0);
@@ -1373,6 +1479,19 @@ export class EditorCore {
       this.state = insertNode(this.state, block.parent, admonitionNode, blockIndex + 1);
       this.state.nodeMap.set(paragraphNode.key, paragraphNode);
       this.state.nodeMap.set(textNode.key, textNode);
+    }
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      if (isBlockEmpty) {
+        this.opLogger.logNodeDelete(block.key);
+      }
+      this.opLogger.logNodeInsert(admonitionNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
+        type: admonitionNode.type,
+        key: admonitionNode.key,
+        admonitionType: admonitionNode.admonitionType,
+        children: admonitionNode.children,
+      });
     }
 
     // Move selection to the text inside admonition
@@ -1426,6 +1545,14 @@ export class EditorCore {
       this.state = insertNode(this.state, parent.key, newParagraph, blockIndex + 1);
       this.state.nodeMap.set(newText.key, newText);
 
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, parent.key, blockIndex + 1, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
       // Move selection to the new paragraph
       this.selection = createCollapsedSelection(newText.key, 0);
     } else {
@@ -1439,6 +1566,14 @@ export class EditorCore {
 
       this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
       this.state.nodeMap.set(newText.key, newText);
+
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, block.parent, blockIndex + 2, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
 
       // Move selection to the new paragraph
       this.selection = createCollapsedSelection(newText.key, 0);
@@ -1517,6 +1652,52 @@ export class EditorCore {
     this.state = insertNode(this.state, parent.key, newParagraph, insertIndex + 1);
     this.state.nodeMap.set(newText.key, newText);
 
+    // Log operation for delta sync
+    if (this.opLogger) {
+      if (isBlockEmpty) {
+        this.opLogger.logNodeDelete(block.key);
+      }
+      const tableInState = this.state.nodeMap.get(tableNode.key);
+      if (tableInState) {
+        const { parent: _parent, ...tableWithoutParent } = tableInState;
+        this.opLogger.logNodeInsert(tableNode.key, block.parent!, insertIndex, tableWithoutParent);
+
+        // Log all nested nodes (rows, cells, text nodes)
+        const tableChildren = (tableInState as any).children || [];
+        tableChildren.forEach((rowKey: string, rowIndex: number) => {
+          const rowNode = this.state.nodeMap.get(rowKey);
+          if (rowNode) {
+            const { parent: _rp, ...rowWithoutParent } = rowNode;
+            this.opLogger!.logNodeInsert(rowKey, tableNode.key, rowIndex, rowWithoutParent);
+
+            const rowChildren = (rowNode as any).children || [];
+            rowChildren.forEach((cellKey: string, cellIndex: number) => {
+              const cellNode = this.state.nodeMap.get(cellKey);
+              if (cellNode) {
+                const { parent: _cp, ...cellWithoutParent } = cellNode;
+                this.opLogger!.logNodeInsert(cellKey, rowKey, cellIndex, cellWithoutParent);
+
+                const cellChildren = (cellNode as any).children || [];
+                cellChildren.forEach((textKey: string, textIndex: number) => {
+                  const textNode = this.state.nodeMap.get(textKey);
+                  if (textNode) {
+                    const { parent: _tp, ...textWithoutParent } = textNode;
+                    this.opLogger!.logNodeInsert(textKey, cellKey, textIndex, textWithoutParent);
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+
+      // Log the new paragraph after table
+      const { parent: _pp, ...paragraphWithoutParent } = newParagraph;
+      this.opLogger.logNodeInsert(newParagraph.key, parent.key, insertIndex + 1, paragraphWithoutParent);
+      const { parent: _tp, ...textWithoutParent } = newText;
+      this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+    }
+
     // Move selection to the first cell
     if (firstCellTextKey) {
       this.selection = createCollapsedSelection(firstCellTextKey, 0);
@@ -1554,7 +1735,33 @@ export class EditorCore {
     }
 
     this.state.nodeMap.set(rowNode.key, rowNode);
-    (this.state.nodeMap.get(tableKey) as any).children.push(rowNode.key);
+    const tableInState = this.state.nodeMap.get(tableKey) as any;
+    const rowIndex = tableInState.children.length;
+    tableInState.children.push(rowNode.key);
+
+    // Log operations for delta sync
+    if (this.opLogger) {
+      const { parent: _rp, ...rowWithoutParent } = rowNode;
+      this.opLogger.logNodeInsert(rowNode.key, tableKey, rowIndex, rowWithoutParent);
+
+      // Log all cells and text nodes
+      rowNode.children.forEach((cellKey: string, cellIndex: number) => {
+        const cellNode = this.state.nodeMap.get(cellKey);
+        if (cellNode) {
+          const { parent: _cp, ...cellWithoutParent } = cellNode;
+          this.opLogger!.logNodeInsert(cellKey, rowNode.key, cellIndex, cellWithoutParent);
+
+          const cellChildren = (cellNode as any).children || [];
+          cellChildren.forEach((textKey: string, textIndex: number) => {
+            const textNode = this.state.nodeMap.get(textKey);
+            if (textNode) {
+              const { parent: _tp, ...textWithoutParent } = textNode;
+              this.opLogger!.logNodeInsert(textKey, cellKey, textIndex, textWithoutParent);
+            }
+          });
+        }
+      });
+    }
 
     this.render();
   }
@@ -1564,6 +1771,8 @@ export class EditorCore {
     if (!table || table.type !== 'table') return;
 
     this.history.push(this.state, this.selection);
+
+    const insertedCells: { cellKey: string; textKey: string; rowKey: string; colIndex: number }[] = [];
 
     // Add a cell to each row
     (table as any).children.forEach((rowKey: string) => {
@@ -1575,10 +1784,30 @@ export class EditorCore {
       textNode.parent = cellNode.key;
       cellNode.parent = rowKey;
 
+      const colIndex = (row as any).children.length;
+
       this.state.nodeMap.set(textNode.key, textNode);
       this.state.nodeMap.set(cellNode.key, cellNode);
       (row as any).children.push(cellNode.key);
+
+      insertedCells.push({ cellKey: cellNode.key, textKey: textNode.key, rowKey, colIndex });
     });
+
+    // Log operations for delta sync
+    if (this.opLogger) {
+      insertedCells.forEach(({ cellKey, textKey, rowKey, colIndex }) => {
+        const cellNode = this.state.nodeMap.get(cellKey);
+        if (cellNode) {
+          const { parent: _cp, ...cellWithoutParent } = cellNode;
+          this.opLogger!.logNodeInsert(cellKey, rowKey, colIndex, cellWithoutParent);
+        }
+        const textNode = this.state.nodeMap.get(textKey);
+        if (textNode) {
+          const { parent: _tp, ...textWithoutParent } = textNode;
+          this.opLogger!.logNodeInsert(textKey, cellKey, 0, textWithoutParent);
+        }
+      });
+    }
 
     this.render();
   }
@@ -1613,6 +1842,30 @@ export class EditorCore {
     const tableNode = this.state.nodeMap.get(tableKey) as any;
     tableNode.children.splice(atIndex, 0, rowNode.key);
 
+    // Log operation for delta sync
+    if (this.opLogger) {
+      const { parent: _parent, ...rowWithoutParent } = rowNode;
+      this.opLogger.logNodeInsert(rowNode.key, tableKey, atIndex, rowWithoutParent);
+
+      // Log all cells and text nodes within the row
+      rowNode.children.forEach((cellKey: string, cellIndex: number) => {
+        const cellNode = this.state.nodeMap.get(cellKey);
+        if (cellNode) {
+          const { parent: _cp, ...cellWithoutParent } = cellNode;
+          this.opLogger!.logNodeInsert(cellKey, rowNode.key, cellIndex, cellWithoutParent);
+
+          const cellChildren = (cellNode as any).children || [];
+          cellChildren.forEach((textKey: string, textIndex: number) => {
+            const textNode = this.state.nodeMap.get(textKey);
+            if (textNode) {
+              const { parent: _tp, ...textWithoutParent } = textNode;
+              this.opLogger!.logNodeInsert(textKey, cellKey, textIndex, textWithoutParent);
+            }
+          });
+        }
+      });
+    }
+
     this.render();
   }
 
@@ -1621,6 +1874,8 @@ export class EditorCore {
     if (!table || table.type !== 'table') return;
 
     this.history.push(this.state, this.selection);
+
+    const insertedCells: { cellKey: string; textKey: string; rowKey: string }[] = [];
 
     (table as any).children.forEach((rowKey: string) => {
       const row = this.state.nodeMap.get(rowKey);
@@ -1634,7 +1889,25 @@ export class EditorCore {
       this.state.nodeMap.set(textNode.key, textNode);
       this.state.nodeMap.set(cellNode.key, cellNode);
       (row as any).children.splice(atIndex, 0, cellNode.key);
+
+      insertedCells.push({ cellKey: cellNode.key, textKey: textNode.key, rowKey });
     });
+
+    // Log operations for delta sync (log cell and text node insertions for each row)
+    if (this.opLogger) {
+      insertedCells.forEach(({ cellKey, textKey, rowKey }) => {
+        const cell = this.state.nodeMap.get(cellKey);
+        if (cell) {
+          const { parent: _parent, ...cellWithoutParent } = cell;
+          this.opLogger!.logNodeInsert(cellKey, rowKey, atIndex, cellWithoutParent);
+        }
+        const text = this.state.nodeMap.get(textKey);
+        if (text) {
+          const { parent: _tp, ...textWithoutParent } = text;
+          this.opLogger!.logNodeInsert(textKey, cellKey, 0, textWithoutParent);
+        }
+      });
+    }
 
     this.render();
   }
@@ -1650,6 +1923,11 @@ export class EditorCore {
 
     const rowKey = rows[rowIndex];
     const row = this.state.nodeMap.get(rowKey);
+
+    // Log operation for delta sync before deletion
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(rowKey);
+    }
 
     // Delete all cells and their content
     if (row && (row as any).children) {
@@ -1679,12 +1957,15 @@ export class EditorCore {
 
     this.history.push(this.state, this.selection);
 
+    const deletedCells: string[] = [];
+
     (table as any).children.forEach((rowKey: string) => {
       const row = this.state.nodeMap.get(rowKey);
       if (!row || row.type !== 'tablerow') return;
 
       const cellKey = (row as any).children[colIndex];
       if (cellKey) {
+        deletedCells.push(cellKey);
         const cell = this.state.nodeMap.get(cellKey);
         if (cell && (cell as any).children) {
           (cell as any).children.forEach((childKey: string) => {
@@ -1695,6 +1976,13 @@ export class EditorCore {
         (row as any).children.splice(colIndex, 1);
       }
     });
+
+    // Log operations for delta sync
+    if (this.opLogger) {
+      deletedCells.forEach(cellKey => {
+        this.opLogger!.logNodeDelete(cellKey);
+      });
+    }
 
     this.render();
   }
@@ -1946,6 +2234,15 @@ export class EditorCore {
       newText.parent = newParagraph.key;
       this.state.nodeMap.set(newText.key, newText);
       this.state = insertNode(this.state, table.parent, newParagraph, tableIndex + 1);
+
+      // Log operation for delta sync
+      if (this.opLogger) {
+        const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, table.parent, tableIndex + 1, paragraphWithoutParent);
+        const { parent: _textParent, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
       this.selection = createCollapsedSelection(newText.key, 0);
       this.render();
     } else {
@@ -1967,6 +2264,15 @@ export class EditorCore {
       newText.parent = newParagraph.key;
       this.state.nodeMap.set(newText.key, newText);
       this.state = insertNode(this.state, table.parent, newParagraph, tableIndex);
+
+      // Log operation for delta sync
+      if (this.opLogger) {
+        const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, table.parent, tableIndex, paragraphWithoutParent);
+        const { parent: _textParent, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
       this.selection = createCollapsedSelection(newText.key, 0);
       this.render();
     }
@@ -2006,6 +2312,15 @@ export class EditorCore {
     newText.parent = newParagraph.key;
     this.state.nodeMap.set(newText.key, newText);
     this.state = insertNode(this.state, admonition.parent, newParagraph, admonitionIndex + 1);
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+      this.opLogger.logNodeInsert(newParagraph.key, admonition.parent, admonitionIndex + 1, paragraphWithoutParent);
+      const { parent: _textParent, ...textWithoutParent } = newText;
+      this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+    }
+
     this.selection = createCollapsedSelection(newText.key, 0);
     this.render();
   }
@@ -2258,6 +2573,15 @@ export class EditorCore {
       children: newChildren,
     });
 
+    // Log operation for delta sync
+    if (this.opLogger) {
+      const newBlock = getNode(this.state, newBlockKey);
+      if (newBlock) {
+        const { parent: _parent, ...blockWithoutParent } = newBlock;
+        this.opLogger.logNodeInsert(newBlockKey, block.parent, blockIndex + 1, blockWithoutParent);
+      }
+    }
+
     // Set selection to the new block
     const firstText = findFirstTextNode(this.state, newBlockKey);
     if (firstText) {
@@ -2356,6 +2680,11 @@ export class EditorCore {
     }
 
     this.state = newState;
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeMove(blockKey, target.parent, targetIndex);
+    }
 
     // Keep selection on the moved block
     const firstText = findFirstTextNode(this.state, blockKey);

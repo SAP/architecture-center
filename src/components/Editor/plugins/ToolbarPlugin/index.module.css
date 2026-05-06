@@ -129,5 +129,6 @@
 :root[data-theme='dark'] .menuHeader { color: var(--sapContent_LabelColor); }
 :root[data-theme='dark'] .button, :root[data-theme='dark'] .dropdownToggle { color: var(--sapTextColor); }
 :root[data-theme='dark'] .button:hover, :root[data-theme='dark'] .dropdownToggle:hover { background-color: #3b5998; }
+:root[data-theme='dark'] .button.active { background-color: #3b5998; color: #ffffff; }
 :root[data-theme='dark'] .dropdownItem { color: #e5e7eb; }
 :root[data-theme='dark'] .dropdownItem:hover { background-color: #3b5998; }

@@ -33,6 +33,7 @@ export default function BlockHandlePlugin() {
   const handleRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const lastMousePosRef = useRef<{ x: number; y: number } | null>(null);
+  const scrollAnimationRef = useRef<number | null>(null);
 
   const getBlockElements = useCallback((): HTMLElement[] => {
     const container = editor.core?.getContainer();
@@ -146,11 +147,68 @@ export default function BlockHandlePlugin() {
     return closestTarget;
   }, [editor, getBlockElements]);
 
+  // Auto-scroll when dragging near edges
+  const startAutoScroll = useCallback((clientY: number) => {
+    const container = editor.core?.getContainer();
+    if (!container) return;
+
+    // Find the scrollable parent (editorScrollArea)
+    const scrollArea = container.closest('.editorScrollArea') as HTMLElement;
+    if (!scrollArea) return;
+
+    const scrollRect = scrollArea.getBoundingClientRect();
+    const edgeThreshold = 80; // pixels from edge to start scrolling
+    const maxScrollSpeed = 15; // max pixels per frame
+
+    // Cancel any existing animation
+    if (scrollAnimationRef.current) {
+      cancelAnimationFrame(scrollAnimationRef.current);
+      scrollAnimationRef.current = null;
+    }
+
+    let scrollDirection = 0;
+    let scrollSpeed = 0;
+
+    // Check if near top edge
+    if (clientY < scrollRect.top + edgeThreshold) {
+      const distance = scrollRect.top + edgeThreshold - clientY;
+      scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
+      scrollDirection = -1; // scroll up
+    }
+    // Check if near bottom edge
+    else if (clientY > scrollRect.bottom - edgeThreshold) {
+      const distance = clientY - (scrollRect.bottom - edgeThreshold);
+      scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
+      scrollDirection = 1; // scroll down
+    }
+
+    if (scrollDirection !== 0) {
+      const scroll = () => {
+        if (!isDragging) {
+          scrollAnimationRef.current = null;
+          return;
+        }
+        scrollArea.scrollTop += scrollDirection * scrollSpeed;
+        scrollAnimationRef.current = requestAnimationFrame(scroll);
+      };
+      scrollAnimationRef.current = requestAnimationFrame(scroll);
+    }
+  }, [editor, isDragging]);
+
+  const stopAutoScroll = useCallback(() => {
+    if (scrollAnimationRef.current) {
+      cancelAnimationFrame(scrollAnimationRef.current);
+      scrollAnimationRef.current = null;
+    }
+  }, []);
+
   const handleMouseMove = useCallback((e: MouseEvent) => {
     // Handle dragging
     if (isDragging && draggedBlock) {
       const target = findDropTarget(e.clientY, draggedBlock.blockKey);
       setDropTarget(target);
+      // Auto-scroll when dragging near edges
+      startAutoScroll(e.clientY);
       return;
     }
 
@@ -222,7 +280,7 @@ export default function BlockHandlePlugin() {
     } else if (!isHoveringHandle) {
       setIsVisible(false);
     }
-  }, [editor, findBlockAtPosition, findDropTarget, isHoveringHandle, showMenu, isDragging, draggedBlock, getBlockElements]);
+  }, [editor, findBlockAtPosition, findDropTarget, isHoveringHandle, showMenu, isDragging, draggedBlock, getBlockElements, startAutoScroll]);
 
   const handleMouseLeave = useCallback(() => {
     if (!isHoveringHandle && !showMenu) {
@@ -308,6 +366,9 @@ export default function BlockHandlePlugin() {
   }, [activeBlock]);
 
   const handleDragEnd = useCallback(() => {
+    // Stop auto-scroll
+    stopAutoScroll();
+
     if (!isDragging || !draggedBlock) return;
 
     // Remove dragging class
@@ -328,7 +389,7 @@ export default function BlockHandlePlugin() {
     setIsDragging(false);
     setDraggedBlock(null);
     setDropTarget(null);
-  }, [isDragging, draggedBlock, dropTarget, editor]);
+  }, [isDragging, draggedBlock, dropTarget, editor, stopAutoScroll]);
 
   const handleDuplicate = useCallback(() => {
     if (!activeBlock || !editor.core) return;
@@ -413,6 +474,10 @@ export default function BlockHandlePlugin() {
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       editorWrapper.removeEventListener('mouseleave', handleMouseLeave);
+      // Clean up any ongoing auto-scroll animation
+      if (scrollAnimationRef.current) {
+        cancelAnimationFrame(scrollAnimationRef.current);
+      }
     };
   }, [editor, handleMouseMove, handleMouseLeave]);
 
