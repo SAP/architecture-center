@@ -2,9 +2,7 @@
 
 ## 2026-05-06
 
-Refined RA0030 keywords to focus on specific SAP technologies (Fiori, CAP, UI5) instead of generic terms (SDKs, multi-agent orchestration, intelligent applications).
-
-Replaced RA0030 inline Mermaid diagram with drawio reference to support visual diagram editing. Added new agentic-for-sap-extensions.drawio diagram and removed draft/empty drawio files.
+Migrated RA0030 from Mermaid to drawio for architecture diagram and refined frontmatter keywords to focus on specific SAP technologies (Fiori, CAP, UI5). See [log/10-2026-05-06-ra0030-diagram-and-keywords.md](log/10-2026-05-06-ra0030-diagram-and-keywords.md).
 
 ## 2026-05-04
 
