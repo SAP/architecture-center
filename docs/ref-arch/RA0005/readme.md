@@ -135,7 +135,7 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 -   [A2A Agent-to-Agent Interoperability](../RA0029/1-a2a-and-mcp/readme.md) illustrates how multiple agents collaborate with the A2A protocol.
 -   [Agents for Structured Data](../RA0029/7-ai-agents-for-structured-data/readme.md) enable natural language queries into enterprise data for descriptive and prescriptive analytics.
 -   [Multi-Tenancy](../RA0007/readme.md) explains the multi-tenant aspect for generative AI on SAP BTP.
--   [Vibe Coding with Cline and SAP AI Core](./7-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
+-   [Vibe Coding with Cline and SAP AI Core](./6-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
 
 ## Services & Components
 
