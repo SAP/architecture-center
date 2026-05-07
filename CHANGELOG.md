@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-07
+
+Clarified ownership and simplified terminology in RA0030: distinguished SAP-provided MCP servers from customer-managed model proxy and skill registry, enhanced descriptions of how MCP servers improve code quality, and refined specification-driven grounding language. See [log/11-2026-05-07-ra0030-clarify-ownership-and-terminology.md](log/11-2026-05-07-ra0030-clarify-ownership-and-terminology.md).
+
 ## 2026-05-06
 
 Migrated RA0030 from Mermaid to drawio for architecture diagram and refined frontmatter keywords to focus on specific SAP technologies (Fiori, CAP, UI5). See [log/10-2026-05-06-ra0030-diagram-and-keywords.md](log/10-2026-05-06-ra0030-diagram-and-keywords.md).
