@@ -39,7 +39,7 @@ contributors:
 discussion:
 last_update:
   author: kay-schmitteckert
-  date: 2026-03-19
+  date: 2026-05-04
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
