@@ -1,6 +1,6 @@
 ---
 id: id-ra0029-6
-slug: /ref-arch/ca1d2a3e/6
+slug: /ref-arch/ca1d2a3e/5
 sidebar_position: 6
 title: Integrating Joule Agents into Your Ecosystem
 description: >-

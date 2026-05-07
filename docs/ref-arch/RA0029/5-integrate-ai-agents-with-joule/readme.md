@@ -1,6 +1,6 @@
 ---
 id: id-ra0029-5
-slug: /ref-arch/ca1d2a3e/5
+slug: /ref-arch/ca1d2a3e/4
 sidebar_position: 5
 title: Integrating AI Agents with Joule
 description: >-

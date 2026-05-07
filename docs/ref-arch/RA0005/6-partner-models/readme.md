@@ -1,17 +1,9 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
 id: id-ra0005-6
-slug: /ref-arch/e5eb3b9b1d/6
+slug: /ref-arch/e5eb3b9b1d/9
 sidebar_position: 6
 sidebar_custom_props:
     category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Partner Models
 description: The reference architecture illustrates how to benefit from partner models like IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.
 keywords: [IBM, Granite, Generative AI, SAP HANA Cloud, SAP AI Core, RAG]
@@ -37,9 +29,6 @@ contributors:
 last_update:
     date: 2025-06-17
     author: feng-lia
-############################################################
-#                   End of Front Matter                    #
-############################################################
 ---
 
 IBM's Granite foundation models are purpose-built generative AI solutions, designed to seamlessly integrate GenAI within business applications and workflows. By combining high performance, efficient deployment, and rigorous safeguards—including domain-specific training data, advanced risk detection tools, and enterprise-grade IP protection—IBM Granite provides a compelling solution for enterprises looking to adopt AI responsibly and confidently.

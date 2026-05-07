@@ -1,6 +1,6 @@
 ---
 id: id-ra0029-3
-slug: /ref-arch/ca1d2a3e/3
+slug: /ref-arch/ca1d2a3e/2
 sidebar_position: 3
 title: Low-Code AI Agents with Joule Studio
 description: >-
