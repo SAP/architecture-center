@@ -53,13 +53,6 @@ module.exports = function (_context, _options) {
                     {
                         tagName: 'meta',
                         attributes: {
-                            'http-equiv': 'X-Frame-Options',
-                            content: 'DENY',
-                        },
-                    },
-                    {
-                        tagName: 'meta',
-                        attributes: {
                             'http-equiv': 'X-XSS-Protection',
                             content: '0',
                         },

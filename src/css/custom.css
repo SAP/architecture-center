@@ -39,6 +39,7 @@
     --ifm-footer-link-hover-color: #6b84a0;
     --ifm-footer-title-color: var(--ifm-font-color-base);
     --doc-sidebar-width: 350px !important;
+    --doc-sidebar-hidden-width: 30px;
     --ifm-table-cell-padding: 0.25rem 0.5rem;
     --ifm-menu-link-padding-vertical: 0.375rem;
     --ifm-menu-link-padding-horizontal: 0.75rem;
@@ -363,10 +364,6 @@ svg[aria-roledescription="flowchart-v2"] span {
     /* Remove bullet points */
 }
 
-.menu__list-item>.menu__link--active {
-    background-color: var(--ifm-sidebar-selected-item-background-color);
-}
-
 .menu__link {
     /* Changed by PO: All pages should use the same colors */
     color: #535353;
@@ -374,6 +371,23 @@ svg[aria-roledescription="flowchart-v2"] span {
     /* Adjust the font size as needed */
     font-weight: 400;
     line-height: 1rem;
+}
+
+/* Align domain category arrows with nested level arrows */
+/* Target domain-level links by the --sublist-caret modifier */
+a.menu__link--sublist-caret {
+    padding-right: 0.1875rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Keep domain category arrows fixed on hover - only shift the text */
+.menu__link--sublist-caret:hover {
+    transform: none !important;
+}
+
+.menu__link--sublist-caret:hover [class*="categoryLinkLabel"] {
+    transform: translateX(4px);
 }
 
 /* Changing the padding size of the symbol to expand the content in the sidebar */
@@ -1372,33 +1386,84 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
 }
 
 /* Interactive Sidebar Links */
-.theme-doc-sidebar-menu .menu__link {
+.theme-doc-sidebar-menu .menu__link,
+nav[class*="domainSidebar"] .menu__link {
     transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.theme-doc-sidebar-menu .menu__link:hover {
+.theme-doc-sidebar-menu .menu__link:hover,
+nav[class*="domainSidebar"] .menu__link:hover {
     transform: translateX(4px);
     color: var(--ifm-color-primary) !important;
 }
 
+/* Change [+N] counter color on link hover - Light mode only */
+html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover .sidebar-duplicate-counter,
+html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover .sidebar-duplicate-counter {
+    color: var(--ifm-color-primary) !important;
+}
+
+/* Prevent [+N] counter color change on hover in dark mode */
+html[data-theme='dark'] .sidebar-duplicate-counter:hover {
+    color: var(--ifm-color-content-secondary) !important;
+}
+
 /* All active links get bold */
-.theme-doc-sidebar-menu .menu__link--active {
+.theme-doc-sidebar-menu .menu__link--active,
+nav[class*="domainSidebar"] .menu__link--active {
     font-weight: bold;
 }
 
+/* Active document links (not folders) - hover animation combining both transforms */
+.menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active:hover {
+    transform: translateX(4px) translateZ(0) !important;
+}
+
 /* Gradient effect on document links (all documents, not folders) */
-.theme-doc-sidebar-menu .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
-    background: var(--gradient-premium);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Generic selector that works for desktop, mobile, both themes */
+.menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    color: var(--ifm-color-primary) !important;
+    background: var(--gradient-premium) !important;
+    background-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Dark theme - ensure gradient variable works */
+html[data-theme='dark'] .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+    color: var(--ifm-color-primary) !important;
+    background: var(--gradient-premium) !important;
+    background-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: bold !important;
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) {
+    .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active {
+        color: var(--ifm-color-primary) !important;
+        -webkit-text-fill-color: var(--ifm-color-primary) !important;
+        background: none !important;
+    }
 }
 
 /* Folder nodes - default light theme */
 .theme-doc-sidebar-menu .menu__list-item-collapsible > .menu__link,
 .menu__list-item-collapsible > .menu__link {
     color: #535353;
-    -webkit-text-fill-color: #535353;
 }
 
 /* Parent folder (expanded but NOT selected) - light theme */
@@ -1417,6 +1482,11 @@ html[data-theme='dark'] .theme-doc-toc-desktop {
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Folder nodes - default dark theme */
@@ -1442,10 +1512,36 @@ html[data-theme='dark'] .menu__list-item-collapsible--active > .menu__link.menu_
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     font-weight: bold !important;
+    /* Force hardware acceleration and separate layer to ensure gradient renders */
+    transform: translateZ(0);
+    will-change: background;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
-html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover {
+html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
+html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover {
+    transform: translateX(4px);
     text-shadow: 0 0 8px rgba(0, 112, 242, 0.6);
+}
+
+/* Disable slide animation and color change on mobile - light theme only */
+@media (max-width: 996px) {
+    .theme-doc-sidebar-menu .menu__link:hover,
+    nav[class*="domainSidebar"] .menu__link:hover,
+    html[data-theme='dark'] .theme-doc-sidebar-menu .menu__link:hover,
+    html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover,
+    .menu__link--sublist-caret:hover [class*="categoryLinkLabel"],
+    .menu__list-item:not(.menu__list-item-collapsible) > .menu__link--active:hover {
+        transform: none !important;
+    }
+
+    /* Disable color change on mobile in light theme */
+    html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover,
+    html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover,
+    html[data-theme='light'] .menu__link:hover .sidebar-duplicate-counter {
+        color: inherit !important;
+    }
 }
 
 /* Content Container Card */
@@ -1603,6 +1699,7 @@ body:has(.homepage-main) footer.footer {
 }
 
 /* On mobile, allow normal scrolling */
+
 @media (max-width: 768px) {
     .homepage-main {
         scroll-snap-type: none !important;

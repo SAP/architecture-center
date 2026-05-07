@@ -9,11 +9,8 @@ interface Option {
 }
 
 interface CollapsibleFilterBarProps {
-    techDomains: Option[];
     partners: Option[];
-    selectedTechDomains: Option[];
     selectedPartners: Option[];
-    onTechDomainsChange: (values: Option[]) => void;
     onPartnersChange: (values: Option[]) => void;
     resetFilters: () => void;
     isResetEnabled: boolean;
@@ -23,11 +20,8 @@ interface CollapsibleFilterBarProps {
 }
 
 const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
-    techDomains,
     partners,
-    selectedTechDomains,
     selectedPartners,
-    onTechDomainsChange,
     onPartnersChange,
     resetFilters,
     isResetEnabled,
@@ -50,7 +44,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
         onChange(currentSelection.filter((item) => item.value !== option.value));
     };
 
-    const hasActiveFilters = selectedTechDomains.length > 0 || selectedPartners.length > 0 || searchTerm.length > 0;
+    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0;
 
     return (
         <div className={styles.filterBarContainer}>
@@ -65,7 +59,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                     <span>Filters</span>
                     {hasActiveFilters && (
                         <span className={styles.filterBadge}>
-                            {selectedTechDomains.length + selectedPartners.length}
+                            {selectedPartners.length}
                         </span>
                     )}
                 </button>
@@ -81,16 +75,6 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
             {hasActiveFilters && (
                 <div className={styles.activeFiltersBar}>
                     <div className={styles.activeFiltersList}>
-                        {selectedTechDomains.map((domain) => (
-                            <button
-                                key={domain.value}
-                                onClick={() => removeFilter(domain, selectedTechDomains, onTechDomainsChange)}
-                                className={styles.activeFilterChip}
-                            >
-                                {domain.label}
-                                <IoMdClose className={styles.chipCloseIcon} />
-                            </button>
-                        ))}
                         {selectedPartners.map((partner) => (
                             <button
                                 key={partner.value}
@@ -108,31 +92,13 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
             {/* Result Count */}
             {resultCount !== undefined && (
                 <div className={styles.resultCount}>
-                    {resultCount} {resultCount === 1 ? 'document' : 'documents'} found
+                    {resultCount} unique {resultCount === 1 ? 'document' : 'documents'} found
                 </div>
             )}
 
             {/* Collapsible Filter Panel */}
             {isExpanded && (
                 <div className={styles.filterPanel}>
-                    <div className={styles.filterGroup}>
-                        <h3 className={styles.filterTitle}>Technology Domains</h3>
-                        <div className={styles.filterChips}>
-                            {techDomains.map((domain) => {
-                                const isSelected = selectedTechDomains.some((item) => item.value === domain.value);
-                                return (
-                                    <button
-                                        key={domain.value}
-                                        onClick={() => toggleFilter(domain, selectedTechDomains, onTechDomainsChange)}
-                                        className={`${styles.filterChip} ${isSelected ? styles.selected : ''}`}
-                                    >
-                                        {domain.label}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
-
                     <div className={styles.filterGroup}>
                         <h3 className={styles.filterTitle}>Technology Partners</h3>
                         <div className={styles.filterChips}>

@@ -23,22 +23,22 @@ interface DomainCardProps {
         title: string;
         icon: string;
     };
+    onNavigationStart: () => void;
 }
 
-function DomainCard({ domain }: DomainCardProps): JSX.Element {
-    const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+function DomainCard({ domain, onNavigationStart }: DomainCardProps): JSX.Element {
     const docsUrl = useBaseUrl('/docs/ref-arch');
     const isHighlighted = domain.id === 'ai' || domain.id === 'data';
 
-    const handleClick = () => {
-        setTechDomains([domain.id]);
+    const handlePointerDown = () => {
+        onNavigationStart();
     };
 
     return (
         <Link
-            to={`${docsUrl}?techDomains=${domain.id}`}
+            to={`${docsUrl}?expanded=${domain.id}`}
             className={`${styles.domainCard} ${isHighlighted ? styles.highlighted : ''}`}
-            onClick={handleClick}
+            onPointerDown={handlePointerDown}
         >
             <div className={styles.domainIcon}>
                 {iconMap[domain.id] || <FaCode />}
@@ -113,7 +113,30 @@ export default function TechnologyDomainSection(): JSX.Element {
     const imgBaseUrl = useBaseUrl('/img/landingPage/');
     const history = useHistory();
     const setPartners = useSidebarFilterStore((state) => state.setPartners);
-    const setTechDomains = useSidebarFilterStore((state) => state.setTechDomains);
+    const [isNavigating, setIsNavigating] = React.useState(false);
+
+    // Disable scroll-snap when navigating to prevent interference
+    React.useEffect(() => {
+        if (isNavigating) {
+            const originalHtmlSnap = document.documentElement.style.scrollSnapType;
+            const originalBodySnap = document.body.style.scrollSnapType;
+
+            document.documentElement.style.scrollSnapType = 'none';
+            document.body.style.scrollSnapType = 'none';
+
+            const timer = setTimeout(() => {
+                document.documentElement.style.scrollSnapType = originalHtmlSnap;
+                document.body.style.scrollSnapType = originalBodySnap;
+                setIsNavigating(false);
+            }, 300);
+
+            return () => {
+                clearTimeout(timer);
+                document.documentElement.style.scrollSnapType = originalHtmlSnap;
+                document.body.style.scrollSnapType = originalBodySnap;
+            };
+        }
+    }, [isNavigating]);
 
     // Helper function to get image URL with baseUrl
     const getImg = (name: string) => `${imgBaseUrl}${name}`;
@@ -124,16 +147,13 @@ export default function TechnologyDomainSection(): JSX.Element {
             e.preventDefault();
 
             const partners = item.filter?.partners ?? [];
-            const techDomains = item.filter?.techDomains ?? [];
 
-            // Set the global store
+            // Set the global store - only partners filter now
             if (partners.length) setPartners(partners);
-            if (techDomains.length) setTechDomains(techDomains);
 
-            // Build query string
+            // Build query string - only partners
             const params = new URLSearchParams();
             if (partners.length) params.set('partners', partners.join(','));
-            if (techDomains.length) params.set('techDomains', techDomains.join(','));
 
             history.push(`${docsUrl}?${params.toString()}`);
         };
@@ -160,7 +180,11 @@ export default function TechnologyDomainSection(): JSX.Element {
 
                 <div className={styles.domainsGrid}>
                     {techDomain.map((domain) => (
-                        <DomainCard key={domain.id} domain={domain} />
+                        <DomainCard
+                            key={domain.id}
+                            domain={domain}
+                            onNavigationStart={() => setIsNavigating(true)}
+                        />
                     ))}
                 </div>
 

@@ -18,7 +18,6 @@ sidebar_label: Authentication and Single Sign On
 image: img/ac-soc-med.png
 tags:
   - security
-  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
