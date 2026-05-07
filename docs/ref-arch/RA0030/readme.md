@@ -71,7 +71,7 @@ Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP B
 
 ## Characteristics
 
--   **Specification-Driven Grounding:** Agent harness interviews developer to co-create specifications before code generation begins. Test-driven development tools (e.g superpowers) enrich specifications by identifying gaps and increasing details, providing the agent harness with comphreensive instructions that reduces  ambiguity.
+-   **Specification-Driven Grounding:** Agent harness interviews developer to co-create specifications before code generation begins. Test-driven development tools (e.g superpowers) enrich specifications by identifying gaps and increasing details, providing the agent harness with comprehensive instructions that reduces ambiguity.
 -   **SAP MCP-context Generation:** SAP MCP servers, persistent rules and context-activated skills deliver authoritative SAP sources at generation and validation time, eliminating hallucinated APIs, deprecated syntax and incorrect annotation patterns.
 -   **Unified Model Access:** The customer-managed model proxy (e.g. LiteLLM) normalizes provider differences behind a single endpoint, enabling cross-model review and strength-based routing while enforcing enterprise compliance through SAP Generative AI Hub.
 -   **Zero Trust Enforcement:** Agents operate under least-privilege with permission scopes widening only after passing quality thresholds. The quality pipeline executes deterministically at git hooks and CI gates, enforcing correctness mechanically independent of agent judgment.
