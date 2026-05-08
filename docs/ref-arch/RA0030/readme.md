@@ -1,7 +1,7 @@
 ---
 id: id-ra0030-v5
 slug: /ref-arch/a3f7c2d1e8-v5
-sidebar_position: 30
+sidebar_position: 310
 sidebar_custom_props:
   category_index:
     - genai
@@ -32,11 +32,12 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 contributors:
-  - guilherme-segantini, mponce
+  - guilherme-segantini
+  - mponce
 discussion:
 last_update:
   author: guilherme-segantini
-  date: 2026-04-29
+  date: 2026-05-08
 ---
 
 AI coding agents generate code rapidly, but ungrounded generation compounds costs across quality, security, rework and time to value. Without authoritative sources these agents produce code based on incorrect APIs, deprecated patterns and insecure dependencies. Agentic engineering with context engineering addresses this by connecting coding agents to an infrastructure of SAP knowledge sources, automated quality pipelines and governed model access. Generated code is produced rapidly with quality appropriate for enterprise deployment.
@@ -85,7 +86,6 @@ Accelerating S/4HANA extension delivery with coding agents while maintaining ent
 ### Solution
 
 Connecting coding agents to SAP MCP servers for CAP, Fiori and UI5 reduces architectural error rates by grounding generation in authoritative sources that override stale training data. Specifications co-created before generation, quality pipelines treating all output as untrusted, and model access routed through SAP Generative AI Hub transform debugging cycles that previously consumed days per feature into rapid delivery with elevated code quality.
-
 
 ## Key Outcomes
 
