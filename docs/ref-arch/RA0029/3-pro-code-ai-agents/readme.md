@@ -124,8 +124,8 @@ These frameworks integrate with SAP Cloud SDK for AI to access Generative AI Hub
 
 Pro-code agents enable advanced scenarios that require deep technical customization:
 
--   [AI Agents for Structured Data](../7-ai-agents-for-structured-data/readme.md): Build agents that enable natural language queries and analytics on structured enterprise data in SAP HANA Cloud, leveraging vector search and knowledge graphs.
--   [Embodied AI Agents](../6-embodied-ai-agents/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
+-   [AI Agents for Structured Data](../6-ai-agents-for-structured-data/readme.md): Build agents that enable natural language queries and analytics on structured enterprise data in SAP HANA Cloud, leveraging vector search and knowledge graphs.
+-   [Embodied AI Agents](../../RA0026/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
