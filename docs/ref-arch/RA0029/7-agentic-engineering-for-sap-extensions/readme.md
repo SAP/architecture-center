@@ -1,7 +1,7 @@
 ---
-id: id-ra0030-v5
-slug: /ref-arch/a3f7c2d1e8-v5
-sidebar_position: 310
+id: id-ra0030-8
+slug: /ref-arch/ca1d2a3e/8
+sidebar_position: 8
 sidebar_custom_props:
   category_index:
     - genai
@@ -26,6 +26,7 @@ image: img/ac-soc-med.png
 tags:
   - genai
   - appdev
+  - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
