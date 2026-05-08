@@ -83,17 +83,17 @@ The architecture centers around **Joule** as the orchestrator, with custom agent
 
 SAP supports two complementary paths for building AI agents, each optimized for different development needs and complexity requirements.
 
-**Low-Code with Joule Studio:** Build agents through visual configuration in SAP Build for rapid development and deployment. Joule Studio provides configuration-driven orchestration with multi-step reasoning, RAG capabilities and seamless SAP integration. Agents automatically register with Joule and run on a managed runtime. See [Low-Code AI Agents with Joule Studio](./3-low-code-ai-agents/readme.md).
+**Low-Code with Joule Studio:** Build agents through visual configuration in SAP Build for rapid development and deployment. Joule Studio provides configuration-driven orchestration with multi-step reasoning, RAG capabilities and seamless SAP integration. Agents automatically register with Joule and run on a managed runtime. See [Low-Code AI Agents with Joule Studio](./2-low-code-ai-agents/readme.md).
 
-**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./4-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./7-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](../RA0026/readme.md).
+**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./3-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](../RA0026/readme.md).
 
 ## Integration Patterns
 
 AI agents integrate with Joule through bidirectional A2A communication, enabling seamless orchestration and external consumption.
 
-**Inbound Integration (Agent Gateway):** External systems consume Joule Agents through a publicly accessible gateway supporting synchronous and asynchronous A2A patterns. Third-party platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock can delegate SAP-specific tasks to Joule Agents. See [Integrating Joule Agents into Your Ecosystem](./6-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
+**Inbound Integration (Agent Gateway):** External systems consume Joule Agents through a publicly accessible gateway supporting synchronous and asynchronous A2A patterns. Third-party platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock can delegate SAP-specific tasks to Joule Agents. See [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
 
-**Outbound Integration (Bring Your Own Agent):** Joule orchestrates external code-based agents built with any A2A-compliant framework. Supports synchronous communication, asynchronous callbacks for long-running tasks and multi-turn conversations with context handling. See [Integrating AI Agents with Joule](./5-integrate-ai-agents-with-joule/readme.md).
+**Outbound Integration (Bring Your Own Agent):** Joule orchestrates external code-based agents built with any A2A-compliant framework. Supports synchronous communication, asynchronous callbacks for long-running tasks and multi-turn conversations with context handling. See [Integrating AI Agents with Joule](./4-integrate-ai-agents-with-joule/readme.md).
 
 **Open Standards Strategy:** SAP embraces A2A as the preferred standard for multi-agent collaboration and uses MCP internally for semantic tool connectivity. See [Agent & Tool Interoperability](./1-a2a-and-mcp/readme.md).
 
