@@ -1,7 +1,7 @@
 ---
 id: id-ra0005-6
 slug: /ref-arch/ca1d2a3e/7
-sidebar_position: 7
+sidebar_position: 6
 sidebar_custom_props:
   category_index: []
 title: Agents for Structured Data
@@ -46,7 +46,7 @@ Agents in this scenario can cater to two core use case ideas: _Descriptive_ and 
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
 The architecture illustrates how Agents in this scenario operate within the SAP Business Technology Platform (BTP) ecosystem, enabling seamless integration of the AI component and structured data sources. At the core, the [SAP Cloud Application Programming Model](../../RA0005/readme.md#sap-cloud-application-programming-model) (CAP)
-serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in the pro-code agent approach. The agent can also be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md)) and integrated with data using the low-code approach. More information about these development approaches can be found here: [AI Agent Development Approaches](../2-ai-agents/readme.md).
+serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in the pro-code agent approach. The agent can also be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md)) and integrated with data using the low-code approach. More information about these development approaches can be found here: [AI Agent Development Approaches](../readme.md#development-approaches).
 
 [SAP Datasphere](./readme.md#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile, the [Vector Engine](../../RA0005/readme.md#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 

@@ -1,7 +1,7 @@
 ---
-id: id-ra0029-5
+id: id-ra0029-4
 slug: /ref-arch/ca1d2a3e/4
-sidebar_position: 5
+sidebar_position: 4
 title: Integrating AI Agents with Joule
 description: >-
   Learn the architectural patterns for integrating both low-code and pro-code AI agents with Joule, SAP's AI copilot, for a unified user experience.

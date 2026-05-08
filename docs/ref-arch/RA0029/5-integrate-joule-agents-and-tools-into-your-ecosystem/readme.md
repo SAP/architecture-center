@@ -1,7 +1,7 @@
 ---
-id: id-ra0029-6
+id: id-ra0029-5
 slug: /ref-arch/ca1d2a3e/5
-sidebar_position: 6
+sidebar_position: 5
 title: Integrating Joule Agents into Your Ecosystem
 description: >-
   Learn how to expose Joule agents for consumption by third-party applications and external systems using the Agent Gateway with the A2A protocol.
