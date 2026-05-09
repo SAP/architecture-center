@@ -24,7 +24,7 @@ This shift recognises that architecture is a continuous conversation, not a set 
 
 ## Comprehensive Reference Architectures
 
-The platform now hosts **30** reference architectures across **104** unique documents, and the external version of the [AI Golden Path](/docs/aigp). Each architecture provides detailed guidance on integrating SAP solutions with cloud providers and technology partners.
+The platform now hosts **30** reference architectures across **104** unique documents, and the external version of the [AI Golden Path](/docs/ai-golden-path). Each architecture provides detailed guidance on integrating SAP solutions with cloud providers and technology partners.
 
 Recent additions include practical implementations for:
 

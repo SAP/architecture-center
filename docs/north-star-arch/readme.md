@@ -1,6 +1,6 @@
 ---
 id: id-nsa-0
-slug: /nsa
+slug: /ai-native-north-star-architecture
 sidebar_position: 10
 sidebar_custom_props:
     category_index: []
