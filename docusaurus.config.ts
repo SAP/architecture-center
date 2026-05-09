@@ -302,14 +302,14 @@ const config: Config = {
                             label: 'Explore the News Articles',
                             to: '/news-all',
                         },
-                    /*    {
+                        {
                             label: 'Discover the AI-Native North Star Architecture',
-                            to: '/docs/nsa/',
+                            to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
-                        }, */
+                        }, 
                        {
                             label: 'Discover the AI Golden Path',
-                            to: '/docs/ai-golden-path/',
+                            to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
                         },
                         {
