@@ -77,6 +77,21 @@ const config: Config = {
             };
         },
         './src/plugins/asset-types',
+        [
+            '@docusaurus/plugin-client-redirects',
+            {
+                redirects: [
+                    {
+                        from: '/docs/aigp',
+                        to: '/docs/ai-golden-path',
+                    },
+                    {
+                        from: '/docs/nsa',
+                        to: '/docs/ai-native-north-star-architecture',
+                    },
+                ],
+            },
+        ],
     ],
 
     i18n: {
@@ -287,14 +302,14 @@ const config: Config = {
                             label: 'Explore the News Articles',
                             to: '/news-all',
                         },
-                    /*    {
+                        {
                             label: 'Discover the AI-Native North Star Architecture',
-                            to: '/docs/nsa/',
+                            to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
-                        }, */
+                        }, 
                        {
                             label: 'Discover the AI Golden Path',
-                            to: '/docs/aigp/',
+                            to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
                         },
                         {

@@ -47,7 +47,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-10-23
+  date: 2026-05-08
 ---
 
 In this era of AI and multi cloud landscapes, SAP Business Data Cloud helps digital transformation by harmonizing data across <b>all business processes</b> and across the <b>hybrid cloud landscapes</b>, breaking down silos and creating a real-time, holistic view of your business for more agile, informed decision-making. 
