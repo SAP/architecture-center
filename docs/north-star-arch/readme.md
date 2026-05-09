@@ -39,7 +39,7 @@ hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
-unlisted: true
+unlisted: false
 contributors:
 discussion:
 last_update:
@@ -47,4 +47,8 @@ last_update:
     date: 2026-05-09
 ---
 
-## This content will be available soon
+:::info Information
+
+This content will go live on May 13, 2026. Stay tuned for the announcement at SAP Sapphire Orlando (USA).
+
+:::

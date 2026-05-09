@@ -79,7 +79,7 @@ export default function ArchitectureTabsSection(): JSX.Element {
         });
 
         // Prepend latest article as the first tab
-        return [latestArticleTab, ...existingCards];
+        return [...existingCards, latestArticleTab];
     };
 
     const visibleCards = getVisibleNavigationCards();

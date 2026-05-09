@@ -1,30 +1,30 @@
 export const navigationCardsData = [
 
-    /* {
+    {
         title: 'AI-Native North Star Architecture',
         tabLabel: 'AI-Native North Star Architecture',
         subtitle: 'The AI Native North Star Architecture defines the target state of SAP\'s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
         icon: 'sap-icon://initiative',
-        link: '/docs/nsa/',
+        link: '/docs/ai-native-north-star-architecture',
         isNew: true,
         image: '/img/ArchitectureTabs/nsa.webp'
-    }, */
+    },
     {
         title: 'AI Golden Path',
         tabLabel: 'AI Golden Path',
         subtitle: 'The SAP\'s AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.',
         icon: 'sap-icon://initiative',
-        link: '/docs/aigp/',
+        link: '/docs/ai-golden-path',
         isNew: true,
         image: '/img/ArchitectureTabs/aigoldenpath.webp'
     },
-    {
+    /*{
         title: 'Quick Start',
         subtitle: 'Quick Start is a no-code architecture editor for publishing reference architectures without command-line tools. Users can sign in with GitHub, create content in a rich-text editor or import Word files as Markdown, and add text, images, and Draw.io diagrams.',
         icon: 'sap-icon://write-new-document',
         link: '/quick-start',
         image: '/img/ArchitectureTabs/quickstart.webp'
-    },
+    },*/
     // {
     //     title: 'Architecture Validator',
     //     subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',
