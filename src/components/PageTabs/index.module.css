@@ -1,5 +1,5 @@
 .navContainer {
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--ifm-color-emphasis-300);
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
 
 .navItem {
     font-size: 14px;
-    color: #555;
+    color: var(--ifm-font-color-base);
     padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -62,7 +62,7 @@
 }
 
 .navItem:hover {
-    background-color: #f0f2f5;
+    background-color: var(--ifm-color-emphasis-200);
 }
 
 .navItem.active {
@@ -82,7 +82,7 @@
     margin: 0;
     padding-left: 1rem;
     margin-left: 10px;
-    border-left: 1px solid #e0e0e0;
+    border-left: 1px solid var(--ifm-color-emphasis-300);
 }
 
 .childrenList .navItem {
@@ -124,7 +124,7 @@
 }
 
 .dialogContent {
-    background: white;
+    background: var(--ifm-background-color);
     border-radius: 8px;
     padding: 24px;
     min-width: 400px;
@@ -136,12 +136,12 @@
     margin: 0 0 16px 0;
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: var(--ifm-font-color-base);
 }
 
 .dialogMessage {
     margin: 0 0 24px 0;
-    color: #666;
+    color: var(--ifm-font-color-secondary);
     line-height: 1.5;
 }
 

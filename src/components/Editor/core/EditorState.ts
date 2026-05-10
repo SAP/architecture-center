@@ -12,6 +12,7 @@ import {
   LinkNode,
   ImageNode,
   DrawioNode,
+  DividerNode,
   TableNode,
   TableRowNode,
   TableCellNode,
@@ -291,6 +292,14 @@ export function createDrawioNode(diagramXML: string, assetId?: string): DrawioNo
   };
 }
 
+export function createDividerNode(): DividerNode {
+  return {
+    key: generateKey(),
+    type: 'divider',
+    parent: null,
+  };
+}
+
 export function createAdmonitionNode(admonitionType: AdmonitionType, children: string[] = []): AdmonitionNode {
   return {
     key: generateKey(),
@@ -420,16 +429,83 @@ export function serializeState(state: EditorState): string {
   return JSON.stringify(obj);
 }
 
+// Pattern for detecting HTML fragment corruption (e.g., "/head" from "</head>")
+const CORRUPTION_PATTERNS = [
+  /\/head(?:\s|$|[?!.])/gi,  // /head from </head>
+  /\/body(?:\s|$|[?!.])/gi,  // /body from </body>
+  /\/script(?:\s|$|[?!.])/gi, // /script from </script>
+  /\/style(?:\s|$|[?!.])/gi,  // /style from </style>
+  /\/html(?:\s|$|[?!.])/gi,   // /html from </html>
+];
+
+function cleanCorruptedText(text: string): string {
+  let cleaned = text;
+  let wasCorrupted = false;
+
+  for (const pattern of CORRUPTION_PATTERNS) {
+    if (pattern.test(cleaned)) {
+      wasCorrupted = true;
+      cleaned = cleaned.replace(pattern, '');
+    }
+  }
+
+  if (wasCorrupted) {
+    console.warn('[EditorState] Cleaned corrupted text:', { original: text, cleaned });
+  }
+
+  return cleaned.trim();
+}
+
 export function deserializeState(json: string): EditorState | null {
   try {
     const obj = JSON.parse(json);
     if (!obj.root || !obj.nodeMap) return null;
+
+    // Check for and clean corruption in text nodes
+    const cleanedNodeMap: Record<string, any> = {};
+    for (const [key, node] of Object.entries(obj.nodeMap)) {
+      const typedNode = node as any;
+      if (typedNode.type === 'text' && typeof typedNode.text === 'string') {
+        const originalText = typedNode.text;
+        const cleanedText = cleanCorruptedText(originalText);
+        if (cleanedText !== originalText) {
+          cleanedNodeMap[key] = { ...typedNode, text: cleanedText };
+        } else {
+          cleanedNodeMap[key] = typedNode;
+        }
+      } else {
+        cleanedNodeMap[key] = typedNode;
+      }
+    }
+
+    // Validate parent references - check for orphaned nodes and remove them
+    const nodeKeys = new Set(Object.keys(cleanedNodeMap));
+    const orphanedKeys: string[] = [];
+
+    for (const [key, node] of Object.entries(cleanedNodeMap)) {
+      const typedNode = node as any;
+      if (typedNode.parent && !nodeKeys.has(typedNode.parent)) {
+        console.warn('[EditorState] Removing orphaned node:', key, 'references missing parent:', typedNode.parent);
+        orphanedKeys.push(key);
+      }
+    }
+
+    // Remove orphaned nodes instead of failing
+    for (const key of orphanedKeys) {
+      delete cleanedNodeMap[key];
+    }
+
+    if (orphanedKeys.length > 0) {
+      console.warn('[EditorState] Cleaned up', orphanedKeys.length, 'orphaned nodes');
+    }
+
     return {
       root: obj.root,
-      nodeMap: new Map(Object.entries(obj.nodeMap)),
+      nodeMap: new Map(Object.entries(cleanedNodeMap)),
       version: obj.version || 0,
     };
-  } catch {
+  } catch (e) {
+    console.error('[EditorState] Failed to deserialize:', e);
     return null;
   }
 }

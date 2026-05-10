@@ -11,6 +11,7 @@ export type NodeType =
   | 'link'
   | 'image'
   | 'drawio'
+  | 'divider'
   | 'table'
   | 'tablerow'
   | 'tablecell'
@@ -142,6 +143,11 @@ export interface AdmonitionNode extends BaseNode {
   children: string[];
 }
 
+// Divider/Horizontal rule node - void node (no children)
+export interface DividerNode extends BaseNode {
+  type: 'divider';
+}
+
 // Union of all node types
 export type EditorNode =
   | RootNode
@@ -158,7 +164,8 @@ export type EditorNode =
   | TableNode
   | TableRowNode
   | TableCellNode
-  | AdmonitionNode;
+  | AdmonitionNode
+  | DividerNode;
 
 // Element nodes (have children)
 export type ElementNode =
@@ -216,6 +223,7 @@ export interface EditorSelection {
 export type CommandType =
   | 'INSERT_TEXT'
   | 'INSERT_PARAGRAPH'
+  | 'INSERT_PARAGRAPH_AFTER'
   | 'DELETE_BACKWARD'
   | 'DELETE_FORWARD'
   | 'DELETE_RANGE'
@@ -224,6 +232,7 @@ export type CommandType =
   | 'TOGGLE_LIST'
   | 'INSERT_IMAGE'
   | 'INSERT_DRAWIO'
+  | 'INSERT_DIVIDER'
   | 'INSERT_HTML'
   | 'INSERT_TABLE'
   | 'ADD_TABLE_ROW'
@@ -239,6 +248,8 @@ export type CommandType =
   | 'DUPLICATE_TABLE_ROW'
   | 'DUPLICATE_TABLE_COL'
   | 'INSERT_LINK'
+  | 'UPDATE_LINK'
+  | 'REMOVE_LINK'
   | 'INSERT_ADMONITION'
   | 'DUPLICATE_BLOCK'
   | 'DELETE_BLOCK'

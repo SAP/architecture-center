@@ -13,6 +13,7 @@ import SlashCommandPlugin from './plugins/SlashCommandPlugin';
 import BlockHandlePlugin from './plugins/BlockHandlePlugin';
 import TableMenuPlugin from './plugins/TableMenuPlugin';
 import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
+import LinkPreviewPlugin from './plugins/LinkPreviewPlugin';
 import { convertToLexicalFormat } from './utils/convertToLexical';
 import { getApiService } from '@site/src/services/api';
 import styles from './index.module.css';
@@ -88,19 +89,25 @@ const buildBreadcrumbPath = (docId: string | null, allDocs: Document[]): Documen
 
 interface EditorContentProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
+  readOnly?: boolean;
 }
 
-function EditorContent({ containerRef }: EditorContentProps) {
+function EditorContent({ containerRef, readOnly }: EditorContentProps) {
   return (
     <div className={styles.editorInner}>
       <div
         ref={containerRef}
         className={styles.editorInput}
       />
-      <FloatingToolbarPlugin />
-      <SlashCommandPlugin />
-      <BlockHandlePlugin />
-      <TableMenuPlugin />
+      {!readOnly && (
+        <>
+          <FloatingToolbarPlugin />
+          <SlashCommandPlugin />
+          <BlockHandlePlugin />
+          <TableMenuPlugin />
+          <LinkPreviewPlugin />
+        </>
+      )}
     </div>
   );
 }
@@ -125,6 +132,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const activeDocument = getActiveDocument();
+  const isReadOnly = activeDocument?.isReadOnly ?? false;
   const { siteConfig } = useDocusaurusContext();
   const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
   const editorColumnRef = useRef<HTMLDivElement>(null);
@@ -150,6 +158,11 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     }
 
     const state = core.getState();
+    if (!state || !state.nodeMap) {
+      console.log('[Editor] Skipping asset load - invalid state');
+      return;
+    }
+
     const api = getApiService(expressBackendUrl);
 
     const assetPromises: Promise<void>[] = [];
@@ -186,6 +199,13 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
         }
       } else if (node.type === 'drawio') {
         const drawioNode = node as DrawioNode;
+        const nodeKey = key; // Capture key for closure
+        console.log('[Editor] Found drawio node:', {
+          key: nodeKey,
+          assetId: drawioNode.assetId,
+          hasDiagramXML: !!drawioNode.diagramXML,
+          diagramXMLLength: drawioNode.diagramXML?.length
+        });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
             api.getAssetWithContent(token, drawioNode.assetId)
@@ -194,6 +214,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                   assetId: drawioNode.assetId,
                   hasContent: !!asset.content,
                   contentLength: asset.content?.length,
+                  contentPreview: asset.content?.substring(0, 50),
                 });
                 if (asset.content) {
                   let xml: string;
@@ -208,16 +229,20 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                       try {
                         xml = atob(asset.content);
                       } catch {
-                        console.warn('Could not decode drawio content');
+                        console.warn('Could not decode drawio content, using raw');
                         xml = asset.content;
                       }
                     }
                   }
-                  console.log('[Editor] Setting drawio XML, length:', xml.length, 'preview:', xml.substring(0, 50));
-                  core.updateNodeDisplay(key, { diagramXML: xml });
+                  console.log('[Editor] Setting drawio XML for node:', nodeKey, 'length:', xml.length);
+                  core.updateNodeDisplay(nodeKey, { diagramXML: xml });
+                } else {
+                  console.warn('[Editor] Drawio asset has no content:', drawioNode.assetId);
                 }
               })
-              .catch((err) => console.warn(`Failed to load drawio asset ${drawioNode.assetId}:`, err))
+              .catch((err) => {
+                console.error(`[Editor] Failed to load drawio asset ${drawioNode.assetId}:`, err);
+              })
           );
         }
       }
@@ -258,17 +283,44 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     let fullSyncInProgress = false;
     let fullSyncTimeout: NodeJS.Timeout | null = null;
 
-    console.log('[Editor] Initial canUseDeltaSync:', canUseDeltaSync);
+    console.log('[Editor] Initial canUseDeltaSync:', canUseDeltaSync, 'isReadOnly:', activeDoc?.isReadOnly);
+
+    // Timer for periodic full sync to ensure data persistence
+    let periodicSyncTimer: NodeJS.Timeout | null = null;
+    let lastSyncedState: string | null = null;
+
+    const schedulePeriodicSync = () => {
+      if (periodicSyncTimer) {
+        clearTimeout(periodicSyncTimer);
+      }
+      // Full sync every 5 seconds of inactivity to ensure persistence
+      periodicSyncTimer = setTimeout(() => {
+        const currentState = serializeState(core.getState());
+        const currentDoc = getActiveDocument();
+        if (currentDoc && currentState !== lastSyncedState) {
+          console.log('[Editor] Periodic full sync triggered');
+          lastSyncedState = currentState;
+          updateDocument(currentDoc.id, { editorState: currentState }, false);
+        }
+      }, 5000);
+    };
 
     const core = new EditorCore({
       initialState: activeDoc?.editorState ?? undefined,
+      readOnly: activeDoc?.isReadOnly ?? false,
       onChange: (serializedState) => {
+        // Skip onChange for read-only documents
+        if (activeDoc?.isReadOnly) return;
+
         const doc = getActiveDocument();
         if (doc && serializedState !== doc.editorState) {
-          if (canUseDeltaSync && !fullSyncInProgress) {
-            // Delta sync is active - just update local state, operations handle remote sync
-            updateDocument(doc.id, { editorState: serializedState }, true);
-          } else if (!fullSyncInProgress) {
+          // Always update local state immediately
+          updateDocument(doc.id, { editorState: serializedState }, true);
+
+          // Schedule a periodic full sync to ensure persistence
+          schedulePeriodicSync();
+
+          if (!canUseDeltaSync && !fullSyncInProgress) {
             // Need to do full sync first to establish base state
             fullSyncInProgress = true;
             console.log('[Editor] Starting initial full sync mode...');
@@ -276,37 +328,25 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
             // Clear any pending operations - we'll use full sync instead
             core.clearOperations();
 
-            // Update local state only for now
-            updateDocument(doc.id, { editorState: serializedState }, true);
-
             // Schedule full sync after typing settles
-            // During this window, all changes go to local state only
             fullSyncTimeout = setTimeout(() => {
-              // Clear operations accumulated during the wait
               core.clearOperations();
-
-              // Get the CURRENT state (which includes ALL typing so far)
               const currentState = serializeState(core.getState());
               const currentDoc = getActiveDocument();
 
               if (currentDoc) {
-                console.log('[Editor] Performing full sync with state length:', currentState.length);
-                // Do full sync with current complete state
+                console.log('[Editor] Performing initial full sync with state length:', currentState.length);
+                lastSyncedState = currentState;
                 updateDocument(currentDoc.id, { editorState: currentState }, false);
               }
 
-              // Wait for sync to complete, then enable delta sync
               setTimeout(() => {
-                // Final clear before enabling delta sync
                 core.clearOperations();
                 canUseDeltaSync = true;
                 fullSyncInProgress = false;
                 console.log('[Editor] Full sync complete, delta sync enabled');
               }, 2500);
             }, 3000);
-          } else {
-            // Full sync in progress - just update local state
-            updateDocument(doc.id, { editorState: serializedState }, true);
           }
         }
       },
@@ -349,6 +389,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
     updateContext();
     const unsubscribe = core.subscribe(updateContext);
 
+    // Load assets - will be skipped if token not available, but second useEffect handles that
     loadAssetsForState(core);
 
     return () => {
@@ -356,15 +397,27 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
       if (fullSyncTimeout) {
         clearTimeout(fullSyncTimeout);
       }
+      // Clear periodic sync timer
+      if (periodicSyncTimer) {
+        clearTimeout(periodicSyncTimer);
+      }
       unsubscribe();
       core.destroy();
     };
   }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
 
   // Reload assets when token becomes available (after initial mount)
+  // This handles the case where auth loads after the editor mounts
   useEffect(() => {
     if (token && coreRef.current) {
-      loadAssetsForState(coreRef.current);
+      // Small delay to ensure core is fully initialized and DOM is ready
+      const timeoutId = setTimeout(() => {
+        if (coreRef.current) {
+          console.log('[Editor] Token available, loading assets...');
+          loadAssetsForState(coreRef.current);
+        }
+      }, 100);
+      return () => clearTimeout(timeoutId);
     }
   }, [token, loadAssetsForState]);
 
@@ -508,36 +561,45 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                   onClick={handleInfoClick}
                   tooltip="Learn more about contributing"
                 ></Button>
-                {lastSaveTimestamp && (
+                {isReadOnly && (
+                  <span className={styles.saveTimestamp} style={{ color: '#f59e0b' }}>
+                    View Only - You are a contributor
+                  </span>
+                )}
+                {!isReadOnly && lastSaveTimestamp && (
                   <span className={styles.saveTimestamp}>
                     {isSyncing ? 'Saving...' : syncError ? `Error: ${syncError}` : `Last saved: ${lastSaveTimestamp}`}
                   </span>
                 )}
-                <div className={styles.headerButtons}>
-                  <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
-                    {isLoading ? 'Submitting...' : 'Submit'}
-                  </Button>
-                  {activeDocument && (
-                    <Button
-                      design="Default"
-                      onClick={() => setShowDeleteConfirm(true)}
-                      tooltip="Delete current document"
-                    >
-                      Delete
+                {!isReadOnly && (
+                  <div className={styles.headerButtons}>
+                    <Button design="Emphasized" onClick={handleSubmit} disabled={isLoading}>
+                      {isLoading ? 'Submitting...' : 'Submit'}
                     </Button>
-                  )}
-                </div>
+                    {activeDocument && (
+                      <Button
+                        design="Default"
+                        onClick={() => setShowDeleteConfirm(true)}
+                        tooltip="Delete current document"
+                      >
+                        Delete
+                      </Button>
+                    )}
+                  </div>
+                )}
               </div>
               <div className={styles.editorContainer}>
                 <div className={styles.editorScrollArea}>
                   <div className={styles.contentHeader}>
                     <Breadcrumbs path={breadcrumbPath} />
-                    <ArticleHeader />
+                    <ArticleHeader readOnly={isReadOnly} />
                   </div>
-                  <div className={styles.stickyToolbarWrapper}>
-                    {contextValue && <ToolbarPlugin />}
-                  </div>
-                  <EditorContent containerRef={containerRef} />
+                  {!isReadOnly && (
+                    <div className={styles.stickyToolbarWrapper}>
+                      {contextValue && <ToolbarPlugin />}
+                    </div>
+                  )}
+                  <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <ContributorsDisplay
                     contributors={[
                       ...(activeDocument?.authors || []),
@@ -545,7 +607,8 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                         c => !(activeDocument?.authors || []).includes(c)
                       )
                     ]}
-                    onContributorsChange={handleContributorsUpdate}
+                    onContributorsChange={isReadOnly ? undefined : handleContributorsUpdate}
+                    readOnly={isReadOnly}
                   />
                 </div>
               </div>

@@ -30,8 +30,10 @@ import {
   createCodeNode,
   createListNode,
   createListItemNode,
+  createLinkNode,
   createImageNode,
   createDrawioNode,
+  createDividerNode,
   createAdmonitionNode,
   createTableNode,
   createTableRowNode,
@@ -57,6 +59,7 @@ export interface EditorCoreConfig {
   onChange?: (serializedState: string) => void;
   onSyncOperations?: (ops: Operation[]) => void;
   syncDebounceMs?: number;
+  readOnly?: boolean;
 }
 
 export class EditorCore {
@@ -70,6 +73,7 @@ export class EditorCore {
   private isComposing: boolean = false;
   private isRendering: boolean = false;
   private opLogger: OperationLogger | null = null;
+  private compositionTimeout: NodeJS.Timeout | null = null;
 
   constructor(config: EditorCoreConfig = {}) {
     this.config = config;
@@ -107,28 +111,37 @@ export class EditorCore {
   mount(element: HTMLElement): void {
     this.container = element;
 
-    // Set up contentEditable
-    element.contentEditable = 'true';
+    // Set up contentEditable based on readOnly mode
+    element.contentEditable = this.config.readOnly ? 'false' : 'true';
     element.setAttribute('data-editor-root', 'true');
-    element.setAttribute('spellcheck', 'true');
+    element.setAttribute('spellcheck', this.config.readOnly ? 'false' : 'true');
+    if (this.config.readOnly) {
+      element.setAttribute('data-readonly', 'true');
+    }
 
     // Initial render
     this.reconciler.reconcile(this.state, element);
 
-    // Set up event listeners
-    this.setupEventListeners();
+    // Set up event listeners (only if not read-only)
+    if (!this.config.readOnly) {
+      this.setupEventListeners();
 
-    // Focus and set initial selection
-    element.focus();
-    const firstText = findFirstTextNode(this.state, this.state.root);
-    if (firstText) {
-      this.selection = createCollapsedSelection(firstText.key, 0);
-      setSelection(this.selection, this.state, element);
+      // Focus and set initial selection
+      element.focus();
+      const firstText = findFirstTextNode(this.state, this.state.root);
+      if (firstText) {
+        this.selection = createCollapsedSelection(firstText.key, 0);
+        setSelection(this.selection, this.state, element);
+      }
     }
   }
 
   // Unmount and clean up
   destroy(): void {
+    if (this.compositionTimeout) {
+      clearTimeout(this.compositionTimeout);
+      this.compositionTimeout = null;
+    }
     if (this.container) {
       this.container.removeEventListener('beforeinput', this.handleBeforeInput);
       this.container.removeEventListener('keydown', this.handleKeyDown);
@@ -137,6 +150,7 @@ export class EditorCore {
       this.container.removeEventListener('compositionstart', this.handleCompositionStart);
       this.container.removeEventListener('compositionend', this.handleCompositionEnd);
       this.container.removeEventListener('paste', this.handlePaste);
+      this.container.removeEventListener('focus', this.handleFocus);
       document.removeEventListener('selectionchange', this.handleSelectionChange);
     }
     this.opLogger?.clear();
@@ -159,9 +173,22 @@ export class EditorCore {
     return this.selection;
   }
 
+  // Set selection programmatically
+  setSelection(selection: EditorSelection | null): void {
+    this.selection = selection;
+    if (selection && this.container) {
+      setSelection(selection, this.state, this.container);
+    }
+  }
+
   // Get container element
   getContainer(): HTMLElement | null {
     return this.container;
+  }
+
+  // Check if editor is in read-only mode
+  isReadOnly(): boolean {
+    return this.config.readOnly ?? false;
   }
 
   // Update node for display only (doesn't trigger onChange - used for loading cached media)
@@ -205,6 +232,9 @@ export class EditorCore {
       case 'INSERT_PARAGRAPH':
         this.insertParagraph();
         break;
+      case 'INSERT_PARAGRAPH_AFTER':
+        this.insertParagraphAfter((command.payload as { blockKey: string }).blockKey);
+        break;
       case 'DELETE_BACKWARD':
         this.deleteBackward();
         break;
@@ -232,6 +262,9 @@ export class EditorCore {
       case 'INSERT_DRAWIO':
         const drawioPayload = command.payload as { diagramXML: string; assetId?: string };
         this.insertDrawio(drawioPayload.diagramXML, drawioPayload.assetId);
+        break;
+      case 'INSERT_DIVIDER':
+        this.insertDivider();
         break;
       case 'INSERT_HTML':
         const htmlPayload = command.payload as { html: string };
@@ -288,6 +321,18 @@ export class EditorCore {
       case 'INSERT_ADMONITION':
         const admonitionPayload = command.payload as { admonitionType: 'note' | 'info' | 'tip' | 'warning' | 'danger' };
         this.insertAdmonition(admonitionPayload.admonitionType);
+        break;
+      case 'INSERT_LINK':
+        const linkPayload = command.payload as { url: string };
+        this.insertLink(linkPayload.url);
+        break;
+      case 'UPDATE_LINK':
+        const updateLinkPayload = command.payload as { nodeKey: string; textNodeKey: string; url: string; text: string };
+        this.updateLink(updateLinkPayload.nodeKey, updateLinkPayload.textNodeKey, updateLinkPayload.url, updateLinkPayload.text);
+        break;
+      case 'REMOVE_LINK':
+        const removeLinkPayload = command.payload as { nodeKey: string };
+        this.removeLink(removeLinkPayload.nodeKey);
         break;
       case 'DUPLICATE_BLOCK':
         const dupBlockPayload = command.payload as { blockKey: string };
@@ -348,14 +393,30 @@ export class EditorCore {
     this.container.addEventListener('compositionstart', this.handleCompositionStart);
     this.container.addEventListener('compositionend', this.handleCompositionEnd);
     this.container.addEventListener('paste', this.handlePaste);
+    this.container.addEventListener('focus', this.handleFocus);
     document.addEventListener('selectionchange', this.handleSelectionChange);
   }
 
   private handleBeforeInput = (e: InputEvent): void => {
     // Don't handle during IME composition
-    if (this.isComposing) return;
+    if (this.isComposing) {
+      console.log('[EditorCore] handleBeforeInput: skipping due to isComposing');
+      return;
+    }
 
     e.preventDefault();
+
+    // Ensure we have a valid selection before processing input
+    if (!this.selection) {
+      console.log('[EditorCore] handleBeforeInput: no selection, calling ensureValidState');
+      this.ensureValidState();
+      if (!this.selection) {
+        console.log('[EditorCore] handleBeforeInput: still no selection after ensureValidState');
+        return; // Still no selection, can't process
+      }
+    }
+
+    console.log('[EditorCore] handleBeforeInput:', e.inputType, 'selection:', this.selection);
 
     switch (e.inputType) {
       case 'insertText':
@@ -363,6 +424,7 @@ export class EditorCore {
         break;
       case 'insertParagraph':
       case 'insertLineBreak':
+        console.log('[EditorCore] handleBeforeInput: calling insertParagraph for', e.inputType);
         this.insertParagraph();
         break;
       case 'deleteContentBackward':
@@ -418,6 +480,35 @@ export class EditorCore {
       return;
     }
 
+    // Enter key - insert paragraph (fallback for browsers that don't fire beforeinput)
+    if (e.key === 'Enter' && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
+      // Check if we're in a table - Enter in table should not create paragraph
+      const tableCtx = this.getTableContext();
+      console.log('[EditorCore] Enter key pressed, tableCtx:', tableCtx, 'selection:', this.selection);
+      if (!tableCtx) {
+        e.preventDefault();
+        console.log('[EditorCore] Calling insertParagraph');
+        this.insertParagraph();
+        return;
+      }
+    }
+
+    // Backspace key - delete backward (fallback for browsers that don't fire beforeinput)
+    if (e.key === 'Backspace' && !e.metaKey && !e.ctrlKey) {
+      console.log('[EditorCore] Backspace key pressed, selection:', this.selection);
+      e.preventDefault();
+      this.deleteBackward();
+      return;
+    }
+
+    // Delete key - delete forward (fallback)
+    if (e.key === 'Delete' && !e.metaKey && !e.ctrlKey) {
+      console.log('[EditorCore] Delete key pressed, selection:', this.selection);
+      e.preventDefault();
+      this.deleteForward();
+      return;
+    }
+
     // Shift+Enter to exit admonition
     if (e.key === 'Enter' && e.shiftKey) {
       const admonitionAncestor = this.getAdmonitionAncestor();
@@ -459,6 +550,122 @@ export class EditorCore {
           return;
         }
       }
+
+      // Handle arrow navigation across void nodes (divider, image, drawio)
+      if (!this.selection) return;
+      const block = getBlockAncestor(this.state, this.selection.anchor.key);
+      if (!block || !block.parent) return;
+
+      const parent = getNode(this.state, block.parent);
+      if (!parent || !isElementNode(parent)) return;
+
+      const blockIndex = parent.children.indexOf(block.key);
+
+      // ArrowUp - check if cursor is at the start of the block
+      if (e.key === 'ArrowUp') {
+        const textNode = getNode(this.state, this.selection.anchor.key);
+        if (textNode && isTextNode(textNode) && this.selection.anchor.offset === 0) {
+          // Look for previous sibling
+          if (blockIndex > 0) {
+            const prevKey = parent.children[blockIndex - 1];
+            const prevBlock = getNode(this.state, prevKey);
+            if (prevBlock && this.isVoidNode(prevBlock)) {
+              // Skip the void node and go to the block before it
+              e.preventDefault();
+              if (blockIndex > 1) {
+                const targetKey = parent.children[blockIndex - 2];
+                const targetText = findLastTextNode(this.state, targetKey);
+                if (targetText) {
+                  this.selection = createCollapsedSelection(targetText.key, targetText.text.length);
+                  this.render();
+                }
+              }
+              return;
+            }
+          }
+        }
+      }
+
+      // ArrowDown - check if cursor is at the end of the block
+      if (e.key === 'ArrowDown') {
+        const textNode = getNode(this.state, this.selection.anchor.key);
+        if (textNode && isTextNode(textNode) && this.selection.anchor.offset === textNode.text.length) {
+          // Look for next sibling
+          if (blockIndex < parent.children.length - 1) {
+            const nextKey = parent.children[blockIndex + 1];
+            const nextBlock = getNode(this.state, nextKey);
+            if (nextBlock && this.isVoidNode(nextBlock)) {
+              // Skip the void node and go to the block after it
+              e.preventDefault();
+              if (blockIndex < parent.children.length - 2) {
+                const targetKey = parent.children[blockIndex + 2];
+                const targetText = findFirstTextNode(this.state, targetKey);
+                if (targetText) {
+                  this.selection = createCollapsedSelection(targetText.key, 0);
+                  this.render();
+                }
+              }
+              return;
+            }
+          }
+        }
+      }
+    }
+
+    // Handle ArrowLeft/ArrowRight for void node navigation
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      if (!this.selection) return;
+      const block = getBlockAncestor(this.state, this.selection.anchor.key);
+      if (!block || !block.parent) return;
+
+      const parent = getNode(this.state, block.parent);
+      if (!parent || !isElementNode(parent)) return;
+
+      const blockIndex = parent.children.indexOf(block.key);
+
+      if (e.key === 'ArrowLeft') {
+        const textNode = getNode(this.state, this.selection.anchor.key);
+        if (textNode && isTextNode(textNode) && this.selection.anchor.offset === 0) {
+          if (blockIndex > 0) {
+            const prevKey = parent.children[blockIndex - 1];
+            const prevBlock = getNode(this.state, prevKey);
+            if (prevBlock && this.isVoidNode(prevBlock)) {
+              e.preventDefault();
+              if (blockIndex > 1) {
+                const targetKey = parent.children[blockIndex - 2];
+                const targetText = findLastTextNode(this.state, targetKey);
+                if (targetText) {
+                  this.selection = createCollapsedSelection(targetText.key, targetText.text.length);
+                  this.render();
+                }
+              }
+              return;
+            }
+          }
+        }
+      }
+
+      if (e.key === 'ArrowRight') {
+        const textNode = getNode(this.state, this.selection.anchor.key);
+        if (textNode && isTextNode(textNode) && this.selection.anchor.offset === textNode.text.length) {
+          if (blockIndex < parent.children.length - 1) {
+            const nextKey = parent.children[blockIndex + 1];
+            const nextBlock = getNode(this.state, nextKey);
+            if (nextBlock && this.isVoidNode(nextBlock)) {
+              e.preventDefault();
+              if (blockIndex < parent.children.length - 2) {
+                const targetKey = parent.children[blockIndex + 2];
+                const targetText = findFirstTextNode(this.state, targetKey);
+                if (targetText) {
+                  this.selection = createCollapsedSelection(targetText.key, 0);
+                  this.render();
+                }
+              }
+              return;
+            }
+          }
+        }
+      }
     }
 
     // Tab for table navigation or list indent
@@ -478,7 +685,24 @@ export class EditorCore {
       const block = this.selection ? getBlockAncestor(this.state, this.selection.anchor.key) : null;
       if (block?.type === 'listitem') {
         e.preventDefault();
-        // TODO: Implement indent/outdent
+        const listItem = block as any;
+        const currentIndent = listItem.indent || 0;
+
+        if (e.shiftKey) {
+          // Outdent - decrease indent level (min 0)
+          if (currentIndent > 0) {
+            this.history.push(this.state, this.selection);
+            this.state = updateNode(this.state, block.key, { indent: currentIndent - 1 });
+            this.render();
+          }
+        } else {
+          // Indent - increase indent level (max 4)
+          if (currentIndent < 4) {
+            this.history.push(this.state, this.selection);
+            this.state = updateNode(this.state, block.key, { indent: currentIndent + 1 });
+            this.render();
+          }
+        }
       }
     }
   };
@@ -516,24 +740,47 @@ export class EditorCore {
       const table = target.closest('.editorTable') as HTMLTableElement;
       if (!table) return;
 
+      const tableWrapper = table.closest('.editorTableWrapper') as HTMLElement;
+      const tableKey = tableWrapper?.getAttribute('data-editor-key');
+
       const startX = e.clientX;
       const startWidth = cell.offsetWidth;
       const colIndex = parseInt(target.getAttribute('data-col-index') || '0');
 
+      // Calculate max width - leave room for other columns and some padding
+      const tableRect = table.getBoundingClientRect();
+      const containerRect = this.container?.getBoundingClientRect();
+      const maxTableWidth = containerRect ? containerRect.width - 40 : tableRect.width;
+
+      // Get total width of other columns
+      const firstRow = table.querySelector('tr');
+      const cells = firstRow?.querySelectorAll('td, th');
+      let otherColumnsWidth = 0;
+      cells?.forEach((c, idx) => {
+        if (idx !== colIndex) {
+          otherColumnsWidth += (c as HTMLElement).offsetWidth;
+        }
+      });
+
+      // Max width for this column = available space minus other columns, with a buffer
+      const maxWidth = Math.max(200, maxTableWidth - otherColumnsWidth - 20);
+
       // Add resizing class
       target.classList.add('resizing');
 
+      let currentWidth = startWidth;
+
       const handleMouseMove = (moveEvent: MouseEvent) => {
         const delta = moveEvent.clientX - startX;
-        const newWidth = Math.max(60, startWidth + delta);
+        currentWidth = Math.max(60, Math.min(maxWidth, startWidth + delta));
 
         // Update width for all cells in this column
         const rows = table.querySelectorAll('tr');
         rows.forEach(row => {
           const cells = row.querySelectorAll('td, th');
           if (cells[colIndex]) {
-            (cells[colIndex] as HTMLElement).style.width = `${newWidth}px`;
-            (cells[colIndex] as HTMLElement).style.minWidth = `${newWidth}px`;
+            (cells[colIndex] as HTMLElement).style.width = `${currentWidth}px`;
+            (cells[colIndex] as HTMLElement).style.minWidth = `${currentWidth}px`;
           }
         });
       };
@@ -542,6 +789,29 @@ export class EditorCore {
         target.classList.remove('resizing');
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+
+        // Persist column widths to state
+        if (tableKey) {
+          const tableNode = getNode(this.state, tableKey);
+          if (tableNode && tableNode.type === 'table') {
+            // Get current widths of all columns
+            const colWidths: number[] = [];
+            const headerCells = firstRow?.querySelectorAll('td, th');
+            headerCells?.forEach((c) => {
+              colWidths.push((c as HTMLElement).offsetWidth);
+            });
+
+            // Update state with new column widths
+            this.state = updateNode(this.state, tableKey, { colWidths });
+
+            // Log operation for delta sync
+            if (this.opLogger) {
+              this.opLogger.logNodeUpdate(tableKey, { colWidths });
+            }
+
+            this.render();
+          }
+        }
       };
 
       document.addEventListener('mousemove', handleMouseMove);
@@ -551,12 +821,63 @@ export class EditorCore {
 
   private handleCompositionStart = (): void => {
     this.isComposing = true;
+
+    // Safety timeout - reset isComposing after 10 seconds in case compositionend never fires
+    if (this.compositionTimeout) {
+      clearTimeout(this.compositionTimeout);
+    }
+    this.compositionTimeout = setTimeout(() => {
+      if (this.isComposing) {
+        console.warn('EditorCore: composition timeout, resetting isComposing flag');
+        this.isComposing = false;
+      }
+    }, 10000);
   };
 
   private handleCompositionEnd = (e: CompositionEvent): void => {
+    // Clear the safety timeout
+    if (this.compositionTimeout) {
+      clearTimeout(this.compositionTimeout);
+      this.compositionTimeout = null;
+    }
+
     this.isComposing = false;
     if (e.data) {
       this.insertText(e.data);
+    }
+  };
+
+  // Recovery method - ensures editor is in a valid, editable state
+  private ensureValidState(): void {
+    // Reset flags that might be stuck
+    this.isComposing = false;
+    this.isRendering = false;
+
+    // Ensure we have a valid selection
+    if (!this.selection) {
+      const firstText = findFirstTextNode(this.state, this.state.root);
+      if (firstText) {
+        this.selection = createCollapsedSelection(firstText.key, 0);
+      }
+    } else {
+      // Validate current selection points to existing nodes
+      const anchorNode = getNode(this.state, this.selection.anchor.key);
+      if (!anchorNode || !isTextNode(anchorNode)) {
+        const firstText = findFirstTextNode(this.state, this.state.root);
+        if (firstText) {
+          this.selection = createCollapsedSelection(firstText.key, 0);
+        }
+      }
+    }
+  }
+
+  private handleFocus = (): void => {
+    // When editor receives focus, ensure we're in a valid state
+    this.ensureValidState();
+
+    // If we have a selection, restore it
+    if (this.selection && this.container) {
+      setSelection(this.selection, this.state, this.container);
     }
   };
 
@@ -666,13 +987,33 @@ export class EditorCore {
   }
 
   private insertParagraph(): void {
-    if (!this.selection) return;
+    console.log('[EditorCore] insertParagraph called, selection:', this.selection);
+    if (!this.selection) {
+      console.log('[EditorCore] insertParagraph: no selection');
+      return;
+    }
 
     const node = getNode(this.state, this.selection.anchor.key);
-    if (!node || !isTextNode(node)) return;
+    console.log('[EditorCore] insertParagraph: node:', node?.key, node?.type, 'node.parent:', node?.parent);
+    if (!node || !isTextNode(node)) {
+      console.log('[EditorCore] insertParagraph: not a text node');
+      return;
+    }
+
+    // Debug: check the parent chain
+    if (node.parent) {
+      const parentNode = getNode(this.state, node.parent);
+      console.log('[EditorCore] insertParagraph: parentNode:', parentNode?.key, parentNode?.type, 'parentNode.parent:', parentNode?.parent);
+    } else {
+      console.log('[EditorCore] insertParagraph: node has no parent!');
+    }
 
     const block = getBlockAncestor(this.state, node.key);
-    if (!block || !block.parent) return;
+    console.log('[EditorCore] insertParagraph: block:', block?.key, block?.type, 'block.parent:', block?.parent);
+    if (!block || !block.parent) {
+      console.log('[EditorCore] insertParagraph: no block or parent');
+      return;
+    }
 
     // Save to history
     this.history.push(this.state, this.selection);
@@ -731,6 +1072,43 @@ export class EditorCore {
     }
 
     // Move selection to start of new paragraph
+    this.selection = createCollapsedSelection(newText.key, 0);
+
+    this.render();
+  }
+
+  // Insert a new empty paragraph after a specific block (used by + button)
+  private insertParagraphAfter(blockKey: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create new empty paragraph
+    const newText = createTextNode('', {});
+    const newParagraph = createParagraphNode([newText.key]);
+    newText.parent = newParagraph.key;
+    newParagraph.parent = block.parent;
+
+    // Insert after the block
+    this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 1);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+      this.opLogger.logNodeInsert(newParagraph.key, block.parent, blockIndex + 1, paragraphWithoutParent);
+      const { parent: _tp, ...textWithoutParent } = newText;
+      this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+    }
+
+    // Move selection to the new paragraph
     this.selection = createCollapsedSelection(newText.key, 0);
 
     this.render();
@@ -1019,68 +1397,186 @@ export class EditorCore {
       this.selection = createCollapsedSelection(anchor.key, startOffset);
     } else {
       // Cross-node selection - need to handle properly
+      const anchorNode = getNode(this.state, anchor.key);
+      const focusNode = getNode(this.state, focus.key);
+
+      if (!anchorNode || !isTextNode(anchorNode) || !focusNode || !isTextNode(focusNode)) return;
+
       // Determine which is first (anchor or focus) by walking the tree
       const anchorBlock = getBlockAncestor(this.state, anchor.key);
       const focusBlock = getBlockAncestor(this.state, focus.key);
 
       if (!anchorBlock || !focusBlock) return;
 
-      // Get root to find all blocks
-      const root = this.state.nodeMap.get(this.state.root);
-      if (!root || !isElementNode(root)) return;
+      // Check if selection is within the same block (same paragraph/heading/etc)
+      if (anchorBlock.key === focusBlock.key && isElementNode(anchorBlock)) {
+        // Same block - selection spans multiple text nodes within one paragraph
+        const blockChildren = anchorBlock.children;
+        const anchorIndex = blockChildren.indexOf(anchor.key);
+        const focusIndex = blockChildren.indexOf(focus.key);
 
-      // Find indices of anchor and focus blocks
-      const anchorBlockIndex = root.children.indexOf(anchorBlock.key);
-      const focusBlockIndex = root.children.indexOf(focusBlock.key);
+        if (anchorIndex === -1 || focusIndex === -1) return;
 
-      // Determine start and end
-      let startKey = anchor.key;
-      let startOffset = anchor.offset;
-      let startBlockIndex = anchorBlockIndex;
-      let endKey = focus.key;
-      let endOffset = focus.offset;
-      let endBlockIndex = focusBlockIndex;
+        // Determine start and end based on child order
+        const isAnchorFirst = anchorIndex < focusIndex;
+        const startIndex = Math.min(anchorIndex, focusIndex);
+        const endIndex = Math.max(anchorIndex, focusIndex);
+        const startKey = isAnchorFirst ? anchor.key : focus.key;
+        const startOffset = isAnchorFirst ? anchor.offset : focus.offset;
+        const endKey = isAnchorFirst ? focus.key : anchor.key;
+        const endOffset = isAnchorFirst ? focus.offset : anchor.offset;
 
-      if (anchorBlockIndex > focusBlockIndex ||
-          (anchorBlockIndex === focusBlockIndex && anchor.offset > focus.offset)) {
-        // Swap - focus comes before anchor
-        startKey = focus.key;
-        startOffset = focus.offset;
-        startBlockIndex = focusBlockIndex;
-        endKey = anchor.key;
-        endOffset = anchor.offset;
-        endBlockIndex = anchorBlockIndex;
-      }
+        const startNode = getNode(this.state, startKey) as any;
+        const endNode = getNode(this.state, endKey) as any;
 
-      // Get start and end nodes
-      const startNode = getNode(this.state, startKey);
-      const endNode = getNode(this.state, endKey);
+        // Keep text before selection in start node
+        const keepText = startNode.text.slice(0, startOffset);
+        // Get text after selection in end node
+        const appendText = endNode.text.slice(endOffset);
 
-      if (!startNode || !isTextNode(startNode) || !endNode || !isTextNode(endNode)) return;
+        // Update the start node with merged text
+        this.state = updateNode(this.state, startKey, { text: keepText + appendText });
 
-      // Keep text before selection in start node
-      const keepText = startNode.text.slice(0, startOffset);
-      // Get text after selection in end node
-      const appendText = endNode.text.slice(endOffset);
+        // Delete all nodes between start and end (inclusive of end, exclusive of start)
+        const newState = cloneState(this.state);
+        const blockInNewState = newState.nodeMap.get(anchorBlock.key) as any;
 
-      // Merge the text
-      this.state = updateNode(this.state, startKey, { text: keepText + appendText });
-
-      // Delete all blocks between start and end (exclusive of start block)
-      const blocksToDelete: string[] = [];
-      for (let i = startBlockIndex + 1; i <= endBlockIndex; i++) {
-        if (i < root.children.length) {
-          blocksToDelete.push(root.children[i]);
+        // Remove nodes from endIndex down to startIndex+1
+        for (let i = endIndex; i > startIndex; i--) {
+          const nodeKeyToDelete = blockInNewState.children[i];
+          newState.nodeMap.delete(nodeKeyToDelete);
+          blockInNewState.children.splice(i, 1);
         }
-      }
 
-      // Delete blocks from end to start to avoid index shifting issues
-      for (let i = blocksToDelete.length - 1; i >= 0; i--) {
-        this.state = removeNode(this.state, blocksToDelete[i]);
-      }
+        this.state = newState;
+        this.selection = createCollapsedSelection(startKey, startOffset);
+      } else {
+        // Cross-block selection
+        console.log('[deleteSelectionInternal] Cross-block selection', { anchorBlock: anchorBlock.key, focusBlock: focusBlock.key });
 
-      // Set cursor at merge point
-      this.selection = createCollapsedSelection(startKey, startOffset);
+        // Get root to find all blocks
+        const root = this.state.nodeMap.get(this.state.root);
+        if (!root || !isElementNode(root)) return;
+
+        // Find the top-level blocks (direct children of root) for anchor and focus
+        const findTopLevelBlock = (blockKey: string): string | null => {
+          let current = this.state.nodeMap.get(blockKey);
+          while (current && current.parent !== this.state.root) {
+            current = current.parent ? this.state.nodeMap.get(current.parent) : null;
+          }
+          return current ? current.key : null;
+        };
+
+        const anchorTopBlock = findTopLevelBlock(anchorBlock.key);
+        const focusTopBlock = findTopLevelBlock(focusBlock.key);
+
+        console.log('[deleteSelectionInternal] Top-level blocks:', { anchorTopBlock, focusTopBlock });
+
+        if (!anchorTopBlock || !focusTopBlock) return;
+
+        // If both are in the same top-level block (e.g., same list), handle differently
+        if (anchorTopBlock === focusTopBlock) {
+          console.log('[deleteSelectionInternal] Same top-level block - handling within-block deletion');
+
+          // Get start and end based on anchor/focus position
+          // We need to figure out which comes first
+          const anchorNode = getNode(this.state, anchor.key);
+          const focusNode = getNode(this.state, focus.key);
+
+          if (!anchorNode || !isTextNode(anchorNode) || !focusNode || !isTextNode(focusNode)) return;
+
+          // For now, just merge the texts and leave structure intact
+          // This is a simplification - proper handling would need to clean up empty nodes
+          const startKey = this.selection.isBackward ? focus.key : anchor.key;
+          const startOffset = this.selection.isBackward ? focus.offset : anchor.offset;
+          const endKey = this.selection.isBackward ? anchor.key : focus.key;
+          const endOffset = this.selection.isBackward ? anchor.offset : focus.offset;
+
+          const startNode = getNode(this.state, startKey) as any;
+          const endNode = getNode(this.state, endKey) as any;
+
+          // Keep text before selection in start node
+          const keepText = startNode.text.slice(0, startOffset);
+          // Get text after selection in end node
+          const appendText = endNode.text.slice(endOffset);
+
+          console.log('[deleteSelectionInternal] Same block merge:', { keepText, appendText, startKey, endKey });
+
+          // Update start node with merged text
+          this.state = updateNode(this.state, startKey, { text: keepText + appendText });
+
+          // If end node is different from start, make it empty (or we could delete it)
+          if (endKey !== startKey) {
+            this.state = updateNode(this.state, endKey, { text: '' });
+          }
+
+          // Set cursor at merge point
+          this.selection = createCollapsedSelection(startKey, startOffset);
+          return;
+        }
+
+        // Find indices of anchor and focus top-level blocks
+        const anchorBlockIndex = root.children.indexOf(anchorTopBlock);
+        const focusBlockIndex = root.children.indexOf(focusTopBlock);
+
+        console.log('[deleteSelectionInternal] Block indices:', { anchorBlockIndex, focusBlockIndex });
+
+        // Determine start and end
+        let startKey = anchor.key;
+        let startOffset = anchor.offset;
+        let startBlockIndex = anchorBlockIndex;
+        let startTopBlock = anchorTopBlock;
+        let endKey = focus.key;
+        let endOffset = focus.offset;
+        let endBlockIndex = focusBlockIndex;
+
+        if (anchorBlockIndex > focusBlockIndex) {
+          // Swap - focus comes before anchor
+          startKey = focus.key;
+          startOffset = focus.offset;
+          startBlockIndex = focusBlockIndex;
+          startTopBlock = focusTopBlock;
+          endKey = anchor.key;
+          endOffset = anchor.offset;
+          endBlockIndex = anchorBlockIndex;
+        }
+
+        // Get start and end nodes
+        const startNode = getNode(this.state, startKey);
+        const endNode = getNode(this.state, endKey);
+
+        if (!startNode || !isTextNode(startNode) || !endNode || !isTextNode(endNode)) return;
+
+        // Keep text before selection in start node
+        const keepText = startNode.text.slice(0, startOffset);
+        // Get text after selection in end node
+        const appendText = endNode.text.slice(endOffset);
+
+        console.log('[deleteSelectionInternal] Merging text:', { keepText, appendText });
+
+        // Merge the text
+        this.state = updateNode(this.state, startKey, { text: keepText + appendText });
+
+        // Delete all top-level blocks between start and end (exclusive of start block)
+        // But we need to be careful - we should only delete the END block and blocks in between
+        // The start block stays (with its content before selection)
+        const blocksToDelete: string[] = [];
+        for (let i = startBlockIndex + 1; i <= endBlockIndex; i++) {
+          if (i < root.children.length) {
+            blocksToDelete.push(root.children[i]);
+          }
+        }
+
+        console.log('[deleteSelectionInternal] Blocks to delete:', blocksToDelete);
+
+        // Delete blocks from end to start to avoid index shifting issues
+        for (let i = blocksToDelete.length - 1; i >= 0; i--) {
+          this.state = removeNode(this.state, blocksToDelete[i]);
+        }
+
+        // Set cursor at merge point
+        this.selection = createCollapsedSelection(startKey, startOffset);
+      }
     }
   }
 
@@ -1109,19 +1605,125 @@ export class EditorCore {
   private formatText(format: keyof TextFormat): void {
     if (!this.selection) return;
 
-    const node = getNode(this.state, this.selection.anchor.key);
+    const { anchor, focus } = this.selection;
+
+    // Handle collapsed selection - toggle format for typing
+    if (this.selection.isCollapsed) {
+      const node = getNode(this.state, anchor.key);
+      if (!node || !isTextNode(node)) return;
+
+      // For collapsed selection, we could track "pending format" for next typed character
+      // For now, just return without doing anything
+      return;
+    }
+
+    // Non-collapsed selection - format the selected range
+    // For simplicity, handle same-node selection first
+    if (anchor.key === focus.key) {
+      const node = getNode(this.state, anchor.key);
+      if (!node || !isTextNode(node)) return;
+
+      const startOffset = Math.min(anchor.offset, focus.offset);
+      const endOffset = Math.max(anchor.offset, focus.offset);
+
+      // If the entire node is selected, just toggle format on the whole node
+      if (startOffset === 0 && endOffset === node.text.length) {
+        this.history.push(this.state, this.selection);
+        const newFormat = { ...node.format };
+        newFormat[format] = !newFormat[format];
+        this.state = updateNode(this.state, node.key, { format: newFormat });
+        if (this.opLogger) {
+          this.opLogger.logNodeUpdate(node.key, { format: newFormat });
+        }
+        this.render();
+        return;
+      }
+
+      // Need to split the text node into up to 3 parts: before, selected, after
+      this.history.push(this.state, this.selection);
+
+      const parent = getNode(this.state, node.parent!);
+      if (!parent || !isElementNode(parent)) return;
+
+      const beforeText = node.text.slice(0, startOffset);
+      const selectedText = node.text.slice(startOffset, endOffset);
+      const afterText = node.text.slice(endOffset);
+
+      // Determine the new format for the selected portion
+      const newFormat = { ...node.format };
+      newFormat[format] = !newFormat[format];
+
+      // Clone state
+      const newState = cloneState(this.state);
+      const parentInNewState = newState.nodeMap.get(node.parent!) as any;
+      const nodeIndex = parentInNewState.children.indexOf(node.key);
+
+      // Remove original node
+      parentInNewState.children.splice(nodeIndex, 1);
+      newState.nodeMap.delete(node.key);
+
+      const newNodes: TextNode[] = [];
+      let selectionNodeKey = '';
+      let insertIndex = nodeIndex;
+
+      // Create "before" node if there's text before selection
+      if (beforeText) {
+        const beforeNode = createTextNode(beforeText, { ...node.format });
+        beforeNode.parent = node.parent;
+        newState.nodeMap.set(beforeNode.key, beforeNode);
+        parentInNewState.children.splice(insertIndex++, 0, beforeNode.key);
+        newNodes.push(beforeNode);
+      }
+
+      // Create "selected" node with toggled format
+      const selectedNode = createTextNode(selectedText, newFormat);
+      selectedNode.parent = node.parent;
+      newState.nodeMap.set(selectedNode.key, selectedNode);
+      parentInNewState.children.splice(insertIndex++, 0, selectedNode.key);
+      selectionNodeKey = selectedNode.key;
+      newNodes.push(selectedNode);
+
+      // Create "after" node if there's text after selection
+      if (afterText) {
+        const afterNode = createTextNode(afterText, { ...node.format });
+        afterNode.parent = node.parent;
+        newState.nodeMap.set(afterNode.key, afterNode);
+        parentInNewState.children.splice(insertIndex++, 0, afterNode.key);
+        newNodes.push(afterNode);
+      }
+
+      this.state = newState;
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeDelete(node.key);
+        newNodes.forEach((n, i) => {
+          const { parent: _p, ...nodeWithoutParent } = n;
+          this.opLogger!.logNodeInsert(n.key, node.parent!, nodeIndex + i, nodeWithoutParent);
+        });
+      }
+
+      // Update selection to cover the formatted node
+      this.selection = {
+        anchor: { key: selectionNodeKey, offset: 0 },
+        focus: { key: selectionNodeKey, offset: selectedText.length },
+        isCollapsed: false,
+      };
+
+      this.render();
+      return;
+    }
+
+    // Cross-node selection - more complex, for now just format anchor node
+    // TODO: Handle multi-node selection properly
+    const node = getNode(this.state, anchor.key);
     if (!node || !isTextNode(node)) return;
 
-    // Save to history
     this.history.push(this.state, this.selection);
-
-    // Toggle format
     const newFormat = { ...node.format };
     newFormat[format] = !newFormat[format];
-
     this.state = updateNode(this.state, node.key, { format: newFormat });
 
-    // Log operation for delta sync
     if (this.opLogger) {
       this.opLogger.logNodeUpdate(node.key, { format: newFormat });
     }
@@ -1169,6 +1771,9 @@ export class EditorCore {
         break;
       case 'quote':
         newBlock = createQuoteNode(children);
+        break;
+      case 'code':
+        newBlock = createCodeNode(undefined, children);
         break;
       case 'paragraph':
       default:
@@ -1500,6 +2105,334 @@ export class EditorCore {
     this.render();
   }
 
+  private insertLink(url: string): void {
+    console.log('[EditorCore] insertLink called:', { url, selection: this.selection });
+    if (!this.selection) return;
+
+    const { anchor, focus } = this.selection;
+
+    // Need a selection to create a link
+    if (this.selection.isCollapsed) {
+      console.log('[EditorCore] insertLink: collapsed selection, inserting URL as text');
+      // For collapsed selection, insert the URL as link text
+      const node = getNode(this.state, anchor.key);
+      if (!node || !isTextNode(node)) return;
+
+      const parent = getNode(this.state, node.parent!);
+      if (!parent || !isElementNode(parent)) return;
+
+      this.history.push(this.state, this.selection);
+
+      const nodeIndex = parent.children.indexOf(node.key);
+      const offset = anchor.offset;
+
+      // Split text if needed
+      const beforeText = node.text.slice(0, offset);
+      const afterText = node.text.slice(offset);
+
+      const newState = cloneState(this.state);
+      const parentInNewState = newState.nodeMap.get(node.parent!) as any;
+
+      // Remove original node
+      parentInNewState.children.splice(nodeIndex, 1);
+      newState.nodeMap.delete(node.key);
+
+      let insertIndex = nodeIndex;
+      let linkTextKey = '';
+
+      // Create "before" node if there's text
+      if (beforeText) {
+        const beforeNode = createTextNode(beforeText, { ...node.format });
+        beforeNode.parent = node.parent;
+        newState.nodeMap.set(beforeNode.key, beforeNode);
+        parentInNewState.children.splice(insertIndex++, 0, beforeNode.key);
+      }
+
+      // Create link node with URL as text
+      const linkTextNode = createTextNode(url, {});
+      const linkNode = createLinkNode(url, [linkTextNode.key]);
+      linkNode.parent = node.parent;
+      linkTextNode.parent = linkNode.key;
+      newState.nodeMap.set(linkNode.key, linkNode);
+      newState.nodeMap.set(linkTextNode.key, linkTextNode);
+      parentInNewState.children.splice(insertIndex++, 0, linkNode.key);
+      linkTextKey = linkTextNode.key;
+
+      // Create "after" node if there's text
+      if (afterText) {
+        const afterNode = createTextNode(afterText, { ...node.format });
+        afterNode.parent = node.parent;
+        newState.nodeMap.set(afterNode.key, afterNode);
+        parentInNewState.children.splice(insertIndex++, 0, afterNode.key);
+      }
+
+      this.state = newState;
+      this.selection = createCollapsedSelection(linkTextKey, url.length);
+      this.render();
+      return;
+    }
+
+    // Non-collapsed selection - wrap selected text in a link
+    if (anchor.key === focus.key) {
+      const node = getNode(this.state, anchor.key);
+      console.log('[EditorCore] insertLink: same node selection, node:', node);
+      if (!node || !isTextNode(node)) return;
+
+      const parent = getNode(this.state, node.parent!);
+      console.log('[EditorCore] insertLink: parent:', parent);
+      if (!parent || !isElementNode(parent)) return;
+
+      this.history.push(this.state, this.selection);
+
+      const startOffset = Math.min(anchor.offset, focus.offset);
+      const endOffset = Math.max(anchor.offset, focus.offset);
+
+      const beforeText = node.text.slice(0, startOffset);
+      const selectedText = node.text.slice(startOffset, endOffset);
+      const afterText = node.text.slice(endOffset);
+
+      console.log('[EditorCore] insertLink: splitting text:', { beforeText, selectedText, afterText });
+
+      const newState = cloneState(this.state);
+      const parentInNewState = newState.nodeMap.get(node.parent!) as any;
+      const nodeIndex = parentInNewState.children.indexOf(node.key);
+
+      // Remove original node
+      parentInNewState.children.splice(nodeIndex, 1);
+      newState.nodeMap.delete(node.key);
+
+      let insertIndex = nodeIndex;
+      let linkTextKey = '';
+
+      // Create "before" node if there's text
+      if (beforeText) {
+        const beforeNode = createTextNode(beforeText, { ...node.format });
+        beforeNode.parent = node.parent;
+        newState.nodeMap.set(beforeNode.key, beforeNode);
+        parentInNewState.children.splice(insertIndex++, 0, beforeNode.key);
+      }
+
+      // Create link node with selected text
+      const linkTextNode = createTextNode(selectedText, { ...node.format });
+      const linkNode = createLinkNode(url, [linkTextNode.key]);
+      linkNode.parent = node.parent;
+      linkTextNode.parent = linkNode.key;
+      newState.nodeMap.set(linkNode.key, linkNode);
+      newState.nodeMap.set(linkTextNode.key, linkTextNode);
+      parentInNewState.children.splice(insertIndex++, 0, linkNode.key);
+      linkTextKey = linkTextNode.key;
+
+      console.log('[EditorCore] insertLink: created link node:', linkNode);
+      console.log('[EditorCore] insertLink: created link text node:', linkTextNode);
+      console.log('[EditorCore] insertLink: parent children after insert:', parentInNewState.children);
+
+      // Create "after" node if there's text
+      if (afterText) {
+        const afterNode = createTextNode(afterText, { ...node.format });
+        afterNode.parent = node.parent;
+        newState.nodeMap.set(afterNode.key, afterNode);
+        parentInNewState.children.splice(insertIndex++, 0, afterNode.key);
+      }
+
+      this.state = newState;
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeDelete(node.key);
+        this.opLogger.logNodeInsert(linkNode.key, node.parent!, nodeIndex + (beforeText ? 1 : 0), {
+          type: 'link',
+          url,
+          children: [linkTextNode.key],
+        });
+      }
+
+      // Set selection to cover the link text
+      this.selection = {
+        anchor: { key: linkTextKey, offset: 0 },
+        focus: { key: linkTextKey, offset: selectedText.length },
+        isCollapsed: false,
+      };
+
+      this.render();
+    } else {
+      // Multi-node selection - collect all text from selection range
+      console.log('[EditorCore] insertLink: multi-node selection');
+
+      const anchorNode = getNode(this.state, anchor.key);
+      const focusNode = getNode(this.state, focus.key);
+
+      if (!anchorNode || !isTextNode(anchorNode) || !focusNode || !isTextNode(focusNode)) {
+        console.log('[EditorCore] insertLink: anchor or focus is not a text node');
+        return;
+      }
+
+      // Both nodes should have the same parent for simplicity
+      if (anchorNode.parent !== focusNode.parent) {
+        console.log('[EditorCore] insertLink: nodes have different parents, not supported');
+        return;
+      }
+
+      const parent = getNode(this.state, anchorNode.parent!);
+      if (!parent || !isElementNode(parent)) return;
+
+      this.history.push(this.state, this.selection);
+
+      const newState = cloneState(this.state);
+      const parentInNewState = newState.nodeMap.get(anchorNode.parent!) as any;
+
+      // Determine which node comes first
+      const anchorIndex = parentInNewState.children.indexOf(anchor.key);
+      const focusIndex = parentInNewState.children.indexOf(focus.key);
+
+      const startIndex = Math.min(anchorIndex, focusIndex);
+      const endIndex = Math.max(anchorIndex, focusIndex);
+
+      const isAnchorFirst = anchorIndex < focusIndex;
+      const startNode = isAnchorFirst ? anchorNode : focusNode;
+      const endNode = isAnchorFirst ? focusNode : anchorNode;
+      const startOffset = isAnchorFirst ? anchor.offset : focus.offset;
+      const endOffset = isAnchorFirst ? focus.offset : anchor.offset;
+
+      // Collect all text from start to end
+      let selectedText = '';
+      selectedText += startNode.text.slice(startOffset);
+
+      for (let i = startIndex + 1; i < endIndex; i++) {
+        const middleNode = getNode(this.state, parentInNewState.children[i]);
+        if (middleNode && isTextNode(middleNode)) {
+          selectedText += middleNode.text;
+        }
+      }
+
+      selectedText += endNode.text.slice(0, endOffset);
+
+      console.log('[EditorCore] insertLink: collected text:', selectedText);
+
+      // Text before selection in start node
+      const beforeText = startNode.text.slice(0, startOffset);
+      // Text after selection in end node
+      const afterText = endNode.text.slice(endOffset);
+
+      // Remove all nodes from start to end (inclusive)
+      const nodesToRemove = parentInNewState.children.slice(startIndex, endIndex + 1);
+      parentInNewState.children.splice(startIndex, endIndex - startIndex + 1);
+      nodesToRemove.forEach((key: string) => newState.nodeMap.delete(key));
+
+      let insertIndex = startIndex;
+      let linkTextKey = '';
+
+      // Create "before" node if there's text
+      if (beforeText) {
+        const beforeNode = createTextNode(beforeText, { ...startNode.format });
+        beforeNode.parent = anchorNode.parent;
+        newState.nodeMap.set(beforeNode.key, beforeNode);
+        parentInNewState.children.splice(insertIndex++, 0, beforeNode.key);
+      }
+
+      // Create link node with selected text
+      const linkTextNode = createTextNode(selectedText, {});
+      const linkNode = createLinkNode(url, [linkTextNode.key]);
+      linkNode.parent = anchorNode.parent;
+      linkTextNode.parent = linkNode.key;
+      newState.nodeMap.set(linkNode.key, linkNode);
+      newState.nodeMap.set(linkTextNode.key, linkTextNode);
+      parentInNewState.children.splice(insertIndex++, 0, linkNode.key);
+      linkTextKey = linkTextNode.key;
+
+      // Create "after" node if there's text
+      if (afterText) {
+        const afterNode = createTextNode(afterText, { ...endNode.format });
+        afterNode.parent = anchorNode.parent;
+        newState.nodeMap.set(afterNode.key, afterNode);
+        parentInNewState.children.splice(insertIndex++, 0, afterNode.key);
+      }
+
+      this.state = newState;
+
+      // Set selection to cover the link text
+      this.selection = {
+        anchor: { key: linkTextKey, offset: 0 },
+        focus: { key: linkTextKey, offset: selectedText.length },
+        isCollapsed: false,
+      };
+
+      this.render();
+    }
+  }
+
+  private updateLink(nodeKey: string, textNodeKey: string, newUrl: string, newText: string): void {
+    const linkNode = getNode(this.state, nodeKey);
+    if (!linkNode || linkNode.type !== 'link') return;
+
+    const textNode = getNode(this.state, textNodeKey);
+    if (!textNode || !isTextNode(textNode)) return;
+
+    this.history.push(this.state, this.selection);
+
+    // Update link URL
+    this.state = updateNode(this.state, nodeKey, { url: newUrl });
+
+    // Update text content
+    this.state = updateNode(this.state, textNodeKey, { text: newText });
+
+    if (this.opLogger) {
+      this.opLogger.logNodeUpdate(nodeKey, { url: newUrl });
+      this.opLogger.logNodeUpdate(textNodeKey, { text: newText });
+    }
+
+    this.render();
+  }
+
+  private removeLink(nodeKey: string): void {
+    const linkNode = getNode(this.state, nodeKey);
+    if (!linkNode || linkNode.type !== 'link' || !linkNode.parent) return;
+
+    const parent = getNode(this.state, linkNode.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    this.history.push(this.state, this.selection);
+
+    const newState = cloneState(this.state);
+    const parentInNewState = newState.nodeMap.get(linkNode.parent) as any;
+    const linkIndex = parentInNewState.children.indexOf(nodeKey);
+
+    if (linkIndex === -1) return;
+
+    // Get the text from the link's children
+    const linkChildren = (linkNode as any).children || [];
+
+    // Remove link from parent's children
+    parentInNewState.children.splice(linkIndex, 1);
+
+    // Insert link's children (text nodes) in place of the link
+    linkChildren.forEach((childKey: string, i: number) => {
+      const child = newState.nodeMap.get(childKey);
+      if (child) {
+        child.parent = linkNode.parent;
+        parentInNewState.children.splice(linkIndex + i, 0, childKey);
+      }
+    });
+
+    // Remove link node from nodeMap
+    newState.nodeMap.delete(nodeKey);
+
+    this.state = newState;
+
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(nodeKey);
+    }
+
+    // Set selection to the unwrapped text
+    if (linkChildren.length > 0) {
+      const firstChild = newState.nodeMap.get(linkChildren[0]);
+      if (firstChild && isTextNode(firstChild)) {
+        this.selection = createCollapsedSelection(firstChild.key, 0);
+      }
+    }
+
+    this.render();
+  }
+
   private insertDrawio(diagramXML: string, assetId?: string): void {
     if (!this.selection) return;
 
@@ -1560,6 +2493,87 @@ export class EditorCore {
       this.state = insertNode(this.state, block.parent, drawioNode, blockIndex + 1);
 
       // Create a new paragraph after the diagram for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 2);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, block.parent, blockIndex + 2, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    }
+
+    this.render();
+  }
+
+  private insertDivider(): void {
+    if (!this.selection) return;
+
+    const block = getBlockAncestor(this.state, this.selection.anchor.key);
+    if (!block || !block.parent) return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(block.key);
+
+    // Check if current block is empty (only contains empty text)
+    const textNode = getNode(this.state, this.selection.anchor.key);
+    const isBlockEmpty = textNode && isTextNode(textNode) && textNode.text === '';
+
+    // Create divider node
+    const dividerNode = createDividerNode();
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      if (isBlockEmpty) {
+        this.opLogger.logNodeDelete(block.key);
+      }
+      this.opLogger.logNodeInsert(dividerNode.key, block.parent, blockIndex + (isBlockEmpty ? 0 : 1), {
+        type: 'divider',
+      });
+    }
+
+    if (isBlockEmpty) {
+      // Replace empty block with divider
+      this.state = removeNode(this.state, block.key);
+      this.state = insertNode(this.state, parent.key, dividerNode, blockIndex);
+
+      // Create a new paragraph after the divider for continued editing
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+
+      this.state = insertNode(this.state, parent.key, newParagraph, blockIndex + 1);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Log the new paragraph and text node for delta sync
+      if (this.opLogger) {
+        const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, parent.key, blockIndex + 1, paragraphWithoutParent);
+        const { parent: _tp, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
+      // Move selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+    } else {
+      // Insert divider after current block
+      this.state = insertNode(this.state, block.parent, dividerNode, blockIndex + 1);
+
+      // Create a new paragraph after the divider for continued editing
       const newText = createTextNode('', {});
       const newParagraph = createParagraphNode([newText.key]);
       newText.parent = newParagraph.key;
@@ -2094,6 +3108,10 @@ export class EditorCore {
     });
 
     this.render();
+  }
+
+  private isVoidNode(node: EditorNode): boolean {
+    return node.type === 'divider' || node.type === 'image' || node.type === 'drawio';
   }
 
   private getTableContext(): { tableKey: string; rowIndex: number; colIndex: number } | null {
@@ -2652,20 +3670,20 @@ export class EditorCore {
     const sourceParentInNewState = newState.nodeMap.get(block.parent) as any;
     const targetParentInNewState = newState.nodeMap.get(target.parent) as any;
 
-    // Remove block from source
+    // Get indices BEFORE any modification
     const sourceIndex = sourceParentInNewState.children.indexOf(blockKey);
+
     if (sourceIndex === -1) return;
+
+    // Remove block from source
     sourceParentInNewState.children.splice(sourceIndex, 1);
 
-    // Calculate target index
+    // Calculate target index in the modified array
+    // After removal, if source was before target in the same parent, target's index shifted down by 1
     let targetIndex = targetParentInNewState.children.indexOf(targetKey);
+
     if (position === 'after') {
       targetIndex++;
-    }
-
-    // Adjust if same parent and source was before target
-    if (block.parent === target.parent && sourceIndex < targetIndex) {
-      targetIndex--;
     }
 
     // Insert block at new position
@@ -2761,16 +3779,17 @@ export class EditorCore {
     if (!this.container) return;
 
     this.isRendering = true;
+    try {
+      // Update DOM
+      this.reconciler.reconcile(this.state, this.container);
 
-    // Update DOM
-    this.reconciler.reconcile(this.state, this.container);
-
-    // Restore selection
-    if (this.selection) {
-      setSelection(this.selection, this.state, this.container);
+      // Restore selection
+      if (this.selection) {
+        setSelection(this.selection, this.state, this.container);
+      }
+    } finally {
+      this.isRendering = false;
     }
-
-    this.isRendering = false;
 
     // Update focused block indicator
     this.updateFocusedBlock();

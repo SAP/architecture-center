@@ -95,9 +95,10 @@ export default function BlockHandlePlugin() {
       const rect = targetBlock.getBoundingClientRect();
       const blockKey = targetBlock.getAttribute('data-editor-key');
       if (blockKey) {
+        // Position handle inside the editor, to the left of the text content
         return {
           top: rect.top + window.scrollY,
-          left: containerRect.left + 12,
+          left: containerRect.left + 24,
           blockKey,
           blockElement: targetBlock,
         };
@@ -115,36 +116,70 @@ export default function BlockHandlePlugin() {
     const containerRect = container.getBoundingClientRect();
     const blocks = getBlockElements();
 
-    let closestTarget: DropTarget | null = null;
-    let closestDistance = Infinity;
+    // Sort blocks by their visual position (top of bounding rect)
+    const sortedBlocks = [...blocks].sort((a, b) => {
+      const rectA = a.getBoundingClientRect();
+      const rectB = b.getBoundingClientRect();
+      return rectA.top - rectB.top;
+    });
 
-    for (const block of blocks) {
-      const blockKey = block.getAttribute('data-editor-key');
-      if (!blockKey || blockKey === draggedKey) continue;
+    // Filter out the dragged block
+    const validBlocks = sortedBlocks.filter(block => block.getAttribute('data-editor-key') !== draggedKey);
 
-      const rect = block.getBoundingClientRect();
-      const blockMiddle = rect.top + rect.height / 2;
+    if (validBlocks.length === 0) return null;
 
-      // Calculate distance from mouse to block middle
-      const distance = Math.abs(clientY - blockMiddle);
-
-      // Find the closest block to determine drop position
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        const position = clientY < blockMiddle ? 'before' : 'after';
-        const indicatorTop = position === 'before' ? rect.top : rect.bottom;
-
-        closestTarget = {
-          top: indicatorTop + window.scrollY,
-          left: containerRect.left + 12,
-          width: containerRect.width - 24,
-          targetKey: blockKey,
-          position,
-        };
-      }
+    // Build a list of all possible drop zones (gaps between blocks + before first + after last)
+    interface DropZone {
+      y: number; // Y position of the drop indicator
+      targetKey: string;
+      position: 'before' | 'after';
+      distanceFromMouse: number;
     }
 
-    return closestTarget;
+    const dropZones: DropZone[] = [];
+
+    for (let i = 0; i < validBlocks.length; i++) {
+      const block = validBlocks[i];
+      const blockKey = block.getAttribute('data-editor-key');
+      if (!blockKey) continue;
+
+      const rect = block.getBoundingClientRect();
+
+      // For the first block, add a "before" zone
+      if (i === 0) {
+        const zoneY = rect.top;
+        dropZones.push({
+          y: zoneY,
+          targetKey: blockKey,
+          position: 'before',
+          distanceFromMouse: Math.abs(clientY - zoneY),
+        });
+      }
+
+      // Add an "after" zone for each block (which is the gap before the next block)
+      const zoneY = rect.bottom;
+      dropZones.push({
+        y: zoneY,
+        targetKey: blockKey,
+        position: 'after',
+        distanceFromMouse: Math.abs(clientY - zoneY),
+      });
+    }
+
+    // Find the drop zone closest to the mouse
+    if (dropZones.length === 0) return null;
+
+    const closestZone = dropZones.reduce((closest, zone) =>
+      zone.distanceFromMouse < closest.distanceFromMouse ? zone : closest
+    );
+
+    return {
+      top: closestZone.y + window.scrollY,
+      left: containerRect.left + 12,
+      width: containerRect.width - 24,
+      targetKey: closestZone.targetKey,
+      position: closestZone.position,
+    };
   }, [editor, getBlockElements]);
 
   // Auto-scroll when dragging near edges
@@ -225,7 +260,10 @@ export default function BlockHandlePlugin() {
     setIsMouseActive(true);
 
     const container = editor.core?.getContainer();
-    if (!container) return;
+    if (!container) {
+      console.log('[BlockHandle] No container found');
+      return;
+    }
 
     const containerRect = container.getBoundingClientRect();
 
@@ -263,9 +301,8 @@ export default function BlockHandlePlugin() {
       }
     }
 
-    // Show handles when mouse is anywhere within or to the left of the editor
-    // Extended range to the left to catch mouse near drag handles
-    if (e.clientX < containerRect.left - 100 || e.clientX > containerRect.right + 20) {
+    // Show handles when mouse is anywhere within or near the editor
+    if (e.clientX < containerRect.left - 50 || e.clientX > containerRect.right + 20) {
       if (!isHoveringHandle) {
         setActiveBlock(null);
       }
@@ -297,47 +334,31 @@ export default function BlockHandlePlugin() {
     const container = editor.core.getContainer();
     if (!container) return;
 
-    const blockElement = activeBlock.blockElement;
-
-    // Find the last text node in the block to set cursor there
-    const walker = document.createTreeWalker(blockElement, NodeFilter.SHOW_TEXT);
-    let lastTextNode: Node | null = null;
-    let node: Node | null;
-    while ((node = walker.nextNode())) {
-      lastTextNode = node;
-    }
-
-    if (lastTextNode) {
-      const range = document.createRange();
-      const sel = window.getSelection();
-      range.setStart(lastTextNode, lastTextNode.textContent?.length || 0);
-      range.collapse(true);
-      sel?.removeAllRanges();
-      sel?.addRange(range);
-    }
+    // Use INSERT_PARAGRAPH_AFTER to always insert after the hovered block
+    editor.dispatchCommand({
+      type: 'INSERT_PARAGRAPH_AFTER',
+      payload: { blockKey: activeBlock.blockKey }
+    });
 
     container.focus();
 
-    // Use requestAnimationFrame to ensure focus is set before dispatching commands
+    // Wait for the paragraph to be inserted and rendered
     requestAnimationFrame(() => {
-      editor.dispatchCommand({ type: 'INSERT_PARAGRAPH' });
+      // Insert "/" to trigger slash menu
+      editor.dispatchCommand({
+        type: 'INSERT_TEXT',
+        payload: { text: '/' }
+      });
 
-      // Wait for the paragraph to be inserted, then open slash menu
+      // Give time for the text insertion to complete and trigger the slash menu
       requestAnimationFrame(() => {
-        // Get the position of the new paragraph for the slash menu
+        // The slash menu should open automatically via the subscription
+        // But we can force a check by triggering a selection change
         const selection = window.getSelection();
         if (selection && selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
-          const rect = range.getBoundingClientRect();
-
-          // Dispatch custom event to open slash menu
-          const event = new CustomEvent('openSlashMenu', {
-            detail: {
-              top: rect.bottom + window.scrollY + 8,
-              left: rect.left + window.scrollX,
-            }
-          });
-          document.dispatchEvent(event);
+          selection.removeAllRanges();
+          selection.addRange(range);
         }
       });
     });
@@ -483,7 +504,9 @@ export default function BlockHandlePlugin() {
 
   if (!handlePosition) return null;
 
-  const shouldShow = isVisible && isMouseActive;
+  // Hide block handle when there's a text selection (floating toolbar is visible)
+  const hasTextSelection = editor.selection && !editor.selection.isCollapsed;
+  const shouldShow = isVisible && isMouseActive && !hasTextSelection;
 
   return createPortal(
     <>

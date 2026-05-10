@@ -166,6 +166,37 @@
     background-color: #404040;
 }
 
+/* Link input */
+.linkInputContainer {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.linkInput {
+    width: 280px;
+    padding: 10px 14px;
+    background-color: transparent;
+    border: 2px solid #3b82f6;
+    border-radius: 8px;
+    color: #e5e7eb;
+    font-size: 14px;
+    outline: none;
+}
+
+.linkInput::placeholder {
+    color: #6b7280;
+}
+
+:root:not([data-theme='dark']) .linkInput {
+    color: #111827;
+    border-color: #3b82f6;
+}
+
+:root:not([data-theme='dark']) .linkInput::placeholder {
+    color: #9ca3af;
+}
+
 /* Text styling icons */
 .boldIcon {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

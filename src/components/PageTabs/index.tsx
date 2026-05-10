@@ -6,7 +6,7 @@ import { Plus } from 'lucide-react';
 import styles from './index.module.css';
 
 interface PageTabsProps {
-    onAddNew: (parentId: string | null) => void;
+    onAddNew?: (parentId: string | null) => void;
 }
 
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
@@ -30,17 +30,19 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                     <span className={styles.itemTitle} title={doc.title || 'Untitled Page'}>
                         {doc.title || 'Untitled Page'}
                     </span>
-                    <div className={styles.itemActions}>
-                        <Button
-                            design="Transparent"
-                            icon="add"
-                            onClick={(e) => {
-                                handleActionClick(e);
-                                onAddNew(doc.id);
-                            }}
-                            tooltip={'Add sub-page'}
-                        />
-                    </div>
+                    {onAddNew && (
+                        <div className={styles.itemActions}>
+                            <Button
+                                design="Transparent"
+                                icon="add"
+                                onClick={(e) => {
+                                    handleActionClick(e);
+                                    onAddNew(doc.id);
+                                }}
+                                tooltip={'Add sub-page'}
+                            />
+                        </div>
+                    )}
                 </div>
                 {children.length > 0 && (
                     <ul className={styles.childrenList}>
@@ -57,14 +59,16 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
 
     return (
         <div className={styles.navContainer}>
-            <button
-                className={styles.newRefArchButton}
-                onClick={() => onAddNew(null)}
-                title="Create new Reference Architecture"
-            >
-                <Plus size={18} />
-                <span>New Ref Arch</span>
-            </button>
+            {onAddNew && (
+                <button
+                    className={styles.newRefArchButton}
+                    onClick={() => onAddNew(null)}
+                    title="Create new Reference Architecture"
+                >
+                    <Plus size={18} />
+                    <span>New Ref Arch</span>
+                </button>
+            )}
             <div className={styles.documentsList}>
                 {rootDocuments.map((doc) => renderDocumentTree(doc))}
             </div>

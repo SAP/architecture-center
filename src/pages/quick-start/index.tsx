@@ -50,12 +50,13 @@ function AuthenticatedQuickStartView() {
     // Initialize backend config and fetch documents
     useEffect(() => {
         if (expressBackendUrl && token && !initialized) {
-            setBackendConfig(expressBackendUrl, token);
+            const username = users.github?.username || '';
+            setBackendConfig(expressBackendUrl, token, username);
             fetchDocuments().then(() => {
                 setInitialized(true);
             });
         }
-    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments]);
+    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {

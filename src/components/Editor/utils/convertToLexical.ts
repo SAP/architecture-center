@@ -20,9 +20,12 @@ interface CustomNode {
   url?: string;
   src?: string;
   alt?: string;
+  assetId?: string;
   diagramXML?: string;
   language?: string;
   indent?: number;
+  admonitionType?: 'note' | 'info' | 'tip' | 'warning' | 'danger';
+  isHeader?: boolean;
 }
 
 interface CustomEditorState {
@@ -157,7 +160,7 @@ function convertNode(node: CustomNode, nodeMap: Record<string, CustomNode>): any
         type: 'code',
         language: node.language || '',
         children: [{
-          type: 'text',
+          type: 'code-highlight',
           text: codeText,
           format: 0,
           detail: 0,
@@ -173,13 +176,16 @@ function convertNode(node: CustomNode, nodeMap: Record<string, CustomNode>): any
     }
 
     case 'image': {
+      // Images are stored with assetId reference - backend needs to resolve this
+      // Don't set src to empty string - leave it undefined so backend knows to resolve from assetId
       return {
         type: 'image',
-        src: node.src || '',
+        src: node.src || undefined,
         altText: node.alt || '',
+        assetId: node.assetId || null,
         width: 0,
         height: 0,
-        maxWidth: 500,
+        maxWidth: 800,
         showCaption: false,
         caption: {
           editorState: {
@@ -198,9 +204,33 @@ function convertNode(node: CustomNode, nodeMap: Record<string, CustomNode>): any
     }
 
     case 'drawio': {
+      // Drawio diagrams are stored with assetId reference - backend needs to resolve this
+      // Don't set diagramXML to empty string - leave it undefined so backend knows to resolve from assetId
       return {
         type: 'drawio',
-        diagramXML: node.diagramXML || '',
+        diagramXML: node.diagramXML || undefined,
+        assetId: node.assetId || null,
+        version: 1,
+      };
+    }
+
+    case 'divider': {
+      return {
+        type: 'horizontalrule',
+        version: 1,
+      };
+    }
+
+    case 'admonition': {
+      // Convert admonition to Docusaurus-compatible format
+      // Docusaurus uses :::note, :::tip, :::info, :::warning, :::danger
+      return {
+        type: 'admonition',
+        admonitionType: node.admonitionType || 'note',
+        children: node.children?.map(key => convertNode(nodeMap[key], nodeMap)).filter(Boolean) || [],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
         version: 1,
       };
     }
@@ -237,7 +267,7 @@ function convertNode(node: CustomNode, nodeMap: Record<string, CustomNode>): any
         colSpan: 1,
         rowSpan: 1,
         backgroundColor: null,
-        headerState: 0,
+        headerState: node.isHeader ? 1 : 0,
         version: 1,
       };
     }

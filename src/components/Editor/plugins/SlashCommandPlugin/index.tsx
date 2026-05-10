@@ -19,7 +19,6 @@ import {
   Code,
   Minus,
   Table,
-  Filter,
   Info,
   Lightbulb,
   AlertTriangle,
@@ -391,8 +390,7 @@ export default function SlashCommandPlugin() {
         hint: '---',
         category: 'Basic Blocks',
         onSelect: () => {
-          // TODO: Implement divider
-          console.log('Divider coming soon');
+          editor.dispatchCommand({ type: 'INSERT_DIVIDER' });
         },
       },
       {
@@ -404,8 +402,7 @@ export default function SlashCommandPlugin() {
         hint: '```',
         category: 'Basic Blocks',
         onSelect: () => {
-          // TODO: Implement code block
-          console.log('Code block coming soon');
+          editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'code' } });
         },
       },
       // Media
@@ -454,21 +451,6 @@ export default function SlashCommandPlugin() {
           editor.dispatchCommand({
             type: 'INSERT_TABLE',
             payload: { rows: 3, cols: 3 }
-          });
-        },
-      },
-      {
-        id: 'filter',
-        name: 'Filter',
-        description: 'Add a filter input',
-        icon: <Filter size={20} />,
-        keywords: ['filter', 'search', 'find'],
-        category: 'Advanced',
-        onSelect: () => {
-          // For now, just insert placeholder text - can be enhanced later
-          editor.dispatchCommand({
-            type: 'INSERT_TEXT',
-            payload: { text: '/Filter...' }
           });
         },
       },
@@ -566,23 +548,6 @@ export default function SlashCommandPlugin() {
     triggerNodeKey.current = null;
   }, []);
 
-  // Listen for custom event to open slash menu (from plus button)
-  useEffect(() => {
-    const handleOpenSlashMenu = (e: CustomEvent) => {
-      const { top, left } = e.detail;
-      setPosition({ top, left });
-      setQueryString('');
-      setSelectedIndex(0);
-      setIsOpen(true);
-      triggerNodeKey.current = null; // No trigger node since we're opening directly
-    };
-
-    document.addEventListener('openSlashMenu', handleOpenSlashMenu as EventListener);
-    return () => {
-      document.removeEventListener('openSlashMenu', handleOpenSlashMenu as EventListener);
-    };
-  }, []);
-
   const selectOption = useCallback(
     (option: CommandOption) => {
       // First, delete the "/" and any query text atomically
@@ -620,6 +585,8 @@ export default function SlashCommandPlugin() {
 
     const checkForSlashTrigger = () => {
       const selection = editor.selection;
+      console.log('[SlashCommand] checkForSlashTrigger, selection:', selection);
+
       if (!selection || !selection.isCollapsed) {
         closeMenu();
         return;
@@ -629,6 +596,8 @@ export default function SlashCommandPlugin() {
       if (!state) return;
 
       const node = state.nodeMap.get(selection.anchor.key);
+      console.log('[SlashCommand] node:', node?.type, 'text:', node && (node as any).text);
+
       if (!node || node.type !== 'text') {
         closeMenu();
         return;
@@ -638,18 +607,23 @@ export default function SlashCommandPlugin() {
       const offset = selection.anchor.offset;
 
       const slashIndex = text.lastIndexOf('/', offset);
+      console.log('[SlashCommand] text:', JSON.stringify(text), 'offset:', offset, 'slashIndex:', slashIndex);
+
       if (slashIndex === -1 || slashIndex > offset) {
         closeMenu();
         return;
       }
 
       const charBeforeSlash = slashIndex > 0 ? text[slashIndex - 1] : '';
+      console.log('[SlashCommand] charBeforeSlash:', JSON.stringify(charBeforeSlash));
+
       if (charBeforeSlash && charBeforeSlash !== ' ' && charBeforeSlash !== '\n') {
         closeMenu();
         return;
       }
 
       const query = text.slice(slashIndex + 1, offset);
+      console.log('[SlashCommand] query:', JSON.stringify(query));
 
       if (query.includes(' ')) {
         closeMenu();
@@ -664,6 +638,7 @@ export default function SlashCommandPlugin() {
       if (domSelection && domSelection.rangeCount > 0) {
         const range = domSelection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
+        console.log('[SlashCommand] Opening menu at:', rect.bottom, rect.left);
         setPosition({
           top: rect.bottom + window.scrollY + 8,
           left: rect.left + window.scrollX,
@@ -682,24 +657,29 @@ export default function SlashCommandPlugin() {
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault();
+          e.stopPropagation();
           setSelectedIndex((prev) => (prev + 1) % filteredOptions.length);
           break;
         case 'ArrowUp':
           e.preventDefault();
+          e.stopPropagation();
           setSelectedIndex((prev) => (prev - 1 + filteredOptions.length) % filteredOptions.length);
           break;
         case 'Enter':
           e.preventDefault();
+          e.stopPropagation();
           if (filteredOptions[selectedIndex]) {
             selectOption(filteredOptions[selectedIndex]);
           }
           break;
         case 'Escape':
           e.preventDefault();
+          e.stopPropagation();
           closeMenu();
           break;
         case 'Tab':
           e.preventDefault();
+          e.stopPropagation();
           if (filteredOptions[selectedIndex]) {
             selectOption(filteredOptions[selectedIndex]);
           }
@@ -707,11 +687,12 @@ export default function SlashCommandPlugin() {
       }
     };
 
-    container.addEventListener('keydown', handleKeyDown);
+    // Use capture phase to handle keys before EditorCore
+    container.addEventListener('keydown', handleKeyDown, true);
 
     return () => {
       unsubscribe?.();
-      container.removeEventListener('keydown', handleKeyDown);
+      container.removeEventListener('keydown', handleKeyDown, true);
     };
   }, [editor, isOpen, filteredOptions, selectedIndex, selectOption, closeMenu]);
 

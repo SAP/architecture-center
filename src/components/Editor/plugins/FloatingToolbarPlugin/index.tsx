@@ -17,8 +17,12 @@ function FloatingToolbarInternal() {
   const editor = useEditor();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const linkInputRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [showBlockDropdown, setShowBlockDropdown] = useState(false);
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [savedSelection, setSavedSelection] = useState<any>(null);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
@@ -37,6 +41,9 @@ function FloatingToolbarInternal() {
   }, [editor]);
 
   const positionToolbar = useCallback(() => {
+    // Don't reposition if link input is open
+    if (showLinkInput) return;
+
     const toolbar = toolbarRef.current;
     if (!toolbar) return;
 
@@ -71,7 +78,7 @@ function FloatingToolbarInternal() {
     toolbar.style.left = `${Math.max(10, left)}px`;
     setIsVisible(true);
     updateToolbar();
-  }, [editor, updateToolbar]);
+  }, [editor, updateToolbar, showLinkInput]);
 
   useEffect(() => {
     const unsubscribe = editor.core?.subscribe(() => {
@@ -96,14 +103,62 @@ function FloatingToolbarInternal() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Focus link input when it opens
+  useEffect(() => {
+    if (showLinkInput && linkInputRef.current) {
+      linkInputRef.current.focus();
+    }
+  }, [showLinkInput]);
+
   const formatText = (format: 'bold' | 'italic' | 'underline' | 'strikethrough' | 'code') => {
     editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format } });
   };
 
-  const handleLink = () => {
-    const url = prompt('Enter URL:');
-    if (url) {
-      console.log('Link URL:', url);
+  const handleLinkClick = () => {
+    // Save selection before showing input
+    setSavedSelection(editor.selection);
+    setShowLinkInput(true);
+    setLinkUrl('');
+  };
+
+  const handleLinkSubmit = () => {
+    if (linkUrl && savedSelection && !savedSelection.isCollapsed) {
+      editor.core?.setSelection(savedSelection);
+      editor.dispatchCommand({ type: 'INSERT_LINK', payload: { url: linkUrl } });
+    }
+    setShowLinkInput(false);
+    setLinkUrl('');
+    setSavedSelection(null);
+  };
+
+  const handleLinkCancel = () => {
+    // Use timeout to allow Enter key to process first
+    setTimeout(() => {
+      setShowLinkInput(false);
+      setLinkUrl('');
+      setSavedSelection(null);
+    }, 100);
+  };
+
+  const handleLinkKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = linkUrl;
+      const selection = savedSelection;
+      setShowLinkInput(false);
+      setLinkUrl('');
+      setSavedSelection(null);
+
+      if (url && selection && !selection.isCollapsed) {
+        editor.core?.setSelection(selection);
+        editor.dispatchCommand({ type: 'INSERT_LINK', payload: { url } });
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setShowLinkInput(false);
+      setLinkUrl('');
+      setSavedSelection(null);
     }
   };
 
@@ -126,123 +181,138 @@ function FloatingToolbarInternal() {
         pointerEvents: isVisible ? 'auto' : 'none',
       }}
     >
-      <div className={styles.row}>
-        <div className={styles.blockDropdown} ref={dropdownRef}>
+      {showLinkInput ? (
+        <div className={styles.linkInputContainer}>
+          <input
+            ref={linkInputRef}
+            type="text"
+            className={styles.linkInput}
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+            onKeyDown={handleLinkKeyDown}
+            onBlur={handleLinkCancel}
+            placeholder="Paste link"
+          />
+        </div>
+      ) : (
+        <div className={styles.row}>
+          <div className={styles.blockDropdown} ref={dropdownRef}>
+            <button
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => setShowBlockDropdown(!showBlockDropdown)}
+              className={styles.blockButton}
+              title="Change block type"
+            >
+              {blockTypeLabels[blockType] || 'Text'}
+              <ChevronDown size={14} />
+            </button>
+            {showBlockDropdown && (
+              <div className={styles.dropdownMenu}>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setBlockTypeHandler('paragraph')}
+                >
+                  <Type size={16} /> Text
+                </button>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setBlockTypeHandler('heading', 1)}
+                >
+                  <Heading1 size={16} /> Heading 1
+                </button>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setBlockTypeHandler('heading', 2)}
+                >
+                  <Heading2 size={16} /> Heading 2
+                </button>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setBlockTypeHandler('heading', 3)}
+                >
+                  <Heading3 size={16} /> Heading 3
+                </button>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setBlockTypeHandler('quote')}
+                >
+                  <Quote size={16} /> Quote
+                </button>
+                <div className={styles.dropdownDivider} />
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => toggleList('bullet')}
+                >
+                  <List size={16} /> Bullet List
+                </button>
+                <button
+                  className={styles.dropdownItem}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => toggleList('number')}
+                >
+                  <ListOrdered size={16} /> Numbered List
+                </button>
+              </div>
+            )}
+          </div>
+          <div className={styles.divider} />
           <button
             onMouseDown={(e) => e.preventDefault()}
-            onClick={() => setShowBlockDropdown(!showBlockDropdown)}
-            className={styles.blockButton}
-            title="Change block type"
+            onClick={() => formatText('bold')}
+            className={`${styles.button} ${isBold ? styles.active : ''}`}
+            title="Bold (⌘B)"
           >
-            {blockTypeLabels[blockType] || 'Text'}
-            <ChevronDown size={14} />
+            <span className={styles.boldIcon}>B</span>
           </button>
-          {showBlockDropdown && (
-            <div className={styles.dropdownMenu}>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setBlockTypeHandler('paragraph')}
-              >
-                <Type size={16} /> Text
-              </button>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setBlockTypeHandler('heading', 1)}
-              >
-                <Heading1 size={16} /> Heading 1
-              </button>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setBlockTypeHandler('heading', 2)}
-              >
-                <Heading2 size={16} /> Heading 2
-              </button>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setBlockTypeHandler('heading', 3)}
-              >
-                <Heading3 size={16} /> Heading 3
-              </button>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => setBlockTypeHandler('quote')}
-              >
-                <Quote size={16} /> Quote
-              </button>
-              <div className={styles.dropdownDivider} />
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => toggleList('bullet')}
-              >
-                <List size={16} /> Bullet List
-              </button>
-              <button
-                className={styles.dropdownItem}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => toggleList('number')}
-              >
-                <ListOrdered size={16} /> Numbered List
-              </button>
-            </div>
-          )}
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => formatText('italic')}
+            className={`${styles.button} ${isItalic ? styles.active : ''}`}
+            title="Italic (⌘I)"
+          >
+            <span className={styles.italicIcon}>I</span>
+          </button>
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => formatText('underline')}
+            className={`${styles.button} ${isUnderline ? styles.active : ''}`}
+            title="Underline (⌘U)"
+          >
+            <span className={styles.underlineIcon}>U</span>
+          </button>
+          <div className={styles.divider} />
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={handleLinkClick}
+            className={styles.button}
+            title="Add link"
+          >
+            <Link size={18} strokeWidth={2} />
+          </button>
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => formatText('strikethrough')}
+            className={`${styles.button} ${isStrikethrough ? styles.active : ''}`}
+            title="Strikethrough"
+          >
+            <Strikethrough size={18} strokeWidth={2} />
+          </button>
+          <button
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => formatText('code')}
+            className={`${styles.button} ${isCode ? styles.active : ''}`}
+            title="Code"
+          >
+            <Code size={18} strokeWidth={2} />
+          </button>
         </div>
-        <div className={styles.divider} />
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => formatText('bold')}
-          className={`${styles.button} ${isBold ? styles.active : ''}`}
-          title="Bold (⌘B)"
-        >
-          <span className={styles.boldIcon}>B</span>
-        </button>
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => formatText('italic')}
-          className={`${styles.button} ${isItalic ? styles.active : ''}`}
-          title="Italic (⌘I)"
-        >
-          <span className={styles.italicIcon}>I</span>
-        </button>
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => formatText('underline')}
-          className={`${styles.button} ${isUnderline ? styles.active : ''}`}
-          title="Underline (⌘U)"
-        >
-          <span className={styles.underlineIcon}>U</span>
-        </button>
-        <div className={styles.divider} />
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={handleLink}
-          className={styles.button}
-          title="Add link"
-        >
-          <Link size={18} strokeWidth={2} />
-        </button>
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => formatText('strikethrough')}
-          className={`${styles.button} ${isStrikethrough ? styles.active : ''}`}
-          title="Strikethrough"
-        >
-          <Strikethrough size={18} strokeWidth={2} />
-        </button>
-        <button
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => formatText('code')}
-          className={`${styles.button} ${isCode ? styles.active : ''}`}
-          title="Code"
-        >
-          <Code size={18} strokeWidth={2} />
-        </button>
-      </div>
+      )}
     </div>
   );
 }

@@ -284,13 +284,13 @@ export default React.memo(function MetadataFormDialog({
 
                 <FormItem labelContent={<Label required>Author</Label>}>
                     <FlexBox alignItems="Center">
-                        {
+                        {user?.avatar && (
                             <img
                                 src={user.avatar}
                                 alt={user.username}
                                 style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
                             />
-                        }
+                        )}
                         <Text style={{ marginLeft: '0.5rem' }}>{user?.username || 'Loading...'}</Text>
                     </FlexBox>
                 </FormItem>

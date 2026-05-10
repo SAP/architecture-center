@@ -63,6 +63,111 @@ export class DOMReconciler {
     // Clear container and rebuild (simple approach for now)
     // A more optimized version would diff and patch
     this.reconcileChildren(state, root.children, container);
+
+    // Update list markers after reconciliation
+    this.updateAllListMarkers(state, container);
+  }
+
+  // Update markers for all lists in the container
+  private updateAllListMarkers(state: EditorState, container: HTMLElement): void {
+    const lists = container.querySelectorAll('.editorOList, .editorUList');
+    lists.forEach(list => {
+      this.updateListMarkers(state, list as HTMLElement);
+    });
+  }
+
+  // Update markers for a single list
+  private updateListMarkers(state: EditorState, listElement: HTMLElement): void {
+    const isNumbered = listElement.classList.contains('editorOList');
+    const items = listElement.querySelectorAll(':scope > .editorListItem');
+
+    console.log('[updateListMarkers] Found', items.length, 'items, isNumbered:', isNumbered);
+
+    // Track counters per indent level
+    const counters: number[] = [0, 0, 0, 0, 0]; // Support up to 5 indent levels
+
+    items.forEach((item, idx) => {
+      const indent = parseInt(item.getAttribute('data-indent') || '0', 10);
+
+      // Increment counter for this indent level
+      counters[indent]++;
+
+      // Reset all deeper counters when we see a shallower indent
+      for (let i = indent + 1; i < counters.length; i++) {
+        counters[i] = 0;
+      }
+
+      // Generate marker text
+      let marker: string;
+      if (isNumbered) {
+        marker = this.getNumberedMarker(counters[indent], indent);
+      } else {
+        marker = this.getBulletMarker(indent);
+      }
+
+      console.log('[updateListMarkers] Item', idx, 'indent:', indent, 'marker:', marker);
+
+      // Find or create marker element - must be the FIRST child
+      let markerEl = item.querySelector('.listMarker') as HTMLElement;
+      if (!markerEl) {
+        markerEl = document.createElement('span');
+        markerEl.className = 'listMarker';
+        markerEl.contentEditable = 'false';
+      }
+      // Always ensure marker is first child
+      if (item.firstChild !== markerEl) {
+        item.insertBefore(markerEl, item.firstChild);
+      }
+      markerEl.textContent = marker;
+
+      // Apply indent via margin on the marker's negative margin
+      // More indent = more negative margin to pull marker left further
+      const baseMargin = 2; // base 2rem
+      const indentOffset = indent * 1.5; // 1.5rem per indent level
+      markerEl.style.marginLeft = `-${baseMargin + indentOffset}rem`;
+      markerEl.style.width = `${baseMargin + indentOffset}rem`;
+
+      // Also add padding to the list item for content indent
+      (item as HTMLElement).style.paddingLeft = indent > 0 ? `${indent * 1.5}rem` : '';
+    });
+  }
+
+  // Get numbered marker based on count and indent level
+  private getNumberedMarker(count: number, indent: number): string {
+    switch (indent % 3) {
+      case 0:
+        // 1. 2. 3.
+        return `${count}. `;
+      case 1:
+        // a. b. c.
+        return `${String.fromCharCode(96 + count)}. `;
+      case 2:
+        // i. ii. iii.
+        return `${this.toRoman(count)}. `;
+      default:
+        return `${count}. `;
+    }
+  }
+
+  // Get bullet marker based on indent level
+  private getBulletMarker(indent: number): string {
+    const bullets = ['•', '◦', '▪'];
+    return bullets[indent % 3] + ' ';
+  }
+
+  // Convert number to lowercase roman numeral
+  private toRoman(num: number): string {
+    const romanNumerals: [number, string][] = [
+      [10, 'x'], [9, 'ix'], [5, 'v'], [4, 'iv'], [1, 'i']
+    ];
+    let result = '';
+    for (const [value, symbol] of romanNumerals) {
+      while (num >= value) {
+        result += symbol;
+        num -= value;
+      }
+    }
+    return result;
   }
 
   private reconcileChildren(
@@ -222,14 +327,16 @@ export class DOMReconciler {
         const listNode = node as ListNode;
         element = document.createElement(listNode.listType === 'number' ? 'ol' : 'ul');
         element.className = listNode.listType === 'number' ? 'editorOList' : 'editorUList';
+        element.setAttribute('data-list-type', listNode.listType);
         break;
 
       case 'listitem':
         element = document.createElement('li');
         element.className = 'editorListItem';
         const listItemNode = node as ListItemNode;
+        element.setAttribute('data-indent', String(listItemNode.indent || 0));
         if (listItemNode.indent > 0) {
-          element.style.marginLeft = `${listItemNode.indent * 24}px`;
+          element.style.paddingLeft = `${listItemNode.indent * 24}px`;
         }
         break;
 
@@ -348,10 +455,22 @@ export class DOMReconciler {
       return this.createDrawioElement(node as DrawioNode);
     }
 
+    if (node.type === 'divider') {
+      return this.createDividerElement(node);
+    }
+
     const element = document.createElement('div');
     element.setAttribute(DATA_KEY_ATTR, node.key);
     element.setAttribute('contenteditable', 'false');
     return element;
+  }
+
+  private createDividerElement(node: EditorNode): HTMLElement {
+    const hr = document.createElement('hr');
+    hr.setAttribute(DATA_KEY_ATTR, node.key);
+    hr.setAttribute('contenteditable', 'false');
+    hr.className = 'editorDivider';
+    return hr;
   }
 
   private createImageElement(node: ImageNode): HTMLElement {
@@ -373,6 +492,10 @@ export class DOMReconciler {
     if (!node.src) {
       img.style.minHeight = '100px';
       img.style.backgroundColor = '#f0f0f0';
+    } else {
+      // Set background for transparent PNGs based on current theme
+      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+      img.style.backgroundColor = isDarkMode ? '#1f2937' : 'transparent';
     }
 
     if (this.config.onImageClick) {
@@ -394,7 +517,17 @@ export class DOMReconciler {
     iframe.className = 'editorDrawioIframe';
     iframe.frameBorder = '0';
     iframe.width = '100%';
-    iframe.height = '400';
+    // Set initial height, will be resized by postMessage from iframe content
+    iframe.style.height = '400px';
+
+    // Listen for resize messages from the iframe
+    const handleResize = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'drawio-resize' && event.source === iframe.contentWindow) {
+        const newHeight = Math.max(event.data.height, 200);
+        iframe.style.height = `${newHeight}px`;
+      }
+    };
+    window.addEventListener('message', handleResize);
 
     // Use srcdoc with embedded viewer for large diagrams (URL length limits)
     if (node.diagramXML) {
@@ -442,11 +575,11 @@ export class DOMReconciler {
 <head>
   <meta charset="UTF-8">
   <style>
-    body { margin: 0; padding: 0; overflow: hidden; background: #fff; }
-    #diagram { width: 100%; height: 100vh; }
-    .loading { display: flex; align-items: center; justify-content: center; height: 100vh; color: #666; }
+    body { margin: 0; padding: 0; overflow: visible; background: #fff; }
+    #diagram { width: 100%; min-height: 200px; }
+    .loading { display: flex; align-items: center; justify-content: center; height: 200px; color: #666; }
     .error { color: #c00; padding: 20px; }
-    .mxgraph { max-width: 100%; overflow: auto; }
+    .mxgraph { max-width: 100%; overflow: visible; }
   </style>
 </head>
 <body>
@@ -454,6 +587,15 @@ export class DOMReconciler {
   <script src="https://viewer.diagrams.net/js/viewer-static.min.js"><\/script>
   <script>
     (function() {
+      // Function to resize iframe to fit content
+      function resizeIframe() {
+        var height = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, 400);
+        // Send message to parent to resize iframe
+        if (window.parent !== window) {
+          window.parent.postMessage({ type: 'drawio-resize', height: height }, '*');
+        }
+      }
+
       try {
         var base64 = "${base64XML}";
         var xml = decodeURIComponent(escape(atob(base64)));
@@ -478,9 +620,14 @@ export class DOMReconciler {
           if (typeof GraphViewer !== 'undefined') {
             try {
               GraphViewer.createViewerForElement(div);
+              // Resize after rendering with delay to ensure content is rendered
+              setTimeout(resizeIframe, 500);
+              setTimeout(resizeIframe, 1000);
+              setTimeout(resizeIframe, 2000);
             } catch (viewerError) {
               // Viewer error but diagram might still be partially rendered
               console.warn('GraphViewer warning:', viewerError.message);
+              setTimeout(resizeIframe, 500);
             }
           } else {
             setTimeout(initViewer, 100);
@@ -523,6 +670,12 @@ export class DOMReconciler {
             const td = document.createElement(cell.isHeader ? 'th' : 'td');
             td.setAttribute(DATA_KEY_ATTR, cellKey);
             td.className = 'editorTableCell';
+
+            // Apply saved column width if available
+            if (node.colWidths && node.colWidths[colIndex]) {
+              td.style.width = `${node.colWidths[colIndex]}px`;
+              td.style.minWidth = `${node.colWidths[colIndex]}px`;
+            }
 
             if (cell.colSpan && cell.colSpan > 1) {
               td.setAttribute('colspan', String(cell.colSpan));
@@ -648,7 +801,8 @@ export class DOMReconciler {
 
     if (node.type === 'listitem') {
       const listItemNode = node as ListItemNode;
-      element.style.marginLeft = listItemNode.indent > 0 ? `${listItemNode.indent * 24}px` : '';
+      element.setAttribute('data-indent', String(listItemNode.indent || 0));
+      // Padding will be set by updateListMarkers after reconciliation
     }
   }
 }

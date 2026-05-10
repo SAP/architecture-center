@@ -19,6 +19,8 @@ export interface Document extends PageMetadata {
     // Remote sync status
     _synced?: boolean;
     _remoteId?: string;
+    // Read-only flag for contributors (non-authors)
+    isReadOnly?: boolean;
 }
 
 interface PageDataState {
@@ -31,6 +33,7 @@ interface PageDataState {
     syncError: string | null;
     backendUrl: string | null;
     authToken: string | null;
+    currentUsername: string | null;
 
     // Getters
     getDocuments: () => Document[];
@@ -47,7 +50,7 @@ interface PageDataState {
     resetStore: () => void;
 
     // Remote sync actions
-    setBackendConfig: (backendUrl: string, authToken: string) => void;
+    setBackendConfig: (backendUrl: string, authToken: string, username: string) => void;
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
@@ -104,6 +107,7 @@ export const usePageDataStore = create<PageDataState>()(
             syncError: null,
             backendUrl: null,
             authToken: null,
+            currentUsername: null,
 
             getDocuments: () => get().documents,
 
@@ -172,15 +176,15 @@ export const usePageDataStore = create<PageDataState>()(
                 });
             },
 
-            setBackendConfig: (backendUrl, authToken) => {
-                console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken });
-                set({ backendUrl, authToken });
+            setBackendConfig: (backendUrl, authToken, username) => {
+                console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken, username });
+                set({ backendUrl, authToken, currentUsername: username });
             },
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken } = get();
-                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken });
+                const { backendUrl, authToken, currentUsername } = get();
+                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
                 if (!backendUrl || !authToken) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
                     return;
@@ -206,18 +210,27 @@ export const usePageDataStore = create<PageDataState>()(
 
                     const data = await response.json();
                     console.log('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
-                    const remoteDocuments: Document[] = data.value.map((doc: any) => ({
-                        id: doc.ID,
-                        _remoteId: doc.ID,
-                        _synced: true,
-                        title: doc.title,
-                        description: doc.description || '',
-                        parentId: doc.parent_ID || null,
-                        editorState: doc.editorState || null,
-                        authors: doc.author ? [doc.author.username] : [],
-                        contributors: doc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
-                        tags: doc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
-                    }));
+                    const remoteDocuments: Document[] = data.value.map((doc: any) => {
+                        const authorUsername = doc.author?.username;
+                        const isAuthor = currentUsername && authorUsername === currentUsername;
+                        // Debug: check for /head corruption in editorState
+                        if (doc.editorState && doc.editorState.includes('/head')) {
+                            console.error('[PageDataStore] CORRUPTION DETECTED: /head found in editorState for document:', doc.ID, doc.editorState.substring(0, 500));
+                        }
+                        return {
+                            id: doc.ID,
+                            _remoteId: doc.ID,
+                            _synced: true,
+                            title: doc.title,
+                            description: doc.description || '',
+                            parentId: doc.parent_ID || null,
+                            editorState: doc.editorState || null,
+                            authors: authorUsername ? [authorUsername] : [],
+                            contributors: doc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
+                            tags: doc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
+                            isReadOnly: !isAuthor,
+                        };
+                    });
 
                     set({
                         documents: remoteDocuments,
@@ -254,7 +267,8 @@ export const usePageDataStore = create<PageDataState>()(
                     set({ isSyncing: true });
 
                     try {
-                        const response = await fetch(
+                        // 1. PATCH basic document fields (title, description, editorState)
+                        const patchResponse = await fetch(
                             `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
                             {
                                 method: 'PATCH',
@@ -270,8 +284,52 @@ export const usePageDataStore = create<PageDataState>()(
                             }
                         );
 
-                        if (!response.ok) {
-                            throw new Error(`Failed to sync document: ${response.statusText}`);
+                        if (!patchResponse.ok) {
+                            throw new Error(`Failed to sync document: ${patchResponse.statusText}`);
+                        }
+
+                        // 2. Call setDocumentContributors action (always sync, even empty arrays for removals)
+                        if (doc.contributors !== undefined) {
+                            const contributorsResponse = await fetch(
+                                `${backendUrl}/quickstart/document-service/setDocumentContributors`,
+                                {
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`,
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        documentId: doc.id,
+                                        contributorsUsernames: doc.contributors,
+                                    }),
+                                }
+                            );
+
+                            if (!contributorsResponse.ok) {
+                                console.warn('Failed to sync contributors:', contributorsResponse.statusText);
+                            }
+                        }
+
+                        // 3. Call setDocumentTags action if tags exist
+                        if (doc.tags && doc.tags.length > 0) {
+                            const tagsResponse = await fetch(
+                                `${backendUrl}/quickstart/document-service/setDocumentTags`,
+                                {
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`,
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        documentId: doc.id,
+                                        tags: doc.tags,
+                                    }),
+                                }
+                            );
+
+                            if (!tagsResponse.ok) {
+                                console.warn('Failed to sync tags:', tagsResponse.statusText);
+                            }
                         }
 
                         // Mark as synced
@@ -306,6 +364,13 @@ export const usePageDataStore = create<PageDataState>()(
                         ...op,
                         payload: typeof op.payload === 'string' ? op.payload : JSON.stringify(op.payload),
                     }));
+
+                    // Debug: Log operations being sent
+                    console.log('[PageDataStore] Sending operations:', serializedOps.map(op => ({
+                        type: op.type,
+                        nodeKey: op.nodeKey,
+                        payloadPreview: typeof op.payload === 'string' ? op.payload.substring(0, 200) : op.payload
+                    })));
 
                     const response = await fetch(
                         `${backendUrl}/quickstart/document-service/syncOperations`,

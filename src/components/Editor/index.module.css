@@ -224,34 +224,52 @@
     color: #666;
 }
 
-.editorUList {
-    padding-left: 1.5rem;
+:global(.editorOList),
+:global(.editorUList) {
+    padding-left: 0;
     margin: 1rem 0;
+    margin-left: 2rem;
+    list-style: none;
+    overflow: visible;
 }
 
-.editorOList {
-    padding-left: 1.5rem;
-    margin: 1rem 0;
+/* Hide native list markers - we render them ourselves */
+:global(.editorOList > .editorListItem),
+:global(.editorUList > .editorListItem) {
+    list-style: none;
 }
 
-.editorListItem {
+:global(.editorListItem) {
     margin: 0.25rem 0;
+    position: relative;
+    overflow: visible;
+}
+
+:global(.listMarker) {
+    display: inline-block;
+    width: 2rem;
+    margin-left: -2rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    user-select: none;
+    box-sizing: border-box;
+    vertical-align: top;
 }
 
 .editorNestedListItem {
     list-style-type: none;
 }
 
-.editorLink {
+:global(.editorLink) {
     color: #3b82f6;
     text-decoration: none;
 }
 
-.editorLink:hover {
+:global(.editorLink):hover {
     text-decoration: underline;
 }
 
-.editorCode {
+:global(.editorCode) {
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
     border-radius: 4px;
@@ -260,6 +278,13 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9em;
     overflow-x: auto;
+}
+
+:global(.editorCode code) {
+    background: none;
+    padding: 0;
+    border: none;
+    font-family: inherit;
 }
 
 .editorImage {
@@ -274,6 +299,17 @@
     display: block;
     border-radius: 8px;
     border: 1px solid #e5e7eb;
+}
+
+:global(.editorDivider) {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    height: 0;
+}
+
+:root[data-theme='dark'] :global(.editorDivider) {
+    border-top-color: #374151;
 }
 
 :global(.editorDrawioWrapper) {
@@ -343,6 +379,7 @@
 
 :root[data-theme='dark'] :global(.editorImageWrapper img) {
     border-color: #374151;
+    background-color: #1f2937;
 }
 
 :root[data-theme='dark'] :global(.editorDrawioWrapper) {
@@ -473,6 +510,7 @@
     align-items: flex-start;
     gap: 4px;
     max-width: 100%;
+    overflow-x: auto;
 }
 
 :global(.editorTableControls) {
@@ -736,10 +774,10 @@
     color: var(--editor-placeholder);
 }
 
-:root[data-theme='dark'] .editorCode {
-    background-color: var(--editor-code-bg);
-    border-color: var(--editor-border);
-    color: var(--editor-text);
+:root[data-theme='dark'] :global(.editorCode) {
+    background-color: #1e293b;
+    border-color: #374151;
+    color: #e5e7eb;
 }
 
 :root[data-theme='dark'] .editorQuote {
@@ -747,11 +785,11 @@
     color: var(--editor-muted);
 }
 
-:root[data-theme='dark'] .editorLink {
+:root[data-theme='dark'] :global(.editorLink) {
     color: var(--editor-link);
 }
 
-:root[data-theme='dark'] .editorLink:hover {
+:root[data-theme='dark'] :global(.editorLink):hover {
     color: var(--editor-link-hover);
     text-decoration: underline;
 }
