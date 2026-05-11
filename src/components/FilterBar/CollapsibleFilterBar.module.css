@@ -3,7 +3,7 @@
     background: var(--ifm-background-color);
     border: 1px solid var(--color-border-light);
     border-radius: var(--border-radius-sm);
-    padding: 12px 12px 8px 12px;
+    padding: 12px;
     margin: 0 8px 16px 8px;
     box-sizing: border-box;
 }
@@ -157,7 +157,7 @@
 
 /* Result Count */
 .resultCount {
-    padding: 8px 0 0 0;
+    padding: 12px 0 0 0;
     font-size: 0.7rem;
     font-weight: 500;
     color: var(--ifm-color-content-secondary);
