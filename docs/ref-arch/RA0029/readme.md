@@ -44,7 +44,7 @@ contributors:
 discussion:
 last_update:
   author: kay-schmitteckert
-  date: 2026-03-19
+  date: 2026-05-04
 ---
 
 :::info Disclaimer
@@ -85,7 +85,7 @@ SAP supports two complementary paths for building AI agents, each optimized for 
 
 **Low-Code with Joule Studio:** Build agents through visual configuration in SAP Build for rapid development and deployment. Joule Studio provides configuration-driven orchestration with multi-step reasoning, RAG capabilities and seamless SAP integration. Agents automatically register with Joule and run on a managed runtime. See [Low-Code AI Agents with Joule Studio](./2-low-code-ai-agents/readme.md).
 
-**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./3-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./7-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](./6-embodied-ai-agents/readme.md).
+**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./3-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](../RA0026/readme.md).
 
 ## Integration Patterns
 
@@ -107,3 +107,8 @@ AI agents integrate with Joule through bidirectional A2A communication, enabling
 -   [SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation?region=all)
 -   [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
 -   [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all)
+
+## Examples
+Take a look at the following examples that build upon or implement elements of the Reference Architecture:
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on SAP BTP with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on BTP Cloud Foundry - all from Claude Code.

@@ -1,6 +1,6 @@
 ---
 id: id-nsa-0
-slug: /nsa
+slug: /ai-native-north-star-architecture
 sidebar_position: 10
 sidebar_custom_props:
     category_index: []
@@ -39,12 +39,16 @@ hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
-unlisted: true
+unlisted: false
 contributors:
 discussion:
 last_update:
-    author: cernus76
-    date: 2026-04-27
+    author: SAP
+    date: 2026-05-09
 ---
 
-## This content will be available soon
+:::info Information
+
+This content will go live on May 13, 2026. Stay tuned for the announcement at SAP Sapphire Orlando (USA).
+
+:::

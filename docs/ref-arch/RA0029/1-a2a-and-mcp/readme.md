@@ -34,8 +34,8 @@ contributors:
   - hterminasyan
 discussion:
 last_update:
-  author: hterminasyan
-  date: 2026-04-30
+  author: kay-schmitteckert
+  date: 2026-05-04
 ---
 
 :::info Disclaimer
@@ -159,4 +159,7 @@ SAP is advancing AI interoperability through strategic investments in open stand
 
 SAP's roadmap includes continuous enhancements to both protocols, with significant investments planned through 2026 to expand agent-to-agent collaboration and MCP support for development frameworks.
 
-
+## Examples
+Take a look at the following examples that build upon or implement elements of the Reference Architecture:
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on SAP BTP with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on BTP Cloud Foundry - all from Claude Code.
