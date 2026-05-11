@@ -20,6 +20,7 @@ interface SidebarContext {
   refarchSidebar?: SidebarItem[];
   communitySidebar?: SidebarItem[];
   goldenPathSidebar?: SidebarItem[];
+  northStarSidebar?: SidebarItem[];
 }
 
 interface TagsPluginData {
@@ -50,6 +51,7 @@ export default function DocTagDocListPageWrapper(props: Props): ReactNode {
         'community/': 'communitySidebar',
         'ref-arch/': 'refarchSidebar',
         'golden-path/': 'goldenPathSidebar',
+        'north-star-arch/': 'northStarSidebar',
       };
 
       // Process each item individually since a tag page may contain items from multiple sections
