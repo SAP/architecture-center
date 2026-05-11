@@ -100,7 +100,7 @@ The Data Agent is an SAP BTP extension application that serves as the integratio
 - **Inference:** Calls the AI Core deployment endpoint to generate predictions
 - **Explanation (optional):** Uses GenAI Hub to translate technical outputs (e.g., SHAP values) into business-friendly explanations
 
-SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0005/6-agents-structured-data/readme.md).
+SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0029/6-ai-agents-for-structured-data/readme.md).
 
 ### Pattern 4: Extending AI Insights to SAP HANA Cloud
 

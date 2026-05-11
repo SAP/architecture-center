@@ -36,13 +36,13 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2026-04-10
+  date: 2026-05-08
 ---
 
 Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google Cloud Platform services can be effortlessly integrated and harmonized with SAP business data through SAP Business Data Cloud. Leveraging open data protocols and advanced data fabric architectures, this approach enables secure, bi-directional data sharing and unified access to information across systems. The result is a centrally governed, holistic data environment that supports efficient analytics and AI/ML-driven use cases—all built on industry-standard open protocols.
 
 <ul>
-  <li>With the introduction of BDC Connect for Google BigQuery(<i>GA: to be added to [roadmap](https://roadmaps.sap.com/board?PRODUCT=73555000100800004851&range=CURRENT-LAST&q=Google%20BigQuery#Q4%202025)</i>), SAP data products from SAP line of business applications can be shared directly with Google Big Query over governed data access, and discoverable via Google DataPlex catalog.</li>
+  <li>With the introduction of BDC Connect for Google BigQuery(<i>[GA: Q2 2026](https://roadmaps.sap.com/board?PRODUCT=73555000100800004851&range=CURRENT-LAST&q=Google%20BigQuery%20BDC%20Connect#Q2%202026;INNO=D9840EC05D5841D09971909642BCE7DC)</i>), SAP data products from SAP line of business applications can be shared directly with Google Big Query over governed data access, and discoverable via Google DataPlex catalog.</li>
   <li>Data from Google BigQuery can be shared back as data products to SAP Business Data Cloud discoverable via the SAP BDC catalog.</li>
 </ul>
 
@@ -91,7 +91,6 @@ Google Cloud Storage is a managed cloud storage service by Google designed for s
 
 Non-SAP data from Google Cloud Storage can be **imported** into SAP Datasphere using the _Data Flow_ feature. This feature enables the seamless transfer of data from Google Cloud Storage into SAP Datasphere, where it can be utilized for various applications such as Financial Planning or business analytics in SAP Analytics Cloud. The _Data Flow_ feature supports complex data transformation and enrichment processes, ensuring that the imported data is ready for immediate use in analytical and planning scenarios.
 
-For detailed step-by-step information on integrating Google Cloud Storage data with SAP Datasphere for use with Financial Planning, visit the Discovery Center mission: [Perform Financial Planning with SAP and Google data](https://discovery-center.cloud.sap/missiondetail/4224/).
 
 <li>****Replicating Data to Google Cloud Storage****</li>
 

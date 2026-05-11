@@ -1,6 +1,6 @@
 ---
 id: id-aigp-1
-slug: /aigp
+slug: /ai-golden-path
 sidebar_position: 1
 title: SAP's AI Golden Path
 description: >-

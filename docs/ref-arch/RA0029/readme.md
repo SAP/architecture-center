@@ -85,7 +85,7 @@ SAP supports two complementary paths for building AI agents, each optimized for 
 
 **Low-Code with Joule Studio:** Build agents through visual configuration in SAP Build for rapid development and deployment. Joule Studio provides configuration-driven orchestration with multi-step reasoning, RAG capabilities and seamless SAP integration. Agents automatically register with Joule and run on a managed runtime. See [Low-Code AI Agents with Joule Studio](./2-low-code-ai-agents/readme.md).
 
-**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./3-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./7-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](./6-embodied-ai-agents/readme.md).
+**Pro-Code with SAP Cloud SDK for AI:** Develop agents using Python or TypeScript with full programmatic control. Integrate popular frameworks like LangGraph, AG2, CrewAI and Smolagents with CAP for orchestration. Agents connect via A2A protocol for maximum flexibility in complex scenarios. See [Pro-Code AI Agents on SAP BTP](./3-pro-code-ai-agents/readme.md). Specialized use cases: [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Embodied AI Agents](../RA0026/readme.md).
 
 ## Integration Patterns
 
