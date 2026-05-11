@@ -17,7 +17,6 @@ import {
   FileText,
   PenTool,
   Code,
-  Minus,
   Table,
   Info,
   Lightbulb,
@@ -379,18 +378,6 @@ export default function SlashCommandPlugin() {
         category: 'Basic Blocks',
         onSelect: () => {
           editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'quote' } });
-        },
-      },
-      {
-        id: 'divider',
-        name: 'Divider',
-        description: 'Horizontal line separator',
-        icon: <Minus size={20} />,
-        keywords: ['divider', 'hr', 'line', 'separator'],
-        hint: '---',
-        category: 'Basic Blocks',
-        onSelect: () => {
-          editor.dispatchCommand({ type: 'INSERT_DIVIDER' });
         },
       },
       {
