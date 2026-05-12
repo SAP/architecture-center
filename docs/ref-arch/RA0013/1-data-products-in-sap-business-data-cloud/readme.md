@@ -35,8 +35,8 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: jmsrpp, anbazhagan-uma
-  date: 2026-05-30
+  author: anbazhagan-uma
+  date: 2026-05-12
 ---
 
 Data Products is the fundamental building block of SAP Business Data Cloud and it serves as a standardized and efficient way to share and consume data across applications and domains. They enable analytic scenarios, AI applications, and facilitate data integration while being optimized for intensive reads. Managed with a product mindset, they are supported by high-quality metadata and governed by decentralized ownership principles.
@@ -88,7 +88,7 @@ There are two main approaches to implementing data products in SAP:
   - **Primary Data Products:** Expose data directly from source applications (e.g., S/4HANA, SuccessFactors)
   - **Derived Data Products:** Transform and combine data from one or more existing data products
 
-![drawio](drawio/sap-dp.drawio)
+![drawio](drawio/sap-dp.drawio "Types of Data Products")
 
 A primary data product is directly provided from applications and is not based on other data products representing the original data from a source application.
 
@@ -192,7 +192,7 @@ https://roadmaps.sap.com/board?PRODUCT=73555000100800004851&range=CURRENT-LAST&q
 
 SAP Data Products also support customer extensions within any SAP Sources & locally defined extension fields to build Data Product Customer Extensions. This requires activation of data package directly to enable custom modeling directly. This is one of the simple extensibility option for adapting data products to enable custom modeling.
 
-![drawio](drawio/dp-extensibility.drawio)
+![drawio](drawio/dp-extensibility.drawio "Data Product Extensibility")
 
 
 1. SAP Data Products also support customer extensions within any SAP Sources & locally defined extension fields. 

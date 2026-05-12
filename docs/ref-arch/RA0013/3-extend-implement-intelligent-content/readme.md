@@ -5,7 +5,7 @@ sidebar_position: 3
 sidebar_custom_props:
   category_index: []
 title: >-
-  Implement and Extend SAP-managed domain content
+  Implementing and Extending SAP-managed domain content in SAP BDC
 description: >-
   Streamline business insights with SAP BDC, integrating SAP S/4HANA and Intelligent
   Applications for analytics, decision-making, and lifecycle management.
@@ -15,7 +15,7 @@ keywords:
   - intelligent apps
   - analytics optimization
   - data foundation
-sidebar_label: Implement and Extend SAP-managed domain content
+sidebar_label: Implementing and Extending SAP-managed domain content in SAP BDC
 image: img/ac-soc-med.png
 tags:
   - data
@@ -37,11 +37,9 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: jmsrpp, anbazhagan-uma
-  date: 2026-05-05
+  author: anbazhagan-uma
+  date: 2026-05-12
 ---
-
-# Implementing and Extending SAP-managed domain content in SAP BDC
 
 ## Introduction
 
@@ -112,13 +110,13 @@ SAP-managed data products are installed, and end users utilize the standard Inte
 - Fully managed by SAP throughout their lifecycle.
 - Data is stored within the Foundation Service (FOS) HDLFS, which is not directly accessible to customers.
 
-![drawio](drawio/sap-managed-intelligent-application.drawio)
+![drawio](drawio/sap-managed-intelligent-application.drawio "SAP-Managed Data Products")
 
 ### Customization of SAP-Delivered Domain content
 
 Organizations can copy and customize the underlying SAP Datasphere analytical models and SAP Analytics Cloud stories, leveraging SAP-managed data products.
 
-![drawio](drawio/sap-managed-custom-intelligent-application.drawio)
+![drawio](drawio/sap-managed-custom-intelligent-application.drawio "Customization of SAP-Delivered Domain content")
 
 ## Services and Components
 

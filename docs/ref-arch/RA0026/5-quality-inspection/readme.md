@@ -35,10 +35,8 @@ contributors:
 discussion:
 last_update:
   author: adelyafatykhova
-  date: 2026-05-11
+  date: 2026-05-12
 ---
-
-## Architecture
 
 Quality inspection as an activity occurs across various business processes.
 Examples include as part of warehouse pick & place operations, or as part of manufacturing and production processes.

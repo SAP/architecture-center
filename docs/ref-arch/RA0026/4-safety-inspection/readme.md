@@ -35,7 +35,7 @@ contributors:
 discussion:
 last_update:
   author: adelyafatykhova
-  date: 2026-05-11
+  date: 2026-05-12
 ---
 
 Embodied AI agents for health & safety inspection provide continuous, objective safety monitoring embedded into daily operations.

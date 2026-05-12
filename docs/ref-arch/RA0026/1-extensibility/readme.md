@@ -37,7 +37,7 @@ contributors:
 discussion:
 last_update:
   author: adelyafatykhova
-  date: 2026-05-11
+  date: 2026-05-12
 ---
 
 SAP's [Embodied AI architecture](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e) is designed with **extensibility** and **interoperability** in mind.

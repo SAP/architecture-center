@@ -42,8 +42,8 @@ contributors:
   - alphageek7443
 discussion: 
 last_update:
-  author: jmsrpp, anbazhagan-uma, sundar-sap , alphageek7443
-  date: 2026=05-05
+  author: anbazhagan-uma
+  date: 2026-05-12
 ---
 
 SAP Business Data Cloud (SAP BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
@@ -53,7 +53,7 @@ Sharing governed data products with zero-copy federation into Databricks, BigQue
 
 ## High Level Architecture
 
-![drawio](drawio/sap-bdc.drawio)
+![drawio](drawio/sap-bdc.drawio "High Level Architecture")
 
 SAP BDC defines a data fabric—an architecture where agents and intelligent applications rely on business context to understand how data relates to processes, policies, and decisions. 
 

@@ -35,13 +35,13 @@ contributors:
   - peterfendt
 discussion: 
 last_update:
-  author: jmsrpp,anbazhagan-uma
-  date: 2026-05-06
+  author: anbazhagan-uma
+  date: 2026-05-12
 ---
 
 ### Overview
 
-SAP BDC Intelligent packages are the commercial offerings of adaptive and AI-powered applications, intelligent vusiness content and SAP managed data products. These are fully sap-managed analytical content and data products.
+SAP BDC Intelligent packages are the commercial offerings of adaptive and AI-powered applications, intelligent business content and SAP managed data products. These are fully sap-managed analytical content and data products.
 Intelligent content is a suite of adaptive, AI-powered applications that learn from your data, understand business context, and act on your behalf.
 
 SAP Business Data Cloud provides the trusted data foundation that powers pre-built intelligent content for every line of business. This intelligent content delivers data products, semantic models, analytical models, and dashboards aligned to specific use cases from each line of business (e.g. workforce planning for HCM, working capital for Finance, etc.)

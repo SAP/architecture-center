@@ -22,10 +22,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - gpuntoancona, anbazhagan-uma
+  - gpuntoancona
+  - anbazhagan-uma
 last_update:
-  author: gpuntoancona, anbazhagan-uma
-  date: 2026-05-05
+  author: anbazhagan-uma
+  date: 2026-05-12
 ---
 
 ### Overview
@@ -62,7 +63,7 @@ The analytical insights capability in Joule provides tailored, on-demand decisio
 
 ### Technical Architecture 
 
-![drawio](drawio/joule-justask-anaytical.drawio)
+![drawio](drawio/joule-justask-anaytical.drawio "Technical Architecture")
 
 The diagram above illustrates the end-to-end request flow for analytical insights in Joule, numbered 1–7.
 
@@ -89,7 +90,7 @@ The computed analytical insight — a table, chart, or narrative answer — is s
 
 ### Authentication: Joule to SAP Analytics Cloud
 
-![drawio](drawio/joule-justask-anaytical.drawio)
+![drawio](drawio/joule-justask-auth.drawio "Authentication: Joule to SAP Analytics Cloud")
 
 
 Joule accesses the JustAsk service in SAP Analytics Cloud using the **OAuth2SAMLBearerAssertion** grant type. This flow allows Joule to act on behalf of the logged-in user (principal propagation) without requiring the user to authenticate again in SAC.

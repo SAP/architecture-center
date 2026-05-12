@@ -35,7 +35,7 @@ contributors:
 discussion:
 last_update:
   author: adelyafatykhova
-  date: 2026-05-11
+  date: 2026-05-12
 ---
 
 **Embodied AI** combines artificial intelligence with a physical form — such as robots — that can perceive and act in the real world.

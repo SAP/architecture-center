@@ -32,7 +32,7 @@ contributors:
 discussion:
 last_update:
   author: sapgunnar
-  date: 2026-05-10
+  date: 2026-05-12
 ---
 
 The **Agent Identity** is a foundational concept within the SAP AI Agent Governance framework. It represents the identity artifacts required to authenticate, authorize, and govern AI agents operating within an SAP landscape. Just as human users require identity records to access enterprise systems, AI agents—whether built on SAP technology or by third parties—require a dedicated identity that defines their boundaries, permissions, and allowed interactions.
@@ -55,7 +55,7 @@ This architecture establishes multiple **policy enforcement points** that allow 
 
 The following diagram shows the major components of the SAP Joule integration from an IAM perspective at a leadership level. SAP Cloud Identity Services act as the central interface containing the SAP-landscape-relevant human identities and agent identities. SAP Cloud Identity Services integrates with the SAP applications in scope in an SAP-managed way. This architecture is a key pillar in the Agent Governance framework for an SAP landscape.
 
-![drawio](./drawio/agent-identity-l0.drawio)
+![drawio](./drawio/agent-identity-l0.drawio "High-Level Overview (L0)")
 
 ### Detailed Architecture (L2)
 
@@ -63,7 +63,7 @@ The detailed architecture expands on the high-level view, showing the internal s
 
 The Agent Identity is a mandatory requirement to ensure the secure authentication and authorization of AI Agents in an SAP landscape.
 
-![drawio](./drawio/agent-identity-l2.drawio)
+![drawio](./drawio/agent-identity-l2.drawio "Detailed Architecture (L2)")
 
 ### Key Architectural Concepts
 

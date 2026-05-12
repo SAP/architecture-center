@@ -42,7 +42,7 @@ contributors:
     - SelinaHochstrat
     - f-buech
 last_update:
-    date: 2026-05-07
+    date: 2026-05-12
     author: fabianleh
 ############################################################
 #                   End of Front Matter                    #
@@ -59,7 +59,7 @@ Trusted Governance: Scaling agentic solutions in the enterprise requires built-i
 
 These three principles define a path from intent, to context-grounded execution, to governed scale — ensuring agentic solutions are enterprise-ready from the point of deployment.
 
-<img src="../images/js.png" alt="Joule Studio" width="75%" />
+![Joule Studio](../images/js.png "Joule Studio")
 
 Joule Studio currently enables you to create the following Solution Types:    
 
