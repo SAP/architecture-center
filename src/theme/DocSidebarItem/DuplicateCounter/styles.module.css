@@ -1,6 +1,6 @@
 .duplicateCounter {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: inherit;
   color: var(--ifm-color-content-secondary);
   cursor: pointer;
   white-space: nowrap;
