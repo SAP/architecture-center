@@ -60,3 +60,13 @@ AlexaMacDonald:
   page: true
   socials:
     linkedin: alexa-macdonald-she-96a68254
+
+julian-schambeck:
+  name: Julian Schambeck
+  title: Senior Developer - Office of the CTO
+  url: https://github.com/julian-schambeck
+  image_url: https://github.com/julian-schambeck.png
+  page: true
+  socials:
+    github: julian-schambeck
+    linkedin: julian-s-41b9a8253

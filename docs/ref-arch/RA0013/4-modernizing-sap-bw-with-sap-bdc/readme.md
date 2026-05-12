@@ -37,7 +37,7 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-09-16
+  date: 2026-05-12
 ---
 
 ## Introduction
@@ -105,9 +105,22 @@ The migration pathway depends on the current SAP BW system landscape. Below is a
 - SAP BW/4HANA 1.0 and 2.0: Upgrade to SAP BW/4HANA 2023 latest support package.
 - SAP BW/4HANA 2021: Check if SPS04 is fulfilled or upgrade to the latest SPS.
 
+BW Modernisation tools for SAP BDC are:
+
+- Data Product Generator to accelerate accessing SAP BW data including semantics including associations, and expose as data product via Data Product Studio. 
+- Query Template Generator(planned) to convert BW queries to Analytic models through metadata transfer and include fact sources with associated dimensions.
+- BW Migration Assistant to translate BW data flows into Datasphere artifacts leveraging AI and benefit from higher feature parity.
+
 **2. Shift to SAP BW data products:** 
 
 The Data Product Generator for SAP Business Data Cloud allows users to automate the publication of valuable BW data from SAP BW 7.5 and SAP BW/4HANA systems to the object store of SAP Datasphere in SAP BDC. This data can be leveraged as data products and incorporated into SAP Datasphere projects or shared with third-party tools.
+
+Key capabilities of Data Product Generator:
+- Supported InfoProvider: InfoObject, (a)DSO, CompositeProvider. MultiProvider, InfoCube, Query as InfoProvider
+- Supporting multiple SAP Datasphere targets and spaces
+- Mass handling and semantical Import of SAP BW 7.5 and SAP BW/4HANA data models incl. associations
+- Support delta loads for CompositeProviders and MultiProviders
+
 
 Note: The object store is not a cold store alternative but enables SAP BW data product consumption and exposure.
 
