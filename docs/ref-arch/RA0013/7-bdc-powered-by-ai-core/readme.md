@@ -151,21 +151,6 @@ The deployed API is operationalized using *both* consumption patterns:
 - **For the Data Scientist:** Rapid innovation in Databricks while leveraging enterprise-grade AI capabilities from SAP AI Core
 - **For IT & Governance:** Controlled data access, monitored models, and managed data products with enterprise auditability
 
-## Components and Further Reading
-
-### Related Reference Architectures
-
-**SAP Business Data Cloud Series:**
-- [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md)
-- [SAP Databricks in SAP BDC](../5-sap-databricks-in-business-data-cloud/readme.md)
-- [Intelligent Applications in SAP Business Data Cloud](../2-intelligent-applications-by-sap/readme.md)
-- [Modernizing SAP BW with SAP Business Data Cloud](../4-modernizing-sap-bw-with-sap-bdc/readme.md)
-- [Cloud Identity Services for BDC](../6-cloud-identity-services-bdc/readme.md)
-
-**Generative AI and Machine Learning:**
-- [Generative AI with SAP AI Core](../../RA0005/readme.md) - GenAI patterns, RAG, and AI agents
-- [Federated Machine Learning with SAP Datasphere](../../RA0003/readme.md)
-
 ### SAP Services
 
 - [SAP AI Core](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-core) | [SAP AI Launchpad](https://discovery-center.cloud.sap/serviceCatalog/sap-ai-launchpad) | [Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core)

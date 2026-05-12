@@ -38,125 +38,107 @@ contributors:
   - anbazhagan-uma
   - s-krishnamoorthy
   - peterfendt
+  - sundar-sap
+  - alphageek7443
 discussion: 
 last_update:
-  author: jmsrpp
-  date: 2025-09-19
+  author: jmsrpp, anbazhagan-uma, sundar-sap , alphageek7443
+  date: 2026=05-05
 ---
 
 SAP Business Data Cloud (SAP BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.
 
-## Architecture
+Data architectures is changing which was built for deterministic needs to be changed and architected to support AI. This requires continuous, context-rich understanding of data across systems, domains, and processes.
+Sharing governed data products with zero-copy federation into Databricks, BigQuery, and Snowflake, or leverage embedded analytics within BDC itself. This openness protects your existing platform investments while maintaining a consistent semantic layer that grounds AI in business context.
+
+## High Level Architecture
 
 ![drawio](drawio/sap-bdc.drawio)
 
-## Why a Modern Data Architecture is Critical
+SAP BDC defines a data fabric—an architecture where agents and intelligent applications rely on business context to understand how data relates to processes, policies, and decisions. 
 
-In the era of AI, organizations require scalable and efficient data architectures to manage growing volumes of data and extract actionable insights. Key drivers for adopting modern data architectures include:
+1. At the foundation, lake storage brings together SAP and non-SAP data across multi-cloud, hybrid, and on-premise environments. That doesn’t go away. 
+2. On top of that, data is processed with intelligent compute, powering data lake houses, warehouses, machine learning, and data engineering workloads—where most innovation has taken place over the past decade. 
+3. What’s new, and what changes everything, sits above that. The knowledge core introduces a system where data is no longer just stored and processed. It’s understood in the context of how the business operates. This is why metadata is foundational. Not only technical metadata like schemas or pipelines, but active, business-aware metadata that carries context, including definitions of metrics and KPIs, relationships between data entities, business processes and rules, as well as lineage, usage, and quality signals. This metadata connects everything, embedding business context directly into the data so it can be consistently understood and acted on across the organization. 
+4. That context then powers the top layer: agents and intelligent applications that self-learn and make autonomous decisions.
 
-- **AI Model Requirements**: High-quality, diverse datasets are essential for AI model training and deployment.
-- **Data Integration**: Unified architectures simplify data integration across systems and platforms.
-- **Real-time Processing**: Architectures capable of handling real-time data streams are critical for operational agility.
-- **Data Security and Governance**: Robust frameworks ensure compliance and data protection.
-- **Adaptability**: Flexible architectures support evolving technologies and use cases.
 
-## Architecture and Design Principles of SAP Business Data Cloud
-
-SAP Business Data Cloud integrates tools like SAP Datasphere, SAP Analytics Cloud and SAP Databricks into a unified architecture, creating a semantically rich environment for data management, analytics and data science.
-
-### Core Design Principles
-
-1. **Flexible Storage Architecture**: Supports diverse storage options tailored to organizational needs.
-2. **Open Data Consumption**: Provides access to data via multiple tools and applications.
-3. **Data Gravity**: Processes data in-place to minimize movement and duplication.
-4. **Integrated Data Management**: Offers tools for governance, quality control, and lifecycle management.
-5. **Zero-Copy Sharing**: Enables efficient sharing of data without redundancy.
-6. **Unified Semantic Model**: Harmonizes data definitions across SAP and non-SAP systems for consistency.
+Intelligent compute provides speed, the knowledge core provides business understanding, and agents provide autonomous action grounded in that understanding. This creates a constant cycle, not a linear pipeline. Data informs context, context shapes decisions, and those decisions generate new data that continuously improves the system.
 
 ## Key Components of SAP Business Data Cloud
 
-1. **SAP Datasphere** - SAP Datasphere is the technical cornerstone of SAP BDC, offering:
+SAP Business Data Cloud delivers this architecture end-to-end, connecting data and business context to power AI on a unified, governed foundation. 
+In the broader view of SAP Business Suite, SAP's approach integrates applications, data, and AI in a virtuous flywheel: 
+- Applications generate rich business data that reflect how the organization runs.
+- Data from SAP and non-SAP system is unified and contextualized in SAP Business Data Cloud.
+- AI through Joule and embedded capabilities, uses that context to continuously improve decisions and outcomes.
 
-    -   A unified environment for data integration, warehousing, and governance.
-    -   Flexible integrated data tiering (object, disk-based and in-memory store) provide cost-efficient persistence layer
-    -   Advanced features for analytical data modeling, transformation, and integration.
-    -   Tools to extract valuable insights and drive business innovation.
-    -   Framework for creation of own data products 
+This creates a reinforcing loop where better data leads to better decisions, and those decisions continuously refine how the business operates.
+This is SAP’s advantage: a system where applications, data, and AI continuously reinforce each other, powered by embedded business context across the entire stack. The result is a set of capabilities that build on each other.
+ 
+1. **Lake storage** – SAP BDC’s lakehouse unifies SAP and non-SAP data across hybrid and cloud environments, creating a consistent foundation for structured and unstructured data.
+ 
+2. **Intelligent compute** – Compute is powered by an AI database that unifies transactional and analytical workloads in a single in-memory engine. It supports SQL, Spark, and multi-model processing—including graph, vector, spatial, and time-series—so applications and AI models can interpret relationships, meaning, and context directly within the data. Workloads dynamically adapt based on cost, performance, and priority, ensuring compute always aligns with business needs. This is where data is processed and where context begins to take shape in real time. 
+ 
+3. **Knowledge core** – The knowledge core is where data and AI become a shared business capability. Here, business semantics, knowledge graphs, canonical models, and governed data products are connected into a unified system of understanding, so context is continuously applied, not recreated for every use case. Consider what happens without it. You deploy AI agents across the business: procurement optimizes for cost, finance for cash flow, and compliance for risk. Individually, each decision makes sense. But without shared context around priorities and constraints, those decisions begin to conflict. This is the trade-off we discussed earlier: speed increases but alignment breaks down. 
 
-2. **SAP Analytics Cloud** - SAP Analytics Cloud provides:
+    The knowledge core addresses this by grounding every decision in a shared understanding of the business and shaping how agents are defined and built from the start. Because agents are only as effective as the context they’re given, this ensures they are designed with a consistent view of the organization, rather than retrofitted after deployment. 
+    That context is expressed through: 
+    - Shared semantics that define how metrics and KPIs are interpreted 
+    - Knowledge graphs that map relationships across processes and domains 
+    - Data products that deliver trusted, business-ready data 
+    - Analytics and simulations that test scenarios and inform trade-offs; and 
+    - Active metadata that captures how data is used, governed, and evolving
 
-    - Advanced analytics and planning capabilities.
-    - Real-time insights powered by AI and machine learning.
-    - Seamless integration with SAP Datasphere for unified data analysis.
+    Together, this creates a system where context is continuously maintained and applied, so AI can reason across the business, not just within a single function. 
+ 
+4. **AI agents and intelligent applications** – On top of this foundation, AI agents and intelligent applications turn context into autonomous action, powered by SAP Joule. Joule acts as the orchestration layer, connecting agents, data, and business processes through shared context. It enables agents to move beyond generating insights to executing decisions across systems and improving outcomes over time. This is where AI becomes a system of action, not just analysis. 
+ 
+5. **Governance across every layer** – Underpinning all of this is governance, embedded by design. This includes: 
+    - End-to-end lineage across data, models, and decisions 
+    - Governance and policy enforcement aligned to business rules and compliance requirements across SAP and non-SAP data
+    - Data quality and trust signals that inform how data is used; and 
+    - Controlled access across systems, domains, and users 
 
-3. **SAP Databricks** - The partnership between SAP and Databricks enhances data science (AI, ML) capabilities by:
+    As AI becomes more autonomous, governance ensures that autonomy remains aligned, so every action is traceable, compliant, and grounded in trusted business context. 
 
-    -   Enabling advanced analytics and data science on SAP and non-SAP data
-    -   ML Flows for ML Operations, Mosaic AI for model training & serving and Notebooks with coding assistant and visualizations
-    -   Serverless Spark offerings aim to simplify big data processing
-    -   replication-free access of SAP data products and integration with Unity catalogue.
-  
-4. **Intelligent Applications and Data Products** - A highlight of SAP BDC are the Intelligent Applications and SAP-managed Data Products:
+6. **Support for open data system** - A critical part of making this architecture work is an open data ecosystem. With BDC Connect, SAP enables zero-copy sharing of SAP and non-SAP data and metadata across platforms like Snowflake, Databricks, Google BigQuery, and Microsoft Fabric. This allows organizations to build rich analytics, dashboards, and agentic capabilities on SAP Business Data Cloud, while maximizing existing investments and preserving business context. 
 
-    -   ready-to-use, standarized business data object and data applications, provided and operated by SAP
-    -   minimize effort for build and run of analytical and data science applications
-    -   Promote data consistency and reusability.
-    -   Serve as modular, reusable assets for analytical models or AI/ML workflows.
-      
-5. **Unified Semantic Layer** - At the core of SAP BDC is its unified semantic model, which:
+## Data Products and Intelligent content
 
-    -   Standardizes data definitions across SAP and non-SAP systems
-    -   Simplified zero-copy data access via standardized delta-share Interface supports cross-domain analytics and AI applications
-    -   Centralized cross application catalogue for data products and Intelligent Applications.
+SAP Business Data Cloud enables this through data products and intelligent content tailored to each line of business: Cloud ERP, finance, supply chain, HR, revenue, and spend. 
 
-## Addressing Data Management Challenges
+Because these applications are built on trusted data and shared context, they operate with a consistent understanding of the business. They don’t just surface insights, they drive decisions and trigger actions within the processes where work happens—translating data and AI investments into measurable business outcomes. 
 
-SAP BDC resolves common technical challenges faced by organizations modernizing their data infrastructures:
+Each intelligent application brings together three key elements: 
+- Domain-specific data products that provide trusted, business-ready data 
+- AI-driven use cases that apply that data to scenarios like forecasting and risk analysis; and 
+- The knowledge core, which ensures those outputs are grounded in reliable business context 
 
-1. **Eliminating Data Silos and Data Replication**: Provides a unified architecture for seamless collaboration across systems and technologies.
-2. **Centralized SAP data catalogue and Enhancing Data Discoverability**: Improves visibility into available datasets and their utilization.
-3. **Improving Data Quality**: Ensures high-quality datasets through governance and standardization tools.
-4. **Simplifying Technology Stacks**: Reduces complexity by consolidating data management into a single platform.
+Together, this combination ensures insights are not only accurate, but actionable, explainable, and tailored to each line of business. For example, finance teams can optimize working capital using real-time signals across cash flow, billing, and inventory, while HR leaders can better understand workforce composition and skills to guide hiring and development decisions. 
 
-## Innovations in SAP Business Data Cloud
+But across every function, the goal is the same: turning trusted data into decisions that can be acted on immediately—and with confidence. 
 
-1. Modernization of SAP BW Systems
 
-    -   Integrating SAP BW and BW/4HANA systems with SAP BDC for advanced analytical and AI/ML use cases
-    -   Shifting BW to a modern, more standardized data product based architecture
-    -   Innovating and supporting business departments by predefined Intelligent Applications and SAP-managed data products.
-
-2. Intelligent Applications and Data Products as a service
-
-    -   Curated datasets optimized for analytical and AI/ML use cases
-    -   data extraction,loading and transformation managed by SAP
-    -   Modular and reusable data solutions to reduce development efforts.
-
-3. Integration with Databricks
-
-    -   replication-free access of SAP data products and integration with Unity catalogue.
-    -   Enables serverless Spark processing and advanced AI/ML capabilities through SAP Databricks partnership.
-
-## Use Cases for SAP Business Data Cloud
+## Key Business Capabilities and Potential Use Cases
 
 1. Moving towards a business data fabric approach with standardized data products and Intelligent Applications
    
     -   Usage of SAP-managed and data products and Intelligent Applications
     -   Extensions by customer-developed tailored analytics and AI applications leveraging harmonized data.
+    -   Expand open data system and complement existing data ecosystem while accelerating AI and data strategies
 
 4. Data Science and AI with high-quality enterprise data
 
     -   Utilize advanced analytics and AI/ML workflows on unified datasets.
-    -   zero-copy and replication free access of data
+    -   Zero-copy and replication free access of data
 
-5. SAP BW Modernization
+5. Innovate with AI-Ready Data Architecture
 
-    -   Migrate/shift BW Systems step-by-step to cloud-native architectures for scalability and real-time analytics.
-    -   Innovate your business with predefined Intelligent Applications and out-of-the-box integration with Databricks for AI/ML use cases
+    -   Migrate/shift SAP BW Systems step-by-step to cloud-native architectures for scalability and real-time analytics.
+    -   Innovate your business with predefined Intelligent Applications and out-of-the-box integration with open partner ecosystem.
+    - Unify governance across legacy and modern data landscape.
 
-## SAP Learning Journey
-
-[Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud)
 
 ## Conclusion
 
