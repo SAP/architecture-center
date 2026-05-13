@@ -1,0 +1,33 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border-radius: 40px;
+    background: var(--ifm-color-emphasis-100);
+    border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.initials {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ifm-font-color-base);
+}

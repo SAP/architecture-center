@@ -303,11 +303,11 @@ const config: Config = {
                             to: '/news-all',
                         },
                         {
-                            label: 'Discover the AI-Native North Star Architecture',
+                            label: 'Discover the AI-native North Star architecture',
                             to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
-                        }, 
-                       {
+                        },
+                        {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
