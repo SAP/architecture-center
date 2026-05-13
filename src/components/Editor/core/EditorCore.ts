@@ -92,7 +92,14 @@ export class EditorCore {
       this.state = createEmptyState();
     }
 
-    this.reconciler = new DOMReconciler();
+    this.reconciler = new DOMReconciler({
+      onCodeLanguageChange: (nodeKey, language) => {
+        this.dispatchCommand({
+          type: 'SET_CODE_LANGUAGE',
+          payload: { nodeKey, language }
+        });
+      }
+    });
     this.history = new HistoryManager();
 
     // Initialize operation logger for delta sync
@@ -322,6 +329,10 @@ export class EditorCore {
         const admonitionPayload = command.payload as { admonitionType: 'note' | 'info' | 'tip' | 'warning' | 'danger' };
         this.insertAdmonition(admonitionPayload.admonitionType);
         break;
+      case 'SET_CODE_LANGUAGE':
+        const codeLangPayload = command.payload as { nodeKey: string; language: string };
+        this.setCodeLanguage(codeLangPayload.nodeKey, codeLangPayload.language);
+        break;
       case 'INSERT_LINK':
         const linkPayload = command.payload as { url: string };
         this.insertLink(linkPayload.url);
@@ -482,12 +493,18 @@ export class EditorCore {
 
     // Enter key - insert paragraph (fallback for browsers that don't fire beforeinput)
     if (e.key === 'Enter' && !e.shiftKey && !e.metaKey && !e.ctrlKey) {
+      // Check if we're in a code block - Enter in code block inserts newline
+      const codeBlockCtx = this.getCodeBlockAncestor();
+      if (codeBlockCtx) {
+        e.preventDefault();
+        this.insertText('\n');
+        return;
+      }
+
       // Check if we're in a table - Enter in table should not create paragraph
       const tableCtx = this.getTableContext();
-      console.log('[EditorCore] Enter key pressed, tableCtx:', tableCtx, 'selection:', this.selection);
       if (!tableCtx) {
         e.preventDefault();
-        console.log('[EditorCore] Calling insertParagraph');
         this.insertParagraph();
         return;
       }
@@ -495,7 +512,6 @@ export class EditorCore {
 
     // Backspace key - delete backward (fallback for browsers that don't fire beforeinput)
     if (e.key === 'Backspace' && !e.metaKey && !e.ctrlKey) {
-      console.log('[EditorCore] Backspace key pressed, selection:', this.selection);
       e.preventDefault();
       this.deleteBackward();
       return;
@@ -503,14 +519,20 @@ export class EditorCore {
 
     // Delete key - delete forward (fallback)
     if (e.key === 'Delete' && !e.metaKey && !e.ctrlKey) {
-      console.log('[EditorCore] Delete key pressed, selection:', this.selection);
       e.preventDefault();
       this.deleteForward();
       return;
     }
 
-    // Shift+Enter to exit admonition
+    // Shift+Enter to exit code block or admonition
     if (e.key === 'Enter' && e.shiftKey) {
+      const codeBlockCtx = this.getCodeBlockAncestor();
+      if (codeBlockCtx) {
+        e.preventDefault();
+        this.exitCodeBlock(codeBlockCtx.key);
+        return;
+      }
+
       const admonitionAncestor = this.getAdmonitionAncestor();
       if (admonitionAncestor) {
         e.preventDefault();
@@ -723,6 +745,49 @@ export class EditorCore {
       } else if (action === 'add-col') {
         this.addTableCol(tableKey);
       }
+      return;
+    }
+
+    // Check if click is in the empty area below content (padding area)
+    // This allows adding a paragraph when clicking below decorator nodes
+    if (target === this.container || target.classList.contains('editorInput')) {
+      const containerRect = this.container?.getBoundingClientRect();
+      if (!containerRect) return;
+
+      // Get the last block's position
+      const root = getNode(this.state, this.state.root);
+      if (!root || !isElementNode(root) || root.children.length === 0) return;
+
+      const lastChildKey = root.children[root.children.length - 1];
+      const lastBlockElement = this.container?.querySelector(`[data-editor-key="${lastChildKey}"]`);
+
+      if (lastBlockElement) {
+        const lastBlockRect = lastBlockElement.getBoundingClientRect();
+
+        // If click is below the last block, ensure there's a paragraph and focus it
+        if (e.clientY > lastBlockRect.bottom + 10) {
+          const lastChild = getNode(this.state, lastChildKey);
+          if (lastChild) {
+            const decoratorTypes = ['image', 'drawio', 'divider', 'table'];
+            if (decoratorTypes.includes(lastChild.type)) {
+              this.ensureTrailingParagraph();
+              this.render();
+
+              // Focus the new paragraph
+              const updatedRoot = getNode(this.state, this.state.root);
+              if (updatedRoot && isElementNode(updatedRoot)) {
+                const newLastChildKey = updatedRoot.children[updatedRoot.children.length - 1];
+                const firstText = findFirstTextNode(this.state, newLastChildKey);
+                if (firstText) {
+                  this.selection = createCollapsedSelection(firstText.key, 0);
+                  this.render();
+                  this.container?.focus();
+                }
+              }
+            }
+          }
+        }
+      }
     }
   };
 
@@ -889,8 +954,15 @@ export class EditorCore {
 
     // Try to get plain text first
     const text = clipboardData.getData('text/plain');
-    if (text) {
-      // Split by newlines and insert each line
+    if (!text) return;
+
+    // Check if we're inside a code block
+    const codeBlockCtx = this.getCodeBlockAncestor();
+    if (codeBlockCtx) {
+      // Inside code block: insert text with newlines preserved (no paragraph breaks)
+      this.insertText(text);
+    } else {
+      // Normal paste: split by newlines and insert each line as separate paragraph
       const lines = text.split(/\r?\n/);
       lines.forEach((line, index) => {
         if (index > 0) {
@@ -983,7 +1055,449 @@ export class EditorCore {
     const newOffset = this.selection.anchor.offset + text.length;
     this.selection = createCollapsedSelection(currentNode.key, newOffset);
 
+    // Check for markdown shortcuts and apply them
+    this.checkMarkdownShortcuts(currentNode.key, newText, newOffset);
+
     this.render();
+  }
+
+  // Check for markdown shortcuts and convert them to formatted content
+  private checkMarkdownShortcuts(nodeKey: string, fullText: string, cursorOffset: number): void {
+    const node = getNode(this.state, nodeKey);
+    if (!node || !isTextNode(node)) return;
+
+    const block = getBlockAncestor(this.state, nodeKey);
+    if (!block) return;
+
+    // Only check block-level shortcuts for paragraph blocks
+    if (block.type === 'paragraph') {
+      // Check for heading shortcuts: "# text" or "## text" etc at start of line
+      // Triggers when space is typed after # symbols at the beginning
+      const headingMatch = fullText.match(/^(#{1,4})\s(.*)$/);
+      if (headingMatch && cursorOffset >= headingMatch[1].length + 1) {
+        const level = headingMatch[1].length as 1 | 2 | 3 | 4;
+        const remainingText = headingMatch[2] || '';
+        this.convertToHeadingWithText(block.key, nodeKey, level, remainingText);
+        return;
+      }
+
+      // Check for bullet list: "- text" at start
+      const bulletMatch = fullText.match(/^-\s(.*)$/);
+      if (bulletMatch && cursorOffset >= 2) {
+        const remainingText = bulletMatch[1] || '';
+        this.convertToListWithText(block.key, nodeKey, 'bullet', remainingText);
+        return;
+      }
+
+      // Check for numbered list: "1. text" at start
+      const numberMatch = fullText.match(/^1\.\s(.*)$/);
+      if (numberMatch && cursorOffset >= 3) {
+        const remainingText = numberMatch[1] || '';
+        this.convertToListWithText(block.key, nodeKey, 'number', remainingText);
+        return;
+      }
+
+      // Check for code block: ``` (only on empty line)
+      if (fullText === '```') {
+        this.convertToCodeBlock(block.key, nodeKey);
+        return;
+      }
+
+      // Check for blockquote: "> text" at start
+      const quoteMatch = fullText.match(/^>\s(.*)$/);
+      if (quoteMatch && cursorOffset >= 2) {
+        const remainingText = quoteMatch[1] || '';
+        this.convertToQuoteWithText(block.key, nodeKey, remainingText);
+        return;
+      }
+
+      // Check for divider: --- (only exact match)
+      if (fullText === '---') {
+        this.convertToDivider(block.key, nodeKey);
+        return;
+      }
+    }
+
+    // Check for inline formatting (works in any block type)
+    // Bold: **text**
+    const boldMatch = fullText.match(/\*\*(.+?)\*\*$/);
+    if (boldMatch && cursorOffset === fullText.length) {
+      this.applyInlineFormat(nodeKey, fullText, boldMatch, 'bold');
+      return;
+    }
+
+    // Italic: *text* (but not ** which is bold marker)
+    // Match *text* where text doesn't start or end with *
+    const italicMatch = fullText.match(/(?:^|[^*])\*([^*]+)\*$/);
+    if (italicMatch && cursorOffset === fullText.length) {
+      // Adjust match to get the correct captured group
+      const actualMatch = fullText.match(/\*([^*]+)\*$/);
+      if (actualMatch) {
+        this.applyInlineFormat(nodeKey, fullText, actualMatch, 'italic');
+        return;
+      }
+    }
+
+    // Strikethrough: ~~text~~
+    const strikeMatch = fullText.match(/~~(.+?)~~$/);
+    if (strikeMatch && cursorOffset === fullText.length) {
+      this.applyInlineFormat(nodeKey, fullText, strikeMatch, 'strikethrough');
+      return;
+    }
+
+    // Inline code: `text`
+    const codeMatch = fullText.match(/`([^`]+?)`$/);
+    if (codeMatch && cursorOffset === fullText.length) {
+      this.applyInlineFormat(nodeKey, fullText, codeMatch, 'code');
+      return;
+    }
+  }
+
+  private convertToHeadingWithText(blockKey: string, _textNodeKey: string, level: 1 | 2 | 3 | 4, text: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create new heading with the remaining text
+    const newText = createTextNode(text, {});
+    const heading = createHeadingNode(level, [newText.key]);
+    newText.parent = heading.key;
+    heading.parent = block.parent;
+
+    // Remove old block and insert heading
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, heading, blockIndex);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(heading.key, block.parent, blockIndex, {
+        type: 'heading',
+        key: heading.key,
+        level,
+        children: heading.children,
+      });
+    }
+
+    // Place cursor at end of text
+    this.selection = createCollapsedSelection(newText.key, text.length);
+  }
+
+  private convertToListWithText(blockKey: string, _textNodeKey: string, listType: 'bullet' | 'number', text: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create list structure with the remaining text
+    const newText = createTextNode(text, {});
+    const listItem = createListItemNode([newText.key]);
+    newText.parent = listItem.key;
+    const list = createListNode(listType, [listItem.key]);
+    listItem.parent = list.key;
+    list.parent = block.parent;
+
+    // Remove old block and insert list
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, list, blockIndex);
+    this.state.nodeMap.set(listItem.key, listItem);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(list.key, block.parent, blockIndex, {
+        type: 'list',
+        key: list.key,
+        listType,
+        children: list.children,
+      });
+    }
+
+    // Place cursor at end of text
+    this.selection = createCollapsedSelection(newText.key, text.length);
+  }
+
+  private convertToQuoteWithText(blockKey: string, _textNodeKey: string, text: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create quote with the remaining text
+    const newText = createTextNode(text, {});
+    const quote = createQuoteNode([newText.key]);
+    newText.parent = quote.key;
+    quote.parent = block.parent;
+
+    // Remove old block and insert quote
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, quote, blockIndex);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(quote.key, block.parent, blockIndex, {
+        type: 'quote',
+        key: quote.key,
+        children: quote.children,
+      });
+    }
+
+    // Place cursor at end of text
+    this.selection = createCollapsedSelection(newText.key, text.length);
+  }
+
+  private convertToHeading(blockKey: string, _textNodeKey: string, level: 1 | 2 | 3 | 4): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create new heading with empty text
+    const newText = createTextNode('', {});
+    const heading = createHeadingNode(level, [newText.key]);
+    newText.parent = heading.key;
+    heading.parent = block.parent;
+
+    // Remove old block and insert heading
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, heading, blockIndex);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(heading.key, block.parent, blockIndex, {
+        type: 'heading',
+        key: heading.key,
+        level,
+        children: heading.children,
+      });
+    }
+
+    this.selection = createCollapsedSelection(newText.key, 0);
+  }
+
+  private convertToList(blockKey: string, _textNodeKey: string, listType: 'bullet' | 'number'): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create list structure with empty text
+    const newText = createTextNode('', {});
+    const listItem = createListItemNode([newText.key]);
+    newText.parent = listItem.key;
+    const list = createListNode(listType, [listItem.key]);
+    listItem.parent = list.key;
+    list.parent = block.parent;
+
+    // Remove old block and insert list
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, list, blockIndex);
+    this.state.nodeMap.set(listItem.key, listItem);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(list.key, block.parent, blockIndex, {
+        type: 'list',
+        key: list.key,
+        listType,
+        children: list.children,
+      });
+    }
+
+    this.selection = createCollapsedSelection(newText.key, 0);
+  }
+
+  private convertToCodeBlock(blockKey: string, _textNodeKey: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create code block with empty text
+    const newText = createTextNode('', {});
+    const codeBlock = createCodeNode(undefined, [newText.key]);
+    newText.parent = codeBlock.key;
+    codeBlock.parent = block.parent;
+
+    // Remove old block and insert code block
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, codeBlock, blockIndex);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(codeBlock.key, block.parent, blockIndex, {
+        type: 'code',
+        key: codeBlock.key,
+        children: codeBlock.children,
+      });
+    }
+
+    this.selection = createCollapsedSelection(newText.key, 0);
+  }
+
+  private convertToQuote(blockKey: string, _textNodeKey: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create quote with empty text
+    const newText = createTextNode('', {});
+    const quote = createQuoteNode([newText.key]);
+    newText.parent = quote.key;
+    quote.parent = block.parent;
+
+    // Remove old block and insert quote
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, quote, blockIndex);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(quote.key, block.parent, blockIndex, {
+        type: 'quote',
+        key: quote.key,
+        children: quote.children,
+      });
+    }
+
+    this.selection = createCollapsedSelection(newText.key, 0);
+  }
+
+  private convertToDivider(blockKey: string, _textNodeKey: string): void {
+    const block = getNode(this.state, blockKey);
+    if (!block || !block.parent) return;
+
+    const parent = getNode(this.state, block.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const blockIndex = parent.children.indexOf(blockKey);
+
+    // Create divider
+    const divider = createDividerNode();
+    divider.parent = block.parent;
+
+    // Create paragraph after divider for continued editing
+    const newText = createTextNode('', {});
+    const newParagraph = createParagraphNode([newText.key]);
+    newText.parent = newParagraph.key;
+    newParagraph.parent = block.parent;
+
+    // Remove old block and insert divider + paragraph
+    this.state = removeNode(this.state, blockKey);
+    this.state = insertNode(this.state, block.parent, divider, blockIndex);
+    this.state = insertNode(this.state, block.parent, newParagraph, blockIndex + 1);
+    this.state.nodeMap.set(newText.key, newText);
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(blockKey);
+      this.opLogger.logNodeInsert(divider.key, block.parent, blockIndex, {
+        type: 'divider',
+        key: divider.key,
+      });
+    }
+
+    this.selection = createCollapsedSelection(newText.key, 0);
+  }
+
+  private applyInlineFormat(
+    nodeKey: string,
+    fullText: string,
+    match: RegExpMatchArray,
+    formatType: 'bold' | 'italic' | 'strikethrough' | 'code'
+  ): void {
+    const node = getNode(this.state, nodeKey);
+    if (!node || !isTextNode(node) || !node.parent) return;
+
+    const parent = getNode(this.state, node.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    const matchedText = match[1]; // The text inside the markers
+    const fullMatch = match[0]; // The full match including markers
+    const matchStart = fullText.length - fullMatch.length;
+    const beforeText = fullText.slice(0, matchStart);
+
+    const nodeIndex = parent.children.indexOf(nodeKey);
+
+    // Clone state for modifications
+    const newState = cloneState(this.state);
+    const parentInNewState = newState.nodeMap.get(node.parent) as any;
+
+    // Remove the original node
+    parentInNewState.children.splice(nodeIndex, 1);
+    newState.nodeMap.delete(nodeKey);
+
+    let insertIndex = nodeIndex;
+    let lastNodeKey = '';
+
+    // Create "before" text node if there's text before the match
+    if (beforeText) {
+      const beforeNode = createTextNode(beforeText, { ...node.format });
+      beforeNode.parent = node.parent;
+      newState.nodeMap.set(beforeNode.key, beforeNode);
+      parentInNewState.children.splice(insertIndex++, 0, beforeNode.key);
+    }
+
+    // Create formatted text node
+    const formattedNode = createTextNode(matchedText, {
+      ...node.format,
+      [formatType]: true,
+    });
+    formattedNode.parent = node.parent;
+    newState.nodeMap.set(formattedNode.key, formattedNode);
+    parentInNewState.children.splice(insertIndex++, 0, formattedNode.key);
+    lastNodeKey = formattedNode.key;
+
+    // Create empty text node after for continued typing (unformatted)
+    const afterNode = createTextNode('', {});
+    afterNode.parent = node.parent;
+    newState.nodeMap.set(afterNode.key, afterNode);
+    parentInNewState.children.splice(insertIndex, 0, afterNode.key);
+    lastNodeKey = afterNode.key;
+
+    this.state = newState;
+
+    // Log for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeDelete(nodeKey);
+    }
+
+    // Move cursor to after the formatted text
+    this.selection = createCollapsedSelection(lastNodeKey, 0);
   }
 
   private insertParagraph(): void {
@@ -2101,6 +2615,24 @@ export class EditorCore {
 
     // Move selection to the text inside admonition
     this.selection = createCollapsedSelection(textNode.key, 0);
+
+    this.render();
+  }
+
+  private setCodeLanguage(nodeKey: string, language: string): void {
+    const node = getNode(this.state, nodeKey);
+    if (!node || node.type !== 'code') return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    // Update the node's language
+    this.state = updateNode(this.state, nodeKey, { language: language || undefined });
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      this.opLogger.logNodeUpdate(nodeKey, { language: language || undefined });
+    }
 
     this.render();
   }
@@ -3312,6 +3844,55 @@ export class EditorCore {
     return null;
   }
 
+  private getCodeBlockAncestor(): { key: string } | null {
+    if (!this.selection) return null;
+
+    let currentKey = this.selection.anchor.key;
+    while (currentKey) {
+      const node = getNode(this.state, currentKey);
+      if (!node) break;
+      if (node.type === 'code') {
+        return { key: node.key };
+      }
+      if (!node.parent) break;
+      currentKey = node.parent;
+    }
+    return null;
+  }
+
+  private exitCodeBlock(codeBlockKey: string): void {
+    const codeBlock = getNode(this.state, codeBlockKey);
+    if (!codeBlock || !codeBlock.parent) return;
+
+    const parent = getNode(this.state, codeBlock.parent);
+    if (!parent || !isElementNode(parent)) return;
+
+    // Save to history
+    this.history.push(this.state, this.selection);
+
+    const codeBlockIndex = parent.children.indexOf(codeBlockKey);
+
+    // Create a new paragraph after the code block
+    const newText = createTextNode('', {});
+    const newParagraph = createParagraphNode([newText.key]);
+    newText.parent = newParagraph.key;
+    this.state.nodeMap.set(newText.key, newText);
+    this.state = insertNode(this.state, codeBlock.parent, newParagraph, codeBlockIndex + 1);
+
+    // Log operation for delta sync
+    if (this.opLogger) {
+      const { parent: _p, ...paragraphWithoutParent } = newParagraph;
+      this.opLogger.logNodeInsert(newParagraph.key, codeBlock.parent, codeBlockIndex + 1, paragraphWithoutParent);
+      const { parent: _tp, ...textWithoutParent } = newText;
+      this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+    }
+
+    // Move selection to the new paragraph
+    this.selection = createCollapsedSelection(newText.key, 0);
+
+    this.render();
+  }
+
   private exitAdmonition(admonitionKey: string): void {
     const admonition = getNode(this.state, admonitionKey);
     if (!admonition || !admonition.parent) return;
@@ -3645,7 +4226,59 @@ export class EditorCore {
       }
     }
 
+    // Ensure there's an editable block at the end if the last block is a decorator
+    this.ensureTrailingParagraph();
+
     this.render();
+  }
+
+  // Ensure there's always an editable paragraph at the end of the document
+  // if the last block is a decorator (image, drawio, table, divider)
+  private ensureTrailingParagraph(): void {
+    const root = getNode(this.state, this.state.root);
+    if (!root || !isElementNode(root) || root.children.length === 0) return;
+
+    const lastChildKey = root.children[root.children.length - 1];
+    const lastChild = getNode(this.state, lastChildKey);
+    if (!lastChild) return;
+
+    // Check if the last block is a decorator (non-editable) node
+    const decoratorTypes = ['image', 'drawio', 'divider', 'table'];
+    if (decoratorTypes.includes(lastChild.type)) {
+      // Add an empty paragraph at the end
+      const textNode = createTextNode('');
+      const paragraphNode = createParagraphNode([textNode.key]);
+
+      // Insert nodes into state
+      let newState = cloneState(this.state);
+      newState.nodeMap.set(textNode.key, { ...textNode, parent: paragraphNode.key });
+      newState.nodeMap.set(paragraphNode.key, { ...paragraphNode, parent: this.state.root });
+
+      // Add to root's children
+      const rootInNewState = newState.nodeMap.get(this.state.root) as any;
+      rootInNewState.children = [...rootInNewState.children, paragraphNode.key];
+
+      this.state = newState;
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeInsert(
+          paragraphNode.key,
+          this.state.root,
+          root.children.length,
+          paragraphNode
+        );
+        this.opLogger.logNodeInsert(
+          textNode.key,
+          paragraphNode.key,
+          0,
+          textNode
+        );
+      }
+
+      // Set selection to the new paragraph
+      this.selection = createCollapsedSelection(textNode.key, 0);
+    }
   }
 
   private moveBlock(blockKey: string, targetKey: string, position: 'before' | 'after'): void {

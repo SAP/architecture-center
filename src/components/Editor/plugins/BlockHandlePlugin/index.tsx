@@ -34,6 +34,17 @@ export default function BlockHandlePlugin() {
   const menuRef = useRef<HTMLDivElement>(null);
   const lastMousePosRef = useRef<{ x: number; y: number } | null>(null);
   const scrollAnimationRef = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
+  const draggedBlockRef = useRef<BlockPosition | null>(null);
+
+  // Keep refs in sync with state
+  useEffect(() => {
+    isDraggingRef.current = isDragging;
+  }, [isDragging]);
+
+  useEffect(() => {
+    draggedBlockRef.current = draggedBlock;
+  }, [draggedBlock]);
 
   const getBlockElements = useCallback((): HTMLElement[] => {
     const container = editor.core?.getContainer();
@@ -182,18 +193,39 @@ export default function BlockHandlePlugin() {
     };
   }, [editor, getBlockElements]);
 
+  // Find the scrollable parent element
+  const findScrollableParent = useCallback((element: HTMLElement): HTMLElement | null => {
+    // First try to find by data attribute (most reliable)
+    const scrollArea = element.closest('[data-editor-scroll-area]') as HTMLElement;
+    if (scrollArea) return scrollArea;
+
+    // Fallback: traverse up and find scrollable element
+    let current: HTMLElement | null = element.parentElement;
+    while (current) {
+      const style = window.getComputedStyle(current);
+      const overflowY = style.overflowY;
+      if (overflowY === 'auto' || overflowY === 'scroll') {
+        if (current.scrollHeight > current.clientHeight) {
+          return current;
+        }
+      }
+      current = current.parentElement;
+    }
+    return null;
+  }, []);
+
   // Auto-scroll when dragging near edges
   const startAutoScroll = useCallback((clientY: number) => {
     const container = editor.core?.getContainer();
     if (!container) return;
 
-    // Find the scrollable parent (editorScrollArea)
-    const scrollArea = container.closest('.editorScrollArea') as HTMLElement;
+    // Find the scrollable parent
+    const scrollArea = findScrollableParent(container);
     if (!scrollArea) return;
 
     const scrollRect = scrollArea.getBoundingClientRect();
-    const edgeThreshold = 80; // pixels from edge to start scrolling
-    const maxScrollSpeed = 15; // max pixels per frame
+    const edgeThreshold = 100; // pixels from edge to start scrolling
+    const maxScrollSpeed = 20; // max pixels per frame
 
     // Cancel any existing animation
     if (scrollAnimationRef.current) {
@@ -204,31 +236,59 @@ export default function BlockHandlePlugin() {
     let scrollDirection = 0;
     let scrollSpeed = 0;
 
-    // Check if near top edge
-    if (clientY < scrollRect.top + edgeThreshold) {
+    // Check if mouse is above the scroll area (scroll up)
+    if (clientY < scrollRect.top) {
+      const distance = scrollRect.top - clientY + edgeThreshold;
+      scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
+      scrollDirection = -1;
+    }
+    // Check if near top edge inside scroll area
+    else if (clientY < scrollRect.top + edgeThreshold) {
       const distance = scrollRect.top + edgeThreshold - clientY;
       scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
-      scrollDirection = -1; // scroll up
+      scrollDirection = -1;
     }
-    // Check if near bottom edge
+    // Check if mouse is below the scroll area (scroll down)
+    else if (clientY > scrollRect.bottom) {
+      const distance = clientY - scrollRect.bottom + edgeThreshold;
+      scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
+      scrollDirection = 1;
+    }
+    // Check if near bottom edge inside scroll area
     else if (clientY > scrollRect.bottom - edgeThreshold) {
       const distance = clientY - (scrollRect.bottom - edgeThreshold);
       scrollSpeed = Math.min(maxScrollSpeed, (distance / edgeThreshold) * maxScrollSpeed);
-      scrollDirection = 1; // scroll down
+      scrollDirection = 1;
     }
 
     if (scrollDirection !== 0) {
       const scroll = () => {
-        if (!isDragging) {
+        // Use ref to get current dragging state (avoids stale closure)
+        if (!isDraggingRef.current) {
           scrollAnimationRef.current = null;
           return;
         }
-        scrollArea.scrollTop += scrollDirection * scrollSpeed;
+
+        // Check scroll bounds
+        const canScrollUp = scrollArea.scrollTop > 0;
+        const canScrollDown = scrollArea.scrollTop < scrollArea.scrollHeight - scrollArea.clientHeight;
+
+        if ((scrollDirection === -1 && canScrollUp) || (scrollDirection === 1 && canScrollDown)) {
+          scrollArea.scrollTop += scrollDirection * scrollSpeed;
+
+          // Update drop target position as we scroll
+          const currentDraggedBlock = draggedBlockRef.current;
+          if (lastMousePosRef.current && currentDraggedBlock) {
+            const newTarget = findDropTarget(lastMousePosRef.current.y, currentDraggedBlock.blockKey);
+            setDropTarget(newTarget);
+          }
+        }
+
         scrollAnimationRef.current = requestAnimationFrame(scroll);
       };
       scrollAnimationRef.current = requestAnimationFrame(scroll);
     }
-  }, [editor, isDragging]);
+  }, [editor, findDropTarget, findScrollableParent]);
 
   const stopAutoScroll = useCallback(() => {
     if (scrollAnimationRef.current) {
@@ -240,6 +300,7 @@ export default function BlockHandlePlugin() {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     // Handle dragging
     if (isDragging && draggedBlock) {
+      lastMousePosRef.current = { x: e.clientX, y: e.clientY };
       const target = findDropTarget(e.clientY, draggedBlock.blockKey);
       setDropTarget(target);
       // Auto-scroll when dragging near edges
@@ -249,7 +310,7 @@ export default function BlockHandlePlugin() {
 
     if (showMenu) return;
 
-    // Check if the mouse actually moved (not just a synthetic event)
+    // Check if the mouse actually moved significantly (not just a synthetic event)
     const lastPos = lastMousePosRef.current;
     if (lastPos && Math.abs(e.clientX - lastPos.x) < 2 && Math.abs(e.clientY - lastPos.y) < 2) {
       return;

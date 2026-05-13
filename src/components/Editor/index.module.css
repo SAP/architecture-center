@@ -92,6 +92,12 @@
     outline: 0;
     padding: 2rem 3rem 40vh 5rem;
     box-sizing: border-box;
+    cursor: default;
+}
+
+/* Text cursor only for actual content elements */
+.editorInput [data-editor-key] {
+    cursor: text;
 }
 
 .editorPlaceholder {
@@ -187,27 +193,31 @@
 }
 
 .editorH1 {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 700;
     margin: 0 0 1rem 0;
+    line-height: 1.25;
 }
 
 .editorH2 {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 1rem 0;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.25;
 }
 
 .editorH3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.25;
 }
 
 .editorH4 {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.25;
 }
 
 .editorH5 {
@@ -269,6 +279,70 @@
     text-decoration: underline;
 }
 
+:global(.editorCodeWrapper) {
+    margin: 1rem 0;
+    border-radius: 8px;
+    overflow: visible;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+:global(.editorCodeToolbar) {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+}
+
+:global(.editorCodeLanguageSelect) {
+    background-color: transparent;
+    color: #374151;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 20px;
+}
+
+:global(.editorCodeLanguageSelect:hover) {
+    background-color: #f3f4f6;
+}
+
+:global(.editorCodeContent) {
+    margin: 0;
+    padding: 1.25rem;
+    padding-right: 140px;
+    background-color: transparent;
+    overflow-x: auto;
+}
+
+:global(.editorCodeContent code) {
+    background: none;
+    padding: 0;
+    border: none;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', 'Menlo', monospace;
+    font-size: 14px;
+    color: #1f2937;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
 :global(.editorCode) {
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
@@ -299,6 +373,7 @@
     display: block;
     border-radius: 8px;
     border: 1px solid #e5e7eb;
+    background-color: transparent;
 }
 
 :global(.editorDivider) {
@@ -777,6 +852,28 @@
 :root[data-theme='dark'] :global(.editorCode) {
     background-color: #1e293b;
     border-color: #374151;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] :global(.editorCodeWrapper) {
+    background-color: #1e293b;
+}
+
+:root[data-theme='dark'] :global(.editorCodeToolbar) {
+    background-color: #374151;
+    border-color: #4b5563;
+}
+
+:root[data-theme='dark'] :global(.editorCodeLanguageSelect) {
+    color: #e5e7eb;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+:root[data-theme='dark'] :global(.editorCodeLanguageSelect:hover) {
+    background-color: #4b5563;
+}
+
+:root[data-theme='dark'] :global(.editorCodeContent code) {
     color: #e5e7eb;
 }
 

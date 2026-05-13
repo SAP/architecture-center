@@ -114,6 +114,7 @@ function EditorContent({ containerRef, readOnly }: EditorContentProps) {
 
 interface EditorProps {
   onAddNew: (parentId?: string | null) => void;
+  onEditMeta?: () => void;
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -125,7 +126,7 @@ interface PublishStatus {
   pullRequestUrl: string | null;
 }
 
-const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
+const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
     usePageDataStore();
   const { token, user } = useAuth();
@@ -540,7 +541,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
   };
 
   const handleInfoClick = () => {
-    const infoUrl = `${baseUrl}community/get-started-quickstart`;
+    const infoUrl = `${baseUrl}docs/community/get-started-quickstart`;
     window.open(infoUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -589,10 +590,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew }) => {
                 )}
               </div>
               <div className={styles.editorContainer}>
-                <div className={styles.editorScrollArea}>
+                <div className={styles.editorScrollArea} data-editor-scroll-area>
                   <div className={styles.contentHeader}>
                     <Breadcrumbs path={breadcrumbPath} />
-                    <ArticleHeader readOnly={isReadOnly} />
+                    <ArticleHeader readOnly={isReadOnly} onEditMeta={onEditMeta} />
                   </div>
                   {!isReadOnly && (
                     <div className={styles.stickyToolbarWrapper}>

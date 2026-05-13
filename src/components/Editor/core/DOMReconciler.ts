@@ -25,6 +25,7 @@ const ZERO_WIDTH_SPACE = '​';
 
 export interface ReconcilerConfig {
   onImageClick?: (node: ImageNode) => void;
+  onCodeLanguageChange?: (nodeKey: string, language: string) => void;
 }
 
 export class DOMReconciler {
@@ -77,7 +78,7 @@ export class DOMReconciler {
   }
 
   // Update markers for a single list
-  private updateListMarkers(state: EditorState, listElement: HTMLElement): void {
+  private updateListMarkers(_state: EditorState, listElement: HTMLElement): void {
     const isNumbered = listElement.classList.contains('editorOList');
     const items = listElement.querySelectorAll(':scope > .editorListItem');
 
@@ -346,15 +347,8 @@ export class DOMReconciler {
         break;
 
       case 'code':
-        element = document.createElement('pre');
-        element.className = 'editorCode';
-        const codeInner = document.createElement('code');
-        const codeNode = node as CodeNode;
-        if (codeNode.language) {
-          codeInner.className = `language-${codeNode.language}`;
-        }
-        element.appendChild(codeInner);
-        break;
+        element = this.createCodeBlockElement(state, node as CodeNode);
+        return element; // Return early as code block handles its own structure
 
       case 'link':
         element = document.createElement('a');
@@ -428,16 +422,12 @@ export class DOMReconciler {
 
     // Recursively create children
     if (isElementNode(node)) {
-      const childContainer = node.type === 'code'
-        ? element.querySelector('code') || element
-        : element;
-
       node.children.forEach(childKey => {
         const childNode = getNode(state, childKey);
         if (childNode) {
           const childElement = this.createElement(state, childNode);
           if (childElement) {
-            childContainer.appendChild(childElement);
+            element.appendChild(childElement);
           }
         }
       });
@@ -492,11 +482,8 @@ export class DOMReconciler {
     if (!node.src) {
       img.style.minHeight = '100px';
       img.style.backgroundColor = '#f0f0f0';
-    } else {
-      // Set background for transparent PNGs based on current theme
-      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-      img.style.backgroundColor = isDarkMode ? '#1f2937' : 'transparent';
     }
+    // Background for transparent PNGs is handled via CSS in index.module.css
 
     if (this.config.onImageClick) {
       wrapper.style.cursor = 'pointer';
@@ -642,6 +629,78 @@ export class DOMReconciler {
   <\/script>
 </body>
 </html>`;
+  }
+
+  private createCodeBlockElement(state: EditorState, node: CodeNode): HTMLElement {
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute(DATA_KEY_ATTR, node.key);
+    wrapper.className = 'editorCodeWrapper';
+
+    // Create floating toolbar in top right
+    const toolbar = document.createElement('div');
+    toolbar.className = 'editorCodeToolbar';
+    toolbar.setAttribute('contenteditable', 'false');
+
+    // Language dropdown
+    const select = document.createElement('select');
+    select.className = 'editorCodeLanguageSelect';
+
+    const languages = [
+      { value: '', label: 'Plain text' },
+      { value: 'javascript', label: 'JavaScript' },
+      { value: 'typescript', label: 'TypeScript' },
+      { value: 'python', label: 'Python' },
+      { value: 'java', label: 'Java' },
+    ];
+
+    languages.forEach(lang => {
+      const option = document.createElement('option');
+      option.value = lang.value;
+      option.textContent = lang.label;
+      if ((node.language || '') === lang.value) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+
+    select.onchange = (e) => {
+      e.stopPropagation();
+      const newLang = (e.target as HTMLSelectElement).value;
+      if (this.config.onCodeLanguageChange) {
+        this.config.onCodeLanguageChange(node.key, newLang);
+      }
+    };
+
+    // Prevent selection changes when interacting with dropdown
+    select.onmousedown = (e) => e.stopPropagation();
+    select.onclick = (e) => e.stopPropagation();
+
+    toolbar.appendChild(select);
+    wrapper.appendChild(toolbar);
+
+    // Create the pre/code elements for the actual code content
+    const pre = document.createElement('pre');
+    pre.className = 'editorCodeContent';
+
+    const code = document.createElement('code');
+    if (node.language) {
+      code.className = `language-${node.language}`;
+    }
+    pre.appendChild(code);
+
+    // Render children (text nodes) into the code element
+    node.children.forEach(childKey => {
+      const childNode = getNode(state, childKey);
+      if (childNode) {
+        const childElement = this.createElement(state, childNode);
+        if (childElement) {
+          code.appendChild(childElement);
+        }
+      }
+    });
+
+    wrapper.appendChild(pre);
+    return wrapper;
   }
 
   private createTableElement(state: EditorState, node: TableNode): HTMLElement {

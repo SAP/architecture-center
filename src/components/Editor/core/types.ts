@@ -251,6 +251,7 @@ export type CommandType =
   | 'UPDATE_LINK'
   | 'REMOVE_LINK'
   | 'INSERT_ADMONITION'
+  | 'SET_CODE_LANGUAGE'
   | 'DUPLICATE_BLOCK'
   | 'DELETE_BLOCK'
   | 'MOVE_BLOCK'
@@ -280,4 +281,9 @@ export interface SetBlockTypeCommand extends EditorCommand {
 export interface ToggleListCommand extends EditorCommand {
   type: 'TOGGLE_LIST';
   payload: { listType: ListType };
+}
+
+export interface SetCodeLanguageCommand extends EditorCommand {
+  type: 'SET_CODE_LANGUAGE';
+  payload: { nodeKey: string; language: string };
 }
