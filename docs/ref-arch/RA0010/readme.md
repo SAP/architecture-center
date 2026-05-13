@@ -41,7 +41,7 @@ contributors:
 discussion: 
 last_update:
   author: fabianleh
-  date: 2026-05-13
+  date: 2026-05-15
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->

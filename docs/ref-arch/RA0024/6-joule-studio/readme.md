@@ -38,12 +38,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - fabianleh
-    - SelinaHochstrat
-    - f-buech
+  - fabianleh
+  - SelinaHochstrat
+  - f-buech
 last_update:
-    date: 2026-05-12
-    author: fabianleh
+  author: fabianleh
+  date: 2026-05-15
+
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
