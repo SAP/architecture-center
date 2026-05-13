@@ -75,7 +75,7 @@ These layers operate under a shared set of design principles:
 - Enable continuous learning.
 
 
-<div style={{ width: '300px', margin: '0 auto' }}>
+<div className="nsa-float-image" style={{ width: '35%', maxWidth: '300px', margin: '0 auto' }}>
 ![Data Flywheel](images/data-flywheel.png)
 </div>
 
@@ -83,7 +83,7 @@ These layers operate under a shared set of design principles:
 
 ### How each layer plays a distinct role in the system of context:
 
-<div style={{ float: 'right', marginLeft: '20px', width: '500px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '45%', maxWidth: '500px' }}>
 
 ![layers](images/layers.png)
 

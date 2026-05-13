@@ -47,7 +47,7 @@ last_update:
     date: 2026-05-13
 ---
 
-<div style={{ float: 'right', marginLeft: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![executive-summary](images/process-layer-ai-native.png)
 
@@ -65,7 +65,7 @@ The shift from AI-first to AI-native redefines how process logic is structured a
 
 <div style={{ clear: 'both' }}></div>
 
-<div style={{ float: 'left', marginRight: '20px', width: '500px' }}>
+<div className="nsa-float-image" style={{ float: 'left', marginRight: '20px', width: '45%', maxWidth: '500px' }}>
 
 ![process-layer-arch](images/process-layer-arch.png)
 
