@@ -44,9 +44,11 @@ contributors:
     - fabianleh
     - marvinklose
     - dermats
+    - NormanNuernberger
 last_update:
-    date: 2026-03-12
-    author: fabianleh
+    date: 2026-05-15
+    author: NormanNuernberger
+
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
