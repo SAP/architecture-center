@@ -51,7 +51,7 @@ The platform layer is where applications, agents, and workflows run. SAP Busines
 
 With proven scalability supporting millions of tenants globally, the platform delivers the reliability, performance, sustainability, and security required for enterprise-scale AI.
 
-<div style={{ float: 'right', marginLeft: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![foundation-layer](images/platform-layer-ai-native.png)
 
@@ -67,7 +67,7 @@ The shift from AI-first to AI-native expands the platform beyond hosting applica
 
 ### The Managed agent runtime
 
-<div style={{ float: 'left', marginRight: '20px', width: '500px' }}>
+<div className="nsa-float-image" style={{ float: 'left', marginRight: '20px', width: '45%', maxWidth: '500px' }}>
 
 ![platform-layer-arch](images/platform-layer-arch.png)
 

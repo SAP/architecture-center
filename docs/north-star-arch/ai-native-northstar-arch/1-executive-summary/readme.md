@@ -52,7 +52,7 @@ For decades, enterprise software has been a system of record: it stores transact
 
 That is now changing. AI makes it possible to build a system of context blended with a system of record: an architecture where enterprise data, process knowledge, and decision history are connected across the enterprise landscape into a shared understanding, so that AI agents can reason over them. Agents participate in decisions as they happen, drawing on the full picture rather than fragments trapped in individual applications. Each correction refines the system. Each interaction adds to it. This learning evolves along two paths: continuous advances in underlying AI models and the compounding of enterprise context. While models provide general reasoning capability, context grounds that reasoning in business reality and allows it to improve with experience. The system of context adds a compounding advantage that the system of record alone never had.
 
-<div style={{ float: 'right', marginLeft: '20px', marginRight: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', marginRight: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![executive-summary](images/executive-summary.png)
 
@@ -78,7 +78,7 @@ Three barriers keep AI-first confined. AI systems:
 - Sit on disconnected systems without a shared data model, so they cannot coordinate across functions.
 - Lack the governance to ensure accountability at scale.
 
-<div style={{ float: 'left', marginRight: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'left', marginRight: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![ai-native-ai-first](images/ai-native-ai-first.png)
 
@@ -111,7 +111,7 @@ Cross-cutting **SAP-managed** qualities helps ensure that integration, identity,
 
 **[Responsible and sustainable AI](https://www.sap.com/documents/2025/11/56a1a0fa-2e7f-0010-bca6-c68f7e60039b.html)** is embedded across each layer, generating ethical safeguards, transparency, and energy-efficient operations by design. This helps ensure that the shift to AI-native systems elevates trust, accountability, and long-term enterprise value while respecting planetary boundaries.
 
-<div style={{ float: 'left', marginRight: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'left', marginRight: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![deterministic-vs-ai-native-path](images/deterministic-vs-ai-native-path.png)
 
