@@ -58,7 +58,7 @@ Architectural principles for quantum integration include:
 
 ### The path forward: A quantum-ready enterprise
 
-<div style={{ float: 'right', marginLeft: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 <a href="https://www.youtube.com/watch?v=_GyU1gSp0ZE" target="_blank" rel="noopener noreferrer">
 <img src={require('./images/quantum.png').default} alt="quantum" className="no-zoom" />

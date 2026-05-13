@@ -86,3 +86,42 @@
     align-self: flex-end;
     margin: 0 -48px 0 20px !important;
 }
+
+@media (max-width: 768px) {
+    .card {
+        padding: 24px 24px 0 24px;
+    }
+
+    .footer {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .attribution {
+        width: 100%;
+        max-width: 100%;
+        flex: 1 1 100%;
+        padding-top: 16px;
+        margin-bottom: 24px;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .title {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .title * {
+        white-space: normal !important;
+        word-break: break-word;
+    }
+
+    .photo {
+        width: 60%;
+        max-width: 240px;
+        align-self: center;
+        margin: 16px 0 0 0 !important;
+    }
+}
