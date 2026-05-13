@@ -1720,3 +1720,17 @@ body:has(.homepage-main) footer.footer {
         overflow-y: visible !important;
     }
 }
+
+/* NSA floated images — stack full-width on mobile */
+.nsa-float-image {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .nsa-float-image {
+        float: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 16px 0 !important;
+    }
+}

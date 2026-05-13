@@ -47,7 +47,7 @@ last_update:
     date: 2026-05-13
 ---
 
-<div style={{ float: 'right', marginLeft: '20px', width: '320px' }}>
+<div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 ![executive-summary](images/ux-layer-ai-native.png)
 
@@ -64,7 +64,7 @@ This requires a fundamental shift in how we design and deliver the user experien
 
 **The UX layer brings together three tiers:**
 
-<div style={{ float: 'left', marginRight: '20px', width: '500px' }}>
+<div className="nsa-float-image" style={{ float: 'left', marginRight: '20px', width: '45%', maxWidth: '500px' }}>
 
 ![user-exp-layer](images/user-exp-layer.png)
 
