@@ -124,12 +124,12 @@ community-contrib:
   description: "Content contributed by SAP customers, partners, and community members, showcasing real-world architecture solutions and implementation experiences to build shared knowledge and strengthen the broader SAP community."
 
 ai-native-north-star:
-  label: "AI-Native North Star Architecture"
-  description: "The AI Native North Star Architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on."
+  label: "AI-native North Star architecture"
+  description: "The AI-native North Star architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on."
 
 ai-golden-path:
   label: "AI-Golden Path"
-  description: "The AI Golden Path represents the recommended approach or best practices for implementing AI solutions within SAP's technology landscape. It provides guidance on how to achieve the AI-Native North Star Architecture, ensuring consistency, efficiency, and alignment with strategic objectives."
+  description: "The AI Golden Path represents the recommended approach or best practices for implementing AI solutions within SAP's technology landscape. It provides guidance on how to achieve the AI-native North Star architecture, ensuring consistency, efficiency, and alignment with strategic objectives."
 
 
 # --------------------------------------------------------------------------------------------------------------------------------

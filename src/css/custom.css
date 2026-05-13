@@ -691,6 +691,19 @@ html[data-theme='dark'] .sourcecode-badge {
     display: none;
 }
 
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav {
+    display: flex !important;
+    gap: 16px;
+}
+
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav .pagination-nav__link {
+    flex: 0 0 calc(50% - 8px);
+}
+
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav .pagination-nav__link--next {
+    margin-left: auto;
+}
+
 .markdown>table th,
 table td,
 table tr,

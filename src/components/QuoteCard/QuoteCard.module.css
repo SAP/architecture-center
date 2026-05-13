@@ -1,0 +1,88 @@
+.card {
+    background: linear-gradient(135deg, #061440 0%, #0a1f5c 60%, #0d2b7a 100%);
+    border-radius: 8px;
+    padding: 48px 48px 0 48px;
+    margin: 32px 0;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.cardPartner {
+    background: linear-gradient(135deg, #2a3a4a 0%, #344d63 60%, #3d5a73 100%);
+}
+
+.quoteSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.quoteIcon {
+    width: 80px;
+    height: auto;
+    user-select: none;
+    margin-bottom: 24px;
+    margin-left: 0 !important;
+}
+
+.cardPartner .quoteIcon {
+    opacity: 0.6;
+}
+
+.quoteText {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 0 24px 0;
+    color: #e8ecf8;
+    text-align: justify;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.attribution {
+    margin-bottom: 32px;
+    padding-top: 48px;
+    flex: 0 0 auto;
+    width: max-content;
+}
+
+.orgLogo {
+    display: block;
+    margin: 24px 0 0 0 !important;
+    width: fit-content;
+}
+
+.orgLogo svg,
+.orgLogo img {
+    height: var(--org-logo-height, 80px);
+    width: auto;
+    display: block;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.title {
+    font-size: 0.9rem;
+    color: #c0caee;
+    line-height: 1.5;
+    display: block;
+}
+
+.photo {
+    width: 70%;
+    display: block;
+    align-self: flex-end;
+    margin: 0 -48px 0 20px !important;
+}
