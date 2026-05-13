@@ -206,7 +206,14 @@ export default function ArchitectureTabs({
                     
                     <div className={styles.mainContent}>
                         <div className={styles.leftContent}>
-                            <p className={styles.subtitle}>{subtitle}</p>
+                            <p
+                                className={styles.subtitle}
+                                title={subtitle && subtitle.length > 310 ? subtitle : undefined}
+                            >
+                                {subtitle && subtitle.length > 310
+                                    ? subtitle.slice(0, 310).trimEnd() + '…'
+                                    : subtitle}
+                            </p>
                             <div className={styles.actionWrapper}>
                                 {needsAuth && requiredProvider ? (
                                     <button
