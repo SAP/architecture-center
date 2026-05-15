@@ -294,16 +294,17 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       if (periodicSyncTimer) {
         clearTimeout(periodicSyncTimer);
       }
-      // Full sync every 5 seconds of inactivity to ensure persistence
+      // Full sync every 30 seconds of inactivity as a backup mechanism
+      // Delta sync handles real-time, this is just for redundancy
       periodicSyncTimer = setTimeout(() => {
         const currentState = serializeState(core.getState());
         const currentDoc = getActiveDocument();
         if (currentDoc && currentState !== lastSyncedState) {
-          console.log('[Editor] Periodic full sync triggered');
+          console.log('[Editor] Periodic full sync triggered (backup)');
           lastSyncedState = currentState;
           updateDocument(currentDoc.id, { editorState: currentState }, false);
         }
-      }, 5000);
+      }, 30000);
     };
 
     const core = new EditorCore({
@@ -601,6 +602,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                     </div>
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
+                  <div className={styles.editorSpacer} />
                   <ContributorsDisplay
                     contributors={[
                       ...(activeDocument?.authors || []),

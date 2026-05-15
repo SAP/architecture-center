@@ -469,21 +469,24 @@ export class DOMReconciler {
     wrapper.setAttribute('contenteditable', 'false');
     wrapper.className = 'editorImageWrapper';
 
-    const img = document.createElement('img');
-    if (node.src) {
-      img.src = node.src;
+    // Show loading animation if no src yet
+    if (!node.src) {
+      const iframe = document.createElement('iframe');
+      iframe.style.width = '100%';
+      iframe.style.height = '200px';
+      iframe.style.border = 'none';
+      iframe.style.borderRadius = '8px';
+      iframe.srcdoc = this.createLoadingPlaceholder('image');
+      wrapper.appendChild(iframe);
+      return wrapper;
     }
+
+    const img = document.createElement('img');
+    img.src = node.src;
     img.alt = node.alt || '';
     img.className = 'editorImage';
     if (node.width) img.width = node.width;
     if (node.height) img.height = node.height;
-
-    // Show placeholder if no src yet (loading)
-    if (!node.src) {
-      img.style.minHeight = '100px';
-      img.style.backgroundColor = '#f0f0f0';
-    }
-    // Background for transparent PNGs is handled via CSS in index.module.css
 
     if (this.config.onImageClick) {
       wrapper.style.cursor = 'pointer';
@@ -522,8 +525,9 @@ export class DOMReconciler {
       wrapper.setAttribute('data-diagram-xml', node.diagramXML);
       iframe.srcdoc = this.createDrawioSrcdoc(node.diagramXML);
     } else {
-      // Show loading placeholder
-      iframe.srcdoc = '<html><body style="display:flex;align-items:center;justify-content:center;height:100%;margin:0;background:#f0f0f0;color:#666;">Loading diagram...</body></html>';
+      // Show animated folder loading placeholder - add loading class to remove border
+      wrapper.classList.add('editorDrawioLoading');
+      iframe.srcdoc = this.createLoadingPlaceholder('diagram');
     }
 
     // Add invisible overlay for mouse event handling (allows drag detection)
@@ -627,6 +631,139 @@ export class DOMReconciler {
       }
     })();
   <\/script>
+</body>
+</html>`;
+  }
+
+  private createLoadingPlaceholder(type: 'diagram' | 'image'): string {
+    const label = type === 'diagram' ? 'Loading diagram' : 'Loading image';
+    return `<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .folder {
+      --folder-color: #6366f1;
+      --paper-color: #fff;
+      position: relative;
+      width: 80px;
+      height: 60px;
+      perspective: 300px;
+    }
+    .folder-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--folder-color);
+      border-radius: 0 8px 8px 8px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    .folder-back::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 35px;
+      height: 10px;
+      background: var(--folder-color);
+      border-radius: 4px 4px 0 0;
+    }
+    .paper {
+      position: absolute;
+      width: 50px;
+      height: 40px;
+      background: var(--paper-color);
+      border-radius: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .paper:nth-child(2) {
+      bottom: 20px;
+      animation: paper1 1.5s ease-in-out infinite;
+    }
+    .paper:nth-child(3) {
+      bottom: 16px;
+      animation: paper2 1.5s ease-in-out infinite 0.1s;
+    }
+    .paper:nth-child(4) {
+      bottom: 12px;
+      animation: paper3 1.5s ease-in-out infinite 0.2s;
+    }
+    .folder-front {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      bottom: 0;
+      background: linear-gradient(180deg, #818cf8 0%, var(--folder-color) 100%);
+      border-radius: 0 0 8px 8px;
+      transform-origin: bottom center;
+      animation: fold 1.5s ease-in-out infinite;
+    }
+    @keyframes fold {
+      0%, 100% { transform: rotateX(0deg); }
+      50% { transform: rotateX(-35deg); }
+    }
+    @keyframes paper1 {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-15px); }
+    }
+    @keyframes paper2 {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-12px); }
+    }
+    @keyframes paper3 {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-9px); }
+    }
+    .label {
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .dots::after {
+      content: '';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+    @keyframes dots {
+      0% { content: ''; }
+      25% { content: '.'; }
+      50% { content: '..'; }
+      75% { content: '...'; }
+      100% { content: ''; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader">
+    <div class="folder">
+      <div class="folder-back"></div>
+      <div class="paper"></div>
+      <div class="paper"></div>
+      <div class="paper"></div>
+      <div class="folder-front"></div>
+    </div>
+    <div class="label">${label}<span class="dots"></span></div>
+  </div>
 </body>
 </html>`;
   }
@@ -803,6 +940,23 @@ export class DOMReconciler {
     // Handle image node updates (for lazy-loaded assets)
     if (node.type === 'image') {
       const imageNode = node as ImageNode;
+
+      // Check if we're updating from loading state (iframe) to actual image
+      const iframe = element.querySelector('iframe');
+      if (iframe && imageNode.src) {
+        // Replace iframe with actual image
+        element.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = imageNode.src;
+        img.alt = imageNode.alt || '';
+        img.className = 'editorImage';
+        if (imageNode.width) img.width = imageNode.width;
+        if (imageNode.height) img.height = imageNode.height;
+        element.appendChild(img);
+        return;
+      }
+
+      // Normal image update
       const img = element.querySelector('img');
       if (img && imageNode.src && img.src !== imageNode.src) {
         img.src = imageNode.src;
@@ -815,6 +969,9 @@ export class DOMReconciler {
       const drawioNode = node as DrawioNode;
       const iframe = element.querySelector('iframe') as HTMLIFrameElement;
       if (iframe && drawioNode.diagramXML) {
+        // Remove loading class now that content is loaded
+        element.classList.remove('editorDrawioLoading');
+
         // Only update if XML changed - check stored XML in data attribute
         const currentXML = element.getAttribute('data-diagram-xml');
         if (currentXML !== drawioNode.diagramXML) {

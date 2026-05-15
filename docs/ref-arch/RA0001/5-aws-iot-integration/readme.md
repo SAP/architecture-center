@@ -3,24 +3,24 @@ id: id-ra0001-5
 slug: /ref-arch/fbdc46aaae/5
 sidebar_position: 1
 sidebar_custom_props:
-  category_index: []
+    category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
 description: >-
-  Create event-driven architecture with AWS IoT SiteWise and SAP BTP for
-  seamless business process integration.
+    Create event-driven architecture with AWS IoT SiteWise and SAP BTP for
+    seamless business process integration.
 keywords:
-  - sap
-  - aws iot integration
-  - event-to-business actions
-  - cloud application programming
+    - sap
+    - aws iot integration
+    - event-to-business actions
+    - cloud application programming
 sidebar_label: Integration with Amazon Web Services
 image: img/ac-soc-med.png
 tags:
-  - cap
-  - aws
-  - appdev
-  - integration
-  - eda
+    - cap
+    - aws
+    - appdev
+    - integration
+    - eda
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,14 +28,14 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - anbazhagan-uma
-  - pra1veenk
-  - AjitKP91
-  - swatimaste00
-discussion: 
+    - anbazhagan-uma
+    - pra1veenk
+    - AjitKP91
+    - swatimaste00
+discussion:
 last_update:
-  author: swatimaste00
-  date: 2025-05-10
+    author: swatimaste00
+    date: 2025-05-10
 ---
 
 ## Introduction
@@ -53,20 +53,21 @@ The following steps depicts the information flow across systems:
 1. An application administrator logs into SAP BTP Extension application based on Events to Business Actions Framework via SAP Build Work Zone, standard edition, to configure the business rules/decisions and the business actions that needs to be triggered in the business systems.
 
 2. AWS IoT SiteWise Edge at the factory captures the equipment parameters like vibration, temperature, and forwards it to AWS IoT SiteWise which then dumps these events into Amazon S3, which triggers an AWS Lambda function. It detects anomaly in these events and publishes such events to the SAP Integration Suite, Advanced Event Mesh.
- 
+
 3. As the processor module's (part of the Events-to-Business-Action framework) subscribes to Advanced event mesh, the event is received.
- 
+
 4. Processor module (part of the Events-to-Business-Action framework) leverages the Decisions capability of SAP Build Process Automation to derive business action (for example, plant Maintenance Notification/purchase order requisition creation in SAP S/4HANA) based on certain characteristics of incoming event.
- 
+
 5. The framework integrates with SAP AI Core to invoke a deployed Amazon Bedrock Claude 3 Sonnet model. This model processes raw, hard-to-read incoming IoT event data and generates easy-to-read summaries of the event payload. These summaries are then automatically populated into the maintenance notification description, improving readability and providing enhanced clarity for maintenance teams. With this we prepare a complete payload which is used to execute the business action in SAP S/4HANA system (in this PoC we create a Plant Maintenance Notification)
- 
+
 6. The defined action is triggered in SAP S/4HANA using the SAP Destination service and SAP Connectivity service leveraging Private Link setup. In case SAP S/4HANA and SAP BTP are not on same Hyperscaler, communication with SAP S/4HANA happens via SAP Cloud Connector service.
 
 ## List of Services and Components
 
-These are the technical prerequisites for integration between AWS IoT SiteWise, SAP BTP and SAP S/4HANA. 
+These are the technical prerequisites for integration between AWS IoT SiteWise, SAP BTP and SAP S/4HANA.
 
 ### SAP BTP Services
+
 - **SAP Cloud Foundry Runtime**
     - Foundation for running the CAP extension application for translating events to business actions.
 - **Authorization and Trust Management Service**
@@ -89,6 +90,7 @@ These are the technical prerequisites for integration between AWS IoT SiteWise, 
     - SAP AI Launchpad is a multi-tenant software as a service (SaaS) application in SAP Business Technology Platform that provides generative AI capabilities via the Generative AI Hub. Customers and partners can use SAP AI Launchpad to manage AI use cases (scenarios) across multiple instances of AI runtimes (such as SAP AI Core).
 
 ### AWS Cloud Products
+
 - **A valid Amazon AWS subscription**
 - **AWS IoT SiteWise**
     - Required for receiving and sending the events whenever an abnormality is detected in the equipment.
@@ -97,7 +99,7 @@ These are the technical prerequisites for integration between AWS IoT SiteWise, 
 - **AWS Secret Manager**
     - Required to store the SAP Integration,advanced event mesh credentials that are accessed by the Amazon Lambda Function.
 - **Amazon Lambda Function**
-     - Required to orchestrate the process of detecting a stream contains any alerts related to failure or warnings, and then the inference result is passed to SAP Integration Suite Advanced Event Mesh.
+    - Required to orchestrate the process of detecting a stream contains any alerts related to failure or warnings, and then the inference result is passed to SAP Integration Suite Advanced Event Mesh.
 
 For detailed step by step information and to try out the integration, go to [GitHub Samples](https://github.com/SAP-samples/btp-events-to-business-actions-framework/tree/main/scenarios/Integration-with-AWS/IoTSiteWise)
 

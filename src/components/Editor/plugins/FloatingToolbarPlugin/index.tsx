@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useEditor } from '../../hooks/useEditor';
-import { Link, Strikethrough, Code, ChevronDown, Heading1, Heading2, Heading3, Type, Quote, List, ListOrdered } from 'lucide-react';
+import { Link, Strikethrough, Code, ChevronDown, Heading1, Heading2, Type, Quote, List, ListOrdered } from 'lucide-react';
 import styles from './index.module.css';
 
 const blockTypeLabels: Record<string, string> = {
   paragraph: 'Text',
   h1: 'H1',
-  h2: 'H2',
-  h3: 'H3',
+  h2: 'H1',  // Level 2 displays as "H1" to user
+  h3: 'H2',  // Level 3 displays as "H2" to user
   quote: 'Quote',
   heading: 'Heading',
 };
@@ -218,23 +218,16 @@ function FloatingToolbarInternal() {
                 <button
                   className={styles.dropdownItem}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => setBlockTypeHandler('heading', 1)}
+                  onClick={() => setBlockTypeHandler('heading', 2)}
                 >
                   <Heading1 size={16} /> Heading 1
                 </button>
                 <button
                   className={styles.dropdownItem}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => setBlockTypeHandler('heading', 2)}
-                >
-                  <Heading2 size={16} /> Heading 2
-                </button>
-                <button
-                  className={styles.dropdownItem}
-                  onMouseDown={(e) => e.preventDefault()}
                   onClick={() => setBlockTypeHandler('heading', 3)}
                 >
-                  <Heading3 size={16} /> Heading 3
+                  <Heading2 size={16} /> Heading 2
                 </button>
                 <button
                   className={styles.dropdownItem}

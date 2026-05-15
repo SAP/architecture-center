@@ -12,6 +12,8 @@ import {
   isTextNode,
   isElementNode,
   ParagraphNode,
+  ImageNode,
+  DrawioNode,
 } from './types';
 import { OperationLogger } from './OperationLogger';
 import { Operation } from './Operations';
@@ -266,9 +268,17 @@ export class EditorCore {
         const imagePayload = command.payload as { src: string; alt: string; assetId?: string };
         this.insertImage(imagePayload.src, imagePayload.alt, imagePayload.assetId);
         break;
+      case 'UPDATE_IMAGE':
+        const updateImagePayload = command.payload as { src: string; alt: string; assetId?: string };
+        this.updateLastImage(updateImagePayload.src, updateImagePayload.alt, updateImagePayload.assetId);
+        break;
       case 'INSERT_DRAWIO':
         const drawioPayload = command.payload as { diagramXML: string; assetId?: string };
         this.insertDrawio(drawioPayload.diagramXML, drawioPayload.assetId);
+        break;
+      case 'UPDATE_DRAWIO':
+        const updateDrawioPayload = command.payload as { diagramXML: string; assetId?: string };
+        this.updateLastDrawio(updateDrawioPayload.diagramXML, updateDrawioPayload.assetId);
         break;
       case 'INSERT_DIVIDER':
         this.insertDivider();
@@ -3045,6 +3055,67 @@ export class EditorCore {
     }
 
     this.render();
+  }
+
+  // Track the last inserted image/drawio key for updates
+  private lastInsertedImageKey: string | null = null;
+  private lastInsertedDrawioKey: string | null = null;
+
+  private updateLastImage(src: string, alt: string, assetId?: string): void {
+    // Find the most recent image node without src (placeholder)
+    const rootNode = getNode(this.state, this.state.root);
+    if (!rootNode || !isElementNode(rootNode)) return;
+
+    for (const childKey of [...rootNode.children].reverse()) {
+      const node = getNode(this.state, childKey);
+      if (node && node.type === 'image' && !(node as ImageNode).src) {
+        // Found the placeholder, update it
+        const imageNode = node as ImageNode;
+        const updatedNode: ImageNode = {
+          ...imageNode,
+          src,
+          alt,
+          assetId,
+        };
+        this.state.nodeMap.set(imageNode.key, updatedNode);
+
+        // Log operation for delta sync
+        if (this.opLogger) {
+          this.opLogger.logNodeUpdate(imageNode.key, { src, alt, assetId });
+        }
+
+        this.render();
+        return;
+      }
+    }
+  }
+
+  private updateLastDrawio(diagramXML: string, assetId?: string): void {
+    // Find the most recent drawio node without diagramXML (placeholder)
+    const rootNode = getNode(this.state, this.state.root);
+    if (!rootNode || !isElementNode(rootNode)) return;
+
+    for (const childKey of [...rootNode.children].reverse()) {
+      const node = getNode(this.state, childKey);
+      if (node && node.type === 'drawio' && !(node as DrawioNode).diagramXML) {
+        // Found the placeholder, update it
+        const drawioNode = node as DrawioNode;
+        const updatedNode: DrawioNode = {
+          ...drawioNode,
+          diagramXML,
+          assetId,
+        };
+        this.state.nodeMap.set(drawioNode.key, updatedNode);
+
+        // Log operation for delta sync
+        if (this.opLogger) {
+          this.opLogger.logNodeUpdate(drawioNode.key, { diagramXML, assetId });
+        }
+
+        this.render();
+        return;
+      }
+    }
   }
 
   private insertDivider(): void {

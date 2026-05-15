@@ -9,7 +9,6 @@ import {
   Type,
   Heading1,
   Heading2,
-  Heading3,
   List,
   ListOrdered,
   Quote,
@@ -220,6 +219,13 @@ export default function SlashCommandPlugin() {
 
       switch (type) {
         case 'image': {
+          // Insert placeholder immediately (shows loading animation)
+          const placeholderKey = editor.dispatchCommand({
+            type: 'INSERT_IMAGE',
+            payload: { src: '', alt: file.name, assetId: undefined }
+          });
+
+          // Read file and upload in background
           const dataUrl = await readFileAsDataURL(file);
           let assetId: string | undefined;
 
@@ -234,8 +240,9 @@ export default function SlashCommandPlugin() {
             }
           }
 
+          // Update the placeholder with actual content
           editor.dispatchCommand({
-            type: 'INSERT_IMAGE',
+            type: 'UPDATE_IMAGE',
             payload: { src: dataUrl, alt: file.name, assetId }
           });
           break;
@@ -245,6 +252,14 @@ export default function SlashCommandPlugin() {
             alert('Please select a valid .drawio file');
             return;
           }
+
+          // Insert placeholder immediately (shows loading animation)
+          editor.dispatchCommand({
+            type: 'INSERT_DRAWIO',
+            payload: { diagramXML: '', assetId: undefined }
+          });
+
+          // Read file and upload in background
           const xml = await readFileAsText(file);
           let assetId: string | undefined;
 
@@ -259,8 +274,9 @@ export default function SlashCommandPlugin() {
             }
           }
 
+          // Update the placeholder with actual content
           editor.dispatchCommand({
-            type: 'INSERT_DRAWIO',
+            type: 'UPDATE_DRAWIO',
             payload: { diagramXML: xml, assetId }
           });
           break;
@@ -317,7 +333,8 @@ export default function SlashCommandPlugin() {
         hint: '#',
         category: 'Basic Blocks',
         onSelect: () => {
-          editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level: 1 } });
+          // Internally stored as level 2, renders as h2 in output
+          editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level: 2 } });
         },
       },
       {
@@ -329,18 +346,7 @@ export default function SlashCommandPlugin() {
         hint: '##',
         category: 'Basic Blocks',
         onSelect: () => {
-          editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level: 2 } });
-        },
-      },
-      {
-        id: 'heading3',
-        name: 'Heading 3',
-        description: 'Small section heading',
-        icon: <Heading3 size={20} />,
-        keywords: ['heading', 'h3', 'header'],
-        hint: '###',
-        category: 'Basic Blocks',
-        onSelect: () => {
+          // Internally stored as level 3, renders as h3 in output
           editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level: 3 } });
         },
       },

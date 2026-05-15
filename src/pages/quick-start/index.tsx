@@ -10,6 +10,7 @@ import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
 import { Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
+import LetterGlitchLoader from '@site/src/components/LetterGlitchLoader';
 
 function EditorComponent({ onAddNew, onEditMeta }: { onAddNew: (parentId?: string | null) => void; onEditMeta?: () => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -80,6 +81,7 @@ function AuthenticatedQuickStartView() {
             tags: activeDoc.tags,
             authors: activeDoc.authors,
             contributors: activeDoc.contributors || [],
+            description: activeDoc.description || '',
         });
         setIsEditMode(true);
         setIsModalOpen(true);
@@ -98,7 +100,8 @@ function AuthenticatedQuickStartView() {
                 updateDocument(activeDoc.id, {
                     title: newDocData.title,
                     tags: newDocData.tags,
-                    description: activeDoc.description,
+                    description: newDocData.description,
+                    contributors: newDocData.contributors,
                 });
             }
         } else {
@@ -115,13 +118,7 @@ function AuthenticatedQuickStartView() {
     };
 
     if (isLoading || !initialized) {
-        return (
-            <main className={styles.mainContainer}>
-                <FlexBox alignItems="Center" justifyContent="Center" style={{ padding: '2rem' }}>
-                    <Text>Loading documents...</Text>
-                </FlexBox>
-            </main>
-        );
+        return <LetterGlitchLoader />;
     }
 
     return (
@@ -132,6 +129,7 @@ function AuthenticatedQuickStartView() {
                 onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
                 onSave={handleCreate}
                 onCancel={handleCancel}
+                isEditMode={isEditMode}
             />
             <main className={styles.pageContainer}>
                 <EditorComponent onAddNew={handleAddNew} onEditMeta={handleEditMeta} />

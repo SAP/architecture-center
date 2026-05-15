@@ -21,6 +21,9 @@ export interface Document extends PageMetadata {
     _remoteId?: string;
     // Read-only flag for contributors (non-authors)
     isReadOnly?: boolean;
+    // Dirty flags to track what needs syncing
+    _contributorsDirty?: boolean;
+    _tagsDirty?: boolean;
 }
 
 interface PageDataState {
@@ -288,8 +291,8 @@ export const usePageDataStore = create<PageDataState>()(
                             throw new Error(`Failed to sync document: ${patchResponse.statusText}`);
                         }
 
-                        // 2. Call setDocumentContributors action (always sync, even empty arrays for removals)
-                        if (doc.contributors !== undefined) {
+                        // 2. Call setDocumentContributors action only if contributors changed
+                        if (doc._contributorsDirty) {
                             const contributorsResponse = await fetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentContributors`,
                                 {
@@ -300,7 +303,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     },
                                     body: JSON.stringify({
                                         documentId: doc.id,
-                                        contributorsUsernames: doc.contributors,
+                                        contributorsUsernames: doc.contributors || [],
                                     }),
                                 }
                             );
@@ -310,8 +313,8 @@ export const usePageDataStore = create<PageDataState>()(
                             }
                         }
 
-                        // 3. Call setDocumentTags action if tags exist
-                        if (doc.tags && doc.tags.length > 0) {
+                        // 3. Call setDocumentTags action only if tags changed
+                        if (doc._tagsDirty) {
                             const tagsResponse = await fetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentTags`,
                                 {
@@ -322,7 +325,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     },
                                     body: JSON.stringify({
                                         documentId: doc.id,
-                                        tags: doc.tags,
+                                        tags: doc.tags || [],
                                     }),
                                 }
                             );
@@ -332,10 +335,10 @@ export const usePageDataStore = create<PageDataState>()(
                             }
                         }
 
-                        // Mark as synced
+                        // Mark as synced and clear dirty flags
                         set((state) => ({
                             documents: state.documents.map((d) =>
-                                d.id === id ? { ...d, _synced: true } : d
+                                d.id === id ? { ...d, _synced: true, _contributorsDirty: false, _tagsDirty: false } : d
                             ),
                             isSyncing: false,
                             lastSaveTimestamp: new Date().toLocaleString(),
@@ -572,9 +575,20 @@ export const usePageDataStore = create<PageDataState>()(
             updateDocument: (id, updates, skipRemoteSync = false) => {
                 const { syncDocument, backendUrl, authToken } = get();
 
+                // Track which fields are being updated for dirty flags
+                const contributorsDirty = 'contributors' in updates;
+                const tagsDirty = 'tags' in updates;
+
                 set((state) => ({
                     documents: state.documents.map((doc) =>
-                        doc.id === id ? { ...doc, ...updates, _synced: false } : doc
+                        doc.id === id ? {
+                            ...doc,
+                            ...updates,
+                            _synced: false,
+                            // Set dirty flags if these fields are being updated
+                            _contributorsDirty: contributorsDirty || doc._contributorsDirty,
+                            _tagsDirty: tagsDirty || doc._tagsDirty,
+                        } : doc
                     ),
                     lastSaveTimestamp: new Date().toLocaleString(),
                 }));

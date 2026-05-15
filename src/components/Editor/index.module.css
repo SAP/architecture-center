@@ -63,6 +63,19 @@
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+.editorScrollContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.editorSpacer {
+    flex-grow: 1;
+    min-height: 30vh;
 }
 
 .stickyToolbarWrapper {
@@ -90,7 +103,7 @@
     font-size: 16px;
     caret-color: #212529;
     outline: 0;
-    padding: 2rem 3rem 40vh 5rem;
+    padding: 2rem 3rem 2rem 5rem;
     box-sizing: border-box;
     cursor: default;
 }
@@ -199,17 +212,19 @@
     line-height: 1.25;
 }
 
+/* H2 displays as H1 visually (user's "Heading 1") */
 .editorH2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 1rem 0;
     line-height: 1.25;
 }
 
+/* H3 displays as H2 visually (user's "Heading 2") */
 .editorH3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
     line-height: 1.25;
 }
 
@@ -394,6 +409,15 @@
     border: 1px solid #e5e7eb;
     background: #fafafa;
     position: relative;
+}
+
+:global(.editorDrawioWrapper.editorDrawioLoading) {
+    border: none;
+    background: transparent;
+}
+
+:global(.editorDrawioWrapper.editorDrawioLoading .editorDrawioIframe) {
+    min-height: 250px;
 }
 
 /* Invisible hover area on the left for block handle detection */
@@ -629,7 +653,7 @@
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     overflow: hidden;
-    table-layout: fixed;
+    table-layout: auto;
 }
 
 :global(.editorTableRow) {
@@ -643,8 +667,7 @@
 :global(.editorTableCell) {
     border: 1px solid #e5e7eb;
     padding: 8px 12px;
-    min-width: 120px;
-    width: 120px;
+    min-width: 100px;
     vertical-align: top;
     position: relative;
     outline: none;

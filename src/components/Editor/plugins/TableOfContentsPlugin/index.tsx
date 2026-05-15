@@ -96,7 +96,7 @@ export default function TableOfContentsPlugin() {
             <li
               key={heading.key}
               className={`${styles.tocItem} ${heading.key === activeKey ? styles.active : ''}`}
-              data-level={heading.level}
+              data-level={Math.max(1, heading.level - 1)}
               onClick={() => handleClick(heading.key)}
               title={heading.text}
             >

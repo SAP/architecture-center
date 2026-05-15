@@ -43,6 +43,7 @@ interface MetadataFormDialogProps {
     onDataChange: (data: Partial<PageMetadata>) => void;
     onSave: () => void;
     onCancel: () => void;
+    isEditMode?: boolean;
 }
 
 export default React.memo(function MetadataFormDialog({
@@ -51,6 +52,7 @@ export default React.memo(function MetadataFormDialog({
     onDataChange,
     onSave,
     onCancel,
+    isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { user, token } = useAuth();
@@ -247,7 +249,7 @@ export default React.memo(function MetadataFormDialog({
             style={{ width: '650px' }}
             header={
                 <Bar>
-                    <Title>Create New Reference Architecture</Title>
+                    <Title>{isEditMode ? 'Edit Reference Architecture' : 'Create New Reference Architecture'}</Title>
                 </Bar>
             }
             footer={
@@ -255,7 +257,7 @@ export default React.memo(function MetadataFormDialog({
                     endContent={
                         <>
                             <Button design="Emphasized" onClick={onSave} disabled={!isFormValid}>
-                                Create
+                                {isEditMode ? 'Save' : 'Create'}
                             </Button>
                             <Button onClick={onCancel}>Cancel</Button>
                         </>

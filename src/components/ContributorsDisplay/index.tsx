@@ -142,15 +142,6 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
             <div className={styles.titleWrapper}>
                 <Icon name="information" className={styles.infoIcon} />
                 <h3 className={styles.title}>Contributors</h3>
-                {!isEditing && !readOnly && (
-                    <Button
-                        design="Transparent"
-                        icon="edit"
-                        onClick={handleEditClick}
-                        className={styles.editButton}
-                        tooltip="Edit Contributors"
-                    />
-                )}
             </div>
             {isEditing ? (
                 <div className={styles.editContainer}>
@@ -186,7 +177,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                     </FlexBox>
                 </div>
             ) : (
-                <div className={styles.list}>
+                <div className={styles.list} onClick={!readOnly ? handleEditClick : undefined} style={{ cursor: readOnly ? 'default' : 'pointer' }}>
                     {contributors && contributors.length > 0 ? (
                         contributors.map((username, index) => (
                             <a
@@ -195,6 +186,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={styles.contributor}
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <img
                                     src={`https://github.com/${username}.png`}
@@ -207,7 +199,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                         ))
                     ) : (
                         <span className={styles.noContributors}>
-                            No contributors listed. Click the edit icon to add one.
+                            {readOnly ? 'No contributors listed.' : 'Click to add contributors.'}
                         </span>
                     )}
                 </div>
