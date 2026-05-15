@@ -25,11 +25,18 @@
     transition: background-color 0.2s ease;
     display: flex;
     align-items: center;
+    background: none;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 .breadcrumbCurrent {
     margin-left: 10px;
+    cursor: default;
 }
+
 .breadcrumbLink:hover {
     background-color: #f0f1f2;
     color: #1c2a38;
@@ -50,4 +57,24 @@
     align-items: center;
     color: #aeb8c4;
     font-size: 14px;
+}
+
+/* Dark mode styles */
+:root[data-theme='dark'] .breadcrumbLink,
+:root[data-theme='dark'] .breadcrumbCurrent {
+    color: #9ca3af;
+}
+
+:root[data-theme='dark'] .breadcrumbLink:hover {
+    background-color: #374151;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .breadcrumbCurrent {
+    color: #60a5fa;
+    background-color: #1e3a5f;
+}
+
+:root[data-theme='dark'] .separator {
+    color: #6b7280;
 }

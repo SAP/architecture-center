@@ -1,443 +1,403 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { useIsVisible } from '@site/src/hooks/useIsVisible'; 
+import { useEditor } from '../../hooks/useEditor';
+import { useIsVisible } from '@site/src/hooks/useIsVisible';
 import {
-    $getSelection,
-    $isRangeSelection,
-    FORMAT_TEXT_COMMAND,
-    FORMAT_ELEMENT_COMMAND,
-    UNDO_COMMAND,
-    REDO_COMMAND,
-    SELECTION_CHANGE_COMMAND,
-    COMMAND_PRIORITY_LOW,
-    CAN_UNDO_COMMAND,
-    CAN_REDO_COMMAND,
-    INDENT_CONTENT_COMMAND,
-    OUTDENT_CONTENT_COMMAND,
-    LexicalEditor,
-} from 'lexical';
-import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
-import { $setBlocksType } from '@lexical/selection';
-import { $isHeadingNode, $createQuoteNode, $createHeadingNode } from '@lexical/rich-text';
-import { $isListNode, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '@lexical/list';
-import {
-    ChevronDown, Underline, Link2, Bold, Italic, Strikethrough, Code, Quote, List,
-    ListOrdered, AlignLeft, AlignCenter, AlignRight, AlignJustify, Undo, Redo,
-    Heading1, Heading2, Heading3, Indent, Outdent, Plus, MoreHorizontal
+  ChevronDown, Underline, Bold, Italic, Strikethrough, Code, Quote, List,
+  ListOrdered, Undo, Redo, Heading1, Heading2, Heading3, MoreHorizontal,
+  Info, Lightbulb, AlertTriangle, AlertCircle, StickyNote
 } from 'lucide-react';
-import { INSERT_ACTIONS } from '../insertActions';
 import styles from './index.module.css';
 
 interface ToolbarState {
-    isBold: boolean;
-    isItalic: boolean;
-    isUnderline: boolean;
-    isStrikethrough: boolean;
-    isCode: boolean;
-    isLink: boolean;
-    canUndo: boolean;
-    canRedo: boolean;
+  isBold: boolean;
+  isItalic: boolean;
+  isUnderline: boolean;
+  isStrikethrough: boolean;
+  isCode: boolean;
+  canUndo: boolean;
+  canRedo: boolean;
+  blockType: string;
 }
 
 interface ToolItem {
-    id: string;
-    group?: string; 
-    component?: React.ReactNode;
-    type?: 'divider' | 'tool';
+  id: string;
+  group?: string;
+  component?: React.ReactNode;
+  type?: 'divider' | 'tool';
 }
 
 interface ResponsiveItemProps {
-    id: string;
-    children: React.ReactNode;
-    setHiddenIds: React.Dispatch<React.SetStateAction<string[]>>;
+  id: string;
+  children: React.ReactNode;
+  setHiddenIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-interface BlockFormatDropDownProps {
-    editor: LexicalEditor;
-    blockType: string;
-}
-
-interface InsertDropDownProps {
-    editor: LexicalEditor;
-}
-
-
-function useClickOutside(ref: React.RefObject<HTMLElement>, handler: (event: MouseEvent) => void) {
-    useEffect(() => {
-        const listener = (event: MouseEvent) => {
-            const target = event.target as Node;
-            if (!ref.current || ref.current.contains(target)) {
-                return;
-            }
-            handler(event);
-        };
-        document.addEventListener('mousedown', listener);
-        return () => document.removeEventListener('mousedown', listener);
-    }, [ref, handler]);
+function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: (event: MouseEvent) => void) {
+  useEffect(() => {
+    const listener = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (!ref.current || ref.current.contains(target)) {
+        return;
+      }
+      handler(event);
+    };
+    document.addEventListener('mousedown', listener);
+    return () => document.removeEventListener('mousedown', listener);
+  }, [ref, handler]);
 }
 
 const ResponsiveItem: React.FC<ResponsiveItemProps> = ({ id, children, setHiddenIds }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const isVisible = useIsVisible(ref);
+  const ref = useRef<HTMLDivElement>(null);
+  const isVisible = useIsVisible(ref as React.RefObject<HTMLElement>);
 
-    useEffect(() => {
-        if (id.startsWith('divider')) return;
+  useEffect(() => {
+    if (id.startsWith('divider')) return;
 
-        setHiddenIds((prev) => {
-            const exists = prev.includes(id);
-            if (!isVisible && !exists) return [...prev, id];
-            if (isVisible && exists) return prev.filter((item) => item !== id);
-            return prev;
-        });
-    }, [id, isVisible, setHiddenIds]);
-
-    return (
-        <div ref={ref} className={styles.responsiveItemWrapper}>
-            {children}
-        </div>
-    );
-};
-
-
-export default function ToolbarPlugin() {
-    const [editor] = useLexicalComposerContext();
-    const [hiddenIds, setHiddenIds] = useState<string[]>([]);
-    const [showHamburger, setShowHamburger] = useState(false);
-    const hamburgerRef = useRef<HTMLDivElement>(null);
-
-    
-    const [blockType, setBlockType] = useState('paragraph');
-    const [state, setState] = useState<ToolbarState>({
-        isBold: false,
-        isItalic: false,
-        isUnderline: false,
-        isStrikethrough: false,
-        isCode: false,
-        isLink: false,
-        canUndo: false,
-        canRedo: false,
+    setHiddenIds((prev) => {
+      const exists = prev.includes(id);
+      if (!isVisible && !exists) return [...prev, id];
+      if (isVisible && exists) return prev.filter((item) => item !== id);
+      return prev;
     });
+  }, [id, isVisible, setHiddenIds]);
 
-    useClickOutside(hamburgerRef, () => setShowHamburger(false));
-
-    const updateToolbar = useCallback(() => {
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-            const anchorNode = selection.anchor.getNode();
-            const element = anchorNode.getKey() === 'root' 
-                ? anchorNode 
-                : anchorNode.getTopLevelElementOrThrow();
-            const elementKey = element.getKey();
-            const elementDOM = editor.getElementByKey(elementKey);
-
-            if (elementDOM !== null) {
-                if ($isListNode(element)) {
-                    setBlockType(element.getTag());
-                } else {
-                    const type = $isHeadingNode(element) ? element.getTag() : element.getType();
-                    setBlockType(type);
-                }
-            }
-
-           
-            const node = selection.getNodes()[0];
-            const parent = node.getParent();
-            const isLink = $isLinkNode(parent) || $isLinkNode(node);
-
-            setState({
-                isBold: selection.hasFormat('bold'),
-                isItalic: selection.hasFormat('italic'),
-                isUnderline: selection.hasFormat('underline'),
-                isStrikethrough: selection.hasFormat('strikethrough'),
-                isCode: selection.hasFormat('code'),
-                isLink: isLink,
-                canUndo: state.canUndo, 
-                canRedo: state.canRedo,
-            });
-        }
-    }, [editor, state.canUndo, state.canRedo]);
-
-    useEffect(() => {
-        return editor.registerCommand(
-            SELECTION_CHANGE_COMMAND,
-            () => {
-                updateToolbar();
-                return false;
-            },
-            COMMAND_PRIORITY_LOW
-        );
-    }, [editor, updateToolbar]);
-
-    useEffect(() => {
-        return editor.registerCommand(
-            CAN_UNDO_COMMAND,
-            (payload) => {
-                setState((s) => ({ ...s, canUndo: payload }));
-                return false;
-            },
-            COMMAND_PRIORITY_LOW
-        );
-    }, [editor]);
-
-    useEffect(() => {
-        return editor.registerCommand(
-            CAN_REDO_COMMAND,
-            (payload) => {
-                setState((s) => ({ ...s, canRedo: payload }));
-                return false;
-            },
-            COMMAND_PRIORITY_LOW
-        );
-    }, [editor]);
-
-    const insertLink = useCallback(() => {
-        if (!state.isLink) {
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
-        } else {
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-        }
-    }, [editor, state.isLink]);
-
-    const formatQuote = () => {
-        editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-                $setBlocksType(selection, () => $createQuoteNode());
-            }
-        });
-    };
-
-    
-    const tools: ToolItem[] = [
-        { id: 'undo', group: 'History', component: <button disabled={!state.canUndo} onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)} className={styles.button} title="Undo"><Undo size={16} /></button> },
-        { id: 'redo', group: 'History', component: <button disabled={!state.canRedo} onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)} className={styles.button} title="Redo"><Redo size={16} /></button> },
-        { id: 'divider-1', type: 'divider' },
-        
-        { id: 'block-format', group: 'Text Style', component: <BlockFormatDropDown editor={editor} blockType={blockType} /> },
-        { id: 'divider-2', type: 'divider' },
-
-        { id: 'bold', group: 'Formatting', component: <button onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')} className={`${styles.button} ${state.isBold ? styles.active : ''}`} title="Bold"><Bold size={16} /></button> },
-        { id: 'italic', group: 'Formatting', component: <button onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')} className={`${styles.button} ${state.isItalic ? styles.active : ''}`} title="Italic"><Italic size={16} /></button> },
-        { id: 'underline', group: 'Formatting', component: <button onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')} className={`${styles.button} ${state.isUnderline ? styles.active : ''}`} title="Underline"><Underline size={16} /></button> },
-        { id: 'strikethrough', group: 'Formatting', component: <button onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')} className={`${styles.button} ${state.isStrikethrough ? styles.active : ''}`} title="Strikethrough"><Strikethrough size={16} /></button> },
-        { id: 'code', group: 'Formatting', component: <button onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')} className={`${styles.button} ${state.isCode ? styles.active : ''}`} title="Code"><Code size={16} /></button> },
-        { id: 'link', group: 'Formatting', component: <button onClick={insertLink} className={`${styles.button} ${state.isLink ? styles.active : ''}`} title="Link"><Link2 size={16} /></button> },
-        { id: 'divider-3', type: 'divider' },
-
-        { id: 'ul', group: 'Lists', component: <button onClick={() => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)} className={styles.button} title="Bullet List"><List size={16} /></button> },
-        { id: 'ol', group: 'Lists', component: <button onClick={() => editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)} className={styles.button} title="Numbered List"><ListOrdered size={16} /></button> },
-        { id: 'quote', group: 'Lists', component: <button onClick={formatQuote} className={styles.button} title="Quote"><Quote size={16} /></button> },
-        { id: 'divider-4', type: 'divider' },
-
-        { id: 'left', group: 'Alignment', component: <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')} className={styles.button} title="Left"><AlignLeft size={16} /></button> },
-        { id: 'center', group: 'Alignment', component: <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')} className={styles.button} title="Center"><AlignCenter size={16} /></button> },
-        { id: 'right', group: 'Alignment', component: <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')} className={styles.button} title="Right"><AlignRight size={16} /></button> },
-        { id: 'justify', group: 'Alignment', component: <button onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')} className={styles.button} title="Justify"><AlignJustify size={16} /></button> },
-        { id: 'divider-5', type: 'divider' },
-
-        { id: 'outdent', group: 'Indentation', component: <button onClick={() => editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined)} className={styles.button} title="Outdent"><Outdent size={16} /></button> },
-        { id: 'indent', group: 'Indentation', component: <button onClick={() => editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined)} className={styles.button} title="Indent"><Indent size={16} /></button> },
-        { id: 'divider-6', type: 'divider' },
-
-        { id: 'insert', group: 'Insert', component: <InsertDropDown editor={editor} /> }
-    ];
-
-    
-    const getGroupedHiddenTools = () => {
-        const hiddenTools = tools.filter((t) => hiddenIds.includes(t.id) && t.type !== 'divider');
-        const groups: Record<string, ToolItem[]> = {};
-
-        hiddenTools.forEach((tool) => {
-            const groupName = tool.group || 'Other';
-            if (!groups[groupName]) {
-                groups[groupName] = [];
-            }
-            groups[groupName].push(tool);
-        });
-
-        return Object.entries(groups);
-    };
-
-    return (
-        <div className={styles.toolbarContainer}>
-            <div className={styles.scrollableToolbar}>
-                {tools.map((tool) => (
-                    <ResponsiveItem key={tool.id} id={tool.id} setHiddenIds={setHiddenIds}>
-                        {tool.type === 'divider' ? <div className={styles.divider} /> : tool.component}
-                    </ResponsiveItem>
-                ))}
-            </div>
-
-            {hiddenIds.length > 0 && (
-                <div className={styles.hamburgerContainer} ref={hamburgerRef}>
-                    <button className={styles.button} onClick={() => setShowHamburger((v) => !v)}>
-                        <MoreHorizontal size={16} />
-                    </button>
-                    {showHamburger && (
-                        <div className={styles.hamburgerDropdown}>
-                            {getGroupedHiddenTools().map(([groupName, groupTools]) => (
-                                <div key={groupName} className={styles.menuGroup}>
-                                    <div className={styles.menuHeader}>{groupName}</div>
-                                    <div className={styles.menuRow}>
-                                        {groupTools.map((tool) => (
-                                            <React.Fragment key={tool.id}>
-                                                {tool.component}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )}
-        </div>
-    );
-}
-
+  return (
+    <div ref={ref} className={styles.responsiveItemWrapper}>
+      {children}
+    </div>
+  );
+};
 
 const blockTypeToBlockName: Record<string, string> = {
-    h1: 'Heading 1',
-    h2: 'Heading 2',
-    h3: 'Heading 3',
-    paragraph: 'Paragraph',
-    quote: 'Quote',
-    ul: 'Bulleted List',
-    ol: 'Numbered List',
+  h1: 'Heading 1',
+  h2: 'Heading 2',
+  h3: 'Heading 3',
+  paragraph: 'Paragraph',
+  quote: 'Quote',
+  heading: 'Heading',
+  note: 'Note',
+  info: 'Info',
+  tip: 'Tip',
+  warning: 'Warning',
+  danger: 'Danger',
 };
 
-const BlockFormatDropDown: React.FC<BlockFormatDropDownProps> = ({ editor, blockType }) => {
-    const dropDownRef = useRef<HTMLDivElement>(null);
-    const [showDropDown, setShowDropDown] = useState(false);
-    useClickOutside(dropDownRef, () => setShowDropDown(false));
+function BlockFormatDropDown() {
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const editor = useEditor();
+  const blockType = editor.getActiveBlockType();
 
-    const formatHeading = (level: 'h1' | 'h2' | 'h3') => {
-        editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-                $setBlocksType(selection, () => $createHeadingNode(level));
-            }
-        });
-        setShowDropDown(false);
-    };
+  useClickOutside(dropDownRef, () => setShowDropDown(false));
 
-    const formatQuote = () => {
-        editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-                $setBlocksType(selection, () => $createQuoteNode());
-            }
-        });
-        setShowDropDown(false);
-    };
+  const formatHeading = (level: 1 | 2 | 3) => {
+    editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level } });
+    setShowDropDown(false);
+  };
 
-    return (
-        <div className={styles.dropdown} ref={dropDownRef}>
-            <button className={styles.dropdownToggle} onClick={() => setShowDropDown((v) => !v)}>
-                {blockTypeToBlockName[blockType] || 'Paragraph'} <ChevronDown size={16} />
-            </button>
-            {showDropDown && (
-                <div className={styles.dropdownMenu} style={{ zIndex: 100 }}>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h1')}>
-                        <Heading1 size={18} /> Heading 1
-                    </button>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h2')}>
-                        <Heading2 size={18} /> Heading 2
-                    </button>
-                    <button className={styles.dropdownItem} onClick={() => formatHeading('h3')}>
-                        <Heading3 size={18} /> Heading 3
-                    </button>
-                    <button className={styles.dropdownItem} onClick={formatQuote}>
-                        <Quote size={18} /> Quote
-                    </button>
+  const formatParagraph = () => {
+    editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'paragraph' } });
+    setShowDropDown(false);
+  };
+
+  const formatQuote = () => {
+    editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'quote' } });
+    setShowDropDown(false);
+  };
+
+  return (
+    <div className={styles.dropdown} ref={dropDownRef}>
+      <button className={styles.dropdownToggle} onClick={() => setShowDropDown((v) => !v)}>
+        {blockTypeToBlockName[blockType] || 'Paragraph'} <ChevronDown size={16} />
+      </button>
+      {showDropDown && (
+        <div className={styles.dropdownMenu} style={{ zIndex: 100 }}>
+          <button className={styles.dropdownItem} onClick={formatParagraph}>
+            Paragraph
+          </button>
+          <button className={styles.dropdownItem} onClick={() => formatHeading(1)}>
+            <Heading1 size={18} /> Heading 1
+          </button>
+          <button className={styles.dropdownItem} onClick={() => formatHeading(2)}>
+            <Heading2 size={18} /> Heading 2
+          </button>
+          <button className={styles.dropdownItem} onClick={() => formatHeading(3)}>
+            <Heading3 size={18} /> Heading 3
+          </button>
+          <button className={styles.dropdownItem} onClick={formatQuote}>
+            <Quote size={18} /> Quote
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AdmonitionDropDown() {
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const [showDropDown, setShowDropDown] = useState(false);
+  const editor = useEditor();
+
+  useClickOutside(dropDownRef, () => setShowDropDown(false));
+
+  const insertAdmonition = (type: 'note' | 'info' | 'tip' | 'warning' | 'danger') => {
+    editor.dispatchCommand({ type: 'INSERT_ADMONITION', payload: { admonitionType: type } });
+    setShowDropDown(false);
+  };
+
+  return (
+    <div className={styles.dropdown} ref={dropDownRef}>
+      <button className={styles.dropdownToggle} onClick={() => setShowDropDown((v) => !v)}>
+        <Info size={16} /> Callout <ChevronDown size={14} />
+      </button>
+      {showDropDown && (
+        <div className={styles.dropdownMenu} style={{ zIndex: 100 }}>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('note')}>
+            <StickyNote size={18} /> Note
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('info')}>
+            <Info size={18} /> Info
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('tip')}>
+            <Lightbulb size={18} /> Tip
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('warning')}>
+            <AlertTriangle size={18} /> Warning
+          </button>
+          <button className={styles.dropdownItem} onClick={() => insertAdmonition('danger')}>
+            <AlertCircle size={18} /> Danger
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function ToolbarPlugin() {
+  const editor = useEditor();
+  const [hiddenIds, setHiddenIds] = useState<string[]>([]);
+  const [showHamburger, setShowHamburger] = useState(false);
+  const hamburgerRef = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState<ToolbarState>({
+    isBold: false,
+    isItalic: false,
+    isUnderline: false,
+    isStrikethrough: false,
+    isCode: false,
+    canUndo: false,
+    canRedo: false,
+    blockType: 'paragraph',
+  });
+
+  useClickOutside(hamburgerRef, () => setShowHamburger(false));
+
+  const updateToolbar = useCallback(() => {
+    const formats = editor.getActiveFormats();
+    setState({
+      isBold: formats.bold || false,
+      isItalic: formats.italic || false,
+      isUnderline: formats.underline || false,
+      isStrikethrough: formats.strikethrough || false,
+      isCode: formats.code || false,
+      canUndo: editor.canUndo(),
+      canRedo: editor.canRedo(),
+      blockType: editor.getActiveBlockType(),
+    });
+  }, [editor]);
+
+  useEffect(() => {
+    updateToolbar();
+    const intervalId = setInterval(updateToolbar, 100);
+    return () => clearInterval(intervalId);
+  }, [updateToolbar]);
+
+  const tools: ToolItem[] = [
+    {
+      id: 'undo',
+      group: 'History',
+      component: (
+        <button
+          disabled={!state.canUndo}
+          onClick={() => editor.dispatchCommand({ type: 'UNDO' })}
+          className={styles.button}
+          title="Undo"
+        >
+          <Undo size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'redo',
+      group: 'History',
+      component: (
+        <button
+          disabled={!state.canRedo}
+          onClick={() => editor.dispatchCommand({ type: 'REDO' })}
+          className={styles.button}
+          title="Redo"
+        >
+          <Redo size={16} />
+        </button>
+      ),
+    },
+    { id: 'divider-1', type: 'divider' },
+    { id: 'block-format', group: 'Text Style', component: <BlockFormatDropDown /> },
+    { id: 'divider-2', type: 'divider' },
+    {
+      id: 'bold',
+      group: 'Formatting',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format: 'bold' } })}
+          className={`${styles.button} ${state.isBold ? styles.active : ''}`}
+          title="Bold"
+        >
+          <Bold size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'italic',
+      group: 'Formatting',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format: 'italic' } })}
+          className={`${styles.button} ${state.isItalic ? styles.active : ''}`}
+          title="Italic"
+        >
+          <Italic size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'underline',
+      group: 'Formatting',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format: 'underline' } })}
+          className={`${styles.button} ${state.isUnderline ? styles.active : ''}`}
+          title="Underline"
+        >
+          <Underline size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'strikethrough',
+      group: 'Formatting',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format: 'strikethrough' } })}
+          className={`${styles.button} ${state.isStrikethrough ? styles.active : ''}`}
+          title="Strikethrough"
+        >
+          <Strikethrough size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'code',
+      group: 'Formatting',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'FORMAT_TEXT', payload: { format: 'code' } })}
+          className={`${styles.button} ${state.isCode ? styles.active : ''}`}
+          title="Code"
+        >
+          <Code size={16} />
+        </button>
+      ),
+    },
+    { id: 'divider-3', type: 'divider' },
+    {
+      id: 'ul',
+      group: 'Lists',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'TOGGLE_LIST', payload: { listType: 'bullet' } })}
+          className={styles.button}
+          title="Bullet List"
+        >
+          <List size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'ol',
+      group: 'Lists',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'TOGGLE_LIST', payload: { listType: 'number' } })}
+          className={styles.button}
+          title="Numbered List"
+        >
+          <ListOrdered size={16} />
+        </button>
+      ),
+    },
+    {
+      id: 'quote',
+      group: 'Lists',
+      component: (
+        <button
+          onClick={() => editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'quote' } })}
+          className={styles.button}
+          title="Quote"
+        >
+          <Quote size={16} />
+        </button>
+      ),
+    },
+    { id: 'divider-4', type: 'divider' },
+    { id: 'admonition', group: 'Callouts', component: <AdmonitionDropDown /> },
+  ];
+
+  const getGroupedHiddenTools = () => {
+    const hiddenTools = tools.filter((t) => hiddenIds.includes(t.id) && t.type !== 'divider');
+    const groups: Record<string, ToolItem[]> = {};
+
+    hiddenTools.forEach((tool) => {
+      const groupName = tool.group || 'Other';
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(tool);
+    });
+
+    return Object.entries(groups);
+  };
+
+  return (
+    <div className={styles.toolbarContainer}>
+      <div className={styles.scrollableToolbar}>
+        {tools.map((tool) => (
+          <ResponsiveItem key={tool.id} id={tool.id} setHiddenIds={setHiddenIds}>
+            {tool.type === 'divider' ? <div className={styles.divider} /> : tool.component}
+          </ResponsiveItem>
+        ))}
+      </div>
+
+      {hiddenIds.length > 0 && (
+        <div className={styles.hamburgerContainer} ref={hamburgerRef}>
+          <button className={styles.button} onClick={() => setShowHamburger((v) => !v)}>
+            <MoreHorizontal size={16} />
+          </button>
+          {showHamburger && (
+            <div className={styles.hamburgerDropdown}>
+              {getGroupedHiddenTools().map(([groupName, groupTools]) => (
+                <div key={groupName} className={styles.menuGroup}>
+                  <div className={styles.menuHeader}>{groupName}</div>
+                  <div className={styles.menuRow}>
+                    {groupTools.map((tool) => (
+                      <React.Fragment key={tool.id}>{tool.component}</React.Fragment>
+                    ))}
+                  </div>
                 </div>
-            )}
+              ))}
+            </div>
+          )}
         </div>
-    );
-};
-
-const InsertDropDown: React.FC<InsertDropDownProps> = ({ editor }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const menuRef = useRef<HTMLDivElement>(null);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const [showDropDown, setShowDropDown] = useState(false);
-    const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
-
-    useEffect(() => {
-        if (!showDropDown) {
-            return;
-        }
-
-        const updatePosition = () => {
-            const button = buttonRef.current;
-            if (!button) {
-                return;
-            }
-            const rect = button.getBoundingClientRect();
-            setMenuPosition({
-                top: rect.bottom + 8,
-                left: rect.right,
-            });
-        };
-
-        const handleOutsideClick = (event: MouseEvent) => {
-            const target = event.target as Node;
-            if (containerRef.current?.contains(target) || menuRef.current?.contains(target)) {
-                return;
-            }
-            setShowDropDown(false);
-        };
-
-        updatePosition();
-        window.addEventListener('resize', updatePosition);
-        window.addEventListener('scroll', updatePosition, true);
-        document.addEventListener('mousedown', handleOutsideClick);
-
-        return () => {
-            window.removeEventListener('resize', updatePosition);
-            window.removeEventListener('scroll', updatePosition, true);
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [showDropDown]);
-
-    return (
-        <div className={styles.dropdown} ref={containerRef}>
-            <button ref={buttonRef} className={styles.button} onClick={() => setShowDropDown((v) => !v)}>
-                <Plus size={16} /> <span style={{ marginLeft: '4px' }}>Insert</span>
-            </button>
-            {showDropDown && menuPosition
-                ? createPortal(
-                      <div
-                          ref={menuRef}
-                          className={styles.dropdownMenu}
-                          style={{
-                              position: 'fixed',
-                              top: menuPosition.top,
-                              left: menuPosition.left,
-                              transform: 'translateX(-100%)',
-                              zIndex: 1000,
-                          }}
-                      >
-                          {INSERT_ACTIONS.map((action) => {
-                              const Icon = action.icon;
-                              return (
-                                  <button
-                                      key={action.id}
-                                      className={styles.dropdownItem}
-                                      onClick={() => {
-                                          action.onSelect(editor);
-                                          setShowDropDown(false);
-                                      }}
-                                  >
-                                      <Icon size={18} /> {action.name === 'Draw.io Diagram' ? 'Draw.io' : action.name}
-                                  </button>
-                              );
-                          })}
-                      </div>,
-                      document.body
-                  )
-                : null}
-        </div>
-    );
-};
+      )}
+    </div>
+  );
+}

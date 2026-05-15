@@ -8,9 +8,10 @@
 }
 
 .navColumn {
-    padding-top: 50px;
     flex-shrink: 0;
     width: 250px;
+    display: flex;
+    flex-direction: column;
 }
 
 .mainAndTocWrapper {
@@ -55,7 +56,21 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.editorScrollArea {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.stickyToolbarWrapper {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background-color: #ffffff;
+    overflow: visible;
 }
 
 .contentHeader {
@@ -66,7 +81,6 @@
 .editorInner {
     position: relative;
     flex-grow: 1;
-    overflow-y: auto;
 }
 
 .editorInput {
@@ -76,9 +90,14 @@
     font-size: 16px;
     caret-color: #212529;
     outline: 0;
-    padding: 2rem 3rem;
+    padding: 2rem 3rem 40vh 5rem;
     box-sizing: border-box;
-    padding-bottom: 40vh;
+    cursor: default;
+}
+
+/* Text cursor only for actual content elements */
+.editorInput [data-editor-key] {
+    cursor: text;
 }
 
 .editorPlaceholder {
@@ -87,7 +106,7 @@
     position: absolute;
     text-overflow: ellipsis;
     top: 2rem;
-    left: 3rem;
+    left: 5rem;
     font-size: 16px;
     user-select: none;
     pointer-events: none;
@@ -146,6 +165,20 @@
     margin: 0 0 1rem 0;
 }
 
+:global(.editorEmptyBlock.editorFocusedBlock) {
+    position: relative;
+}
+
+:global(.editorEmptyBlock.editorFocusedBlock)::before {
+    content: 'Type / for commands';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #9ca3af;
+    pointer-events: none;
+    font-style: normal;
+}
+
 .editorEmptyLineCommandHint {
     position: relative;
 }
@@ -160,27 +193,31 @@
 }
 
 .editorH1 {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 700;
     margin: 0 0 1rem 0;
+    line-height: 1.25;
 }
 
 .editorH2 {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 1rem 0;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.25;
 }
 
 .editorH3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.25;
 }
 
 .editorH4 {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.25;
 }
 
 .editorH5 {
@@ -197,34 +234,116 @@
     color: #666;
 }
 
-.editorUList {
-    padding-left: 1.5rem;
+:global(.editorOList),
+:global(.editorUList) {
+    padding-left: 0;
     margin: 1rem 0;
+    margin-left: 2rem;
+    list-style: none;
+    overflow: visible;
 }
 
-.editorOList {
-    padding-left: 1.5rem;
-    margin: 1rem 0;
+/* Hide native list markers - we render them ourselves */
+:global(.editorOList > .editorListItem),
+:global(.editorUList > .editorListItem) {
+    list-style: none;
 }
 
-.editorListItem {
+:global(.editorListItem) {
     margin: 0.25rem 0;
+    position: relative;
+    overflow: visible;
+}
+
+:global(.listMarker) {
+    display: inline-block;
+    width: 2rem;
+    margin-left: -2rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    user-select: none;
+    box-sizing: border-box;
+    vertical-align: top;
 }
 
 .editorNestedListItem {
     list-style-type: none;
 }
 
-.editorLink {
+:global(.editorLink) {
     color: #3b82f6;
     text-decoration: none;
 }
 
-.editorLink:hover {
+:global(.editorLink):hover {
     text-decoration: underline;
 }
 
-.editorCode {
+:global(.editorCodeWrapper) {
+    margin: 1rem 0;
+    border-radius: 8px;
+    overflow: visible;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+:global(.editorCodeToolbar) {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+}
+
+:global(.editorCodeLanguageSelect) {
+    background-color: transparent;
+    color: #374151;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    padding-right: 20px;
+}
+
+:global(.editorCodeLanguageSelect:hover) {
+    background-color: #f3f4f6;
+}
+
+:global(.editorCodeContent) {
+    margin: 0;
+    padding: 1.25rem;
+    padding-right: 140px;
+    background-color: transparent;
+    overflow-x: auto;
+}
+
+:global(.editorCodeContent code) {
+    background: none;
+    padding: 0;
+    border: none;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', 'Menlo', monospace;
+    font-size: 14px;
+    color: #1f2937;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+:global(.editorCode) {
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
     border-radius: 4px;
@@ -235,10 +354,407 @@
     overflow-x: auto;
 }
 
+:global(.editorCode code) {
+    background: none;
+    padding: 0;
+    border: none;
+    font-family: inherit;
+}
+
 .editorImage {
     max-width: 100%;
     height: auto;
     margin: 1rem 0;
+}
+
+:global(.editorImageWrapper img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: transparent;
+}
+
+:global(.editorDivider) {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    height: 0;
+}
+
+:root[data-theme='dark'] :global(.editorDivider) {
+    border-top-color: #374151;
+}
+
+:global(.editorDrawioWrapper) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: visible;
+    border: 1px solid #e5e7eb;
+    background: #fafafa;
+    position: relative;
+}
+
+/* Invisible hover area on the left for block handle detection */
+:global(.editorDrawioWrapper::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80px;
+    width: 80px;
+    height: 100%;
+    z-index: 10;
+}
+
+:global(.editorDrawioIframe) {
+    display: block;
+    width: 100%;
+    min-height: 400px;
+    border: none;
+}
+
+:global(.editorDrawioOverlay) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: grab;
+    z-index: 5;
+}
+
+:global(.editorDrawioOverlay:active) {
+    cursor: grabbing;
+}
+
+/* Double-click to interact with the diagram */
+:global(.editorDrawioWrapper.interacting .editorDrawioOverlay) {
+    display: none;
+}
+
+:global(.editorImageWrapper) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: visible;
+    display: block;
+    position: relative;
+}
+
+/* Invisible hover area on the left for block handle detection */
+:global(.editorImageWrapper::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80px;
+    width: 80px;
+    height: 100%;
+    z-index: 10;
+}
+
+:root[data-theme='dark'] :global(.editorImageWrapper img) {
+    border-color: #374151;
+    background-color: #1f2937;
+}
+
+:root[data-theme='dark'] :global(.editorDrawioWrapper) {
+    border-color: #374151;
+    background: #1f2937;
+}
+
+/* Admonition styles */
+:global(.editorAdmonition) {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+:global(.editorAdmonitionTitle) {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+:global(.editorAdmonitionContent) {
+    font-size: 0.95rem;
+}
+
+:global(.editorAdmonitionContent p) {
+    margin: 0;
+}
+
+:global(.editorAdmonition--note) {
+    background-color: #f0f0f0;
+    border-left-color: #6b7280;
+}
+
+:global(.editorAdmonition--note .editorAdmonitionTitle) {
+    color: #4b5563;
+}
+
+:global(.editorAdmonition--info) {
+    background-color: #eff6ff;
+    border-left-color: #3b82f6;
+}
+
+:global(.editorAdmonition--info .editorAdmonitionTitle) {
+    color: #1d4ed8;
+}
+
+:global(.editorAdmonition--tip) {
+    background-color: #ecfdf5;
+    border-left-color: #10b981;
+}
+
+:global(.editorAdmonition--tip .editorAdmonitionTitle) {
+    color: #047857;
+}
+
+:global(.editorAdmonition--warning) {
+    background-color: #fffbeb;
+    border-left-color: #f59e0b;
+}
+
+:global(.editorAdmonition--warning .editorAdmonitionTitle) {
+    color: #b45309;
+}
+
+:global(.editorAdmonition--danger) {
+    background-color: #fef2f2;
+    border-left-color: #ef4444;
+}
+
+:global(.editorAdmonition--danger .editorAdmonitionTitle) {
+    color: #b91c1c;
+}
+
+/* Dark mode admonitions */
+:root[data-theme='dark'] :global(.editorAdmonition--note) {
+    background-color: #374151;
+    border-left-color: #9ca3af;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--note .editorAdmonitionTitle) {
+    color: #d1d5db;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--info) {
+    background-color: #1e3a5f;
+    border-left-color: #60a5fa;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--info .editorAdmonitionTitle) {
+    color: #93c5fd;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--tip) {
+    background-color: #064e3b;
+    border-left-color: #34d399;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--tip .editorAdmonitionTitle) {
+    color: #6ee7b7;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--warning) {
+    background-color: #78350f;
+    border-left-color: #fbbf24;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--warning .editorAdmonitionTitle) {
+    color: #fcd34d;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--danger) {
+    background-color: #7f1d1d;
+    border-left-color: #f87171;
+}
+
+:root[data-theme='dark'] :global(.editorAdmonition--danger .editorAdmonitionTitle) {
+    color: #fca5a5;
+}
+
+/* Table styles */
+:global(.editorTableWrapper) {
+    margin: 1.5rem 0;
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 4px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+:global(.editorTableControls) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    position: absolute;
+    left: -28px;
+    top: 0;
+}
+
+:global(.editorTableWrapper:hover .editorTableControls) {
+    opacity: 1;
+}
+
+:global(.editorTableDragHandle) {
+    width: 20px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 4px;
+    cursor: grab;
+    color: #6b7280;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+:global(.editorTableDragHandle:hover) {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+:global(.editorTable) {
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+:global(.editorTableRow) {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+:global(.editorTableRow:last-child) {
+    border-bottom: none;
+}
+
+:global(.editorTableCell) {
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    min-width: 120px;
+    width: 120px;
+    vertical-align: top;
+    position: relative;
+    outline: none;
+}
+
+:global(.editorTableCell:focus-within) {
+    box-shadow: inset 0 0 0 2px #8b5cf6;
+    z-index: 1;
+}
+
+:global(.editorTableCell.selected) {
+    background: rgba(139, 92, 246, 0.1);
+    box-shadow: inset 0 0 0 2px #8b5cf6;
+}
+
+/* Add row/column buttons */
+:global(.editorTableAddRow) {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+:global(.editorTableAddCol) {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+:global(.editorTableWrapper:hover .editorTableAddRow),
+:global(.editorTableWrapper:hover .editorTableAddCol) {
+    opacity: 1;
+}
+
+:global(.editorTableAddRow:hover),
+:global(.editorTableAddCol:hover) {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* Column resize handle */
+:global(.editorTableResizeHandle) {
+    position: absolute;
+    top: 0;
+    right: -3px;
+    bottom: 0;
+    width: 6px;
+    cursor: col-resize;
+    background: transparent;
+    z-index: 10;
+}
+
+:global(.editorTableResizeHandle:hover),
+:global(.editorTableResizeHandle.resizing) {
+    background: #8b5cf6;
+}
+
+/* Dark mode table styles */
+:root[data-theme='dark'] :global(.editorTableDragHandle) {
+    background: #374151;
+    color: #9ca3af;
+}
+
+:root[data-theme='dark'] :global(.editorTableDragHandle:hover) {
+    background: #4b5563;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] :global(.editorTable) {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableRow) {
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableCell) {
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] :global(.editorTableCell.selected) {
+    background: rgba(139, 92, 246, 0.2);
 }
 
 .ltr {
@@ -303,6 +819,10 @@
     --editor-muted: var(--sapNeutralColor);
 }
 
+:root[data-theme='dark'] .stickyToolbarWrapper {
+    background-color: var(--sapBackgroundColor);
+}
+
 :root[data-theme='dark'] .editorPageWrapper {
     background-color: var(--editor-bg);
 }
@@ -329,10 +849,32 @@
     color: var(--editor-placeholder);
 }
 
-:root[data-theme='dark'] .editorCode {
-    background-color: var(--editor-code-bg);
-    border-color: var(--editor-border);
-    color: var(--editor-text);
+:root[data-theme='dark'] :global(.editorCode) {
+    background-color: #1e293b;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] :global(.editorCodeWrapper) {
+    background-color: #1e293b;
+}
+
+:root[data-theme='dark'] :global(.editorCodeToolbar) {
+    background-color: #374151;
+    border-color: #4b5563;
+}
+
+:root[data-theme='dark'] :global(.editorCodeLanguageSelect) {
+    color: #e5e7eb;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+:root[data-theme='dark'] :global(.editorCodeLanguageSelect:hover) {
+    background-color: #4b5563;
+}
+
+:root[data-theme='dark'] :global(.editorCodeContent code) {
+    color: #e5e7eb;
 }
 
 :root[data-theme='dark'] .editorQuote {
@@ -340,11 +882,11 @@
     color: var(--editor-muted);
 }
 
-:root[data-theme='dark'] .editorLink {
+:root[data-theme='dark'] :global(.editorLink) {
     color: var(--editor-link);
 }
 
-:root[data-theme='dark'] .editorLink:hover {
+:root[data-theme='dark'] :global(.editorLink):hover {
     color: var(--editor-link-hover);
     text-decoration: underline;
 }

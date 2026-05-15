@@ -1,0 +1,175 @@
+.linkPreview {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.globeIcon {
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.linkUrl {
+    color: #e5e7eb;
+    font-size: 13px;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.previewButton {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #9ca3af;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.previewButton:hover {
+    background-color: #374151;
+    color: #ffffff;
+}
+
+/* Edit Modal */
+.editModal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    background-color: #1f1f1f;
+    border: 1px solid #374151;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    min-width: 320px;
+    animation: fadeIn 0.15s ease;
+}
+
+.editField {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.editLabel {
+    color: #9ca3af;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.editInput {
+    padding: 10px 12px;
+    background-color: #111111;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    color: #e5e7eb;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.editInput:focus {
+    border-color: #3b82f6;
+}
+
+.editInput::placeholder {
+    color: #6b7280;
+}
+
+.removeButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #9ca3af;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 4px;
+}
+
+.removeButton:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* Light mode */
+:root:not([data-theme='dark']) .linkPreview {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+:root:not([data-theme='dark']) .linkUrl {
+    color: #374151;
+}
+
+:root:not([data-theme='dark']) .globeIcon {
+    color: #6b7280;
+}
+
+:root:not([data-theme='dark']) .previewButton {
+    color: #6b7280;
+}
+
+:root:not([data-theme='dark']) .previewButton:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+:root:not([data-theme='dark']) .editModal {
+    background-color: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+:root:not([data-theme='dark']) .editLabel {
+    color: #6b7280;
+}
+
+:root:not([data-theme='dark']) .editInput {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+    color: #111827;
+}
+
+:root:not([data-theme='dark']) .editInput:focus {
+    border-color: #3b82f6;
+}
+
+:root:not([data-theme='dark']) .removeButton {
+    color: #6b7280;
+}
+
+:root:not([data-theme='dark']) .removeButton:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}

@@ -53,7 +53,12 @@ interface EditableData {
     description: string;
 }
 
-export default function ArticleHeader() {
+interface ArticleHeaderProps {
+    readOnly?: boolean;
+    onEditMeta?: () => void;
+}
+
+export default function ArticleHeader({ readOnly = false, onEditMeta }: ArticleHeaderProps) {
     const { getActiveDocument, updateDocument, lastSaveTimestamp } = usePageDataStore();
     const activeDocument = getActiveDocument();
     const globalTagsData = useGlobalData()['docusaurus-tags']['default']['tags'] as Record<string, TagData> | undefined;
@@ -175,9 +180,11 @@ export default function ArticleHeader() {
     return (
         <div id="article-header" className={styles.container}>
             <h1 className={styles.displayTitle}>{activeDocument.title || 'Untitled Page'}</h1>
-            <div className={styles.actions}>
-                <Button icon="edit" design="Transparent" onClick={handleEdit} />
-            </div>
+            {!readOnly && (
+                <div className={styles.actions}>
+                    <Button icon="edit" design="Transparent" onClick={onEditMeta || handleEdit} />
+                </div>
+            )}
             {/* <p className={styles.description}>{activeDocument.description || 'No description provided.'}</p> */}
             <div className={styles.tagsContainer}>
                 {activeDocument.tags.length > 0 &&

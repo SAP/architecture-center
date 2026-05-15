@@ -11,7 +11,7 @@ import Header from '@site/src/components/CustomHeader/Header';
 import { Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
 
-function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
+function EditorComponent({ onAddNew, onEditMeta }: { onAddNew: (parentId?: string | null) => void; onEditMeta?: () => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
 
     if (!activeDocumentId) {
@@ -22,7 +22,7 @@ function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) =>
         <BrowserOnly>
             {() => {
                 const Editor = require('@site/src/components/Editor').default;
-                return <Editor key={activeDocumentId} onAddNew={onAddNew} />;
+                return <Editor key={activeDocumentId} onAddNew={onAddNew} onEditMeta={onEditMeta} />;
             }}
         </BrowserOnly>
     );
@@ -37,13 +37,27 @@ const initialPageData: PageMetadata = {
 
 function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
-    const { documents, addDocument } = usePageDataStore();
+    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading, getActiveDocument, updateDocument } = usePageDataStore();
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users } = useAuth();
+    const { users, token } = useAuth();
+    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const [initialized, setInitialized] = useState(false);
+
+    // Initialize backend config and fetch documents
+    useEffect(() => {
+        if (expressBackendUrl && token && !initialized) {
+            const username = users.github?.username || '';
+            setBackendConfig(expressBackendUrl, token, username);
+            fetchDocuments().then(() => {
+                setInitialized(true);
+            });
+        }
+    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -53,17 +67,43 @@ function AuthenticatedQuickStartView() {
         };
         setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
+        setIsEditMode(false);
         setIsModalOpen(true);
     }, [users.github]);
 
+    const handleEditMeta = useCallback(() => {
+        const activeDoc = getActiveDocument();
+        if (!activeDoc) return;
+
+        setNewDocData({
+            title: activeDoc.title,
+            tags: activeDoc.tags,
+            authors: activeDoc.authors,
+            contributors: activeDoc.contributors || [],
+        });
+        setIsEditMode(true);
+        setIsModalOpen(true);
+    }, [getActiveDocument]);
+
     useEffect(() => {
-        if (documents.length === 0) {
+        if (initialized && documents.length === 0) {
             handleAddNew(null);
         }
-    }, [documents.length, handleAddNew]);
+    }, [documents.length, handleAddNew, initialized]);
 
     const handleCreate = () => {
-        addDocument(newDocData, currentParentId);
+        if (isEditMode) {
+            const activeDoc = getActiveDocument();
+            if (activeDoc) {
+                updateDocument(activeDoc.id, {
+                    title: newDocData.title,
+                    tags: newDocData.tags,
+                    description: activeDoc.description,
+                });
+            }
+        } else {
+            addDocument(newDocData, currentParentId);
+        }
         setIsModalOpen(false);
     };
 
@@ -73,6 +113,16 @@ function AuthenticatedQuickStartView() {
         }
         setIsModalOpen(false);
     };
+
+    if (isLoading || !initialized) {
+        return (
+            <main className={styles.mainContainer}>
+                <FlexBox alignItems="Center" justifyContent="Center" style={{ padding: '2rem' }}>
+                    <Text>Loading documents...</Text>
+                </FlexBox>
+            </main>
+        );
+    }
 
     return (
         <>
@@ -84,7 +134,7 @@ function AuthenticatedQuickStartView() {
                 onCancel={handleCancel}
             />
             <main className={styles.pageContainer}>
-                <EditorComponent onAddNew={handleAddNew} />
+                <EditorComponent onAddNew={handleAddNew} onEditMeta={handleEditMeta} />
             </main>
         </>
     );

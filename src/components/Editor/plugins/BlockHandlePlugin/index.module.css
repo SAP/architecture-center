@@ -1,0 +1,177 @@
+.blockHandle {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+        top 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+        opacity 0.15s ease;
+}
+
+.blockHandle.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.blockHandle.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.handleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.handleButton:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.handleButton:active {
+    background: #e5e7eb;
+}
+
+/* Block menu dropdown */
+.blockMenu {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 4px;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: menuFadeIn 0.15s ease-out;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #374151;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.menuItem:hover {
+    background: #f3f4f6;
+}
+
+.menuItem.danger {
+    color: #dc2626;
+}
+
+.menuItem.danger:hover {
+    background: #fef2f2;
+}
+
+/* Dragging state for grip button */
+.dragging {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* Dragging state for blocks being dragged */
+.draggingBlock {
+    opacity: 0.4;
+    background: #f3f4f6;
+    border-radius: 4px;
+    outline: 2px dashed #9ca3af;
+}
+
+/* Drop indicator line */
+.dropIndicator {
+    position: absolute;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+    border-radius: 2px;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+    animation: pulseIndicator 1s ease-in-out infinite;
+}
+
+@keyframes pulseIndicator {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Dark mode styles */
+:root[data-theme='dark'] .handleButton {
+    color: #6b7280;
+}
+
+:root[data-theme='dark'] .handleButton:hover {
+    background: #374151;
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .handleButton:active {
+    background: #4b5563;
+}
+
+:root[data-theme='dark'] .blockMenu {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] .menuItem {
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .menuItem:hover {
+    background: #374151;
+}
+
+:root[data-theme='dark'] .menuItem.danger {
+    color: #f87171;
+}
+
+:root[data-theme='dark'] .menuItem.danger:hover {
+    background: rgba(248, 113, 113, 0.1);
+}
+
+:root[data-theme='dark'] .dragging {
+    background: #4b5563;
+}
+
+:root[data-theme='dark'] .draggingBlock {
+    background: #374151;
+    outline-color: #6b7280;
+}

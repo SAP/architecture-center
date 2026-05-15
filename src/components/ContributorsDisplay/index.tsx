@@ -17,10 +17,11 @@ interface GitHubSearchResponse {
 
 interface ContributorsDisplayProps {
     contributors: string[];
-    onContributorsChange?: (updatedContributors: string[]) => void; // FIX: Made this prop optional
+    onContributorsChange?: (updatedContributors: string[]) => void;
+    readOnly?: boolean;
 }
 
-const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors, onContributorsChange }) => {
+const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors, onContributorsChange, readOnly = false }) => {
     const { siteConfig } = useDocusaurusContext();
     const { token } = useAuth();
     const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
@@ -141,7 +142,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
             <div className={styles.titleWrapper}>
                 <Icon name="information" className={styles.infoIcon} />
                 <h3 className={styles.title}>Contributors</h3>
-                {!isEditing && (
+                {!isEditing && !readOnly && (
                     <Button
                         design="Transparent"
                         icon="edit"
@@ -171,7 +172,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                                 selected={editingContributors.includes(user.login)}
                             >
                                 <div className={styles.comboItem}>
-                                    <Avatar size="XS" icon={`https://github.com/${user.login}.png`} />
+                                    <Avatar size="XS" image={`https://github.com/${user.login}.png`} />
                                     <span>{user.login}</span>
                                 </div>
                             </MultiComboBoxItem>
