@@ -182,7 +182,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, architecture, center, hyperscaler, reference',
+                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -311,6 +311,11 @@ const config: Config = {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
+                        },
+                        {
+                            label: 'AI Standards at SAP',
+                            to: '/docs/ai-standards-at-sap',
+                            sidebarid: 'aiStandardsAtSAP',
                         },
                         {
                             label: 'Browse the Reference Architectures',

@@ -131,6 +131,9 @@ ai-golden-path:
   label: "AI-Golden Path"
   description: "The AI Golden Path represents the recommended approach or best practices for implementing AI solutions within SAP's technology landscape. It provides guidance on how to achieve the AI-native North Star architecture, ensuring consistency, efficiency, and alignment with strategic objectives."
 
+ai-standards-at-sap:
+  label: "AI Standards at SAP"
+  description: "SAP's central reference for AI standardization, covering its AI-First strategy, open standards adoption (MCP, A2A, OpenTelemetry), and active contributions to the Agentic AI Foundation (AAIF), A2A Project, and IETF."
 
 # --------------------------------------------------------------------------------------------------------------------------------
   
