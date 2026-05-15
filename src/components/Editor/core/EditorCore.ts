@@ -1081,11 +1081,13 @@ export class EditorCore {
 
     // Only check block-level shortcuts for paragraph blocks
     if (block.type === 'paragraph') {
-      // Check for heading shortcuts: "# text" or "## text" etc at start of line
+      // Check for heading shortcuts: "# text" or "## text" at start of line
       // Triggers when space is typed after # symbols at the beginning
-      const headingMatch = fullText.match(/^(#{1,4})\s(.*)$/);
+      // Note: # → H2 (level 2), ## → H3 (level 3) because page title is H1
+      const headingMatch = fullText.match(/^(#{1,2})\s(.*)$/);
       if (headingMatch && cursorOffset >= headingMatch[1].length + 1) {
-        const level = headingMatch[1].length as 1 | 2 | 3 | 4;
+        // Shift level by 1: # becomes level 2, ## becomes level 3
+        const level = (headingMatch[1].length + 1) as 2 | 3;
         const remainingText = headingMatch[2] || '';
         this.convertToHeadingWithText(block.key, nodeKey, level, remainingText);
         return;

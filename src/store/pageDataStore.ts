@@ -590,7 +590,6 @@ export const usePageDataStore = create<PageDataState>()(
                             _tagsDirty: tagsDirty || doc._tagsDirty,
                         } : doc
                     ),
-                    lastSaveTimestamp: new Date().toLocaleString(),
                 }));
 
                 // Auto-sync to remote if configured and not skipped
