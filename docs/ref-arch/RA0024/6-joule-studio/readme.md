@@ -38,12 +38,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - fabianleh
-    - SelinaHochstrat
-    - f-buech
+  - fabianleh
+  - SelinaHochstrat
+  - f-buech
 last_update:
-    date: 2026-05-12
-    author: fabianleh
+  author: fabianleh
+  date: 2026-05-15
+
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -55,7 +56,7 @@ Intent Based Development: Solutions begin with a description of the desired busi
 
 Business Context: Reliable agent behavior requires grounding in enterprise-specific knowledge. Joule Studio anchors agents in SAP's semantic context through the SAP Knowledge Graph, the SAP domain models, and the underlying SAP data, processes, and applications agents must reason over and act on.
 
-Trusted Governance: Scaling agentic solutions in the enterprise requires built-in operational controls. Joule Studio provides an Agent Hub for lifecycle management of deployed agents, Process Insights for behavioral observability and impact analysis, and a Managed Runtime that embeds operations, controls, and oversight as structural features — not afterthoughts.
+Trusted Governance: Scaling agentic solutions in the enterprise requires built-in operational controls. Joule Studio provides an Agent Hub for lifecycle management of deployed agents, Process Insights for behavioral observability and impact analysis, and a Managed runtime that embeds operations, controls, and oversight as structural features — not afterthoughts.
 
 These three principles define a path from intent, to context-grounded execution, to governed scale — ensuring agentic solutions are enterprise-ready from the point of deployment.
 
@@ -118,10 +119,16 @@ All baseline operational services — logging, audit logging, and telemetry — 
 
 - [Joule](https://help.sap.com/docs/joule/integrating-joule-with-sap/introduction?version=CLOUD)
 
-- [Joule Studio](https://help.sap.com/docs/SAP_BUSINESS_AI_PLATFORM/uacp_sap-business-ai-platform-docs_intent-based-development)
+- [Joule Studio](https://help.sap.com/docs/business-ai-platform/joule-studio/joule-studio?version=CLOUD)
 
 ## Resources
 
+- [Joule Studio product page](https://www.sap.com/products/artificial-intelligence/joule-studio.html)
+
+- [Joule Studio News Article]( https://www.sap.com/topics/events/sapphire/innovation-news-guide-2026#joule-studio)
+
 - [SAP Cloud Identity Services - Tenant Model](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/tenant-model-and-licensing?version=Cloud)
 - [System Integration Guide for SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity/system-integration-guide/system-integration-guide-for-sap-cloud-identity-services?version=Cloud)
+
+
 
