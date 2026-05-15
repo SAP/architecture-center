@@ -1,0 +1,315 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="eNYmLEzjYTJf14_2IHD2">
+    <mxGraphModel dx="1607" dy="1017" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-6" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#F5F6F7;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="166" y="101" width="750" height="549" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-7" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="200" y="230" width="250" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-8" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="1" vertex="1">
+          <mxGeometry x="470" y="230" width="410" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="402" as="sourcePoint" />
+            <mxPoint x="523.1399999999999" y="402" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-9" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;SAP Cloud&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Application&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Event Hub&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="1" vertex="1">
+          <mxGeometry x="220" y="360" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-11" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;3rd Party&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Broker&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#666666;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="760" y="375" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-12" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&quot;Try and Expand&quot; Enterprise EDA&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#1A2733;fontFamily=Helvetica;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="427.5" y="109" width="227" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-18" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#666666;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#FFFFFF;" parent="1" vertex="1">
+          <mxGeometry x="520" y="296" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-27" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="520" y="240" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-25" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" parent="vVxKKb96vQYj8wLMnHyf-27" vertex="1">
+          <mxGeometry x="8.571428571428571" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-26" value="&lt;font style=&quot;&quot;&gt;3rd Party Application&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" parent="vVxKKb96vQYj8wLMnHyf-27" vertex="1">
+          <mxGeometry y="7.142857142857142" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-31" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="522" y="472" width="183.14" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-29" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="vVxKKb96vQYj8wLMnHyf-31" vertex="1">
+          <mxGeometry x="11.711428571428542" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-30" value="&lt;font style=&quot;&quot;&gt;SAP on-premise&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;&quot;&gt;Application&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="vVxKKb96vQYj8wLMnHyf-31" vertex="1">
+          <mxGeometry y="6.362842960781107" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-32" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="219" y="472" width="183.14" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-33" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="vVxKKb96vQYj8wLMnHyf-32" vertex="1">
+          <mxGeometry x="11.711428571428542" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-34" value="SAP Cloud&lt;div&gt;Application&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" parent="vVxKKb96vQYj8wLMnHyf-32" vertex="1">
+          <mxGeometry y="6.362842960781107" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#666666;" parent="1" source="vVxKKb96vQYj8wLMnHyf-37" target="vVxKKb96vQYj8wLMnHyf-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-37" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;Event Mesh&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;capability of&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;SAP Integration Suite&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="1" vertex="1">
+          <mxGeometry x="523.14" y="360" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-38" value="&lt;font color=&quot;#ffffff&quot;&gt;SAP BTP&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="1" vertex="1">
+          <mxGeometry x="221.14" y="296" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-39" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="220" y="240" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-40" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" parent="vVxKKb96vQYj8wLMnHyf-39" vertex="1">
+          <mxGeometry x="8.571428571428571" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-41" value="&lt;font style=&quot;&quot;&gt;App on SAP BTP built by Partners or Customers&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" parent="vVxKKb96vQYj8wLMnHyf-39" vertex="1">
+          <mxGeometry y="7.142857142857142" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="309.0000000000001" y="358" as="sourcePoint" />
+            <mxPoint x="309" y="328" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310.0000000000001" y="471" as="sourcePoint" />
+            <mxPoint x="310" y="441" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="616.0000000000001" y="470" as="sourcePoint" />
+            <mxPoint x="616" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#666666;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="613.0000000000001" y="358" as="sourcePoint" />
+            <mxPoint x="613" y="328" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-51" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Prebuilt SAP Cloud event integrations&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="201.14" y="585" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-52" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Local event integrations&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="615" y="585" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-55" value="" style="endArrow=blockThin;html=1;strokeColor=#3399FF;bendable=1;rounded=0;endFill=1;endSize=4;startArrow=blockThin;startFill=1;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;strokeWidth=1.5;dashed=1;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="431.14" y="470" as="sourcePoint" />
+            <mxPoint x="491.14" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="451.14" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-56" value="" style="endArrow=blockThin;html=1;strokeColor=#3399FF;bendable=1;rounded=0;endFill=1;endSize=4;startArrow=blockThin;startFill=1;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;strokeWidth=1.5;dashed=1;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="431.14" y="345" as="sourcePoint" />
+            <mxPoint x="491.14" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-57" value="&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;&amp;nbsp;Event&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;connections&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;color: rgb(51, 153, 255); font-size: 9px; font-family: arial; background-color: transparent;&quot;&gt;for&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;selected applications&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="470" y="570" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-58" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" parent="1" vertex="1">
+          <mxGeometry x="452" y="439" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-59" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" parent="1" vertex="1">
+          <mxGeometry x="499" y="580" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-60" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" parent="1" vertex="1">
+          <mxGeometry x="452" y="362" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="vVxKKb96vQYj8wLMnHyf-61" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Extensions or new apps&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;on SAP BTP&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;on top of SAP apps&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="237.5" y="163" width="145" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="XKlQfRbJjGS_6e14WH14-1" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;EDA in hybrid, heterogenous customer landscapes&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;across SAP and (high amount of) non-SAP&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" parent="1" vertex="1">
+          <mxGeometry x="537" y="170" width="291" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-1" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#1ba1e2;strokeColor=#006EAF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="532" y="669" as="sourcePoint" />
+            <mxPoint x="532" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-2" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#F5F6F7;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="160" y="748" width="750" height="549" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-3" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="194" y="877" width="250" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-4" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="464" y="861" width="410" height="376" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="394" y="1049" as="sourcePoint" />
+            <mxPoint x="517.1399999999999" y="1049" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-6" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;SAP Cloud&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Application&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Event Hub&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="214" y="1007" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-7" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;3rd Party&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Broker&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#666666;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="754" y="1029" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-8" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Hybrid and Heterogenous Enterprise EDA&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#1A2733;fontFamily=Helvetica;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="401.14" y="751" width="278" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-9" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#666666;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="514" y="928" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-10" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="514" y="870" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-11" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-10">
+          <mxGeometry x="8.571428571428571" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-12" value="&lt;font style=&quot;&quot;&gt;3rd Party Application&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-10">
+          <mxGeometry y="7.142857142857142" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-13" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="519" y="1153" width="183.14" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-14" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-13">
+          <mxGeometry x="11.711428571428542" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-15" value="&lt;font style=&quot;&quot;&gt;SAP on-premise&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;&quot;&gt;Application&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-13">
+          <mxGeometry y="6.362842960781107" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-16" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="213" y="1119" width="183.14" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-17" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-16">
+          <mxGeometry x="11.711428571428542" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-18" value="SAP Cloud&lt;div&gt;Application&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#b46504;fillColor=#fad7ac;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-16">
+          <mxGeometry y="6.362842960781107" width="171.42857142857142" height="43.63715703921886" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#666666;" edge="1" parent="1" source="Ekw_jz4L1Hl9OyxvW1DL-20" target="Ekw_jz4L1Hl9OyxvW1DL-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-20" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;SAP Integration Suite,&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;advanced event mesh&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="517.14" y="1000" width="180" height="109" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-21" value="&lt;font color=&quot;#ffffff&quot;&gt;SAP BTP&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#3399FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" vertex="1" parent="1">
+          <mxGeometry x="215.14" y="943" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-22" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="214" y="887" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-23" value="&lt;font style=&quot;&quot;&gt;3rd Party Platforms&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-22">
+          <mxGeometry x="8.571428571428571" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-24" value="&lt;font style=&quot;&quot;&gt;App on SAP BTP built by Partners or Customers&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;fillColor=#f5f5f5;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontColor=#333333;" vertex="1" parent="Ekw_jz4L1Hl9OyxvW1DL-22">
+          <mxGeometry y="7.142857142857142" width="171.42857142857142" height="42.857142857142854" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="303.0000000000001" y="1005" as="sourcePoint" />
+            <mxPoint x="303" y="975" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="304.0000000000001" y="1118" as="sourcePoint" />
+            <mxPoint x="304" y="1088" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#3399FF;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="610" y="1145" as="sourcePoint" />
+            <mxPoint x="610" y="1115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=blockThin;endFill=1;startArrow=blockThin;startFill=1;strokeColor=#666666;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="607" y="991" as="sourcePoint" />
+            <mxPoint x="607" y="961" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-29" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Prebuilt SAP Cloud event integrations&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="195.14" y="1232" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-30" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Local event integrations&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="570" y="1234" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-31" value="" style="endArrow=blockThin;html=1;strokeColor=#3399FF;bendable=1;rounded=0;endFill=1;endSize=4;startArrow=blockThin;startFill=1;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="425.14" y="1117" as="sourcePoint" />
+            <mxPoint x="485.1399999999999" y="1087" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="445.14" y="1107" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-32" value="" style="endArrow=blockThin;html=1;strokeColor=#3399FF;bendable=1;rounded=0;endFill=1;endSize=4;startArrow=blockThin;startFill=1;startSize=4;jumpStyle=none;jumpSize=0;targetPerimeterSpacing=15;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="425.14" y="992" as="sourcePoint" />
+            <mxPoint x="485.1399999999999" y="1022" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-33" value="&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;&amp;nbsp;Event&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;connections&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;color: rgb(51, 153, 255); font-size: 9px; font-family: arial; background-color: transparent;&quot;&gt;for&amp;nbsp;&lt;/span&gt;&lt;div&gt;&lt;font style=&quot;font-size: 9px;&quot; face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;selected applications&lt;/font&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="412" y="1242" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-34" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" vertex="1" parent="1">
+          <mxGeometry x="446" y="1086" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-35" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" vertex="1" parent="1">
+          <mxGeometry x="438" y="1252" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-36" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.star;fillColor=#0080f0;strokeColor=none;sketch=0;" vertex="1" parent="1">
+          <mxGeometry x="446" y="1009" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-37" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;Extensions or new apps&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;on SAP BTP&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;on top of SAP apps&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="231.5" y="810" width="145" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-38" value="&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;EDA in hybrid, heterogenous customer landscapes&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;arial&quot; color=&quot;#3399ff&quot;&gt;across SAP and (high amount of) non-SAP&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[[0,0.5,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[1,0.5,0,0,0]];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontColor=#1D2D3E;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="531" y="817" width="291" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#FFFFFF;startSize=3;endSize=3;" edge="1" parent="1" source="Ekw_jz4L1Hl9OyxvW1DL-39" target="Ekw_jz4L1Hl9OyxvW1DL-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="622" y="1045" />
+              <mxPoint x="632" y="1044" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-39" value="&lt;font style=&quot;color: rgb(255, 255, 255); font-size: 9px;&quot;&gt;Broker&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#3399FF;" vertex="1" parent="1">
+          <mxGeometry x="557" y="1038" width="45" height="13" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.453;exitY=1.056;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#FFFFFF;startSize=3;endSize=3;" edge="1" parent="1" source="Ekw_jz4L1Hl9OyxvW1DL-40" target="Ekw_jz4L1Hl9OyxvW1DL-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="631" y="1078" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="630" y="1077" />
+              <mxPoint x="630" y="1089" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-40" value="&lt;font style=&quot;color: rgb(255, 255, 255); font-size: 9px;&quot;&gt;Broker&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#3399FF;" vertex="1" parent="1">
+          <mxGeometry x="609.5" y="1059" width="45" height="13" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.456;exitY=-0.015;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#FFFFFF;startSize=3;endSize=3;" edge="1" parent="1" source="Ekw_jz4L1Hl9OyxvW1DL-42" target="Ekw_jz4L1Hl9OyxvW1DL-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ekw_jz4L1Hl9OyxvW1DL-42" value="&lt;font style=&quot;color: rgb(255, 255, 255); font-size: 9px;&quot;&gt;Broker&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#3399FF;" vertex="1" parent="1">
+          <mxGeometry x="559" y="1082" width="45" height="13" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

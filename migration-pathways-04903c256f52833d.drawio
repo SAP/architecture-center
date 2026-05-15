@@ -1,0 +1,204 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Page-1" id="OGUwECAJLeOeV-SeC7QL">
+    <mxGraphModel dx="1273" dy="860" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-2" value="Brownfield" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry y="409" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-5" target="MFqq2A_6hjOnraMjPHdj-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-5" target="MFqq2A_6hjOnraMjPHdj-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-5" value="SAP BW NetWeaver &amp;lt; 7.5" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="307" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-6" target="MFqq2A_6hjOnraMjPHdj-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-6" target="MFqq2A_6hjOnraMjPHdj-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-6" value="SAP BW NetWeaver&amp;nbsp; 7.5" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="398" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-7" target="MFqq2A_6hjOnraMjPHdj-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-7" target="MFqq2A_6hjOnraMjPHdj-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-7" target="MFqq2A_6hjOnraMjPHdj-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-7" target="MFqq2A_6hjOnraMjPHdj-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-7" value="SAP BW/4HANA" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="507" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="351.9999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-9" value="HANA DB" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="342" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-10" value="Any DB" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="310" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="669.9999999999998" y="442" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-11" value="HANA DB" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="432" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-12" value="Any DB" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="400" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-13" value="SAP BW/4HANA 2.0" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="512" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-14" value="SAP BW/4HANA 1.0" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="480" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-15" value="SAP BW/4HANA 2023" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="575" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-16" target="MFqq2A_6hjOnraMjPHdj-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-16" value="SAP BW/4HANA 2021" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="543" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-25" target="MFqq2A_6hjOnraMjPHdj-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-25" value="DB Upgrade to HANA" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="521" y="393" width="140" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="441" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-27" value="BW 7.5 SPS 24 ?" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="672" y="429" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-35" value="Upgrade to BW/4HANA 2023" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="521" y="476" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-36" value="Upgrade to BW/4HANA 2023" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="521" y="511" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="553" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-37" value="BW/4HANA 2021 SPS04 ?" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="680" y="541" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-39" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-39" value="Upgrade to latest version&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22BW%207.5%20SPS%2024%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BstrokeColor%3D%23D1EFFF%3BfillColor%3D%23dae8fc%3BarcSize%3D24%3BabsoluteArcSize%3D1%3BimageWidth%3D64%3BimageHeight%3D64%3BstrokeWidth%3D1.5%3BfontSize%3D10%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22870%22%20y%3D%22428%22%20width%3D%22140%22%20height%3D%2224%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="862" y="429" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-40" value="Upgrade to BW7.5 on HANA" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="864" y="338" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-41" value="Update to latest version" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#D1EFFF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="862" y="540" width="140" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.588;entryY=0.059;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-10" target="MFqq2A_6hjOnraMjPHdj-40">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="946" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-48" value="SAP BW, private cloud edition in SAP Business Data Cloud" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#3399FF;fillColor=#dae8fc;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;fontSize=10;gradientColor=#007FFF;gradientDirection=east;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="401" width="140" height="79" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.541;entryY=-0.013;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-40" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.541;entryY=1.01;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-41" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.008;entryY=0.811;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-27" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="742" y="466" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-53" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;No&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="820" y="429" width="30" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-54" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Yes&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="820" y="453" width="30" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-55" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;No&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="824" y="541" width="30" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.676;entryY=1.017;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.457;exitY=0.963;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-37" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-57" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Yes&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="823" y="572" width="30" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.445;entryY=1.002;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-35" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1142" y="494" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.449;entryY=1.002;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-36" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="489" as="targetPoint" />
+            <mxPoint x="490" y="489" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.837;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MFqq2A_6hjOnraMjPHdj-15" target="MFqq2A_6hjOnraMjPHdj-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="521" y="521" as="targetPoint" />
+            <mxPoint x="491" y="521" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-65" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=default;gradientColor=light-dark(#D1EFFF,#102937);gradientDirection=east;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="84" y="679" as="sourcePoint" />
+            <mxPoint x="1212" y="671" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-66" value="On-Premise" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="84" y="641" width="95" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MFqq2A_6hjOnraMjPHdj-67" value="Private Cloud&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1096" y="635" width="95" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
