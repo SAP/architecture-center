@@ -3,7 +3,7 @@ import { useEditor } from '../../hooks/useEditor';
 import { useIsVisible } from '@site/src/hooks/useIsVisible';
 import {
   ChevronDown, Underline, Bold, Italic, Strikethrough, Code, Quote, List,
-  ListOrdered, Undo, Redo, Heading1, Heading2, Heading3, MoreHorizontal,
+  ListOrdered, Undo, Redo, Heading1, Heading2, MoreHorizontal,
   Info, Lightbulb, AlertTriangle, AlertCircle, StickyNote
 } from 'lucide-react';
 import styles from './index.module.css';
@@ -70,8 +70,8 @@ const ResponsiveItem: React.FC<ResponsiveItemProps> = ({ id, children, setHidden
 
 const blockTypeToBlockName: Record<string, string> = {
   h1: 'Heading 1',
-  h2: 'Heading 2',
-  h3: 'Heading 3',
+  h2: 'Heading 1',  // Level 2 displays as "Heading 1" to user
+  h3: 'Heading 2',  // Level 3 displays as "Heading 2" to user
   paragraph: 'Paragraph',
   quote: 'Quote',
   heading: 'Heading',
@@ -90,7 +90,7 @@ function BlockFormatDropDown() {
 
   useClickOutside(dropDownRef, () => setShowDropDown(false));
 
-  const formatHeading = (level: 1 | 2 | 3) => {
+  const formatHeading = (level: 2 | 3) => {
     editor.dispatchCommand({ type: 'SET_BLOCK_TYPE', payload: { blockType: 'heading', level } });
     setShowDropDown(false);
   };
@@ -115,14 +115,11 @@ function BlockFormatDropDown() {
           <button className={styles.dropdownItem} onClick={formatParagraph}>
             Paragraph
           </button>
-          <button className={styles.dropdownItem} onClick={() => formatHeading(1)}>
+          <button className={styles.dropdownItem} onClick={() => formatHeading(2)}>
             <Heading1 size={18} /> Heading 1
           </button>
-          <button className={styles.dropdownItem} onClick={() => formatHeading(2)}>
-            <Heading2 size={18} /> Heading 2
-          </button>
           <button className={styles.dropdownItem} onClick={() => formatHeading(3)}>
-            <Heading3 size={18} /> Heading 3
+            <Heading2 size={18} /> Heading 2
           </button>
           <button className={styles.dropdownItem} onClick={formatQuote}>
             <Quote size={18} /> Quote
