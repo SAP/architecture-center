@@ -313,9 +313,9 @@ const config: Config = {
                             sidebarid: 'goldenPathSidebar',
                         },
                         {
-                            label: 'AI Standards at SAP',
-                            to: '/docs/ai-standards-at-sap',
-                            sidebarid: 'aiStandardsAtSAP',
+                            label: 'Global Standards for Agentic AI',
+                            to: '/docs/global-standards-for-agentic-ai',
+                            sidebarid: 'globalStandardsForAgenticAISidebar',
                         },
                         {
                             label: 'Browse the Reference Architectures',
