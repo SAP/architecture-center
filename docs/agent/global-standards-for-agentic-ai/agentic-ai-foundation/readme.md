@@ -30,7 +30,7 @@ last_update:
   date: '2026-05-18'
 ---
 
-Founded in December 2025 under the neutral governance of the Linux Foundation, the [Agentic AI Foundation](https://aaif.io/) manages core open source projects including the **Model Context Protocol (MCP)**, **goose**, and **AGENTS.md**. Agents.md is a markdown file, which provides context and instructions to help AI coding agents work with certain prerequisites, similar to a README for humans; [goose](https://aaif.io/projects/goose/) is a local-first AI agent framework combining language models, extensible tools, and standardized MCP-based integration. And [MCP](https://aaif.io/projects/model-context-protocol/) is an open standardized protocol enabling seamless Large Language Model (LLM) integration with external data sources & tools. 
+Founded in December 2025 under the neutral governance of the Linux Foundation, the [Agentic AI Foundation](https://aaif.io/) manages core open source projects including the **Model Context Protocol (MCP)**, **goose**, and **AGENTS.md**. AGENTS.md is a markdown file, which provides context and instructions to help AI coding agents work with certain prerequisites, similar to a README for humans; [goose](https://aaif.io/projects/goose/) is a local-first AI agent framework combining language models, extensible tools, and standardized MCP-based integration. [MCP](https://aaif.io/projects/model-context-protocol/) is an open protocol that enables seamless integration between LLM applications and external data sources and tools.
 
 SAP is a Gold Member and is actively involved in multiple AAIF Working Groups (WGs).  
 
@@ -42,6 +42,6 @@ As of May 2026, the following Working Groups have been established to jointly de
 - Identity & Trust 
 - Observability & Traceability 
 - Security & Privacy 
-Workflows & Process Integration 
+- Workflows & Process Integration 
 
 SAP is fully committed to allocating our resources to serve as leaders and active contributors in the standardization efforts of these working groups, ensuring that our stakeholders play pivotal roles in driving progress and shaping industry standards. We plan to share the progress of the AAIF collaborative efforts with our customers and partners. 
