@@ -1,20 +1,24 @@
 ---
-id: id-ra0005-6
-slug: /ref-arch/e5eb3b9b1d/10
+id: 2571fa29b8
+slug: /ref-arch/2571fa29b8
 sidebar_position: 6
+sidebar_custom_props:
+  category_index: []
 title: Vibe Coding with Cline and SAP AI Core
-description: Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.
+description: >-
+  Learn how to set up and use Cline, an autonomous coding agent, with SAP AI
+  Core to accelerate your development workflows.
 keywords:
-    - sap
-    - cline
-    - ai core
-    - generative ai
-    - autonomous coding
+  - sap
+  - cline
+  - ai core
+  - generative ai
+  - autonomous coding
 sidebar_label: Vibe Coding with Cline and SAP AI Core
 image: img/logo.svg
 tags:
-    - genai
-    - appdev
+  - genai
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -22,12 +26,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - jmsrpp
-    - mahesh0431
-    - AjitKP91
+  - jmsrpp
+  - mahesh0431
+  - AjitKP91
+discussion: 
 last_update:
-    author: mahesh0431
-    date: 2025-07-17
+  author: mahesh0431
+  date: 2025-07-17
 ---
 
 Vibe coding flips traditional development into a streamlined **prompt-first** loop: you describe the feature, the AI writes the code, and you iterate. To transform this “vibe” into a reliable engineering practice, you must master **context engineering**—the art of supplying the model with exactly the right information (requirements, APIs, tests, style guides, enterprise knowledge) at call-time so it can respond deterministically and cost-effectively.
