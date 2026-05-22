@@ -40,8 +40,8 @@ contributors:
   - fabianleh
 discussion: 
 last_update:
-  author: fabianleh
-  date: 2026-05-15
+  author: f-buech
+  date: 2026-05-22
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
