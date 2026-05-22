@@ -27,7 +27,7 @@ last_update:
  
 Enterprises process vast volumes of business documents daily—invoices, purchase orders, receipts, delivery notes—often requiring manual data entry into enterprise systems. Intelligent document processing (IDP) transforms this operational burden by leveraging AI to automatically extract, validate, and route document data to systems of record. SAP Document AI provides pre-trained models and generative AI capabilities to automate document processing, enabling organizations to reduce manual effort, accelerate cycle times, and improve data accuracy.
 
-This reference architecture provides comprehensive guidance for designing, implementing, and operating IDP solutions with SAP Document AI. From multi-channel document ingestion to AI-powered extraction, master data enrichment, and system integration, this guide covers architectural patterns, service selection criteria, and best practices for building production-ready document processing pipelines.
+This reference architecture provides comprehensive guidance for designing and implementing, IDP solutions with SAP Document AI. From multi-channel document ingestion to AI-powered extraction, master data enrichment, and external system integrations, this guide covers architectural patterns, service selection criteria, and best practices for building document processing pipelines.
 
 ## Architecture
 
@@ -41,13 +41,13 @@ The architecture centers around **SAP Document AI** as the core extraction engin
 
 The reference architecture demonstrates how documents flow from capture through AI extraction to system posting:
 
-1. **Ingest Layer:** Documents arrive through native SAP Document AI channels (web UI, Outlook 365 email, SAP Mobile Start). Optional pre-processing middleware handles other document channels (fax, messaging apps, ...) and complex pre-processing or routing requirements. See [Document Ingestion Patterns](../1-ingestion/readme.md).
-2. **Extraction and enrichment Layer:** Classify and extract the document. Enrichment scenarios you can make use of Integration Suite flows or a CAP application to augment extracted data. See [Data Extraction and Enrichment Patterns](../2-enrichment/readme.md).
+1. **Ingestion Layer:** For automatic processing, use SAP Document AI inbound channels for Outlook and Sharepoint. For manual uploads, SAP Document AI covers desktop and mobile scenarios with the Document AI workspace UI and Joule Work mobile app. Optional pre-processing middleware handles other document channels (fax, messaging apps, ...) and complex pre-processing or routing requirements. See [Document Ingestion Patterns](1-ingestion/readme.md).
+2. **Extraction and enrichment Layer:** Classify and extract the document. Enrichment scenarios you can make use of Integration Suite flows or a CAP application to augment extracted data. See [Data Extraction and Enrichment Patterns](2-enrichment/readme.md).
   - **AI Classification and Extraction**: Using SAP Document AI workflows, documents are split, classified and extracted with the right schema
   - **Enrichment and validation**: Document AI provides enrichment capabilities for business objects. For custom enrichment scenarios you can make use of SAP Document AI outbound notifications and Integration Suite flows or a CAP application to augment extracted data.
   - **Confidence-Based auto-confirm**: Documents with all critical fields above a threshold (typically 90%) can be automatically confirmed to push them to the next step.
   - **Human in the loop**: Users review and confirm low confidence documents within SAP Document AI workspace
-3. **Posting Layer:** Use outbound notifications to post the results to external systems. See [Document Posting and System Integration Patterns](../3-posting/readme.md).
+3. **Posting Layer:** Use outbound notifications to post the results to external systems. See [Document Posting and System Integration Patterns](3-posting/readme.md).
 
 ## Characteristics
 
@@ -73,9 +73,7 @@ SAP Document AI enables automation across diverse document processing scenarios:
 ## Services and Components
 
 - [SAP Document AI](https://discovery-center.cloud.sap/serviceCatalog/sap-document-ai) - AI-powered document classification and extraction 
-- [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/guides/) - Lightweight enrichment and post-processing services
 - [SAP Cloud Integration](https://discovery-center.cloud.sap/serviceCatalog/integration-suite) - Complex transformations and protocol conversions
-- [SAP Build Process Automation](https://discovery-center.cloud.sap/serviceCatalog/sap-build-process-automation) - Workflow orchestration and approval processes
 - [SAP BTP, Cloud Foundry Runtime](https://discovery-center.cloud.sap/serviceCatalog/cloud-foundry-runtime) - Application runtime environment
 - [SAP S/4HANA](https://www.sap.com/products/erp/s4hana-private-edition.html) - Target system for document posting
 - [SAP S/4HANA Cloud](https://www.sap.com/products/erp/s4hana.html) - Target system for document posting
@@ -83,10 +81,8 @@ SAP Document AI enables automation across diverse document processing scenarios:
 ## Resources
 
 - [SAP Document AI Documentation](https://help.sap.com/docs/SAP_DOCUMENT_AI)
-- [SAP Discovery Center - Document AI](https://discovery-center.cloud.sap/serviceCatalog/document-information-extraction)
 - [Cloud Application Programming Model](https://cap.cloud.sap/docs/)
 - [SAP Cloud Integration Documentation](https://help.sap.com/docs/SAP_INTEGRATION_SUITE)
-- [SAP Build Process Automation Documentation](https://help.sap.com/docs/build-process-automation)
 
 ## Related Missions
 
