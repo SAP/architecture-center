@@ -19,7 +19,7 @@ keywords:
   - sap build work zone
   - integration ecosystem
   - business applications
-  - sap mobile start
+  - joule work
   - joule
 sidebar_label: Establish a central entry point with SAP Build Work Zone
 image: img/ac-soc-med.png
@@ -40,8 +40,8 @@ contributors:
   - fabianleh
 discussion: 
 last_update:
-  author: fabianleh
-  date: 2026-05-15
+  author: f-buech
+  date: 2026-05-22
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->
@@ -63,11 +63,11 @@ This reference architecture also refers to the UI integration use case pattern o
 
     a. SAP Build Work Zone Web (standard edition / advanced edition / SAP SuccessFactors Work Zone)
 
-    b. SAP Mobile Start
+    b. Joule Work mobile app
 
 2. For identity management and authentication, SAP Build Work Zone relies on SAP Cloud Identity Services-Identity Authentication as the identity provider (IdP). SAP Cloud Identity Services serve as central facade for the identity & access management. In this context, SAP Cloud Identity Services - Identity Authentication (IAS) offer secure authentication or a federation with third-party Identity Providers. The SAP Cloud Identity Services - Identity Directory (IdDS) stores the SAP identities. The SAP Cloud Identity Services - Provisioning (IPS) allow to provision users and their role assignments directly into the SAP Build Work Zone user store. For more information, see [Trust Setup and Authentication Flows](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#trust-setup-and-authentication-flows).
 
-3. SAP Build Work Zone as a solution consists of multiple components directly part of the product stack enabling different capabilities out of the box which cannot be decoupled from the product. When SAP Build Work Zone is activated in a subaccount of SAP BTP, these components will be invisible in the list of subscriptions and service instances: they are all an integral part of the solution itself (SAP Build Work Zone subscription). This includes services like Notifications, Mobile Services and UI Theme Designer also used by other SAP products as well as Digital Workplace Service (DWS) exclusively part of SAP Build Work Zone. For more information, see [Components](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#components). SAP Mobile Services is included for the runtime of SAP Mobile Start. When creating custom mobile applications, a dedicated subscription to SAP Mobile Services is required.
+3. SAP Build Work Zone as a solution consists of multiple components directly part of the product stack enabling different capabilities out of the box which cannot be decoupled from the product. When SAP Build Work Zone is activated in a subaccount of SAP BTP, these components will be invisible in the list of subscriptions and service instances: they are all an integral part of the solution itself (SAP Build Work Zone subscription). This includes services like Notifications, Mobile Services and UI Theme Designer also used by other SAP products as well as Digital Workplace Service (DWS) exclusively part of SAP Build Work Zone. For more information, see [Components](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/solution-architecture-and-authentication-details#components). SAP Mobile Services is included for the runtime of the Joule Work mobile app. When creating custom mobile applications, a dedicated subscription to SAP Mobile Services is required.
 
 4. Via the pre-built content channel integration into the SAP BTP subaccount-level HTML5 application repository, custom applications can be made available in SAP Build Work Zone – these can be created via SAP Build. In addition, SAP Build Process Automation and SAP Task Center also provide out of the box applications that can be made available in Work Zone via the same channel.
 
@@ -96,7 +96,7 @@ The SAP Build Work Zone architecture diagram highlights seven key flows when wor
 
 - **SAP cloud and on-premise solutions integration**: Apart from integrating with various SAP cloud and third-party solutions, SAP Build Work Zone Center can also be configured to work with SAP ECC, SAP S/4HANA and SAP S/4HANA Cloud, private edition.
 
-- **Different application clients**: Business content created in and/or integrated with SAP Build Work Zone can be accessed from the SAP Build Work Zone web experience as well as the native mobile client, specifically SAP Build Work Zone Advanced or SAP Mobile Start (only SAP Start and standard edition for now). Joule is another client using the SAP Build Work Zone navigation service to find business applications.
+- **Different application clients**: Business content created in and/or integrated with SAP Build Work Zone can be accessed from the SAP Build Work Zone web experience as well as the native mobile client, the Joule Work mobile app. Joule is another client using the SAP Build Work Zone navigation service to find business applications.
 
 - **Native support of UI-Integration-Cards**: UI-Integration-Cards supports the efficient creation of content for SAP Build Work Zone for SAP lines of business solutions, partners, and customers user in a unified way. UI Cards can call APIs via Destinations, display data based on a variety of card types and navigate to Business Applications. For more information, see [UI Integration with Cards](https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/index.html).
 
@@ -123,7 +123,7 @@ These use cases showcase the broad applicability and impact of SAP Build Work Zo
 - [SAP Business Application Studio](https://discovery-center.cloud.sap/serviceCatalog/business-application-studio?region=all)
 - [SAP Task Center](https://discovery-center.cloud.sap/serviceCatalog/sap-task-center?region=all)
 - [SAP Alert Notification Service for SAP BTP](https://discovery-center.cloud.sap/serviceCatalog/alert-notification?region=all)
-- [UI5 flexibility for key users](https://discovery-center.cloud.sap/serviceCatalog/ui5-flexibility-for-key-users?region=all)
+- [UI flexibility service](https://discovery-center.cloud.sap/serviceCatalog/ui-flexibility-service/?region=all)
 - [SAP Mobile Services](https://discovery-center.cloud.sap/serviceCatalog/mobile-services?region=all)
 - [SAP Cloud Identity Authentication](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 - [SAP Cloud Identity Provisioning](https://discovery-center.cloud.sap/serviceCatalog/identity-provisioning?region=all)
