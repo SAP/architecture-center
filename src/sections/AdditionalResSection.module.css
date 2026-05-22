@@ -62,16 +62,16 @@
   }
 }
 
-/* Tablet */
-@media (max-width: 996px) {
+/* iPad / large tablet: two columns to avoid the cut-off described in issue #916 */
+@media (max-width: 996px) and (min-width: 601px) {
   .section {
     padding: 60px 16px;
   }
 
   .cardsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-width: 450px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
