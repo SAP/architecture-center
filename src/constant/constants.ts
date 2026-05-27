@@ -1,13 +1,13 @@
 export const navigationCardsData = [
 
     {
-        title: 'AI-Native North Star Architecture',
-        tabLabel: 'AI-Native North Star Architecture',
-        subtitle: 'The AI Native North Star Architecture defines the target state of SAP\'s technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.',
+        title: 'AI-native North Star architecture',
+        tabLabel: 'AI-native North Star architecture',
+        subtitle: 'This external-facing AI-native North Star architecture paper outlines SAP\'s target architectural vision for the future technology landscape. It is not a detailed specification, product roadmap, or commitment to deliver specific capabilities, products, or timelines. Rather, it sets architectural direction for AI-native enterprises by illustrating how AI agents, applications, business processes, data, context, and platform capabilities can come together in the next generation of enterprise systems.',
         icon: 'sap-icon://initiative',
         link: '/docs/ai-native-north-star-architecture',
         isNew: true,
-        image: '/img/ArchitectureTabs/nsa.webp'
+        image: '/img/ArchitectureTabs/nsa_2026_external.png'
     },
     {
         title: 'AI Golden Path',
