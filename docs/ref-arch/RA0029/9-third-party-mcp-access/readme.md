@@ -168,7 +168,6 @@ Use the table below to select the appropriate approach for your scenario:
 
 | Scenario | Recommended approach |
 |----------|----------------------|
-
 | Production access to SAP APIs by external AI clients | **MCP Gateway in SAP Integration Suite** |
 | Building SAP-centric agents on BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio** |
 | Exposing a mix of SAP and non-SAP APIs as a unified tool catalog | **MCP Gateway in SAP Integration Suite** |
