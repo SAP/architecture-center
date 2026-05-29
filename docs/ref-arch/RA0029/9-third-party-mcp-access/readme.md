@@ -118,8 +118,6 @@ Refer to the full [OWASP MCP Top 10 project](https://owasp.org/www-project-mcp-t
 
 Customers may use third-party MCP servers to access SAP solutions, **provided the general controls of SAP's API Policy are adhered to**, including infrastructure stability, API credentials management, rate limiting and security hardening as described above. The operational responsibility for third-party MCP servers — including their security posture, availability, upgrade compatibility and compliance — rests entirely with the customer.
 
-SAP does not certify, audit or assume liability for third-party MCP servers connecting to SAP APIs.
-
 ## SAP Recommendation: Use SAP-Managed MCP Infrastructure
 
 Given the operational complexity, security surface area and protocol volatility outlined above, **SAP strongly recommends using SAP-managed MCP infrastructure** rather than operating third-party MCP servers in production.
