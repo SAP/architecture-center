@@ -76,14 +76,23 @@ Whether the MCP server is external or BTP-hosted, the following concerns must be
 
 ### Security
 
-- **Authentication & Authorization:** Every inbound request to the MCP server and every outbound call to an SAP API must be authenticated. Use OAuth 2.0 / OIDC flows managed through SAP Cloud Identity Services (IAS). Never embed long-lived credentials in MCP tool definitions.
+- **Authentication & Authorization:** Every inbound request to the MCP server and every outbound call to an SAP API must be authenticated. Use identity and access management flows managed through SAP Cloud Identity Services (IAS). Never store long-lived credentials in MCP servers.
+
+- **Agent Identity:** An MCP server must **never proxy the caller's auth token directly to a downstream APIs**. Forwarding a user token without transformation effectively grants the MCP server and any consuming agent the full permissions of that user, bypasses audit attribution, and creates an exploitable attack surface. Instead, the MCP server must perform a token exchange to obtain a new, scoped credential that:
+  - Carries the **identity of the calling agent** (the AI client or agent framework) so that SAP APIs can attribute actions to the specific agent — not just the end user.
+  - Retains the **original user context** for data access control and audit purposes.
+  - Is scoped to the minimum permissions required by the specific tool being invoked.
+
+  Token exchange is a well-established pattern; refer to [OAuth 2.0 Token Exchange (RFC 8693)](https://www.rfc-editor.org/rfc/rfc8693) and the [OWASP Agentic AI — Threats and Mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/) guidance for implementation context. The agent identity carried in the exchanged token must correspond to a registered agent in SAP Cloud Identity Services (see [Agent Identity](../8-ai-agent-identity/readme.md)). SAP Cloud Identity Services supports the principal propagation flows that serve as the exchange mechanism; consult your IAS documentation and verify availability in your tenant.
+  
 - **Input Validation:** Validate and sanitize all tool call parameters before they reach SAP APIs. Treat every input as untrusted.
 - **Transport Security:** Enforce TLS 1.2+ on all connections. Do not expose MCP endpoints over plain HTTP.
 - **Secrets Management:** Store SAP API keys, OAuth client secrets and certificates in a dedicated secrets store (e.g., SAP Credential Store on BTP, HashiCorp Vault). Rotate regularly.
+- **OWASP MCP Top 10 Risks:** Refer to the OWASP MCP Top 10 for specific risks and mitigations relevant to MCP deployments.
 
 ### Scalability and Reliability
 
-- **Rate Limiting:** Apply rate limits to prevent runaway agent loops from exhausting SAP API quotas.
+- **Rate Limiting:** Apply rate limits to protect SAP API quotas from runaway agent loops. Critically, the rate limits enforced by the MCP server **must not exceed the quota or throttling limits of the underlying SAP APIs**. An MCP server that accepts more concurrent or burst traffic than the downstream  API can handle simply shifts the exhaustion point and does not protect the system. Align MCP-level limits with the published rate limits of each API the server calls, and apply per-consumer limits where multiple agents share the same MCP entry point.
 - **Timeouts and Circuit Breakers:** Implement timeouts for every SAP API call. Use circuit-breaker patterns to prevent cascading failures when a downstream SAP service is unavailable.
 - **Horizontal Scaling:** Design MCP servers as stateless services so they can scale out. Do not store session state in the MCP server process.
 
@@ -98,21 +107,6 @@ Whether the MCP server is external or BTP-hosted, the following concerns must be
 - **Versioning:** Version your MCP tool manifests. Breaking changes in tool schemas must be coordinated with consuming agents.
 - **Spec Upgrades:** Track MCP specification releases. The upcoming breaking changes in the MCP release candidate require code changes in both server and client. Build upgrade cycles into your operations.
 
-## OWASP MCP Top 10 — Relevant Risks
-
-The [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) catalogues the most critical security risks specific to MCP deployments. The following risks are particularly relevant when exposing SAP solutions through third-party MCP servers:
-
-| Risk | Description | Mitigation for SAP Scenarios |
-|------|-------------|------------------------------|
-| **MCP01 — Prompt Injection** | Malicious content in tool responses manipulates the agent's reasoning or leaks sensitive data | Sanitize all data returned from SAP APIs before passing it back as tool results; use I/O filtering in SAP AI Orchestration |
-| **MCP02 — Insecure Tool Execution** | MCP servers expose tools with excessive permissions or without proper authorization checks | Apply least-privilege OAuth scopes for each SAP API call; never grant write access unless the tool explicitly requires it |
-| **MCP03 — Sensitive Data Exposure** | Tool parameters or results contain PII, financial data or credentials in plain text | Mask sensitive fields in logging; enforce data classification policies on SAP API responses |
-| **MCP04 — Lack of Input Validation** | Unvalidated inputs reach SAP backends, enabling injection or unexpected behavior | Validate and type-check all tool call parameters before forwarding to SAP APIs |
-| **MCP05 — Broken Authentication** | Weak or missing authentication on the MCP server endpoint allows unauthorized tool invocation | Require OAuth bearer tokens or mTLS on every MCP endpoint; integrate with IAS |
-| **MCP06 — Insecure Defaults** | Out-of-the-box MCP server templates ship with permissive defaults | Review and harden all defaults before connecting to SAP production systems |
-| **MCP07 — Insufficient Logging** | Missing audit trails make incident response and compliance audits impossible | Log all tool calls with caller identity and correlation IDs; retain logs per your compliance policy |
-
-Refer to the full [OWASP MCP Top 10 project](https://owasp.org/www-project-mcp-top-10/) for the complete risk catalogue and remediation guidance.
 
 ## Customer Responsibility Statement
 
@@ -171,3 +165,7 @@ Use the table below to select the appropriate approach for your scenario:
 | Production access to SAP APIs by external AI clients | **MCP Gateway in SAP Integration Suite** |
 | Building SAP-centric agents on BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio** |
 | Exposing a mix of SAP and non-SAP APIs as a unified tool catalog | **MCP Gateway in SAP Integration Suite** |
+
+:::note Security Controls Are a Living Concern
+The guardrails on this page reflect the current MCP protocol, best practices, and known threat landscape — all of which are evolving rapidly. Review your MCP security posture regularly: when new MCP specification versions ship, when OWASP guidance is updated, or after significant changes to your agentic architecture.
+:::
