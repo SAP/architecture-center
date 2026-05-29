@@ -54,19 +54,12 @@ Two patterns describe how third-party MCP servers reach SAP solutions. Both are 
 
 An MCP server is operated by a third party (vendor-supplied, open source, or SaaS-hosted) and calls SAP APIs from outside the SAP BTP boundary.
 
-<!-- DIAGRAM PLACEHOLDER
- 
--->
-
 **Customer responsibility:** The third-party platform, its runtime, its dependencies and the credentials stored on it are entirely the customer's operational and security responsibility.
 
 ### Pattern 2 — Custom MCP Server on SAP BTP
 
 A customer builds and operates a custom MCP server, deploying it on SAP BTP (Cloud Foundry, Kyma, or a containerized workload).
 
-<!-- DIAGRAM PLACEHOLDER
-
--->
 
 **Customer responsibility:** The application code, BTP configuration, credential lifecycle and security hardening of the custom MCP server are the customer's responsibility. Hosting on BTP reduces infrastructure risk but does not automatically provide governance tooling.
 
