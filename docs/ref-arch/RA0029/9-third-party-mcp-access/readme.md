@@ -168,8 +168,7 @@ Use the table below to select the appropriate approach for your scenario:
 
 | Scenario | Recommended approach |
 |----------|----------------------|
-| Rapid prototyping / POC with an open-source MCP server | Third-party MCP server (Pattern 1 or 2) with basic security controls |
+
 | Production access to SAP APIs by external AI clients | **MCP Gateway in SAP Integration Suite** |
-| Building SAP-centric agents on BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio / BTP** |
+| Building SAP-centric agents on BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio** |
 | Exposing a mix of SAP and non-SAP APIs as a unified tool catalog | **MCP Gateway in SAP Integration Suite** |
-| Custom tooling with full code control, hosted on BTP | Pattern 2 (custom MCP on BTP) with full governance checklist applied |
