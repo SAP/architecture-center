@@ -46,6 +46,10 @@ This page outlines the two predominant patterns for third-party MCP access, the 
 MCP is still evolving rapidly. A [release candidate for a major revision of the MCP specification](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/) introduces breaking changes. Customers running self-managed MCP servers must monitor the specification roadmap closely and plan for upgrade cycles. SAP-managed MCP infrastructure absorbs this complexity on your behalf.
 :::
 
+## Architecture
+
+![drawio](./drawio/architecture.drawio)
+
 ## Third-Party MCP Access Patterns
 
 Two patterns describe how third-party MCP servers reach SAP solutions. Both are valid, but they carry different risk profiles and operational responsibilities.
@@ -146,8 +150,6 @@ When you build Joule agents using **Joule Studio**, SAP can generate MCP servers
 - **Governed by design** — authentication, authorization and data governance policies are baked in, aligned with SAP's platform security model.
 
 This path is particularly relevant for customers building SAP-centric agentic applications who want authoritative, semantically enriched access to SAP business capabilities without the overhead of managing MCP infrastructure themselves.
-
-TBD
 
 ## Decision Guide
 
