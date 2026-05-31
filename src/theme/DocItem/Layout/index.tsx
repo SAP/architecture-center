@@ -72,7 +72,8 @@ export default function DocItemLayout({children}: Props): ReactNode {
           <DocItemPaginator />
         </div>
       </div>
-      {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>}
+      {/* {docTOC.desktop && <div className="col col--3">{docTOC.desktop}</div>} */}
+      {docTOC.desktop ? <div className="col col--3">{docTOC.desktop}</div> : <div className="col col--3" />}
     </div>
   );
 }

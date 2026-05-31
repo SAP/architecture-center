@@ -1,7 +1,7 @@
 ---
 id: id-ra0005-4
 slug: /ref-arch/e5eb3b9b1d/4
-sidebar_position: 1
+sidebar_position: 4
 sidebar_custom_props:
   category_index: []
 title: Conversational AI & Joule

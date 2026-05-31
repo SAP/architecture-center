@@ -33,7 +33,7 @@ contributors:
   - anbazhagan-uma
 last_update:
   author: guilherme-segantini
-  date: 2026-01-28
+  date: 2026-05-12
 ---
 
 Enterprises possess a wealth of invaluable business data within their SAP systems. However, activating this data for modern Artificial Intelligence is often a complex, disconnected, and risky challenge. To stay competitive, organizations need a strategy to transform this data into reliable, governed, and actionable AI-driven insights that are deeply integrated with core business processes.
@@ -100,7 +100,7 @@ The Data Agent is an SAP BTP extension application that serves as the integratio
 - **Inference:** Calls the AI Core deployment endpoint to generate predictions
 - **Explanation (optional):** Uses GenAI Hub to translate technical outputs (e.g., SHAP values) into business-friendly explanations
 
-SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0005/6-agents-structured-data/readme.md).
+SAP BTP extension applications provide built-in support for authorization, authentication, and audit logging aligned with BTP security standards. Deployment benefits from BTP's observability and auto-scaling capabilities, making them well suited for production workloads. For more on building agents that work with structured data, see [Agents for Structured Data](../../RA0029/6-ai-agents-for-structured-data/readme.md).
 
 ### Pattern 4: Extending AI Insights to SAP HANA Cloud
 
@@ -150,21 +150,6 @@ The deployed API is operationalized using *both* consumption patterns:
 - **For the Business:** The finance team moves from reactive to proactive, improving cash flow with trusted, explainable AI
 - **For the Data Scientist:** Rapid innovation in Databricks while leveraging enterprise-grade AI capabilities from SAP AI Core
 - **For IT & Governance:** Controlled data access, monitored models, and managed data products with enterprise auditability
-
-## Components and Further Reading
-
-### Related Reference Architectures
-
-**SAP Business Data Cloud Series:**
-- [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md)
-- [SAP Databricks in SAP BDC](../5-sap-databricks-in-business-data-cloud/readme.md)
-- [Intelligent Applications in SAP Business Data Cloud](../2-intelligent-applications-by-sap/readme.md)
-- [Modernizing SAP BW with SAP Business Data Cloud](../4-modernizing-sap-bw-with-sap-bdc/readme.md)
-- [Cloud Identity Services for BDC](../6-cloud-identity-services-bdc/readme.md)
-
-**Generative AI and Machine Learning:**
-- [Generative AI with SAP AI Core](../../RA0005/readme.md) - GenAI patterns, RAG, and AI agents
-- [Federated Machine Learning with SAP Datasphere](../../RA0003/readme.md)
 
 ### SAP Services
 
