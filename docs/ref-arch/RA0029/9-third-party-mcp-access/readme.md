@@ -44,6 +44,12 @@ last_update:
 
 This page outlines the two predominant patterns for third-party MCP access, the governance guardrails each pattern requires, and SAP's recommended approach for production-grade agentic access to SAP solutions.
 
+:::danger Customer Responsibility and API Policy Compliance
+Use of third-party MCP servers to access SAP solutions is permitted only when all applicable SAP API Policy controls are strictly observed — including use of officially published APIs, approved authentication and authorization schemes, and published rate limits.
+
+Customers are **fully and solely responsible** for the stability, security, and compliance of any third-party MCP server they operate — including its infrastructure, dependencies, credential lifecycle, and alignment with evolving MCP protocol specifications.
+:::
+
 :::warning Protocol Volatility
 MCP is still evolving rapidly. A [release candidate for a major revision of the MCP specification](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/) introduces breaking changes. Customers running self-managed MCP servers must monitor the specification roadmap closely and plan for upgrade cycles. SAP-managed MCP infrastructure absorbs this complexity on your behalf.
 :::
@@ -67,15 +73,15 @@ An MCP server is operated by a third party (vendor-supplied, open source, or Saa
 A customer builds and operates a custom MCP server, deploying it on SAP BTP (Cloud Foundry, Kyma, or a containerized workload).
 
 
-**Customer responsibility:** The application code, BTP configuration, credential lifecycle and security hardening of the custom MCP server are the customer's responsibility. Hosting on BTP reduces infrastructure risk but does not automatically provide governance tooling.
+**Customer responsibility:** The application code, SAP BTP configuration, credential lifecycle and security hardening of the custom MCP server are the customer's responsibility. Hosting on SAP BTP reduces infrastructure risk but does not automatically provide governance tooling.
 
 ## Cross-Cutting Concerns for Both Patterns
 
-Whether the MCP server is external or BTP-hosted, the following concerns must be addressed. Failing to do so shifts operational and security risk entirely to the customer.
+Whether the MCP server is external or SAP BTP-hosted, the following concerns must be addressed. Failing to do so shifts operational and security risk entirely to the customer.
 
 ### Security
 
-- **Authentication & Authorization:** Every inbound request to the MCP server and every outbound call to an SAP API must be authenticated. Use identity and access management flows managed through SAP Cloud Identity Services (IAS). Never store long-lived credentials in MCP servers.
+- **Authentication & Authorization:** Every inbound request to the MCP server and every outbound call to an SAP API must be authenticated. Use identity and access management flows managed through [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity-services). Never store long-lived credentials in MCP servers.
 
 - **Agent Identity:** An MCP server must **never proxy the caller's auth token directly to a downstream APIs**. Forwarding a user token without transformation effectively grants the MCP server and any consuming agent the full permissions of that user, bypasses audit attribution, and creates an exploitable attack surface. Instead, the MCP server must perform a token exchange to obtain a new, scoped credential that:
   - Carries the **identity of the calling agent** (the AI client or agent framework) so that SAP APIs can attribute actions to the specific agent — not just the end user.
@@ -86,7 +92,7 @@ Whether the MCP server is external or BTP-hosted, the following concerns must be
   
 - **Input Validation:** Validate and sanitize all tool call parameters before they reach SAP APIs. Treat every input as untrusted.
 - **Transport Security:** Enforce TLS 1.2+ on all connections. Do not expose MCP endpoints over plain HTTP.
-- **Secrets Management:** Store SAP API keys, OAuth client secrets and certificates in a dedicated secrets store (e.g., SAP Credential Store on BTP, HashiCorp Vault). Rotate regularly.
+- **Secrets Management:** Store SAP API keys, OAuth client secrets and certificates in a dedicated secrets store (e.g., SAP Credential Store on SAP BTP, HashiCorp Vault). Rotate regularly.
 - **OWASP MCP Top 10 Risks:** Refer to the OWASP MCP Top 10 for specific risks and mitigations relevant to MCP deployments.
 
 ### Scalability and Reliability
@@ -107,7 +113,7 @@ Whether the MCP server is external or BTP-hosted, the following concerns must be
 - **Spec Upgrades:** Track MCP specification releases. The upcoming breaking changes in the MCP release candidate require code changes in both server and client. Build upgrade cycles into your operations.
 
 
-## Customer Responsibility Statement
+## Customer Responsibility
 
 Customers may use third-party MCP servers to access SAP solutions, **provided the general controls of SAP's API Policy are adhered to**, including infrastructure stability, API credentials management, rate limiting and security hardening as described above. The operational responsibility for third-party MCP servers — including their security posture, availability, upgrade compatibility and compliance — rests entirely with the customer.
 
@@ -153,7 +159,7 @@ Use the table below to select the appropriate approach for your scenario:
 | Scenario | Recommended approach |
 |----------|----------------------|
 | Production access to SAP APIs by external AI clients | **MCP Gateway in SAP Integration Suite** |
-| Building SAP-centric agents on BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio** |
+| Building SAP-centric agents on SAP BTP with rich SAP data access | **SAP-generated MCP servers via Joule Studio** |
 | Exposing a mix of SAP and non-SAP APIs as a unified tool catalog | **MCP Gateway in SAP Integration Suite** |
 
 :::note Security Controls Are a Living Concern
