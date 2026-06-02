@@ -1,7 +1,7 @@
 ---
 id: id-ra0030-3
 slug: /ref-arch/LcR6Senh/3
-sidebar_position: 30
+sidebar_position: 3
 title: 'Document Posting and System Integration Patterns for SAP Document AI'
 description: 'Design robust integration architectures for posting extracted and enriched document data  to SAP S/4HANA, Business ByDesign, and third-party systems with error handling and monitoring.'
 keywords: 
@@ -21,7 +21,7 @@ tags:
 contributors:
   - pirnz-sap
 last_update:
-  date: 2026-05-19
+  date: 2026-06-03
   author: pirnz-sap
 ---
 

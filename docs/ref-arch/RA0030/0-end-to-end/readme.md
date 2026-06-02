@@ -1,7 +1,7 @@
 ---
-id: id-ra0030
-slug: /ref-arch/LcR6Senh
-sidebar_position: 30
+id: id-ra0030-0
+slug: /ref-arch/LcR6Senh/0
+sidebar_position: 0
 title: 'Document Processing with SAP Document AI'
 description: 'Architect end-to-end document processing solutions using SAP Document AI to automate  extraction, validation, and posting of business documents to enterprise systems.'
 keywords: 
@@ -21,7 +21,7 @@ tags:
 contributors:
   - pirnz-sap
 last_update:
-  date: 2026-05-19
+  date: 2026-06-03
   author: pirnz-sap
 ---
  

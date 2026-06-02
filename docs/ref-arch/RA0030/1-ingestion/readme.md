@@ -1,7 +1,7 @@
 ---
 id: id-ra0030-1
 slug: /ref-arch/LcR6Senh/1
-sidebar_position: 30
+sidebar_position: 1
 title: 'Document Ingestion Patterns for SAP Document AI'
 description: 'Design flexible document intake architectures supporting email, API, mobile capture,  and enterprise system integration for intelligent document processing.'
 keywords: 
@@ -21,7 +21,7 @@ tags:
 contributors:
   - pirnz-sap
 last_update:
-  date: 2026-05-19
+  date: 2026-06-03
   author: pirnz-sap
 ---
 

@@ -1,6 +1,6 @@
 ---
 id: id-ra0030
-slug: /ref-arch/2hGbUR06
+slug: /ref-arch/LcR6Senh
 sidebar_position: 30
 title: 'SAP Document AI'
 description: 'Reference Architecture for SAP Document AI.'
@@ -27,7 +27,7 @@ tags:
 contributors:
   - ChrisLenschow
 last_update:
-  date: 2026-05-27
+  date: 2026-06-03
   author: ChrisLenschow
 ---
 

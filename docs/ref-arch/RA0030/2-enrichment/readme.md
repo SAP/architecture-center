@@ -1,7 +1,7 @@
 ---
 id: id-ra0030-2
 slug: /ref-arch/LcR6Senh/2
-sidebar_position: 30
+sidebar_position: 2
 title: 'Data Extraction and Enrichment Patterns for SAP Document AI'
 description: 'Design intelligent extraction architectures with schema configuration, confidence scoring,  master data enrichment, and business rule validation for enterprise document processing.'
 keywords: 
@@ -21,7 +21,7 @@ tags:
 contributors:
   - pirnz-sap
 last_update:
-  date: 2026-05-19
+  date: 2026-06-03
   author: pirnz-sap
 ---
 
