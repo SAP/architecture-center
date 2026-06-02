@@ -1,7 +1,7 @@
 ---
-id: id-ra0029-8
-slug: /ref-arch/ca1d2a3e/8
-sidebar_position: 8
+id: id-ra0029-9
+slug: /ref-arch/ca1d2a3e/9
+sidebar_position: 9
 title: Agent Behavior Mining
 description: >-
   Learn how SAP Signavio enables organizations to observe, analyze, and optimize
@@ -32,7 +32,7 @@ contributors:
 discussion:
 last_update:
   author: gabriel-kevorkian
-  date: 2026-05-11
+  date: 2026-06-02
 ---
 
 :::info Disclaimer
