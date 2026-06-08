@@ -51,6 +51,7 @@ import ContributorCard from '@site/src/components/ContributorCard/ContributorCar
 <ContributorCard name="Anirban Majumdar" />
 <ContributorCard name="Khawla Mallat" />
 <ContributorCard name="Lena Minholz" />
+<ContributorCard name="Philip Miseldine" />
 <ContributorCard name="Shashank Mohan Jain" />
 <ContributorCard name="Praveen Padegal" />
 <ContributorCard name="Mahesh Palavalli" />
@@ -59,6 +60,7 @@ import ContributorCard from '@site/src/components/ContributorCard/ContributorCar
 <ContributorCard name="Priyanka Porwal" />
 <ContributorCard name="Maarten Rikken" />
 <ContributorCard name="Raman Sethi" />
+<ContributorCard name="Axel Schroeder" />
 <ContributorCard name="Colin Wernicke" />
 <ContributorCard name="Nina Wild" />
 </div>
