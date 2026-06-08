@@ -1,7 +1,7 @@
 ---
-id: id-ra0029-9
-slug: /ref-arch/ca1d2a3e/9
-sidebar_position: 9
+id: id-ra0029-10
+slug: /ref-arch/ca1d2a3e/10
+sidebar_position: 10
 title: Third-Party MCP Access to SAP Solutions
 description: >-
   Guidance on accessing SAP solutions via third-party MCP servers, covering governance guardrails, OWASP MCP Top 10 risks, and SAP's recommended managed MCP approach via SAP Integration Suite and Joule Studio.
@@ -37,7 +37,7 @@ contributors:
 discussion:
 last_update:
   author: hterminasyan
-  date: 2026-05-29
+  date: 2026-06-08
 ---
 
 [**Model Context Protocol (MCP)**](https://modelcontextprotocol.io/) is an open standard that defines how AI models and agents can discover, understand and interact with external tools and their surrounding context. It acts as a universal adapter, allowing agents to consume tools, from simple functions to complex APIs, without needing to know their underlying implementation details.
