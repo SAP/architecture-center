@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2619.2",
+    "version": "v3.2624.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -42,6 +42,7 @@
     },
     "dependencies": {
         "@docusaurus/core": "^3.10.1",
+        "@docusaurus/plugin-client-redirects": "^3.10.1",
         "@docusaurus/plugin-content-docs": "^3.10.1",
         "@docusaurus/preset-classic": "^3.10.1",
         "@docusaurus/theme-mermaid": "^3.10.1",
@@ -63,7 +64,7 @@
         "@ui5/webcomponents-fiori": "^2.20.1",
         "@ui5/webcomponents-icons": "^2.7.0",
         "@ui5/webcomponents-react": "^2.20.1",
-        "axios": "^1.15.0",
+        "axios": "^1.16.0",
         "chalk": "^5.6.2",
         "clsx": "^2.0.0",
         "cookie": "^0.7.2",

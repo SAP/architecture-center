@@ -691,6 +691,19 @@ html[data-theme='dark'] .sourcecode-badge {
     display: none;
 }
 
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav {
+    display: flex !important;
+    gap: 16px;
+}
+
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav .pagination-nav__link {
+    flex: 0 0 calc(50% - 8px);
+}
+
+html[class*='docs-doc-id-north-star-arch'] .pagination-nav .pagination-nav__link--next {
+    margin-left: auto;
+}
+
 .markdown>table th,
 table td,
 table tr,
@@ -1705,5 +1718,19 @@ body:has(.homepage-main) footer.footer {
         scroll-snap-type: none !important;
         height: auto !important;
         overflow-y: visible !important;
+    }
+}
+
+/* NSA floated images — stack full-width on mobile */
+.nsa-float-image {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .nsa-float-image {
+        float: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 16px 0 !important;
     }
 }
