@@ -88,9 +88,8 @@ function exportAllDrawios() {
                 let cmd = DRAWIO_CLI_BINARY;
                 let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
                 if (DOCKER) {
-                    const d = 'docs/';
-                    const relativeOut = d + out.split(d)[1];
-                    const relativeInput = d + input.split(d)[1];
+                    const relativeOut = out.slice(ROOT.length + 1);
+                    const relativeInput = input.slice(ROOT.length + 1);
                     cmd = 'docker';
                     args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
                     args.push(relativeOut, relativeInput);
