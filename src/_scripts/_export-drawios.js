@@ -58,8 +58,12 @@ try {
 
 // --- Phase 1: Export and Watermark all Draw.io files ---
 
+const filterPath = process.argv[2] || null; // Optional: restrict to a subfolder, e.g. "ref-arch/RA0030"
+
 const files = readdirSync(ROOT + '/docs', { recursive: true }); // Scan all docs for drawio files
-const drawios = files.filter((file) => file.match(/\.drawio$/));
+const drawios = files
+    .filter((file) => file.match(/\.drawio$/))
+    .filter((file) => !filterPath || file.startsWith(filterPath));
 log(`Found ${drawios.length} drawios to process\n`);
 
 const transforms = {}; // Maps original drawio path to output SVG path
@@ -107,7 +111,7 @@ function exportAllDrawios() {
                 }
             } catch (e) {
                 const msg = prettyPaths(`Export failed ${input} -> ${out}`);
-                console.error(`\n[ERROR] ${msg}. Reason: ${e.message}\n`);
+                console.error(`\n[ERROR] ${msg}. Reason: ${e.stderr || e.message}\n`);
                 failedFiles.push(input);
             }
         }
