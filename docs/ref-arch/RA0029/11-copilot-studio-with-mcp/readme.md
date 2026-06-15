@@ -45,18 +45,19 @@ The [Agent Gateway](../1-a2a-and-mcp/readme.md#architecture) is not yet generall
 
 :::
 
-# Microsoft Copilot Studio and the SAP MCP Gateway
+# Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 
 [Microsoft Copilot Studio](https://www.microsoft.com/en-us/microsoft-365-copilot/microsoft-copilot-studio) is Microsoft's low-code platform for building and orchestrating AI agents across Microsoft 365, Teams, and custom channels.
-Through the **Model Context Protocol (MCP)**, a Copilot Studio agent can discover and invoke SAP business capabilities as governed tools — without
-bespoke point-to-point integration code and without moving SAP data out of its system of record.
-
-![Copilot Studio and MCP Gateawy](images/copilot-studio+mcp-gateway.drawio.svg)
 
 If you are new to Copilot Studio, start with the official product documentation: [Microsoft Copilot Studio documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/).
 
+Through the **Model Context Protocol (MCP)**, a Copilot Studio agent can discover and invoke SAP business capabilities as governed tools — without
+bespoke point-to-point integration code and without moving SAP data out of its system of record.
+
 In this pattern, Copilot Studio acts as the **MCP client**, and the **MCP Gateway in SAP Integration Suite** acts as the governed entry point that
 exposes SAP APIs, integration flows, and data sources as MCP-compliant tools. Identity flows end-to-end through a trust relationship between **Microsoft Entra ID** and **SAP Cloud Identity Services**, so every tool call runs in the context of the signed-in business user and respects existing SAP authorizations.
+
+![Copilot Studio and MCP Gateawy](images/copilot-studio+mcp-gateway.drawio.svg)
 
 This gives organizations the best of both ecosystems: the conversational reach and authoring experience of Copilot Studio on the front end, and the
 enterprise-grade security, governance, and semantic richness of SAP BTP on the back end.
