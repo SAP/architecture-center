@@ -4,10 +4,18 @@ slug: /ref-arch/08N_yhbT
 sidebar_position: 31
 title: 'Decentralized Identity Verification'
 description: 'Decentralized Identity Verification (DIV) is a multi-tenant SAP BTP service that enables enterprise applications to use Self-Sovereign Identity (SSI) for secure, privacy-preserving inter-company communications.'
-keywords: 
+keywords:
+  - sap
   - integration
   - security
   - ref-arch
+  - decentralized identity
+  - verifiable credentials
+  - self-sovereign identity
+  - SSI
+  - DID
+  - BTP
+  - trust network
 sidebar_label: 'Decentralized Identity Verification'
 image: img/logo.svg
 hide_table_of_contents: false
@@ -17,6 +25,7 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 tags:
+  - appdev
   - integration
   - security
   - ref-arch
@@ -40,11 +49,11 @@ last_update:
 
 ### Benefits
 
-- **Enhanced Privacy:** Users have full control over their personal data and who can access it
-- **Security:** SSI uses digital signatures to ensure that personal information is secure and tamper-proof
-- **Decentralization:** SSI allows individuals to manage their identity credentials independently of centralized authorities
-- **Efficiency:** Organizations can issue and verify credentials quickly and cost-effectively
-- **Interoperability:** SSI enables seamless verification of digital identities across multiple platforms and locations
+- **Enhanced Privacy:** Users have full control over their personal data and who can access it
+- **Security:** SSI uses digital signatures to ensure that personal information is secure and tamper-proof
+- **Decentralization:** SSI allows individuals to manage their identity credentials independently of centralized authorities
+- **Efficiency:** Organizations can issue and verify credentials quickly and cost-effectively
+- **Interoperability:** SSI enables seamless verification of digital identities across multiple platforms and locations
 
 ### Decentralized Identifiers (DID’s)
 
@@ -56,37 +65,43 @@ last_update:
 
 ### Actors
 
-![self-sovereign-identity-actors.png](images/image-iLRVWM-DNc.png)
+![Self-Sovereign Identity: Actors](./images/self-sovereign-identity-actors.png)
 
+| **Credential Issuer**                       | **Credential Holder**                        | **Credential Verifier**              |
+| ------------------------------------------- | -------------------------------------------- | ------------------------------------ |
+| - The trust anchor of the scenario          | - Keeps verifiable credentials in wallet     | - Trusts issuer(s)                   |
+| - Issues and revokes verifiable credentials | - Presents verifiable credentials on demands | - Requests credential(s) from holder |
+|                                             |                                              | - Verifies credential                |
 
+## Decentralized Identity Verification (DIV)
 
-The [Decentralized Identity Verification](https://www.sap.com/products/technology-platform/decentralized-identity-verification.html) service for SAP BTP enables enterprise applications to leverage **Self-Sovereign Identity (SSI)** for secure, privacy-preserving inter-company communications. DIV provides a comprehensive platform to issue, sign, verify, and manage **Verifiable Credentials (VCs)** and **Decentralized Identifiers (DIDs)** — the foundational building blocks of decentralized trust networks. It provides you with a user-friendly administration application and a service instance for API integration tasks.
+The [Decentralized Identity Verification](https://www.sap.com/products/technology-platform/decentralized-identity-verification.html) service for SAP BTP enables enterprise applications to leverage **Self-Sovereign Identity (SSI)** for secure, privacy-preserving inter-company communications. DIV provides a comprehensive platform to issue, sign, verify, and manage **Verifiable Credentials (VCs)** and **Decentralized Identifiers (DIDs)** — the foundational building blocks of decentralized trust networks. It provides you with a user-friendly administration application and a service instance for API integration tasks.
 
-DIV was development in the context of the data sovereignty requirements of [Catena-X](https://catena-x.net/en/) and [Gaia-X](https://www.data-infrastructure.eu/GAIAX/Navigation/EN/Home/home.html). The basis for DIV was created by ICN and brought to the first release by a joint development project of [ICN](https://sap.sharepoint.com/teams/ICNBerlinPotsdam) and BTP-Foundation.
+DIV was development in the context of the data sovereignty requirements of [Catena-X](https://catena-x.net/en/) and [Gaia-X](https://www.data-infrastructure.eu/GAIAX/Navigation/EN/Home/home.html). The basis for DIV was created by ICN and brought to the first release by a joint development project of [ICN](https://sap.sharepoint.com/teams/ICNBerlinPotsdam) and BTP-Foundation.
 
 Decentralized Identity Verification consists of three main pillars:
 
-- **Decentralized Identity Management** — create, anchor, and manage company DIDs on supported networks
-- **Verifiable Credential Lifecycle** — issue, sign, verify, present, and revoke W3C-compliant Verifiable Credentials
-- **Trust Network Management** — manage trusted partners, trusted issuers, and credential schemas to form a verifiable business network
+- **Decentralized Identity Management** — create, anchor, and manage company DIDs on supported networks
+- **Verifiable Credential Lifecycle** — issue, sign, verify, present, and revoke W3C-compliant Verifiable Credentials
+- **Trust Network Management** — manage trusted partners, trusted issuers, and credential schemas to form a verifiable business network
 
-![digital-business-wallet.png](images/image--9H6RkxhKt.png)
-
-
+![Digital Business Wallet](./images/digital-business-wallet.png)
 
 ## Architecture
 
-![drawio](drawio/diagram-z4wa-94NTz.drawio)
+![Decentralized Identity Verification L0](drawio/decentralized-identity-verification-l0.drawio)
 
-In the context of an SAP landscape, companies need to exchange data and prove facts about themselves and their products without relying on a central authority. DIV provides the SSI infrastructure for this by acting as the **trust anchor and credential management layer** on top of SAP BTP.
+<!-- ![Decentralized Identity Verification L0](images/decentralized-identity-verification-l0.drawio.png) -->
 
-DIV integrates with SAP BTP platform services for security: **SAP Cloud Identity Services** for authentication and authorization and the **Audit Log Service** for compliance-grade logging of all sensitive operations.
+In the context of an SAP landscape, companies need to exchange data and prove facts about themselves and their products without relying on a central authority. DIV provides the SSI infrastructure for this by acting as the **trust anchor and credential management layer** on top of SAP BTP.
+
+DIV integrates with SAP BTP platform services for security: **SAP Cloud Identity Services** for authentication and authorization and the **Audit Log Service** for compliance-grade logging of all sensitive operations.
 
 The reference architectures in this section describe the most common integration patterns:
 
-- [Verifiable Credential Issuance and Verification](https://file+.vscode-resource.vscode-cdn.net/Users/I512122/SAPDevelop/git/DIV/Architecture-publish-div-in-sap-architecture-center/DIS/sap-architecture-center/docs/ref-arch/RA0030/1-vc-issuance-and-verification/readme.md)
-- [Bring Your Own Wallet](https://file+.vscode-resource.vscode-cdn.net/Users/I512122/SAPDevelop/git/DIV/Architecture-publish-div-in-sap-architecture-center/DIS/sap-architecture-center/docs/ref-arch/RA0030/2-bring-your-own-wallet/readme.md)
-- [Product Carbon Footprint Use Case](https://file+.vscode-resource.vscode-cdn.net/Users/I512122/SAPDevelop/git/DIV/Architecture-publish-div-in-sap-architecture-center/DIS/sap-architecture-center/docs/ref-arch/RA0030/3-product-carbon-footprint-use-case/readme.md)
+- [Verifiable Credential Issuance and Verification](./1-vc-issuance-and-verification/readme.md)
+- [Bring Your Own Wallet](./2-bring-your-own-wallet/readme.md)
+- [Product Carbon Footprint Use Case](./3-product-carbon-footprint-use-case/readme.md)
 
 ## Services and Components
 
@@ -98,6 +113,3 @@ The reference architectures in this section describe the most common integration
 - [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/)
 - [Decentralized Identifiers (DIDs) W3C Spec](https://www.w3.org/TR/did-core/)
 - [IATP – Interoperability and Trust Protocol (Catena-X)](https://github.com/eclipse-tractusx/identity-trust)
-
-
-
