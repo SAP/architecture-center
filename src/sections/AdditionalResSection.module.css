@@ -48,8 +48,7 @@
 }
 
 .addResCard {
-  height: 100px !important;
-  min-height: 100px !important;
+  min-height: 100px;
 }
 
 @media (max-width: 1400px) {
