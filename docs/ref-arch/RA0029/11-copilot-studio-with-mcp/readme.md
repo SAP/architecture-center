@@ -2,9 +2,9 @@
 id: id-ra0029-1
 slug: /ref-arch/ca1d2a3e/1
 sidebar_position: 1
-title: A2A and MCP for Interoperability
+title: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 description: >-
-  Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a decoupled, interoperable and scalable AI agent ecosystem on SAP BTP.
+  Learn how Microsoft Copilot Studio and other Microsoft MCP clients can be connected using the MCP Gateway in SAP Integration Suite.
 keywords:
   - sap
   - ai agents
@@ -15,16 +15,12 @@ keywords:
   - model context protocol
   - copilot studio
   - microsoft copilot
-sidebar_label: A2A and MCP for Interoperability
+sidebar_label: AMicrosoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 image: img/ac-soc-med.png
 tags:
   - agents
   - genai
-  - cap
-  - aws
-  - gcp
   - azure
-  - ibm
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -37,7 +33,7 @@ contributors:
 discussion:
 last_update:
   author: hobru
-  date: 2026-06-12
+  date: 2026-06-18
 ---
 
 :::info Disclaimer
