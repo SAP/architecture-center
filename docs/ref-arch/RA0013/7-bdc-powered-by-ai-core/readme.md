@@ -18,7 +18,7 @@ keywords:
   - enterprise ai
   - reference architecture
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
-image: 
+image: img/ac-soc-med.png
 tags:
   - data
   - genai

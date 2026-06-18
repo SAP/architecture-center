@@ -21,7 +21,7 @@ keywords:
   - unity catalog
   - zero trust
 sidebar_label: Unifying Access Across SAP BDC with SAP Cloud Identity Services
-image: 
+image: img/ac-soc-med.png
 tags:
   - data
   - security

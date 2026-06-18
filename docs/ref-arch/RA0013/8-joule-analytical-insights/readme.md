@@ -12,7 +12,7 @@ keywords:
   - joule
   - analytics
 sidebar_label: Analytical Insights in Joule
-image: 
+image: img/ac-soc-med.png
 tags:
   - data
   - genai
