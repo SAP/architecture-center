@@ -1,13 +1,7 @@
 ---
-id: id-ra0011
-slug: /ref-arch/25a350543b
+id: e4f25a
+slug: /ref-arch/e4f25a
 sidebar_position: 120
-sidebar_custom_props:
-  category_index:
-    - aws
-    - azure
-    - gcp
-    - data
 title: SAP HANA Cloud as an Esri Geodatabase
 description: >-
   Integrate Esri ArcGIS with SAP HANA Cloud for real-time geospatial and
