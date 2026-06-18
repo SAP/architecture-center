@@ -1,9 +1,7 @@
 ---
-id: id-ra0005-3
-slug: /ref-arch/e5eb3b9b1d/3
+id: 8063d2
+slug: /ref-arch/8063d2
 sidebar_position: 3
-sidebar_custom_props:
-    category_index: []
 title: Retrieval Augmented Generation (RAG)
 description: >-
   Improve LLM accuracy with Retrieval Augmented Generation (RAG) by integrating
@@ -18,11 +16,11 @@ keywords:
 sidebar_label: Retrieval Augmented Generation (RAG)
 image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
-    - data
+  - aws
+  - azure
+  - gcp
+  - genai
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,7 +31,7 @@ contributors:
   - kay-schmitteckert
   - madankumarpichamuthu
   - xammaxx
-discussion:
+discussion: 
 last_update:
   author: xammaxx
   date: 2025-07-21
