@@ -39,7 +39,7 @@ contributors:
 discussion:
 last_update:
   author: kay-schmitteckert
-  date: 2026-03-19
+  date: 2026-05-04
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
@@ -78,11 +78,12 @@ The architecture consists of several integrated layers:
 -   **SAP Connectivity Service:** Secure connectivity to on-premise systems via SAP Cloud Connector
 -   **SAP Destination Service:** Centralized destination management for accessing SAP Cloud Solutions, third-party applications and on-premise systems via HTTPS protocols
 -   **Integration with SAP Systems:** Seamless connectivity to SAP S/4HANA, SAP SuccessFactors, SAP Concur, SAP Customer Experience, SAP Business Networks and other SAP Cloud Solutions
+- **MCP Access Layer:** Exposes SAP OData/REST APIs as MCP-compliant tools to agents across multiple operating models — see [Third-Party MCP Access to SAP Solutions](../10-third-party-mcp-access/readme.md).
 
 ### Agent Integration Layer
 
 -   **Agent2Agent (A2A) Protocol:** Pro-code agents expose A2A-compliant server endpoints to integrate with Joule, enabling external systems to delegate tasks to custom agents
--   **Model Context Protocol (MCP):** Agents act as MCP clients to discover and consume tools from MCP servers, accessing SAP business capabilities and third-party services in a standardized way
+- **Model Context Protocol (MCP):** Agents act as MCP clients to discover and consume tools from MCP servers via the **MCP Access Layer** (see *Connectivity & Integration Layer*), accessing SAP business capabilities and third-party services in a standardized way.
 
 ## Development Workflow
 
@@ -124,5 +125,10 @@ These frameworks integrate with SAP Cloud SDK for AI to access Generative AI Hub
 
 Pro-code agents enable advanced scenarios that require deep technical customization:
 
--   [AI Agents for Structured Data](../7-ai-agents-for-structured-data/readme.md): Build agents that enable natural language queries and analytics on structured enterprise data in SAP HANA Cloud, leveraging vector search and knowledge graphs.
--   [Embodied AI Agents](../6-embodied-ai-agents/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
+-   [AI Agents for Structured Data](../6-ai-agents-for-structured-data/readme.md): Build agents that enable natural language queries and analytics on structured enterprise data in SAP HANA Cloud, leveraging vector search and knowledge graphs.
+-   [Embodied AI Agents](../../RA0026/readme.md): Extend digital workflows into the physical world by connecting AI agents to robotics and other physical devices for autonomous operations.
+
+## Examples
+Take a look at the following examples that build upon or implement elements of the Reference Architecture:
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on SAP BTP with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on BTP Cloud Foundry - all from Claude Code.
