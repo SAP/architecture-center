@@ -15,7 +15,7 @@ keywords:
   - model context protocol
   - copilot studio
   - microsoft copilot
-sidebar_label: AMicrosoft Copilot Studio and the MCP Gateway in SAP Integration Suite
+sidebar_label: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 image: img/ac-soc-med.png
 tags:
   - agents
