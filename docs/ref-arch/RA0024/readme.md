@@ -1,14 +1,12 @@
 ---
-id: id-ra0024
-slug: /ref-arch/06ff6062dc
+id: 464deb
+slug: /ref-arch/464deb
 sidebar_position: 250
-sidebar_custom_props:
-  category_index:
-    - ai
-    - appdev
 title: Integrating and Extending Joule
 description: >-
-  Explore key topics for implementing and extending Joule, from enterprise integration with systems like SAP S/4HANA and SAP SuccessFactors to building custom skills and agents with Joule Studio and SAP BTP
+  Explore key topics for implementing and extending Joule, from enterprise
+  integration with systems like SAP S/4HANA and SAP SuccessFactors to building
+  custom skills and agents with Joule Studio and SAP BTP
 keywords:
   - sap build
   - joule studio
@@ -33,16 +31,16 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - fabianleh
-    - marvinklose
-    - dermats
-    - nagesh-caparthy1
-    - anbazhagana-uma
-    - pra1veenk
-discussion:
+  - fabianleh
+  - marvinklose
+  - dermats
+  - nagesh-caparthy1
+  - anbazhagana-uma
+  - pra1veenk
+discussion: 
 last_update:
-  date: 2026-03-16
   author: fabianleh
+  date: 2026-03-16
 ---
 
 Joule is an AI-powered SAP co-pilot designed to enhance productivity and decision-making within enterprise environments.Joule is embedded across the SAP Enterprise Solutions portfolio, accessible to all users, providing contextual assistance, automating routine tasks, and delivering insights that drive better business outcomes. 
