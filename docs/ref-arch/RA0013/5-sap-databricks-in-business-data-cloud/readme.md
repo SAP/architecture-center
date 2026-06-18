@@ -1,9 +1,7 @@
 ---
-id: id-ra0013-5
-slug: /ref-arch/f5b6b597a6/5
+id: 12d55f
+slug: /ref-arch/12d55f
 sidebar_position: 5
-sidebar_custom_props:
-  category_index: []
 title: SAP Databricks in SAP BDC
 description: >-
   Leverage SAP Databricks for AI and analytics, integrating SAP data with
