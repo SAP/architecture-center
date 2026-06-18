@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-4
-slug: /ref-arch/81805673c0/4
+id: dd9a38
+slug: /ref-arch/dd9a38
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Data Synchronization
 description: >-
   Ensure multi-region data consistency with SAP HANA Cloud's Smart Data Access
