@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-8
-slug: /ref-arch/81805673c0/8
+id: 90706a
+slug: /ref-arch/90706a
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Security
 description: >-
   Security is crucial for enterprise applications and in the multi-region
