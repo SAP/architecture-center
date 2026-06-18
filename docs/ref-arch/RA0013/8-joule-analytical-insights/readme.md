@@ -1,16 +1,18 @@
 ---
-id: id-ra0013-8
-slug: /ref-arch/f5b6b597a6/8
+id: 9efadc
+slug: /ref-arch/9efadc
 sidebar_position: 8
-title: Analytical Insights in Joule 
+title: Analytical Insights in Joule
 description: >-
- Reference Architecture for bringing analytical insights in Joule for SAP BDC using SAP Analytics Cloud JustAsk AI Service.
+  Reference Architecture for bringing analytical insights in Joule for SAP BDC
+  using SAP Analytics Cloud JustAsk AI Service.
 keywords:
   - sap business data cloud
   - sap ai core
-  - joule 
+  - joule
   - analytics
 sidebar_label: Analytical Insights in Joule
+image: 
 tags:
   - data
   - genai
@@ -24,6 +26,7 @@ unlisted: false
 contributors:
   - gpuntoancona
   - anbazhagan-uma
+discussion: 
 last_update:
   author: anbazhagan-uma
   date: 2026-05-12
