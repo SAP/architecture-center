@@ -1,9 +1,7 @@
 ---
-id: id-ra0013-2
-slug: /ref-arch/f5b6b597a6/2
+id: a71aa9
+slug: /ref-arch/a71aa9
 sidebar_position: 2
-sidebar_custom_props:
-  category_index: []
 title: Intelligent content in SAP BDC
 description: >-
   Configure Intelligent Applications in SAP BDC for streamlined analytics using
