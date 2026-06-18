@@ -20,7 +20,6 @@ image: img/ac-soc-med.png
 tags:
   - azure
   - aws
-  - genai
   - integration
   - appdev
   - eda

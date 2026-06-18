@@ -29,8 +29,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run Joule Skills
-
 ## What you will build
 
 Joule Skills enable developers to extend SAP Joule's capabilities by connecting to SAP and non-SAP systems through a low-code/no-code development environment. Built within **Joule Studio** as part of SAP Build, these custom skills allow organizations to create intelligent conversational AI interfaces for business processes across their enterprise landscape.

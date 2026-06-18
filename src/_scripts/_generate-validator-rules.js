@@ -119,7 +119,7 @@ async function fetchValidationRules() {
 function generateMarkdownTable(rules) {
   const header = `---
 sidebar_position: 3
-slug: /validation-rules
+slug: /community/validation-rules
 title: Architecture Validation Rules
 description: Complete list of validation rules used by the Architecture Validator
 sidebar_label: Architecture Validation Rules

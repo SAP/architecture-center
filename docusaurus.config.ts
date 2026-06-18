@@ -77,6 +77,21 @@ const config: Config = {
             };
         },
         './src/plugins/asset-types',
+        [
+            '@docusaurus/plugin-client-redirects',
+            {
+                redirects: [
+                    {
+                        from: '/docs/aigp',
+                        to: '/docs/ai-golden-path',
+                    },
+                    {
+                        from: '/docs/nsa',
+                        to: '/docs/ai-native-north-star-architecture',
+                    },
+                ],
+            },
+        ],
     ],
 
     i18n: {
@@ -167,7 +182,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, architecture, center, hyperscaler, reference',
+                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -218,23 +233,23 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=appdev">Application Development & Automation</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=ai">AI & Machine Learning</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=ai">Artificial Intelligence</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=appdev">Application Development & Automation</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=data">Data & Analytics</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=data">Data & Analytics</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=integration">Integration</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=integration">Integration</a>`,
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?techDomains=opsec">Operation & Security</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?expanded=opsec">Operation & Security</a>`,
                         },
                         {
                             type: 'html',
@@ -284,18 +299,23 @@ const config: Config = {
                     position: 'left',
                     items: [
                         {
-                            label: 'Explore All News Articles',
+                            label: 'Explore the News Articles',
                             to: '/news-all',
                         },
-                    /*    {
-                            label: 'Discover the AI-Native North Star Architecture',
-                            to: '/docs/nsa/',
+                        {
+                            label: 'Discover the AI-native North Star architecture',
+                            to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
-                        }, */
-                       {
+                        },
+                        {
                             label: 'Discover the AI Golden Path',
-                            to: '/docs/aigp/',
+                            to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
+                        },
+                        {
+                            label: 'Global Standards for Agentic AI',
+                            to: '/docs/global-standards-for-agentic-ai',
+                            sidebarid: 'globalStandardsForAgenticAISidebar',
                         },
                         {
                             label: 'Browse the Reference Architectures',

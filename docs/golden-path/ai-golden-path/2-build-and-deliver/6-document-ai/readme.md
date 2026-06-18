@@ -25,8 +25,6 @@ last_update:
   date: '2026-04-23'
 ---
 
-# How to build, deploy and run with Document AI
-
 SAP Document AI is a cloud-based service that uses machine learning to extract structured data from unstructured documents. It can be used to automate data entry, improve document processing, and enhance business workflows.
 
 ## What you will build

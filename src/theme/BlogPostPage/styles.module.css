@@ -28,15 +28,27 @@
     text-decoration: none;
 }
 
-.backButton:hover .arrow {
-    transform: translateX(-3px);
+.arrow {
+    width: 12px;
+    height: 12px;
+    border-bottom: 2.5px solid var(--ifm-color-primary);
+    border-left: 2.5px solid var(--ifm-color-primary);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.arrow {
-    display: inline-block;
-    transition: transform 0.25s ease;
-    font-size: 1.2rem;
-    line-height: 1;
+.backButton:hover .arrow {
+    transform: translateX(-3px) rotate(45deg);
+    border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .arrow {
+    border-color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .backButton:hover .arrow {
+    border-color: var(--ifm-color-primary-lighter);
 }
 
 [data-theme='dark'] .backButton:hover {

@@ -1,12 +1,11 @@
 .filterBarContainer {
     width: calc(100% - 16px);
-    margin-left: 8px;
-    margin-right: 8px;
     background: var(--ifm-background-color);
     border: 1px solid var(--color-border-light);
     border-radius: var(--border-radius-sm);
     padding: 12px;
-    margin-bottom: 16px;
+    margin: 0 8px 16px 8px;
+    box-sizing: border-box;
 }
 
 /* Top Bar with Filter Toggle and Clear Button */
@@ -158,12 +157,11 @@
 
 /* Result Count */
 .resultCount {
-    padding: 4px 0 0 0;
+    padding: 12px 0 0 0;
     font-size: 0.7rem;
     font-weight: 500;
     color: var(--ifm-color-content-secondary);
     border-top: 1px solid var(--color-border-light);
-    margin-top: 4px;
     margin-bottom: 0;
     text-align: center;
 }

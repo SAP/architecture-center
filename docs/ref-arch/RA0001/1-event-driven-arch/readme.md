@@ -20,7 +20,6 @@ image: img/ac-soc-med.png
 tags:
   - azure
   - aws
-  - genai
   - integration
   - appdev
   - eda
@@ -109,7 +108,7 @@ For less advanced enterprises who are focusing on dedicated EDA scenarios across
 
 ![drawio](drawio/eda_hybrid_enterprise.drawio)
 
-The **SAP Event Mesh capability of SAP Integration Suite** is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications.The Event Mesh capability will be comparable to the existing SAP Event Mesh7, but it will be bundled into the SAP Integration Suite, standard and premium editions.
+The **SAP Event Mesh capability of SAP Integration Suite** is an event broker which will enable implementation of starter or small volume EDA scenarios across SAP and third-party applications.The Event Mesh capability will be comparable to the existing SAP Event Mesh7, but it will be bundled into the SAP Integration Suite, standard and enhanced editions.
 
 **SAP Integration Suite, advanced event mesh** serves these enterprise use cases. Enterprises use advanced event mesh as a distributed multi-broker event mesh to distribute, manage, and monitor events across broad enterprise landscapes. Advanced event mesh provides distributed event processing and routing across multiple interconnected brokers in the mesh. The mesh architecture allows for flexible deployments of interconnected brokers on hyperscalers in the cloud or in local customer environments, for example, co-deployed with on-premise applications. Advanced event mesh supports different sizes of brokers and different mesh topologies to scale the mesh according to event levels, serving almost any need with great resilience. 
  
