@@ -1,28 +1,32 @@
 ---
-id: id-ra0030-2
-slug: /ref-arch/LcR6Senh/2
+id: b2b40e
+slug: /ref-arch/b2b40e
 sidebar_position: 2
-title: 'Data Extraction and Enrichment Patterns for SAP Document AI'
-description: 'Design intelligent extraction architectures with schema configuration, confidence scoring,  master data enrichment, and business rule validation for enterprise document processing.'
-keywords: 
+title: Data Extraction and Enrichment Patterns for SAP Document AI
+description: >-
+  Design intelligent extraction architectures with schema configuration,
+  confidence scoring,  master data enrichment, and business rule validation for
+  enterprise document processing.
+keywords:
   - appdev
   - genai
-sidebar_label: 'Data Extraction and Enrichment Patterns for SAP Document AI'
+sidebar_label: Data Extraction and Enrichment Patterns for SAP Document AI
 image: img/logo.svg
+tags:
+  - appdev
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - appdev
-  - genai
 contributors:
   - pirnz-sap
+discussion: 
 last_update:
-  date: 2026-06-03
   author: pirnz-sap
+  date: 2026-06-03
 ---
 
 Extracting structured data from unstructured documents is only the first step in intelligent document processing. The enrichment layer transforms raw extraction output into business-ready information by validating data against master records and applying business rules. This approach, extraction followed by enrichment, enables high-accuracy automation while having flexibility for specific business logic.
