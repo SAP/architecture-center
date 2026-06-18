@@ -1,9 +1,7 @@
 ---
-id: id-ra0001-2
-slug: /ref-arch/fbdc46aaae/2
+id: ee6233
+slug: /ref-arch/ee6233
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Design Considerations for EDA Applications
 description: >-
   Understand key challenges, key design patterns and key considerations from
