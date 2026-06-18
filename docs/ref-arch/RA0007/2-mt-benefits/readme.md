@@ -1,11 +1,11 @@
 ---
-id: id-ra0007-1
-slug: /ref-arch/d31bedf420/1
+id: f756ab
+slug: /ref-arch/f756ab
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Benefits of Multitenant Applications
-description: Discover the scalability, cost-efficiency, and streamlined updates multitenant applications on SAP BTP provide for innovative SaaS solutions.
+description: >-
+  Discover the scalability, cost-efficiency, and streamlined updates multitenant
+  applications on SAP BTP provide for innovative SaaS solutions.
 keywords:
   - sap
   - multitenant benefits
@@ -17,7 +17,6 @@ image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
-
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
