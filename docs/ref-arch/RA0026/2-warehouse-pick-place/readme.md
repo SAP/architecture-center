@@ -1,12 +1,11 @@
 ---
-id: id-ra0026-2
-slug: /ref-arch/083f2d968e/2
+id: '7e4168'
+slug: /ref-arch/7e4168
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: Warehouse Pick & Place
 description: >-
-  Learn how Embodied AI & robotics can automate warehouse operations for picking, placing, sorting, and other warehouse tasks.
+  Learn how Embodied AI & robotics can automate warehouse operations for
+  picking, placing, sorting, and other warehouse tasks.
 keywords:
   - sap
   - joule
@@ -33,7 +32,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12
