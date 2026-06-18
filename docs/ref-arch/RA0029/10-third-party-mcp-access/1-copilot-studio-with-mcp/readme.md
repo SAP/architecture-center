@@ -1,6 +1,6 @@
 ---
-id: id-ra0029-1
-slug: /ref-arch/ca1d2a3e/1
+id: id-ra0029-10-1
+slug: /ref-arch/ca1d2a3e/10/1
 sidebar_position: 1
 title: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 description: >-
@@ -69,7 +69,7 @@ enterprise-grade security, governance, and semantic richness of SAP BTP on the b
 
 The Copilot Studio agent connects to the gateway over **MCP using the Streamable HTTP transport** and authenticates with **OAuth 2.0**. The gateway validates the token, applies governance policy, and routes the request to the underlying SAP or non-SAP system.
 
-## Getting Started
+## Configuration and architecture overview
 
 The integration involves three coordinated configuration steps — one on SAP BTP, one in your identity provider(s), and one in Copilot Studio.
 
@@ -166,8 +166,6 @@ For SAP Joule and Microsoft 365 Copilot integration context, see: [SAP with Micr
 - **Governance at the edge.** Authentication, authorization, rate limiting, payload protection, and traffic management are enforced centrally at the   gateway — independent of how many agents consume the tools.
 - **Observability and adoption insight.** Built-in monitoring, tracing, and analytics show how agents consume tools, supporting compliance reporting and
   helping you understand real-world usage.
-- **Data stays in SAP.** The agent calls tools and receives scoped results; SAP remains the system of record, and the user's authorizations bound every
-  interaction.
 - **Low-code authoring.** Business teams build and refine agents in Copilot Studio's visual designer, while platform teams retain control of what is   exposed and how it is secured.
 
 ### Best Practices
