@@ -46,7 +46,7 @@ In this architecture, the Cloud Application Programming (CAP) model serves as th
 
 ## Services & Components
 
-For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](./#services--components).
+For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](../readme.md#services--components).
 
 ## Examples
 
