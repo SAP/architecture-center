@@ -1,28 +1,32 @@
 ---
-id: id-ra0030-3
-slug: /ref-arch/LcR6Senh/3
+id: c62bee
+slug: /ref-arch/c62bee
 sidebar_position: 3
-title: 'Document Posting and System Integration Patterns for SAP Document AI'
-description: 'Design robust integration architectures for posting extracted and enriched document data  to SAP S/4HANA, Business ByDesign, and third-party systems with error handling and monitoring.'
-keywords: 
+title: Document Posting and System Integration Patterns for SAP Document AI
+description: >-
+  Design robust integration architectures for posting extracted and enriched
+  document data  to SAP S/4HANA, Business ByDesign, and third-party systems with
+  error handling and monitoring.
+keywords:
   - appdev
   - genai
-sidebar_label: 'Document Posting and System Integration Patterns for SAP Document AI'
+sidebar_label: Document Posting and System Integration Patterns for SAP Document AI
 image: img/logo.svg
+tags:
+  - appdev
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - appdev
-  - genai
 contributors:
   - pirnz-sap
+discussion: 
 last_update:
-  date: 2026-06-03
   author: pirnz-sap
+  date: 2026-06-03
 ---
 
 The final stage of intelligent document processing transforms validated, enriched data into business documents in enterprise systems. Selecting the appropriate integration pattern depends on complexity requirements, governance policies, and operational constraints.
