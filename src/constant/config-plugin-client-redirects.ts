@@ -157,18 +157,21 @@ export const configRedirects = {
             from: '/docs/ref-arch/e5eb3b9b1d/3',
             to: '/docs/ref-arch/8063d2',
         },
-        {
-            from: '/docs/ref-arch/e5eb3b9b1d/4',
-            to: '/docs/ref-arch/d0e5c7',
-        },
-        {
-            from: '/docs/ref-arch/e5eb3b9b1d/7',
-            to: '/docs/ref-arch/c9cdd2',
-        },
-        {
-            from: '/docs/ref-arch/e5eb3b9b1d/10',
-            to: '/docs/ref-arch/35863c',
-        },
+        // page is in draft
+        // {
+        //     from: '/docs/ref-arch/e5eb3b9b1d/4',
+        //     to: '/docs/ref-arch/d0e5c7',
+        // },
+        // page is in draft
+        // {
+        //     from: '/docs/ref-arch/e5eb3b9b1d/7',
+        //     to: '/docs/ref-arch/c9cdd2',
+        // },
+        // page is in draft
+        // {
+        //     from: '/docs/ref-arch/e5eb3b9b1d/10',
+        //     to: '/docs/ref-arch/35863c',
+        // },
         {
             from: '/docs/ref-arch/e5eb3b9b1d',
             to: '/docs/ref-arch/39eb58',
@@ -364,10 +367,11 @@ export const configRedirects = {
             from: '/docs/ref-arch/06ff6062dc/3',
             to: '/docs/ref-arch/ff07b1',
         },
-        {
-            from: '/docs/ref-arch/06ff6062dc/4',
-            to: '/docs/ref-arch/c6e18f',
-        },
+        // page is in draft
+        // {
+        //     from: '/docs/ref-arch/06ff6062dc/4',
+        //     to: '/docs/ref-arch/c6e18f',
+        // },
         {
             from: '/docs/ref-arch/06ff6062dc/5',
             to: '/docs/ref-arch/56ae6b',
