@@ -41,7 +41,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-05-04
+  date: 2026-06-18
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
@@ -80,11 +80,12 @@ The architecture consists of several integrated layers:
 -   **SAP Connectivity Service:** Secure connectivity to on-premise systems via SAP Cloud Connector
 -   **SAP Destination Service:** Centralized destination management for accessing SAP Cloud Solutions, third-party applications and on-premise systems via HTTPS protocols
 -   **Integration with SAP Systems:** Seamless connectivity to SAP S/4HANA, SAP SuccessFactors, SAP Concur, SAP Customer Experience, SAP Business Networks and other SAP Cloud Solutions
+- **MCP Access Layer:** Exposes SAP OData/REST APIs as MCP-compliant tools to agents across multiple operating models — see [Third-Party MCP Access to SAP Solutions](../10-third-party-mcp-access/readme.md).
 
 ### Agent Integration Layer
 
 -   **Agent2Agent (A2A) Protocol:** Pro-code agents expose A2A-compliant server endpoints to integrate with Joule, enabling external systems to delegate tasks to custom agents
--   **Model Context Protocol (MCP):** Agents act as MCP clients to discover and consume tools from MCP servers, accessing SAP business capabilities and third-party services in a standardized way
+- **Model Context Protocol (MCP):** Agents act as MCP clients to discover and consume tools from MCP servers via the **MCP Access Layer** (see *Connectivity & Integration Layer*), accessing SAP business capabilities and third-party services in a standardized way.
 
 ## Development Workflow
 
