@@ -80,27 +80,8 @@ The integration involves three coordinated configuration steps — one on SAP BT
 - A Microsoft Copilot Studio environment with agent-creation permissions.
 - Administrative access to **Microsoft Entra ID** and **SAP Cloud Identity Services** to configure trust and app registrations.
 
-### Step 1 — Expose your SAP capabilities as MCP tools
-
-In SAP Integration Suite, use the MCP Gateway to create MCP-compliant tools from your existing APIs and integration flows. Enrich each tool with a clear name and description — the Copilot Studio orchestrator uses this metadata to decide, at runtime, whether a tool is relevant to the user's request. Secure the gateway endpoint with OIDC and apply rate-limiting and payload-protection policies.
-
-### Step 2 — Establish trust between Entra ID and SAP Cloud Identity Services
-
-Configure the federation that lets a Microsoft-issued identity be recognized by SAP (covered in detail under [Single Sign-On and Identity
-Propagation](#single-sign-on-and-identity-propagation) below). This is what allows the agent to act on behalf of the actual business user rather than a
-shared service identity.
-
-### Step 3 — Connect the MCP server in Copilot Studio
-
-In your agent's **Tools** page, choose **Add a tool &rarr; New tool &rarr; Model Context Protocol**. Enter the gateway's server name, description, and URL, then select **OAuth 2.0** as the authentication type. Copilot Studio supports three OAuth setups:
-
 For step-by-step MCP setup guidance, see: [Connect your agent to an existing MCP server — Microsoft Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent).
 
-- **Dynamic discovery** — simplest; use when the gateway supports OAuth 2.0 Dynamic Client Registration (DCR) with a discovery endpoint.
-- **Dynamic** — DCR without discovery; you supply the endpoints manually.
-- **Manual** — you configure all OAuth 2.0 settings explicitly.
-
-After you add the server, Copilot Studio issues a **callback (redirect) URL**. Register that URL in your identity provider's app registration to complete the OAuth handshake. Once connected, the SAP tools appear in the agent and can be invoked conversationally.
 
 :::note Transport
 Copilot Studio supports the **Streamable HTTP** transport. SSE is deprecated and is no longer supported for MCP after August 2025 — ensure the gateway exposes a Streamable HTTP endpoint.
@@ -134,14 +115,14 @@ authoritative SAP data or actions in the flow of work.
 
 ### Self-service across SAP lines of business
 
-- **HR &amp; People (SuccessFactors):** "Show my remaining leave balance and submit a vacation request for the last week of July." The agent calls   SuccessFactors tools through the gateway under the employee's own identity. 
-- **Travel &amp; Expense (Concur):** "Create an expense report from these receipts and check the status of my last reimbursement."
-- **Procurement &amp; Finance (S/4HANA):** "What's the status of purchase order 4500001234, and who needs to approve it next?"
+- **HR &amp; People:** "Show my remaining leave balance and submit a vacation request for the last week of July." The agent calls the SAP tools through the gateway under the employee's own identity. 
+- **Travel &amp; Expense:** "Create an expense report from these receipts and check the status of my last reimbursement."
+- **Procurement &amp; Finance:** "What's the status of purchase order 4500001234, and who needs to approve it next?"
 
 ### Operational and customer-facing agents
 
-- **Order-to-cash / customer service (SAP Customer Experience):** A service agent in Teams retrieves order status, delivery dates, and account history   without leaving the conversation.
-- **Supply chain &amp; logistics:** Surface inventory levels, ASN status, or supplier data from SAP Business Network in a Copilot Studio agent for   planners.
+- **Order-to-cash / customer service:** A service agent in Teams retrieves order status, delivery dates, and account history   without leaving the conversation.
+- **Supply chain &amp; logistics:** Surface inventory levels, ASN status, or supplier data in a Copilot Studio agent for   planners.
 
 ### Insight in the flow of work (SAP Business Data Cloud)
 
