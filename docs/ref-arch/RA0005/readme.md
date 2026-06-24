@@ -44,6 +44,8 @@ last_update:
   date: 2025-09-02
 ---
 
+added a new line here. Codeowners?
+
 Harness the power of Generative AI (GenAI) in your applications on SAP BTP, providing a robust framework for optimizing AI-driven application development and data management.
 
 For applications on SAP Business Technology Platform (SAP BTP) aiming to harness the power of Generative AI, this Reference Architecture provides a comprehensive framework.

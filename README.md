@@ -8,6 +8,8 @@ Reference architectures are templates in their simplest form. They generalize sp
 
 A reference architecture outlines the interactions between various services, showcasing how they work together seamlessly. It also demonstrates how these services integrate with business applications from SAP, partners, and third-party providers. This holistic view helps organizations understand the components needed to build a cohesive and efficient system. These templates provide a standardized approach to designing systems, ensuring best practices and optimal configurations are followed. They can easily be customized or adapted to a customer's unique environment and provide a foundation for adopting the latest cloud innovations from SAP.
 
+added a new line here. Codeowners?
+
 ## Requirements and Setup
 
 ### Prerequisites
