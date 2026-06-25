@@ -51,9 +51,7 @@ Both operations are available as REST APIs and are also exercised automatically 
 
 The high-level architecture of decentralized identity verification is best illustrated by the following example, “Sharing Data in a Dataspace.”
 
-![Decentralized Identity Verification L1 as of 2024](drawio/decentralized-identity-verification-l1-as-of-2024.drawio)
-
-<!-- ![Decentralized Identity Verification L1 as of 2024](images/decentralized-identity-verification-l1-as-of-2024.drawio.svg) -->
+![drawio](drawio/decentralized-identity-verification-l1-as-of-2024.drawio "Decentralized Identity Verification L1 as of 2024")
 
 Data Space Integration (DSI) and Decentralized Identity Verification (DIV) are enabling SAP customers to share data in a trusted, sovereign way in interoperable industrial data spaces.
 

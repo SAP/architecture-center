@@ -52,9 +52,7 @@ With the introduction of BYOW in 2026, dataspace members can now provision DIV d
 
 ## Architecture
 
-![Decentralized Identity Verification L1 BYOW](drawio/decentralized-identity-verification-l1-byow.drawio)
-
-<!-- ![Decentralized Identity Verification L1 BYOW](images/decentralized-identity-verification-l1-byow.drawio.svg) -->
+![drawio](drawio/decentralized-identity-verification-l1-byow.drawio "Decentralized Identity Verification L1: Bring Your Own Wallet (BYOW)")
 
 In the BYOW model, the **Operating Company's DIV wallet** acts as the issuer of the membership credential. After verifying the member's identity, the operator issues a signed membership credential and pushes it directly to the **member's own DIV wallet** hosted on their SAP BTP account.
 

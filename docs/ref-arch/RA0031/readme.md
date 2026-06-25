@@ -89,9 +89,7 @@ Decentralized Identity Verification consists of three main pillars:
 
 ## Architecture
 
-![Decentralized Identity Verification L0](drawio/decentralized-identity-verification-l0.drawio)
-
-<!-- ![Decentralized Identity Verification L0](images/decentralized-identity-verification-l0.drawio.png) -->
+![drawio](drawio/decentralized-identity-verification-l0.drawio "Decentralized Identity Verification L0")
 
 In the context of an SAP landscape, companies need to exchange data and prove facts about themselves and their products without relying on a central authority. DIV provides the SSI infrastructure for this by acting as the **trust anchor and credential management layer** on top of SAP BTP.
 

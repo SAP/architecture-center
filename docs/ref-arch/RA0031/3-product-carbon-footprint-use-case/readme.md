@@ -51,9 +51,7 @@ This reference architecture illustrates how a **Gearbox Supplier** and a **Car M
 
 ## Architecture
 
-![Product Carbon Footprint Use Case](drawio/product-carbon-footprint-use-case.drawio)
-
-<!-- ![Product Carbon Footprint Use Case](images/product-carbon-footprint-use-case.drawio.svg) -->
+![drawio](drawio/product-carbon-footprint-use-case.drawio "Product Carbon Footprint Use Case")
 
 The architecture involves three parties, each owning their own wallet infrastructure:
 
