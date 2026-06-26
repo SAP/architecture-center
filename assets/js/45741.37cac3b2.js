@@ -1,0 +1,1 @@
+(globalThis.webpackChunksap_architecture_center=globalThis.webpackChunksap_architecture_center||[]).push([[45741],{45741(){}}]);
