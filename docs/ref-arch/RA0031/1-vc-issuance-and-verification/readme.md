@@ -1,14 +1,12 @@
 ---
-id: id-ra0031-1
-slug: /ref-arch/08N_yhbT/1
+id: 70c37e
+slug: /ref-arch/70c37e
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
-title: 'DIV – Verifiable Credential Issuance and Verification'
+title: DIV – Verifiable Credential Issuance and Verification
 description: >-
   This reference architecture describes how SAP Decentralized Identity
-  Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials
-  and Verifiable Presentations on SAP BTP.
+  Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials and
+  Verifiable Presentations on SAP BTP.
 keywords:
   - sap
   - decentralized identity
@@ -18,24 +16,25 @@ keywords:
   - credential issuance
   - credential verification
   - IATP
-sidebar_label: 'VC Issuance and Verification'
+sidebar_label: VC Issuance and Verification
 image: img/ac-soc-med.png
+tags:
+  - appdev
+  - integration
+  - security
+  - ref-arch
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - appdev
-  - integration
-  - security
-  - ref-arch
 contributors:
   - thomas-t7
+discussion: 
 last_update:
-  date: 2026-06-15
   author: thomas-t7
+  date: 2026-06-15
 ---
 
 The core capability of SAP Decentralized Identity Verification (DIV) is the **issuance and verification of W3C Verifiable Credentials (VCs)**. A credential issued by one company can be cryptographically verified by any other party without requiring a shared central authority — trust is anchored in the issuer's **Decentralized Identifier (DID)** that is publicly resolvable on a distributed ledger.
