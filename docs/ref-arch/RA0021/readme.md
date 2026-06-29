@@ -1,10 +1,7 @@
 ---
-id: id-ra0021
-slug: /ref-arch/58f6d88e9a
+id: 6501d5
+slug: /ref-arch/6501d5
 sidebar_position: 220
-sidebar_custom_props:
-  category_index:
-    - integration
 title: Application to Application Integration
 description: >-
   Enable seamless App2App integration with SAP Integration Suite for near

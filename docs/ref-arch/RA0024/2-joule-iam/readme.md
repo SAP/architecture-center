@@ -1,20 +1,11 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-2
-slug: /ref-arch/06ff6062dc/2
+id: ea5d4f
+slug: /ref-arch/ea5d4f
 sidebar_position: 2
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Identity and Access Management for SAP Joule
 description: >-
-  This reference architecture describes the IAM related flows for SAP Joule with SAP Build Work Zone and via the SAP Cloud Identity Services.
+  This reference architecture describes the IAM related flows for SAP Joule with
+  SAP Build Work Zone and via the SAP Cloud Identity Services.
 keywords:
   - sap
   - joule
@@ -25,7 +16,7 @@ keywords:
   - access management
 sidebar_label: Joule and IAM
 image: img/ac-soc-med.png
-tags: 
+tags:
   - genai
   - agents
   - build
@@ -38,15 +29,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-   - sapgunnar
-   - gunnar-kosche_sap
-discussion:
+  - sapgunnar
+  - gunnar-kosche_sap
+discussion: 
 last_update:
-    date: 2025-09-22
-    author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: fabianleh
+  date: 2025-09-22
 ---
 
 This architecture page focuses on Identity and Access Management (IAM) for SAP Business AI and SAP Joule. The key advantage of integrating AI is enabling users to leverage cross-domain capabilities, connecting processes and data across multiple business applications. Achieving this requires a robust architecture with comprehensive cybersecurity and IAM features. Note that this approach may differ from traditional project and customer landscapes, where user and access management were typically handled separately for each business application.

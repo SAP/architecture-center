@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-1
-slug: /ref-arch/81805673c0/1
+id: 33c25f
+slug: /ref-arch/33c25f
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Single-region and Multi-region resiliency
 description: Overview for Single and Multi-region resiliency
 keywords:
@@ -26,7 +24,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors:
+contributors: 
 discussion: 
 last_update:
   author: arajsinha

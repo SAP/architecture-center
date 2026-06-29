@@ -1,10 +1,10 @@
 ---
-id: id-ra0028
-slug: /ref-arch/5Hlvofqg
+id: 14d25a
+slug: /ref-arch/14d25a
 sidebar_position: 290
-title: 'SAP SuccessFactors Suite'
-description: 'Overview of the SAP SuccessFactors modules and how data flows between them'
-keywords: 
+title: SAP SuccessFactors Suite
+description: Overview of the SAP SuccessFactors modules and how data flows between them
+keywords:
   - ref-arch
   - successfactors
   - hcm
@@ -13,23 +13,24 @@ keywords:
   - talent management
   - payroll
   - employee experience
-sidebar_label: 'SAP SuccessFactors Suite'
+sidebar_label: SAP SuccessFactors Suite
 image: img/logo.svg
+tags:
+  - ref-arch
+  - community-contrib
+  - successfactors
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - ref-arch
-  - community-contrib
-  - successfactors
 contributors:
   - arjenvanhooydonk
+discussion: 
 last_update:
-  date: 2026-03-18
   author: arjenvanhooydonk
+  date: 2026-03-18
 ---
 
 :::note External Contribution
@@ -59,4 +60,3 @@ Complementing these modules, **SuccessFactors Learning** supports workforce deve
 ## Resources
 
 - [SAP SuccessFactors HCM | SAP Help Portal | SAP Help Portal](https://help.sap.com/docs/SAP_SUCCESSFACTORS_HXM_SUITE)
-

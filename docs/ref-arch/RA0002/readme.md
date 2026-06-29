@@ -1,14 +1,7 @@
 ---
-id: id-ra0002
-slug: /ref-arch/81805673c0
+id: bbfc34
+slug: /ref-arch/bbfc34
 sidebar_position: 30
-sidebar_custom_props:
-  category_index:
-    - appdev
-    - integration
-    - aws
-    - azure
-    - gcp
 title: Architecting Multi-Region HA/DR resiliency patterns
 description: >-
   Architect multi-region resiliency for SAP solutions with strategies for high

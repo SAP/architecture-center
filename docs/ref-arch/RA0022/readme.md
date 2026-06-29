@@ -1,10 +1,7 @@
 ---
-id: id-ra0022
-slug: /ref-arch/309338f0eb
+id: 5f90af
+slug: /ref-arch/5f90af
 sidebar_position: 230
-sidebar_custom_props:
-  category_index:
-    - integration
 title: API Managed Integration
 description: >-
   Enable secure, omni-channel API access to business apps with SAP Integration
