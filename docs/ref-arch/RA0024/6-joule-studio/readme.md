@@ -1,30 +1,22 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-6
-slug: /ref-arch/06ff6062dc/6
+id: f5a3ef
+slug: /ref-arch/f5a3ef
 sidebar_position: 6
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Joule Studio
-description: SAP’s AI-first low-code and pro-code development solution for generating and running custom AI agents, workflows and extensions.
-sidebar_label: Joule Studio
+description: >-
+  SAP’s AI-first low-code and pro-code development solution for generating and
+  running custom AI agents, workflows and extensions.
 keywords:
-- joule
-- joule studio
-- custom joule skills
-- ai agents
-- sap integration
-- sap ai
-- automation
-- sap btp
-- hybrid landscapes
+  - joule
+  - joule studio
+  - custom joule skills
+  - ai agents
+  - sap integration
+  - sap ai
+  - automation
+  - sap btp
+  - hybrid landscapes
+sidebar_label: Joule Studio
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -38,13 +30,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - fabianleh
-  - SelinaHochstrat
-  - f-buech
+    - fabianleh
+    - SelinaHochstrat
+    - f-buech
 last_update:
-  author: fabianleh
-  date: 2026-05-15
-
+    date: 2026-05-12
+    author: fabianleh
 ############################################################
 #                   End of Front Matter                    #
 ############################################################
@@ -129,6 +120,4 @@ All baseline operational services — logging, audit logging, and telemetry — 
 
 - [SAP Cloud Identity Services - Tenant Model](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/tenant-model-and-licensing?version=Cloud)
 - [System Integration Guide for SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity/system-integration-guide/system-integration-guide-for-sap-cloud-identity-services?version=Cloud)
-
-
 

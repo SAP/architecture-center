@@ -1,6 +1,7 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
+import { configRedirects } from './src/constant/config-plugin-client-redirects';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
@@ -79,18 +80,7 @@ const config: Config = {
         './src/plugins/asset-types',
         [
             '@docusaurus/plugin-client-redirects',
-            {
-                redirects: [
-                    {
-                        from: '/docs/aigp',
-                        to: '/docs/ai-golden-path',
-                    },
-                    {
-                        from: '/docs/nsa',
-                        to: '/docs/ai-native-north-star-architecture',
-                    },
-                ],
-            },
+            configRedirects,
         ],
     ],
 
@@ -182,7 +172,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, architecture, center, hyperscaler, reference',
+                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -311,6 +301,11 @@ const config: Config = {
                             label: 'Discover the AI Golden Path',
                             to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
+                        },
+                        {
+                            label: 'Global Standards for Agentic AI',
+                            to: '/docs/global-standards-for-agentic-ai',
+                            sidebarid: 'globalStandardsForAgenticAISidebar',
                         },
                         {
                             label: 'Browse the Reference Architectures',

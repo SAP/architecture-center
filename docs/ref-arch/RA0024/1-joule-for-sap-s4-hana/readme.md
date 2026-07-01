@@ -1,30 +1,22 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-1
-slug: /ref-arch/06ff6062dc/1
+id: ebe268
+slug: /ref-arch/ebe268
 sidebar_position: 1
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
-title: Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public Edition
+title: >-
+  Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public
+  Edition
 description: Reference Architectures for Joule and SAP S/4HANA(PCE and Public Cloud)
+keywords:
+  - sap
+  - joule
+  - ai
 sidebar_label: Joule in SAP S/4HANA Cloud
-keywords: 
-    - sap
-    - joule
-    - ai
 image: img/ac-soc-med.png
-tags: 
-    - genai
-    - agents
-    - build
-    - appdev
+tags:
+  - genai
+  - agents
+  - build
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -32,16 +24,13 @@ toc_max_heading_level: 4
 draft: false
 unlisted: true
 contributors:
-    - pra1veenk
-    - anbazhagan-uma
-    - nagesh-caparthy1
-discussion:
+  - pra1veenk
+  - anbazhagan-uma
+  - nagesh-caparthy1
+discussion: 
 last_update:
-    date: 2025-10-29
-    author: pra1veenk 
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: pra1veenk
+  date: 2025-10-29
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->

@@ -1,24 +1,23 @@
 ---
-id: id-ra0004-5
-slug: /ref-arch/a07a316077/5
+id: 053d2b
+slug: /ref-arch/053d2b
 sidebar_position: 5
-sidebar_custom_props:
-  category_index: []
 title: Integration with Snowflake
 description: >-
-  Integrate SAP data with Snowflake seamlessly using SAP BDC Connect and SAP Snowflake
+  Integrate SAP data with Snowflake seamlessly using SAP BDC Connect and SAP
+  Snowflake
 keywords:
   - sap
   - cloud performance
   - snowflake
   - data harmonization
   - advanced analytics
-  - bdc connect 
+  - bdc connect
   - delta share
   - sap snowflake
   - enterprise snowflake
   - bdc connect for snowflake
-sidebar_label: Integration with Snowflake 
+sidebar_label: Integration with Snowflake
 image: img/ac-soc-med.png
 tags:
   - snowflake
@@ -135,5 +134,3 @@ Customers can utilize SAP Snowflake for enterprise data and AI workloads includi
 <li><b>Secure, and Real-Time SAP Data Exchange via Open Data Exchange </b><p>The data exchange from SAP Business Data Cloud to Snowflake, that BDC Connect enables, is based on industry standard open data protocol (delta sharing), enabling interoperability across different computing platforms, cloud environments, and applications. The data-sharing exchange provides secure, fast, and federated real-time access to semantically enriched, consumption-ready SAP data—eliminating the need for data duplication and complex ETL processes. </p></li>
 <li><b>Flexible infrastructure choices: </b><p>Helps customers leverage the power of seamless AI app and data agent development at scale with Snowflake, while utilizing SAP's mission critical business processes and semantically rich data.  It opens up choices for running user’s data and AI workloads on the optimal compute and storage for the job.  With SAP Joule and Snowflake Cortex AI, this integration helps choose the right AI agent for any task—from automating next best actions to building intelligent applications. </p></li>
 </ul>
-
-

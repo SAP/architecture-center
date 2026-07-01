@@ -1,32 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-5
-slug: /ref-arch/06ff6062dc/5
+id: 56ae6b
+slug: /ref-arch/56ae6b
 sidebar_position: 5
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
-title: SAP Joule Landscape Recommendation 
-description: Recommended SAP BTP Subaccount model setup for unified Joule experience within a 3-staged landscape 
-sidebar_label: Joule Landscape Recommendation
+title: SAP Joule Landscape Recommendation
+description: >-
+  Recommended SAP BTP Subaccount model setup for unified Joule experience within
+  a 3-staged landscape
 keywords:
-- joule
-- joule studio
-- custom joule skills
-- ai agents
-- sap integration
-- sap ai
-- automation
-- sap btp
-- hybrid landscapes
-- staged landscape
-- subaccount model
+  - joule
+  - joule studio
+  - custom joule skills
+  - ai agents
+  - sap integration
+  - sap ai
+  - automation
+  - sap btp
+  - hybrid landscapes
+  - staged landscape
+  - subaccount model
+sidebar_label: Joule Landscape Recommendation
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -40,16 +32,15 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - mar-hol
-    - fabianleh
-    - marvinklose
-    - dermats
+  - mar-hol
+  - fabianleh
+  - marvinklose
+  - dermats
+  - NormanNuernberger
+discussion: 
 last_update:
-    date: 2026-03-12
-    author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: NormanNuernberger
+  date: 2026-05-15
 ---
 
 Setting up unified Joule in an existing SAP landscape requires a staged implementation process to qualify changes before bringing them to production. As organizations develop custom Joule skills and agents using Joule Studio, or configure Joule integrations across multiple SAP cloud applications, they need a structured approach to develop, test, and deploy these capabilities safely. This reference architecture provides a recommended SAP BTP subaccount model that supports a 3-staged landscape (Development, Test, Production), ensuring proper isolation, governance, and lifecycle management for Joule-related workloads.
@@ -96,7 +87,9 @@ The solution architecture consists of the following key elements:
 
 - **SAP SuccessFactors**: HR-focused Joule skills and agents can be developed and tested against SuccessFactors test instances, validating employee self-service scenarios and HR process automations before enabling them for the workforce.
 
-- **SAP SuccessFactors**: SAP SuccessFactors is owning an own identifier for a person, the Person UID, required for Embedded Analytics. This UID has an independent lifecycle than the Global User UID, which is owned by the SAP Cloud Identity Services. Connecting multiple instances of SAP SuccessFactors with a single instance of SAP Cloud Identity Services may lead to conflicts when synchronizing the identities from SAP SuccessFactors to SAP Cloud Identity Services. There are different possibilities to avoid such conflicts, for example by using different user accounts in different instances of SAP Success Factors, while authentication via Global User UID can allow single sign on even with different mail addresses in the different instances of SAP Success Factors.
+- **SAP SuccessFactors**: SAP SuccessFactors is owning an own identifier for a person, the Person UID, required for Embedded Analytics. This UID has an independent lifecycle than the Global User UID, which is owned by the SAP Cloud Identity Services. Connecting multiple instances of SAP SuccessFactors with a single instance of SAP Cloud Identity Services may lead to conflicts when synchronizing the identities from SAP SuccessFactors to SAP Cloud Identity Services. There are different possibilities to avoid such conflicts:
+    - By using different user accounts in different instances of SAP Success Factors, while authentication via Global User UID can allow single sign on even with different mail addresses in the different instances of SAP Success Factors.
+    - By storing the different Person UIDs into different attributes inside SAP Cloud Identity Services, as described in [Note 2954815](https://me.sap.com/notes/2954815)
 
 - **Multi-application landscapes**: Organizations with multiple Joule-enabled SAP applications benefit from the unified Joule instance approach, where a single staged BTP setup serves as the foundation for Joule across SAP S/4HANA, SAP SuccessFactors, SAP Ariba, and other connected systems.
 

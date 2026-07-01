@@ -1,9 +1,7 @@
 ---
-id: id-ra0005-6
-slug: /ref-arch/ca1d2a3e/7
+id: b6c158
+slug: /ref-arch/b6c158
 sidebar_position: 6
-sidebar_custom_props:
-  category_index: []
 title: Agents for Structured Data
 description: >-
   Transform structured data analysis with AI-powered applications, enabling
@@ -31,7 +29,7 @@ unlisted: false
 contributors:
   - vedant-aero-ml
   - kay-schmitteckert
-discussion:
+discussion: 
 last_update:
   author: vedant-aero-ml
   date: 2025-05-14

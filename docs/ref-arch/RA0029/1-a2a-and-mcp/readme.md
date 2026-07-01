@@ -1,10 +1,11 @@
 ---
-id: id-ra0029-1
-slug: /ref-arch/ca1d2a3e/1
+id: 76ec36
+slug: /ref-arch/76ec36
 sidebar_position: 1
 title: A2A and MCP for Interoperability
 description: >-
-  Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a decoupled, interoperable and scalable AI agent ecosystem on SAP BTP.
+  Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a
+  decoupled, interoperable and scalable AI agent ecosystem on SAP BTP.
 keywords:
   - sap
   - ai agents
@@ -32,7 +33,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - hterminasyan
-discussion:
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2026-05-04

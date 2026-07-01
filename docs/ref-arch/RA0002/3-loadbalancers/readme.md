@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-3
-slug: /ref-arch/81805673c0/3
+id: b66add
+slug: /ref-arch/b66add
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Load Balancers
 description: >-
   Enhance SAP BTP setups with intelligent load balancing for optimal

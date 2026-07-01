@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-5
-slug: /ref-arch/81805673c0/5
+id: b6ca4c
+slug: /ref-arch/b6ca4c
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Events Synchronization
 description: >-
   Enable resilient multi-region event processing with SAP Advanced Event Mesh,

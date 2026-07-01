@@ -1,10 +1,7 @@
 ---
-id: id-ra0025
-slug: /ref-arch/9a5f7b59dc
+id: 4b76ae
+slug: /ref-arch/4b76ae
 sidebar_position: 260
-sidebar_custom_props:
-  category_index:
-    - integration
 title: Transitioning Architectures from SAP NetWeaver
 description: >-
   Discover how SAP customers can transition from NetWeaver-based products

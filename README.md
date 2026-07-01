@@ -67,7 +67,7 @@ npm run security:update       # Update packages and fix vulnerabilities
 
 **Note**: The security audit checks only production dependencies (excludes devDependencies) to focus on what gets deployed.
 
-For detailed contribution guidelines, refer to the [Community of Practice | Intro](community/intro.md). 
+For detailed contribution guidelines, refer to the [Community of Practice | Intro](docs/community/intro.md). 
 
 ## Support, Feedback, Contributing
 

@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-9
-slug: /ref-arch/81805673c0/9
+id: d7ab1e
+slug: /ref-arch/d7ab1e
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Cost of Ownership
 description: >-
   Explore cost optimization strategies for multi-region SAP BTP setups, reducing

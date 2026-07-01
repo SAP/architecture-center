@@ -1,14 +1,7 @@
 ---
-id: id-ra0005
-slug: /ref-arch/e5eb3b9b1d
+id: 39eb58
+slug: /ref-arch/39eb58
 sidebar_position: 60
-sidebar_custom_props:
-    category_index:
-        - appdev
-        - ai
-        - aws
-        - azure
-        - gcp
 title: Generative AI on SAP BTP
 description: >-
   Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
@@ -22,11 +15,11 @@ keywords:
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
-    - agents
+  - aws
+  - azure
+  - gcp
+  - genai
+  - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -34,11 +27,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - kay-schmitteckert
-    - AdiPleyer
-    - vedant-aero-ml
-    - madankumarpichamuthu
-discussion:
+  - kay-schmitteckert
+  - AdiPleyer
+  - vedant-aero-ml
+  - madankumarpichamuthu
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2025-09-02
@@ -134,7 +127,6 @@ Given the various aspects and patterns of generative AI, there isn't a single, u
 -   [A2A Agent-to-Agent Interoperability](../RA0029/1-a2a-and-mcp/readme.md) illustrates how multiple agents collaborate with the A2A protocol.
 -   [Agents for Structured Data](../RA0029/6-ai-agents-for-structured-data/readme.md) enable natural language queries into enterprise data for descriptive and prescriptive analytics.
 -   [Multi-Tenancy](../RA0007/readme.md) explains the multi-tenant aspect for generative AI on SAP BTP.
--   [Vibe Coding with Cline and SAP AI Core](./6-vibe-code-with-cline/readme.md) explains how to setup and use Cline with SAP AI Core.
 
 ## Services & Components
 
