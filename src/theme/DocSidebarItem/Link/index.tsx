@@ -12,16 +12,14 @@ import {isActiveSidebarItem} from '@docusaurus/plugin-content-docs/client';
 import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
-import DuplicateCounter from '@theme/DocSidebarItem/DuplicateCounter';
 import type {Props} from '@theme/DocSidebarItem/Link';
 
 import styles from './styles.module.css';
 
-function LinkLabel({label, duplicateCount}: {label: string; duplicateCount?: number}) {
+function LinkLabel({label}: {label: string}) {
   return (
     <span className={styles.linkLabel}>
       {label}
-      {duplicateCount && <DuplicateCounter count={duplicateCount} />}
     </span>
   );
 }
@@ -36,7 +34,6 @@ export default function DocSidebarItemLink({
   const {href, label, className, autoAddBaseUrl} = item;
   const isActive = isActiveSidebarItem(item, activePath);
   const isInternalLink = isInternalUrl(href);
-  const duplicateCount = item?.customProps?.duplicateCount as number | undefined;
 
   return (
     <li
@@ -63,7 +60,7 @@ export default function DocSidebarItemLink({
           onClick: onItemClick ? () => onItemClick(item) : undefined,
         })}
         {...props}>
-        <LinkLabel label={label} duplicateCount={duplicateCount} />
+        <LinkLabel label={label} />
         {!isInternalLink && <IconExternalLink />}
       </Link>
     </li>
