@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-4
-slug: /ref-arch/8e1a5fbce3/4
+id: 494ec6
+slug: /ref-arch/494ec6
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML-GCP for Google Vertex AI
 description: >-
   Simplify ML training on Google Vertex AI with FedML-GCP, integrating live SAP

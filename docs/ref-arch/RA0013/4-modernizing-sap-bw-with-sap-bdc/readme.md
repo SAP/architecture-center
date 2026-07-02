@@ -1,9 +1,7 @@
 ---
-id: id-ra0013-4
-slug: /ref-arch/f5b6b597a6/4
+id: '6550e4'
+slug: /ref-arch/6550e4
 sidebar_position: 4
-sidebar_custom_props:
-  category_index: []
 title: Modernizing SAP BW with SAP Business Data Cloud
 description: >-
   Modernize SAP BW with SAP BDC for real-time analytics, AI insights, and

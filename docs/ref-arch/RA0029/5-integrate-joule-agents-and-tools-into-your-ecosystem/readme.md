@@ -1,10 +1,11 @@
 ---
-id: id-ra0029-5
-slug: /ref-arch/ca1d2a3e/5
+id: fe0d1d
+slug: /ref-arch/fe0d1d
 sidebar_position: 5
 title: Integrating Joule Agents into Your Ecosystem
 description: >-
-  Learn how to expose Joule agents for consumption by third-party applications and external systems using the Agent Gateway with the A2A protocol.
+  Learn how to expose Joule agents for consumption by third-party applications
+  and external systems using the Agent Gateway with the A2A protocol.
 keywords:
   - sap
   - ai agents
@@ -32,7 +33,7 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
-discussion:
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2026-05-06

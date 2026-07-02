@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-1-2
-slug: /ref-arch/81805673c0/1/2
+id: 332db2
+slug: /ref-arch/332db2
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Multi-region resiliency
 description: >-
   Learn how and why Multi-region resiliency ensures applications remain

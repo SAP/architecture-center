@@ -1,9 +1,7 @@
 ---
-id: id-ra0019-2
-slug: /ref-arch/20c6b29b1e/2
+id: 0f59a3
+slug: /ref-arch/0f59a3
 sidebar_position: 2
-sidebar_custom_props:
-  category_index: []
 title: Identity lifecycle with SAP Cloud Identity Services
 description: >-
   This reference architecture describes the identity lifecycle flows for SAP

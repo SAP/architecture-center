@@ -1,31 +1,21 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-4
-slug: /ref-arch/06ff6062dc/4
+id: c6e18f
+slug: /ref-arch/c6e18f
 sidebar_position: 4
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Integrate Joule and Microsoft Copilot
-description: Integrate Microsoft Copilot and SAP Joule 
-sidebar_label: Integrate Joule and Microsoft Copilot
+description: Integrate Microsoft Copilot and SAP Joule
 keywords:
-    - sap
-    - joule
-    - ai
-    - microsoft
+  - sap
+  - joule
+  - ai
+  - microsoft
+sidebar_label: Integrate Joule and Microsoft Copilot
 image: img/ac-soc-med.png
-tags: 
-    - genai
-    - agents
-    - build
-    - appdev
+tags:
+  - genai
+  - agents
+  - build
+  - appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,15 +23,12 @@ toc_max_heading_level: 4
 draft: true
 unlisted: false
 contributors:
-    - contributor1
-    - contributor2
-discussion:
+  - contributor1
+  - contributor2
+discussion: 
 last_update:
-    date: 2025-10-29
-    author: user-bb83abb390
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: user-bb83abb390
+  date: 2025-10-29
 ---
 
 <!-- Add the 'why?' for this architecture. Why do we have it? What is its purpose -->

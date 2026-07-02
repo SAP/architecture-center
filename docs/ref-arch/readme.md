@@ -1,49 +1,47 @@
 ---
-id: id-intro-0
+id: 37afa8
 slug: /ref-arch
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: SAP Reference Architecture - Building Blocks for Business Success
 description: >-
-    Learn how to utilize SAP reference architectures for building efficient, scalable,
-    and secure enterprise solutions. Adopt proven patterns using SAP BTP, cloud integration,
-    and industry standards for digital transformation.
+  Learn how to utilize SAP reference architectures for building efficient,
+  scalable, and secure enterprise solutions. Adopt proven patterns using SAP
+  BTP, cloud integration, and industry standards for digital transformation.
 keywords:
-    - SAP Reference Architectures
-    - Architectures
-    - AI
-    - Artificial Intelligence
-    - reference architectures
-    - efficiency
-    - scalability
-    - interoperability
-    - standardization
-    - SAP BTP
-    - SAP Business Technology Platform
-    - digital transformation
-    - business processes
-    - best practices
-    - hybrid cloud
-    - multi-cloud
-    - governance
-    - Security
-    - compliance
+  - SAP Reference Architectures
+  - Architectures
+  - AI
+  - Artificial Intelligence
+  - reference architectures
+  - efficiency
+  - scalability
+  - interoperability
+  - standardization
+  - SAP BTP
+  - SAP Business Technology Platform
+  - digital transformation
+  - business processes
+  - best practices
+  - hybrid cloud
+  - multi-cloud
+  - governance
+  - Security
+  - compliance
 sidebar_label: Reference Architectures
 image: img/ac-soc-med.png
 tags:
-    - ref-arch
+  - ref-arch
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors:
-discussion:
+contributors: 
+discussion: 
 last_update:
-    author: Cameron Khorsandi
-    date: 2025-09-15
+  author: Cameron Khorsandi
+  date: 2025-09-15
 ---
 
 ## What are SAP Reference Architectures?

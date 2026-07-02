@@ -1,10 +1,12 @@
 ---
-id: id-ra0029-3
-slug: /ref-arch/ca1d2a3e/3
+id: 7b6426
+slug: /ref-arch/7b6426
 sidebar_position: 3
 title: Pro-Code AI Agents on SAP BTP
 description: >-
-  Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK for AI with popular frameworks like LangGraph, AutoGen and CrewAI for maximum flexibility and control over complex business logic.
+  Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK
+  for AI with popular frameworks like LangGraph, AutoGen and CrewAI for maximum
+  flexibility and control over complex business logic.
 keywords:
   - sap
   - ai agents
@@ -36,7 +38,7 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
-discussion:
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2026-06-18

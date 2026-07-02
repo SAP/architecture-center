@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-1-1
-slug: /ref-arch/81805673c0/1/1
+id: a134ec
+slug: /ref-arch/a134ec
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Single-region resiliency
 description: How the single region resiliency works. What are the benefits and drawbacks.
 keywords:

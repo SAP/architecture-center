@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-1
-slug: /ref-arch/8e1a5fbce3/1
+id: d764f7
+slug: /ref-arch/d764f7
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML-AWS for Amazon Sagemaker
 description: >-
   Train models on Amazon SageMaker with FedML-AWS, integrating live SAP data for
@@ -38,7 +36,6 @@ last_update:
   author: s-krishnamoorthy
   date: 2025-01-23
 ---
-
 
 :::note Joint Reference Architecture
 

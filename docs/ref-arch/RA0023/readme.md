@@ -1,14 +1,7 @@
 ---
-id: id-ra0023
-slug: /ref-arch/1c5706feb5
+id: b51e91
+slug: /ref-arch/b51e91
 sidebar_position: 240
-sidebar_custom_props:
-  category_index:
-    - appdev
-    - opsec
-    - aws
-    - azure
-    - gcp
 title: DevOps with SAP BTP
 description: >-
   Adopt agile DevOps principles on SAP BTP with cloud services and tools for

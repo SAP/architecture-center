@@ -1,11 +1,11 @@
 ---
-id: id-ra0007-6
-slug: /ref-arch/d31bedf420/6
+id: 98c985
+slug: /ref-arch/98c985
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Authentication Strategies
-description: Learn authentication strategies for multitenant apps with SAP Cloud Identity Services, covering secure identity management and compliance.
+description: >-
+  Learn authentication strategies for multitenant apps with SAP Cloud Identity
+  Services, covering secure identity management and compliance.
 keywords:
   - sap
   - authentication model

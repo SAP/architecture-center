@@ -1,12 +1,9 @@
 ---
-id: id-ra0026-4
-slug: /ref-arch/083f2d968e/4
+id: 9ca181
+slug: /ref-arch/9ca181
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: Safety Inspection
-description: >-
-  Discover Embodied AI for health & safety inspection
+description: Discover Embodied AI for health & safety inspection
 keywords:
   - sap
   - joule
@@ -32,7 +29,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12

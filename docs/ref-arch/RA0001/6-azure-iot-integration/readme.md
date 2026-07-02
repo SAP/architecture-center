@@ -1,9 +1,7 @@
 ---
-id: id-ra0001-6
-slug: /ref-arch/fbdc46aaae/6
+id: 988fb1
+slug: /ref-arch/988fb1
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and Microsoft Azure
 description: >-
   Build event-driven applications with Azure IoT and SAP BTP for real-time

@@ -1,12 +1,7 @@
 ---
-id: id-ra0019
-slug: /ref-arch/20c6b29b1e
+id: 89ab6b
+slug: /ref-arch/89ab6b
 sidebar_position: 200
-sidebar_custom_props:
-  category_index:
-    - appdev
-    - opsec
-    - ai
 title: SAP IAM integration with SAP Cloud Identity Services
 description: >-
   Design authentication and role management flows for SAP SaaS with SAP Cloud

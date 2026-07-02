@@ -1,10 +1,12 @@
 ---
-id: id-ra0029-10
-slug: /ref-arch/ca1d2a3e/10
+id: '137800'
+slug: /ref-arch/137800
 sidebar_position: 10
 title: Third-Party MCP Access to SAP Solutions
 description: >-
-  Guidance on accessing SAP solutions via third-party MCP servers, covering governance guardrails, OWASP MCP Top 10 risks, and SAP's recommended managed MCP approach via SAP Integration Suite and Joule Studio.
+  Guidance on accessing SAP solutions via third-party MCP servers, covering
+  governance guardrails, OWASP MCP Top 10 risks, and SAP's recommended managed
+  MCP approach via SAP Integration Suite and Joule Studio.
 keywords:
   - sap
   - mcp
@@ -34,7 +36,7 @@ unlisted: false
 contributors:
   - hterminasyan
   - mgnther
-discussion:
+discussion: 
 last_update:
   author: hterminasyan
   date: 2026-06-08
