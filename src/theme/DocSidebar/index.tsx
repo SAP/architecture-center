@@ -70,18 +70,6 @@ function getItemDocId(item: any, docIdToTags?: Record<string, string[]>): string
   return null;
 }
 
-// Check if item or any descendant has a matching doc ID
-function itemOrDescendantMatches(item: any, matchingIds: Set<string>, docIdToTags: Record<string, string[]>): boolean {
-  const docId = getItemDocId(item, docIdToTags);
-  if (docId && matchingIds.has(docId)) return true;
-
-  if (item.type === 'category' && item.items) {
-    return item.items.some(child => itemOrDescendantMatches(child, matchingIds, docIdToTags));
-  }
-
-  return false;
-}
-
 // Check if item belongs to a domain
 function itemBelongsToDomain(item: any, domainId: string, docIdToTags: Record<string, string[]>): boolean {
   const docId = getItemDocId(item, docIdToTags);
@@ -217,7 +205,7 @@ function filterGroupedByPartner(
   const matchingDocIds = getMatchingDocIds(docIdToTags, partnerTags);
 
   // Recursively filter category to only include matching items
-  const filterCategory = (category: any): any => {
+  const filterCategory = (category: any, domainId: string): any | null => {
     const filteredItems = [];
 
     for (const child of category.items || []) {
@@ -227,14 +215,30 @@ function filterGroupedByPartner(
           filteredItems.push(child);
         }
       } else if (child.type === 'category') {
-        // Include category if it or any descendant matches
-        if (itemOrDescendantMatches(child, matchingDocIds, docIdToTags)) {
-          filteredItems.push(filterCategory(child));
+        // Recursively filter child category
+        const filteredChild = filterCategory(child, domainId);
+        if (filteredChild) {
+          filteredItems.push(filteredChild);
         }
       }
     }
 
-    return { ...category, items: filteredItems };
+    // Check if the category itself matches the partner filter
+    const categoryDocId = getItemDocId(category, docIdToTags);
+    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
+
+    // If category has matching children, include it
+    if (filteredItems.length > 0) {
+      return { ...category, items: filteredItems };
+    }
+
+    // If category has no matching children, only include it if it actually belongs to this domain
+    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+      return { ...category, items: [] };
+    }
+
+    // Category doesn't belong in this domain after filtering
+    return null;
   };
 
   // Filter each domain's items
@@ -250,8 +254,9 @@ function filterGroupedByPartner(
           filtered[domainId].push(item);
         }
       } else if (item.type === 'category') {
-        if (itemOrDescendantMatches(item, matchingDocIds, docIdToTags)) {
-          filtered[domainId].push(filterCategory(item));
+        const filteredCategory = filterCategory(item, domainId);
+        if (filteredCategory) {
+          filtered[domainId].push(filteredCategory);
         }
       }
     }
