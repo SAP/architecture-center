@@ -1,9 +1,7 @@
 ---
-id: id-ra0008-3
-slug: /ref-arch/263f576c90/3
+id: 04c9a0
+slug: /ref-arch/04c9a0
 sidebar_position: 3
-sidebar_custom_props:
-  category_index: []
 title: Edge Integration Cell on GCP
 description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on GCP for secure hybrid

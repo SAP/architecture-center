@@ -1,13 +1,7 @@
 ---
-id: id-ra0013
-slug: /ref-arch/f5b6b597a6
+id: e1732d
+slug: /ref-arch/e1732d
 sidebar_position: 140
-sidebar_custom_props:
-  category_index:
-    - data
-    - aws
-    - azure
-    - gcp
 title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 description: >-
   Transform enterprise data strategies with SAP BDC, unifying SAP and non-SAP

@@ -1,10 +1,7 @@
 ---
-id: id-ra0018
-slug: /ref-arch/99fd0564be
+id: b86487
+slug: /ref-arch/b86487
 sidebar_position: 190
-sidebar_custom_props:
-  category_index:
-    - appdev
 title: Integrate and Extend with SAP Build Process Automation
 description: >-
   Automate processes with SAP Build Process Automation, integrating workflows

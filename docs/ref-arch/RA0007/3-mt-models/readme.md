@@ -1,9 +1,7 @@
 ---
-id: id-ra0007-2
-slug: /ref-arch/d31bedf420/2
+id: a5c409
+slug: /ref-arch/a5c409
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Tenant Model on SAP BTP
 description: >-
   Explore tenant models on SAP BTP for scalable, multitenant SaaS applications
@@ -20,7 +18,6 @@ image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
-
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

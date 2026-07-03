@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-7
-slug: /ref-arch/81805673c0/7
+id: cc4e29
+slug: /ref-arch/cc4e29
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: HA/DR Sample Implementations
 description: >-
   Implement HA/DR for SAP services using Azure Traffic Manager and AWS Route 53

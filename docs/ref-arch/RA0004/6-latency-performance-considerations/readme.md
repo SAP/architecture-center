@@ -1,9 +1,7 @@
 ---
-id: id-ra0004-6
-slug: /ref-arch/a07a316077/6
+id: 200b3d
+slug: /ref-arch/200b3d
 sidebar_position: 6
-sidebar_custom_props:
-  category_index: []
 title: Latency and Performance considerations
 description: >-
   Optimize SAP data federation scenarios by addressing latency and performance

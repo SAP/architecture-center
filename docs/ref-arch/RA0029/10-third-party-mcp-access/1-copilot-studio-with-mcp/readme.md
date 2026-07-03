@@ -1,10 +1,11 @@
 ---
-id: id-ra0029-10-1
-slug: /ref-arch/ca1d2a3e/10/1
+id: d2e34e
+slug: /ref-arch/d2e34e
 sidebar_position: 1
 title: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 description: >-
-  Learn how Microsoft Copilot Studio and other Microsoft MCP clients can be connected using the MCP Gateway in SAP Integration Suite.
+  Learn how Microsoft Copilot Studio and other Microsoft MCP clients can be
+  connected using the MCP Gateway in SAP Integration Suite.
 keywords:
   - sap
   - ai agents
@@ -31,7 +32,7 @@ contributors:
   - kay-schmitteckert
   - hterminasyan
   - hobru
-discussion:
+discussion: 
 last_update:
   author: hobru
   date: 2026-06-18

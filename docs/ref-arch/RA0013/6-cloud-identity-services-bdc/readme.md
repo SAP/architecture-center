@@ -1,10 +1,13 @@
 ---
-id: id-ra0013-6
-slug: /ref-arch/f5b6b597a6/6
+id: 2c8491
+slug: /ref-arch/2c8491
 sidebar_position: 6
 title: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 description: >-
-  Unifying Access Across for SAP Business Data Cloud using SAP Cloud Identity Services: IAS for SSO (SAML/OIDC) and IPS for SCIM provisioning. Includes scenarios with/without Enterprise IdP, lifecycle, authorization mapping, and operations.
+  Unifying Access Across for SAP Business Data Cloud using SAP Cloud Identity
+  Services: IAS for SSO (SAML/OIDC) and IPS for SCIM provisioning. Includes
+  scenarios with/without Enterprise IdP, lifecycle, authorization mapping, and
+  operations.
 keywords:
   - sap business data cloud
   - sap databricks
@@ -18,6 +21,7 @@ keywords:
   - unity catalog
   - zero trust
 sidebar_label: Unifying Access Across SAP BDC with SAP Cloud Identity Services
+image: img/ac-soc-med.png
 tags:
   - data
   - security
@@ -30,9 +34,10 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - guilherme-segantini 
+  - guilherme-segantini
   - jmsrpp
   - anbazhagan-uma
+discussion: 
 last_update:
   author: guilherme-segantini
   date: 2025-11-04

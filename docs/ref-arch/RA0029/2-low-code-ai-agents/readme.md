@@ -1,10 +1,11 @@
 ---
-id: id-ra0029-2
-slug: /ref-arch/ca1d2a3e/2
+id: 219c07
+slug: /ref-arch/219c07
 sidebar_position: 2
 title: Low-Code AI Agents with Joule Studio
 description: >-
-  Learn how to rapidly develop and deploy AI agents using the low-code capabilities of Joule Studio in SAP Build.
+  Learn how to rapidly develop and deploy AI agents using the low-code
+  capabilities of Joule Studio in SAP Build.
 keywords:
   - sap
   - ai agents
@@ -30,7 +31,7 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
-discussion:
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2026-03-19

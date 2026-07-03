@@ -1,14 +1,7 @@
 ---
-id: id-ra0008
-slug: /ref-arch/263f576c90
+id: 0a229d
+slug: /ref-arch/0a229d
 sidebar_position: 90
-sidebar_custom_props:
-  category_index:
-    - aws
-    - gcp
-    - azure
-    - integration
-    - appdev
 title: Edge Integration Cell on Hyperscalers
 description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on hyperscalers for

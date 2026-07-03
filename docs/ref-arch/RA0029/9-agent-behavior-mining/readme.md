@@ -1,6 +1,6 @@
 ---
-id: id-ra0029-9
-slug: /ref-arch/ca1d2a3e/9
+id: 3c8d50
+slug: /ref-arch/3c8d50
 sidebar_position: 9
 title: Agent Behavior Mining
 description: >-
@@ -28,8 +28,8 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-contributors:
-discussion:
+contributors: 
+discussion: 
 last_update:
   author: gabriel-kevorkian
   date: 2026-06-02
@@ -106,4 +106,3 @@ This closes the loop on the **Agent Value Impact** pillar of SAP's [AI Agent Exc
 -   [SAP Signavio Process Intelligence](https://help.sap.com/docs/signavio-process-intelligence?locale=en-US)
 -   [SAP LeanIX Agent Hub](https://help.sap.com/docs/leanix/ea/ai-agent-hub?locale=en-US)
 -   [Joule Studio - AI First development environment](https://www.sap.com/products/artificial-intelligence/joule-studio.html)
-
