@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { FiFilter } from 'react-icons/fi';
+import { Icon, Popover } from '@ui5/webcomponents-react';
+import '@ui5/webcomponents-icons/dist/hint.js';
 import styles from './CollapsibleFilterBar.module.css';
 
 interface Option {
@@ -30,6 +32,8 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     resultCount,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [popoverOpen, setPopoverOpen] = useState(false);
+    const infoIconRef = useRef<HTMLDivElement>(null);
 
     const toggleFilter = (option: Option, currentSelection: Option[], onChange: (values: Option[]) => void) => {
         const isSelected = currentSelection.some((item) => item.value === option.value);
@@ -93,6 +97,25 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
             {resultCount !== undefined && (
                 <div className={styles.resultCount}>
                     {resultCount} unique {resultCount === 1 ? 'document' : 'documents'} found
+                    <div
+                        ref={infoIconRef}
+                        onClick={() => setPopoverOpen(!popoverOpen)}
+                        className={styles.infoIconWrapper}
+                    >
+                        <Icon name="hint" className={styles.infoIcon} />
+                    </div>
+                    <Popover
+                        opener={infoIconRef.current!}
+                        open={popoverOpen}
+                        onClose={() => setPopoverOpen(false)}
+                        placement="Bottom"
+                        horizontalAlign="Center"
+                        className={styles.infoPopover}
+                    >
+                        <div className={styles.popoverContent}>
+                            Some documents appear in multiple domains
+                        </div>
+                    </Popover>
                 </div>
             )}
 
