@@ -30,364 +30,257 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   return acc;
 }, {});
 
-// Helper to count occurrences of a docId in items (recursive)
-function countDocsInItems(items, docId): number {
-  let count = 0;
-  for (const item of items) {
-    if ((item.type === 'doc' || item.type === 'link') && (item.docId === docId || item.id === docId)) {
-      count++;
-    } else if (item.type === 'category') {
-      // Check if the category itself matches (for parent architectures with href)
-      if (item.href === docId) {
-        count++;
-      }
-      // Recursively check children
-      if (item.items) {
-        count += countDocsInItems(item.items, docId);
-      }
+// Get all matching document IDs for given partner tags directly from docIdToTags
+function getMatchingDocIds(docIdToTags: Record<string, string[]>, partnerTags: string[]): Set<string> {
+  const matchingIds = new Set<string>();
+
+  if (!docIdToTags || !partnerTags.length) return matchingIds;
+
+  for (const [docId, tags] of Object.entries(docIdToTags)) {
+    if (tags && partnerTags.some(tag => tags.includes(tag))) {
+      matchingIds.add(docId);
     }
   }
-  return count;
+
+  return matchingIds;
 }
 
-// Helper to count total docs in items (recursive) - for badge display
-function countTotalDocsInItems(items): number {
+// Get document ID from a sidebar item (doc, link, or category)
+function getItemDocId(item: any, docIdToTags?: Record<string, string[]>): string | null {
+  if (item.type === 'doc' || item.type === 'link') {
+    return item.docId || item.id || null;
+  }
+  if (item.type === 'category') {
+    // For categories with links, extract the hex ID from href and find matching docId
+    if (item.href && docIdToTags) {
+      const hexMatch = item.href.match(/\/([a-f0-9]{6})(?:\/)?$/i);
+      if (hexMatch) {
+        const hexId = hexMatch[1];
+        // Find the docId that ends with this hex ID
+        for (const docId of Object.keys(docIdToTags)) {
+          if (docId.endsWith(hexId) || docId.endsWith(`/${hexId}`)) {
+            return docId;
+          }
+        }
+      }
+    }
+    // Fallback to link.id for sidebarContext format
+    return item.link?.id || null;
+  }
+  return null;
+}
+
+// Check if item belongs to a domain
+function itemBelongsToDomain(item: any, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+  const docId = getItemDocId(item, docIdToTags);
+  if (!docId) return false;
+
+  const tags = docIdToTags?.[docId] || [];
+  if (tags.includes(domainId)) return true;
+
+  const domainTags = categoryIdToTags[domainId] || [];
+  return domainTags.some(tag => tags.includes(tag));
+}
+
+// Check if category or any descendant belongs to domain
+function categoryOrDescendantBelongsToDomain(category: any, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+  // Check category itself
+  if (itemBelongsToDomain(category, domainId, docIdToTags)) return true;
+
+  // Check children
+  if (!category.items) return false;
+
+  for (const child of category.items) {
+    if (child.type === 'doc' || child.type === 'link') {
+      if (itemBelongsToDomain(child, domainId, docIdToTags)) return true;
+    } else if (child.type === 'category') {
+      if (categoryOrDescendantBelongsToDomain(child, domainId, docIdToTags)) return true;
+    }
+  }
+
+  return false;
+}
+
+// Count total docs in items (for domain category badge)
+function countTotalDocsInItems(items: any[]): number {
   let count = 0;
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
       count++;
     } else if (item.type === 'category') {
-      // Count the category itself if it has a link (parent architecture that's also a document)
-      if (item.link || item.docId || item.href) {
-        count++;
-      }
-      // Also count children recursively
-      if (item.items) {
-        count += countTotalDocsInItems(item.items);
-      }
+      // Count the category itself if it has a linked document (check both link.id and href)
+      if (item.link?.id || item.href) count++;
+      if (item.items) count += countTotalDocsInItems(item.items);
     }
   }
   return count;
 }
 
-// Helper to infer parent document ID from children
-const inferParentDocId = (category, docIdToTags): string | null => {
-  if (!category.items || category.items.length === 0) return null;
+// Count unique documents across all items (documents can appear in multiple domains)
+function countUniqueDocsInItems(items: any[], docIdToTags: Record<string, string[]>, seenIds?: Set<string>): number {
+  const seen = seenIds || new Set<string>();
 
-  const firstChild = category.items[0];
-  const childId = firstChild.docId || firstChild.id;
-  if (!childId) return null;
-
-  // Extract the parent path from the child ID
-  const match = childId.match(/^(ref-arch\/RA\d+)\//);
-  if (match) {
-    const parentPath = match[1];
-    // Construct parent document ID
-    const raNumber = parentPath.match(/RA(\d+)/)?.[1];
-    if (raNumber) {
-      const parentDocId = `${parentPath}/id-ra${raNumber.padStart(4, '0')}`;
-      // Verify it exists in docIdToTags before returning
-      if (docIdToTags?.[parentDocId]) {
-        return parentDocId;
+  for (const item of items) {
+    if (item.type === 'doc' || item.type === 'link') {
+      const docId = item.docId || item.id;
+      if (docId && !seen.has(docId)) {
+        seen.add(docId);
+      }
+    } else if (item.type === 'category') {
+      // Check if category itself has a linked document
+      const categoryDocId = getItemDocId(item, docIdToTags);
+      if (categoryDocId && !seen.has(categoryDocId)) {
+        seen.add(categoryDocId);
+      }
+      if (item.items) {
+        countUniqueDocsInItems(item.items, docIdToTags, seen);
       }
     }
   }
 
-  return null;
-};
+  return seen.size;
+}
 
-// Group sidebar items by technology domain (preserving hierarchy)
-function groupSidebarByDomain(items, docIdToTags) {
-  const domainIds = DOMAIN_DEFINITIONS.map((d) => d.id);
+// Domain Grouping
+function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]>) {
+  const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
   const grouped: Record<string, any[]> = {};
-  const duplicateCounts: Record<string, number> = {};
 
-  // Initialize empty arrays for each domain
-  domainIds.forEach((id) => { grouped[id] = []; });
+  domainIds.forEach(id => { grouped[id] = []; });
 
-  // Helper: Check if a doc/link belongs to a domain
-  const itemBelongsToDomain = (item, domainId) => {
-    const itemId = item.docId || item.id || '';
-    const tags = docIdToTags?.[itemId] || [];
-
-    // Direct match
-    if (tags.includes(domainId)) return true;
-
-    // Check category mappings
-    const domainTags = categoryIdToTags[domainId] || [];
-    return domainTags.some((tag) => tags.includes(tag));
-  };
-
-  // Helper: Recursively check if a category contains any docs for this domain
-  const categoryHasDocsForDomain = (category, domainId): boolean => {
-    // Check if the category itself (parent document) belongs to this domain
-    let categoryDocId = category.link?.id || category.href;
-
-    // If we don't have a direct ID, try to infer it from children
-    if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
-      categoryDocId = inferParentDocId(category, docIdToTags);
-    }
-
-    if (categoryDocId) {
-      const categoryTags = docIdToTags?.[categoryDocId] || [];
-      if (categoryTags.includes(domainId)) return true;
-
-      const domainTags = categoryIdToTags[domainId] || [];
-      if (domainTags.some((tag) => categoryTags.includes(tag))) return true;
-    }
-
-    // Check if any children belong to this domain
-    if (!category.items || category.items.length === 0) return false;
-
-    for (const child of category.items) {
-      if ((child.type === 'doc' || child.type === 'link') && itemBelongsToDomain(child, domainId)) {
-        return true;
-      }
-      if (child.type === 'category' && categoryHasDocsForDomain(child, domainId)) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  // First pass: Collect ALL document IDs (including parent architectures) from the entire sidebar
-  const collectAllDocIds = (itemList: any[]): Set<string> => {
-    const docIds = new Set<string>();
-
-    const traverse = (item: any) => {
-      if (item.type === 'doc' || item.type === 'link') {
-        const docId = item.docId || item.id;
-        if (docId) docIds.add(docId);
-      } else if (item.type === 'category') {
-        // If category has href and children, it's a parent architecture (expandable document)
-        if (item.href && item.items && item.items.length > 0) {
-          docIds.add(item.href);
-        }
-        // Recursively process children
-        if (item.items) {
-          item.items.forEach(traverse);
-        }
-      }
-    };
-
-    itemList.forEach(traverse);
-    return docIds;
-  };
-
-  // Collect all doc IDs first
-  const allDocIds = collectAllDocIds(items);
-
-  // Helper: Recursively filter category items by domain
-  const filterCategoryForDomain = (category, domainId) => {
+  // Recursively filter category for domain
+  const filterCategoryForDomain = (category: any, domainId: string): any => {
     const filteredItems = [];
 
     for (const child of category.items || []) {
-      if ((child.type === 'doc' || child.type === 'link') && itemBelongsToDomain(child, domainId)) {
-        filteredItems.push(child);
-      } else if (child.type === 'category' && categoryHasDocsForDomain(child, domainId)) {
-        filteredItems.push(filterCategoryForDomain(child, domainId));
+      if (child.type === 'doc' || child.type === 'link') {
+        if (itemBelongsToDomain(child, domainId, docIdToTags)) {
+          filteredItems.push(child);
+        }
+      } else if (child.type === 'category') {
+        if (categoryOrDescendantBelongsToDomain(child, domainId, docIdToTags)) {
+          filteredItems.push(filterCategoryForDomain(child, domainId));
+        }
       }
     }
 
     return { ...category, items: filteredItems };
   };
 
-  // Group items by domain, preserving category structure
-  items.forEach((item) => {
-    domainIds.forEach((domainId) => {
-      if ((item.type === 'doc' || item.type === 'link') && itemBelongsToDomain(item, domainId)) {
-        grouped[domainId].push(item);
-      } else if (item.type === 'category' && categoryHasDocsForDomain(item, domainId)) {
-        const filteredCategory = filterCategoryForDomain(item, domainId);
-        grouped[domainId].push(filteredCategory);
+  // Group items by domain
+  items.forEach(item => {
+    domainIds.forEach(domainId => {
+      if (item.type === 'doc' || item.type === 'link') {
+        if (itemBelongsToDomain(item, domainId, docIdToTags)) {
+          grouped[domainId].push(item);
+        }
+      } else if (item.type === 'category') {
+        if (categoryOrDescendantBelongsToDomain(item, domainId, docIdToTags)) {
+          grouped[domainId].push(filterCategoryForDomain(item, domainId));
+        }
       }
     });
   });
 
-  // Calculate duplicate counts for all doc IDs
-  allDocIds.forEach((docId) => {
-    let count = 0;
-    domainIds.forEach((domainId) => {
-      const hasDoc = countDocsInItems(grouped[domainId], docId) > 0;
-      if (hasDoc) count++;
-    });
-    if (count > 1) {
-      duplicateCounts[docId] = count - 1;
-    }
-  });
-
-  return { grouped, duplicateCounts };
+  return { grouped };
 }
 
-// Filter grouped items by partner (preserving hierarchy)
-function filterGroupedByPartner(grouped, selectedPartners, docIdToTags) {
-  if (!selectedPartners?.length) return grouped;
+// Filter by partner tags
+function filterGroupedByPartner(
+  grouped: Record<string, any[]>,
+  selectedPartners: string[],
+  docIdToTags: Record<string, string[]>
+): { filtered: Record<string, any[]>; matchingDocIds: Set<string> } {
+  // Expand partner IDs to include related tags
+  const expand = (ids: string[]) =>
+    Array.from(new Set(ids.flatMap(id => [id, ...(categoryIdToTags[id] ?? [])])));
+  const partnerTags = selectedPartners?.length ? expand(selectedPartners) : [];
 
-  const expand = (ids) =>
-    Array.from(new Set(ids.flatMap((id) => [id, ...(categoryIdToTags[id] ?? [])])));
-  const partnerTags = expand(selectedPartners);
+  // If no partners selected, return all items
+  if (!partnerTags.length) {
+    return { filtered: grouped, matchingDocIds: new Set() };
+  }
 
-  // Helper: Check if item matches partner filter
-  const itemMatchesPartner = (item) => {
-    const itemId = item.docId || item.id || '';
-    const tags = docIdToTags?.[itemId] || [];
-    return partnerTags.some((p) => tags.includes(p));
-  };
+  // Get all document IDs that match the partner tags
+  const matchingDocIds = getMatchingDocIds(docIdToTags, partnerTags);
 
-  // Helper: Check if category itself (parent document) matches partner filter
-  const categoryMatchesPartner = (category) => {
-    let categoryDocId = category.link?.id || category.href;
-
-    if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
-      categoryDocId = inferParentDocId(category, docIdToTags);
-    }
-
-    if (!categoryDocId) return false;
-    const tags = docIdToTags?.[categoryDocId] || [];
-    return partnerTags.some((p) => tags.includes(p));
-  };
-
-  // Helper: Recursively filter category
-  const filterCategory = (category) => {
+  // Recursively filter category to only include matching items
+  const filterCategory = (category: any, domainId: string): any | null => {
     const filteredItems = [];
+
     for (const child of category.items || []) {
-      if ((child.type === 'doc' || child.type === 'link') && itemMatchesPartner(child)) {
-        filteredItems.push(child);
+      if (child.type === 'doc' || child.type === 'link') {
+        const childId = getItemDocId(child, docIdToTags);
+        if (childId && matchingDocIds.has(childId)) {
+          filteredItems.push(child);
+        }
       } else if (child.type === 'category') {
-        const filteredChild = filterCategory(child);
-        if (filteredChild.items.length > 0 || categoryMatchesPartner(child)) {
+        // Recursively filter child category
+        const filteredChild = filterCategory(child, domainId);
+        if (filteredChild) {
           filteredItems.push(filteredChild);
         }
       }
     }
-    return { ...category, items: filteredItems };
+
+    // Check if the category itself matches the partner filter
+    const categoryDocId = getItemDocId(category, docIdToTags);
+    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
+
+    // If category has matching children, include it
+    if (filteredItems.length > 0) {
+      return { ...category, items: filteredItems };
+    }
+
+    // If category has no matching children, only include it if it actually belongs to this domain
+    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+      return { ...category, items: [] };
+    }
+
+    // Category doesn't belong in this domain after filtering
+    return null;
   };
 
+  // Filter each domain's items
   const filtered: Record<string, any[]> = {};
+
   Object.entries(grouped).forEach(([domainId, items]) => {
     filtered[domainId] = [];
 
     for (const item of items) {
-      if ((item.type === 'doc' || item.type === 'link') && itemMatchesPartner(item)) {
-        filtered[domainId].push(item);
-      } else if (item.type === 'category') {
-        const filteredCategory = filterCategory(item);
-        const categoryMatches = categoryMatchesPartner(item);
-
-        // Include category if it has matching children OR the parent document itself matches
-        if (filteredCategory.items.length > 0 || categoryMatches) {
-          // Preserve the inferred parent document ID for counting purposes, when a parent matches but has no matching children
-          let categoryDocId = item.link?.id || item.href;
-          if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
-            categoryDocId = inferParentDocId(item, docIdToTags);
-          }
-
-          filtered[domainId].push({
-            ...filteredCategory,
-            // Store the parent doc ID in metadata for later counting
-            _inferredDocId: categoryDocId
-          });
-        }
-      }
-    }
-  });
-
-  return filtered;
-}
-
-// ============================================================================
-// Shared Helper Functions
-// ============================================================================
-
-// Collect unique doc IDs from grouped items (for result count display)
-function collectUniqueDocIds(groupedItems: Record<string, any[]>, docIdToTags): Set<string> {
-  const uniqueDocIds = new Set<string>();
-
-  const traverse = (items: any[]) => {
-    items.forEach(item => {
       if (item.type === 'doc' || item.type === 'link') {
-        const id = item.docId || item.id || '';
-        if (id) uniqueDocIds.add(id);
+        const itemId = getItemDocId(item, docIdToTags);
+        if (itemId && matchingDocIds.has(itemId)) {
+          filtered[domainId].push(item);
+        }
       } else if (item.type === 'category') {
-        // Count the category itself if it has a linked document (parent architecture)
-        let categoryDocId = item._inferredDocId;
-
-        if (!categoryDocId) {
-          categoryDocId = item.link?.id || item.href;
-        }
-
-        if (!categoryDocId || !docIdToTags?.[categoryDocId]) {
-          categoryDocId = inferParentDocId(item, docIdToTags);
-        }
-
-        if (categoryDocId) {
-          uniqueDocIds.add(categoryDocId);
-        }
-        // Recursively count children
-        if (item.items) {
-          traverse(item.items);
+        const filteredCategory = filterCategory(item, domainId);
+        if (filteredCategory) {
+          filtered[domainId].push(filteredCategory);
         }
       }
-    });
-  };
-
-  Object.values(groupedItems).forEach(items => traverse(items));
-  return uniqueDocIds;
-}
-
-// Add duplicate counters to item customProps recursively
-function addDuplicateCountersToItems(items: any[], duplicateCounts: Record<string, number>): any[] {
-  return items.map(item => {
-    if (item.type === 'category') {
-      // For parent architectures (categories with href), use href for matching
-      const categoryId = item.href || item.docId || item.id || '';
-      const categoryDuplicateCount = duplicateCounts[categoryId];
-
-      return {
-        ...item,
-        customProps: {
-          ...item.customProps,
-          ...(categoryDuplicateCount && { duplicateCount: categoryDuplicateCount })
-        },
-        items: item.items ? addDuplicateCountersToItems(item.items, duplicateCounts) : []
-      };
-    } else if (item.type === 'doc' || item.type === 'link') {
-      const itemId = item.docId || item.id || '';
-      const duplicateCount = duplicateCounts[itemId];
-
-      return {
-        ...item,
-        customProps: {
-          ...item.customProps,
-          ...(duplicateCount && { duplicateCount })
-        }
-      };
     }
-
-    return item;
   });
+
+  return { filtered, matchingDocIds };
 }
 
-// Transform domain-grouped data into Docusaurus category structure
+// Build domain categories for rendering
 function buildDomainCategories(
   filteredGrouped: Record<string, any[]>,
-  duplicateCounts: Record<string, number>,
   expandedDomains: string[]
 ) {
   return DOMAIN_DEFINITIONS.map(domain => {
     const domainItems = filteredGrouped[domain.id] || [];
     const docCount = countTotalDocsInItems(domainItems);
-    const itemsWithCounters = addDuplicateCountersToItems(domainItems, duplicateCounts);
 
     return {
       type: 'category',
       label: `${domain.label} (${docCount})`,
-      items: itemsWithCounters,
+      items: domainItems,
       collapsible: true,
       collapsed: !expandedDomains.includes(domain.id),
-      customProps: {
-        domainId: domain.id
-      }
+      customProps: { domainId: domain.id }
     };
   }).filter(category => category.items.length > 0);
 }
@@ -395,172 +288,84 @@ function buildDomainCategories(
 // ============================================================================
 // Desktop Version
 // ============================================================================
+
 const PARTNER_OPTIONS = [
-    { value: 'aws', label: 'Amazon Web Services' },
-    { value: 'azure', label: 'Microsoft Azure' },
-    { value: 'gcp', label: 'Google Cloud Platform' },
-    { value: 'databricks', label: 'Databricks' },
-    { value: 'snowflake', label: 'Snowflake' },
-    { value: 'nvidia', label: 'Nvidia' },
-    { value: 'ibm', label: 'IBM' }
+  { value: 'aws', label: 'Amazon Web Services' },
+  { value: 'azure', label: 'Microsoft Azure' },
+  { value: 'gcp', label: 'Google Cloud Platform' },
+  { value: 'databricks', label: 'Databricks' },
+  { value: 'snowflake', label: 'Snowflake' },
+  { value: 'nvidia', label: 'Nvidia' },
+  { value: 'ibm', label: 'IBM' }
 ];
 
 function DocSidebarDesktop(props) {
-    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
-    const sidebar = useDocsSidebar();
-    const shouldShowFilters = sidebar?.name === 'refarchSidebar';
-    const location = useLocation();
-    const {
-        navbar: { hideOnScroll },
-        docs: {
-            sidebar: { hideable },
-        },
-    } = useThemeConfig();
+  const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+  const sidebar = useDocsSidebar();
+  const shouldShowFilters = sidebar?.name === 'refarchSidebar';
+  const location = useLocation();
+  const {
+    navbar: { hideOnScroll },
+    docs: { sidebar: { hideable } },
+  } = useThemeConfig();
 
-    const partners = useSidebarFilterStore((state) => state.partners);
-    const setPartners = useSidebarFilterStore((state) => state.setPartners);
-    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
-    const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
+  const partners = useSidebarFilterStore(state => state.partners);
+  const setPartners = useSidebarFilterStore(state => state.setPartners);
+  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
+  const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
 
-    const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
-    // Group sidebar items by domain
-    const grouped = useMemo(
-      () => groupSidebarByDomain(props.sidebar, tagsDocId),
-      [props.sidebar, tagsDocId]
-    );
+  // Group sidebar items by domain
+  const grouped = useMemo(
+    () => groupSidebarByDomain(props.sidebar, tagsDocId),
+    [props.sidebar, tagsDocId]
+  );
 
-    // Filter by selected partners
-    const filteredGrouped = useMemo(
-      () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
-      [grouped.grouped, partners, tagsDocId]
-    );
+  // Filter by selected partners and get matching doc IDs for counting
+  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+    () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
+    [grouped.grouped, partners, tagsDocId]
+  );
 
-    // Convert string arrays to Option arrays
-    const selectedPartnerOptions = useMemo(
-      () => PARTNER_OPTIONS.filter(opt => partners.includes(opt.value)),
-      [partners]
-    );
+  const selectedPartnerOptions = useMemo(
+    () => PARTNER_OPTIONS.filter(opt => partners.includes(opt.value)),
+    [partners]
+  );
 
-    if (!shouldShowFilters) {
-        return <DocSidebar {...props} />;
-    }
+  if (!shouldShowFilters) {
+    return <DocSidebar {...props} />;
+  }
 
-    const handlePartnersChange = (selected) => {
-      const selectedKeys = selected.map(opt => opt.value);
-      setPartners(selectedKeys);
+  const handlePartnersChange = (selected) => {
+    const selectedKeys = selected.map(opt => opt.value);
+    setPartners(selectedKeys);
 
-      // Sync URL
-      const params = new URLSearchParams(location.search);
-      if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
-      else params.delete('partners');
-      params.delete('techDomains'); // Remove old techDomains param
-      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-    };
+    const params = new URLSearchParams(location.search);
+    if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
+    else params.delete('partners');
+    params.delete('techDomains');
+    window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+  };
 
-    const handleResetFilters = () => {
-      resetFilters();
-      // Clear URL parameters
-      window.history.replaceState({}, '', location.pathname);
-    };
+  const handleResetFilters = () => {
+    resetFilters();
+    window.history.replaceState({}, '', location.pathname);
+  };
 
-    // Count unique documents (across all domains, no duplicates)
-    const resultCount = collectUniqueDocIds(filteredGrouped, tagsDocId).size;
+  // Count: use matchingDocIds size when filtering, otherwise count unique docs
+  const resultCount = partners.length > 0
+    ? matchingDocIds.size
+    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
-    // Transform domain-grouped data into Docusaurus category structure
-    const domainCategories = buildDomainCategories(
-      filteredGrouped,
-      grouped.duplicateCounts,
-      expandedDomains
-    );
+  const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
-    return (
-      <div className={clsx(
-        styles.sidebarWithFiltersContainer,
-        props.isHidden && styles.sidebarHidden
-      )}>
-        <div>
-          <CollapsibleFilterBar
-            partners={PARTNER_OPTIONS}
-            selectedPartners={selectedPartnerOptions}
-            onPartnersChange={handlePartnersChange}
-            resetFilters={handleResetFilters}
-            isResetEnabled={partners.length > 0 || searchTerm.length > 0}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            resultCount={resultCount}
-          />
-        </div>
-        <div className={styles.sidebarMenuList}>
-          <div className={clsx(
-            styles.sidebar,
-            hideOnScroll && styles.sidebarWithHideableNavbar
-          )}>
-            <nav className={`${styles.domainSidebar} thin-scrollbar`}>
-              <DocSidebarItems
-                items={domainCategories}
-                activePath={location.pathname}
-                level={0}
-                index={0}
-              />
-            </nav>
-            {hideable && <CollapseButton onClick={props.onCollapse} />}
-          </div>
-        </div>
-      </div>
-    );
-}
-
-// ============================================================================
-// Mobile Version
-// ============================================================================
-function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
-    const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
-    const partners = useSidebarFilterStore((state) => state.partners);
-    const setPartners = useSidebarFilterStore((state) => state.setPartners);
-    const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
-    const expandedDomains = useSidebarFilterStore((state) => state.expandedDomains);
-
-    const [searchTerm, setSearchTerm] = useState('');
-
-    // Convert string arrays to Option arrays
-    const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
-
-    // Group sidebar items by domain
-    const grouped = useMemo(
-      () => groupSidebarByDomain(sidebar, tagsDocId),
-      [sidebar, tagsDocId]
-    );
-
-    // Filter by selected partners
-    const filteredGrouped = useMemo(
-      () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
-      [grouped.grouped, partners, tagsDocId]
-    );
-
-    const handlePartnersChange = (selected) => {
-      const selectedKeys = selected.map(opt => opt.value);
-      setPartners(selectedKeys);
-    };
-
-    const handleResetFilters = () => {
-      resetFilters();
-      // Clear URL parameters
-      window.history.replaceState({}, '', location.pathname);
-    };
-
-    // Count unique documents
-    const resultCount = collectUniqueDocIds(filteredGrouped, tagsDocId).size;
-
-    // Transform domain-grouped data into Docusaurus category structure
-    const domainCategories = buildDomainCategories(
-      filteredGrouped,
-      grouped.duplicateCounts,
-      expandedDomains
-    );
-
-    return (
-        <>
+  return (
+    <div className={clsx(
+      styles.sidebarWithFiltersContainer,
+      props.isHidden && styles.sidebarHidden
+    )}>
+      <div>
         <CollapsibleFilterBar
           partners={PARTNER_OPTIONS}
           selectedPartners={selectedPartnerOptions}
@@ -571,48 +376,121 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
         />
-        <nav className={styles.domainSidebarMobile}>
-          <DocSidebarItems
-            items={domainCategories}
-            activePath={path}
-            onItemClick={onItemClick}
-            level={0}
-            index={0}
-          />
-        </nav>
-        </>
-    );
+      </div>
+      <div className={styles.sidebarMenuList}>
+        <div className={clsx(
+          styles.sidebar,
+          hideOnScroll && styles.sidebarWithHideableNavbar
+        )}>
+          <nav className={`${styles.domainSidebar} thin-scrollbar`}>
+            <DocSidebarItems
+              items={domainCategories}
+              activePath={location.pathname}
+              level={0}
+              index={0}
+            />
+          </nav>
+          {hideable && <CollapseButton onClick={props.onCollapse} />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// Mobile Version
+// ============================================================================
+
+function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
+  const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+  const partners = useSidebarFilterStore(state => state.partners);
+  const setPartners = useSidebarFilterStore(state => state.setPartners);
+  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
+  const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
+
+  const grouped = useMemo(
+    () => groupSidebarByDomain(sidebar, tagsDocId),
+    [sidebar, tagsDocId]
+  );
+
+  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+    () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
+    [grouped.grouped, partners, tagsDocId]
+  );
+
+  const handlePartnersChange = (selected) => {
+    setPartners(selected.map(opt => opt.value));
+  };
+
+  const handleResetFilters = () => {
+    resetFilters();
+    window.history.replaceState({}, '', location.pathname);
+  };
+
+  const resultCount = partners.length > 0
+    ? matchingDocIds.size
+    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+
+  const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
+
+  return (
+    <>
+      <CollapsibleFilterBar
+        partners={PARTNER_OPTIONS}
+        selectedPartners={selectedPartnerOptions}
+        onPartnersChange={handlePartnersChange}
+        resetFilters={handleResetFilters}
+        isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        resultCount={resultCount}
+      />
+      <nav className={styles.domainSidebarMobile}>
+        <DocSidebarItems
+          items={domainCategories}
+          activePath={path}
+          onItemClick={onItemClick}
+          level={0}
+          index={0}
+        />
+      </nav>
+    </>
+  );
 }
 
 function DocSidebarMobileSecondaryMenu({ shouldShowFilters, ...props }) {
-    return (
-        <ul>
-            {shouldShowFilters ? (
-                <FilteredMobileSidebarView
-                    sidebar={props.sidebar}
-                    path={props.path}
-                    onItemClick={props.toggleSidebar}
-                />
-            ) : (
-                <DocSidebarItems items={props.sidebar} activePath={props.path} onItemClick={props.toggleSidebar} />
-            )}
-        </ul>
-    );
+  return (
+    <ul>
+      {shouldShowFilters ? (
+        <FilteredMobileSidebarView
+          sidebar={props.sidebar}
+          path={props.path}
+          onItemClick={props.toggleSidebar}
+        />
+      ) : (
+        <DocSidebarItems items={props.sidebar} activePath={props.path} onItemClick={props.toggleSidebar} />
+      )}
+    </ul>
+  );
 }
 
 function DocSidebarMobile({ shouldShowFilters, ...props }) {
-    return (
-        <NavbarSecondaryMenuFiller component={DocSidebarMobileSecondaryMenu} props={{ ...props, shouldShowFilters }} />
-    );
+  return (
+    <NavbarSecondaryMenuFiller component={DocSidebarMobileSecondaryMenu} props={{ ...props, shouldShowFilters }} />
+  );
 }
 
 // ============================================================================
 // Main Exported Wrapper
 // ============================================================================
+
 const DocSidebarDesktopMemo = React.memo(DocSidebarDesktop);
 const DocSidebarMobileMemo = React.memo(DocSidebarMobile);
 
-// Helper function to find a doc in sidebar by path
 function findDocByPath(items, pathname) {
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
@@ -631,9 +509,9 @@ export default function DocSidebarWrapper(props) {
   const windowSize = useWindowSize();
   const sidebarContext = useDocsSidebar();
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
-  const setPartners = useSidebarFilterStore((state) => state.setPartners);
-  const setExpandedDomains = useSidebarFilterStore((state) => state.setExpandedDomains);
-  const resetFilters = useSidebarFilterStore((state) => state.resetFilters);
+  const setPartners = useSidebarFilterStore(state => state.setPartners);
+  const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
+  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
   const location = useLocation();
@@ -641,9 +519,9 @@ export default function DocSidebarWrapper(props) {
 
   useEffect(() => {
     if (!location.pathname.startsWith(docsBase)) return;
-    if (!shouldShowFilters) return; // Only run for ref-arch sidebar
-    if (!tagsDocId) return; // Wait for tags data to load
-    if (!props.sidebar) return; // Wait for sidebar to load
+    if (!shouldShowFilters) return;
+    if (!tagsDocId) return;
+    if (!props.sidebar) return;
 
     const params = new URLSearchParams(location.search);
     const partnersParam = params.get('partners');
@@ -651,28 +529,21 @@ export default function DocSidebarWrapper(props) {
 
     if (partnersParam) setPartners(partnersParam.split(','));
 
-    // If expanded param is set, use it (explicit choice from landing page)
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
       return;
     }
 
-    // Auto-expand domains for the current doc
-    // Find the doc ID by matching the current pathname to sidebar items
     const docId = findDocByPath(props.sidebar, location.pathname);
 
-    // If we're on a specific doc page
     if (docId && tagsDocId[docId]) {
       const docTags = tagsDocId[docId] || [];
-      const domainIds = DOMAIN_DEFINITIONS.map((d) => d.id);
+      const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
 
-      // Find which domains this doc belongs to
-      const matchingDomains = domainIds.filter((domainId) => {
-        // Direct match
+      const matchingDomains = domainIds.filter(domainId => {
         if (docTags.includes(domainId)) return true;
-        // Check category mappings
         const domainTags = categoryIdToTags[domainId] || [];
-        return domainTags.some((tag) => docTags.includes(tag));
+        return domainTags.some(tag => docTags.includes(tag));
       });
 
       if (matchingDomains.length > 0) {
@@ -681,12 +552,9 @@ export default function DocSidebarWrapper(props) {
     }
   }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, shouldShowFilters, tagsDocId, props.sidebar]);
 
-
   useEffect(() => {
-    return history.listen((loc) => {
+    return history.listen(loc => {
       logger.info("Route changed:", loc.pathname);
-
-      // Reset only when leaving /docs
       if (!loc.pathname.startsWith(docsBase)) {
         logger.info("Resetting filters...");
         resetFilters();
@@ -694,20 +562,19 @@ export default function DocSidebarWrapper(props) {
     });
   }, [history, resetFilters, docsBase]);
 
-
   const shouldRenderSidebarDesktop = windowSize === 'desktop' || windowSize === 'ssr';
   const shouldRenderSidebarMobile = windowSize === 'mobile';
 
   useEffect(() => {
-      if (typeof document !== 'undefined') {
-          document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
-      }
+    if (typeof document !== 'undefined') {
+      document.body.setAttribute('data-sidebar-id', sidebarContext?.name || '');
+    }
   }, [sidebarContext?.name]);
 
   return (
-      <>
-          {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
-          {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
-      </>
+    <>
+      {shouldRenderSidebarDesktop && <DocSidebarDesktopMemo {...props} />}
+      {shouldRenderSidebarMobile && <DocSidebarMobileMemo {...props} shouldShowFilters={shouldShowFilters} />}
+    </>
   );
 }

@@ -157,6 +157,10 @@
 
 /* Result Count */
 .resultCount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 12px 0 0 0;
     font-size: 0.7rem;
     font-weight: 500;
@@ -164,6 +168,39 @@
     border-top: 1px solid var(--color-border-light);
     margin-bottom: 0;
     text-align: center;
+}
+
+.infoIconWrapper {
+    display: inline-flex;
+    align-items: center;
+}
+
+.infoIcon {
+    font-size: 0.875rem;
+    color: var(--ifm-color-content-secondary);
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.infoIcon:hover {
+    opacity: 1;
+    color: var(--ifm-color-primary);
+}
+
+.infoPopover {
+    --_ui5_popover_content_padding: 0;
+}
+
+.infoPopover::part(content) {
+    padding: 0;
+}
+
+.popoverContent {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-family: var(--ifm-font-family-base);
+    color: var(--ifm-font-color-base);
 }
 
 /* Collapsible Filter Panel */
@@ -299,6 +336,18 @@
 [data-theme='dark'] .filterPanel,
 [data-theme='dark'] .resultCount {
     border-color: #444950;
+}
+
+[data-theme='dark'] .infoIcon {
+    color: var(--ifm-color-content-secondary);
+}
+
+[data-theme='dark'] .infoIcon:hover {
+    color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .popoverContent {
+    color: var(--ifm-font-color-base);
 }
 
 [data-theme='dark'] .activeFilterChip {
