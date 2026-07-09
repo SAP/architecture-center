@@ -4326,7 +4326,7 @@ export class EditorCore {
           text: node.text,
           format: { ...node.format },
         };
-        this.state = updateNode(this.state, newKey, newNode);
+        this.state.nodeMap.set(newKey, newNode);
         return newKey;
       }
 
@@ -4338,7 +4338,7 @@ export class EditorCore {
           parent: newParentKey,
           children: [] as string[],
         };
-        this.state = updateNode(this.state, newKey, newNode);
+        this.state.nodeMap.set(newKey, newNode);
 
         // Clone children
         const newChildren: string[] = [];
@@ -4350,12 +4350,9 @@ export class EditorCore {
         }
 
         // Update with children
-        const updatedNode = getNode(this.state, newKey);
-        if (updatedNode && isElementNode(updatedNode)) {
-          this.state = updateNode(this.state, newKey, {
-            ...updatedNode,
-            children: newChildren,
-          });
+        const nodeInState = this.state.nodeMap.get(newKey);
+        if (nodeInState && isElementNode(nodeInState)) {
+          (nodeInState as any).children = newChildren;
         }
 
         return newKey;
