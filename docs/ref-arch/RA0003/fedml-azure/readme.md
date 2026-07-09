@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-2
-slug: /ref-arch/8e1a5fbce3/2
+id: 02c5f1
+slug: /ref-arch/02c5f1
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML-Azure for Azure Machine Learning
 description: >-
   Train models in Azure ML with live SAP data using FedML-Azure, eliminating

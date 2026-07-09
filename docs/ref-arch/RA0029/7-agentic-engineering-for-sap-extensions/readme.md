@@ -1,17 +1,12 @@
 ---
-id: id-ra0030-8
-slug: /ref-arch/ca1d2a3e/8
+id: 0821c4
+slug: /ref-arch/0821c4
 sidebar_position: 8
-sidebar_custom_props:
-  category_index:
-    - genai
-    - appdev
 title: Agentic Engineering for SAP Extensions
 description: >-
-  Agentic engineering for BTP Extensions: context engineering, grounding through MCP
-  servers and SDKs, multi-agent orchestration and architecture patterns for
+  Agentic engineering for BTP Extensions: context engineering, grounding through
+  MCP servers and SDKs, multi-agent orchestration and architecture patterns for
   AI-native development on SAP BTP.
-sidebar_label: Agentic Engineering for SAP Extensions
 keywords:
   - sap
   - agentic engineering
@@ -22,6 +17,7 @@ keywords:
   - sap ai core
   - SAP Fiori CAP UI5
   - sap btp
+sidebar_label: Agentic Engineering for SAP Extensions
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -32,10 +28,11 @@ hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
+unlisted: false
 contributors:
   - guilherme-segantini
   - mponce
-discussion:
+discussion: 
 last_update:
   author: guilherme-segantini
   date: 2026-05-08

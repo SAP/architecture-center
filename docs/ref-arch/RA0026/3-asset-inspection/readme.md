@@ -1,12 +1,11 @@
 ---
-id: id-ra0026-3
-slug: /ref-arch/083f2d968e/3
+id: bd733b
+slug: /ref-arch/bd733b
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: Asset Inspection
 description: >-
-  Learn how Embodied AI & robotics can automate asset management processes, including asset and site inspection.
+  Learn how Embodied AI & robotics can automate asset management processes,
+  including asset and site inspection.
 keywords:
   - sap
   - joule
@@ -33,7 +32,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12

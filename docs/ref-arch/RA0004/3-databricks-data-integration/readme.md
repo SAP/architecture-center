@@ -1,9 +1,7 @@
 ---
-id: id-ra0004-3
-slug: /ref-arch/a07a316077/3
+id: b7629d
+slug: /ref-arch/b7629d
 sidebar_position: 3
-sidebar_custom_props:
-  category_index: []
 title: Integration with Databricks
 description: >-
   Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via

@@ -1,9 +1,7 @@
 ---
-id: id-ra0016-1
-slug: /ref-arch/7e558be8f1/1
+id: '544638'
+slug: /ref-arch/544638
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Secure Service Consumption on AWS
 description: >-
   Securely access AWS services from external applications using robust identity

@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-6
-slug: /ref-arch/8e1a5fbce3/6
+id: 2ce40f
+slug: /ref-arch/2ce40f
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML and IBM watsonx.ai / IBM Watson Studio integration
 description: >-
   Accelerate ML workflows with IBM watsonx and FedML, integrating SAP's business

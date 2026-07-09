@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-3
-slug: /ref-arch/8e1a5fbce3/3
+id: '6e2937'
+slug: /ref-arch/6e2937
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML-Databricks for Databricks platform
 description: >-
   Train models on Databricks using live SAP data with FedML-Databricks, enabling

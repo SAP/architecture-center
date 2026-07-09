@@ -1410,17 +1410,6 @@ nav[class*="domainSidebar"] .menu__link:hover {
     color: var(--ifm-color-primary) !important;
 }
 
-/* Change [+N] counter color on link hover - Light mode only */
-html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover .sidebar-duplicate-counter,
-html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover .sidebar-duplicate-counter {
-    color: var(--ifm-color-primary) !important;
-}
-
-/* Prevent [+N] counter color change on hover in dark mode */
-html[data-theme='dark'] .sidebar-duplicate-counter:hover {
-    color: var(--ifm-color-content-secondary) !important;
-}
-
 /* All active links get bold */
 .theme-doc-sidebar-menu .menu__link--active,
 nav[class*="domainSidebar"] .menu__link--active {
@@ -1551,8 +1540,7 @@ html[data-theme='dark'] nav[class*="domainSidebar"] .menu__link:hover {
 
     /* Disable color change on mobile in light theme */
     html[data-theme='light'] .theme-doc-sidebar-menu .menu__link:hover,
-    html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover,
-    html[data-theme='light'] .menu__link:hover .sidebar-duplicate-counter {
+    html[data-theme='light'] nav[class*="domainSidebar"] .menu__link:hover {
         color: inherit !important;
     }
 }

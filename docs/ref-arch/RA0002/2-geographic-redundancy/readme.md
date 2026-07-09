@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-2
-slug: /ref-arch/81805673c0/2
+id: cbc081
+slug: /ref-arch/cbc081
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Geographic Redundancy
 description: >-
   Ensure continuous service with geographic redundancy for SAP BTP, distributing

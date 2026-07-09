@@ -1,15 +1,7 @@
 ---
-id: id-ra0014
-slug: /ref-arch/0ec83f98fe
+id: 24c626
+slug: /ref-arch/24c626
 sidebar_position: 150
-sidebar_custom_props:
-  category_index:
-    - aws
-    - azure
-    - gcp
-    - appdev
-    - integration
-    - opsec
 title: Understanding Network Performance in a Multi Regional Solution
 description: >-
   Optimize multi-regional cloud solutions with insights into network design,

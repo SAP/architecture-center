@@ -58,7 +58,7 @@ export const techPartners = [
 export const addResData = [
     {
         title: 'Discovery Center',
-        subtitle: 'Explore SAP use cases, misions, and services to accelerate cloud adoption and innovation.',
+        subtitle: 'Explore SAP use cases, missions, and services to accelerate cloud adoption and innovation.',
         link: 'https://discovery-center.cloud.sap/',
         logoLight: 'img/landingPage/SAPLogo.svg',
     },

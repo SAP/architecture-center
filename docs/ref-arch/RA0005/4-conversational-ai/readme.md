@@ -1,9 +1,7 @@
 ---
-id: id-ra0005-4
-slug: /ref-arch/e5eb3b9b1d/4
+id: d0e5c7
+slug: /ref-arch/d0e5c7
 sidebar_position: 4
-sidebar_custom_props:
-  category_index: []
 title: Conversational AI & Joule
 description: Please add a description (max 300 characters)
 keywords:
