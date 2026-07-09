@@ -1,9 +1,7 @@
 ---
-id: id-ra0005-3
-slug: /ref-arch/e5eb3b9b1d/3
+id: 8063d2
+slug: /ref-arch/8063d2
 sidebar_position: 3
-sidebar_custom_props:
-    category_index: []
 title: Retrieval Augmented Generation (RAG)
 description: >-
   Improve LLM accuracy with Retrieval Augmented Generation (RAG) by integrating
@@ -18,11 +16,11 @@ keywords:
 sidebar_label: Retrieval Augmented Generation (RAG)
 image: img/ac-soc-med.png
 tags:
-    - aws
-    - azure
-    - gcp
-    - genai
-    - data
+  - aws
+  - azure
+  - gcp
+  - genai
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,7 +31,7 @@ contributors:
   - kay-schmitteckert
   - madankumarpichamuthu
   - xammaxx
-discussion:
+discussion: 
 last_update:
   author: xammaxx
   date: 2025-07-21
@@ -51,7 +49,7 @@ The main objective of RAG is to enhance response quality by grounding answers in
 
 RAG is applied to various tasks, including question answering (Q&A) and knowledge-intensive Natural Language Processing (NLP). It effectively combines retrieval and generation approaches, boosting NLP performance in complex scenarios.
 
-A key feature of RAG is its use of embeddings, which can be stored and efficiently retrieved via SAP HANA Cloud's [Vector Engine](./#vector-engine). This platform provides comprehensive tools for creating vector-based tables, conducting similarity searches, and applying other vector functions essential for RAG workflows.
+A key feature of RAG is its use of embeddings, which can be stored and efficiently retrieved via SAP HANA Cloud's [Vector Engine](../readme.md#vector-engine). This platform provides comprehensive tools for creating vector-based tables, conducting similarity searches, and applying other vector functions essential for RAG workflows.
 
 A high-level Flow of how Retrieval Augmented Generation (RAG) operates:
 
@@ -67,7 +65,7 @@ To leverage these underlying RAG principles, users can choose to either make use
 
 [SAP’s Orchestration Workflow](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/orchestration-workflow) contains a [Grounding module](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/grounding) which provides specialized data retrieval through vector databases. This Grounding Module enables users to provide data for RAG purposes via several APIs by giving them two distinct options:
 
-1.	**Upload the documents to a supported data repository and run the Data Pipeline**: By calling the Grounding module's [Pipelines API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/pipeline-api-a9badce6a4da4df68e98549d64aa2217), the documents are automatically fetched from [supported document repositories](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/grounding), chunked, embedded and then efficiently stored and managed via SAP HANA Cloud's [Vector Engine](./#vector-engine).
+1.	**Upload the documents to a supported data repository and run the Data Pipeline**: By calling the Grounding module's [Pipelines API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/pipeline-api-a9badce6a4da4df68e98549d64aa2217), the documents are automatically fetched from [supported document repositories](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/grounding), chunked, embedded and then efficiently stored and managed via SAP HANA Cloud's [Vector Engine](../readme.md#vector-engine).
 
 2.	**Provide the chunks of documents via Vector API directly**: Users can also upload documents they chunked themselves by calling the [Vector API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/vector-api-0358c5ca839d4cf7b4982dbcbc1ba7ff) directly, thereby only making use of SAP HANA Cloud's Vector Engine.
 
@@ -165,7 +163,7 @@ The overall quality check of the RAG solution is carried out in this step. The q
 
 ## Services & Components
 
-For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](./#services--components).
+For a comprehensive list of services, components and descriptions, please explore the Introduction on [Services & Components](../readme.md#services--components).
 
 ## Examples
 

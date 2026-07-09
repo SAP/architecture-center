@@ -1,12 +1,12 @@
 ---
-id: id-ra0026-1
-slug: /ref-arch/083f2d968e/1
+id: 9673f9
+slug: /ref-arch/9673f9
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
-title: Extensibility, Interoperability, and Partner Technologies
+title: 'Extensibility, Interoperability, and Partner Technologies'
 description: >-
-  Discover how SAP leverages its partner ecosystem to deliver Embodied AI at scale. Learn how partners and customers can extend Embodied AI for their use cases and get insights into interoperability.
+  Discover how SAP leverages its partner ecosystem to deliver Embodied AI at
+  scale. Learn how partners and customers can extend Embodied AI for their use
+  cases and get insights into interoperability.
 keywords:
   - sap
   - joule
@@ -14,7 +14,7 @@ keywords:
   - physical AI
   - robotics
   - robots
-sidebar_label: Extensibility, Interoperability, and Partner Technologies
+sidebar_label: 'Extensibility, Interoperability, and Partner Technologies'
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -34,7 +34,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12

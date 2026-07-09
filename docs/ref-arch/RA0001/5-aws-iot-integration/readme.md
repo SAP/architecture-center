@@ -1,9 +1,7 @@
 ---
-id: id-ra0001-5
-slug: /ref-arch/fbdc46aaae/5
+id: '448754'
+slug: /ref-arch/448754
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
 description: >-
     Create event-driven architecture with AWS IoT SiteWise and SAP BTP for

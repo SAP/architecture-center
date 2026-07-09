@@ -1,28 +1,32 @@
 ---
-id: id-ra0030-1
-slug: /ref-arch/LcR6Senh/1
+id: e26d4d
+slug: /ref-arch/e26d4d
 sidebar_position: 1
-title: 'Document Ingestion Patterns for SAP Document AI'
-description: 'Design flexible document intake architectures supporting email, API, mobile capture,  and enterprise system integration for intelligent document processing.'
-keywords: 
+title: Document Ingestion Patterns for SAP Document AI
+description: >-
+  Design flexible document intake architectures supporting email, API, mobile
+  capture,  and enterprise system integration for intelligent document
+  processing.
+keywords:
   - appdev
   - genai
-sidebar_label: 'Document Ingestion Patterns for SAP Document AI'
+sidebar_label: Document Ingestion Patterns for SAP Document AI
 image: img/logo.svg
+tags:
+  - appdev
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - appdev
-  - genai
 contributors:
   - pirnz-sap
+discussion: 
 last_update:
-  date: 2026-06-03
   author: pirnz-sap
+  date: 2026-06-03
 ---
 
 Business documents arrive through diverse channels. Emails, but also faxes, chats in messaging apps, ftp servers... The document ingestion accommodates these varied sources while ensuring auditability and reliable delivery to SAP Document AI for processing. The ingestion layer serves as the entry point, responsible for document capture, optional pre-processing, and submission to the AI extraction service.

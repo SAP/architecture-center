@@ -1,30 +1,34 @@
 ---
-id: id-ra0030-0
-slug: /ref-arch/LcR6Senh/0
+id: 744df4
+slug: /ref-arch/744df4
 sidebar_position: 0
-title: 'Document Processing with SAP Document AI'
-description: 'Architect end-to-end document processing solutions using SAP Document AI to automate  extraction, validation, and posting of business documents to enterprise systems.'
-keywords: 
+title: Document Processing with SAP Document AI
+description: >-
+  Architect end-to-end document processing solutions using SAP Document AI to
+  automate  extraction, validation, and posting of business documents to
+  enterprise systems.
+keywords:
   - appdev
   - genai
-sidebar_label: 'Document Processing with SAP Document AI'
+sidebar_label: Document Processing with SAP Document AI
 image: img/logo.svg
+tags:
+  - appdev
+  - genai
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - appdev
-  - genai
 contributors:
   - pirnz-sap
+discussion: 
 last_update:
-  date: 2026-06-03
   author: pirnz-sap
+  date: 2026-06-03
 ---
- 
+
 Enterprises process vast volumes of business documents daily—invoices, purchase orders, receipts, delivery notes—often requiring manual data entry into enterprise systems. Document processing (IDP) transforms this operational burden by leveraging AI to automatically extract, validate, and route document data to systems of record. SAP Document AI provides pre-trained models and generative AI capabilities to automate document processing, enabling organizations to reduce manual effort, accelerate cycle times, and improve data accuracy.
 
 This reference architecture provides comprehensive guidance for designing and implementing, IDP solutions with SAP Document AI. From multi-channel document ingestion to AI-powered extraction, master data enrichment, and external system integrations, this guide covers architectural patterns, service selection criteria, and best practices for building document processing pipelines.

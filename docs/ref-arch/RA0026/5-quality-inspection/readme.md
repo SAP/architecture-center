@@ -1,12 +1,9 @@
 ---
-id: id-ra0026-5
-slug: /ref-arch/083f2d968e/5
+id: 90f40f
+slug: /ref-arch/90f40f
 sidebar_position: 1
-sidebar_custom_props:
-    category_index: []
 title: Quality Inspection
-description: >-
-  Discover Embodied AI for quality inspection
+description: Discover Embodied AI for quality inspection
 keywords:
   - sap
   - joule
@@ -32,7 +29,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12

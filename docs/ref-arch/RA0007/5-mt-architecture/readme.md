@@ -1,11 +1,11 @@
 ---
-id: id-ra0007-4
-slug: /ref-arch/d31bedf420/4
+id: 29b7c8
+slug: /ref-arch/29b7c8
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Reference Architecture
-description: Build scalable multitenant SaaS apps on SAP BTP using CAP, utilizing shared resources, secure tenant isolation, and efficient provisioning.
+description: >-
+  Build scalable multitenant SaaS apps on SAP BTP using CAP, utilizing shared
+  resources, secure tenant isolation, and efficient provisioning.
 keywords:
   - sap
   - multitenant applications
@@ -16,7 +16,6 @@ image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
- 
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

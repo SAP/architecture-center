@@ -1,9 +1,7 @@
 ---
-id: id-ra0013-1
-slug: /ref-arch/f5b6b597a6/1
+id: 4ab8f2
+slug: /ref-arch/4ab8f2
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Data Products in SAP Business Data Cloud
 description: >-
   Standardize data sharing with SAP Data Products for efficient, high-quality

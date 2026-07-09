@@ -1,9 +1,7 @@
 ---
-id: id-ra0008-1
-slug: /ref-arch/263f576c90/1
+id: cd0961
+slug: /ref-arch/cd0961
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Edge Integration Cell on AWS
 description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on AWS for secure hybrid

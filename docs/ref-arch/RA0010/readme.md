@@ -1,13 +1,7 @@
 ---
-id: id-ra0010
-slug: /ref-arch/1311c18c17
+id: 1a8cb9
+slug: /ref-arch/1a8cb9
 sidebar_position: 110
-sidebar_custom_props:
-  category_index:
-    - aws
-    - gcp
-    - azure
-    - appdev
 title: Establish a central entry point with SAP Build Work Zone
 description: >-
   SAP Build Work Zone centralizes business applications, workflows, and

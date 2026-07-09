@@ -9,6 +9,12 @@ module.exports = {
         '^@generated/(.*)$': '<rootDir>/.docusaurus/$1',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
         '\\.(jpg|jpeg|png|gif|svg|webp)$': '<rootDir>/__mocks__/fileMock.js',
+        // Docusaurus packages that are not installed as regular npm packages
+        // (they are provided by the Docusaurus runtime and not resolvable by Jest)
+        '^@docusaurus/Link$': '<rootDir>/__mocks__/@docusaurus/Link.js',
+        '^@docusaurus/useBaseUrl$': '<rootDir>/__mocks__/@docusaurus/useBaseUrl.js',
+        '^@docusaurus/theme-common$': '<rootDir>/__mocks__/@docusaurus/theme-common.js',
+        '^@docusaurus/useDocusaurusContext$': '<rootDir>/__mocks__/@docusaurus/useDocusaurusContext.js',
     },
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],

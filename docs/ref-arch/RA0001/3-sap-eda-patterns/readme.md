@@ -1,17 +1,14 @@
 ---
-id: id-ra0001-3
-slug: /ref-arch/fbdc46aaae/3
+id: 6de922
+slug: /ref-arch/6de922
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: EDA Sample Use Cases
-description: >-
-  Event-driven architecture use cases to highlight real-world applications.
+description: Event-driven architecture use cases to highlight real-world applications.
 keywords:
   - sap
   - eda
   - integration
-sidebar_label:  EDA Sample Use Cases 
+sidebar_label: EDA Sample Use Cases
 image: img/ac-soc-med.png
 tags:
   - appdev

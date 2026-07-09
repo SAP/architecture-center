@@ -1,13 +1,7 @@
 ---
-id: id-ra0016
-slug: /ref-arch/7e558be8f1
+id: 8e8d58
+slug: /ref-arch/8e8d58
 sidebar_position: 170
-sidebar_custom_props:
-  category_index:
-    - appdev
-    - opsec
-    - azure
-    - aws
 title: Secure Service Consumption Across Hyperscalers
 description: >-
   This architecture outlines a cloud-agnostic approach for securely consuming

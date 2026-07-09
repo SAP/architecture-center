@@ -1,9 +1,7 @@
 ---
-id: id-ra0005-5
-slug: /ref-arch/e5eb3b9b1d/7
+id: c9cdd2
+slug: /ref-arch/c9cdd2
 sidebar_position: 5
-sidebar_custom_props:
-  category_index: []
 title: Non-Functional Pillars
 description: Please add a description (max 300 characters)
 keywords:

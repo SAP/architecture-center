@@ -1,9 +1,7 @@
 ---
-id: id-ra0025-1
-slug: /ref-arch/9a5f7b59dc/1
+id: 8566b4
+slug: /ref-arch/8566b4
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Migrating from SAP Process Integration/Orchestration to SAP Integration Suite
 description: >-
   Learn about the transition from SAP Process Integration (PI) and Process

@@ -1,9 +1,7 @@
 ---
-id: id-ra0004-2
-slug: /ref-arch/a07a316077/2
+id: 9ce2bd
+slug: /ref-arch/9ce2bd
 sidebar_position: 2
-sidebar_custom_props:
-  category_index: []
 title: Integration with Azure data sources
 description: >-
   Unify Azure data with SAP Datasphere for comprehensive analytics, leveraging
