@@ -43,6 +43,7 @@ interface MetadataFormDialogProps {
     onDataChange: (data: Partial<PageMetadata>) => void;
     onSave: () => void;
     onCancel: () => void;
+    isEditMode?: boolean;
 }
 
 export default React.memo(function MetadataFormDialog({
@@ -51,6 +52,7 @@ export default React.memo(function MetadataFormDialog({
     onDataChange,
     onSave,
     onCancel,
+    isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { user, token } = useAuth();
@@ -222,14 +224,18 @@ export default React.memo(function MetadataFormDialog({
     };
 
     const contributorOptions = useMemo(() => {
-        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string }>();
+        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string; isSelected: boolean }>();
 
+        // Always include currently selected contributors first
         initialData.contributors?.forEach((login) => {
-            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login] });
+            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login], isSelected: true });
         });
 
+        // Add search results (that aren't already selected)
         searchResults.forEach((user) => {
-            optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url });
+            if (!optionsMap.has(user.login)) {
+                optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url, isSelected: false });
+            }
         });
 
         return Array.from(optionsMap.values());
@@ -243,7 +249,7 @@ export default React.memo(function MetadataFormDialog({
             style={{ width: '650px' }}
             header={
                 <Bar>
-                    <Title>Create New Reference Architecture</Title>
+                    <Title>{isEditMode ? 'Edit Reference Architecture' : 'Create New Reference Architecture'}</Title>
                 </Bar>
             }
             footer={
@@ -251,7 +257,7 @@ export default React.memo(function MetadataFormDialog({
                     endContent={
                         <>
                             <Button design="Emphasized" onClick={onSave} disabled={!isFormValid}>
-                                Create
+                                {isEditMode ? 'Save' : 'Create'}
                             </Button>
                             <Button onClick={onCancel}>Cancel</Button>
                         </>
@@ -280,13 +286,13 @@ export default React.memo(function MetadataFormDialog({
 
                 <FormItem labelContent={<Label required>Author</Label>}>
                     <FlexBox alignItems="Center">
-                        {
+                        {user?.avatar && (
                             <img
                                 src={user.avatar}
                                 alt={user.username}
                                 style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
                             />
-                        }
+                        )}
                         <Text style={{ marginLeft: '0.5rem' }}>{user?.username || 'Loading...'}</Text>
                     </FlexBox>
                 </FormItem>
@@ -309,14 +315,9 @@ export default React.memo(function MetadataFormDialog({
                                 <MultiComboBoxItem
                                     key={user.id}
                                     text={user.login}
-                                    selected={initialData.contributors?.includes(user.login)}
-                                    // additionalText={<Avatar size="XS" icon={user.avatar_url} />}
-                                >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Avatar size="XS" icon={user.avatar_url} />
-                                        <span>{user.login}</span>
-                                    </div>
-                                </MultiComboBoxItem>
+                                    selected={user.isSelected}
+                                    image={user.avatar_url}
+                                />
                             ))}
                     </MultiComboBox>
                 </FormItem>

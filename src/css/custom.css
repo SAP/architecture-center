@@ -9,34 +9,33 @@
 /* @tailwind utilities; */
 
 /* You can override the Infima variables here. For their default values, see node_modules/infima/dist/css/default/default.css */
+/* Since defaultMode is 'dark', :root uses dark colors to prevent FOUC */
 :root {
     --ifm-font-family-base: '72', Arial, Helvetica, 'sans-serif';
-    /* font 72 is SAP's proprietary typeface */
-    --ifm-font-color-base: #1d2d3e;
-    /* Morning Horizon's color for text and titles */
-    --ifm-link-color: #0070f2;
-    --navcard-text-default: #4a5d6f;
-    --navcard-text-hover: #0065b3;
-    /* Morning Horizon's color for links */
-    --ifm-color-primary: #0070f2;
-    --ifm-color-primary-dark: #122664;
-    --ifm-color-primary-darker: #002a86;
-    --ifm-color-primary-darkest: #00144a;
-    --ifm-color-primary-light: #4d6ab2;
-    --ifm-color-primary-lighter: #8ea6d8;
-    --ifm-color-primary-lightest: #e8f0ff;
+    /* Dark mode colors as default */
+    --ifm-font-color-base: #eaecee;
+    --ifm-link-color: #4db1ff;
+    --navcard-text-default: #b0c4d8;
+    --navcard-text-hover: #4db1ff;
+    --ifm-color-primary: #d1efff;
+    --ifm-color-primary-dark: #439ddd;
+    --ifm-color-primary-darker: #4684e8;
+    --ifm-color-primary-darkest: #0e85ca;
+    --ifm-color-primary-light: #71d6f5;
+    --ifm-color-primary-lighter: #7adcff;
+    --ifm-color-primary-lightest: #8dc2f7;
     --ifm-color-secondary: #7858ff;
     --ifm-color-secondary-dark: #a9b4be;
-    --ifm-background-color: #ffffff;
-    --ifm-sidebar-selected-item-background-color: #e3f2fd;
-    --ifm-navbar-link-hover-color: #556b82;
+    --ifm-background-color: #1b1b1d;
+    --ifm-sidebar-selected-item-background-color: #0a6ed1;
+    --ifm-navbar-link-hover-color: #8396a8;
     --ifm-dropdown-font-weight: 400;
-    --ifm-breadcrumb-color-active: #0057d2;
-    --ifm-menu-color-active: #0057d2;
+    --ifm-breadcrumb-color-active: #4db1ff;
+    --ifm-menu-color-active: #4db1ff;
     --ifm-code-font-size: 95%;
-    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-    --ifm-footer-link-color: #556b82;
-    --ifm-footer-link-hover-color: #6b84a0;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --ifm-footer-link-color: #8396a8;
+    --ifm-footer-link-hover-color: #6e7f8e;
     --ifm-footer-title-color: var(--ifm-font-color-base);
     --doc-sidebar-width: 350px !important;
     --doc-sidebar-hidden-width: 30px;
@@ -620,10 +619,18 @@ a.menu__link--sublist-caret {
     -webkit-text-fill-color: transparent;
 }
 
+/* Default dark background to prevent FOUC */
 html,
 body,
 #__docusaurus {
     min-height: 100%;
+    background-color: #1b1b1d;
+}
+
+html[data-theme='light'],
+html[data-theme='light'] body,
+html[data-theme='light'] #__docusaurus {
+    background-color: #ffffff;
 }
 
 .main-wrapper {
@@ -711,12 +718,33 @@ table thead {
     font-size: 15px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Light mode overrides */
+[data-theme='light'] {
+    --ifm-font-color-base: #1d2d3e;
+    --ifm-link-color: #0070f2;
+    --navcard-text-default: #4a5d6f;
+    --navcard-text-hover: #0065b3;
+    --ifm-color-primary: #0070f2;
+    --ifm-color-primary-dark: #122664;
+    --ifm-color-primary-darker: #002a86;
+    --ifm-color-primary-darkest: #00144a;
+    --ifm-color-primary-light: #4d6ab2;
+    --ifm-color-primary-lighter: #8ea6d8;
+    --ifm-color-primary-lightest: #e8f0ff;
+    --ifm-background-color: #ffffff;
+    --ifm-sidebar-selected-item-background-color: #e3f2fd;
+    --ifm-navbar-link-hover-color: #556b82;
+    --ifm-breadcrumb-color-active: #0057d2;
+    --ifm-menu-color-active: #0057d2;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ifm-footer-link-color: #556b82;
+    --ifm-footer-link-hover-color: #6b84a0;
+}
+
+/* Dark mode - explicit overrides (redundant with :root but kept for clarity) */
 [data-theme='dark'] {
     --ifm-font-color-base: #eaecee;
-    /* Evening Horizon's color for text and titles */
     --ifm-link-color: #4db1ff;
-    /* Evening Horizon's color for links */
     --ifm-footer-link-color: #8396a8;
     --ifm-footer-link-hover-color: #6e7f8e;
     --ifm-color-primary: #d1efff;
@@ -726,7 +754,7 @@ table thead {
     --ifm-color-primary-light: #71d6f5;
     --ifm-color-primary-lighter: #7adcff;
     --ifm-color-primary-lightest: #8dc2f7;
-    --ifm-background-color: #ffffff;
+    --ifm-background-color: #1b1b1d;
     --ifm-background-color-selected-item: #0a6ed1;
     --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
@@ -952,20 +980,37 @@ table thead {
     margin-left: 10px;
 }
 
-/* Dark mode styles */
-html[data-theme='dark'] .navbar-item-github {
+/* Default to dark mode (white github icon) since defaultMode is 'dark' */
+.navbar-item-github {
     background: url('/img/github-mark-white.svg') no-repeat center;
     background-size: contain;
 }
 
-/* Custom styling for main content (excludes header, footer, sidebar) */
-html[data-theme='light'] .main-wrapper {
-    background: linear-gradient(to bottom, #e8f2f7 0%, #ffffff 30%, #ffffff 70%, #e8f2f7 100%);
+/* Light mode - use dark github icon */
+html[data-theme='light'] .navbar-item-github {
+    background: url('/img/github-mark.svg') no-repeat center;
+    background-size: contain;
+}
+
+/* Default dark mode styling for layout (before JS sets data-theme) */
+.main-wrapper {
+    background: linear-gradient(to bottom, #1e2030 0%, #070810 30%, #070810 70%, #1e2030 100%);
     min-height: 100vh;
 }
 
-html[data-theme='dark'] .main-wrapper {
-    background: linear-gradient(to bottom, #1e2030 0%, #070810 30%, #070810 70%, #1e2030 100%);
+.navbar {
+    background: #0e0f19;
+    border-bottom: 2px solid #1a1a2e;
+    backdrop-filter: blur(10px);
+}
+
+.footer {
+    background-color: #0e0f19;
+}
+
+/* Light mode overrides for layout */
+html[data-theme='light'] .main-wrapper {
+    background: linear-gradient(to bottom, #e8f2f7 0%, #ffffff 30%, #ffffff 70%, #e8f2f7 100%);
     min-height: 100vh;
 }
 
@@ -973,11 +1018,6 @@ html[data-theme='light'] .navbar {
     background: #ffffff;
     border-bottom: 2px solid #d0d2d4;
     backdrop-filter: blur(10px);
-}
-
-.navbar__item {
-    padding: 5px 10px;
-    font-size: 15px;
 }
 
 html[data-theme='light'] .footer {
@@ -988,15 +1028,9 @@ html[data-theme='light'] .menu {
     background: transparent;
 }
 
-/*Dark Mode*/
-html[data-theme='dark'] .footer {
-    background-color: #0e0f19;
-}
-
-html[data-theme='dark'] .navbar {
-    background: #0e0f19;
-    border-bottom: 2px solid #1a1a2e;
-    backdrop-filter: blur(10px);
+.navbar__item {
+    padding: 5px 10px;
+    font-size: 15px;
 }
 
 /* The following styles are for the iframes to fit in the container div with full height and width */
