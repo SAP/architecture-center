@@ -58,6 +58,7 @@ export default React.memo(function MetadataFormDialog({
     const { user, token } = useAuth();
 
     const [contributorSearchQuery, setContributorSearchQuery] = useState('');
+    const [tagSearchQuery, setTagSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GitHubUser[]>([]);
     const [isSearching, setIsSearching] = useState(false);
     const [userAvatars, setUserAvatars] = useState<Record<string, string>>({});
@@ -83,6 +84,7 @@ export default React.memo(function MetadataFormDialog({
 
     const abortControllerRef = useRef<AbortController | null>(null);
     const multiComboRef = useRef<HTMLElement | null>(null);
+    const tagsComboRef = useRef<HTMLElement | null>(null);
 
     const fetchUsers = useCallback(async () => {
         if (abortControllerRef.current) {
@@ -190,6 +192,16 @@ export default React.memo(function MetadataFormDialog({
             })
             .filter((key): key is string => !!key);
         onDataChange({ tags: selectedKeys });
+        // After a selection, UI5 restores whatever was typed (e.g. an invalid "kjhg")
+        // back into the input and leaves the red "Negative" value state in place. Clear
+        // the typed text via the controlled value (React re-renders after UI5's restore)
+        // and reset the value state directly on the element, so a correctly-selected tag
+        // never appears invalid.
+        setTagSearchQuery('');
+        const tagsCombo = tagsComboRef.current as (HTMLElement & { valueState: string }) | null;
+        if (tagsCombo) {
+            tagsCombo.valueState = 'None';
+        }
     };
 
     const handleContributorInput = (event: InputEvent) => {
@@ -323,7 +335,13 @@ export default React.memo(function MetadataFormDialog({
                 </FormItem>
 
                 <FormItem labelContent={<Label required>Tags</Label>}>
-                    <MultiComboBox onSelectionChange={handleTagUpdate} placeholder="Select at least one tag...">
+                    <MultiComboBox
+                        ref={tagsComboRef}
+                        value={tagSearchQuery}
+                        onInput={(e: InputEvent) => setTagSearchQuery(e.target.value || '')}
+                        onSelectionChange={handleTagUpdate}
+                        placeholder="Select at least one tag..."
+                    >
                         {availableTags.map((tag) => (
                             <MultiComboBoxItem
                                 key={tag.key}
