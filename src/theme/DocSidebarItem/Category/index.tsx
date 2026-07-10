@@ -37,7 +37,6 @@ import type {
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from '@docusaurus/plugin-content-docs';
-import DuplicateCounter from '@theme/DocSidebarItem/DuplicateCounter';
 import styles from './styles.module.css';
 
 // If we navigate to a category and it becomes active, it should automatically
@@ -135,11 +134,10 @@ function CollapseButton({
   );
 }
 
-function CategoryLinkLabel({label, duplicateCount}: {label: string; duplicateCount?: number}) {
+function CategoryLinkLabel({label}: {label: string}) {
   return (
     <span className={styles.categoryLinkLabel}>
       {label}
-      {duplicateCount && <DuplicateCounter count={duplicateCount} />}
     </span>
   );
 }
@@ -200,7 +198,6 @@ function DocSidebarItemCategoryCollapsible({
     },
   } = useThemeConfig();
   const hrefWithSSRFallback = useCategoryHrefWithSSRFallback(item);
-  const duplicateCount = item?.customProps?.duplicateCount as number | undefined;
 
   const isActive = isActiveSidebarItem(item, activePath);
   const isCurrentPage = isSamePath(href, activePath);
@@ -297,7 +294,7 @@ function DocSidebarItemCategoryCollapsible({
           href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
           title={label}
           {...props}>
-          <CategoryLinkLabel label={label} duplicateCount={duplicateCount} />
+          <CategoryLinkLabel label={label} />
         </Link>
         {href && collapsible && (
           <CollapseButton

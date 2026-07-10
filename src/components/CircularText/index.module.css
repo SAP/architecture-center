@@ -1,0 +1,24 @@
+.circularText {
+  display: inline-block;
+  animation: rotate 8s linear infinite;
+}
+
+.svg {
+  display: block;
+}
+
+.text {
+  fill: #4f46e5;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
