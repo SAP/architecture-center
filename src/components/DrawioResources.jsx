@@ -70,13 +70,18 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
                 const height = parseInt(viewBox[3]);
                 const width = parseInt(viewBox[2]);
 
+                // Increase scale to supersample the SVG for much sharper rasterized text,
+                // especially noticeable when pasting into PowerPoint from Safari.
+                const SCALE = 3;
+
                 let canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
+                canvas.width = width * SCALE;
+                canvas.height = height * SCALE;
 
                 let img = new Image();
                 img.onload = function () {
                     let ctx = canvas.getContext('2d');
+                    ctx.scale(SCALE, SCALE);
                     ctx.drawImage(img, 0, 0);
 
                     canvas.toBlob((blob) => {
