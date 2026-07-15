@@ -1,23 +1,13 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-3
-slug: /ref-arch/06ff6062dc/3
+id: ff07b1
+slug: /ref-arch/ff07b1
 sidebar_position: 3
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
 title: Extend Joule with Joule Studio
-description: Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule
+description: >-
+  Utilize AI capabilities with Joule Studio in SAP Build. Create custom Joule
   Skills and AI Agents for seamless integration across SAP and non-SAP systems,
   driving automation and innovation.
-sidebar_label: Extend Joule with Joule Studio
-keywords: 
+keywords:
   - sap build
   - joule studio
   - custom joule skills
@@ -27,8 +17,9 @@ keywords:
   - automation
   - sap btp
   - hybrid landscapes
+sidebar_label: Extend Joule with Joule Studio
 image: img/ac-soc-med.png
-tags: 
+tags:
   - genai
   - agents
   - build
@@ -40,18 +31,15 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - maria-kondratyeva  
+  - maria-kondratyeva
   - miguelmezamartinez
   - fabianleh
   - bernhardthimmel
   - mar-hol
-discussion:
+discussion: 
 last_update:
-    date: 2026-03-12
-    author: fabianleh
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: fabianleh
+  date: 2026-03-12
 ---
 
 Joule Studio in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automation.  

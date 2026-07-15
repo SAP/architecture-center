@@ -1,10 +1,13 @@
 ---
-id: id-ra0013-7
-slug: /ref-arch/f5b6b597a6/7
+id: 4f7406
+slug: /ref-arch/4f7406
 sidebar_position: 7
 title: SAP Business Data Cloud powered by SAP AI Core
 description: >-
-  Architectural patterns for integrating SAP Business Data Cloud with SAP AI Core and Generative AI Hub. Covers AI-Enhanced Data Products, model training in Databricks and serving in AI Core, batch and real-time consumption patterns, and predictive insights.
+  Architectural patterns for integrating SAP Business Data Cloud with SAP AI
+  Core and Generative AI Hub. Covers AI-Enhanced Data Products, model training
+  in Databricks and serving in AI Core, batch and real-time consumption
+  patterns, and predictive insights.
 keywords:
   - sap business data cloud
   - sap ai core
@@ -15,6 +18,7 @@ keywords:
   - enterprise ai
   - reference architecture
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
+image: img/ac-soc-med.png
 tags:
   - data
   - genai
@@ -28,9 +32,10 @@ draft: false
 unlisted: false
 contributors:
   - seeobjectively
-  - guilherme-segantini 
+  - guilherme-segantini
   - jmsrpp
   - anbazhagan-uma
+discussion: 
 last_update:
   author: guilherme-segantini
   date: 2026-05-12

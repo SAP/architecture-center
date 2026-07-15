@@ -1,34 +1,35 @@
 ---
-id: id-ra0030
-slug: /ref-arch/LcR6Senh
+id: 766aa3
+slug: /ref-arch/766aa3
 sidebar_position: 30
-title: 'SAP Document AI'
-description: 'Reference Architecture for SAP Document AI.'
-keywords: 
+title: SAP Document AI
+description: Reference Architecture for SAP Document AI.
+keywords:
   - aws
   - azure
   - gcp
   - genai
   - cap
-sidebar_label: 'SAP Document AI'
+sidebar_label: SAP Document AI
 image: img/logo.svg
-hide_table_of_contents: false
-hide_title: false
-toc_min_heading_level: 2
-toc_max_heading_level: 4
-draft: false
-unlisted: false
 tags:
   - aws
   - azure
   - gcp
   - genai
   - cap
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: false
+unlisted: false
 contributors:
   - ChrisLenschow
+discussion: 
 last_update:
-  date: 2026-06-03
   author: ChrisLenschow
+  date: 2026-06-03
 ---
 
 SAP Document AI helps applications turn unstructured business documents — invoices, purchase orders, remittance advices, delivery notes, contracts, and custom forms — into structured, validated data that downstream SAP and non-SAP processes can consume. It combines OCR, pretrained and customer-trained extraction models, and LLM-based reasoning into a managed service on SAP Business Technology Platform (SAP BTP).
@@ -116,6 +117,3 @@ Continue exploring the subsections to learn how to design a solution that will a
 - SAP Help Portal
     - [SAP Document AI (SAP Help Portal)](https://help.sap.com/docs/document-ai)
     - [Generative AI Hub in SAP AI Core (SAP Help Portal)](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core)
-
-
-

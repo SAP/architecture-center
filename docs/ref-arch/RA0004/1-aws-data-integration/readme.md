@@ -1,9 +1,7 @@
 ---
-id: id-ra0004-1
-slug: /ref-arch/a07a316077/1
+id: af1cc6
+slug: /ref-arch/af1cc6
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Integration with AWS data sources
 description: >-
   Data from AWS data sources can be harmonized with SAP and non-sap data via SAP
@@ -17,9 +15,9 @@ keywords:
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:
-- aws
-- data
-- bdc
+  - aws
+  - data
+  - bdc
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

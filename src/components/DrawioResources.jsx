@@ -20,10 +20,13 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
     const [imgSrc, setImgSrc] = useState(drawioImg ?? path);
 
     useEffect(() => {
+        let blobUrl = null;
+
         if (!drawioImg || !drawioTitle) {
             setImgSrc(drawioImg ?? path);
             return;
         }
+
         fetch(drawioImg)
             .then((r) => r.text())
             .then((svgText) => {
@@ -36,8 +39,16 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
                 const blob = new Blob([new XMLSerializer().serializeToString(doc.documentElement)], {
                     type: 'image/svg+xml',
                 });
-                setImgSrc(URL.createObjectURL(blob));
+                blobUrl = URL.createObjectURL(blob);
+                setImgSrc(blobUrl);
             });
+
+        // Cleanup: revoke blob URL on unmount or before next effect run
+        return () => {
+            if (blobUrl) {
+                URL.revokeObjectURL(blobUrl);
+            }
+        };
     }, [drawioImg, drawioTitle, path]);
 
     function utf8ToBase64(str) {

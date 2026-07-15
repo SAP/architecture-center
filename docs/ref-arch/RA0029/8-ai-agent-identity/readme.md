@@ -1,12 +1,16 @@
 ---
-id: id-ra0029-8
-slug: /ref-arch/RA0029/8
+id: 140bdb
+slug: /ref-arch/140bdb
 sidebar_position: 7
-sidebar_custom_props:
-  category_index: []
 title: Agent Identity
 description: >-
-  The Agent Identity is the representation of the artifacts of an agent required to follow proper Identity Access Management and especially Agent Governance procedures. The Agent Identity allows enterprises to define and restrict how and what an agent can do within certain boundaries. The Agent Identity concept allows a generic way to manage agent access to limit unnecessary "chatty" communication between agents by establishing several policy enforcement points to fail early in the process.
+  The Agent Identity is the representation of the artifacts of an agent required
+  to follow proper Identity Access Management and especially Agent Governance
+  procedures. The Agent Identity allows enterprises to define and restrict how
+  and what an agent can do within certain boundaries. The Agent Identity concept
+  allows a generic way to manage agent access to limit unnecessary "chatty"
+  communication between agents by establishing several policy enforcement points
+  to fail early in the process.
 keywords:
   - sap
   - ai integration
@@ -29,7 +33,7 @@ draft: false
 unlisted: false
 contributors:
   - sapgunnar
-discussion:
+discussion: 
 last_update:
   author: sapgunnar
   date: 2026-05-12

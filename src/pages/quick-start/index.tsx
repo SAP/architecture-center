@@ -8,10 +8,10 @@ import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
-import { Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
+import { BusyIndicator, Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
 
-function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) => void }) {
+function EditorComponent({ onAddNew, onEditMeta }: { onAddNew: (parentId?: string | null) => void; onEditMeta?: () => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
 
     if (!activeDocumentId) {
@@ -22,7 +22,7 @@ function EditorComponent({ onAddNew }: { onAddNew: (parentId?: string | null) =>
         <BrowserOnly>
             {() => {
                 const Editor = require('@site/src/components/Editor').default;
-                return <Editor key={activeDocumentId} onAddNew={onAddNew} />;
+                return <Editor key={activeDocumentId} onAddNew={onAddNew} onEditMeta={onEditMeta} />;
             }}
         </BrowserOnly>
     );
@@ -37,13 +37,27 @@ const initialPageData: PageMetadata = {
 
 function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
-    const { documents, addDocument } = usePageDataStore();
+    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument } = usePageDataStore();
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users } = useAuth();
+    const { users, token } = useAuth();
+    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const [initialized, setInitialized] = useState(false);
+
+    // Initialize backend config and fetch documents
+    useEffect(() => {
+        if (expressBackendUrl && token && !initialized) {
+            const username = users.github?.username || '';
+            setBackendConfig(expressBackendUrl, token, username);
+            fetchDocuments().then(() => {
+                setInitialized(true);
+            });
+        }
+    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -53,17 +67,45 @@ function AuthenticatedQuickStartView() {
         };
         setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
+        setIsEditMode(false);
         setIsModalOpen(true);
     }, [users.github]);
 
+    const handleEditMeta = useCallback(() => {
+        const activeDoc = getActiveDocument();
+        if (!activeDoc) return;
+
+        setNewDocData({
+            title: activeDoc.title,
+            tags: activeDoc.tags,
+            authors: activeDoc.authors,
+            contributors: activeDoc.contributors || [],
+            description: activeDoc.description || '',
+        });
+        setIsEditMode(true);
+        setIsModalOpen(true);
+    }, [getActiveDocument]);
+
     useEffect(() => {
-        if (documents.length === 0) {
+        if (initialized && documents.length === 0) {
             handleAddNew(null);
         }
-    }, [documents.length, handleAddNew]);
+    }, [documents.length, handleAddNew, initialized]);
 
     const handleCreate = () => {
-        addDocument(newDocData, currentParentId);
+        if (isEditMode) {
+            const activeDoc = getActiveDocument();
+            if (activeDoc) {
+                updateDocument(activeDoc.id, {
+                    title: newDocData.title,
+                    tags: newDocData.tags,
+                    description: newDocData.description,
+                    contributors: newDocData.contributors,
+                });
+            }
+        } else {
+            addDocument(newDocData, currentParentId);
+        }
         setIsModalOpen(false);
     };
 
@@ -74,6 +116,24 @@ function AuthenticatedQuickStartView() {
         setIsModalOpen(false);
     };
 
+    // Show initializing screen only on first load (fetching documents)
+    if (isLoading || !initialized) {
+        return (
+            <div className={styles.initializingContainer}>
+                <BusyIndicator active size="L" text="Initializing Command Center..." />
+            </div>
+        );
+    }
+
+    // Show loader when creating a new ref arch
+    if (isCreating) {
+        return (
+            <div className={styles.initializingContainer}>
+                <BusyIndicator active size="L" text="Creating Reference Architecture..." />
+            </div>
+        );
+    }
+
     return (
         <>
             <MetadataFormDialog
@@ -82,9 +142,10 @@ function AuthenticatedQuickStartView() {
                 onDataChange={(updates) => setNewDocData((prev) => ({ ...prev, ...updates }))}
                 onSave={handleCreate}
                 onCancel={handleCancel}
+                isEditMode={isEditMode}
             />
             <main className={styles.pageContainer}>
-                <EditorComponent onAddNew={handleAddNew} />
+                <EditorComponent onAddNew={handleAddNew} onEditMeta={handleEditMeta} />
             </main>
         </>
     );
@@ -108,6 +169,39 @@ function MobileDeviceWarning() {
                 </Button>
             </div>
         </Dialog>
+    );
+}
+
+function GitHubLoginRedirect({ loginUrl }: { loginUrl: string }) {
+    useEffect(() => {
+        // Redirect immediately to GitHub login
+        window.location.href = loginUrl;
+    }, [loginUrl]);
+
+    // Fallback UI while redirecting (or if redirect fails)
+    return (
+        <Card
+            header={
+                <FlexBox className={styles.centeredCardHeader}>
+                    <Icon name="locked" />
+                    <Title level="H5" wrappingType="None">
+                        GitHub Authentication Required
+                    </Title>
+                </FlexBox>
+            }
+            className={styles.authCard}
+        >
+            <div className={styles.authCardContent}>
+                <FlexBox alignItems="Center" justifyContent="Center" style={{ marginBottom: '1rem' }}>
+                    <BusyIndicator active size="M" />
+                </FlexBox>
+                <Text>Redirecting to GitHub login...</Text>
+                <Text style={{ marginTop: '1rem', color: '#666' }}>
+                    If you are not redirected automatically,{' '}
+                    <a href={loginUrl} style={{ color: '#0a6ed1' }}>click here</a>.
+                </Text>
+            </div>
+        </Card>
     );
 }
 
@@ -143,42 +237,18 @@ export default function QuickStart(): JSX.Element {
     }
 
     if (!isGithubAuthenticated) {
+        const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
+        const loginUrl = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(originUri)}&provider=github`;
+
         return (
             <Layout>
                 <Header
                     title="Quick Start"
-                    subtitle="GitHub authentication required to access the Quick Start tool"
+                    subtitle="Redirecting to GitHub login..."
                     breadcrumbCurrent="Quick Start"
                 />
                 <main className={styles.mainContainer}>
-                    <Card
-                        header={
-                            <FlexBox className={styles.centeredCardHeader}>
-                                <Icon name="locked" />
-                                <Title level="H5" wrappingType="None">
-                                    GitHub Authentication Required
-                                </Title>
-                            </FlexBox>
-                        }
-                        className={styles.authCard}
-                    >
-                        <div className={styles.authCardContent}>
-                            <Text>The QuickStart editor requires GitHub authentication to manage your documents.</Text>
-                            <Text>Please log in with your GitHub account to continue.</Text>
-                            <Button
-                                design="Emphasized"
-                                onClick={() => {
-                                    const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
-                                    window.location.href = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(
-                                        originUri
-                                    )}&provider=github`;
-                                }}
-                            >
-                                Login with GitHub to Continue
-                            </Button>
-                            <Text>After logging in, you'll be redirected back to this page.</Text>
-                        </div>
-                    </Card>
+                    <GitHubLoginRedirect loginUrl={loginUrl} />
                 </main>
             </Layout>
         );

@@ -1,12 +1,9 @@
 ---
-id: id-ra0001-4
-slug: /ref-arch/fbdc46aaae/4
+id: 2a28bd
+slug: /ref-arch/2a28bd
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: SAP CAP Framework for Events to Business Actions Integration
-description: >-
- Custom CAP Application framework to build event-driven applications in SAP BTP
+description: Custom CAP Application framework to build event-driven applications in SAP BTP
 keywords:
   - sap
   - aws iot integration

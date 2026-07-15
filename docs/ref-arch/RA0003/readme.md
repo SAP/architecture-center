@@ -1,13 +1,7 @@
 ---
-id: id-ra0003
-slug: /ref-arch/8e1a5fbce3
+id: 17c8c5
+slug: /ref-arch/17c8c5
 sidebar_position: 40
-sidebar_custom_props:
-  category_index:
-    - data
-    - aws
-    - azure
-    - gcp
 title: Federated Machine Learning with SAP Datasphere
 description: >-
   Federate SAP and non-SAP data with SAP Datasphere for seamless ML integration,

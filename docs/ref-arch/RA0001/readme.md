@@ -1,13 +1,7 @@
 ---
-id: id-ra0001
-slug: /ref-arch/fbdc46aaae
+id: 196eba
+slug: /ref-arch/196eba
 sidebar_position: 20
-sidebar_custom_props:
-  category_index:
-    - integration
-    - appdev
-    - aws
-    - azure
 title: Designing Event-Driven Applications
 description: >-
   Guidance for developing applications based on Event-Driven Architecture (EDA)

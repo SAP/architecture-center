@@ -1,9 +1,7 @@
 ---
-id: id-ra0016-2
-slug: /ref-arch/7e558be8f1/2
+id: bd327f
+slug: /ref-arch/bd327f
 sidebar_position: 2
-sidebar_custom_props:
-  category_index: []
 title: Secure Service Consumption on GCP
 description: >-
   Configure secure, keyless access to GCP resources using OIDC-based Workload

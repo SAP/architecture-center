@@ -1,9 +1,7 @@
 ---
-id: id-ra0008-2
-slug: /ref-arch/263f576c90/2
+id: 0ae6b4
+slug: /ref-arch/0ae6b4
 sidebar_position: 2
-sidebar_custom_props:
-  category_index: []
 title: Edge Integration Cell on Azure
 description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid

@@ -1,32 +1,24 @@
 ---
-############################################################
-#                Beginning of Front Matter                 #
-############################################################
-#                     [DO NOT MODIFY]                      #
-############################################################
-id: id-ra0024-5
-slug: /ref-arch/06ff6062dc/5
+id: 56ae6b
+slug: /ref-arch/56ae6b
 sidebar_position: 5
-sidebar_custom_props:
-    category_index:
-############################################################
-#     You can modify the front matter properties below     #
-############################################################
-title: SAP Joule Landscape Recommendation 
-description: Recommended SAP BTP Subaccount model setup for unified Joule experience within a 3-staged landscape 
-sidebar_label: Joule Landscape Recommendation
+title: SAP Joule Landscape Recommendation
+description: >-
+  Recommended SAP BTP Subaccount model setup for unified Joule experience within
+  a 3-staged landscape
 keywords:
-- joule
-- joule studio
-- custom joule skills
-- ai agents
-- sap integration
-- sap ai
-- automation
-- sap btp
-- hybrid landscapes
-- staged landscape
-- subaccount model
+  - joule
+  - joule studio
+  - custom joule skills
+  - ai agents
+  - sap integration
+  - sap ai
+  - automation
+  - sap btp
+  - hybrid landscapes
+  - staged landscape
+  - subaccount model
+sidebar_label: Joule Landscape Recommendation
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -40,18 +32,15 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-    - mar-hol
-    - fabianleh
-    - marvinklose
-    - dermats
-    - NormanNuernberger
+  - mar-hol
+  - fabianleh
+  - marvinklose
+  - dermats
+  - NormanNuernberger
+discussion: 
 last_update:
-    date: 2026-05-15
-    author: NormanNuernberger
-
-############################################################
-#                   End of Front Matter                    #
-############################################################
+  author: NormanNuernberger
+  date: 2026-05-15
 ---
 
 Setting up unified Joule in an existing SAP landscape requires a staged implementation process to qualify changes before bringing them to production. As organizations develop custom Joule skills and agents using Joule Studio, or configure Joule integrations across multiple SAP cloud applications, they need a structured approach to develop, test, and deploy these capabilities safely. This reference architecture provides a recommended SAP BTP subaccount model that supports a 3-staged landscape (Development, Test, Production), ensuring proper isolation, governance, and lifecycle management for Joule-related workloads.

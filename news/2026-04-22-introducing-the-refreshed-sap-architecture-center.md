@@ -28,8 +28,8 @@ The platform now hosts **30** reference architectures across **104** unique docu
 
 Recent additions include practical implementations for:
 
-- [**Agentic AI & AI Agents**](/docs/ref-arch/ca1d2a3e) covering how to build, integrate and orchestrate AI agents on SAP BTP using low-code approaches with Joule Studio, pro-code development with SAP Cloud SDK for AI, and Agent2Agent (A2A) interoperability.
-- [**Integrating and Extending Joule**](/docs/ref-arch/06ff6062dc) exploring enterprise integration with SAP S/4HANA and SAP SuccessFactors, building custom skills and agents with Joule Studio, and extending Joule's capabilities across your landscape.
+- [**Agentic AI & AI Agents**](/docs/ref-arch/98efa0) covering how to build, integrate and orchestrate AI agents on SAP BTP using low-code approaches with Joule Studio, pro-code development with SAP Cloud SDK for AI, and Agent2Agent (A2A) interoperability.
+- [**Integrating and Extending Joule**](/docs/ref-arch/464deb) exploring enterprise integration with SAP S/4HANA and SAP SuccessFactors, building custom skills and agents with Joule Studio, and extending Joule's capabilities across your landscape.
 
 ## Community-Driven Content
 
@@ -71,11 +71,11 @@ Thank you to all the contributors who have made this release possible. Your dedi
 
 We would like to highlight the contributions from our community partners who have enriched the Architecture Center with their real-world expertise. These contributions demonstrate the power of collaborative knowledge-sharing and bring valuable practitioner insights to our growing library of reference architectures.
 
-We extend our sincere thanks to **Fortinet** for contributing [Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms](/docs/ref-arch/d6e703646d), and to [@randomstr1ng](https://github.com/randomstr1ng) for authoring this comprehensive security architecture that bridges SAP-native threat detection with enterprise security operations.
+We extend our sincere thanks to **Fortinet** for contributing [Log-Driven Security Operations with SAP Enterprise Threat Detection and SIEM/SOAR Platforms](/docs/ref-arch/a3e184), and to [@randomstr1ng](https://github.com/randomstr1ng) for authoring this comprehensive security architecture that bridges SAP-native threat detection with enterprise security operations.
 
-Our appreciation goes to **SD Worx** for sharing [SAP SuccessFactors Suite](/docs/ref-arch/5Hlvofqg), and to [@arjenvanhooydonk](https://github.com/arjenvanhooydonk) for creating this detailed overview of the SuccessFactors ecosystem that helps organisations understand the full employee lifecycle platform.
+Our appreciation goes to **SD Worx** for sharing [SAP SuccessFactors Suite](/docs/ref-arch/14d25a), and to [@arjenvanhooydonk](https://github.com/arjenvanhooydonk) for creating this detailed overview of the SuccessFactors ecosystem that helps organisations understand the full employee lifecycle platform.
 
-We are grateful to **Glencore** for contributing [Transitioning Architectures from SAP NetWeaver](/docs/ref-arch/9a5f7b59dc), and to [@abklgithub](https://github.com/abklgithub) for providing this essential guidance on navigating the transition from NetWeaver-based products as they approach end-of-maintenance in 2027.
+We are grateful to **Glencore** for contributing [Transitioning Architectures from SAP NetWeaver](/docs/ref-arch/4b76ae), and to [@abklgithub](https://github.com/abklgithub) for providing this essential guidance on navigating the transition from NetWeaver-based products as they approach end-of-maintenance in 2027.
 
 These contributions exemplify the collaborative spirit that makes the SAP Architecture Center a truly community-driven resource. We invite more partners and practitioners to share their architectural insights and help shape the future of enterprise architecture guidance.
 

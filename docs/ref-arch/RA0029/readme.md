@@ -1,14 +1,13 @@
 ---
-id: id-ra0029
-slug: /ref-arch/ca1d2a3e
+id: 98efa0
+slug: /ref-arch/98efa0
 sidebar_position: 300
-sidebar_custom_props:
-  category_index:
-    - ai
-    - appdev
 title: Agentic AI & AI Agents
 description: >-
-  Build, integrate and orchestrate AI agents on SAP BTP. This reference architecture covers low-code agents with Joule Studio, pro-code agents with SAP Cloud SDK for AI, bidirectional integration with Joule and Agent2Agent (A2A) interoperability.
+  Build, integrate and orchestrate AI agents on SAP BTP. This reference
+  architecture covers low-code agents with Joule Studio, pro-code agents with
+  SAP Cloud SDK for AI, bidirectional integration with Joule and Agent2Agent
+  (A2A) interoperability.
 keywords:
   - sap
   - ai agents
@@ -41,7 +40,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - micinit
-discussion:
+discussion: 
 last_update:
   author: kay-schmitteckert
   date: 2026-05-04
