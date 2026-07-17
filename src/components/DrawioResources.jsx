@@ -7,8 +7,9 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
 import Admonition from '@theme/Admonition';
 import Link from '@docusaurus/Link';
-import LinkDrawioViewer from './LinkDrawioViewer';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import logger from '@site/src/utils/logger';
+import LinkDrawioViewer from './LinkDrawioViewer';
 
 // eventually, the drawio image won't be there locally. we'll generate it before deployment
 // locally, use fallback image
@@ -57,36 +58,62 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
         utf8Bytes.forEach((b) => (binary += String.fromCharCode(b)));
         return btoa(binary);
     }
-    function handleDownload() {
-        fetch(imgSrc)
-            .then((r) => r.text())
-            .then((text) => {
+    async function handleCopyAsImage() {
+        // Safari requires navigator.clipboard.write to be initiated synchronously within the user gesture.
+        // We pass a Promise to ClipboardItem to satisfy this, while generating the image asynchronously.
+        const blobPromise = new Promise(async (resolve, reject) => {
+            try {
+                const r = await fetch(imgSrc);
+                const text = await r.text();
+
                 const viewBox = text.match(/viewBox="([^"]*)"/)[1].split(' ');
                 const height = parseInt(viewBox[3]);
                 const width = parseInt(viewBox[2]);
 
-                //create canvas with svg values
-                let canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
+                // Increase scale to supersample the SVG for much sharper rasterized text,
+                // especially noticeable when pasting into PowerPoint from Safari.
+                const SCALE = 3;
 
-                //create png from canvas and write on clipboard
+                let canvas = document.createElement('canvas');
+                canvas.width = width * SCALE;
+                canvas.height = height * SCALE;
+
                 let img = new Image();
-                img.onload = async function () {
+                img.onload = function () {
                     let ctx = canvas.getContext('2d');
+                    ctx.scale(SCALE, SCALE);
                     ctx.drawImage(img, 0, 0);
 
-                    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-                    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-                    setTimeout(() => {
-                        setCopied(false);
-                    }, 2000);
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            resolve(blob);
+                        } else {
+                            reject(new Error('Canvas toBlob failed'));
+                        }
+                    }, 'image/png');
                 };
                 img.onerror = function (e) {
-                    console.error('The clipboard image failed to load', e);
+                    logger.error('The clipboard image failed to load', e);
+                    reject(e);
                 };
                 img.src = 'data:image/svg+xml;base64,' + utf8ToBase64(text);
-            });
+            } catch (err) {
+                // Must manually reject because errors thrown inside an async executor 
+                // are not automatically caught by the outer Promise constructor.
+                reject(err);
+            }
+        });
+
+        try {
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobPromise })]);
+            setCopied(true);
+            setTimeout(() => {
+                setCopied(false);
+            }, 2000);
+        } catch (err) {
+            logger.error('Failed to copy image to clipboard:', err);
+            setCopied(false);
+        }
     }
     return (
         // current selector to apply zoom (see docusaurus.config) selects img as direct child
@@ -105,7 +132,7 @@ export default function DrawioResources({ drawioFile, drawioXml, drawioImg, draw
                     <div className="tooltip">
                         <IconButton
                             onClick={() => {
-                                setCopied(true), handleDownload();
+                                setCopied(true), handleCopyAsImage();
                             }}
                             className="iconButton"
                             variant="default"
