@@ -55,7 +55,7 @@ export default React.memo(function MetadataFormDialog({
     isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { user, token } = useAuth();
+    const { user } = useAuth();
 
     const [contributorSearchQuery, setContributorSearchQuery] = useState('');
     const [tagSearchQuery, setTagSearchQuery] = useState('');
@@ -96,9 +96,7 @@ export default React.memo(function MetadataFormDialog({
         try {
             const apiUrl = `${backendUrl}/user/github/search-users?q=${contributorSearchQuery}`;
             const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                credentials: 'include',
                 cache: 'no-store',
                 signal,
             });
@@ -117,7 +115,7 @@ export default React.memo(function MetadataFormDialog({
             setIsSearching(false);
             abortControllerRef.current = null;
         }
-    }, [backendUrl, contributorSearchQuery, token, initialData.contributors]);
+    }, [backendUrl, contributorSearchQuery, initialData.contributors]);
 
     useEffect(() => {
         if (!backendUrl || contributorSearchQuery.trim().length < 3) {
@@ -161,9 +159,7 @@ export default React.memo(function MetadataFormDialog({
         try {
             const apiUrl = `${backendUrl}/github/user/${encodeURIComponent(login)}`;
             const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                credentials: 'include',
                 cache: 'no-store',
             });
             if (!response.ok) throw new Error('Failed to fetch user');
