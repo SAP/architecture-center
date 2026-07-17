@@ -4092,9 +4092,7 @@ export class EditorCore {
       this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
     }
 
-    // Move selection to the new paragraph
     this.selection = createCollapsedSelection(newText.key, 0);
-
     this.render();
   }
 
@@ -4355,6 +4353,17 @@ export class EditorCore {
           (nodeInState as any).children = newChildren;
         }
 
+        return newKey;
+      }
+
+      // Handle void nodes (Image, Drawio, Divider)
+      if (node.type === 'image' || node.type === 'drawio' || node.type === 'divider') {
+        const newNode = {
+          ...node,
+          key: newKey,
+          parent: newParentKey,
+        };
+        this.state.nodeMap.set(newKey, newNode);
         return newKey;
       }
 
