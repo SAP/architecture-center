@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2628.1",
+    "version": "v3.2629.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -54,7 +54,6 @@
         "@mdx-js/react": "^3.1.1",
         "@mui/icons-material": "^7.3.11",
         "@mui/material": "^7.3.11",
-        "@tailwindcss/typography": "^0.5.20",
         "@types/uuid": "^10.0.0",
         "@ui5/webcomponents": "^2.7.0",
         "@ui5/webcomponents-fiori": "^2.23.1",
@@ -100,7 +99,6 @@
         "@types/react-slick": "^0.23.13",
         "@typescript-eslint/eslint-plugin": "^8.61.1",
         "@typescript-eslint/parser": "^8.61.1",
-        "autoprefixer": "^10.5.0",
         "eslint": "^9.39.4",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
@@ -111,7 +109,6 @@
         "npm-force-resolutions": "^0.0.10",
         "postcss": "^8.5.15",
         "qrcode": "^1.5.4",
-        "tailwindcss": "^3.4.19",
         "ts-jest": "^29.4.11",
         "typescript": "^5.9.3"
     },
