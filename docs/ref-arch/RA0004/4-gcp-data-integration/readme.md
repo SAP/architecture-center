@@ -1,19 +1,19 @@
 ---
-id: bffef5
-slug: /ref-arch/bffef5
+id: id-ra0004-4
+slug: /ref-arch/a07a316077/4
 sidebar_position: 4
+sidebar_custom_props:
+  category_index: []
 title: Integration with Google Cloud Platform sources
 description: >-
-  Integrate non-SAP data in Google Cloud Platform with business data from SAP
-  using SAP Business Data Cloud's seamless data integration architectures to
-  enable holistic AI/ML & Analytics use cases.
+  Integrate non-SAP data in Google Cloud Platform with business data from SAP using SAP Business Data Cloud's seamless data integration architectures to enable holistic AI/ML & Analytics use cases.
 keywords:
   - sap
   - cloud performance
   - google bigquery
   - data harmonization
   - advanced analytics
-  - bdc connect
+  - bdc connect 
   - bdc connect for google big query
   - delta share
 sidebar_label: Integration with Google Cloud Platform sources
@@ -36,7 +36,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2026-05-08
+  date: 2026-07-21
 ---
 
 Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google Cloud Platform services can be effortlessly integrated and harmonized with SAP business data through SAP Business Data Cloud. Leveraging open data protocols and advanced data fabric architectures, this approach enables secure, bi-directional data sharing and unified access to information across systems. The result is a centrally governed, holistic data environment that supports efficient analytics and AI/ML-driven use cases—all built on industry-standard open protocols.
