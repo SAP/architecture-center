@@ -5,7 +5,7 @@ const { userInfo, homedir } = require('node:os');
 const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
-const DrawioCache = require('./cache/DrawioCache');
+const DrawioCache = require('./drawio-cache');
 
 const log = console.log;
 
@@ -18,8 +18,8 @@ const DRAWIO_CLI_BINARY = isMac
     ? '/Applications/draw.io.app/Contents/MacOS/draw.io'
     : 'C:\\Program Files\\draw.io\\draw.io.exe';
 // assuming script is in src/_scripts/
-const ROOT = normalizePath(__dirname + '/../..');
-const SAP_LOGO = __dirname + '/../../static/img/logo.svg';
+const ROOT = normalizePath(__dirname + '/../../..');
+const SAP_LOGO = __dirname + '/../../../static/img/logo.svg';
 const SVG_BACKGROUND_COLOR = '#ffffff';
 const BASE_URL = 'https://architecture.learning.sap.com'; // Changed from URL to BASE_URL for consistency
 const ARTIFACTS_DIR = ROOT + '/static/artifacts'; // Added for artifacts generation
