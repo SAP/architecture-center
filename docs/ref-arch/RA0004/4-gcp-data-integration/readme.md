@@ -1,9 +1,7 @@
 ---
-id: id-ra0004-4
-slug: /ref-arch/a07a316077/4
+id: bffef5
+slug: /ref-arch/bffef5
 sidebar_position: 4
-sidebar_custom_props:
-  category_index: []
 title: Integration with Google Cloud Platform sources
 description: >-
   Integrate non-SAP data in Google Cloud Platform with business data from SAP using SAP Business Data Cloud's seamless data integration architectures to enable holistic AI/ML & Analytics use cases.
