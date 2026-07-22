@@ -253,6 +253,10 @@ async function generateArtifacts() {
             readmePath = join(refArchRoot, dirName, 'readme.md');
             drawioFilePath = join(refArchRoot, dirName, 'drawio', 'measurement_landscape.drawio');
             svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', 'measurement_landscape.svg');
+        } else if (dirName === 'RA0025') {
+            readmePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'readme.md');
+            drawioFilePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'drawio', 'sap_architecture_center_is_eic_post.drawio');
+            svgThumbnailSourcePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'images', 'sap_architecture_center_is_eic_post.svg');
         }
         else {
             readmePath = join(refArchRoot, dirName, 'readme.md');
@@ -283,7 +287,7 @@ async function generateArtifacts() {
             const readmeContent = readFileSync(readmePath, 'utf8');
             const { attributes } = fm(readmeContent);
 
-            const titleAsFileName = attributes.title.toLowerCase().replace(/\s+/g, '-');
+            const titleAsFileName = attributes.title.toLowerCase().replace(/[\s/]+/g, '-');
             const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
 
             // Copy the watermarked SVG to the thumbnails directory
