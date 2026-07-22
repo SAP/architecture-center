@@ -107,7 +107,7 @@
 
 .initializingContainer {
     position: fixed;
-    top: 0;
+    top: var(--ifm-navbar-height);
     left: 0;
     right: 0;
     bottom: 0;
