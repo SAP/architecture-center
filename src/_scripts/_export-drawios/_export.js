@@ -236,9 +236,14 @@ async function watermarkAll() {
 async function generateArtifacts() {
     const allArtifacts = [];
     const refArchRoot = ROOT + '/docs/ref-arch';
-    const topLevelRADirs = readdirSync(refArchRoot, { withFileTypes: true })
+    let topLevelRADirs = readdirSync(refArchRoot, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('RA') && dirent.name !== 'RA0000')
         .map(dirent => dirent.name);
+
+    // Include subdirectories only for RA0004 for vendor specific integrations
+    // through BDC as per request.
+    topLevelRADirs = topLevelRADirs.concat(['RA0004/1-aws-data-integration', 'RA0004/2-azure-data-integration', 'RA0004/3-databricks-data-integration', 'RA0004/4-gcp-data-integration', 'RA0004/5-snowflake-data-integration']);
+    topLevelRADirs.sort();
 
     for (const dirName of topLevelRADirs) {
         let readmePath;
@@ -257,8 +262,11 @@ async function generateArtifacts() {
             readmePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'readme.md');
             drawioFilePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'drawio', 'sap_architecture_center_is_eic_post.drawio');
             svgThumbnailSourcePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'images', 'sap_architecture_center_is_eic_post.svg');
-        }
-        else {
+        } else if (dirName.includes('RA0004/') && dirName.includes('snowflake')) {
+            readmePath = join(refArchRoot, dirName, 'readme.md');
+            drawioFilePath = join(refArchRoot, dirName, 'drawio', 'snowflake-solex-data-integration.drawio');
+            svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', 'snowflake-solex-data-integration.svg');
+        } else {
             readmePath = join(refArchRoot, dirName, 'readme.md');
             const drawioDir = join(refArchRoot, dirName, 'drawio');
             if (!existsSync(drawioDir)) {
@@ -286,8 +294,13 @@ async function generateArtifacts() {
         try {
             const readmeContent = readFileSync(readmePath, 'utf8');
             const { attributes } = fm(readmeContent);
+            let title = attributes.title;
 
-            const titleAsFileName = attributes.title.toLowerCase().replace(/[\s/]+/g, '-');
+            if (dirName.includes('RA0004/')) {
+                title = 'SAP Business Data Cloud: ' + title;
+            }
+
+            const titleAsFileName = title.toLowerCase().replace(/[\s/]+/g, '-').replace(/:/g, '');
             const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
 
             // Copy the watermarked SVG to the thumbnails directory
@@ -296,8 +309,8 @@ async function generateArtifacts() {
             log(`Generated thumbnail: ${thumbnailSvgPath}`);
 
             allArtifacts.push({
-                id: dirName.toLowerCase(),
-                name: attributes.title,
+                id: attributes.id,
+                name: title,
                 // Use a placeholder for drawioLink, to be updated in a post-build step
                 drawioLink: `PLACEHOLDER:${basename(drawioFilePath)}`,
                 thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${titleAsFileName}.svg`,
