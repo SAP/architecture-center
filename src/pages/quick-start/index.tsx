@@ -44,20 +44,20 @@ function AuthenticatedQuickStartView() {
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users } = useAuth();
+    const { users, token } = useAuth();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
     const [initialized, setInitialized] = useState(false);
 
     // Initialize backend config and fetch documents
     useEffect(() => {
-        if (expressBackendUrl && users.github && !initialized) {
-            const username = users.github.username;
-            setBackendConfig(expressBackendUrl, username);
+        if (expressBackendUrl && token && !initialized) {
+            const username = users.github?.username || '';
+            setBackendConfig(expressBackendUrl, token, username);
             fetchDocuments().then(() => {
                 setInitialized(true);
             });
         }
-    }, [expressBackendUrl, users.github, initialized, setBackendConfig, fetchDocuments]);
+    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {

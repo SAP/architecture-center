@@ -73,8 +73,11 @@ class ApiService {
     this.baseUrl = baseUrl;
   }
 
-  private get jsonHeaders(): HeadersInit {
-    return { 'Content-Type': 'application/json' };
+  private getAuthHeaders(token: string): HeadersInit {
+    return {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
   }
 
   // Document Service (OData)
@@ -84,102 +87,164 @@ class ApiService {
 
   // ==================== Documents ====================
 
-  async getDocuments(): Promise<Document[]> {
-    const response = await fetch(
-      `${this.documentServiceUrl}/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
-      { credentials: 'include', headers: this.jsonHeaders }
-    );
-    if (!response.ok) throw new Error(`Failed to fetch documents: ${response.statusText}`);
+  /**
+   * Get all documents for the current user
+   */
+  async getDocuments(token: string): Promise<Document[]> {
+    const response = await fetch(`${this.documentServiceUrl}/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`, {
+      headers: this.getAuthHeaders(token),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch documents: ${response.statusText}`);
+    }
+
     const data = await response.json();
     return data.value;
   }
 
-  async getDocument(documentId: string): Promise<Document> {
+  /**
+   * Get a single document by ID
+   */
+  async getDocument(token: string, documentId: string): Promise<Document> {
     const response = await fetch(
       `${this.documentServiceUrl}/Documents(${documentId})?$expand=author,contributors($expand=user),tags($expand=tag),assets`,
-      { credentials: 'include', headers: this.jsonHeaders }
+      { headers: this.getAuthHeaders(token) }
     );
-    if (!response.ok) throw new Error(`Failed to fetch document: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch document: ${response.statusText}`);
+    }
+
     return response.json();
   }
 
-  async createDocument(payload: CreateDocumentPayload): Promise<Document> {
+  /**
+   * Create a new document
+   */
+  async createDocument(token: string, payload: CreateDocumentPayload): Promise<Document> {
     const response = await fetch(`${this.documentServiceUrl}/createNewDocument`, {
       method: 'POST',
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
       body: JSON.stringify(payload),
     });
+
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: response.statusText }));
       throw new Error(error.message || 'Failed to create document');
     }
+
     return response.json();
   }
 
-  async updateDocument(documentId: string, updates: Partial<Document>): Promise<void> {
+  /**
+   * Update document editor state
+   */
+  async updateDocument(token: string, documentId: string, updates: Partial<Document>): Promise<void> {
     const response = await fetch(`${this.documentServiceUrl}/Documents(${documentId})`, {
       method: 'PATCH',
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
       body: JSON.stringify(updates),
     });
-    if (!response.ok) throw new Error(`Failed to update document: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to update document: ${response.statusText}`);
+    }
   }
 
-  async deleteDocument(documentId: string): Promise<void> {
+  /**
+   * Delete a document
+   */
+  async deleteDocument(token: string, documentId: string): Promise<void> {
     const response = await fetch(`${this.documentServiceUrl}/Documents(${documentId})`, {
       method: 'DELETE',
-      credentials: 'include',
+      headers: this.getAuthHeaders(token),
     });
-    if (!response.ok) throw new Error(`Failed to delete document: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete document: ${response.statusText}`);
+    }
   }
 
-  async setDocumentContributors(documentId: string, contributorsUsernames: string[]): Promise<Document> {
+  /**
+   * Set document contributors
+   */
+  async setDocumentContributors(token: string, documentId: string, contributorsUsernames: string[]): Promise<Document> {
     const response = await fetch(`${this.documentServiceUrl}/setDocumentContributors`, {
       method: 'POST',
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
       body: JSON.stringify({ documentId, contributorsUsernames }),
     });
-    if (!response.ok) throw new Error(`Failed to set contributors: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to set contributors: ${response.statusText}`);
+    }
+
     return response.json();
   }
 
-  async setDocumentTags(documentId: string, tags: string[]): Promise<Document> {
+  /**
+   * Set document tags
+   */
+  async setDocumentTags(token: string, documentId: string, tags: string[]): Promise<Document> {
     const response = await fetch(`${this.documentServiceUrl}/setDocumentTags`, {
       method: 'POST',
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
       body: JSON.stringify({ documentId, tags }),
     });
-    if (!response.ok) throw new Error(`Failed to set tags: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to set tags: ${response.statusText}`);
+    }
+
     return response.json();
   }
 
   // ==================== Assets ====================
 
-  async uploadAsset(documentId: string, file: File): Promise<DocumentAsset> {
+  /**
+   * Upload an asset (image, diagram, etc.)
+   */
+  async uploadAsset(
+    token: string,
+    documentId: string,
+    file: File
+  ): Promise<DocumentAsset> {
+    // Read file as base64
     const content = await this.fileToBase64(file);
+
     const response = await fetch(`${this.documentServiceUrl}/DocumentAssets`, {
       method: 'POST',
-      credentials: 'include',
-      headers: this.jsonHeaders,
-      body: JSON.stringify({ document_ID: documentId, mediaType: file.type, filename: file.name, content }),
+      headers: this.getAuthHeaders(token),
+      body: JSON.stringify({
+        document_ID: documentId,
+        mediaType: file.type,
+        filename: file.name,
+        content,
+      }),
     });
+
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: response.statusText }));
       throw new Error(error.message || 'Failed to upload asset');
     }
+
     return response.json();
   }
 
-  async getAssetWithContent(assetId: string): Promise<DocumentAsset & { content: string }> {
+  /**
+   * Get asset with content
+   * Try multiple approaches since CAP handles LargeBinary differently
+   */
+  async getAssetWithContent(token: string, assetId: string): Promise<DocumentAsset & { content: string }> {
+    // First try to get content directly in JSON response
     const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
     });
-    if (!response.ok) throw new Error(`Failed to fetch asset: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch asset: ${response.statusText}`);
+    }
 
     const asset = await response.json();
     console.log('[API] getAssetWithContent response:', {
@@ -187,15 +252,21 @@ class ApiService {
       mediaType: asset.mediaType,
       hasContent: !!asset.content,
       contentType: typeof asset.content,
-      contentLength: asset.content?.length,
+      contentLength: asset.content?.length
     });
 
-    if (asset.content) return asset;
+    // If content is already in the response, return it
+    if (asset.content) {
+      return asset;
+    }
 
-    const contentResponse = await fetch(
-      `${this.documentServiceUrl}/DocumentAssets(${assetId})/content`,
-      { credentials: 'include' }
-    );
+    // Otherwise try the /content endpoint
+    const contentResponse = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
     if (contentResponse.ok) {
       const blob = await contentResponse.blob();
       const base64 = await this.blobToBase64(blob);
@@ -205,111 +276,73 @@ class ApiService {
     throw new Error('Could not retrieve asset content');
   }
 
-  async getAsset(assetId: string): Promise<DocumentAsset> {
+  /**
+   * Get asset metadata
+   */
+  async getAsset(token: string, assetId: string): Promise<DocumentAsset> {
     const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
-      credentials: 'include',
-      headers: this.jsonHeaders,
+      headers: this.getAuthHeaders(token),
     });
-    if (!response.ok) throw new Error(`Failed to fetch asset: ${response.statusText}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch asset: ${response.statusText}`);
+    }
+
     return response.json();
   }
 
-  async getAssetContent(assetId: string): Promise<{ content: string; mediaType: string }> {
-    const metadata = await this.getAsset(assetId);
-    const response = await fetch(
-      `${this.documentServiceUrl}/DocumentAssets(${assetId})/content`,
-      { credentials: 'include' }
-    );
-    if (!response.ok) throw new Error(`Failed to fetch asset content: ${response.statusText}`);
+  /**
+   * Get asset content (binary data as base64)
+   * CAP/OData serves LargeBinary via /content endpoint
+   */
+  async getAssetContent(token: string, assetId: string): Promise<{ content: string; mediaType: string }> {
+    // First get metadata for mediaType
+    const metadata = await this.getAsset(token, assetId);
+
+    // Then fetch the binary content via content endpoint
+    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch asset content: ${response.statusText}`);
+    }
+
+    // Convert blob to base64
     const blob = await response.blob();
     const base64 = await this.blobToBase64(blob);
-    return { content: base64, mediaType: metadata.mediaType };
+
+    return {
+      content: base64,
+      mediaType: metadata.mediaType,
+    };
   }
 
-  async getAssetContentAsText(assetId: string): Promise<string> {
-    const response = await fetch(
-      `${this.documentServiceUrl}/DocumentAssets(${assetId})/content`,
-      { credentials: 'include' }
-    );
-    if (!response.ok) throw new Error(`Failed to fetch asset content: ${response.statusText}`);
+  /**
+   * Get asset content as text (for XML/text files like drawio)
+   */
+  async getAssetContentAsText(token: string, assetId: string): Promise<string> {
+    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch asset content: ${response.statusText}`);
+    }
+
     return response.text();
   }
-
-  async deleteAsset(assetId: string): Promise<void> {
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
-      method: 'DELETE',
-      credentials: 'include',
-    });
-    if (!response.ok) throw new Error(`Failed to delete asset: ${response.statusText}`);
-  }
-
-  // ==================== Tags ====================
-
-  async getTags(): Promise<Tag[]> {
-    const response = await fetch(`${this.documentServiceUrl}/Tags`, {
-      credentials: 'include',
-      headers: this.jsonHeaders,
-    });
-    if (!response.ok) throw new Error(`Failed to fetch tags: ${response.statusText}`);
-    const data = await response.json();
-    return data.value;
-  }
-
-  // ==================== Auth ====================
-
-  async searchGitHubUsers(query: string): Promise<GitHubSearchResponse> {
-    const response = await fetch(
-      `${this.baseUrl}/user/github/search-users?q=${encodeURIComponent(query)}`,
-      { credentials: 'include', headers: this.jsonHeaders }
-    );
-    if (!response.ok) throw new Error(`Failed to search users: ${response.statusText}`);
-    return response.json();
-  }
-
-  getGitHubLoginUrl(originUri: string): string {
-    return `${this.baseUrl}/user/login?origin_uri=${encodeURIComponent(originUri)}`;
-  }
-
-  // ==================== Publish ====================
-
-  async publish(document: any): Promise<{
-    message: string;
-    commitUrl: string;
-    branchName: string;
-    pullRequestUrl?: string;
-  }> {
-    const response = await fetch(`${this.baseUrl}/api/publish`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: this.jsonHeaders,
-      body: JSON.stringify({ document: JSON.stringify(document) }),
-    });
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: response.statusText }));
-      throw new Error(error.error || 'Failed to publish');
-    }
-    return response.json();
-  }
-
-  async syncFork(): Promise<{ message: string }> {
-    const response = await fetch(`${this.baseUrl}/api/sync-fork`, {
-      method: 'POST',
-      credentials: 'include',
-    });
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({ error: response.statusText }));
-      throw new Error(error.error || 'Failed to sync fork');
-    }
-    return response.json();
-  }
-
-  // ==================== Helpers ====================
 
   private blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
+        // Remove data URL prefix to get pure base64
         const base64 = result.split(',')[1];
         resolve(base64);
       };
@@ -318,11 +351,113 @@ class ApiService {
     });
   }
 
+  /**
+   * Delete an asset
+   */
+  async deleteAsset(token: string, assetId: string): Promise<void> {
+    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
+      method: 'DELETE',
+      headers: this.getAuthHeaders(token),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete asset: ${response.statusText}`);
+    }
+  }
+
+  // ==================== Tags ====================
+
+  /**
+   * Get all available tags
+   */
+  async getTags(token: string): Promise<Tag[]> {
+    const response = await fetch(`${this.documentServiceUrl}/Tags`, {
+      headers: this.getAuthHeaders(token),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch tags: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.value;
+  }
+
+  // ==================== Auth ====================
+
+  /**
+   * Search GitHub users
+   */
+  async searchGitHubUsers(token: string, query: string): Promise<GitHubSearchResponse> {
+    const response = await fetch(
+      `${this.baseUrl}/user/github/search-users?q=${encodeURIComponent(query)}`,
+      { headers: this.getAuthHeaders(token) }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to search users: ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Get login URL for GitHub OAuth
+   */
+  getGitHubLoginUrl(originUri: string): string {
+    return `${this.baseUrl}/user/login?origin_uri=${encodeURIComponent(originUri)}`;
+  }
+
+  // ==================== Publish ====================
+
+  /**
+   * Publish document to GitHub
+   */
+  async publish(token: string, document: any): Promise<{
+    message: string;
+    commitUrl: string;
+    branchName: string;
+    pullRequestUrl?: string;
+  }> {
+    const response = await fetch(`${this.baseUrl}/api/publish`, {
+      method: 'POST',
+      headers: this.getAuthHeaders(token),
+      body: JSON.stringify({ document: JSON.stringify(document) }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(error.error || 'Failed to publish');
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Sync user's fork with upstream
+   */
+  async syncFork(token: string): Promise<{ message: string }> {
+    const response = await fetch(`${this.baseUrl}/api/sync-fork`, {
+      method: 'POST',
+      headers: this.getAuthHeaders(token),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: response.statusText }));
+      throw new Error(error.error || 'Failed to sync fork');
+    }
+
+    return response.json();
+  }
+
+  // ==================== Helpers ====================
+
   private fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
+        // Remove data URL prefix (e.g., "data:image/png;base64,")
         const base64 = result.split(',')[1];
         resolve(base64);
       };
