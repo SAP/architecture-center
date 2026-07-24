@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '../../hooks/useEditor';
+import { useAuth } from '@site/src/context/AuthContext';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { getApiService } from '@site/src/services/api';
@@ -205,6 +206,7 @@ function AdmonitionDropDown() {
 
 export default function ToolbarPlugin() {
   const editor = useEditor();
+  const { token } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
   const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
@@ -313,10 +315,10 @@ export default function ToolbarPlugin() {
           const dataUrl = await readFileAsDataURL(file);
           let assetId: string | undefined;
 
-          if (backendUrl && activeDocument?.id) {
+          if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -343,10 +345,10 @@ export default function ToolbarPlugin() {
           const xml = await readFileAsText(file);
           let assetId: string | undefined;
 
-          if (backendUrl && activeDocument?.id) {
+          if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);
@@ -381,7 +383,7 @@ export default function ToolbarPlugin() {
 
     e.target.value = '';
     pendingFileType.current = null;
-  }, [editor, backendUrl, getActiveDocument]);
+  }, [editor, backendUrl, token, getActiveDocument]);
 
   return (
     <>
