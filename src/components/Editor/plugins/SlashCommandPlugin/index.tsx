@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useEditor } from '../../hooks/useEditor';
+import { useAuth } from '@site/src/context/AuthContext';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { getApiService } from '@site/src/services/api';
@@ -153,6 +154,7 @@ function CommandMenu({
 
 export default function SlashCommandPlugin() {
   const editor = useEditor();
+  const { token } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
   const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
@@ -238,10 +240,10 @@ export default function SlashCommandPlugin() {
           let assetId: string | undefined;
 
           // Upload to backend if configured
-          if (backendUrl && activeDocument?.id) {
+          if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -272,10 +274,10 @@ export default function SlashCommandPlugin() {
           let assetId: string | undefined;
 
           // Upload to backend if configured
-          if (backendUrl && activeDocument?.id) {
+          if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);
@@ -316,7 +318,7 @@ export default function SlashCommandPlugin() {
     // Reset input
     e.target.value = '';
     pendingFileType.current = null;
-  }, [editor, backendUrl, getActiveDocument]);
+  }, [editor, backendUrl, token, getActiveDocument]);
 
   const allCommands: CommandOption[] = useMemo(
     () => [
