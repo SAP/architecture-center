@@ -155,7 +155,7 @@ interface PublishStatus {
 const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
     usePageDataStore();
-  const { user } = useAuth();
+  const { token, user } = useAuth();
   const { colorMode } = useColorMode();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -178,9 +178,9 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const [showSyncDialog, setShowSyncDialog] = useState(false);
   const [userForkUrl, setUserForkUrl] = useState('');
   const loadAssetsForState = useCallback(async (core: EditorCore) => {
-    console.log('[Editor] loadAssetsForState called', { hasBackendUrl: !!expressBackendUrl });
-    if (!expressBackendUrl) {
-      console.log('[Editor] Skipping asset load - missing backend URL');
+    console.log('[Editor] loadAssetsForState called', { hasToken: !!token, hasBackendUrl: !!expressBackendUrl });
+    if (!token || !expressBackendUrl) {
+      console.log('[Editor] Skipping asset load - missing token or backend URL');
       return;
     }
 
@@ -200,7 +200,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
         if (imageNode.assetId && !imageNode.src) {
           assetPromises.push(
-            api.getAssetWithContent(imageNode.assetId)
+            api.getAssetWithContent(token, imageNode.assetId)
               .then((asset) => {
                 console.log('[Editor] Image asset fetched:', {
                   assetId: imageNode.assetId,
@@ -235,7 +235,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
-            api.getAssetWithContent(drawioNode.assetId)
+            api.getAssetWithContent(token, drawioNode.assetId)
               .then((asset) => {
                 console.log('[Editor] Drawio asset fetched:', {
                   assetId: drawioNode.assetId,
@@ -277,7 +277,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
 
     console.log('[Editor] Loading', assetPromises.length, 'assets');
     await Promise.all(assetPromises);
-  }, [expressBackendUrl]);
+  }, [token, expressBackendUrl]);
 
   useEffect(() => {
     const activeDoc = getActiveDocument();
@@ -453,18 +453,20 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     };
   }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
 
-  // Reload assets after initial mount once core is ready
+  // Reload assets when token becomes available (after initial mount)
+  // This handles the case where auth loads after the editor mounts
   useEffect(() => {
-    if (coreRef.current) {
+    if (token && coreRef.current) {
+      // Small delay to ensure core is fully initialized and DOM is ready
       const timeoutId = setTimeout(() => {
         if (coreRef.current) {
-          console.log('[Editor] Core ready, loading assets...');
+          console.log('[Editor] Token available, loading assets...');
           loadAssetsForState(coreRef.current);
         }
       }, 100);
       return () => clearTimeout(timeoutId);
     }
-  }, [loadAssetsForState]);
+  }, [token, loadAssetsForState]);
 
   const breadcrumbPath = useMemo(
     () => buildBreadcrumbPath(activeDocument?.id ?? null, documents),
@@ -502,11 +504,16 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     const payloadForPublish = { document: JSON.stringify(documentObject) };
 
     try {
+      if (!token) {
+        alert('Authentication error: You are not logged in. Please log in again.');
+        setIsLoading(false);
+        return;
+      }
+
       setPublishStatus((prev) => ({ ...prev, stage: 'forking' }));
       const response = await fetch(`${expressBackendUrl}/api/publish`, {
         method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify(payloadForPublish),
       });
       const result = await response.json();

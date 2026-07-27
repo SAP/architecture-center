@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useEditor } from '../../hooks/useEditor';
+import { useAuth } from '@site/src/context/AuthContext';
 import { usePageDataStore } from '@site/src/store/pageDataStore';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { getApiService } from '@site/src/services/api';
@@ -9,6 +10,7 @@ const DRAWIO_EDITOR_URL = 'https://embed.diagrams.net/?embed=1&proto=json&spin=1
 
 export default function DrawioEditorPlugin() {
   const { core } = useEditor();
+  const { token } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
   const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
@@ -17,8 +19,8 @@ export default function DrawioEditorPlugin() {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const uploadEditedDiagram = useCallback(async (nodeKey: string, xml: string) => {
-    if (!expressBackendUrl) {
-      console.warn('[DrawioEditor] Cannot upload - missing backend URL');
+    if (!token || !expressBackendUrl) {
+      console.warn('[DrawioEditor] Cannot upload - missing token or backend URL');
       return;
     }
 
@@ -39,7 +41,7 @@ export default function DrawioEditorPlugin() {
       const file = new File([blob], 'diagram.drawio', { type: 'application/xml' });
 
       // Upload the edited diagram as a new asset
-      const asset = await api.uploadAsset(activeDocument.id, file);
+      const asset = await api.uploadAsset(token, activeDocument.id, file);
 
       console.log('[DrawioEditor] Uploaded edited diagram, new assetId:', asset.ID);
 
@@ -56,7 +58,7 @@ export default function DrawioEditorPlugin() {
         payload: { key: nodeKey, diagramXML: xml }
       });
     }
-  }, [expressBackendUrl, getActiveDocument, core]);
+  }, [token, expressBackendUrl, getActiveDocument, core]);
 
   const handleMessage = useCallback((event: MessageEvent) => {
     if (!event.data || typeof event.data !== 'string') return;
