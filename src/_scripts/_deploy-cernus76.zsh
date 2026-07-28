@@ -22,7 +22,7 @@ npm run clear
 # Step 2: Export drawio files
 echo "\n🎨 Step 2: Exporting drawio files..."
 cd "$SCRIPT_DIR"
-node _export-drawios.js
+node _export-drawios/_export.js
 cd "$PROJECT_ROOT"
 
 # Step 3: Update baseUrl and build
