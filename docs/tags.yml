@@ -50,6 +50,12 @@ integration:
 security:
   label: "Security"
   description: "Protect your data and applications with comprehensive security solutions."
+
+sap-manged:
+  label: "sap-managed"
+  description: "Content that is managed by SAP."
+
+
 # --------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------------------------
