@@ -90,7 +90,7 @@ The architecture diagram depicts the recommended Joule setup for an n-staged Jou
 
 The solution architecture consists of the following key elements:
 
-- **Three staged environments** (Development, Test and Production): Each stage is represented as a horizontal row in the diagram. All stages are sharing the same instance of SAP Cloud Identity Services and the SAP Business AI Platform. The Test instances of SAP Cloud Identity Services and SAP Business AI Platform are connected to a separated Sandbox landscape. This separation ensures that changes can be developed and validated before affecting production workloads, while identities in non-productive systems can be managed like productive identities.
+- **Three staged environments** (Development, Test and Production): Each stage is represented as a horizontal row in the diagram. All stages share the same instance of SAP Cloud Identity Services and the SAP Business AI Platform. The Test instances of SAP Cloud Identity Services and SAP Business AI Platform are connected to a separate Sandbox landscape. This separation ensures that changes can be developed and validated before affecting production workloads, while identities in non-productive systems can be managed like productive identities.
 
 - **SAP Business AI Platform**: SAP Business AI Platform is an enterprise AI foundation that brings together AI, data, process context, and governance, so organizations can build, deploy, integrate, manage and scale AI capabilities into business processes and applications.
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
