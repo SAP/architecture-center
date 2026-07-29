@@ -38,13 +38,12 @@ draft: false
 unlisted: false
 contributors:
   - sapgunnar
-  - gunnar-kosche_sap
   - fabianleh
   - NormanNuernberger
 discussion: 
 last_update:
-  author: NormanNuernberger
-  date: 2025-07-08
+  author: fabianleh
+  date: 2025-07-29
 ---
 
 Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a two-staged landscape (SaaS) and one for an n-staged landscape.
