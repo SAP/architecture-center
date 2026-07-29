@@ -2,9 +2,9 @@
 id: 3ec73b
 slug: /ref-arch/3ec73b
 sidebar_position: 5
-title: SAP Joule Landscape Recommendation
+title: Joule Landscape Recommendation
 description: >-
-  Recommended landscape setup for a unified SAP Joule experience
+  Recommended landscape setup for a unified Joule experience
 keywords:
   - sap
   - identity authentication
@@ -47,11 +47,11 @@ last_update:
   date: 2025-07-08
 ---
 
-Setting up Joule WORK in an existing SAP landscape requires an integration into SAP Cloud Identity Services. SAP Joule and SAP Cloud Identity services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a two-staged landscape (SaaS) and one for an n-staged landscape.
+Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a two-staged landscape (SaaS) and one for an n-staged landscape.
 
 # Two-Staged Landscape Architecture
 
-The architecture diagram depicts the recommended SAP Joule setup for a two-staged Joule landscape, illustrating how the various components are organized across Test, and Production stages.
+The architecture diagram depicts the recommended Joule setup for a two-staged Joule landscape, illustrating how the various components are organized across Test, and Production stages.
 
 ![drawio](drawio/2_staged_BAIP_IAM_Architecture.drawio)
 
@@ -63,12 +63,12 @@ The solution architecture consists of the following key elements:
 
 - **SAP Business AI Platform**: SAP Business AI Platform is an enterprise AI foundation that brings together AI, data, process context, and governance, so organizations can build, deploy, integrate, manage and scale AI capabilities into business processes and applications.
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
-  - **SAP Joule WORK**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
-  - **SAP Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
+  - **Joule Work**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
+  - **Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
   - **SAP Agentic Layer**: Runtime and integrated management platform for AI agents.
   - **SAP Knowledge Graph**: Connecting data with context to enable AI to utilize business information efficiently.
 
-- **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solultions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
+- **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
 
 ## Characteristics
 
@@ -78,13 +78,13 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 
 ## Specialities
 
-- **Signavio**: Signavio does not provide test tenants. Signavio will only be integrated into the Production stage.
+- **Signavio**: SAP Signavio does not provide test tenants. SAP Signavio will only be integrated into the Production stage.
 
-- **Cloue Application Lifecycle Management (CALM)**: CALM does not provide test tenants. CALM will only be integrated into the Production stage.
+- **SAP Cloud ALM**: SAP Cloud ALM does not provide test tenants. SAP Cloud ALM will only be integrated into the Production stage.
 
 # N-staged Landscape Architecture
 
-The architecture diagram depicts the recommended SAP Joule setup for an n-staged Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
+The architecture diagram depicts the recommended Joule setup for an n-staged Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
 
 ![drawio](drawio/n_staged_BAIP_IAM_Architecture.drawio)
 
@@ -94,14 +94,14 @@ The solution architecture consists of the following key elements:
 
 - **SAP Business AI Platform**: SAP Business AI Platform is an enterprise AI foundation that brings together AI, data, process context, and governance, so organizations can build, deploy, integrate, manage and scale AI capabilities into business processes and applications.
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
-  - **SAP Joule WORK**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
-  - **SAP Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
+  - **Joule Work**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
+  - **Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
   - **SAP Agentic Layer**: Runtime and integrated management platform for AI agents.
   - **SAP Knowledge Graph**: Connecting data with context to enable AI to utilize business information efficiently.
 
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves a dedicated Sandbox stage only, while the Productive tenant serves all the other stages. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
 
-- **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solultions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
+- **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
 
 ## Characteristics
 
@@ -112,7 +112,7 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 ## Specialities
 
 - **SAP SuccessFactors**: SAP SuccessFactors is owning an own identifier for a person, the Person UID, required for Embedded Analytics. This UID has an independent lifecycle than the Global User UID, which is owned by the SAP Cloud Identity Services. Connecting multiple instances of SAP SuccessFactors with a single instance of SAP Cloud Identity Services may lead to conflicts when synchronizing the identities from SAP SuccessFactors to SAP Cloud Identity Services. There are different possibilities to avoid such conflicts:
-    - By using different user accounts in different instances of SAP Success Factors, while authentication via Global User UID can allow single sign on even with different mail addresses in the different instances of SAP Success Factors.
+    - By using different user accounts in different instances of SAP SuccessFactors, while authentication via Global User UID can allow single sign on even with different mail addresses in the different instances of SAP SuccessFactors.
     - By storing the different Person UIDs into different attributes inside SAP Cloud Identity Services, as described in [Note 2954815](https://me.sap.com/notes/2954815)
 
 ## Services and Components
@@ -142,6 +142,6 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 - [Activate Joule for SAP SuccessFactors](https://discovery-center.cloud.sap/missiondetail/4451/4737/)
 - [Activate Joule with SAP Ariba](https://discovery-center.cloud.sap/missiondetail/4697/4981/)
 - [Activate Joule with SAP Integrated Business Planning (IBP)](https://discovery-center.cloud.sap/missiondetail/4631/4920/)
-- [Get started with Business AI](https://discovery-center.cloud.sap/missiondetail/4338/4621/)
+- [Get started with SAP Business AI](https://discovery-center.cloud.sap/missiondetail/4338/4621/)
 - [Get Started with SAP BTP - Cloud Identity Service Provider (SAP IdP)](https://discovery-center.cloud.sap/missiondetail/4325/4605/)
 - [Set Up Joule Studio and start with Joule Skills and Agents in BTP Enterprise Account](https://discovery-center.cloud.sap/missiondetail/4651/4940/)
