@@ -65,7 +65,7 @@ The solution architecture consists of the following key elements:
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
   - **Joule Work**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
   - **Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
-  - **SAP Agentic Gateway**: Runtime and integrated management platform for AI agents.
+  - **SAP Agent Gateway**: Runtime and integrated management platform for AI agents.
   - **SAP Knowledge Graph**: Connecting data with context to enable AI to utilize business information efficiently.
 
 - **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
