@@ -53,7 +53,7 @@ security:
 
 sap-manged:
   label: "sap-managed"
-  description: "Content that is managed by SAP."
+  description: "SAP Business AI Platform that is managed by SAP."
 
 
 # --------------------------------------------------------------------------------------------------------------------------------
