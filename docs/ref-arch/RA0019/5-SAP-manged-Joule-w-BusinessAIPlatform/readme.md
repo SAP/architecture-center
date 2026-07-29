@@ -1,5 +1,5 @@
 ---
-id: 3ec73b
+id: 4c80fa
 slug: /ref-arch/3ec73b
 sidebar_position: 5
 title: Joule Landscape Recommendation
