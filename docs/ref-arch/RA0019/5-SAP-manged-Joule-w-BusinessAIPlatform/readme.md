@@ -29,7 +29,6 @@ tags:
   - joule
   - sap-managed
   - cloud_identity
-  - sci
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -48,7 +47,7 @@ last_update:
 
 Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a two-staged landscape (SaaS) and one for an n-staged landscape.
 
-# Two-Staged Landscape Architecture
+## Two-Staged Landscape Architecture
 
 The architecture diagram depicts the recommended Joule setup for a two-staged Joule landscape, illustrating how the various components are organized across Test, and Production stages.
 
@@ -69,19 +68,19 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 
 - **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
 
-## Characteristics
+### Characteristics
 
 - **Staged development lifecycle**: The two-staged model (Test and Production) provides a structured path for developing, validating, and deploying Joule skills, agents, and configurations. Changes are qualified in the Test stage before promotion to production, reducing the risk of disruptions to business operations.
 
 - **Centralized identity management**: SAP Cloud Identity Services tenants (Test and Productive) provide consistent authentication and authorization across all stages. Integration with Corporate Identity Providers ensures that enterprise security policies are enforced, while the test tenant enables safe validation of identity configurations before production deployment.
 
-## Specialities
+### Specialities
 
 - **Signavio**: SAP Signavio does not provide test tenants. SAP Signavio will only be integrated into the Production stage.
 
 - **SAP Cloud ALM**: SAP Cloud ALM does not provide test tenants. SAP Cloud ALM will only be integrated into the Production stage.
 
-# N-staged Landscape Architecture
+## N-staged Landscape Architecture
 
 The architecture diagram depicts the recommended Joule setup for an n-staged Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
 
@@ -102,19 +101,19 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 
 - **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
 
-## Characteristics
+### Characteristics
 
 - **Staged development lifecycle**: The n-staged model provides a structured path for developing, validating, and deploying Joule skills, agents, and configurations. Changes are developed in the Development stage and qualified in the Test stage before promotion to production, reducing the risk of disruptions to business operations, while developers and test users are treated like productive users to mitigate the risk of interruptions in the development lifecycles.
 
 - **Centralized identity management**: SAP Cloud Identity Services tenants (Test and Productive) provide consistent authentication and authorization across all stages. Integration with Corporate Identity Providers ensures that enterprise security policies are enforced, while the test tenant enables safe validation of identity configurations before production deployment.
 
-## Specialities
+### Specialities
 
 - **SAP SuccessFactors**: SAP SuccessFactors owns an own identifier for a person, the Person UID, required for Embedded Analytics. This UID has an independent lifecycle than the Global User UID, which is owned by the SAP Cloud Identity Services. Connecting multiple instances of SAP SuccessFactors with a single instance of SAP Cloud Identity Services may lead to conflicts when synchronizing the identities from SAP SuccessFactors to SAP Cloud Identity Services. There are different possibilities to avoid such conflicts:
     - By using different user accounts in different instances of SAP SuccessFactors, while authentication via Global User UID can allow single sign-on even with different mail addresses in the different instances of SAP SuccessFactors.
     - By storing the different Person UIDs into different attributes inside SAP Cloud Identity Services, as described in [Note 2954815](https://me.sap.com/notes/2954815)
 
-## Services and Components
+### Services and Components
 
 - [Joule](https://help.sap.com/docs/joule/integrating-joule-with-sap/introduction?version=CLOUD)
 - [Joule Preview](https://help.sap.com/docs/joule/integrating-joule-with-sap/joule-preview-landscape)
@@ -126,7 +125,7 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 - [SAP Connectivity service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 - [SAP Destination service](https://discovery-center.cloud.sap/serviceCatalog/destination?region=all)
 
-## Resources
+### Resources
 
 - [SAP BTP Administrator's Guide - Setting Up Your Account Model](https://help.sap.com/docs/btp/btp-admin-guide/setting-up-your-account-model?version=Cloud)
 - [SAP BTP Administrator's Guide - Onboard to SAP Cloud Identity Services](https://help.sap.com/docs/btp/btp-admin-guide/onboard-to-sap-cloud-identity-services?version=Cloud)
@@ -134,7 +133,7 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 - [SAP Cloud Identity Services - Connect to On-Premise Systems](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/connect-to-on-premise-systems-in-sap-cloud-identity-infrastructure?version=Cloud)
 - [System Integration Guide for SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity/system-integration-guide/system-integration-guide-for-sap-cloud-identity-services?version=Cloud)
 
-## Related Missions
+### Related Missions
 
 - [Establish a Unified Joule Instance](https://discovery-center.cloud.sap/missiondetail/4538/4826/)
 - [Activate Joule with SAP S/4HANA Cloud Public Edition](https://discovery-center.cloud.sap/missiondetail/4452/4738/)
