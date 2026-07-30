@@ -4399,8 +4399,38 @@ export class EditorCore {
     const parent = getNode(this.state, block.parent);
     if (!parent || !isElementNode(parent)) return;
 
-    // Don't delete if it's the last block
-    if (parent.children.length <= 1) return;
+    // If it's the last block, delete it and create a new empty paragraph
+    if (parent.children.length <= 1) {
+      // Save to history
+      this.history.push(this.state, this.selection);
+
+      // Create a new empty paragraph
+      const newText = createTextNode('', {});
+      const newParagraph = createParagraphNode([newText.key]);
+      newText.parent = newParagraph.key;
+      newParagraph.parent = block.parent;
+
+      // Remove the last block
+      this.state = removeNode(this.state, blockKey);
+
+      // Insert the new empty paragraph
+      this.state = insertNode(this.state, block.parent, newParagraph, 0);
+      this.state.nodeMap.set(newText.key, newText);
+
+      // Log operations for delta sync
+      if (this.opLogger) {
+        this.opLogger.logNodeDelete(blockKey);
+        const { parent: _parent, ...paragraphWithoutParent } = newParagraph;
+        this.opLogger.logNodeInsert(newParagraph.key, block.parent, 0, paragraphWithoutParent);
+        const { parent: _textParent, ...textWithoutParent } = newText;
+        this.opLogger.logNodeInsert(newText.key, newParagraph.key, 0, textWithoutParent);
+      }
+
+      // Set selection to the new paragraph
+      this.selection = createCollapsedSelection(newText.key, 0);
+      this.render();
+      return;
+    }
 
     // Save to history
     this.history.push(this.state, this.selection);
