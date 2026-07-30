@@ -1,6 +1,6 @@
 ---
 id: 4c80fa
-slug: /ref-arch/3ec73b
+slug: /ref-arch/4c80fa
 sidebar_position: 5
 title: Joule Landscape Recommendation
 description: >-
@@ -92,7 +92,7 @@ The solution architecture consists of the following key elements:
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
   - **Joule Work**: SAP’s digital assistant layer that brings conversational and generative AI into SAP applications and workflows.
   - **Joule Studio**: Low-code tooling to design, configure, and manage Joule-based experiences, including agents and skills.
-  - **SAP Agentic Layer**: Runtime and integrated management platform for AI agents.
+  - **SAP Agent Gateway**: Runtime and integrated management platform for AI agents.
   - **SAP Knowledge Graph**: Connecting data with context to enable AI to utilize business information efficiently.
 
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves a dedicated Sandbox stage only, while the Productive tenant serves all the other stages. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
