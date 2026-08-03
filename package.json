@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2631.1",
+    "version": "v3.2632.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -31,7 +31,6 @@
         "rimraf": "^4.0.0",
         "mermaid": "^11.9.0",
         "serialize-javascript": "^7.0.4",
-        "minimatch": "^3.1.4",
         "langium": "^4.2.2",
         "webpack": "~5.105.0",
         "webpackbar": "^7.0.0",
