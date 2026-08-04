@@ -34,7 +34,6 @@ last_update:
 
 :::note External Contribution
 
-**Work in progress**
 **This content is brought to you by [Pentos](https://www.pentos.com), an SAP partner.**
 
 :::
@@ -45,7 +44,7 @@ SAP SuccessFactors Employee Central is SAP's core cloud-based human capital mana
 
 SAP SuccessFactors Employee Central consists out of a large set of configuration and data tables. They are split over multiple levels and configuration objects. Most objects are effective dated, but there are a handful of tables that can only hold a single record per person or assignment/employment. This section will give an overview of how SAP SuccessFactors Employee Central is setup and where to configure which object. It does not go into how to add data into the objects, only where to create/update the objects themselves.
 
-**PLACEHOLDER drawio EC Data Model**
+![drawio](drawio/successFactors-employee-central-data-model.drawio)
 
 SAP SuccessFactors Employee Central can be split into three levels of data; organizational information, person related information and assignment/employment related information:
   - Organizational Information: Information describing the organization or structures within the organization
@@ -59,8 +58,21 @@ The date model in SAP SuccessFactors Employee Central is split over five configu
   - Country Specific Corporate Data Model  (aka Country Specific Foundation Objects): Legacy data model that is mostly replaced by the Meta Data Framework, only corporate addresses remain. Configuration can only be done in XML outside of SuccessFactors
   - Meta Data Framework (aka MDF or Generic Objects): Meta Data Framework is the latest configuration object to be added to Employee Central and contains most of the configuration. It 
 
+## Organization Structures
+
+Unlike in SAP HCM (for SAP S/4HANA) SAP SuccessFactors main organizational structure is not build based on organizational units. The positions are the heart of the structure and define the hierarchy. Relevant data is copied form the position to the job information card on employee level when an employee is linked to the position. This adds a lot of flexibility to how the three standard organizational objects (Business Unit, Division and Department) are used. They can be used as a single hierarchy or as separate structures depending on reporting, integration and permission needs. See also the relavant [Architecture Leading Practice | Organization Structures](https://dam.sap.com/mac/u/a/HUc6tfm.htm?rc=10).
+
 ## Pay Structures
+
+SAP SuccessFactors Employee Central has two distinct pay structures that can be setup and used. They are not mutually exclusive and can be used next to each other (although an employee can only be linked to one of the two models). See also the relavant [Architecture Leading Practice | Pay Structures](https://dam.sap.com/mac/u/a/ySB89oz.htm?rc=10).
+
+![drawio](drawio/successFactors-employee-central-pay-models.drawio)
+
+The Pay Grade Model is used for employees where a salary range applies; usually linked to a salary grading system like the Hay model. When the salary for an employee is defined in an annual salary review cycle (like the SAP SuccessFactors Compensation module) the employee needs to be on the Pay Grade Model.
+The Scale Model is used for employees where there is a contractual progression of the salary; usually linked to CLAs. Periodically (or as part of a promotion) the employees move to the next Pay Scale Level and receive the salary linked to that level.
 
 ## Resources
 
 - [SAP SuccessFactors Employee Central | SAP Help Portal | SAP Help Portal](https://help.sap.com/docs/successfactors-employee-central?locale=en-US&version=LATEST)
+- [Architecture Leading Principles | SAP SuccessFactors | SAP Community](https://pages.community.sap.com/topics/successfactors/architecture-leading-practices)
+- [Implementation Design Principles | SAP SuccessFactors | SAP Community](https://pages.community.sap.com/topics/successfactors/implementation-design-principles)
