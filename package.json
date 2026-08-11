@@ -109,7 +109,7 @@
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
         "npm-force-resolutions": "^0.0.10",
-        "postcss": "^8.5.22",
+        "postcss": "^8.5.26",
         "qrcode": "^1.5.4",
         "ts-jest": "^29.4.12",
         "typescript": "^5.9.3"

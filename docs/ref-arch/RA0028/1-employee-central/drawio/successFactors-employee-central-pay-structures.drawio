@@ -1,0 +1,157 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="KtGxKMEl-9C5P0G5xny8">
+    <mxGraphModel dx="2664" dy="1075" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JeLPujwKZInNLhaJrInc-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=32;absoluteArcSize=1;strokeWidth=1.5;container=0;" value="" vertex="1">
+          <mxGeometry height="370" width="1250" x="-810" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-2" parent="1" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" value="SuccessFactors Employee Central" vertex="1">
+          <mxGeometry height="19" width="37" x="-790" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;verticalAlign=top;align=left;fontSize=16;fontStyle=1;spacingLeft=10;spacingTop=10;" value="&lt;div&gt;Standard Pay Grade Model SAP SuccessFactors Employee Central&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="600" x="-790" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#ffffff;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;verticalAlign=top;align=left;fontSize=16;fontStyle=1;spacingLeft=10;spacingTop=10;" value="Standard Pay Scale Model SAP SuccessFactors Employee Central" vertex="1">
+          <mxGeometry height="310" width="600" x="-180" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-37" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Pay Model Object" vertex="1">
+          <mxGeometry height="20" width="180" x="-430" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-89" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Non-mandatory filter" vertex="1">
+          <mxGeometry height="20" width="180" x="-620" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-90" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Mandatory filter" vertex="1">
+          <mxGeometry height="20" width="180" x="-810" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-91" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Payment Amounts" vertex="1">
+          <mxGeometry height="20" width="180" x="-240" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-92" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Job Classification (Job Code)" vertex="1">
+          <mxGeometry height="20" width="180" x="-580" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-93" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Country" vertex="1">
+          <mxGeometry height="20" width="180" x="-780" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-95" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Pay Range" vertex="1">
+          <mxGeometry height="20" width="180" x="-580" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-96" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Geo Location" vertex="1">
+          <mxGeometry height="20" width="180" x="-780" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-97" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Location" vertex="1">
+          <mxGeometry height="20" width="180" x="-780" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-99" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-97" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="JeLPujwKZInNLhaJrInc-96" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-590" y="340" as="sourcePoint" />
+            <mxPoint x="-479.9100000000001" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-100" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-96" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-95" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-530" y="530" as="sourcePoint" />
+            <mxPoint x="-479.9100000000001" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-102" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Company (Legal Entity)" vertex="1">
+          <mxGeometry height="20" width="180" x="-380" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-104" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-102" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-95" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-450" y="500" as="sourcePoint" />
+            <mxPoint x="-430" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-105" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Pay Grade" vertex="1">
+          <mxGeometry height="20" width="180" x="-580" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-109" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Job Function" vertex="1">
+          <mxGeometry height="20" width="180" x="-580" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-110" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-109" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-92" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-370" y="390" as="sourcePoint" />
+            <mxPoint x="-390" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-111" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-92" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-105" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-400" y="370" as="sourcePoint" />
+            <mxPoint x="-420" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-112" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-105" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-95" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-350" y="440" as="sourcePoint" />
+            <mxPoint x="-370" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-113" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-93" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-92" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="-420" y="420" as="sourcePoint" />
+            <mxPoint x="-440" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-114" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Pay Scale Group" vertex="1">
+          <mxGeometry height="20" width="180" x="30" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-115" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Country" vertex="1">
+          <mxGeometry height="20" width="180" x="-170" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-116" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=1.5;arcSize=16;fillColor=#ffffff;perimeterSpacing=0;absoluteArcSize=1;" value="Pay Scale Level" vertex="1">
+          <mxGeometry height="20" width="180" x="30" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-123" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Pay Scale Type" vertex="1">
+          <mxGeometry height="20" width="180" x="-170" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-124" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;part=1;" value="Pay Scale Area" vertex="1">
+          <mxGeometry height="20" width="180" x="30" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-125" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-124" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-114" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="240" y="390" as="sourcePoint" />
+            <mxPoint x="220" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-126" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-123" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="JeLPujwKZInNLhaJrInc-114" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="210" y="370" as="sourcePoint" />
+            <mxPoint x="190" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-127" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-114" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-116" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="260" y="440" as="sourcePoint" />
+            <mxPoint x="240" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-128" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-115" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-124" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="190" y="420" as="sourcePoint" />
+            <mxPoint x="170" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JeLPujwKZInNLhaJrInc-129" edge="1" parent="1" source="JeLPujwKZInNLhaJrInc-115" style="endArrow=blockThin;html=1;strokeColor=#475e75;bendable=1;rounded=0;endFill=1;endSize=4;strokeWidth=1.5;startSize=4;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JeLPujwKZInNLhaJrInc-123" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="20" y="190" as="sourcePoint" />
+            <mxPoint x="40" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
