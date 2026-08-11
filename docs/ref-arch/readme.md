@@ -1,6 +1,6 @@
 ---
 id: 37afa8
-slug: /ref-arch/37afa8
+slug: /ref-arch
 sidebar_position: 1
 title: SAP Reference Architecture - Building Blocks for Business Success
 description: >-
