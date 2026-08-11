@@ -1,9 +1,11 @@
 ---
-id: dfae42-temp
-slug: /ref-arch/dfae42-temp
+id: 3cc5bc
+slug: /ref-arch/3cc5bc
 sidebar_position: 2
 title: SAP SuccessFactors Employee Central Payroll
-description: Overview of the main integrations between SAP SuccessFactors Employee Central and SAP SuccessFactors Employee Central Payroll
+description: >-
+  Overview of the main integrations between SAP SuccessFactors Employee Central
+  and SAP SuccessFactors Employee Central Payroll
 keywords:
   - ref-arch
   - successfactors
