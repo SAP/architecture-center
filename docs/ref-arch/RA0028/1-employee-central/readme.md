@@ -1,9 +1,11 @@
 ---
-id: dfae41-temp
-slug: /ref-arch/dfae41-temp
+id: a62ea4
+slug: /ref-arch/a62ea4
 sidebar_position: 1
 title: SAP SuccessFactors Employee Central
-description: Overview of the main data structures within SAP SuccessFactors Employee Central
+description: >-
+  Overview of the main data structures within SAP SuccessFactors Employee
+  Central
 keywords:
   - ref-arch
   - successfactors
