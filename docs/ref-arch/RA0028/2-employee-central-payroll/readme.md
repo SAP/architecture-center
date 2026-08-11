@@ -1,7 +1,7 @@
 ---
-id: 
-slug: 
-sidebar_position: 
+id: dfae42-temp
+slug: /ref-arch/dfae42-temp
+sidebar_position: 2
 title: SAP SuccessFactors Employee Central Payroll
 description: Overview of the main integrations between SAP SuccessFactors Employee Central and SAP SuccessFactors Employee Central Payroll
 keywords:
@@ -12,7 +12,7 @@ keywords:
   - HR
   - employee experience
   - employee central
-sidebar_label: SAP SuccessFactors Employee Central
+sidebar_label: SAP SuccessFactors Employee Central Payroll
 image: img/logo.svg
 tags:
   - ref-arch
@@ -29,7 +29,7 @@ contributors:
 discussion: 
 last_update:
   author: arjenvanhooydonk
-  date: 
+  date: 2026-08-10
 ---
 
 :::note External Contribution

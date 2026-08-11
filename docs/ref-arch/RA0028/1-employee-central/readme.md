@@ -1,7 +1,7 @@
 ---
-id: 
-slug: 
-sidebar_position: 
+id: dfae41-temp
+slug: /ref-arch/dfae41-temp
+sidebar_position: 1
 title: SAP SuccessFactors Employee Central
 description: Overview of the main data structures within SAP SuccessFactors Employee Central
 keywords:
@@ -29,7 +29,7 @@ contributors:
 discussion: 
 last_update:
   author: arjenvanhooydonk
-  date: 
+  date: 2026-08-10
 ---
 
 :::note External Contribution
@@ -66,7 +66,7 @@ Unlike in SAP HCM (for SAP S/4HANA) SAP SuccessFactors main organizational struc
 
 SAP SuccessFactors Employee Central has two distinct pay structures that can be setup and used. They are not mutually exclusive and can be used next to each other (although an employee can only be linked to one of the two models). See also the relavant [Architecture Leading Practice | Pay Structures](https://dam.sap.com/mac/u/a/ySB89oz.htm?rc=10).
 
-![drawio](drawio/successFactors-employee-central-pay-models.drawio)
+![drawio](drawio/successFactors-employee-central-pay-structures.drawio)
 
 The Pay Grade Model is used for employees where a salary range applies; usually linked to a salary grading system like the Hay model. When the salary for an employee is defined in an annual salary review cycle (like the SAP SuccessFactors Compensation module) the employee needs to be on the Pay Grade Model.
 The Scale Model is used for employees where there is a contractual progression of the salary; usually linked to CLAs. Periodically (or as part of a promotion) the employees move to the next Pay Scale Level and receive the salary linked to that level.
