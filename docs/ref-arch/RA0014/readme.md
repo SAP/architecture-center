@@ -123,7 +123,7 @@ Network performance challenges may stem from hybrid environments that combine cl
 
 To understand the impact of different connection options, several test options have been developed:
 
-To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/4HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API calls are used.
+To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/4HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and API calls are used.
 
 The baseline (no BTP involved):
 
