@@ -148,4 +148,3 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 - [Get started with SAP Business AI](https://discovery-center.cloud.sap/missiondetail/4338/4621/)
 - [Get Started with SAP BTP - Cloud Identity Service Provider (SAP IdP)](https://discovery-center.cloud.sap/missiondetail/4325/4605/)
 - [Set Up Joule Studio and start with Joule Skills and Agents in BTP Enterprise Account](https://discovery-center.cloud.sap/missiondetail/4651/4940/)
-xxxsss
