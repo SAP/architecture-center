@@ -27,6 +27,8 @@ image: img/ac-soc-med.png
 tags:
   - security
   - sap-managed
+  - genai
+  - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -40,20 +42,20 @@ contributors:
 discussion: 
 last_update:
   author: fabianleh
-  date: 2026-07-29
+  date: 2026-08-06
 ---
 
-Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a two-staged landscape (SaaS) and one for an n-staged landscape.
+Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a staged landscape (SaaS) and one for a consolidated landscape.
 
-## Two-Staged Landscape Architecture
+## Staged Landscape Architecture
 
-The architecture diagram depicts the recommended Joule setup for a two-staged Joule landscape, illustrating how the various components are organized across Test, and Production stages.
+The architecture diagram depicts the recommended Joule setup for a staged Joule landscape, illustrating how the various components are organized across all stages, while isolating the stages.
 
-![drawio](drawio/2_staged_BAIP_IAM_Architecture.drawio)
+![drawio](drawio/staged_BAIP_IAM_Architecture.drawio)
 
 The solution architecture consists of the following key elements:
 
-- **Two staged environments** (Test and Production): Each stage is represented as a horizontal row in the diagram, containing its own instance of SAP Cloud Identity Services, the SAP Business AI Platform and the connected SAP systems of the same stage. This separation ensures that changes can be developed and validated before affecting production workloads.
+- **Staged environments**: Each stage is represented as a horizontal row in the diagram, containing its own instance of SAP Cloud Identity Services, the SAP Business AI Platform and the connected SAP systems of the same stage. This separation ensures that changes can be developed and validated before affecting production workloads. Further stages could be added to the environment, hosting the same componenents, one instance of each, SAP Cloud Identity Services and SAP Business AI Platform.
 
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves the Test stage, while the Productive tenant serves the Production stage. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
 
@@ -78,11 +80,16 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 
 - **SAP Cloud ALM**: SAP Cloud ALM does not provide test tenants. SAP Cloud ALM will only be integrated into the Production stage.
 
-## N-staged Landscape Architecture
+## Consolidated Landscape Architecture
 
-The architecture diagram depicts the recommended Joule setup for an n-staged Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
+:::info Disclaimer
+The architecture approach shown in this section is not yet generally available (GA). However, the shown architecture will be the desired future architecture for the setup of the SAP Business AI Platform in the context of identity and access management.
+:::
 
-![drawio](drawio/n_staged_BAIP_IAM_Architecture.drawio)
+The architecture diagram depicts the recommended Joule setup for a consolidated Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
+This architecture allows the isolation of dedicated lanscape stages, such as sancbox or production stage, while combining other stages.
+
+![drawio](drawio/consolidated_BAIP_IAM_Architecture.drawio)
 
 The solution architecture consists of the following key elements:
 
