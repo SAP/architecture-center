@@ -45,7 +45,7 @@ The SAP SuccessFactors Suite is a cloud‑based Human Experience Management (HXM
 
 ![drawio](drawio/successfactors.module.integration.drawio)
 
-At the heart of SAP SuccessFactors sits the Employee Profile together with the Login Information. These are part of the Foundation layer of SuccessFactors which is available for all SuccessFactors customers, no matter which modules are licensed. Next to that the Foundation layer contains Position Mangement, the Job Profile Builder, the Talent Intelligence Hub and Table Reports.
+At the heart of SAP SuccessFactors sits the Employee Profile together with the Login Information. These are part of the Foundation layer of SuccessFactors which is available for all SuccessFactors customers, no matter which modules are licensed. Next to that the Foundation layer contains Position Management, the Job Profile Builder, the Talent Intelligence Hub and Table Reports.
 
 SAP SuccessFactors leverages some SAP core components like IAS and IPS for login and SAP Joule as an integrated agent.
 
