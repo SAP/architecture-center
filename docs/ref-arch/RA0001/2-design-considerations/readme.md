@@ -119,7 +119,7 @@ The key differences are as below
 Apart from the above mentioned SAP Integration Suite, advanced event mesh allows to create network of event brokers, provides advanced event monitoring and analysis, allows dynamic event routing, has capabilities for filtering, event replay and event management.
 
 **SAP Cloud Application Event Hub** is an SAP BTP Service that enables EDA implementations within SAP-centric landscapes. It provides a scalable, reliable eventing platform optimized for SAP applications and services.This is a serverless eventing service that allows seamless integration and event-driven communication between SAP applications, such as SAP S/4HANA, SAP SuccessFactors, and SAP Business Technology Platform (BTP) services. This is managed by SAP and are enabled out of the box for customers. This primarily supports two major scenarios -
-- Pre-built event integrations between SAP Cloud Applications. Customers can activate and adapt the event subscription contnt as part of thier E2E business processes.
+- Pre-built event integrations between SAP Cloud Applications. Customers can activate and adapt the event subscription content as part of their E2E business processes.
 - Customer and partner(extension) applications built on SAP BTP that need to consume or publish events to SAP systems.
 
   ***Typical Use Cases:***

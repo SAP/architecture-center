@@ -246,7 +246,7 @@ Services that report back their own performance data are:
 
 ![Drill Down View on the Dashboard](images/dashboard-drill.jpg)
 
-The dashboard is using different statistical funtions to group the data. E.g. `median` has been included as an additional value because `average` can be heavily biased by outliers in the results set.
+The dashboard is using different statistical functions to group the data. E.g. `median` has been included as an additional value because `average` can be heavily biased by outliers in the results set.
 
 The following groupings can be interesting for the main attribute `Response Time`:
 
