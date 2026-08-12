@@ -34,7 +34,7 @@ For information about cookies used by GitHub, please refer to GitHub’s cookie 
 
 ## Cookie Statement
 
-This Cookie Statement was update on **04-Nov-2025**.
+This Cookie Statement was updated on **04-Nov-2025**.
 
 This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](community/99-cookie-and-privacy/02-privacy.md)**.
 
