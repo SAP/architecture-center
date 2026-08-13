@@ -53,7 +53,8 @@ jobs:
 
           while IFS= read -r file; do
             [ -f "$file" ] || continue
-            if grep -qF 'image=http' "$file"; then
+            MATCHES=$(grep -F 'image=http' "$file" || true)
+            if [ -n "$MATCHES" ]; then
               echo "❌ ${file} contains external image references (image=http)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
               FOUND=1
