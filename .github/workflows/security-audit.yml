@@ -243,7 +243,7 @@ jobs:
                grep -qE '\$\{\{[^}]*(github\.(head_ref|actor)\b|github\.event\.(issue|pull_request|comment|review|discussion|label|sender|workflow_run)\.)'; then
               echo "🚨 CRITICAL: $workflow may be vulnerable to script injection via untrusted event data!"
               echo "   Dangerous context var used directly in run: block content (head_ref, actor, event.pull_request.*, event.workflow_run.head_branch, etc.)"
-              echo "   Use an intermediate env var instead: env: VAR: \${{ github.event.* }}"
+              echo "   Use an intermediate env var instead: add 'env: { MY_VAR: <expr> }' before the run step and use \$MY_VAR in the script."
               FOUND_ISSUES=1
             fi
 
