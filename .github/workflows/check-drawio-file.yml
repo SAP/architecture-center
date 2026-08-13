@@ -10,7 +10,7 @@ permissions: {}
 
 jobs:
   check-drawio-size:
-    name: Check drawio File Sizes
+    name: Check drawio Files
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
