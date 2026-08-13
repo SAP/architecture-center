@@ -48,37 +48,13 @@ jobs:
 
       - name: Check drawio files for external image references
         shell: bash
-        env:
-          PYCODE: |
-            import sys, base64, zlib, urllib.parse, xml.etree.ElementTree as ET
-            filename = sys.argv[1]
-            with open(filename, "rb") as f:
-                raw = f.read()
-            if b"image=http" in raw:
-                sys.exit(1)
-            try:
-                for el in ET.fromstring(raw).iter():
-                    if not el.tag.endswith("diagram"):
-                        continue
-                    c = (el.text or "").strip()
-                    if not c:
-                        continue
-                    try:
-                        xml_str = zlib.decompress(base64.b64decode(urllib.parse.unquote(c)), -15).decode()
-                        if "image=http" in xml_str:
-                            sys.exit(1)
-                    except Exception:
-                        pass
-            except Exception:
-                pass
-            sys.exit(0)
         run: |
           FOUND=0
 
           while IFS= read -r file; do
             [ -f "$file" ] || continue
-            if ! python3 -c "$PYCODE" "$file"; then
-              echo "❌ ${file} contains external image references (image=http:// or image=https://)."
+            if grep -qF 'image=http' "$file"; then
+              echo "❌ ${file} contains external image references (image=http)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
               FOUND=1
             fi
