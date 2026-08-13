@@ -30,13 +30,15 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - fabianleh
-  - SelinaHochstrat
-  - f-buech
-discussion: 
+    - fabianleh
+    - SelinaHochstrat
+    - f-buech
 last_update:
-  author: fabianleh
-  date: 2026-05-15
+    date: 2026-05-12
+    author: fabianleh
+############################################################
+#                   End of Front Matter                    #
+############################################################
 ---
 
 Joule Studio enables the development of trusted, production-grade agentic solutions for the enterprise. Its design is organized around three principles.
@@ -118,3 +120,4 @@ All baseline operational services — logging, audit logging, and telemetry — 
 
 - [SAP Cloud Identity Services - Tenant Model](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/tenant-model-and-licensing?version=Cloud)
 - [System Integration Guide for SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity/system-integration-guide/system-integration-guide-for-sap-cloud-identity-services?version=Cloud)
+
