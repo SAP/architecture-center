@@ -47,6 +47,7 @@ jobs:
           echo "✅ All drawio files are within the 1024 KB size limit."
 
       - name: Check drawio files for external image references
+        if: always()
         shell: bash
         run: |
           FOUND=0
