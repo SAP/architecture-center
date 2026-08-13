@@ -5,20 +5,22 @@ on:
         - cron: '0 0 * * *'
     workflow_dispatch:
 
-permissions:
-    contents: read
-    pull-requests: write
-    issues: write
+permissions: {}
 
 jobs:
     link-checker:
         runs-on: ubuntu-latest
+        timeout-minutes: 30
+        permissions:
+            contents: read
+            pull-requests: write
+            issues: write
         steps:
             - name: Checkout source code
-              uses: actions/checkout@v4
+              uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
             - name: Link Checker
               id: lychee
-              uses: lycheeverse/lychee-action@v2.3.0
+              uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
               with:
                   args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress 'docs/**/*.md' 'blog/**/*.md'
                   output: ./lychee/out.md
@@ -27,7 +29,7 @@ jobs:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
             - name: Find existing issue
               id: find_issue
-              uses: micalevisk/last-issue-action@v2
+              uses: micalevisk/last-issue-action@0d40124cc99ac8601c2516007f0c98ef3d27537b # v2
               if: failure()
               with:
                   state: open
@@ -36,7 +38,7 @@ jobs:
                       automated issue
             - name: Create or update issue for broken links
               id: create_issue
-              uses: peter-evans/create-issue-from-file@v5
+              uses: peter-evans/create-issue-from-file@e8ef132d6df98ed982188e460ebb3b5d4ef3a9cd # v5
               if: failure()
               with:
                   title: Link Checker Report

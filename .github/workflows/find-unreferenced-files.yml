@@ -1,7 +1,6 @@
 name: Find Unreferenced Files
 
-permissions:
-    contents: read
+permissions: {}
 
 on:
     schedule:
@@ -11,10 +10,13 @@ on:
 jobs:
     check-unused-files:
         runs-on: ubuntu-latest
+        timeout-minutes: 15
+        permissions:
+            contents: read
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
             - name: Find unreferenced files and write to summary
               run: |
