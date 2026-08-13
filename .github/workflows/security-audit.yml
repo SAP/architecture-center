@@ -107,7 +107,7 @@ jobs:
 
           FOUND=0
           for pattern in "${SUSPICIOUS_PATTERNS[@]}"; do
-            MATCH=$(jq -r '.scripts | to_entries[] | "\(.key): \(.value)"' package.json | grep -iE "$pattern" | head -3)
+            MATCH=$(jq -r '.scripts | to_entries[] | "\(.key): \(.value)"' package.json | grep -iE "$pattern" | head -3 || true)
             if [ -n "$MATCH" ]; then
               echo "🚨 CRITICAL: Pattern '$pattern' matched:"
               echo "   $MATCH"
