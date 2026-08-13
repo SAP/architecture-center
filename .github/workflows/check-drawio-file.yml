@@ -50,25 +50,27 @@ jobs:
         shell: bash
         env:
           PYCODE: |
-            import sys, xml.etree.ElementTree as ET, base64, zlib, urllib.parse
+            import sys, base64, zlib, urllib.parse, xml.etree.ElementTree as ET
             filename = sys.argv[1]
+            with open(filename, "rb") as f:
+                raw = f.read()
+            if b"image=http" in raw:
+                sys.exit(1)
             try:
-                tree = ET.parse(filename)
-                for el in tree.iter():
-                    if not (el.tag.endswith("diagram") and el.text):
+                for el in ET.fromstring(raw).iter():
+                    if not el.tag.endswith("diagram"):
                         continue
-                    c = el.text.strip()
+                    c = (el.text or "").strip()
+                    if not c:
+                        continue
                     try:
-                        raw = base64.b64decode(urllib.parse.unquote(c))
-                        xml_str = zlib.decompress(raw, -15).decode("utf-8")
+                        xml_str = zlib.decompress(base64.b64decode(urllib.parse.unquote(c)), -15).decode()
+                        if "image=http" in xml_str:
+                            sys.exit(1)
                     except Exception:
-                        xml_str = c
-                    if "image=http" in xml_str:
-                        sys.exit(1)
+                        pass
             except Exception:
-                with open(filename, "rb") as f:
-                    if b"image=http" in f.read():
-                        sys.exit(1)
+                pass
             sys.exit(0)
         run: |
           FOUND=0
@@ -76,7 +78,7 @@ jobs:
           while IFS= read -r file; do
             [ -f "$file" ] || continue
             if ! python3 -c "$PYCODE" "$file"; then
-              echo "❌ ${file} contains external image references (image=http)."
+              echo "❌ ${file} contains external image references (image=http:// or image=https://)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
               FOUND=1
             fi
