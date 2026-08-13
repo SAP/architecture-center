@@ -40,8 +40,8 @@ jobs:
       - name: Get pages deployment URL
         run: |
           pages_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
-          url=$(echo $pages_url|cut -d'/' -f 1)//$(echo $pages_url|cut -d'/' -f 3)
-          base_url=$(echo $pages_url|cut -d'/' -f 4)
+          url=$(echo "$pages_url"|cut -d'/' -f 1)//$(echo "$pages_url"|cut -d'/' -f 3)
+          base_url=$(echo "$pages_url"|cut -d'/' -f 4)
           echo "url=$url" >> "$GITHUB_ENV"
           echo "base_url=$base_url" >> "$GITHUB_ENV"
         env:

@@ -183,11 +183,13 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           GH_REF: ${{ github.ref }}
         run: |
-          echo "### npm Script Audit" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Result:** $JOB_STATUS  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Ref:** \`$GH_REF\`  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### npm Script Audit"
+            echo "**Result:** $JOB_STATUS  "
+            echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')  "
+            echo "**Ref:** \`$GH_REF\`  "
+            echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   audit-workflows:
     name: Audit GitHub Workflows
@@ -315,11 +317,13 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           GH_REF: ${{ github.ref }}
         run: |
-          echo "### Workflow Audit" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Result:** $JOB_STATUS  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Ref:** \`$GH_REF\`  " >> "$GITHUB_STEP_SUMMARY"
-          echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### Workflow Audit"
+            echo "**Result:** $JOB_STATUS  "
+            echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')  "
+            echo "**Ref:** \`$GH_REF\`  "
+            echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   dependency-review:
     name: Dependency Review

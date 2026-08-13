@@ -20,8 +20,8 @@ jobs:
 
             - name: Find unreferenced files and write to summary
               run: |
-                  echo "## 🔍 Unreferenced Files Report" >> $GITHUB_STEP_SUMMARY
-                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "## 🔍 Unreferenced Files Report" >> "$GITHUB_STEP_SUMMARY"
+                  echo "" >> "$GITHUB_STEP_SUMMARY"
 
                   FILE_DIRS=("assets" "diagrams" "docs")  # update as needed
                   FILE_EXTENSIONS=("*.png" "*.jpg" "*.jpeg" "*.svg" "*.drawio" "*.docx")  # update as needed
@@ -44,7 +44,7 @@ jobs:
                           done
 
                           if [ "$referenced" = false ]; then
-                            echo "- $file" >> $GITHUB_STEP_SUMMARY
+                            echo "- $file" >> "$GITHUB_STEP_SUMMARY"
                             FOUND_UNUSED=1
                           fi
                         done < <(find "$dir" -type f -name "$ext")
@@ -53,5 +53,5 @@ jobs:
                   done
 
                   if [ "$FOUND_UNUSED" -eq 0 ]; then
-                    echo "🎉 No unreferenced files found!" >> $GITHUB_STEP_SUMMARY
+                    echo "🎉 No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
                   fi
