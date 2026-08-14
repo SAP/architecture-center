@@ -23,7 +23,7 @@ jobs:
       VALIDATOR_OAUTH_CLIENT_ID: ${{ secrets.VALIDATOR_OAUTH_CLIENT_ID }}
       VALIDATOR_OAUTH_CLIENT_SECRET: ${{ secrets.VALIDATOR_OAUTH_CLIENT_SECRET }}
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           # fetch complete history for step "export drawios" to safely determine
           # date of last update to drawio files via git log
@@ -58,7 +58,7 @@ jobs:
         run: node src/_scripts/_fetch-contributors-details.js
 
       - name: Cache drawio svgs
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/architecture-center/drawio-svgs
           key: drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-${{ github.run_id }}
