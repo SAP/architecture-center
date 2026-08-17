@@ -1,6 +1,6 @@
 ---
-id: id-ra0029-11
-slug: /ref-arch/ca1d2a3e/11
+id: 2ecb7e
+slug: /ref-arch/2ecb7e
 sidebar_position: 11
 title: 'HANA AI Toolkit - Local MCP Server'
 description: 'Local MCP Server for Generative AI Toolkit for SAP HANA Cloud'
