@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Claude">
+<mxfile host="app.diagrams.net" agent="Claude">
   <diagram id="das-architecture" name="SAP Data Accelerator – Architecture">
-    <mxGraphModel dx="1804" dy="1193" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="1220" dy="734" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -90,6 +90,15 @@
         </mxCell>
         <mxCell id="ST39rs5AN_b4JKTvpGfr-1" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Logging&lt;/b&gt;" vertex="1">
           <mxGeometry height="55" width="200" x="533" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="UasPSVqBwQnmpx3200Ei-1" parent="1" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" value="" vertex="1">
+          <mxGeometry height="21" width="40.89" x="251" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="UasPSVqBwQnmpx3200Ei-2" parent="1" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;" value="" vertex="1">
+          <mxGeometry height="21" width="40.89" x="525" y="266" as="geometry" />
+        </mxCell>
+        <mxCell id="UasPSVqBwQnmpx3200Ei-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;b&gt;Partner Platforms&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="902" y="266" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
