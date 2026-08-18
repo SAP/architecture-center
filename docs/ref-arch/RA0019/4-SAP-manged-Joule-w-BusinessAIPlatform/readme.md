@@ -87,7 +87,7 @@ The architecture approach shown in this section is not yet generally available (
 :::
 
 The architecture diagram depicts the recommended Joule setup for a consolidated Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
-This architecture allows the isolation of dedicated lanscape stages, such as sancbox or production stage, while combining other stages.
+This architecture allows the isolation of dedicated lanscape stages, such as sandbox or production stage, while combining other stages.
 
 ![drawio](drawio/consolidated_BAIP_IAM_Architecture.drawio)
 
