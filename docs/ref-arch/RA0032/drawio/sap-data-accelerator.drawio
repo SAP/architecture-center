@@ -1,0 +1,97 @@
+<mxfile host="Electron" agent="Claude">
+  <diagram id="das-architecture" name="SAP Data Accelerator – Architecture">
+    <mxGraphModel dx="1804" dy="1193" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4r6BSwCPQjkIFiyrmvwx-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EBF8FF;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="300" width="207" x="244" y="259" as="geometry" />
+        </mxCell>
+        <mxCell id="s4hana" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;ECC / S/4HANA / SAP SLT Replication Server / SAP BW&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size: 10px; color: rgb(89, 89, 89);&quot;&gt;Backend System&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="266" y="319.5" as="geometry" />
+        </mxCell>
+        <mxCell id="cloud-connector" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;SAP Cloud Connector&lt;/b&gt;&lt;br/&gt;&lt;span style=&#39;font-size:10px;color:#595959&#39;&gt;Outbound-only tunnel&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="266" y="471.5" as="geometry" />
+        </mxCell>
+        <mxCell id="das-box" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#EBF8FF;fontColor=default;fontFamily=Helvetica;fontSize=12;verticalAlign=top;align=center;collapsible=0;container=0;recursiveResize=0;absoluteArcSize=1;spacingTop=8;fontStyle=1" value="SAP Data Accelerator" vertex="1">
+          <mxGeometry height="300" width="238" x="515" y="259" as="geometry" />
+        </mxCell>
+        <mxCell id="das-auth" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Security (Governance)&amp;nbsp;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="55" width="200" x="533" y="319" as="geometry" />
+        </mxCell>
+        <mxCell id="H3Dn2wkZgiea0IL9SD7T-1" edge="1" parent="1" source="das-box" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.004;entryY=0.636;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#475E75;endArrow=block;endFill=1;exitX=1;exitY=0.634;exitDx=0;exitDy=0;exitPerimeter=0;" target="partners-container">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="766.5" y="449.13" as="sourcePoint" />
+            <mxPoint x="844.7530000000002" y="449.13" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="das-api" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;End to End Encryption&lt;/b&gt;" vertex="1">
+          <mxGeometry height="55" width="200" x="533" y="393" as="geometry" />
+        </mxCell>
+        <mxCell id="partners-container" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#EBF8FF;fontFamily=Helvetica;fontSize=12;fontColor=default;verticalAlign=middle;align=center;collapsible=0;container=0;recursiveResize=0;absoluteArcSize=1;" value="Partner Systems" vertex="1">
+          <mxGeometry height="300" width="201" x="829" y="259" as="geometry" />
+        </mxCell>
+        <mxCell id="partner-a" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Partner A&lt;/b&gt;&lt;br/&gt;&lt;span style=&#39;font-size:10px;color:#595959&#39;&gt;Analytics Platform&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="849" y="311" as="geometry" />
+        </mxCell>
+        <mxCell id="partner-b" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Partner B&lt;/b&gt;&lt;br/&gt;&lt;span style=&#39;font-size:10px;color:#595959&#39;&gt;AI / ML Platform&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="849" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="partner-c" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Partner C&lt;/b&gt;&lt;br/&gt;&lt;span style=&#39;font-size:10px;color:#595959&#39;&gt;Data Lake / ERP Mirror&lt;/span&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="849" y="467.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e-ecc-cc" edge="1" parent="1" source="s4hana" style="endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#475E74;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="cloud-connector" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cc-btp" edge="1" parent="1" style="endArrow=block;endFill=1;startArrow=none;strokeColor=#475E74;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="das-box" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="498" y="484" />
+            </Array>
+            <mxPoint x="426" y="484" as="sourcePoint" />
+            <mxPoint x="498" y="483" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-1" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.994;entryY=0.609;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;endArrow=block;endFill=1;strokeColor=#475E75;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="473.5" y="508.5" />
+            </Array>
+            <mxPoint x="514" y="508.5" as="sourcePoint" />
+            <mxPoint x="425.03999999999996" y="507.995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-3" edge="1" parent="1" source="partners-container" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.999;entryY=0.71;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#475E75;endArrow=block;endFill=1;exitX=0.001;exitY=0.711;exitDx=0;exitDy=0;exitPerimeter=0;" target="das-box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="806" y="472" />
+            </Array>
+            <mxPoint x="847" y="472.5" as="sourcePoint" />
+            <mxPoint x="765" y="472" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Writeback&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="764" y="466" as="geometry" />
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Writeback&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="453" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Data Flow&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="446" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="auZLGECleHZtdrgMGRi2-7" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Data Flow&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="762" y="424" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS5wP9nfe7-jgw8Kuf-1" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;font color=&quot;#000000&quot;&gt;&lt;span style=&quot;caret-color: rgb(0, 0, 0);&quot;&gt;&lt;b&gt;SAP ABAP Add-On&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="160" x="266" y="393.5" as="geometry" />
+        </mxCell>
+        <mxCell id="JmrS5wP9nfe7-jgw8Kuf-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;SAP Landscape&amp;nbsp;&lt;/b&gt;&lt;div&gt;(On-Premise )&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="151" x="275" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="ST39rs5AN_b4JKTvpGfr-1" parent="1" style="rounded=1;arcSize=24;strokeColor=#0070F2;fillColor=#ffffff;fontColor=default;fontFamily=Helvetica;fontSize=12;strokeWidth=1.5;collapsible=0;container=0;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;absoluteArcSize=1;" value="&lt;b&gt;Logging&lt;/b&gt;" vertex="1">
+          <mxGeometry height="55" width="200" x="533" y="475" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
