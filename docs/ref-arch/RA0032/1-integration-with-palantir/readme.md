@@ -1,16 +1,18 @@
 ---
-id: 968090
+id: '968090'
 slug: /ref-arch/968090
 sidebar_position: 1
 title: Integration with Palantir
-description: Explore how SAP Data Accelerator provides SAP customers using Palantir Foundry with a high-throughput, governed path to securely connect SAP data to Foundry.
-sidebar_label: Integration with Palantir
+description: >-
+  Explore how SAP Data Accelerator provides SAP customers using Palantir Foundry
+  with a high-throughput, governed path to securely connect SAP data to Foundry.
 keywords:
   - sap
   - palantir
   - data integration
   - analytics
   - data accelerator
+sidebar_label: Integration with Palantir
 image: img/ac-soc-med.png
 tags:
   - ref-arch
@@ -23,6 +25,7 @@ draft: false
 unlisted: false
 contributors:
   - s-krishnamoorthy
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2026-08-17
