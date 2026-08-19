@@ -1,6 +1,6 @@
 ---
-id: id-ra0032-01
-slug: /ref-arch/ra0032/integration-with-palantir
+id: 968090
+slug: /ref-arch/968090
 sidebar_position: 1
 title: Integration with Palantir
 description: Explore how SAP Data Accelerator provides SAP customers using Palantir Foundry with a high-throughput, governed path to securely connect SAP data to Foundry.
@@ -19,7 +19,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
   - s-krishnamoorthy
