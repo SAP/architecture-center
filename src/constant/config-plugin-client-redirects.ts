@@ -373,10 +373,6 @@ export const configRedirects = {
         //     to: '/docs/ref-arch/c6e18f',
         // },
         {
-            from: '/docs/ref-arch/06ff6062dc/5',
-            to: '/docs/ref-arch/56ae6b',
-        },
-        {
             from: '/docs/ref-arch/06ff6062dc/6',
             to: '/docs/ref-arch/f5a3ef',
         },

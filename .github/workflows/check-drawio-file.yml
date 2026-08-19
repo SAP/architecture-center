@@ -1,0 +1,71 @@
+name: Check drawio Files
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - '**.drawio'
+
+permissions: {}
+
+jobs:
+  check-drawio-size:
+    name: Check drawio Files
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Check drawio file sizes
+        shell: bash
+        run: |
+          MAX_BYTES=$(( 1024 * 1024 ))
+          FOUND=0
+
+          while IFS= read -r file; do
+            [ -f "$file" ] || continue
+            SIZE=$(wc -c < "$file")
+            if [ "$SIZE" -gt "$MAX_BYTES" ]; then
+              SIZE_KB=$(( SIZE / 1024 ))
+              echo "❌ ${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
+              FOUND=1
+            fi
+          done < <(git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" | grep -E '\.drawio$')
+
+          if [ "$FOUND" -eq 1 ]; then
+            echo ""
+            echo "Please reduce the size of the flagged file(s) before merging."
+            exit 1
+          fi
+
+          echo "✅ All drawio files are within the 1024 KB size limit."
+
+      - name: Check drawio files for external image references
+        if: always()
+        shell: bash
+        run: |
+          FOUND=0
+
+          while IFS= read -r file; do
+            [ -f "$file" ] || continue
+            MATCHES=$(grep -F 'image=http' "$file" || true)
+            if [ -n "$MATCHES" ]; then
+              echo "❌ ${file} contains external image references (image=http)."
+              echo "   External images are not allowed in drawio files. Please embed the image directly."
+              FOUND=1
+            fi
+          done < <(git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" | grep -E '\.drawio$')
+
+          if [ "$FOUND" -eq 1 ]; then
+            echo ""
+            echo "Replace all external image URLs with embedded (base64) images in the flagged file(s)."
+            exit 1
+          fi
+
+          echo "✅ No external image references found in drawio files."

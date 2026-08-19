@@ -98,6 +98,10 @@ agents:
 successfactors:
   label: "SAP SuccessFactors"
   description: "SAP SuccessFactors is a cloud-based human capital management (HCM) software solution that helps organizations manage their workforce effectively. It offers a range of modules for core HR, talent management, payroll, and employee experience, enabling businesses to attract, develop, and retain top talent while optimizing HR processes."
+
+sap-managed:
+  label: "SAP-managed"
+  description: "Setup (provisioning and integration) managed by SAP."
 # --------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------------------------
