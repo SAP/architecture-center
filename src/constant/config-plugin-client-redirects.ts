@@ -511,5 +511,10 @@ export const configRedirects = {
             from: '/docs/ref-arch/08N_yhbT',
             to: '/docs/ref-arch/458ff4',
         },
+        // RA0032
+        {
+            from: '/docs/ref-arch/6972e8',
+            to: '/docs/ref-arch/a22904',
+        },
     ],
 };
