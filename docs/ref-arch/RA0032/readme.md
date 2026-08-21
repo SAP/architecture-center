@@ -1,10 +1,12 @@
 ---
-id: 6972e8
-slug: /ref-arch/6972e8
+id: a22904
+slug: /ref-arch/a22904
 sidebar_position: 160
 title: SAP Data Accelerator
-description: SAP Data Accelerator (DA) is a cloud-native, SAP-managed service that provides authorized external partners with governed, near-real-time access to SAP on-premises and private cloud business data.
-sidebar_label: SAP Data Accelerator
+description: >-
+  SAP Data Accelerator (DA) is a cloud-native, SAP-managed service that provides
+  authorized external partners with governed, near-real-time access to SAP
+  on-premises and private cloud business data.
 keywords:
   - sap
   - data accelerator
@@ -12,6 +14,7 @@ keywords:
   - analytics
   - palantir
   - data and analytics
+sidebar_label: SAP Data Accelerator
 image: img/ac-soc-med.png
 tags:
   - ref-arch
@@ -24,6 +27,7 @@ draft: false
 unlisted: false
 contributors:
   - s-krishnamoorthy
+discussion: 
 last_update:
   author: s-krishnamoorthy
   date: 2026-08-17
