@@ -33,7 +33,7 @@ jobs:
         run: npm run build
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build
           path: build
@@ -47,7 +47,7 @@ jobs:
     environment: cloudflare-env
     steps:
       - name: Download Build Artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: build
           path: build
@@ -56,3 +56,4 @@ jobs:
         run: npx wrangler pages deploy ./build --project-name sap-architecture-center --branch some-branch-label-preview
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PROD }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
