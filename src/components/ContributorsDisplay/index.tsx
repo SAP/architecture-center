@@ -17,10 +17,11 @@ interface GitHubSearchResponse {
 
 interface ContributorsDisplayProps {
     contributors: string[];
-    onContributorsChange?: (updatedContributors: string[]) => void; // FIX: Made this prop optional
+    onContributorsChange?: (updatedContributors: string[]) => void;
+    readOnly?: boolean;
 }
 
-const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors, onContributorsChange }) => {
+const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors, onContributorsChange, readOnly = false }) => {
     const { siteConfig } = useDocusaurusContext();
     const { token } = useAuth();
     const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
@@ -141,15 +142,6 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
             <div className={styles.titleWrapper}>
                 <Icon name="information" className={styles.infoIcon} />
                 <h3 className={styles.title}>Contributors</h3>
-                {!isEditing && (
-                    <Button
-                        design="Transparent"
-                        icon="edit"
-                        onClick={handleEditClick}
-                        className={styles.editButton}
-                        tooltip="Edit Contributors"
-                    />
-                )}
             </div>
             {isEditing ? (
                 <div className={styles.editContainer}>
@@ -171,7 +163,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                                 selected={editingContributors.includes(user.login)}
                             >
                                 <div className={styles.comboItem}>
-                                    <Avatar size="XS" icon={`https://github.com/${user.login}.png`} />
+                                    <Avatar size="XS" image={`https://github.com/${user.login}.png`} />
                                     <span>{user.login}</span>
                                 </div>
                             </MultiComboBoxItem>
@@ -185,7 +177,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                     </FlexBox>
                 </div>
             ) : (
-                <div className={styles.list}>
+                <div className={styles.list} onClick={!readOnly ? handleEditClick : undefined} style={{ cursor: readOnly ? 'default' : 'pointer' }}>
                     {contributors && contributors.length > 0 ? (
                         contributors.map((username, index) => (
                             <a
@@ -194,6 +186,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={styles.contributor}
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <img
                                     src={`https://github.com/${username}.png`}
@@ -206,7 +199,7 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
                         ))
                     ) : (
                         <span className={styles.noContributors}>
-                            No contributors listed. Click the edit icon to add one.
+                            {readOnly ? 'No contributors listed.' : 'Click to add contributors.'}
                         </span>
                     )}
                 </div>

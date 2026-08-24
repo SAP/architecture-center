@@ -1,9 +1,7 @@
 ---
-id: id-ra0003-5
-slug: /ref-arch/8e1a5fbce3/5
+id: d5d3ce
+slug: /ref-arch/d5d3ce
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: FedML's support for NVIDIA GPUs
 description: >-
   FedML now supports reading of federated SAP business data via SAP Datasphere

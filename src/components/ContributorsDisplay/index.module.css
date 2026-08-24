@@ -81,20 +81,32 @@
 }
 
 :root[data-theme='dark'] .container {
-    background-color: var(--sapTile_Background);
-    color: var(--sapTextColor);
+    background-color: #374151;
+    border-color: #4b5563;
+    border-left-color: #6b7280;
+    color: #e5e7eb;
 }
 
 :root[data-theme='dark'] .titleWrapper {
-    background-color: var(--sapToolbar_Background);
-    color: var(--sapTitleColor);
+    color: #e5e7eb;
 }
 
-:root[data-theme='dark'] .list {
-    background-color: var(--sapList_Background);
-    color: var(--sapList_TextColor);
+:root[data-theme='dark'] .infoIcon {
+    color: #9ca3af;
 }
 
-:root[data-theme='dark'] .username {
-    color: var(--sapList_TextColor);
+:root[data-theme='dark'] .title {
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .contributor {
+    color: #d1d5db;
+}
+
+:root[data-theme='dark'] .contributor:hover .username {
+    color: #60a5fa;
+}
+
+:root[data-theme='dark'] .noContributors {
+    color: #9ca3af;
 }

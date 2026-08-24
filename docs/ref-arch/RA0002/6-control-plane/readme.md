@@ -1,9 +1,7 @@
 ---
-id: id-ra0002-6
-slug: /ref-arch/81805673c0/6
+id: 6cbe7d
+slug: /ref-arch/6cbe7d
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Control Plane for Orchestration
 description: >-
   Ensure business continuity with Multi-Region Manager (MRM), orchestrating

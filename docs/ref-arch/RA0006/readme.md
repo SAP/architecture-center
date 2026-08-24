@@ -1,13 +1,7 @@
 ---
-id: id-ra0006
-slug: /ref-arch/a2f89cac57
+id: c16841
+slug: /ref-arch/c16841
 sidebar_position: 70
-sidebar_custom_props:
-  category_index:
-    - appdev
-    - opsec
-    - azure
-    - aws
 title: Secure connectivity with SAP Private Link service
 description: >-
   Secure SAP BTP-hyperscaler connectivity with SAP Private Link service,

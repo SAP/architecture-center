@@ -1,11 +1,11 @@
 ---
-id: id-ra0007-3
-slug: /ref-arch/d31bedf420/3
+id: 1efe95
+slug: /ref-arch/1efe95
 sidebar_position: 1
-sidebar_custom_props:
-  category_index: []
 title: Tenant Lifecycle Management
-description: Manage tenant lifecycle on SAP BTP with automated onboarding, provisioning, and offboarding for scalable multitenant SaaS applications.
+description: >-
+  Manage tenant lifecycle on SAP BTP with automated onboarding, provisioning,
+  and offboarding for scalable multitenant SaaS applications.
 keywords:
   - sap
   - tenant lifecycle
@@ -16,7 +16,6 @@ image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
-
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

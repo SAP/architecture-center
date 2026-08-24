@@ -4,15 +4,15 @@ on:
   # for local PR builds esp. builds in forked repositories
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 jobs:
   build:
     name: Build Site
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
     environment: github-pages
     env:
       VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
@@ -23,11 +23,13 @@ jobs:
       VALIDATOR_OAUTH_CLIENT_ID: ${{ secrets.VALIDATOR_OAUTH_CLIENT_ID }}
       VALIDATOR_OAUTH_CLIENT_SECRET: ${{ secrets.VALIDATOR_OAUTH_CLIENT_SECRET }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          # fetch complete history for step "export drawios" to safely determine
+          # date of last update to drawio files via git log
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: '24'
           cache: npm
@@ -38,8 +40,8 @@ jobs:
       - name: Get pages deployment URL
         run: |
           pages_url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
-          url=$(echo $pages_url|cut -d'/' -f 1)//$(echo $pages_url|cut -d'/' -f 3)
-          base_url=$(echo $pages_url|cut -d'/' -f 4)
+          url=$(echo "$pages_url"|cut -d'/' -f 1)//$(echo "$pages_url"|cut -d'/' -f 3)
+          base_url=$(echo "$pages_url"|cut -d'/' -f 4)
           echo "url=$url" >> "$GITHUB_ENV"
           echo "base_url=$base_url" >> "$GITHUB_ENV"
         env:
@@ -47,8 +49,8 @@ jobs:
 
       - name: Patch docusaurus.config.ts
         run: |
-          sed -E -i "s^url:(..*)^url: '${{ env.url }}',^g" docusaurus.config.ts
-          sed -E -i "s^const baseUrl = '(.*)';^const baseUrl = '/${{ env.base_url }}';^g" docusaurus.config.ts
+          sed -E -i "s^url:(..*)^url: '$url',^g" docusaurus.config.ts
+          sed -E -i "s^const baseUrl = '(.*)';^const baseUrl = '/$base_url';^g" docusaurus.config.ts
 
       - name: Fetch contributors details from GitHub API
         env:
@@ -56,7 +58,7 @@ jobs:
         run: node src/_scripts/_fetch-contributors-details.js
 
       - name: Cache drawio svgs
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/architecture-center/drawio-svgs
           key: drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-${{ github.run_id }}
@@ -64,7 +66,7 @@ jobs:
             drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-
 
       - name: Export drawios to svgs
-        run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios.js
+        run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios/_export.js
 
       - name: Generate validation rules
         run: node src/_scripts/_generate-validator-rules.js
@@ -76,66 +78,23 @@ jobs:
         run: node src/_scripts/_update-drawio-links.js
 
       - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: build
 
   deploy:
     name: Deploy Site
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
-    environment: github-pages
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     if: success()
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAASAPCOM_PAT }}
-
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          path: __build__
-
-      - name: Set up Git
-        run: |
-          git config --global user.email "paa@sap.com"
-          git config --global user.name "paasapcom"
-
-      - name: Switch to Pages Branch
-        run: |
-          gh_pages_branch=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.branch')
-          git fetch origin $gh_pages_branch
-          git checkout $gh_pages_branch
-          echo "gh_pages_branch=$gh_pages_branch" >> "$GITHUB_ENV"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Drop Previous Content
-        run: |
-          shopt -s extglob
-          rm -rf !(@*|__build__)
-
-      - name: Extract Build Content
-        run: |
-          if [[ -d "__build__" && "$(ls -A __build__)" ]]; then
-            mv __build__/* ./
-            tar -xvf github-pages/artifact.tar
-            rm github-pages/artifact.tar
-            rm -rf __build__
-          else
-            echo "No build files found. Skipping move step."
-          fi
-
-      - name: Commit and Push Changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAASAPCOM_PAT }}
-        # prevent history build-up and .git bloat with orphan
-        run: |
-          git checkout --orphan site-anew
-          git add -A
-          if [[ "$(git status -s)" ]]; then
-            git commit -m "site build ➝ gh pages"
-            git push -f origin HEAD:${{ env.gh_pages_branch }}
-          fi
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

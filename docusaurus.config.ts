@@ -1,6 +1,7 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
+import { configRedirects } from './src/constant/config-plugin-client-redirects';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
@@ -66,31 +67,10 @@ const config: Config = {
                 removeDefaultStemmer: true,
             },
         ],
-        async function tailwindcss() {
-            return {
-                name: 'docusaurus-tailwindcss',
-                configurePostCss(postcssOptions) {
-                    postcssOptions.plugins.push(require('tailwindcss'));
-                    postcssOptions.plugins.push(require('autoprefixer'));
-                    return postcssOptions;
-                },
-            };
-        },
         './src/plugins/asset-types',
         [
             '@docusaurus/plugin-client-redirects',
-            {
-                redirects: [
-                    {
-                        from: '/docs/aigp',
-                        to: '/docs/ai-golden-path',
-                    },
-                    {
-                        from: '/docs/nsa',
-                        to: '/docs/ai-native-north-star-architecture',
-                    },
-                ],
-            },
+            configRedirects,
         ],
     ],
 

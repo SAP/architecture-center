@@ -1,13 +1,7 @@
 ---
-id: id-ra0011
-slug: /ref-arch/25a350543b
+id: e4f25a
+slug: /ref-arch/e4f25a
 sidebar_position: 120
-sidebar_custom_props:
-  category_index:
-    - aws
-    - azure
-    - gcp
-    - data
 title: SAP HANA Cloud as an Esri Geodatabase
 description: >-
   Integrate Esri ArcGIS with SAP HANA Cloud for real-time geospatial and
@@ -75,7 +69,7 @@ There are 3 different data flows depending on personas:
 
 **A Geospatial Analyst persona using Esri tools to access combined SAP and Esri data in HANA Cloud is depicted in ***GREY*** and looks like:**
 
-1. The process begins with loading the Esri ArcGIS geodatabase with geospatial data via the tools that come with Esri ArcGIS, such as ArcGIS Pro/Desktop, ArcGIS Portal, third-party tools such as FME, etc. The analyst can then create a ArcGIS [Query Layer](https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/what-is-a-query-layer-.htm) (see https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/what-is-a-query-layer-.htm ) via Esri ArcGIS Pro to combine the GIS data and SAP enterprise data in the SAP HANA Cloud calculation view.
+1. The process begins with loading the Esri ArcGIS geodatabase with geospatial data via the tools that come with Esri ArcGIS, such as ArcGIS Pro/Desktop, ArcGIS Portal, third-party tools such as FME, etc. The analyst can then create an ArcGIS [Query Layer](https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/what-is-a-query-layer-.htm) (see https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/what-is-a-query-layer-.htm ) via Esri ArcGIS Pro to combine the GIS data and SAP enterprise data in the SAP HANA Cloud calculation view.
 2. Those Esri tools are natively connected to Esri Geodatabase or Esri Utility Network Utility model, which are already deployed as database artifacts in SAP HANA Cloud.
 3. The analyst can create a calculation view in SAP HANA Cloud that combines the Esri ArcGIS data with SAP enterprise data via CDS views. Data is joined in a SAP HANA Cloud calculation view which is built on top of Esri Geodatabase and CDS from S/4 HANA joining Esri and SAP data.
 4. Data is read from SAP HANA Cloud (federated or replicated) and underlying source systems as SAP S/4HANA, SAP Business Warehouse or other sources.
@@ -93,7 +87,7 @@ There are 3 different data flows depending on personas:
 **A Geospatial Analyst persona using SAP tools and a Fiori UI is depicted in ***BLUE*** and looks like:**
 
 1. a Geospatial Analyst might use a Fiori Application written and developed for specific business needs.
-2. The CAP (Node.js) Geospatial app connects to SAP HANA Cloud which is running as a Esri geodatabase.
+2. The CAP (Node.js) Geospatial app connects to SAP HANA Cloud which is running as an Esri geodatabase.
 3. Within SAP HANA Cloud, the geospatial data is stored and can be combined with existing business data. SAP HANA Cloud processes HANA Calculation Views where data is joined between the Esri Geodatabase and CDS from S/4HANA, bringing spatial and business data together.
 4. Data is read from SAP HANA Cloud (federated or replicated) and underlying source systems like SAP S/4HANA, SAP Business Warehouse or other sources.
 

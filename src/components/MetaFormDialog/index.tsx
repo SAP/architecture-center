@@ -43,6 +43,7 @@ interface MetadataFormDialogProps {
     onDataChange: (data: Partial<PageMetadata>) => void;
     onSave: () => void;
     onCancel: () => void;
+    isEditMode?: boolean;
 }
 
 export default React.memo(function MetadataFormDialog({
@@ -51,11 +52,13 @@ export default React.memo(function MetadataFormDialog({
     onDataChange,
     onSave,
     onCancel,
+    isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
     const { user, token } = useAuth();
 
     const [contributorSearchQuery, setContributorSearchQuery] = useState('');
+    const [tagSearchQuery, setTagSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<GitHubUser[]>([]);
     const [isSearching, setIsSearching] = useState(false);
     const [userAvatars, setUserAvatars] = useState<Record<string, string>>({});
@@ -81,6 +84,7 @@ export default React.memo(function MetadataFormDialog({
 
     const abortControllerRef = useRef<AbortController | null>(null);
     const multiComboRef = useRef<HTMLElement | null>(null);
+    const tagsComboRef = useRef<HTMLElement | null>(null);
 
     const fetchUsers = useCallback(async () => {
         if (abortControllerRef.current) {
@@ -188,6 +192,16 @@ export default React.memo(function MetadataFormDialog({
             })
             .filter((key): key is string => !!key);
         onDataChange({ tags: selectedKeys });
+        // After a selection, UI5 restores whatever was typed (e.g. an invalid "kjhg")
+        // back into the input and leaves the red "Negative" value state in place. Clear
+        // the typed text via the controlled value (React re-renders after UI5's restore)
+        // and reset the value state directly on the element, so a correctly-selected tag
+        // never appears invalid.
+        setTagSearchQuery('');
+        const tagsCombo = tagsComboRef.current as (HTMLElement & { valueState: string }) | null;
+        if (tagsCombo) {
+            tagsCombo.valueState = 'None';
+        }
     };
 
     const handleContributorInput = (event: InputEvent) => {
@@ -222,14 +236,18 @@ export default React.memo(function MetadataFormDialog({
     };
 
     const contributorOptions = useMemo(() => {
-        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string }>();
+        const optionsMap = new Map<string, { id: string | number; login: string; avatar_url?: string; isSelected: boolean }>();
 
+        // Always include currently selected contributors first
         initialData.contributors?.forEach((login) => {
-            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login] });
+            optionsMap.set(login, { id: login, login: login, avatar_url: userAvatars[login], isSelected: true });
         });
 
+        // Add search results (that aren't already selected)
         searchResults.forEach((user) => {
-            optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url });
+            if (!optionsMap.has(user.login)) {
+                optionsMap.set(user.login, { id: user.id, login: user.login, avatar_url: user.avatar_url, isSelected: false });
+            }
         });
 
         return Array.from(optionsMap.values());
@@ -243,7 +261,7 @@ export default React.memo(function MetadataFormDialog({
             style={{ width: '650px' }}
             header={
                 <Bar>
-                    <Title>Create New Reference Architecture</Title>
+                    <Title>{isEditMode ? 'Edit Reference Architecture' : 'Create New Reference Architecture'}</Title>
                 </Bar>
             }
             footer={
@@ -251,7 +269,7 @@ export default React.memo(function MetadataFormDialog({
                     endContent={
                         <>
                             <Button design="Emphasized" onClick={onSave} disabled={!isFormValid}>
-                                Create
+                                {isEditMode ? 'Save' : 'Create'}
                             </Button>
                             <Button onClick={onCancel}>Cancel</Button>
                         </>
@@ -280,13 +298,13 @@ export default React.memo(function MetadataFormDialog({
 
                 <FormItem labelContent={<Label required>Author</Label>}>
                     <FlexBox alignItems="Center">
-                        {
+                        {user?.avatar && (
                             <img
                                 src={user.avatar}
                                 alt={user.username}
                                 style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
                             />
-                        }
+                        )}
                         <Text style={{ marginLeft: '0.5rem' }}>{user?.username || 'Loading...'}</Text>
                     </FlexBox>
                 </FormItem>
@@ -309,20 +327,21 @@ export default React.memo(function MetadataFormDialog({
                                 <MultiComboBoxItem
                                     key={user.id}
                                     text={user.login}
-                                    selected={initialData.contributors?.includes(user.login)}
-                                    // additionalText={<Avatar size="XS" icon={user.avatar_url} />}
-                                >
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Avatar size="XS" icon={user.avatar_url} />
-                                        <span>{user.login}</span>
-                                    </div>
-                                </MultiComboBoxItem>
+                                    selected={user.isSelected}
+                                    image={user.avatar_url}
+                                />
                             ))}
                     </MultiComboBox>
                 </FormItem>
 
                 <FormItem labelContent={<Label required>Tags</Label>}>
-                    <MultiComboBox onSelectionChange={handleTagUpdate} placeholder="Select at least one tag...">
+                    <MultiComboBox
+                        ref={tagsComboRef}
+                        value={tagSearchQuery}
+                        onInput={(e: InputEvent) => setTagSearchQuery(e.target.value || '')}
+                        onSelectionChange={handleTagUpdate}
+                        placeholder="Select at least one tag..."
+                    >
                         {availableTags.map((tag) => (
                             <MultiComboBoxItem
                                 key={tag.key}

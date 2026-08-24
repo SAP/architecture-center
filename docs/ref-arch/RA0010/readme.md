@@ -1,13 +1,7 @@
 ---
-id: id-ra0010
-slug: /ref-arch/1311c18c17
+id: 1a8cb9
+slug: /ref-arch/1a8cb9
 sidebar_position: 110
-sidebar_custom_props:
-  category_index:
-    - aws
-    - gcp
-    - azure
-    - appdev
 title: Establish a central entry point with SAP Build Work Zone
 description: >-
   SAP Build Work Zone centralizes business applications, workflows, and
@@ -83,7 +77,11 @@ This reference architecture also refers to the UI integration use case pattern o
 7. When moving business content from one environment to another – for example from development to test – this can be achieved via manual export/import or via the more elaborated integration with SAP Cloud Transport Management. For more information, see:
     - [Transporting Content](https://help.sap.com/docs/build-work-zone-standard-edition/sap-build-work-zone-standard-edition/transporting-content) for SAP Build Work Zone, standard edition
     - [Transporting Content](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/transporting-content-ac16ecafb863488eb0f7c9c6056e6626) for SAP Build Work Zone, advanced edition
-      
+
+8. SAP Build Work Zone integrates natively with SAP Build Process Automation to surface workflows, tasks, and guided experiences directly within business sites. This allows end users to access, execute, and monitor business processes (such as approvals, onboarding, or crossboarding journeys) from a unified entry point. Guided Experiences provide structured, step-by-step process flows that orchestrate tasks, content, and applications across different systems. Pre-built content packages (for example, onboarding and crossboarding scenarios) can be leveraged to accelerate implementation and ensure consistent user journeys. For more information, see:
+    - [Integration with SAP Build Process Automation](https://help.sap.com/docs/build-work-zone-advanced-edition/sap-build-work-zone-advanced-edition/integration-with-sap-build-process-automation)
+    - [Working with Onboarding and Crossboarding Guided Experiences](https://help.sap.com/docs/successfactors-work-zone/configuring-and-using-sap-successfactors-work-zone/working-with-onboarding-and-crossboarding-guided-experiences)
+
 The SAP Build Work Zone architecture diagram highlights seven key flows when working with business sites to unify access to applications, approvals, content and more.
 
 ## Characteristics

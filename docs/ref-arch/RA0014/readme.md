@@ -1,15 +1,7 @@
 ---
-id: id-ra0014
-slug: /ref-arch/0ec83f98fe
+id: 24c626
+slug: /ref-arch/24c626
 sidebar_position: 150
-sidebar_custom_props:
-  category_index:
-    - aws
-    - azure
-    - gcp
-    - appdev
-    - integration
-    - opsec
 title: Understanding Network Performance in a Multi Regional Solution
 description: >-
   Optimize multi-regional cloud solutions with insights into network design,
@@ -131,7 +123,7 @@ Network performance challenges may stem from hybrid environments that combine cl
 
 To understand the impact of different connection options, several test options have been developed:
 
-To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/4HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and and API calls are used.
+To evaluate the impact of a BTP service on network performance we need to define the baseline. In our case this is a direct connection between the simulated client and S/4HANA Cloud. Obviously you get the best possible network performance if BTP subaccount and S/4HANA Cloud Private Edition are placed in the same Hyperscaler region. To make all test cases comparable the same OData service and API calls are used.
 
 The baseline (no BTP involved):
 
@@ -254,7 +246,7 @@ Services that report back their own performance data are:
 
 ![Drill Down View on the Dashboard](images/dashboard-drill.jpg)
 
-The dashboard is using different statistical funtions to group the data. E.g. `median` has been included as an additional value because `average` can be heavily biased by outliers in the results set.
+The dashboard is using different statistical functions to group the data. E.g. `median` has been included as an additional value because `average` can be heavily biased by outliers in the results set.
 
 The following groupings can be interesting for the main attribute `Response Time`:
 

@@ -1,12 +1,13 @@
 ---
-id: id-ra0026
-slug: /ref-arch/083f2d968e
+id: 0f87e5
+slug: /ref-arch/0f87e5
 sidebar_position: 270
-sidebar_custom_props:
-    category_index: []
 title: Embodied AI Agents & Robotics
 description: >-
-  Embodied AI combines agentic AI with cognitive robots to automate physical world tasks, embedded within the business process context. Leverging robotics and physical AI technologies, this makes end-to-end automation possible across the digital and physical world.
+  Embodied AI combines agentic AI with cognitive robots to automate physical
+  world tasks, embedded within the business process context. Leverging robotics
+  and physical AI technologies, this makes end-to-end automation possible across
+  the digital and physical world.
 keywords:
   - sap
   - joule
@@ -32,7 +33,7 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
-discussion:
+discussion: 
 last_update:
   author: adelyafatykhova
   date: 2026-05-12
@@ -166,5 +167,3 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
 - [SAP Open Source Report 2025](https://d.dam.sap.com/a/CRdeMdL/SAP_Open_Source_Report_2025.pdf?rc=10&inline=true&doi=SAP1270985)
 - [Demo: Physical AI | Business Processes & Robots | SAP TechEd 2025](https://www.youtube.com/watch?v=4ZzpFQZOh_I)
 - :loudspeaker: Want to try out Embodied AI? [Contact SAP](https://url.sap/embodied-ai) for your options.
-
-

@@ -71,6 +71,14 @@ gh pr create \
 echo "PR created successfully."
 
 # 9. Create GitHub release and tag
-echo "Creating GitHub release $new_version..."
-gh release create "$new_version" --repo "SAP/architecture-center" --generate-notes --target main
-echo "GitHub release created successfully."
+# We prompt here because the release tag must point to main, so the PR above has to be merged first.
+echo ""
+read -r -p "Create GitHub release and tag $new_version now? [y/N] " confirm
+if [[ "$confirm" =~ ^[Yy]$ ]]; then
+  echo "Creating GitHub release $new_version..."
+  gh release create "$new_version" --repo "SAP/architecture-center" --generate-notes --target main
+  echo "GitHub release created successfully."
+else
+  echo "Skipped. Run the following command manually once the PR is merged:"
+  echo "  gh release create \"$new_version\" --repo SAP/architecture-center --generate-notes --target main"
+fi
