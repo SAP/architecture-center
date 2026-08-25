@@ -66,7 +66,7 @@ export default function HeroSection(): JSX.Element {
                     </p>
                     <div className={styles.heroActions}>
                         <Link to="/docs/ref-arch" className={styles.primaryButton}>
-                            Browse Architectures
+                            Browse Architectures (cloudflareee)
                         </Link>
                         <Link to="/docs/community/intro" className={styles.secondaryButton}>
                             Community of Practice
