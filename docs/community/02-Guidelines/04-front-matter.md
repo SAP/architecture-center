@@ -86,7 +86,7 @@ This information is auto-assigned during the technical validation.
 
 ## `slug` 
 
-* Each page receives a `slug` which is use to create the document's URL. 
+* Each page receives a `slug` which is used to create the document's URL. 
 
 This `slug` is structured as the following:
 
