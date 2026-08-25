@@ -52,6 +52,10 @@ Both flows follow the same six phases and produce the same deployable artifact, 
 | **05 Testing** | Auto-generated unit tests and AI evals |
 | **06 Deployment** | Deploy to SAP-managed runtime |
 
+## Architecture
+
+![drawio](./drawio/architecture.drawio)
+
 ## Low-Code Flow
 
 The **Low-Code Flow** uses the visual, browser-based Joule Studio builder — no local setup or coding agent required. You describe your intent in the Joule chat, and IBD guides the solution through requirements, specification, code generation, testing, and deployment, all within the browser.

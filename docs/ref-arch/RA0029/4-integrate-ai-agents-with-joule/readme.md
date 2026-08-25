@@ -49,7 +49,7 @@ For AI agents to deliver value in an enterprise context, they must be easily acc
 
 Therefore, a critical step in the agent development lifecycle is integrating your custom-built agents—whether low-code or pro-code—with Joule. This ensures that users can interact with your agent's specialized capabilities through the same familiar interface they use for all other SAP-related tasks.
 
-## Architecture of a Unified Experience
+## Architecture
 
 Joule acts as the central orchestrator and entry point for all user interactions. When a user makes a request, Joule's planning and reasoning engine determines the best way to fulfill it. This may involve using a built-in skill, retrieving information, or delegating the task to a custom AI agent.
 

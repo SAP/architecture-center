@@ -49,7 +49,7 @@ While a primary use case is integrating external agents *into* Joule, the archit
 
 This outbound interoperability is achieved through the **Agent Gateway**, which exposes Joule Agents via the **Agent2Agent (A2A) protocol**.
 
-## Architecture for External Consumption
+## Architecture
 
 To make SAP-native agents available externally, they are exposed through the **Agent Gateway**, a secure, publicly accessible endpoint that enables external systems to consume Joule Agents in a standardized way.
 
