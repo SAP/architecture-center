@@ -1,8 +1,10 @@
 name: Deploy main site to Cloudflare
 
 on:
+  workflow_dispatch:
   push:
     branches:
+      - main
       - workflow-cloudflare-wrangler
 
 permissions: {}
@@ -82,6 +84,6 @@ jobs:
 
       - name: Deploy to Cloudflare (Pages)
         env:
-          CLOUDFLARE_PROD_API_TOKEN: ${{ secrets.CLOUDFLARE_PROD_API_TOKEN }}
-          CLOUDFLARE_PROD_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_PROD_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PROD_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_PROD_ACCOUNT_ID }}
         run: npx wrangler pages deploy ./build --project-name sap-architecture-center --branch prod
