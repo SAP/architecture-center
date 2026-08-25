@@ -2,14 +2,15 @@
 id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
-title: Pro-Code AI Agents on SAP BTP
+title: Bring Your Own Agent
 description: >-
-  Learn how to build custom, pro-code AI agents on SAP BTP using SAP Cloud SDK
-  for AI with popular frameworks like LangGraph, AutoGen and CrewAI for maximum
-  flexibility and control over complex business logic.
+  Build and deploy custom pro-code AI agents to your own SAP BTP subaccount
+  using SAP Cloud SDK for AI with frameworks like LangGraph, AG2 and CrewAI —
+  and connect them to Joule via the A2A protocol.
 keywords:
   - sap
   - ai agents
+  - bring your own agent
   - pro-code
   - a2a
   - mcp
@@ -17,10 +18,9 @@ keywords:
   - cap
   - generative ai hub
   - langgraph
-  - autogen
   - crewai
   - smolagents
-sidebar_label: Pro-Code AI Agents on SAP BTP
+sidebar_label: Bring Your Own Agent
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -41,7 +41,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-06-18
+  date: 2026-08-25
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
