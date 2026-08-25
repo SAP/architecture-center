@@ -29,10 +29,10 @@ Here is an example of what a page front matter looks like:
 
 ```yaml
 ---
-id: id-ra0001
-slug: /ref-arch/a06a959120
+id: a06a95
+slug: /ref-arch/a06a95
 sidebar_position: 1
-title: SAP Event-Driven Architecture Technology
+title: SAP XYZ Architecture Technology
 description: Please add a description (max 300 characters)
 keywords:
   - sap
@@ -69,14 +69,13 @@ The front matter starts and ends with `---`.
 
 This `id` is structured as the following:
 
-* `id` `-` `< assigned RAXXXX of the page >` for the landing page.
+* `a06a95` for both the `id` and will be also reused for the `slug`.
 
-Let's take the following example: `id: id-ra0001`.
-This id indicates this is the landing page of the reference architecture 0001.
+Let's take the following example: `id: a06a95`.
 
 Example:
 ```yaml
-id: id-ra0001
+id: a06a95
 ```
 
 :::warning Do Not Modify
@@ -87,18 +86,19 @@ This information is auto-assigned during the technical validation.
 
 ## `slug` 
 
-* Each page receives a `slug` which is the document's URL. 
+* Each page receives a `slug` which is used to create the document's URL. 
 
 This `slug` is structured as the following:
 
-* `/ref-arch/` is followed by a short UUID `XXXXXXXXXX` 
-* `/ref-arch/XXXXXXXXXX` is reserved for the landing page of the reference architecture.
+* `/ref-arch/` is followed by a short UUID `XXXXXX` 
+* `/ref-arch/XXXXXX` is unique for each document.
+
+`slug` and `id` are always identical for the Reference Architectures.
 
 Example: 
 ```yaml
-slug: /ref-arch/a06a959120
+slug: /ref-arch/a06a95
 ```
-This id indicates this is the landing page of the reference architecture.
 
 :::warning Do Not Modify
 This information is auto-assigned during the technical validation.
