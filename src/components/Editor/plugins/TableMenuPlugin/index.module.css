@@ -1,0 +1,172 @@
+.columnHandle {
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: #374151;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.15s;
+    z-index: 50;
+}
+
+.rowHandle {
+    width: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: #374151;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.15s;
+    z-index: 50;
+}
+
+.handleDot {
+    width: 3px;
+    height: 3px;
+    background: #9ca3af;
+    border-radius: 50%;
+}
+
+.columnHandle:hover,
+.rowHandle:hover {
+    background: #4b5563;
+    opacity: 1;
+}
+
+.columnHandle:hover .handleDot,
+.rowHandle:hover .handleDot {
+    background: #e5e7eb;
+}
+
+/* Show handles when hovering near table */
+:global(.editorTableWrapper:hover) ~ .columnHandle,
+:global(.editorTableWrapper:hover) ~ .rowHandle {
+    opacity: 0.7;
+}
+
+.menu {
+    background: #1f1f1f;
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 200px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: menuFadeIn 0.15s ease-out;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    color: #f3f4f6;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.menuItem:hover:not(:disabled) {
+    background: #374151;
+}
+
+.menuItem:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.menuItem.danger {
+    color: #f87171;
+}
+
+.menuItem.danger:hover:not(:disabled) {
+    background: rgba(248, 113, 113, 0.15);
+}
+
+.menuDivider {
+    height: 1px;
+    background: #374151;
+    margin: 8px 0;
+}
+
+/* Light mode */
+:root:not([data-theme='dark']) .menu {
+    background: #ffffff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+:root:not([data-theme='dark']) .menuItem {
+    color: #1f2937;
+}
+
+:root:not([data-theme='dark']) .menuItem:hover:not(:disabled) {
+    background: #f3f4f6;
+}
+
+:root:not([data-theme='dark']) .menuDivider {
+    background: #e5e7eb;
+}
+
+/* Dark mode handles */
+:root[data-theme='dark'] .columnHandle,
+:root[data-theme='dark'] .rowHandle {
+    background: #4b5563;
+}
+
+:root[data-theme='dark'] .handleDot {
+    background: #9ca3af;
+}
+
+:root[data-theme='dark'] .columnHandle:hover,
+:root[data-theme='dark'] .rowHandle:hover {
+    background: #6b7280;
+}
+
+:root[data-theme='dark'] .columnHandle:hover .handleDot,
+:root[data-theme='dark'] .rowHandle:hover .handleDot {
+    background: #e5e7eb;
+}
+
+/* Light mode handles */
+:root:not([data-theme='dark']) .columnHandle,
+:root:not([data-theme='dark']) .rowHandle {
+    background: #e5e7eb;
+}
+
+:root:not([data-theme='dark']) .handleDot {
+    background: #6b7280;
+}
+
+:root:not([data-theme='dark']) .columnHandle:hover,
+:root:not([data-theme='dark']) .rowHandle:hover {
+    background: #d1d5db;
+}
+
+:root:not([data-theme='dark']) .columnHandle:hover .handleDot,
+:root:not([data-theme='dark']) .rowHandle:hover .handleDot {
+    background: #374151;
+}
