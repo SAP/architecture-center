@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
-import { Plus, Eye } from 'lucide-react';
+import { Plus, Eye, ChevronDown } from 'lucide-react';
 import styles from './index.module.css';
 
 interface PageTabsProps {
@@ -10,6 +10,21 @@ interface PageTabsProps {
 
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     const { documents, activeDocumentId, openDocument } = usePageDataStore();
+    const [raExpanded, setRaExpanded] = useState(false);
+    const [articleExpanded, setArticleExpanded] = useState(false);
+
+    // Expand only the section matching the active document
+    useEffect(() => {
+        if (!activeDocumentId) return;
+        const activeDoc = documents.find((d) => d.id === activeDocumentId);
+        if (activeDoc?.type === 'article') {
+            setArticleExpanded(true);
+            setRaExpanded(false);
+        } else {
+            setRaExpanded(true);
+            setArticleExpanded(false);
+        }
+    }, [activeDocumentId, documents]);
 
     const handleActionClick = (e: React.MouseEvent | { stopPropagation: () => void }) => {
         e.stopPropagation();
@@ -57,10 +72,13 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
         );
     };
 
-    // Separate documents into owned (author) and shared (contributor)
-    const rootDocuments = documents.filter((doc) => doc.parentId === null);
-    const myDocuments = rootDocuments.filter((doc) => !doc.isReadOnly);
-    const sharedDocuments = rootDocuments.filter((doc) => doc.isReadOnly);
+    const rootDocs = documents.filter((d) => d.parentId === null);
+    const myRaDocs = rootDocs.filter((d) => !d.isReadOnly && d.type !== 'article');
+    const sharedRaDocs = rootDocs.filter((d) => d.isReadOnly);
+    const myArticleDocs = rootDocs.filter((d) => !d.isReadOnly && d.type === 'article');
+
+    const hasRaDocs = myRaDocs.length > 0 || sharedRaDocs.length > 0;
+    const hasArticleDocs = myArticleDocs.length > 0;
 
     return (
         <div className={styles.navContainer}>
@@ -68,41 +86,72 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                 <button
                     className={styles.newRefArchButton}
                     onClick={() => onAddNew(null)}
-                    title="Create new Reference Architecture"
+                    title="Create new Document"
                 >
-                    <span>New Ref Arch</span>
+                    <span>New Document</span>
                     <Plus size={18} />
                 </button>
             )}
+            {onAddNew && (hasRaDocs || hasArticleDocs) && (
+                <div className={styles.sectionDivider} />
+            )}
             <div className={styles.documentsList}>
-                {/* My Documents section */}
-                {myDocuments.length > 0 && (
-                    <>
-                        {sharedDocuments.length > 0 && (
-                            <div className={styles.sectionHeader}>My Documents</div>
+                {!hasRaDocs && !hasArticleDocs && (
+                    <div className={styles.emptyState}>No documents yet. Create your first!</div>
+                )}
+
+                {hasRaDocs && (
+                    <div className={styles.sectionGroup}>
+                        <button
+                            className={styles.sectionToggle}
+                            onClick={() => setRaExpanded((v) => !v)}
+                        >
+                            <span>My Reference Architectures</span>
+                            <ChevronDown
+                                size={14}
+                                className={`${styles.chevronIcon} ${raExpanded ? styles.chevronExpanded : ''}`}
+                            />
+                        </button>
+                        {raExpanded && (
+                            <div className={styles.sectionContent}>
+                                {myRaDocs.map((doc) => renderDocumentTree(doc))}
+                                {sharedRaDocs.length > 0 && (
+                                    <>
+                                        <div className={styles.sharedWithMeHeader}>
+                                            <Eye size={12} />
+                                            <span>Shared with Me</span>
+                                        </div>
+                                        <div className={styles.sharedSection}>
+                                            {sharedRaDocs.map((doc) => renderDocumentTree(doc, true))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         )}
-                        {myDocuments.map((doc) => renderDocumentTree(doc))}
-                    </>
+                    </div>
                 )}
 
-                {/* Shared with me section */}
-                {sharedDocuments.length > 0 && (
-                    <>
-                        <div className={styles.sectionDivider} />
-                        <div className={styles.sectionHeader}>
-                            <span>Shared with me</span>
-                            <Eye size={14} className={styles.sectionIcon} />
-                        </div>
-                        <div className={styles.sharedSection}>
-                            {sharedDocuments.map((doc) => renderDocumentTree(doc, true))}
-                        </div>
-                    </>
+                {hasRaDocs && hasArticleDocs && (
+                    <div className={styles.sectionDivider} />
                 )}
 
-                {/* Empty state */}
-                {rootDocuments.length === 0 && (
-                    <div className={styles.emptyState}>
-                        No documents yet. Create your first Reference Architecture!
+                {hasArticleDocs && (
+                    <div className={styles.sectionGroup}>
+                        <button
+                            className={styles.sectionToggle}
+                            onClick={() => setArticleExpanded((v) => !v)}
+                        >
+                            <span>My Articles</span>
+                            <ChevronDown
+                                size={14}
+                                className={`${styles.chevronIcon} ${articleExpanded ? styles.chevronExpanded : ''}`}
+                            />
+                        </button>
+                        {articleExpanded && (
+                            <div className={styles.sectionContent}>
+                                {myArticleDocs.map((doc) => renderDocumentTree(doc))}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

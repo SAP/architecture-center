@@ -64,7 +64,7 @@
 .sectionDivider {
     height: 1px;
     background-color: var(--ifm-color-emphasis-300);
-    margin: 12px 10px 4px 10px;
+    margin: 16px 10px;
 }
 
 .sharedSection {
@@ -120,9 +120,9 @@
 }
 
 .navItem.active {
-    color: white;
+    color: var(--ifm-font-color-base);
     font-weight: 600;
-    background: var(--gradient-premium);
+    background-color: var(--ifm-color-emphasis-200);
     border-radius: 8px;
 }
 
@@ -221,4 +221,59 @@
     display: flex;
     gap: 12px;
     justify-content: flex-end;
+}
+
+.sectionGroup {
+    margin-bottom: 4px;
+}
+
+.sectionToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--gradient-premium);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-transform: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.sectionToggle:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.chevronIcon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    transform: rotate(-90deg);
+}
+
+.chevronExpanded {
+    transform: rotate(0deg);
+}
+
+.sectionContent {
+    padding-left: 4px;
+}
+
+.sharedWithMeHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ifm-color-emphasis-500);
+    padding: 10px 10px 4px 10px;
 }

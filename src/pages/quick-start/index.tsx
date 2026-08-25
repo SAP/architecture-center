@@ -6,6 +6,8 @@ import { useHistory } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
+import ContentTypeDialog, { ContentType } from '@site/src/components/ContentTypeDialog';
+import ArticleFormDialog from '@site/src/components/ArticleFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
 import { BusyIndicator, Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
@@ -36,11 +38,17 @@ const initialPageData: PageMetadata = {
 };
 
 function AuthenticatedQuickStartView() {
+    const [isContentTypeOpen, setIsContentTypeOpen] = useState(false);
+    const [isSubPageCreation, setIsSubPageCreation] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isArticleFormOpen, setIsArticleFormOpen] = useState(false);
+    const [isArticleEditMode, setIsArticleEditMode] = useState(false);
+    const [articleFormData, setArticleFormData] = useState<PageMetadata>({ title: '', tags: [], authors: [], contributors: [] });
     const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
-    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument } = usePageDataStore();
+    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument, openDocument } = usePageDataStore();
+    const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
@@ -59,6 +67,20 @@ function AuthenticatedQuickStartView() {
         }
     }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
 
+    // After init: if no docs → show ContentTypeDialog; if docs exist but none active → open first
+    useEffect(() => {
+        if (!initialized) return;
+        if (documents.length === 0) {
+            setIsContentTypeOpen(true);
+            return;
+        }
+        if (activeDocumentId === null) {
+            const firstDoc = documents.find((d) => d.parentId === null && !d.isReadOnly)
+                ?? documents.find((d) => d.parentId === null);
+            if (firstDoc) openDocument(firstDoc.id);
+        }
+    }, [initialized, documents, activeDocumentId, openDocument]);
+
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
             ...initialPageData,
@@ -68,29 +90,45 @@ function AuthenticatedQuickStartView() {
         setNewDocData(newDocWithAuthor);
         setCurrentParentId(parentId);
         setIsEditMode(false);
-        setIsModalOpen(true);
+        if (parentId !== null) {
+            setIsSubPageCreation(true);
+            const parentDoc = documents.find((d) => d.id === parentId);
+            if (parentDoc?.type === 'article') {
+                setArticleFormData({ title: '', tags: [], authors: [], contributors: [] });
+                setIsArticleFormOpen(true);
+            } else {
+                setIsModalOpen(true);
+            }
+        } else {
+            setIsSubPageCreation(false);
+            setIsContentTypeOpen(true);
+        }
+    }, [users.github, documents]);
+
+    const handleContentTypeSelect = useCallback((type: ContentType) => {
+        setIsContentTypeOpen(false);
+        if (type === 'ref-arch') {
+            const newDocWithAuthor = {
+                ...initialPageData,
+                authors: users.github ? [users.github.username] : [],
+                contributors: users.github ? [users.github.username] : [],
+            };
+            setNewDocData(newDocWithAuthor);
+            setCurrentParentId(null);
+            setIsEditMode(false);
+            setIsModalOpen(true);
+        } else {
+            setArticleFormData({ title: '', tags: [], authors: [], contributors: [] });
+            setIsArticleFormOpen(true);
+        }
     }, [users.github]);
 
-    const handleEditMeta = useCallback(() => {
-        const activeDoc = getActiveDocument();
-        if (!activeDoc) return;
-
-        setNewDocData({
-            title: activeDoc.title,
-            tags: activeDoc.tags,
-            authors: activeDoc.authors,
-            contributors: activeDoc.contributors || [],
-            description: activeDoc.description || '',
-        });
-        setIsEditMode(true);
-        setIsModalOpen(true);
-    }, [getActiveDocument]);
-
-    useEffect(() => {
-        if (initialized && documents.length === 0) {
-            handleAddNew(null);
+    const handleContentTypeCancel = useCallback(() => {
+        setIsContentTypeOpen(false);
+        if (documents.length === 0) {
+            history.push(baseUrl);
         }
-    }, [documents.length, handleAddNew, initialized]);
+    }, [history, baseUrl, documents.length]);
 
     const handleCreate = () => {
         if (isEditMode) {
@@ -107,16 +145,78 @@ function AuthenticatedQuickStartView() {
             addDocument(newDocData, currentParentId);
         }
         setIsModalOpen(false);
+        setIsSubPageCreation(false);
     };
 
     const handleCancel = () => {
-        if (documents.length === 0) {
-            history.push(baseUrl);
-        }
         setIsModalOpen(false);
+        setIsSubPageCreation(false);
+        if (documents.length === 0) {
+            setIsContentTypeOpen(true);
+        }
     };
 
-    // Show initializing screen only on first load (fetching documents)
+    const handleArticleCreate = useCallback(() => {
+        if (isArticleEditMode) {
+            const activeDoc = getActiveDocument();
+            if (activeDoc) {
+                updateDocument(activeDoc.id, {
+                    title: articleFormData.title,
+                    tags: articleFormData.tags,
+                    description: articleFormData.description,
+                    contributors: articleFormData.contributors,
+                });
+            }
+        } else {
+            addDocument({
+                title: articleFormData.title,
+                description: articleFormData.description || '',
+                tags: articleFormData.tags || [],
+                authors: users.github ? [users.github.username] : [],
+                contributors: articleFormData.contributors || [],
+            }, currentParentId, 'article');
+        }
+        setIsArticleFormOpen(false);
+        setIsArticleEditMode(false);
+        setIsSubPageCreation(false);
+    }, [articleFormData, users.github, addDocument, currentParentId, isArticleEditMode, getActiveDocument, updateDocument]);
+
+    const handleArticleCancel = useCallback(() => {
+        setIsArticleFormOpen(false);
+        setIsArticleEditMode(false);
+        setIsSubPageCreation(false);
+        if (documents.length === 0) {
+            setIsContentTypeOpen(true);
+        }
+    }, [documents.length]);
+
+    const handleEditMeta = useCallback(() => {
+        const activeDoc = getActiveDocument();
+        if (!activeDoc) return;
+
+        if (activeDoc.type === 'article') {
+            setArticleFormData({
+                title: activeDoc.title,
+                tags: activeDoc.tags,
+                authors: activeDoc.authors,
+                contributors: activeDoc.contributors || [],
+                description: activeDoc.description || '',
+            });
+            setIsArticleEditMode(true);
+            setIsArticleFormOpen(true);
+        } else {
+            setNewDocData({
+                title: activeDoc.title,
+                tags: activeDoc.tags,
+                authors: activeDoc.authors,
+                contributors: activeDoc.contributors || [],
+                description: activeDoc.description || '',
+            });
+            setIsEditMode(true);
+            setIsModalOpen(true);
+        }
+    }, [getActiveDocument]);
+
     if (isLoading || !initialized) {
         return (
             <div className={styles.initializingContainer}>
@@ -125,17 +225,29 @@ function AuthenticatedQuickStartView() {
         );
     }
 
-    // Show loader when creating a new ref arch
     if (isCreating) {
         return (
             <div className={styles.initializingContainer}>
-                <BusyIndicator active size="L" text="Creating Reference Architecture..." />
+                <BusyIndicator active size="L" text="Creating document..." />
             </div>
         );
     }
 
     return (
         <>
+            <ContentTypeDialog
+                open={isContentTypeOpen}
+                onSelect={handleContentTypeSelect}
+                onCancel={handleContentTypeCancel}
+            />
+            <ArticleFormDialog
+                open={isArticleFormOpen}
+                initialData={articleFormData}
+                onDataChange={(updates) => setArticleFormData((prev) => ({ ...prev, ...updates }))}
+                onSave={handleArticleCreate}
+                onCancel={handleArticleCancel}
+                isEditMode={isArticleEditMode}
+            />
             <MetadataFormDialog
                 open={isModalOpen}
                 initialData={newDocData}
@@ -144,7 +256,14 @@ function AuthenticatedQuickStartView() {
                 onCancel={handleCancel}
                 isEditMode={isEditMode}
             />
-            <main className={styles.pageContainer}>
+            <main
+                className={styles.pageContainer}
+                style={
+                    isContentTypeOpen || (!isSubPageCreation && ((isArticleFormOpen && !isArticleEditMode) || (isModalOpen && !isEditMode)))
+                        ? { display: 'none' }
+                        : undefined
+                }
+            >
                 <EditorComponent onAddNew={handleAddNew} onEditMeta={handleEditMeta} />
             </main>
         </>
@@ -174,11 +293,9 @@ function MobileDeviceWarning() {
 
 function GitHubLoginRedirect({ loginUrl }: { loginUrl: string }) {
     useEffect(() => {
-        // Redirect immediately to GitHub login
         window.location.href = loginUrl;
     }, [loginUrl]);
 
-    // Fallback UI while redirecting (or if redirect fails)
     return (
         <Card
             header={

@@ -25,6 +25,8 @@ export interface Document extends PageMetadata {
     // Dirty flags to track what needs syncing
     _contributorsDirty?: boolean;
     _tagsDirty?: boolean;
+    // Content type — used for UI routing only, not sent to backend
+    type?: 'ref-arch' | 'article';
 }
 
 interface PageDataState {
@@ -46,7 +48,7 @@ interface PageDataState {
     getRootDocumentId: (docId: string) => string | null;
 
     // Local actions
-    addDocument: (metadata: PageMetadata, parentId?: string | null) => void;
+    addDocument: (metadata: PageMetadata, parentId?: string | null, type?: 'ref-arch' | 'article') => void;
     updateDocument: (id: string, updates: Partial<Document>, skipRemoteSync?: boolean) => void;
     setActiveDocumentId: (id: string | null) => void;
     openDocument: (id: string) => void;
@@ -59,7 +61,7 @@ interface PageDataState {
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
-    createRemoteDocument: (metadata: PageMetadata, parentId?: string | null) => Promise<Document | null>;
+    createRemoteDocument: (metadata: PageMetadata, parentId?: string | null, type?: 'ref-arch' | 'article') => Promise<Document | null>;
     deleteRemoteDocument: (id: string) => Promise<void>;
 }
 
@@ -282,6 +284,8 @@ export const usePageDataStore = create<PageDataState>()(
                     // Merge local unsynced changes with remote data
                     const mergedDocuments = remoteDocuments.map(remoteDoc => {
                         const localDoc = localDocuments.find(d => d.id === remoteDoc.id);
+                        // Always preserve type from local — it's a UI-only field not stored on the backend
+                        const type = localDoc?.type;
                         // If local doc has unsynced changes (editorState differs), prefer local
                         if (localDoc && !localDoc._synced && localDoc.editorState) {
                             console.log('[PageDataStore] Preserving local changes for document:', remoteDoc.id);
@@ -289,9 +293,10 @@ export const usePageDataStore = create<PageDataState>()(
                                 ...remoteDoc,
                                 editorState: localDoc.editorState,
                                 _synced: false, // Mark for sync
+                                type,
                             };
                         }
-                        return remoteDoc;
+                        return { ...remoteDoc, type };
                     });
 
                     // Also sync any preserved local changes to backend
@@ -330,6 +335,11 @@ export const usePageDataStore = create<PageDataState>()(
                     set({
                         documents: mergedDocuments,
                         activeDocumentId: (() => {
+                            // Preserve the previously active document if it still exists
+                            const prevActiveId = get().activeDocumentId;
+                            if (prevActiveId && mergedDocuments.find(d => d.id === prevActiveId)) {
+                                return prevActiveId;
+                            }
                             // Prioritize "My Documents" (non-read-only) over "Shared with me" (read-only)
                             const myDocs = mergedDocuments.filter(d => d.parentId === null && !d.isReadOnly);
                             if (myDocs.length > 0) return myDocs[0].id;
@@ -527,7 +537,7 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             // Create a new document on remote
-            createRemoteDocument: async (metadata, parentId = null) => {
+            createRemoteDocument: async (metadata, parentId = null, type?) => {
                 const { backendUrl, authToken, openDocumentIds } = get();
                 if (!backendUrl || !authToken) {
                     // Fallback to local-only
@@ -536,6 +546,7 @@ export const usePageDataStore = create<PageDataState>()(
                         id: uuidv4(),
                         editorState: null,
                         parentId,
+                        type,
                         _synced: false,
                     };
                     // If it's a root document, add to open tabs
@@ -591,6 +602,7 @@ export const usePageDataStore = create<PageDataState>()(
                         authors: remoteDoc.author ? [remoteDoc.author.username] : metadata.authors,
                         contributors: remoteDoc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
                         tags: remoteDoc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
+                        type,
                     };
 
                     set((state) => {
@@ -634,7 +646,12 @@ export const usePageDataStore = create<PageDataState>()(
                         : state.openDocumentIds;
                     let newActiveId = state.activeDocumentId;
                     if (state.activeDocumentId === id) {
-                        newActiveId = newOpenIds.length > 0 ? newOpenIds[0] : (docsToKeep.length > 0 ? docsToKeep[0].id : null);
+                        // Find the type of the deleted document to avoid jumping editor types
+                        const deletedRootDoc = state.documents.find(d => d.id === (rootId || id));
+                        const deletedType = deletedRootDoc?.type;
+                        // Only pick a same-type root doc as the new active doc; null if none remain
+                        const sameTypeRoots = docsToKeep.filter(d => d.parentId === null && d.type === deletedType);
+                        newActiveId = sameTypeRoots.length > 0 ? sameTypeRoots[0].id : null;
                     }
                     return {
                         documents: docsToKeep,
@@ -667,9 +684,9 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             // Local-only add (for backwards compatibility)
-            addDocument: (metadata, parentId = null) => {
+            addDocument: (metadata, parentId = null, type?) => {
                 const { createRemoteDocument } = get();
-                createRemoteDocument(metadata, parentId);
+                createRemoteDocument(metadata, parentId, type);
             },
 
             // Update document locally and optionally trigger sync
@@ -733,6 +750,7 @@ export const usePageDataStore = create<PageDataState>()(
                 documents: state.documents,
                 lastSaveTimestamp: state.lastSaveTimestamp,
                 openDocumentIds: state.openDocumentIds,
+                activeDocumentId: state.activeDocumentId,
             }),
         }
     )
