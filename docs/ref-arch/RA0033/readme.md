@@ -1,9 +1,9 @@
 ---
 id: 2ecb7e
 slug: /ref-arch/2ecb7e
-sidebar_position: 11
-title: 'HANA AI Toolkit - Local MCP Server'
-description: 'Local MCP Server for Generative AI Toolkit for SAP HANA Cloud'
+sidebar_position: 150
+title: HANA AI Toolkit - Local MCP Server
+description: Local MCP Server for Generative AI Toolkit for SAP HANA Cloud
 keywords:
   - sap
   - hana
@@ -13,30 +13,28 @@ keywords:
   - model context protocol
   - ai agents
   - generative ai
-sidebar_label: 'HANA AI Toolkit - Local MCP Server'
+sidebar_label: HANA AI Toolkit - Local MCP Server
 image: img/ac-soc-med.png
+tags:
+  - agents
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - agents
-  - genai
-  - data
 contributors:
   - raymondyao
+discussion: 
 last_update:
-  date: 2026-06-15
   author: raymondyao
+  date: 2026-06-15
 ---
 
 The **HANAMLToolkit local MCP server** is a Model Context Protocol (MCP) endpoint that turns the [hana-ml](https://pypi.org/project/hana-ml/) Python library into a set of governed tools that AI agents — Joule, Claude Desktop, IDE-side copilots, custom LangChain/LangGraph agents — can invoke against an SAP HANA Cloud instance. The server is shipped as part of the [hana-ai](https://pypi.org/project/hana-ai/) toolkit, runs in-process next to the agent or as a sidecar, and exposes the same tool catalog over three interchangeable transports: **stdio**, **SSE**, and **streamable HTTP**.
 
 The architecture is opinionated about one thing in particular: every tool invocation must be attributable end-to-end. An audit module projects MCP-side identity (agent, model, session, tool, redacted arguments) into the HANA connection that the tool is about to use, so DBAs and auditors can correlate MCP-side events with HANA-side audit and `M_SESSION_CONTEXT` records.
-
-This document is the official endorsed architecture for that server, per the API Policy requirement that AI-facing data-access surfaces be published in the SAP Architecture Center.
 
 ## Top-level Component View
 
@@ -79,8 +77,8 @@ The package is published on PyPI and installable with `pip install hana-ai`. Its
 
 ## Related Readings
 
-- [Agent & Tool Interoperability (RA0029-1)](../1-a2a-and-mcp/readme.md) — MCP / A2A protocol context
-- [Third-Party MCP Access to SAP Solutions (RA0029-10)](../10-third-party-mcp-access/readme.md) — governed third-party MCP access
+- [Agent & Tool Interoperability](../RA0029/1-a2a-and-mcp/readme.md) — MCP / A2A protocol context
+- [Third-Party MCP Access to SAP Solutions](../RA0029/10-third-party-mcp-access/readme.md) — governed third-party MCP access
 - [hana-ai on PyPI](https://pypi.org/project/hana-ai/) — the package that ships this server
 - [hana-ml on PyPI](https://pypi.org/project/hana-ml/) — the underlying Python client for SAP HANA Cloud
 - [Model Context Protocol specification](https://modelcontextprotocol.io/) — upstream protocol
