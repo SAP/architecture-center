@@ -325,7 +325,7 @@ const config: Config = {
                     ],
                 },
                 {
-                    href: 'https://github.com/SAP/architecture-center',
+                    href: 'https://github.tools.sap/OCTO/architecture-center',
                     position: 'right',
                     className: 'navbar-item-github',
                     'aria-label': 'GitHub repository',
