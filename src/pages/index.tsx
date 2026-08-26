@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://pages.github.tools.sap/OCTO/architecture-center/' },
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:title', content: 'Welcome' },
+                { name: 'twitter:title', content: 'Welcome to the INTERNAL Architecture Center' },
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >
