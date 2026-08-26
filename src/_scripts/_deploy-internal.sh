@@ -10,7 +10,7 @@ REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG="$REPO_DIR/docusaurus.config.ts"
 INTERNAL_URL="https://pages.github.tools.sap"
 INTERNAL_BASE="/OCTO/architecture-center"
-REMOTE="internal"
+REMOTE="origin"
 
 cd "$REPO_DIR"
 
