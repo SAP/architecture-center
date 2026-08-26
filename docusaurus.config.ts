@@ -6,7 +6,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
 
-const baseUrl = '/';
+const baseUrl = '/OCTO/architecture-center';
 
 const config: Config = {
     title: 'SAP INTERNAL Architecture Center',
@@ -14,7 +14,7 @@ const config: Config = {
         'SAP INTERNAL Architecture Center',
     favicon: 'img/favicon.ico',
 
-    url: 'https://pages.github.tools.sap/OCTO/architecture-center',
+    url: 'https://pages.github.tools.sap',
     baseUrl: baseUrl,
 
     // GitHub pages deployment config.
