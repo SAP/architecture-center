@@ -1,3 +1,5 @@
+# This is the INTERNAL Architecture Center
+
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center) [![Deploy main site to GitHub Pages](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml) [![Periodic Link Checker](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml) [![CodeQL](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql)
 
 ![SAP Architecture Center](static/img/sap-architecture-center-logo-v21-450x345.webp)
