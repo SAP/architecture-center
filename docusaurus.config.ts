@@ -9,12 +9,12 @@ require('dotenv').config();
 const baseUrl = '/';
 
 const config: Config = {
-    title: 'SAP Architecture Center',
+    title: 'SAP INTERNAL Architecture Center',
     tagline:
-        'SAP Architecture Center empowers architects and developers with best practices, reference architectures, and community-driven guidance for designing, integrating, and optimizing SAP and cloud solutions. Accelerate innovation, ensure security, and reduce costs with proven frameworks and collaborative expertise for enterprise transformation.',
+        'SAP INTERNAL Architecture Center',
     favicon: 'img/favicon.ico',
 
-    url: 'https://architecture.learning.sap.com',
+    url: 'https://pages.github.tools.sap/OCTO/architecture-center',
     baseUrl: baseUrl,
 
     // GitHub pages deployment config.
