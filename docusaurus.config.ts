@@ -6,7 +6,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
 
-const baseUrl = '/OCTO/architecture-center';
+const baseUrl = '/OCTO/architecture-center/';
 
 const config: Config = {
     title: 'SAP INTERNAL Architecture Center',
