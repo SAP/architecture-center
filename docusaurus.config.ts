@@ -195,7 +195,7 @@ const config: Config = {
         //     isCloseable: true,
         // },
         navbar: {
-            title: 'Architecture Center',
+            title: 'INTERNAL Architecture Center',
             hideOnScroll: false,
             logo: {
                 alt: 'SAP',
