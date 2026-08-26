@@ -102,7 +102,7 @@ const config: Config = {
                     routeBasePath: 'docs',
                     sidebarPath: require.resolve('./sidebars'),
                     beforeDefaultRemarkPlugins: [drawioResources],
-                    editUrl: 'https://github.tools.sap/OCTO/architecture-center/edit/dev/',
+                    editUrl: 'https://github.tools.sap/OCTO/architecture-center/edit/main/',
                     tags: '../docs/tags.yml',
                 },
                 theme: {
