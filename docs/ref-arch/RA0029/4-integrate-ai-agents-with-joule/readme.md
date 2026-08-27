@@ -40,9 +40,7 @@ last_update:
 ---
 
 :::info Disclaimer
-The Agent Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
-
-This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular the bidirectional communication with 3rd-party and self-hosted agents through Agent Gateway is not yet supported. Full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
 
 For AI agents to deliver value in an enterprise context, they must be easily accessible to end-users within their natural workflow. In the SAP ecosystem, **Joule** is the single, trusted AI copilot that provides a consistent conversational interface across all SAP applications.

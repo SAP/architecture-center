@@ -57,7 +57,7 @@ last_update:
 ---
 
 :::info Disclaimer
-The Agent Gateway is not yet generally available (GA). Bidirectional communication with 3rd-party and self-hosted agents is not yet supported — the current architecture reflects a transitional state. Full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular the bidirectional communication with 3rd-party and self-hosted agents through Agent Gateway is not yet supported. Full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
 
 AI agents represent a new paradigm in enterprise software — combining large language models with tools, memory and reasoning to autonomously execute complex, multi-step business tasks. In the SAP ecosystem, agents bridge intelligent automation and core business processes, enabling systems to dynamically adapt, reason and act in real time.

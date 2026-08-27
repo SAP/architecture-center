@@ -40,9 +40,7 @@ last_update:
 ---
 
 :::info Disclaimer
-The Agent Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
-
-This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular the bidirectional communication with 3rd-party and self-hosted agents through Agent Gateway is not yet supported. Full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
 
 While a primary use case is integrating external agents *into* Joule, the architecture is designed to be bidirectional. Agents built within the SAP ecosystem can also be exposed for consumption by third-party applications and external agentic systems. This enables SAP to act as a central hub of enterprise intelligence that can be leveraged across a heterogeneous IT landscape.
