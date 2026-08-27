@@ -19,7 +19,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-08-27
 ---
 
 ## Important information regarding the Privacy Statement
@@ -53,7 +53,6 @@ When ensuring compliance, SAP processes your Personal Data if and to the extend 
 ### What categories of Personal Data does SAP process?
 SAP processes the following categories of Personal Data: 
 - **SAP AC Quick Start**: GitHub Username, GitHub Public Profile Information (e.g., name, profile picture, email if made public), Repository Access Token
-- **SAP AC Architecture Validator**: SAP User ID, SAP Public Profile Information (e.g., name, profile picture, email if made public)
 
 If SAP processes special categories of Personal Data under applicable law, SAP will ask you for your consent in a specific declaration.
 

@@ -15,13 +15,8 @@ jobs:
       contents: read
     environment: github-pages
     env:
-      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
       BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
       EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
-      VALIDATOR_RULES_API_URL: ${{ secrets.VALIDATOR_RULES_API_URL }}
-      VALIDATOR_OAUTH_AUTH_URL: ${{ secrets.VALIDATOR_OAUTH_AUTH_URL }}
-      VALIDATOR_OAUTH_CLIENT_ID: ${{ secrets.VALIDATOR_OAUTH_CLIENT_ID }}
-      VALIDATOR_OAUTH_CLIENT_SECRET: ${{ secrets.VALIDATOR_OAUTH_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -67,9 +62,6 @@ jobs:
 
       - name: Export drawios to svgs
         run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios/_export.js
-
-      - name: Generate validation rules
-        run: node src/_scripts/_generate-validator-rules.js
 
       - name: Build Website
         run: npm run build
