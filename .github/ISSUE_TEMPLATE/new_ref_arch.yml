@@ -25,6 +25,15 @@ body:
       description: E-Mail address or SAP user id 
     validations:
       required: true
+  - type: dropdown
+    attributes:
+      label: Events
+      description: Assign this reference architecture to a project event if applicable.
+      options:
+        - no Event
+        - TechEd 2026
+    validations:
+      required: false
   - type: textarea
     attributes:
       label: Additional context
