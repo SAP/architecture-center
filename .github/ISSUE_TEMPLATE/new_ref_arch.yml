@@ -1,7 +1,7 @@
 name: 💡Request for a new SAP Reference Architecture
 description: Suggest an idea for this project
 title: "[NEW_RA]"
-labels: [reference-architecture, new]
+labels: [reference-architecture, content]
 body:
   - type: dropdown
     attributes:
