@@ -36,13 +36,11 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-05-04
+  date: 2026-08-27
 ---
 
 :::info Disclaimer
-The Agent Gateway is not yet generally available (GA). As a result, the current architecture supports unidirectional (outbound) communication only.
-
-This reflects a transitional state - key components enabling full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
+Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular the bidirectional communication with 3rd-party and self-hosted agents through Agent Gateway is not yet supported. Full bidirectional capabilities are expected to be released soon and will evolve the architecture accordingly.
 :::
 
 A robust and scalable AI agent ecosystem relies on standardized communication protocols that enable seamless interoperability between agents and the tools they use. SAP has adopted two open standards, the **Agent2Agent (A2A) protocol** and the **Model Context Protocol (MCP)**, to create a decoupled architecture where agents and tools can be developed, deployed and updated independently. While MCP standardizes the connection between models and external resources, A2A complements it by enabling autonomous, multi-turn collaboration between independent AI agents.
