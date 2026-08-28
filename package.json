@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2635.2",
+    "version": "v3.2635.3",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
