@@ -16,13 +16,13 @@ body:
     id: area
     attributes:
       label: Describe this new reference architecture, so precisely as possible.
-      description: Provide a clear and concise description of what the problem is e.g., I am always frustrated when [...]
+      description: Provide a clear and concise description of the new reference architecture and the main purpose of it.
     validations:
       required: true
   - type: textarea
     attributes:
       label: If known provide the responsible contact person for this new reference architecture.
-      description: E-Mail address or d-user
+      description: E-Mail address or SAP user id 
     validations:
       required: true
   - type: textarea
