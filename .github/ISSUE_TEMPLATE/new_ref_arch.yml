@@ -1,0 +1,36 @@
+name: 💡Request for a new Refernec Architecture
+description: Suggest an idea for this project
+title: "[NEW_RA]"
+labels: [enhancement]
+body:
+  - type: dropdown
+    attributes:
+      label: Do you want an internal or external reference architecture which will be published at https://github.com/SAP/architecture-center/?
+      description: Specify the main area that you want to see improved.
+      options:
+        - internal
+        - external
+    validations:
+      required: true
+  - type: textarea
+    id: area
+    attributes:
+      label: Describe this new reference architecture, so precisely as possible.
+      description: Provide a clear and concise description of what the problem is e.g., I am always frustrated when [...]
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: If known provide the responsible contact person for this new reference architecture.
+      description: E-Mail address or d-user
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: |
+        Add any other context like links or references about this new reference architecture here. Anything that will give us more context about this new request!
+
+        Tip: You can attach images or files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
