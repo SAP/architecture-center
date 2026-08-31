@@ -8,21 +8,28 @@ interface PageTabsProps {
     onAddNew?: (parentId: string | null) => void;
 }
 
+// Persists expand state across Editor remounts (Editor uses key={activeDocumentId})
+let _raExpanded = false;
+let _articleExpanded = false;
+
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     const { documents, activeDocumentId, openDocument } = usePageDataStore();
-    const [raExpanded, setRaExpanded] = useState(false);
-    const [articleExpanded, setArticleExpanded] = useState(false);
+    const [raExpanded, setRaExpanded] = useState(() => _raExpanded);
+    const [articleExpanded, setArticleExpanded] = useState(() => _articleExpanded);
 
-    // Expand only the section matching the active document
+    const toggleRa = () => { _raExpanded = !raExpanded; setRaExpanded(!raExpanded); };
+    const toggleArticle = () => { _articleExpanded = !articleExpanded; setArticleExpanded(!articleExpanded); };
+
+    // Expand the section of the active document on load; never auto-collapse the other
     useEffect(() => {
         if (!activeDocumentId) return;
         const activeDoc = documents.find((d) => d.id === activeDocumentId);
         if (activeDoc?.type === 'article') {
+            _articleExpanded = true;
             setArticleExpanded(true);
-            setRaExpanded(false);
         } else {
+            _raExpanded = true;
             setRaExpanded(true);
-            setArticleExpanded(false);
         }
     }, [activeDocumentId, documents]);
 
@@ -104,7 +111,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                     <div className={styles.sectionGroup}>
                         <button
                             className={styles.sectionToggle}
-                            onClick={() => setRaExpanded((v) => !v)}
+                            onClick={toggleRa}
                         >
                             <span>My Reference Architectures</span>
                             <ChevronDown
@@ -139,7 +146,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                     <div className={styles.sectionGroup}>
                         <button
                             className={styles.sectionToggle}
-                            onClick={() => setArticleExpanded((v) => !v)}
+                            onClick={toggleArticle}
                         >
                             <span>My Articles</span>
                             <ChevronDown
