@@ -1,0 +1,17 @@
+name: Link issue to event project
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  link-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add to TechEd 2026 project
+        if: contains(github.event.issue.body, 'TechEd 2026')
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          GH_HOST: github.tools.sap
+        run: |
+          gh project item-add 30 --owner OCTO --url "${{ github.event.issue.html_url }}"
