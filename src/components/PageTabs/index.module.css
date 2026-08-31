@@ -233,22 +233,22 @@
     justify-content: space-between;
     width: 100%;
     padding: 12px 14px;
-    background: var(--gradient-premium);
-    border: none;
+    background: linear-gradient(57.5deg, rgba(70, 91, 229, 0.2) 0%, rgba(205, 0, 190, 0.2) 100%);
+    border: 1px solid rgba(150, 80, 210, 0.25);
     border-radius: 10px;
-    color: white;
+    color: var(--ifm-font-color-base);
     font-size: 14px;
     font-weight: 500;
     letter-spacing: normal;
     text-transform: none;
     cursor: pointer;
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    transition: background 0.15s ease, transform 0.15s ease;
     text-align: left;
     margin-bottom: 4px;
 }
 
 .sectionToggle:hover {
-    opacity: 0.9;
+    background: linear-gradient(57.5deg, rgba(70, 91, 229, 0.35) 0%, rgba(205, 0, 190, 0.35) 100%);
     transform: translateY(-1px);
 }
 

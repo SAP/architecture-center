@@ -10,6 +10,7 @@ import ContentTypeDialog, { ContentType } from '@site/src/components/ContentType
 import ArticleFormDialog from '@site/src/components/ArticleFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import { BusyIndicator, Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
 
@@ -43,6 +44,7 @@ function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isArticleFormOpen, setIsArticleFormOpen] = useState(false);
     const [isArticleEditMode, setIsArticleEditMode] = useState(false);
+    const [showAuthorSetup, setShowAuthorSetup] = useState(false);
     const [articleFormData, setArticleFormData] = useState<PageMetadata>({ title: '', tags: [], authors: [], contributors: [] });
     const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
@@ -55,6 +57,7 @@ function AuthenticatedQuickStartView() {
     const { users, token } = useAuth();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
     const [initialized, setInitialized] = useState(false);
+    const authorsData = usePluginData('docusaurus-authors') as { authorKeys?: string[] } | undefined;
 
     // Initialize backend config and fetch documents
     useEffect(() => {
@@ -118,10 +121,15 @@ function AuthenticatedQuickStartView() {
             setIsEditMode(false);
             setIsModalOpen(true);
         } else {
+            // Check if user is already in authors.yml
+            const authorKeys = authorsData?.authorKeys ?? [];
+            const githubUsername = users.github?.username ?? '';
+            const needsAuthorSetup = githubUsername ? !authorKeys.includes(githubUsername) : false;
+            setShowAuthorSetup(needsAuthorSetup);
             setArticleFormData({ title: '', tags: [], authors: [], contributors: [] });
             setIsArticleFormOpen(true);
         }
-    }, [users.github]);
+    }, [users.github, authorsData]);
 
     const handleContentTypeCancel = useCallback(() => {
         setIsContentTypeOpen(false);
@@ -156,7 +164,12 @@ function AuthenticatedQuickStartView() {
         }
     };
 
-    const handleArticleCreate = useCallback(() => {
+    const handleArticleCreate = useCallback((authorProfile?: { name: string; title: string; linkedin: string }) => {
+        if (authorProfile) {
+            // TODO: call backend endpoint to write new author entry to authors.yml
+            // key: users.github.username, name: authorProfile.name, title: authorProfile.title
+            // url/image_url from github, socials.linkedin: authorProfile.linkedin
+        }
         if (isArticleEditMode) {
             const activeDoc = getActiveDocument();
             if (activeDoc) {
@@ -185,6 +198,7 @@ function AuthenticatedQuickStartView() {
         setIsArticleFormOpen(false);
         setIsArticleEditMode(false);
         setIsSubPageCreation(false);
+        setShowAuthorSetup(false);
         if (documents.length === 0) {
             setIsContentTypeOpen(true);
         }
@@ -247,6 +261,7 @@ function AuthenticatedQuickStartView() {
                 onSave={handleArticleCreate}
                 onCancel={handleArticleCancel}
                 isEditMode={isArticleEditMode}
+                showAuthorSetup={showAuthorSetup}
             />
             <MetadataFormDialog
                 open={isModalOpen}
