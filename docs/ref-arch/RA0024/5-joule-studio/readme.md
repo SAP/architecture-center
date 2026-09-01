@@ -11,10 +11,9 @@ keywords:
   - joule studio
   - custom joule skills
   - ai agents
-  - sap integration
   - sap ai
   - automation
-  - sap btp
+  - sap business ai platform
   - hybrid landscapes
 sidebar_label: Joule Studio
 image: img/ac-soc-med.png
@@ -31,10 +30,8 @@ draft: false
 unlisted: false
 contributors:
     - fabianleh
-    - SelinaHochstrat
-    - f-buech
 last_update:
-    date: 2026-05-12
+    date: 2026-09-01
     author: fabianleh
 ############################################################
 #                   End of Front Matter                    #
