@@ -1306,6 +1306,15 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
         padding-top: 24px;
         padding-bottom: 24px;
     }
+
+    /* prevent horizontal overflow */
+    html[data-theme='light'] .docItemCol_VOVn,
+    html[data-theme='dark'] .docItemCol_VOVn {
+        padding: 16px;
+        margin: 0 8px;
+        width: calc(100% - 16px);
+        max-width: calc(100% - 16px);
+    }
 }
 
 /* Mobile */
