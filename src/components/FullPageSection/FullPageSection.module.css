@@ -39,7 +39,7 @@
 @media (max-width: 768px) {
     .fullPageSection {
         min-height: fit-content;
-        padding: 40px 0;
+        padding: 40px 0 120px 0;
         scroll-snap-align: none;
     }
 
