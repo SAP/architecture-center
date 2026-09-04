@@ -57,6 +57,7 @@ function AuthenticatedQuickStartView() {
     const { users, token } = useAuth();
     const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
     const [initialized, setInitialized] = useState(false);
+    const isSapAuthenticated = false;
     const authorsData = usePluginData('docusaurus-authors') as { authorKeys?: string[] } | undefined;
 
     // Initialize backend config and fetch documents
@@ -253,6 +254,12 @@ function AuthenticatedQuickStartView() {
                 open={isContentTypeOpen}
                 onSelect={handleContentTypeSelect}
                 onCancel={handleContentTypeCancel}
+                isArticleLocked={!isSapAuthenticated}
+                onRequestSapLogin={() => {
+                    const originUri = `${window.location.origin}${baseUrl}quick-start`;
+                    const { backendUrl } = siteConfig.customFields as { backendUrl: string; expressBackendUrl: string };
+                    window.location.href = `${backendUrl}/user/login?provider=btp&origin_uri=${encodeURIComponent(originUri)}`;
+                }}
             />
             <ArticleFormDialog
                 open={isArticleFormOpen}

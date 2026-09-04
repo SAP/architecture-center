@@ -8,9 +8,25 @@ interface ContentTypeDialogProps {
     open: boolean;
     onSelect: (type: ContentType) => void;
     onCancel: () => void;
+    isArticleLocked?: boolean;
+    onRequestSapLogin?: () => void;
 }
 
-export default function ContentTypeDialog({ open, onSelect, onCancel }: ContentTypeDialogProps): JSX.Element {
+export default function ContentTypeDialog({
+    open,
+    onSelect,
+    onCancel,
+    isArticleLocked = false,
+    onRequestSapLogin,
+}: ContentTypeDialogProps): JSX.Element {
+    const handleArticleClick = () => {
+        if (isArticleLocked) {
+            onRequestSapLogin?.();
+        } else {
+            onSelect('article');
+        }
+    };
+
     return (
         <Dialog
             open={open}
@@ -32,7 +48,11 @@ export default function ContentTypeDialog({ open, onSelect, onCancel }: ContentT
                         A proven blueprint showcasing how SAP offerings come together to deliver business value
                     </div>
                 </button>
-                <button className={styles.typeCard} onClick={() => onSelect('article')}>
+                <button
+                    className={styles.typeCard}
+                    onClick={handleArticleClick}
+                    title={isArticleLocked ? 'Sign in with your SAP account to access articles' : undefined}
+                >
                     <Icon name="document-text" className={styles.cardIcon} />
                     <div className={styles.cardTitle}>Article</div>
                     <div className={styles.cardDescription}>
