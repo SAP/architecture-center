@@ -1,0 +1,41 @@
+name: 📋 Backlog Item
+description: Add a new item to the project backlog
+title: "[BACKLOG]"
+labels: [backlog]
+body:
+  - type: dropdown
+    attributes:
+      label: Type
+      description: What type of backlog item is this?
+      options:
+        - reference architecture
+        - north star update / enhancement
+        - blog post
+        - documentation
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Priority
+      description: How urgent is this item?
+      options:
+        - high
+        - medium
+        - low
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: Provide a clear and concise description of the backlog item and its purpose.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: |
+        Add any other context, links, or references relevant to this backlog item.
+
+        Tip: You can attach images or files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false

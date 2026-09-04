@@ -6,7 +6,7 @@ body:
   - type: dropdown
     attributes:
       label: Do you want an internal or external reference architecture which will be published at https://github.com/SAP/architecture-center/?
-      description: Specify the main area that you want to see improved.
+      description: Specify the publication channel for this new reference architecture.
       options:
         - internal
         - external
