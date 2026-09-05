@@ -25,14 +25,6 @@ export const navigationCardsData = [
         link: '/quick-start',
         image: '/img/ArchitectureTabs/quickstart.webp'
     },*/
-    // {
-    //     title: 'Architecture Validator',
-    //     subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',
-    //     icon: 'sap-icon://order-status',
-    //     link: '/architecture-validator',
-    //     requiresAuth: true,
-    //     image: '/img/ArchitectureTabs/validator.webp'
-    // },
 ];
 
 // Keep items sorted alphabetically by `title`
