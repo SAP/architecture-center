@@ -12,6 +12,7 @@ body:
         - north star update / enhancement
         - blog post
         - documentation
+        - content update
     validations:
       required: true
   - type: dropdown
@@ -30,6 +31,18 @@ body:
       description: Provide a clear and concise description of the backlog item and its purpose.
     validations:
       required: true
+  - type: dropdown
+    attributes:
+      label: Target Release Date
+      description: When is this item expected to be delivered?
+      options:
+        - Q4/2026
+        - Q1/2027
+        - Q2/2027
+        - Q3/2027
+        - Q4/2027
+    validations:
+      required: false
   - type: textarea
     attributes:
       label: Additional context
