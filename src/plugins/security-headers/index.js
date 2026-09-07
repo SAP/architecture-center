@@ -73,6 +73,7 @@ module.exports = function (_context, _options) {
             const fs = require('fs');
             const path = require('path');
             
+            // frame-src: allow kaltura cdn from which RA0005/readme.md loads and embeds video
             const headersContent = `/*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
@@ -80,7 +81,7 @@ module.exports = function (_context, _options) {
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: cdn.jsdelivr.net/npm/@sap-theming/; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self' cdnapisec.kaltura.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
 `;
 
             const headersPath = path.join(outDir, '_headers');
@@ -120,7 +121,7 @@ module.exports = function (_context, _options) {
                             },
                             {
                                 key: 'Content-Security-Policy',
-                                value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
+                                value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: cdn.jsdelivr.net/npm/@sap-theming/; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self' cdnapisec.kaltura.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
                             },
                         ],
                     },
