@@ -45,9 +45,9 @@ SAP Data Accelerator currently supports Palantir Foundry. Support for additional
 
 **Data flows:** 
 
-- **Acquisition (left → right):** SAP backend data is selected, authorized, and replicated to partner systems via SAP Data Accelerator APIs. 
+- **Acquisition (left → right):** Partner software authenticates to SAP Data Accelerator using mTLS and opens a secure tunnel to the SAP backend through SAP Cloud Connector. Over this tunnel, the SAP ABAP add-on extracts authorized SAP data and delivers it to the partner platform.
 
-- **Writeback (right → left):** Enriched or AI-generated insights can be written back to SAP from partner platforms, subject to authorization. 
+- **Writeback (right → left):** Over the same tunnel, the partner platform sends enriched or AI-generated insights back to SAP — the SAP ABAP add-on performs the write in the SAP backend, optionally attributing each change to the individual user who triggered it.
 
 ## Key Components
 
