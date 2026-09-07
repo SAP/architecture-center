@@ -35,7 +35,7 @@ last_update:
 
 Palantir Foundry is an enterprise data and AI platform used by large organizations to integrate operational data, build AI/ML pipelines, and operationalize decisions.  
 
-For SAP customers using Palantir Foundry, SAP Data Accelerator is the SAP-endorsed connectivity service providing a preferred, high-throughput, governed path for ingesting SAP data into Foundry’s data lineage and transformation engine. 
+For SAP customers using Palantir Foundry, SAP Data Accelerator is the SAP-endorsed connectivity service providing a preferred, high-throughput, governed path for ingesting SAP data into Palantir Foundry.
 
 ![drawio](drawio/sap-data-accelerator-palantir.drawio)
 
@@ -44,10 +44,12 @@ For SAP customers using Palantir Foundry, SAP Data Accelerator is the SAP-endors
 Palantir Foundry's SAP integration stack includes these deployment components.
 
 - **SAP Data Accelerator:** The core SAP service that provides the secure data path between the customer's SAP landscape and Palantir Foundry.
-- **Backend SAP Systems:** Data sources — on-premise and Cloud Private Edition.
-- **Foundry Connector:** Installed in the SAP backend system, this add-on registers extraction logic and manages delta queue operations, exposing data to SAP Data Accelerator in a structured format.
-- **SAP Cloud Connector:** Provides a secure tunnel from the partner platform into the customer's on-premise or private cloud network — exposing specific backend SAP systems to the DA Hub while keeping the internal network private.
+- **Backend SAP Systems:** Data sources — on-premises and SAP S/4HANA Cloud Private Edition.
+- **Foundry Connector** (Palantir Foundry Connector 2.0 for SAP Applications): Installed in the SAP backend system, this add-on registers extraction logic and manages delta queue operations, exposing data to SAP Data Accelerator in a structured format.
+- **SAP Cloud Connector:** Establishes a secure, outbound-only tunnel from on-premises or SAP S/4HANA Cloud Private Edition systems to SAP Data Accelerator — requiring no inbound firewall openings on the SAP side.
 - **Palantir Foundry:** Partner platform consuming SAP data via the SAP Data Accelerator Hub.
+
+Existing users of Palantir's native SAP connectors can transition seamlessly to the SAP Data Accelerator architecture while retaining their existing Foundry Connector installation — no re-installation or re-configuration of the add-on is required.
 
 
 ### Data Ingestion into Foundry
@@ -65,7 +67,7 @@ Once the SAP Data Accelerator connector is configured in Foundry's connection ma
 
 ### Writeback from Foundry to SAP
 
-Foundry's writeback pipeline uses the SAP Data Accelerator writeback API. This enables user-attributed writebacks — changes committed to SAP are recorded against the Foundry user who triggered the action, not a shared service account. This is critical for audit compliance in regulated industries (financial services, pharma, public sector).
+Foundry's writeback pipeline sends data through SAP Data Accelerator to the Foundry Connector, which handles the write to the SAP backend system. This enables user-attributed writebacks — changes committed to SAP are recorded against the Foundry user who triggered the action, not a shared service account. This is critical for audit compliance in regulated industries (financial services, pharma, public sector).
 
 Typical writeback scenarios from Palantir Foundry to SAP include:
 
