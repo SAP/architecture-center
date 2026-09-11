@@ -220,13 +220,13 @@ export default function ArchitectureTabs({
                                         className={styles.actionButton}
                                         onClick={handleButtonClick}
                                     >
-                                        {title === 'Quick Start' || title === 'Architecture Validator' ? 'Launch' : 'Explore'} {title}
+                                        {title === 'Quick Start' ? 'Launch' : 'Explore'} {title}
                                     </button>
                                 ) : (
                                     <Link to={link} className={styles.actionButton}>
                                         {title === 'Latest Article'
                                             ? 'Read Latest Article'
-                                            : title === 'Quick Start' || title === 'Architecture Validator'
+                                            : title === 'Quick Start'
                                                 ? `Launch ${title}`
                                                 : `Explore ${title}`}
                                     </Link>
