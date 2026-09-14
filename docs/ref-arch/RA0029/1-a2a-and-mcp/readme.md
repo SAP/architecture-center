@@ -14,6 +14,7 @@ keywords:
   - interoperability
   - Agent2Agent
   - model context protocol
+  - sap integration suite
 sidebar_label: A2A and MCP for Interoperability
 image: img/ac-soc-med.png
 tags:
@@ -33,6 +34,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - hterminasyan
+  - Dhawal-Joshi
 discussion: 
 last_update:
   author: kay-schmitteckert
