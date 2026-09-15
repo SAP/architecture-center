@@ -1,8 +1,95 @@
 .navContainer {
-    border-right: 1px solid #e0e0e0;
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+
+.newRefArchButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: var(--gradient-premium);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    text-align: left;
+}
+
+.newRefArchButton:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.newRefArchButton:active {
+    transform: translateY(0);
+}
+
+.documentsList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ifm-color-emphasis-600);
+    padding: 12px 10px 6px 10px;
+    margin-top: 8px;
+}
+
+.sectionHeader:first-child {
+    margin-top: 0;
+    padding-top: 6px;
+}
+
+.sectionIcon {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.sectionDivider {
+    height: 1px;
+    background-color: var(--ifm-color-emphasis-300);
+    margin: 12px 10px 4px 10px;
+}
+
+.sharedSection {
+    opacity: 0.9;
+}
+
+.readOnlyItem {
+    position: relative;
+}
+
+.viewOnlyIcon {
+    flex-shrink: 0;
+    color: var(--ifm-color-emphasis-600);
+    margin-left: auto;
+}
+
+.navItem.active .viewOnlyIcon {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.emptyState {
+    padding: 20px 10px;
+    text-align: center;
+    color: var(--ifm-color-emphasis-600);
+    font-size: 13px;
 }
 
 .header {
@@ -17,7 +104,7 @@
 
 .navItem {
     font-size: 14px;
-    color: #555;
+    color: var(--ifm-font-color-base);
     padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -29,7 +116,7 @@
 }
 
 .navItem:hover {
-    background-color: #f0f2f5;
+    background-color: var(--ifm-color-emphasis-200);
 }
 
 .navItem.active {
@@ -49,7 +136,7 @@
     margin: 0;
     padding-left: 1rem;
     margin-left: 10px;
-    border-left: 1px solid #e0e0e0;
+    border-left: 1px solid var(--ifm-color-emphasis-300);
 }
 
 .childrenList .navItem {
@@ -72,8 +159,26 @@
     flex-shrink: 0;
 }
 
-.navItem:hover .itemActions,
-.navItem.active .itemActions {
+.addSubPageButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+}
+
+.addSubPageButton:hover {
+    opacity: 0.8;
+}
+
+.navItem:hover .addSubPageButton,
+.navItem.active .addSubPageButton {
     opacity: 1;
 }
 
@@ -91,7 +196,7 @@
 }
 
 .dialogContent {
-    background: white;
+    background: var(--ifm-background-color);
     border-radius: 8px;
     padding: 24px;
     min-width: 400px;
@@ -103,12 +208,12 @@
     margin: 0 0 16px 0;
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: var(--ifm-font-color-base);
 }
 
 .dialogMessage {
     margin: 0 0 24px 0;
-    color: #666;
+    color: var(--ifm-font-color-secondary);
     line-height: 1.5;
 }
 

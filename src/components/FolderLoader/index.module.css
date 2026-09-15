@@ -1,0 +1,125 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 15, 0.9);
+  z-index: 9999;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.folder {
+  --folder-color: #6366f1;
+  --paper-color: #fff;
+  position: relative;
+  width: 100px;
+  height: 75px;
+  perspective: 300px;
+}
+
+.folderBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--folder-color);
+  border-radius: 0 10px 10px 10px;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+}
+
+.folderBack::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 40px;
+  height: 12px;
+  background: var(--folder-color);
+  border-radius: 5px 5px 0 0;
+}
+
+.paper {
+  position: absolute;
+  width: 60px;
+  height: 50px;
+  background: var(--paper-color);
+  border-radius: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.paper:nth-child(2) {
+  bottom: 25px;
+  animation: paper1 1.5s ease-in-out infinite;
+}
+
+.paper:nth-child(3) {
+  bottom: 20px;
+  animation: paper2 1.5s ease-in-out infinite 0.1s;
+}
+
+.paper:nth-child(4) {
+  bottom: 15px;
+  animation: paper3 1.5s ease-in-out infinite 0.2s;
+}
+
+.folderFront {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  bottom: 0;
+  background: linear-gradient(180deg, #818cf8 0%, var(--folder-color) 100%);
+  border-radius: 0 0 10px 10px;
+  transform-origin: bottom center;
+  animation: fold 1.5s ease-in-out infinite;
+}
+
+@keyframes fold {
+  0%, 100% { transform: rotateX(0deg); }
+  50% { transform: rotateX(-35deg); }
+}
+
+@keyframes paper1 {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-18px); }
+}
+
+@keyframes paper2 {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-14px); }
+}
+
+@keyframes paper3 {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.label {
+  color: #a5b4fc;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+  100% { content: ''; }
+}

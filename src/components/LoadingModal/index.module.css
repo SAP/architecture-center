@@ -86,3 +86,28 @@
 .buttonGroup {
     margin-top: 1rem;
 }
+
+/* Dark mode styles */
+:root[data-theme='dark'] .modal {
+    background: #1f2937;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme='dark'] .modal h2,
+:root[data-theme='dark'] .modal h3 {
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .punText {
+    color: #9ca3af;
+}
+
+:root[data-theme='dark'] .resultContainer p {
+    color: #d1d5db;
+}
+
+:root[data-theme='dark'] .errorMessage {
+    background-color: #7f1d1d;
+    border-color: #dc2626;
+    color: #fca5a5;
+}

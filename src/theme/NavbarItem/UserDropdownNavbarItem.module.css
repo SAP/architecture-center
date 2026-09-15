@@ -106,8 +106,9 @@
 }
 
 [data-theme='dark'] .userDropdown__content {
-    background-color: var(--sapGroup_ContentBackground);
-    color: var(--sapContent_ForegroundTextColor);
+    background-color: #1f2937;
+    color: #e5e7eb;
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.5);
 }
 
 .userDropdown__contentOpen {
@@ -138,7 +139,7 @@
 }
 
 [data-theme='dark'] .userDropdown__header {
-    border-bottom-color: var(--sap-horizon-neutral-10);
+    border-bottom-color: #374151;
 }
 
 .userAvatarLargePlaceholder {
@@ -173,7 +174,7 @@
 }
 
 [data-theme='dark'] .userName {
-    color: var(--sap-horizon-neutral-1);
+    color: #e5e7eb;
 }
 
 .userEmail {
@@ -184,7 +185,7 @@
 }
 
 [data-theme='dark'] .userEmail {
-    color: var(--sap-horizon-neutral-3);
+    color: #9ca3af;
 }
 
 .userDropdown__section {
@@ -194,7 +195,7 @@
 }
 
 [data-theme='dark'] .userDropdown__section {
-    border-bottom-color: var(--sap-horizon-neutral-10);
+    border-bottom-color: #374151;
 }
 
 .userDropdown__sectionTitle {
@@ -266,7 +267,7 @@
 }
 
 [data-theme='dark'] .userDropdown__separator {
-    border-top-color: var(--sap-horizon-neutral-10);
+    border-top-color: #374151;
 }
 
 .logoutButtonLarge {
@@ -350,7 +351,7 @@
 }
 
 [data-theme='dark'] .dualLoginContainer {
-    border-bottom-color: var(--sap-horizon-neutral-10);
+    border-bottom-color: #374151;
 }
 
 @media (max-width: 768px) {
@@ -368,7 +369,7 @@
 }
 
 [data-theme='dark'] .dualLoginSection {
-    background-color: var(--sap-horizon-neutral-11);
+    background-color: #1f2937;
 }
 
 .dualLoginSection:not(:last-child) {
@@ -376,7 +377,7 @@
 }
 
 [data-theme='dark'] .dualLoginSection:not(:last-child) {
-    border-right-color: var(--sap-horizon-neutral-10);
+    border-right-color: #374151;
 }
 
 @media (max-width: 768px) {
@@ -386,7 +387,7 @@
     }
 
     [data-theme='dark'] .dualLoginSection:not(:last-child) {
-        border-bottom-color: var(--sap-horizon-neutral-10);
+        border-bottom-color: #374151;
     }
 }
 
@@ -436,8 +437,8 @@
 }
 
 [data-theme='dark'] .dualLoginLayout .userDropdown__logoutSection {
-    border-top-color: var(--sap-horizon-neutral-10);
-    background-color: var(--sap-horizon-neutral-11);
+    border-top-color: #374151;
+    background-color: #1f2937;
 }
 
 /* Adjust avatar sizes for dual login */
@@ -489,11 +490,11 @@
 }
 
 [data-theme='dark'] .accountRow {
-    border-bottom-color: var(--sap-horizon-neutral-10);
+    border-bottom-color: #374151;
 }
 
 [data-theme='dark'] .accountRow:hover {
-    background-color: var(--sap-horizon-neutral-10);
+    background-color: #374151;
 }
 
 .accountInfo {
@@ -542,7 +543,7 @@
 }
 
 [data-theme='dark'] .accountProvider {
-    color: var(--sap-horizon-neutral-3);
+    color: #9ca3af;
 }
 
 .crossButton {
@@ -564,11 +565,11 @@
 }
 
 [data-theme='dark'] .crossButton {
-    color: var(--sap-horizon-neutral-3);
+    color: #9ca3af;
 }
 
 [data-theme='dark'] .crossButton:hover {
-    background-color: var(--sap-horizon-neutral-9);
+    background-color: #374151;
     color: var(--ifm-color-danger);
 }
 
@@ -578,8 +579,8 @@
 }
 
 [data-theme='dark'] .logoutAllSection {
-    border-top-color: var(--sap-horizon-neutral-10);
-    background-color: var(--sap-horizon-neutral-11);
+    border-top-color: #374151;
+    background-color: #1f2937;
 }
 
 .logoutAllButton {

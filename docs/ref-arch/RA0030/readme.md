@@ -1,7 +1,7 @@
 ---
 id: 766aa3
 slug: /ref-arch/766aa3
-sidebar_position: 30
+sidebar_position: 310
 title: SAP Document AI
 description: Reference Architecture for SAP Document AI.
 keywords:

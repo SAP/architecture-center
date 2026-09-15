@@ -14,15 +14,15 @@ export default function Home(): JSX.Element {
     return (
         <Layout
             // @ts-expect-error - Docusaurus Layout component doesn't officially expose title prop in types, but it's supported
-            title="Welcome"
+            title=""
             description={siteConfig.tagline}
             metadata={[
-                { property: 'og:title', content: 'Welcome' },
+                { property: 'og:title', content: 'Welcome to the Architecture Center' },
                 { property: 'og:description', content: siteConfig.tagline },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://architecture.learning.sap.com/' },
                 { name: 'twitter:card', content: 'summary_large_image' },
-                { name: 'twitter:title', content: 'Welcome' },
+                { name: 'twitter:title', content: 'Welcome to the Architecture Center' },
                 { name: 'twitter:description', content: siteConfig.tagline },
             ]}
         >

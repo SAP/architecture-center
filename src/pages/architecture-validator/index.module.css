@@ -352,6 +352,44 @@
     width: 100%;
 }
 
+/* Dark mode for auth card */
+:root[data-theme='dark'] .authCard {
+    --sapGroup_ContentBackground: #1f2937;
+    --sapGroup_TitleBackground: #374151;
+    --sapTile_Background: #1f2937;
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+:root[data-theme='dark'] .centeredCardHeader {
+    background-color: #374151;
+    border-bottom-color: #4b5563;
+}
+
+:root[data-theme='dark'] .authCardContent {
+    background-color: #1f2937;
+}
+
+:root[data-theme='dark'] .authCard :global([ui5-card]) {
+    --sapGroup_ContentBackground: #1f2937;
+    --sapGroup_TitleBackground: #374151;
+    --sapTile_Background: #1f2937;
+    --sapContent_LabelColor: #d1d5db;
+    --sapTextColor: #e5e7eb;
+}
+
+:root[data-theme='dark'] .authCard :global([ui5-title]) {
+    color: #e5e7eb;
+}
+
+:root[data-theme='dark'] .authCard :global([ui5-text]) {
+    color: #d1d5db;
+}
+
+:root[data-theme='dark'] .authCard :global([ui5-icon]) {
+    color: #9ca3af;
+}
+
 .authCardContent {
     padding: 1.5rem;
     display: flex;

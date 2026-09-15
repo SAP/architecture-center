@@ -1,7 +1,7 @@
 ---
 id: 458ff4
 slug: /ref-arch/458ff4
-sidebar_position: 31
+sidebar_position: 320
 title: Decentralized Identity Verification
 description: >-
   Decentralized Identity Verification (DIV) is a multi-tenant SAP BTP service

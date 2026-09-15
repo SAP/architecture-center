@@ -1,0 +1,145 @@
+.tabsContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background-color: #f1f3f5;
+  border-bottom: 1px solid #dee2e6;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.tabsList {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabsList::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #495057;
+  white-space: nowrap;
+  max-width: 180px;
+  transition: all 0.15s ease;
+}
+
+.tab:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.tab.active {
+  background-color: #ffffff;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.15);
+}
+
+.tabTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #868e96;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.closeButton:hover {
+  background-color: #dee2e6;
+  color: #495057;
+}
+
+.tab.active .closeButton:hover {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background-color: #ffffff;
+  border: 1px dashed #adb5bd;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #868e96;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.addButton:hover {
+  background-color: #e9ecef;
+  border-color: #495057;
+  color: #495057;
+}
+
+/* Dark mode support */
+:root[data-theme='dark'] .tabsContainer {
+  background-color: var(--ifm-background-surface-color, #1e1e1e);
+  border-bottom-color: var(--ifm-toc-border-color, #333);
+}
+
+:root[data-theme='dark'] .tab {
+  background-color: var(--ifm-background-color, #2d2d2d);
+  border-color: var(--ifm-toc-border-color, #444);
+  color: var(--ifm-color-content-secondary, #b0b0b0);
+}
+
+:root[data-theme='dark'] .tab:hover {
+  background-color: var(--ifm-hover-overlay, #3a3a3a);
+  border-color: var(--ifm-color-emphasis-400, #666);
+}
+
+:root[data-theme='dark'] .tab.active {
+  background-color: var(--ifm-background-color, #2d2d2d);
+  border-color: var(--ifm-color-primary, #3b82f6);
+  color: var(--ifm-color-primary-light, #60a5fa);
+}
+
+:root[data-theme='dark'] .closeButton {
+  color: var(--ifm-color-emphasis-500, #888);
+}
+
+:root[data-theme='dark'] .closeButton:hover {
+  background-color: var(--ifm-hover-overlay, #444);
+  color: var(--ifm-color-content, #e0e0e0);
+}
+
+:root[data-theme='dark'] .addButton {
+  background-color: var(--ifm-background-color, #2d2d2d);
+  border-color: var(--ifm-color-emphasis-400, #555);
+  color: var(--ifm-color-emphasis-500, #888);
+}
+
+:root[data-theme='dark'] .addButton:hover {
+  background-color: var(--ifm-hover-overlay, #3a3a3a);
+  border-color: var(--ifm-color-emphasis-500, #777);
+  color: var(--ifm-color-content, #e0e0e0);
+}

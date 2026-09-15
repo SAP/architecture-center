@@ -39,19 +39,19 @@ last_update:
 
 :::
 
-The SAP SuccessFactors Suite is a cloud‑based Human Experience Management (HXM) platform designed to support the full employee lifecycle through an integrated set of talent, core HR, and analytics solutions. At the foundation sits the BizX platform, which houses core modules such as **Employee Central (EC)** for global master data management, **Recruiting Management**, **Onboarding**, **Performance & Goals**, **Compensation**, and more. These modules share a common data model, user interface, and extensibility framework, enabling consistent data flows and streamlined HR operations across the organization.
+The SAP SuccessFactors Suite is a cloud‑based Human Experience Management (HXM) platform designed to support the full employee lifecycle through an integrated set of talent, core HR, and analytics solutions. At the foundation sits the BizX platform, which houses core modules such as **Employee Central (EC)** for global master data management, **Recruiting Management** (legacy, replaced by SmartRecruiters), **Onboarding**, **Performance & Goals**, **Compensation**, and more. These modules share a common data model, user interface, and extensibility framework, enabling consistent data flows and streamlined HR operations across the organization.
 
 ## Architecture
 
 ![drawio](drawio/successfactors.module.integration.drawio)
 
-At the heart of SAP SuccessFactors sits the Employee Profile together with the Login Information. These are part of the Foundation layer of SuccessFactors which is available for all SuccessFactors customers, no matter which modules are licensed. Next to that the Foundation layer contains Position Mangement, the Job Profile Builder, the Talent Intelligence Hub and Table Reports.
+At the heart of SAP SuccessFactors sits the Employee Profile together with the Login Information. These are part of the Foundation layer of SuccessFactors which is available for all SuccessFactors customers, no matter which modules are licensed. Next to that the Foundation layer contains Position Management, the Job Profile Builder, the Talent Intelligence Hub and Table Reports.
 
 SAP SuccessFactors leverages some SAP core components like IAS and IPS for login and SAP Joule as an integrated agent.
 
 ## Extended Components
 
-Surrounding the core BizX capabilities are specialized components that extend value through deeper functional and technical integration. **Employee Central Payroll (ECP)** delivers highly localized, SAP‑HCM‑grade payroll processing in the cloud, directly connected with EC for master and time data. **Identity Authentication Service (IAS)** and **Identity Provisioning Service (IPS)** provide secure, modern identity management, enabling SSO, user lifecycle automation, and harmonized access across the SuccessFactors landscape and connected systems. Talent acquisition is further enhanced by **Recruiting Marketing (RMK)** for candidate attraction and branding, and **Recruiting Posting (RPO)** for automated job distribution across global job boards. Please note that Recruiting Management, Marketing and Posting will be replaced with SmartRecruiters; as soon as the new integration is fleshed out this page will be updated.
+Surrounding the core BizX capabilities are specialized components that extend value through deeper functional and technical integration. **Employee Central Payroll (ECP)** delivers highly localized, SAP‑HCM‑grade payroll processing in the cloud, directly connected with EC for master and time data. **Identity Authentication Service (IAS)** and **Identity Provisioning Service (IPS)** provide secure, modern identity management, enabling SSO, user lifecycle automation, and harmonized access across the SuccessFactors landscape and connected systems. Talent acquisition can be provided by the new **SmartRecruiters** offering or further enhanced by **Recruiting Marketing (RMK)** for candidate attraction and branding, and **Recruiting Posting (RPO)** for automated job distribution across global job boards.
 
 ## Complete HXM Ecosystem
 

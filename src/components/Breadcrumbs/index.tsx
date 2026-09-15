@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document } from '@site/src/store/pageDataStore';
+import { Document, usePageDataStore } from '@site/src/store/pageDataStore';
 import { Icon } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/home.js';
 import '@ui5/webcomponents-icons/dist/slim-arrow-right.js';
@@ -10,9 +10,16 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ path }) => {
+    const { setActiveDocumentId } = usePageDataStore();
+
     if (!path || path.length === 0) {
         return null;
     }
+
+    const handleBreadcrumbClick = (e: React.MouseEvent, docId: string) => {
+        e.preventDefault();
+        setActiveDocumentId(docId);
+    };
 
     return (
         <nav aria-label="breadcrumb" className={styles.breadcrumbNav}>
@@ -34,9 +41,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ path }) => {
                             {index === path.length - 1 ? (
                                 <span className={styles.breadcrumbCurrent}>{doc.title}</span>
                             ) : (
-                                <a href="#" className={styles.breadcrumbLink}>
+                                <button
+                                    type="button"
+                                    className={styles.breadcrumbLink}
+                                    onClick={(e) => handleBreadcrumbClick(e, doc.id)}
+                                >
                                     {doc.title}
-                                </a>
+                                </button>
                             )}
                         </li>
                     </React.Fragment>

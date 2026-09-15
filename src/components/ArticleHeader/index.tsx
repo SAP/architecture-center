@@ -10,29 +10,22 @@ const formatDate = (timestamp: string | null | undefined): string => {
     if (!timestamp) return 'N/A';
 
     try {
-        const datePart = timestamp.split(',')[0];
-
-        const parts = datePart.split('/');
-
-        if (parts.length !== 3) {
-            return datePart;
-        }
-
-        const [day, month, year] = parts;
-
-        const date = new Date(Number(year), Number(month) - 1, Number(day));
+        // Parse ISO date string or existing Date
+        const date = new Date(timestamp);
 
         if (isNaN(date.getTime())) {
-            return datePart;
+            return timestamp;
         }
 
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-        });
+        // Format: Mon DD, YYYY (e.g., May 22, 2026)
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = months[date.getMonth()];
+        const day = date.getDate();
+        const year = date.getFullYear();
+
+        return `${month} ${day}, ${year}`;
     } catch {
-        return timestamp.split(',')[0];
+        return timestamp;
     }
 };
 
@@ -53,10 +46,18 @@ interface EditableData {
     description: string;
 }
 
-export default function ArticleHeader() {
+interface ArticleHeaderProps {
+    readOnly?: boolean;
+    onEditMeta?: () => void;
+}
+
+export default function ArticleHeader({ readOnly = false, onEditMeta }: ArticleHeaderProps) {
     const { getActiveDocument, updateDocument, lastSaveTimestamp } = usePageDataStore();
     const activeDocument = getActiveDocument();
     const globalTagsData = useGlobalData()['docusaurus-tags']['default']['tags'] as Record<string, TagData> | undefined;
+
+    // Use lastSaveTimestamp from store, fallback to document's updatedAt
+    const displayTimestamp = lastSaveTimestamp || activeDocument?.updatedAt || null;
 
     const { availableTags, tagKeyToLabelMap } = useMemo(() => {
         const tagsData = globalTagsData || {};
@@ -175,9 +176,11 @@ export default function ArticleHeader() {
     return (
         <div id="article-header" className={styles.container}>
             <h1 className={styles.displayTitle}>{activeDocument.title || 'Untitled Page'}</h1>
-            <div className={styles.actions}>
-                <Button icon="edit" design="Transparent" onClick={handleEdit} />
-            </div>
+            {!readOnly && (
+                <div className={styles.actions}>
+                    <Button icon="edit" design="Transparent" onClick={onEditMeta || handleEdit} />
+                </div>
+            )}
             {/* <p className={styles.description}>{activeDocument.description || 'No description provided.'}</p> */}
             <div className={styles.tagsContainer}>
                 {activeDocument.tags.length > 0 &&
@@ -188,7 +191,7 @@ export default function ArticleHeader() {
                     ))}
             </div>
             <p className={styles.updateInfo}>
-                Last updated on <strong>{formatDate(lastSaveTimestamp)}</strong> by{' '}
+                Last updated on <strong>{formatDate(displayTimestamp)}</strong> by{' '}
                 <strong>{activeDocument.authors.length > 0 ? activeDocument.authors.join(', ') : 'Unknown'}</strong>
             </p>
         </div>
