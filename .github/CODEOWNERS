@@ -15,7 +15,7 @@
 # Owners for specific directories
 /news/                  @OCTO/architecture-center-reviewer
 /docs/agent/            @OCTO/architecture-center-reviewer
-/docs/community/        @OCTO/architecture-center-reviewer
+/docs/community/        @OCTO/architecture-center-admin
 /docs/golden-path/      @OCTO/architecture-center-reviewer
 /docs/north-star-arch/  @OCTO/architecture-center-reviewer
 /docs/ref-arch/         @OCTO/architecture-center-reviewer
