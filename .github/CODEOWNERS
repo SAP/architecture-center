@@ -23,4 +23,5 @@
 # Owners for specific files
 /docs/contributors.json         @OCTO/architecture-center-reviewer
 /docs/tags.yml                  @OCTO/architecture-center-reviewer
+/news/authors.yml               @OCTO/architecture-center-reviewer
 /src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer
