@@ -274,20 +274,24 @@ const config: Config = {
                 },
                 {
                     type: 'dropdown',
-                    label: 'Navigate',
+                    label: 'Menu',
                     position: 'left',
                     items: [
+                        {
+                            type: 'html',
+                            value: '<strong>Browse</strong>',
+                        },
                         //
                         //  label: 'Explore the News Articles',
                         //  to: '/news-all',
                         //
                         {
-                            label: 'Discover the AI-native North Star architecture',
+                            label: 'The AI-native North Star architecture',
                             to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
                         },
                         {
-                            label: 'Discover the AI Golden Path',
+                            label: 'The AI Golden Path',
                             to: '/docs/ai-golden-path',
                             sidebarid: 'goldenPathSidebar',
                         },
@@ -297,19 +301,23 @@ const config: Config = {
                             sidebarid: 'globalStandardsForAgenticAISidebar',
                         },
                         {
-                            label: 'Browse the Reference Architectures',
+                            label: 'The Reference Architectures',
                             to: '/docs/ref-arch',
                         },
-                        //
-                        //  type: 'html',
-                        //  value: '<hr style="margin: 0.3rem 0;">',
-                        //
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
                         //
                         //  label: 'Launch the Architecture Validator',
                         //  to: '/architecture-validator',
                         //
                         {
-                            label: 'Launch Quick Start',
+                            type: 'html',
+                            value: '<strong>Launch</strong>',
+                        },
+                        {
+                            label: 'Quick Start - Our WYSIWYG editor',
                             to: '/quick-start',
                         },
                         {
@@ -317,7 +325,11 @@ const config: Config = {
                             value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
-                            label: 'Access the Community of Practice',
+                            type: 'html',
+                            value: '<strong>Help</strong>',
+                        },
+                        {
+                            label: 'The Community of Practice',
                             to: '/docs/community/intro/',
                             sidebarid: 'communitySidebar',
                         },
