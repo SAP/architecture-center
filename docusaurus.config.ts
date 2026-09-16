@@ -40,6 +40,7 @@ const config: Config = {
             '/architecture-validator': 'btp',
             '/quick-start': 'github',
         },
+        buildDate: new Date().toISOString(),
     },
     themes: ['@docusaurus/theme-mermaid'],
     plugins: [

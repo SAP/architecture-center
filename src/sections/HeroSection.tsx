@@ -1,5 +1,6 @@
 import React, { JSX, useRef, useEffect, useState } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Link from '@docusaurus/Link';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './HeroSection.module.css';
@@ -12,6 +13,11 @@ declare global {
 }
 
 export default function HeroSection(): JSX.Element {
+    const { siteConfig } = useDocusaurusContext();
+    const buildDate = siteConfig.customFields?.buildDate as string;
+    const formattedDate = buildDate
+        ? new Date(buildDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : null;
     const particlesConfigUrl = useBaseUrl('/particlesjs-config.json');
     const particlesInitialized = useRef(false);
     const [displayedText, setDisplayedText] = useState('');
@@ -72,6 +78,9 @@ export default function HeroSection(): JSX.Element {
                             Community of Practice
                         </Link>
                     </div>
+                    {formattedDate && (
+                        <p className={styles.buildDate}>Last updated: {formattedDate}</p>
+                    )}
                 </div>
             </div>
         </div>

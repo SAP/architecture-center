@@ -108,6 +108,13 @@
     flex-wrap: wrap;
 }
 
+.buildDate {
+    font-size: 0.85rem;
+    color: var(--ifm-color-content-secondary);
+    margin: 0;
+    opacity: 0.7;
+}
+
 .primaryButton {
     display: inline-block;
     padding: 6px 24px;
