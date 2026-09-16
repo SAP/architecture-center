@@ -1,53 +1,46 @@
 #!/usr/bin/env bash
-# Builds the site for the internal GitHub Pages deployment and force-pushes
-# the output to the gh-pages branch of the `internal` git remote.
+# Builds the site and pushes the output to the gh-pages branch.
 #
 # Usage: bash src/_scripts/_deploy-internal.sh
 
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
-CONFIG="$REPO_DIR/docusaurus.config.ts"
-INTERNAL_URL="https://pages.github.tools.sap"
-INTERNAL_BASE="/OCTO/architecture-center"
 REMOTE="origin"
 
 cd "$REPO_DIR"
 
-# --- 1. Patch docusaurus.config.ts ---
-echo "Patching docusaurus.config.ts..."
-sed -i '' "s|url: '.*'|url: '$INTERNAL_URL'|" "$CONFIG"
-sed -i '' "s|const baseUrl = '.*';|const baseUrl = '$INTERNAL_BASE';|" "$CONFIG"
+# --- 1. Build ---
+echo "Clearing cache..."
+npm run clear
 
-restore_config() {
-  echo "Restoring docusaurus.config.ts..."
-  git checkout -- "$CONFIG"
-}
-trap restore_config EXIT
+echo "Exporting drawios..."
+CACHE_ENABLED=1 node src/_scripts/_export-drawios/_export.js
 
-# --- 2. Build ---
 echo "Building..."
 npm run build
 
-# --- 3. Restore config (trap handles it, but be explicit) ---
-restore_config
-trap - EXIT
-
-# --- 4. Push build output to gh-pages on the internal remote ---
+# --- 2. Push build output to gh-pages on the internal remote ---
 echo "Deploying to $REMOTE/gh-pages..."
 
-REMOTE_URL=$(git remote get-url "$REMOTE")
-TEMP_DIR=$(mktemp -d)
+WORKTREE_DIR="$REPO_DIR/../gh-pages-deploy"
 
-git -C "$TEMP_DIR" init --quiet
-git -C "$TEMP_DIR" remote add origin "$REMOTE_URL"
-cp -r "$REPO_DIR/build/." "$TEMP_DIR/"
-touch "$TEMP_DIR/.nojekyll"
-git -C "$TEMP_DIR" add .
-git -C "$TEMP_DIR" commit --quiet -m "Deploy $(date '+%Y-%m-%d %H:%M')"
-git -C "$TEMP_DIR" push origin HEAD:gh-pages --force --quiet
+# Clean up any leftover worktree from a previous failed run
+git worktree remove "$WORKTREE_DIR" --force 2>/dev/null || true
+git worktree prune 2>/dev/null || true
 
-rm -rf "$TEMP_DIR"
+git worktree add "$WORKTREE_DIR" gh-pages --quiet
+
+cleanup_worktree() {
+  git worktree remove "$WORKTREE_DIR" --force 2>/dev/null || true
+}
+trap cleanup_worktree EXIT
+
+rsync -a --delete --exclude='.git' "$REPO_DIR/build/" "$WORKTREE_DIR/"
+
+git -C "$WORKTREE_DIR" add -A
+git -C "$WORKTREE_DIR" commit --quiet -m "Deploy $(date -u '+%Y-%m-%d %H:%M') UTC"
+git -C "$WORKTREE_DIR" push "$REMOTE" gh-pages
 
 echo ""
-echo "Done. Site available at: $INTERNAL_URL$INTERNAL_BASE/"
+echo "Done. Site available at: https://pages.github.tools.sap/OCTO/architecture-center/"
