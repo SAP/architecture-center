@@ -10,8 +10,7 @@ const baseUrl = '/OCTO/architecture-center/';
 
 const config: Config = {
     title: 'SAP INTERNAL Architecture Center',
-    tagline:
-        'SAP INTERNAL Architecture Center',
+    tagline: 'SAP INTERNAL Architecture Center',
     favicon: 'img/favicon.ico',
 
     url: 'https://pages.github.tools.sap',
@@ -278,10 +277,10 @@ const config: Config = {
                     label: 'Navigate',
                     position: 'left',
                     items: [
-                        {
-                            label: 'Explore the News Articles',
-                            to: '/news-all',
-                        },
+                        //
+                        //  label: 'Explore the News Articles',
+                        //  to: '/news-all',
+                        //
                         {
                             label: 'Discover the AI-native North Star architecture',
                             to: '/docs/ai-native-north-star-architecture',
@@ -301,14 +300,14 @@ const config: Config = {
                             label: 'Browse the Reference Architectures',
                             to: '/docs/ref-arch',
                         },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
-                        },
-                        {
-                            label: 'Launch the Architecture Validator',
-                            to: '/architecture-validator',
-                        },
+                        //
+                        //  type: 'html',
+                        //  value: '<hr style="margin: 0.3rem 0;">',
+                        //
+                        //
+                        //  label: 'Launch the Architecture Validator',
+                        //  to: '/architecture-validator',
+                        //
                         {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
