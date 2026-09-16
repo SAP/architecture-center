@@ -1,1 +1,26 @@
-* @navyakhurana @cernus76 @julian-schambeck
+# 
+# Pattern    @owner1 @owner2
+# *            @org/team          # all files → team
+# *.ts         @user1             # all .ts files → user1
+# /docs/       @org/content-team  # entire docs/ directory
+# /docs/ref-arch/RA0001/  @user1 @user2  # specific folder
+#
+
+# ALL
+*   @OCTO/architecture-center-admin
+
+# Changes on repository settings require admin permissions
+/.github/CODEOWNERS     @OCTO/architecture-center-admin
+
+# Owners for specific directories
+/news/                  @OCTO/architecture-center-reviewer
+/docs/agent/            @OCTO/architecture-center-reviewer
+/docs/community/        @OCTO/architecture-center-reviewer
+/docs/golden-path/      @OCTO/architecture-center-reviewer
+/docs/north-star-arch/  @OCTO/architecture-center-reviewer
+/docs/ref-arch/         @OCTO/architecture-center-reviewer
+
+# Owners for specific files
+/docs/contributors.json         @OCTO/architecture-center-reviewer
+/docs/tags.yml                  @OCTO/architecture-center-reviewer
+/src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer
