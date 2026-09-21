@@ -9,7 +9,7 @@ on:
 
 jobs:
     check-unused-files:
-        runs-on: [ self-hosted, solinas ]
+        runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
         timeout-minutes: 15
         permissions:
             contents: read

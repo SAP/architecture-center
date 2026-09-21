@@ -20,7 +20,7 @@ permissions: {}
 jobs:
   audit-scripts:
     name: Audit npm Scripts
-    runs-on: [ self-hosted, solinas ]
+    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
     timeout-minutes: 5
     permissions:
       contents: read
@@ -194,7 +194,7 @@ jobs:
 
   audit-workflows:
     name: Audit GitHub Workflows
-    runs-on: [ self-hosted, solinas ]
+    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
     timeout-minutes: 5
     permissions:
       contents: read
@@ -328,7 +328,7 @@ jobs:
 
   dependency-review:
     name: Dependency Review
-    runs-on: [ self-hosted, solinas ]
+    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
     timeout-minutes: 5
     if: github.event_name == 'pull_request'
     permissions:

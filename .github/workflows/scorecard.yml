@@ -12,7 +12,7 @@ permissions: {}
 jobs:
   analysis:
     name: Scorecard analysis
-    runs-on: [ self-hosted, solinas ]
+    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
     timeout-minutes: 15
     permissions:
       security-events: write
