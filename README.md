@@ -12,7 +12,7 @@ A reference architecture outlines the interactions between various services, sho
 
 ### Prerequisites
 
-- **Node.js** >= 20.0
+- **Node.js** >= 22.0
 - **npm** or **pnpm**
 - **Git**
 

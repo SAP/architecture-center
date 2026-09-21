@@ -47,7 +47,7 @@ In the context of new applications, the [SAP Cloud Identity Services - Identity 
 
 ### Preparation
 
-Current SAP applications with an user- & group / role store expose those via the SCIM2 protocol.
+Current SAP applications with a user- & group / role store expose those via the SCIM2 protocol.
 
 1. The SAP Cloud Identity Services - Identity Provisioning (IPS) replicates the groups from the SAP applications into the Identity Directory.
 2. SAP BTP applications based on AMS publish automatically the policies into the Identity Directory as groups.

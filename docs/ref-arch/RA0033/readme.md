@@ -2,8 +2,8 @@
 id: 2ecb7e
 slug: /ref-arch/2ecb7e
 sidebar_position: 150
-title: 'HANA AI Toolkit - Local MCP Server'
-description: 'Local MCP Server for Generative AI Toolkit for SAP HANA Cloud'
+title: HANA AI Toolkit - Local MCP Server
+description: Local MCP Server for Generative AI Toolkit for SAP HANA Cloud
 keywords:
   - sap
   - hana
@@ -13,22 +13,23 @@ keywords:
   - model context protocol
   - ai agents
   - generative ai
-sidebar_label: 'HANA AI Toolkit - Local MCP Server'
+sidebar_label: HANA AI Toolkit - Local MCP Server
 image: img/ac-soc-med.png
+tags:
+  - agents
+  - data
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-tags:
-  - agents
-  - data
 contributors:
   - raymondyao
+discussion: 
 last_update:
-  date: 2026-06-15
   author: raymondyao
+  date: 2026-06-15
 ---
 
 The **HANAMLToolkit local MCP server** is a Model Context Protocol (MCP) endpoint that turns the [hana-ml](https://pypi.org/project/hana-ml/) Python library into a set of governed tools that AI agents — Joule, Claude Desktop, IDE-side copilots, custom LangChain/LangGraph agents — can invoke against an SAP HANA Cloud instance. The server is shipped as part of the [hana-ai](https://pypi.org/project/hana-ai/) toolkit, runs in-process next to the agent or as a sidecar, and exposes the same tool catalog over three interchangeable transports: **stdio**, **SSE**, and **streamable HTTP**.
