@@ -84,7 +84,7 @@ jobs:
 
   deploy:
     name: Deploy Site
-    runs-on: runs-on: [ self-hosted, solinas ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 10
     needs: build
     permissions:
