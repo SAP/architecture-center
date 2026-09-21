@@ -10,7 +10,7 @@ on:
 jobs:
     build:
         name: Build Site
-        runs-on: ubuntu-latest
+        runs-on: [ self-hosted, solinas ]
         timeout-minutes: 30
         permissions:
             contents: read

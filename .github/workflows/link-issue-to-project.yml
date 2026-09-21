@@ -6,7 +6,7 @@ on:
 
 jobs:
   link-to-project:
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, solinas ]
     steps:
       - name: Add to TechEd 2026 project
         if: contains(github.event.issue.body, 'TechEd 2026')
