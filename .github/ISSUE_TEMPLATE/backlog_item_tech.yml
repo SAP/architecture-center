@@ -1,0 +1,54 @@
+name: 📋 Backlog Item TECH
+description: Add a new TECH item to the project backlog
+title: "[BACKLOG-TECH]"
+labels: [backlog-tech]
+body:
+  - type: dropdown
+    attributes:
+      label: Type
+      description: What type of backlog item is this?
+      options:
+        - development
+        - configuration / set up
+        - github workflow
+        - documentation (community of practice)
+        - docusaurus update
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Priority
+      description: How urgent is this item?
+      options:
+        - high
+        - medium
+        - low
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: Provide a clear and concise description of the backlog item and its purpose.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Target Release Date
+      description: When is this item expected to be delivered?
+      options:
+        - Q4/2026
+        - Q1/2027
+        - Q2/2027
+        - Q3/2027
+        - Q4/2027
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional context
+      description: |
+        Add any other context, links, or references relevant to this backlog item.
+
+        Tip: You can attach images or files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false

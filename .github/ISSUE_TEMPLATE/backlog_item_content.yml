@@ -1,7 +1,7 @@
-name: 📋 Backlog Item
-description: Add a new item to the project backlog
-title: "[BACKLOG]"
-labels: [backlog]
+name: 📋 Backlog Item CONTENT
+description: Add a new CONTENT item to the project backlog
+title: "[BACKLOG-CONTENT]"
+labels: [backlog-content]
 body:
   - type: dropdown
     attributes:
