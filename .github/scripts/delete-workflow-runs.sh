@@ -19,11 +19,26 @@
 #   -h              Show this help.
 #
 # Examples:
+#   # Preview only — list the runs that would be deleted, delete nothing:
 #   .github/scripts/delete-workflow-runs.sh -n
+#
+#   # Preview for the shared internal repo:
+#   .github/scripts/delete-workflow-runs.sh -r OCTO/architecture-center -H github.tools.sap -n
+#
+#   # Delete every run on the shared internal repo (asks for confirmation):
 #   .github/scripts/delete-workflow-runs.sh -r OCTO/architecture-center -H github.tools.sap
+#
+#   # Non-interactive — skip the confirmation prompt (host derived from the remote):
 #   .github/scripts/delete-workflow-runs.sh -r OCTO/architecture-center -y
+#
+#   # Faster on large repos — raise parallelism to 20:
+#   .github/scripts/delete-workflow-runs.sh -r OCTO/architecture-center -y -p 20
 
 set -euo pipefail
+
+# Capture the script path at top level: inside a zsh function $0 is the
+# function name, not the script, so grab it here for usage() to read.
+SELF="$0"
 
 PARALLEL=10
 ASSUME_YES=0
@@ -31,7 +46,7 @@ DRY_RUN=0
 REPO=""
 HOST=""
 
-usage() { sed -n '2,29p' "$0"; exit "${1:-0}"; }
+usage() { sed -n '2,35p' "$SELF"; exit "${1:-0}"; }
 
 while getopts ":r:H:p:ynh" opt; do
   case "$opt" in
