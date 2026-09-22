@@ -79,7 +79,7 @@ jobs:
         run: node src/_scripts/_update-drawio-links.js
 
       - name: Upload Build Artifact
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c # v2 (last GHES-compatible major; v3+ bundles @actions/artifact v2, unsupported on GHES)
         with:
           path: build
 
@@ -98,4 +98,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
+        uses: actions/deploy-pages@de14547edc9944350dc0481aa5b7afb08e75f254 # v2 (last GHES-compatible major; v4+ downloads via @actions/artifact v2, unsupported on GHES)

@@ -34,7 +34,7 @@ jobs:
           publish_results: true
 
       - name: Upload SARIF artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3 (last GHES-compatible major; v4+ uses @actions/artifact v2, unsupported on GHES)
         with:
           name: scorecard-results
           path: results.sarif
