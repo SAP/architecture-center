@@ -9,7 +9,7 @@ permissions: {}
 jobs:
   build:
     name: Build Site
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 30
     permissions:
       contents: read
@@ -25,6 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          persist-credentials: false
           # fetch complete history for step "export drawios" to safely determine
           # date of last update to drawio files via git log
           fetch-depth: 0
@@ -84,7 +85,7 @@ jobs:
 
   deploy:
     name: Deploy Site
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 10
     needs: build
     permissions:

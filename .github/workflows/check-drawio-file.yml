@@ -11,7 +11,7 @@ permissions: {}
 jobs:
   check-drawio-size:
     name: Check drawio Files
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 5
     permissions:
       contents: read

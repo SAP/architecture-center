@@ -1,5 +1,10 @@
 name: Periodic Link Checker
 
+# DISABLED (2026-09-22): this file is intentionally named
+# ".yml.disabled" so GitHub does NOT run it. It depends on two actions that are
+# not mirrored on github.tools.sap — lycheeverse/lychee-action and
+# micalevisk/last-issue-action — so every run startup-fails. To re-enable, rename
+# back to "periodic-link-watcher.yml" once the mirror carries both actions.
 on:
     schedule:
         - cron: '0 0 * * *'
@@ -9,7 +14,7 @@ permissions: {}
 
 jobs:
     link-checker:
-        runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+        runs-on: [ self-hosted, solinas ]
         timeout-minutes: 30
         permissions:
             contents: read
@@ -18,6 +23,8 @@ jobs:
         steps:
             - name: Checkout source code
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+              with:
+                  persist-credentials: false
             - name: Link Checker
               id: lychee
               uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0

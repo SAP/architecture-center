@@ -20,7 +20,7 @@ permissions: {}
 jobs:
   audit-scripts:
     name: Audit npm Scripts
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 5
     permissions:
       contents: read
@@ -124,7 +124,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
-          node-version: 'lts/*'
+          # node-version: 'lts/*'
+          node-version: '24'
 
       - name: Generate npm audit SARIF
         shell: bash
@@ -159,7 +160,7 @@ jobs:
 
       - name: Upload npm audit SARIF
         if: always() && hashFiles('npm-audit.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c4dd10e44af883a891fe31ced449bcb4a6728b9b # v3
+        uses: github/codeql-action/upload-sarif@6f240a501577534ef178b856f0493fc6ee43280c # v3 (github.tools.sap mirror SHA; upstream SHA is not synced)
         with:
           sarif_file: npm-audit.sarif
           category: npm-audit
@@ -194,7 +195,7 @@ jobs:
 
   audit-workflows:
     name: Audit GitHub Workflows
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 5
     permissions:
       contents: read
@@ -238,9 +239,13 @@ jobs:
             fi
 
             # Check for script injection via untrusted event data in run: blocks.
-            # Pre-filter removes YAML key-value assignment lines (env:, if:, with: params)
-            # which are safe usage patterns. Only direct interpolation in run: content is dangerous.
-            if grep -vE '^\s+[A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{' "$workflow" | \
+            # Pre-filter removes safe usage patterns: (a) YAML key-value assignment
+            # lines (env:, if:, with: params) where the value is a bare expression,
+            # and (b) metadata keys that are never passed to a shell — 'name:' (UI
+            # display) and concurrency 'group:'. Only interpolation in run: content
+            # is dangerous. Note 'group:' commonly carries github.event.pull_request.number,
+            # an integer used by the concurrency system, so it must not be flagged.
+            if grep -vE '^\s+([A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{|(name|group):\s)' "$workflow" | \
                grep -qE '\$\{\{[^}]*(github\.(head_ref|actor)\b|github\.event\.(issue|pull_request|comment|review|discussion|label|sender|workflow_run)\.)'; then
               echo "🚨 CRITICAL: $workflow may be vulnerable to script injection via untrusted event data!"
               echo "   Dangerous context var used directly in run: block content (head_ref, actor, event.pull_request.*, event.workflow_run.head_branch, etc.)"
@@ -277,7 +282,7 @@ jobs:
             fi
 
             # Check for secrets interpolated directly in run: steps (may leak to debug logs)
-            if grep -vE '^\s+[A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{' "$workflow" | \
+            if grep -vE '^\s+([A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{|(name|group):\s)' "$workflow" | \
                grep -qE '\$\{\{\s*secrets\.'; then
               echo "⚠️  WARNING: $workflow may interpolate a secret directly in a run: step. Gate through env: instead."
             fi
@@ -328,7 +333,7 @@ jobs:
 
   dependency-review:
     name: Dependency Review
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 5
     if: github.event_name == 'pull_request'
     permissions:

@@ -12,7 +12,7 @@ permissions: {}
 jobs:
   analysis:
     name: Scorecard analysis
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
     timeout-minutes: 15
     permissions:
       security-events: write
@@ -41,6 +41,6 @@ jobs:
           retention-days: 5
 
       - name: Upload to GitHub code-scanning dashboard
-        uses: github/codeql-action/upload-sarif@c4dd10e44af883a891fe31ced449bcb4a6728b9b # v3
+        uses: github/codeql-action/upload-sarif@6f240a501577534ef178b856f0493fc6ee43280c # v3 (github.tools.sap mirror SHA; upstream SHA is not synced)
         with:
           sarif_file: results.sarif

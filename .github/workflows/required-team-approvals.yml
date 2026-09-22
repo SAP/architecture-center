@@ -1,0 +1,139 @@
+name: Required team approvals
+
+# Enforces the review policy that native branch protection cannot express:
+#   - The admin team must approve EVERY pull request.
+#   - The reviewer team must approve pull requests that touch the paths it owns
+#     in .github/CODEOWNERS (the reviewer-owned paths are read from that file,
+#     so CODEOWNERS stays the single source of truth).
+# The result is published as the commit status "required-team-approvals",
+# which must be added as a required status check on the protected branch.
+
+on:
+  # pull_request_target (not pull_request) so the workflow has access to the
+  # TEAM_REVIEW_TOKEN secret even for pull requests opened from forks. No code
+  # from the pull request head is executed: CODEOWNERS is read from the trusted
+  # base checkout and everything else comes from the API.
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: required-team-approvals-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  team-approvals:
+    name: Required team approvals
+    runs-on: [ self-hosted, solinas ]
+    timeout-minutes: 5
+    steps:
+      - name: Checkout base CODEOWNERS
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: .github/CODEOWNERS
+          sparse-checkout-cone-mode: false
+
+      - name: Evaluate team approvals
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          # A token that can read organization team membership. The default
+          # GITHUB_TOKEN cannot. See the setup notes in the repository docs.
+          github-token: ${{ secrets.TEAM_REVIEW_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            const org = context.repo.owner;                       // OCTO
+            const adminTeam = 'architecture-center-admin';
+            const reviewerTeam = 'architecture-center-reviewer';
+            const adminRef = `@${org}/${adminTeam}`;
+            const reviewerRef = `@${org}/${reviewerTeam}`;
+            const statusContext = 'required-team-approvals';
+
+            const pr = context.payload.pull_request;
+            const { owner, repo } = context.repo;
+            const prNumber = pr.number;
+            const headSha = pr.head.sha;
+
+            const setStatus = (state, description) =>
+              github.rest.repos.createCommitStatus({
+                owner, repo, sha: headSha,
+                context: statusContext, state,
+                description: description.slice(0, 140),
+              });
+
+            try {
+              // 1. Reviewer-owned paths, derived from the trusted base CODEOWNERS.
+              const codeowners = fs.readFileSync('.github/CODEOWNERS', 'utf8');
+              const reviewerPaths = [];
+              for (const raw of codeowners.split('\n')) {
+                const line = raw.replace(/#.*/, '').trim();
+                if (!line) continue;
+                const [pattern, ...owners] = line.split(/\s+/);
+                if (pattern === '*') continue; // the '*' fallback belongs to admin
+                if (owners.includes(reviewerRef)) {
+                  reviewerPaths.push(pattern.replace(/^\//, ''));
+                }
+              }
+
+              // 2. Users whose latest review is an approval.
+              const reviews = await github.paginate(github.rest.pulls.listReviews, {
+                owner, repo, pull_number: prNumber, per_page: 100,
+              });
+              const latest = new Map();
+              for (const r of reviews) {
+                if (!r.user) continue;
+                if (['APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'].includes(r.state)) {
+                  latest.set(r.user.login, r.state);
+                }
+              }
+              const approvers = new Set(
+                [...latest].filter(([, s]) => s === 'APPROVED').map(([u]) => u)
+              );
+
+              // 3. Team membership.
+              const membersOf = async (team) => new Set(
+                (await github.paginate(github.rest.teams.listMembersInOrg, {
+                  org, team_slug: team, per_page: 100,
+                })).map(m => m.login)
+              );
+              const adminMembers = await membersOf(adminTeam);
+              const reviewerMembers = await membersOf(reviewerTeam);
+              const adminApproved = [...approvers].some(u => adminMembers.has(u));
+              const reviewerApproved = [...approvers].some(u => reviewerMembers.has(u));
+
+              // 4. Does this pull request touch reviewer-owned paths?
+              const files = await github.paginate(github.rest.pulls.listFiles, {
+                owner, repo, pull_number: prNumber, per_page: 100,
+              });
+              const touchesReviewerPaths = files.some(f =>
+                reviewerPaths.some(p =>
+                  p.endsWith('/') ? f.filename.startsWith(p) : f.filename === p
+                )
+              );
+
+              // 5. Evaluate the policy.
+              const missing = [];
+              if (!adminApproved) missing.push(adminTeam);
+              if (touchesReviewerPaths && !reviewerApproved) missing.push(reviewerTeam);
+
+              if (missing.length === 0) {
+                const msg = touchesReviewerPaths
+                  ? 'Approved by the admin and reviewer teams.'
+                  : 'Approved by the admin team (no reviewer-owned paths changed).';
+                await setStatus('success', msg);
+                core.info(msg);
+              } else {
+                const msg = `Waiting on approval from: ${missing.join(', ')}.`;
+                await setStatus('failure', msg);
+                core.setFailed(msg);
+              }
+            } catch (err) {
+              await setStatus('error', `Approval check failed: ${err.message}`);
+              throw err;
+            }

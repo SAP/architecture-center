@@ -1,0 +1,7 @@
+# actionlint configuration
+# Declares custom self-hosted runner labels so actionlint does not flag them
+# as unknown in `runs-on:`. `self-hosted` is built in; `solinas` is our own
+# self-hosted runner label and must be declared here.
+self-hosted-runner:
+  labels:
+    - solinas

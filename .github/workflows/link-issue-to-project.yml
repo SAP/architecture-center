@@ -4,14 +4,18 @@ on:
   issues:
     types: [opened]
 
+permissions: {}
+
 jobs:
   link-to-project:
-    runs-on: [ self-hosted, solinas, ubuntu-latest, ubuntu-24.04 ]
+    runs-on: [ self-hosted, solinas ]
+    timeout-minutes: 5
     steps:
       - name: Add to TechEd 2026 project
         if: contains(github.event.issue.body, 'TechEd 2026')
         env:
           GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
           GH_HOST: github.tools.sap
+          ISSUE_URL: ${{ github.event.issue.html_url }}
         run: |
-          gh project item-add 30 --owner OCTO --url "${{ github.event.issue.html_url }}"
+          gh project item-add 30 --owner OCTO --url "$ISSUE_URL"
