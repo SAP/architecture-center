@@ -140,4 +140,12 @@ global-standards-for-agentic-ai:
   description: "SAP's central reference for AI standardization, covering its AI-First strategy, open standards adoption (MCP, A2A, OpenTelemetry), and active contributions to the Agentic AI Foundation (AAIF), A2A Project, and IETF."
 
 # --------------------------------------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------------------------------------------------
+# status tags
+# --------------------------------------------------------------------------------------------------------------------------------
+archived:
+  label: "Archived"
+  description: "Documents marked as archived are no longer actively maintained. They may contain outdated information and are kept for historical reference purposes only. Consider using newer reference architectures for current implementations."
+# --------------------------------------------------------------------------------------------------------------------------------
   
