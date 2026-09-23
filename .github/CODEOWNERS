@@ -18,7 +18,7 @@
 /docs/community/        @OCTO/architecture-center-admin
 /docs/golden-path/      @OCTO/architecture-center-reviewer
 /docs/north-star-arch/  @OCTO/architecture-center-reviewer
-/docs/ref-arch/         @OCTO/architecture-center-reviewer
+/docs/ref-arch/         @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
 
 # Owners for specific files
 /docs/contributors.json         @OCTO/architecture-center-reviewer
