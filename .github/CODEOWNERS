@@ -21,7 +21,7 @@
 /docs/ref-arch/         @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
 
 # Owners for specific files
-/docs/contributors.json         @OCTO/architecture-center-reviewer
-/docs/tags.yml                  @OCTO/architecture-center-reviewer
-/news/authors.yml               @OCTO/architecture-center-reviewer
-/src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer
+/docs/contributors.json         @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
+/docs/tags.yml                  @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
+/news/authors.yml               @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
+/src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
