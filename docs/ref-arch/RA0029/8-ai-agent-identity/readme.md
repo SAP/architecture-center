@@ -63,7 +63,7 @@ The following diagram shows the major components of the SAP Joule integration fr
 
 ### Detailed Architecture (L2)
 
-The detailed architecture expands on the high-level view, showing the internal structure of SAP Cloud Identity Services (Identity Directory, Identity Provisioning, Identity Authentication, Authorization Management), the SAP Agent Gateway with its conversation and A2A interfaces, policy enforcement points, and the integration with governance services such as SAP LeanIX Agent Hub, SAP Cloud ALM for Agent Lifecycle Governance, and SAP Autonomous Suite Provisioning.
+The detailed architecture expands on the high-level view, showing the internal structure of SAP Cloud Identity Services (Identity Directory, Identity Provisioning, Identity Authentication, Authorization Management), the SAP Agent Gateway with its conversation and A2A interfaces, policy enforcement points, and the integration with governance services such as [SAP AI Agent Hub](/docs/ref-arch/ra0038), SAP Cloud ALM for Agent Lifecycle Governance, and SAP Autonomous Suite Provisioning.
 
 The Agent Identity is a mandatory requirement to ensure the secure authentication and authorization of AI Agents in an SAP landscape.
 
@@ -106,7 +106,7 @@ The SAP Agent Gateway is a technical component wihtin the customer landscape but
 | **SAP Cloud Identity Services** | Central identity hub for human and agent identities (authentication, provisioning, authorization) |
 | **SAP Joule** | the Business AI features combined. In this document mainly the engagement layer for human-to-agent conversation, orchestration of agent invocations |
 | **SAP Agent Gateway** | A2A external interface for third-party agents; internal wrapper for SAP agent-to-agent communication with policy enforcement |
-| **SAP LeanIX Agent Hub** | Agent Governance — cataloging and managing agent landscapes |
+| **[SAP AI Agent Hub](/docs/ref-arch/ra0038)** | Agent Governance — cataloging and managing agent landscapes |
 | **SAP Cloud ALM** | Agent Lifecycle Governance — managing the lifecycle of agents from development to decommissioning |
 | **SAP4ME** | Provisioning of agent identities and configurations across the SAP landscape |
 | **SAP Private Cloud (S/4HANA cloud private edition)** | Backend SAP application connected via Cloud Connector with local IAM integration (with classic support of customer managed IAM flows) |
@@ -118,4 +118,4 @@ The SAP Agent Gateway is a technical component wihtin the customer landscape but
 
 - **Cross-application agent orchestration**: A user asks SAP Joule to "reconcile last month's invoices." Joule's orchestrator identifies that this requires agents in both SAP S/4HANA (finance) and SAP Ariba (procurement). Each agent's identity is checked against its permitted scope before execution, and the Agent Gateway ensures the inter-agent communication adheres to defined policies in intersection with the user-access to finance/procurement.
 
-- **Agent lifecycle governance**: An enterprise architect uses SAP LeanIX Agent Hub to register a new AI agent, which triggers SAP4ME and the possibility to activate the "Autonomous Suite" Provisioning. This creates the corresponding agent identity in SAP Cloud Identity Services and registers the agent in the Unified Services with the related Agent Cards.
+- **Agent lifecycle governance**: An enterprise architect uses [SAP AI Agent Hub](/docs/ref-arch/ra0038) to register a new AI agent, which triggers SAP4ME and the possibility to activate the "Autonomous Suite" Provisioning. This creates the corresponding agent identity in SAP Cloud Identity Services and registers the agent in the Unified Services with the related Agent Cards.
