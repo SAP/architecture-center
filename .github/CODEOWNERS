@@ -13,15 +13,15 @@
 /.github/CODEOWNERS     @OCTO/architecture-center-admin
 
 # Owners for specific directories
-/news/                  @OCTO/architecture-center-reviewer
-/docs/agent/            @OCTO/architecture-center-reviewer
+/news/                  @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/docs/agent/            @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
 /docs/community/        @OCTO/architecture-center-admin
-/docs/golden-path/      @OCTO/architecture-center-reviewer
-/docs/north-star-arch/  @OCTO/architecture-center-reviewer
-/docs/ref-arch/         @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
+/docs/golden-path/      @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/docs/north-star-arch/  @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/docs/ref-arch/         @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
 
 # Owners for specific files
-/docs/contributors.json         @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
-/docs/tags.yml                  @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
-/news/authors.yml               @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
-/src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer @OCTO/architecture-center-contributor
+/docs/contributors.json         @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/docs/tags.yml                  @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/news/authors.yml               @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
+/src/constant/tagsMapping.json  @OCTO/architecture-center-reviewer @OCTO/architecture-center-admin
