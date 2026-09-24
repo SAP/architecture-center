@@ -114,7 +114,7 @@ accordingly.
 
 ## Setup
 
-Two things must be configured in GitHub before the workflow enforces anything.
+Three things must be configured in GitHub before the workflow enforces anything.
 
 ### 1. Add the `TEAM_REVIEW_TOKEN` secret
 
@@ -166,7 +166,43 @@ makes `${{ secrets.TEAM_REVIEW_TOKEN }}` expand to an empty string, and the
 token has **expired** or was created on the wrong host, so re-check those first
 when the check breaks.
 
-### 2. Make the check required on the protected branch
+### 2. Grant the CODEOWNERS teams write access to the repository
+
+The owner teams (`architecture-center-admin`, `architecture-center-reviewer`,
+`architecture-center-contributor`) must each have **at least Write access** to
+this repository. A team merely existing in the org is not enough: CODEOWNERS
+only resolves an owner if that team both exists **and** has write access, so a
+team without access is silently treated as an "Unknown owner" and **no reviewers
+are auto-requested** — the Reviewers panel on new pull requests stays empty.
+
+> This is a separate requirement from the token. The `Evaluate team approvals`
+> step can still read team *membership* through `TEAM_REVIEW_TOKEN` even when a
+> team has no repo access, so the approval check and the auto-request of
+> reviewers can break independently.
+
+Add each team under **`github.tools.sap` → repo Settings → Collaborators and
+teams → Add teams**, with the **Write** role (give admin Maintain/Admin if you
+also want them managing repo settings). From the CLI:
+
+```
+gh api -X PUT orgs/OCTO/teams/architecture-center-admin/repos/OCTO/architecture-center       --hostname github.tools.sap -f permission=push
+gh api -X PUT orgs/OCTO/teams/architecture-center-reviewer/repos/OCTO/architecture-center     --hostname github.tools.sap -f permission=push
+gh api -X PUT orgs/OCTO/teams/architecture-center-contributor/repos/OCTO/architecture-center  --hostname github.tools.sap -f permission=push
+```
+
+Verify CODEOWNERS resolves cleanly (again, mind the internal host):
+
+```
+gh api repos/OCTO/architecture-center/codeowners/errors --hostname github.tools.sap
+# expect: {"errors": []}
+```
+
+Any `Unknown owner` entry here names a team that is missing, not visible, or
+without write access. Note that fixing this does **not** retroactively populate
+reviewers on already-open pull requests — auto-request fires at pull request
+creation or when new commits are pushed.
+
+### 3. Make the check required on the protected branch
 
 In the branch protection rule (or ruleset) for `main`:
 
@@ -186,6 +222,9 @@ list.
 
 ## Things to verify
 
-- The two team slugs are literally `architecture-center-admin` and
-  `architecture-center-reviewer` in the `OCTO` org. The workflow derives them
-  from the org name plus those slugs, matching the CODEOWNERS entries.
+- The team slugs are literally `architecture-center-admin`,
+  `architecture-center-reviewer`, and `architecture-center-contributor` in the
+  `OCTO` org. The workflow derives the admin and reviewer slugs from the org name
+  plus those slugs, matching the CODEOWNERS entries.
+- All three teams have **Write access** to the repository (see step 2), otherwise
+  CODEOWNERS reports them as `Unknown owner` and stops auto-requesting reviewers.
