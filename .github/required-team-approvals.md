@@ -141,6 +141,31 @@ Create the token at `https://github.tools.sap/settings/personal-access-tokens/ne
 add it under **`github.tools.sap` → repo Settings → Secrets and variables →
 Actions → New repository secret**, named exactly `TEAM_REVIEW_TOKEN`.
 
+To set it from the CLI instead, **you must prefix the repo with the host** —
+otherwise `gh` targets github.com and fails with
+`HTTP 404 .../repos/OCTO/architecture-center/actions/secrets/public-key`
+(the `OCTO` org does not exist on github.com):
+
+```
+gh secret set TEAM_REVIEW_TOKEN --repo github.tools.sap/OCTO/architecture-center
+```
+
+Omit `--body` and `gh` prompts for the value, keeping the token out of your shell
+history. Verify it landed on the internal host:
+
+```
+gh api repos/OCTO/architecture-center/actions/secrets --hostname github.tools.sap \
+  --jq '.secrets[].name' | grep -Fx TEAM_REVIEW_TOKEN
+# expect: TEAM_REVIEW_TOKEN
+```
+
+**Without this secret the workflow cannot run.** A missing (or empty) secret
+makes `${{ secrets.TEAM_REVIEW_TOKEN }}` expand to an empty string, and the
+`Evaluate team approvals` step fails with
+`Input required and not supplied: github-token`. The same symptom appears if the
+token has **expired** or was created on the wrong host, so re-check those first
+when the check breaks.
+
 ### 2. Make the check required on the protected branch
 
 In the branch protection rule (or ruleset) for `main`:
