@@ -36,6 +36,7 @@ unlisted: false
 contributors:
   - hterminasyan
   - mgnther
+  - Dhawal-Joshi
 discussion: 
 last_update:
   author: hterminasyan
@@ -163,6 +164,8 @@ See [Agent & Tool Interoperability](../1-a2a-and-mcp/readme.md) for the full arc
 | Scenario | Recommended approach |
 |----------|----------------------|
 | Multi-agent collaboration and production agent interoperability | **A2A via the Agent Gateway** |
+| Agentic Integrations scenario requiring SAP-ecosystem agents and third-party agents, or between heterogeneous third-party agents| **A2A connectivity via SAP Integration Suite** |
+| Multi-party integration scenarios between SAP and non-SAP agentic platforms with additional enterprise qualities | **A2A connectivity via SAP Integration Suite** |
 | Governed tool access via MCP for specific integration scenarios | **MCP Gateway in SAP Integration Suite** |
 | Exposing a mix of SAP and non-SAP APIs as a unified MCP tool catalog | **MCP Gateway in SAP Integration Suite** |
 | Building SAP-centric agents with Joule Studio | **SAP-provided MCP servers via Joule Studio** |
