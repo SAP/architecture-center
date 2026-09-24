@@ -6,7 +6,6 @@
 
 
 ## Who should review your contribution? (Use @mention to be more specific)
-@OCTO/architecture-center-reviewer (default)
 
 
 
