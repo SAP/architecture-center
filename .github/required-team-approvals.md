@@ -118,6 +118,11 @@ Two things must be configured in GitHub before the workflow enforces anything.
 
 ### 1. Add the `TEAM_REVIEW_TOKEN` secret
 
+> **This repository lives on the internal SAP GitHub (`github.tools.sap`), not
+> github.com.** Create the token and add the secret on that host. A token
+> generated on github.com will not work — the `OCTO` org and this repository
+> only exist on `github.tools.sap`.
+
 Reading org team membership is impossible with the built-in Actions token, so
 the workflow needs its own. Use a fine-grained personal access token (or a
 GitHub App installation token) owned by the `OCTO` org with:
@@ -131,8 +136,10 @@ Repository permissions   → Commit statuses: Read and write
 
 A classic PAT with scopes `repo` + `read:org` also works.
 
-Add it under **Settings → Secrets and variables → Actions → New repository
-secret**, named exactly `TEAM_REVIEW_TOKEN`.
+Create the token at `https://github.tools.sap/settings/personal-access-tokens/new`
+(fine-grained) or `https://github.tools.sap/settings/tokens/new` (classic), then
+add it under **`github.tools.sap` → repo Settings → Secrets and variables →
+Actions → New repository secret**, named exactly `TEAM_REVIEW_TOKEN`.
 
 ### 2. Make the check required on the protected branch
 
