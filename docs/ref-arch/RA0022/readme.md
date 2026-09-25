@@ -17,6 +17,7 @@ sidebar_label: API Managed Integration
 image: img/ac-soc-med.png
 tags:
   - integration
+  - archived
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -267,6 +267,18 @@ const config: Config = {
                             type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=snowflake">Snowflake</a>`,
                         },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
+                            type: 'html',
+                            value: '<strong>Archive</strong>',
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archived=true">Archived Documents</a>`,
+                        },
                     ],
                 },
                 {
