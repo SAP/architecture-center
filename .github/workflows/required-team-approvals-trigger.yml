@@ -1,0 +1,55 @@
+name: Collect team-approval context
+
+# Companion to the "Required team approvals" workflow.
+#
+# A pull_request_review event on a pull request that comes from a fork does NOT
+# receive repository secrets (GitHub withholds them from fork-triggered runs;
+# only pull_request_target is exempt, and there is no pull_request_review_target).
+# The approval evaluation needs TEAM_REVIEW_TOKEN to read org team membership, so
+# it cannot run directly in a review-triggered workflow: the secret would expand
+# to an empty string and actions/github-script would fail with
+# "Input required and not supplied: github-token".
+#
+# This workflow therefore does no privileged work. It only records the pull
+# request number as an artifact and completes; the "Required team approvals"
+# workflow picks it up via workflow_run, which always runs in the trusted base
+# context with secrets, whatever triggered this upstream workflow — so the check
+# works for fork pull requests too.
+#
+# pull_request_target (not pull_request) is used for the pull-request lifecycle
+# events so this also runs for fork pull requests whose branch predates this
+# workflow: the base branch version is what executes. No pull request code runs
+# here, so that is safe.
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+permissions: {}
+
+concurrency:
+  group: team-approvals-trigger-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    name: Record pull request number
+    runs-on: [ self-hosted, solinas ]
+    timeout-minutes: 5
+    steps:
+      - name: Write pull request number
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p pr-context
+          printf '%s' "$PR_NUMBER" > pr-context/number
+
+      - name: Upload pull request number
+        uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3 (last GHES-compatible major; v4+ uses @actions/artifact v2, unsupported on GHES)
+        with:
+          name: team-approvals-pr-context
+          path: pr-context/number
+          retention-days: 1
+          if-no-files-found: error

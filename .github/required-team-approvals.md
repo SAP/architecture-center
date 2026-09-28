@@ -1,8 +1,18 @@
 # Required team approvals
 
-This document explains the `required-team-approvals` GitHub Action defined in
-[`.github/workflows/required-team-approvals.yml`](./workflows/required-team-approvals.yml)
-and how to set it up.
+This document explains the `required-team-approvals` check and how to set it up.
+It is implemented as **two** workflows that hand off to each other:
+
+- [`.github/workflows/required-team-approvals-trigger.yml`](./workflows/required-team-approvals-trigger.yml)
+  — runs on the pull request and review events and records the pull request
+  number as an artifact. It does no privileged work.
+- [`.github/workflows/required-team-approvals.yml`](./workflows/required-team-approvals.yml)
+  — runs on `workflow_run` after the trigger workflow, evaluates the policy with
+  the `TEAM_REVIEW_TOKEN` secret, and posts the `required-team-approvals` commit
+  status.
+
+Why the split is required is explained in [Why two workflows](#why-two-workflows)
+below.
 
 Written for: repository admins configuring branch protection.
 
@@ -29,51 +39,87 @@ check, `required-team-approvals`.
 
 ## What the workflow does, step by step
 
+### Why two workflows
+
+Repository secrets are **not** passed to a workflow run triggered from a fork —
+only the built-in read-only `GITHUB_TOKEN` is. The one exception is
+`pull_request_target`, which is designed to run in the trusted base context with
+secrets. There is **no** `pull_request_review_target` equivalent, so a
+`pull_request_review` event on a fork pull request gets no secrets. If the
+evaluation ran directly on that event, `${{ secrets.TEAM_REVIEW_TOKEN }}` would
+expand to an empty string and the step would fail with
+`Input required and not supplied: github-token` — every time a reviewer approves,
+edits, or dismisses a review on a fork pull request.
+
+The fix is to split the work:
+
+1. **Collect** (`required-team-approvals-trigger.yml`) runs on the pull request
+   and review events. It needs no secrets — it only writes the pull request
+   number to an artifact. It uses `pull_request_target` for the lifecycle events
+   so it also runs from the base definition for fork pull requests whose branch
+   predates the workflow.
+2. **Evaluate** (`required-team-approvals.yml`) runs on `workflow_run` after the
+   collect workflow completes. A `workflow_run` always executes in the trusted
+   base context **with** secrets, whatever triggered the upstream workflow — so
+   the token is available even for fork pull requests. It downloads the pull
+   request number artifact and evaluates the policy.
+
+> **This takes effect only once both workflows are on the default branch
+> (`main`).** `workflow_run` triggers off workflows in the default branch, so the
+> change cannot be validated on its own pull request — it starts working after
+> merge.
+
 ### When it runs (the triggers)
 
-The workflow runs on two kinds of events:
+The **collect** workflow runs on two kinds of events:
 
 1. **`pull_request_target`** for `opened`, `reopened`, `synchronize` (new
-   commits pushed), and `ready_for_review`. This variant is used instead of the
-   ordinary `pull_request` so the workflow can read the secret token even when
-   the pull request comes from a fork. It never runs any code from the pull
-   request itself, so that is safe here.
-2. **`pull_request_review`** for `submitted`, `edited`, and `dismissed`. This
-   re-checks the policy each time someone approves, edits, or has an approval
-   dismissed.
+   commits pushed), and `ready_for_review`.
+2. **`pull_request_review`** for `submitted`, `edited`, and `dismissed`.
 
 Together these mean the check re-evaluates whenever anything that could change
-the answer happens: new commits, or a review coming or going.
+the answer happens: new commits, or a review coming or going. Each collect run
+triggers one **evaluate** run via `workflow_run`.
 
 ### Concurrency and permissions
 
-- **`concurrency`** groups runs by pull request number and cancels an
-  in-progress run when a newer event arrives, avoiding a race between two runs
-  writing conflicting statuses.
-- **`permissions: contents: read`** limits the built-in token to reading files.
-  All write work uses the separate token instead.
+- **`concurrency`** is applied at the `team-approvals` *job*, keyed by the pull
+  request number, and cancels an in-progress run when a newer one for the same
+  pull request arrives — avoiding a race between two runs writing conflicting
+  statuses. It is deliberately **not** at the workflow level: the pull request
+  number is not in the `workflow_run` event, and `workflow_run.head_sha` is the
+  base commit for `pull_request_target`-triggered runs, so a workflow-level key
+  would collide across unrelated pull requests and cancel the wrong evaluation.
+  The number is only known after the `context` job reads it, so the job keys its
+  concurrency off `needs.context.outputs.pr`.
+- The evaluate workflow's built-in token needs only `contents: read` and
+  `actions: read` (to download the artifact from the triggering run). All write
+  work — reading team membership and posting the commit status — uses the
+  separate `TEAM_REVIEW_TOKEN` instead.
 
-### Step 1 — Check out CODEOWNERS
+### Step 1 — Recover the pull request context
 
-The first job step does a **sparse checkout** of just `.github/CODEOWNERS`,
-nothing else. It pins the checkout to `github.event.pull_request.base.sha`, the
-commit the pull request is based on. This does two things:
-
-- It reads the base version, not the pull request's version, so a fork cannot
-  rewrite the rules to weaken them. `base.sha` is a commit on the base branch,
-  which a fork author cannot push to, so it stays trusted.
-- It reads the CODEOWNERS of the pull request's own base branch on **both**
-  triggers. Without the pin, a `pull_request_review` run would default to the
-  repository's default branch (`main`), which is wrong when a pull request
-  targets another branch such as `dev`.
+The `context` job downloads the `team-approvals-pr-context` artifact from the
+triggering run and reads the pull request number from it, exposing it as a job
+output. It is guarded by `if: github.event.workflow_run.conclusion == 'success'`,
+because `workflow_run` fires for every completed conclusion: a collect run that
+was cancelled by its own concurrency (or failed) never uploaded the artifact, so
+it is skipped rather than failing while downloading a missing one. (The artifact
+is the only thing that crosses over from the upstream run;
+`github.event.workflow_run.pull_requests` is empty for fork pull requests, which
+is why the number is passed explicitly.) The `team-approvals` job then resolves
+the current head and base commits of that pull request from the API, and reads
+`.github/CODEOWNERS` via the API pinned to `base.sha` — a commit on the base
+branch a fork author cannot push to, so the rules stay trusted and a fork cannot
+weaken them.
 
 ### Step 2 — Evaluate approvals
 
-The second step runs a script with the `TEAM_REVIEW_TOKEN` secret. The built-in
+The evaluate step runs a script with the `TEAM_REVIEW_TOKEN` secret. The built-in
 Actions token cannot read org team membership, which is why a dedicated token is
 passed here. The script does five things:
 
-1. **Derive the reviewer-owned paths.** It reads the checked-out CODEOWNERS,
+1. **Derive the reviewer-owned paths.** It reads the base CODEOWNERS,
    drops comments and blank lines, and for every rule whose owners include the
    reviewer team it records that path. The catch-all `*` line is skipped because
    it belongs to the admin team. This keeps CODEOWNERS the single source of
@@ -165,6 +211,13 @@ makes `${{ secrets.TEAM_REVIEW_TOKEN }}` expand to an empty string, and the
 `Input required and not supplied: github-token`. The same symptom appears if the
 token has **expired** or was created on the wrong host, so re-check those first
 when the check breaks.
+
+> Note: the same `Input required and not supplied: github-token` error also
+> appears if the evaluation is ever moved back onto a `pull_request_review`
+> trigger. Fork pull requests receive no secrets on that event, so the token is
+> empty there even when the secret is set correctly. That is exactly why the
+> evaluation runs on `workflow_run` instead — see
+> [Why two workflows](#why-two-workflows).
 
 ### 2. Grant the CODEOWNERS teams write access to the repository
 

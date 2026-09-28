@@ -7,58 +7,125 @@ name: Required team approvals
 #     so CODEOWNERS stays the single source of truth).
 # The result is published as the commit status "required-team-approvals",
 # which must be added as a required status check on the protected branch.
+#
+# Why workflow_run: a pull_request_review event on a pull request from a fork does
+# not receive repository secrets, so TEAM_REVIEW_TOKEN (needed to read org team
+# membership) would be empty and the evaluation would fail with
+# "Input required and not supplied: github-token". A workflow_run always runs in
+# the trusted base context with secrets, whatever triggered the upstream workflow,
+# so the evaluation works for fork pull requests too. The companion "Collect
+# team-approval context" workflow runs on the pull_request_target and
+# pull_request_review events and hands the pull request number over via an
+# artifact. No code from the pull request head is ever executed here: the pull
+# request number is the only thing that crosses over, and everything else comes
+# from the API against the trusted base.
+#
+# The pull request number cannot be keyed into workflow-level concurrency: it is
+# not in the workflow_run event (that is why it travels via the artifact), and
+# workflow_run.head_sha is the base commit for pull_request_target-triggered runs,
+# so it would collide across unrelated pull requests. Concurrency is therefore
+# applied at the "team-approvals" job, keyed by the pull request number recovered
+# in the "context" job.
 
 on:
-  # pull_request_target (not pull_request) so the workflow has access to the
-  # TEAM_REVIEW_TOKEN secret even for pull requests opened from forks. No code
-  # from the pull request head is executed: CODEOWNERS is read from the trusted
-  # base checkout and everything else comes from the API.
-  pull_request_target:
-    types: [opened, reopened, synchronize, ready_for_review]
-  pull_request_review:
-    types: [submitted, edited, dismissed]
+  workflow_run:
+    workflows: ["Collect team-approval context"]
+    types: [completed]
 
 permissions:
   contents: read
-
-concurrency:
-  group: required-team-approvals-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  actions: read # download the pull-request-number artifact from the triggering run
 
 jobs:
-  team-approvals:
-    name: Required team approvals
+  context:
+    name: Resolve pull request number
+    # workflow_run fires for every completed conclusion. A collect run that was
+    # cancelled (superseded by its own concurrency) or failed never uploaded the
+    # artifact, so skip it rather than fail noisily downloading a missing one.
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: [ self-hosted, solinas ]
     timeout-minutes: 5
+    outputs:
+      pr: ${{ steps.read.outputs.pr }}
     steps:
-      - name: Checkout base CODEOWNERS
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Download pull request number
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
-          persist-credentials: false
-          ref: ${{ github.event.pull_request.base.sha }}
-          sparse-checkout: .github/CODEOWNERS
-          sparse-checkout-cone-mode: false
+          # Default GITHUB_TOKEN is enough to read artifacts (actions: read).
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+            const runId = context.payload.workflow_run.id;
 
+            const artifacts = await github.paginate(
+              github.rest.actions.listWorkflowRunArtifacts,
+              { owner, repo, run_id: runId, per_page: 100 },
+            );
+            const match = artifacts.find(a => a.name === 'team-approvals-pr-context');
+            if (!match) {
+              throw new Error(
+                'team-approvals-pr-context artifact not found on the triggering run',
+              );
+            }
+            const zip = await github.rest.actions.downloadArtifact({
+              owner, repo, artifact_id: match.id, archive_format: 'zip',
+            });
+            fs.writeFileSync('pr-context.zip', Buffer.from(zip.data));
+
+      - name: Unzip pull request number
+        run: unzip -o pr-context.zip
+
+      - name: Read pull request number
+        id: read
+        run: |
+          pr="$(cat number)"
+          case "$pr" in
+            '' | *[!0-9]*)
+              echo "Invalid pull request number from artifact: '$pr'" >&2
+              exit 1
+              ;;
+          esac
+          echo "pr=$pr" >> "$GITHUB_OUTPUT"
+
+  team-approvals:
+    name: Required team approvals
+    needs: context
+    runs-on: [ self-hosted, solinas ]
+    timeout-minutes: 5
+    # Keyed by pull request number (now known), so evaluations of the SAME pull
+    # request supersede each other while unrelated pull requests never collide.
+    concurrency:
+      group: required-team-approvals-${{ needs.context.outputs.pr }}
+      cancel-in-progress: true
+    steps:
       - name: Evaluate team approvals
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        env:
+          PR_NUMBER: ${{ needs.context.outputs.pr }}
         with:
           # A token that can read organization team membership. The default
           # GITHUB_TOKEN cannot. See the setup notes in the repository docs.
           github-token: ${{ secrets.TEAM_REVIEW_TOKEN }}
           script: |
-            const fs = require('fs');
-
             const org = context.repo.owner;                       // OCTO
             const adminTeam = 'architecture-center-admin';
             const reviewerTeam = 'architecture-center-reviewer';
-            const adminRef = `@${org}/${adminTeam}`;
             const reviewerRef = `@${org}/${reviewerTeam}`;
             const statusContext = 'required-team-approvals';
-
-            const pr = context.payload.pull_request;
             const { owner, repo } = context.repo;
-            const prNumber = pr.number;
+
+            // The only thing carried over from the triggering workflow.
+            const prNumber = parseInt(process.env.PR_NUMBER, 10);
+            if (!Number.isInteger(prNumber)) {
+              throw new Error(`Invalid pull request number: ${process.env.PR_NUMBER}`);
+            }
+
+            // Resolve the current head and base of that pull request from the API.
+            const { data: pr } = await github.rest.pulls.get({
+              owner, repo, pull_number: prNumber,
+            });
             const headSha = pr.head.sha;
+            const baseSha = pr.base.sha;
 
             const setStatus = (state, description) =>
               github.rest.repos.createCommitStatus({
@@ -69,7 +136,12 @@ jobs:
 
             try {
               // 1. Reviewer-owned paths, derived from the trusted base CODEOWNERS.
-              const codeowners = fs.readFileSync('.github/CODEOWNERS', 'utf8');
+              //    Read at base.sha (a commit on the base branch a fork cannot
+              //    push to), so a fork cannot weaken the rules.
+              const { data: file } = await github.rest.repos.getContent({
+                owner, repo, path: '.github/CODEOWNERS', ref: baseSha,
+              });
+              const codeowners = Buffer.from(file.content, file.encoding).toString('utf8');
               const reviewerPaths = [];
               for (const raw of codeowners.split('\n')) {
                 const line = raw.replace(/#.*/, '').trim();
