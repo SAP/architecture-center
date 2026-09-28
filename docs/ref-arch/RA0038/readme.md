@@ -30,10 +30,11 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
+  - perbernhardt
   - fabianleh
 discussion:
 last_update:
-  author: fabianleh
+  author: perbernhardt
   date: 2026-09-16
 ---
 
