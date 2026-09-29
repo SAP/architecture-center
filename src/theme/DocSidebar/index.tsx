@@ -13,6 +13,7 @@ import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { logger } from '@site/src/utils/logger';
+import { IoMdClose } from 'react-icons/io';
 
 // Domain definitions with labels
 const DOMAIN_DEFINITIONS = [
@@ -29,6 +30,66 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   (acc[cat] ??= []).push(tagKey);
   return acc;
 }, {});
+
+// Check if a document is archived
+function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
+  const tags = docIdToTags?.[docId] || [];
+  return tags.includes('archived');
+}
+
+// Filter out archived items from sidebar
+function filterArchivedItems(items: any[], docIdToTags: Record<string, string[]>, showArchived: boolean): any[] {
+  const filterItem = (item: any): any | null => {
+    if (item.type === 'doc' || item.type === 'link') {
+      const docId = item.docId || item.id;
+      const isArchived = docId && isDocArchived(docId, docIdToTags);
+
+      // Keep ONLY archived docs or ONLY non-archived docs
+      if (showArchived) {
+        return isArchived ? item : null;
+      } else {
+        return isArchived ? null : item;
+      }
+    }
+
+    if (item.type === 'category') {
+      // Check if the category itself is archived
+      const categoryDocId = getItemDocId(item, docIdToTags);
+      const isCategoryArchived = categoryDocId && isDocArchived(categoryDocId, docIdToTags);
+
+      // Only include or exclude archived categories
+      if (showArchived && !isCategoryArchived) {
+        // Category itself is not archived, but check children for archived items
+      } else if (!showArchived && isCategoryArchived) {
+        return null; // Filter out archived categories
+      }
+
+      // Recursively filter children
+      const filteredItems = (item.items || [])
+        .map(filterItem)
+        .filter(Boolean);
+
+      // Keep category only if it has matching children
+      if (filteredItems.length === 0 && !showArchived) {
+        // For non-archived view, keep category if it has a non-archived link
+        if (!item.link?.id && !item.href) {
+          return null;
+        }
+      } else if (filteredItems.length === 0 && showArchived) {
+        // For archived view, only keep if category itself is archived
+        if (!isCategoryArchived) {
+          return null;
+        }
+      }
+
+      return { ...item, items: filteredItems };
+    }
+
+    return item;
+  };
+
+  return items.map(filterItem).filter(Boolean);
+}
 
 // Get all matching document IDs for given partner tags directly from docIdToTags
 function getMatchingDocIds(docIdToTags: Record<string, string[]>, partnerTags: string[]): Set<string> {
@@ -304,6 +365,8 @@ function DocSidebarDesktop(props) {
   const sidebar = useDocsSidebar();
   const shouldShowFilters = sidebar?.name === 'refarchSidebar';
   const location = useLocation();
+  const history = useHistory();
+  const refArchBase = useBaseUrl('/docs/ref-arch');
   const {
     navbar: { hideOnScroll },
     docs: { sidebar: { hideable } },
@@ -313,17 +376,24 @@ function DocSidebarDesktop(props) {
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+  const showArchived = useSidebarFilterStore(state => state.showArchived);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Group sidebar items by domain
-  const grouped = useMemo(
-    () => groupSidebarByDomain(props.sidebar, tagsDocId),
-    [props.sidebar, tagsDocId]
+  // Filter out archived items first (before domain grouping)
+  const nonArchivedSidebar = useMemo(
+    () => filterArchivedItems(props.sidebar, tagsDocId, showArchived),
+    [props.sidebar, tagsDocId, showArchived]
   );
 
-  // Filter by selected partners and get matching doc IDs for counting
-  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+  // Group sidebar items by domain
+  const grouped = useMemo(
+    () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
+    [nonArchivedSidebar, tagsDocId]
+  );
+
+  // Filter by selected partners
+  const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
   );
@@ -353,10 +423,13 @@ function DocSidebarDesktop(props) {
     window.history.replaceState({}, '', location.pathname);
   };
 
-  // Count: use matchingDocIds size when filtering, otherwise count unique docs
-  const resultCount = partners.length > 0
-    ? matchingDocIds.size
-    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  const handleBackToAllDocuments = () => {
+    resetFilters();
+    history.replace(refArchBase);
+  };
+
+  // Count unique docs from the filtered results (respects both archived and partner filters)
+  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
   const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
@@ -383,6 +456,42 @@ function DocSidebarDesktop(props) {
           hideOnScroll && styles.sidebarWithHideableNavbar
         )}>
           <nav className={`${styles.domainSidebar} thin-scrollbar`}>
+            {showArchived && (
+              <div style={{
+                padding: '8px 4px 8px 12px',
+                marginBottom: '8px',
+                borderBottom: '1px solid var(--color-border-light)'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}>
+                  <span style={{
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    color: 'var(--ifm-color-content)'
+                  }}>
+                    Archived Documents
+                  </span>
+                  <button
+                    onClick={handleBackToAllDocuments}
+                    title="Back to All Documents"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: '2px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      color: 'var(--ifm-color-content-secondary)'
+                    }}
+                  >
+                    <IoMdClose size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
             <DocSidebarItems
               items={domainCategories}
               activePath={location.pathname}
@@ -407,17 +516,26 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+  const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const history = useHistory();
+  const refArchBase = useBaseUrl('/docs/ref-arch');
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
 
-  const grouped = useMemo(
-    () => groupSidebarByDomain(sidebar, tagsDocId),
-    [sidebar, tagsDocId]
+  // Filter out archived items first (before domain grouping)
+  const nonArchivedSidebar = useMemo(
+    () => filterArchivedItems(sidebar, tagsDocId, showArchived),
+    [sidebar, tagsDocId, showArchived]
   );
 
-  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+  const grouped = useMemo(
+    () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
+    [nonArchivedSidebar, tagsDocId]
+  );
+
+  const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
   );
@@ -431,9 +549,13 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     window.history.replaceState({}, '', location.pathname);
   };
 
-  const resultCount = partners.length > 0
-    ? matchingDocIds.size
-    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  const handleBackToAllDocuments = () => {
+    resetFilters();
+    history.replace(refArchBase);
+  };
+
+  // Count unique docs from the filtered results (respects both archived and partner filters)
+  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
   const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
@@ -450,6 +572,42 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         resultCount={resultCount}
       />
       <nav className={styles.domainSidebarMobile}>
+        {showArchived && (
+          <div style={{
+            padding: '8px 4px 8px 12px',
+            marginBottom: '8px',
+            borderBottom: '1px solid var(--color-border-light)'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <span style={{
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                color: 'var(--ifm-color-content)'
+              }}>
+                Archived Documents
+              </span>
+              <button
+                onClick={handleBackToAllDocuments}
+                title="Back to All Documents"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '2px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'var(--ifm-color-content-secondary)'
+                }}
+              >
+                <IoMdClose size={16} />
+              </button>
+            </div>
+          </div>
+        )}
         <DocSidebarItems
           items={domainCategories}
           activePath={path}
@@ -511,6 +669,7 @@ export default function DocSidebarWrapper(props) {
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
@@ -526,8 +685,14 @@ export default function DocSidebarWrapper(props) {
     const params = new URLSearchParams(location.search);
     const partnersParam = params.get('partners');
     const expandedParam = params.get('expanded');
+    const archivedParam = params.get('archived');
 
     if (partnersParam) setPartners(partnersParam.split(','));
+
+    if (archivedParam === 'true') {
+      setShowArchived(true);
+      return;
+    }
 
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
@@ -550,7 +715,7 @@ export default function DocSidebarWrapper(props) {
         setExpandedDomains(matchingDomains);
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, shouldShowFilters, tagsDocId, props.sidebar]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, shouldShowFilters, tagsDocId, props.sidebar]);
 
   useEffect(() => {
     return history.listen(loc => {
