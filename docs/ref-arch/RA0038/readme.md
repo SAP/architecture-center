@@ -34,8 +34,8 @@ contributors:
   - fabianleh
 discussion:
 last_update:
-  author: perbernhardt
-  date: 2026-09-16
+  author: fabianleh
+  date: 2026-10-01
 ---
 
 As AI agents proliferate across enterprise systems — spanning SAP, third-party cloud platforms, and custom deployments — organizations need a systematic way to discover, verify, observe, and govern their entire agent estate. **SAP AI Agent Hub** is the enterprise command center for AI governance: a single platform that brings enterprise architecture discipline to AI agent management, built on SAP LeanIX.
@@ -45,6 +45,8 @@ The hub addresses a fundamental challenge: while building and deploying individu
 ## Architecture
 
 ![drawio](drawio/ai-agent-hub.drawio)
+
+## Flow
 
 1. **SAP AI Agent Hub** is the central governance platform for AI agents in the enterprise. Agent metadata from every source — SAP agents, custom agents, and third-party agents — flows into the hub's registry, which maintains a unified inventory across the entire agent estate. It also offers a MCP Server to surface architectural context from the hub into development environments, ensuring builders work with the right business and technical context from day one.
 
