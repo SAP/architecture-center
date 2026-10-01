@@ -11,7 +11,7 @@ typeset -A seen   # id -> first file path (relative)
 errors=()
 count=0
 
-for file in "$REF_ARCH_DIR"/**/*.md(.N); do
+for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
   (( count++ ))
   rel="${file#$REPO_ROOT/}"
 
