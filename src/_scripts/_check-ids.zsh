@@ -1,8 +1,9 @@
 #!/bin/zsh
 
-# Validates `id` frontmatter fields across all docs/ref-arch readme.md files.
-# - Format must be exactly 6 characters: [a-z0-9]
-# - Values must be unique across all files
+# Validates `id` and `slug` frontmatter fields across all docs/ref-arch readme.md files.
+# - `id` format must be exactly 6 characters: [a-z0-9]
+# - `id` values must be unique across all files
+# - `slug` must match the id, i.e. be exactly "/ref-arch/<id>"
 
 REPO_ROOT="${0:A:h}/../.."
 REF_ARCH_DIR="$REPO_ROOT/docs/ref-arch"
@@ -12,8 +13,15 @@ errors=()
 count=0
 
 for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
-  (( count++ ))
   rel="${file#$REPO_ROOT/}"
+
+  # Skip the conceptual landing page (slug "/ref-arch") and the RA0000 demo,
+  # neither of which follows the "/ref-arch/<id>" convention.
+  if [[ "$rel" == "docs/ref-arch/readme.md" || "$rel" == docs/ref-arch/RA0000/* ]]; then
+    continue
+  fi
+
+  (( count++ ))
 
   # Extract the `id:` value from inside the first --- ... --- frontmatter block,
   # then strip surrounding quotes and whitespace.
@@ -27,6 +35,17 @@ for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
     }
   ' "$file")
 
+  # Extract the `slug:` value the same way.
+  slug=$(awk '
+    /^---[[:space:]]*$/ { if (++fence == 2) exit; next }
+    fence == 1 && /^slug:[[:space:]]*/ {
+      sub(/^slug:[[:space:]]*/, "")
+      gsub(/^["'\'']|["'\'']$/, "")
+      print
+      exit
+    }
+  ' "$file")
+
   if [[ -z "$id" ]]; then
     errors+=("MISSING id     $rel")
     continue
@@ -34,6 +53,10 @@ for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
 
   if [[ ! "$id" =~ '^[a-z0-9]{6}$' ]]; then
     errors+=("INVALID id \"$id\"  ->  $rel")
+  fi
+
+  if [[ "$slug" != "/ref-arch/$id" ]]; then
+    errors+=("SLUG MISMATCH  slug \"$slug\" != \"/ref-arch/$id\"  ->  $rel")
   fi
 
   if [[ -n "${seen[$id]}" ]]; then
