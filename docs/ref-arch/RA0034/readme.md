@@ -1,6 +1,6 @@
 ---
-id: id-ra0034
-slug: /ref-arch/sap-ai-agent-hub
+id: jkg4j2
+slug: /ref-arch/jkg4j2
 sidebar_position: 1
 title: SAP AI Agent Hub
 description: >-
