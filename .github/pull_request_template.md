@@ -15,7 +15,7 @@
 
 ## Checklist before submitting
 - [ ] My commits are only for the content mentioned above.
-- [ ] I have followed the folder structure described in the Community Guidelines
+- [ ] I have followed the folder structure described in the [Community Guidelines](../docs/community/02-Guidelines/03-content-structure.md)
 
 
 > [!NOTE]
