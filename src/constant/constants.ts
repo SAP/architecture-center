@@ -1,6 +1,6 @@
 export const navigationCardsData = [
 
-    {
+    /*{
         title: 'AI-native North Star architecture',
         tabLabel: 'AI-native North Star architecture',
         subtitle: 'This external-facing AI-native North Star architecture paper outlines SAP\'s target architectural vision for the future technology landscape. It is not a detailed specification, product roadmap, or commitment to deliver specific capabilities, products, or timelines. Rather, it sets architectural direction for AI-native enterprises by illustrating how AI agents, applications, business processes, data, context, and platform capabilities can come together in the next generation of enterprise systems.',
@@ -17,14 +17,14 @@ export const navigationCardsData = [
         link: '/docs/ai-golden-path',
         isNew: true,
         image: '/img/ArchitectureTabs/aigoldenpath.webp'
-    },
-    /*{
+    },*/
+    {
         title: 'Quick Start',
         subtitle: 'Quick Start is a no-code architecture editor for publishing reference architectures without command-line tools. Users can sign in with GitHub, create content in a rich-text editor or import Word files as Markdown, and add text, images, and Draw.io diagrams.',
         icon: 'sap-icon://write-new-document',
         link: '/quick-start',
         image: '/img/ArchitectureTabs/quickstart.webp'
-    },*/
+    },
     // {
     //     title: 'Architecture Validator',
     //     subtitle: 'The Architecture Validator is an intelligent review assistant designed to help architects and developers ensure solution diagrams meet baseline architectural expectations whether preparing for submission to the SAP Architecture Center or refining them in general practice. It performs automated content checks to support contributors and reviewers in identifying common issues early in the authoring process. Validator provides quick feedback, helping reduce review cycles and improve overall adherence to SAP\'s prescribed architecting policies.',

@@ -30,6 +30,7 @@ keywords:
   - sap cloud sdk for ai
   - ai agent hub
   - leanix
+  - sap integration suite
 sidebar_label: Agentic AI & AI Agents
 image: img/ac-soc-med.png
 tags:
@@ -50,6 +51,7 @@ contributors:
   - kay-schmitteckert
   - micinit
   - mar-hol
+  - Dhawal-Joshi
 discussion: 
 last_update:
   author: kay-schmitteckert
@@ -100,9 +102,13 @@ Observability and continuous improvement of AI agents — providing behavioral t
 
 The customer's own BTP subaccount hosts self-managed agents and integrations — connected to the SAP Business AI Platform via A2A and MCP.
 
--   **Custom Agents — Bring Your Own Agent:** Pro-code AI agents built with SAP Cloud SDK for AI (Python or TypeScript), deployed in the customer's BTP subaccount and connected to Joule via the A2A protocol. Supports frameworks including LangGraph, AG2, CrewAI, Smolagents, Google ADK and Pydantic AI. Read more about [Bring Your Own Agent](./3-bring-your-own-agent/readme.md).
+-   **Custom Agents — Bring Your Own Agent:** Pro-code AI agents built with SAP Cloud SDK for AI (Python or TypeScript), deployed in the customer's BTP subaccount and connected to Joule via the A2A protocol. Custom Agents leverage SAP Integration Suite-managed MCP Servers for tool and capability consumption. Supports frameworks including LangGraph, AG2, CrewAI, Smolagents, Google ADK and Pydantic AI. Read more about [Bring Your Own Agent](./3-bring-your-own-agent/readme.md).
 
--   **MCP Gateway in SAP Integration Suite:** Customer-managed, governed MCP exposure for SAP and non-SAP APIs. Provides enterprise-grade tool access with security, rate limiting, observability and lifecycle management built in — without requiring custom MCP server development. API usage is subject to the [SAP API Policy](https://help.sap.com/doc/sap-api-policy/latest/en-US/API_Policy_latest.pdf). Read more about [Third-Party MCP Access to SAP Solutions](./10-third-party-mcp-access/readme.md).
+-   **SAP Integration Suite:**
+
+    - **MCP Gateway:** Customer-managed, governed MCP exposure for SAP and non-SAP APIs. Provides enterprise-grade tool access with security, rate limiting, observability and lifecycle management built in — without requiring custom MCP server development. API usage is subject to the [SAP API Policy](https://help.sap.com/doc/sap-api-policy/latest/en-US/API_Policy_latest.pdf). Read more about [Third-Party MCP Access to SAP Solutions](./10-third-party-mcp-access/readme.md).
+
+    - **A2A Connectivity:** Governed, customer-controlled Agent-to-Agent (A2A) communication between SAP-native agents and third-party agents, or between heterogeneous third-party agents. Provides enterprise-grade security, rate limiting, observability, governance, QoS and lifecycle management for agentic integrations. Read more about [A2A and MCP for Interoperability](./1-a2a-and-mcp/readme.md)
 
 ### SAP Autonomous Suite
 
@@ -143,7 +149,7 @@ SAP supports two paths for building agents and multiple patterns for connecting 
 -   [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence/ai-platform.html)
 -   [Joule Work](https://www.sap.com/products/artificial-intelligence/joule-work.html)
 -   [Joule Studio](https://www.sap.com/products/artificial-intelligence/joule-studio.html)
-- [SAP Autonomous Suite](https://www.sap.com/products/business-applications.html)
+-   [SAP Autonomous Suite](https://www.sap.com/products/business-applications.html)
 -   [SAP Cloud SDK for AI](https://help.sap.com/docs/sap-cloud-sdk)
 -   [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
 -   [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all)

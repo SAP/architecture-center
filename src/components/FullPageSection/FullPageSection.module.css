@@ -38,16 +38,25 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .fullPageSection {
-        min-height: auto;
+        min-height: fit-content;
+        padding: 40px 0 120px 0;
         scroll-snap-align: none;
     }
 
-    .arrowContainer {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .fullPageSection:first-of-type {
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    .fullPageSection:first-of-type .arrowContainer {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .lastSection {
+        min-height: fit-content !important;
+        padding: 40px 0 60px 0;
     }
 }

@@ -14,6 +14,7 @@ keywords:
   - interoperability
   - Agent2Agent
   - model context protocol
+  - sap integration suite
 sidebar_label: A2A and MCP for Interoperability
 image: img/ac-soc-med.png
 tags:
@@ -33,6 +34,7 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - hterminasyan
+  - Dhawal-Joshi
 discussion: 
 last_update:
   author: kay-schmitteckert
@@ -47,10 +49,11 @@ A robust and scalable AI agent ecosystem relies on standardized communication pr
 
 This approach prevents monolithic agent design, promotes reusability and ensures that the SAP agent ecosystem remains open and extensible.
 
-To enable governed, production-grade agentic access, SAP recommends two complementary approaches:
+To enable governed, production-grade agentic access, SAP recommends following approaches:
 
 -   **Agent Gateway**, using the A2A protocol, for multi-agent collaboration scenarios where an external client or third-party agent needs to delegate tasks to, or receive results from, SAP-managed agents. It enables secure, standardized communication and task delegation across agents from different vendors and systems.
 -   **MCP Gateway in SAP Integration Suite**, for governed, enterprise-grade exposure and consumption of SAP and non-SAP APIs as MCP-compliant tools. It acts as a customer-managed platform covering the full lifecycle from creating MCP servers out of existing APIs and integrations, to securing, monitoring and governing agent access at scale.
+-   **Agent2Agent (A2A) connectivity via SAP Integration Suite**, for governed, enterprise-grade multi-party interaction between SAP and 3rd Party agents.  Agent to Agent interaction in SAP Integration Suite delegates the call to Agent Gateway to ensure common security and controlled access. In addition, SAP Integration Suite provides additional governance and enterprise grade quality of service, traffic management policies, event driven patterns, & payload transformation/translation capabilities for agentic integrations.  
 
 The diagram below illustrates how A2A and MCP fit into the overall agent architecture. Joule acts as an A2A client to communicate with external agents, while agents themselves use MCP to discover and consume tools from MCP servers.
 
@@ -70,7 +73,7 @@ The [**Agent2Agent (A2A) protocol**](https://a2a-protocol.org/latest/) is an ope
 -   **Task Delegation:** It allows for the creation of sophisticated, multi-agent workflows where a primary agent can orchestrate specialized sub-agents to solve a complex problem.
 -   **Interoperability:** Because A2A is an open standard, agents built with different frameworks and by different teams or organizations can communicate seamlessly, fostering a diverse and powerful agent landscape.
 
-For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanism for integrating with Joule. Joule acts as an A2A client, sending requests to the agent and processing its responses according to the A2A-defined contract.
+For pro-code agents, exposing an **A2A-Server endpoint** is the primary mechanism for integrating with Joule. Joule acts as an A2A client, sending requests to the agent and processing its responses according to the A2A-defined contract.For external interoperability between vendors and third-party agents, SAP uses the Agent2Agent (A2A) protocol as the preferred approach, ensuring enterprise-grade security, governance and controlled access.
 
 ### Model Context Protocol (MCP)
 
@@ -101,9 +104,9 @@ External clients authenticate using IAS App2App dependencies, invoke a specific 
 
 ## MCP Gateway in Integration Suite
 
-SAP Integration Suite provides an **MCP Gateway** that enables customers to expose SAP and non-SAP APIs as governed, MCP-compliant tools making them consumable by any AI agent.
+SAP Integration Suite provides an **MCP Gateway** that enables customers to expose SAP and non-SAP APIs as governed, MCP-compliant tools making them consumable by any AI agent, there by enabling Agent to System integration pattern
 
-This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP business capabilities and Knowledge Graph content directly. The MCP Gateway is a **customer-managed platform** designed for external-facing, governed tool exposure, allowing customers to bring their own API landscape, including SAP APIs, third-party APIs, external MCP servers, and integration flows, under a single governed entry point for agent consumption.
+This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP business capabilities and Knowledge Graph content directly. The MCP Gateway is a **customer-managed platform** designed for external-facing, governed tool exposure, allowing customers to bring their own API landscape, including SAP APIs (cloud and on-premise), third-party APIs, external MCP servers, and integration flows, under a single governed entry point for agent consumption.
 
 **Key Characteristics:**
 
@@ -112,6 +115,18 @@ This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP 
 -   **Governance and Observability:** Comprehensive monitoring, tracing and analytics provide visibility into how agents consume tools, supporting compliance and adoption governance
 -   **Developer and Ecosystem Enablement:** Tools and workflows to manage the full MCP tool lifecycle, from creation and documentation enrichment to discovery and consumption by agents
 
+## Agent2Agent (A2A) connectivity via Integration Suite
+
+SAP Integration Suite provides agent-to-agent interaction capabilities to address multi-party integration scenarios spanning SAP and non-SAP agentic platforms. In hybrid landscape deployments, Integration Suite is positioned in front of the Agent Gateway to fulfill cross-cutting concerns including security mediation, traffic management, guaranteed delivery, monitoring, event-driven publish-subscribe messaging, and broader quality of service requirements.
+
+**Key Characteristics:**
+
+-   **Centralized Policy Enforcement:** A2A servers exposed externally, across organizational boundaries, or within large enterprises benefit from consistent application of enterprise security policies — including authentication, authorization, rate limiting, and quotas — ensuring controlled and governed agent-to-agent communication at scale.
+-   **Enterprise-Grade Traffic Management:** Load balancing, intelligent routing, and mediation capabilities ensure reliable and performant A2A interactions, supporting complex multi-party integration scenarios between SAP and non-SAP agentic platform.
+-   **Payload Transformation and Protocol Mediation:** Built-in transformation and translation capabilities allow seamless interoperability between heterogeneous SAP and non-SAP agentic platforms, bridging differences in data formats, protocols, and message structures.
+-   **Governance, Observability and Reporting:** Comprehensive monitoring, analytics, and reporting provide deep visibility into agent usage, performance trends, and inter-agent traffic flows, supporting compliance, operational governance, and adoption tracking.
+-   **Guaranteed Delivery with Configurable Quality of Service (QoS):** Integration Suite ensures reliable agent-to-agent message delivery through a tiered QoS model — At-Least-Once (ALO) guarantees message persistence and delivery resilience across failures; Exactly-Once (EO) eliminates duplicate processing while maintaining end-to-end reliability; and Exactly-Once-In-Order (EOIO) further preserves transactional integrity and business process consistency through message sequencing. Together, these tiers ensure inter-agent communication meets enterprise-grade reliability and ordering requirements across the A2A integration landscape.
+-   **Event-Driven Inter-Agent Collaboration:** Native support for event-driven patterns with Quality-of-Service guarantees — including guaranteed delivery, pub-sub mechanisms, and reliable messaging — enables asynchronous and resilient agent-to-agent communication beyond simple request-response interactions.
   
 ## Bring Your Own Agent (Outbound)
 
@@ -150,11 +165,13 @@ SAP is advancing AI interoperability through strategic investments in open stand
 
 -   **Agent2Agent (A2A) as the Foundation:** SAP fully embraces A2A as the **preferred standard** for multi-agent collaboration and vendor-to-vendor interoperability. A2A enables Joule Agents to communicate seamlessly with both SAP-native agents and third-party agents across platforms like Google Vertex AI, Microsoft Copilot Studio and AWS Bedrock AgentCore.
 
+-   **Agent2Agent (A2A) with additional Quality of Service:** SAP Integration Suite's A2A interactions empower customers to communicate with SAP-native agents as well as support third-party to third-party agent interactions. SAP Integration Suite A2A leverages Agent Gateway and provide additional enterprise grade qualities for customers' hybrid landscape.
+
 -   **MCP for Internal Enrichment:** SAP leverages MCP internally to provide Joule Agents with semantically enriched access to SAP business capabilities, including domain knowledge from SAP Knowledge Graph and business APIs. This ensures agents can reason over authoritative enterprise data with full semantic context.
   
--   **MCP for External Exposure:** SAP Integration Suite's MCP Gateway empowers customers to create, manage and expose their own MCP servers, making SAP and non-SAP APIs, integrations and data sources accessible as governed, MCP-compliant tools for any AI agent to consume.  
+-   **MCP for External Exposure:** SAP Integration Suite's MCP Gateway empowers customers to create, manage and expose their own MCP servers, making SAP and non-SAP APIs, integrations and data sources accessible as governed, MCP-compliant tools for any AI agent to consume. MCP Servers created in SAP Integration Suite are also accessible in the Joule studio.  
 
--   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration, and offers the MCP Gateway in SAP Integration Suite for governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
+-   **Architectural Rationale:** For external interoperability, SAP prioritizes A2A via the Agent Gateway for multi-agent collaboration and offers A2A connectivity and MCP Gateway in SAP Integration Suite. A2A connectivity offers enterprise grade qualities for multi agent interactions while MCP Gateway offers governed tool access across SAP and non-SAP APIs. This design ensures enterprise-grade security, governance and controlled access to SAP systems while maintaining the flexibility of open standards.
 
 SAP's roadmap includes continuous enhancements to both protocols, with significant investments planned through 2026 to expand agent-to-agent collaboration and MCP support for development frameworks.
 
