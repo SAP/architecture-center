@@ -288,7 +288,7 @@
                 <mxCell id="7zZkG7QePnFsALLzHj9v-94" value="&lt;p style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#475E75;fillColor=#F5F6F7;arcSize=15;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;spacingTop=0;" parent="7zZkG7QePnFsALLzHj9v-93" vertex="1">
                     <mxGeometry width="140" height="34.230769230769226" as="geometry"/>
                 </mxCell>
-                <mxCell id="7zZkG7QePnFsALLzHj9v-95" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://res.cloudinary.com/digitalrealty/image/upload/f_auto,q_auto,c_scale,dpr_auto,w_auto/dlr-website%2FBanners%2FResources%20Thumbnails%2FCase%20Study%20Thumbnails%2FResource_CaseStudy_IBMCloud_logo_thumbnail_le3ker;clipPath=inset(35.65% 11.67% 31.94% 11.67%);" parent="7zZkG7QePnFsALLzHj9v-93" vertex="1">
+                <mxCell id="7zZkG7QePnFsALLzHj9v-95" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;clipPath=inset(35.65% 11.67% 31.94% 11.67%);" parent="7zZkG7QePnFsALLzHj9v-93" vertex="1">
                     <mxGeometry x="15.509999999999991" y="1.0012499999998676" width="88.9828846153846" height="27.08509615384615" as="geometry"/>
                 </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-96" value="" style="group" parent="7zZkG7QePnFsALLzHj9v-1" connectable="0" vertex="1">
