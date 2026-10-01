@@ -218,7 +218,7 @@ tags:
 Example of a tag declaration in the `tags.yml` file:
 ```yaml
 ref-arch:
-  label: "Reference Architectures"
+  label: "Reference Architecture"
   description: "Reference Architectures offer standardized, reusable templates for software architecture, providing best practices, guidelines, and blueprints to streamline design, development, and deployment."
 ```
 
