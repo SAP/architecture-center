@@ -12,7 +12,6 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { logger } from '@site/src/utils/logger';
 import { IoMdClose } from 'react-icons/io';
 
 // Domain definitions with labels
@@ -31,13 +30,65 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   return acc;
 }, {});
 
-// Check if a document is archived
-function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
-  const tags = docIdToTags?.[docId] || [];
-  return tags.includes('archived');
+// =============================================================================
+// Document ID Matching Utilities
+// =============================================================================
+// To bridge the gap between URLs ID suffix and docIds full paths, by matching on the hex ID suffix
+
+const HEX_ID_PATTERN = /([a-f0-9]{6})$/i;
+
+function extractHexId(path: string): string | null {
+  const match = path.match(HEX_ID_PATTERN);
+  return match ? match[1] : null;
 }
 
-// Filter out archived items from sidebar
+function findDocIdByHexId(hexId: string, docIdToTags: Record<string, string[]>): string | null {
+  for (const docId of Object.keys(docIdToTags)) {
+    if (docId.endsWith(hexId) || docId.endsWith(`/${hexId}`)) {
+      return docId;
+    }
+  }
+  return null;
+}
+
+function getDocTags(docId: string, docIdToTags: Record<string, string[]>): string[] {
+  if (!docId || !docIdToTags) return [];
+
+  if (docIdToTags[docId]) {
+    return docIdToTags[docId];
+  }
+
+  const hexId = extractHexId(docId);
+  if (hexId) {
+    const fullDocId = findDocIdByHexId(hexId, docIdToTags);
+    if (fullDocId) {
+      return docIdToTags[fullDocId];
+    }
+  }
+
+  return [];
+}
+
+function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
+  return getDocTags(docId, docIdToTags).includes('archived');
+}
+
+function findDocIdFromPath(pathname: string, tagsDocId: Record<string, string[]>): string | null {
+  if (!tagsDocId || !pathname) return null;
+
+  const normalizedPath = pathname.replace(/\/$/, '');
+  const hexId = extractHexId(normalizedPath);
+
+  if (hexId) {
+    return findDocIdByHexId(hexId, tagsDocId);
+  }
+
+  return null;
+}
+
+// =============================================================================
+// Sidebar Filtering
+// =============================================================================
 function filterArchivedItems(items: any[], docIdToTags: Record<string, string[]>, showArchived: boolean): any[] {
   const filterItem = (item: any): any | null => {
     if (item.type === 'doc' || item.type === 'link') {
@@ -663,6 +714,37 @@ function findDocByPath(items, pathname) {
   return null;
 }
 
+// Check if a document exists in the archived sidebar view (as a category as well)
+function docExistsInArchivedView(docId: string, pathname: string, sidebar: any[], tagsDocId: Record<string, string[]>): boolean {
+  if (isDocArchived(docId, tagsDocId)) {
+    return true;
+  }
+
+  const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
+
+  const foundInArchived = findItemByPath(archivedSidebar, pathname);
+  return foundInArchived;
+}
+
+// Find if any item (doc, link, or category) matches the pathname
+function findItemByPath(items: any[], pathname: string): boolean {
+  for (const item of items) {
+    if (item.type === 'doc' || item.type === 'link') {
+      if (item.href === pathname || pathname.startsWith(item.href)) {
+        return true;
+      }
+    } else if (item.type === 'category') {
+      if (item.href && (item.href === pathname || pathname.startsWith(item.href))) {
+        return true;
+      }
+      if (item.items && findItemByPath(item.items, pathname)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 export default function DocSidebarWrapper(props) {
   const windowSize = useWindowSize();
   const sidebarContext = useDocsSidebar();
@@ -689,17 +771,36 @@ export default function DocSidebarWrapper(props) {
 
     if (partnersParam) setPartners(partnersParam.split(','));
 
+    // Find the current document
+    const docIdFromTags = findDocIdFromPath(location.pathname, tagsDocId);
+    const docIdFromSidebar = findDocByPath(props.sidebar, location.pathname);
+    const docId = docIdFromTags || docIdFromSidebar;
+
+    const currentShowArchived = useSidebarFilterStore.getState().showArchived;
+
     if (archivedParam === 'true') {
       setShowArchived(true);
-      return;
+    } else if (docId) {
+      const isCurrentDocArchived = isDocArchived(docId, tagsDocId);
+      if (isCurrentDocArchived) {
+        setShowArchived(true);
+      } else if (currentShowArchived) {
+        // Check if document exists in archived view (as a parent category with archived children)
+        const existsInArchived = docExistsInArchivedView(docId, location.pathname, props.sidebar, tagsDocId);
+        if (!existsInArchived) {
+          setShowArchived(false);
+        }
+      } else {
+        setShowArchived(false);
+      }
+    } else {
+      setShowArchived(false);
     }
 
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
       return;
     }
-
-    const docId = findDocByPath(props.sidebar, location.pathname);
 
     if (docId && tagsDocId[docId]) {
       const docTags = tagsDocId[docId] || [];
@@ -719,9 +820,7 @@ export default function DocSidebarWrapper(props) {
 
   useEffect(() => {
     return history.listen(loc => {
-      logger.info("Route changed:", loc.pathname);
       if (!loc.pathname.startsWith(docsBase)) {
-        logger.info("Resetting filters...");
         resetFilters();
       }
     });
