@@ -8,6 +8,9 @@ authors: [vikas-thimmiaha]
 date: 2026-09-29
 ---
 
+Token optimization is often treated as a matter of shortening prompts or responses, but the larger challenge is deciding which context is actually worth sending to the model. This article looks at where tokens are consumed in agentic workflows, how context bloat and repeated tool use increase cost, and which practical strategies can make those workflows more efficient. It also shows why optimization cannot be judged by token savings alone, the final response and the workflow behind it both needs to be evaluated. The goal is not simply to use fewer tokens, but to reduce waste while preserving quality.
+
+<!-- truncate -->
 ## Introduction
 
 Token optimization sounds like a problem of reduction: shorter prompts, shorter answers, smaller
@@ -38,8 +41,6 @@ measurement is just cheaper execution, real optimization requires both.
 
 So the central question is: **How can LLM systems reduce unnecessary token usage while preserving
 response quality?**
-
-<!-- truncate -->
 
 ## Where Tokens Actually Go
 
