@@ -1,9 +1,9 @@
 ---
-id: id-ra0039
-slug: /ref-arch/ra0039
+id: 5hj89h
+slug: /ref-arch/5hj89h
 sidebar_position: 1
-title: SAP BDC Lakehouse
-description: A reference architecture for SAP Business Data Cloud Lakehouse, covering data architecture patterns, storage layers, and guidance for adoption.
+title: SAP Business Data Cloud Lakehouse
+description:   Open lakehouse foundation for AI-driven enterprise data —  SAP and non-SAP data refined into trusted data products, enriched with master data and business semantics, catalogued for discovery, and surfaced through Joule as agentic and analytical actions
 sidebar_label: SAP BDC Lakehouse
 keywords:
   - sap
@@ -12,6 +12,11 @@ keywords:
   - lakehouse
   - data architecture
   - data platform
+  - dremio
+  - reltio 
+  - ontology
+  - joule
+  - catalog
 image: img/ac-soc-med.png
 tags:
   - ref-arch
@@ -25,21 +30,22 @@ draft: true
 unlisted: false
 contributors:
   - fabianleh
+  - s-krishnamoorthy
 last_update:
-  author: fabianleh
-  date: 2026-09-22
+  author: s-krishnamoorthy
+  date: 2026-09-29
 ---
 
-## Lorem ipsum dolor
+## SAP Business Data Cloud Lakehouse
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+SAP Business Data Cloud Lakehouse architecture serves as the Open lakehouse foundation for AI-driven enterprise data —  SAP and non-SAP data refined into trusted data products, enriched with master data and business semantics, catalogued for discovery, and surfaced through Joule as agentic and analytical actions
 
 ![drawio](drawio/BAIP.drawio)
 
-## Ut wisi enim ad minim veniam
+## Architecture Overview
 
 Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+
+
 
 Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
