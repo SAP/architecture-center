@@ -91,7 +91,10 @@ triggers one **evaluate** run via `workflow_run`.
   base commit for `pull_request_target`-triggered runs, so a workflow-level key
   would collide across unrelated pull requests and cancel the wrong evaluation.
   The number is only known after the `context` job reads it, so the job keys its
-  concurrency off `needs.context.outputs.pr`.
+  concurrency off `needs.context.outputs.pr`. The **collect** workflow, by
+  contrast, keys its concurrency at the workflow level off
+  `github.event.pull_request.number` — that number *is* present in its triggering
+  events, so superseded collect runs for the same pull request cancel cleanly.
 - The evaluate workflow's built-in token needs only `contents: read` and
   `actions: read` (to download the artifact from the triggering run). All write
   work — reading team membership and posting the commit status — uses the
@@ -221,12 +224,12 @@ when the check breaks.
 
 ### 2. Grant the CODEOWNERS teams write access to the repository
 
-The owner teams (`architecture-center-admin`, `architecture-center-reviewer`,
-`architecture-center-contributor`) must each have **at least Write access** to
-this repository. A team merely existing in the org is not enough: CODEOWNERS
-only resolves an owner if that team both exists **and** has write access, so a
-team without access is silently treated as an "Unknown owner" and **no reviewers
-are auto-requested** — the Reviewers panel on new pull requests stays empty.
+The owner teams (`architecture-center-admin`, `architecture-center-reviewer`)
+must each have **at least Write access** to this repository. A team merely
+existing in the org is not enough: CODEOWNERS only resolves an owner if that team
+both exists **and** has write access, so a team without access is silently
+treated as an "Unknown owner" and **no reviewers are auto-requested** — the
+Reviewers panel on new pull requests stays empty.
 
 > This is a separate requirement from the token. The `Evaluate team approvals`
 > step can still read team *membership* through `TEAM_REVIEW_TOKEN` even when a
@@ -240,7 +243,6 @@ also want them managing repo settings). From the CLI:
 ```
 gh api -X PUT orgs/OCTO/teams/architecture-center-admin/repos/OCTO/architecture-center       --hostname github.tools.sap -f permission=push
 gh api -X PUT orgs/OCTO/teams/architecture-center-reviewer/repos/OCTO/architecture-center     --hostname github.tools.sap -f permission=push
-gh api -X PUT orgs/OCTO/teams/architecture-center-contributor/repos/OCTO/architecture-center  --hostname github.tools.sap -f permission=push
 ```
 
 Verify CODEOWNERS resolves cleanly (again, mind the internal host):
@@ -275,9 +277,9 @@ list.
 
 ## Things to verify
 
-- The team slugs are literally `architecture-center-admin`,
-  `architecture-center-reviewer`, and `architecture-center-contributor` in the
-  `OCTO` org. The workflow derives the admin and reviewer slugs from the org name
-  plus those slugs, matching the CODEOWNERS entries.
-- All three teams have **Write access** to the repository (see step 2), otherwise
+- The team slugs are literally `architecture-center-admin` and
+  `architecture-center-reviewer` in the `OCTO` org. The workflow derives the
+  admin and reviewer slugs from the org name plus those slugs, matching the
+  CODEOWNERS entries.
+- Both teams have **Write access** to the repository (see step 2), otherwise
   CODEOWNERS reports them as `Unknown owner` and stops auto-requesting reviewers.
