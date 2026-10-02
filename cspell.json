@@ -9,11 +9,26 @@
   ],
   "dictionaries": ["sap", "industry", "partners", "people"],
   "words": ["RAXXXX", "claudeignore"],
-  "ignoreRegExpList": ["Urls", "Email", "HexValues"],
+  "ignoreRegExpList": [
+    "Urls",
+    "Email",
+    "HexValues",
+    "FrontMatterTags",
+    "FrontMatterContributors",
+    "FrontMatterAuthor"
+  ],
   "patterns": [
     {
-      "name": "FrontMatter",
-      "pattern": "/^---\\n[\\s\\S]+?\\n---/m"
+      "name": "FrontMatterTags",
+      "pattern": "/^tags:[^\\n]*\\n(?:[ \\t]+-[^\\n]*\\n)*/gm"
+    },
+    {
+      "name": "FrontMatterContributors",
+      "pattern": "/^contributors:[^\\n]*\\n(?:[ \\t]+-[^\\n]*\\n)*/gm"
+    },
+    {
+      "name": "FrontMatterAuthor",
+      "pattern": "/^[ \\t]*author:[^\\n]*$/gm"
     }
   ],
   "ignorePaths": [
