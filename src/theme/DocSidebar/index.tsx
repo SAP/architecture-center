@@ -428,6 +428,7 @@ function DocSidebarDesktop(props) {
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -470,13 +471,34 @@ function DocSidebarDesktop(props) {
   };
 
   const handleResetFilters = () => {
-    resetFilters();
-    window.history.replaceState({}, '', location.pathname);
+    // If archive filter is active, navigate to base document
+    if (showArchived) {
+      resetFilters();
+      history.replace(refArchBase);
+    } else {
+      resetFilters();
+      window.history.replaceState({}, '', location.pathname);
+    }
   };
 
   const handleBackToAllDocuments = () => {
     resetFilters();
     history.replace(refArchBase);
+  };
+
+  const handleArchiveChange = (value: boolean) => {
+    if (value) {
+      setShowArchived(true);
+      history.replace(`${refArchBase}?archive=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable archive and navigate with partners
+        setShowArchived(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
   };
 
   // Count unique docs from the filtered results (respects both archived and partner filters)
@@ -495,10 +517,12 @@ function DocSidebarDesktop(props) {
           selectedPartners={selectedPartnerOptions}
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
-          isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+          isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
+          showArchived={showArchived}
+          onArchiveChange={handleArchiveChange}
         />
       </div>
       <div className={styles.sidebarMenuList}>
@@ -568,6 +592,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const history = useHistory();
   const refArchBase = useBaseUrl('/docs/ref-arch');
 
@@ -596,13 +621,34 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   };
 
   const handleResetFilters = () => {
-    resetFilters();
-    window.history.replaceState({}, '', location.pathname);
+    // If archive filter is active, navigate to base document
+    if (showArchived) {
+      resetFilters();
+      history.replace(refArchBase);
+    } else {
+      resetFilters();
+      window.history.replaceState({}, '', location.pathname);
+    }
   };
 
   const handleBackToAllDocuments = () => {
     resetFilters();
     history.replace(refArchBase);
+  };
+
+  const handleArchiveChange = (value: boolean) => {
+    if (value) {
+      setShowArchived(true);
+      history.replace(`${refArchBase}?archive=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable archive and navigate with partners
+        setShowArchived(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
   };
 
   // Count unique docs from the filtered results (respects both archived and partner filters)
@@ -617,10 +663,12 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         selectedPartners={selectedPartnerOptions}
         onPartnersChange={handlePartnersChange}
         resetFilters={handleResetFilters}
-        isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+        isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         resultCount={resultCount}
+        showArchived={showArchived}
+        onArchiveChange={handleArchiveChange}
       />
       <nav className={styles.domainSidebarMobile}>
         {showArchived && (
