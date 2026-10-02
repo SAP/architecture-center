@@ -273,11 +273,11 @@ const config: Config = {
                         },
                         {
                             type: 'html',
-                            value: '<strong>Archive</strong>',
+                            value: '<strong>Other Viewpoints</strong>',
                         },
                         {
                             type: 'html',
-                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archived=true">Archived Documents</a>`,
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archive=true">Archived Documents</a>`,
                         },
                     ],
                 },

@@ -70,7 +70,7 @@ function getDocTags(docId: string, docIdToTags: Record<string, string[]>): strin
 }
 
 function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
-  return getDocTags(docId, docIdToTags).includes('archived');
+  return getDocTags(docId, docIdToTags).includes('archive');
 }
 
 function findDocIdFromPath(pathname: string, tagsDocId: Record<string, string[]>): string | null {
@@ -767,7 +767,7 @@ export default function DocSidebarWrapper(props) {
     const params = new URLSearchParams(location.search);
     const partnersParam = params.get('partners');
     const expandedParam = params.get('expanded');
-    const archivedParam = params.get('archived');
+    const archivedParam = params.get('archive');
 
     if (partnersParam) setPartners(partnersParam.split(','));
 
