@@ -1,6 +1,6 @@
 {
   "version": "0.2",
-  "language": "en,en-GB",
+  "language": "en,en-US,en-GB",
   "dictionaryDefinitions": [
     { "name": "sap", "path": ".cspell/sap.txt", "addWords": true },
     { "name": "industry", "path": ".cspell/industry.txt", "addWords": true },

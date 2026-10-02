@@ -11,7 +11,9 @@
 # To allow a word, map it to itself. Keys are lowercase.
 
 [default]
-locale = "en-us"
+# Neutral "en" locale: accept both en-US and en-GB spellings (don't enforce a
+# single variant). typos only supports one locale value; "en" is variant-neutral.
+locale = "en"
 
 [default.extend-words]
 # --- Regular dictionary words typos mis-corrects ---
