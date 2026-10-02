@@ -1,10 +1,13 @@
 ---
-id: jkg4j2
-slug: /ref-arch/jkg4j2
+id: fed701
+slug: /ref-arch/fed701
 sidebar_position: 1
 title: SAP AI Agent Hub
 description: >-
-  Govern and manage AI agents throughout their lifecycle with SAP AI Agent Hub — the enterprise command center for AI governance that brings architecture intelligence, multi-cloud discovery, observability, and compliance to your growing agent estate.
+  Govern and manage AI agents throughout their lifecycle with SAP AI Agent Hub —
+  the enterprise command center for AI governance that brings architecture
+  intelligence, multi-cloud discovery, observability, and compliance to your
+  growing agent estate.
 keywords:
   - sap
   - leanix
@@ -32,7 +35,7 @@ unlisted: false
 contributors:
   - perbernhardt
   - fabianleh
-discussion:
+discussion: 
 last_update:
   author: perbernhardt
   date: 2026-10-01
