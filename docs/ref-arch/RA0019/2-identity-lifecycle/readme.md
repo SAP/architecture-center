@@ -41,8 +41,8 @@ Every user has a user account in each system that provides services for the busi
 ### Flow
 
 The flow contains two major aspects 1. The derivation of an Identity from a Workforce Person and 2. The assignment of access to the Identity which implicit requires the replication into the target systems.
-A Workforce Person is an entity which represents the master data of employees or contigent workers. The Workforce Person could have multiple contracts with the company and most of the attributes have a time dependency.
-The digitial Identity is derivation of the Workforce Person and the focus is on the current valid attributes which are relevant for the user replication and the access assignments. The Identity is the entity which is replicated into the target systems and which is used for the access assignments.
+A Workforce Person is an entity which represents the master data of employees or contingent workers. The Workforce Person could have multiple contracts with the company and most of the attributes have a time dependency.
+The digital Identity is a derivation of the Workforce Person and the focus is on the current valid attributes which are relevant for the user replication and the access assignments. The Identity is the entity which is replicated into the target systems and which is used for the access assignments.
 
 **Workforce Person to Identity**
 

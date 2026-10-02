@@ -66,8 +66,8 @@ However, this binding does not include any credentials for accessing the service
 
 ## Characteristics
 Currently SAP Private Link service supports private endpoints on Microsoft Azure and Amazon Web Services. Supported services from each of the vendors are as follows:
-- [Supported Microsoft Azure services](https://help.sap.com/docs/private-link/private-link1/consume-azure-services-in-sap-btp): To privately access a service in your Azure subcription, SAP Private Link service creates a private endpoint and reuses the private link functionality of Azure. 
-- [Supported AWS services](https://help.sap.com/docs/private-link/private-link1/consume-amazon-web-services-in-sap-btp): To privately access a service in your AWS subcription, SAP Private Link service creates a private endpoint and reuses the private link functionality of AWS. 
+- [Supported Microsoft Azure services](https://help.sap.com/docs/private-link/private-link1/consume-azure-services-in-sap-btp): To privately access a service in your Azure subscription, SAP Private Link service creates a private endpoint and reuses the private link functionality of Azure. 
+- [Supported AWS services](https://help.sap.com/docs/private-link/private-link1/consume-amazon-web-services-in-sap-btp): To privately access a service in your AWS subscription, SAP Private Link service creates a private endpoint and reuses the private link functionality of AWS. 
 
 The Private Link service currently only supports the SAP BTP **Cloud Foundry** runtime and **Kyma** runtime.
 

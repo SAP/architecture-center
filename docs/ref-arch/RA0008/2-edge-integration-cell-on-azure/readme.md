@@ -48,7 +48,7 @@ Deploying EIC on Azure requires a secure, scalable, and resilient infrastructure
 
 ### 1. VNet, SubNet and Networking
 
-To ensure a **secure and private execution environment**, create a **[Virtuan Network (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal)** with **multi-AZ redundancy** for high availability (HA).
+To ensure a **secure and private execution environment**, create a **[Virtual Network (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal)** with **multi-AZ redundancy** for high availability (HA).
 
 - **Multi-AZ Deployment**:
   - Distribute your **EIC components** across **three Azure Availability Zones (AZs)** to ensure high availability. This setup helps maintain continuous service in case one AZ goes down, as the workload automatically fails over to another AZ.
