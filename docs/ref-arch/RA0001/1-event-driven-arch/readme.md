@@ -101,7 +101,7 @@ For more details on SAP Cloud Application Event Hub, refer to [SAP Cloud Applica
 
 ### Enterprise EDA in hybrid, heterogeneous landscapes 
 
-In a large enterprise IT Landscape, there is presence of non-SAP applications as well, SAP Integration Suite family provides a event network capability for enterprise-wide flexible EDA implementation across SAP and non-SAP components.
+In a large enterprise IT Landscape, there is presence of non-SAP applications as well, SAP Integration Suite family provides an event network capability for enterprise-wide flexible EDA implementation across SAP and non-SAP components.
 For less advanced enterprises who are focusing on dedicated EDA scenarios across SAP and non-SAP, event mesh capability of SAP Integration Suite can be option to start and later expand to full-fledged AEM.
 
 ![drawio](drawio/eda_hybrid_enterprise.drawio)
