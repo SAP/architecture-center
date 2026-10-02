@@ -54,7 +54,6 @@ subaccount
 subaccounts
 approuter
 XSUAA
-SUSAA
 BTPEA
 CPEA
 designtime
