@@ -242,7 +242,7 @@ flowchart TD
     Start --> Q1{"Does your problem involve:<br>- Tabular/Relational Data?"}
     Q1 -->|Yes|Q2
     Q1 -->|No|CustomModel
-    Q2{"Can you task be done with<br>classification and/or<br>regression and your<br>data can be represented as a<br>single table?"}
+    Q2{"Can your task be done with<br>classification and/or<br>regression and your<br>data can be represented as a<br>single table?"}
     Q2 -->|Yes|RPT
     RPT("⚡ RFM Indicator:<br>Case suitable for<br>relational foundation<br>model")
     RPT --> R1
