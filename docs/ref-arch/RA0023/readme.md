@@ -32,7 +32,7 @@ contributors:
 discussion: 
 last_update:
   author: bzarske
-  date: 2025-06-06
+  date: 2026-09-28
 ---
 
 DevOps is a key enabler for achieving high-level agility and quality in development projects – including SAP enterprise environments.

@@ -109,7 +109,7 @@ sap-managed:
 # --------------------------------------------------------------------------------------------------------------------------------
 community:
   label: "Community of Practice"
-  description: "A community of practice is a group of people who share a common interest or profession and come together to exchange knowledge, solve problems, and improve their skills. It’s centered around a shared domain, fostering collaboration and learning through shared experiences and resources."
+  description: "A community of practice is a group of people who share a profession or interest and come together to exchange knowledge, solve problems, and sharpen their skills. Grounded in a shared domain, it drives collaboration and continuous learning through shared experiences and resources."
 # --------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------------------------
@@ -120,12 +120,16 @@ demo:
   description: "A demo page is a page designed to showcase features, functionality, or design of a product, service, or concept. It is often used for demonstrations, testing, or marketing purposes."
 
 ref-arch:
-  label: "Reference Architectures"
+  label: "Reference Architecture"
   description: "Reference Architectures offer standardized, reusable templates for software architecture, providing best practices, guidelines, and blueprints to streamline design, development, and deployment."
 
 community-contrib:
-  label: "Community Contributions"
+  label: "Community Contribution"
   description: "Content contributed by SAP customers, partners, and community members, showcasing real-world architecture solutions and implementation experiences to build shared knowledge and strengthen the broader SAP community."
+
+archive:
+  label: "Archived"
+  description: "This content has been archived. It describes a retired or obsolete approach and is no longer maintained or supported by SAP. It remains available for reference only and should not be relied on as current guidance."
 
 ai-native-north-star:
   label: "AI-native North Star architecture"
