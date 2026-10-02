@@ -59,7 +59,7 @@ Curated and managed data products can be shared bi-directionally in a governed m
     <ul>
       <li>**Delta Share access:** Leverages delta sharing open data protocol, enabling interoperability across different computing platforms, cloud environments, and applications without data duplication.</li>
       <li>**Unified Data View:**  Achieve a holistic view of harmonized enterprise data and third-party data by integrating disparate data sources between Google BigQuery and SAP Business Data Cloud.</li>
-      <li>**Opens up flexible infrastructure choices:** Leverage the highly scalable infrastructure of Google BigQuery , and powerful enterprise analytics capabilties of SAP Business Data Cloud to handle large volumes of data and complex analytics workloads.</li>
+      <li>**Opens up flexible infrastructure choices:** Leverage the highly scalable infrastructure of Google BigQuery , and powerful enterprise analytics capabilities of SAP Business Data Cloud to handle large volumes of data and complex analytics workloads.</li>
       <li>**Access to AI-ready data**: AI-ready curated SAP data products shared directly from SAP Business Data Cloud's Object Store layer with Google BigQuery in a secured, governed manner helps enterprise AI/ML workloads at Google Vertex AI</li>
     </ul>
 <p></p>

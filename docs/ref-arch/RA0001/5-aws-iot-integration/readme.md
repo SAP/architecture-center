@@ -81,7 +81,7 @@ These are the technical prerequisites for integration between AWS IoT SiteWise, 
 - **SAP Destination Service**
     - To find the destination information required to access a remote service or system from your extension application.
 - **SAP Private Link Service**
-    - To establishe a private connection between selected SAP BTP services and selected services in your own IaaS provider accounts.
+    - To establish a private connection between selected SAP BTP services and selected services in your own IaaS provider accounts.
 - **SAP AI Core**
     - SAP AI Core supports full lifecycle management of AI scenarios and also provides access to generative AI capabilities of LLM Models like Amazon Bedrock via the generative AI hub.
 - **SAP AI Launchpad**

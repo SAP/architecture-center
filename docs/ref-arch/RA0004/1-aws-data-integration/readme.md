@@ -53,7 +53,7 @@ Data from AWS data sources can be harmonized with SAP and non-sap data via SAP D
 
 Amazon Athena is Amazon's interactive query service that helps query and analyze data in S3.
 
-Non-SAP data from Amazon Athena can be federated live into remote tables in SAP Datasphere and augmented with SAP buisness data for real-time analtyics in SAP Analytics cloud.
+Non-SAP data from Amazon Athena can be federated live into remote tables in SAP Datasphere and augmented with SAP business data for real-time analytics in SAP Analytics cloud.
 
 
 For detailed step by step information and to try out the integration, visit the github : [Integrate Amazon Athena with SAP Datasphere](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/AWS/athena-integration.md)

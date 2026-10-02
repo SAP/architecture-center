@@ -127,7 +127,7 @@ Non-SAP data from Azure Data Lake Storage can be **imported** into SAP Dataspher
 
 ### Replicating Data to OneLake 
 
-Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Microst Fabric's OneLake data platform by replicating it to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
+Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Microsoft Fabric's OneLake data platform by replicating it to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
 
 #### Steps to Replicate Data:
 
