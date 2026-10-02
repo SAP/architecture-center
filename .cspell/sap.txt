@@ -73,6 +73,7 @@ CMIR
 CMIRs
 MTXS
 IATP
+icmtotal
 
 # Line-of-business
 Fieldglass
