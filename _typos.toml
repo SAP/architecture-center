@@ -29,4 +29,6 @@ locale = "en-us"
 extend-exclude = [
   "*.min.js",
   "*.lock",
+  "*.svg",
+  "*.drawio",
 ]
