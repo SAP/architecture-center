@@ -9,7 +9,7 @@
   ],
   "dictionaries": ["sap", "industry", "partners", "people"],
   "words": ["RAXXXX", "claudeignore"],
-  "ignoreRegExpList": ["Urls", "Email", "HexValues", "FrontMatter"],
+  "ignoreRegExpList": ["Urls", "Email", "HexValues"],
   "patterns": [
     {
       "name": "FrontMatter",
