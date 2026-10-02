@@ -30,7 +30,7 @@ relevant** [[2]](#references). They paid for 40,000 wasted tokens every time.
 The common instinct (write shorter prompts, demand briefer answers) misses the real problem. **For
 context-heavy coding-agent workflows, input-side waste is often the largest optimization
 opportunity.** One team found 40,000 of their 45,000 input tokens were irrelevant—a massive
-inefficiency no amount of output compression could fix. But the ratio matters which means thinking-heavy tasks
+inefficiency no amount of output compression could fix. But the ratio matters, which means thinking-heavy tasks
 can flip to output-dominated costs, and since output tokens cost 3-10x more than input, output
 optimization can be highly effective when output volumes are significant.
 
@@ -718,9 +718,9 @@ tokens are worth spending.
 
 ### Token Optimization Tools and Libraries
 
-- [Headroom (MCP)](https://ai-docs.portal.hyperspace.tools.sap/llm-proxy/recipes/headroom/) —
+- [Headroom (MCP)](https://www.headroomlabs.ai/) —
   Context compression tool that reduces large content (logs, files, search results) before passing
-  to models. Available as an MCP server for Claude Code running in HAI proxy.
+  to models. Available as an MCP server for Claude Code.
 
 - [Caveman](https://github.com/JuliusBrussee/caveman) — Minimalist approach forcing agents to work
   with compressed, essential-only context. Achieves 80-94% code reduction and 47-77% cost savings.
@@ -728,20 +728,4 @@ tokens are worth spending.
 - [Ponytail](https://github.com/dietrichgebert/ponytail) — YAGNI (You Aren't Gonna Need It)
   philosophy implementation. Forces agents through a checklist before code generation, resulting in
   3-6× faster execution.
-
-### SAP Internal Token Optimization and Governance Resources
-
-- [AI LLM Proxy - Cost Governance](https://ai-docs.portal.hyperspace.tools.sap/llm-proxy/cost-governance/)
-  , SAP's official documentation for cost governance when using the LLM proxy service
-
-- [Token Optimization Cheat Sheet (General v2)](https://pages.github.tools.sap/DX-Token-Optimization/token_optimization_CheatSheet/General_CheatSheet_v2/)
-  , Comprehensive cheat sheet from SAP's Developer Experience team
-
-- [SAP AI Token Optimization Video Series](https://video.sap.com/playlist/dedicated/253682133/1_9v5mfctm/1_980hwtbp)
-  , Video playlist covering token optimization techniques and governance approaches
-
-- [AI Token Governance FAQs](https://pages.github.tools.sap/DeveloperExperience/AI-Token-Governance-FAQs/)
-  , Frequently asked questions about AI token governance at SAP
-
-- [AI Token Optimization](https://pages.github.tools.sap/DeveloperExperience/ai-token-optimization/)
-  , Best practices and implementation patterns for minimizing token waste while maintaining quality
+  
