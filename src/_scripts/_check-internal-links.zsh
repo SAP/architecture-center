@@ -27,12 +27,14 @@ SCAN_DIRS=("$REPO_ROOT/docs" "$REPO_ROOT/news")
 quiet=0
 [[ "$1" == "--quiet" ]] && quiet=1
 
-# Extended regex (POSIX ERE) for an internal-only host inside an http(s) URL.
+# Extended regex (POSIX ERE) for an internal-only host inside a URL.
 # Portable across BSD grep (macOS), GNU grep (CI), and ugrep: no -P/PCRE, so
-# no lookahead. The trailing character class acts as a host-label boundary so
-# a decoy like "...tools.sapient.com" is NOT matched. The optional "(...\.)?"
-# subdomain prefix lets a bare host such as "sap.sharepoint.com" match too.
-pattern='https?://([a-zA-Z0-9.-]*\.)?(tools\.sap|int\.sap|sap\.corp|sap\.sharepoint\.com)([^a-zA-Z0-9.-]|$)'
+# no lookahead. The scheme is optional ("(https?:)?//") so protocol-relative
+# links such as "//github.tools.sap/path" are caught too. The trailing
+# character class acts as a host-label boundary so a decoy like
+# "...tools.sapient.com" is NOT matched. The optional "(...\.)?" subdomain
+# prefix lets a bare host such as "sap.sharepoint.com" match too.
+pattern='(https?:)?//([a-zA-Z0-9.-]*\.)?(tools\.sap|int\.sap|sap\.corp|sap\.sharepoint\.com)([^a-zA-Z0-9.-]|$)'
 
 hits=()
 
