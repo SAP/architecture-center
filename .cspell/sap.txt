@@ -1,0 +1,86 @@
+# SAP acronyms, product names, and specific terms.
+# One term per line. Lines starting with "#" are comments. Case-insensitive.
+# Add new SAP-specific words here so cspell stops flagging them.
+
+# Platform & core
+SAP
+BTP
+HANA
+HANADB
+ABAP
+SAPUI5
+UI5
+Fiori
+OData
+NetWeaver
+ECC
+Hyperscaler
+Hyperscalers
+Kyma
+Gardener
+Steampunk
+
+# Data & analytics
+Datasphere
+SAC
+BW
+BW4HANA
+S4HANA
+
+# Application development
+CAP
+CDS
+RAP
+Launchpad
+Workzone
+
+# Line-of-business & acquisitions
+Ariba
+Concur
+SuccessFactors
+Signavio
+LeanIX
+Hybris
+Spartacus
+
+# AI
+Joule
+Leonardo
+AAIF
+AICore
+
+# Technical / platform terms
+subaccount
+subaccounts
+approuter
+XSUAA
+SUSAA
+BTPEA
+CPEA
+designtime
+SAPGUI
+SQLDBC
+BAPI
+IDoc
+IDocs
+matnr
+infotypes
+businesspartner
+rolename
+HANAML
+HDLFS
+EOIO
+CMIR
+CMIRs
+MTXS
+IATP
+
+# Line-of-business
+Fieldglass
+
+# Programs & ecosystem
+BYOA
+BYOW
+gardenlets
+DSAG
+ASUG

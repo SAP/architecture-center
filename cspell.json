@@ -1,0 +1,32 @@
+{
+  "version": "0.2",
+  "language": "en,en-GB",
+  "dictionaryDefinitions": [
+    { "name": "sap", "path": ".cspell/sap.txt", "addWords": true },
+    { "name": "industry", "path": ".cspell/industry.txt", "addWords": true },
+    { "name": "partners", "path": ".cspell/partners.txt", "addWords": true },
+    { "name": "people", "path": ".cspell/people.txt", "addWords": true }
+  ],
+  "dictionaries": ["sap", "industry", "partners", "people"],
+  "words": ["RAXXXX", "claudeignore"],
+  "ignoreRegExpList": ["Urls", "Email", "HexValues", "FrontMatter"],
+  "patterns": [
+    {
+      "name": "FrontMatter",
+      "pattern": "/^---\\n[\\s\\S]+?\\n---/m"
+    }
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/*.drawio",
+    "**/*.svg",
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.jpeg",
+    "**/*.gif",
+    "docs/ref-arch/RA0000/**",
+    "docs/community/99-cookie-and-privacy/**",
+    "docs/community/10-the-team.md"
+  ],
+  "files": ["docs/**/*.md", "docs/**/*.mdx", "news/**/*.md", "news/**/*.mdx"]
+}
