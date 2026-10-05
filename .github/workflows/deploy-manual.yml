@@ -47,6 +47,7 @@ jobs:
           echo "base_url=$base_url" >> "$GITHUB_ENV"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_HOST: github.tools.sap
 
       - name: Patch docusaurus.config.ts
         run: |
