@@ -12,8 +12,6 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { IoMdClose } from 'react-icons/io';
-
 // Domain definitions with labels
 const DOMAIN_DEFINITIONS = [
   { id: 'ai', label: 'AI & Machine Learning' },
@@ -531,42 +529,6 @@ function DocSidebarDesktop(props) {
           hideOnScroll && styles.sidebarWithHideableNavbar
         )}>
           <nav className={`${styles.domainSidebar} thin-scrollbar`}>
-            {showArchived && (
-              <div style={{
-                padding: '8px 4px 8px 12px',
-                marginBottom: '8px',
-                borderBottom: '1px solid var(--color-border-light)'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}>
-                  <span style={{
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                    color: 'var(--ifm-color-content)'
-                  }}>
-                    Archived Documents
-                  </span>
-                  <button
-                    onClick={handleBackToAllDocuments}
-                    title="Back to All Documents"
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '2px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      color: 'var(--ifm-color-content-secondary)'
-                    }}
-                  >
-                    <IoMdClose size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
             <DocSidebarItems
               items={domainCategories}
               activePath={location.pathname}
@@ -671,42 +633,6 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         onArchiveChange={handleArchiveChange}
       />
       <nav className={styles.domainSidebarMobile}>
-        {showArchived && (
-          <div style={{
-            padding: '8px 4px 8px 12px',
-            marginBottom: '8px',
-            borderBottom: '1px solid var(--color-border-light)'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
-              <span style={{
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                color: 'var(--ifm-color-content)'
-              }}>
-                Archived Documents
-              </span>
-              <button
-                onClick={handleBackToAllDocuments}
-                title="Back to All Documents"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '2px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'var(--ifm-color-content-secondary)'
-                }}
-              >
-                <IoMdClose size={16} />
-              </button>
-            </div>
-          </div>
-        )}
         <DocSidebarItems
           items={domainCategories}
           activePath={path}
