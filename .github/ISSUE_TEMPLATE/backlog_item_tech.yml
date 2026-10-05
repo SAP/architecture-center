@@ -1,7 +1,7 @@
 name: 📋 Backlog Item TECH
 description: Add a new TECH item to the project backlog
-title: "[BACKLOG-TECH]"
-labels: [backlog-tech]
+title: "[TECH]"
+labels: [tech]
 body:
   - type: dropdown
     attributes:
