@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+      pages: read
     environment: github-pages
     env:
       VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
@@ -46,7 +47,7 @@ jobs:
           echo "url=$url" >> "$GITHUB_ENV"
           echo "base_url=$base_url" >> "$GITHUB_ENV"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_HOST: github.tools.sap
 
       - name: Patch docusaurus.config.ts
