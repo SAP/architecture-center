@@ -69,9 +69,6 @@ jobs:
       - name: Export drawios to svgs
         run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios/_export.js
 
-      - name: Generate validation rules
-        run: node src/_scripts/_generate-validator-rules.js
-
       - name: Build Website
         run: npm run build
 

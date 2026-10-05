@@ -41,6 +41,6 @@ jobs:
           retention-days: 5
 
       - name: Upload to GitHub code-scanning dashboard
-        uses: github/codeql-action/upload-sarif@6f240a501577534ef178b856f0493fc6ee43280c # v3 (github.tools.sap mirror SHA; upstream SHA is not synced)
+        uses: github/codeql-action/upload-sarif@6f240a501577534ef178b856f0493fc6ee43280c # v4 (github.tools.sap internal mirror SHA; not on github.com)
         with:
           sarif_file: results.sarif
