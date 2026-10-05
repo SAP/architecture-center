@@ -17,12 +17,17 @@ locale = "en"
 
 [default.extend-words]
 # --- Regular dictionary words typos mis-corrects ---
+advices = "advices"       # "remittance advices" — valid accounting term
 
 # --- SAP acronyms / product names ---
 
 # --- Industry acronyms / terms ---
+rto = "rto"               # Recovery Time Objective
+alo = "alo"               # At-Least-Once (delivery QoS)
 
 # --- Partners / competitors ---
+aks = "aks"               # Azure Kubernetes Service
+aci = "aci"               # Azure Container Instance
 
 [default.extend-identifiers]
 # Identifier-like tokens (code symbols, names) typos should leave alone.
@@ -33,4 +38,5 @@ extend-exclude = [
   "*.lock",
   "*.svg",
   "*.drawio",
+  "docs/ref-arch/RA0000/",  # new-RA template: Latin lorem-ipsum placeholder text
 ]

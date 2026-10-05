@@ -91,7 +91,7 @@ SAP Joule is the brand which contains several SAP Business AI aspects like the c
 
 #### SAP Agent Gateway for A2A Communication
 
-The SAP Agent Gateway is a technical component wihtin the customer landscape but besides the A2A external endpoint transparent for the customer and fully SAP-managed. It provides the communication fabric for agent interactions:
+The SAP Agent Gateway is a technical component within the customer landscape but besides the A2A external endpoint transparent for the customer and fully SAP-managed. It provides the communication fabric for agent interactions:
 
 - **External (A2A interface for third parties)**: Third-party agents connect to the Agent Gateway using the A2A protocol. Before any interaction, the third-party agent must authenticate through SAP Cloud Identity Services. The gateway enforces policy checks to validate whether the external agent's identity is authorized to communicate with the target SAP agent.
 
