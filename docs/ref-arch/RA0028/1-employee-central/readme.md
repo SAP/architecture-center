@@ -13,7 +13,7 @@ keywords:
   - core hr
   - employee central data model
   - foundation objects
-  - meta data framework
+  - metadata framework
   - organization structures
   - pay structures
   - business ai platform
