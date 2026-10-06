@@ -3,7 +3,7 @@
  * Adding tags to the top of the page
  */
 
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { ThemeClassNames } from '@docusaurus/theme-common';
 import { useDoc } from '@docusaurus/plugin-content-docs/client';
@@ -41,16 +41,22 @@ function useIsArchived(): boolean {
 function useIsOlderThanOneYear(): boolean {
     const { frontMatter } = useDoc();
     const rawDate = frontMatter.last_update?.date;
-    if (!rawDate) {
-        return false;
-    }
-    const updated = new Date(rawDate);
-    if (Number.isNaN(updated.getTime())) {
-        return false;
-    }
-    const oneYearAgo = new Date();
-    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-    return updated < oneYearAgo;
+    // Deferred to after hydration: new Date() differs between build-time SSR
+    // and the browser, which would cause a hydration mismatch near the boundary.
+    const [isOld, setIsOld] = useState(false);
+    useEffect(() => {
+        if (!rawDate) {
+            return;
+        }
+        const updated = new Date(rawDate);
+        if (Number.isNaN(updated.getTime())) {
+            return;
+        }
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        setIsOld(updated < oneYearAgo);
+    }, [rawDate]);
+    return isOld;
 }
 
 export default function DocItemContent({ children }: Props): ReactNode {
