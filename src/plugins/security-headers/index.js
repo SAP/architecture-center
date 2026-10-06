@@ -192,3 +192,10 @@ module.exports = function (_context, _options) {
         },
     };
 };
+
+// Exported for tests so the committed vercel.json can be checked for drift
+// against this single CSP source (see __tests__/csp-config.test.ts). The
+// committed vercel.json is not regenerated on build (it already exists), so the
+// test is what keeps it from silently diverging from CSP_DIRECTIVES.
+module.exports.CSP_DIRECTIVES = CSP_DIRECTIVES;
+module.exports.buildCsp = buildCsp;

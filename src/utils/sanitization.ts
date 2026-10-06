@@ -46,6 +46,31 @@ export function sanitizeUrl(url: string): string {
 }
 
 /**
+ * Sanitize a hyperlink URL for safe use as an anchor href.
+ *
+ * Unlike sanitizeUrl(), this PRESERVES valid relative links, anchors and query
+ * strings (e.g. "../page#section", "/docs/foo?tab=bar", "#heading") and only
+ * rejects dangerous schemes (javascript:, data:, vbscript:, file:), including
+ * attempts to obfuscate them with leading or embedded whitespace / control
+ * characters. Returns '' (a harmless no-op href) when the URL is dangerous.
+ */
+export function sanitizeLinkUrl(url: string): string {
+    if (typeof url !== 'string') return '';
+
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+
+    // Strip whitespace and control chars before testing the scheme so that
+    // "java\tscript:", "java script:" and "\x01javascript:" are all caught.
+    const schemeProbe = trimmed.replace(/[\u0000- ]+/g, '').toLowerCase();
+    if (/^(javascript|data|vbscript|file):/.test(schemeProbe)) {
+        return '';
+    }
+
+    return trimmed;
+}
+
+/**
  * Sanitize file name to prevent path traversal attacks
  */
 export function sanitizeFileName(fileName: string): string {

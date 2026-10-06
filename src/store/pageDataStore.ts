@@ -141,6 +141,11 @@ const findDocumentById = (docs: Document[], id: string | null): Document | null 
 // document A. A single shared timer would drop A's changes silently when the
 // user switches documents within the debounce window.
 const syncTimeouts = new Map<string, NodeJS.Timeout>();
+// Ids of documents whose debounced sync is currently in flight. Because timers
+// are per-document, several syncs can run concurrently; the global isSyncing /
+// syncError state must only settle once ALL of them finish, otherwise the first
+// to complete would hide that another document is still saving (or wipe its error).
+const activeSyncIds = new Set<string>();
 const SYNC_DEBOUNCE_MS = 2000;
 
 export const usePageDataStore = create<PageDataState>()(
@@ -372,6 +377,7 @@ export const usePageDataStore = create<PageDataState>()(
                 // Debounce the sync (per document)
                 const timeout = setTimeout(async () => {
                     syncTimeouts.delete(id);
+                    activeSyncIds.add(id);
                     console.log('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
 
@@ -442,18 +448,22 @@ export const usePageDataStore = create<PageDataState>()(
                         }
 
                         // Mark as synced and clear dirty flags
+                        activeSyncIds.delete(id);
                         set((state) => ({
                             documents: state.documents.map((d) =>
                                 d.id === id ? { ...d, _synced: true, _contributorsDirty: false, _tagsDirty: false } : d
                             ),
-                            isSyncing: false,
+                            // Only settle the global flags once every in-flight
+                            // sync has finished; don't clear a sibling's error.
+                            isSyncing: activeSyncIds.size > 0,
                             lastSaveTimestamp: new Date().toISOString(),
-                            syncError: null,
+                            syncError: activeSyncIds.size > 0 ? state.syncError : null,
                         }));
                     } catch (error) {
+                        activeSyncIds.delete(id);
                         console.error('Error syncing document:', error);
                         set({
-                            isSyncing: false,
+                            isSyncing: activeSyncIds.size > 0,
                             syncError: error instanceof Error ? error.message : 'Failed to sync',
                         });
                     }

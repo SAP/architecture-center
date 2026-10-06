@@ -18,7 +18,7 @@ import {
   isTextNode,
   isDecoratorNode,
 } from './types';
-import { sanitizeUrl } from '../../../utils/sanitization';
+import { sanitizeLinkUrl } from '../../../utils/sanitization';
 import { getNode } from './EditorState';
 
 const DATA_KEY_ATTR = 'data-editor-key';
@@ -355,10 +355,10 @@ export class DOMReconciler {
         element = document.createElement('a');
         element.className = 'editorLink';
         const linkNode = node as LinkNode;
-        // Sanitize to block javascript:/data:/vbscript: URLs. Link URLs come
-        // from user-authored (and shared) documents, so an unsanitized href is
-        // a stored-XSS sink.
-        element.setAttribute('href', sanitizeUrl(linkNode.url));
+        // Block javascript:/data:/vbscript: URLs while preserving valid relative
+        // and anchor links. Link URLs come from user-authored (and shared)
+        // documents, so an unsanitized href is a stored-XSS sink.
+        element.setAttribute('href', sanitizeLinkUrl(linkNode.url));
         element.setAttribute('target', '_blank');
         element.setAttribute('rel', 'noopener noreferrer');
         break;
@@ -1207,8 +1207,8 @@ export class DOMReconciler {
 
     if (node.type === 'link') {
       const linkNode = node as LinkNode;
-      // See sanitizeUrl note in createElement's 'link' case.
-      element.setAttribute('href', sanitizeUrl(linkNode.url));
+      // See sanitizeLinkUrl note in createElement's 'link' case.
+      element.setAttribute('href', sanitizeLinkUrl(linkNode.url));
     }
 
     if (node.type === 'listitem') {
