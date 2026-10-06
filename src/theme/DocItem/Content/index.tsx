@@ -46,6 +46,7 @@ function useIsOlderThanOneYear(): boolean {
     const [isOld, setIsOld] = useState(false);
     useEffect(() => {
         if (!rawDate) {
+            setIsOld(false);
             return;
         }
         const updated = new Date(rawDate);
