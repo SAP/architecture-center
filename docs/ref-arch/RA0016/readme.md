@@ -3,10 +3,7 @@ id: 8e8d58
 slug: /ref-arch/8e8d58
 sidebar_position: 170
 title: Secure Service Consumption Across Hyperscalers
-description: >-
-  This architecture outlines a cloud-agnostic approach for securely consuming
-  services offered by hyperscalers from applications running outside their
-  environments.
+description: "Securely consume hyperscaler services from SAP BTP using federated identity with OIDC and X.509 certificates for short-lived credentials across AWS and GCP."
 keywords:
   - sap
   - secure service consumption across hyperscalers

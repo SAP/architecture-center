@@ -4,9 +4,8 @@ sidebar_position: 4
 slug: /ai-native-north-star-architecture/foreword/thomas-henzler
 sidebar_custom_props:
     category_index: []
-title: Thomas Henzler
-description: >-
-    DSAG's perspective on governance as a key to success in AI transformation: the AI-native North Star architecture provides a strategic framework for AI transformation at the various levels operationalized within companies.
+title: Thomas Henzler on AI governance in SAP's North Star
+description: "DSAG's Thomas Henzler on governance in SAP's AI-native North Star architecture, a strategic framework for AI transformation across the enterprise."
 keywords:
     - sap
     - thomas henzler

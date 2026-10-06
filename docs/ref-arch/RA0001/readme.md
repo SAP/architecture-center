@@ -2,13 +2,8 @@
 id: 196eba
 slug: /ref-arch/196eba
 sidebar_position: 20
-title: Designing Event-Driven Applications
-description: >-
-  Guidance for developing applications based on Event-Driven Architecture (EDA)
-  patterns and Cloud Application Programming (CAP) framework. EDA is a required
-  architecture pattern for building loosely coupled, scalable, and resilient
-  applications that react to real-time business events across distributed
-  systems.
+title: Designing Event-Driven Applications on SAP BTP
+description: "Guidance for building event-driven applications with SAP BTP, using SAP Integration Suite, advanced event mesh, and SAP Cloud Application Event Hub."
 keywords:
   - sap
   - event-driven architecture

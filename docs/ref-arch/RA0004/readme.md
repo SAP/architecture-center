@@ -3,10 +3,7 @@ id: b27373
 slug: /ref-arch/b27373
 sidebar_position: 50
 title: Explore your Hyperscaler data with SAP Business Data Cloud
-description: >-
-  Explore how SAP Business Data Cloud (BDC) acts as the business-centric
-  integration layer for enterprises looking to harmonize SAP and non-SAP data
-  across platforms like Snowflake, Azure, GCP, AWS, and Databricks.
+description: "See how SAP Business Data Cloud harmonizes SAP and non-SAP data across Snowflake, Azure, GCP, AWS, and Databricks for multi-cloud analytics."
 keywords:
   - sap
   - sap business data cloud

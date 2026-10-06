@@ -2,7 +2,7 @@
 id: e9b7df
 slug: /ref-arch/e9b7df
 sidebar_position: 210
-title: Business to Business Integration
+title: B2B Integration with SAP Integration Suite
 description: >-
   Optimize B2B integration with SAP Integration Suite for secure, scalable
   electronic document exchange with trading partners.

@@ -4,9 +4,8 @@ sidebar_position: 5
 slug: /ai-native-north-star-architecture/foundation-layer
 sidebar_custom_props:
     category_index: []
-title: Foundation Layer
-description: >-
-    The AI-native Foundation Layer unites Data and AI as the intelligent core of enterprise processes. SAP Business Data Cloud and the SAP Knowledge Graph provide semantic grounding and governed data, while orchestration, model services, context engineering, and continuous improvement compound enterprise knowledge with every interaction.
+title: "Foundation Layer: AI, Data & Knowledge Graph"
+description: "The AI-native foundation layer makes data and AI the intelligent core, grounded by SAP Business Data Cloud and SAP Knowledge Graph for governed context."
 keywords:
     - sap
     - foundation layer

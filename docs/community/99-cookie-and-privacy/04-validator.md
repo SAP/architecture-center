@@ -1,8 +1,8 @@
 ---
 sidebar_position: 4
 slug: /community/validator
-title: SAP Architecture Center - Architecture Validator Statement
-description: The SAP Architecture Center - Architecture Validator Statement.
+title: Architecture Validator Privacy Statement
+description: "How the Architecture Validator uses SAP OAuth and what personal data it processes to validate your draw.io solution diagrams on your behalf."
 sidebar_label: SAP AC Architecture Validator Statement
 keywords:
  - sap

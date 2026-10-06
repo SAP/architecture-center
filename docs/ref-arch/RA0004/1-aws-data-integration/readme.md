@@ -2,10 +2,8 @@
 id: af1cc6
 slug: /ref-arch/af1cc6
 sidebar_position: 1
-title: Integration with AWS data sources
-description: >-
-  Data from AWS data sources can be harmonized with SAP and non-sap data via SAP
-  Datasphere's data fabric architecture.
+title: AWS data integration with SAP Datasphere
+description: "Integrate AWS sources — Amazon Athena, S3, and Redshift — with SAP Datasphere's data fabric for analytics in SAP Analytics Cloud."
 keywords:
   - sap
   - aws data integration

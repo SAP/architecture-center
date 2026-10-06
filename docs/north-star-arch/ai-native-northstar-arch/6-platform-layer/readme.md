@@ -4,9 +4,8 @@ sidebar_position: 6
 slug: /ai-native-north-star-architecture/platform-layer
 sidebar_custom_props:
     category_index: []
-title: Platform Layer
-description: >-
-    The AI-native Platform Layer is where applications, agents, and workflows run at enterprise scale. SAP BTP provides a managed agent runtime with built-in security, observability, tenant isolation, and governance — turning stateless AI models into reliable enterprise agents with sovereign AI as an architectural constraint.
+title: "Platform Layer: Managed Agent Runtime at Scale"
+description: "The AI-native platform layer runs apps, agents, and workflows at enterprise scale on a managed agent runtime, with sovereign AI and governance built in."
 keywords:
     - sap
     - platform layer

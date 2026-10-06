@@ -3,7 +3,7 @@ id: a134ec
 slug: /ref-arch/a134ec
 sidebar_position: 1
 title: Single-region resiliency
-description: How the single region resiliency works. What are the benefits and drawbacks.
+description: "Learn how single-region resiliency works for SAP BTP using Availability Zones and Multi-AZ deployments, including the benefits and limitations."
 keywords:
   - sap
   - single-region resiliency

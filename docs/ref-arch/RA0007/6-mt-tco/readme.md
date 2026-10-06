@@ -2,10 +2,8 @@
 id: 0124a3
 slug: /ref-arch/0124a3
 sidebar_position: 1
-title: Cost of Ownership
-description: >-
-  Explore strategies to optimize the total cost of ownership for multitenant SAP
-  applications, covering platform, maintenance, and resource allocation costs.
+title: Total Cost of Ownership for Multitenant Apps
+description: "Estimate the total cost of ownership for multitenant apps on SAP BTP, with platform cost examples for Cloud Foundry and Kyma and SAP HANA Cloud sizing."
 keywords:
   - sap
   - total cost of ownership

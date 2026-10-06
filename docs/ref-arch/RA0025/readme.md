@@ -3,11 +3,7 @@ id: 4b76ae
 slug: /ref-arch/4b76ae
 sidebar_position: 260
 title: Transitioning Architectures from SAP NetWeaver
-description: >-
-  Discover how SAP customers can transition from NetWeaver-based products
-  approaching end-of-maintenance in 2027. Explore successor solutions,
-  integration strategies, innovation needs, and security considerations for
-  seamless migration and future-proofing your SAP landscape.
+description: "Transition from SAP NetWeaver-based products nearing 2027 end of maintenance, with successor solutions, integration strategies, and security considerations."
 keywords:
   - sap
   - sap netweaver transition

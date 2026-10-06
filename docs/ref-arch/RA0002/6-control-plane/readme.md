@@ -2,7 +2,7 @@
 id: 6cbe7d
 slug: /ref-arch/6cbe7d
 sidebar_position: 1
-title: Control Plane for Orchestration
+title: Control Plane for Multi-Region Orchestration
 description: >-
   Ensure business continuity with Multi-Region Manager (MRM), orchestrating
   failover, replication, and load balancing across regions.

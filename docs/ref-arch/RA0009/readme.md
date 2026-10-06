@@ -2,7 +2,7 @@
 id: c1e07f
 slug: /ref-arch/c1e07f
 sidebar_position: 100
-title: Establish a central inbox with SAP Task Center
+title: "SAP Task Center: Central Inbox for Unified Tasks"
 description: >-
   Learn to set up SAP Task Center on SAP BTP. Explore its architecture,
   components, and workflows for a unified task management experience.

@@ -5,8 +5,7 @@ slug: /ai-native-north-star-architecture/integration-security-ethics-governance
 sidebar_custom_props:
     category_index: []
 title: Integration, Security, Ethics & Governance
-description: >-
-    Cross-cutting governance for SAP's AI-native architecture: a single governed gateway enforces integration boundaries, agents operate as first-class principals with scoped identity, a Three-Tier AI Defense Architecture addresses agentic threats, and structured AI ethics review ensures responsible deployment under the EU AI Act and global compliance frameworks.
+description: "How SAP's AI-native architecture governs agents: a governed gateway, scoped agent identity, three-tier AI defense, and AI ethics review under the EU AI Act."
 keywords:
     - sap
     - ai integration

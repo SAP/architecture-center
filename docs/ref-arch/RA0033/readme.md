@@ -3,7 +3,7 @@ id: 2ecb7e
 slug: /ref-arch/2ecb7e
 sidebar_position: 150
 title: HANA AI Toolkit - Local MCP Server
-description: Local MCP Server for Generative AI Toolkit for SAP HANA Cloud
+description: "Local MCP server in the hana-ai Generative AI Toolkit for SAP HANA Cloud, exposing hana-ml as governed tools that AI agents can run with end-to-end audit."
 keywords:
   - sap
   - sap hana cloud

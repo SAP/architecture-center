@@ -5,8 +5,7 @@ slug: /ai-native-north-star-architecture/customer-specific-development-services
 sidebar_custom_props:
     category_index: []
 title: Customer-Specific Development Services
-description: >-
-    SAP Development Services is the AI-native offering for customer-specific extensions that continuously learn and adapt in production. Using agentic engineering and accelerator-driven synthesis, it unifies discovery, design, build, and hardening into a continuous agent-orchestrated flow — delivering upgrade-safe solutions that compound value from day one.
+description: "SAP's AI-native customer-specific development services deliver upgrade-safe extensions that learn and adapt in production via agentic engineering."
 keywords:
     - sap
     - sap development services

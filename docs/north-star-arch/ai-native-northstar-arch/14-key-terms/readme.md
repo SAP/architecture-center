@@ -3,9 +3,8 @@ id: id-nsa-14
 sidebar_position: 14
 sidebar_custom_props:
     category_index: []
-title: Key Terms
-description: >-
-    Key terms and definitions used in the SAP AI-native North Star architecture document.
+title: Key Terms – AI-native North Star Architecture
+description: "Glossary of key terms and definitions used across SAP's AI-native North Star architecture, from system of context to agentic orchestration and sovereign AI."
 keywords:
     - key terms
     - glossary

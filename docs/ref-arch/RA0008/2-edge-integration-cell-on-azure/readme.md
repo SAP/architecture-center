@@ -3,9 +3,7 @@ id: 0ae6b4
 slug: /ref-arch/0ae6b4
 sidebar_position: 2
 title: Edge Integration Cell on Azure
-description: >-
-  Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid
-  integration, leveraging secure infrastructure.
+description: "Deploy SAP Integration Suite - Edge Integration Cell on Azure using Azure Kubernetes Service, PostgreSQL, and multi-AZ setup for secure hybrid integration."
 keywords:
   - sap
   - azure

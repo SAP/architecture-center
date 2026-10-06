@@ -3,7 +3,7 @@ id: c9cdd2
 slug: /ref-arch/c9cdd2
 sidebar_position: 5
 title: Non-Functional Pillars
-description: Please add a description (max 300 characters)
+description: "Non-functional pillars for generative AI on SAP BTP, covering the key non-functional requirements that shape reliable reference architectures."
 keywords:
   - sap
   - non-functional requirements

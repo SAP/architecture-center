@@ -2,7 +2,7 @@
 sidebar_position: 1
 slug: /community/architecture-validator
 title: Architecture Validator
-description: Architecture Validator
+description: "Architecture Validator automates draw.io diagram checks against SAP architecture guidelines, giving quick feedback before you submit or refine."
 sidebar_label: Architecture Validator
 keywords:
     - sap

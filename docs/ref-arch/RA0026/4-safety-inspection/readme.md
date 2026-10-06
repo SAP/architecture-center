@@ -2,8 +2,8 @@
 id: 9ca181
 slug: /ref-arch/9ca181
 sidebar_position: 1
-title: Safety Inspection
-description: Discover Embodied AI for health & safety inspection
+title: Health & Safety Inspection
+description: "Discover how Embodied AI delivers continuous health and safety inspection, embedding objective safety monitoring into daily operations with SAP S/4HANA for EHS."
 keywords:
   - sap
   - embodied ai agents

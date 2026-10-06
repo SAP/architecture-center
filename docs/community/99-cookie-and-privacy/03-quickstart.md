@@ -1,8 +1,8 @@
 ---
 sidebar_position: 3
 slug: /community/quickstart
-title: SAP Architecture Center - Quick Start Statement
-description: The SAP Architecture Center - Quick Start Statement.
+title: Quick Start Statement | SAP Architecture Center
+description: "How the Quick Start tool uses GitHub OAuth and what personal data it processes to fork repositories, commit changes, and create pull requests on your behalf."
 sidebar_label: SAP AC Quick Start Statement
 keywords:
  - sap

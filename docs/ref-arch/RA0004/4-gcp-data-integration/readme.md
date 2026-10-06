@@ -3,8 +3,7 @@ id: bffef5
 slug: /ref-arch/bffef5
 sidebar_position: 4
 title: Integration with Google Cloud Platform sources
-description: >-
-  Integrate non-SAP data in Google Cloud Platform with business data from SAP using SAP Business Data Cloud's seamless data integration architectures to enable holistic AI/ML & Analytics use cases.
+description: "Integrate Google BigQuery and Google Cloud Storage data with SAP business data via SAP Business Data Cloud for unified AI/ML and analytics."
 keywords:
   - sap
   - sap business data cloud

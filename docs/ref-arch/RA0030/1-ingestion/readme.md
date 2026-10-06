@@ -3,10 +3,7 @@ id: e26d4d
 slug: /ref-arch/e26d4d
 sidebar_position: 1
 title: Document Ingestion Patterns for SAP Document AI
-description: >-
-  Design flexible document intake architectures supporting email, API, mobile
-  capture,  and enterprise system integration for intelligent document
-  processing.
+description: "Design flexible document intake architectures supporting email, API, mobile capture and enterprise integration for SAP Document AI processing."
 keywords:
   - sap
   - sap document ai

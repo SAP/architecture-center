@@ -2,7 +2,7 @@
 id: 8aceea
 slug: /ref-arch/8aceea
 sidebar_position: 130
-title: Medallion Reference Architecture for Big Data Processing in SAP HANA Cloud
+title: Medallion Architecture for Big Data in SAP HANA Cloud
 description: >-
   Process big data with SAP HANA Cloud Data Lake, integrating structured and
   unstructured data for intelligent applications.

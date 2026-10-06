@@ -2,10 +2,8 @@
 id: b6ca4c
 slug: /ref-arch/b6ca4c
 sidebar_position: 1
-title: Events Synchronization
-description: >-
-  Enable resilient multi-region event processing with SAP Advanced Event Mesh,
-  ensuring real-time synchronization and scalability.
+title: Event Synchronization with SAP Advanced Event Mesh
+description: "Enable resilient multi-region event synchronization with SAP Advanced Event Mesh and Dynamic Message Routing (DMR) for geo-distributed event meshes."
 keywords:
   - sap
   - sap advanced event mesh

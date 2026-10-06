@@ -2,10 +2,8 @@
 id: bbfc34
 slug: /ref-arch/bbfc34
 sidebar_position: 30
-title: Architecting Multi-Region HA/DR resiliency patterns
-description: >-
-  Architect multi-region resiliency for SAP solutions with strategies for high
-  availability and disaster recovery.
+title: Multi-Region HA/DR Resiliency for SAP BTP
+description: "Architect multi-region high availability and disaster recovery for SAP BTP, with reference patterns for failover, data and event synchronization."
 keywords:
   - sap
   - multi-region architecture

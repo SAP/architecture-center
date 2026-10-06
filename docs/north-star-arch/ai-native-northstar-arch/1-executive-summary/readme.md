@@ -4,9 +4,8 @@ sidebar_position: 1
 slug: /ai-native-north-star-architecture/executive-summary
 sidebar_custom_props:
     category_index: []
-title: Executive Summary
-description: >-
-    Enterprise AI shifts from AI-first to AI-native: SAP's architecture unlocks five decades of business context to build a system of context where agents reason across the full landscape, processes learn from every interaction, and software evolves from SaaS to Outcome as a Service.
+title: "AI-Native Architecture: Executive Summary"
+description: "Enterprise AI shifts from AI-first to AI-native: SAP's system of context lets agents reason across the enterprise and moves value to Outcome as a Service."
 keywords:
     - sap
     - ai-native architecture

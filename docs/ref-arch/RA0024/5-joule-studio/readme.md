@@ -2,10 +2,8 @@
 id: f5a3ef
 slug: /ref-arch/f5a3ef
 sidebar_position: 6
-title: Joule Studio
-description: >-
-  SAP’s AI-first low-code and pro-code development solution for generating and
-  running custom AI agents, workflows and extensions.
+title: Joule Studio for Enterprise AI Agents
+description: "Joule Studio is SAP's AI-first low-code and pro-code environment for building trusted, production-grade agentic solutions grounded in SAP business context."
 keywords:
   - sap
   - joule

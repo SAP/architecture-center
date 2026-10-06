@@ -4,9 +4,8 @@ sidebar_position: 12
 slug: /ai-native-north-star-architecture/closing-note
 sidebar_custom_props:
     category_index: []
-title: Closing Note
-description: >-
-    The AI-native enterprise is a cybernetic system where software, data, and people evolve together through continuous feedback. For architects, the role shifts to agentic engineering — orchestrating agents through context, harness, and specification engineering — grounded in SAP's structural advantages of deep integration, process expertise, and enterprise trust.
+title: "Closing Note: The AI-native Enterprise"
+description: "Closing note on the AI-native enterprise as a cybernetic system, where architects shift to agentic engineering built on SAP's integration and trust."
 keywords:
     - ai-native enterprise
     - agentic engineering

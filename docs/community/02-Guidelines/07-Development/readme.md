@@ -2,7 +2,7 @@
 sidebar_position: 1
 slug: /community/development
 title: Developers' Corner
-description: Examples for CSS, responsive design, and performance in the SAP Architecture Center.
+description: "Welcome to the development section of the SAP Architecture Center—an open source project with guidelines, best practices, and examples to help you contribute."
 sidebar_label: Developers' Corner
 keywords:
     - sap

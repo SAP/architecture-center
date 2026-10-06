@@ -3,12 +3,7 @@ id: 168c97
 slug: /ref-arch/168c97
 sidebar_position: 3
 title: DIV – Product Carbon Footprint Use Case
-description: >-
-  This reference architecture describes how SAP Decentralized Identity
-  Verification (DIV) enables secure, privacy-preserving exchange of Product
-  Carbon Footprint (PCF) data between supply chain partners using Self-Sovereign
-  Identity and Verifiable Credentials, with each member provisioning their own
-  DIV wallet (Bring Your Own Wallet).
+description: "How SAP Decentralized Identity Verification (DIV) enables Product Carbon Footprint (PCF) exchange between supply chain partners with Bring Your Own Wallet."
 keywords:
   - sap
   - sap decentralized identity verification

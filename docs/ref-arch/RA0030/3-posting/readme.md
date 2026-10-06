@@ -2,11 +2,8 @@
 id: c62bee
 slug: /ref-arch/c62bee
 sidebar_position: 3
-title: Document Posting and System Integration Patterns for SAP Document AI
-description: >-
-  Design robust integration architectures for posting extracted and enriched
-  document data  to SAP S/4HANA, Business ByDesign, and third-party systems with
-  error handling and monitoring.
+title: Document Posting Integration Patterns for SAP Document AI
+description: "Design document posting patterns for SAP Document AI: direct API, Integration Suite, and CAP flows to SAP S/4HANA, Business ByDesign, and third-party systems."
 keywords:
   - sap
   - genai

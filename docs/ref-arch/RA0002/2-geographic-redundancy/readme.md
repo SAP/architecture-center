@@ -3,9 +3,7 @@ id: cbc081
 slug: /ref-arch/cbc081
 sidebar_position: 1
 title: Geographic Redundancy
-description: >-
-  Ensure continuous service with geographic redundancy for SAP BTP, distributing
-  resources across multiple locations.
+description: "Ensure continuous service with geographic redundancy for SAP BTP, distributing data and resources across multiple regions for disaster recovery."
 keywords:
   - sap
   - geographic redundancy

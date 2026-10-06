@@ -2,10 +2,8 @@
 id: b6c158
 slug: /ref-arch/b6c158
 sidebar_position: 6
-title: Agents for Structured Data
-description: >-
-  Transform structured data analysis with AI-powered applications, enabling
-  real-time insights and operational efficiency.
+title: AI Agents for Structured Data
+description: "Build AI agents that answer natural-language queries on SAP structured data, using SAP Datasphere federation and SAP HANA Cloud vector search and RAG."
 keywords:
   - sap
   - structured data agents

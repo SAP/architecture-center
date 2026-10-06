@@ -2,10 +2,8 @@
 id: 90706a
 slug: /ref-arch/90706a
 sidebar_position: 1
-title: Security
-description: >-
-  Security is crucial for enterprise applications and in the multi-region
-  scenario, the security setup varies from service to service.
+title: Multi-Region Authentication and Security for SAP
+description: "Handle authentication in multi-region SAP failover scenarios, from XSUAA and OAuth token limits to IAS, external certificates, and SSO options."
 keywords:
   - sap
   - multi-region security

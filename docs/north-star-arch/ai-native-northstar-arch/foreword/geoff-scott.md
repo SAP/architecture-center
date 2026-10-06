@@ -4,9 +4,8 @@ slug: /ai-native-north-star-architecture/foreword/geoff-scott
 sidebar_position: 5
 sidebar_custom_props:
     category_index: []
-title: Geoff Scott
-description: >-
-    ASUG's perspective on SAP's AI-native North Star architecture: customers need clarity from the platforms they have built their businesses on, and ASUG commends SAP for the rigor and transparency that went into pulling it together for the community.
+title: Geoff Scott on the AI-native North Star architecture
+description: "ASUG CEO Geoff Scott on SAP's AI-native North Star architecture: customers need clarity amid fast-moving enterprise AI, and ASUG commends SAP's rigor."
 keywords:
     - sap
     - geoff scott

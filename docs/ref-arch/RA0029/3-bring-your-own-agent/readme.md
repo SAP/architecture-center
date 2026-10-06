@@ -3,10 +3,7 @@ id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
 title: Bring Your Own Agent
-description: >-
-  Build and deploy custom pro-code AI agents to your own SAP BTP subaccount
-  using SAP Cloud SDK for AI with frameworks like LangGraph, AG2 and CrewAI —
-  and connect them to Joule via the A2A protocol.
+description: "Build and deploy custom pro-code AI agents on SAP BTP with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
 keywords:
   - sap
   - bring your own agent

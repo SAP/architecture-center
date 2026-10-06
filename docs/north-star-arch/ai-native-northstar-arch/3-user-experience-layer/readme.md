@@ -4,9 +4,8 @@ sidebar_position: 3
 slug: /ai-native-north-star-architecture/user-experience-layer
 sidebar_custom_props:
     category_index: []
-title: User Experience Layer
-description: >-
-    The AI-native User Experience Layer reimagines how users interact with enterprise software: from navigating apps to stating intent. Joule Work unifies generative, voice, and multimodal experiences across five modes — Discover, Conversations, Spaces, Jobs, and Develop — assembled dynamically around each user's context and goals.
+title: AI-native User Experience Layer
+description: "The AI-native User Experience Layer shifts users from navigating apps to stating intent, as Joule Work unifies generative, voice, and multimodal experiences."
 keywords:
     - user experience layer
     - joule work

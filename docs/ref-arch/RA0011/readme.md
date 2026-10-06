@@ -3,10 +3,7 @@ id: e4f25a
 slug: /ref-arch/e4f25a
 sidebar_position: 120
 title: SAP HANA Cloud as an Esri Geodatabase
-description: >-
-  Integrate Esri ArcGIS with SAP HANA Cloud for real-time geospatial and
-  business data analysis, optimizing insights for industries like utilities
-  during disasters.
+description: "Integrate Esri ArcGIS with SAP HANA Cloud as a certified geodatabase for real-time analysis of combined geospatial and SAP business data."
 keywords:
   - sap
   - sap hana cloud

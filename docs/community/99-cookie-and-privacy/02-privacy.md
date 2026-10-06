@@ -1,8 +1,8 @@
 ---
 sidebar_position: 2
 slug: /community/privacy
-title: Privacy Statement
-description: The SAP Architecture Center (this site) - Privacy Statement.
+title: Privacy Statement | SAP Architecture Center
+description: "How SAP processes your personal data on the SAP Architecture Center, the legal bases, your data protection rights, and country-specific privacy provisions."
 sidebar_label: Privacy Statement
 keywords:
  - sap

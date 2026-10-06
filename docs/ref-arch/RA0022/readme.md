@@ -2,7 +2,7 @@
 id: 5f90af
 slug: /ref-arch/5f90af
 sidebar_position: 230
-title: API Managed Integration
+title: API Managed Integration with SAP Integration Suite
 description: >-
   Enable secure, omni-channel API access to business apps with SAP Integration
   Suite, simplifying governance, security, and API consumption.

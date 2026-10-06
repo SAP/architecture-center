@@ -2,12 +2,8 @@
 id: 98efa0
 slug: /ref-arch/98efa0
 sidebar_position: 300
-title: Agentic AI & AI Agents
-description: >-
-  Build, integrate and orchestrate AI agents on the SAP Business AI Platform.
-  This reference architecture covers the full spectrum — from Joule Work and
-  Joule Assistants to Joule Studio, pro-code agents with SAP Cloud SDK for AI,
-  A2A and MCP interoperability and integration with the SAP Autonomous Suite.
+title: Agentic AI & AI Agents on SAP Business AI Platform
+description: "Build, integrate and orchestrate AI agents on the SAP Business AI Platform—from Joule Work and Joule Studio to pro-code agents, A2A and MCP interoperability."
 keywords:
   - sap
   - ai agents

@@ -3,9 +3,7 @@ id: ea5d4f
 slug: /ref-arch/ea5d4f
 sidebar_position: 2
 title: Identity and Access Management for SAP Joule
-description: >-
-  This reference architecture describes the IAM related flows for SAP Joule with
-  SAP Build Work Zone and via the SAP Cloud Identity Services.
+description: "Identity and access management (IAM) architecture for SAP Joule, covering authentication and principal propagation via SAP Cloud Identity Services."
 keywords:
   - sap
   - joule

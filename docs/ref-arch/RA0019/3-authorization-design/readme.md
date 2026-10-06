@@ -3,9 +3,7 @@ id: '206025'
 slug: /ref-arch/206025
 sidebar_position: 3
 title: Authorization with SAP Cloud Identity Services
-description: >-
-  Centralize identity lifecycle management with SAP Cloud Identity Services for
-  secure authorization across SAP SaaS solutions.
+description: "Centralize authorization assignment for SAP SaaS with SAP Cloud Identity Services, using the Identity Directory, AMS policies, and SCIM2 group provisioning."
 keywords:
   - sap
   - sap authorization management service (ams)

@@ -5,8 +5,7 @@ slug: /ai-native-north-star-architecture/vision
 sidebar_custom_props:
     category_index: []
 title: AI-native North Star architecture - Vision
-description: >-
-    SAP's AI-native North Star architecture vision: four reimagined layers — User Experience, Process, Foundation, and Platform — work together as a system of context where Joule, agents, the SAP Knowledge Graph, and enterprise data compound into measurable business outcomes.
+description: "The vision for SAP's AI-native North Star architecture: four layers — User Experience, Process, Foundation, and Platform — forming a system of context."
 keywords:
     - ai-native north star architecture
     - system of context

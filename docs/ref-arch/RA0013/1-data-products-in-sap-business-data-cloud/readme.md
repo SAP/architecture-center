@@ -3,9 +3,7 @@ id: 4ab8f2
 slug: /ref-arch/4ab8f2
 sidebar_position: 1
 title: Data Products in SAP Business Data Cloud
-description: >-
-  Standardize data sharing with SAP Data Products for efficient, high-quality
-  metadata and seamless integration.
+description: "Standardize data sharing with SAP data products in SAP Business Data Cloud, using Delta Sharing, ORD, and high-quality metadata for analytics and AI."
 keywords:
   - sap
   - data products

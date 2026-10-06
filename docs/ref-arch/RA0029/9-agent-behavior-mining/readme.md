@@ -2,11 +2,8 @@
 id: 3c8d50
 slug: /ref-arch/3c8d50
 sidebar_position: 9
-title: Agent Behavior Mining
-description: >-
-  Learn how SAP Signavio enables organizations to observe, analyze, and optimize
-  AI agent behavior through native agent mining capabilities—covering behavioral
-  tracing, impact measurement, cost monitoring, data privacy, and multi-tenancy.
+title: Agent Behavior Mining with SAP Signavio
+description: "How SAP Signavio observes, analyzes and optimizes AI agent behavior through agent mining—behavioral tracing, impact analysis, cost monitoring and conformance."
 keywords:
   - sap
   - sap signavio

@@ -3,9 +3,7 @@ id: '6550e4'
 slug: /ref-arch/6550e4
 sidebar_position: 4
 title: Modernizing SAP BW with SAP Business Data Cloud
-description: >-
-  Modernize SAP BW with SAP BDC for real-time analytics, AI insights, and
-  scalable cloud-native architecture.
+description: "Modernize SAP BW with SAP Business Data Cloud through a three-step approach using BW private cloud edition and data products for AI/ML and analytics."
 keywords:
   - sap
   - sap bw modernization

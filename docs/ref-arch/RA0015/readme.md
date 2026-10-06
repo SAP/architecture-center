@@ -3,9 +3,7 @@ id: b3c3ac
 slug: /ref-arch/b3c3ac
 sidebar_position: 160
 title: Business to Government Integration
-description: >-
-  Streamline compliance with SAP's Business-to-Government Integration for secure
-  electronic document exchange.
+description: "Business-to-Government (B2G) integration for secure electronic document exchange and statutory reporting via SAP Document and Reporting Compliance."
 keywords:
   - sap
   - business-to-government integration

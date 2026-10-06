@@ -5,8 +5,7 @@ slug: /ai-native-north-star-architecture/resilient-and-sovereign-cloud
 sidebar_custom_props:
     category_index: []
 title: The Resilient and Sovereign Cloud
-description: >-
-    SAP's resilient and sovereign cloud strategy delivers AI-native workloads across public, private, sovereign, and on-site deployment models. Operational excellence is ensured through high availability, elasticity, AI-enabled operations, OpenTelemetry observability, and sustainable infrastructure — all governed to meet local compliance and data sovereignty requirements.
+description: "SAP's resilient and sovereign cloud delivers AI-native workloads across public, private, sovereign, and on-site models with data sovereignty and compliance."
 keywords:
     - sap
     - sovereign cloud

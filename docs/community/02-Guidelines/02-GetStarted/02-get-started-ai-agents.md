@@ -2,7 +2,7 @@
 sidebar_position: 3
 slug: /community/get-started-ai-agents
 title: Contributing with AI Agents
-description: Work with AI (coding) agents to start contributing to SAP Architecture Center.
+description: "Use AI coding agents to contribute to the SAP Architecture Center. Learn how AGENTS.md, CLAUDE.md, and skills give agents project context and conventions."
 sidebar_label: AI Agents
 keywords:
     - sap

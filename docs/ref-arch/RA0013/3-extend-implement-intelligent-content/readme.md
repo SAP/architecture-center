@@ -2,11 +2,8 @@
 id: '519093'
 slug: /ref-arch/519093
 sidebar_position: 3
-title: Implementing and Extending SAP-managed domain content in SAP BDC
-description: >-
-  Streamline business insights with SAP BDC, integrating SAP S/4HANA and
-  Intelligent Applications for analytics, decision-making, and lifecycle
-  management.
+title: Implement and Extend SAP-managed Domain Content in SAP BDC
+description: "Implement and extend SAP-managed domain content in SAP Business Data Cloud, installing SAP S/4HANA data products in SAP Datasphere and SAP Analytics Cloud."
 keywords:
   - sap
   - sap business data cloud

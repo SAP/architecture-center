@@ -4,9 +4,8 @@ sidebar_position: 3
 slug: /ai-native-north-star-architecture/foreword/stefan-nogly
 sidebar_custom_props:
     category_index: []
-title: Stefan Nogly
-description: >-
-    DSAG's perspective on SAP's AI-native North Star architecture: a strategic roadmap for AI-native enterprise transformation, with shared responsibility for SAP, DSAG, and user companies to continue the dialogue and develop viable solutions together.
+title: Stefan Nogly on the AI-native North Star architecture
+description: "DSAG's perspective on SAP's AI-native North Star architecture: a strategic roadmap for AI transformation and a shared responsibility to develop solutions."
 keywords:
     - sap
     - stefan nogly

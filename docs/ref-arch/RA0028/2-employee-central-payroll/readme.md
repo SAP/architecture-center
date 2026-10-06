@@ -3,9 +3,7 @@ id: 3cc5bc
 slug: /ref-arch/3cc5bc
 sidebar_position: 2
 title: SAP SuccessFactors Employee Central Payroll
-description: >-
-  Overview of the main integrations between SAP SuccessFactors Employee Central
-  and SAP SuccessFactors Employee Central Payroll
+description: "Explore the key integrations between SAP SuccessFactors Employee Central and Employee Central Payroll, covering payroll data, time data, and payment files."
 keywords:
   - sap
   - sap successfactors

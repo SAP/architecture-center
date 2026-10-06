@@ -2,7 +2,7 @@
 sidebar_position: 1
 slug: /community/architecture-validator-modelling-guidelines
 title: Architecture Validator Modeling Guidelines
-description: Architecture Validator Modeling Guidelines
+description: "Modeling guidelines for Draw.io diagrams so the SAP Architecture Validator can parse the XML—covering connectors, text fields, legends, and grouping."
 sidebar_label: Architecture Validator Modeling Guidelines
 keywords:
     - sap

@@ -3,9 +3,7 @@ id: 8063d2
 slug: /ref-arch/8063d2
 sidebar_position: 3
 title: Retrieval Augmented Generation (RAG)
-description: >-
-  Improve LLM accuracy with Retrieval Augmented Generation (RAG) by integrating
-  external data for enhanced precision and reduced hallucinations.
+description: "Ground LLMs with Retrieval Augmented Generation (RAG) on SAP BTP using SAP HANA Cloud's Vector Engine and SAP AI Core grounding to reduce hallucinations."
 keywords:
   - sap
   - retrieval augmented generation

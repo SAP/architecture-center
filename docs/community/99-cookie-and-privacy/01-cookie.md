@@ -1,8 +1,8 @@
 ---
 sidebar_position: 1
 slug: /community/cookie
-title: Cookie Statement
-description: The SAP Architecture Center (this site) - Cookie Statement.
+title: Cookie Statement | SAP Architecture Center
+description: "How the SAP Architecture Center uses cookies and similar technologies, the types of first- and third-party cookies set, and how to manage or delete them."
 sidebar_label: Cookie Statement
 keywords:
  - sap

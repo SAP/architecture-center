@@ -3,9 +3,7 @@ id: 5942d2
 slug: /ref-arch/5942d2
 sidebar_position: 80
 title: Multitenant SaaS Application using CAP
-description: >-
-    Develop scalable multitenant SaaS applications on SAP BTP using CAP for
-    cost-effective, tailored solutions.
+description: "Design scalable multitenant SaaS applications on SAP BTP using the CAP model, covering tenant isolation, shared resources, and tenant onboarding."
 keywords:
     - sap
     - multitenant saas

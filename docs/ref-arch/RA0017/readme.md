@@ -3,9 +3,7 @@ id: ffc84b
 slug: /ref-arch/ffc84b
 sidebar_position: 180
 title: Connect Business Processes with SAP Master Data Integration
-description: >-
-  Synchronize and manage business-critical data across SAP and third-party
-  systems using SAP Master Data Integration.
+description: "Synchronize master data such as materials and business partners across SAP and third-party systems in near real-time using SAP Master Data Integration."
 keywords:
   - sap
   - sap master data integration

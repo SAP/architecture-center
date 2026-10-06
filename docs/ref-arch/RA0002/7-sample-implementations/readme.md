@@ -2,7 +2,7 @@
 id: cc4e29
 slug: /ref-arch/cc4e29
 sidebar_position: 1
-title: HA/DR Sample Implementations
+title: HA/DR Sample Implementations for Multi-Region SAP
 description: >-
   Implement HA/DR for SAP services using Azure Traffic Manager and AWS Route 53
   for stateless and stateful multi-region setups.

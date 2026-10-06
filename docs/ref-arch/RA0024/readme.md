@@ -3,10 +3,7 @@ id: 464deb
 slug: /ref-arch/464deb
 sidebar_position: 250
 title: Integrating and Extending Joule
-description: >-
-  Explore key topics for implementing and extending Joule, from enterprise
-  integration with systems like SAP S/4HANA and SAP SuccessFactors to building
-  custom skills and agents with Joule Studio and SAP BTP
+description: "Integrate and extend Joule, SAP's AI copilot, across systems like SAP S/4HANA and SAP SuccessFactors, and build custom skills and agents in Joule Studio."
 keywords:
   - sap
   - joule
