@@ -3,7 +3,11 @@ id: 0f87e5
 slug: /ref-arch/0f87e5
 sidebar_position: 270
 title: Embodied AI Agents & Robotics
-description: "Embodied AI combines agentic AI with cognitive robots to automate physical-world tasks, embedded in the business process for end-to-end automation."
+description: >-
+  Embodied AI combines agentic AI with cognitive robots to automate physical
+  world tasks, embedded within the business process context. Leveraging robotics
+  and physical AI technologies, this makes end-to-end automation possible across
+  the digital and physical world.
 keywords:
   - sap
   - joule

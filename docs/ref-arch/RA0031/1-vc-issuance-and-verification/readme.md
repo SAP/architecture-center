@@ -72,7 +72,7 @@ Here you also have the possibility to enhance the check for example to check als
 
 ### 2. Identification & Verification
 
-The car manufacturer would like to sign a contract agreement and afterwards retrieve data from the supplier. Therefor the car manufacture must send a verifiable presentation (VP) which proofs its membership and its identity. A verifiable presentation can be seen as a signed envelope which contains all necessary credential (like the membership credential) for a certain interaction. This signed envelop is send to the gear box supplier for authentication and authorization checks.
+The car manufacturer would like to sign a contract agreement and afterwards retrieve data from the supplier. Therefore the car manufacturer must send a verifiable presentation (VP) which proves its membership and its identity. A verifiable presentation can be seen as a signed envelope which contains all necessary credentials (like the membership credential) for a certain interaction. This signed envelope is sent to the gearbox supplier for authentication and authorization checks.
 
 The gearbox supplier gets the VP and verifies all the included data like the verifiable presentation and its containing verifiable credentials.
 After all checks are passed the car manufacturer can sign the contract agreement. Additionally, there was an access token issued which can be used to retrieve the data.
