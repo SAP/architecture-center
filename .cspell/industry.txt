@@ -24,18 +24,23 @@ ETL
 ELT
 CDC
 DAG
+pushdown
 
 # Cloud & ops
 PaaS
 SaaS
 IaaS
 DBaaS
+iPaaS
 VPC
 VNet
 CDN
 GitOps
 DevOps
 SRE
+cicd
+appdev
+opensource
 observability
 idempotent
 idempotency
@@ -82,6 +87,9 @@ scikit
 pydantic
 pyspark
 shap
+AutoML
+MLOps
+xhigh
 
 # Data & analytics
 dataframe
@@ -112,6 +120,7 @@ undeploying
 operationalized
 operationalizes
 operationalizing
+rearchitecting
 replayability
 inspectable
 versionable
@@ -175,3 +184,9 @@ PEPPOL
 EDIFACT
 FedML
 ondemand
+
+# Misc / foreign-language terms
+Messe
+
+# Named concepts (eponyms)
+Goodhart
