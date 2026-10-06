@@ -743,12 +743,42 @@ export default function DocSidebarWrapper(props) {
     const expandedParam = params.get('expanded');
     const archivedParam = params.get('archive');
 
-    if (partnersParam) setPartners(partnersParam.split(','));
-
     // Find the current document
     const docIdFromTags = findDocIdFromPath(location.pathname, tagsDocId);
     const docIdFromSidebar = findDocByPath(props.sidebar, location.pathname);
     const docId = docIdFromTags || docIdFromSidebar;
+
+    // Handle partners filter with context-aware logic
+    if (partnersParam) {
+      setPartners(partnersParam.split(','));
+    } else if (archivedParam === 'true') {
+      // When archive mode is active, preserve partners in store
+    } else if (docId && tagsDocId[docId]) {
+      // Preserve partners during sidebar nav only if they're still relevant
+      const currentPartners = useSidebarFilterStore.getState().partners;
+
+      if (currentPartners.length > 0) {
+        const docTags = tagsDocId[docId] || [];
+
+        // Check if current document has ANY of the active partner tags
+        const hasMatchingPartner = currentPartners.some(partner =>
+          docTags.some((tag: string) => tag.toLowerCase().includes(partner.toLowerCase()))
+        );
+
+        // If document matches partners, keep them active and sync URL
+        if (hasMatchingPartner) {
+          const urlParams = new URLSearchParams(location.search);
+          if (!urlParams.get('partners')) {
+            urlParams.set('partners', currentPartners.join(','));
+            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          }
+        } else {
+          setPartners([]);
+        }
+      }
+    } else {
+      setPartners([]);
+    }
 
     const currentShowArchived = useSidebarFilterStore.getState().showArchived;
 
