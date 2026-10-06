@@ -89,7 +89,7 @@ The enterprise needs a solution that enables secure, compliant, and reliable int
 **SAP Edge Integration Cell (EIC)** offers the ideal solution to the above challenges by providing a seamless balance between local execution and cloud-level agility. It enhances the capabilities of SAP Integration Suite by enabling integration flows to be executed locally, within a private cloud or on-premise infrastructure, while maintaining centralized design, monitoring, and governance through SAP BTP.
 
 -   **Design & Governance in the Cloud**: Integration artifacts (iFlows) are modeled using the web-based Integration Suite tooling in SAP BTP.
--   **Secure Communication**: The EIC runtime communicates with SAP BTP over secure, outbound-only channels, avoiding any inbound exposure to the public internet.
+-   **Secure Communication**: Distinguish outbound communication with SAP BTP for cloud management from the network paths used by integration flows. Configure runtime ingress and outbound business connections according to the scenario and the enterprise network policy.
 -   **Execution at the Edge**: These integration flows are deployed to the EIC runtime within the enterprise's secure network — either in a private hyperscaler **VPC** or on-premise.
 
 With EIC, businesses can modernize integration while meeting strict data protection, security, and performance requirements.
@@ -100,7 +100,7 @@ With EIC, businesses can modernize integration while meeting strict data protect
 
 In regulated industries like finance, healthcare, and manufacturing, enterprises must demonstrate full control over data processing. With **EIC**:
 
--   Data never leaves the corporate network unless explicitly allowed.
+-   Integration flows execute in the private landscape. Assess data exchanged with external receivers and cloud services, including monitoring data, against the organization's data residency requirements.
 -   Sensitive information (e.g., personal health data, financial records, IP-related manufacturing data) can be integrated and transformed without cloud exposure.
 -   Supports data residency and localization laws, especially in countries where SAP BTP is not available or not approved for regulated workloads.
 -   Avoidance of performance bottlenecks due to geographic distance between cloud regions and operational systems.
@@ -128,7 +128,7 @@ Organizations transitioning from SAP Process Integration (PI) or Process Orchest
 
 **EIC can be leveraged in the following ways:**
 
--   **Secure Cloud Connectivity**: Enables integration between on-premise **SAP** systems and cloud-hosted applications via secure, outbound-only communication.
+-   **Secure Cloud Connectivity**: Enables integration between on-premise **SAP** systems and cloud-hosted applications via network paths configured for the integration scenario.
 -   **Event-Driven Architecture**: Supports real-time, decoupled communication using Advanced Event Mesh integrated with managed event brokers.
 -   **End-to-End Monitoring**: Delivers full visibility into integration flows — from ingress to egress — whether processed locally or in the cloud.
 -   **Message-Oriented Middleware**: Connects seamlessly with existing enterprise messaging systems to support reliable message exchange without added latency or operational risk.
@@ -149,7 +149,7 @@ This ensures adherence to security policies, performance expectations, and regul
 
 ### iii. On-Premise & Private Cloud Integration
 
-Organizations with data center-based SAP systems (e.g., S/4HANA, ECC) can use **EIC** to connect these securely to other on-premise or cloud applications — without punching holes in firewalls or exposing sensitive data.  
+Organizations with data center-based SAP systems (e.g., S/4HANA, ECC) can use **EIC** to connect these securely to other on-premise or cloud applications with network access and data protection configured for each integration endpoint.  
 **Example**: Integrating on-prem SAP S/4HANA with a supplier portal hosted in Azure, using secure edge processing.
 
 ### iv. Regulatory Compliance in Data-Sensitive Regions
@@ -160,13 +160,13 @@ Organizations with data center-based SAP systems (e.g., S/4HANA, ECC) can use **
 ### v. Edge Processing for Industrial & IoT Scenarios
 
 In factory settings, integration often involves machine data, IoT events, or shop-floor applications. **EIC** brings processing closer to the source, reducing reliance on external networks.  
-**Example**: A logistics hub uses **EIC** to process sensor data from conveyor systems and sync it with SAP EWM systems without any internet dependency.
+**Example**: A logistics hub uses **EIC** to process sensor data from conveyor systems and sync it with SAP EWM systems while keeping local message processing close to the source systems. Assess connectivity requirements for cloud management and any external receivers separately.
 
 ## Non-Functional Requirements Addressed
 
 | **Requirement**   | **How EIC Meets It**                                                           |
 | ----------------- | ------------------------------------------------------------------------------ |
-| **Security**      | No inbound traffic, runs in private network, integrates with enterprise IAM    |
+| **Security**      | Private runtime with scenario-specific ingress, outbound access, and enterprise IAM    |
 | **Compliance**    | Supports data residency, regulatory mandates (GDPR, HIPAA, etc.)               |
 | **Reliability**   | Deployed on high-availability Kubernetes clusters with local failover options  |
 | **Performance**   | Reduced network hops, optimized for low-latency integration                    |

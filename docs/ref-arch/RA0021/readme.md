@@ -61,9 +61,9 @@ The message flow for application-to-application integration is outlined as follo
 
 ### Characteristics
 
-- **Use of Asynchronous Communication**: Preferred for most App2App integration scenarios, it eliminates tight coupling between business applications and increases resilience. Use SOAP, REST, or OData for asynchronous communication. Synchronous communication is used only when required (e.g., availability-to-promise checks).
+- **Use of Asynchronous Communication**: Preferred for most App2App integration scenarios, it eliminates tight coupling between business applications and increases resilience. SOAP, REST, and OData do not by themselves guarantee asynchronous processing. Define the interaction pattern explicitly, such as durable message handoff or an accepted response followed by status polling or a callback. Distinguish message acceptance from successful completion of the business operation. Synchronous communication is used only when required (e.g., availability-to-promise checks).
 - **Directed Messages**: Messages are used to exchange transactional data between sender and receiver(s). Receivers are determined within the sending system (logical receiver) or the integration technology (physical receiver).
-- **Support for Exception Handling**: Proper handling of transmission failures due to issues like unavailability of receiving solutions or incorrect message content.
+- **Support for Exception Handling**: Define bounded retries for transient failures and a separate handling path for invalid messages. For asynchronous flows, specify acknowledgment boundaries, duplicate handling, and controlled replay. Use a business identifier to make repeated delivery safe at the receiver, and reconcile accepted messages with completed business operations.
 - **Transport and Message-Level Security**: Ensure secured communication over the public internet (transport-level security) and use digital encryption/signatures to protect message content (message-level security).
 
 ## Examples in an SAP Context
