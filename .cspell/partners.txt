@@ -36,6 +36,8 @@ Workday
 
 # AI vendors & frameworks
 Nvidia
+cuDF
+cuML
 OpenAI
 Anthropic
 Claude
@@ -44,11 +46,15 @@ Llama
 Mistral
 HuggingFace
 LangChain
+LangGraph
 LlamaIndex
 Pinecone
 Weaviate
 Qdrant
 Milvus
+MLflow
+CrewAI
+opencode
 
 # DevOps & tooling
 Terraform
@@ -67,6 +73,9 @@ GitLab
 Okta
 
 # Products & services referenced in content
+SiteWise
+OneLake
+ArcGIS
 Contentful
 Watsonx
 Kaltura
@@ -76,6 +85,8 @@ Figaf
 Zingg
 Alexa
 Squoosh
+Xplorer
+Grov
 
 # Companies referenced in case studies / news
 Cofinity
@@ -90,3 +101,13 @@ Pentos
 Solex
 Suvidha
 mySaaSShop
+FrieslandCampina
+Campina
+UnternehmerTUM
+Bluescope
+MORI
+
+# Security vendors (Fortinet)
+Forti
+FortiSIEM
+FortiSOAR

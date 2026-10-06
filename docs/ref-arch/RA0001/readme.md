@@ -59,7 +59,7 @@ SAP Intelligent Enterprise EDA with SAP Cloud Application Event Hub: This enable
 
 EDA in hybrid, heterogeneous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
 
-Below architecture depicts the SAP EDA Stategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
+Below architecture depicts the SAP EDA Strategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
 
 ![drawio](drawio/eda_enterprise.drawio)
 

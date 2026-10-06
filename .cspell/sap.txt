@@ -42,12 +42,17 @@ Signavio
 LeanIX
 Hybris
 Spartacus
+WalkMe
+ByDesign
+Crossboarding
 
 # AI
 Joule
 Leonardo
 AAIF
 AICore
+AFLPAL
+JustAsk
 
 # Technical / platform terms
 subaccount
@@ -73,6 +78,8 @@ CMIR
 CMIRs
 MTXS
 IATP
+icmtotal
+WMMBXY
 
 # Line-of-business
 Fieldglass
@@ -83,3 +90,8 @@ BYOW
 gardenlets
 DSAG
 ASUG
+northstar
+SusaaS
+
+# Organizations & teams
+OCTO

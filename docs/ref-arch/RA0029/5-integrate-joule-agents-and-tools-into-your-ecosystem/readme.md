@@ -84,7 +84,7 @@ SAP provides the **Agent Gateway** that enables external clients and application
 
 ## SAP Integration Suite
 
-SAP Integration Suite provides the **A2A Connectivity** that enables external clients and applications to seamlessly consume Joule Agents and other 3rd party Agents through the A2A protocol. It offers enhanced A2A experience by introducting middleware capabilities with additional enterprise qualities there by supporting even multi-party integration scenarios between SAP and non-SAP agentic platforms. Agent to Agent interaction via SAP Integration Suite for all SAP ecosystem agents delegates calls to Agent Gateway to ensure common security and controlled access.
+SAP Integration Suite provides the **A2A Connectivity** that enables external clients and applications to seamlessly consume Joule Agents and other 3rd party Agents through the A2A protocol. It offers enhanced A2A experience by introducing middleware capabilities with additional enterprise qualities there by supporting even multi-party integration scenarios between SAP and non-SAP agentic platforms. Agent to Agent interaction via SAP Integration Suite for all SAP ecosystem agents delegates calls to Agent Gateway to ensure common security and controlled access.
 
 **Key Characteristics:**
 

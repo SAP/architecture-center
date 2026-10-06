@@ -67,7 +67,7 @@ To achieve this, the Generative AI Hub offers secure and reliable access to Foun
 
 An important feature of the Generative AI Hub is [Orchestration](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/orchestration), which combines content generation via an [Harmonized API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/harmonized-api) with essential functions often required in business AI scenarios. These functions include:
 
--   **Gounding**: Allows to integrate external, contextually relevant, domain-specific, or real-time data into AI processes. This data supplements the natural language processing capabilities of pre-trained models, which are trained on general material.
+-   **Grounding**: Allows to integrate external, contextually relevant, domain-specific, or real-time data into AI processes. This data supplements the natural language processing capabilities of pre-trained models, which are trained on general material.
 -   **Templating**: Allows you to compose prompts with placeholders filled during inference.
 -   **Translation**: Allows you to translate LLM text prompts into a chosen target language.
 -   **Data Masking**: Provides anonymization or pseudonymization of data before it's processed by a generative AI model. In cases of pseudonymization, masked data appearing in the model's
