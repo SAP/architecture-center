@@ -36,12 +36,16 @@ const inActions = Boolean(process.env.GITHUB_ACTIONS);
 
 /** Emit a GitHub Actions annotation (falls back to a plain line locally). */
 function annotate(level, file, line, message) {
-  const msg = message.replace(/\n/g, ' ');
+  // Include the path in the message itself: GitHub consumes the `file=` part to
+  // attach the annotation to the file, but the plain workflow log only shows the
+  // message — so without this the log line has no idea which page is at fault.
+  const loc = line ? `${file}:${line}` : file;
+  const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
   if (inActions) {
-    const loc = line ? `,line=${line}` : '';
-    console.log(`::${level} file=${file}${loc},title=SEO front matter::${msg}`);
+    const lineAttr = line ? `,line=${line}` : '';
+    console.log(`::${level} file=${file}${lineAttr},title=SEO front matter::${msg}`);
   } else {
-    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${file}${line ? `:${line}` : ''} — ${msg}`);
+    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${msg}`);
   }
 }
 
