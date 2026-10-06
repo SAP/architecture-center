@@ -136,8 +136,11 @@ const findDocumentById = (docs: Document[], id: string | null): Document | null 
     return null;
 };
 
-// Debounce helper for auto-save
-let syncTimeout: NodeJS.Timeout | null = null;
+// Debounce helper for auto-save.
+// Keyed per document id: editing document B must NOT cancel a pending save of
+// document A. A single shared timer would drop A's changes silently when the
+// user switches documents within the debounce window.
+const syncTimeouts = new Map<string, NodeJS.Timeout>();
 const SYNC_DEBOUNCE_MS = 2000;
 
 export const usePageDataStore = create<PageDataState>()(
@@ -360,13 +363,15 @@ export const usePageDataStore = create<PageDataState>()(
                 const doc = findDocumentById(documents, id);
                 if (!doc) return;
 
-                // Clear existing timeout
-                if (syncTimeout) {
-                    clearTimeout(syncTimeout);
+                // Clear existing timeout for THIS document only
+                const existingTimeout = syncTimeouts.get(id);
+                if (existingTimeout) {
+                    clearTimeout(existingTimeout);
                 }
 
-                // Debounce the sync
-                syncTimeout = setTimeout(async () => {
+                // Debounce the sync (per document)
+                const timeout = setTimeout(async () => {
+                    syncTimeouts.delete(id);
                     console.log('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
 
@@ -453,6 +458,7 @@ export const usePageDataStore = create<PageDataState>()(
                         });
                     }
                 }, SYNC_DEBOUNCE_MS);
+                syncTimeouts.set(id, timeout);
             },
 
             // Sync operations (delta sync) instead of full state
