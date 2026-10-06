@@ -186,6 +186,16 @@ It empowers integration architects to:
 By deploying **EIC**, organizations don’t have to choose between the control of on-premise and the innovation of cloud.  
 They can have both — with a **hybrid integration platform** designed for the modern enterprise.
 
+## Backup and Recovery Boundaries
+
+Plan recovery for the Kubernetes environment and the external database and datastore separately from cloud configuration. Define recovery time and data-loss objectives, assign operational ownership, and test the restore procedure. See [Backup and Restore Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/backup-and-restore-edge-integration-cell).
+
+:::warning Message Service recovery
+SAP's [emergency recovery procedure](https://help.sap.com/docs/integration-suite/sap-integration-suite/perform-emergency-recovery) does not recover Message Service persistent volumes. Stored JMS messages and temporary message-processing-log events can be lost when rebuilding a lost cluster. High availability does not replace a disaster-recovery plan. Define upstream replay and business reconciliation procedures for this failure case.
+:::
+
+Review [upgrade, rollback, and operating procedures](https://help.sap.com/docs/integration-suite/sap-integration-suite/setting-up-and-managing-edge-integration-cell) alongside infrastructure recovery. Keep Kubernetes backups aligned with upgrades and deployment-property changes.
+
 ## Resources
 
 -   [SAP Edge Integration Cell](https://help.sap.com/docs/integration-suite/sap-integration-suite/what-is-sap-integration-suite-edge-integration-cell)

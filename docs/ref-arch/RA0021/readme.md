@@ -66,6 +66,23 @@ The message flow for application-to-application integration is outlined as follo
 - **Support for Exception Handling**: Define bounded retries for transient failures and a separate handling path for invalid messages. For asynchronous flows, specify acknowledgment boundaries, duplicate handling, and controlled replay. Use a business identifier to make repeated delivery safe at the receiver, and reconcile accepted messages with completed business operations.
 - **Transport and Message-Level Security**: Ensure secured communication over the public internet (transport-level security) and use digital encryption/signatures to protect message content (message-level security).
 
+## Selecting Integration Technology with Integration Assessment
+
+Use [Integration Assessment](https://help.sap.com/docs/integration-suite/sap-integration-suite/what-is-integration-assessment) to apply ISA-M to an interface request:
+
+1. Capture integration domains, styles, participating systems, and requirements such as transformation, latency, security, and deployment location.
+2. Apply questionnaires and the organization's technology mappings and integration policies.
+3. Review the proposed technology and available standard integration content against the actual interface requirements.
+4. Record the decision and track the interface request in the integration landscape.
+
+This complements the A2A blueprint; it does not imply that every interface requires the same integration technology.
+
+## Delivery Semantics and Recovery
+
+Specify delivery guarantees for the complete sender-to-receiver path. Persistent retries and acknowledgments must be combined with receiver-side duplicate handling to avoid repeated business updates. For ordered processing, configure the queue and sender behavior to preserve the required sequence.
+
+SAP's [Exactly Once In Order guidance](https://help.sap.com/docs/integration-suite/sap-integration-suite/quality-of-service-exactly-once-in-order) assumes an idempotent receiver and explains the protocol-dependent conditions for end-to-end ordering. Test duplicate delivery, receiver failure after processing but before acknowledgment, and controlled replay. Reconcile transport acceptance with completion of the business operation.
+
 ## Examples in an SAP Context
 
 SAP delivers predefined App2App integration scenarios for end-to-end business processes spanning multiple SAP business applications. Examples include:
