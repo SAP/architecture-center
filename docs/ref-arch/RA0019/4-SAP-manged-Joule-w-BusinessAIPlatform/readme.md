@@ -7,20 +7,16 @@ description: >-
   Recommended landscape setup for a unified Joule experience
 keywords:
   - sap
-  - identity authentication
-  - cloud identity
-  - erp security solutions
-  - access management
   - joule
   - joule studio
-  - custom joule skills
-  - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - hybrid landscapes
+  - joule skills and agents
+  - sap agent gateway
+  - sap knowledge graph
+  - sap cloud identity services
   - staged landscape
-  - landscape
+  - consolidated landscape
+  - unified joule experience
+  - enterprise single sign-on
   - business ai platform
 sidebar_label: Joule Landscape Recommendation
 image: img/ac-soc-med.png

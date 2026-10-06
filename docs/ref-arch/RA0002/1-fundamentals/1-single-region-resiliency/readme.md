@@ -6,11 +6,15 @@ title: Single-region resiliency
 description: How the single region resiliency works. What are the benefits and drawbacks.
 keywords:
   - sap
-  - integration
   - single-region resiliency
+  - availability zones
+  - multi-az deployment
+  - high availability
   - disaster recovery
   - business continuity
-  - high availability
+  - sap hana cloud
+  - sap integration suite
+  - business ai platform
 sidebar_label: Single-region resiliency
 image: img/ac-soc-med.png
 tags:

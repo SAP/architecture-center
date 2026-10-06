@@ -8,9 +8,16 @@ description: >-
   Services, covering secure identity management and compliance.
 keywords:
   - sap
-  - authentication model
-  - tenant lifecycle
-  - btp security
+  - authentication strategies
+  - multitenant authentication
+  - sap cloud identity services
+  - sap id service
+  - identity provider
+  - sap authorization and trust management service
+  - corporate identity providers
+  - single sign-on
+  - multi-factor authentication
+  - business ai platform
 sidebar_label: Authentication Strategies
 image: img/ac-soc-med.png
 tags:

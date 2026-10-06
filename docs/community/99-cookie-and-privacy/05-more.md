@@ -7,6 +7,9 @@ sidebar_label: More information on GitHub and SAP
 keywords:
  - sap
  - github
+ - cookie
+ - privacy
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

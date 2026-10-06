@@ -8,15 +8,17 @@ description: >-
   Snowflake
 keywords:
   - sap
-  - cloud performance
   - snowflake
+  - sap snowflake
+  - sap business data cloud
+  - bdc connect for snowflake
+  - zero-copy data sharing
+  - snowflake cortex ai
+  - snowflake ai data cloud
+  - delta sharing
   - data harmonization
   - advanced analytics
-  - bdc connect
-  - delta share
-  - sap snowflake
-  - enterprise snowflake
-  - bdc connect for snowflake
+  - business ai platform
 sidebar_label: Integration with Snowflake
 image: img/ac-soc-med.png
 tags:

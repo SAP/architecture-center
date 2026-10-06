@@ -8,6 +8,10 @@ keywords:
  - sap
  - get started
  - quick start
+ - no-code architecture editor
+ - reference architecture
+ - draw.io diagrams
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

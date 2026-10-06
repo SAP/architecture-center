@@ -8,10 +8,15 @@ description: >-
   systems using SAP Master Data Integration.
 keywords:
   - sap
-  - master data integration
-  - mdi architecture
-  - secure integration
-  - business synchronization
+  - sap master data integration
+  - master data synchronization
+  - sap integration suite
+  - cloud integration
+  - sap master data governance
+  - central master data hub
+  - sap s/4hana integration
+  - a2a integration
+  - business ai platform
 sidebar_label: Connect Business Applications with SAP Master Data Integration
 image: img/ac-soc-med.png
 tags:

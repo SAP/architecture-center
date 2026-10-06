@@ -8,14 +8,18 @@ description: >-
   provider usage, and service placement for superior performance.
 keywords:
   - sap
-  - btp
   - network performance
-  - multi-regional solution
-  - hyperscaler
-  - S/4 HANA
+  - multi-regional sap solution
+  - hyperscaler regions
+  - sap s/4hana cloud
+  - network latency and throughput
+  - sap cloud connector
+  - sap private link
+  - odata performance
   - aws
   - azure
-  - cloud design
+  - gcp
+  - business ai platform
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
 image: img/ac-soc-med.png
 tags:

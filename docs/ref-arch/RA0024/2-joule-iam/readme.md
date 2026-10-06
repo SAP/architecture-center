@@ -9,11 +9,16 @@ description: >-
 keywords:
   - sap
   - joule
-  - ai
+  - identity and access management
+  - sap cloud identity services
   - identity authentication
-  - cloud identity lifecycle
-  - erp security solutions
-  - access management
+  - identity provisioning
+  - principal propagation
+  - sap build work zone
+  - openid connect
+  - sap business ai
+  - common data model
+  - business ai platform
 sidebar_label: Joule and IAM
 image: img/ac-soc-med.png
 tags:

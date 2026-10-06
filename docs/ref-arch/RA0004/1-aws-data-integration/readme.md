@@ -9,9 +9,15 @@ description: >-
 keywords:
   - sap
   - aws data integration
-  - datasphere
-  - cloud harmonization
-  - advanced analytics models
+  - sap datasphere
+  - amazon redshift
+  - amazon athena
+  - amazon s3
+  - smart data integration
+  - data federation
+  - sap analytics cloud
+  - data fabric architecture
+  - business ai platform
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:

@@ -10,9 +10,12 @@ keywords:
   - sap
   - aws
   - amazon sagemaker
+  - fedml
+  - sap datasphere
   - machine learning
-  - fedml integration
-  - business data training
+  - sap ai core
+  - model training
+  - business ai platform
 sidebar_label: FedML-AWS
 image: img/ac-soc-med.png
 tags:

@@ -8,13 +8,17 @@ description: >-
   secure hybrid integration with architecture diagrams and resources.
 keywords:
   - sap
-  - btp
-  - integration suite
-  - edge integration
+  - sap integration suite
+  - edge integration cell
+  - hybrid integration
   - hyperscalers
-  - azure
   - aws
-  - gcp cloud services
+  - azure
+  - gcp
+  - advanced event mesh
+  - event-driven architecture
+  - data residency compliance
+  - business ai platform
 sidebar_label: Edge Integration Cell on Hyperscalers
 image: img/ac-soc-med.png
 tags:

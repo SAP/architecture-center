@@ -9,14 +9,16 @@ description: >-
   tracing, impact measurement, cost monitoring, data privacy, and multi-tenancy.
 keywords:
   - sap
-  - signavio
+  - sap signavio
   - agent mining
   - agent behavior mining
-  - process intelligence
+  - sap signavio process intelligence
   - ai agents
-  - observability
-  - joule
+  - ai agent observability
+  - joule studio
   - opentelemetry
+  - sap leanix agent hub
+  - business ai platform
 sidebar_label: Agent Behavior Mining
 image: img/ac-soc-med.png
 tags:

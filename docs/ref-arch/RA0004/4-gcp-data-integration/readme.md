@@ -7,13 +7,17 @@ description: >-
   Integrate non-SAP data in Google Cloud Platform with business data from SAP using SAP Business Data Cloud's seamless data integration architectures to enable holistic AI/ML & Analytics use cases.
 keywords:
   - sap
-  - cloud performance
+  - sap business data cloud
   - google bigquery
+  - google cloud storage
+  - bdc connect for google bigquery
+  - delta sharing
+  - sap datasphere
+  - data federation
+  - zero-copy data integration
   - data harmonization
   - advanced analytics
-  - bdc connect 
-  - bdc connect for google big query
-  - delta share
+  - business ai platform
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png
 tags:

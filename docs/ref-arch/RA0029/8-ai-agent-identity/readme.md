@@ -13,13 +13,18 @@ description: >-
   to fail early in the process.
 keywords:
   - sap
-  - ai integration
-  - identity
   - agent identity
   - agent governance
-  - governance
-  - access
+  - agent lifecycle governance
+  - sap cloud identity services
+  - sap agent gateway
+  - sap joule
   - identity access management
+  - agent-to-agent protocol
+  - policy enforcement points
+  - sap leanix agent hub
+  - ai agent authentication
+  - business ai platform
 sidebar_label: Agent Identity
 image: img/ac-soc-med.png
 tags:

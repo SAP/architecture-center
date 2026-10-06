@@ -11,18 +11,19 @@ description: >-
   through FortiSOAR to enable centralized monitoring incident investigation and
   automated response.
 keywords:
+  - sap
   - sap enterprise threat detection
   - sap security
   - siem
   - soar
+  - fortisiem
+  - fortisoar
   - security operations
-  - soc architecture
   - log-driven security
-  - event correlation
+  - cross-domain correlation
   - incident response
-  - security automation
-  - hybrid security architecture
-  - cloud security monitoring
+  - hybrid sap landscape security
+  - business ai platform
 sidebar_label: >-
   Log-Driven Security Operations with SAP Enterprise Threat Detection and
   SIEM/SOAR Platforms

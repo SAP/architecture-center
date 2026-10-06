@@ -9,10 +9,15 @@ description: >-
   environments.
 keywords:
   - sap
+  - secure service consumption across hyperscalers
   - multi-cloud security
-  - hyperscaler applications
-  - authentication solutions
-  - secure service consumption
+  - federated identity
+  - oidc authentication
+  - x.509 certificate authentication
+  - aws
+  - gcp
+  - short-lived credentials
+  - business ai platform
 sidebar_label: Secure Service Consumption Across Hyperscalers
 image: img/ac-soc-med.png
 tags:

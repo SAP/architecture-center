@@ -8,10 +8,15 @@ keywords:
     - sap
     - machine learning
     - rpt-1
-    - hana cloud
+    - tabular foundation model
+    - sap hana cloud
     - pal
     - apl
-    - ai core
+    - sap ai core
+    - automl
+    - in-database machine learning
+    - mlops
+    - business ai platform
 sidebar_label: Classic ML Scenarios
 image: img/ac-soc-med.png
 tags:

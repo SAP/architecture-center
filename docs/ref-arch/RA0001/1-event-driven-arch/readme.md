@@ -8,11 +8,15 @@ description: >-
   SAP applications.
 keywords:
   - sap
-  - btp
   - event-driven architecture
-  - eda integration
-  - azure
-  - cloud application programming model
+  - sap integration suite
+  - advanced event mesh
+  - sap cloud application event hub
+  - event broker
+  - sap s/4hana
+  - publish-subscribe
+  - real-time integration
+  - business ai platform
 sidebar_label: Introduction and SAP's EDA Strategy
 image: img/ac-soc-med.png
 tags:

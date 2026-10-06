@@ -7,15 +7,18 @@ description: >-
   SAP’s AI-first low-code and pro-code development solution for generating and
   running custom AI agents, workflows and extensions.
 keywords:
+  - sap
   - joule
   - joule studio
-  - custom joule skills
   - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - sap btp
-  - hybrid landscapes
+  - agentic solutions
+  - business ai platform
+  - sap knowledge graph
+  - sap ai agent hub
+  - intent-based development
+  - low-code pro-code development
+  - hybrid connectivity
+  - sap s/4hana
 sidebar_label: Joule Studio
 image: img/ac-soc-med.png
 tags:

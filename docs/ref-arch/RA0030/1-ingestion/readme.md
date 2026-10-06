@@ -8,8 +8,16 @@ description: >-
   capture,  and enterprise system integration for intelligent document
   processing.
 keywords:
-  - appdev
-  - genai
+  - sap
+  - sap document ai
+  - document ingestion
+  - intelligent document processing
+  - sap integration suite
+  - sap joule work mobile app
+  - document capture
+  - inbound channels
+  - edi integration
+  - business ai platform
 sidebar_label: Document Ingestion Patterns for SAP Document AI
 image: img/logo.svg
 tags:

@@ -6,16 +6,18 @@ title: Agentic AI Foundation
 description: >-
     SAP's central reference for AI standardization, covering its AI-First strategy, open standards adoption (MCP, A2A, OpenTelemetry), and active contributions to the Agentic AI Foundation (AAIF), A2A Project, and IETF.
 keywords:
-    - AI standards at SAP
-    - architecture
-    - AI
-    - artificial intelligence
+    - sap
+    - ai standards at sap
+    - agentic ai foundation
+    - aaif
+    - model context protocol
+    - mcp
+    - agentic ai
+    - open standards
+    - ai interoperability
     - governance
-    - security
-    - compliance
-    - north star architecture
-    - nsa
-    - golden path
+    - linux foundation
+    - business ai platform
 sidebar_label: Agentic AI Foundation
 image: img/ac-soc-med.png
 tags:

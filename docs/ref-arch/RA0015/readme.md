@@ -8,10 +8,16 @@ description: >-
   electronic document exchange.
 keywords:
   - sap
-  - b2g compliance
-  - governance integration
-  - secure document exchange
-  - automated reporting
+  - business-to-government integration
+  - sap document and reporting compliance
+  - sap integration suite
+  - sap connectivity service
+  - peppol network
+  - electronic invoicing
+  - electronic document exchange
+  - statutory reporting
+  - tax authority integration
+  - business ai platform
 sidebar_label: Business to Government Integration
 image: img/ac-soc-med.png
 tags:

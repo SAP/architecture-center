@@ -9,8 +9,15 @@ description: >-
 keywords:
   - sap
   - geographic redundancy
+  - multi-region architecture
   - disaster recovery
-  - business continuity solutions
+  - business continuity
+  - sap hana cloud
+  - sap integration suite
+  - sap build work zone
+  - sap cloud application programming model
+  - multi-region manager
+  - business ai platform
 sidebar_label: Geographic Redundancy
 image: img/ac-soc-med.png
 tags:

@@ -9,16 +9,17 @@ description: >-
   secure, privacy-preserving inter-company communications.
 keywords:
   - sap
-  - integration
-  - security
-  - ref-arch
-  - decentralized identity
-  - verifiable credentials
+  - decentralized identity verification
   - self-sovereign identity
-  - SSI
-  - DID
-  - BTP
+  - verifiable credentials
+  - decentralized identifiers
   - trust network
+  - catena-x
+  - gaia-x
+  - data sovereignty
+  - digital business wallet
+  - sap cloud identity services
+  - business ai platform
 sidebar_label: Decentralized Identity Verification
 image: img/logo.svg
 tags:

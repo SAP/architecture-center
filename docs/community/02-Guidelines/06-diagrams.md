@@ -9,6 +9,8 @@ keywords:
     - diagram
     - drawio
     - mermaid
+    - solution architecture
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

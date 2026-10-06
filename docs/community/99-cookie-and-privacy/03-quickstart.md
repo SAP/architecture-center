@@ -6,8 +6,10 @@ description: The SAP Architecture Center - Quick Start Statement.
 sidebar_label: SAP AC Quick Start Statement
 keywords:
  - sap
- - cookie
+ - quick start
  - privacy
+ - github oauth
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

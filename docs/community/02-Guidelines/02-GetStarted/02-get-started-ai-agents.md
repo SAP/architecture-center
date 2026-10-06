@@ -10,6 +10,9 @@ keywords:
     - coding agents
     - context file
     - contribution
+    - agents.md
+    - claude code
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

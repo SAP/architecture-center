@@ -8,10 +8,15 @@ description: >-
   interactions and tailored AI responses.
 keywords:
   - sap
-  - ai integration
-  - prompting techniques
-  - generative ai applications
-  - natural language systems
+  - generative ai
+  - generative ai hub
+  - sap ai core
+  - foundation models
+  - large language models
+  - prompt engineering
+  - orchestration service
+  - cloud application programming model
+  - business ai platform
 sidebar_label: Basic Prompting
 image: img/ac-soc-med.png
 tags:

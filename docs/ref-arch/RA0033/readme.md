@@ -6,13 +6,17 @@ title: HANA AI Toolkit - Local MCP Server
 description: Local MCP Server for Generative AI Toolkit for SAP HANA Cloud
 keywords:
   - sap
-  - hana
+  - sap hana cloud
   - hana-ai
   - hana-ml
-  - mcp
+  - mcp server
   - model context protocol
   - ai agents
-  - generative ai
+  - generative ai toolkit for sap hana cloud
+  - langchain
+  - langgraph
+  - in-database machine learning
+  - business ai platform
 sidebar_label: HANA AI Toolkit - Local MCP Server
 image: img/ac-soc-med.png
 tags:

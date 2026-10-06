@@ -7,10 +7,16 @@ description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on AWS for secure hybrid
   integration and optimized workflows.
 keywords:
+  - sap
   - aws
-  - edge integration
+  - edge integration cell
   - sap integration suite
-  - real-time cloud connections
+  - amazon eks
+  - hybrid integration
+  - high availability
+  - amazon rds for postgresql
+  - multi-az deployment
+  - business ai platform
 sidebar_label: Edge Integration Cell on AWS
 image: img/ac-soc-med.png
 tags:

@@ -8,9 +8,17 @@ description: >-
   and offboarding for scalable multitenant SaaS applications.
 keywords:
   - sap
-  - tenant lifecycle
-  - service management
-  - multitenancy model
+  - tenant lifecycle management
+  - tenant onboarding
+  - tenant provisioning
+  - tenant offboarding
+  - tenant upgrade
+  - sap cloud application programming model
+  - mtx services
+  - sap service manager
+  - hdi container
+  - terraform
+  - business ai platform
 sidebar_label: Tenant Lifecycle Management
 image: img/ac-soc-med.png
 tags:

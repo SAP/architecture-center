@@ -11,12 +11,14 @@ keywords:
   - sap
   - ai agents
   - joule studio
+  - joule
   - intent-based development
-  - ibd
   - low-code
   - pro-code
-  - managed runtime
-  - joule work
+  - sap knowledge graph
+  - generative ai hub
+  - sap-managed runtime
+  - business ai platform
 sidebar_label: Building AI Agents with Joule Studio
 image: img/ac-soc-med.png
 tags:

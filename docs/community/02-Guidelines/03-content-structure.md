@@ -7,6 +7,10 @@ sidebar_label: Content Structure
 keywords:
  - sap
  - content structure
+ - reference architecture
+ - folder structure
+ - drawio
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

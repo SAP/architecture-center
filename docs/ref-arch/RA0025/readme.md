@@ -9,10 +9,16 @@ description: >-
   integration strategies, innovation needs, and security considerations for
   seamless migration and future-proofing your SAP landscape.
 keywords:
-  - SAP NetWeaver transition
-  - security
-  - governance
+  - sap
+  - sap netweaver transition
+  - end of maintenance 2027
+  - sap integration suite
+  - edge integration cell
+  - sap cloud identity access governance
+  - sap s/4hana
+  - security considerations
   - integration strategies
+  - business ai platform
 sidebar_label: Transitioning Architectures from SAP NetWeaver
 image: img/logo.svg
 tags:

@@ -9,9 +9,16 @@ description: >-
 keywords:
   - sap
   - data products
-  - business data cloud solutions
-  - metadata quality
-  - integration optimization
+  - sap business data cloud
+  - delta sharing
+  - open resource discovery
+  - data product catalog
+  - data mesh
+  - high-quality metadata
+  - sap hana cloud
+  - sap databricks
+  - sap datasphere
+  - business ai platform
 sidebar_label: Data Products in SAP BDC
 image: img/ac-soc-med.png
 tags:

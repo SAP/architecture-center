@@ -11,6 +11,12 @@ keywords:
     - joule skills
     - sap build
     - low-code
+    - conversational ai
+    - sap build process automation
+    - odata
+    - sap s/4hana
+    - sap successfactors
+    - business ai platform
 sidebar_label: Joule Skills
 image: img/ac-soc-med.png
 tags:

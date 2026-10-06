@@ -8,15 +8,18 @@ description: >-
   integration with systems like SAP S/4HANA and SAP SuccessFactors to building
   custom skills and agents with Joule Studio and SAP BTP
 keywords:
-  - sap build
+  - sap
+  - joule
   - joule studio
   - custom joule skills
   - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - sap btp
-  - hybrid landscapes
+  - sap s/4hana
+  - sap successfactors
+  - sap analytics cloud
+  - generative ai hub
+  - document grounding
+  - enterprise ai copilot
+  - business ai platform
 sidebar_label: Integrating and Extending Joule
 image: img/ac-soc-med.png
 tags:

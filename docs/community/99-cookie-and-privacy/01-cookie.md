@@ -6,7 +6,9 @@ description: The SAP Architecture Center (this site) - Cookie Statement.
 sidebar_label: Cookie Statement
 keywords:
  - sap
- - cookie
+ - cookie statement
+ - privacy
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

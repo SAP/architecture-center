@@ -6,12 +6,17 @@ description: >-
   AI Hub and CAP.
 keywords:
     - sap
-    - genai
+    - generative ai
     - llm
-    - ai core
+    - sap ai core
     - generative ai hub
     - cap
     - rag
+    - hana vector engine
+    - orchestration service
+    - prompt engineering
+    - sap cloud sdk for ai
+    - business ai platform
 sidebar_label: GenAI Applications
 image: img/ac-soc-med.png
 tags:

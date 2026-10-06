@@ -8,16 +8,19 @@ title: Stefan Nogly
 description: >-
     DSAG's perspective on SAP's AI-native North Star architecture: a strategic roadmap for AI-native enterprise transformation, with shared responsibility for SAP, DSAG, and user companies to continue the dialogue and develop viable solutions together.
 keywords:
-    - Stefan Nogly
-    - DSAG
-    - AI-native North Star architecture
-    - SAP user group
+    - sap
+    - stefan nogly
+    - dsag
+    - german-speaking sap user group
+    - ai-native north star architecture
+    - sap user group
     - agentic systems
-    - SAP Joule
-    - enterprise AI
-    - North Star Architecture
-    - NSA
-    - AI governance
+    - sap joule
+    - sap fiori
+    - enterprise ai
+    - ai governance
+    - nsa
+    - business ai platform
 sidebar_label: Stefan Nogly (DSAG)
 image: img/ac-soc-med.png
 tags:

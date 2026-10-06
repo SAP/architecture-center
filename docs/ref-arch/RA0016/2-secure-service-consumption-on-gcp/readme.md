@@ -8,11 +8,16 @@ description: >-
   Identity Federation. Workloads  authenticate without storing service account
   keys.
 keywords:
+  - sap
   - gcp
+  - secure service consumption on gcp
+  - workload identity federation
   - oidc federation
-  - workload identity
-  - secure keyless access
-  - sap btp security
+  - sap identity authentication service
+  - gcp service account impersonation
+  - keyless authentication
+  - zero trust
+  - business ai platform
 sidebar_label: Secure Service Consumption on GCP
 image: img/ac-soc-med.png
 tags:

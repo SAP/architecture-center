@@ -9,10 +9,19 @@ description: >-
   integration needs. Discover benefits, migration tools, architectural shifts,
   and strategies for simplifying integration landscapes and reducing TCO.
 keywords:
-  - SAP PI/PO migration
-  - SAP Integration Suite iPaaS
-  - Edge Integration Cell
-  - SAP migration tools and assessment
+  - sap
+  - sap pi/po migration
+  - sap integration suite
+  - ipaas
+  - edge integration cell
+  - cloud integration
+  - api management
+  - advanced event mesh
+  - sap cloud connector
+  - migration assessment
+  - end of maintenance 2027
+  - reducing integration tco
+  - business ai platform
 sidebar_label: SAP PI/PO to SAP Integration Suite
 image: img/logo.svg
 tags:

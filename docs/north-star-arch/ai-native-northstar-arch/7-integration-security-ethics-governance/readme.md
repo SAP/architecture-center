@@ -8,27 +8,24 @@ title: Integration, Security, Ethics & Governance
 description: >-
     Cross-cutting governance for SAP's AI-native architecture: a single governed gateway enforces integration boundaries, agents operate as first-class principals with scoped identity, a Three-Tier AI Defense Architecture addresses agentic threats, and structured AI ethics review ensures responsible deployment under the EU AI Act and global compliance frameworks.
 keywords:
-    - AI integration
+    - sap
+    - ai integration
     - governed gateway
     - agent identity
-    - Model Context Protocol
-    - MCP
-    - Agent-to-Agent protocol
-    - A2A protocol
-    - Three-Tier AI Defense
+    - model context protocol
+    - agent2agent protocol
+    - three-tier ai defense architecture
     - zero-trust authentication
     - prompt injection detection
-    - EU AI Act
-    - AI governance
-    - AI ethics
-    - SAP Global AI Ethics Policy
-    - AI Ethics Impact Assessment
-    - responsible AI
-    - shift-left security
-    - compliance
+    - eu ai act
+    - ai governance
+    - ai ethics
+    - sap global ai ethics policy
+    - responsible ai
     - human-in-the-loop
-    - North Star Architecture
-    - NSA
+    - north star architecture
+    - nsa
+    - business ai platform
 sidebar_label: 7. Integration, Security, Ethics & Governance
 image: img/ac-soc-med.png
 tags:

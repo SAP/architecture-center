@@ -8,11 +8,16 @@ description: >-
   components, and workflows for a unified task management experience.
 keywords:
   - sap
-  - btp
-  - cloud
   - sap task center
   - central inbox
-  - architecture flow
+  - unified task management
+  - sap cloud identity services
+  - identity authentication
+  - task providers
+  - sap build work zone
+  - global user id
+  - sap s/4hana
+  - business ai platform
 sidebar_label: Establish a central inbox with SAP Task Center
 image: img/ac-soc-med.png
 tags:

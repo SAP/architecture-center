@@ -9,17 +9,16 @@ description: >-
   and connect them to Joule via the A2A protocol.
 keywords:
   - sap
-  - ai agents
   - bring your own agent
-  - pro-code
-  - a2a
-  - mcp
+  - pro-code ai agents
   - sap cloud sdk for ai
-  - cap
   - generative ai hub
+  - sap hana cloud
+  - cap
+  - a2a
   - langgraph
   - crewai
-  - smolagents
+  - business ai platform
 sidebar_label: Bring Your Own Agent
 image: img/ac-soc-med.png
 tags:

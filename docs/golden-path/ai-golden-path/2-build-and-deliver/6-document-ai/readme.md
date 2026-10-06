@@ -6,9 +6,14 @@ description: >-
   BTP.
 keywords:
     - sap
-    - document ai
-    - document processing
+    - sap document ai
+    - intelligent document processing
+    - data extraction
+    - unstructured documents
     - machine learning
+    - document information extraction
+    - invoice processing
+    - business ai platform
 sidebar_label: Document AI
 image: img/ac-soc-med.png
 tags:

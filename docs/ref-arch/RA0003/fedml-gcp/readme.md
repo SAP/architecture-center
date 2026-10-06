@@ -8,10 +8,13 @@ description: >-
   data for efficient model deployment and analytics.
 keywords:
   - sap
-  - gcp vertex ai
-  - fedml integration
-  - google cloud platforms
+  - gcp
+  - google vertex ai
+  - fedml
+  - sap datasphere
   - machine learning
+  - live sap data
+  - business ai platform
 sidebar_label: FedML-GCP for Google Vertex AI
 image: img/ac-soc-med.png
 tags:

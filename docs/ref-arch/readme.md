@@ -8,25 +8,17 @@ description: >-
   scalable, and secure enterprise solutions. Adopt proven patterns using SAP
   BTP, cloud integration, and industry standards for digital transformation.
 keywords:
-  - SAP Reference Architectures
-  - Architectures
-  - AI
-  - Artificial Intelligence
-  - reference architectures
+  - sap
+  - sap reference architectures
+  - ai
   - efficiency
   - scalability
-  - interoperability
   - standardization
-  - SAP BTP
-  - SAP Business Technology Platform
   - digital transformation
-  - business processes
-  - best practices
   - hybrid cloud
   - multi-cloud
-  - governance
-  - Security
-  - compliance
+  - security
+  - business ai platform
 sidebar_label: Reference Architectures
 image: img/ac-soc-med.png
 tags:

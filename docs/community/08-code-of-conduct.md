@@ -7,6 +7,9 @@ sidebar_label: SAP Open Source Code of Conduct
 keywords:
  - sap
  - code of conduct
+ - open source community
+ - contributor covenant
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

@@ -5,7 +5,12 @@ title: Architecture Validator Modeling Guidelines
 description: Architecture Validator Modeling Guidelines
 sidebar_label: Architecture Validator Modeling Guidelines
 keywords:
+    - sap
     - architecture validator
+    - draw.io
+    - architecture modeling guidelines
+    - sap solution diagram guidelines
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

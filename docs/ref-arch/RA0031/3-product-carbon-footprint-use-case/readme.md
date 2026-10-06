@@ -11,18 +11,18 @@ description: >-
   DIV wallet (Bring Your Own Wallet).
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
+  - ssi
+  - did
   - product carbon footprint
-  - PCF
-  - Catena-X
+  - pcf
+  - catena-x
   - supply chain
-  - carbon data network
-  - IATP
+  - iatp
   - bring your own wallet
-  - BYOW
+  - business ai platform
 sidebar_label: Product Carbon Footprint Use Case
 image: img/ac-soc-med.png
 tags:

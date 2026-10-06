@@ -6,16 +6,19 @@ title: Global Standards for Agentic AI
 description: >-
     SAP's central reference for AI standardization, covering its AI-First strategy, open standards adoption (MCP, A2A, OpenTelemetry), and active contributions to the Agentic AI Foundation (AAIF), A2A Project, and IETF.
 keywords:
-    - AI standards at SAP
-    - architecture
-    - AI
-    - artificial intelligence
-    - governance
-    - security
-    - compliance
-    - north star architecture
-    - nsa
-    - golden path
+    - sap
+    - ai standards at sap
+    - agentic ai
+    - agent2agent
+    - a2a
+    - model context protocol
+    - mcp
+    - open standards
+    - ai interoperability
+    - agentic ai foundation
+    - aaif
+    - agent-first strategy
+    - business ai platform
 sidebar_label: Global Standards for Agentic AI
 image: img/ac-soc-med.png
 tags:

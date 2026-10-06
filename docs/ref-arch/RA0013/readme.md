@@ -8,9 +8,17 @@ description: >-
   data for scalable AI and analytics.
 keywords:
   - sap
-  - business data cloud
-  - advanced analytics applications
-  - data-driven strategies
+  - sap business data cloud
+  - enterprise data strategy
+  - data fabric
+  - data products
+  - intelligent applications
+  - knowledge core
+  - bdc connect
+  - zero-copy data sharing
+  - ai agents
+  - joule
+  - business ai platform
 sidebar_label: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:

@@ -8,12 +8,16 @@ description: >-
   including asset and site inspection.
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - asset inspection
+  - site inspection
   - asset management
+  - autonomous inspection
+  - sap asset performance management
+  - sap field service management
+  - business ai platform
 sidebar_label: Asset Inspection
 image: img/ac-soc-med.png
 tags:

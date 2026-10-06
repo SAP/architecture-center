@@ -8,10 +8,15 @@ description: >-
   unstructured data for intelligent applications.
 keywords:
   - sap
-  - big data architecture
   - sap hana cloud
-  - data lake
-  - medallion design
+  - sap hana cloud data lake
+  - big data processing
+  - medallion architecture
+  - bronze silver gold layers
+  - sap datasphere
+  - sap analytics cloud
+  - data ingestion
+  - business ai platform
 sidebar_label: Big Data Processing in SAP HANA Cloud
 image: img/ac-soc-med.png
 tags:

@@ -8,11 +8,16 @@ description: >-
   for stateless and stateful multi-region setups.
 keywords:
   - sap
-  - disaster recovery
-  - ha dr solutions
+  - high availability and disaster recovery
   - azure traffic manager
-  - Google Cloud DNS
   - aws route 53
+  - google cloud
+  - sap cloud integration
+  - sap build work zone
+  - sap advanced event mesh
+  - sap hana cloud
+  - multi-region disaster recovery
+  - business ai platform
 sidebar_label: Sample Implementations
 image: img/ac-soc-med.png
 tags:

@@ -8,9 +8,16 @@ description: >-
   resources, secure tenant isolation, and efficient provisioning.
 keywords:
   - sap
-  - multitenant applications
-  - scalable saas solutions
-  - btp reference models
+  - multitenant saas applications
+  - sap cloud application programming model
+  - cloud foundry
+  - kyma
+  - sap hana cloud
+  - sap s/4hana integration
+  - api service broker
+  - sap api management
+  - tenant isolation
+  - business ai platform
 sidebar_label: Reference Architecture
 image: img/ac-soc-med.png
 tags:

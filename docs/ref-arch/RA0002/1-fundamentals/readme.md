@@ -6,10 +6,11 @@ title: Single-region and Multi-region resiliency
 description: Overview for Single and Multi-region resiliency
 keywords:
   - sap
-  - multi-region
+  - single-region resiliency
+  - multi-region resiliency
   - resiliency architecture
-  - regional outages
   - cloud disaster recovery
+  - business ai platform
 sidebar_label: Single-region and Multi-region resiliency
 image: img/ac-soc-med.png
 tags:

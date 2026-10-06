@@ -11,12 +11,15 @@ description: >-
   systems.
 keywords:
   - sap
+  - event-driven architecture
   - event-driven applications
-  - eda patterns
-  - cap framework
+  - sap integration suite, advanced event mesh
+  - sap event mesh
+  - sap cloud application event hub
+  - sap integration suite
+  - sap cloud application programming model
   - business event processing
-  - advanced event mesh
-  - event mesh
+  - business ai platform
 sidebar_label: Designing Event-Driven Applications
 image: img/ac-soc-med.png
 tags:

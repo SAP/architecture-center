@@ -8,15 +8,19 @@ title: Geoff Scott
 description: >-
     ASUG's perspective on SAP's AI-native North Star architecture: customers need clarity from the platforms they have built their businesses on, and ASUG commends SAP for the rigor and transparency that went into pulling it together for the community.
 keywords:
-    - Geoff Scott
-    - ASUG
-    - AI-native North Star architecture
-    - SAP user group
+    - sap
+    - geoff scott
+    - asug
+    - americas' sap user group
+    - ai-native north star architecture
+    - sap user group
     - agentic systems
-    - Model Context Protocol
-    - enterprise AI
-    - North Star Architecture
-    - NSA
+    - model context protocol
+    - system of context
+    - harness engineering
+    - enterprise ai
+    - nsa
+    - business ai platform
 sidebar_label: Geoff Scott (ASUG)
 image: img/ac-soc-med.png
 tags:

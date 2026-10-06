@@ -15,8 +15,13 @@ keywords:
   - mcp servers
   - ai coding agents
   - sap ai core
-  - SAP Fiori CAP UI5
-  - sap btp
+  - sap generative ai hub
+  - sap cap
+  - sap fiori
+  - sap ui5
+  - s/4hana side-by-side extensions
+  - litellm
+  - business ai platform
 sidebar_label: Agentic Engineering for SAP Extensions
 image: img/ac-soc-med.png
 tags:

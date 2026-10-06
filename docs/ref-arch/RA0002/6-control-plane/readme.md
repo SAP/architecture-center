@@ -8,10 +8,14 @@ description: >-
   failover, replication, and load balancing across regions.
 keywords:
   - sap
-  - application reliability
-  - ha dr architecture
+  - multi-region manager
+  - failover orchestration
   - business continuity
-  - failover strategies
+  - high availability and disaster recovery
+  - replication topology management
+  - sap cloud application programming model
+  - control plane
+  - business ai platform
 sidebar_label: Multi-region Control Plane
 image: img/ac-soc-med.png
 tags:

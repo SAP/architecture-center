@@ -8,10 +8,16 @@ description: >-
   across SAP and non-SAP systems.
 keywords:
   - sap
-  - build process automation
-  - workflow integration
+  - sap build process automation
   - robotic process automation
-  - no-code automation
+  - low-code no-code automation
+  - business process automation
+  - workflow management
+  - citizen developer
+  - process automation across sap and non-sap systems
+  - sap task center
+  - sap integration suite
+  - business ai platform
 sidebar_label: Integrate and Extend with SAP Build Process Automation
 image: img/ac-soc-med.png
 tags:

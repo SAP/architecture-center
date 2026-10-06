@@ -6,8 +6,16 @@ title: EDA Sample Use Cases
 description: Event-driven architecture use cases to highlight real-world applications.
 keywords:
   - sap
-  - eda
-  - integration
+  - event-driven architecture
+  - eda use cases
+  - sap s/4hana business events
+  - sap erp
+  - sap successfactors
+  - sap cloud application event hub
+  - sap event mesh
+  - event enablement
+  - real-time order processing
+  - business ai platform
 sidebar_label: EDA Sample Use Cases
 image: img/ac-soc-med.png
 tags:

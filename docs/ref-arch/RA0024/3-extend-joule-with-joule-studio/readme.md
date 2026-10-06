@@ -8,15 +8,18 @@ description: >-
   Skills and AI Agents for seamless integration across SAP and non-SAP systems,
   driving automation and innovation.
 keywords:
-  - sap build
+  - sap
+  - joule
   - joule studio
+  - sap build
   - custom joule skills
   - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - sap btp
-  - hybrid landscapes
+  - sap ai core
+  - document grounding
+  - retrieval augmented generation
+  - business process automation
+  - hybrid landscape integration
+  - business ai platform
 sidebar_label: Extend Joule with Joule Studio
 image: img/ac-soc-med.png
 tags:

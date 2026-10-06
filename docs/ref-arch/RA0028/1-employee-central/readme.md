@@ -7,13 +7,18 @@ description: >-
   Overview of the main data structures within SAP SuccessFactors Employee
   Central
 keywords:
-  - ref-arch
-  - successfactors
+  - sap
+  - sap successfactors
+  - successfactors employee central
   - hcm
   - human capital management
-  - HR
-  - employee experience
-  - employee central
+  - core hr
+  - employee central data model
+  - foundation objects
+  - meta data framework
+  - organization structures
+  - pay structures
+  - business ai platform
 sidebar_label: SAP SuccessFactors Employee Central
 image: img/logo.svg
 tags:

@@ -8,10 +8,16 @@ description: >-
   for real-time updates, failover, and resilient data availability.
 keywords:
   - sap
-  - multi-region synchronization
+  - sap hana cloud
   - data replication
-  - failover capabilities
-  - cloud-integrated resiliency
+  - smart data access
+  - smart data integration
+  - remote table replication
+  - multi-region data synchronization
+  - failover
+  - high availability and disaster recovery
+  - multi-region data resiliency
+  - business ai platform
 sidebar_label: Data Synchronization across regions
 image: img/ac-soc-med.png
 tags:

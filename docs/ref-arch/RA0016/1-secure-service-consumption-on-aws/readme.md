@@ -7,12 +7,17 @@ description: >-
   Securely access AWS services from external applications using robust identity
   and access management strategies.
 keywords:
+  - sap
   - aws
-  - secure access
-  - iam
-  - oidc
-  - cloud applications
-  - architecture integration
+  - secure service consumption on aws
+  - sap identity authentication service
+  - oidc federation
+  - aws iam roles anywhere
+  - aws security token service
+  - x.509 certificate authentication
+  - short-lived credentials
+  - zero trust
+  - business ai platform
 sidebar_label: Secure Service Consumption on AWS
 image: img/ac-soc-med.png
 tags:

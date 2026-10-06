@@ -9,9 +9,14 @@ description: >-
 keywords:
   - sap
   - multi-region architecture
-  - ha dr strategies
-  - business reliability
+  - high availability and disaster recovery
   - failover management
+  - business continuity
+  - sap integration suite advanced event mesh
+  - sap hana cloud
+  - dns load balancing
+  - sap custom domain
+  - business ai platform
 sidebar_label: Architecting Multi-Region Resiliency
 image: img/ac-soc-med.png
 tags:

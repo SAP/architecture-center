@@ -6,7 +6,10 @@ description: The SAP Architecture Center (this site) - Privacy Statement.
 sidebar_label: Privacy Statement
 keywords:
  - sap
- - privacy
+ - privacy statement
+ - data protection
+ - gdpr
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

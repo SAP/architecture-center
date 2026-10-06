@@ -8,26 +8,21 @@ title: Foundation Layer
 description: >-
     The AI-native Foundation Layer unites Data and AI as the intelligent core of enterprise processes. SAP Business Data Cloud and the SAP Knowledge Graph provide semantic grounding and governed data, while orchestration, model services, context engineering, and continuous improvement compound enterprise knowledge with every interaction.
 keywords:
+    - sap
     - foundation layer
-    - SAP Business Data Cloud
-    - SAP Knowledge Graph
+    - sap business data cloud
+    - sap knowledge graph
+    - sap datasphere
+    - sap analytics cloud
+    - generative ai hub
+    - sap-rpt-1
     - semantic grounding
     - context engineering
-    - agentic orchestration
-    - Gen AI hub
-    - SAP RPT-1
     - data products
-    - enterprise memory
-    - context graph
-    - SAP Datasphere
-    - SAP Analytics Cloud
-    - reusable intelligence
-    - model services
-    - continuous improvement
-    - multi-objective optimization
     - system of context
-    - North Star Architecture
-    - NSA
+    - north star architecture
+    - nsa
+    - business ai platform
 sidebar_label: 5. Foundation Layer (AI & data)
 image: img/ac-soc-med.png
 tags:

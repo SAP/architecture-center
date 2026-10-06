@@ -7,6 +7,9 @@ sidebar_label: The Team
 keywords:
  - sap
  - team
+ - sap architecture center
+ - office of the cto
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

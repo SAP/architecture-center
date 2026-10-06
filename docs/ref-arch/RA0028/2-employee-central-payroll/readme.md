@@ -7,13 +7,18 @@ description: >-
   Overview of the main integrations between SAP SuccessFactors Employee Central
   and SAP SuccessFactors Employee Central Payroll
 keywords:
-  - ref-arch
-  - successfactors
+  - sap
+  - sap successfactors
+  - employee central payroll
+  - payroll processing
+  - point-to-point integration
+  - time data replication
+  - multi-country payroll
+  - multi-bank connectivity
+  - bank communication management
+  - payment file integration
   - hcm
-  - human capital management
-  - HR
-  - employee experience
-  - employee central
+  - business ai platform
 sidebar_label: SAP SuccessFactors Employee Central Payroll
 image: img/logo.svg
 tags:

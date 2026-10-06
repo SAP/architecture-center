@@ -10,7 +10,10 @@ description: >-
 keywords:
     - acknowledgement
     - contributors
-    - North Star Architecture
+    - core contributors
+    - ai-native north star architecture
+    - sap
+    - business ai platform
 sidebar_label: Acknowledgement
 image: img/ac-soc-med.png
 tags:

@@ -9,9 +9,13 @@ description: >-
 keywords:
     - sap
     - multitenant saas
-    - application scalability
-    - btp innovation
-    - industry solutions
+    - multitenancy architecture
+    - cap
+    - cloud application programming model
+    - tenant isolation
+    - saas application scalability
+    - tenant onboarding
+    - business ai platform
 sidebar_label: Multitenant SaaS Application using CAP
 image: img/ac-soc-med.png
 tags:

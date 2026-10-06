@@ -9,17 +9,17 @@ description: >-
   MCP approach via SAP Integration Suite and Joule Studio.
 keywords:
   - sap
-  - mcp
   - model context protocol
-  - third-party
-  - mcp server
+  - mcp
   - mcp gateway
-  - integration suite
+  - sap integration suite
   - joule studio
-  - owasp
-  - security
-  - governance
-  - btp
+  - owasp mcp top 10
+  - agent identity
+  - token exchange
+  - third-party mcp access
+  - mcp security and governance
+  - business ai platform
 sidebar_label: Third-Party MCP Access
 image: img/ac-soc-med.png
 tags:

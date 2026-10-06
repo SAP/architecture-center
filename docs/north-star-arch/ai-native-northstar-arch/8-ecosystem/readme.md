@@ -8,26 +8,22 @@ title: Ecosystem - The Marketplace for Agents, Tools, and Extensions
 description: >-
     The SAP AI Agent Hub is the enterprise marketplace for discovering, publishing, and composing agents, tools, and extensions. Built on Open Resource Discovery, SAP Business Data Cloud, and the SAP Knowledge Graph, it enables partners and customers to co-create domain-specific agents within a shared governance and trust framework.
 keywords:
-    - SAP AI Agent Hub
+    - sap
+    - sap ai agent hub
     - agent marketplace
     - agent lifecycle management
     - agent mining
     - skills mapping
-    - Open Resource Discovery
-    - ORD
-    - SAP Business Data Cloud
-    - SAP Knowledge Graph
+    - open resource discovery
+    - sap business data cloud
+    - sap knowledge graph
     - data products
-    - partner agents
-    - ecosystem extensibility
-    - agent governance
-    - agent trust framework
     - domain-specific agents
-    - agent discovery
-    - agent composability
+    - agent trust framework
     - network effect
-    - North Star Architecture
-    - NSA
+    - north star architecture
+    - nsa
+    - business ai platform
 sidebar_label: 8. Ecosystem
 image: img/ac-soc-med.png
 tags:

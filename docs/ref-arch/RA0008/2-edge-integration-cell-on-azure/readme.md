@@ -7,10 +7,16 @@ description: >-
   Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid
   integration, leveraging secure infrastructure.
 keywords:
+  - sap
   - azure
-  - edge integration
+  - edge integration cell
   - sap integration suite
-  - real-time architecture
+  - azure kubernetes service
+  - hybrid integration
+  - high availability
+  - azure database for postgresql
+  - multi-az deployment
+  - business ai platform
 sidebar_label: Edge Integration Cell on Azure
 image: img/ac-soc-med.png
 tags:

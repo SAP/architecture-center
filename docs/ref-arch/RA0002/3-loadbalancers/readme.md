@@ -9,9 +9,15 @@ description: >-
 keywords:
   - sap
   - load balancing
-  - multi-region setup
+  - multi-region architecture
+  - dns-based load balancing
+  - global load balancers
   - traffic distribution
-  - business reliability
+  - sap custom domain service
+  - high availability and disaster recovery
+  - failover
+  - health checks
+  - business ai platform
 sidebar_label: Load Balancers
 image: img/ac-soc-med.png
 tags:

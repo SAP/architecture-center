@@ -9,11 +9,16 @@ description: >-
   on-premises and private cloud business data.
 keywords:
   - sap
-  - data accelerator
+  - sap data accelerator
+  - sap cloud connector
+  - palantir foundry
+  - sap s/4hana
   - data integration
-  - analytics
-  - palantir
-  - data and analytics
+  - near-real-time data replication
+  - data governance
+  - writeback
+  - data analytics
+  - business ai platform
 sidebar_label: SAP Data Accelerator
 image: img/ac-soc-med.png
 tags:

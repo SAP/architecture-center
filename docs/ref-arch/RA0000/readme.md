@@ -35,6 +35,7 @@ keywords:
   - sap
   - cloud
   - demo
+  - business ai platform
 
 # IMAGE: Default is SAP Architecture Center logo.
 image: img/ac-soc-med.png

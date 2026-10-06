@@ -9,11 +9,16 @@ description: >-
   during disasters.
 keywords:
   - sap
-  - hana cloud
-  - esri integration
-  - geospatial database
-  - enterprise infrastructure
+  - sap hana cloud
+  - esri arcgis integration
+  - geodatabase
+  - geospatial data
   - spatial data management
+  - location intelligence
+  - arcgis enterprise
+  - sap analytics cloud
+  - sap s/4hana
+  - business ai platform
 sidebar_label: SAP HANA Cloud as an Esri Geodatabase
 image: img/ac-soc-med.png
 tags:

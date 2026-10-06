@@ -6,11 +6,17 @@ description: >-
   model for relational business data.
 keywords:
     - sap
-    - rpt-1
+    - sap-rpt-1
     - predictive ai
     - tabular ai
     - in-context learning
-    - ai core
+    - relational foundation model
+    - sap generative ai hub
+    - sap ai core
+    - sap s/4hana
+    - relational business data
+    - tabular predictions
+    - business ai platform
 sidebar_label: Predictive & Tabular AI
 image: img/ac-soc-med.png
 tags:

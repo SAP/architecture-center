@@ -8,10 +8,13 @@ description: >-
   challenges for analytics solutions.
 keywords:
   - sap
-  - latency optimization
+  - sap datasphere
   - data federation
-  - performance management
-  - analytics efficiency
+  - data federation performance
+  - latency optimization
+  - query performance tuning
+  - query pushdown optimization
+  - business ai platform
 sidebar_label: Latency and Performance considerations
 image: img/ac-soc-med.png
 tags:

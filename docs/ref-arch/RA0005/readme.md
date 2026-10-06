@@ -9,9 +9,15 @@ description: >-
 keywords:
   - sap
   - generative ai hub
+  - sap ai core
+  - sap hana cloud vector engine
+  - retrieval augmented generation
+  - sap cloud application programming model
+  - large language models
   - cloud foundry
-  - vector engine integration
-  - advanced ai solutions
+  - kyma
+  - knowledge graph engine
+  - business ai platform
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:

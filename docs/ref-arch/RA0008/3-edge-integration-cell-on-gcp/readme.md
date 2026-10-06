@@ -8,9 +8,15 @@ description: >-
   integration, leveraging scalable infrastructure and best practices.
 keywords:
   - sap
-  - gcp edge integration
-  - integration suite
-  - real-time connectivity
+  - gcp
+  - edge integration cell
+  - sap integration suite
+  - google kubernetes engine
+  - hybrid integration
+  - high availability
+  - cloud sql for postgresql
+  - multi-az deployment
+  - business ai platform
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png
 tags:

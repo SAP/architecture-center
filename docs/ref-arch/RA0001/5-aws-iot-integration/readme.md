@@ -8,9 +8,16 @@ description: >-
     seamless business process integration.
 keywords:
     - sap
-    - aws iot integration
-    - event-to-business actions
-    - cloud application programming
+    - aws iot sitewise integration
+    - events-to-business actions framework
+    - sap integration suite advanced event mesh
+    - sap s/4hana
+    - sap ai core
+    - amazon bedrock
+    - generative ai hub
+    - sap private link service
+    - plant maintenance notification
+    - business ai platform
 sidebar_label: Integration with Amazon Web Services
 image: img/ac-soc-med.png
 tags:

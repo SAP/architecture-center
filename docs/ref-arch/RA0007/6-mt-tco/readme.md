@@ -8,10 +8,15 @@ description: >-
   applications, covering platform, maintenance, and resource allocation costs.
 keywords:
   - sap
-  - tenant lifecycle
+  - total cost of ownership
   - multitenant applications
-  - btp cost analysis
-  - application scalability
+  - sap hana cloud
+  - cloud foundry
+  - kyma
+  - platform costs
+  - cost per tenant
+  - sap hana cloud sizing
+  - business ai platform
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png
 tags:

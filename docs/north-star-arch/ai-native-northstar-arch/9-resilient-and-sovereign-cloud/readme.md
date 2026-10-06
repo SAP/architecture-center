@@ -8,26 +8,23 @@ title: The Resilient and Sovereign Cloud
 description: >-
     SAP's resilient and sovereign cloud strategy delivers AI-native workloads across public, private, sovereign, and on-site deployment models. Operational excellence is ensured through high availability, elasticity, AI-enabled operations, OpenTelemetry observability, and sustainable infrastructure — all governed to meet local compliance and data sovereignty requirements.
 keywords:
+    - sap
     - sovereign cloud
+    - sap sovereign cloud on-site
     - public cloud
     - private cloud
-    - sovereign cloud on-site
-    - multi-tier deployment
+    - multitier deployment
     - high availability
-    - cloud resilience
-    - AI-enabled operations
-    - OpenTelemetry
-    - SAP Cloud ALM
-    - cloud elasticity
-    - cloud portability
     - disaster recovery
+    - ai-enabled operations
+    - opentelemetry
+    - sap cloud alm
+    - cloud elasticity
     - sustainable cloud
-    - renewable energy
     - data sovereignty
-    - compliance
-    - North Star Architecture
-    - NSA
-    - enterprise cloud
+    - north star architecture
+    - nsa
+    - business ai platform
 sidebar_label: 9. The Resilient and Sovereign Cloud
 image: img/ac-soc-med.png
 tags:

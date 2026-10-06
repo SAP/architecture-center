@@ -9,11 +9,16 @@ description: >-
   use cases.
 keywords:
   - sap
-  - databricks
-  - data federation
-  - analytics harmonization
-  - integration models
+  - sap business data cloud
   - bdc connect
+  - databricks delta lake
+  - delta sharing
+  - sap datasphere
+  - data federation
+  - unity catalog
+  - sap analytics cloud
+  - ai/ml workloads
+  - business ai platform
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:

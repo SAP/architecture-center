@@ -9,12 +9,17 @@ description: >-
   across platforms like Snowflake, Azure, GCP, AWS, and Databricks.
 keywords:
   - sap
-  - datasphere
-  - federated architecture
-  - business-driven decisions
-  - cloud hyperscaler data
+  - sap business data cloud
+  - sap datasphere
+  - business data fabric
   - bdc connect
-  - zero copy
+  - delta sharing
+  - zero-copy data integration
+  - hyperscaler data integration
+  - multi-cloud analytics
+  - data federation
+  - replication flows
+  - business ai platform
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:

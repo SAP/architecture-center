@@ -6,11 +6,14 @@ title: Safety Inspection
 description: Discover Embodied AI for health & safety inspection
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - health and safety inspection
+  - workplace safety
+  - safety monitoring
+  - sap s/4hana for ehs
+  - business ai platform
 sidebar_label: Safety Inspection
 image: img/ac-soc-med.png
 tags:

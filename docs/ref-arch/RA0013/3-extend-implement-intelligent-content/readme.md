@@ -9,10 +9,16 @@ description: >-
   management.
 keywords:
   - sap
-  - business data cloud
-  - intelligent apps
-  - analytics optimization
-  - data foundation
+  - sap business data cloud
+  - intelligent content
+  - domain content
+  - intelligent applications
+  - sap s/4hana
+  - data products
+  - sap datasphere
+  - sap analytics cloud
+  - lifecycle management
+  - business ai platform
 sidebar_label: Implementing and Extending SAP-managed domain content in SAP BDC
 image: img/ac-soc-med.png
 tags:

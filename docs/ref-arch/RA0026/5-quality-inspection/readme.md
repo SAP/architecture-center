@@ -6,11 +6,14 @@ title: Quality Inspection
 description: Discover Embodied AI for quality inspection
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - quality inspection
+  - sap digital manufacturing
+  - sap s/4hana manufacturing
+  - sap extended warehouse management
+  - business ai platform
 sidebar_label: Quality Inspection
 image: img/ac-soc-med.png
 tags:

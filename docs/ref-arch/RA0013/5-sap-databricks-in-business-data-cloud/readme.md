@@ -8,10 +8,17 @@ description: >-
   Databricks for real-time insights and simplified data access.
 keywords:
   - sap
-  - databricks
+  - sap databricks
   - sap business data cloud
-  - real-time ai
-  - advanced analytics
+  - delta sharing
+  - unity catalog
+  - apache spark
+  - mlflow
+  - zero-copy data sharing
+  - ai and machine learning
+  - data engineering
+  - bdc connect
+  - business ai platform
 sidebar_label: SAP Databricks in SAP BDC
 image: img/ac-soc-med.png
 tags:

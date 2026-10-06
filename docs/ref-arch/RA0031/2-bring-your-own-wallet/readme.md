@@ -10,16 +10,18 @@ description: >-
   credential, which is pushed to the member-hosted DIV wallet.
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
-  - wallet
+  - ssi
+  - did
   - bring your own wallet
-  - Catena-X
+  - sap integration suite
+  - data space integration
+  - catena-x
   - dataspace
   - membership credential
-  - self-hosted wallet
+  - business ai platform
 sidebar_label: Bring Your Own Wallet
 image: img/ac-soc-med.png
 tags:

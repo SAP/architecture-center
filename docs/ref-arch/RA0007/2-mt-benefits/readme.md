@@ -8,10 +8,14 @@ description: >-
   applications on SAP BTP provide for innovative SaaS solutions.
 keywords:
   - sap
-  - multitenant benefits
-  - cloud solutions
+  - multitenant applications
+  - multitenancy benefits
   - saas scalability
-  - cost optimization
+  - cost efficiency
+  - sap hana cloud
+  - resource utilization
+  - single-tenant vs multitenant
+  - business ai platform
 sidebar_label: Benefits of Multitenant Applications
 image: img/ac-soc-med.png
 tags:

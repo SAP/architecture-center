@@ -11,10 +11,16 @@ description: >-
 keywords:
   - sap
   - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - agentic ai
+  - cognitive robots
+  - humanoid robots
+  - joule studio
+  - sap ai foundation
+  - sap business ai
+  - business ai platform
 sidebar_label: Embodied AI Agents & Robotics
 image: img/ac-soc-med.png
 tags:

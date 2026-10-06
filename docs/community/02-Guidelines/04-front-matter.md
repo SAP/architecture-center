@@ -7,6 +7,10 @@ sidebar_label: Front Matter
 keywords:
  - sap
  - front matter
+ - yaml metadata
+ - seo
+ - reference architecture
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

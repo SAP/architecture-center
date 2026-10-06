@@ -9,9 +9,18 @@ description: >-
 keywords:
     - key terms
     - glossary
-    - AI-native
-    - North Star Architecture
-    - NSA
+    - ai-native
+    - autonomous enterprise
+    - system of context
+    - agentic orchestration
+    - agent identity
+    - sovereign ai
+    - semantic grounding
+    - federated knowledge graph
+    - human-in-the-loop
+    - ai-native north star architecture
+    - sap
+    - business ai platform
 sidebar_label: Key Terms
 image: img/ac-soc-med.png
 tags:

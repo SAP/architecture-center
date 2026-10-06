@@ -8,10 +8,15 @@ description: >-
   prebuilt data products and stories.
 keywords:
   - sap
-  - intelligent apps
-  - business data cloud
-  - prebuilt analytics solutions
-  - modernized configurations
+  - intelligent content
+  - sap business data cloud
+  - intelligent applications
+  - prebuilt analytics
+  - ai-powered applications
+  - sap analytics cloud
+  - sap datasphere
+  - data products
+  - business ai platform
 sidebar_label: Intelligent content in SAP BDC
 image: img/ac-soc-med.png
 tags:

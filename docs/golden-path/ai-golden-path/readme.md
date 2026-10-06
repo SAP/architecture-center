@@ -6,28 +6,17 @@ title: SAP's AI Golden Path
 description: >-
     The SAP's AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.
 keywords:
-    - SAP Reference Architectures
-    - Architectures
-    - AI
-    - Artificial Intelligence
-    - reference architectures
-    - efficiency
-    - scalability
-    - interoperability
-    - standardization
-    - SAP BTP
-    - SAP Business Technology Platform
-    - digital transformation
-    - business processes
-    - best practices
-    - hybrid cloud
-    - multi-cloud
-    - governance
-    - Security
-    - compliance
-    - North Star Architecture
-    - NSA
-    - Golden Path
+    - sap
+    - ai golden path
+    - enterprise ai
+    - joule
+    - generative ai hub
+    - sap ai core
+    - sap hana cloud
+    - sap business data cloud
+    - agentic ai
+    - ai reference architectures
+    - business ai platform
 sidebar_label: AI Golden Path
 image: img/ac-soc-med.png
 tags:

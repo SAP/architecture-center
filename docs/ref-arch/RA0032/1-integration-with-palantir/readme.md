@@ -8,10 +8,16 @@ description: >-
   with a high-throughput, governed path to securely connect SAP data to Foundry.
 keywords:
   - sap
-  - palantir
+  - sap data accelerator
+  - palantir foundry
+  - sap cloud connector
+  - sap s/4hana
   - data integration
-  - analytics
-  - data accelerator
+  - data governance
+  - data lineage
+  - writeback
+  - near-real-time data replication
+  - business ai platform
 sidebar_label: Integration with Palantir
 image: img/ac-soc-med.png
 tags:

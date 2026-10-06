@@ -9,9 +9,15 @@ description: >-
 keywords:
   - sap
   - microsoft azure
-  - events-to-business
+  - azure iot central
+  - sap s/4hana
+  - sap integration suite, advanced event mesh
+  - sap event mesh
+  - sap build process automation
   - event-driven architecture
+  - events-to-business actions
   - iot integration
+  - business ai platform
 sidebar_label: Integration with Microsoft Azure
 image: img/ac-soc-med.png
 tags:

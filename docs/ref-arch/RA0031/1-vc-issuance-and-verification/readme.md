@@ -9,13 +9,17 @@ description: >-
   Verifiable Presentations on SAP BTP.
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
+  - verifiable presentations
+  - ssi
+  - did
   - credential issuance
   - credential verification
-  - IATP
+  - iatp
+  - catena-x
+  - business ai platform
 sidebar_label: VC Issuance and Verification
 image: img/ac-soc-med.png
 tags:

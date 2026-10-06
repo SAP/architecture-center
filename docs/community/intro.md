@@ -6,7 +6,11 @@ description: Contribute to the SAP Architecture Center Community of Practice. Co
 sidebar_label: Community of Practice
 keywords:
  - sap
- - overview
+ - reference architectures
+ - community of practice
+ - contribution
+ - open source contribution
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

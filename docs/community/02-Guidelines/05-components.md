@@ -5,7 +5,12 @@ title: Components
 description: Find details about custom components developed for the SAP Architecture Center. Use them in your own contributions to the site. 
 sidebar_label: Components
 keywords:
-  - community
+  - sap
+  - components
+  - contributors component
+  - draw.io component
+  - reference architecture
+  - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

@@ -9,17 +9,19 @@ description: >-
   scenarios with/without Enterprise IdP, lifecycle, authorization mapping, and
   operations.
 keywords:
+  - sap
   - sap business data cloud
   - sap databricks
   - sap cloud identity services
   - ias
   - ips
-  - sso
+  - single sign-on
   - saml
   - oidc
-  - scim 2.0
+  - scim provisioning
   - unity catalog
   - zero trust
+  - business ai platform
 sidebar_label: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 image: img/ac-soc-med.png
 tags:

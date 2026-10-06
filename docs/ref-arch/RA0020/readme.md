@@ -9,9 +9,16 @@ description: >-
 keywords:
   - sap
   - b2b integration
+  - sap integration suite
+  - electronic data interchange
+  - trading partner management
+  - integration advisor
+  - cloud integration
+  - edifact
+  - as2
   - secure document exchange
-  - scalability solutions
-  - integration architecture
+  - sap integration solution advisory methodology
+  - business ai platform
 sidebar_label: Business to Business Integration
 image: img/ac-soc-med.png
 tags:

@@ -8,10 +8,15 @@ description: >-
   secure authorization across SAP SaaS solutions.
 keywords:
   - sap
-  - authorization management
-  - identity lifecycle
-  - cloud erp security
+  - sap authorization management service (ams)
+  - authorization design
+  - sap cloud identity services - identity directory
+  - role collections and xsuaa
+  - scim2 group provisioning
   - identity provisioning
+  - centralized authorization assignment
+  - least privilege
+  - business ai platform
 sidebar_label: Authorization Design
 image: img/ac-soc-med.png
 tags:

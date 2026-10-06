@@ -8,11 +8,17 @@ description: >-
   and efficient resource management.
 keywords:
   - sap
-  - btp
-  - tenant management
+  - tenant model
   - multitenant application
   - saas architecture
-  - cap model
+  - data separation
+  - schema separation
+  - hdi container
+  - sap hana cloud
+  - sap service manager
+  - provider and consumer subaccount
+  - tenant data isolation
+  - business ai platform
 sidebar_label: Tenant Model on SAP BTP
 image: img/ac-soc-med.png
 tags:

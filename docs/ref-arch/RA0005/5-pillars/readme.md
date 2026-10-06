@@ -6,9 +6,10 @@ title: Non-Functional Pillars
 description: Please add a description (max 300 characters)
 keywords:
   - sap
+  - non-functional requirements
   - reference architecture
-  - non-functional design
-  - system considerations
+  - generative ai
+  - business ai platform
 sidebar_label: Non-Functional Pillars
 image: img/ac-soc-med.png
 tags:

@@ -5,13 +5,12 @@ title: Developers' Corner
 description: Examples for CSS, responsive design, and performance in the SAP Architecture Center.
 sidebar_label: Developers' Corner
 keywords:
+    - sap
     - sap architecture center
-    - css guidelines
-    - responsive design
-    - webp images
-    - largest contentful paint
-    - layout shift
-    - image optimization
+    - developers corner
+    - open source contribution
+    - development guidelines
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

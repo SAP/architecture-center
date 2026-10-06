@@ -9,8 +9,14 @@ description: >-
 keywords:
   - sap
   - multi-region security
-  - enterprise cloud protection
-  - service-to-service security
+  - xsuaa
+  - sap integration suite
+  - oauth authentication
+  - identity authentication service
+  - failover authentication
+  - single sign-on
+  - sap build work zone
+  - business ai platform
 sidebar_label: Security
 image: img/ac-soc-med.png
 tags:

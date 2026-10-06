@@ -6,8 +6,10 @@ description: The SAP Architecture Center - Architecture Validator Statement.
 sidebar_label: SAP AC Architecture Validator Statement
 keywords:
  - sap
- - cookie
+ - architecture validator
  - privacy
+ - sap oauth
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

@@ -8,13 +8,17 @@ description: >-
   communication for a seamless digital workplace experience.
 keywords:
   - sap
-  - btp
-  - digital workplace
   - sap build work zone
-  - integration ecosystem
-  - business applications
-  - joule work
+  - digital workplace
+  - central entry point
+  - business sites
+  - single sign-on
   - joule
+  - joule work mobile app
+  - sap build process automation
+  - sap task center
+  - sap cloud identity services
+  - business ai platform
 sidebar_label: Establish a central entry point with SAP Build Work Zone
 image: img/ac-soc-med.png
 tags:

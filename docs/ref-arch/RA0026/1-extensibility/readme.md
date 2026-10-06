@@ -9,11 +9,18 @@ description: >-
   cases and get insights into interoperability.
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - extensibility
+  - interoperability
+  - sap ai core
+  - model context protocol
+  - agent2agent protocol
+  - robot orchestration platforms
+  - vision-language-action models
+  - multi-agent systems
+  - business ai platform
 sidebar_label: 'Extensibility, Interoperability, and Partner Technologies'
 image: img/ac-soc-med.png
 tags:

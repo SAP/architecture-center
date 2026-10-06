@@ -5,7 +5,13 @@ title: Architecture Validator
 description: Architecture Validator
 sidebar_label: Architecture Validator
 keywords:
+    - sap
     - architecture validator
+    - draw.io diagram validation
+    - solution architecture review
+    - automated architecture review
+    - sap architecture center
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

@@ -9,13 +9,17 @@ description: >-
 keywords:
   - sap
   - ai agents
-  - a2a
   - mcp
-  - interoperability
-  - Agent2Agent
   - model context protocol
-  - copilot studio
-  - microsoft copilot
+  - mcp gateway
+  - sap integration suite
+  - microsoft copilot studio
+  - microsoft entra id
+  - sap cloud identity services
+  - single sign-on
+  - identity propagation
+  - a2a
+  - business ai platform
 sidebar_label: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 image: img/ac-soc-med.png
 tags:

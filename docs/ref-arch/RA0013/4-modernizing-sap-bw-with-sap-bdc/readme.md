@@ -8,10 +8,17 @@ description: >-
   scalable cloud-native architecture.
 keywords:
   - sap
-  - business warehouse modernization
-  - data cloud integration
-  - ai-driven analytics
-  - real-time architecture
+  - sap bw modernization
+  - sap business data cloud
+  - sap bw private cloud edition
+  - sap bw/4hana migration
+  - sap datasphere
+  - sap databricks
+  - data product generator
+  - data products
+  - intelligent applications
+  - zero-copy data sharing
+  - business ai platform
 sidebar_label: Modernizing SAP BW with SAP BDC
 image: img/ac-soc-med.png
 tags:

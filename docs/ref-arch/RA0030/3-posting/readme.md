@@ -8,8 +8,18 @@ description: >-
   document data  to SAP S/4HANA, Business ByDesign, and third-party systems with
   error handling and monitoring.
 keywords:
-  - appdev
+  - sap
   - genai
+  - sap document ai
+  - document posting
+  - sap integration suite
+  - sap s/4hana
+  - sap business bydesign
+  - sap cloud application programming model
+  - idoc integration
+  - odata api integration
+  - sap cloud connector
+  - business ai platform
 sidebar_label: Document Posting and System Integration Patterns for SAP Document AI
 image: img/logo.svg
 tags:

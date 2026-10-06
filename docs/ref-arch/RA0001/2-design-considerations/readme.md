@@ -9,10 +9,15 @@ description: >-
   applications.
 keywords:
   - sap
-  - event-driven patterns
-  - eda applications
-  - cloud design considerations
-  - architecture challenges
+  - event-driven architecture
+  - eda design considerations
+  - sap integration suite
+  - advanced event mesh
+  - event mesh capability
+  - sap cloud application event hub
+  - event broker
+  - eventing services comparison
+  - business ai platform
 sidebar_label: Design Considerations for EDA Applications
 image: img/ac-soc-med.png
 tags:

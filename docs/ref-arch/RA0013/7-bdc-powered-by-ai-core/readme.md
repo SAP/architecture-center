@@ -9,14 +9,18 @@ description: >-
   in Databricks and serving in AI Core, batch and real-time consumption
   patterns, and predictive insights.
 keywords:
+  - sap
   - sap business data cloud
   - sap ai core
   - generative ai hub
+  - sap ai foundation
   - sap databricks
+  - mlops
   - data products
-  - model lifecycle
+  - ai model serving
+  - ai-enhanced data products
   - enterprise ai
-  - reference architecture
+  - business ai platform
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
 image: img/ac-soc-med.png
 tags:

@@ -8,13 +8,15 @@ description: >-
   Identity Services.
 keywords:
   - sap
-  - cloud identity
-  - identity management
-  - security
-  - authentication
-  - single sign-on
-  - access authorizations
-  - SAP Cloud Identity Services
+  - sap cloud identity services
+  - identity and access management
+  - identity lifecycle
+  - authentication and single sign-on
+  - authorization
+  - sap saas iam
+  - saml2 and oidc federation
+  - scim2 provisioning
+  - business ai platform
 sidebar_label: Identity Access Management
 image: img/ac-soc-med.png
 tags:

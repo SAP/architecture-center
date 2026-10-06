@@ -8,10 +8,15 @@ description: >-
   ensuring real-time synchronization and scalability.
 keywords:
   - sap
-  - resiliency design
-  - multi-region
+  - sap advanced event mesh
+  - event-driven architecture
+  - dynamic message routing
+  - sap integration suite
   - event synchronization
-  - advanced event mesh
+  - multi-region event replication
+  - geo-distributed event mesh
+  - high availability and disaster recovery
+  - business ai platform
 sidebar_label: Events Synchronization across regions
 image: img/ac-soc-med.png
 tags:

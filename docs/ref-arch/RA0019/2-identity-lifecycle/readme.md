@@ -8,11 +8,14 @@ description: >-
   SaaS via the SAP Cloud Identity Services.
 keywords:
   - sap
-  - sap iam integration
-  - cloud identity
-  - identity lifecycle
-  - authorization management
-  - sap security solutions
+  - sap cloud identity services
+  - identity lifecycle management
+  - identity provisioning
+  - scim user and group provisioning
+  - identity directory
+  - sap cloud identity access governance
+  - identity management integration
+  - business ai platform
 sidebar_label: Identity Lifecycle
 image: img/ac-soc-med.png
 tags:

@@ -8,10 +8,16 @@ description: >-
   real-time insights and operational efficiency.
 keywords:
   - sap
-  - ai integration
   - structured data agents
-  - natural language processing
-  - federated data insights
+  - sap datasphere
+  - sap hana cloud
+  - natural language query
+  - rag
+  - data federation
+  - vector engine
+  - cap
+  - descriptive and prescriptive analytics
+  - business ai platform
 sidebar_label: Agents for Structured Data
 image: img/ac-soc-med.png
 tags:
