@@ -14,6 +14,7 @@ keywords:
   - sap datasphere
   - sap hana cloud
   - conversational ai
+  - generative ai copilot
   - analytical insights
   - business ai platform
 sidebar_label: Analytical Insights in Joule

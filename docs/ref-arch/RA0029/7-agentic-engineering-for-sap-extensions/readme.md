@@ -8,7 +8,7 @@ keywords:
   - sap
   - agentic engineering
   - context engineering
-  - grounding
+  - multi-agent orchestration
   - mcp servers
   - ai coding agents
   - sap ai core

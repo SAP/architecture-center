@@ -14,6 +14,8 @@ keywords:
   - sap analytics cloud
   - sap datasphere
   - data products
+  - domain content
+  - sap databricks
   - business ai platform
 sidebar_label: Intelligent content in SAP BDC
 image: img/ac-soc-med.png

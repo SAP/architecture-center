@@ -8,6 +8,7 @@ keywords:
  - sap
  - privacy statement
  - data protection
+ - personal data
  - gdpr
  - business ai platform
 image: img/ac-soc-med.png

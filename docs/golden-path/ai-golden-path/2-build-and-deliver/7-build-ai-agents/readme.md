@@ -15,8 +15,7 @@ keywords:
     - model context protocol
     - generative ai hub
     - sap ai core
-    - pro-code
-    - low-code
+    - low-code ai agents
     - business ai platform
 sidebar_label: Build AI Agents
 image: img/ac-soc-med.png

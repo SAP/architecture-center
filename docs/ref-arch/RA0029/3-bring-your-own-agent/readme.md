@@ -10,9 +10,11 @@ keywords:
   - pro-code ai agents
   - sap cloud sdk for ai
   - generative ai hub
+  - sap integration suite
   - sap hana cloud
   - cap
   - a2a
+  - mcp
   - langgraph
   - crewai
   - business ai platform

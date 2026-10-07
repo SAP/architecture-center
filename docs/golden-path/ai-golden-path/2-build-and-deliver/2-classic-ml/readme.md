@@ -13,7 +13,7 @@ keywords:
     - sap ai core
     - automl
     - in-database machine learning
-    - mlops
+    - hana vector engine
     - business ai platform
 sidebar_label: Classic ML Scenarios
 image: img/ac-soc-med.png

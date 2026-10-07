@@ -14,6 +14,7 @@ keywords:
   - sap cloud application event hub
   - sap event mesh
   - event enablement
+  - cloudevents
   - real-time order processing
   - business ai platform
 sidebar_label: EDA Sample Use Cases

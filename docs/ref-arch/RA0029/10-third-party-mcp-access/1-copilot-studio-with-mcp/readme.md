@@ -16,7 +16,8 @@ keywords:
   - sap cloud identity services
   - single sign-on
   - identity propagation
-  - a2a
+  - sap s/4hana
+  - sap business data cloud
   - business ai platform
 sidebar_label: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 image: img/ac-soc-med.png

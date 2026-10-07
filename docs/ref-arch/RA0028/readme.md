@@ -12,7 +12,7 @@ keywords:
   - hcm
   - human capital management
   - talent management
-  - payroll
+  - bizx
   - employee central
   - employee central payroll
   - joule

@@ -14,7 +14,6 @@ keywords:
     - multimodal interaction
     - voice ai
     - physical ai
-    - experience modes
     - sap analytics cloud
     - sap signavio
     - sap leanix

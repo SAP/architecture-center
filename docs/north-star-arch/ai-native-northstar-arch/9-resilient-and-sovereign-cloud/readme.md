@@ -15,14 +15,13 @@ keywords:
     - multitier deployment
     - high availability
     - disaster recovery
+    - multi-region resiliency
     - ai-enabled operations
     - opentelemetry
     - sap cloud alm
-    - cloud elasticity
     - sustainable cloud
     - data sovereignty
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 9. The Resilient and Sovereign Cloud
 image: img/ac-soc-med.png

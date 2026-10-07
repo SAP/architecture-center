@@ -13,7 +13,6 @@ keywords:
     - sap ai core
     - sap s/4hana
     - relational business data
-    - tabular predictions
     - business ai platform
 sidebar_label: Predictive & Tabular AI
 image: img/ac-soc-med.png

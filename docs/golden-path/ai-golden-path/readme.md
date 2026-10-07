@@ -15,6 +15,7 @@ keywords:
     - sap business data cloud
     - agentic ai
     - ai reference architectures
+    - ai development lifecycle
     - business ai platform
 sidebar_label: AI Golden Path
 image: img/ac-soc-med.png

@@ -14,8 +14,9 @@ keywords:
   - owasp mcp top 10
   - agent identity
   - token exchange
+  - a2a
+  - agent gateway
   - third-party mcp access
-  - mcp security and governance
   - business ai platform
 sidebar_label: Third-Party MCP Access
 image: img/ac-soc-med.png

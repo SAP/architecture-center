@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 slug: /community/development
-title: Developers' Corner
+title: Developer Guidelines for the Architecture Center
 description: "Welcome to the development section of the SAP Architecture Center—an open source project with guidelines, best practices, and examples to help you contribute."
 sidebar_label: Developers' Corner
 keywords:

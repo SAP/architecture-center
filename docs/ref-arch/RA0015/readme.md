@@ -12,6 +12,7 @@ keywords:
   - sap connectivity service
   - peppol network
   - electronic invoicing
+  - e-invoicing
   - electronic document exchange
   - statutory reporting
   - tax authority integration

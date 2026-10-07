@@ -10,11 +10,11 @@ keywords:
     - quantum computing
     - quantum processing unit
     - quantum optimization
+    - quantum simulation
     - cloud-native quantum apis
     - hybrid classical quantum
     - probabilistic inference
     - postquantum cryptography
-    - incremental quantum adoption
     - quantum-ready enterprise
     - ai-native north star architecture
     - sap

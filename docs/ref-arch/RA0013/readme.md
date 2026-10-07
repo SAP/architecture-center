@@ -12,6 +12,7 @@ keywords:
   - data products
   - intelligent applications
   - knowledge core
+  - data lakehouse
   - bdc connect
   - zero-copy data sharing
   - ai agents

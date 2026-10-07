@@ -7,8 +7,10 @@ description: "Explore event-driven architecture concepts, components, and SAP's 
 keywords:
   - sap
   - event-driven architecture
+  - eda strategy
   - sap integration suite
   - advanced event mesh
+  - event mesh capability
   - sap cloud application event hub
   - event broker
   - sap s/4hana

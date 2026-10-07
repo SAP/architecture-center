@@ -15,7 +15,7 @@ keywords:
   - document grounding
   - retrieval augmented generation
   - business process automation
-  - hybrid landscape integration
+  - sap s/4hana
   - business ai platform
 sidebar_label: Extend Joule with Joule Studio
 image: img/ac-soc-med.png

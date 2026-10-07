@@ -14,6 +14,8 @@ keywords:
   - platform costs
   - cost per tenant
   - sap hana cloud sizing
+  - saas cost estimation
+  - pay-as-you-go pricing
   - business ai platform
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png

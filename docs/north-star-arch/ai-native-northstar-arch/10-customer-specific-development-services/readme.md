@@ -18,7 +18,6 @@ keywords:
     - business transformation
     - customer innovation lifecycle
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 10. Customer-Specific Development Services
 image: img/ac-soc-med.png

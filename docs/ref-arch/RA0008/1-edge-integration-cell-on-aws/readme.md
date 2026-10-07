@@ -14,6 +14,7 @@ keywords:
   - high availability
   - amazon rds for postgresql
   - multi-az deployment
+  - edge integration cell on aws
   - business ai platform
 sidebar_label: Edge Integration Cell on AWS
 image: img/ac-soc-med.png

@@ -12,6 +12,7 @@ keywords:
   - latency optimization
   - query performance tuning
   - query pushdown optimization
+  - data partitioning
   - business ai platform
 sidebar_label: Latency and Performance considerations
 image: img/ac-soc-med.png

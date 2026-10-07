@@ -8,10 +8,10 @@ keywords:
   - sap
   - tenant lifecycle management
   - tenant onboarding
-  - tenant provisioning
   - tenant offboarding
   - tenant upgrade
   - sap cloud application programming model
+  - cap multitenancy
   - mtx services
   - sap service manager
   - hdi container

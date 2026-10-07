@@ -10,6 +10,7 @@ keywords:
   - multitenant authentication
   - sap cloud identity services
   - sap id service
+  - identity authentication service
   - identity provider
   - sap authorization and trust management service
   - corporate identity providers

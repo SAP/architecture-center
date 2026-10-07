@@ -15,6 +15,8 @@ keywords:
   - machine learning
   - live sap data
   - model training
+  - model deployment
+  - data federation
   - business ai platform
 sidebar_label: FedML-Azure
 image: img/ac-soc-med.png

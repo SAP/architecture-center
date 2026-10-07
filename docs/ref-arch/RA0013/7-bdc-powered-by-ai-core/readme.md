@@ -11,11 +11,12 @@ keywords:
   - generative ai hub
   - sap ai foundation
   - sap databricks
+  - mlflow
   - mlops
   - data products
   - ai model serving
   - ai-enhanced data products
-  - enterprise ai
+  - batch and real-time inference
   - business ai platform
 sidebar_label: SAP Business Data Cloud powered by SAP AI Core
 image: img/ac-soc-med.png

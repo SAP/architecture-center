@@ -13,6 +13,8 @@ keywords:
   - rag
   - data federation
   - vector engine
+  - business data fabric
+  - langgraph
   - cap
   - descriptive and prescriptive analytics
   - business ai platform

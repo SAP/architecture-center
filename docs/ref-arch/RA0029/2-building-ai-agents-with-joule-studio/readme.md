@@ -13,6 +13,7 @@ keywords:
   - low-code
   - pro-code
   - sap knowledge graph
+  - sap leanix
   - generative ai hub
   - sap-managed runtime
   - business ai platform

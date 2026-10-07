@@ -18,7 +18,7 @@ keywords:
     - autonomous enterprise
     - enterprise intelligence
     - feedback loops
-    - north star architecture
+    - ai-native north star architecture
     - sap
     - business ai platform
 sidebar_label: Closing Note

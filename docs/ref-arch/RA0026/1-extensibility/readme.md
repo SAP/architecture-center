@@ -17,6 +17,7 @@ keywords:
   - robot orchestration platforms
   - vision-language-action models
   - multi-agent systems
+  - partner technologies
   - business ai platform
 sidebar_label: 'Extensibility, Interoperability, and Partner Technologies'
 image: img/ac-soc-med.png

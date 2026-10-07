@@ -12,6 +12,7 @@ keywords:
   - sap signavio process intelligence
   - ai agents
   - ai agent observability
+  - process mining
   - joule studio
   - opentelemetry
   - sap leanix agent hub

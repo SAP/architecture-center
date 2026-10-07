@@ -9,7 +9,9 @@ description: >-
 keywords:
   - sap
   - app-to-app integration
+  - app2app integration
   - sap integration suite
+  - sap s/4hana
   - cloud integration
   - transactional data exchange
   - asynchronous messaging

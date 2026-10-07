@@ -8,6 +8,7 @@ keywords:
   - sap
   - sap enterprise threat detection
   - sap security
+  - sap rise security
   - siem
   - soar
   - fortisiem

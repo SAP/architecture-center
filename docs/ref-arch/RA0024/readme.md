@@ -13,7 +13,7 @@ keywords:
   - sap s/4hana
   - sap successfactors
   - sap analytics cloud
-  - generative ai hub
+  - sap generative ai hub
   - document grounding
   - enterprise ai copilot
   - business ai platform

@@ -7,12 +7,12 @@ description: >-
 keywords:
     - sap
     - ai decision tree
-    - technology assessment
     - relational foundation models
     - sap-rpt-1
     - machine learning
     - llm
     - generative ai
+    - retrieval augmented generation
     - ai agents
     - agentic ai
     - when to use ai

@@ -14,6 +14,7 @@ keywords:
   - high availability
   - cloud sql for postgresql
   - multi-az deployment
+  - edge integration cell on gcp
   - business ai platform
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png

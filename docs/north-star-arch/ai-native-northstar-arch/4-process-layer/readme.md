@@ -12,15 +12,14 @@ keywords:
     - agentic orchestration
     - capability providers
     - joule studio
-    - reason-act-observe loop
     - agent sdk
     - low-code to pro-code agents
+    - agentic solutions
     - ai golden path
     - sap signavio
     - sap leanix
     - sap knowledge graph
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 4. Process Layer
 image: img/ac-soc-med.png

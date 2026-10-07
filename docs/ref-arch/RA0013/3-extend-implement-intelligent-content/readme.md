@@ -15,6 +15,7 @@ keywords:
   - sap datasphere
   - sap analytics cloud
   - lifecycle management
+  - sap databricks
   - business ai platform
 sidebar_label: Implementing and Extending SAP-managed domain content in SAP BDC
 image: img/ac-soc-med.png

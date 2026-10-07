@@ -12,15 +12,14 @@ keywords:
     - sap business data cloud
     - sap knowledge graph
     - sap datasphere
-    - sap analytics cloud
     - generative ai hub
     - sap-rpt-1
+    - joule
     - semantic grounding
     - context engineering
     - data products
     - system of context
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 5. Foundation Layer (AI & data)
 image: img/ac-soc-med.png

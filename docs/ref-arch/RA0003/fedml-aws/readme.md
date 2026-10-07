@@ -13,6 +13,9 @@ keywords:
   - machine learning
   - sap ai core
   - model training
+  - model deployment
+  - live sap data
+  - data federation
   - business ai platform
 sidebar_label: FedML-AWS
 image: img/ac-soc-med.png

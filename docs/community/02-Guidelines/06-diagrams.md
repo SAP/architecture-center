@@ -10,6 +10,7 @@ keywords:
     - drawio
     - mermaid
     - solution architecture
+    - sap solution diagrams
     - business ai platform
 image: img/ac-soc-med.png
 tags:

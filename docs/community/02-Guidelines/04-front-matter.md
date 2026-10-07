@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 slug: /community/front-matter
-title: Front Matter
+title: Front Matter Fields for Reference Architectures
 description: "Learn how to use front matter in SAP Architecture Center pages. This guide explains each YAML field—title, description, slug, keywords, tags, and more."
 sidebar_label: Front Matter
 keywords:

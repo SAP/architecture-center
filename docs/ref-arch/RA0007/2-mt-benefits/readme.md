@@ -8,6 +8,7 @@ keywords:
   - sap
   - multitenant applications
   - multitenancy benefits
+  - multitenant architecture
   - saas scalability
   - cost efficiency
   - sap hana cloud

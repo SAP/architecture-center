@@ -11,8 +11,10 @@ keywords:
   - sap integration suite
   - oauth authentication
   - identity authentication service
+  - external certificate authentication
   - failover authentication
   - single sign-on
+  - cloud integration
   - sap build work zone
   - business ai platform
 sidebar_label: Security

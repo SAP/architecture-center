@@ -9,7 +9,7 @@ keywords:
     - sap ai core
     - generative ai hub
     - cap
-    - rag
+    - retrieval augmented generation
     - hana vector engine
     - orchestration service
     - prompt engineering

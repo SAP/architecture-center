@@ -12,6 +12,7 @@ keywords:
   - scim user and group provisioning
   - identity directory
   - sap cloud identity access governance
+  - sap successfactors
   - identity management integration
   - business ai platform
 sidebar_label: Identity Lifecycle

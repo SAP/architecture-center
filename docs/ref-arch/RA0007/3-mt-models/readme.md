@@ -7,13 +7,13 @@ description: "Tenant models for multitenant SaaS on SAP BTP: provider and consum
 keywords:
   - sap
   - tenant model
-  - multitenant application
-  - saas architecture
+  - multitenant saas
   - data separation
   - schema separation
   - hdi container
   - sap hana cloud
   - sap service manager
+  - sap saas provisioning service
   - provider and consumer subaccount
   - tenant data isolation
   - business ai platform

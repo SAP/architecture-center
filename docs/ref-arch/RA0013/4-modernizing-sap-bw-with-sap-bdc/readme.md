@@ -13,9 +13,10 @@ keywords:
   - sap datasphere
   - sap databricks
   - data product generator
-  - data products
+  - sap analytics cloud
   - intelligent applications
   - zero-copy data sharing
+  - delta sharing
   - business ai platform
 sidebar_label: Modernizing SAP BW with SAP BDC
 image: img/ac-soc-med.png

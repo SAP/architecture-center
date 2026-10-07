@@ -13,6 +13,7 @@ keywords:
   - spatial data management
   - location intelligence
   - arcgis enterprise
+  - arcgis pro
   - sap analytics cloud
   - sap s/4hana
   - business ai platform

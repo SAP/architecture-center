@@ -12,9 +12,10 @@ keywords:
   - sap datasphere
   - fabric synapse real-time analytics
   - data federation
+  - replication flows
+  - sap s/4hana
   - sap analytics cloud
   - data fabric architecture
-  - real-time analytics
   - business ai platform
 sidebar_label: Integration with Azure data sources
 image: img/ac-soc-med.png

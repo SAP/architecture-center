@@ -12,7 +12,9 @@ keywords:
   - foundation models
   - large language models
   - prompt engineering
+  - prompt templates
   - orchestration service
+  - content filtering
   - cloud application programming model
   - business ai platform
 sidebar_label: Basic Prompting

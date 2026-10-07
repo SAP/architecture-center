@@ -14,6 +14,7 @@ keywords:
   - high availability
   - azure database for postgresql
   - multi-az deployment
+  - edge integration cell on azure
   - business ai platform
 sidebar_label: Edge Integration Cell on Azure
 image: img/ac-soc-med.png

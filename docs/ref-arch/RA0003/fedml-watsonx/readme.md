@@ -13,8 +13,9 @@ keywords:
   - sap fedml
   - sap datasphere
   - sap ai core
-  - machine learning
+  - machine learning workflows
   - model training
+  - model inferencing
   - federated machine learning
   - business ai platform
 sidebar_label: FedML-IBM watsonx

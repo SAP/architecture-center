@@ -14,6 +14,8 @@ keywords:
   - failover mechanisms
   - business continuity
   - sap hana cloud
+  - multi-region manager
+  - high availability
   - business ai platform
 sidebar_label: Multi-region resiliency
 image: img/ac-soc-med.png

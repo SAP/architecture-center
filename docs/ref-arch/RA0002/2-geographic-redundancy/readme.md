@@ -12,9 +12,11 @@ keywords:
   - business continuity
   - sap hana cloud
   - sap integration suite
+  - sap integration suite, advanced event mesh
   - sap build work zone
   - sap cloud application programming model
   - multi-region manager
+  - data replication
   - business ai platform
 sidebar_label: Geographic Redundancy
 image: img/ac-soc-med.png

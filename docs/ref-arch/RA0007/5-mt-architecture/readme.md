@@ -14,6 +14,7 @@ keywords:
   - sap s/4hana integration
   - api service broker
   - sap api management
+  - sap integration suite
   - tenant isolation
   - business ai platform
 sidebar_label: Reference Architecture

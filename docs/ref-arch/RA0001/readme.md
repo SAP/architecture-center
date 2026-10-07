@@ -12,7 +12,8 @@ keywords:
   - sap event mesh
   - sap cloud application event hub
   - sap integration suite
-  - sap cloud application programming model
+  - sap s/4hana
+  - clean core
   - business event processing
   - business ai platform
 sidebar_label: Designing Event-Driven Applications

@@ -12,6 +12,7 @@ keywords:
     - contribution
     - agents.md
     - claude code
+    - skills
     - business ai platform
 image: img/ac-soc-med.png
 tags:

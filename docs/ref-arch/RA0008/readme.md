@@ -15,6 +15,7 @@ keywords:
   - gcp
   - advanced event mesh
   - event-driven architecture
+  - sap pi/po modernization
   - data residency compliance
   - business ai platform
 sidebar_label: Edge Integration Cell on Hyperscalers

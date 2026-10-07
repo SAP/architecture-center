@@ -9,6 +9,7 @@ keywords:
  - github
  - cookie
  - privacy
+ - data protection
  - business ai platform
 image: img/ac-soc-med.png
 tags:

@@ -2,7 +2,7 @@
 id: 90f40f
 slug: /ref-arch/90f40f
 sidebar_position: 1
-title: Quality Inspection
+title: Quality Inspection with Embodied AI and Robotics
 description: "Discover how Embodied AI automates quality inspection across warehouse and manufacturing, using SAP Digital Manufacturing, S/4HANA, and EWM."
 keywords:
   - sap
@@ -10,6 +10,7 @@ keywords:
   - physical ai
   - robotics
   - quality inspection
+  - quality control
   - sap digital manufacturing
   - sap s/4hana manufacturing
   - sap extended warehouse management

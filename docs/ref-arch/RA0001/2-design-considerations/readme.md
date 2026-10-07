@@ -13,6 +13,9 @@ keywords:
   - event mesh capability
   - sap cloud application event hub
   - event broker
+  - event streaming
+  - solace pubsub+
+  - sap s/4hana
   - eventing services comparison
   - business ai platform
 sidebar_label: Design Considerations for EDA Applications

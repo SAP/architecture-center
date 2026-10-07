@@ -21,7 +21,6 @@ keywords:
     - agent trust framework
     - network effect
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 8. Ecosystem
 image: img/ac-soc-med.png

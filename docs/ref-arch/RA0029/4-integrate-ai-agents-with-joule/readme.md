@@ -11,8 +11,10 @@ keywords:
   - ai agents
   - joule
   - joule studio
+  - ai copilot
   - a2a
   - bring your own agent
+  - pro-code agents
   - joule scenario
   - joule dialog function
   - sap ai core

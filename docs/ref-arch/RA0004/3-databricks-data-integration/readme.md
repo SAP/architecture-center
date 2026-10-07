@@ -9,6 +9,7 @@ keywords:
   - sap business data cloud
   - bdc connect
   - databricks delta lake
+  - lakehouse architecture
   - delta sharing
   - sap datasphere
   - data federation

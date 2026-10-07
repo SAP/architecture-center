@@ -14,8 +14,8 @@ keywords:
   - snowflake cortex ai
   - snowflake ai data cloud
   - delta sharing
-  - data harmonization
-  - advanced analytics
+  - solution extension
+  - data products
   - business ai platform
 sidebar_label: Integration with Snowflake
 image: img/ac-soc-med.png

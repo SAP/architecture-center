@@ -4,7 +4,7 @@ sidebar_position: 13
 slug: /ai-native-north-star-architecture/acknowledgement
 sidebar_custom_props:
     category_index: []
-title: Acknowledgement
+title: Acknowledgements for the North Star Architecture
 description: "Acknowledgement of the core contributors from SAP who shaped the AI-native North Star architecture, listed alphabetically by last name."
 keywords:
     - acknowledgement

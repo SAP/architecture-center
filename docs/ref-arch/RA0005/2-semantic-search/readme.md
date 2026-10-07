@@ -9,11 +9,13 @@ keywords:
   - semantic search
   - embeddings
   - vector database
+  - sap hana cloud
   - sap hana cloud vector engine
   - generative ai hub
   - embedding models
   - similarity search
   - cosine similarity
+  - cloud application programming model
   - business ai platform
 sidebar_label: Embeddings & Semantic Search
 image: img/ac-soc-med.png

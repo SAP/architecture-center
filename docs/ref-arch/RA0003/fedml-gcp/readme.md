@@ -12,6 +12,9 @@ keywords:
   - sap datasphere
   - machine learning
   - live sap data
+  - model training
+  - model deployment
+  - data federation
   - business ai platform
 sidebar_label: FedML-GCP for Google Vertex AI
 image: img/ac-soc-med.png

@@ -15,6 +15,7 @@ keywords:
   - ai copilot
   - sap build work zone
   - cloud connector
+  - principal propagation
   - business ai platform
 sidebar_label: Joule in SAP S/4HANA Cloud
 image: img/ac-soc-med.png

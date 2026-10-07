@@ -16,6 +16,7 @@ keywords:
   - multi-cloud analytics
   - data federation
   - replication flows
+  - data products
   - business ai platform
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/ac-soc-med.png

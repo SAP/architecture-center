@@ -16,6 +16,7 @@ keywords:
   - api governance
   - business data graph
   - api lifecycle management
+  - api monetization
   - omni-channel api access
   - business ai platform
 sidebar_label: API Managed Integration

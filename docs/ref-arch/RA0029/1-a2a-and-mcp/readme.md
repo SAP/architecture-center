@@ -19,6 +19,7 @@ keywords:
   - joule
   - agent gateway
   - mcp gateway
+  - sap knowledge graph
   - business ai platform
 sidebar_label: A2A and MCP for Interoperability
 image: img/ac-soc-med.png

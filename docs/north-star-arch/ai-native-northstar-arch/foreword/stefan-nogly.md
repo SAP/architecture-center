@@ -16,6 +16,7 @@ keywords:
     - agentic systems
     - sap joule
     - sap fiori
+    - natural language ux
     - enterprise ai
     - ai governance
     - nsa

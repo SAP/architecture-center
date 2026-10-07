@@ -15,6 +15,7 @@ keywords:
   - saml
   - oidc
   - scim provisioning
+  - identity and access management
   - unity catalog
   - zero trust
   - business ai platform

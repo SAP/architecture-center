@@ -8,6 +8,7 @@ description: >-
   similarity search and advanced AI patterns.
 keywords:
   - sap
+  - generative ai
   - generative ai hub
   - sap ai core
   - sap hana cloud vector engine

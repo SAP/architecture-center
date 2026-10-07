@@ -15,6 +15,7 @@ keywords:
   - zero-copy data sharing
   - ai and machine learning
   - data engineering
+  - data products
   - bdc connect
   - business ai platform
 sidebar_label: SAP Databricks in SAP BDC

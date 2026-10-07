@@ -11,8 +11,10 @@ keywords:
     - cap
     - cloud application programming model
     - tenant isolation
+    - data isolation
     - saas application scalability
     - tenant onboarding
+    - multitenant application on sap
     - business ai platform
 sidebar_label: Multitenant SaaS Application using CAP
 image: img/ac-soc-med.png

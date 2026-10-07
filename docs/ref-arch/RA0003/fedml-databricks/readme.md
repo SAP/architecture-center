@@ -15,6 +15,9 @@ keywords:
   - pyspark
   - live sap data
   - delta lake
+  - model training
+  - model deployment
+  - data federation
   - business ai platform
 sidebar_label: FedML-Databricks
 image: img/ac-soc-med.png
