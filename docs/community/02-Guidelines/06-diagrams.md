@@ -20,8 +20,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: jmsrpp
-  date: 2025-05-19
+  author: julian-schambeck
+  date: 2026-10-07
 ---
 
 This guide provides best practices for creating and contributing diagrams to the SAP Architecture Center. It covers **Draw.io diagrams** for SAP solution architectures and **Mermaid diagrams** for flow-based visualizations. Follow these guidelines to ensure your diagrams are consistent, visually appealing, and easy to understand.

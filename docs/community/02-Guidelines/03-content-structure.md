@@ -18,8 +18,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: cernus76
-  date: 2025-05-19
+  author: julian-schambeck
+  date: 2026-10-07
 ---
 
 The content structure has been defined and is identical for all reference architectures.

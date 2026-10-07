@@ -23,8 +23,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: jmsrpp
-    date: 2025-06-20
+    author: julian-schambeck
+    date: 2026-10-07
 ---
 
 A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and utility classes for:

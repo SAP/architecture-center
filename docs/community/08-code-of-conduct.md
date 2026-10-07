@@ -18,8 +18,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: navyakhurana
-  date: 2025-05-19
+  author: julian-schambeck
+  date: 2026-10-07
 ---
 
 SAP adopts the [Contributor's Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/)
