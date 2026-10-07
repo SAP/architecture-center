@@ -3,15 +3,18 @@ id: a71aa9
 slug: /ref-arch/a71aa9
 sidebar_position: 2
 title: Intelligent content in SAP BDC
-description: >-
-  Configure Intelligent Applications in SAP BDC for streamlined analytics using
-  prebuilt data products and stories.
+description: "Explore intelligent content in SAP Business Data Cloud: AI-powered apps with prebuilt data products, Datasphere models, and Analytics Cloud dashboards."
 keywords:
   - sap
-  - intelligent apps
-  - business data cloud
-  - prebuilt analytics solutions
-  - modernized configurations
+  - intelligent content
+  - sap business data cloud
+  - intelligent applications
+  - prebuilt analytics
+  - ai-powered applications
+  - sap analytics cloud
+  - sap datasphere
+  - data products
+  - business ai platform
 sidebar_label: Intelligent content in SAP BDC
 image: img/ac-soc-med.png
 tags:

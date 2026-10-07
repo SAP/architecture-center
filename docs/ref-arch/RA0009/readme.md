@@ -2,17 +2,22 @@
 id: c1e07f
 slug: /ref-arch/c1e07f
 sidebar_position: 100
-title: Establish a central inbox with SAP Task Center
+title: "SAP Task Center: Central Inbox for Unified Tasks"
 description: >-
   Learn to set up SAP Task Center on SAP BTP. Explore its architecture,
   components, and workflows for a unified task management experience.
 keywords:
   - sap
-  - btp
-  - cloud
   - sap task center
   - central inbox
-  - architecture flow
+  - unified task management
+  - sap cloud identity services
+  - identity authentication
+  - task providers
+  - sap build work zone
+  - global user id
+  - sap s/4hana
+  - business ai platform
 sidebar_label: Establish a central inbox with SAP Task Center
 image: img/ac-soc-med.png
 tags:
@@ -51,7 +56,7 @@ This reference architecture also refers to the Process Automation cross use case
 
 The reference architecture diagram shows the SAP Task Center integration with various task providers.
 
-1. For identity management and authentication, the SAP Task Center tenant relies on SAP Cloud Identity Services-Identity Authentication as the identity provider (IdP). SAP Cloud Identity Services serve as central fascade for the identity & access management. The SAP Cloud Identity Services - Identity Directory (IdDS) stores the SAP identities and the SAP Cloud Identity Services - Authentication (IAS) allow a secure authentication or a federation with third-party Identity Providers.
+1. For identity management and authentication, the SAP Task Center tenant relies on SAP Cloud Identity Services-Identity Authentication as the identity provider (IdP). SAP Cloud Identity Services serve as central facade for the identity & access management. The SAP Cloud Identity Services - Identity Directory (IdDS) stores the SAP identities and the SAP Cloud Identity Services - Authentication (IAS) allow a secure authentication or a federation with third-party Identity Providers.
 
 2. Each task provider, which is about to be integrated with SAP Task Center, must be able also to work with Identity Authentication as a hard prerequisite. To integrate а task provider with SAP Task Center, the following general guidelines should be followed:
 

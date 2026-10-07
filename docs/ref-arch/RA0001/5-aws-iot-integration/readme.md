@@ -2,15 +2,20 @@
 id: '448754'
 slug: /ref-arch/448754
 sidebar_position: 1
-title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
-description: >-
-    Create event-driven architecture with AWS IoT SiteWise and SAP BTP for
-    seamless business process integration.
+title: AWS IoT SiteWise Integration with SAP BTP
+description: "Build an event-driven architecture connecting AWS IoT SiteWise to SAP BTP and SAP S/4HANA, triggering plant maintenance notifications via advanced event mesh."
 keywords:
     - sap
-    - aws iot integration
-    - event-to-business actions
-    - cloud application programming
+    - aws iot sitewise integration
+    - events-to-business actions framework
+    - sap integration suite advanced event mesh
+    - sap s/4hana
+    - sap ai core
+    - amazon bedrock
+    - generative ai hub
+    - sap private link service
+    - plant maintenance notification
+    - business ai platform
 sidebar_label: Integration with Amazon Web Services
 image: img/ac-soc-med.png
 tags:
@@ -81,7 +86,7 @@ These are the technical prerequisites for integration between AWS IoT SiteWise, 
 - **SAP Destination Service**
     - To find the destination information required to access a remote service or system from your extension application.
 - **SAP Private Link Service**
-    - To establishe a private connection between selected SAP BTP services and selected services in your own IaaS provider accounts.
+    - To establish a private connection between selected SAP BTP services and selected services in your own IaaS provider accounts.
 - **SAP AI Core**
     - SAP AI Core supports full lifecycle management of AI scenarios and also provides access to generative AI capabilities of LLM Models like Amazon Bedrock via the generative AI hub.
 - **SAP AI Launchpad**

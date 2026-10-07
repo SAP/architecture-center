@@ -10,11 +10,13 @@ keywords:
   - sap
   - ai agents
   - joule
-  - integration
   - joule studio
   - a2a
-  - pro-code
-  - low-code
+  - bring your own agent
+  - joule scenario
+  - joule dialog function
+  - sap ai core
+  - business ai platform
 sidebar_label: Integrating AI Agents with Joule
 image: img/ac-soc-med.png
 tags:

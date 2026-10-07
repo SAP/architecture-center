@@ -3,20 +3,20 @@ id: 053d2b
 slug: /ref-arch/053d2b
 sidebar_position: 5
 title: Integration with Snowflake
-description: >-
-  Integrate SAP data with Snowflake seamlessly using SAP BDC Connect and SAP
-  Snowflake
+description: "Integrate SAP data with Snowflake using SAP Snowflake and BDC Connect for zero-copy, bidirectional sharing of governed SAP data products."
 keywords:
   - sap
-  - cloud performance
   - snowflake
+  - sap snowflake
+  - sap business data cloud
+  - bdc connect for snowflake
+  - zero-copy data sharing
+  - snowflake cortex ai
+  - snowflake ai data cloud
+  - delta sharing
   - data harmonization
   - advanced analytics
-  - bdc connect
-  - delta share
-  - sap snowflake
-  - enterprise snowflake
-  - bdc connect for snowflake
+  - business ai platform
 sidebar_label: Integration with Snowflake
 image: img/ac-soc-med.png
 tags:

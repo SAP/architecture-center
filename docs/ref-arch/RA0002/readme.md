@@ -2,16 +2,19 @@
 id: bbfc34
 slug: /ref-arch/bbfc34
 sidebar_position: 30
-title: Architecting Multi-Region HA/DR resiliency patterns
-description: >-
-  Architect multi-region resiliency for SAP solutions with strategies for high
-  availability and disaster recovery.
+title: Multi-Region HA/DR Resiliency for SAP BTP
+description: "Architect multi-region high availability and disaster recovery for SAP BTP, with reference patterns for failover, data and event synchronization."
 keywords:
   - sap
   - multi-region architecture
-  - ha dr strategies
-  - business reliability
+  - high availability and disaster recovery
   - failover management
+  - business continuity
+  - sap integration suite advanced event mesh
+  - sap hana cloud
+  - dns load balancing
+  - sap custom domain
+  - business ai platform
 sidebar_label: Architecting Multi-Region Resiliency
 image: img/ac-soc-med.png
 tags:
@@ -55,7 +58,7 @@ SAP BTP offers a global infrastructure that allows deployment across various reg
 
 ### Workflow
 
-The reference architecture diagram shows the Muti-Region Resilient architecture for the SAP BTP Services and the applications built on SAP BTP.
+The reference architecture diagram shows the Multi-Region Resilient architecture for the SAP BTP Services and the applications built on SAP BTP.
 
 1. DNS-based load balancers like Azure Traffic Manager, Amazon Route 53 or Google Cloud DNS oversee the health of application endpoints distributed across multiple regions (two SAP BTP subaccounts). They employ DNS-based load balancing to direct user traffic to the operational service endpoint by updating DNS records accordingly. Users access the application via the URL provided by the load balancer.
 2. Implementing a multi-region architecture requires two different SAP BTP subaccounts in separate hyperscaler regions. If one subaccount experiences service interruptions, the other can take over without disrupting operations. Using the SAP Custom Domain service is crucial to maintain a single, customized URL for a consistent user experience.

@@ -3,16 +3,20 @@ id: 8063d2
 slug: /ref-arch/8063d2
 sidebar_position: 3
 title: Retrieval Augmented Generation (RAG)
-description: >-
-  Improve LLM accuracy with Retrieval Augmented Generation (RAG) by integrating
-  external data for enhanced precision and reduced hallucinations.
+description: "Ground LLMs with Retrieval Augmented Generation (RAG) on SAP BTP using SAP HANA Cloud's Vector Engine and SAP AI Core grounding to reduce hallucinations."
 keywords:
   - sap
-  - ai
   - retrieval augmented generation
-  - LLM control
-  - generation accuracy
-  - cross-domain integration
+  - rag
+  - sap hana cloud vector engine
+  - sap ai core grounding
+  - embeddings
+  - similarity search
+  - large language models
+  - multi-modal rag
+  - cap llm plugin
+  - joule document grounding
+  - business ai platform
 sidebar_label: Retrieval Augmented Generation (RAG)
 image: img/ac-soc-med.png
 tags:
@@ -128,7 +132,7 @@ When there is a need for unique features in a RAG application with complex requi
 **Knowledge Ingestion**
 This is the phase where the external documents and the true source documents are collected and processed to enhance the LLM’s knowledge base.
 **_Source and Format_** When the source document is unstructured, there could be pre-processing steps needed or there might arise a need for the use of third party document ingestors like [NLM Ingestor](https://github.com/nlmatics/nlm-ingestor) for example.
-**_Preparation_** In order to prepare the data for chunking and embedding, a pre-step called prepartion is done. Synthetic Data Generation could be an alternative for situations where data is scarse.
+**_Preparation_** In order to prepare the data for chunking and embedding, a pre-step called preparation is done. Synthetic Data Generation could be an alternative for situations where data is scarce.
 **_Chunking and Embedding_** Custom CAP based application can benefit from the CAP LLM Plugin for efficient and faster development. SAP own RAG solution (work in progress) has detailed guide on grounding and chunking and helper functions to build a complete RAG application.
 
 **Knowledge Retrieval**
@@ -136,18 +140,18 @@ In this phase, the user query triggers the retrieval from the embedding storage 
 **_Storage_** Advanced requirements could demand the use of [Knowledge Graph](https://www.youtube.com/watch?v=PQrFjthwOWQ).
 [LangChain](https://python.langchain.com/v0.2/docs/tutorials/rag/) also has guidance on best approaches to store the embeddings.
 
-**_Pre-Retrieval_** When there are multiple source documents the intent determination in advanced RAG applications will demand pre-retreival steps like intent classification. Also when handling sensitive data, anonymization is mandatory. The CAP LLM Plugin also supports anonymization.
+**_Pre-Retrieval_** When there are multiple source documents the intent determination in advanced RAG applications will demand pre-retrieval steps like intent classification. Also when handling sensitive data, anonymization is mandatory. The CAP LLM Plugin also supports anonymization.
 
 **_Search Algorithm_** Apart from the standard search algorithms (like Cosine) supported by HANA Vector Engine, custom logic to do Hybrid search for complex requirements is also possible.
 
 **Context Augmentation**
 The context of follow up questions, the length of the context window, and the summarization of the context are some of the steps in this phase.
 
-**_Context Window_** Keeping a tab on the context window ensures that the overall cost of the advanced RAG application doesn't increase unecessarily. Context is also stored to retrieve the conversation history.
+**_Context Window_** Keeping a tab on the context window ensures that the overall cost of the advanced RAG application doesn't increase unnecessarily. Context is also stored to retrieve the conversation history.
 
 **_Context Tuning_** Maintaining the context for follow-up question to efficiently as well as accurately answer the subsequent questions is part of tuning.
 
-**_Post Retrieval_** Techniques like [reranking](https://cohere.com/rerank) of the retreived results will improve the efficiency of the solution.
+**_Post Retrieval_** Techniques like [reranking](https://cohere.com/rerank) of the retrieved results will improve the efficiency of the solution.
 
 **Generation**
 The main part of the RAG core logic is the generation of the response.

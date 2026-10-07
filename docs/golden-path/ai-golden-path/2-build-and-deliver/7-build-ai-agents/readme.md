@@ -7,13 +7,17 @@ description: >-
 keywords:
     - sap
     - ai agents
+    - agentic ai
     - joule
     - joule studio
+    - sap cloud sdk for ai
     - a2a
-    - mcp
+    - model context protocol
+    - generative ai hub
+    - sap ai core
     - pro-code
     - low-code
-    - sap cloud sdk for ai
+    - business ai platform
 sidebar_label: Build AI Agents
 image: img/ac-soc-med.png
 tags:
@@ -61,7 +65,7 @@ For many enterprise use cases, the fastest path to a production-ready agent is t
 **Resources:**
 
 - **[SAP Architecture Center: Low-Code AI Agents with Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/2)**
-- **[SAP Architecture Center: Extend Joule with Joule Studi](https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc/3)**
+- **[SAP Architecture Center: Extend Joule with Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc/3)**
 
 ### Pro-Code Agents with SAP Cloud SDK for AI
 

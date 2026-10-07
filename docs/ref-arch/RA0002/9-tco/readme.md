@@ -2,16 +2,22 @@
 id: d7ab1e
 slug: /ref-arch/d7ab1e
 sidebar_position: 1
-title: Cost of Ownership
+title: Cost Optimization for Multi-Region SAP BTP
 description: >-
   Explore cost optimization strategies for multi-region SAP BTP setups, reducing
   inherent expenses without compromising service.
 keywords:
   - sap
   - cost optimization
+  - total cost of ownership
   - multi-region architecture
-  - cloud compliance
-  - efficient setups
+  - active-active setup
+  - sap integration suite
+  - terraform automation
+  - sap ci/cd
+  - cloud transport management
+  - disaster recovery
+  - business ai platform
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png
 tags:

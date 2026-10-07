@@ -3,17 +3,21 @@ id: 9673f9
 slug: /ref-arch/9673f9
 sidebar_position: 1
 title: 'Extensibility, Interoperability, and Partner Technologies'
-description: >-
-  Discover how SAP leverages its partner ecosystem to deliver Embodied AI at
-  scale. Learn how partners and customers can extend Embodied AI for their use
-  cases and get insights into interoperability.
+description: "SAP's Embodied AI architecture is built for extensibility and interoperability, letting partners extend it with custom connectors, hardware, and AI models."
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - extensibility
+  - interoperability
+  - sap ai core
+  - model context protocol
+  - agent2agent protocol
+  - robot orchestration platforms
+  - vision-language-action models
+  - multi-agent systems
+  - business ai platform
 sidebar_label: 'Extensibility, Interoperability, and Partner Technologies'
 image: img/ac-soc-med.png
 tags:

@@ -6,13 +6,17 @@ description: >-
   covering relational foundation models, classic ML, LLMs and AI agents.
 keywords:
     - sap
-    - ai
-    - decision tree
-    - rpt-1
+    - ai decision tree
+    - technology assessment
+    - relational foundation models
+    - sap-rpt-1
     - machine learning
     - llm
+    - generative ai
     - ai agents
-    - technology assessment
+    - agentic ai
+    - when to use ai
+    - business ai platform
 sidebar_label: Technology Decision Tree
 image: img/ac-soc-med.png
 tags:
@@ -91,7 +95,7 @@ Building AI-powered systems today involves a growing range of tools and paradigm
 * Recommending offers.
 
 **Why choose RPT:**
-It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically deliverying improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
+It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically delivering improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
 
 ### 2. Classic Machine Learning (ML)
 
@@ -242,7 +246,7 @@ flowchart TD
     Start --> Q1{"Does your problem involve:<br>- Tabular/Relational Data?"}
     Q1 -->|Yes|Q2
     Q1 -->|No|CustomModel
-    Q2{"Can you task be done with<br>classification and/or<br>regressio and your<br>data can be represented as a<br>single table?"}
+    Q2{"Can your task be done with<br>classification and/or<br>regression and your<br>data can be represented as a<br>single table?"}
     Q2 -->|Yes|RPT
     RPT("⚡ RFM Indicator:<br>Case suitable for<br>relational foundation<br>model")
     RPT --> R1

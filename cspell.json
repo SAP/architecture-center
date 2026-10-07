@@ -8,14 +8,16 @@
     { "name": "people", "path": ".cspell/people.txt", "addWords": true }
   ],
   "dictionaries": ["sap", "industry", "partners", "people"],
-  "words": ["RAXXXX", "claudeignore"],
+  "words": ["RAXXXX", "claudeignore", "Conv", "Ashburn", "gingershot"],
   "ignoreRegExpList": [
     "Urls",
     "Email",
     "HexValues",
     "FrontMatterTags",
     "FrontMatterContributors",
-    "FrontMatterAuthor"
+    "FrontMatterAuthor",
+    "FrontMatterId",
+    "FrontMatterSlug"
   ],
   "patterns": [
     {
@@ -29,6 +31,14 @@
     {
       "name": "FrontMatterAuthor",
       "pattern": "/^[ \\t]*author:[^\\n]*$/gm"
+    },
+    {
+      "name": "FrontMatterId",
+      "pattern": "/^id:[^\\n]*$/gm"
+    },
+    {
+      "name": "FrontMatterSlug",
+      "pattern": "/^slug:[^\\n]*$/gm"
     }
   ],
   "ignorePaths": [

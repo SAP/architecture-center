@@ -1,12 +1,15 @@
 ---
 sidebar_position: 5
 slug: /community/more-github-sap
-title: More information on GitHub and SAP
-description: More information on GitHub and SAP.
+title: GitHub and SAP Cookie and Privacy Policies
+description: "Links to GitHub and SAP policies on cookies and privacy, including their cookie notices, privacy statements, and account privacy settings."
 sidebar_label: More information on GitHub and SAP
 keywords:
  - sap
  - github
+ - cookie
+ - privacy
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

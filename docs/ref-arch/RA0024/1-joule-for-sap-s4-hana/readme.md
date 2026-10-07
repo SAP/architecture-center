@@ -2,14 +2,20 @@
 id: ebe268
 slug: /ref-arch/ebe268
 sidebar_position: 1
-title: >-
-  Joule in SAP S/4HANA Cloud Private Edition and SAP S/4HANA Cloud Public
-  Edition
-description: Reference Architectures for Joule and SAP S/4HANA(PCE and Public Cloud)
+title: Joule in SAP S/4HANA Cloud Private & Public Edition
+description: "Reference architecture for integrating Joule, SAP's conversational AI copilot, into SAP S/4HANA Cloud Private and Public Edition via SAP BTP."
 keywords:
   - sap
   - joule
-  - ai
+  - conversational ai
+  - sap s/4hana cloud private edition
+  - sap s/4hana cloud public edition
+  - rise with sap
+  - sap fiori launchpad
+  - ai copilot
+  - sap build work zone
+  - cloud connector
+  - business ai platform
 sidebar_label: Joule in SAP S/4HANA Cloud
 image: img/ac-soc-med.png
 tags:

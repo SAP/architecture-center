@@ -2,27 +2,22 @@
 id: a3e184
 slug: /ref-arch/a3e184
 sidebar_position: 280
-title: >-
-  Log-Driven Security Operations with SAP Enterprise Threat Detection and
-  SIEM/SOAR Platforms
-description: >-
-  This reference architecture shows how SAP Enterprise Threat Detection provides
-  log-driven security signals that are correlated in FortiSIEM and orchestrated
-  through FortiSOAR to enable centralized monitoring incident investigation and
-  automated response.
+title: SAP Enterprise Threat Detection with SIEM and SOAR
+description: "Integrate SAP Enterprise Threat Detection with SIEM and SOAR platforms to correlate SAP security signals and automate enterprise-wide incident response."
 keywords:
+  - sap
   - sap enterprise threat detection
   - sap security
   - siem
   - soar
+  - fortisiem
+  - fortisoar
   - security operations
-  - soc architecture
   - log-driven security
-  - event correlation
+  - cross-domain correlation
   - incident response
-  - security automation
-  - hybrid security architecture
-  - cloud security monitoring
+  - hybrid sap landscape security
+  - business ai platform
 sidebar_label: >-
   Log-Driven Security Operations with SAP Enterprise Threat Detection and
   SIEM/SOAR Platforms
