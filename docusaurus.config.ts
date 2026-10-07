@@ -2,6 +2,7 @@ const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
 import { configRedirects } from './src/constant/config-plugin-client-redirects';
+import { parseFrontMatter } from './src/utils/newUpdatedFrontMatter';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 require('dotenv').config();
@@ -32,6 +33,8 @@ const config: Config = {
             onBrokenMarkdownLinks: 'throw',
             onBrokenMarkdownImages: 'throw',
         },
+        // Auto-applies the dynamic `new-updated` tag to recently changed docs.
+        parseFrontMatter,
     },
     customFields: {
         validatorApiUrl: process.env.VALIDATOR_API_URL,
