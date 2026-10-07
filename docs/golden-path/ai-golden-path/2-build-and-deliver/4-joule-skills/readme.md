@@ -1,9 +1,7 @@
 ---
 sidebar_position: 4
-title: Joule Skills
-description: >-
-  Build, deploy and run custom Joule Skills using Joule Studio on SAP BTP for extending
-  SAP Joule capabilities.
+title: Joule Skills with Joule Studio on SAP BTP
+description: "Build, deploy and run custom Joule Skills with Joule Studio on SAP BTP, a low-code way to extend SAP Joule across SAP S/4HANA, SuccessFactors and Ariba."
 keywords:
     - sap
     - joule
@@ -11,6 +9,12 @@ keywords:
     - joule skills
     - sap build
     - low-code
+    - conversational ai
+    - sap build process automation
+    - odata
+    - sap s/4hana
+    - sap successfactors
+    - business ai platform
 sidebar_label: Joule Skills
 image: img/ac-soc-med.png
 tags:

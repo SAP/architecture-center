@@ -3,15 +3,19 @@ id: b86487
 slug: /ref-arch/b86487
 sidebar_position: 190
 title: Integrate and Extend with SAP Build Process Automation
-description: >-
-  Automate processes with SAP Build Process Automation, integrating workflows
-  across SAP and non-SAP systems.
+description: "Automate and extend SAP and non-SAP processes with SAP Build Process Automation using low-code, no-code workflow management and robotic process automation."
 keywords:
   - sap
-  - build process automation
-  - workflow integration
+  - sap build process automation
   - robotic process automation
-  - no-code automation
+  - low-code no-code automation
+  - business process automation
+  - workflow management
+  - citizen developer
+  - process automation across sap and non-sap systems
+  - sap task center
+  - sap integration suite
+  - business ai platform
 sidebar_label: Integrate and Extend with SAP Build Process Automation
 image: img/ac-soc-med.png
 tags:

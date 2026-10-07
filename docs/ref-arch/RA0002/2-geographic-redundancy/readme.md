@@ -3,14 +3,19 @@ id: cbc081
 slug: /ref-arch/cbc081
 sidebar_position: 1
 title: Geographic Redundancy
-description: >-
-  Ensure continuous service with geographic redundancy for SAP BTP, distributing
-  resources across multiple locations.
+description: "Ensure continuous service with geographic redundancy for SAP BTP, distributing data and resources across multiple regions for disaster recovery."
 keywords:
   - sap
   - geographic redundancy
+  - multi-region architecture
   - disaster recovery
-  - business continuity solutions
+  - business continuity
+  - sap hana cloud
+  - sap integration suite
+  - sap build work zone
+  - sap cloud application programming model
+  - multi-region manager
+  - business ai platform
 sidebar_label: Geographic Redundancy
 image: img/ac-soc-med.png
 tags:

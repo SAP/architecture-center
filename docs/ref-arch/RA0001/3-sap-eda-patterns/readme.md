@@ -2,12 +2,20 @@
 id: 6de922
 slug: /ref-arch/6de922
 sidebar_position: 1
-title: EDA Sample Use Cases
-description: Event-driven architecture use cases to highlight real-world applications.
+title: SAP Event-Driven Architecture Use Cases
+description: "Real-world event-driven architecture use cases for SAP ERP and S/4HANA, covering event enablement, real-time order processing, and BTP extensions."
 keywords:
   - sap
-  - eda
-  - integration
+  - event-driven architecture
+  - eda use cases
+  - sap s/4hana business events
+  - sap erp
+  - sap successfactors
+  - sap cloud application event hub
+  - sap event mesh
+  - event enablement
+  - real-time order processing
+  - business ai platform
 sidebar_label: EDA Sample Use Cases
 image: img/ac-soc-med.png
 tags:

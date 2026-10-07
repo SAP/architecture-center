@@ -8,12 +8,17 @@ description: >-
   picking, placing, sorting, and other warehouse tasks.
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - warehouse automation
+  - warehouse pick and place
+  - sap extended warehouse management
+  - sap logistics management
+  - humanoid robots
+  - cycle counting
   - logistics
+  - business ai platform
 sidebar_label: Warehouse Pick & Place
 image: img/ac-soc-med.png
 tags:

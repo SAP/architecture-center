@@ -3,16 +3,20 @@ id: 14d25a
 slug: /ref-arch/14d25a
 sidebar_position: 290
 title: SAP SuccessFactors Suite
-description: Overview of the SAP SuccessFactors modules and how data flows between them
+description: "Explore the SAP SuccessFactors HXM suite architecture, its core BizX modules, and how data flows across Employee Central, payroll, and talent solutions."
 keywords:
-  - ref-arch
-  - successfactors
+  - sap
+  - sap successfactors
+  - human experience management
+  - hxm
   - hcm
   - human capital management
-  - HR
   - talent management
   - payroll
-  - employee experience
+  - employee central
+  - employee central payroll
+  - joule
+  - business ai platform
 sidebar_label: SAP SuccessFactors Suite
 image: img/logo.svg
 tags:

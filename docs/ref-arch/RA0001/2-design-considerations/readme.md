@@ -3,16 +3,18 @@ id: ee6233
 slug: /ref-arch/ee6233
 sidebar_position: 1
 title: Design Considerations for EDA Applications
-description: >-
-  Understand key challenges, key design patterns and key considerations from
-  platform, technical services,when building event-driven architecture based
-  applications.
+description: "Key design considerations for building event-driven architecture apps on SAP BTP, comparing advanced event mesh and SAP Cloud Application Event Hub."
 keywords:
   - sap
-  - event-driven patterns
-  - eda applications
-  - cloud design considerations
-  - architecture challenges
+  - event-driven architecture
+  - eda design considerations
+  - sap integration suite
+  - advanced event mesh
+  - event mesh capability
+  - sap cloud application event hub
+  - event broker
+  - eventing services comparison
+  - business ai platform
 sidebar_label: Design Considerations for EDA Applications
 image: img/ac-soc-med.png
 tags:

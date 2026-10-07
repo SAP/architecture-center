@@ -1,12 +1,15 @@
 ---
 sidebar_position: 2
 slug: /community/privacy
-title: Privacy Statement
-description: The SAP Architecture Center (this site) - Privacy Statement.
+title: Privacy Statement | SAP Architecture Center
+description: "How SAP processes your personal data on the SAP Architecture Center, the legal bases, your data protection rights, and country-specific privacy provisions."
 sidebar_label: Privacy Statement
 keywords:
  - sap
- - privacy
+ - privacy statement
+ - data protection
+ - gdpr
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -53,7 +56,6 @@ When ensuring compliance, SAP processes your Personal Data if and to the extend 
 ### What categories of Personal Data does SAP process?
 SAP processes the following categories of Personal Data: 
 - **SAP AC Quick Start**: GitHub Username, GitHub Public Profile Information (e.g., name, profile picture, email if made public), Repository Access Token
-- **SAP AC Architecture Validator**: SAP User ID, SAP Public Profile Information (e.g., name, profile picture, email if made public)
 
 If SAP processes special categories of Personal Data under applicable law, SAP will ask you for your consent in a specific declaration.
 

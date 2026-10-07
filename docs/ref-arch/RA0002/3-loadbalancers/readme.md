@@ -2,16 +2,20 @@
 id: b66add
 slug: /ref-arch/b66add
 sidebar_position: 1
-title: Load Balancers
-description: >-
-  Enhance SAP BTP setups with intelligent load balancing for optimal
-  performance, fault tolerance, and seamless operations.
+title: Load Balancers for Multi-Region SAP BTP
+description: "Compare DNS-based and global load balancers for distributing traffic across regions in multi-region SAP BTP, using the SAP Custom Domain service."
 keywords:
   - sap
   - load balancing
-  - multi-region setup
+  - multi-region architecture
+  - dns-based load balancing
+  - global load balancers
   - traffic distribution
-  - business reliability
+  - sap custom domain service
+  - high availability and disaster recovery
+  - failover
+  - health checks
+  - business ai platform
 sidebar_label: Load Balancers
 image: img/ac-soc-med.png
 tags:

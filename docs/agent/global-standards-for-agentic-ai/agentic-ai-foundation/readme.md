@@ -3,19 +3,20 @@ id: id-global-standards-for-agentic-ai-2
 slug: /global-standards-for-agentic-ai/agentic-ai-foundation
 sidebar_position: 1
 title: Agentic AI Foundation
-description: >-
-    SAP's central reference for AI standardization, covering its AI-First strategy, open standards adoption (MCP, A2A, OpenTelemetry), and active contributions to the Agentic AI Foundation (AAIF), A2A Project, and IETF.
+description: "How SAP contributes to the Agentic AI Foundation (AAIF), the Linux Foundation body governing open agent standards like MCP, goose, and AGENTS.md."
 keywords:
-    - AI standards at SAP
-    - architecture
-    - AI
-    - artificial intelligence
+    - sap
+    - ai standards at sap
+    - agentic ai foundation
+    - aaif
+    - model context protocol
+    - mcp
+    - agentic ai
+    - open standards
+    - ai interoperability
     - governance
-    - security
-    - compliance
-    - north star architecture
-    - nsa
-    - golden path
+    - linux foundation
+    - business ai platform
 sidebar_label: Agentic AI Foundation
 image: img/ac-soc-med.png
 tags:

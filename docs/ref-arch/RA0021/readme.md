@@ -2,16 +2,22 @@
 id: 6501d5
 slug: /ref-arch/6501d5
 sidebar_position: 220
-title: Application to Application Integration
+title: App2App Integration with SAP Integration Suite
 description: >-
   Enable seamless App2App integration with SAP Integration Suite for near
   real-time transactional data exchange across internal processes.
 keywords:
   - sap
-  - application interoperability
   - app-to-app integration
+  - sap integration suite
+  - cloud integration
   - transactional data exchange
-  - integration suite
+  - asynchronous messaging
+  - edge integration cell
+  - process integration
+  - application interoperability
+  - sap integration solution advisory methodology
+  - business ai platform
 sidebar_label: Application to Application Integration
 image: img/ac-soc-med.png
 tags:

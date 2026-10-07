@@ -3,13 +3,20 @@ id: b2b40e
 slug: /ref-arch/b2b40e
 sidebar_position: 2
 title: Data Extraction and Enrichment Patterns for SAP Document AI
-description: >-
-  Design intelligent extraction architectures with schema configuration,
-  confidence scoring,  master data enrichment, and business rule validation for
-  enterprise document processing.
+description: "Design SAP Document AI enrichment patterns: schema-based extraction, confidence scoring, master data lookups, business rules, and human-in-the-loop review."
 keywords:
-  - appdev
+  - sap
   - genai
+  - sap document ai
+  - intelligent document processing
+  - data extraction
+  - master data enrichment
+  - confidence scoring
+  - human-in-the-loop document validation
+  - business rule validation
+  - sap s/4hana
+  - sap integration suite
+  - business ai platform
 sidebar_label: Data Extraction and Enrichment Patterns for SAP Document AI
 image: img/logo.svg
 tags:

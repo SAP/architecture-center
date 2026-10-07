@@ -3,16 +3,18 @@ id: bd327f
 slug: /ref-arch/bd327f
 sidebar_position: 2
 title: Secure Service Consumption on GCP
-description: >-
-  Configure secure, keyless access to GCP resources using OIDC-based Workload
-  Identity Federation. Workloads  authenticate without storing service account
-  keys.
+description: "Configure secure, keyless access to GCP resources using OIDC-based Workload Identity Federation. Workloads authenticate without storing service account keys."
 keywords:
+  - sap
   - gcp
+  - secure service consumption on gcp
+  - workload identity federation
   - oidc federation
-  - workload identity
-  - secure keyless access
-  - sap btp security
+  - sap identity authentication service
+  - gcp service account impersonation
+  - keyless authentication
+  - zero trust
+  - business ai platform
 sidebar_label: Secure Service Consumption on GCP
 image: img/ac-soc-med.png
 tags:

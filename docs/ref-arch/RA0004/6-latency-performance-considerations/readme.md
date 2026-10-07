@@ -2,16 +2,17 @@
 id: 200b3d
 slug: /ref-arch/200b3d
 sidebar_position: 6
-title: Latency and Performance considerations
-description: >-
-  Optimize SAP data federation scenarios by addressing latency and performance
-  challenges for analytics solutions.
+title: Data Federation Latency and Performance Tuning
+description: "Optimize SAP Datasphere data federation performance by tuning geographic proximity, column selection, source aggregation, and partitioning."
 keywords:
   - sap
-  - latency optimization
+  - sap datasphere
   - data federation
-  - performance management
-  - analytics efficiency
+  - data federation performance
+  - latency optimization
+  - query performance tuning
+  - query pushdown optimization
+  - business ai platform
 sidebar_label: Latency and Performance considerations
 image: img/ac-soc-med.png
 tags:

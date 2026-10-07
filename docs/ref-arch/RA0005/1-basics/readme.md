@@ -2,16 +2,19 @@
 id: 01aa03
 slug: /ref-arch/01aa03
 sidebar_position: 1
-title: Basic Prompting
-description: >-
-  Integrate Generative AI with SAP BTP using custom prompts for intelligent
-  interactions and tailored AI responses.
+title: Basic Prompting with Generative AI on SAP BTP
+description: "Build generative AI apps on SAP BTP with custom prompts, using the CAP model, SAP AI Core, Generative AI Hub, and the Orchestration Service."
 keywords:
   - sap
-  - ai integration
-  - prompting techniques
-  - generative ai applications
-  - natural language systems
+  - generative ai
+  - generative ai hub
+  - sap ai core
+  - foundation models
+  - large language models
+  - prompt engineering
+  - orchestration service
+  - cloud application programming model
+  - business ai platform
 sidebar_label: Basic Prompting
 image: img/ac-soc-med.png
 tags:

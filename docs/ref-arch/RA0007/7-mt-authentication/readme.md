@@ -2,15 +2,20 @@
 id: 98c985
 slug: /ref-arch/98c985
 sidebar_position: 1
-title: Authentication Strategies
-description: >-
-  Learn authentication strategies for multitenant apps with SAP Cloud Identity
-  Services, covering secure identity management and compliance.
+title: Authentication Strategies for Multitenant Apps
+description: "Authentication strategies for multitenant SaaS apps on SAP BTP, from SAP ID Service to provider-owned and consumer-specific SAP Cloud Identity Services."
 keywords:
   - sap
-  - authentication model
-  - tenant lifecycle
-  - btp security
+  - authentication strategies
+  - multitenant authentication
+  - sap cloud identity services
+  - sap id service
+  - identity provider
+  - sap authorization and trust management service
+  - corporate identity providers
+  - single sign-on
+  - multi-factor authentication
+  - business ai platform
 sidebar_label: Authentication Strategies
 image: img/ac-soc-med.png
 tags:

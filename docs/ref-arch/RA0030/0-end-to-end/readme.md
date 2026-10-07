@@ -3,13 +3,19 @@ id: 744df4
 slug: /ref-arch/744df4
 sidebar_position: 0
 title: Document Processing with SAP Document AI
-description: >-
-  Architect end-to-end document processing solutions using SAP Document AI to
-  automate  extraction, validation, and posting of business documents to
-  enterprise systems.
+description: "Architect end-to-end document processing with SAP Document AI to automate extraction, validation and posting of business documents to enterprise systems."
 keywords:
-  - appdev
-  - genai
+  - sap
+  - sap document ai
+  - intelligent document processing
+  - document extraction
+  - document classification
+  - idp
+  - sap s/4hana
+  - sap integration suite
+  - invoice processing
+  - human-in-the-loop
+  - business ai platform
 sidebar_label: Document Processing with SAP Document AI
 image: img/logo.svg
 tags:
