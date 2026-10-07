@@ -62,11 +62,11 @@ The date model in SAP SuccessFactors Employee Central is split over five configu
 
 ## Organization Structures
 
-Unlike in SAP HCM (for SAP S/4HANA) SAP SuccessFactors main organizational structure is not build based on organizational units. The positions are the heart of the structure and define the hierarchy. Relevant data is copied form the position to the job information card on employee level when an employee is linked to the position. This adds a lot of flexibility to how the three standard organizational objects (Business Unit, Division and Department) are used. They can be used as a single hierarchy or as separate structures depending on reporting, integration and permission needs. See also the relavant [Architecture Leading Practice | Organization Structures](https://dam.sap.com/mac/u/a/HUc6tfm.htm?rc=10).
+Unlike in SAP HCM (for SAP S/4HANA) SAP SuccessFactors main organizational structure is not build based on organizational units. The positions are the heart of the structure and define the hierarchy. Relevant data is copied form the position to the job information card on employee level when an employee is linked to the position. This adds a lot of flexibility to how the three standard organizational objects (Business Unit, Division and Department) are used. They can be used as a single hierarchy or as separate structures depending on reporting, integration and permission needs. See also the relevant [Architecture Leading Practice | Organization Structures](https://dam.sap.com/mac/u/a/HUc6tfm.htm?rc=10).
 
 ## Pay Structures
 
-SAP SuccessFactors Employee Central has two distinct pay structures that can be setup and used. They are not mutually exclusive and can be used next to each other (although an employee can only be linked to one of the two models). See also the relavant [Architecture Leading Practice | Pay Structures](https://dam.sap.com/mac/u/a/ySB89oz.htm?rc=10).
+SAP SuccessFactors Employee Central has two distinct pay structures that can be setup and used. They are not mutually exclusive and can be used next to each other (although an employee can only be linked to one of the two models). See also the relevant [Architecture Leading Practice | Pay Structures](https://dam.sap.com/mac/u/a/ySB89oz.htm?rc=10).
 
 ![drawio](drawio/successFactors-employee-central-pay-structures.drawio)
 
