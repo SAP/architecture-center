@@ -29,8 +29,8 @@ unlisted: false
 contributors: 
 discussion: 
 last_update:
-  author: Cameron Khorsandi
-  date: 2025-09-15
+  author: julian-schambeck
+  date: 2026-10-07
 ---
 
 ## What are SAP Reference Architectures?

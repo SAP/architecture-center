@@ -22,8 +22,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: cernus76
-    date: 2025-08-01
+    author: julian-schambeck
+    date: 2026-10-07
 ---
 
 Welcome to the development section of our open source project! 

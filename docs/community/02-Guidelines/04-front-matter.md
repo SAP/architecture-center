@@ -22,8 +22,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: cernus76
-  date: 2026-08-25
+  author: julian-schambeck
+  date: 2026-10-07
 ---
 
 Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
@@ -342,7 +342,7 @@ Example:
 ```yaml
 last_update:
   author: jmsrpp
-  date: 2025-01-01
+  date: 2026-04-21
 ```
 
 :::tip Best practice
