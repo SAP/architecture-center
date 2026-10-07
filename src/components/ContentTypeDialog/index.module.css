@@ -49,3 +49,25 @@
     color: var(--sapContent_LabelColor, #6a6d70);
     line-height: 1.4;
 }
+
+.lockIcon {
+    font-size: 1.5rem;
+    color: var(--sapContent_LabelColor, #6a6d70);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.lockedDesc {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    color: var(--sapContent_LabelColor, #6a6d70);
+}
+
+.typeCard:hover .lockedDesc {
+    display: flex;
+}
+
+.typeCard:hover .defaultDesc {
+    display: none;
+}

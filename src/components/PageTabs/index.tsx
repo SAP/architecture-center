@@ -39,7 +39,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
 
     const renderDocumentTree = (doc: Document, isSharedSection: boolean = false) => {
         const children = documents.filter((child) => child.parentId === doc.id);
-        const canAddSubPage = onAddNew && !doc.isReadOnly;
+        const canAddSubPage = onAddNew && !doc.isReadOnly && doc.type !== 'article';
 
         return (
             <div key={doc.id}>

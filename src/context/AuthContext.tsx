@@ -12,6 +12,7 @@ interface GithubJwtPayload {
     email?: string;
     avatar?: string;
     githubAccessToken?: string;
+    isSapEmployee?: boolean;
 }
 
 interface AuthUser {
@@ -20,7 +21,8 @@ interface AuthUser {
     avatar?: string;
     provider: 'github' | 'btp';
     githubAccessToken?: string;
-    expiresAt?: number; // Add expiresAt for BTP user, if applicable
+    expiresAt?: number;
+    isSapEmployee?: boolean;
 }
 interface DualAuthUsers {
     github: AuthUser | null;
@@ -139,7 +141,8 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             avatar: decodedPayload.avatar,
                             provider: 'github',
                             githubAccessToken: decodedPayload.githubAccessToken,
-                            expiresAt: githubAuthData.expiresAt, // Store session expiry
+                            expiresAt: githubAuthData.expiresAt,
+                            isSapEmployee: decodedPayload.isSapEmployee === true,
                         };
                         setToken(githubAuthData.token);
                         scheduleGithubTokenExpiryCheck(githubAuthData.expiresAt);

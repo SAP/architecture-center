@@ -51,12 +51,21 @@ export default function ContentTypeDialog({
                 <button
                     className={styles.typeCard}
                     onClick={handleArticleClick}
-                    title={isArticleLocked ? 'Sign in with your SAP account to access articles' : undefined}
                 >
                     <Icon name="document-text" className={styles.cardIcon} />
                     <div className={styles.cardTitle}>Article</div>
                     <div className={styles.cardDescription}>
-                        Share insights, best practices, or technical guides with the community
+                        {isArticleLocked ? (
+                            <>
+                                <span className={styles.defaultDesc}>Share insights, best practices, or technical guides with the community</span>
+                                <span className={styles.lockedDesc}>
+                                    <Icon name="locked" className={styles.lockIcon} />
+                                    Login using your SAP account.
+                                </span>
+                            </>
+                        ) : (
+                            'Share insights, best practices, or technical guides with the community'
+                        )}
                     </div>
                 </button>
             </div>
