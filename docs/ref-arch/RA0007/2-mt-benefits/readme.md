@@ -2,7 +2,7 @@
 id: f756ab
 slug: /ref-arch/f756ab
 sidebar_position: 1
-title: Benefits of Multitenant Applications
+title: Benefits of Multitenant Applications on SAP BTP
 description: "Multitenant applications on SAP BTP deliver cost efficiency, scalability, streamlined updates, and better resource utilization for SaaS providers."
 keywords:
   - sap

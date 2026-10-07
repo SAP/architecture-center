@@ -2,8 +2,8 @@
 id: id-global-standards-for-agentic-ai
 slug: /global-standards-for-agentic-ai
 sidebar_position: 1
-title: Global Standards for Agentic AI
-description: "SAP's hub for agentic AI standards: its AI-First strategy, open standards like MCP and A2A, and contributions to the Agentic AI Foundation (AAIF)."
+title: SAP's Global Standards for Agentic AI with MCP and A2A
+description: "SAP's hub for agentic AI standards: its Agent-First strategy, open standards like MCP and A2A, and contributions to the Agentic AI Foundation (AAIF)."
 keywords:
     - sap
     - agentic ai

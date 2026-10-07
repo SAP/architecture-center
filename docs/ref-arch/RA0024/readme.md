@@ -2,7 +2,7 @@
 id: 464deb
 slug: /ref-arch/464deb
 sidebar_position: 250
-title: Integrating and Extending Joule
+title: Integrating and Extending Joule, SAP's AI Copilot
 description: "Integrate and extend Joule, SAP's AI copilot, across systems like SAP S/4HANA and SAP SuccessFactors, and build custom skills and agents in Joule Studio."
 keywords:
   - sap

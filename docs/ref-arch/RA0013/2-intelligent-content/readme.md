@@ -2,7 +2,7 @@
 id: a71aa9
 slug: /ref-arch/a71aa9
 sidebar_position: 2
-title: Intelligent content in SAP BDC
+title: Intelligent Content in SAP Business Data Cloud
 description: "Explore intelligent content in SAP Business Data Cloud: AI-powered apps with prebuilt data products, Datasphere models, and Analytics Cloud dashboards."
 keywords:
   - sap

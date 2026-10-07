@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-title: Classic Machine Learning on SAP BTP
+title: Classic Machine Learning on SAP BTP with HANA Cloud
 description: "Build, deploy and run classic machine learning on SAP BTP using RPT-1 tabular AI, HANA Cloud PAL/APL in-database ML, and SAP AI Core."
 keywords:
     - sap

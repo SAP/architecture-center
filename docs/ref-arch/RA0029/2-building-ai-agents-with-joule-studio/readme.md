@@ -2,7 +2,7 @@
 id: 219c07
 slug: /ref-arch/219c07
 sidebar_position: 2
-title: Building AI Agents with Joule Studio
+title: Building AI Agents with SAP Joule Studio on SAP BTP
 description: "Build, deploy and connect AI agents with Joule Studio, SAP's AI-native environment, using the browser-based Low-Code Flow or CLI-driven Pro-Code Flow."
 keywords:
   - sap

@@ -2,7 +2,7 @@
 id: 04c9a0
 slug: /ref-arch/04c9a0
 sidebar_position: 3
-title: Edge Integration Cell on GCP
+title: SAP Integration Suite Edge Integration Cell on GCP
 description: "Deploy SAP Integration Suite - Edge Integration Cell on GCP using Google Kubernetes Engine, Cloud SQL, and multi-AZ setup for secure hybrid integration."
 keywords:
   - sap

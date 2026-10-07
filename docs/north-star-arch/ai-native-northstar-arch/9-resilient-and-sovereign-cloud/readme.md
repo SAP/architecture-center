@@ -4,7 +4,7 @@ sidebar_position: 9
 slug: /ai-native-north-star-architecture/resilient-and-sovereign-cloud
 sidebar_custom_props:
     category_index: []
-title: The Resilient and Sovereign Cloud
+title: The Resilient and Sovereign Cloud for AI Workloads
 description: "SAP's resilient and sovereign cloud delivers AI-native workloads across public, private, sovereign, and on-site models with data sovereignty and compliance."
 keywords:
     - sap

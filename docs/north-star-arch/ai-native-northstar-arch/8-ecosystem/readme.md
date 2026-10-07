@@ -4,7 +4,7 @@ sidebar_position: 8
 slug: /ai-native-north-star-architecture/ecosystem
 sidebar_custom_props:
     category_index: []
-title: "Ecosystem: SAP AI Agent Hub Marketplace"
+title: "SAP AI Agent Hub: The Enterprise Agent Marketplace"
 description: "The SAP AI Agent Hub is the enterprise marketplace for discovering, publishing, and composing agents, tools, and extensions across a shared trust framework."
 keywords:
     - sap

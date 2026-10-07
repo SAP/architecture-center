@@ -2,7 +2,7 @@
 id: 140bdb
 slug: /ref-arch/140bdb
 sidebar_position: 7
-title: AI Agent Identity & Governance for SAP
+title: AI Agent Identity & Governance in SAP Landscapes
 description: "How SAP Cloud Identity Services and the SAP Agent Gateway authenticate, authorize and govern AI agent identities across the SAP landscape."
 keywords:
   - sap

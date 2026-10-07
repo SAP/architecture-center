@@ -2,7 +2,7 @@
 id: 876f58
 slug: /ref-arch/876f58
 sidebar_position: 2
-title: Embeddings & Semantic Search
+title: Embeddings & Semantic Search on SAP HANA Cloud
 description: "Improve search relevance with semantic embeddings stored in the SAP HANA Cloud Vector Engine, enabling fast cosine similarity searches."
 keywords:
   - sap

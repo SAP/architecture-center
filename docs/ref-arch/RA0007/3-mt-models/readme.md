@@ -2,7 +2,7 @@
 id: a5c409
 slug: /ref-arch/a5c409
 sidebar_position: 1
-title: Tenant Model on SAP BTP
+title: Tenant Model and Data Separation on SAP BTP
 description: "Tenant models for multitenant SaaS on SAP BTP: provider and consumer subaccounts and data separation via column discriminator, database, or schema."
 keywords:
   - sap

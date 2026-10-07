@@ -2,7 +2,7 @@
 id: b66add
 slug: /ref-arch/b66add
 sidebar_position: 1
-title: Load Balancers for Multi-Region SAP BTP
+title: Load Balancers for Multi-Region SAP BTP Failover
 description: "Compare DNS-based and global load balancers for distributing traffic across regions in multi-region SAP BTP, using the SAP Custom Domain service."
 keywords:
   - sap

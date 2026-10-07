@@ -2,7 +2,7 @@
 id: 9efadc
 slug: /ref-arch/9efadc
 sidebar_position: 8
-title: Analytical Insights in Joule
+title: Analytical Insights in Joule for SAP Analytics Cloud
 description: "Deliver analytical insights in Joule for SAP Business Data Cloud using the SAP Analytics Cloud JustAsk AI service and natural-language queries."
 keywords:
   - sap

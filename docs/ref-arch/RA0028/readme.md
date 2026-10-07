@@ -2,7 +2,7 @@
 id: 14d25a
 slug: /ref-arch/14d25a
 sidebar_position: 290
-title: SAP SuccessFactors Suite
+title: SAP SuccessFactors HXM Suite Reference Architecture
 description: "Explore the SAP SuccessFactors HXM suite architecture, its core BizX modules, and how data flows across Employee Central, payroll, and talent solutions."
 keywords:
   - sap

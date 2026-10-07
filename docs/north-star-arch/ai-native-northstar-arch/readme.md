@@ -4,7 +4,7 @@ slug: /ai-native-north-star-architecture
 sidebar_position: 0
 sidebar_custom_props:
     category_index: []
-title: SAP AI-native North Star architecture
+title: SAP AI-native North Star Reference Architecture
 description: "SAP's AI-native North Star architecture defines the target state of SAP's technology landscape: a strategic direction, not a specification or product roadmap."
 keywords:
     - sap

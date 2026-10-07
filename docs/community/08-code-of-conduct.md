@@ -1,7 +1,7 @@
 ---
 sidebar_position: 8
 slug: /community/code-of-conduct
-title: SAP Open Source Code of Conduct
+title: SAP Open Source Code of Conduct (Contributor Covenant)
 description: "The SAP Open Source Code of Conduct, based on Contributor Covenant 2.1, with community standards, enforcement guidelines, and how to report misconduct."
 sidebar_label: SAP Open Source Code of Conduct
 keywords:

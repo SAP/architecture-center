@@ -2,7 +2,7 @@
 id: 0f87e5
 slug: /ref-arch/0f87e5
 sidebar_position: 270
-title: Embodied AI Agents & Robotics
+title: Embodied AI Agents & Robotics for SAP Business AI
 description: Embodied AI combines agentic AI with cognitive robots to automate physical-world tasks within the business process, enabling end-to-end automation.
 keywords:
   - sap

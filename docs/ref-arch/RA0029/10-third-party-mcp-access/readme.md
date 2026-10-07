@@ -2,7 +2,7 @@
 id: '137800'
 slug: /ref-arch/137800
 sidebar_position: 10
-title: Third-Party MCP Access to SAP Solutions
+title: Third-Party MCP Server Access to SAP Solutions on BTP
 description: "Access SAP solutions via third-party MCP servers: governance guardrails, OWASP MCP Top 10 risks, and SAP's managed MCP via Integration Suite and Joule Studio."
 keywords:
   - sap

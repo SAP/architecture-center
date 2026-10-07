@@ -2,7 +2,7 @@
 id: d764f7
 slug: /ref-arch/d764f7
 sidebar_position: 1
-title: FedML-AWS for Amazon SageMaker
+title: FedML-AWS for Amazon SageMaker with SAP Datasphere
 description: "Train models in Amazon SageMaker using live SAP data with FedML-AWS, eliminating data duplication across SAP Datasphere and SAP AI Core."
 keywords:
   - sap

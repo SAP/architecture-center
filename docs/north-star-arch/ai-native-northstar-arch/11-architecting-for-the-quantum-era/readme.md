@@ -4,7 +4,7 @@ sidebar_position: 11
 slug: /ai-native-north-star-architecture/architecting-for-the-quantum-era
 sidebar_custom_props:
     category_index: []
-title: Architecting for the Quantum Era
+title: Quantum-Ready Architecture for the AI-native Enterprise
 description: "How SAP's AI-native North Star architecture prepares for the quantum era with QPU coprocessors, cloud-native APIs, and scoped analytical use."
 keywords:
     - quantum computing

@@ -1,9 +1,7 @@
 ---
 sidebar_position: 7
-title: Build AI Agents on SAP BTP
-description: >-
-  Build, integrate and orchestrate AI agents on SAP BTP using Joule Studio, SAP Cloud
-  SDK for AI, A2A and MCP protocols.
+title: Build Low-Code and Pro-Code AI Agents on SAP BTP
+description: "Build, integrate and orchestrate AI agents on SAP BTP using Joule Studio, the SAP Cloud SDK for AI, and the open A2A and MCP protocols."
 keywords:
     - sap
     - ai agents

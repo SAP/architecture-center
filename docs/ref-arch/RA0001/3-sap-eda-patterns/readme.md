@@ -2,7 +2,7 @@
 id: 6de922
 slug: /ref-arch/6de922
 sidebar_position: 1
-title: SAP Event-Driven Architecture Use Cases
+title: SAP Event-Driven Architecture Use Cases for S/4HANA
 description: "Real-world event-driven architecture use cases for SAP ERP and S/4HANA, covering event enablement, real-time order processing, and BTP extensions."
 keywords:
   - sap

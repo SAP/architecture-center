@@ -2,7 +2,7 @@
 id: 332db2
 slug: /ref-arch/332db2
 sidebar_position: 1
-title: Multi-region resiliency
+title: Multi-Region Resiliency for SAP BTP Applications
 description: "Learn how and why Multi-region resiliency ensures applications remain functional during regional outages by leveraging geographically distributed data centers."
 keywords:
   - sap
