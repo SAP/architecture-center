@@ -2,18 +2,20 @@
 id: b7629d
 slug: /ref-arch/b7629d
 sidebar_position: 3
-title: Integration with Databricks
-description: >-
-  Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via
-  SAP Datasphere's unified data models for use with richer analytics and other
-  use cases.
+title: Databricks integration with SAP Business Data Cloud
+description: "Share data bi-directionally between SAP Business Data Cloud and Databricks via BDC Connect and delta sharing, and federate Delta Lake into SAP Datasphere."
 keywords:
   - sap
-  - databricks
-  - data federation
-  - analytics harmonization
-  - integration models
+  - sap business data cloud
   - bdc connect
+  - databricks delta lake
+  - delta sharing
+  - sap datasphere
+  - data federation
+  - unity catalog
+  - sap analytics cloud
+  - ai/ml workloads
+  - business ai platform
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:

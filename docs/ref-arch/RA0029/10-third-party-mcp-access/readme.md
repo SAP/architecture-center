@@ -3,23 +3,20 @@ id: '137800'
 slug: /ref-arch/137800
 sidebar_position: 10
 title: Third-Party MCP Access to SAP Solutions
-description: >-
-  Guidance on accessing SAP solutions via third-party MCP servers, covering
-  governance guardrails, OWASP MCP Top 10 risks, and SAP's recommended managed
-  MCP approach via SAP Integration Suite and Joule Studio.
+description: "Access SAP solutions via third-party MCP servers: governance guardrails, OWASP MCP Top 10 risks, and SAP's managed MCP via Integration Suite and Joule Studio."
 keywords:
   - sap
-  - mcp
   - model context protocol
-  - third-party
-  - mcp server
+  - mcp
   - mcp gateway
-  - integration suite
+  - sap integration suite
   - joule studio
-  - owasp
-  - security
-  - governance
-  - btp
+  - owasp mcp top 10
+  - agent identity
+  - token exchange
+  - third-party mcp access
+  - mcp security and governance
+  - business ai platform
 sidebar_label: Third-Party MCP Access
 image: img/ac-soc-med.png
 tags:

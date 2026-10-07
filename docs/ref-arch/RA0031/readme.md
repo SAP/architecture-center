@@ -2,23 +2,21 @@
 id: 458ff4
 slug: /ref-arch/458ff4
 sidebar_position: 320
-title: Decentralized Identity Verification
-description: >-
-  Decentralized Identity Verification (DIV) is a multi-tenant SAP BTP service
-  that enables enterprise applications to use Self-Sovereign Identity (SSI) for
-  secure, privacy-preserving inter-company communications.
+title: Decentralized Identity Verification on SAP BTP
+description: "Decentralized Identity Verification is an SAP BTP service for issuing and verifying W3C Verifiable Credentials and DIDs using Self-Sovereign Identity."
 keywords:
   - sap
-  - integration
-  - security
-  - ref-arch
-  - decentralized identity
-  - verifiable credentials
+  - decentralized identity verification
   - self-sovereign identity
-  - SSI
-  - DID
-  - BTP
+  - verifiable credentials
+  - decentralized identifiers
   - trust network
+  - catena-x
+  - gaia-x
+  - data sovereignty
+  - digital business wallet
+  - sap cloud identity services
+  - business ai platform
 sidebar_label: Decentralized Identity Verification
 image: img/logo.svg
 tags:

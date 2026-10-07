@@ -11,10 +11,15 @@ keywords:
   - ai agents
   - a2a
   - mcp
-  - interoperability
-  - Agent2Agent
+  - agent2agent
   - model context protocol
+  - multi-agent collaboration
+  - interoperability
   - sap integration suite
+  - joule
+  - agent gateway
+  - mcp gateway
+  - business ai platform
 sidebar_label: A2A and MCP for Interoperability
 image: img/ac-soc-med.png
 tags:

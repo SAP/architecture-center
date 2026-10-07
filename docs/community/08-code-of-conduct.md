@@ -2,11 +2,14 @@
 sidebar_position: 8
 slug: /community/code-of-conduct
 title: SAP Open Source Code of Conduct
-description: Explore the SAP Open Source Code of Conduct for the SAP Architecture Center Community. Learn about our commitment to a welcoming, inclusive, and respectful environment for all contributors. Understand community standards, enforcement guidelines, and how to report unacceptable behavior to ensure a positive open source collaboration.
+description: "The SAP Open Source Code of Conduct, based on Contributor Covenant 2.1, with community standards, enforcement guidelines, and how to report misconduct."
 sidebar_label: SAP Open Source Code of Conduct
 keywords:
  - sap
  - code of conduct
+ - open source community
+ - contributor covenant
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

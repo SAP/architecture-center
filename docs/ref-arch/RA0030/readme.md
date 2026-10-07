@@ -3,13 +3,21 @@ id: 766aa3
 slug: /ref-arch/766aa3
 sidebar_position: 310
 title: SAP Document AI
-description: Reference Architecture for SAP Document AI.
+description: "Reference architecture for SAP Document AI on SAP BTP: a multi-tenant service using OCR, pretrained and LLM extraction via SAP AI Core and Generative AI Hub."
 keywords:
+  - sap
   - aws
   - azure
   - gcp
   - genai
   - cap
+  - sap document ai
+  - intelligent document processing
+  - sap ai core
+  - generative ai hub
+  - sap hana cloud
+  - sap cloud identity services
+  - business ai platform
 sidebar_label: SAP Document AI
 image: img/logo.svg
 tags:

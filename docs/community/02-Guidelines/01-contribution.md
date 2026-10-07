@@ -6,7 +6,13 @@ description: Learn how to contribute to the SAP Architecture Center. Follow step
 sidebar_label: How to Contribute
 keywords:
  - sap
+ - sap architecture center
  - contribute
+ - open source contribution
+ - pull request
+ - developer certificate of origin
+ - quick start
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

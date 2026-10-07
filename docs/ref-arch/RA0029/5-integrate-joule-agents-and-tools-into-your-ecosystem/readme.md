@@ -8,14 +8,14 @@ description: >-
   and external systems using the Agent Gateway with the A2A protocol.
 keywords:
   - sap
-  - ai agents
-  - joule
-  - integration
-  - ecosystem
-  - a2a
+  - joule agents
   - agent gateway
-  - third-party
+  - a2a
   - sap integration suite
+  - agent interoperability
+  - sap cloud identity services
+  - third-party ai platforms
+  - business ai platform
 sidebar_label: Integrating Joule Agents into Your Ecosystem
 image: img/ac-soc-med.png
 tags:

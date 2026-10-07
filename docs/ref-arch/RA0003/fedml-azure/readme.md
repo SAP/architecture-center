@@ -8,10 +8,14 @@ description: >-
   duplication and simplifying integration with minimal coding.
 keywords:
   - sap
+  - azure
   - azure machine learning
   - fedml
-  - data integration
-  - live business data
+  - sap datasphere
+  - machine learning
+  - live sap data
+  - model training
+  - business ai platform
 sidebar_label: FedML-Azure
 image: img/ac-soc-med.png
 tags:

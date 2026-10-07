@@ -3,21 +3,20 @@ id: jkg4j2
 slug: /ref-arch/jkg4j2
 sidebar_position: 1
 title: SAP AI Agent Hub
-description: >-
-  Govern and manage AI agents throughout their lifecycle with SAP AI Agent Hub — the enterprise command center for AI governance that brings architecture intelligence, multi-cloud discovery, observability, and compliance to your growing agent estate.
+description: "Govern AI agents through their lifecycle with SAP AI Agent Hub, the command center for agent discovery, observability, governance, and EU AI Act compliance."
 keywords:
   - sap
-  - leanix
-  - ai agent hub
+  - sap leanix
+  - sap ai agent hub
   - agent governance
   - agent registry
   - agent lifecycle
   - agent observability
   - mcp registry
   - ai governance
-  - eu ai act
-  - agent discovery
+  - eu ai act compliance
   - agent mining
+  - business ai platform
 sidebar_label: SAP AI Agent Hub
 image: img/ac-soc-med.png
 tags:

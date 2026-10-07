@@ -3,14 +3,18 @@ id: cd0961
 slug: /ref-arch/cd0961
 sidebar_position: 1
 title: Edge Integration Cell on AWS
-description: >-
-  Deploy SAP Integration Suite - Edge Integration Cell on AWS for secure hybrid
-  integration and optimized workflows.
+description: "Deploy SAP Integration Suite - Edge Integration Cell on AWS using Amazon EKS, RDS, and multi-AZ networking for secure, highly available hybrid integration."
 keywords:
+  - sap
   - aws
-  - edge integration
+  - edge integration cell
   - sap integration suite
-  - real-time cloud connections
+  - amazon eks
+  - hybrid integration
+  - high availability
+  - amazon rds for postgresql
+  - multi-az deployment
+  - business ai platform
 sidebar_label: Edge Integration Cell on AWS
 image: img/ac-soc-med.png
 tags:

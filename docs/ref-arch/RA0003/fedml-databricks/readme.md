@@ -8,10 +8,14 @@ description: >-
   secure integration and eliminating data duplication.
 keywords:
   - sap
-  - databricks platform
-  - fedml integration
+  - databricks
+  - fedml
+  - sap datasphere
   - machine learning
-  - live business data
+  - pyspark
+  - live sap data
+  - delta lake
+  - business ai platform
 sidebar_label: FedML-Databricks
 image: img/ac-soc-med.png
 tags:

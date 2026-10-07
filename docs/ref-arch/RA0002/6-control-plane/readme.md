@@ -2,16 +2,20 @@
 id: 6cbe7d
 slug: /ref-arch/6cbe7d
 sidebar_position: 1
-title: Control Plane for Orchestration
+title: Control Plane for Multi-Region Orchestration
 description: >-
   Ensure business continuity with Multi-Region Manager (MRM), orchestrating
   failover, replication, and load balancing across regions.
 keywords:
   - sap
-  - application reliability
-  - ha dr architecture
+  - multi-region manager
+  - failover orchestration
   - business continuity
-  - failover strategies
+  - high availability and disaster recovery
+  - replication topology management
+  - sap cloud application programming model
+  - control plane
+  - business ai platform
 sidebar_label: Multi-region Control Plane
 image: img/ac-soc-med.png
 tags:

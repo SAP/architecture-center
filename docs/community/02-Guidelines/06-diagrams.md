@@ -2,13 +2,15 @@
 sidebar_position: 6
 slug: /community/diagrams
 title: Diagram Best Practices
-description: Enhance your diagramming expertise with this guide for the SAP Architecture Center. Learn best practices for creating Draw.io diagrams tailored to SAP solution architectures and Mermaid diagrams for process flows and visualizations.
+description: "Best practices for creating Draw.io diagrams for SAP solution architectures and Mermaid diagrams for process flows in the SAP Architecture Center."
 sidebar_label: Diagramming
 keywords:
     - sap
     - diagram
     - drawio
     - mermaid
+    - solution architecture
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

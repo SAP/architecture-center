@@ -3,13 +3,14 @@ id: 33c25f
 slug: /ref-arch/33c25f
 sidebar_position: 1
 title: Single-region and Multi-region resiliency
-description: Overview for Single and Multi-region resiliency
+description: "Overview of single-region and multi-region resiliency configurations for SAP BTP, linking to detailed single-region and multi-region architecture guidance."
 keywords:
   - sap
-  - multi-region
+  - single-region resiliency
+  - multi-region resiliency
   - resiliency architecture
-  - regional outages
   - cloud disaster recovery
+  - business ai platform
 sidebar_label: Single-region and Multi-region resiliency
 image: img/ac-soc-med.png
 tags:

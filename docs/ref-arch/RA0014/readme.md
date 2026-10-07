@@ -2,20 +2,22 @@
 id: 24c626
 slug: /ref-arch/24c626
 sidebar_position: 150
-title: Understanding Network Performance in a Multi Regional Solution
-description: >-
-  Optimize multi-regional cloud solutions with insights into network design,
-  provider usage, and service placement for superior performance.
+title: Network Performance in Multi-Regional SAP Solutions
+description: "Measure and optimize network performance for multi-regional SAP solutions, comparing OData connection options across hyperscaler and SAP BTP regions."
 keywords:
   - sap
-  - btp
   - network performance
-  - multi-regional solution
-  - hyperscaler
-  - S/4 HANA
+  - multi-regional sap solution
+  - hyperscaler regions
+  - sap s/4hana cloud
+  - network latency and throughput
+  - sap cloud connector
+  - sap private link
+  - odata performance
   - aws
   - azure
-  - cloud design
+  - gcp
+  - business ai platform
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
 image: img/ac-soc-med.png
 tags:

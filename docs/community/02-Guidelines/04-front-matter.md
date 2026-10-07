@@ -2,11 +2,15 @@
 sidebar_position: 4
 slug: /community/front-matter
 title: Front Matter
-description: Learn how to use front matter in SAP Architecture Center submissions. This guide explains each front matter field to optimize SEO, improve navigation, and ensure consistency across reference architecture pages.
+description: "Learn how to use front matter in SAP Architecture Center pages. This guide explains each YAML field—title, description, slug, keywords, tags, and more."
 sidebar_label: Front Matter
 keywords:
  - sap
  - front matter
+ - yaml metadata
+ - seo
+ - reference architecture
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

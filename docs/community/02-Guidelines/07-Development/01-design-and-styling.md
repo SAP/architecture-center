@@ -5,13 +5,16 @@ title: Design & Styling
 description: Best practices for CSS, responsive design, and performance in the SAP Architecture Center. Ensure a fast, accessible, and maintainable site.
 sidebar_label: Design & Styling
 keywords:
+    - sap
     - sap architecture center
     - css guidelines
     - responsive design
-    - webp images
+    - core web vitals
     - largest contentful paint
-    - layout shift
-    - image optimization
+    - cumulative layout shift
+    - webp images
+    - css modules
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community

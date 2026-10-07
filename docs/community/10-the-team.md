@@ -1,12 +1,15 @@
 ---
 sidebar_position: 10
 slug: /community/team
-title: The Team
-description: The team behind the SAP Architecture Center.
+title: The Team Behind the SAP Architecture Center
+description: "Meet the Office of the CTO and the network of core and extended contributors who build, publish, and govern the SAP Architecture Center."
 sidebar_label: The Team
 keywords:
  - sap
  - team
+ - sap architecture center
+ - office of the cto
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

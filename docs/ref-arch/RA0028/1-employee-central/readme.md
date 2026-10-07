@@ -3,17 +3,20 @@ id: a62ea4
 slug: /ref-arch/a62ea4
 sidebar_position: 1
 title: SAP SuccessFactors Employee Central
-description: >-
-  Overview of the main data structures within SAP SuccessFactors Employee
-  Central
+description: "Explore the core data model of SAP SuccessFactors Employee Central, including configuration objects, organization structures, and pay structures."
 keywords:
-  - ref-arch
-  - successfactors
+  - sap
+  - sap successfactors
+  - successfactors employee central
   - hcm
   - human capital management
-  - HR
-  - employee experience
-  - employee central
+  - core hr
+  - employee central data model
+  - foundation objects
+  - metadata framework
+  - organization structures
+  - pay structures
+  - business ai platform
 sidebar_label: SAP SuccessFactors Employee Central
 image: img/logo.svg
 tags:

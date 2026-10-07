@@ -8,12 +8,15 @@ description: >-
   data for seamless model training without data duplication.
 keywords:
   - sap
-  - ibm watsonx
+  - ibm watsonx.ai
+  - ibm watson studio
+  - sap fedml
+  - sap datasphere
+  - sap ai core
   - machine learning
-  - fedml
-  - data integration
   - model training
-  - critical business data
+  - federated machine learning
+  - business ai platform
 sidebar_label: FedML-IBM watsonx
 image: img/ac-soc-med.png
 tags:

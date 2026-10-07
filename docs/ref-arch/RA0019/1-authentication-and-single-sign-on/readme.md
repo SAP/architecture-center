@@ -3,15 +3,17 @@ id: 3ec73b
 slug: /ref-arch/3ec73b
 sidebar_position: 1
 title: Authentication with SAP Cloud Identity Services
-description: >-
-  This reference architecture describes the authentication flows for SAP SaaS
-  via the SAP Cloud Identity Services - Identity Authentication.
+description: "Authentication and single sign-on flows for SAP SaaS using SAP Cloud Identity Services - Identity Authentication, including SAML, OIDC, and SAP GUI SSO."
 keywords:
   - sap
-  - identity authentication
-  - cloud identity lifecycle
-  - erp security solutions
-  - access management
+  - sap cloud identity services - identity authentication
+  - authentication and single sign-on
+  - saml and oidc federation
+  - identity provider broker
+  - third-party identity provider integration
+  - sap gui single sign-on
+  - sap saas authentication
+  - business ai platform
 sidebar_label: Authentication and Single Sign On
 image: img/ac-soc-med.png
 tags:

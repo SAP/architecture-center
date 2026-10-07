@@ -7,13 +7,17 @@ description: >-
 keywords:
     - sap
     - ai agents
+    - agentic ai
     - joule
     - joule studio
+    - sap cloud sdk for ai
     - a2a
-    - mcp
+    - model context protocol
+    - generative ai hub
+    - sap ai core
     - pro-code
     - low-code
-    - sap cloud sdk for ai
+    - business ai platform
 sidebar_label: Build AI Agents
 image: img/ac-soc-med.png
 tags:
