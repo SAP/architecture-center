@@ -7,6 +7,10 @@ import { useLocation } from '@docusaurus/router';
  */
 function isSafeRedirectPath(path: string | null): boolean {
     if (!path || typeof path !== 'string') return false;
+    // Reject control characters (tab/newline/CR etc.) FIRST: browsers strip these
+    // during URL parsing, so e.g. "/\n/evil.com" would pass the checks below and
+    // then be navigated to as "//evil.com" (a protocol-relative open redirect).
+    if (/[\u0000-\u001F\u007F]/.test(path)) return false;
     // Must start with / and must not start with // (protocol-relative URL)
     if (!path.startsWith('/') || path.startsWith('//')) return false;
     // Block backslash-based bypasses
@@ -15,6 +19,14 @@ function isSafeRedirectPath(path: string | null): boolean {
     if (path.toLowerCase().includes('%2f') || path.toLowerCase().includes('%5c')) return false;
     // Block URLs with protocol schemes
     if (/^\/[a-z]+:/i.test(path)) return false;
+    // Authoritative check: the path must resolve to the SAME origin. The URL
+    // parser normalises any residual bypass (control chars, odd encodings), so a
+    // cross-origin result here means it is not a safe same-site path.
+    try {
+        if (new URL(path, window.location.origin).origin !== window.location.origin) return false;
+    } catch {
+        return false;
+    }
     return true;
 }
 
