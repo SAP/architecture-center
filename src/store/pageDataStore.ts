@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import type { Operation } from '@site/src/components/Editor/core/Operations';
+import { logger } from '../utils/logger';
 
 export interface PageMetadata {
     title: string;
@@ -146,6 +147,18 @@ const syncTimeouts = new Map<string, NodeJS.Timeout>();
 // syncError state must only settle once ALL of them finish, otherwise the first
 // to complete would hide that another document is still saving (or wipe its error).
 const activeSyncIds = new Set<string>();
+// Per-document last sync error. A single shared `syncError` string is wrong when
+// several documents sync concurrently: the later-completing document's success
+// branch would compute syncError = null and silently wipe a different document's
+// real error. Tracking errors per id lets the derived global syncError stay
+// truthful regardless of completion order.
+const syncErrors = new Map<string, string>();
+// Derive the global syncError shown in the UI from the per-document map: surface
+// any still-outstanding error, or null when none remain.
+const deriveSyncError = (): string | null => {
+    const first = syncErrors.values().next();
+    return first.done ? null : first.value;
+};
 const SYNC_DEBOUNCE_MS = 2000;
 
 export const usePageDataStore = create<PageDataState>()(
@@ -231,23 +244,23 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             setBackendConfig: (backendUrl, authToken, username) => {
-                console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken, username });
+                logger.debug('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken });
                 set({ backendUrl, authToken, currentUsername: username });
             },
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
                 const { backendUrl, authToken, currentUsername, documents: localDocuments } = get();
-                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
+                logger.debug('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken });
                 if (!backendUrl || !authToken) {
-                    console.warn('[PageDataStore] Backend not configured, skipping fetch');
+                    logger.warn('[PageDataStore] Backend not configured, skipping fetch');
                     return;
                 }
 
-                set({ isLoading: true, syncError: null });
+                set({ isLoading: true, syncError: deriveSyncError() });
 
                 try {
-                    console.log('[PageDataStore] Fetching documents from:', `${backendUrl}/quickstart/document-service/Documents`);
+                    logger.debug('[PageDataStore] Fetching documents from:', `${backendUrl}/quickstart/document-service/Documents`);
                     const response = await fetch(
                         `${backendUrl}/quickstart/document-service/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
                         {
@@ -263,13 +276,13 @@ export const usePageDataStore = create<PageDataState>()(
                     }
 
                     const data = await response.json();
-                    console.log('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
+                    logger.debug('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
                     const remoteDocuments: Document[] = data.value.map((doc: any) => {
                         const authorUsername = doc.author?.username;
                         const isAuthor = currentUsername && authorUsername === currentUsername;
                         // Debug: check for /head corruption in editorState
                         if (doc.editorState && doc.editorState.includes('/head')) {
-                            console.error('[PageDataStore] CORRUPTION DETECTED: /head found in editorState for document:', doc.ID, doc.editorState.substring(0, 500));
+                            logger.error('[PageDataStore] CORRUPTION DETECTED: /head found in editorState for document:', doc.ID);
                         }
                         return {
                             id: doc.ID,
@@ -292,7 +305,7 @@ export const usePageDataStore = create<PageDataState>()(
                         const localDoc = localDocuments.find(d => d.id === remoteDoc.id);
                         // If local doc has unsynced changes (editorState differs), prefer local
                         if (localDoc && !localDoc._synced && localDoc.editorState) {
-                            console.log('[PageDataStore] Preserving local changes for document:', remoteDoc.id);
+                            logger.debug('[PageDataStore] Preserving local changes for document:', remoteDoc.id);
                             return {
                                 ...remoteDoc,
                                 editorState: localDoc.editorState,
@@ -305,7 +318,7 @@ export const usePageDataStore = create<PageDataState>()(
                     // Also sync any preserved local changes to backend
                     const unsyncedDocs = mergedDocuments.filter(d => !d._synced);
                     if (unsyncedDocs.length > 0) {
-                        console.log('[PageDataStore] Syncing', unsyncedDocs.length, 'locally modified documents to backend');
+                        logger.debug('[PageDataStore] Syncing', unsyncedDocs.length, 'locally modified documents to backend');
                         // Sync in background without blocking
                         unsyncedDocs.forEach(doc => {
                             fetch(
@@ -323,18 +336,21 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             ).then(() => {
-                                console.log('[PageDataStore] Synced local changes for:', doc.id);
+                                logger.debug('[PageDataStore] Synced local changes for:', doc.id);
                                 set(state => ({
                                     documents: state.documents.map(d =>
                                         d.id === doc.id ? { ...d, _synced: true } : d
                                     )
                                 }));
                             }).catch(err => {
-                                console.error('[PageDataStore] Failed to sync local changes:', err);
+                                logger.error('[PageDataStore] Failed to sync local changes:', err);
                             });
                         });
                     }
 
+                    // Full reload = fresh state: drop any stale per-document
+                    // sync errors so they can't resurface via deriveSyncError().
+                    syncErrors.clear();
                     set({
                         documents: mergedDocuments,
                         activeDocumentId: (() => {
@@ -349,12 +365,14 @@ export const usePageDataStore = create<PageDataState>()(
                         openDocumentIds: mergedDocuments.filter(d => d.parentId === null).slice(0, 1).map(d => d.id),
                         isLoading: false,
                         lastSaveTimestamp: data.value?.[0]?.modifiedAt || data.value?.[0]?.createdAt || new Date().toISOString(),
+                        syncError: deriveSyncError(),
                     });
                 } catch (error) {
-                    console.error('Error fetching documents:', error);
+                    logger.error('Error fetching documents:', error);
+                    syncErrors.set('__fetch__', error instanceof Error ? error.message : 'Failed to fetch documents');
                     set({
                         isLoading: false,
-                        syncError: error instanceof Error ? error.message : 'Failed to fetch documents',
+                        syncError: deriveSyncError(),
                     });
                 }
             },
@@ -362,7 +380,7 @@ export const usePageDataStore = create<PageDataState>()(
             // Sync a single document to remote (debounced auto-save)
             syncDocument: async (id: string) => {
                 const { backendUrl, authToken, documents } = get();
-                console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl, hasToken: !!authToken });
+                logger.debug('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl, hasToken: !!authToken });
                 if (!backendUrl || !authToken) return;
 
                 const doc = findDocumentById(documents, id);
@@ -378,7 +396,7 @@ export const usePageDataStore = create<PageDataState>()(
                 const timeout = setTimeout(async () => {
                     syncTimeouts.delete(id);
                     activeSyncIds.add(id);
-                    console.log('[PageDataStore] Syncing document to backend:', doc.id);
+                    logger.debug('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
 
                     try {
@@ -421,7 +439,7 @@ export const usePageDataStore = create<PageDataState>()(
                             );
 
                             if (!contributorsResponse.ok) {
-                                console.warn('Failed to sync contributors:', contributorsResponse.statusText);
+                                logger.warn('Failed to sync contributors:', contributorsResponse.statusText);
                             }
                         }
 
@@ -443,28 +461,33 @@ export const usePageDataStore = create<PageDataState>()(
                             );
 
                             if (!tagsResponse.ok) {
-                                console.warn('Failed to sync tags:', tagsResponse.statusText);
+                                logger.warn('Failed to sync tags:', tagsResponse.statusText);
                             }
                         }
 
                         // Mark as synced and clear dirty flags
                         activeSyncIds.delete(id);
+                        // This document synced cleanly: clear only ITS error.
+                        syncErrors.delete(id);
                         set((state) => ({
                             documents: state.documents.map((d) =>
                                 d.id === id ? { ...d, _synced: true, _contributorsDirty: false, _tagsDirty: false } : d
                             ),
-                            // Only settle the global flags once every in-flight
-                            // sync has finished; don't clear a sibling's error.
+                            // Only report "syncing" while other saves are still
+                            // in flight, and surface any remaining per-document
+                            // error so this success can't wipe a sibling's error.
                             isSyncing: activeSyncIds.size > 0,
                             lastSaveTimestamp: new Date().toISOString(),
-                            syncError: activeSyncIds.size > 0 ? state.syncError : null,
+                            syncError: deriveSyncError(),
                         }));
                     } catch (error) {
                         activeSyncIds.delete(id);
-                        console.error('Error syncing document:', error);
+                        const message = error instanceof Error ? error.message : 'Failed to sync';
+                        syncErrors.set(id, message);
+                        logger.error('Error syncing document:', error);
                         set({
                             isSyncing: activeSyncIds.size > 0,
-                            syncError: error instanceof Error ? error.message : 'Failed to sync',
+                            syncError: deriveSyncError(),
                         });
                     }
                 }, SYNC_DEBOUNCE_MS);
@@ -486,7 +509,7 @@ export const usePageDataStore = create<PageDataState>()(
                     }));
 
                     // Debug: Log operations being sent
-                    console.log('[PageDataStore] Sending operations:', serializedOps.map(op => ({
+                    logger.debug('[PageDataStore] Sending operations:', serializedOps.map(op => ({
                         type: op.type,
                         nodeKey: op.nodeKey,
                         payloadPreview: typeof op.payload === 'string' ? op.payload.substring(0, 200) : op.payload
@@ -516,28 +539,33 @@ export const usePageDataStore = create<PageDataState>()(
                     // Check if operations were actually applied
                     // If appliedCount is 0, the backend state might be invalid - fall back to full sync
                     if (result.appliedCount === 0 && operations.length > 0) {
-                        console.warn('[PageDataStore] No operations were applied, falling back to full sync');
+                        logger.warn('[PageDataStore] No operations were applied, falling back to full sync');
                         throw new Error('No operations applied - backend state may be invalid');
                     }
 
-                    console.log('[PageDataStore] syncOperations result:', {
+                    logger.debug('[PageDataStore] syncOperations result:', {
                         lastOpId: result.lastOpId,
                         appliedCount: result.appliedCount,
                         sentCount: operations.length
                     });
 
+                    // Delta sync for THIS document succeeded: clear only its
+                    // error and derive the global flags from the per-document
+                    // map so a sibling's in-flight error is never wiped.
+                    syncErrors.delete(documentId);
                     set({
-                        isSyncing: false,
+                        isSyncing: activeSyncIds.size > 0,
                         lastSaveTimestamp: new Date().toLocaleString(),
-                        syncError: null,
+                        syncError: deriveSyncError(),
                     });
 
                     return result.lastOpId || null;
                 } catch (error) {
-                    console.warn('Operation sync failed, falling back to full state sync:', error);
-                    // Fallback to full state sync
+                    logger.warn('Operation sync failed, falling back to full state sync:', error);
+                    // Fallback to full state sync (syncDocument records its own
+                    // per-document error into syncErrors on failure).
                     await syncDocument(documentId);
-                    set({ isSyncing: false });
+                    set({ isSyncing: activeSyncIds.size > 0, syncError: deriveSyncError() });
                     return null;
                 }
             },
@@ -567,7 +595,8 @@ export const usePageDataStore = create<PageDataState>()(
                     return newDocument;
                 }
 
-                set({ isCreating: true, syncError: null });
+                syncErrors.delete('__create__');
+                set({ isCreating: true, syncError: deriveSyncError() });
 
                 try {
                     const response = await fetch(
@@ -625,10 +654,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                     return newDocument;
                 } catch (error) {
-                    console.error('Error creating document:', error);
+                    logger.error('Error creating document:', error);
+                    syncErrors.set('__create__', error instanceof Error ? error.message : 'Failed to create document');
                     set({
                         isCreating: false,
-                        syncError: error instanceof Error ? error.message : 'Failed to create document',
+                        syncError: deriveSyncError(),
                     });
                     return null;
                 }
@@ -637,6 +667,14 @@ export const usePageDataStore = create<PageDataState>()(
             // Delete document from remote
             deleteRemoteDocument: async (id: string) => {
                 const { backendUrl, authToken, getRootDocumentId } = get();
+
+                // Drop any per-document sync bookkeeping so a deleted document
+                // cannot leave an orphaned ghost error or in-flight timer.
+                const pending = syncTimeouts.get(id);
+                if (pending) clearTimeout(pending);
+                syncTimeouts.delete(id);
+                activeSyncIds.delete(id);
+                syncErrors.delete(id);
 
                 // Get root ID before deletion
                 const rootId = getRootDocumentId(id);
@@ -674,10 +712,10 @@ export const usePageDataStore = create<PageDataState>()(
                         );
 
                         if (!response.ok && response.status !== 404) {
-                            console.error('Failed to delete document from remote:', response.statusText);
+                            logger.error('Failed to delete document from remote:', response.statusText);
                         }
                     } catch (error) {
-                        console.error('Error deleting document from remote:', error);
+                        logger.error('Error deleting document from remote:', error);
                     }
                 }
             },
@@ -722,6 +760,12 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             resetStore: () => {
+                // Clear all per-document sync bookkeeping so the derived
+                // syncError/isSyncing cannot resurface after a reset.
+                syncTimeouts.forEach((t) => clearTimeout(t));
+                syncTimeouts.clear();
+                activeSyncIds.clear();
+                syncErrors.clear();
                 set({
                     documents: [],
                     lastSaveTimestamp: null,
