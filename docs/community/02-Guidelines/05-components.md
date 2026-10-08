@@ -22,11 +22,11 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  date: 2026-04-21
   author: cernus76
+  date: 2026-10-08
 ---
 
-2 components have been developed for the Architecture Center:
+Two components have been developed for the Architecture Center:
 
 - **The Contributors component**: This section displays a list of contributors in an admonition at the bottom of the main page of the reference architecture, acknowledging their efforts and input.
 
@@ -44,13 +44,13 @@ contributors:
 
 ## Calling the draw.io component in the page body of the `readme.md` file
 
-```yaml
+```markdown
 ![drawio](drawio/demo.drawio)
 ```
 
 Or
 
-```yaml
+```markdown
 ![drawio](drawio/demo.drawio "My title goes there")
 ```
 Note: Use the markdown image syntax for drawio files.
