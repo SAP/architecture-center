@@ -57,7 +57,8 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 2. Choose your preferred contribution method:  
    - [Get Started with Quick Start](02-GetStarted/01-get-started-quickstart.md): a no-code approach.
    - [Contribute with AI Agents](02-GetStarted/02-get-started-ai-agents.md): use an AI coding agent with the repository's AGENTS.md context.
-   - Please note that the CLI is not available anymore.
+   - Contribute manually: fork the repository, create a feature or update branch, and make your changes with your preferred tools.
+   - Please note that the previous command-line scaffolding tool is no longer available.
 3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts. (Not needed for the Quick Start path, which forks and syncs for you.)  
 4. Create a **pull request (PR)** in the repository using your feature or update branch.
    :::info Note
