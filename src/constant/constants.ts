@@ -55,6 +55,11 @@ export const techPartners = [
     { id: 'snowflake', title: 'Snowflake' },
 ];
 
+// Status filters
+export const statusFilters = [
+    { id: 'archived', title: 'Archived' },
+];
+
 export const addResData = [
     {
         title: 'Discovery Center',
