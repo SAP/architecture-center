@@ -75,7 +75,7 @@ Every SAP Reference Architecture is held to the same engineering principles, so 
 -   **Secure by design**: zero-trust principles, role-based access, encryption, and continuous monitoring are part of the pattern from day one, so expansion never comes at the cost of trust or compliance.
 -   **Standardized and governable**: documented patterns for APIs, events, identity, and observability make solutions repeatable, auditable, and easy to operate across teams and markets.
 
-Together these principles cover the non-functional qualities every serious design must answer for, including operational excellence, performance, reliability, security, and sustainability, so outcomes arrive faster and with greater confidence.
+Together these principles cover the non-functional qualities every serious design must answer for, including operational excellence, performance, reliability, and security, so outcomes arrive faster and with greater confidence.
 
 ## From blueprint to transformation
 
