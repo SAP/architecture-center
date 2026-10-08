@@ -185,7 +185,7 @@ Check the code behind these examples by reviewing the underlying markdown, using
         A[Check for existing content]:::reduceSize -->|Already exists| B[Edit the content and open a PR]:::reduceSize
         A:::reduceSize -->|Create new| C{Choose a contribution path}:::reduceSize
         C:::reduceSize -->|No-code, recommended| D[Author in Quick Start]:::reduceSize
-        C:::reduceSize -->|AI coding agent| E[Use AGENTS.md and the create-ref-arch-skeleton skill]:::reduceSize
+        C:::reduceSize -->|AI coding agent| E[Use the repo's AGENTS.md context and the create-ref-arch-skeleton skill]:::reduceSize
         D:::reduceSize --> F[Quick Start opens the pull request automatically]:::reduceSize
         E:::reduceSize --> G[Add markdown, diagrams and front matter, then open a PR]:::reduceSize
         B:::reduceSize --> H[Accept the DCO/CLA, then await review and merge]:::reduceSize
