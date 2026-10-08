@@ -26,7 +26,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-04-21
+  date: 2026-10-08
 ---
 
 
@@ -43,11 +43,11 @@ There are some important things to know:
 
 ## Developer Certificate of Origin (DCO)
 
-Contributors will be asked to accept a DCO before they submit the first pull request to this projects, this happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
+Contributors will be asked to accept a DCO before they submit the first pull request to this project, this happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
 ## Contributing with AI-generated code
 
-As artificial intelligence evolves, AI-generated code is becoming valuable for many software projects, including open-source initiatives. While we recognize the potential benefits of incorporating AI-generated content into our open-source projects there a certain requirements that need to be reflected and adhered to when making contributions.
+As artificial intelligence evolves, AI-generated code is becoming valuable for many software projects, including open-source initiatives. While we recognize the potential benefits of incorporating AI-generated content into our open-source projects there are certain requirements that need to be reflected and adhered to when making contributions.
 
 Please see our [guideline for AI-generated code contributions to SAP Open Source Software Projects](https://github.com/SAP/.github/blob/main/CONTRIBUTING_USING_GENAI.md) for these requirements.
 
@@ -55,19 +55,20 @@ Please see our [guideline for AI-generated code contributions to SAP Open Source
 
 1. Make sure the change is welcome (see [General Remarks](#general-remarks)).
 2. Choose your preferred contribution method:  
-   - [Get Started with Quick Start](../02-Guidelines/02-GetStarted/01-get-started-quickstart.md) – a no-code approach. 
+   - [Get Started with Quick Start](02-GetStarted/01-get-started-quickstart.md): a no-code approach.
+   - [Contribute with AI Agents](02-GetStarted/02-get-started-ai-agents.md): use an AI coding agent with the repository's AGENTS.md context.
    - Please note that the CLI is not available anymore.
-3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts.  
+3. Before creating a pull request, **sync your forked repository** with the main repository to incorporate the latest changes and avoid merge conflicts. (Not needed for the Quick Start path, which forks and syncs for you.)  
 4. Create a **pull request (PR)** in the repository using your feature or update branch.
    :::info Note
-   If your contribution was created using **Quick Start**, this step is handled automatically — no manual PR creation needed.
+   If your contribution was created using **Quick Start**, this step is handled automatically, so no manual PR creation is needed.
    ::: 
 5. Follow the link posted by the CLA assistant to your pull request and accept it, as described above.
 6. Wait for our code review and approval, possibly enhancing your change on request.
-:::info Note
-Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
-:::
-1. Once the change has been approved and merged, we will inform you in a comment.
+   :::info Note
+   Note that the maintainers have many duties. So, depending on the required effort for reviewing, testing, and clarification, this may take a while.
+   :::
+7. Once the change has been approved and merged, we will inform you in a comment.
 
 The following diagram shows the overall lifecycle of contributor changes in the SAP Architecture Center repository
 
