@@ -76,7 +76,7 @@ contributors:
 
 # LAST_UPDATE: Choose the author & the date of the last important update. Please use the international format YYYY-MM-DD for the date to avoid problems. It will appear at the bottom of the page.
 last_update:
-  date: 2025-05-15
+  date: 2026-12-31
   author: cernus76
 
 ############################################################

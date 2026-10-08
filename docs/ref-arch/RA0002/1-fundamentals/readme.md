@@ -19,6 +19,7 @@ tags:
   - gcp
   - appdev
   - integration
+  - archive
 hide_table_of_contents: true
 hide_title: false
 toc_min_heading_level: 2
