@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="BAIP" id="Rj_z-o6ucq7qIzsxSZNO">
-        <mxGraphModel dx="258" dy="-730" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="258" dy="-733" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-0"/>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-1" parent="7zZkG7QePnFsALLzHj9v-0"/>
@@ -168,8 +168,8 @@
                 <mxCell id="7zZkG7QePnFsALLzHj9v-60" value="MCP Builder" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=#5d36ff;fillColor=#f1ecff;strokeWidth=1.5;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=24;absoluteArcSize=1;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
                     <mxGeometry x="465.5" y="1754" width="140" height="21" as="geometry"/>
                 </mxCell>
-                <mxCell id="7zZkG7QePnFsALLzHj9v-61" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;color: rgb(0, 42, 134); background-color: transparent;&quot;&gt;&lt;font style=&quot;line-height: 100%;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Joule Work&lt;br&gt;&lt;/b&gt;&lt;i style=&quot;&quot;&gt;&lt;font&gt;powered by Joule&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
-                    <mxGeometry x="506" y="1631" width="112" height="38" as="geometry"/>
+                <mxCell id="7zZkG7QePnFsALLzHj9v-61" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;color: rgb(0, 42, 134); background-color: transparent;&quot;&gt;&lt;font style=&quot;line-height: 100%;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Joule Work&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
+                    <mxGeometry x="506" y="1636" width="106" height="28" as="geometry"/>
                 </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-62" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=11;fontColor=default;fontStyle=1;horizontal=1;strokeColor=#475e75;strokeWidth=1.5;align=center;verticalAlign=middle;labelBackgroundColor=default;startArrow=none;startFill=0;startSize=4;endArrow=blockThin;endFill=1;endSize=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="7zZkG7QePnFsALLzHj9v-1" source="7zZkG7QePnFsALLzHj9v-63" target="7zZkG7QePnFsALLzHj9v-64" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -193,9 +193,6 @@
                 </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-68" value="&lt;p style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font color=&quot;#00185a&quot;&gt;Agent Mining&lt;/font&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070f2;strokeWidth=1.5;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Arial;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=24;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;absoluteArcSize=1;horizontal=1;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
                     <mxGeometry x="453.72" y="1565.5" width="152" height="25.5" as="geometry"/>
-                </mxCell>
-                <mxCell id="7zZkG7QePnFsALLzHj9v-69" value="" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;strokeColor=default;fontFamily=Helvetica;fillColor=default;aspect=fixed;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
-                    <mxGeometry x="446" y="1480" width="44.79" height="23" as="geometry"/>
                 </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-70" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.922;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Helvetica;fontSize=11;fontColor=default;fontStyle=1;horizontal=1;strokeColor=#475e75;strokeWidth=1.5;align=center;verticalAlign=middle;labelBackgroundColor=default;startArrow=none;startFill=0;startSize=4;endArrow=blockThin;endFill=1;endSize=4;" parent="7zZkG7QePnFsALLzHj9v-1" source="7zZkG7QePnFsALLzHj9v-63" target="7zZkG7QePnFsALLzHj9v-6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -348,9 +345,6 @@
                         <mxPoint x="-1" y="21" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="7zZkG7QePnFsALLzHj9v-115" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
-                    <mxGeometry x="495.65" y="1470" width="182" height="40.5" as="geometry"/>
-                </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-116" value="&amp;nbsp; &amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="7zZkG7QePnFsALLzHj9v-1" connectable="0" vertex="1">
                     <mxGeometry x="971" y="1897" as="geometry">
                         <mxPoint x="-1" y="21" as="offset"/>
@@ -417,6 +411,15 @@
                 </mxCell>
                 <mxCell id="5" value="&lt;p style=&quot;line-height: 100%;&quot;&gt;&lt;b&gt;&lt;font face=&quot;arial black&quot; style=&quot;font-size: 16px;&quot; color=&quot;#ffffff&quot;&gt;6&lt;/font&gt;&lt;/b&gt;&lt;/p&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;rotation=0;gradientColor=#0057D2;strokeColor=none;gradientDirection=east;fillColor=#2395FF;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;spacingTop=4;spacingBottom=4;spacingLeft=4;spacingRight=4;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
                     <mxGeometry x="804" y="1838.0000000000002" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="group" vertex="1" connectable="0" parent="7zZkG7QePnFsALLzHj9v-1">
+                    <mxGeometry x="446" y="1476" width="231.64999999999998" height="40.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="7zZkG7QePnFsALLzHj9v-69" value="" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;strokeColor=default;fontFamily=Helvetica;fillColor=default;aspect=fixed;" parent="6" vertex="1">
+                    <mxGeometry y="4" width="44.79" height="23" as="geometry"/>
+                </mxCell>
+                <mxCell id="7zZkG7QePnFsALLzHj9v-115" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="6" vertex="1">
+                    <mxGeometry x="49.64999999999998" width="182" height="40.5" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
