@@ -30,7 +30,7 @@ Two components have been developed for the Architecture Center:
 
 - **The Contributors component**: This section displays a list of contributors in an admonition at the bottom of the main page of the reference architecture, acknowledging their efforts and input.
 
-- **The draw.io component**: This section features an admonition for a Draw.io file located in the architecture section of the page. Users can either download the file for offline use or create an online copy to edit directly. You can define a specific title for your draw.io file. By Default, the page title will be used.
+- **The draw.io component**: This section features an admonition for a Draw.io file located in the architecture section of the page. Users can either download the file for offline use or create an online copy to edit directly. You can define a specific title for your draw.io file. By default, the page title will be used.
 
 ## Contributors declaration in the header of the `readme.md` file (front matter)
 
