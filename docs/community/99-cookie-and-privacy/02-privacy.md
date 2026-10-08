@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 ## Important information regarding the Privacy Statement
@@ -37,7 +37,7 @@ For information on how GitHub processes your personal data, please refer to **[G
 :::
 
 ## SAP PRIVACY STATEMENT
-This Privacy Statement was updated on 04-Nov-2025. We have created this Privacy Statement to demonstrate the firm commitment of SAP (hereinafter "We", "SAP", "Us" or "Our") to the individual`s right to data protection and privacy. It outlines how SAP processes information that can be used to directly or indirectly identify an individual (hereinafter “Personal Data”). Processing in the context of this Privacy Statement means any collection, use, transmission, disclosure, erasure or any other similar operation based on Personal Data (hereinafter “Processing” or “Process”).
+This Privacy Statement was updated on 04-Nov-2025. We have created this Privacy Statement to demonstrate the firm commitment of SAP (hereinafter "We", "SAP", "Us" or "Our") to the individual's right to data protection and privacy. It outlines how SAP processes information that can be used to directly or indirectly identify an individual (hereinafter “Personal Data”). Processing in the context of this Privacy Statement means any collection, use, transmission, disclosure, erasure or any other similar operation based on Personal Data (hereinafter “Processing” or “Process”).
 
 SAP is processing information including Personal Data about the users of **[SAP Architecture Center](https://architecture.learning.sap.com/)** using cookies or similar technologies for the purposes set out in the [Cookie Statement](01-cookie.md). You will find further information and have the option to exercise your cookie preferences under the following link: [Cookie Statement](01-cookie.md).
 
@@ -80,7 +80,7 @@ Your Personal Data will be transferred to or accessed by the following categorie
 SAP honors your statutory rights when it comes to the Processing of your Personal Data.
 To the extent provided by applicable data protection laws, you have the right to:
 - access your Personal Data that we have on you, or have it updated.
-- Data portability of the Personal Data you provided to SAP, if SAP uses your Personal Data based on your consent or to perform a contract with you. In this case, please contact [please add contact email address] and specify the information or processing activities to which your request relates, the format in which you would like to receive the Personal Data, and whether it should be sent to you or another recipient. SAP will carefully consider your request and discuss with you how it can best be fulfilled.
+- Data portability of the Personal Data you provided to SAP, if SAP uses your Personal Data based on your consent or to perform a contract with you. In this case, please contact privacy[@]sap.com and specify the information or processing activities to which your request relates, the format in which you would like to receive the Personal Data, and whether it should be sent to you or another recipient. SAP will carefully consider your request and discuss with you how it can best be fulfilled.
 - Delete your Personal Data we hold about you. Please note, however, that SAP can or will delete your Personal Data only if there is no statutory obligation or prevailing right of SAP to retain it. If you request from SAP to delete your Personal Data, you may not be able to continue to use any SAP service that requires SAP’s use of your Personal Data.
 - Right to object against SAP further processing your Personal Data, if and to the extent SAP is processing your Personal Data based on its Legitimate Interest.
 When you object to SAP's processing of your Personal Data, SAP will carefully review your objection and cease further use of the relevant information, subject to SAP’s compelling legitimate grounds for continued use of the Personal Data, which may override your interest in objecting, or if SAP requires the information for the establishment, exercise, or defense of legal claims.
@@ -102,7 +102,7 @@ Please direct any requests to exercise your rights to privacy[@]sap.com. SAP wil
 SAP will decline to process requests that are manifestly unfounded, excessive, fraudulent, represented by third parties without duly representing respective authority or are otherwise not required by local law.
 
 ### Can you use SAP’s services if you are a minor?
-In general, [please insert relevant SAP offering, name of your procedure] is not directed to users below the age of 16 years, or equivalent minimum age in the relevant jurisdiction. If you are younger than 16 or the equivalent minimum age in the relevant jurisdiction, you cannot register with and use this [insert relevant SAP offering].
+In general, SAP Architecture Center is not directed to users below the age of 16 years, or equivalent minimum age in the relevant jurisdiction. If you are younger than 16 or the equivalent minimum age in the relevant jurisdiction, you cannot register with and use SAP Architecture Center.
 
 ## B. ADDITIONAL COUNTRY AND REGIONAL SPECIFIC PROVISIONS
 
@@ -186,7 +186,7 @@ In accordance with the verification process set forth under US relevant state la
 
 **New Jersey’s Daniel’s Law**. SAP does not disclose on the Internet or otherwise make available information that is subject to a Daniel’s Law request.
 
-**Children’s Privacy**. Given that [insert relevant SAP offering] is not directed to users under 16 years of age, SAP does not sell or share the personal information of any minors under 16. If you are a parent or guardian and believe SAP collected information about your child, please contact SAP. SAP will take steps to delete the information as soon as possible.
+**Children’s Privacy**. Given that SAP Architecture Center is not directed to users under 16 years of age, SAP does not sell or share the personal information of any minors under 16. If you are a parent or guardian and believe SAP collected information about your child, please contact SAP. SAP will take steps to delete the information as soon as possible.
 
 **California Metrics**. Metrics related to data subject requests received are available here: https://www.sap.com/about/legal/privacy/cpra-metrics.html
 
