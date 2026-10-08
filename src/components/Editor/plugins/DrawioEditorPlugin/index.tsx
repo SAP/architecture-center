@@ -61,6 +61,12 @@ export default function DrawioEditorPlugin() {
   }, [token, expressBackendUrl, getActiveDocument, core]);
 
   const handleMessage = useCallback((event: MessageEvent) => {
+    // Only accept messages from the drawio editor iframe we created. Without
+    // this check any page/iframe could postMessage us a crafted JSON payload
+    // that we JSON.parse and act on (load/save/exit the diagram).
+    const editorOrigin = new URL(DRAWIO_EDITOR_URL).origin; // https://embed.diagrams.net
+    if (event.origin !== editorOrigin) return;
+    if (iframeRef.current && event.source !== iframeRef.current.contentWindow) return;
     if (!event.data || typeof event.data !== 'string') return;
 
     try {
