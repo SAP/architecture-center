@@ -2,15 +2,21 @@
 id: 9efadc
 slug: /ref-arch/9efadc
 sidebar_position: 8
-title: Analytical Insights in Joule
-description: >-
-  Reference Architecture for bringing analytical insights in Joule for SAP BDC
-  using SAP Analytics Cloud JustAsk AI Service.
+title: Analytical Insights in Joule for SAP Analytics Cloud
+description: "Deliver analytical insights in Joule for SAP Business Data Cloud using the SAP Analytics Cloud JustAsk AI service and natural-language queries."
 keywords:
+  - sap
   - sap business data cloud
-  - sap ai core
   - joule
-  - analytics
+  - sap analytics cloud
+  - justask
+  - natural language analytics
+  - sap datasphere
+  - sap hana cloud
+  - conversational ai
+  - generative ai copilot
+  - analytical insights
+  - business ai platform
 sidebar_label: Analytical Insights in Joule
 image: img/ac-soc-med.png
 tags:

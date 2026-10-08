@@ -1,17 +1,20 @@
 ---
 sidebar_position: 2
-title: Classic ML Scenarios
-description: >-
-  Build, deploy and run machine learning use cases on SAP BTP using RPT-1, HANA Cloud
-  PAL/APL and SAP AI Core.
+title: Classic Machine Learning on SAP BTP with HANA Cloud
+description: "Build, deploy and run classic machine learning on SAP BTP using RPT-1 tabular AI, HANA Cloud PAL/APL in-database ML, and SAP AI Core."
 keywords:
     - sap
     - machine learning
     - rpt-1
-    - hana cloud
+    - tabular foundation model
+    - sap hana cloud
     - pal
     - apl
-    - ai core
+    - sap ai core
+    - automl
+    - in-database machine learning
+    - hana vector engine
+    - business ai platform
 sidebar_label: Classic ML Scenarios
 image: img/ac-soc-med.png
 tags:

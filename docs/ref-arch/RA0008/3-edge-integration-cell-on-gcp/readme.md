@@ -2,15 +2,20 @@
 id: 04c9a0
 slug: /ref-arch/04c9a0
 sidebar_position: 3
-title: Edge Integration Cell on GCP
-description: >-
-  Deploy SAP Integration Suite - Edge Integration Cell on GCP for secure hybrid
-  integration, leveraging scalable infrastructure and best practices.
+title: SAP Integration Suite Edge Integration Cell on GCP
+description: "Deploy SAP Integration Suite - Edge Integration Cell on GCP using Google Kubernetes Engine, Cloud SQL, and multi-AZ setup for secure hybrid integration."
 keywords:
   - sap
-  - gcp edge integration
-  - integration suite
-  - real-time connectivity
+  - gcp
+  - edge integration cell
+  - sap integration suite
+  - google kubernetes engine
+  - hybrid integration
+  - high availability
+  - cloud sql for postgresql
+  - multi-az deployment
+  - edge integration cell on gcp
+  - business ai platform
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png
 tags:

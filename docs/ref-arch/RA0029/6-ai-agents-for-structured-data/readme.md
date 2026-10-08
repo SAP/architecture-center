@@ -2,16 +2,22 @@
 id: b6c158
 slug: /ref-arch/b6c158
 sidebar_position: 6
-title: Agents for Structured Data
-description: >-
-  Transform structured data analysis with AI-powered applications, enabling
-  real-time insights and operational efficiency.
+title: AI Agents for Structured Data on SAP Datasphere
+description: "Build AI agents that answer natural-language queries on SAP structured data, using SAP Datasphere federation and SAP HANA Cloud vector search and RAG."
 keywords:
   - sap
-  - ai integration
   - structured data agents
-  - natural language processing
-  - federated data insights
+  - sap datasphere
+  - sap hana cloud
+  - natural language query
+  - rag
+  - data federation
+  - vector engine
+  - business data fabric
+  - langgraph
+  - cap
+  - descriptive and prescriptive analytics
+  - business ai platform
 sidebar_label: Agents for Structured Data
 image: img/ac-soc-med.png
 tags:

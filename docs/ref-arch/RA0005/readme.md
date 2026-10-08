@@ -2,16 +2,23 @@
 id: 39eb58
 slug: /ref-arch/39eb58
 sidebar_position: 60
-title: Generative AI on SAP BTP
+title: Generative AI on SAP BTP with CAP and SAP AI Core
 description: >-
   Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
   similarity search and advanced AI patterns.
 keywords:
   - sap
+  - generative ai
   - generative ai hub
+  - sap ai core
+  - sap hana cloud vector engine
+  - retrieval augmented generation
+  - sap cloud application programming model
+  - large language models
   - cloud foundry
-  - vector engine integration
-  - advanced ai solutions
+  - kyma
+  - knowledge graph engine
+  - business ai platform
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:

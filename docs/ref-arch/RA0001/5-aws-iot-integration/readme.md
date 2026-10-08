@@ -2,15 +2,22 @@
 id: '448754'
 slug: /ref-arch/448754
 sidebar_position: 1
-title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
-description: >-
-    Create event-driven architecture with AWS IoT SiteWise and SAP BTP for
-    seamless business process integration.
+title: AWS IoT SiteWise Integration with SAP BTP
+description: "Build an event-driven architecture connecting AWS IoT SiteWise to SAP BTP and SAP S/4HANA, triggering plant maintenance notifications via advanced event mesh."
 keywords:
     - sap
-    - aws iot integration
-    - event-to-business actions
-    - cloud application programming
+    - aws iot sitewise integration
+    - events-to-business actions framework
+    - sap integration suite advanced event mesh
+    - sap s/4hana
+    - sap ai core
+    - sap ai launchpad
+    - amazon bedrock
+    - generative ai hub
+    - aws lambda
+    - sap private link service
+    - plant maintenance notification
+    - business ai platform
 sidebar_label: Integration with Amazon Web Services
 image: img/ac-soc-med.png
 tags:

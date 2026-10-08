@@ -2,25 +2,20 @@
 id: 4c80fa
 slug: /ref-arch/4c80fa
 sidebar_position: 5
-title: Joule Landscape Recommendation
-description: >-
-  Recommended landscape setup for a unified Joule experience
+title: Joule Landscape Recommendation for SAP Business AI Platform
+description: "Recommended landscape setup for a unified Joule experience with SAP Business AI Platform and SAP Cloud Identity Services, in staged and consolidated models."
 keywords:
   - sap
-  - identity authentication
-  - cloud identity
-  - erp security solutions
-  - access management
   - joule
   - joule studio
-  - custom joule skills
-  - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - hybrid landscapes
+  - joule skills and agents
+  - sap agent gateway
+  - sap knowledge graph
+  - sap cloud identity services
   - staged landscape
-  - landscape
+  - consolidated landscape
+  - unified joule experience
+  - enterprise single sign-on
   - business ai platform
 sidebar_label: Joule Landscape Recommendation
 image: img/ac-soc-med.png

@@ -3,19 +3,20 @@ id: 70c37e
 slug: /ref-arch/70c37e
 sidebar_position: 1
 title: DIV – Verifiable Credential Issuance and Verification
-description: >-
-  This reference architecture describes how SAP Decentralized Identity
-  Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials and
-  Verifiable Presentations on SAP BTP.
+description: "How SAP Decentralized Identity Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials and Verifiable Presentations on SAP BTP."
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
+  - verifiable presentations
+  - ssi
+  - did
   - credential issuance
   - credential verification
-  - IATP
+  - iatp
+  - catena-x
+  - business ai platform
 sidebar_label: VC Issuance and Verification
 image: img/ac-soc-med.png
 tags:

@@ -2,16 +2,23 @@
 id: dd9a38
 slug: /ref-arch/dd9a38
 sidebar_position: 1
-title: Data Synchronization
+title: Multi-Region Data Synchronization with SAP HANA Cloud
 description: >-
   Ensure multi-region data consistency with SAP HANA Cloud's Smart Data Access
   for real-time updates, failover, and resilient data availability.
 keywords:
   - sap
-  - multi-region synchronization
+  - sap hana cloud
   - data replication
-  - failover capabilities
-  - cloud-integrated resiliency
+  - smart data access
+  - smart data integration
+  - remote table replication
+  - multi-region data synchronization
+  - failover
+  - high availability and disaster recovery
+  - multi-region data resiliency
+  - control plane
+  - business ai platform
 sidebar_label: Data Synchronization across regions
 image: img/ac-soc-med.png
 tags:

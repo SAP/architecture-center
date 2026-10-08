@@ -2,16 +2,21 @@
 id: 9ce2bd
 slug: /ref-arch/9ce2bd
 sidebar_position: 2
-title: Integration with Azure data sources
-description: >-
-  Unify Azure data with SAP Datasphere for comprehensive analytics, leveraging
-  SAP's robust data fabric architecture.
+title: Azure data integration with SAP Datasphere
+description: "Integrate Microsoft Fabric OneLake and Synapse Real-Time Analytics with SAP Datasphere's data fabric for unified, real-time analytics in SAP Analytics Cloud."
 keywords:
   - sap
-  - microsoft azure
-  - datasphere integration
-  - data governance
-  - real-time analytics
+  - microsoft fabric
+  - microsoft onelake
+  - azure data lake storage
+  - sap datasphere
+  - fabric synapse real-time analytics
+  - data federation
+  - replication flows
+  - sap s/4hana
+  - sap analytics cloud
+  - data fabric architecture
+  - business ai platform
 sidebar_label: Integration with Azure data sources
 image: img/ac-soc-med.png
 tags:

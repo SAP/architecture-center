@@ -4,28 +4,21 @@ sidebar_position: 11
 slug: /ai-native-north-star-architecture/architecting-for-the-quantum-era
 sidebar_custom_props:
     category_index: []
-title: Architecting for the Quantum Era
-description: >-
-    SAP's AI-native North Star architecture prepares for the quantum era through three principles: quantum co-processors handle specialized optimization and simulation workloads, cloud-native APIs abstract vendor differences, and scoped analytical use keeps transactional systems deterministic — enabling incremental quantum adoption without rearchitecting.
+title: Quantum-Ready Architecture for the AI-native Enterprise
+description: "How SAP's AI-native North Star architecture prepares for the quantum era with QPU coprocessors, cloud-native APIs, and scoped analytical use."
 keywords:
     - quantum computing
-    - quantum co-processor
-    - quantum era
+    - quantum processing unit
     - quantum optimization
-    - molecular simulation
-    - supply chain optimization
-    - cloud-native quantum
+    - quantum simulation
+    - cloud-native quantum apis
     - hybrid classical quantum
     - probabilistic inference
-    - deterministic systems
-    - quantum APIs
-    - portfolio optimization
-    - quantum forecasting
-    - incremental quantum adoption
-    - North Star Architecture
-    - NSA
-    - enterprise AI
-    - AI-native architecture
+    - postquantum cryptography
+    - quantum-ready enterprise
+    - ai-native north star architecture
+    - sap
+    - business ai platform
 sidebar_label: 11. Architecting for the Quantum Era
 image: img/ac-soc-med.png
 tags:

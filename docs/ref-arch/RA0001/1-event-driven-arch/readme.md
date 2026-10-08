@@ -2,17 +2,21 @@
 id: 59c1f6
 slug: /ref-arch/59c1f6
 sidebar_position: 1
-title: Introduction and SAP's EDA Strategy
-description: >-
-  Explore event-driven architecture concepts and building blocks for scalable
-  SAP applications.
+title: Event-Driven Architecture and SAP's EDA Strategy
+description: "Explore event-driven architecture concepts, components, and SAP's EDA strategy with advanced event mesh and SAP Cloud Application Event Hub."
 keywords:
   - sap
-  - btp
   - event-driven architecture
-  - eda integration
-  - azure
-  - cloud application programming model
+  - eda strategy
+  - sap integration suite
+  - advanced event mesh
+  - event mesh capability
+  - sap cloud application event hub
+  - event broker
+  - sap s/4hana
+  - publish-subscribe
+  - real-time integration
+  - business ai platform
 sidebar_label: Introduction and SAP's EDA Strategy
 image: img/ac-soc-med.png
 tags:

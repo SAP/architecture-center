@@ -8,10 +8,16 @@ description: >-
   protecting sensitive data within private networks.
 keywords:
   - sap
+  - sap private link service
   - secure connectivity
-  - private link service
-  - hyperscaler workloads
-  - cloud network security
+  - private endpoint
+  - hyperscaler connectivity
+  - microsoft azure
+  - aws
+  - sap s/4hana integration
+  - cloud foundry
+  - kyma runtime
+  - business ai platform
 sidebar_label: Secure connectivity with SAP Private Link service
 image: img/ac-soc-med.png
 tags:

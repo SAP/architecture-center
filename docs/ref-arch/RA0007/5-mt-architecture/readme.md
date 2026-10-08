@@ -2,15 +2,21 @@
 id: 29b7c8
 slug: /ref-arch/29b7c8
 sidebar_position: 1
-title: Reference Architecture
-description: >-
-  Build scalable multitenant SaaS apps on SAP BTP using CAP, utilizing shared
-  resources, secure tenant isolation, and efficient provisioning.
+title: Multitenant SaaS Reference Architecture on SAP BTP
+description: "Build scalable multitenant SaaS apps on SAP BTP using CAP, with shared resources, secure tenant isolation, and efficient tenant provisioning."
 keywords:
   - sap
-  - multitenant applications
-  - scalable saas solutions
-  - btp reference models
+  - multitenant saas applications
+  - sap cloud application programming model
+  - cloud foundry
+  - kyma
+  - sap hana cloud
+  - sap s/4hana integration
+  - api service broker
+  - sap api management
+  - sap integration suite
+  - tenant isolation
+  - business ai platform
 sidebar_label: Reference Architecture
 image: img/ac-soc-med.png
 tags:
