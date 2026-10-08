@@ -1,17 +1,21 @@
 ---
 sidebar_position: 2
 slug: /community/design-and-styling
-title: Design & Styling
+title: Design and Styling Guidelines for Contributors
 description: Best practices for CSS, responsive design, and performance in the SAP Architecture Center. Ensure a fast, accessible, and maintainable site.
 sidebar_label: Design & Styling
 keywords:
+    - sap
     - sap architecture center
     - css guidelines
     - responsive design
-    - webp images
+    - core web vitals
     - largest contentful paint
-    - layout shift
-    - image optimization
+    - cumulative layout shift
+    - webp images
+    - css modules
+    - docusaurus
+    - business ai platform
 image: img/ac-soc-med.png
 tags:
     - community
@@ -23,8 +27,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: jmsrpp
-    date: 2025-06-20
+    author: julian-schambeck
+    date: 2026-10-07
 ---
 
 A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and utility classes for:

@@ -8,10 +8,17 @@ description: >-
   eliminating replication and enhancing insights.
 keywords:
   - sap
+  - sap fedml
   - federated machine learning
-  - datasphere integration
-  - ai insights
+  - sap datasphere
+  - data federation
+  - sap ai core
+  - sap s/4hana
+  - sap bw/4hana
   - machine learning platforms
+  - nvidia rapids
+  - model training without data replication
+  - business ai platform
 sidebar_label: Federated Machine Learning with SAP Datasphere
 image: img/ac-soc-med.png
 tags:
@@ -56,11 +63,11 @@ The SAP Federated Machine Learning Python library (FedML) applies the Data Feder
 
 The reference architecture diagram shows how FedML uses the data federation architecture of SAP Datasphere for making the machine learning on external platforms possible with  real-time access to SAP business data. Numbers below correspond to the flow numbers in the architecture diagram above.
 
-1.  Data from SAP sources such as S/4HANA and BW/4HANA are virtually accessed from SAP Datasphere via its analytical models.  These data sources are connected to SAP Datasphere using native connections with flexbility to also persist the data in SAP Datasphere.
+1.  Data from SAP sources such as S/4HANA and BW/4HANA are virtually accessed from SAP Datasphere via its analytical models.  These data sources are connected to SAP Datasphere using native connections with flexibility to also persist the data in SAP Datasphere.
 
 2.  Data from external (non-SAP) sources such as hyperscaler data stores, cloud storages (e.g., Amazon Redshift, Google BigQuery, Microsoft One Lake) are also accessed from SAP Datasphere through its virtual/remote tables. The SAP and non-SAP data are unified in SAP Datasphere analytical models and exposed for consumption outside of SAP Datasphere.
 
-3.  The FedML Python Library is imported directly into the external machine learning platform. FedML connects to SAP Datasphere via secure Python/SQLDBC connectivity and helps federate the critical business data needed for training models in these external ML platforms. On GPU noteboks, FedML connectivity core also helps with data discovery and data read directly into the cuDF dataframes through its support for RAPIDS™ framework.
+3.  The FedML Python Library is imported directly into the external machine learning platform. FedML connects to SAP Datasphere via secure Python/SQLDBC connectivity and helps federate the critical business data needed for training models in these external ML platforms. On GPU notebooks, FedML connectivity core also helps with data discovery and data read directly into the cuDF dataframes through its support for RAPIDS™ framework.
 
 4.  Models trained in external Machine learning platforms are optionally deployed in SAP AI Core for inferencing via FedML's seamless deployment integration.
 
@@ -76,9 +83,9 @@ FedML helps:
 
 ## When to use 
 
-Traditionally, data required for model training in any machine-learning platform or AI service like Google Vertex AI, Microsoft Azure ML, Amazon Sagemaker or IBM watsonx.ai are ETL'd from its source systems and persisted on the respective ML platform, e.g. in Google Cloud Storage or Databricks delta lake, thereby causing data duplicaiton.  Using the open-sourced SAP FedML library, data accessible in SAP Datasphere (virtually or physically) via its semantic models can be directly used in a Jupyter Notebook to train a ML model or for inference in the ML platform environment, avoiding data duplication. 
+Traditionally, data required for model training in any machine-learning platform or AI service like Google Vertex AI, Microsoft Azure ML, Amazon Sagemaker or IBM watsonx.ai are ETL'd from its source systems and persisted on the respective ML platform, e.g. in Google Cloud Storage or Databricks delta lake, thereby causing data duplication.  Using the open-sourced SAP FedML library, data accessible in SAP Datasphere (virtually or physically) via its semantic models can be directly used in a Jupyter Notebook to train a ML model or for inference in the ML platform environment, avoiding data duplication. 
 
-**Use this architecure when** :
+**Use this architecture when** :
 
 1. The cloud data strategy involves using hyperscaler and other data science platforms for machine learning projects. 
 2. Majority of training data resides in external platforms, with critical data from various SAP applications (with semantics intact) is needed for training.  

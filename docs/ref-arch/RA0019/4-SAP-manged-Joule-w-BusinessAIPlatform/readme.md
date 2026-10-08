@@ -2,25 +2,20 @@
 id: 4c80fa
 slug: /ref-arch/4c80fa
 sidebar_position: 5
-title: Joule Landscape Recommendation
-description: >-
-  Recommended landscape setup for a unified Joule experience
+title: Joule Landscape Recommendation for SAP Business AI Platform
+description: "Recommended landscape setup for a unified Joule experience with SAP Business AI Platform and SAP Cloud Identity Services, in staged and consolidated models."
 keywords:
   - sap
-  - identity authentication
-  - cloud identity
-  - erp security solutions
-  - access management
   - joule
   - joule studio
-  - custom joule skills
-  - ai agents
-  - sap integration
-  - sap ai
-  - automation
-  - hybrid landscapes
+  - joule skills and agents
+  - sap agent gateway
+  - sap knowledge graph
+  - sap cloud identity services
   - staged landscape
-  - landscape
+  - consolidated landscape
+  - unified joule experience
+  - enterprise single sign-on
   - business ai platform
 sidebar_label: Joule Landscape Recommendation
 image: img/ac-soc-med.png
@@ -55,7 +50,7 @@ The architecture diagram depicts the recommended Joule setup for a staged Joule 
 
 The solution architecture consists of the following key elements:
 
-- **Staged environments**: Each stage is represented as a horizontal row in the diagram, containing its own instance of SAP Cloud Identity Services, the SAP Business AI Platform and the connected SAP systems of the same stage. This separation ensures that changes can be developed and validated before affecting production workloads. Further stages could be added to the environment, hosting the same componenents, one instance of each, SAP Cloud Identity Services and SAP Business AI Platform.
+- **Staged environments**: Each stage is represented as a horizontal row in the diagram, containing its own instance of SAP Cloud Identity Services, the SAP Business AI Platform and the connected SAP systems of the same stage. This separation ensures that changes can be developed and validated before affecting production workloads. Further stages could be added to the environment, hosting the same components, one instance of each, SAP Cloud Identity Services and SAP Business AI Platform.
 
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves the Test stage, while the Productive tenant serves the Production stage. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
 
@@ -87,7 +82,7 @@ The architecture approach shown in this section is not yet generally available (
 :::
 
 The architecture diagram depicts the recommended Joule setup for a consolidated Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
-This architecture allows the isolation of dedicated lanscape stages, such as sandbox or production stage, while combining other stages.
+This architecture allows the isolation of dedicated landscape stages, such as sandbox or production stage, while combining other stages.
 
 ![drawio](drawio/consolidated_BAIP_IAM_Architecture.drawio)
 

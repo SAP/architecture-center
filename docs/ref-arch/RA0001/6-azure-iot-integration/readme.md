@@ -2,16 +2,21 @@
 id: 988fb1
 slug: /ref-arch/988fb1
 sidebar_position: 1
-title: Build Events-to-Business Actions Scenarios with SAP BTP and Microsoft Azure
-description: >-
-  Build event-driven applications with Azure IoT and SAP BTP for real-time
-  business action processing in SAP S/4HANA.
+title: Azure IoT Events to Business Actions in SAP S/4HANA
+description: "Integrate Azure IoT Central events with SAP S/4HANA using SAP BTP and advanced event mesh to trigger real-time business actions from device data."
 keywords:
   - sap
   - microsoft azure
-  - events-to-business
+  - azure iot central
+  - sap s/4hana
+  - sap integration suite, advanced event mesh
+  - sap event mesh
+  - sap build process automation
+  - sap private link service
   - event-driven architecture
+  - events-to-business actions
   - iot integration
+  - business ai platform
 sidebar_label: Integration with Microsoft Azure
 image: img/ac-soc-med.png
 tags:

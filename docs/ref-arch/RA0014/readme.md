@@ -2,20 +2,22 @@
 id: 24c626
 slug: /ref-arch/24c626
 sidebar_position: 150
-title: Understanding Network Performance in a Multi Regional Solution
-description: >-
-  Optimize multi-regional cloud solutions with insights into network design,
-  provider usage, and service placement for superior performance.
+title: Network Performance in Multi-Regional SAP Solutions
+description: "Measure and optimize network performance for multi-regional SAP solutions, comparing OData connection options across hyperscaler and SAP BTP regions."
 keywords:
   - sap
-  - btp
   - network performance
-  - multi-regional solution
-  - hyperscaler
-  - S/4 HANA
+  - multi-regional sap solution
+  - hyperscaler regions
+  - sap s/4hana cloud
+  - network latency and throughput
+  - sap cloud connector
+  - sap private link
+  - odata performance
   - aws
   - azure
-  - cloud design
+  - gcp
+  - business ai platform
 sidebar_label: Understanding Network Performance in a Multi Regional Solution
 image: img/ac-soc-med.png
 tags:
@@ -263,7 +265,7 @@ Performance tests in Europe, North America and Asia, using the described archite
 - SAP BTP subaccount and SAP S/4HANA should be placed geographically close to each other (especially for data intensive extensions and analytical scenarios)
 - Cross hyperscaler traffic e.g. SAP S/4HANA on Azure to SAP BTP on AWS did not have any negative performance impact (response time and throughput) compared to using the hyperscaler's own fibre backbones
 - We could not find a significant performance difference between SAP Cloud Connector and SAP Private Link
-- Most hyperscalers will try by default to keep traffic on their own network if both orgin and target are on the same hyperscaler even when using public IPs (aka "cold potato routing"). However, this behavior is configurable.
+- Most hyperscalers will try by default to keep traffic on their own network if both origin and target are on the same hyperscaler even when using public IPs (aka "cold potato routing"). However, this behavior is configurable.
 
 Network performance is not the only criteria for designing a multi-regional setup for a SAP solution. Other non-functional aspects like regulatory requirements, (high) availability requirements, security and cost considerations could require different decisions, leading to trade-offs on the performance side. It is also important to understand the network performance requirements of the business solution.
 A good application architecture can often mitigate performance bottlenecks on the network.

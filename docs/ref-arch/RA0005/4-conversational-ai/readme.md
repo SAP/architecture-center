@@ -3,12 +3,16 @@ id: d0e5c7
 slug: /ref-arch/d0e5c7
 sidebar_position: 4
 title: Conversational AI & Joule
-description: Please add a description (max 300 characters)
+description: "Explore conversational AI on SAP BTP with Joule, SAP's generative AI assistant, and AI agents for natural-language business interactions."
 keywords:
   - sap
-  - conversational AI
-  - joule platform
-  - intelligent interactions
+  - conversational ai
+  - joule
+  - generative ai
+  - generative ai assistant
+  - ai agents
+  - natural language
+  - business ai platform
 sidebar_label: Conversational AI & Joule
 image: img/ac-soc-med.png
 tags:

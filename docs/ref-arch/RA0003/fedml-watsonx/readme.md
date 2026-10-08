@@ -8,12 +8,16 @@ description: >-
   data for seamless model training without data duplication.
 keywords:
   - sap
-  - ibm watsonx
-  - machine learning
-  - fedml
-  - data integration
+  - ibm watsonx.ai
+  - ibm watson studio
+  - sap fedml
+  - sap datasphere
+  - sap ai core
+  - machine learning workflows
   - model training
-  - critical business data
+  - model inferencing
+  - federated machine learning
+  - business ai platform
 sidebar_label: FedML-IBM watsonx
 image: img/ac-soc-med.png
 tags:
@@ -44,7 +48,7 @@ last_update:
 
 :::
 
-FedML (fedml-dsp) can be used in notebooks inside the IBM watsonx.ai and Waston Studio environments. 
+FedML (fedml-dsp) can be used in notebooks inside the IBM watsonx.ai and Watson Studio environments. 
 
 FedML's Connectivity Core component supports reading data from semantic models of SAP Datasphere directly into the notebooks in IBM watsonx environments. FedML's IBM watsonx support helps data scientists accelerate machine learning workflows with IBM watsonx workflows, while providing instant access to SAP's critical business data without the need for ETL or additional overhead in processing ETL'd data.
 

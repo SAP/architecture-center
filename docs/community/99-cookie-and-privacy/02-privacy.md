@@ -1,12 +1,16 @@
 ---
 sidebar_position: 2
 slug: /community/privacy
-title: Privacy Statement
-description: The SAP Architecture Center (this site) - Privacy Statement.
+title: Privacy Statement | SAP Architecture Center
+description: "How SAP processes your personal data on the SAP Architecture Center, the legal bases, your data protection rights, and country-specific privacy provisions."
 sidebar_label: Privacy Statement
 keywords:
  - sap
- - privacy
+ - privacy statement
+ - data protection
+ - personal data
+ - gdpr
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -53,7 +57,6 @@ When ensuring compliance, SAP processes your Personal Data if and to the extend 
 ### What categories of Personal Data does SAP process?
 SAP processes the following categories of Personal Data: 
 - **SAP AC Quick Start**: GitHub Username, GitHub Public Profile Information (e.g., name, profile picture, email if made public), Repository Access Token
-- **SAP AC Architecture Validator**: SAP User ID, SAP Public Profile Information (e.g., name, profile picture, email if made public)
 
 If SAP processes special categories of Personal Data under applicable law, SAP will ask you for your consent in a specific declaration.
 
@@ -101,7 +104,7 @@ SAP will decline to process requests that are manifestly unfounded, excessive, f
 ### Can you use SAP’s services if you are a minor?
 In general, [please insert relevant SAP offering, name of your procedure] is not directed to users below the age of 16 years, or equivalent minimum age in the relevant jurisdiction. If you are younger than 16 or the equivalent minimum age in the relevant jurisdiction, you cannot register with and use this [insert relevant SAP offering].
 
-## B. ADDITONAL COUNTRY AND REGIONAL SPECIFIC PROVISIONS
+## B. ADDITIONAL COUNTRY AND REGIONAL SPECIFIC PROVISIONS
 
 ### Where SAP is subject to privacy requirements in the EU/EEA or a country with national laws equivalent to the GDPR
 

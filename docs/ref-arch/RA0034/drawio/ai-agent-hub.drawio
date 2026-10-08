@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="BAIP" id="Rj_z-o6ucq7qIzsxSZNO">
-        <mxGraphModel dx="949" dy="-294" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="258" dy="-730" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-0"/>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-1" parent="7zZkG7QePnFsALLzHj9v-0"/>
@@ -348,7 +348,7 @@
                         <mxPoint x="-1" y="21" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="7zZkG7QePnFsALLzHj9v-115" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;font color=&quot;#002a86&quot;&gt;&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;&lt;i&gt;powered by SAP BTP&lt;/i&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
+                <mxCell id="7zZkG7QePnFsALLzHj9v-115" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="7zZkG7QePnFsALLzHj9v-1" vertex="1">
                     <mxGeometry x="495.65" y="1470" width="182" height="40.5" as="geometry"/>
                 </mxCell>
                 <mxCell id="7zZkG7QePnFsALLzHj9v-116" value="&amp;nbsp; &amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="7zZkG7QePnFsALLzHj9v-1" connectable="0" vertex="1">

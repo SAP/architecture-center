@@ -2,16 +2,21 @@
 id: af1cc6
 slug: /ref-arch/af1cc6
 sidebar_position: 1
-title: Integration with AWS data sources
-description: >-
-  Data from AWS data sources can be harmonized with SAP and non-sap data via SAP
-  Datasphere's data fabric architecture.
+title: AWS data integration with SAP Datasphere
+description: "Integrate AWS sources — Amazon Athena, S3, and Redshift — with SAP Datasphere's data fabric for analytics in SAP Analytics Cloud."
 keywords:
   - sap
   - aws data integration
-  - datasphere
-  - cloud harmonization
-  - advanced analytics models
+  - sap datasphere
+  - amazon redshift
+  - amazon athena
+  - amazon s3
+  - smart data integration
+  - data federation
+  - replication flows
+  - sap analytics cloud
+  - data fabric architecture
+  - business ai platform
 sidebar_label: Integration with AWS data sources
 image: img/ac-soc-med.png
 tags:
@@ -53,7 +58,7 @@ Data from AWS data sources can be harmonized with SAP and non-sap data via SAP D
 
 Amazon Athena is Amazon's interactive query service that helps query and analyze data in S3.
 
-Non-SAP data from Amazon Athena can be federated live into remote tables in SAP Datasphere and augmented with SAP buisness data for real-time analtyics in SAP Analytics cloud.
+Non-SAP data from Amazon Athena can be federated live into remote tables in SAP Datasphere and augmented with SAP business data for real-time analytics in SAP Analytics Cloud.
 
 
 For detailed step by step information and to try out the integration, visit the github : [Integrate Amazon Athena with SAP Datasphere](https://github.com/SAP-samples/sap-bdc-explore-hyperscaler-data/blob/main/AWS/athena-integration.md)

@@ -3,17 +3,20 @@ id: bffef5
 slug: /ref-arch/bffef5
 sidebar_position: 4
 title: Integration with Google Cloud Platform sources
-description: >-
-  Integrate non-SAP data in Google Cloud Platform with business data from SAP using SAP Business Data Cloud's seamless data integration architectures to enable holistic AI/ML & Analytics use cases.
+description: "Integrate Google BigQuery and Google Cloud Storage data with SAP business data via SAP Business Data Cloud for unified AI/ML and analytics."
 keywords:
   - sap
-  - cloud performance
+  - sap business data cloud
   - google bigquery
+  - google cloud storage
+  - bdc connect for google bigquery
+  - delta sharing
+  - sap datasphere
+  - data federation
+  - zero-copy data integration
   - data harmonization
-  - advanced analytics
-  - bdc connect 
-  - bdc connect for google big query
-  - delta share
+  - replication flows
+  - business ai platform
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png
 tags:
@@ -59,7 +62,7 @@ Curated and managed data products can be shared bi-directionally in a governed m
     <ul>
       <li>**Delta Share access:** Leverages delta sharing open data protocol, enabling interoperability across different computing platforms, cloud environments, and applications without data duplication.</li>
       <li>**Unified Data View:**  Achieve a holistic view of harmonized enterprise data and third-party data by integrating disparate data sources between Google BigQuery and SAP Business Data Cloud.</li>
-      <li>**Opens up flexible infrastructure choices:** Leverage the highly scalable infrastructure of Google BigQuery , and powerful enterprise analytics capabilties of SAP Business Data Cloud to handle large volumes of data and complex analytics workloads.</li>
+      <li>**Opens up flexible infrastructure choices:** Leverage the highly scalable infrastructure of Google BigQuery , and powerful enterprise analytics capabilities of SAP Business Data Cloud to handle large volumes of data and complex analytics workloads.</li>
       <li>**Access to AI-ready data**: AI-ready curated SAP data products shared directly from SAP Business Data Cloud's Object Store layer with Google BigQuery in a secured, governed manner helps enterprise AI/ML workloads at Google Vertex AI</li>
     </ul>
 <p></p>

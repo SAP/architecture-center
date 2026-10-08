@@ -12,8 +12,6 @@ import useGlobalData from '@docusaurus/useGlobalData';
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import { logger } from '@site/src/utils/logger';
-
 // Domain definitions with labels
 const DOMAIN_DEFINITIONS = [
   { id: 'ai', label: 'AI & Machine Learning' },
@@ -29,6 +27,118 @@ const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) =>
   (acc[cat] ??= []).push(tagKey);
   return acc;
 }, {});
+
+// =============================================================================
+// Document ID Matching Utilities
+// =============================================================================
+// To bridge the gap between URLs ID suffix and docIds full paths, by matching on the hex ID suffix
+
+const HEX_ID_PATTERN = /([a-f0-9]{6})$/i;
+
+function extractHexId(path: string): string | null {
+  const match = path.match(HEX_ID_PATTERN);
+  return match ? match[1] : null;
+}
+
+function findDocIdByHexId(hexId: string, docIdToTags: Record<string, string[]>): string | null {
+  for (const docId of Object.keys(docIdToTags)) {
+    if (docId.endsWith(hexId) || docId.endsWith(`/${hexId}`)) {
+      return docId;
+    }
+  }
+  return null;
+}
+
+function getDocTags(docId: string, docIdToTags: Record<string, string[]>): string[] {
+  if (!docId || !docIdToTags) return [];
+
+  if (docIdToTags[docId]) {
+    return docIdToTags[docId];
+  }
+
+  const hexId = extractHexId(docId);
+  if (hexId) {
+    const fullDocId = findDocIdByHexId(hexId, docIdToTags);
+    if (fullDocId) {
+      return docIdToTags[fullDocId];
+    }
+  }
+
+  return [];
+}
+
+function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
+  return getDocTags(docId, docIdToTags).includes('archive');
+}
+
+function findDocIdFromPath(pathname: string, tagsDocId: Record<string, string[]>): string | null {
+  if (!tagsDocId || !pathname) return null;
+
+  const normalizedPath = pathname.replace(/\/$/, '');
+  const hexId = extractHexId(normalizedPath);
+
+  if (hexId) {
+    return findDocIdByHexId(hexId, tagsDocId);
+  }
+
+  return null;
+}
+
+// =============================================================================
+// Sidebar Filtering
+// =============================================================================
+function filterArchivedItems(items: any[], docIdToTags: Record<string, string[]>, showArchived: boolean): any[] {
+  const filterItem = (item: any): any | null => {
+    if (item.type === 'doc' || item.type === 'link') {
+      const docId = item.docId || item.id;
+      const isArchived = docId && isDocArchived(docId, docIdToTags);
+
+      // Keep ONLY archived docs or ONLY non-archived docs
+      if (showArchived) {
+        return isArchived ? item : null;
+      } else {
+        return isArchived ? null : item;
+      }
+    }
+
+    if (item.type === 'category') {
+      // Check if the category itself is archived
+      const categoryDocId = getItemDocId(item, docIdToTags);
+      const isCategoryArchived = categoryDocId && isDocArchived(categoryDocId, docIdToTags);
+
+      // Only include or exclude archived categories
+      if (showArchived && !isCategoryArchived) {
+        // Category itself is not archived, but check children for archived items
+      } else if (!showArchived && isCategoryArchived) {
+        return null; // Filter out archived categories
+      }
+
+      // Recursively filter children
+      const filteredItems = (item.items || [])
+        .map(filterItem)
+        .filter(Boolean);
+
+      // Keep category only if it has matching children
+      if (filteredItems.length === 0 && !showArchived) {
+        // For non-archived view, keep category if it has a non-archived link
+        if (!item.link?.id && !item.href) {
+          return null;
+        }
+      } else if (filteredItems.length === 0 && showArchived) {
+        // For archived view, only keep if category itself is archived
+        if (!isCategoryArchived) {
+          return null;
+        }
+      }
+
+      return { ...item, items: filteredItems };
+    }
+
+    return item;
+  };
+
+  return items.map(filterItem).filter(Boolean);
+}
 
 // Get all matching document IDs for given partner tags directly from docIdToTags
 function getMatchingDocIds(docIdToTags: Record<string, string[]>, partnerTags: string[]): Set<string> {
@@ -304,6 +414,8 @@ function DocSidebarDesktop(props) {
   const sidebar = useDocsSidebar();
   const shouldShowFilters = sidebar?.name === 'refarchSidebar';
   const location = useLocation();
+  const history = useHistory();
+  const refArchBase = useBaseUrl('/docs/ref-arch');
   const {
     navbar: { hideOnScroll },
     docs: { sidebar: { hideable } },
@@ -313,17 +425,25 @@ function DocSidebarDesktop(props) {
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+  const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Group sidebar items by domain
-  const grouped = useMemo(
-    () => groupSidebarByDomain(props.sidebar, tagsDocId),
-    [props.sidebar, tagsDocId]
+  // Filter out archived items first (before domain grouping)
+  const nonArchivedSidebar = useMemo(
+    () => filterArchivedItems(props.sidebar, tagsDocId, showArchived),
+    [props.sidebar, tagsDocId, showArchived]
   );
 
-  // Filter by selected partners and get matching doc IDs for counting
-  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+  // Group sidebar items by domain
+  const grouped = useMemo(
+    () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
+    [nonArchivedSidebar, tagsDocId]
+  );
+
+  // Filter by selected partners
+  const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
   );
@@ -349,14 +469,38 @@ function DocSidebarDesktop(props) {
   };
 
   const handleResetFilters = () => {
-    resetFilters();
-    window.history.replaceState({}, '', location.pathname);
+    // If archive filter is active, navigate to base document
+    if (showArchived) {
+      resetFilters();
+      history.replace(refArchBase);
+    } else {
+      resetFilters();
+      window.history.replaceState({}, '', location.pathname);
+    }
   };
 
-  // Count: use matchingDocIds size when filtering, otherwise count unique docs
-  const resultCount = partners.length > 0
-    ? matchingDocIds.size
-    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  const handleBackToAllDocuments = () => {
+    resetFilters();
+    history.replace(refArchBase);
+  };
+
+  const handleArchiveChange = (value: boolean) => {
+    if (value) {
+      setShowArchived(true);
+      history.replace(`${refArchBase}?archive=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable archive and navigate with partners
+        setShowArchived(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
+  };
+
+  // Count unique docs from the filtered results (respects both archived and partner filters)
+  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
   const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
@@ -371,10 +515,12 @@ function DocSidebarDesktop(props) {
           selectedPartners={selectedPartnerOptions}
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
-          isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+          isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
+          showArchived={showArchived}
+          onArchiveChange={handleArchiveChange}
         />
       </div>
       <div className={styles.sidebarMenuList}>
@@ -403,21 +549,32 @@ function DocSidebarDesktop(props) {
 
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+  const location = useLocation();
   const partners = useSidebarFilterStore(state => state.partners);
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+  const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
+  const history = useHistory();
+  const refArchBase = useBaseUrl('/docs/ref-arch');
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
 
-  const grouped = useMemo(
-    () => groupSidebarByDomain(sidebar, tagsDocId),
-    [sidebar, tagsDocId]
+  // Filter out archived items first (before domain grouping)
+  const nonArchivedSidebar = useMemo(
+    () => filterArchivedItems(sidebar, tagsDocId, showArchived),
+    [sidebar, tagsDocId, showArchived]
   );
 
-  const { filtered: filteredGrouped, matchingDocIds } = useMemo(
+  const grouped = useMemo(
+    () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
+    [nonArchivedSidebar, tagsDocId]
+  );
+
+  const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
   );
@@ -427,13 +584,38 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   };
 
   const handleResetFilters = () => {
-    resetFilters();
-    window.history.replaceState({}, '', location.pathname);
+    // If archive filter is active, navigate to base document
+    if (showArchived) {
+      resetFilters();
+      history.replace(refArchBase);
+    } else {
+      resetFilters();
+      window.history.replaceState({}, '', location.pathname);
+    }
   };
 
-  const resultCount = partners.length > 0
-    ? matchingDocIds.size
-    : countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  const handleBackToAllDocuments = () => {
+    resetFilters();
+    history.replace(refArchBase);
+  };
+
+  const handleArchiveChange = (value: boolean) => {
+    if (value) {
+      setShowArchived(true);
+      history.replace(`${refArchBase}?archive=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable archive and navigate with partners
+        setShowArchived(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
+  };
+
+  // Count unique docs from the filtered results (respects both archived and partner filters)
+  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
   const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
@@ -444,10 +626,12 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         selectedPartners={selectedPartnerOptions}
         onPartnersChange={handlePartnersChange}
         resetFilters={handleResetFilters}
-        isResetEnabled={partners.length > 0 || searchTerm.length > 0}
+        isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         resultCount={resultCount}
+        showArchived={showArchived}
+        onArchiveChange={handleArchiveChange}
       />
       <nav className={styles.domainSidebarMobile}>
         <DocSidebarItems
@@ -505,12 +689,44 @@ function findDocByPath(items, pathname) {
   return null;
 }
 
+// Check if a document exists in the archived sidebar view (as a category as well)
+function docExistsInArchivedView(docId: string, pathname: string, sidebar: any[], tagsDocId: Record<string, string[]>): boolean {
+  if (isDocArchived(docId, tagsDocId)) {
+    return true;
+  }
+
+  const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
+
+  const foundInArchived = findItemByPath(archivedSidebar, pathname);
+  return foundInArchived;
+}
+
+// Find if any item (doc, link, or category) matches the pathname
+function findItemByPath(items: any[], pathname: string): boolean {
+  for (const item of items) {
+    if (item.type === 'doc' || item.type === 'link') {
+      if (item.href === pathname || pathname.startsWith(item.href)) {
+        return true;
+      }
+    } else if (item.type === 'category') {
+      if (item.href && (item.href === pathname || pathname.startsWith(item.href))) {
+        return true;
+      }
+      if (item.items && findItemByPath(item.items, pathname)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 export default function DocSidebarWrapper(props) {
   const windowSize = useWindowSize();
   const sidebarContext = useDocsSidebar();
   const shouldShowFilters = sidebarContext?.name === 'refarchSidebar';
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
+  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
@@ -526,15 +742,70 @@ export default function DocSidebarWrapper(props) {
     const params = new URLSearchParams(location.search);
     const partnersParam = params.get('partners');
     const expandedParam = params.get('expanded');
+    const archivedParam = params.get('archive');
 
-    if (partnersParam) setPartners(partnersParam.split(','));
+    // Find the current document
+    const docIdFromTags = findDocIdFromPath(location.pathname, tagsDocId);
+    const docIdFromSidebar = findDocByPath(props.sidebar, location.pathname);
+    const docId = docIdFromTags || docIdFromSidebar;
+
+    // Handle partners filter with context-aware logic
+    if (partnersParam) {
+      setPartners(partnersParam.split(','));
+    } else if (archivedParam === 'true') {
+      // When archive mode is active, preserve partners in store
+    } else if (docId && tagsDocId[docId]) {
+      // Preserve partners during sidebar nav only if they're still relevant
+      const currentPartners = useSidebarFilterStore.getState().partners;
+
+      if (currentPartners.length > 0) {
+        const docTags = tagsDocId[docId] || [];
+
+        // Check if current document has ANY of the active partner tags
+        const hasMatchingPartner = currentPartners.some(partner =>
+          docTags.some((tag: string) => tag.toLowerCase().includes(partner.toLowerCase()))
+        );
+
+        // If document matches partners, keep them active and sync URL
+        if (hasMatchingPartner) {
+          const urlParams = new URLSearchParams(location.search);
+          if (!urlParams.get('partners')) {
+            urlParams.set('partners', currentPartners.join(','));
+            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          }
+        } else {
+          setPartners([]);
+        }
+      }
+    } else {
+      setPartners([]);
+    }
+
+    const currentShowArchived = useSidebarFilterStore.getState().showArchived;
+
+    if (archivedParam === 'true') {
+      setShowArchived(true);
+    } else if (docId) {
+      const isCurrentDocArchived = isDocArchived(docId, tagsDocId);
+      if (isCurrentDocArchived) {
+        setShowArchived(true);
+      } else if (currentShowArchived) {
+        // Check if document exists in archived view (as a parent category with archived children)
+        const existsInArchived = docExistsInArchivedView(docId, location.pathname, props.sidebar, tagsDocId);
+        if (!existsInArchived) {
+          setShowArchived(false);
+        }
+      } else {
+        setShowArchived(false);
+      }
+    } else {
+      setShowArchived(false);
+    }
 
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
       return;
     }
-
-    const docId = findDocByPath(props.sidebar, location.pathname);
 
     if (docId && tagsDocId[docId]) {
       const docTags = tagsDocId[docId] || [];
@@ -550,13 +821,11 @@ export default function DocSidebarWrapper(props) {
         setExpandedDomains(matchingDomains);
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, shouldShowFilters, tagsDocId, props.sidebar]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, shouldShowFilters, tagsDocId, props.sidebar]);
 
   useEffect(() => {
     return history.listen(loc => {
-      logger.info("Route changed:", loc.pathname);
       if (!loc.pathname.startsWith(docsBase)) {
-        logger.info("Resetting filters...");
         resetFilters();
       }
     });

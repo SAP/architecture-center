@@ -2,17 +2,21 @@
 id: a5c409
 slug: /ref-arch/a5c409
 sidebar_position: 1
-title: Tenant Model on SAP BTP
-description: >-
-  Explore tenant models on SAP BTP for scalable, multitenant SaaS applications
-  and efficient resource management.
+title: Tenant Model and Data Separation on SAP BTP
+description: "Tenant models for multitenant SaaS on SAP BTP: provider and consumer subaccounts and data separation via column discriminator, database, or schema."
 keywords:
   - sap
-  - btp
-  - tenant management
-  - multitenant application
-  - saas architecture
-  - cap model
+  - tenant model
+  - multitenant saas
+  - data separation
+  - schema separation
+  - hdi container
+  - sap hana cloud
+  - sap service manager
+  - sap saas provisioning service
+  - provider and consumer subaccount
+  - tenant data isolation
+  - business ai platform
 sidebar_label: Tenant Model on SAP BTP
 image: img/ac-soc-med.png
 tags:

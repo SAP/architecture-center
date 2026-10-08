@@ -8,10 +8,17 @@ description: >-
   secure integration and eliminating data duplication.
 keywords:
   - sap
-  - databricks platform
-  - fedml integration
+  - databricks
+  - fedml
+  - sap datasphere
   - machine learning
-  - live business data
+  - pyspark
+  - live sap data
+  - delta lake
+  - model training
+  - model deployment
+  - data federation
+  - business ai platform
 sidebar_label: FedML-Databricks
 image: img/ac-soc-med.png
 tags:
@@ -58,7 +65,7 @@ FedML-Databricks provides end-to-end integration for training models in Databric
 
 FedML, the Python Library is imported directly into Databricks workspace's notebook instances. FedML connects to SAP Datasphere via secure Python/SQLDBC connectivity and helps federate the critical business data needed for training models in Databricks platform.
 
-Models trained in Databricks ML platform can also be optionally deployed in SAP BTP Kyma for inferencing via FedML-databrick's seamless deployment integration.
+Models trained in Databricks ML platform can also be optionally deployed in SAP BTP Kyma for inferencing via FedML-Databricks' seamless deployment integration.
 
 ## When to use 
 

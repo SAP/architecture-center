@@ -2,13 +2,21 @@
 id: 2a28bd
 slug: /ref-arch/2a28bd
 sidebar_position: 1
-title: SAP CAP Framework for Events to Business Actions Integration
-description: Custom CAP Application framework to build event-driven applications in SAP BTP
+title: SAP CAP Events-to-Business Actions Framework
+description: "A custom SAP CAP framework to build event-driven applications on SAP BTP that consume events and trigger business actions in SAP S/4HANA and other systems."
 keywords:
   - sap
-  - aws iot integration
-  - event-to-business actions
-  - cloud application programming
+  - event-driven architecture
+  - events-to-business actions framework
+  - sap cloud application programming model
+  - sap integration suite advanced event mesh
+  - sap build process automation
+  - sap hana cloud
+  - sap private link service
+  - sap connectivity service
+  - generative ai
+  - clean core extension
+  - business ai platform
 sidebar_label: SAP CAP based Framework for EDA
 image: img/ac-soc-med.png
 tags:

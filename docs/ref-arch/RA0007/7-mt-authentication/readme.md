@@ -2,15 +2,21 @@
 id: 98c985
 slug: /ref-arch/98c985
 sidebar_position: 1
-title: Authentication Strategies
-description: >-
-  Learn authentication strategies for multitenant apps with SAP Cloud Identity
-  Services, covering secure identity management and compliance.
+title: Authentication Strategies for Multitenant Apps
+description: "Authentication strategies for multitenant SaaS apps on SAP BTP, from SAP ID Service to provider-owned and consumer-specific SAP Cloud Identity Services."
 keywords:
   - sap
-  - authentication model
-  - tenant lifecycle
-  - btp security
+  - authentication strategies
+  - multitenant authentication
+  - sap cloud identity services
+  - sap id service
+  - identity authentication service
+  - identity provider
+  - sap authorization and trust management service
+  - corporate identity providers
+  - single sign-on
+  - multi-factor authentication
+  - business ai platform
 sidebar_label: Authentication Strategies
 image: img/ac-soc-med.png
 tags:
@@ -66,7 +72,7 @@ The following authentication strategies are possible:
       Consumer-driven integrations allow consumers wishing to use their own SAP Cloud Identity Services tenants or consumers preferring to directly integrate their own Identity Providers with SaaS provider owned consumer subaccounts.
       
       - 
-        In the following pattern, SaaS provider's SAP Cloud Identity Services acts as a proxy to delegate the authentication to consumer owned SAP Cloud Identity Services or a  3rd party iderntity provider using so called [Corporate Identity Providers](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/corporate-identity-providers) feature. User identity is managed by the consumer's identity provider, and the SaaS application uses the user's identity to determine the user's roles and access rights in the consumer subaccount via [SAP Authorization and Trust Management Service](https://discovery-center.cloud.sap/serviceCatalog/authorization-and-trust-management-service?region=all).
+        In the following pattern, SaaS provider's SAP Cloud Identity Services acts as a proxy to delegate the authentication to consumer owned SAP Cloud Identity Services or a  3rd party identity provider using so called [Corporate Identity Providers](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/corporate-identity-providers) feature. User identity is managed by the consumer's identity provider, and the SaaS application uses the user's identity to determine the user's roles and access rights in the consumer subaccount via [SAP Authorization and Trust Management Service](https://discovery-center.cloud.sap/serviceCatalog/authorization-and-trust-management-service?region=all).
 
         ![mt-cap-auth-consumer-idp-c-a](./images/mt-cap-auth-consumer-idp-c-a.svg)
       

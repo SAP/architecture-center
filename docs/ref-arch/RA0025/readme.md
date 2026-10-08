@@ -3,16 +3,19 @@ id: 4b76ae
 slug: /ref-arch/4b76ae
 sidebar_position: 260
 title: Transitioning Architectures from SAP NetWeaver
-description: >-
-  Discover how SAP customers can transition from NetWeaver-based products
-  approaching end-of-maintenance in 2027. Explore successor solutions,
-  integration strategies, innovation needs, and security considerations for
-  seamless migration and future-proofing your SAP landscape.
+description: "Transition from SAP NetWeaver-based products nearing 2027 end of maintenance, with successor solutions, integration strategies, and security considerations."
 keywords:
-  - SAP NetWeaver transition
-  - security
-  - governance
+  - sap
+  - sap netweaver transition
+  - end of maintenance 2027
+  - sap integration suite
+  - edge integration cell
+  - sap cloud identity access governance
+  - sap grc
+  - sap s/4hana
+  - security considerations
   - integration strategies
+  - business ai platform
 sidebar_label: Transitioning Architectures from SAP NetWeaver
 image: img/logo.svg
 tags:

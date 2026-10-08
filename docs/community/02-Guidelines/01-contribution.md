@@ -1,12 +1,19 @@
 ---
 sidebar_position: 1
 slug: /community/contribution
-title: How to Contribute
+title: How to Contribute to SAP Architecture Center
 description: Learn how to contribute to the SAP Architecture Center. Follow step-by-step guidelines for submitting code, documentation, or AI-generated content.
 sidebar_label: How to Contribute
 keywords:
  - sap
+ - sap architecture center
  - contribute
+ - open source contribution
+ - pull request
+ - developer certificate of origin
+ - quick start
+ - ai-generated code
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

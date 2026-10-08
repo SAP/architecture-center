@@ -1,13 +1,18 @@
 ---
 sidebar_position: 2
 slug: /community/get-started-quickstart
-title: Get Started with Quick Start
-description: Get started contributing to the SAP Architecture Center with this step-by-step guide. Learn how to contribute using the no-code Quick Start approach.
+title: "Quick Start: No-Code Architecture Editor"
+description: "Publish reference architectures with Quick Start, the no-code editor: log in with GitHub, add text and Draw.io diagrams, and submit a pull request."
 sidebar_label: Quick Start
 keywords:
  - sap
  - get started
  - quick start
+ - no-code architecture editor
+ - reference architecture
+ - draw.io diagrams
+ - github
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community

@@ -1,12 +1,17 @@
 ---
 sidebar_position: 10
 slug: /community/team
-title: The Team
-description: The team behind the SAP Architecture Center.
+title: The Team Behind the SAP Architecture Center
+description: "Meet the Office of the CTO and the network of core and extended contributors who build, publish, and govern the SAP Architecture Center."
 sidebar_label: The Team
 keywords:
  - sap
  - team
+ - sap architecture center
+ - office of the cto
+ - contributors
+ - reference architectures
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -68,10 +73,6 @@ When professional support was needed, a team of skilled colleagues stepped in to
 | Max Lienhardt | Research & Development | - | [GitHub](https://github.com/xammaxx) | [LinkedIn](https://www.linkedin.com/in/max-lienhardt-a2a157335/) |
 | MHD Iyad Al Hafez | Research & Development | - | [GitHub](https://github.com/Iyad-Alhafez) | - |
 | Ajit Kumar Panda | Authentication & Joule integration | - | [GitHub](https://github.com/AjitKP91) | [LinkedIn](https://www.linkedin.com/in/ajit-kumar-panda-22ba1953/) |
-| Vedant Gupta | Research & Development | Architecture Validator (Lead) | [GitHub](https://github.com/vedant-aero-ml) | [LinkedIn](https://www.linkedin.com/in/vedant-gupta-ai/) |
-| Swati Maste | Research & Development | Architecture Validator | [GitHub](https://github.com/swatimaste00) | [LinkedIn](https://www.linkedin.com/in/swati-maste/) |
-| Jonas Mohr | Research & Development | Architecture Validator | [GitHub](https://github.com/Jo-Pa-Mo) | [LinkedIn](https://www.linkedin.com/in/jonas-mohr-300217374/) |
-| Praveen Kumar Padegal | Guidance & Support | Architecture Validator | [GitHub](https://github.com/pra1veenk) | [LinkedIn](https://www.linkedin.com/in/praveenkumarpadegal/) |
 | Abhishek Sharma | Research & Development | Quick Start (Lead) | [GitHub](https://github.com/abhissharma21) | [LinkedIn](https://www.linkedin.com/in/abhishek-sharma21) |
 | Tobias Gabriel | Guidance & Support | GitHub & Open Source | [GitHub](https://github.com/shegox) | [LinkedIn](https://www.linkedin.com/in/tobias-gabriel/) |
 

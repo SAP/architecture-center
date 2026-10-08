@@ -1,0 +1,113 @@
+# Partner and competitor names, plus their products and technologies.
+# One term per line. Lines starting with "#" are comments. Case-insensitive.
+# Add vendor/partner/competitor-specific words here.
+
+# Hyperscalers & cloud vendors
+AWS
+Azure
+GCP
+Google
+Microsoft
+Amazon
+Cloudflare
+Vercel
+Netlify
+
+# Data & analytics vendors
+Snowflake
+Databricks
+Confluent
+Kafka
+MongoDB
+PostgreSQL
+Postgres
+Elasticsearch
+Fivetran
+Tableau
+PowerBI
+Looker
+Qlik
+
+# Enterprise software
+Oracle
+Salesforce
+ServiceNow
+Workday
+
+# AI vendors & frameworks
+Nvidia
+cuDF
+cuML
+OpenAI
+Anthropic
+Claude
+Gemini
+Llama
+Mistral
+HuggingFace
+LangChain
+LangGraph
+LlamaIndex
+Pinecone
+Weaviate
+Qdrant
+Milvus
+MLflow
+CrewAI
+opencode
+
+# DevOps & tooling
+Terraform
+HashiCorp
+Kubernetes
+Docker
+Dockerfile
+Helm
+Grafana
+Prometheus
+OpenTelemetry
+Datadog
+Splunk
+GitHub
+GitLab
+Okta
+
+# Products & services referenced in content
+SiteWise
+OneLake
+ArcGIS
+Contentful
+Watsonx
+Kaltura
+Kusto
+Memorystore
+Figaf
+Zingg
+Alexa
+Squoosh
+Xplorer
+Grov
+
+# Companies referenced in case studies / news
+Cofinity
+Circelligence
+Neura
+Aimbo
+Fompak
+Symovo
+Martur
+Worx
+Pentos
+Solex
+Suvidha
+mySaaSShop
+FrieslandCampina
+Campina
+UnternehmerTUM
+Bluescope
+MORI
+
+# Security vendors (Fortinet)
+Forti
+FortiSIEM
+FortiSOAR

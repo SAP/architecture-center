@@ -2,18 +2,21 @@
 id: b7629d
 slug: /ref-arch/b7629d
 sidebar_position: 3
-title: Integration with Databricks
-description: >-
-  Data from Databricks Lakehouse can be harmonized with SAP and non-sap data via
-  SAP Datasphere's unified data models for use with richer analytics and other
-  use cases.
+title: Databricks integration with SAP Business Data Cloud
+description: "Share data bi-directionally between SAP Business Data Cloud and Databricks via BDC Connect and delta sharing, and federate Delta Lake into SAP Datasphere."
 keywords:
   - sap
-  - databricks
-  - data federation
-  - analytics harmonization
-  - integration models
+  - sap business data cloud
   - bdc connect
+  - databricks delta lake
+  - lakehouse architecture
+  - delta sharing
+  - sap datasphere
+  - data federation
+  - unity catalog
+  - sap analytics cloud
+  - ai/ml workloads
+  - business ai platform
 sidebar_label: Integration with Databricks
 image: img/ac-soc-med.png
 tags:
@@ -35,7 +38,7 @@ last_update:
   date: 2026-04-10
 ---
 
-SAP Business Data Cloud facilitates seamless harmonization of business data from SAP and non-SAP data from Enterprise Dabricks for richer Analytics and AI use cases. 
+SAP Business Data Cloud facilitates seamless harmonization of business data from SAP and non-SAP data from Enterprise Databricks for richer Analytics and AI use cases. 
 <b>BDC Connect</b> for Databricks enables the bi-directional data sharing of curated data products with enterprise databricks leveraging the industry standard open delta share protocol, enabling efficient AI/ML workloads.  SAP Business Data Cloud also allows direct JDBC connectivity with enterprise databricks delta lake at the SAP Datasphere layer, enabling a open data ecosystem integration. 
 
 In enterprise hybrid landscapes that span diverse computing platforms and cloud sources, Delta Share–based access to AI-ready data products delivers enhanced flexibility, optimized performance, and seamless interoperability.
@@ -48,7 +51,7 @@ In enterprise hybrid landscapes that span diverse computing platforms and cloud 
 ### 1. BDC Connect : Bi-directional delta share integration with enterprise databricks(<i>NEW</i>)
 
 <ul>
-  <li>With the release of BDC Connect for Enterprise Dabricks recently, SAP data products from SAP line of business applications can be shared directly with Enterprise Databricks over governed data access, and discoverable via Unity catalog.</li>
+  <li>With the release of BDC Connect for Enterprise Databricks recently, SAP data products from SAP line of business applications can be shared directly with Enterprise Databricks over governed data access, and discoverable via Unity catalog.</li>
   <li>Similarly, data from Enterprise Databricks can be shared as data products back to SAP Business Data Cloud catalog via BDC Python SDK.</li>
 
 [Ref: brownfield integration](../../RA0013/5-sap-databricks-in-business-data-cloud/readme.md#2-integrating-an-existing-enterprise-databricks-platform-with-sap-bdc)

@@ -1,11 +1,16 @@
 ---
 sidebar_position: 5
 slug: /community/components
-title: Components
-description: Find details about custom components developed for the SAP Architecture Center. Use them in your own contributions to the site. 
+title: Custom Components for Reference Architectures
+description: "Learn about the custom Contributors and Draw.io components built for the SAP Architecture Center, and how to use them in your own reference architecture pages."
 sidebar_label: Components
 keywords:
-  - community
+  - sap
+  - components
+  - contributors component
+  - draw.io component
+  - reference architecture
+  - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
