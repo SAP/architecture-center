@@ -75,3 +75,7 @@ ref-arch/
 │  ├─ images/ <--------------------------- Images folder
 │  ├─ readme.md <------------------------- This is the main page of your RA
 ```
+
+:::info Note
+The `.svg` version of each solution diagram is generated automatically from its `.drawio` file and placed in the sibling `images/` folder.
+:::
