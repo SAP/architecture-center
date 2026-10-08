@@ -27,12 +27,6 @@ last_update:
   date: 2026-10-08
 ---
 
-import {
-  CoreTeam,
-  ExtendedTeam,
-} from '@site/src/components/TeamProfileCards';
-
-
 We are the **Office of the CTO**, and we drive the development of and engagement around the SAP Architecture Center. 
 
 Our aim is to make community **collaboration** and **innovation** effortless, through a modern, GitHub-based platform for building, publishing, and governing SAP reference architectures.
@@ -50,8 +44,6 @@ This open approach keeps the Architecture Center agile and always evolving, and 
 
 These are the people who have been here from the very beginning. They have shaped everything from early framework exploration and proofs of concept to the architecture and governance that hold the site together.
 
-<!-- <CoreTeam /> -->
-
 | Name | Activity | Role | GitHub | LinkedIn |
 |------|----------|------|--------|----------|
 | Pierre-Olivier 'PO' Basseville | Research & Development, Design | Project Lead | [GitHub](https://github.com/cernus76) | [LinkedIn](https://www.linkedin.com/in/pierreolivierbasseville/) |
@@ -63,8 +55,6 @@ These are the people who have been here from the very beginning. They have shape
 ## The past & present evolving team
 
 When the project needed deeper support, a team of skilled colleagues stepped in and pushed the boundaries with their expertise and dedication, both past and present.
-
-<!-- <ExtendedTeam /> -->
 
 | Name | Activity | Role | GitHub | LinkedIn |
 |------|----------|------|--------|----------|
