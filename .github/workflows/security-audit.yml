@@ -249,9 +249,11 @@ jobs:
             fi
 
             # Check for unpinned third-party actions — flag anything not pinned to exactly 40 hex chars.
+            # Matches both "  uses:" and "  - uses:" (list-item) forms; the owner/repo@ shape still
+            # excludes local composite actions (./.github/...), which have no "@".
             # Escalate to CRITICAL when the same workflow also passes GITHUB_TOKEN (supply-chain + token theft).
-            if grep -E "^\s+uses: [a-zA-Z0-9_-]+/[a-zA-Z0-9_./-]+@" "$workflow" \
-               | grep -qvE "@[a-f0-9]{40}(\s|$)"; then
+            if grep -E "^[[:space:]]*-?[[:space:]]*uses:[[:space:]]+[a-zA-Z0-9_-]+/[a-zA-Z0-9_./-]+@" "$workflow" \
+               | grep -qvE "@[a-f0-9]{40}([[:space:]]|$)"; then
               if grep -qE '(GITHUB_TOKEN|github\.token)' "$workflow"; then
                 echo "🚨 CRITICAL: $workflow passes GITHUB_TOKEN to an unpinned third-party action!"
                 echo "   An attacker can force-push the tag to a malicious commit and exfiltrate the token."
