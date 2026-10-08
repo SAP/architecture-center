@@ -22,8 +22,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: julian-schambeck
-  date: 2026-10-07
+  author: cernus76
+  date: 2026-10-08
 ---
 
 The content structure has been defined and is identical for all reference architectures.
@@ -39,19 +39,16 @@ ref-arch/
 │  │  │  ├─ solution-diagram-1.drawio 
 │  │  ├─ images/
 │  │  │  ├─ image-1.png 
-│  │  │  ├─ solution-diagram-1.svg 
 │  │  ├─ readme.md 
 │  ├─ 2-second-subfolder/ 
 │  │  ├─ drawio/ 
 │  │  │  ├─ solution-diagram-2.drawio 
 │  │  ├─ images/ 
 │  │  │  ├─ image-2.jpg 
-│  │  │  ├─ solution-diagram-2.svg 
 │  │  ├─ readme.md 
 │  ├─ drawio/ 
 │  │  ├─ solution-diagram-1.drawio 
 │  ├─ images/ 
-│  │  ├─ solution-diagram-1.svg 
 │  ├─ readme.md 
 ```
 
@@ -60,24 +57,21 @@ The same example with some explanations:
 
 ```bash
 ref-arch/
-├─ RAXXXX/ <------------------------------ [ Your reference architecture folder ]
-│  ├─ 1-first-subfolder/ <---------------- [ First subfolder/subpage for your reference architecture ]
-│  │  ├─ drawio/ <------------------------ [ Drawio folder for your solution diagram in drawio format ]
-│  │  │  ├─ solution-diagram-1.drawio <--- [ Your solution diagram in drawio format ]
-│  │  ├─ images/ <------------------------ [ Images folder ]
-│  │  │  ├─ image-1.png <----------------- [ Your image ]
-│  │  │  ├─ solution-diagram-1.svg <------ [ The SVG version of your solution diagram - automatically generated ]
-│  │  ├─ readme.md <---------------------- [ First subpage of your reference architecture ]
-│  ├─ 2-second-subfolder/ <--------------- [ Second subfolder/subpage for your reference architecture ]
-│  │  ├─ drawio/ <------------------------ [ Drawio folder for your solution diagram in drawio format ]
-│  │  │  ├─ solution-diagram-2.drawio <--- [ Your solution diagram in drawio format ]
-│  │  ├─ images/ <------------------------ [ Images folder ]
-│  │  │  ├─ image-2.jpg <----------------- [ Your image ]
-│  │  │  ├─ solution-diagram-2.svg <------ [ The SVG version of your solution diagram - automatically generated ]
-│  │  ├─ readme.md <---------------------- [ Second subpage of your reference architecture ]
-│  ├─ drawio/ <--------------------------- [ Drawio folder for your solution diagram in drawio format ]
-│  │  ├─ solution-diagram-1.drawio <------ [ Your solution diagram in drawio format ]
-│  ├─ images/ <--------------------------- [ Images folder ]
-│  │  ├─ solution-diagram-1.svg <--------- [ The SVG version of your solution diagram - automatically generated ]
-│  ├─ readme.md <------------------------- [ This is the main page (landing page) of your reference architecture ]
+├─ RAXXXX/ <------------------------------ Your RA folder
+│  ├─ 1-first-subfolder/ <---------------- First subfolder/subpage for your RA
+│  │  ├─ drawio/ <------------------------ Drawio folder for your solution diagram
+│  │  │  ├─ solution-diagram-1.drawio <--- Your solution diagram in drawio format
+│  │  ├─ images/ <------------------------ Images folder
+│  │  │  ├─ image-1.png <----------------- Your image
+│  │  ├─ readme.md <---------------------- First subpage of your RA
+│  ├─ 2-second-subfolder/ <--------------- Second subfolder/subpage for your RA
+│  │  ├─ drawio/ <------------------------ Drawio folder for your solution diagram
+│  │  │  ├─ solution-diagram-2.drawio <--- Your solution diagram in drawio format
+│  │  ├─ images/ <------------------------ Images folder
+│  │  │  ├─ image-2.jpg <----------------- Your image
+│  │  ├─ readme.md <---------------------- Second subpage of your RA
+│  ├─ drawio/ <--------------------------- Drawio folder for your solution diagram
+│  │  ├─ solution-diagram-1.drawio <------ Your solution diagram in drawio format
+│  ├─ images/ <--------------------------- Images folder
+│  ├─ readme.md <------------------------- This is the main page of your RA
 ```
