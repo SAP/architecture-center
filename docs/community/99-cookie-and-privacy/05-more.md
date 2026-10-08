@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 Below is specific information concerning GitHub’s and SAP’s policies related to cookies and privacy.
