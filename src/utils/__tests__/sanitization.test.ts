@@ -1,4 +1,4 @@
-import { sanitizeLinkUrl } from '../sanitization';
+import { sanitizeLinkUrl, sanitizeImageSrc } from '../sanitization';
 
 describe('sanitizeLinkUrl', () => {
     it('preserves absolute http(s) and mailto links', () => {
@@ -32,5 +32,37 @@ describe('sanitizeLinkUrl', () => {
         expect(sanitizeLinkUrl('   ')).toBe('');
         // @ts-expect-error exercising defensive runtime guard
         expect(sanitizeLinkUrl(null)).toBe('');
+    });
+});
+
+describe('sanitizeImageSrc', () => {
+    it('preserves http(s), blob, relative and anchor image sources', () => {
+        expect(sanitizeImageSrc('https://cdn.example.com/a.png')).toBe('https://cdn.example.com/a.png');
+        expect(sanitizeImageSrc('http://example.com/a.png')).toBe('http://example.com/a.png');
+        expect(sanitizeImageSrc('blob:https://example.com/uuid')).toBe('blob:https://example.com/uuid');
+        expect(sanitizeImageSrc('../img/foo.png')).toBe('../img/foo.png');
+        expect(sanitizeImageSrc('/assets/foo.png?v=2')).toBe('/assets/foo.png?v=2');
+    });
+
+    it('preserves inline image data URLs (unlike sanitizeLinkUrl)', () => {
+        const png = 'data:image/png;base64,iVBORw0KGgo=';
+        expect(sanitizeImageSrc(png)).toBe(png);
+        expect(sanitizeImageSrc('data:image/svg+xml;base64,AAAA')).toBe('data:image/svg+xml;base64,AAAA');
+    });
+
+    it('blocks script-bearing and non-image data schemes', () => {
+        expect(sanitizeImageSrc('javascript:alert(1)')).toBe('');
+        expect(sanitizeImageSrc('vbscript:msgbox(1)')).toBe('');
+        expect(sanitizeImageSrc('file:///etc/passwd')).toBe('');
+        expect(sanitizeImageSrc('data:text/html,<script>alert(1)</script>')).toBe('');
+        expect(sanitizeImageSrc('data:application/javascript,alert(1)')).toBe('');
+    });
+
+    it('blocks obfuscated schemes and handles empty / non-string input', () => {
+        expect(sanitizeImageSrc('  javascript:alert(1)')).toBe('');
+        expect(sanitizeImageSrc('java\tscript:alert(1)')).toBe('');
+        expect(sanitizeImageSrc('')).toBe('');
+        // @ts-expect-error exercising defensive runtime guard
+        expect(sanitizeImageSrc(null)).toBe('');
     });
 });
