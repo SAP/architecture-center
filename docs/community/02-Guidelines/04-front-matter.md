@@ -355,7 +355,7 @@ Enter only one author.
 ## `discussion`
 
 * `discussion` links the page to a related discussion thread.
-* If defined, a button is added at the bottom of the page to jump to the matching discussion.
+* If defined on a page with at least one `contributors` entry, a button is added at the bottom of the page to jump to the matching discussion.
 * Expected format: `github:<DISCUSSION-ID>` or `community:<DISCUSSION-PATH>`.
 * Leave it empty if the page has no associated discussion.
 
