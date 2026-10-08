@@ -365,3 +365,18 @@ discussion: github:195
 ```
 
 ***
+
+## `sidebar_custom_props` (deprecated)
+
+* `sidebar_custom_props` (with a nested `category_index`) was previously used to list a page in an additional sidebar, such as the SAP ViewPoints.
+* This field is **deprecated and will be removed**. Do not add it to new pages.
+* You may still see it in older templates (for example `docs/ref-arch/RA0000/readme.md`); leave existing entries as-is unless you are intentionally cleaning them up.
+
+Example (deprecated, shown for reference only):
+```yaml
+sidebar_custom_props:
+  category_index:
+    - demo
+```
+
+***
