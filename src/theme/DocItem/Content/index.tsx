@@ -51,6 +51,7 @@ function useIsOlderThanOneYear(): boolean {
         }
         const updated = new Date(rawDate);
         if (Number.isNaN(updated.getTime())) {
+            setIsOld(false);
             return;
         }
         const oneYearAgo = new Date();
