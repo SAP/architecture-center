@@ -140,7 +140,7 @@ SAP Colombia S.A. may Process your Personal Data by itself or on behalf of the S
 SAP has appointed a Data Protection Officer for Brazil. Written inquiries, requests or complaints to our Data Protection Officer may be addressed to:
 - Paulo Theotonio Nittolo Costa
 - Email: privacy[@]sap.com
-- Address: Avenida das Nações Unidas 14171 - Marble Tower – 7th Floor - São PauloSP, Brazil 04794-000
+- Address: Avenida das Nações Unidas 14171 - Marble Tower – 7th Floor - São Paulo, SP, Brazil 04794-000
 
 ### Where SAP is subject to privacy requirements in the Philippines.
 Where SAP is subject to the Philippine Data Privacy Act and its Implementing Rules and Regulations, the following applies:
