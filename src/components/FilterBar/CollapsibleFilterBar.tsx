@@ -19,6 +19,8 @@ interface CollapsibleFilterBarProps {
     searchTerm: string;
     onSearchChange: (value: string) => void;
     resultCount?: number;
+    showArchived?: boolean;
+    onArchiveChange?: (value: boolean) => void;
 }
 
 const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
@@ -30,6 +32,8 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     searchTerm,
     onSearchChange: _onSearchChange,
     resultCount,
+    showArchived = false,
+    onArchiveChange,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [popoverOpen, setPopoverOpen] = useState(false);
@@ -48,7 +52,14 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
         onChange(currentSelection.filter((item) => item.value !== option.value));
     };
 
-    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0;
+    const handleArchiveToggle = () => {
+        if (onArchiveChange) {
+            onArchiveChange(!showArchived);
+        }
+    };
+
+    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0 || showArchived;
+    const activeFilterCount = selectedPartners.length + (showArchived ? 1 : 0);
 
     return (
         <div className={styles.filterBarContainer}>
@@ -63,7 +74,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                     <span>Filters</span>
                     {hasActiveFilters && (
                         <span className={styles.filterBadge}>
-                            {selectedPartners.length}
+                            {activeFilterCount}
                         </span>
                     )}
                 </button>
@@ -89,6 +100,15 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                                 <IoMdClose className={styles.chipCloseIcon} />
                             </button>
                         ))}
+                        {showArchived && (
+                            <button
+                                onClick={handleArchiveToggle}
+                                className={styles.activeFilterChip}
+                            >
+                                Archived
+                                <IoMdClose className={styles.chipCloseIcon} />
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
@@ -137,6 +157,19 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                                     </button>
                                 );
                             })}
+                        </div>
+                    </div>
+
+                    <div className={styles.filterSeparator} />
+                    <div className={styles.filterGroup}>
+                        <h3 className={styles.filterTitle}>Other Filters</h3>
+                        <div className={styles.filterChips}>
+                            <button
+                                onClick={handleArchiveToggle}
+                                className={`${styles.filterChip} ${showArchived ? styles.selected : ''}`}
+                            >
+                                Archived
+                            </button>
                         </div>
                     </div>
 
