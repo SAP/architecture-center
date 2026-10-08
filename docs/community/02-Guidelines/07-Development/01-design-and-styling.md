@@ -31,7 +31,7 @@ last_update:
   date: 2026-10-08
 ---
 
-A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and utility classes for:
+A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and CSS custom properties for:
 
 -   **Consistency**: Shared variables and resets keep the look and feel unified.
 -   **Isolation**: CSS Modules prevent style conflicts between components.
@@ -83,10 +83,9 @@ LCP is a key web performance metric that measures when the largest content eleme
 
 ## Structure
 
--   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and include CSS custom properties (variables), typography, utility classes, layout resets, and Infima/Docusaurus overrides.
+-   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and include CSS custom properties (variables), typography, layout resets, and Infima/Docusaurus overrides.
 -   **CSS Modules**: Used for component or page-level styles (e.g., `src/components/ReactCarousel/ReactCarousel.module.css`, `src/theme/DocCard/styles.module.css`). These provide local scoping and prevent style conflicts.
--   **CSS Custom Properties**: Centralized variables for spacing, colors, shadows, border-radius, and breakpoints defined in `src/css/custom.css`.
--   **CSS Custom Properties**: Reusable design tokens such as `var(--spacing-md)`, `var(--shadow-card)`, and `var(--border-radius-lg)` are defined globally in `src/css/custom.css` and should be used instead of hard-coded values.
+-   **CSS Custom Properties**: Centralized design tokens for spacing, colors, shadows, border-radius, and breakpoints, defined in `src/css/custom.css` (e.g. `var(--spacing-md)`, `var(--shadow-card)`, `var(--border-radius-lg)`). Use these instead of hard-coded values.
 -   **Media queries**: Always placed at the bottom of each CSS or CSS module file, grouped together for clarity and maintainability.
 
 ## Best Practices
@@ -94,7 +93,7 @@ LCP is a key web performance metric that measures when the largest content eleme
 -   **Use CSS Custom Properties** for consistent spacing, colors, shadows, and dimensions across components. Reference variables like `var(--spacing-md)` instead of hard-coded values.
 -   **Prefer CSS Modules** for component/page-specific styles. This keeps styles modular and avoids global namespace pollution.
 -   **Reuse CSS custom properties** for common patterns, e.g. spacing (`var(--spacing-md)`), shadows (`var(--shadow-card)`), and border radius (`var(--border-radius-lg)`), instead of redefining values per component.
--   **Avoid inline styles completely**; use CSS modules or utility classes instead.
+-   **Avoid inline styles completely**; use CSS modules or CSS custom properties instead.
 -   **Keep media queries together** at the end of each file to simplify responsive maintenance.
 -   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
 -   **Test changes across breakpoints** to ensure responsive behavior.
@@ -125,9 +124,9 @@ LCP is a key web performance metric that measures when the largest content eleme
 }
 ```
 
-## CSS Custom Properties & Utility Classes
+## CSS Custom Properties
 
-We use CSS custom properties (variables) and utility classes to maintain consistency and reduce code duplication. Instead of hard-coding values like `padding: 16px` or `border-radius: 20px`, use our standardized variables.
+We use CSS custom properties (variables) to maintain consistency and reduce code duplication. Instead of hard-coding values like `padding: 16px` or `border-radius: 20px`, use our standardized variables.
 
 ### Key Variables & Classes
 
