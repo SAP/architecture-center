@@ -97,7 +97,7 @@ fi
 # Step 2: Export drawios (only if drawio:true and NOT prod:true)
 if [ "$DRAWIO_EXPORT" = true ]; then
     print_message "$BLUE" "\n→ Step 2: Exporting drawio files..."
-    node "$SCRIPT_DIR/_export-drawios.js"
+    node "$SCRIPT_DIR/_export-drawios/_export.js"
 
     if [ $? -eq 0 ]; then
         print_message "$GREEN" "✓ Drawio files exported successfully"

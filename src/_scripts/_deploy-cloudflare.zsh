@@ -49,7 +49,7 @@ print_message "$GREEN" "✓ npx is available"
 
 # Check Wrangler version
 print_message "$BLUE" "\n→ Checking Wrangler version..."
-CURRENT_VERSION=$(npx wrangler --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+CURRENT_VERSION=$(npx --yes wrangler --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
 LATEST_VERSION=$(npm view wrangler version 2>/dev/null)
 
 if [ -n "$CURRENT_VERSION" ] && [ -n "$LATEST_VERSION" ]; then
