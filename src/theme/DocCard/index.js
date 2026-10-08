@@ -268,7 +268,7 @@ function CardLayout({ href, title, description, tags, lastUpdate, item: _item })
                             className={styles.openInNew}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                window.open(href, '_blank');
+                                window.open(href, '_blank', 'noopener,noreferrer');
                             }}
                         >
                             <Icon
