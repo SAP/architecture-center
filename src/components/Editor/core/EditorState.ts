@@ -458,7 +458,13 @@ function cleanCorruptedText(text: string): string {
 
 export function deserializeState(json: string): EditorState | null {
   try {
-    const obj = JSON.parse(json);
+    // Drop prototype-polluting keys while parsing. editorState is untrusted
+    // (loaded from the backend document-service / shared documents); a crafted
+    // "__proto__"/"constructor"/"prototype" key would otherwise pollute
+    // Object.prototype when the nodeMap is rebuilt below.
+    const obj = JSON.parse(json, (key, value) =>
+      key === '__proto__' || key === 'constructor' || key === 'prototype' ? undefined : value
+    );
     if (!obj.root || !obj.nodeMap) return null;
 
     // Check for and clean corruption in text nodes
