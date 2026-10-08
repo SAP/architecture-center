@@ -30,29 +30,29 @@ unlisted: false
 contributors: 
 discussion: 
 last_update:
-  author: julian-schambeck
-  date: 2026-10-07
+  author: cernus76
+  date: 2026-10-08
 ---
 
 ## What are SAP Reference Architectures?
 
-SAP Reference Architectures are proven blueprints for business transformation — standardized designs that show how SAP applications, data, and AI fit together to deliver a specific business outcome. Each one captures a pattern that has already been validated in practice, so teams can adopt it with confidence instead of starting from a blank page.
+SAP Reference Architectures are proven blueprints for business transformation: standardized designs that show how SAP applications, data, and AI fit together to deliver a specific business outcome. Each one captures a pattern that has already been validated in practice, so teams can adopt it with confidence instead of starting from a blank page.
 
-They sit between strategy and implementation. A reference architecture translates a business goal — closing the books faster, running a resilient supply chain, putting AI to work on a core process — into a concrete arrangement of SAP and partner technology across cloud, on-premises, and hybrid landscapes. The result is a shared, opinionated starting point: one that reduces complexity, shortens the path to value, and keeps designs consistent across projects, regions, and industries.
+They sit between strategy and implementation. A reference architecture translates a business goal (closing the books faster, running a resilient supply chain, putting AI to work on a core process) into a concrete arrangement of SAP and partner technology across cloud, on-premises, and hybrid landscapes. The result is a shared, opinionated starting point: one that reduces complexity, shortens the path to value, and keeps designs consistent across projects, regions, and industries.
 
 <em>![Solution Diagram](images/solution-diagram-example.svg)</em>
 
 ## Architecture in the age of SAP Business AI
 
-For most of their history, enterprise systems were systems of record — reliable, transactional, and largely passive. That is changing. With SAP Business AI, the enterprise is evolving from a *system of record* into a *system of context*: data, processes, and AI brought together so the business can reason, recommend, and act.
+For most of their history, enterprise systems were systems of record: reliable, transactional, and largely passive. That is changing. With SAP Business AI, the enterprise is evolving from a *system of record* into a *system of context*: data, processes, and AI brought together so the business can reason, recommend, and act.
 
 This raises the bar for architecture. A modern design has to account for more than how applications and data integrate. It has to show how:
 
 -   **Joule and AI agents** take part in business processes as first-class participants, not bolt-ons.
--   **Governed, context-rich data** — through SAP Business Data Cloud and SAP Knowledge Graph — grounds AI in real enterprise meaning rather than disconnected datasets.
+-   **Governed, context-rich data**, through SAP Business Data Cloud and SAP Knowledge Graph, grounds AI in real enterprise meaning rather than disconnected datasets.
 -   **The SAP Business AI Platform, powered by SAP BTP**, provides the common foundation to build, integrate, deploy, and scale AI capabilities with governance built in.
 
-Reference architectures are where these pieces come together. They make the intelligent enterprise concrete — showing not just where data flows, but where context lives, where decisions are made, and where AI is allowed to act.
+Reference architectures are where these pieces come together. They make the intelligent enterprise concrete, showing not just where data flows, but where context lives, where decisions are made, and where AI is allowed to act.
 
 ## Why reference architectures matter
 
@@ -70,15 +70,15 @@ The payoff is less time spent re-litigating foundational decisions, and more spe
 
 Every SAP Reference Architecture is held to the same engineering principles, so the pattern holds up when it moves from diagram to production:
 
--   **Efficient** — the design does more with less: streamlined processes, fewer moving parts, and resources applied where they add value, so finance, supply chain, and customer operations run leaner and more predictably.
--   **Scalable and resilient** — cloud-native patterns such as elastic scaling, event-driven integration, and managed data services let workloads, users, and regions grow without a redesign, while continuity and recovery are planned, not bolted on.
--   **Secure by design** — zero-trust principles, role-based access, encryption, and continuous monitoring are part of the pattern from day one, so expansion never comes at the cost of trust or compliance.
--   **Standardized and governable** — documented patterns for APIs, events, identity, and observability make solutions repeatable, auditable, and easy to operate across teams and markets.
+-   **Efficient**: the design does more with less, with streamlined processes, fewer moving parts, and resources applied where they add value, so finance, supply chain, and customer operations run leaner and more predictably.
+-   **Scalable and resilient**: cloud-native patterns such as elastic scaling, event-driven integration, and managed data services let workloads, users, and regions grow without a redesign, while continuity and recovery are planned, not bolted on.
+-   **Secure by design**: zero-trust principles, role-based access, encryption, and continuous monitoring are part of the pattern from day one, so expansion never comes at the cost of trust or compliance.
+-   **Standardized and governable**: documented patterns for APIs, events, identity, and observability make solutions repeatable, auditable, and easy to operate across teams and markets.
 
-Together these principles cover the non-functional qualities every serious design must answer for — operational excellence, performance, reliability, security, and sustainability — so outcomes arrive faster and with greater confidence.
+Together these principles cover the non-functional qualities every serious design must answer for, including operational excellence, performance, reliability, security, and sustainability, so outcomes arrive faster and with greater confidence.
 
 ## From blueprint to transformation
 
 SAP Reference Architectures are more than technical diagrams. They are strategic enablers that connect business strategy to technology execution, giving leaders clarity, teams a head start, and the overall landscape a stable foundation to build on.
 
-As SAP Business AI, SAP Business Data Cloud, and the Business Suite continue to advance, reference architectures evolve with them — turning each new capability into a pattern enterprises can adopt safely and repeatably. That is what keeps them at the center of how organizations create lasting value: proven today, and ready for what comes next.
+As SAP Business AI, SAP Business Data Cloud, and the Business Suite continue to advance, reference architectures evolve with them, turning each new capability into a pattern enterprises can adopt safely and repeatably. That is what keeps them at the center of how organizations create lasting value: proven today, and ready for what comes next.
