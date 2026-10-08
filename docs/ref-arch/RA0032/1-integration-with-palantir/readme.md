@@ -17,6 +17,8 @@ keywords:
   - data lineage
   - writeback
   - near-real-time data replication
+  - foundry ontology
+  - sap to palantir foundry integration
   - business ai platform
 sidebar_label: Integration with Palantir
 image: img/ac-soc-med.png

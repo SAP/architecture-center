@@ -7,7 +7,9 @@ sidebar_label: Cookie Statement
 keywords:
  - sap
  - cookie statement
+ - cookies
  - privacy
+ - github pages
  - business ai platform
 image: img/ac-soc-med.png
 tags:

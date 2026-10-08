@@ -17,6 +17,7 @@ keywords:
   - sap advanced event mesh
   - sap hana cloud
   - multi-region disaster recovery
+  - stateful disaster recovery
   - business ai platform
 sidebar_label: Sample Implementations
 image: img/ac-soc-med.png

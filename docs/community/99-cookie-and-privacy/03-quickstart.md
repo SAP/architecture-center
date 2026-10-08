@@ -9,6 +9,7 @@ keywords:
  - quick start
  - privacy
  - github oauth
+ - personal data
  - business ai platform
 image: img/ac-soc-med.png
 tags:

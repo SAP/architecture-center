@@ -15,7 +15,7 @@ keywords:
   - data federation
   - zero-copy data integration
   - data harmonization
-  - advanced analytics
+  - replication flows
   - business ai platform
 sidebar_label: Integration with Google Cloud Platform sources
 image: img/ac-soc-med.png

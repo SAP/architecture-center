@@ -2,7 +2,7 @@
 id: 12d55f
 slug: /ref-arch/12d55f
 sidebar_position: 5
-title: SAP Databricks in SAP BDC
+title: SAP Databricks in SAP Business Data Cloud for AI
 description: "Leverage SAP Databricks for AI and analytics, integrating SAP data with Databricks for real-time insights and simplified data access."
 keywords:
   - sap
@@ -15,6 +15,7 @@ keywords:
   - zero-copy data sharing
   - ai and machine learning
   - data engineering
+  - data products
   - bdc connect
   - business ai platform
 sidebar_label: SAP Databricks in SAP BDC

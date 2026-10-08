@@ -2,7 +2,7 @@
 id: a22904
 slug: /ref-arch/a22904
 sidebar_position: 160
-title: SAP Data Accelerator
+title: "SAP Data Accelerator: Governed Partner Access to SAP Data"
 description: "SAP Data Accelerator is an SAP-managed service giving authorized partners governed, near-real-time access to SAP on-premises and private cloud business data."
 keywords:
   - sap

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 slug: /community/content-structure
-title: Content Structure
+title: Content Structure for Reference Architectures
 description: Learn how to organize folders, diagrams, images, and documentation for consistency and clarity in your SAP Architecture Center contribution.
 sidebar_label: Content Structure
 keywords:

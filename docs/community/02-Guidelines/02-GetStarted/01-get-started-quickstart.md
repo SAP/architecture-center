@@ -11,6 +11,7 @@ keywords:
  - no-code architecture editor
  - reference architecture
  - draw.io diagrams
+ - github
  - business ai platform
 image: img/ac-soc-med.png
 tags:

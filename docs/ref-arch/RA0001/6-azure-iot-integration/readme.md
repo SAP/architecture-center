@@ -12,6 +12,7 @@ keywords:
   - sap integration suite, advanced event mesh
   - sap event mesh
   - sap build process automation
+  - sap private link service
   - event-driven architecture
   - events-to-business actions
   - iot integration

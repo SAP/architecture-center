@@ -2,7 +2,7 @@
 id: b51e91
 slug: /ref-arch/b51e91
 sidebar_position: 240
-title: DevOps with SAP BTP
+title: DevOps on SAP BTP with CI/CD and SAP Build
 description: >-
   Adopt agile DevOps principles on SAP BTP with cloud services and tools for
   streamlined application lifecycle management.

@@ -2,7 +2,7 @@
 id: 1cb0b6
 slug: /ref-arch/1cb0b6
 sidebar_position: 2
-title: DIV – Bring Your Own Wallet
+title: DIV – Bring Your Own Wallet Provisioning Model
 description: "Bring Your Own Wallet (BYOW): a provisioning model where a dataspace member self-provisions SAP DIV on SAP BTP; the operator issues the membership credential."
 keywords:
   - sap

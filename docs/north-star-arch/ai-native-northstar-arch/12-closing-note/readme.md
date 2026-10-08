@@ -4,7 +4,7 @@ sidebar_position: 12
 slug: /ai-native-north-star-architecture/closing-note
 sidebar_custom_props:
     category_index: []
-title: "Closing Note: The AI-native Enterprise"
+title: "Closing Note: The AI-native Autonomous Enterprise"
 description: "Closing note on the AI-native enterprise as a cybernetic system, where architects shift to agentic engineering built on SAP's integration and trust."
 keywords:
     - ai-native enterprise
@@ -18,7 +18,7 @@ keywords:
     - autonomous enterprise
     - enterprise intelligence
     - feedback loops
-    - north star architecture
+    - ai-native north star architecture
     - sap
     - business ai platform
 sidebar_label: Closing Note

@@ -15,11 +15,11 @@ keywords:
     - joule
     - business ai platform
     - sap business data cloud
+    - sap autonomous suite
     - outcome as a service
     - cognitive core
     - responsible ai
     - north star architecture
-    - nsa
 sidebar_label: 1. Executive Summary
 image: img/ac-soc-med.png
 tags:

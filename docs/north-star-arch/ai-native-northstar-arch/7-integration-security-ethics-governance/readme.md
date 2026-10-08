@@ -20,10 +20,8 @@ keywords:
     - ai governance
     - ai ethics
     - sap global ai ethics policy
-    - responsible ai
     - human-in-the-loop
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 7. Integration, Security, Ethics & Governance
 image: img/ac-soc-med.png

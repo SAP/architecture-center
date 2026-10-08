@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 slug: /community/design-and-styling
-title: Design & Styling
+title: Design and Styling Guidelines for Contributors
 description: Best practices for CSS, responsive design, and performance in the SAP Architecture Center. Ensure a fast, accessible, and maintainable site.
 sidebar_label: Design & Styling
 keywords:
@@ -14,6 +14,7 @@ keywords:
     - cumulative layout shift
     - webp images
     - css modules
+    - docusaurus
     - business ai platform
 image: img/ac-soc-med.png
 tags:

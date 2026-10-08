@@ -8,8 +8,9 @@ keywords:
  - sap
  - reference architectures
  - community of practice
- - contribution
  - open source contribution
+ - github
+ - quick start
  - business ai platform
 image: img/ac-soc-med.png
 tags:

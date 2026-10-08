@@ -9,6 +9,7 @@ keywords:
   - secure service consumption across hyperscalers
   - multi-cloud security
   - federated identity
+  - sap identity authentication service
   - oidc authentication
   - x.509 certificate authentication
   - aws

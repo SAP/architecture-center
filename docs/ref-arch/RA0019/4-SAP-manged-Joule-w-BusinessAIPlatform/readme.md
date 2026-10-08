@@ -2,7 +2,7 @@
 id: 4c80fa
 slug: /ref-arch/4c80fa
 sidebar_position: 5
-title: Joule Landscape Recommendation
+title: Joule Landscape Recommendation for SAP Business AI Platform
 description: "Recommended landscape setup for a unified Joule experience with SAP Business AI Platform and SAP Cloud Identity Services, in staged and consolidated models."
 keywords:
   - sap

@@ -12,6 +12,7 @@ keywords:
   - identity provider broker
   - third-party identity provider integration
   - sap gui single sign-on
+  - x.509 certificate authentication
   - sap saas authentication
   - business ai platform
 sidebar_label: Authentication and Single Sign On

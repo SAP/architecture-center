@@ -2,7 +2,7 @@
 id: 8063d2
 slug: /ref-arch/8063d2
 sidebar_position: 3
-title: Retrieval Augmented Generation (RAG)
+title: Retrieval Augmented Generation (RAG) on SAP BTP
 description: "Ground LLMs with Retrieval Augmented Generation (RAG) on SAP BTP using SAP HANA Cloud's Vector Engine and SAP AI Core grounding to reduce hallucinations."
 keywords:
   - sap

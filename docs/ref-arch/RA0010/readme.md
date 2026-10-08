@@ -14,7 +14,7 @@ keywords:
   - business sites
   - single sign-on
   - joule
-  - joule work mobile app
+  - no-code
   - sap build process automation
   - sap task center
   - sap cloud identity services

@@ -14,6 +14,8 @@ keywords:
   - sap hana cloud
   - dns load balancing
   - sap custom domain
+  - data synchronization
+  - event synchronization
   - business ai platform
 sidebar_label: Architecting Multi-Region Resiliency
 image: img/ac-soc-med.png

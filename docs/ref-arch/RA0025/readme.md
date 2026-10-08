@@ -11,6 +11,7 @@ keywords:
   - sap integration suite
   - edge integration cell
   - sap cloud identity access governance
+  - sap grc
   - sap s/4hana
   - security considerations
   - integration strategies

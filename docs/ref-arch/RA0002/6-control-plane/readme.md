@@ -15,6 +15,8 @@ keywords:
   - replication topology management
   - sap cloud application programming model
   - control plane
+  - sap hana cloud
+  - sap advanced event mesh
   - business ai platform
 sidebar_label: Multi-region Control Plane
 image: img/ac-soc-med.png

@@ -9,6 +9,8 @@ keywords:
  - team
  - sap architecture center
  - office of the cto
+ - contributors
+ - reference architectures
  - business ai platform
 image: img/ac-soc-med.png
 tags:

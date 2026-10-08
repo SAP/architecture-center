@@ -10,6 +10,8 @@ keywords:
   - event-driven architecture
   - dynamic message routing
   - sap integration suite
+  - sap event broker
+  - cloud integration
   - event synchronization
   - multi-region event replication
   - geo-distributed event mesh

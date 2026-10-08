@@ -11,8 +11,10 @@ keywords:
     - sap integration suite advanced event mesh
     - sap s/4hana
     - sap ai core
+    - sap ai launchpad
     - amazon bedrock
     - generative ai hub
+    - aws lambda
     - sap private link service
     - plant maintenance notification
     - business ai platform

@@ -2,7 +2,7 @@
 id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
-title: Bring Your Own Agent
+title: "Bring Your Own Agent: Pro-Code AI Agents on SAP BTP"
 description: "Build and deploy custom pro-code AI agents on SAP BTP with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
 keywords:
   - sap
@@ -10,9 +10,11 @@ keywords:
   - pro-code ai agents
   - sap cloud sdk for ai
   - generative ai hub
+  - sap integration suite
   - sap hana cloud
   - cap
   - a2a
+  - mcp
   - langgraph
   - crewai
   - business ai platform

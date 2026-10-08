@@ -2,7 +2,7 @@
 id: jkg4j2
 slug: /ref-arch/jkg4j2
 sidebar_position: 1
-title: SAP AI Agent Hub
+title: SAP AI Agent Hub for Enterprise AI Governance
 description: "Govern AI agents through their lifecycle with SAP AI Agent Hub, the command center for agent discovery, observability, governance, and EU AI Act compliance."
 keywords:
   - sap

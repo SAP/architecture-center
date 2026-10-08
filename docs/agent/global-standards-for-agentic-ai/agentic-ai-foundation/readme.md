@@ -2,19 +2,19 @@
 id: id-global-standards-for-agentic-ai-2
 slug: /global-standards-for-agentic-ai/agentic-ai-foundation
 sidebar_position: 1
-title: Agentic AI Foundation
+title: SAP in the Agentic AI Foundation (AAIF) Open Standards
 description: "How SAP contributes to the Agentic AI Foundation (AAIF), the Linux Foundation body governing open agent standards like MCP, goose, and AGENTS.md."
 keywords:
     - sap
-    - ai standards at sap
     - agentic ai foundation
     - aaif
     - model context protocol
     - mcp
+    - goose
+    - agents.md
     - agentic ai
     - open standards
     - ai interoperability
-    - governance
     - linux foundation
     - business ai platform
 sidebar_label: Agentic AI Foundation

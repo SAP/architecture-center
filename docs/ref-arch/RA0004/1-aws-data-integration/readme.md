@@ -13,6 +13,7 @@ keywords:
   - amazon s3
   - smart data integration
   - data federation
+  - replication flows
   - sap analytics cloud
   - data fabric architecture
   - business ai platform

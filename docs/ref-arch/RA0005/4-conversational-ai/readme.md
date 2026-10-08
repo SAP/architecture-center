@@ -9,7 +9,9 @@ keywords:
   - conversational ai
   - joule
   - generative ai
+  - generative ai assistant
   - ai agents
+  - natural language
   - business ai platform
 sidebar_label: Conversational AI & Joule
 image: img/ac-soc-med.png

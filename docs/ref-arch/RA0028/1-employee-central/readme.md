@@ -2,7 +2,7 @@
 id: a62ea4
 slug: /ref-arch/a62ea4
 sidebar_position: 1
-title: SAP SuccessFactors Employee Central
+title: SAP SuccessFactors Employee Central Data Model
 description: "Explore the core data model of SAP SuccessFactors Employee Central, including configuration objects, organization structures, and pay structures."
 keywords:
   - sap

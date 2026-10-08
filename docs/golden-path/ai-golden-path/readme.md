@@ -2,7 +2,7 @@
 id: id-aigp-1
 slug: /ai-golden-path
 sidebar_position: 1
-title: SAP's AI Golden Path
+title: SAP's AI Golden Path for Building Enterprise AI
 description: "SAP's AI Golden Path is your starting point for building enterprise AI across the SAP ecosystem — with recommendations, best practices, and tutorials."
 keywords:
     - sap
@@ -15,6 +15,7 @@ keywords:
     - sap business data cloud
     - agentic ai
     - ai reference architectures
+    - ai development lifecycle
     - business ai platform
 sidebar_label: AI Golden Path
 image: img/ac-soc-med.png
