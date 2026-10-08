@@ -199,16 +199,25 @@ Check the code behind these examples by reviewing the underlying markdown, using
     - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Intelligent Applications. It demonstrates how to use subgraphs for logical grouping of components.
     - **Code**:
         ```mermaid
-        graph TD
+        graph TD;
         A[Source A] -->|Data Flow| B
         C[Source B] -->|Data Flow| B
         D[Source C] -->|Data Flow| B
-        subgraph SAP_Business_Data_Cloud[SAP Business Data Cloud]
-            B(Data Products) --> E(Space)
-            E --> F(Base Model)
-            F --> G(Analytic Model)
+        subgraph SAP Business Data Cloud
+        direction TB
+            B(Data Products in Foundation Service) -->|Processed Data| E(Space)
+            subgraph SAP Datasphere
+            direction TB
+                E --> F(Base Model)
+                F --> G(Analytic Model)
+            end
+            subgraph SAP Analytics Cloud
+            direction TB
+                G --> H(Intelligent content)
+                H --> I(Low-code Domain content)
+                H --> J(Pro-code Domain content:SAP-managed)
+            end
         end
-        G --> H(Intelligent Application)
         ```
 
 3. Contributor Lifecycle
