@@ -13,3 +13,17 @@
     margin: 0 var(--spacing-sm) var(--spacing-sm) 0;
     display: inline-block;
 }
+
+/* "New/Updated" tag: highlighted with the site gradient (src/css/custom.css). */
+.newUpdatedTag a {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: transparent;
+}
+
+.newUpdatedTag a:hover {
+    background: var(--gradient-primary);
+    color: #fff;
+    opacity: 0.9;
+    text-decoration: none;
+}

@@ -131,6 +131,10 @@ archive:
   label: "Archived"
   description: "This content has been archived. It describes a retired or obsolete approach and is no longer maintained or supported by SAP. It remains available for reference only and should not be relied on as current guidance."
 
+new-updated:
+  label: "New/Updated"
+  description: "Documents created or substantially updated within the last 90 days."
+
 ai-native-north-star:
   label: "AI-native North Star architecture"
   description: "The AI-native North Star architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on."

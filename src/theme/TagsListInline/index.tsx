@@ -17,7 +17,10 @@ export default function TagsListInline({ tags }: Props): ReactNode {
         <>
             <ul className={clsx(styles.tags, 'padding--none')}>
                 {tags.map((tag) => (
-                    <li key={tag.permalink} className={styles.tag}>
+                    <li
+                        key={tag.permalink}
+                        className={clsx(styles.tag, tag.permalink.endsWith('/new-updated') && styles.newUpdatedTag)}
+                    >
                         <Tag {...tag} />
                     </li>
                 ))}
