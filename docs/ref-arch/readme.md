@@ -3,7 +3,7 @@ id: 37afa8
 slug: /ref-arch
 sidebar_position: 1
 title: SAP Reference Architectures - Building Blocks for Success
-description: "Learn how SAP reference architectures provide proven, standardized blueprints for building efficient, scalable, and secure enterprise solutions on SAP BTP."
+description: "Proven, standardized SAP reference architectures for building efficient, scalable, secure enterprise solutions on the SAP Business AI Platform."
 keywords:
   - sap
   - sap reference architectures
@@ -50,7 +50,7 @@ This raises the bar for architecture. A modern design has to account for more th
 
 -   **Joule and AI agents** take part in business processes as first-class participants, not bolt-ons.
 -   **Governed, context-rich data**, through SAP Business Data Cloud and SAP Knowledge Graph, grounds AI in real enterprise meaning rather than disconnected datasets.
--   **The SAP Business AI Platform, powered by SAP BTP**, provides the common foundation to build, integrate, deploy, and scale AI capabilities with governance built in.
+-   **The SAP Business AI Platform**, provides the common foundation to build, integrate, deploy, and scale AI capabilities with governance built in.
 
 Reference architectures are where these pieces come together. They make the intelligent enterprise concrete, showing not just where data flows, but where context lives, where decisions are made, and where AI is allowed to act.
 
@@ -59,7 +59,7 @@ Reference architectures are where these pieces come together. They make the inte
 A reference architecture links a business objective to the systems that deliver it, and gives architects and decision-makers a defensible basis for the choices that follow. Adopting one means gaining:
 
 -   A **common foundation** for projects across geographies, lines of business, and industries.
--   A **clear path** to SAP Business Technology Platform (SAP BTP) and SAP Business AI capabilities.
+-   A **clear path** to SAP Business AI Platform and SAP Business AI capabilities.
 -   A **repeatable framework** that evolves with SAP's innovation roadmap instead of ageing out.
 -   A **shared vocabulary** that keeps business and technical teams aligned on the same design.
 -   A **lower-risk route** to adoption, with governance and compliance considered from the start.
@@ -69,7 +69,6 @@ The payoff is less time spent re-litigating foundational decisions, and more spe
 ## What makes a reference architecture dependable
 
 Every SAP Reference Architecture is held to the same engineering principles, so the pattern holds up when it moves from diagram to production:
-
 -   **Efficient**: the design does more with less, with streamlined processes, fewer moving parts, and resources applied where they add value, so finance, supply chain, and customer operations run leaner and more predictably.
 -   **Scalable and resilient**: cloud-native patterns such as elastic scaling, event-driven integration, and managed data services let workloads, users, and regions grow without a redesign, while continuity and recovery are planned, not bolted on.
 -   **Secure by design**: zero-trust principles, role-based access, encryption, and continuous monitoring are part of the pattern from day one, so expansion never comes at the cost of trust or compliance.
