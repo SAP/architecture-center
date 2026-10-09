@@ -1,0 +1,35 @@
+---
+id: c9cdd2
+slug: /ref-arch/c9cdd2
+sidebar_position: 5
+title: Non-Functional Pillars
+description: "Non-functional pillars for generative AI on SAP BTP, covering the key non-functional requirements that shape reliable reference architectures."
+keywords:
+  - sap
+  - non-functional requirements
+  - non-functional pillars
+  - reference architecture
+  - generative ai
+  - business ai platform
+sidebar_label: Non-Functional Pillars
+image: img/ac-soc-med.png
+tags:
+  - genai
+  - aws
+  - azure
+  - gcp
+  - archive
+hide_table_of_contents: false
+hide_title: false
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+draft: true
+unlisted: false
+contributors: 
+discussion: 
+last_update:
+  author: jmsrpp
+  date: 2025-01-01
+---
+
+<em>![Work in Progress](../../../images/wip1.svg)</em>
