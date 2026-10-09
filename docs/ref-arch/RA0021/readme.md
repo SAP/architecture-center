@@ -9,7 +9,9 @@ description: >-
 keywords:
   - sap
   - app-to-app integration
+  - app2app integration
   - sap integration suite
+  - sap s/4hana
   - cloud integration
   - transactional data exchange
   - asynchronous messaging
@@ -22,6 +24,7 @@ sidebar_label: Application to Application Integration
 image: img/ac-soc-med.png
 tags:
   - integration
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

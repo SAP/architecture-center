@@ -17,6 +17,7 @@ keywords:
   - failover
   - high availability and disaster recovery
   - multi-region data resiliency
+  - control plane
   - business ai platform
 sidebar_label: Data Synchronization across regions
 image: img/ac-soc-med.png
@@ -26,6 +27,7 @@ tags:
   - gcp
   - appdev
   - integration
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

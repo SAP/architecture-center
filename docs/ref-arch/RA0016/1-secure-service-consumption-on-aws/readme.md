@@ -2,7 +2,7 @@
 id: '544638'
 slug: /ref-arch/544638
 sidebar_position: 1
-title: Secure Service Consumption on AWS
+title: Secure Service Consumption on AWS from SAP BTP
 description: "Securely access AWS services from SAP BTP using OIDC federation with SAP IAS or AWS IAM Roles Anywhere with X.509 certificates for short-lived credentials."
 keywords:
   - sap
@@ -21,6 +21,7 @@ image: img/ac-soc-med.png
 tags:
   - security
   - aws
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -12,12 +12,14 @@ keywords:
   - scim user and group provisioning
   - identity directory
   - sap cloud identity access governance
+  - sap successfactors
   - identity management integration
   - business ai platform
 sidebar_label: Identity Lifecycle
 image: img/ac-soc-med.png
 tags:
   - security
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

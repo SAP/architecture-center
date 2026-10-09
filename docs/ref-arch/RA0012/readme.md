@@ -16,6 +16,8 @@ keywords:
   - sap datasphere
   - sap analytics cloud
   - data ingestion
+  - spark data processing
+  - machine learning
   - business ai platform
 sidebar_label: Big Data Processing in SAP HANA Cloud
 image: img/ac-soc-med.png
@@ -24,6 +26,7 @@ tags:
   - azure
   - aws
   - gcp
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

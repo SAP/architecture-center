@@ -2,13 +2,13 @@
 id: 0821c4
 slug: /ref-arch/0821c4
 sidebar_position: 8
-title: Agentic Engineering for SAP Extensions
+title: Agentic Engineering for SAP BTP Extensions
 description: "Agentic engineering for SAP BTP extensions: context engineering, SAP MCP server grounding, multi-agent orchestration and governed AI model access."
 keywords:
   - sap
   - agentic engineering
   - context engineering
-  - grounding
+  - multi-agent orchestration
   - mcp servers
   - ai coding agents
   - sap ai core

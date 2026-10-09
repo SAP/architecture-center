@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 slug: /community/get-started-ai-agents
-title: Contributing with AI Agents
+title: Contributing to the Architecture Center with AI Agents
 description: "Use AI coding agents to contribute to the SAP Architecture Center. Learn how AGENTS.md, CLAUDE.md, and skills give agents project context and conventions."
 sidebar_label: AI Agents
 keywords:
@@ -12,6 +12,7 @@ keywords:
     - contribution
     - agents.md
     - claude code
+    - skills
     - business ai platform
 image: img/ac-soc-med.png
 tags:
@@ -25,8 +26,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: julian-schambeck
-    date: 2026-05-05
+  author: cernus76
+  date: 2026-10-08
 ---
 
 AI (coding) agents have become an integral part of how the community works with the SAP Architecture Center, from writing code that changes the look and feel of the site to putting the final touches on reference architecture content.

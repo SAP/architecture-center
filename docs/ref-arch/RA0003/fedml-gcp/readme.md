@@ -2,7 +2,7 @@
 id: 494ec6
 slug: /ref-arch/494ec6
 sidebar_position: 1
-title: FedML-GCP for Google Vertex AI
+title: FedML-GCP for Google Vertex AI with Live SAP Data
 description: "Train models on Google Vertex AI using live SAP data with FedML-GCP, eliminating data duplication across SAP Datasphere and SAP BTP."
 keywords:
   - sap
@@ -12,12 +12,16 @@ keywords:
   - sap datasphere
   - machine learning
   - live sap data
+  - model training
+  - model deployment
+  - data federation
   - business ai platform
 sidebar_label: FedML-GCP for Google Vertex AI
 image: img/ac-soc-med.png
 tags:
   - gcp
   - data
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

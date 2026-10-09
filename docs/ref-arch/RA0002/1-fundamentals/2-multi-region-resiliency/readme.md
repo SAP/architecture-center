@@ -2,7 +2,7 @@
 id: 332db2
 slug: /ref-arch/332db2
 sidebar_position: 1
-title: Multi-region resiliency
+title: Multi-Region Resiliency for SAP BTP Applications
 description: "Learn how and why Multi-region resiliency ensures applications remain functional during regional outages by leveraging geographically distributed data centers."
 keywords:
   - sap
@@ -14,6 +14,8 @@ keywords:
   - failover mechanisms
   - business continuity
   - sap hana cloud
+  - multi-region manager
+  - high availability
   - business ai platform
 sidebar_label: Multi-region resiliency
 image: img/ac-soc-med.png
@@ -23,6 +25,7 @@ tags:
   - gcp
   - appdev
   - integration
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

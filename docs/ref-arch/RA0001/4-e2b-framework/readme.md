@@ -13,6 +13,8 @@ keywords:
   - sap build process automation
   - sap hana cloud
   - sap private link service
+  - sap connectivity service
+  - generative ai
   - clean core extension
   - business ai platform
 sidebar_label: SAP CAP based Framework for EDA
@@ -23,6 +25,7 @@ tags:
   - appdev
   - integration
   - eda
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

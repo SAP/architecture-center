@@ -14,6 +14,7 @@ keywords:
   - document capture
   - inbound channels
   - edi integration
+  - sap ariba
   - business ai platform
 sidebar_label: Document Ingestion Patterns for SAP Document AI
 image: img/logo.svg

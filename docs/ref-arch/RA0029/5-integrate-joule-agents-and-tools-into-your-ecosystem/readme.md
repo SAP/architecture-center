@@ -11,8 +11,10 @@ keywords:
   - joule agents
   - agent gateway
   - a2a
+  - a2a connectivity
   - sap integration suite
   - agent interoperability
+  - api management
   - sap cloud identity services
   - third-party ai platforms
   - business ai platform

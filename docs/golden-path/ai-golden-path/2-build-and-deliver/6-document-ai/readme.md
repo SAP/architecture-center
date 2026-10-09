@@ -6,11 +6,11 @@ keywords:
     - sap
     - sap document ai
     - intelligent document processing
-    - data extraction
+    - document information extraction
     - unstructured documents
     - machine learning
-    - document information extraction
     - invoice processing
+    - purchase order processing
     - business ai platform
 sidebar_label: Document AI
 image: img/ac-soc-med.png

@@ -12,12 +12,14 @@ keywords:
   - identity provider broker
   - third-party identity provider integration
   - sap gui single sign-on
+  - x.509 certificate authentication
   - sap saas authentication
   - business ai platform
 sidebar_label: Authentication and Single Sign On
 image: img/ac-soc-med.png
 tags:
   - security
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

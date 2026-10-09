@@ -4,7 +4,7 @@ sidebar_position: 10
 slug: /ai-native-north-star-architecture/customer-specific-development-services
 sidebar_custom_props:
     category_index: []
-title: Customer-Specific Development Services
+title: AI-Native Customer-Specific Development Services
 description: "SAP's AI-native customer-specific development services deliver upgrade-safe extensions that learn and adapt in production via agentic engineering."
 keywords:
     - sap
@@ -18,7 +18,6 @@ keywords:
     - business transformation
     - customer innovation lifecycle
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 10. Customer-Specific Development Services
 image: img/ac-soc-med.png

@@ -11,6 +11,7 @@ keywords:
  - no-code architecture editor
  - reference architecture
  - draw.io diagrams
+ - github
  - business ai platform
 image: img/ac-soc-med.png
 tags:
@@ -25,8 +26,8 @@ contributors:
   - navyakhurana
   - abhissharma21
 last_update:
-  author: navyakhurana
-  date: 2025-11-03
+  author: cernus76
+  date: 2026-10-08
 ---
 
 ## About Quick Start
@@ -35,11 +36,11 @@ last_update:
 It enables contributors to:
 
 - Log in using their **GitHub account**  
-- Create an architecture from scratch using the **intuitive rich-text editor** or upload an existing word document which is automatically converted to Markdown format.
+- Create an architecture from scratch using the **intuitive rich-text editor** or upload an existing Word document which is automatically converted to Markdown format.
 - Directly add **text, images, and architecture Draw.io diagrams** in an intuitive editor  
 
 :::info Note
-Behind the scenes, Quick Start automates repository forking, front-matter generation, and pull request creation—significantly reducing manual effort and accelerating the publishing process.
+Behind the scenes, Quick Start automates repository forking, front-matter generation, and pull request creation, significantly reducing manual effort and accelerating the publishing process.
 :::
 
 ## How to Contribute
@@ -61,11 +62,11 @@ Once authorized, the **Quick Start** tile will be enabled.
 ### Step 2: Create a New Architecture
 1. Navigate to the **Quick Start** section.  
 2. A dialog box will appear prompting you to enter:
-   - `Title` – The name of your architecture  
-   - `Description` – A short overview of your architecture  
-   - `Author` – Automatically filled with your GitHub username  
-   - `Contributors` – By default includes you; you can add other GitHub usernames  
-   - `Tags` – Choose relevant tags from the provided dropdown list  
+   - `Title`: The name of your architecture  
+   - `Description`: A short overview of your architecture  
+   - `Author`: Automatically filled with your GitHub username  
+   - `Contributors`: By default includes you; you can add other GitHub usernames  
+   - `Tags`: Choose relevant tags from the provided dropdown list  
 
 :::info Note
 These details can be edited later in the editor as well.
@@ -86,7 +87,7 @@ Here are the main features and tips to get started:
     Supported file type: `.docx` (MS Word files).  
     Uploaded files are **automatically converted to Markdown** during submission.  
     :::
-- To edit your architecture [front-matter](community/02-Guidelines/04-front-matter.md):
+- To edit your architecture [front-matter](../04-front-matter.md):
   - Click the **edit (pencil) icon** on the top-right corner to modify the **front matter** (title, description, tags, etc.).
 - To edit **contributors**, scroll to the end of your architecture page and click the **edit (pencil)** icon in the contributors section.  
 - To add **subpages**, click the **“+”** button in the left sidebar and follow the same creation steps.

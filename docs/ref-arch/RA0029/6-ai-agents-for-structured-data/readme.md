@@ -2,7 +2,7 @@
 id: b6c158
 slug: /ref-arch/b6c158
 sidebar_position: 6
-title: AI Agents for Structured Data
+title: AI Agents for Structured Data on SAP Datasphere
 description: "Build AI agents that answer natural-language queries on SAP structured data, using SAP Datasphere federation and SAP HANA Cloud vector search and RAG."
 keywords:
   - sap
@@ -13,6 +13,8 @@ keywords:
   - rag
   - data federation
   - vector engine
+  - business data fabric
+  - langgraph
   - cap
   - descriptive and prescriptive analytics
   - business ai platform
@@ -24,6 +26,7 @@ tags:
   - aws
   - gcp
   - azure
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

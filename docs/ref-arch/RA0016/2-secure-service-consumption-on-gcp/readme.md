@@ -2,7 +2,7 @@
 id: bd327f
 slug: /ref-arch/bd327f
 sidebar_position: 2
-title: Secure Service Consumption on GCP
+title: Secure Service Consumption on GCP from SAP BTP
 description: "Configure secure, keyless access to GCP resources using OIDC-based Workload Identity Federation. Workloads authenticate without storing service account keys."
 keywords:
   - sap
@@ -20,6 +20,7 @@ image: img/ac-soc-med.png
 tags:
   - gcp
   - security
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

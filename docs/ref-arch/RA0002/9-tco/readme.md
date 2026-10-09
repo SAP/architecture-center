@@ -17,6 +17,7 @@ keywords:
   - sap ci/cd
   - cloud transport management
   - disaster recovery
+  - dynamic load balancing
   - business ai platform
 sidebar_label: Cost of Ownership
 image: img/ac-soc-med.png
@@ -26,6 +27,7 @@ tags:
   - gcp
   - appdev
   - integration
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

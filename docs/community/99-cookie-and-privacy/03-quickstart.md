@@ -9,6 +9,7 @@ keywords:
  - quick start
  - privacy
  - github oauth
+ - personal data
  - business ai platform
 image: img/ac-soc-med.png
 tags:
@@ -22,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 The **Quick Start** tool uses GitHub OAuth for user authentication. This means that users are redirected to GitHub to log in and authorize the application. No passwords or direct authentication data are handled or stored by the **Quick Start** tool.

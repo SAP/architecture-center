@@ -10,6 +10,7 @@ keywords:
   - agentic ai
   - business ai platform
   - joule
+  - joule work
   - joule studio
   - sap autonomous suite
   - agent gateway
@@ -17,7 +18,6 @@ keywords:
   - mcp
   - sap cloud sdk for ai
   - sap leanix ai agent hub
-  - intent-based development
   - sap integration suite
 sidebar_label: Agentic AI & AI Agents
 image: img/ac-soc-med.png

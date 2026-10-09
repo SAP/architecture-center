@@ -12,7 +12,9 @@ keywords:
   - foundation models
   - large language models
   - prompt engineering
+  - prompt templates
   - orchestration service
+  - content filtering
   - cloud application programming model
   - business ai platform
 sidebar_label: Basic Prompting
@@ -22,6 +24,7 @@ tags:
   - azure
   - gcp
   - genai
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

@@ -8,7 +8,6 @@ keywords:
   - sap
   - joule
   - microsoft copilot
-  - sap joule
   - ai copilot integration
   - business ai platform
 sidebar_label: Integrate Joule and Microsoft Copilot

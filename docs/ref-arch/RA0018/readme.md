@@ -15,6 +15,7 @@ keywords:
   - process automation across sap and non-sap systems
   - sap task center
   - sap integration suite
+  - sap s/4hana
   - business ai platform
 sidebar_label: Integrate and Extend with SAP Build Process Automation
 image: img/ac-soc-med.png
@@ -24,6 +25,7 @@ tags:
   - aws
   - gcp
   - appdev
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

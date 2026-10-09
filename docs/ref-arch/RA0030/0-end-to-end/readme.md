@@ -14,6 +14,7 @@ keywords:
   - sap s/4hana
   - sap integration suite
   - invoice processing
+  - straight-through processing
   - human-in-the-loop
   - business ai platform
 sidebar_label: Document Processing with SAP Document AI

@@ -16,6 +16,7 @@ keywords:
     - office of the cto
     - system of intelligence
     - enterprise ai
+    - sap architecture center
     - nsa
     - business ai platform
 sidebar_label: Anirban Majumdar (SAP)

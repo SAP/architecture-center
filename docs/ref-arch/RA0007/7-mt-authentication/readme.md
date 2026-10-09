@@ -10,6 +10,7 @@ keywords:
   - multitenant authentication
   - sap cloud identity services
   - sap id service
+  - identity authentication service
   - identity provider
   - sap authorization and trust management service
   - corporate identity providers
@@ -21,6 +22,7 @@ image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

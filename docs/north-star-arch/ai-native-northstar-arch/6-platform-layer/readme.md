@@ -20,7 +20,6 @@ keywords:
     - tenant isolation
     - enterprise-scale ai
     - north star architecture
-    - nsa
     - business ai platform
 sidebar_label: 6. Platform Layer
 image: img/ac-soc-med.png

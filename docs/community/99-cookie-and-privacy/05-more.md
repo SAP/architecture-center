@@ -9,6 +9,7 @@ keywords:
  - github
  - cookie
  - privacy
+ - data protection
  - business ai platform
 image: img/ac-soc-med.png
 tags:
@@ -22,17 +23,17 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 Below is specific information concerning GitHub’s and SAP’s policies related to cookies and privacy.
 
-### GitHub information
+## GitHub information
 - **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**
 - **[GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)**
 - **[GitHub Account](https://github.com/login)**
 
-### SAP information
+## SAP information
 - **[SAP Cookies](https://www.sap.com/about/legal/privacy/cookies.html)**
 - **[SAP Privacy Statement](https://www.sap.com/about/legal/privacy.html)**
 - **[SAP Account](https://account.sap.com/manage/privacy)**

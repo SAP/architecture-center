@@ -2,7 +2,7 @@
 id: 0a229d
 slug: /ref-arch/0a229d
 sidebar_position: 90
-title: Edge Integration Cell on Hyperscalers
+title: SAP Integration Suite Edge Integration Cell on Hyperscalers
 description: "Deploy SAP Integration Suite - Edge Integration Cell on AWS, Azure, or GCP for secure, compliant hybrid integration with local execution and data residency."
 keywords:
   - sap
@@ -15,6 +15,7 @@ keywords:
   - gcp
   - advanced event mesh
   - event-driven architecture
+  - sap pi/po modernization
   - data residency compliance
   - business ai platform
 sidebar_label: Edge Integration Cell on Hyperscalers
@@ -26,6 +27,7 @@ tags:
   - eic
   - integration
   - appdev
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

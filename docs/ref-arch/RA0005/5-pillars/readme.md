@@ -7,6 +7,7 @@ description: "Non-functional pillars for generative AI on SAP BTP, covering the 
 keywords:
   - sap
   - non-functional requirements
+  - non-functional pillars
   - reference architecture
   - generative ai
   - business ai platform
@@ -17,6 +18,7 @@ tags:
   - aws
   - azure
   - gcp
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

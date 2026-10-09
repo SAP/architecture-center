@@ -2,7 +2,7 @@
 id: ff07b1
 slug: /ref-arch/ff07b1
 sidebar_position: 3
-title: Extend Joule with Joule Studio
+title: Extend Joule with Joule Studio in SAP Build
 description: "Build custom Joule Skills and AI Agents with Joule Studio in SAP Build to extend Joule and automate processes across SAP and non-SAP systems."
 keywords:
   - sap
@@ -15,7 +15,7 @@ keywords:
   - document grounding
   - retrieval augmented generation
   - business process automation
-  - hybrid landscape integration
+  - sap s/4hana
   - business ai platform
 sidebar_label: Extend Joule with Joule Studio
 image: img/ac-soc-med.png

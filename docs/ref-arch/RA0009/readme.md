@@ -17,6 +17,7 @@ keywords:
   - sap build work zone
   - global user id
   - sap s/4hana
+  - sap cloud connector
   - business ai platform
 sidebar_label: Establish a central inbox with SAP Task Center
 image: img/ac-soc-med.png
@@ -25,6 +26,7 @@ tags:
   - azure
   - gcp
   - appdev
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
