@@ -1,0 +1,71 @@
+name: Check Grammar
+
+# Grammar / prose linting for docs and news, complementing the cspell spell check.
+# Runs LanguageTool (bundled inside the reviewdog action's Docker image — no external
+# API calls) and posts findings as inline review comments on changed lines.
+#
+# Rollout notes:
+# - Non-blocking by design: the action never passes reviewdog's -fail-on-error flag
+#   (and exposes no input for it), so reviewdog exits 0 regardless of findings. The
+#   step also carries continue-on-error so a fork read-only token or a server hiccup
+#   can't turn the check red. Consequence: this action cannot be made a hard merge
+#   gate — switching `level` to error only relabels comment severity, not pass/fail.
+# - Spelling stays owned by cspell: disabled_categories keeps TYPOS disabled so
+#   LanguageTool never re-flags SAP product names already allowed in .cspell/.
+# - Languages: checked once per locale (en, en-GB, en-US) via a job matrix, because the
+#   action checks a SINGLE language per request. en resolves to the default variant
+#   (~en-US); with spelling (TYPOS) disabled the dialects differ little, so a shared
+#   grammar rule may post a near-duplicate inline comment once per locale.
+# - .mdx is intentionally excluded for now — JSX/import lines are the biggest source
+#   of false positives and no rule-disabling fully fixes them. Add it once tuned.
+# - Tuning loop: when a rule produces false positives on a real PR, append its id to
+#   `disabled_rules` below (comma-separated, no spaces).
+# - Scope: LanguageTool scans every tracked docs/news .md each run; reviewdog restricts
+#   the inline COMMENTS to lines changed in the PR.
+# - Fork PRs: GitHub issues a read-only token, so inline comments can't be posted on
+#   external fork PRs — the suggestions still appear in the Actions run log instead.
+#   Core-branch PRs get the full inline experience.
+
+on:
+  pull_request:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'news/**/*.md'
+      - '.github/workflows/check-grammar.yml'
+
+permissions: {}
+
+jobs:
+  check-grammar:
+    name: Check Grammar (${{ matrix.language }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write # reviewdog posts inline review comments on the PR
+    strategy:
+      fail-fast: false # one locale failing shouldn't cancel the others
+      matrix:
+        language: [en, en-GB, en-US]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Grammar check Markdown files
+        continue-on-error: true # keep the check non-blocking (fork read-only token, server hiccups)
+        uses: reviewdog/action-languagetool@afd06e9b0f782c9562c92efffb66a49c09b2b4f4 # v1.23.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: warning
+          patterns: docs/**/*.md news/**/*.md
+          language: ${{ matrix.language }}
+          # Give the bundled LanguageTool server time to boot (default is 3s).
+          wait_server_startup_duration: '15'
+          # TYPOS = spelling (owned by cspell); TYPOGRAPHY = curly quotes/dashes/arrows (noisy on code).
+          disabled_categories: TYPOS,TYPOGRAPHY
+          # Markdown-noise rules. Append ids here as false positives show up during tuning.
+          disabled_rules: WHITESPACE_RULE,EN_QUOTES,DASH_RULE,WORD_CONTAINS_UNDERSCORE,UPPERCASE_SENTENCE_START,ARROWS,COMMA_PARENTHESIS_WHITESPACE,UNLIKELY_OPENING_PUNCTUATION,SENTENCE_WHITESPACE,CURRENCY,EN_UNPAIRED_BRACKETS,PHRASE_REPETITION,PUNCTUATION_PARAGRAPH_END,METRIC_UNITS_EN_US,ENGLISH_WORD_REPEAT_BEGINNING_RULE
