@@ -375,6 +375,75 @@ function filterGroupedByPartner(
   return { filtered, matchingDocIds };
 }
 
+// Filter by community content tag
+function filterGroupedByCommunityContent(
+  grouped: Record<string, any[]>,
+  showCommunityContent: boolean,
+  docIdToTags: Record<string, string[]>
+): { filtered: Record<string, any[]>; matchingDocIds: Set<string> } {
+  // If not filtering for community content, return all items
+  if (!showCommunityContent) {
+    return { filtered: grouped, matchingDocIds: new Set() };
+  }
+
+  // Get all document IDs that have the community-contrib tag
+  const matchingDocIds = getMatchingDocIds(docIdToTags, ['community-contrib']);
+
+  // Recursively filter category to only include matching items
+  const filterCategory = (category: any, domainId: string): any | null => {
+    const filteredItems = [];
+
+    for (const child of category.items || []) {
+      if (child.type === 'doc' || child.type === 'link') {
+        const childId = getItemDocId(child, docIdToTags);
+        if (childId && matchingDocIds.has(childId)) {
+          filteredItems.push(child);
+        }
+      } else if (child.type === 'category') {
+        const filteredChild = filterCategory(child, domainId);
+        if (filteredChild) {
+          filteredItems.push(filteredChild);
+        }
+      }
+    }
+
+    const categoryDocId = getItemDocId(category, docIdToTags);
+    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
+
+    if (filteredItems.length > 0) {
+      return { ...category, items: filteredItems };
+    }
+
+    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+      return { ...category, items: [] };
+    }
+
+    return null;
+  };
+
+  const filtered: Record<string, any[]> = {};
+
+  Object.entries(grouped).forEach(([domainId, items]) => {
+    filtered[domainId] = [];
+
+    for (const item of items) {
+      if (item.type === 'doc' || item.type === 'link') {
+        const itemId = getItemDocId(item, docIdToTags);
+        if (itemId && matchingDocIds.has(itemId)) {
+          filtered[domainId].push(item);
+        }
+      } else if (item.type === 'category') {
+        const filteredCategory = filterCategory(item, domainId);
+        if (filteredCategory) {
+          filtered[domainId].push(filteredCategory);
+        }
+      }
+    }
+  });
+
+  return { filtered, matchingDocIds };
+}
+
 // Build domain categories for rendering
 function buildDomainCategories(
   filteredGrouped: Record<string, any[]>,
@@ -427,6 +496,8 @@ function DocSidebarDesktop(props) {
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const showArchived = useSidebarFilterStore(state => state.showArchived);
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
+  const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
+  const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -443,9 +514,15 @@ function DocSidebarDesktop(props) {
   );
 
   // Filter by selected partners
-  const { filtered: filteredGrouped } = useMemo(
+  const { filtered: partnerFiltered } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
+  );
+
+  // Filter by community content
+  const { filtered: filteredGrouped } = useMemo(
+    () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
+    [partnerFiltered, showCommunityContent, tagsDocId]
   );
 
   const selectedPartnerOptions = useMemo(
@@ -469,8 +546,8 @@ function DocSidebarDesktop(props) {
   };
 
   const handleResetFilters = () => {
-    // If archive filter is active, navigate to base document
-    if (showArchived) {
+    // If archive or community filter is active, navigate to base document
+    if (showArchived || showCommunityContent) {
       resetFilters();
       history.replace(refArchBase);
     } else {
@@ -515,7 +592,7 @@ function DocSidebarDesktop(props) {
           selectedPartners={selectedPartnerOptions}
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
-          isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
+          isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
@@ -556,6 +633,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const showArchived = useSidebarFilterStore(state => state.showArchived);
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
+  const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
   const history = useHistory();
   const refArchBase = useBaseUrl('/docs/ref-arch');
 
@@ -574,9 +652,16 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     [nonArchivedSidebar, tagsDocId]
   );
 
-  const { filtered: filteredGrouped } = useMemo(
+  // Filter by selected partners
+  const { filtered: partnerFiltered } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
+  );
+
+  // Filter by community content
+  const { filtered: filteredGrouped } = useMemo(
+    () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
+    [partnerFiltered, showCommunityContent, tagsDocId]
   );
 
   const handlePartnersChange = (selected) => {
@@ -584,8 +669,8 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   };
 
   const handleResetFilters = () => {
-    // If archive filter is active, navigate to base document
-    if (showArchived) {
+    // If archive or community filter is active, navigate to base document
+    if (showArchived || showCommunityContent) {
       resetFilters();
       history.replace(refArchBase);
     } else {
@@ -626,7 +711,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         selectedPartners={selectedPartnerOptions}
         onPartnersChange={handlePartnersChange}
         resetFilters={handleResetFilters}
-        isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived}
+        isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         resultCount={resultCount}
@@ -727,6 +812,7 @@ export default function DocSidebarWrapper(props) {
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
+  const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const history = useHistory();
   const docsBase = useBaseUrl('/docs');
@@ -743,6 +829,7 @@ export default function DocSidebarWrapper(props) {
     const partnersParam = params.get('partners');
     const expandedParam = params.get('expanded');
     const archivedParam = params.get('archive');
+    const communityContentParam = params.get('communityContent');
 
     // Find the current document
     const docIdFromTags = findDocIdFromPath(location.pathname, tagsDocId);
@@ -802,6 +889,32 @@ export default function DocSidebarWrapper(props) {
       setShowArchived(false);
     }
 
+    // Handle community content filter
+    const currentShowCommunityContent = useSidebarFilterStore.getState().showCommunityContent;
+
+    if (communityContentParam === 'true') {
+      setShowCommunityContent(true);
+    } else if (docId && tagsDocId[docId]) {
+      // Preserve community content filter during sidebar nav if doc has the tag
+      if (currentShowCommunityContent) {
+        const docTags = tagsDocId[docId] || [];
+        const isCommunityDoc = docTags.includes('community-contrib');
+
+        if (isCommunityDoc) {
+          // Keep filter active and sync URL
+          const urlParams = new URLSearchParams(location.search);
+          if (!urlParams.get('communityContent')) {
+            urlParams.set('communityContent', 'true');
+            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          }
+        } else {
+          setShowCommunityContent(false);
+        }
+      }
+    } else {
+      setShowCommunityContent(false);
+    }
+
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
       return;
@@ -821,7 +934,7 @@ export default function DocSidebarWrapper(props) {
         setExpandedDomains(matchingDomains);
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, shouldShowFilters, tagsDocId, props.sidebar]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, shouldShowFilters, tagsDocId, props.sidebar]);
 
   useEffect(() => {
     return history.listen(loc => {

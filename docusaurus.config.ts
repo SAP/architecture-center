@@ -275,6 +275,10 @@ const config: Config = {
                         },
                         {
                             type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?communityContent=true">Community Content</a>`,
+                        },
+                        {
+                            type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archive=true">Archived Documents</a>`,
                         },
                     ],
