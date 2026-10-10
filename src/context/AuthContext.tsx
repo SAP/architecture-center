@@ -105,6 +105,15 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
         // Ensure delay is not negative or too small
         const effectiveDelay = Math.max(1000, delay); // Minimum 1 second delay
 
+        // setTimeout stores the delay as a 32-bit int: a value > ~24.8 days
+        // overflows and fires almost immediately, which would log the user out
+        // right after login. Re-arm in chunks instead of overflowing.
+        const MAX_TIMEOUT = 2_147_483_647;
+        if (effectiveDelay > MAX_TIMEOUT) {
+            btpLogoutTimerRef.current = setTimeout(() => scheduleBtpTokenExpiryCheck(expiresAt), MAX_TIMEOUT);
+            return;
+        }
+
         btpLogoutTimerRef.current = setTimeout(() => {
             logger.info('BTP token expired or nearing expiry. Initiating BTP logout.');
             logout('btp');

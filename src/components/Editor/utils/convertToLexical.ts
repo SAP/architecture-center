@@ -291,7 +291,10 @@ function convertNode(node: CustomNode, nodeMap: Record<string, CustomNode>): any
 
 export function convertToLexicalFormat(customEditorState: string): string {
   try {
-    const state: CustomEditorState = JSON.parse(customEditorState);
+    // Drop prototype-polluting keys from untrusted editorState (see EditorState.deserializeState).
+    const state: CustomEditorState = JSON.parse(customEditorState, (key, value) =>
+      key === '__proto__' || key === 'constructor' || key === 'prototype' ? undefined : value
+    );
 
     if (!state.root || !state.nodeMap) {
       // Already in Lexical format or invalid

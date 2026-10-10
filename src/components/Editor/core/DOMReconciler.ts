@@ -18,6 +18,7 @@ import {
   isTextNode,
   isDecoratorNode,
 } from './types';
+import { sanitizeLinkUrl, sanitizeImageSrc } from '../../../utils/sanitization';
 import { getNode } from './EditorState';
 
 const DATA_KEY_ATTR = 'data-editor-key';
@@ -354,7 +355,10 @@ export class DOMReconciler {
         element = document.createElement('a');
         element.className = 'editorLink';
         const linkNode = node as LinkNode;
-        element.setAttribute('href', linkNode.url);
+        // Block javascript:/data:/vbscript: URLs while preserving valid relative
+        // and anchor links. Link URLs come from user-authored (and shared)
+        // documents, so an unsanitized href is a stored-XSS sink.
+        element.setAttribute('href', sanitizeLinkUrl(linkNode.url));
         element.setAttribute('target', '_blank');
         element.setAttribute('rel', 'noopener noreferrer');
         break;
@@ -483,7 +487,7 @@ export class DOMReconciler {
     }
 
     const img = document.createElement('img');
-    img.src = node.src;
+    img.src = sanitizeImageSrc(node.src);
     img.alt = node.alt || '';
     img.className = 'editorImage';
     if (node.width) img.width = node.width;
@@ -505,18 +509,46 @@ export class DOMReconciler {
 
     window.addEventListener('message', (event: MessageEvent) => {
       if (event.data && event.data.type === 'drawio-resize') {
-        // Find the iframe that sent this message
+        // Find the iframe that sent this message. The contentWindow identity
+        // check is the trust boundary: an unrelated window cannot forge it.
         const iframes = document.querySelectorAll('.editorDrawioIframe') as NodeListOf<HTMLIFrameElement>;
         for (const iframe of iframes) {
           if (iframe.contentWindow === event.source) {
-            const newHeight = Math.max(event.data.height, 200);
+            // Coerce + bound the height so a non-numeric payload cannot produce
+            // "NaNpx" and a huge value cannot drive a layout-DoS.
+            const requested = Number(event.data.height);
+            if (!Number.isFinite(requested)) break;
+            const newHeight = Math.min(Math.max(requested, 200), 5000);
             iframe.style.height = `${newHeight}px`;
-            console.log('[Drawio] Resized iframe to', newHeight);
             break;
           }
         }
       }
     });
+  }
+
+  /**
+   * Create the drawio viewer iframe with a hardened sandbox.
+   *
+   * The iframe's srcdoc runs in-document, so WITHOUT a sandbox it would inherit
+   * the site origin (architecture.learning.sap.com) and any script reachable
+   * from attacker-authored diagram XML (mxgraph html=1 labels, embedded links,
+   * a viewer bug) would run as a stored XSS against the real origin — able to
+   * read auth state in localStorage and call the authenticated backend.
+   *
+   * `allow-scripts` keeps the viewer and its postMessage resize/zoom working;
+   * we deliberately OMIT `allow-same-origin`, forcing the frame into a unique
+   * opaque origin so its scripts cannot touch the parent's DOM, cookies or
+   * storage. Never add `allow-same-origin` here — it defeats the isolation.
+   */
+  private createDrawioIframe(): HTMLIFrameElement {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'editorDrawioIframe';
+    iframe.frameBorder = '0';
+    iframe.width = '100%';
+    iframe.style.height = '400px';
+    iframe.setAttribute('sandbox', 'allow-scripts');
+    return iframe;
   }
 
   private createDrawioElement(node: DrawioNode): HTMLElement {
@@ -528,11 +560,7 @@ export class DOMReconciler {
     wrapper.setAttribute('contenteditable', 'false');
     wrapper.className = 'editorDrawioWrapper';
 
-    const iframe = document.createElement('iframe');
-    iframe.className = 'editorDrawioIframe';
-    iframe.frameBorder = '0';
-    iframe.width = '100%';
-    iframe.style.height = '400px';
+    const iframe = this.createDrawioIframe();
 
     // Use srcdoc with embedded viewer for large diagrams (URL length limits)
     if (node.diagramXML) {
@@ -772,6 +800,9 @@ export class DOMReconciler {
         initViewer();
 
         window.addEventListener('message', function(event) {
+          // Only honor zoom commands from the embedding parent window; ignore
+          // messages from any other source.
+          if (event.source !== window.parent) return;
           if (event.data && event.data.type === 'zoom') {
             var svg = document.querySelector('.geDiagramContainer svg') ||
                       document.querySelector('.mxgraph svg') ||
@@ -791,7 +822,13 @@ export class DOMReconciler {
           }
         });
       } catch (e) {
-        document.getElementById('diagram').innerHTML = '<div class="error">Error: ' + e.message + '</div>';
+        var diagramEl = document.getElementById('diagram');
+        diagramEl.innerHTML = '';
+        diagramEl.className = '';
+        var errDiv = document.createElement('div');
+        errDiv.className = 'error';
+        errDiv.textContent = 'Error: ' + (e && e.message ? e.message : e);
+        diagramEl.appendChild(errDiv);
         console.error('Drawio render error:', e);
       }
     })();
@@ -1099,7 +1136,7 @@ export class DOMReconciler {
         // Replace placeholder with actual image
         element.innerHTML = '';
         const img = document.createElement('img');
-        img.src = imageNode.src;
+        img.src = sanitizeImageSrc(imageNode.src);
         img.alt = imageNode.alt || '';
         img.className = 'editorImage';
         if (imageNode.width) img.width = imageNode.width;
@@ -1111,7 +1148,7 @@ export class DOMReconciler {
       // Normal image update
       const img = element.querySelector('img');
       if (img && imageNode.src && img.src !== imageNode.src) {
-        img.src = imageNode.src;
+        img.src = sanitizeImageSrc(imageNode.src);
       }
       return;
     }
@@ -1137,11 +1174,7 @@ export class DOMReconciler {
         element.setAttribute('data-diagram-xml', drawioNode.diagramXML);
 
         // Create iframe for the diagram
-        const iframe = document.createElement('iframe');
-        iframe.className = 'editorDrawioIframe';
-        iframe.frameBorder = '0';
-        iframe.width = '100%';
-        iframe.style.height = '400px';
+        const iframe = this.createDrawioIframe();
 
         iframe.srcdoc = this.createDrawioSrcdoc(drawioNode.diagramXML);
 
@@ -1203,7 +1236,8 @@ export class DOMReconciler {
 
     if (node.type === 'link') {
       const linkNode = node as LinkNode;
-      element.setAttribute('href', linkNode.url);
+      // See sanitizeLinkUrl note in createElement's 'link' case.
+      element.setAttribute('href', sanitizeLinkUrl(linkNode.url));
     }
 
     if (node.type === 'listitem') {

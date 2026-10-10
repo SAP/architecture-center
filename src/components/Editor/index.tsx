@@ -288,7 +288,9 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     const hasValidState = (() => {
       if (!activeDoc?.editorState) return false;
       try {
-        const parsed = JSON.parse(activeDoc.editorState);
+        const parsed = JSON.parse(activeDoc.editorState, (key, value) =>
+          key === '__proto__' || key === 'constructor' || key === 'prototype' ? undefined : value
+        );
         const isValid = parsed.root && parsed.nodeMap && Object.keys(parsed.nodeMap).length > 0;
         console.log('[Editor] Checking state validity:', {
           hasEditorState: !!activeDoc.editorState,
@@ -556,7 +558,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
 
   const handleSuccessAndReset = () => {
     const urlToOpen = publishStatus.pullRequestUrl || publishStatus.commitUrl;
-    if (urlToOpen) {
+    // Only open http(s) URLs. These come from the backend publish response; a
+    // compromised/unexpected value like "javascript:..." must never reach
+    // window.open (which would execute it in this origin).
+    if (urlToOpen && /^https?:\/\//i.test(urlToOpen.trim())) {
       window.open(urlToOpen, '_blank', 'noopener,noreferrer');
     }
 

@@ -46,6 +46,67 @@ export function sanitizeUrl(url: string): string {
 }
 
 /**
+ * Sanitize a hyperlink URL for safe use as an anchor href.
+ *
+ * Unlike sanitizeUrl(), this PRESERVES valid relative links, anchors and query
+ * strings (e.g. "../page#section", "/docs/foo?tab=bar", "#heading") and only
+ * rejects dangerous schemes (javascript:, data:, vbscript:, file:), including
+ * attempts to obfuscate them with leading or embedded whitespace / control
+ * characters. Returns '' (a harmless no-op href) when the URL is dangerous.
+ */
+export function sanitizeLinkUrl(url: string): string {
+    if (typeof url !== 'string') return '';
+
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+
+    // Strip whitespace and control chars before testing the scheme so that
+    // "java\tscript:", "java script:" and "\x01javascript:" are all caught.
+    const schemeProbe = trimmed.replace(/[\u0000- ]+/g, '').toLowerCase();
+    if (/^(javascript|data|vbscript|file):/.test(schemeProbe)) {
+        return '';
+    }
+
+    return trimmed;
+}
+
+/**
+ * Sanitize an image URL for safe use as an <img src>.
+ *
+ * Images have a different safe-set than hyperlinks: `data:` is legitimate for
+ * inline images, but only for image MIME types (`data:text/html` etc. must be
+ * rejected). This ALLOWS http(s), blob:, data:image/*, and relative/anchor
+ * paths, and rejects script-bearing or otherwise unexpected schemes
+ * (javascript:, vbscript:, file:, non-image data:), including whitespace /
+ * control-character obfuscation. Returns '' when the src is not safe.
+ *
+ * Note: an <img src> is not a script-execution sink in modern browsers, so this
+ * is defence-in-depth (prevents attacker-chosen beacons / data: payloads), not
+ * an XSS fix. Do NOT reuse sanitizeLinkUrl here — it blocks all data: URLs and
+ * would break legitimate inline base64 images.
+ */
+export function sanitizeImageSrc(src: string): string {
+    if (typeof src !== 'string') return '';
+
+    const trimmed = src.trim();
+    if (!trimmed) return '';
+
+    // Collapse whitespace/control chars before probing the scheme so obfuscated
+    // schemes ("java\tscript:") cannot slip through.
+    const probe = trimmed.replace(/[\u0000- ]+/g, '').toLowerCase();
+
+    // Reject known-dangerous and non-image data schemes outright.
+    if (/^(javascript|vbscript|file):/.test(probe)) {
+        return '';
+    }
+    if (/^data:/.test(probe) && !/^data:image\//.test(probe)) {
+        return '';
+    }
+
+    return trimmed;
+}
+
+/**
  * Sanitize file name to prevent path traversal attacks
  */
 export function sanitizeFileName(fileName: string): string {
