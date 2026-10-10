@@ -77,6 +77,24 @@ An architecture for API-managed integration is characterized by:
 - **Visibility and Analytical Insights**: Centrally collect and analyze API metrics, with options for monetizing API consumption.  
 - **Interoperability**: Perform transformations and mediations to enable seamless interoperability between API providers and consumers, including simplified consumption via data graphs.  
   
+## API-Centric Integration on Integration Cell
+
+API-centric integration brings the API contract, security policies, traffic management, and mediation or transformation logic into one API artifact. This extends the proxy-based pattern described above. See [API-Centric Integration](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/api-centric-integration).
+
+Choose the runtime explicitly: **Integration Cell** is a managed cloud runtime; **Edge Integration Cell** runs in a customer-managed private landscape. They are distinct deployment options. Check the supported capabilities for the selected runtime in the [API Management documentation](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/api-management).
+
+The implementation journey is:
+
+1. Activate the required API Management capability and Integration Cell runtime, and assign the required roles.
+2. Create an API artifact, define its contract and backend connection, and configure the required policies and integration logic.
+3. Deploy the artifact and verify its status and behavior.
+4. Group the API into an API Product and publish it through Developer Hub.
+5. Create a developer application, subscribe it to the product, and test consumption with the configured application credentials.
+
+For the complete walkthrough, see [Part 1: Build and Deploy](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-on-sap-integration-suite-part-1-build-and-deploy/ba-p/14438357) and [Part 2: API Governance with Developer Hub](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-on-sap-integration-suite-part-2-api-governance-with/ba-p/14438473).
+
+An API deployed on Integration Cell can also be a source for an MCP Server artifact. See [MCP server creation and governance](../RA0029/1-a2a-and-mcp/readme.md#creating-mcp-server-artifacts-on-integration-cell) for exposing selected operations to AI clients.
+
 ## Examples in an SAP Context  
   
 SAP does not deliver predefined integration scenarios for API-managed integration. Customers and partners typically implement API management solutions for reasons such as:  

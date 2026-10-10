@@ -121,6 +121,31 @@ This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP 
 -   **Governance and Observability:** Comprehensive monitoring, tracing and analytics provide visibility into how agents consume tools, supporting compliance and adoption governance
 -   **Developer and Ecosystem Enablement:** Tools and workflows to manage the full MCP tool lifecycle, from creation and documentation enrichment to discovery and consumption by agents
 
+### Creating MCP Server Artifacts on Integration Cell
+
+The MCP Gateway overview above is complemented by an **MCP Server artifact** that can be modeled and deployed in SAP Integration Suite. SAP documents three creation paths:
+
+| Source | Integration approach |
+|--------|----------------------|
+| API artifact | Expose selected operations from an API already deployed on Integration Cell. |
+| HTTP endpoint with an OpenAPI specification | Model tools over an existing HTTP service using its API definition. |
+| RFC-based backend | Expose selected RFC operations as tools. |
+
+See [Creating an MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/creating-mcp-server) for the supported configuration of each path.
+
+Check the tenant's service plan, runtime activation, roles, and backend connectivity before implementation. MCP feature availability depends on the service plan. Select the operations to expose and review tool names, descriptions, and input schemas for the intended business task. Configure and test authentication, authorization, and traffic policies before allowing agent access.
+
+Deploy the server, publish it through the product and Developer Hub workflow, and configure an MCP-compatible client to discover and invoke the exposed tools. Monitor errors, latency, and tool usage through [API and MCP analytics](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/analyze-apis-and-mcp-servers). Customers remain responsible for backend permissions, tool selection, and the configured policies.
+
+**Integration Cell** in these walkthroughs refers to the managed cloud runtime. Do not infer equivalent MCP feature support on **Edge Integration Cell** without checking the applicable runtime documentation.
+
+For implementation examples and background, see:
+
+- [MCP concepts: From APIs to AI-Ready Interfaces](https://community.sap.com/t5/technology-blog-posts-by-sap/model-context-protocol-mcp-from-apis-to-ai-ready-interfaces/ba-p/14433238)
+- [Build an MCP Server from an API artifact](https://community.sap.com/t5/integration-blog-posts/mcp-servers-on-sap-integration-suite-build-your-first-mcp-server-from-an/ba-p/14441034)
+- [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
+- [API-centric design, deployment, and Developer Hub governance](../../RA0022/readme.md#api-centric-integration-on-integration-cell)
+
 ## Agent2Agent (A2A) connectivity via Integration Suite
 
 SAP Integration Suite provides agent-to-agent interaction capabilities to address multi-party integration scenarios spanning SAP and non-SAP agentic platforms. In hybrid landscape deployments, Integration Suite is positioned in front of the Agent Gateway to fulfill cross-cutting concerns including security mediation, traffic management, guaranteed delivery, monitoring, event-driven publish-subscribe messaging, and broader quality of service requirements.
