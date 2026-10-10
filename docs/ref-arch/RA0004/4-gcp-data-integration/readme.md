@@ -43,7 +43,7 @@ last_update:
 Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google Cloud Platform services can be effortlessly integrated and harmonized with SAP business data through SAP Business Data Cloud. Leveraging open data protocols and advanced data fabric architectures, this approach enables secure, bi-directional data sharing and unified access to information across systems. The result is a centrally governed, holistic data environment that supports efficient analytics and AI/ML-driven use cases—all built on industry-standard open protocols.
 
 <ul>
-  <li>With the introduction of BDC Connect for Google BigQuery(<i>[GA: Q2 2026](https://roadmaps.sap.com/board?PRODUCT=73555000100800004851&range=CURRENT-LAST&q=Google%20BigQuery%20BDC%20Connect#Q2%202026;INNO=D9840EC05D5841D09971909642BCE7DC)</i>), SAP data products from SAP line of business applications can be shared directly with Google Big Query over governed data access, and discoverable via Google DataPlex catalog.</li>
+  <li>With the introduction of BDC Connect for Google BigQuery(<i>[available from 20 July 2026](https://help.sap.com/whats-new/31c53b47cac6482d89f167a1d2a4a50b)</i>), SAP data products from SAP line of business applications can be shared directly with Google Big Query over governed data access, and discoverable via Google DataPlex catalog.</li>
   <li>Data from Google BigQuery can be shared back as data products to SAP Business Data Cloud discoverable via the SAP BDC catalog.</li>
 </ul>
 

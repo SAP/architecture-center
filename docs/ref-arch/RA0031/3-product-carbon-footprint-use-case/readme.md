@@ -55,6 +55,18 @@ The architecture involves three parties, each owning their own wallet infrastruc
 
 DIV's Agent on each side communicates using the **IATP (Interoperability and Trust Protocol)** to exchange and verify membership credentials before PCF data is transferred via the **Eclipse Dataspace Connector (EDC)**.
 
+## Implementing the Data Exchange with Data Space Integration
+
+Identity verification and data-transfer governance are separate responsibilities. When using SAP Integration Suite's Data Space Integration capability for the exchange:
+
+1. Check the service plan, enable the required capabilities, and complete connector onboarding for the selected data space.
+2. Assign provider and consumer roles and configure backend connectivity and security material.
+3. As a provider, define the asset and its access/usage policies, then bundle them into a contract definition.
+4. As a consumer, discover an offered asset, review the applicable policies, and establish the agreement before transfer.
+5. Monitor agreements and transfers, and test changes to credentials, policies, and connector configuration.
+
+See [Data Space Integration setup](https://help.sap.com/docs/integration-suite/isuite-data-space-integration/what-s-new-in-data-space-integration), [provider design](https://help.sap.com/docs/integration-suite/isuite-data-space-integration/data-spaces), and [agreement monitoring](https://help.sap.com/docs/integration-suite/isuite-data-space-integration/monitoring-agreements). Validate the connector and identity requirements of the chosen data space; wallet verification alone does not grant access to every asset.
+
 ## Services and Components
 
 - [Decentralized Identity Verification (Product Page)](https://www.sap.com/products/technology-platform/decentralized-identity-verification.html)

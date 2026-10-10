@@ -66,6 +66,17 @@ To enable your development teams to apply DevOps for their projects on SAP BTP u
 
 To foster and ease separation of concerns (e.g., for security reasons), we recommend running services like SAP Cloud Transport Management in their own subaccount alongside other shared services. For more information on which SAP BTP services can be run centrally, see the [SAP BTP Administrator's Guide](https://help.sap.com/docs/btp/btp-admin-guide/sharing-btp-services).
 
+## Applying DevOps to Integration Suite Content
+
+The Cloud Foundry application workflow above needs artifact-specific steps for integration flows, API artifacts, and MCP servers:
+
+- Version the deployable content and its dependencies; manage environment-specific configuration and credentials separately.
+- Test contracts, mappings, authorization failures, duplicate delivery, and backend outages before promotion.
+- Promote a tested artifact version through the supported transport mechanism for its type and runtime. Verify deployment status and run a smoke test in the target environment.
+- Define rollback to a known version, including configuration dependencies and reconciliation of messages processed during the change.
+
+Automation must respect the APIs it invokes. SAP's July 2026 update sets the tenant limit for public Design Time Artifacts APIs to **15 requests per second**. Apply bounded retries and backoff for throttling; this limit is distinct from runtime message throughput. See [Cloud Integration release information](https://help.sap.com/docs/cloud-integration/sap-cloud-integration/what-s-new-for-cloud-integration).
+
 ## Characteristics
 
 An architecture for DevOps on SAP BTP using the reference architecture can be characterized as follows:
