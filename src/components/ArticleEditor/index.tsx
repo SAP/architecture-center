@@ -4,20 +4,20 @@ import { Button, Dialog, Bar, Text, Title } from '@ui5/webcomponents-react';
 import { usePageDataStore, Document } from '@site/src/store/pageDataStore';
 import { useAuth } from '@site/src/context/AuthContext';
 import { useColorMode } from '@docusaurus/theme-common';
-import { EditorCore } from './core';
-import { EditorContext, EditorContextValue } from './hooks/useEditor';
-import { ImageNode, DrawioNode } from './core/types';
-import { serializeState } from './core/EditorState';
-import ToolbarPlugin from './plugins/ToolbarPlugin';
-import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
-import SlashCommandPlugin from './plugins/SlashCommandPlugin';
-import BlockHandlePlugin from './plugins/BlockHandlePlugin';
-import TableMenuPlugin from './plugins/TableMenuPlugin';
-import TableOfContentsPlugin from './plugins/TableOfContentsPlugin';
-import LinkPreviewPlugin from './plugins/LinkPreviewPlugin';
-import MediaLoadingPlugin from './plugins/MediaLoadingPlugin';
-import DrawioEditorPlugin from './plugins/DrawioEditorPlugin';
-import { convertToLexicalFormat } from './utils/convertToLexical';
+import { EditorCore } from '@site/src/components/Editor/core';
+import { EditorContext, EditorContextValue } from '@site/src/components/Editor/hooks/useEditor';
+import { ImageNode, DrawioNode } from '@site/src/components/Editor/core/types';
+import { serializeState } from '@site/src/components/Editor/core/EditorState';
+import ToolbarPlugin from '@site/src/components/Editor/plugins/ToolbarPlugin';
+import FloatingToolbarPlugin from '@site/src/components/Editor/plugins/FloatingToolbarPlugin';
+import SlashCommandPlugin from '@site/src/components/Editor/plugins/SlashCommandPlugin';
+import BlockHandlePlugin from '@site/src/components/Editor/plugins/BlockHandlePlugin';
+import TableMenuPlugin from '@site/src/components/Editor/plugins/TableMenuPlugin';
+import TableOfContentsPlugin from '@site/src/components/Editor/plugins/TableOfContentsPlugin';
+import LinkPreviewPlugin from '@site/src/components/Editor/plugins/LinkPreviewPlugin';
+import MediaLoadingPlugin from '@site/src/components/Editor/plugins/MediaLoadingPlugin';
+import DrawioEditorPlugin from '@site/src/components/Editor/plugins/DrawioEditorPlugin';
+import { convertToLexicalFormat } from '@site/src/components/Editor/utils/convertToLexical';
 import { getApiService } from '@site/src/services/api';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
@@ -26,7 +26,6 @@ import { useHistory } from '@docusaurus/router';
 import LoadingModal, { PublishStage } from '../LoadingModal';
 import ArticleHeader from '../ArticleHeader';
 import Breadcrumbs from '../Breadcrumbs';
-import ContributorsDisplay from '../ContributorsDisplay';
 import { Eye } from 'lucide-react';
 
 const findRootDocument = (startDocId: string, allDocs: Document[]): Document | null => {
@@ -54,10 +53,6 @@ interface TransformedDocument {
   id: string;
   editorState: string;
   parentId: string | null;
-  type?: 'ref-arch' | 'article';
-  newAuthor?: { name: string; title: string; linkedin: string; username: string };
-  keywords?: string[];
-  spotlightImage?: { data: string; filename: string };
   children: TransformedDocument[];
   metadata: {
     title: string;
@@ -73,7 +68,6 @@ const transformTreeForBackend = (doc: Document): TransformedDocument => {
     id: doc.id,
     editorState: doc.editorState ? convertToLexicalFormat(doc.editorState) : '',
     parentId: doc.parentId,
-    ...(doc.type === 'article' ? { type: doc.type, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
     children: doc.children ? doc.children.map(transformTreeForBackend) : [],
     metadata: {
       title: doc.title,
@@ -157,7 +151,7 @@ interface PublishStatus {
   pullRequestUrl: string | null;
 }
 
-const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
+const ArticleEditor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
     usePageDataStore();
   const { token, user } = useAuth();
@@ -478,11 +472,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     [activeDocument, documents]
   );
 
-  const handleContributorsUpdate = (updatedContributors: string[]) => {
-    if (activeDocument) {
-      updateDocument(activeDocument.id, { contributors: updatedContributors });
-    }
-  };
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -656,17 +645,6 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <div className={styles.editorSpacer} />
-                  {activeDocument?.type !== 'article' && (
-                    <ContributorsDisplay
-                      contributors={[
-                        ...(activeDocument?.authors || []),
-                        ...(activeDocument?.contributors || []).filter(
-                          c => !(activeDocument?.authors || []).includes(c)
-                        )
-                      ]}
-                      readOnly={true}
-                    />
-                  )}
                 </div>
               </div>
             </div>
@@ -777,4 +755,4 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   );
 };
 
-export default Editor;
+export default ArticleEditor;

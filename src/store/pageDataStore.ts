@@ -9,6 +9,8 @@ export interface PageMetadata {
     authors: string[];
     contributors?: string[];
     description?: string;
+    keywords?: string[];
+    spotlightImage?: { data: string; filename: string };
 }
 
 export interface Document extends PageMetadata {
@@ -25,6 +27,12 @@ export interface Document extends PageMetadata {
     // Dirty flags to track what needs syncing
     _contributorsDirty?: boolean;
     _tagsDirty?: boolean;
+    // Content type — used for UI routing only, not sent to backend
+    type?: 'ref-arch' | 'article';
+    // Author profile for new authors not yet in authors.yml — used at publish time
+    newAuthor?: { name: string; title: string; linkedin: string };
+    keywords?: string[];
+    spotlightImage?: { data: string; filename: string };
 }
 
 interface PageDataState {
@@ -46,7 +54,7 @@ interface PageDataState {
     getRootDocumentId: (docId: string) => string | null;
 
     // Local actions
-    addDocument: (metadata: PageMetadata, parentId?: string | null) => void;
+    addDocument: (metadata: PageMetadata, parentId?: string | null, type?: 'ref-arch' | 'article') => void;
     updateDocument: (id: string, updates: Partial<Document>, skipRemoteSync?: boolean) => void;
     setActiveDocumentId: (id: string | null) => void;
     openDocument: (id: string) => void;
@@ -59,7 +67,7 @@ interface PageDataState {
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
-    createRemoteDocument: (metadata: PageMetadata, parentId?: string | null) => Promise<Document | null>;
+    createRemoteDocument: (metadata: PageMetadata, parentId?: string | null, type?: 'ref-arch' | 'article') => Promise<Document | null>;
     deleteRemoteDocument: (id: string) => Promise<void>;
 }
 
@@ -122,6 +130,29 @@ const flushPendingWrites = () => {
 // Add beforeunload handler to flush writes
 if (typeof window !== 'undefined') {
     window.addEventListener('beforeunload', flushPendingWrites);
+}
+
+// Separate, direct localStorage cache for document types.
+// This survives any Zustand state replacement (fetchDocuments, resetStore, etc.)
+// and is the authoritative source of type during the merge.
+const TYPES_CACHE_KEY = 'qs-doc-types';
+
+function readTypesCache(): Record<string, 'ref-arch' | 'article'> {
+    if (typeof window === 'undefined') return {};
+    try {
+        return JSON.parse(localStorage.getItem(TYPES_CACHE_KEY) || '{}');
+    } catch {
+        return {};
+    }
+}
+
+function writeTypeToCache(id: string, type: 'ref-arch' | 'article') {
+    if (typeof window === 'undefined') return;
+    try {
+        const cache = readTypesCache();
+        cache[id] = type;
+        localStorage.setItem(TYPES_CACHE_KEY, JSON.stringify(cache));
+    } catch {}
 }
 
 const findDocumentById = (docs: Document[], id: string | null): Document | null => {
@@ -229,7 +260,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken, currentUsername, documents: localDocuments } = get();
+                const { backendUrl, authToken, currentUsername } = get();
                 console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
                 if (!backendUrl || !authToken) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
@@ -280,8 +311,11 @@ export const usePageDataStore = create<PageDataState>()(
                     });
 
                     // Merge local unsynced changes with remote data
+                    const typesCache = readTypesCache();
                     const mergedDocuments = remoteDocuments.map(remoteDoc => {
-                        const localDoc = localDocuments.find(d => d.id === remoteDoc.id);
+                        const localDoc = get().documents.find(d => d.id === remoteDoc.id);
+                        // type is UI-only — not stored on the backend; prefer local store, fall back to direct cache
+                        const type = localDoc?.type ?? typesCache[remoteDoc.id];
                         // If local doc has unsynced changes (editorState differs), prefer local
                         if (localDoc && !localDoc._synced && localDoc.editorState) {
                             console.log('[PageDataStore] Preserving local changes for document:', remoteDoc.id);
@@ -289,9 +323,16 @@ export const usePageDataStore = create<PageDataState>()(
                                 ...remoteDoc,
                                 editorState: localDoc.editorState,
                                 _synced: false, // Mark for sync
+                                type,
                             };
                         }
-                        return remoteDoc;
+                        return {
+                            ...remoteDoc,
+                            type,
+                            ...(localDoc?.keywords?.length ? { keywords: localDoc.keywords } : {}),
+                            ...(localDoc?.spotlightImage ? { spotlightImage: localDoc.spotlightImage } : {}),
+                            ...(localDoc?.newAuthor ? { newAuthor: localDoc.newAuthor } : {}),
+                        };
                     });
 
                     // Also sync any preserved local changes to backend
@@ -330,6 +371,11 @@ export const usePageDataStore = create<PageDataState>()(
                     set({
                         documents: mergedDocuments,
                         activeDocumentId: (() => {
+                            // Preserve the previously active document if it still exists
+                            const prevActiveId = get().activeDocumentId;
+                            if (prevActiveId && mergedDocuments.find(d => d.id === prevActiveId)) {
+                                return prevActiveId;
+                            }
                             // Prioritize "My Documents" (non-read-only) over "Shared with me" (read-only)
                             const myDocs = mergedDocuments.filter(d => d.parentId === null && !d.isReadOnly);
                             if (myDocs.length > 0) return myDocs[0].id;
@@ -527,7 +573,7 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             // Create a new document on remote
-            createRemoteDocument: async (metadata, parentId = null) => {
+            createRemoteDocument: async (metadata, parentId = null, type?) => {
                 const { backendUrl, authToken, openDocumentIds } = get();
                 if (!backendUrl || !authToken) {
                     // Fallback to local-only
@@ -536,12 +582,14 @@ export const usePageDataStore = create<PageDataState>()(
                         id: uuidv4(),
                         editorState: null,
                         parentId,
+                        type,
                         _synced: false,
                     };
                     // If it's a root document, add to open tabs
                     const newOpenIds = parentId === null
                         ? [...openDocumentIds, newDocument.id]
                         : openDocumentIds;
+                    if (type) writeTypeToCache(newDocument.id, type);
                     set((state) => ({
                         documents: [...state.documents, newDocument],
                         activeDocumentId: newDocument.id,
@@ -591,8 +639,13 @@ export const usePageDataStore = create<PageDataState>()(
                         authors: remoteDoc.author ? [remoteDoc.author.username] : metadata.authors,
                         contributors: remoteDoc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
                         tags: remoteDoc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
+                        type,
+                        ...((metadata as any).newAuthor ? { newAuthor: (metadata as any).newAuthor } : {}),
+                        ...((metadata as any).keywords ? { keywords: (metadata as any).keywords } : {}),
+                        ...((metadata as any).spotlightImage ? { spotlightImage: (metadata as any).spotlightImage } : {}),
                     };
 
+                    if (type) writeTypeToCache(newDocument.id, type);
                     set((state) => {
                         // If it's a root document, add to open tabs
                         const newOpenIds = newDocument.parentId === null
@@ -634,7 +687,12 @@ export const usePageDataStore = create<PageDataState>()(
                         : state.openDocumentIds;
                     let newActiveId = state.activeDocumentId;
                     if (state.activeDocumentId === id) {
-                        newActiveId = newOpenIds.length > 0 ? newOpenIds[0] : (docsToKeep.length > 0 ? docsToKeep[0].id : null);
+                        // Find the type of the deleted document to avoid jumping editor types
+                        const deletedRootDoc = state.documents.find(d => d.id === (rootId || id));
+                        const deletedType = deletedRootDoc?.type;
+                        // Only pick a same-type root doc as the new active doc; null if none remain
+                        const sameTypeRoots = docsToKeep.filter(d => d.parentId === null && d.type === deletedType);
+                        newActiveId = sameTypeRoots.length > 0 ? sameTypeRoots[0].id : null;
                     }
                     return {
                         documents: docsToKeep,
@@ -667,9 +725,9 @@ export const usePageDataStore = create<PageDataState>()(
             },
 
             // Local-only add (for backwards compatibility)
-            addDocument: (metadata, parentId = null) => {
+            addDocument: (metadata, parentId = null, type?) => {
                 const { createRemoteDocument } = get();
-                createRemoteDocument(metadata, parentId);
+                createRemoteDocument(metadata, parentId, type);
             },
 
             // Update document locally and optionally trigger sync
@@ -733,6 +791,7 @@ export const usePageDataStore = create<PageDataState>()(
                 documents: state.documents,
                 lastSaveTimestamp: state.lastSaveTimestamp,
                 openDocumentIds: state.openDocumentIds,
+                activeDocumentId: state.activeDocumentId,
             }),
         }
     )
