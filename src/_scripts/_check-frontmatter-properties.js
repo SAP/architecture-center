@@ -271,12 +271,16 @@ function main() {
     fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
   }
 
+  // Keep the final line on stdout (same stream as the annotations/summary) and
+  // let Node flush before exiting, so the log stays in written order. Using
+  // console.error + process.exit(1) here lets the eager stderr line jump ahead
+  // of buffered stdout and orphan the first annotation.
   if (errors > 0) {
-    console.error(`\n✖ Front matter properties check failed with ${errors} error(s).`);
-    process.exit(1);
+    console.log(`\n✖ Front matter properties check failed with ${errors} error(s).`);
+    process.exitCode = 1;
+    return;
   }
   console.log('\n✔ No front matter property errors.');
-  process.exit(0);
 }
 
 main();

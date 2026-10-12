@@ -30,7 +30,7 @@ tags:
 hide_table_of_contents: true
 hide_title: true
 toc_min_heading_level: 5
-toc_max_heading_level: 4
+toc_max_heading_level: 8
 draft: true
 unlisted: faldaffhfdfse
 contributors:
