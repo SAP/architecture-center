@@ -2,18 +2,23 @@
 id: '7e4168'
 slug: /ref-arch/7e4168
 sidebar_position: 1
-title: Warehouse Pick & Place
+title: Warehouse Pick & Place with Embodied AI Robotics
 description: >-
   Learn how Embodied AI & robotics can automate warehouse operations for
   picking, placing, sorting, and other warehouse tasks.
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - warehouse automation
+  - warehouse pick and place
+  - sap extended warehouse management
+  - sap logistics management
+  - humanoid robots
+  - cycle counting
   - logistics
+  - business ai platform
 sidebar_label: Warehouse Pick & Place
 image: img/ac-soc-med.png
 tags:

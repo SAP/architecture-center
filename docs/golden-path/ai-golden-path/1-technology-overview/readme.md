@@ -1,18 +1,20 @@
 ---
 sidebar_position: 2
-title: Technology Decision Tree for AI
-description: >-
-  A structured decision framework for selecting the right AI approach on SAP BTP,
-  covering relational foundation models, classic ML, LLMs and AI agents.
+title: Technology Decision Tree for AI on SAP BTP
+description: "A structured decision framework for selecting the right AI approach on SAP BTP, covering relational foundation models, classic ML, LLMs and AI agents."
 keywords:
     - sap
-    - ai
-    - decision tree
-    - rpt-1
+    - ai decision tree
+    - relational foundation models
+    - sap-rpt-1
     - machine learning
     - llm
+    - generative ai
+    - retrieval augmented generation
     - ai agents
-    - technology assessment
+    - agentic ai
+    - when to use ai
+    - business ai platform
 sidebar_label: Technology Decision Tree
 image: img/ac-soc-med.png
 tags:

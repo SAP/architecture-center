@@ -8,10 +8,17 @@ description: >-
   eliminating replication and enhancing insights.
 keywords:
   - sap
+  - sap fedml
   - federated machine learning
-  - datasphere integration
-  - ai insights
+  - sap datasphere
+  - data federation
+  - sap ai core
+  - sap s/4hana
+  - sap bw/4hana
   - machine learning platforms
+  - nvidia rapids
+  - model training without data replication
+  - business ai platform
 sidebar_label: Federated Machine Learning with SAP Datasphere
 image: img/ac-soc-med.png
 tags:
@@ -21,6 +28,7 @@ tags:
   - data
   - databricks
   - nvidia
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
