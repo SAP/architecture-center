@@ -16,6 +16,7 @@ REST
 RESTful
 Webhook
 Webhooks
+CloudEvents
 
 # Data engineering
 OLTP

@@ -2,15 +2,22 @@
 id: e1732d
 slug: /ref-arch/e1732d
 sidebar_position: 140
-title: Transforming Enterprise Data Strategy with SAP Business Data Cloud
-description: >-
-  Transform enterprise data strategies with SAP BDC, unifying SAP and non-SAP
-  data for scalable AI and analytics.
+title: Enterprise Data Strategy with SAP Business Data Cloud
+description: "Transform your enterprise data strategy with SAP Business Data Cloud, unifying SAP and non-SAP data via a data fabric and knowledge core for AI and analytics."
 keywords:
   - sap
-  - business data cloud
-  - advanced analytics applications
-  - data-driven strategies
+  - sap business data cloud
+  - enterprise data strategy
+  - data fabric
+  - data products
+  - intelligent applications
+  - knowledge core
+  - data lakehouse
+  - bdc connect
+  - zero-copy data sharing
+  - ai agents
+  - joule
+  - business ai platform
 sidebar_label: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
