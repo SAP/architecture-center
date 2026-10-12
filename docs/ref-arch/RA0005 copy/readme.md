@@ -28,11 +28,11 @@ tags:
   - genai
   - agents
 hide_table_of_contents: true
-hide_title: false
-toc_min_heading_level: 4
+hide_title: true
+toc_min_heading_level: 5
 toc_max_heading_level: 4
 draft: true
-unlisted: faldaffgghfdfse
+unlisted: faldaffhfdfse
 contributors:
   - kay-schmitteckert
   - AdiPleyer

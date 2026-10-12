@@ -1,4 +1,4 @@
-name: Check Front Matter Conventions
+name: Check Front Matter Properties
 
 on:
   pull_request:
@@ -6,14 +6,14 @@ on:
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
-      - 'src/_scripts/_check-frontmatter-conventions.js'
-      - '.github/workflows/check-frontmatter-conventions.yml'
+      - 'src/_scripts/_check-frontmatter-properties.js'
+      - '.github/workflows/check-frontmatter-properties.yml'
 
 permissions: {}
 
 jobs:
-  check-frontmatter-conventions:
-    name: Check Front Matter Conventions
+  check-frontmatter-properties:
+    name: Check Front Matter Properties
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
@@ -37,16 +37,16 @@ jobs:
       - name: Stamp today's date
         run: echo "TODAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
-      # Advisory annotations + job summary + the sticky-comment artifact.
+      # Annotations + job summary + the sticky-comment artifact.
       # Exits non-zero when any issue is found, so this check FAILS the PR.
-      - name: Check front matter conventions
+      - name: Check front matter properties
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           COMMENT_DIR: ${{ runner.temp }}/fm-comment
-        run: node src/_scripts/_check-frontmatter-conventions.js
+        run: node src/_scripts/_check-frontmatter-properties.js
 
       # Hand the comment body to the privileged workflow_run workflow, which can
       # post to fork PRs (this read-only job cannot). Runs even when the check

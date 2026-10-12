@@ -1,6 +1,6 @@
-name: Comment Front Matter Conventions
+name: Comment Front Matter Properties
 
-# Companion to "Check Front Matter Conventions". That check runs on
+# Companion to "Check Front Matter Properties". That check runs on
 # `pull_request`, where a fork's GITHUB_TOKEN is read-only and cannot comment.
 # This workflow runs in the base-repo context on `workflow_run`, so it has a
 # write token and can post the sticky comment on fork PRs too. It only ever
@@ -9,7 +9,7 @@ name: Comment Front Matter Conventions
 
 on:
   workflow_run:
-    workflows: ['Check Front Matter Conventions']
+    workflows: ['Check Front Matter Properties']
     types: [completed]
 
 permissions: {}
@@ -38,7 +38,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          MARKER: '<!-- frontmatter-conventions-check -->'
+          MARKER: '<!-- frontmatter-properties-check -->'
         run: |
           set -euo pipefail
           PR="$(tr -dc '0-9' < artifact/pr.txt)"

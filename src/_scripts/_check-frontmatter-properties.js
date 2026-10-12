@@ -1,5 +1,5 @@
 /**
- * Front matter conventions check (blocking).
+ * Front matter properties check (blocking).
  *
  * On a pull request, inspects the front matter of the changed reference-
  * architecture pages under `docs/` and emits GitHub **error** annotations when
@@ -39,7 +39,7 @@
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
-const COMMENT_MARKER = '<!-- frontmatter-conventions-check -->';
+const COMMENT_MARKER = '<!-- frontmatter-properties-check -->';
 
 const fs = require('fs');
 const path = require('path');
@@ -67,7 +67,7 @@ function annotate(file, line, message) {
   const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
   if (inActions) {
     const lineAttr = line ? `,line=${line}` : '';
-    console.log(`::error file=${file}${lineAttr},title=Front matter conventions::${msg}`);
+    console.log(`::error file=${file}${lineAttr},title=Front matter properties::${msg}`);
   } else {
     console.log(`  error: ${msg}`);
   }
@@ -189,12 +189,12 @@ function buildCommentBody(findingsByFile, checked) {
   const total = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
   const lines = [COMMENT_MARKER, ''];
   if (total === 0) {
-    lines.push('### ✅ Front matter conventions');
+    lines.push('### ✅ Front matter properties');
     lines.push('');
-    lines.push(`No front matter convention issues on the ${checked} changed page(s). Thanks!`);
+    lines.push(`No front matter property issues on the ${checked} changed page(s). Thanks!`);
     return lines.join('\n');
   }
-  lines.push('### ❌ Front matter conventions');
+  lines.push('### ❌ Front matter properties');
   lines.push('');
   lines.push(`Found **${total}** error(s) across **${findingsByFile.length}** page(s). This check **fails until these are fixed.**`);
   lines.push('');
@@ -254,7 +254,7 @@ function main() {
   writeCommentArtifact(body, errors > 0);
 
   const summary = [
-    '## Front matter conventions check',
+    '## Front matter properties check',
     '',
     'Flags reference-architecture pages whose front matter drifts from the house',
     'style or is missing author/date information. The check fails when any issue',
@@ -272,10 +272,10 @@ function main() {
   }
 
   if (errors > 0) {
-    console.error(`\n✖ Front matter conventions check failed with ${errors} error(s).`);
+    console.error(`\n✖ Front matter properties check failed with ${errors} error(s).`);
     process.exit(1);
   }
-  console.log('\n✔ No front matter convention errors.');
+  console.log('\n✔ No front matter property errors.');
   process.exit(0);
 }
 
