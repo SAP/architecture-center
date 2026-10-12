@@ -38,6 +38,7 @@ Workzone
 Ariba
 Concur
 SuccessFactors
+BizX
 Signavio
 LeanIX
 Hybris

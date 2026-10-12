@@ -2,24 +2,22 @@
 id: 1cb0b6
 slug: /ref-arch/1cb0b6
 sidebar_position: 2
-title: DIV – Bring Your Own Wallet
-description: >-
-  Bring Your Own Wallet (BYOW) describes the provisioning model in which a
-  dataspace member self-provisions SAP DIV on SAP BTP instead of receiving a
-  wallet from the Operating Company. The operator still issues the membership
-  credential, which is pushed to the member-hosted DIV wallet.
+title: DIV – Bring Your Own Wallet Provisioning Model
+description: "Bring Your Own Wallet (BYOW): a provisioning model where a dataspace member self-provisions SAP DIV on SAP BTP; the operator issues the membership credential."
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
-  - wallet
+  - ssi
+  - did
   - bring your own wallet
-  - Catena-X
+  - sap integration suite
+  - data space integration
+  - catena-x
   - dataspace
   - membership credential
-  - self-hosted wallet
+  - business ai platform
 sidebar_label: Bring Your Own Wallet
 image: img/ac-soc-med.png
 tags:

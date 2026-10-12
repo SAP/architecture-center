@@ -39,6 +39,7 @@ export const baseCSP: CSPDirectives = {
         "'unsafe-inline'", // REQUIRED: Docusaurus limitation - see header comment
         'https://www.googletagmanager.com',
         'https://www.google-analytics.com',
+        'https://static.cloudflareinsights.com',
     ],
     'style-src': [
         "'self'",
@@ -50,7 +51,7 @@ export const baseCSP: CSPDirectives = {
         "'self'",
         'https://www.google-analytics.com',
         'https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com',
-        'https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com',
+        'https://cloudflareinsights.com',
     ],
     'frame-src': ["'self'"],
     'frame-ancestors': ["'none'"],
@@ -72,6 +73,7 @@ export const strictCSP: CSPDirectives = {
         // 'nonce-{RANDOM}' will be added dynamically by SSR
         'https://www.googletagmanager.com',
         'https://www.google-analytics.com',
+        'https://static.cloudflareinsights.com',
     ],
     'style-src': [
         "'self'",
@@ -83,7 +85,7 @@ export const strictCSP: CSPDirectives = {
         "'self'",
         'https://www.google-analytics.com',
         'https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com',
-        'https://architecture-validator-prod-ns1j6yoi-prod-arch-val-pipeline.cfapps.eu10-005.hana.ondemand.com',
+        'https://cloudflareinsights.com',
     ],
     'frame-src': ["'self'"],
     'frame-ancestors': ["'none'"],

@@ -4,30 +4,23 @@ sidebar_position: 4
 slug: /ai-native-north-star-architecture/process-layer
 sidebar_custom_props:
     category_index: []
-title: Process Layer
-description: >-
-    The AI-native Process Layer shifts business logic from rigid application-bound workflows to agent-driven orchestration. Applications become capability providers, agents reason across domains using a reason-act-observe loop, and Joule Studio unifies the design-time for building agentic solutions from intent to production.
+title: "Process Layer: Agentic Orchestration & Joule Studio"
+description: "The AI-native process layer shifts business logic to agent-driven orchestration, with apps as capability providers and Joule Studio for agentic solutions."
 keywords:
+    - sap
     - process layer
     - agentic orchestration
     - capability providers
-    - Joule Studio
-    - agent runtime
-    - reason-act-observe loop
-    - deterministic execution
-    - agent SDK
-    - AI Golden Path
-    - business process automation
-    - domain agents
-    - procurement agent
-    - SAP Signavio
-    - SAP LeanIX
-    - SAP Knowledge Graph
-    - agentic solution
-    - pro-code agents
-    - low-code agents
-    - North Star Architecture
-    - NSA
+    - joule studio
+    - agent sdk
+    - low-code to pro-code agents
+    - agentic solutions
+    - ai golden path
+    - sap signavio
+    - sap leanix
+    - sap knowledge graph
+    - north star architecture
+    - business ai platform
 sidebar_label: 4. Process Layer
 image: img/ac-soc-med.png
 tags:
