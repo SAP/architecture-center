@@ -27,11 +27,11 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: julian-schambeck
-    date: 2026-10-07
+  author: cernus76
+  date: 2026-10-08
 ---
 
-A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and utility classes for:
+A well-structured CSS approach is essential for maintainable, scalable, and performant web applications. Our project leverages global styles, CSS Modules, and CSS custom properties for:
 
 -   **Consistency**: Shared variables and resets keep the look and feel unified.
 -   **Isolation**: CSS Modules prevent style conflicts between components.
@@ -63,7 +63,7 @@ CLS measures unexpected layout shifts during page load. To minimize CLS:
 LCP is a key web performance metric that measures when the largest content element (often a hero image or heading) becomes visible. To optimize LCP:
 
 -   Use modern image formats like [WebP](https://developers.google.com/speed/webp) for better compression and faster loads. We convert hero and banner images to WebP (see [squoosh.app](https://squoosh.app/) for easy conversion).
--   Use the `srcSet` and `sizes` attributes on `<img>` tags to serve responsive images based on device size and resolution. See the `HeroSection.tsx` for an example:
+-   Use the `srcSet` and `sizes` attributes on `<img>` tags to serve responsive images based on device size and resolution. For example:
 
 ```tsx
 <img
@@ -83,18 +83,17 @@ LCP is a key web performance metric that measures when the largest content eleme
 
 ## Structure
 
--   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and include CSS custom properties (variables), typography, utility classes, layout resets, and Infima/Docusaurus overrides.
--   **CSS Modules**: Used for component or page-level styles (e.g., `src/sections/index.module.css`, `src/theme/DocCard/styles.module.css`). These provide local scoping and prevent style conflicts.
--   **CSS Custom Properties**: Centralized variables for spacing, colors, shadows, border-radius, and breakpoints defined in `src/css/custom.css`.
--   **Utility Classes**: Common layout patterns like `.flex-center`, `.card-shadow`, and `.standard-button-width` available globally.
+-   **Global styles**: Located in `src/css/custom.css`. These apply site-wide and include CSS custom properties (variables), typography, layout resets, and Infima/Docusaurus overrides.
+-   **CSS Modules**: Used for component or page-level styles (e.g., `src/components/ReactCarousel/ReactCarousel.module.css`, `src/theme/DocCard/styles.module.css`). These provide local scoping and prevent style conflicts.
+-   **CSS Custom Properties**: Centralized design tokens for spacing, colors, shadows, border-radius, and breakpoints, defined in `src/css/custom.css` (e.g. `var(--spacing-md)`, `var(--shadow-card)`, `var(--border-radius-lg)`). Use these instead of hard-coded values.
 -   **Media queries**: Always placed at the bottom of each CSS or CSS module file, grouped together for clarity and maintainability.
 
 ## Best Practices
 
 -   **Use CSS Custom Properties** for consistent spacing, colors, shadows, and dimensions across components. Reference variables like `var(--spacing-md)` instead of hard-coded values.
 -   **Prefer CSS Modules** for component/page-specific styles. This keeps styles modular and avoids global namespace pollution.
--   **Leverage utility classes** for common patterns like flexbox layouts (`.flex-center`) and standard button widths (`.standard-button-width`).
--   **Avoid inline styles completely**; use CSS modules or utility classes instead.
+-   **Reuse CSS custom properties** for common patterns, e.g. spacing (`var(--spacing-md)`), shadows (`var(--shadow-card)`), and border radius (`var(--border-radius-lg)`), instead of redefining values per component.
+-   **Avoid inline styles completely**; use CSS modules or CSS custom properties instead.
 -   **Keep media queries together** at the end of each file to simplify responsive maintenance.
 -   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
 -   **Test changes across breakpoints** to ensure responsive behavior.
@@ -125,9 +124,9 @@ LCP is a key web performance metric that measures when the largest content eleme
 }
 ```
 
-## CSS Custom Properties & Utility Classes
+## CSS Custom Properties
 
-We use CSS custom properties (variables) and utility classes to maintain consistency and reduce code duplication. Instead of hard-coding values like `padding: 16px` or `border-radius: 20px`, use our standardized variables.
+We use CSS custom properties (variables) to maintain consistency and reduce code duplication. Instead of hard-coding values like `padding: 16px` or `border-radius: 20px`, use our standardized variables.
 
 ### Key Variables & Classes
 
@@ -135,7 +134,7 @@ We use CSS custom properties (variables) and utility classes to maintain consist
 - Spacing: `var(--spacing-sm)` (8px), `var(--spacing-md)` (16px), `var(--spacing-lg)` (24px)
 - Shadows: `var(--shadow-card)`, `var(--shadow-card-hover)`
 - Border radius: `var(--border-radius-md)` (12px), `var(--border-radius-lg)` (20px)
-- Layout: `.flex-center`, `.standard-button-width`
+- Layout: `var(--card-max-width)` (430px), `var(--card-max-width-tablet)` (600px)
 
 **Carousel Specific:**
 - Padding: Use the `cardClassName` prop on the `ReactCarousel` component to apply consistent padding. The `paddedCardContainer` class in `ReactCarousel.module.css` is a good default.
@@ -149,11 +148,7 @@ We use CSS custom properties (variables) and utility classes to maintain consist
 }
 ```
 
-```tsx
-<Button className="standard-button-width">Click Me</Button>
-```
-
-*See `src/css/custom.css` for the complete list of available variables and utility classes.*
+*See `src/css/custom.css` for the complete list of available design tokens (CSS custom properties).*
 
 ### Impact on Our Live Site
 
@@ -230,14 +225,14 @@ In `src/css/custom.css`, the footer links are displayed in a row by default, but
 
 **Example: Adjusting Card Layout for Responsiveness**
 
-In `src/sections/index.module.css`, the `.cardContainer` class changes its `max-width` and padding at different breakpoints:
+In `src/components/ReactCarousel/ReactCarousel.module.css`, the `.cardContainer` class changes its `max-width` and padding at different breakpoints:
 
 ```css
 .cardContainer {
-    padding: 0 12px;
+    padding: 0 var(--spacing-md);
     box-sizing: border-box;
     min-height: 320px;
-    max-width: 430px;
+    max-width: var(--card-max-width);
     width: 100%;
 }
 

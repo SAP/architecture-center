@@ -24,7 +24,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-04-21
+  date: 2026-10-08
 ---
 
 ## About this project
@@ -50,23 +50,20 @@ The following diagram shows the workflow process for making a content contributi
 graph TD
 classDef reduceSize stroke-width:2px,font-size:14px;
 
-A[Check for existing content]:::reduceSize -->|Already Exists?| B[Create PR with Modifications]:::reduceSize
-A:::reduceSize -->|Create New| D[Fork Repository]:::reduceSize
-D:::reduceSize --> C{Decide on Scenario}:::reduceSize
-C:::reduceSize -->|New Architecture| E[genrefarch]:::reduceSize
-C:::reduceSize -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']:::reduceSize
-H:::reduceSize --> E:::reduceSize
-E:::reduceSize --> F{Add More?}:::reduceSize
-F:::reduceSize -->|Yes| E:::reduceSize
-F:::reduceSize -->|No| G[Add Markdowns, Diagrams, Update Front Matter]:::reduceSize
-G:::reduceSize --> I[Create Draft PR]:::reduceSize
-I:::reduceSize --> J[Create Issue with CONTENT Prefix]:::reduceSize
-J:::reduceSize --> K[Associate PR with Issue]:::reduceSize
+A[Check for existing content]:::reduceSize -->|Already exists| B[Edit the content and open a PR]:::reduceSize
+A:::reduceSize -->|Create new| C{Choose a contribution path}:::reduceSize
+C:::reduceSize -->|No-code, recommended| D[Author in Quick Start]:::reduceSize
+C:::reduceSize -->|AI coding agent| E[Use the repo's AGENTS.md context and the create-ref-arch-skeleton skill]:::reduceSize
+D:::reduceSize --> F[Quick Start opens the pull request automatically]:::reduceSize
+E:::reduceSize --> G[Add markdown, diagrams and front matter, then open a PR]:::reduceSize
+B:::reduceSize --> H[Accept the DCO/CLA, then await review and merge]:::reduceSize
+F:::reduceSize --> H:::reduceSize
+G:::reduceSize --> H:::reduceSize
 ```
 
 ## Requirements and Setup
 
-Refer to the [Get Started with Quick Start](02-Guidelines/02-GetStarted/01-get-started-quickstart.md) page for the requirements & setup.
+Refer to the [Get Started with Quick Start](02-Guidelines/02-GetStarted/01-get-started-quickstart.md) page for the requirements & setup. If you prefer to work with an AI coding agent, see [Contribute with AI Agents](02-Guidelines/02-GetStarted/02-get-started-ai-agents.md).
 
 ## Support and Feedback
 
@@ -78,15 +75,15 @@ This project is open to feature requests/suggestions, bug reports etc. via [GitH
 
 💡 - If you have an idea for improvement or a feature request, please open a [feature request](https://github.com/SAP/architecture-center/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml&title=%5BFEATURE%5D).
 
-For more information about how to contribute, the project structure, and additional details, see our [Contribution Guidelines](community/02-Guidelines/01-contribution.md).
+For more information about how to contribute, the project structure, and additional details, see our [Contribution Guidelines](02-Guidelines/01-contribution.md).
 
 ## Security / Disclosure
-If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/architecture-center/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
+If you find any bug that may be a security problem, please follow the instructions [in our security policy](https://github.com/SAP/architecture-center/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
 
 ## Code of Conduct
 
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](community/08-code-of-conduct.md) at all times.
+We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](08-code-of-conduct.md) at all times.
 
 ## Licensing
 
-Copyright 2025 SAP SE or an SAP affiliate company and architecture-center contributors. Please see our [LICENSE](https://github.com/SAP/architecture-center/blob/main/LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/architecture-center).
+Copyright 2026 SAP SE or an SAP affiliate company and architecture-center contributors. Please see our [LICENSE](https://github.com/SAP/architecture-center/blob/main/LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/architecture-center).

@@ -26,8 +26,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-    author: julian-schambeck
-    date: 2026-05-05
+  author: cernus76
+  date: 2026-10-08
 ---
 
 AI (coding) agents have become an integral part of how the community works with the SAP Architecture Center, from writing code that changes the look and feel of the site to putting the final touches on reference architecture content.

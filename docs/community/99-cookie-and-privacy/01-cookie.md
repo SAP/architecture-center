@@ -23,14 +23,14 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 ## Important information regarding the Privacy Statement
 
 :::info Hosting on GitHub Pages
 
-The **SAP Architecture Center** (this site), hosted on **[GitHub Pages](https://docs.github.com/en/pages)**. 
+The **SAP Architecture Center** (this site) is hosted on **[GitHub Pages](https://docs.github.com/en/pages)**. 
 
 For information about cookies used by GitHub, please refer to GitHub’s cookie policy: **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**.
 
@@ -40,7 +40,7 @@ For information about cookies used by GitHub, please refer to GitHub’s cookie 
 
 This Cookie Statement was updated on **04-Nov-2025**.
 
-This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](community/99-cookie-and-privacy/02-privacy.md)**.
+This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](02-privacy.md)**.
 
 ## What are Cookies and similar technologies?
 
@@ -70,5 +70,5 @@ SAP differentiates between Required Cookies that are absolutely necessary to ena
 
 ## How can you manage and delete Cookies?
 
-SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Statement” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**].
+SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Statement” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**.
 You can also block and delete cookies by changing your browser settings. To manage cookies using your browser settings, most browsers allow you to refuse or accept all cookies or only to accept certain types of cookies. The process for the management and deletion of cookies can be found in the help function integrated in your browser. If you wish to limit the use of cookies, you may not be able to use all the interactive functions.

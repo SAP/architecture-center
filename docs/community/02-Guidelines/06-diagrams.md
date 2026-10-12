@@ -23,8 +23,8 @@ draft: false
 unlisted: false
 contributors:
 last_update:
-  author: julian-schambeck
-  date: 2026-10-07
+  author: cernus76
+  date: 2026-10-08
 ---
 
 This guide provides best practices for creating and contributing diagrams to the SAP Architecture Center. It covers **Draw.io diagrams** for SAP solution architectures and **Mermaid diagrams** for flow-based visualizations. Follow these guidelines to ensure your diagrams are consistent, visually appealing, and easy to understand.
@@ -48,23 +48,23 @@ Use **Draw.io diagrams** when:
 
 2. **Leverage Shape Libraries and Editable Presets**:
    - Access the [Draw.io Shape Libraries](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/shape-libraries-and-editable-presets/draw.io) for foundational icons, integration suite icons, and more.
-   - Use the [Editable Diagram Examples](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/editable-diagram-examples) to explore reusable templates for common SAP BTP scenarios, such as:
+   - Use the [Shape Libraries and Editable Presets](https://github.com/SAP/btp-solution-diagrams/tree/main/assets/shape-libraries-and-editable-presets) to explore reusable templates for common SAP BTP scenarios, such as:
      - SAP Build Work Zone (L2)
      - SAP Private Link Service (L2)
      - SAP Cloud Identity Services - Authentication (L2)
 
-2. **Maintain Consistency**:
+3. **Maintain Consistency**:
 
     - **Level 1 (L1)** diagrams: Provide a high-level overview of solution architectures, focusing on key components and their relationships.
     - **Level 2 (L2)** diagrams: Offer detailed technical representations, including service interactions, data flows, and integration points.
     - Use the same icon sizes, line styles, and text formatting across all diagrams.
     - Avoid creating custom arrows; use the ones provided in the starter kit.
 
-3. **Optimize for Readability**:
+4. **Optimize for Readability**:
 
     - Use **Level 1 or Level 2 diagrams** for detailed technical representations.
 
-4. **Follow Repository Structure**:
+5. **Follow Repository Structure**:
     - Place `.drawio` files in the `drawio/` folder and refer to them in your markdown as in the [Components](05-components.md#calling-the-drawio-component-in-the-page-body-of-the-readmemd-file) reference.
     - Example structure:
         ```bash
@@ -157,7 +157,7 @@ Check the code behind these examples by reviewing the underlying markdown, using
 
 1. SAP Business Data Cloud and SAP Databricks
 
--   **File**: `docs/ref-arch/RA0013/4-sap-databricks-in-business-data-cloud/drawio/bdc-databricks.drawio`
+-   **File**: `docs/ref-arch/RA0013/5-sap-databricks-in-business-data-cloud/drawio/bdc-databricks.drawio`
 -   **Description**: A diagram illustrating the capabilities of SAP Databricks within SAP Business Data Cloud.
 
 2. Edge Integration Cell on AWS
@@ -176,39 +176,52 @@ Check the code behind these examples by reviewing the underlying markdown, using
 
 1. Contribution Workflow
 
-    - **File**: `community/intro.md`
+    - **File**: `docs/community/intro.md`
     - **Description**: A flowchart showing the contribution process for the SAP Architecture Center. This diagram represents the decision-making process for contributing new or modified content. It illustrates how to reduce the size of nodes and edges in a long top to bottom flowchart by defining and applying a custom class.
     - **Code**:
         ```mermaid
         graph TD
         classDef reduceSize stroke-width:2px,font-size:14px;
-        A[Check for existing content]:::reduceSize -->|Already Exists?| B[Create PR with Modifications]:::reduceSize
-        A:::reduceSize -->|Create New| D[Fork Repository]:::reduceSize
-        D:::reduceSize --> C{Decide on Scenario}:::reduceSize
-        C:::reduceSize -->|New Architecture| E[genrefarch]:::reduceSize
-        C:::reduceSize -->|New Partner Implementation| H[cd 'docs/ref-arch/RA9999']:::reduceSize
+        A[Check for existing content]:::reduceSize -->|Already exists| B[Edit the content and open a PR]:::reduceSize
+        A:::reduceSize -->|Create new| C{Choose a contribution path}:::reduceSize
+        C:::reduceSize -->|No-code, recommended| D[Author in Quick Start]:::reduceSize
+        C:::reduceSize -->|AI coding agent| E[Use the repo's AGENTS.md context and the create-ref-arch-skeleton skill]:::reduceSize
+        D:::reduceSize --> F[Quick Start opens the pull request automatically]:::reduceSize
+        E:::reduceSize --> G[Add markdown, diagrams and front matter, then open a PR]:::reduceSize
+        B:::reduceSize --> H[Accept the DCO/CLA, then await review and merge]:::reduceSize
+        F:::reduceSize --> H:::reduceSize
+        G:::reduceSize --> H:::reduceSize
         ```
 
 2. Intelligent Applications Data Flow
 
-    - **File**: `docs/ref-arch/RA0013/3-intelligent-applications-by-sap/readme.md`
+    - **File**: `docs/ref-arch/RA0013/2-intelligent-content/readme.md`
     - **Description**: A flowchart showing how raw source data is enriched through SAP Business Data Cloud components and surfaced in Intelligent Applications. It demonstrates how to use subgraphs for logical grouping of components.
     - **Code**:
         ```mermaid
-        graph TD
+        graph TD;
         A[Source A] -->|Data Flow| B
         C[Source B] -->|Data Flow| B
         D[Source C] -->|Data Flow| B
-        subgraph SAP_Business_Data_Cloud[SAP Business Data Cloud]
-            B(Data Products) --> E(Space)
-            E --> F(Base Model)
-            F --> G(Analytic Model)
+        subgraph SAP Business Data Cloud
+        direction TB
+            B(Data Products in Foundation Service) -->|Processed Data| E(Space)
+            subgraph SAP Datasphere
+            direction TB
+                E --> F(Base Model)
+                F --> G(Analytic Model)
+            end
+            subgraph SAP Analytics Cloud
+            direction TB
+                G --> H(Intelligent content)
+                H --> I(Low-code Domain content)
+                H --> J(Pro-code Domain content:SAP-managed)
+            end
         end
-        G --> H(Intelligent Application)
         ```
 
 3. Contributor Lifecycle
-    - **File**: `community/Guidelines/contribution.md`
+    - **File**: `docs/community/02-Guidelines/01-contribution.md`
     - **Description**: A Git graph showing the lifecycle of contributor changes in the SAP Architecture Center repository.
     - **Code**:
         ```mermaid

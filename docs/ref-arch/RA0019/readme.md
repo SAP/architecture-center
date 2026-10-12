@@ -19,6 +19,7 @@ sidebar_label: Identity Access Management
 image: img/ac-soc-med.png
 tags:
   - security
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
