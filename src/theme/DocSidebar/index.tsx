@@ -576,6 +576,21 @@ function DocSidebarDesktop(props) {
     }
   };
 
+  const handleCommunityContentChange = (value: boolean) => {
+    if (value) {
+      setShowCommunityContent(true);
+      history.replace(`${refArchBase}?communityContent=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable community content and navigate with partners
+        setShowCommunityContent(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
+  };
+
   // Count unique docs from the filtered results (respects both archived and partner filters)
   const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
@@ -596,6 +611,8 @@ function DocSidebarDesktop(props) {
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
+          showCommunityContent={showCommunityContent}
+          onCommunityContentChange={handleCommunityContentChange}
           showArchived={showArchived}
           onArchiveChange={handleArchiveChange}
         />
@@ -634,6 +651,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const showArchived = useSidebarFilterStore(state => state.showArchived);
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
+  const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
   const history = useHistory();
   const refArchBase = useBaseUrl('/docs/ref-arch');
 
@@ -699,6 +717,21 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     }
   };
 
+  const handleCommunityContentChange = (value: boolean) => {
+    if (value) {
+      setShowCommunityContent(true);
+      history.replace(`${refArchBase}?communityContent=true`);
+    } else {
+      if (partners.length > 0) {
+        // Keep partner filters active, just disable community content and navigate with partners
+        setShowCommunityContent(false);
+        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      } else {
+        handleBackToAllDocuments();
+      }
+    }
+  };
+
   // Count unique docs from the filtered results (respects both archived and partner filters)
   const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
 
@@ -715,6 +748,8 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         resultCount={resultCount}
+        showCommunityContent={showCommunityContent}
+        onCommunityContentChange={handleCommunityContentChange}
         showArchived={showArchived}
         onArchiveChange={handleArchiveChange}
       />
@@ -839,8 +874,8 @@ export default function DocSidebarWrapper(props) {
     // Handle partners filter with context-aware logic
     if (partnersParam) {
       setPartners(partnersParam.split(','));
-    } else if (archivedParam === 'true') {
-      // When archive mode is active, preserve partners in store
+    } else if (archivedParam === 'true' || communityContentParam === 'true') {
+      // When archive or community content mode is active, preserve partners in store
     } else if (docId && tagsDocId[docId]) {
       // Preserve partners during sidebar nav only if they're still relevant
       const currentPartners = useSidebarFilterStore.getState().partners;
