@@ -4,31 +4,22 @@ slug: /ai-native-north-star-architecture
 sidebar_position: 0
 sidebar_custom_props:
     category_index: []
-title: SAP AI-native North Star architecture
-description: >-
-    The AI Native North Star Architecture defines the target state of SAP's technology landscape. It is not a specification, roadmap, or promise of delivery. It is a direction of travel; a statement of how AI, data, processes, and the platform must work together as intelligence becomes the norm rather than an add-on.
+title: SAP AI-native North Star Reference Architecture
+description: "SAP's AI-native North Star architecture defines the target state of SAP's technology landscape: a strategic direction, not a specification or product roadmap."
 keywords:
-    - SAP Reference Architectures
-    - Architectures
-    - AI
-    - Artificial Intelligence
-    - reference architectures
-    - efficiency
-    - scalability
-    - interoperability
-    - standardization
-    - SAP BTP
-    - SAP Business Technology Platform
-    - digital transformation
+    - sap
+    - ai-native north star architecture
+    - sap reference architectures
+    - artificial intelligence
+    - autonomous enterprise
+    - agentic ai
+    - ai agents
+    - enterprise ai
+    - contextual intelligence
+    - sap technology landscape
     - business processes
-    - best practices
-    - hybrid cloud
-    - multi-cloud
-    - governance
-    - Security
-    - compliance
-    - North Star Architecture
-    - NSA
+    - nsa
+    - business ai platform
 sidebar_label: AI-native North Star architecture
 image: img/ac-soc-med.png
 tags:

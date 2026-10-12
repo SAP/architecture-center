@@ -549,6 +549,7 @@ function DocSidebarDesktop(props) {
 
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+  const location = useLocation();
   const partners = useSidebarFilterStore(state => state.partners);
   const setPartners = useSidebarFilterStore(state => state.setPartners);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);

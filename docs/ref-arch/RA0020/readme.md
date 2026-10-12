@@ -2,16 +2,23 @@
 id: e9b7df
 slug: /ref-arch/e9b7df
 sidebar_position: 210
-title: Business to Business Integration
+title: B2B Integration with SAP Integration Suite
 description: >-
   Optimize B2B integration with SAP Integration Suite for secure, scalable
   electronic document exchange with trading partners.
 keywords:
   - sap
   - b2b integration
+  - sap integration suite
+  - electronic data interchange
+  - trading partner management
+  - integration advisor
+  - cloud integration
+  - edifact
+  - as2
   - secure document exchange
-  - scalability solutions
-  - integration architecture
+  - sap integration solution advisory methodology
+  - business ai platform
 sidebar_label: Business to Business Integration
 image: img/ac-soc-med.png
 tags:

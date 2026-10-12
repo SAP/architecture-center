@@ -2,20 +2,27 @@
 id: 1efe95
 slug: /ref-arch/1efe95
 sidebar_position: 1
-title: Tenant Lifecycle Management
-description: >-
-  Manage tenant lifecycle on SAP BTP with automated onboarding, provisioning,
-  and offboarding for scalable multitenant SaaS applications.
+title: Tenant Lifecycle Management on SAP BTP with CAP
+description: "Manage the tenant lifecycle on SAP BTP: onboarding, upgrade, and offboarding for multitenant SaaS apps, automated with CAP MTX and Terraform."
 keywords:
   - sap
-  - tenant lifecycle
-  - service management
-  - multitenancy model
+  - tenant lifecycle management
+  - tenant onboarding
+  - tenant offboarding
+  - tenant upgrade
+  - sap cloud application programming model
+  - cap multitenancy
+  - mtx services
+  - sap service manager
+  - hdi container
+  - terraform
+  - business ai platform
 sidebar_label: Tenant Lifecycle Management
 image: img/ac-soc-med.png
 tags:
   - appdev
   - cap
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

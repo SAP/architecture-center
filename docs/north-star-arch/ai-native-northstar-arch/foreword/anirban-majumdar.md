@@ -4,20 +4,21 @@ sidebar_position: 2
 slug: /ai-native-north-star-architecture/foreword/anirban-majumdar
 sidebar_custom_props:
     category_index: []
-title: Anirban Majumdar
-description: >-
-    The AI-native North Star architecture is SAP's blueprint for the Autonomous Enterprise, where agents, orchestration, and data operate in a continuous closed loop to transform intent into trusted business outcomes at scale.
+title: Anirban Majumdar on the AI-native North Star architecture
+description: "The AI-native North Star architecture is SAP's blueprint for the Autonomous Enterprise, in a foreword by Anirban Majumdar, Head of SAP's Office of the CTO."
 keywords:
-    - Anirban Majumdar
-    - AI-native North Star architecture
-    - Autonomous Enterprise
+    - sap
+    - anirban majumdar
+    - ai-native north star architecture
+    - autonomous enterprise
     - agentic systems
-    - SAP OCTO
-    - North Star Architecture
-    - NSA
-    - enterprise AI
+    - agent orchestration
+    - office of the cto
     - system of intelligence
-    - AI governance
+    - enterprise ai
+    - sap architecture center
+    - nsa
+    - business ai platform
 sidebar_label: Anirban Majumdar (SAP)
 image: img/ac-soc-med.png
 tags:
