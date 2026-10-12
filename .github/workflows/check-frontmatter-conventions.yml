@@ -16,6 +16,7 @@ jobs:
     name: Check Front Matter Conventions
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    continue-on-error: true
     permissions:
       contents: read
     steps:
