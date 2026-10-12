@@ -32,13 +32,17 @@
  *
  * Environment (provided by the workflow; all optional so the script runs
  * locally too):
- *   PR_AUTHOR  GitHub login of the pull request author
- *   BASE_SHA   base commit of the PR (merge-base diff source)
- *   HEAD_SHA   head commit of the PR
- *   TODAY      run date as YYYY-MM-DD (keeps the script free of new Date())
+ *   PR_AUTHOR   GitHub login of the pull request author
+ *   PR_NUMBER   pull request number (written to the comment artifact)
+ *   BASE_SHA    base commit of the PR (merge-base diff source)
+ *   HEAD_SHA    head commit of the PR
+ *   TODAY       run date as YYYY-MM-DD (keeps the script free of new Date())
+ *   COMMENT_DIR when set, write the sticky-comment artifact here: body.md,
+ *               pr.txt, has-warnings.txt (consumed by the comment workflow).
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
+const COMMENT_MARKER = '<!-- frontmatter-conventions-check -->';
 
 const fs = require('fs');
 const path = require('path');
@@ -51,9 +55,11 @@ const repoRoot = path.join(__dirname, '../..');
 const inActions = Boolean(process.env.GITHUB_ACTIONS);
 
 const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
+const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
 const BASE_SHA = (process.env.BASE_SHA || '').trim();
 const HEAD_SHA = (process.env.HEAD_SHA || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
+const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
 /** Emit a GitHub Actions warning annotation (falls back to a plain line locally). */
 function annotate(file, line, message) {
@@ -117,12 +123,13 @@ function resolveFiles() {
   return glob.sync(DOCS_GLOB, { cwd: repoRoot });
 }
 
-/** Run the nine checks on one file's parsed front matter; returns warning count. */
+/** Run the nine checks on one file's parsed front matter.
+ *  Emits annotations as a side effect and returns the list of warning messages. */
 function checkFile(rel, raw, data) {
-  let warnings = 0;
+  const findings = [];
   const warn = (key, message) => {
     annotate(rel, frontMatterLine(raw, key), message);
-    warnings++;
+    findings.push(message);
   };
 
   // 1-6: default-value fields — flag only an explicit non-conforming value.
@@ -146,7 +153,7 @@ function checkFile(rel, raw, data) {
   }
 
   // 7-9: authorship fields — need PR context; skipped when it is unavailable.
-  if (!PR_AUTHOR) return warnings;
+  if (!PR_AUTHOR) return findings;
 
   const contributors = Array.isArray(data.contributors) ? data.contributors : [];
   if (contributors.length === 0) {
@@ -177,7 +184,47 @@ function checkFile(rel, raw, data) {
     warn('last_update', `last_update.author \`${lastAuthor}\` differs from the PR author \`${PR_AUTHOR}\`.`);
   }
 
-  return warnings;
+  return findings;
+}
+
+/** Build the sticky PR comment body (markdown) from the per-file findings. */
+function buildCommentBody(findingsByFile, checked) {
+  const total = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
+  const lines = [COMMENT_MARKER, ''];
+  if (total === 0) {
+    lines.push('### ✅ Front matter conventions');
+    lines.push('');
+    lines.push(`No front matter convention issues on the ${checked} changed page(s). Thanks!`);
+    lines.push('');
+    lines.push('_Advisory check — never blocks a merge._');
+    return lines.join('\n');
+  }
+  lines.push('### ⚠️ Front matter conventions');
+  lines.push('');
+  lines.push(`Found **${total}** advisory warning(s) across **${findingsByFile.length}** page(s). These are suggestions and **do not block the merge** — fix what makes sense.`);
+  lines.push('');
+  const MAX_FILES = 50; // keep the comment well under GitHub's 65 KB limit
+  const shown = findingsByFile.slice(0, MAX_FILES);
+  for (const { file, findings } of shown) {
+    lines.push(`**\`${file}\`**`);
+    for (const m of findings) lines.push(`- ${m}`);
+    lines.push('');
+  }
+  if (findingsByFile.length > MAX_FILES) {
+    lines.push(`_…and ${findingsByFile.length - MAX_FILES} more page(s) with warnings — see the job log / annotations for the full list._`);
+    lines.push('');
+  }
+  lines.push('<sub>Reference: the front matter guide in `docs/ref-arch/RA0000/readme.md`.</sub>');
+  return lines.join('\n');
+}
+
+/** Write the comment artifact (body + PR number + status) for the comment workflow. */
+function writeCommentArtifact(body, hasWarnings) {
+  if (!COMMENT_DIR) return;
+  fs.mkdirSync(COMMENT_DIR, { recursive: true });
+  fs.writeFileSync(path.join(COMMENT_DIR, 'body.md'), body + '\n');
+  fs.writeFileSync(path.join(COMMENT_DIR, 'pr.txt'), `${PR_NUMBER}\n`);
+  fs.writeFileSync(path.join(COMMENT_DIR, 'has-warnings.txt'), `${hasWarnings ? 1 : 0}\n`);
 }
 
 function main() {
@@ -185,7 +232,7 @@ function main() {
     .filter((f) => !f.startsWith(RA0000_PREFIX))
     .sort();
 
-  let warnings = 0;
+  const findingsByFile = [];
   let checked = 0;
 
   for (const rel of files) {
@@ -197,12 +244,19 @@ function main() {
       ({ data } = matter(raw));
     } catch (e) {
       annotate(rel, 1, `Could not parse front matter: ${e.message}`);
-      warnings++;
+      findingsByFile.push({ file: rel, findings: [`Could not parse front matter: ${e.message}`] });
+      checked++;
       continue;
     }
     checked++;
-    warnings += checkFile(rel, raw, data);
+    const findings = checkFile(rel, raw, data);
+    if (findings.length) findingsByFile.push({ file: rel, findings });
   }
+
+  const warnings = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
+
+  const body = buildCommentBody(findingsByFile, checked);
+  writeCommentArtifact(body, warnings > 0);
 
   const summary = [
     '## Front matter conventions check',
