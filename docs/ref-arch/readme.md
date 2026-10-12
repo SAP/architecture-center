@@ -50,7 +50,7 @@ This raises the bar for architecture. A modern design has to account for more th
 
 -   **Joule and AI agents** take part in business processes as first-class participants, not bolt-ons.
 -   **Governed, context-rich data**, through SAP Business Data Cloud and SAP Knowledge Graph, grounds AI in real enterprise meaning rather than disconnected datasets.
--   **The SAP Business AI Platform**, provides the common foundation to build, integrate, deploy, and scale AI capabilities with governance built in.
+-   **The SAP Business AI Platform** provides the common foundation to build, integrate, deploy, and scale AI capabilities with governance built in.
 
 Reference architectures are where these pieces come together. They make the intelligent enterprise concrete, showing not just where data flows, but where context lives, where decisions are made, and where AI is allowed to act.
 
