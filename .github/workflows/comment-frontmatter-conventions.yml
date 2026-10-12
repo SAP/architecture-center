@@ -19,8 +19,9 @@ jobs:
     name: Post sticky comment
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    # Only for PR-triggered runs that completed successfully.
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' }}
+    # PR-triggered runs only. Runs whether the check passed or failed, so the
+    # explanatory comment is posted exactly when the check fails.
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
     permissions:
       actions: read # download the artifact from the triggering run
       pull-requests: write # create/update the PR comment
@@ -41,7 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           PR="$(tr -dc '0-9' < artifact/pr.txt)"
-          HAS="$(tr -dc '0-9' < artifact/has-warnings.txt)"
+          HAS="$(tr -dc '0-9' < artifact/has-findings.txt)"
           if [ -z "$PR" ]; then
             echo "No PR number in artifact — nothing to do."
             exit 0
@@ -61,5 +62,5 @@ jobs:
             gh api --method POST "repos/$GH_REPO/issues/$PR/comments" --input payload.json > /dev/null
             echo "Created sticky comment on PR #$PR."
           else
-            echo "No warnings and no existing comment — nothing to post."
+            echo "No errors and no existing comment — nothing to post."
           fi

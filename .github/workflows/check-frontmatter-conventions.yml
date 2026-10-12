@@ -37,8 +37,8 @@ jobs:
       - name: Stamp today's date
         run: echo "TODAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
-      # Advisory only: emits ::warning annotations, writes a job summary, and
-      # produces the sticky-comment artifact. Always exits 0 — never blocks.
+      # Advisory annotations + job summary + the sticky-comment artifact.
+      # Exits non-zero when any issue is found, so this check FAILS the PR.
       - name: Check front matter conventions
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -49,8 +49,10 @@ jobs:
         run: node src/_scripts/_check-frontmatter-conventions.js
 
       # Hand the comment body to the privileged workflow_run workflow, which can
-      # post to fork PRs (this read-only job cannot).
+      # post to fork PRs (this read-only job cannot). Runs even when the check
+      # above failed, so the explanatory comment is still posted.
       - name: Upload comment artifact
+        if: ${{ always() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: frontmatter-comment

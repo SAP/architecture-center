@@ -1,13 +1,13 @@
 /**
- * Front matter conventions check (advisory, non-blocking).
+ * Front matter conventions check (blocking).
  *
  * On a pull request, inspects the front matter of the changed reference-
- * architecture pages under `docs/` and emits GitHub **warning** annotations
- * (never errors) when a page drifts from the house style or forgets to credit
- * its author / bump its date. The job ALWAYS exits 0 — it can never block a
- * merge; it only nudges contributors.
+ * architecture pages under `docs/` and emits GitHub **error** annotations when
+ * a page drifts from the house style or forgets to credit its author / bump its
+ * date. The script exits 1 when any issue is found, so the check FAILS — and,
+ * if configured as a required status check, blocks the merge until fixed.
  *
- * Checks (all warnings):
+ * Checks (all errors):
  *   Default-value fields — flagged only when explicitly set to a non-conforming
  *   value. Absent means the Docusaurus default is in effect, which is fine:
  *     1. hide_table_of_contents  — present and not false
@@ -22,9 +22,6 @@
  *     8. last_update.date        — missing, or older than a week before today
  *     9. last_update.author      — missing, or different from the PR author
  *
- * Content author != PR submitter is legitimate (a maintainer edits on someone's
- * behalf), which is exactly why 7 & 9 are warnings, not errors.
- *
  * Scope:
  *   - Only files changed in the PR, filtered to docs/**\/*.{md,mdx}.
  *   - docs/ref-arch/RA0000/** is excluded (deliberate demo/template page).
@@ -38,7 +35,7 @@
  *   HEAD_SHA    head commit of the PR
  *   TODAY       run date as YYYY-MM-DD (keeps the script free of new Date())
  *   COMMENT_DIR when set, write the sticky-comment artifact here: body.md,
- *               pr.txt, has-warnings.txt (consumed by the comment workflow).
+ *               pr.txt, has-findings.txt (consumed by the comment workflow).
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
@@ -61,7 +58,7 @@ const HEAD_SHA = (process.env.HEAD_SHA || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
 const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
-/** Emit a GitHub Actions warning annotation (falls back to a plain line locally). */
+/** Emit a GitHub Actions error annotation (falls back to a plain line locally). */
 function annotate(file, line, message) {
   // Include the path in the message itself: GitHub consumes the `file=` part to
   // attach the annotation to the file, but the plain workflow log only shows the
@@ -70,9 +67,9 @@ function annotate(file, line, message) {
   const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
   if (inActions) {
     const lineAttr = line ? `,line=${line}` : '';
-    console.log(`::warning file=${file}${lineAttr},title=Front matter conventions::${msg}`);
+    console.log(`::error file=${file}${lineAttr},title=Front matter conventions::${msg}`);
   } else {
-    console.log(`  warn: ${msg}`);
+    console.log(`  error: ${msg}`);
   }
 }
 
@@ -195,13 +192,11 @@ function buildCommentBody(findingsByFile, checked) {
     lines.push('### ✅ Front matter conventions');
     lines.push('');
     lines.push(`No front matter convention issues on the ${checked} changed page(s). Thanks!`);
-    lines.push('');
-    lines.push('_Advisory check — never blocks a merge._');
     return lines.join('\n');
   }
-  lines.push('### ⚠️ Front matter conventions');
+  lines.push('### ❌ Front matter conventions');
   lines.push('');
-  lines.push(`Found **${total}** advisory warning(s) across **${findingsByFile.length}** page(s). These are suggestions and **do not block the merge** — fix what makes sense.`);
+  lines.push(`Found **${total}** error(s) across **${findingsByFile.length}** page(s). This check **fails until these are fixed.**`);
   lines.push('');
   const MAX_FILES = 50; // keep the comment well under GitHub's 65 KB limit
   const shown = findingsByFile.slice(0, MAX_FILES);
@@ -211,7 +206,7 @@ function buildCommentBody(findingsByFile, checked) {
     lines.push('');
   }
   if (findingsByFile.length > MAX_FILES) {
-    lines.push(`_…and ${findingsByFile.length - MAX_FILES} more page(s) with warnings — see the job log / annotations for the full list._`);
+    lines.push(`_…and ${findingsByFile.length - MAX_FILES} more page(s) with errors — see the job log / annotations for the full list._`);
     lines.push('');
   }
   lines.push('<sub>Reference: the front matter guide in `docs/ref-arch/RA0000/readme.md`.</sub>');
@@ -219,12 +214,12 @@ function buildCommentBody(findingsByFile, checked) {
 }
 
 /** Write the comment artifact (body + PR number + status) for the comment workflow. */
-function writeCommentArtifact(body, hasWarnings) {
+function writeCommentArtifact(body, hasFindings) {
   if (!COMMENT_DIR) return;
   fs.mkdirSync(COMMENT_DIR, { recursive: true });
   fs.writeFileSync(path.join(COMMENT_DIR, 'body.md'), body + '\n');
   fs.writeFileSync(path.join(COMMENT_DIR, 'pr.txt'), `${PR_NUMBER}\n`);
-  fs.writeFileSync(path.join(COMMENT_DIR, 'has-warnings.txt'), `${hasWarnings ? 1 : 0}\n`);
+  fs.writeFileSync(path.join(COMMENT_DIR, 'has-findings.txt'), `${hasFindings ? 1 : 0}\n`);
 }
 
 function main() {
@@ -253,21 +248,21 @@ function main() {
     if (findings.length) findingsByFile.push({ file: rel, findings });
   }
 
-  const warnings = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
+  const errors = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
 
   const body = buildCommentBody(findingsByFile, checked);
-  writeCommentArtifact(body, warnings > 0);
+  writeCommentArtifact(body, errors > 0);
 
   const summary = [
     '## Front matter conventions check',
     '',
-    'Advisory only — this check never blocks a merge. It flags reference-',
-    'architecture pages whose front matter drifts from the house style or is',
-    'missing author/date information.',
+    'Flags reference-architecture pages whose front matter drifts from the house',
+    'style or is missing author/date information. The check fails when any issue',
+    'is found.',
     '',
     PR_AUTHOR ? `PR author: **${PR_AUTHOR}**` : '_PR author unknown — author/date checks skipped._',
     '',
-    `Checked **${checked}** changed page(s). Result: **${warnings}** warning(s).`,
+    `Checked **${checked}** changed page(s). Result: **${errors}** error(s).`,
     '',
   ].join('\n');
 
@@ -276,11 +271,11 @@ function main() {
     fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
   }
 
-  if (warnings > 0) {
-    console.log(`\n⚠ ${warnings} front matter warning(s) — advisory, not blocking.`);
-  } else {
-    console.log('\n✔ No front matter convention warnings.');
+  if (errors > 0) {
+    console.error(`\n✖ Front matter conventions check failed with ${errors} error(s).`);
+    process.exit(1);
   }
+  console.log('\n✔ No front matter convention errors.');
   process.exit(0);
 }
 
