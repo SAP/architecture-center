@@ -191,3 +191,7 @@ Messe
 
 # Named concepts (eponyms)
 Goodhart
+
+# Resilience & messaging QoS (kept in sync with _typos.toml extend-words)
+RTO
+ALO
