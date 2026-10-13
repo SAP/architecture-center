@@ -1,16 +1,19 @@
 ---
 sidebar_position: 5
-title: Predictive & Tabular AI
-description: >-
-  Build, deploy and run tabular prediction use cases with SAP-RPT-1, SAP's foundation
-  model for relational business data.
+title: Predictive & Tabular AI with SAP-RPT-1 on SAP AI Core
+description: "Build, deploy and run tabular prediction use cases with SAP-RPT-1, SAP's relational foundation model for in-context learning on business data."
 keywords:
     - sap
-    - rpt-1
+    - sap-rpt-1
     - predictive ai
     - tabular ai
     - in-context learning
-    - ai core
+    - relational foundation model
+    - sap generative ai hub
+    - sap ai core
+    - sap s/4hana
+    - relational business data
+    - business ai platform
 sidebar_label: Predictive & Tabular AI
 image: img/ac-soc-med.png
 tags:

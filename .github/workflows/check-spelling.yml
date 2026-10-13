@@ -1,0 +1,42 @@
+name: Check Spelling
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - 'cspell.json'
+      - '.cspell/**'
+      - '.github/workflows/check-spelling.yml'
+
+permissions: {}
+
+jobs:
+  check-spelling:
+    name: Check Spelling
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # cspell-action diffs against the PR base to find changed files
+
+      - name: Spell check changed Markdown files
+        uses: streetsidesoftware/cspell-action@6f3c77c1406bc930f944ba97e9801a22e42caf58 # v9.1.0
+        with:
+          config: ./cspell.json
+          files: |
+            docs/**/*.md
+            docs/**/*.mdx
+            news/**/*.md
+            news/**/*.mdx
+          incremental_files_only: true
+          inline: error
+          strict: true

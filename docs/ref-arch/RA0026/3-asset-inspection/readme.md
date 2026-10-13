@@ -2,18 +2,20 @@
 id: bd733b
 slug: /ref-arch/bd733b
 sidebar_position: 1
-title: Asset Inspection
-description: >-
-  Learn how Embodied AI & robotics can automate asset management processes,
-  including asset and site inspection.
+title: Asset Inspection with Embodied AI and Robotics
+description: "Learn how Embodied AI and robotics automate asset management, performing autonomous asset and site inspections with SAP APM and Field Service Management."
 keywords:
   - sap
-  - joule
-  - embodied AI agents
-  - physical AI
+  - embodied ai agents
+  - physical ai
   - robotics
-  - robots
+  - asset inspection
+  - site inspection
   - asset management
+  - autonomous inspection
+  - sap asset performance management
+  - sap field service management
+  - business ai platform
 sidebar_label: Asset Inspection
 image: img/ac-soc-med.png
 tags:

@@ -1,13 +1,16 @@
 ---
 sidebar_position: 3
 slug: /community/quickstart
-title: SAP Architecture Center - Quick Start Statement
-description: The SAP Architecture Center - Quick Start Statement.
+title: Quick Start Statement | SAP Architecture Center
+description: "How the Quick Start tool uses GitHub OAuth and what personal data it processes to fork repositories, commit changes, and create pull requests on your behalf."
 sidebar_label: SAP AC Quick Start Statement
 keywords:
  - sap
- - cookie
+ - quick start
  - privacy
+ - github oauth
+ - personal data
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -20,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-08
 ---
 
 The **Quick Start** tool uses GitHub OAuth for user authentication. This means that users are redirected to GitHub to log in and authorize the application. No passwords or direct authentication data are handled or stored by the **Quick Start** tool.

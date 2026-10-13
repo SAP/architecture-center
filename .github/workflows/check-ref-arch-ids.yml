@@ -1,0 +1,32 @@
+name: Check Reference Architecture IDs
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/ref-arch/**/readme.md'
+      - 'src/_scripts/_check-ids.zsh'
+      - '.github/workflows/check-ref-arch-ids.yml'
+
+permissions: {}
+
+jobs:
+  check-ids:
+    name: Check Reference Architecture IDs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install zsh
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y zsh
+
+      - name: Validate ids and slugs
+        shell: bash
+        run: zsh src/_scripts/_check-ids.zsh

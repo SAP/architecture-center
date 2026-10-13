@@ -1,0 +1,42 @@
+# Configuration for `typos` (https://github.com/crate-ci/typos).
+# Used by the "Check Typos" GitHub workflow to spell-check docs/ and news/.
+#
+# How this differs from cspell: typos ONLY flags words that closely resemble a
+# known misspelling. It does NOT flag a word just for being unfamiliar, so SAP /
+# industry / partner names almost never need listing here. Keep this list small
+# and REACTIVE: add an entry only when typos wrongly "corrects" a real term.
+# (The exhaustive, proactive taxonomy of valid words lives in cspell instead —
+# see cspell.json and the .cspell/ dictionaries.)
+#
+# To allow a word, map it to itself. Keys are lowercase.
+
+[default]
+# Neutral "en" locale: accept both en-US and en-GB spellings (don't enforce a
+# single variant). typos only supports one locale value; "en" is variant-neutral.
+locale = "en"
+
+[default.extend-words]
+# --- Regular dictionary words typos mis-corrects ---
+advices = "advices"       # "remittance advices" — valid accounting term
+
+# --- SAP acronyms / product names ---
+
+# --- Industry acronyms / terms ---
+rto = "rto"               # Recovery Time Objective
+alo = "alo"               # At-Least-Once (delivery QoS)
+
+# --- Partners / competitors ---
+aks = "aks"               # Azure Kubernetes Service
+aci = "aci"               # Azure Container Instance
+
+[default.extend-identifiers]
+# Identifier-like tokens (code symbols, names) typos should leave alone.
+
+[files]
+extend-exclude = [
+  "*.min.js",
+  "*.lock",
+  "*.svg",
+  "*.drawio",
+  "docs/ref-arch/RA0000/",  # new-RA template: Latin lorem-ipsum placeholder text
+]

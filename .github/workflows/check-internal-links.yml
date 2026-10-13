@@ -1,0 +1,35 @@
+name: Check Internal Links
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - 'src/_scripts/_check-internal-links.zsh'
+      - '.github/workflows/check-internal-links.yml'
+
+permissions: {}
+
+jobs:
+  check-internal-links:
+    name: Check Internal Links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install zsh
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y zsh
+
+      - name: Check for SAP-internal-only links
+        shell: bash
+        run: zsh src/_scripts/_check-internal-links.zsh
