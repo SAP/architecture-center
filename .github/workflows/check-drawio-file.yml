@@ -1,15 +1,21 @@
 name: Check drawio Files
+# Archetype: CHANGED-FILES — only *.drawio added/modified vs the PR base is checked (needs fetch-depth: 0).
 
 on:
   pull_request:
     branches: [dev, main]
     paths:
       - '**.drawio'
+      - '.github/workflows/check-drawio-file.yml'
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  check-drawio-size:
+  check-drawio-file:
     name: Check drawio Files
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -20,7 +26,16 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0
+          fetch-depth: 0 # full history needed to diff *.drawio against the PR base
+
+      - name: List changed drawio files
+        shell: bash
+        # Compute the changed-*.drawio set ONCE; both checks below read this file.
+        # `|| true` is required: grep exits 1 when no .drawio changed, which would
+        # otherwise fail the step under bash's default -eo pipefail.
+        run: |
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" \
+            | grep -E '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
 
       - name: Check drawio file sizes
         shell: bash
@@ -34,9 +49,10 @@ jobs:
             if [ "$SIZE" -gt "$MAX_BYTES" ]; then
               SIZE_KB=$(( SIZE / 1024 ))
               echo "❌ ${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
+              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio size::${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
               FOUND=1
             fi
-          done < <(git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" | grep -E '\.drawio$')
+          done < "$RUNNER_TEMP/changed-drawio.txt"
 
           if [ "$FOUND" -eq 1 ]; then
             echo ""
@@ -58,9 +74,10 @@ jobs:
             if [ -n "$MATCHES" ]; then
               echo "❌ ${file} contains external image references (image=http)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
+              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio external image::${file} contains an external image reference (image=http). Embed the image directly."
               FOUND=1
             fi
-          done < <(git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" | grep -E '\.drawio$')
+          done < "$RUNNER_TEMP/changed-drawio.txt"
 
           if [ "$FOUND" -eq 1 ]; then
             echo ""
