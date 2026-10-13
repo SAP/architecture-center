@@ -258,8 +258,8 @@ function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]
 
   domainIds.forEach(id => { grouped[id] = []; });
 
-  // Recursively filter category for domain
-  const filterCategoryForDomain = (category: any, domainId: string): any => {
+  // Recursively filter category for domain - Returns null if category should be excluded
+  const filterCategoryForDomain = (category: any, domainId: string): any | null => {
     const filteredItems = [];
 
     for (const child of category.items || []) {
@@ -269,8 +269,25 @@ function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]
         }
       } else if (child.type === 'category') {
         if (categoryOrDescendantBelongsToDomain(child, domainId, docIdToTags)) {
-          filteredItems.push(filterCategoryForDomain(child, domainId));
+          const filteredChild = filterCategoryForDomain(child, domainId);
+          if (filteredChild) {
+            filteredItems.push(filteredChild);
+          }
         }
+      }
+    }
+
+    // If category has no children after domain filtering, check if it should be excluded
+    if (filteredItems.length === 0) {
+      const categoryDocId = getItemDocId(category, docIdToTags);
+      const isCategoryArchived = categoryDocId && isDocArchived(categoryDocId, docIdToTags);
+
+      // Check if the category originally had children (before domain filtering)
+      const hadChildrenBeforeDomainFiltering = (category.items || []).length > 0;
+
+      // Exclude non-archived categories only if they originally had children
+      if (!isCategoryArchived && hadChildrenBeforeDomainFiltering) {
+        return null;
       }
     }
 
@@ -286,7 +303,10 @@ function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]
         }
       } else if (item.type === 'category') {
         if (categoryOrDescendantBelongsToDomain(item, domainId, docIdToTags)) {
-          grouped[domainId].push(filterCategoryForDomain(item, domainId));
+          const filteredCategory = filterCategoryForDomain(item, domainId);
+          if (filteredCategory) {
+            grouped[domainId].push(filteredCategory);
+          }
         }
       }
     });
