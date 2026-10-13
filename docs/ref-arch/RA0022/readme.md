@@ -33,10 +33,11 @@ unlisted: false
 contributors:
   - avikSap
   - fabianleh
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: avikSap
-  date: 2024-08-01
+  author: rameshvaranganti
+  date: 2026-10-09
 ---
 
 Application Programming Interfaces (APIs) enable integration, interoperability, and data sharing between software systems. With the help of an API management solution like the API Management capability within SAP Integration Suite, you can provide omni-channel and secure access to solutions. Furthermore, it allows you to enforce usage policies for APIs, control API access, analyze API consumption, and more.  
