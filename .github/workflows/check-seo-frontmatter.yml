@@ -1,4 +1,5 @@
 name: Check SEO Front Matter
+# Archetype: CHANGED-FILES — only changed docs Markdown is checked (needs fetch-depth: 0).
 
 on:
   pull_request:
@@ -10,6 +11,10 @@ on:
       - '.github/workflows/check-seo-frontmatter.yml'
 
 permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check-seo-frontmatter:
@@ -23,8 +28,9 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: '24'
@@ -34,4 +40,14 @@ jobs:
         run: npm ci
 
       - name: Check title and description lengths
-        run: node src/_scripts/_check-seo-frontmatter.js
+        shell: bash
+        run: |
+          # Changed-files scope: only docs Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            echo "✅ No changed Markdown under docs/ — nothing to check."
+            exit 0
+          fi
+          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          node src/_scripts/_check-seo-frontmatter.js "${FILES[@]}"

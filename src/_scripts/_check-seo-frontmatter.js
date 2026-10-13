@@ -78,7 +78,14 @@ function evaluate(field, value, limits) {
 }
 
 function main() {
-  const files = glob.sync(DOCS_GLOB, { cwd: repoRoot }).sort();
+  // Changed-files mode: when the workflow passes repo-relative paths as args, check
+  // only those (docs Markdown). With no args (local runs) fall back to the whole corpus.
+  const argvFiles = process.argv.slice(2);
+  const files = (
+    argvFiles.length
+      ? argvFiles.filter((f) => f.startsWith('docs/') && /\.(md|mdx)$/.test(f))
+      : glob.sync(DOCS_GLOB, { cwd: repoRoot })
+  ).sort();
   let errors = 0;
   let warnings = 0;
   let checked = 0;
@@ -136,10 +143,10 @@ function main() {
   }
 
   if (errors > 0) {
-    console.error(`\n✖ SEO front matter check failed with ${errors} error(s).`);
+    console.error(`\n❌ SEO front matter check failed with ${errors} error(s).`);
     process.exit(1);
   }
-  console.log('\n✔ SEO front matter check passed.');
+  console.log('\n✅ SEO front matter check passed.');
 }
 
 main();
