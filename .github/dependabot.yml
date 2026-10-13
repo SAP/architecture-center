@@ -1,0 +1,30 @@
+# Keeps dependencies current so our full-SHA action pins and npm packages
+# receive upstream security/bug fixes via reviewable PRs (pinning without an
+# updater is an OpenSSF-flagged anti-pattern). PRs target the default branch (dev).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-patch:
+        update-types:
+          - minor
+          - patch
+    commit-message:
+      prefix: chore(actions)
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch:
+        update-types:
+          - minor
+          - patch
+    commit-message:
+      prefix: chore(deps)

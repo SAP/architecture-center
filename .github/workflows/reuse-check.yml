@@ -1,18 +1,29 @@
 name: REUSE Compliance Check
-# To manually verify/falsify reuse check results
+# To manually verify/falsify reuse check results.
+# NOTE: still workflow_dispatch-only — see the audit summary for how to promote
+# this to a PR gate (requires confirming the repo is REUSE-compliant first).
+
+on:
+  workflow_dispatch:
 
 permissions: {}
 
-on:
-    workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-    compliance-check:
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        permissions:
-            contents: read
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-            - name: REUSE Compliance Check
-              uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5
+  compliance-check:
+    name: REUSE Compliance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: REUSE Compliance Check
+        uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5

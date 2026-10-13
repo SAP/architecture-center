@@ -5,8 +5,13 @@ on:
     branches: [dev, main]
     paths:
       - '**.drawio'
+      - '.github/workflows/check-drawio-file.yml'
 
 permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check-drawio-size:

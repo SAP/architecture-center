@@ -8,10 +8,16 @@ on:
 
 permissions: {}
 
+# Stable, ref-independent group so a push to main and a manual dispatch can never
+# run two production Cloudflare deploys at once; queue (don't cancel) an in-flight upload.
+concurrency:
+  group: deploy-cloudflare-production
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build Site
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: read
@@ -20,43 +26,48 @@ jobs:
       BACKEND_API_URL: ${{ vars.SAP_AUTH_BACKEND_BASE_URL }}
       EXPRESS_BACKEND_URL: ${{ vars.QUICKSTART_CAP_PORT_BACKEND_BASE_URL }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          persist-credentials: false
           # fetch complete history for step "export drawios" to safely determine
           # date of last update to drawio files via git log
           fetch-depth: 0
 
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
-          node-version: '24'
+          node-version-file: .nvmrc
           cache: npm
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
       - name: Fetch contributors details from GitHub API
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node src/_scripts/_fetch-contributors-details.js
 
       - name: Cache drawio svgs
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/architecture-center/drawio-svgs
-          key: drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-${{ github.run_id }}
+          # Content-addressed: unchanged drawios hit the exact key and write nothing;
+          # changed drawios restore the nearest prefix for incremental reuse.
+          key: drawio-svgs-${{ runner.os }}-${{ hashFiles('docs/**/*.drawio') }}
           restore-keys: |
-            drawio-svgs-runner-${{ runner.os }}-branch-${{ github.ref_name }}-
+            drawio-svgs-${{ runner.os }}-
 
       - name: Export drawios to svgs
         run: CACHE_ENABLED=1 DOCKER=1 node src/_scripts/_export-drawios/_export.js
 
-      - name: Build Website
+      - name: Build website
         run: npm run build
 
       - name: Update drawio links with hashed URLs
         run: node src/_scripts/_update-drawio-links.js
 
-      - name: Upload Build Artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: build
@@ -66,12 +77,15 @@ jobs:
 
   deploy:
     name: Deploy Site
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     needs: build
+    # download-artifact reads a same-run artifact via the Actions runtime token, and
+    # wrangler authenticates with CLOUDFLARE_API_TOKEN — no GITHUB_TOKEN scope needed.
+    permissions: {}
     environment: cloudflare
     steps:
-      - name: Download Build Artifact
+      - name: Download build artifact
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         with:
           name: build
