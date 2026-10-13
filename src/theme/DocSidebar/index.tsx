@@ -586,14 +586,30 @@ function DocSidebarDesktop(props) {
   };
 
   const handleArchiveChange = (value: boolean) => {
+    const params = new URLSearchParams(location.search);
+
+    // Ensure partners from store are included in URL params
+    if (partners.length > 0 && !params.get('partners')) {
+      params.set('partners', partners.join(','));
+    }
+
+    // Preserve community content filter in URL params
+    if (showCommunityContent && !params.get('communityContent')) {
+      params.set('communityContent', 'true');
+    }
+
     if (value) {
       setShowArchived(true);
-      history.replace(`${refArchBase}?archive=true`);
+      params.set('archive', 'true');
+
+      // Archive filter changes the sidebar data, so always navigate to base
+      history.replace(`${refArchBase}?${params.toString()}`);
     } else {
-      if (partners.length > 0) {
-        // Keep partner filters active, just disable archive and navigate with partners
-        setShowArchived(false);
-        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      setShowArchived(false);
+      params.delete('archive');
+
+      if (params.toString()) {
+        history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
       }
@@ -602,6 +618,16 @@ function DocSidebarDesktop(props) {
 
   const handleCommunityContentChange = (value: boolean) => {
     const params = new URLSearchParams(location.search);
+
+    // Ensure partners from store are included in URL params
+    if (partners.length > 0 && !params.get('partners')) {
+      params.set('partners', partners.join(','));
+    }
+
+    // Preserve archive filter in URL params
+    if (showArchived && !params.get('archive')) {
+      params.set('archive', 'true');
+    }
 
     if (value) {
       setShowCommunityContent(true);
@@ -782,14 +808,30 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   };
 
   const handleArchiveChange = (value: boolean) => {
+    const params = new URLSearchParams(location.search);
+
+    // Ensure partners from store are included in URL params
+    if (partners.length > 0 && !params.get('partners')) {
+      params.set('partners', partners.join(','));
+    }
+
+    // Preserve community content filter in URL params
+    if (showCommunityContent && !params.get('communityContent')) {
+      params.set('communityContent', 'true');
+    }
+
     if (value) {
       setShowArchived(true);
-      history.replace(`${refArchBase}?archive=true`);
+      params.set('archive', 'true');
+
+      // Archive filter changes the sidebar data, so always navigate to base
+      history.replace(`${refArchBase}?${params.toString()}`);
     } else {
-      if (partners.length > 0) {
-        // Keep partner filters active, just disable archive and navigate with partners
-        setShowArchived(false);
-        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      setShowArchived(false);
+      params.delete('archive');
+
+      if (params.toString()) {
+        history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
       }
@@ -798,6 +840,16 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
 
   const handleCommunityContentChange = (value: boolean) => {
     const params = new URLSearchParams(location.search);
+
+    // Ensure partners from store are included in URL params
+    if (partners.length > 0 && !params.get('partners')) {
+      params.set('partners', partners.join(','));
+    }
+
+    // Preserve archive filter in URL params
+    if (showArchived && !params.get('archive')) {
+      params.set('archive', 'true');
+    }
 
     if (value) {
       setShowCommunityContent(true);
