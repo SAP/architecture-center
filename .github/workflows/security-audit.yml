@@ -122,7 +122,7 @@ jobs:
           echo "✅ No suspicious patterns detected."
 
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -160,7 +160,7 @@ jobs:
 
       - name: Upload npm audit SARIF
         if: always() && hashFiles('npm-audit.sarif') != ''
-        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
         with:
           sarif_file: npm-audit.sarif
           category: npm-audit
@@ -208,7 +208,7 @@ jobs:
           persist-credentials: false
 
       - name: Lint workflows with actionlint
-        uses: reviewdog/action-actionlint@d63ba7532e0942965320cd8d73cbae4c7b3c5283 # v1
+        uses: reviewdog/action-actionlint@d63ba7532e0942965320cd8d73cbae4c7b3c5283 # v1.73.1
         with:
           reporter: github-check
           filter_mode: nofilter
