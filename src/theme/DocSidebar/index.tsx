@@ -534,7 +534,7 @@ function DocSidebarDesktop(props) {
     return <DocSidebar {...props} />;
   }
 
-  const handlePartnersChange = (selected) => {
+  const handlePartnersChange = (selected: { value: string; label: string }[]) => {
     const selectedKeys = selected.map(opt => opt.value);
     setPartners(selectedKeys);
 
@@ -542,17 +542,41 @@ function DocSidebarDesktop(props) {
     if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
     else params.delete('partners');
     params.delete('techDomains');
-    window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+
+    // Preserve community content and archive filters in URL params
+    if (showCommunityContent && !params.get('communityContent')) {
+      params.set('communityContent', 'true');
+    }
+    if (showArchived && !params.get('archive')) {
+      params.set('archive', 'true');
+    }
+
+    // Check if current document will still be in filtered results with new partners
+    const newPartnerFiltered = filterGroupedByPartner(grouped.grouped, selectedKeys, tagsDocId).filtered;
+    const newFiltered = filterGroupedByCommunityContent(newPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+    const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+    const newResultCount = countUniqueDocsInItems(Object.values(newFiltered).flat(), tagsDocId);
+
+    if (newResultCount === 0 || !willDocExist) {
+      // Navigate to base ref-arch with the new filters
+      history.replace(`${refArchBase}?${params.toString()}`);
+    } else {
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    }
   };
 
   const handleResetFilters = () => {
-    // If archive or community filter is active, navigate to base document
-    if (showArchived || showCommunityContent) {
-      resetFilters();
-      history.replace(refArchBase);
-    } else {
-      resetFilters();
+    resetFilters();
+
+    // Check if current document exists in the default view (no filters)
+    const defaultGrouped = groupSidebarByDomain(filterArchivedItems(props.sidebar, tagsDocId, false), tagsDocId);
+    const willDocExist = docExistsInFilteredResults(location.pathname, defaultGrouped.grouped);
+
+    if (willDocExist) {
+      // Stay on current document, just clear URL params
       window.history.replaceState({}, '', location.pathname);
+    } else {
+      history.replace(refArchBase);
     }
   };
 
@@ -577,14 +601,39 @@ function DocSidebarDesktop(props) {
   };
 
   const handleCommunityContentChange = (value: boolean) => {
+    const params = new URLSearchParams(location.search);
+
     if (value) {
       setShowCommunityContent(true);
-      history.replace(`${refArchBase}?communityContent=true`);
+      params.set('communityContent', 'true');
+
+      // Check if current document will still be in filtered results
+      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, true, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+
+      if (willDocExist) {
+        // Stay on current document, just update URL
+        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+      } else {
+        history.replace(`${refArchBase}?${params.toString()}`);
+      }
     } else {
-      if (partners.length > 0) {
-        // Keep partner filters active, just disable community content and navigate with partners
-        setShowCommunityContent(false);
-        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      setShowCommunityContent(false);
+      params.delete('communityContent');
+
+      // Check if current document exists in the new filtered results (without community content filter)
+      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, false, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+
+      if (willDocExist) {
+        // Stay on current document
+        if (params.toString()) {
+          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+        } else {
+          window.history.replaceState({}, '', location.pathname);
+        }
+      } else if (params.toString()) {
+        history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
       }
@@ -682,18 +731,48 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     [partnerFiltered, showCommunityContent, tagsDocId]
   );
 
-  const handlePartnersChange = (selected) => {
-    setPartners(selected.map(opt => opt.value));
+  const handlePartnersChange = (selected: { value: string; label: string }[]) => {
+    const selectedKeys = selected.map(opt => opt.value);
+    setPartners(selectedKeys);
+
+    const params = new URLSearchParams(location.search);
+    if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
+    else params.delete('partners');
+    params.delete('techDomains');
+
+    // Preserve community content and archive filters in URL params
+    if (showCommunityContent && !params.get('communityContent')) {
+      params.set('communityContent', 'true');
+    }
+    if (showArchived && !params.get('archive')) {
+      params.set('archive', 'true');
+    }
+
+    // Check if current document will still be in filtered results with new partners
+    const newPartnerFiltered = filterGroupedByPartner(grouped.grouped, selectedKeys, tagsDocId).filtered;
+    const newFiltered = filterGroupedByCommunityContent(newPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+    const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+    const newResultCount = countUniqueDocsInItems(Object.values(newFiltered).flat(), tagsDocId);
+
+    if (newResultCount === 0 || !willDocExist) {
+      history.replace(`${refArchBase}?${params.toString()}`);
+    } else {
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    }
   };
 
   const handleResetFilters = () => {
-    // If archive or community filter is active, navigate to base document
-    if (showArchived || showCommunityContent) {
-      resetFilters();
-      history.replace(refArchBase);
-    } else {
-      resetFilters();
+    resetFilters();
+
+    // Check if current document exists in the default view (no filters)
+    const defaultGrouped = groupSidebarByDomain(filterArchivedItems(sidebar, tagsDocId, false), tagsDocId);
+    const willDocExist = docExistsInFilteredResults(location.pathname, defaultGrouped.grouped);
+
+    if (willDocExist) {
+      // Stay on current document, just clear URL params
       window.history.replaceState({}, '', location.pathname);
+    } else {
+      history.replace(refArchBase);
     }
   };
 
@@ -718,14 +797,39 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   };
 
   const handleCommunityContentChange = (value: boolean) => {
+    const params = new URLSearchParams(location.search);
+
     if (value) {
       setShowCommunityContent(true);
-      history.replace(`${refArchBase}?communityContent=true`);
+      params.set('communityContent', 'true');
+
+      // Check if current document will still be in filtered results
+      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, true, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+
+      if (willDocExist) {
+        // Stay on current document, just update URL
+        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+      } else {
+        history.replace(`${refArchBase}?${params.toString()}`);
+      }
     } else {
-      if (partners.length > 0) {
-        // Keep partner filters active, just disable community content and navigate with partners
-        setShowCommunityContent(false);
-        history.replace(`${refArchBase}?partners=${partners.join(',')}`);
+      setShowCommunityContent(false);
+      params.delete('communityContent');
+
+      // Check if current document exists in the new filtered results (without community content filter)
+      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, false, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
+
+      if (willDocExist) {
+        // Stay on current document
+        if (params.toString()) {
+          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+        } else {
+          window.history.replaceState({}, '', location.pathname);
+        }
+      } else if (params.toString()) {
+        history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
       }
@@ -819,6 +923,15 @@ function docExistsInArchivedView(docId: string, pathname: string, sidebar: any[]
 
   const foundInArchived = findItemByPath(archivedSidebar, pathname);
   return foundInArchived;
+}
+
+// Check if a document exists in the filtered results
+function docExistsInFilteredResults(
+  pathname: string,
+  filteredGrouped: Record<string, any[]>
+): boolean {
+  const allFilteredItems = Object.values(filteredGrouped).flat();
+  return findItemByPath(allFilteredItems, pathname);
 }
 
 // Find if any item (doc, link, or category) matches the pathname
