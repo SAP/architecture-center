@@ -32,7 +32,7 @@ jobs:
 
           FILE_DIRS=("assets" "diagrams" "docs")  # update as needed
           FILE_EXTENSIONS=("*.png" "*.jpg" "*.jpeg" "*.svg" "*.drawio" "*.docx")  # update as needed
-          mapfile -t MARKDOWN_FILES < <(find . -name "*.md")
+          mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
 
           FOUND_UNUSED=0
 
