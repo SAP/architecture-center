@@ -1,4 +1,5 @@
 name: Check Spelling
+# Archetype: CHANGED-FILES — only Markdown changed vs the PR base (incremental_files_only) so legacy gaps don't block PRs; needs fetch-depth: 0.
 
 on:
   pull_request:
@@ -14,6 +15,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-spelling:
     name: Check Spelling
@@ -28,7 +33,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0 # cspell-action diffs against the PR base to find changed files
 
-      - name: Spell check changed Markdown files
+      - name: Check spelling of changed Markdown files
         uses: streetsidesoftware/cspell-action@6f3c77c1406bc930f944ba97e9801a22e42caf58 # v9.1.0
         with:
           config: ./cspell.json
