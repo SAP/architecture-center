@@ -1,16 +1,18 @@
 name: REUSE Compliance Check
-# To manually verify/falsify reuse check results.
-# NOTE: still workflow_dispatch-only — see the audit summary for how to promote
-# this to a PR gate (requires confirming the repo is REUSE-compliant first).
 
+# Runs on PRs as a NON-BLOCKING license-compliance signal (continue-on-error)
+# during an initial rollout cycle. Once the repo is confirmed REUSE-compliant on
+# PRs, remove `continue-on-error` below to turn this into a required gate.
 on:
+  pull_request:
+    branches: [dev, main]
   workflow_dispatch:
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   compliance-check:
@@ -26,4 +28,5 @@ jobs:
           persist-credentials: false
 
       - name: REUSE Compliance Check
+        continue-on-error: true # non-blocking during rollout; remove to enforce
         uses: fsfe/reuse-action@bb774aa972c2a89ff34781233d275075cbddf542 # v5

@@ -61,6 +61,25 @@ if (( ${#hits} == 0 )); then
   exit 0
 fi
 
+# In CI, surface each hit as an inline PR annotation (Files tab) and a job summary.
+# Hits are "path:lineno:url"; split on the first two colons (url keeps its colons).
+if [[ -n "$GITHUB_ACTIONS" ]]; then
+  for h in "${hits[@]}"; do
+    hpath="${h%%:*}"; rest="${h#*:}"
+    hline="${rest%%:*}"; hurl="${rest#*:}"
+    echo "::error file=${hpath},line=${hline}::Internal-only SAP link (breaks for external visitors): ${hurl}"
+  done
+  if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
+    {
+      echo "### Internal-only SAP links"
+      echo ""
+      echo "Found ${#hits} internal-only link(s) that break for external visitors:"
+      echo ""
+      for h in "${hits[@]}"; do echo "- \`${h}\`"; done
+    } >> "$GITHUB_STEP_SUMMARY"
+  fi
+fi
+
 if (( ! quiet )); then
   echo "Found ${#hits} internal-only SAP link(s). These break for external visitors:"
   echo ""
