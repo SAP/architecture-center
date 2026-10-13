@@ -3,9 +3,11 @@ name: Comment Front Matter Properties
 # Companion to "Check Front Matter Properties". That check runs on
 # `pull_request`, where a fork's GITHUB_TOKEN is read-only and cannot comment.
 # This workflow runs in the base-repo context on `workflow_run`, so it has a
-# write token and can post the sticky comment on fork PRs too. It only ever
-# reads a prepared comment body from the trusted artifact — it never checks out
-# or executes PR code — so it is not exposed to the pwn-request attack class.
+# write token and can post the sticky comment on fork PRs too. It never checks
+# out or executes PR code (no pwn-request), and — crucially — it derives the
+# target PR from the TRUSTED workflow_run payload, never from the artifact. The
+# artifact is produced by the untrusted PR build and only supplies the comment
+# body; a malicious PR must not be able to choose which PR gets commented on.
 
 on:
   workflow_run:
@@ -38,16 +40,28 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           MARKER: '<!-- frontmatter-properties-check -->'
         run: |
           set -euo pipefail
-          PR="$(tr -dc '0-9' < artifact/pr.txt)"
-          HAS="$(tr -dc '0-9' < artifact/has-findings.txt)"
+
+          # SECURITY: resolve the target PR from the TRUSTED workflow_run payload,
+          # NEVER from the artifact. head_sha is set by GitHub (not the PR author),
+          # whereas artifact/pr.txt is written by the untrusted PR build and is
+          # deliberately ignored here — otherwise a malicious PR could point the
+          # bot comment at any PR. Match the PR whose head commit is this run's
+          # head_sha and whose base is this repo (so a fork branch that happens to
+          # share the SHA cannot be mistargeted).
+          PR="$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls" \
+                 --jq "[.[] | select(.base.repo.full_name == \"$GH_REPO\")][0].number // empty")"
           if [ -z "$PR" ]; then
-            echo "No PR number in artifact — nothing to do."
+            echo "No open PR in $GH_REPO for head $HEAD_SHA — nothing to do."
             exit 0
           fi
 
+          HAS="$(tr -dc '0-9' < artifact/has-findings.txt)"
+
+          # Body is untrusted content, but it can now only land on its own PR.
           # jq -Rs reads the whole file as a single JSON string → safe payload.
           jq -Rs '{body: .}' artifact/body.md > payload.json
 
