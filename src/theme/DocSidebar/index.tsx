@@ -602,13 +602,38 @@ function DocSidebarDesktop(props) {
       setShowArchived(true);
       params.set('archive', 'true');
 
-      // Archive filter changes the sidebar data, so always navigate to base
-      history.replace(`${refArchBase}?${params.toString()}`);
+      // Check if current document will exist in the archived view
+      const archivedSidebar = filterArchivedItems(props.sidebar, tagsDocId, true);
+      const archivedGrouped = groupSidebarByDomain(archivedSidebar, tagsDocId);
+      const archivedPartnerFiltered = filterGroupedByPartner(archivedGrouped.grouped, partners, tagsDocId).filtered;
+      const archivedFiltered = filterGroupedByCommunityContent(archivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, archivedFiltered);
+
+      if (willDocExist) {
+        // Stay on current document, just update URL
+        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+      } else {
+        history.replace(`${refArchBase}?${params.toString()}`);
+      }
     } else {
       setShowArchived(false);
       params.delete('archive');
 
-      if (params.toString()) {
+      // Check if current document will exist in the non-archived view
+      const nonArchivedSidebar = filterArchivedItems(props.sidebar, tagsDocId, false);
+      const nonArchivedGrouped = groupSidebarByDomain(nonArchivedSidebar, tagsDocId);
+      const nonArchivedPartnerFiltered = filterGroupedByPartner(nonArchivedGrouped.grouped, partners, tagsDocId).filtered;
+      const nonArchivedFiltered = filterGroupedByCommunityContent(nonArchivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, nonArchivedFiltered);
+
+      if (willDocExist) {
+        // Stay on current document
+        if (params.toString()) {
+          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+        } else {
+          window.history.replaceState({}, '', location.pathname);
+        }
+      } else if (params.toString()) {
         history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
@@ -824,13 +849,38 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
       setShowArchived(true);
       params.set('archive', 'true');
 
-      // Archive filter changes the sidebar data, so always navigate to base
-      history.replace(`${refArchBase}?${params.toString()}`);
+      // Check if current document will exist in the archived view
+      const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
+      const archivedGrouped = groupSidebarByDomain(archivedSidebar, tagsDocId);
+      const archivedPartnerFiltered = filterGroupedByPartner(archivedGrouped.grouped, partners, tagsDocId).filtered;
+      const archivedFiltered = filterGroupedByCommunityContent(archivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, archivedFiltered);
+
+      if (willDocExist) {
+        // Stay on current document, just update URL
+        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+      } else {
+        history.replace(`${refArchBase}?${params.toString()}`);
+      }
     } else {
       setShowArchived(false);
       params.delete('archive');
 
-      if (params.toString()) {
+      // Check if current document will exist in the non-archived view
+      const nonArchivedSidebar = filterArchivedItems(sidebar, tagsDocId, false);
+      const nonArchivedGrouped = groupSidebarByDomain(nonArchivedSidebar, tagsDocId);
+      const nonArchivedPartnerFiltered = filterGroupedByPartner(nonArchivedGrouped.grouped, partners, tagsDocId).filtered;
+      const nonArchivedFiltered = filterGroupedByCommunityContent(nonArchivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
+      const willDocExist = docExistsInFilteredResults(location.pathname, nonArchivedFiltered);
+
+      if (willDocExist) {
+        // Stay on current document
+        if (params.toString()) {
+          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+        } else {
+          window.history.replaceState({}, '', location.pathname);
+        }
+      } else if (params.toString()) {
         history.replace(`${refArchBase}?${params.toString()}`);
       } else {
         handleBackToAllDocuments();
