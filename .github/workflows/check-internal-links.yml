@@ -1,4 +1,5 @@
 name: Check Internal Links
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is scanned (needs fetch-depth: 0).
 
 on:
   pull_request:
@@ -13,6 +14,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-internal-links:
     name: Check Internal Links
@@ -25,6 +30,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
       - name: Install zsh
         shell: bash
@@ -32,4 +38,13 @@ jobs:
 
       - name: Check for SAP-internal-only links
         shell: bash
-        run: zsh src/_scripts/_check-internal-links.zsh
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            exit 0
+          fi
+          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          zsh src/_scripts/_check-internal-links.zsh "${FILES[@]}"
