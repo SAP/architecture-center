@@ -1,4 +1,5 @@
 name: Check Typos
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is checked (needs fetch-depth: 0).
 
 on:
   pull_request:
@@ -13,6 +14,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-typos:
     name: Check Typos
@@ -25,9 +30,43 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
-      - name: Check for typos in docs/ and news/
-        uses: crate-ci/typos@00f422f3b19c57bc6338715ebfe3316d38768461 # v1.50.3
+      # Install the typos binary (pinned) so we can run it with --format brief,
+      # whose single-line `path:line:col: error: msg` output the problem matcher
+      # below turns into inline PR annotations. The crate-ci/typos action exposes
+      # no flag passthrough, so it cannot emit that format itself.
+      - name: Install typos
+        uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
         with:
-          files: ./docs ./news
-          config: ./_typos.toml
+          tool: typos@1.50.3
+
+      - name: Check for typos in changed docs/ and news/
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            exit 0
+          fi
+          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          # The matcher turns `--format brief` output into inline ::error annotations
+          # (Files tab) with no extra permissions — works on fork PRs too.
+          echo "::add-matcher::.github/matchers/typos.json"
+          rc=0
+          typos --format brief --config ./_typos.toml "${FILES[@]}" | tee "$RUNNER_TEMP/typos.txt" || rc=$?
+          echo "::remove-matcher owner=typos::"
+          if [ "$rc" -ne 0 ]; then
+            {
+              echo "### Typo check"
+              echo ""
+              echo "❌ Typos found (also shown inline on the Files tab):"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/typos.txt"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$rc"
