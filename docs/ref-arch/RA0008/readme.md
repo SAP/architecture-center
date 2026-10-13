@@ -38,10 +38,11 @@ contributors:
   - adarshnarayanhegde
   - madankumarpichamuthu
   - AFK-Python
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adarshnarayanhegde
-  date: 2025-04-18
+  author: rameshvaranganti
+  date: 2026-10-09
 ---
 
 In today's enterprise landscape, organizations are under increasing pressure to modernize their integration strategies. They must connect a growing mix of SAP and non-SAP systems, deployed across cloud, on-premise, and hybrid environments — all while adhering to strict data security, regulatory compliance, and performance expectations.

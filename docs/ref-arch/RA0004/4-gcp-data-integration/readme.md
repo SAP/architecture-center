@@ -34,10 +34,11 @@ contributors:
   - s-krishnamoorthy
   - jackseeburger
   - karishma-kapur
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: s-krishnamoorthy
-  date: 2026-07-21
+  author: rameshvaranganti
+  date: 2026-10-09
 ---
 
 Non-SAP and third-party data(such as Trends, Google Analytics, Ads) from Google Cloud Platform services can be effortlessly integrated and harmonized with SAP business data through SAP Business Data Cloud. Leveraging open data protocols and advanced data fabric architectures, this approach enables secure, bi-directional data sharing and unified access to information across systems. The result is a centrally governed, holistic data environment that supports efficient analytics and AI/ML-driven use cases—all built on industry-standard open protocols.
