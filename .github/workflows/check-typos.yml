@@ -65,9 +65,13 @@ jobs:
           typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
           # Emit named inline annotations (title= not supported by problem matchers).
           if [ -n "$GITHUB_ACTIONS" ]; then
+            # Escape untrusted captures (filename, message) for the Actions command
+            # channel so a crafted path can't inject/forge annotation properties.
+            esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+            esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
             while IFS= read -r line; do
               if [[ "$line" =~ ^([^:]+):([0-9]+):([0-9]+):\ error:\ (.+)$ ]]; then
-                echo "::error file=${BASH_REMATCH[1]},line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Typos::${BASH_REMATCH[4]}"
+                echo "::error file=$(esc_prop "${BASH_REMATCH[1]}"),line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Typos::$(esc_data "${BASH_REMATCH[4]}")"
               fi
             done < "$RUNNER_TEMP/typos.txt"
           fi

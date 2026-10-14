@@ -37,7 +37,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts # fork PR controls the lockfile; don't run dependency lifecycle scripts
 
       - name: Check title and description lengths
         shell: bash

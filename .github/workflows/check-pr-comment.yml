@@ -104,9 +104,15 @@ jobs:
 
             // Neutralize untrusted text: HTML-escape and strip HTML-comment markers so
             // attacker-named files / messages can't break the sticky-comment structure.
+            // Untrusted text (filenames, messages) is inserted into a Markdown comment.
+            // esc() = HTML-escape + neutralize Markdown link/image/emphasis so a crafted
+            // path can't inject links/images into the bot comment. escCode() = safe to
+            // place inside an inline-code span (kill backtick / newline breakouts).
             const esc = (s) => String(s)
               .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-              .replace(/<!--/g, '').replace(/--&gt;/g, '').replace(/-->/g, '');
+              .replace(/[`*_\[\]()~#|]/g, '\\$&')
+              .replace(/\r?\n/g, ' ');
+            const escCode = (s) => String(s).replace(/`/g, "'").replace(/\r?\n/g, ' ');
 
             // Latest check run per name for this commit.
             const runs = await github.paginate(github.rest.checks.listForRef, {
@@ -151,7 +157,7 @@ jobs:
                   totalErrors += errs.length;
                   const bullets = errs.slice(0, MAX_BULLETS).map(a => {
                     const loc = a.path + (a.start_line > 0 ? `:${a.start_line}` : '');
-                    return `- \`${esc(loc)}\` — ${esc(a.message)}`;
+                    return `- \`${escCode(loc)}\` — ${esc(a.message)}`;
                   });
                   if (errs.length > MAX_BULLETS) bullets.push(`- …and ${errs.length - MAX_BULLETS} more`);
                   body = bullets.join('\n');

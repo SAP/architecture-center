@@ -11,6 +11,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-frontmatter-properties:
     name: Check Front Matter Properties
@@ -32,7 +36,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts # fork PR controls the lockfile; don't run dependency lifecycle scripts
 
       - name: Stamp today's date
         run: echo "TODAY=$(date -u +%F)" >> "$GITHUB_ENV"
