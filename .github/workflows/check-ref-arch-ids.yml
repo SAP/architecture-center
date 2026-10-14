@@ -42,6 +42,11 @@ jobs:
           git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
             | grep -E '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### Reference architecture ID check"
+              echo ""
+              echo "✅ No changed ref-arch readme.md — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "✅ No changed ref-arch readme.md — nothing to check."
             exit 0
           fi
