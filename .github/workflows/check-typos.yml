@@ -32,10 +32,8 @@ jobs:
           persist-credentials: false
           fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
-      # Install the typos binary (pinned) so we can run it with --format brief,
-      # whose single-line `path:line:col: error: msg` output the problem matcher
-      # below turns into inline PR annotations. The crate-ci/typos action exposes
-      # no flag passthrough, so it cannot emit that format itself.
+      # Install the typos binary (pinned) so we can run it with --format brief
+      # and emit named inline annotations manually (problem matchers cannot set title=).
       - name: Install typos
         uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
         with:
@@ -57,12 +55,16 @@ jobs:
             exit 0
           fi
           mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
-          # The matcher turns `--format brief` output into inline ::error annotations
-          # (Files tab) with no extra permissions — works on fork PRs too.
-          echo "::add-matcher::.github/matchers/typos.json"
           rc=0
-          typos --format brief --config ./_typos.toml "${FILES[@]}" | tee "$RUNNER_TEMP/typos.txt" || rc=$?
-          echo "::remove-matcher owner=typos::"
+          typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
+          # Emit named inline annotations (title= not supported by problem matchers).
+          if [ -n "$GITHUB_ACTIONS" ]; then
+            while IFS= read -r line; do
+              if [[ "$line" =~ ^([^:]+):([0-9]+):([0-9]+):\ error:\ (.+)$ ]]; then
+                echo "::error file=${BASH_REMATCH[1]},line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Typos::${BASH_REMATCH[4]}"
+              fi
+            done < "$RUNNER_TEMP/typos.txt"
+          fi
           if [ "$rc" -ne 0 ]; then
             {
               echo "### Typo check"
@@ -72,6 +74,12 @@ jobs:
               echo '```'
               cat "$RUNNER_TEMP/typos.txt"
               echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Typo check"
+              echo ""
+              echo "✅ No typos found."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
           exit "$rc"
