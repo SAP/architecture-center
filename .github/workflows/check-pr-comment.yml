@@ -125,6 +125,7 @@ jobs:
             for (const name of CHECKS) {
               const cr = latest[name];
               if (!cr) continue; // check didn't run (paths didn't match) — omit.
+              if (cr.status === 'completed' && cr.conclusion !== 'success') totalErrors++;
               let body;
 
               if (name === 'Check External Links') {
