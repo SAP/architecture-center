@@ -34,7 +34,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-25
+  date: 2026-10-14
 ---
 
 **Joule Studio** is SAP's AI-native development environment for building custom agents, apps, and workflows — grounded in SAP business context and deployed to the SAP-managed runtime as part of the SAP Business AI Platform.
