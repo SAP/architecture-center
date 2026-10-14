@@ -86,10 +86,7 @@ The [**SAP Business Transformation Management**](https://www.sap.com/products/bu
 
 - [**SAP LeanIX AI Agent Hub**](../RA0034/readme.md) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing.
 
-- [**SAP Cloud ALM**](https://support.sap.com/en/alm/sap-cloud-alm.html) provides businesses with a robust and scalable solution for
-managing their entire solution landscape in the cloud. It enables faster adoption of
-innovation and more efficient operations through streamlined processes, increased
-transparency and improved collaboration.
+- [**SAP Cloud ALM**](https://support.sap.com/en/alm/sap-cloud-alm.html) provides businesses with a robust and scalable solution for managing their entire solution landscape in the cloud. It enables faster adoption of innovation and more efficient operations through streamlined processes, increased transparency, observability capabilities, and improved collaboration
 
 ### SAP Business Technology Platform (BTP)
 
