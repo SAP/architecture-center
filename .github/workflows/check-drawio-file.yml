@@ -39,7 +39,11 @@ jobs:
             | grep -E '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-drawio.txt" ]; then
             {
-              echo "### drawio file check"
+              echo "### drawio file size check"
+              echo ""
+              echo "✅ No changed drawio files in this PR — nothing to check."
+              echo ""
+              echo "### drawio external image references check"
               echo ""
               echo "✅ No changed drawio files in this PR — nothing to check."
             } >> "$GITHUB_STEP_SUMMARY"

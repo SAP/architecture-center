@@ -49,6 +49,19 @@ jobs:
             exit 0
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
+          # Harden against filename-based injection: lychee-action eval's its args,
+          # so any shell metacharacter in a changed path (a fork PR controls path
+          # names) could be re-parsed. Fail closed if a path contains anything
+          # outside a safe set. Paths here are always under docs/ or news/.
+          if LC_ALL=C grep -qE '[^A-Za-z0-9._/-]' "$RUNNER_TEMP/changed.txt"; then
+            echo "::error title=External links::A changed path contains unexpected characters; refusing to run the link check."
+            {
+              echo "### External links check"
+              echo ""
+              echo "❌ A changed path contains unexpected characters; refusing to run (see annotations)."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
           # Space-separated file list for lychee positional args.
           echo "files=$(tr '\n' ' ' < "$RUNNER_TEMP/changed.txt" | sed 's/ $//')" >> "$GITHUB_OUTPUT"
 
@@ -60,7 +73,7 @@ jobs:
         if: steps.scope.outputs.skip != 'true'
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress ${{ steps.scope.outputs.files }}
+          args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress -- ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true

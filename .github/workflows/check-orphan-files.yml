@@ -63,7 +63,7 @@ jobs:
             basename_file=$(basename "$file")
             referenced=false
             for md in "${MARKDOWN_FILES[@]}"; do
-              if grep -q "$basename_file" "$md"; then
+              if grep -qF -- "$basename_file" "$md"; then
                 referenced=true
                 break
               fi
