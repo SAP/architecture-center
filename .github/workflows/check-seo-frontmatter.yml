@@ -48,9 +48,6 @@ jobs:
           if [ -s "$RUNNER_TEMP/changed.txt" ]; then
             mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
             node src/_scripts/_check-seo-frontmatter.js "${FILES[@]}"
-          elif ! git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- src/_scripts/_check-seo-frontmatter.js; then
-            echo "ℹ️ SEO checker changed with no Markdown changes — scanning full corpus."
-            node src/_scripts/_check-seo-frontmatter.js
           else
             {
               echo "### SEO front matter check"

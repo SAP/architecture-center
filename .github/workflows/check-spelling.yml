@@ -49,9 +49,6 @@ jobs:
             | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ -s "$RUNNER_TEMP/changed.txt" ]; then
             mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
-          elif ! git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- cspell.json .cspell; then
-            echo "ℹ️ cspell configuration changed with no Markdown changes — scanning full corpus."
-            FILES=(docs news)
           else
             {
               echo "### Spelling check"

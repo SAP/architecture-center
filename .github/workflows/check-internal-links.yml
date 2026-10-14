@@ -45,9 +45,6 @@ jobs:
           if [ -s "$RUNNER_TEMP/changed.txt" ]; then
             mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
             zsh src/_scripts/_check-internal-links.zsh "${FILES[@]}"
-          elif ! git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- src/_scripts/_check-internal-links.zsh; then
-            echo "ℹ️ Internal-link checker changed with no Markdown changes — scanning full corpus."
-            zsh src/_scripts/_check-internal-links.zsh
           else
             {
               echo "### Internal link check"
