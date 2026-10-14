@@ -31,17 +31,59 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # cspell-action diffs against the PR base to find changed files
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
+
+      - name: Install cspell
+        run: npm install -g cspell@9.1.0
 
       - name: Check spelling of changed Markdown files
-        uses: streetsidesoftware/cspell-action@6f3c77c1406bc930f944ba97e9801a22e42caf58 # v9.1.0
-        with:
-          config: ./cspell.json
-          files: |
-            docs/**/*.md
-            docs/**/*.mdx
-            news/**/*.md
-            news/**/*.mdx
-          incremental_files_only: true
-          inline: error
-          strict: true
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            exit 0
+          fi
+          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          rc=0
+          cspell --no-color --no-progress --relative --config ./cspell.json "${FILES[@]}" \
+            > "$RUNNER_TEMP/cspell.txt" 2>&1 || rc=$?
+          # Emit named inline annotations.
+          # cspell brief format: file:line:col - Unknown word (word)
+          if [ -n "$GITHUB_ACTIONS" ]; then
+            while IFS= read -r line; do
+              if [[ "$line" =~ ^([^:]+):([0-9]+):([0-9]+)\ -\ (.+)$ ]]; then
+                echo "::error file=${BASH_REMATCH[1]},line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Spelling::${BASH_REMATCH[4]}"
+              fi
+            done < "$RUNNER_TEMP/cspell.txt"
+          fi
+          if [ "$rc" -ne 0 ]; then
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "❌ Spelling errors found (also shown inline on the Files tab):"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/cspell.txt"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "✅ No spelling errors found."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$rc"
