@@ -39,7 +39,12 @@ jobs:
           git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
             | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
-            echo "✅ No changed Markdown under docs/ or news/ — nothing to check." | tee -a "$GITHUB_STEP_SUMMARY"
+            {
+              echo "### External links check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -63,5 +68,5 @@ jobs:
         shell: bash
         run: |
           if [ -f ./lychee/out.md ]; then
-            cat ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
+            { echo "### External links check"; echo ""; cat ./lychee/out.md; } >> "$GITHUB_STEP_SUMMARY"
           fi
