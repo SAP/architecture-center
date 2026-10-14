@@ -98,4 +98,4 @@ Use Joule Studio (either flow) when:
 -   You want SAP business context, API discovery, and best practices built into the development process
 -   Speed of delivery and alignment with SAP's standard tooling are priorities
 
-For agents that require full programmatic control outside of Joule Studio — deployed to your own BTP subaccount and connected to Joule via A2A — see [Bring Your Own Agent](../3-bring-your-own-agent/readme.md).
+For agents that require full programmatic control outside of Joule Studio — deployed to your own BTP subaccount and connected to Joule via A2A — see [Custom Pro-Code AI Agents on SAP BTP](../3-bring-your-own-agent/readme.md).

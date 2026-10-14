@@ -43,7 +43,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-27
+  date: 2026-10-14
 ---
 
 :::info Disclaimer
@@ -78,19 +78,24 @@ The SAP Business AI Platform is SAP's enterprise AI foundation combining deep pr
 
 The central integration layer of the SAP Business AI Platform — responsible for discovery and execution of agentic resources. Both Joule and agents connect to tools and business capabilities through the Agent Gateway, which centrally handles authentication, principal propagation, policy enforcement and tenancy. Read more about [A2A and MCP for Interoperability](./1-a2a-and-mcp/readme.md), [Integrating AI Agents with Joule](./4-integrate-ai-agents-with-joule/readme.md) and [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
 
-#### SAP Signavio — Agent Mining
+#### Business Transformation Management
 
-Observability and continuous improvement of AI agents — providing behavioral tracing, process conformance analysis, performance benchmarking and business impact measurement across the agent landscape. Read more about [Agent Behavior Mining](./9-agent-behavior-mining/readme.md).
+The [**SAP Business Transformation Management**](https://www.sap.com/products/business-transformation-management.html) portfolio brings together process intelligence, enterprise architecture and digital adoption to drive change and realize value at scale — forming the backbone of an agent-led toolchain for observing, governing and continuously improving the agent landscape.
 
-#### SAP LeanIX — AI Agent Hub
+- [**SAP Signavio — Agent Behavior Mining**](./9-agent-behavior-mining/readme.md): Observability and continuous improvement of AI agents — providing behavioral tracing, process conformance analysis, performance benchmarking and business impact measurement across the agent landscape.
 
-[**SAP AI Agent Hub**](https://www.sap.com/products/artificial-intelligence/ai-agent-hub.html) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing.
+- [**SAP LeanIX AI Agent Hub**](../RA0034/readme.md) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing.
+
+- [**SAP Cloud ALM**](https://support.sap.com/en/alm/sap-cloud-alm.html) provides businesses with a robust and scalable solution for
+managing their entire solution landscape in the cloud. It enables faster adoption of
+innovation and more efficient operations through streamlined processes, increased
+transparency and improved collaboration.
 
 ### SAP Business Technology Platform (BTP)
 
 The customer's own BTP subaccount hosts self-managed agents and integrations — connected to the SAP Business AI Platform via A2A and MCP.
 
--   **Custom Agents — Bring Your Own Agent:** Pro-code AI agents built with SAP Cloud SDK for AI (Python or TypeScript), deployed in the customer's BTP subaccount and connected to Joule via the A2A protocol. Custom Agents leverage SAP Integration Suite-managed MCP Servers for tool and capability consumption. Supports frameworks including LangGraph, AG2, CrewAI, Smolagents, Google ADK and Pydantic AI. Read more about [Bring Your Own Agent](./3-bring-your-own-agent/readme.md).
+-   **Custom Pro-Code AI Agents on SAP BTP** Pro-code AI Agents built with [SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/) (Python, Java or JavaScript/TypeScript), deployed in the customer's BTP subaccount and connected to Joule via the A2A protocol. Custom Agents leverage SAP Integration Suite-managed MCP Servers for tool and capability consumption. Supports frameworks including LangGraph, AG2, CrewAI, Smolagents, Google ADK and Pydantic AI. Read more about [Custom Pro-Code AI Agents on SAP BTP](./3-bring-your-own-agent/readme.md).
 
 -   **SAP Integration Suite:**
 
@@ -122,7 +127,7 @@ SAP supports two paths for building agents and multiple patterns for connecting 
 
 **Joule Studio:** Build agents, workflows, and applications grounded in SAP business context, deployed to the SAP-managed runtime. Powered by Intent-Based Development (IBD) — a structured AI-driven workflow from intent to deployment. Two flows are available: a **Low-Code Flow** using the visual browser-based builder, and a **Pro-Code Flow** using your own IDE with the Joule Studio CLI and a coding agent via MCP. Both produce the same artifact, automatically registered with Joule. Read more about [Building AI Agents with Joule Studio](./2-building-ai-agents-with-joule-studio/readme.md).
 
-**Bring Your Own Agent:** Develop agents with full programmatic control using SAP Cloud SDK for AI (Python or TypeScript) and integrate popular frameworks (LangGraph, AG2, CrewAI, Smolagents). Deploy to the customer's BTP subaccount as a self-managed runtime and connect to Joule via the A2A protocol. Read more about [Bring Your Own Agent](./3-bring-your-own-agent/readme.md), [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Agentic Engineering for SAP Extensions](./7-agentic-engineering-for-sap-extensions/readme.md).
+**Custom AI Agents on SAP BTP:** Develop agents with full programmatic control using SAP Cloud SDK for AI (Python, Java or JavaScript/TypeScript) and integrate popular frameworks (LangGraph, AG2, CrewAI, Smolagents). Deploy to the customer's BTP subaccount as a self-managed runtime and connect to Joule via the A2A protocol. Read more about [Custom AI Agents on SAP BTP](./3-bring-your-own-agent/readme.md), [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Agentic Engineering for SAP Extensions](./7-agentic-engineering-for-sap-extensions/readme.md).
 
 **Inbound (Agent Gateway — A2A):** Third-party AI platforms and clients consume Joule Agents through the Agent Gateway via A2A. Google Vertex AI, Microsoft Copilot Studio, AWS Bedrock and others can delegate SAP-specific tasks to Joule Agents, with trust established via SAP Cloud Identity Services. Read more about [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
 
