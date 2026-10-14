@@ -1,0 +1,78 @@
+name: Check Orphan Files
+# Archetype: CHANGED-FILES — only newly added assets are checked against all Markdown (needs fetch-depth: 0).
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'assets/**'
+      - 'diagrams/**'
+      - 'docs/**/*.png'
+      - 'docs/**/*.jpg'
+      - 'docs/**/*.jpeg'
+      - 'docs/**/*.svg'
+      - 'docs/**/*.drawio'
+      - 'docs/**/*.docx'
+      - '.github/workflows/check-orphan-files.yml'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-orphan-files:
+    name: Check Orphan Files
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed assets against the PR base
+
+      - name: Check for unreferenced files
+        shell: bash
+        run: |
+          # Changed-files scope: only assets added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
+            | grep -E '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed-assets.txt" ]; then
+            echo "✅ No new or modified assets in this PR — nothing to check."
+            exit 0
+          fi
+          mapfile -t SCAN_FILES < "$RUNNER_TEMP/changed-assets.txt"
+
+          # All Markdown files are needed to check whether each asset is referenced.
+          mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
+
+          found_unused=0
+          { echo "## Unreferenced Files Report"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
+
+          for file in "${SCAN_FILES[@]}"; do
+            [ -z "$file" ] && continue
+            basename_file=$(basename "$file")
+            referenced=false
+            for md in "${MARKDOWN_FILES[@]}"; do
+              if grep -q "$basename_file" "$md"; then
+                referenced=true
+                break
+              fi
+            done
+            if [ "$referenced" = false ]; then
+              echo "- $file" >> "$GITHUB_STEP_SUMMARY"
+              [ -n "$GITHUB_ACTIONS" ] && \
+                echo "::error file=${file}::Asset is not referenced in any Markdown file"
+              found_unused=1
+            fi
+          done
+
+          if [ "$found_unused" -eq 0 ]; then
+            echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
+          else
+            exit 1
+          fi
