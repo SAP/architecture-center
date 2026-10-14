@@ -29,4 +29,4 @@ This integartion example shows how teh SAP BTP services work together.
 ## Resources
 
 - [Internal docs](https://github.tools.sap/SAP/architecture-center) — internal SAP link
-- [External resource](https://broken.example.invalid/check-test) — broken external link
+- [External resource](https://github.com/SAP/architecture-center/this-page-does-not-exist-xyz123) — broken external link (real 404)
