@@ -170,7 +170,11 @@ function checkFile(rel, raw, data) {
   } else if (TODAY) {
     const dateStr = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate).slice(0, 10);
     const age = daysBetween(dateStr, TODAY);
-    if (age != null && age > STALE_DAYS) {
+    if (age == null) {
+      warn('last_update', `last_update.date (${dateStr}) is invalid; expected YYYY-MM-DD.`);
+    } else if (age < 0) {
+      warn('last_update', `last_update.date (${dateStr}) is in the future; expected today or an earlier date.`);
+    } else if (age > STALE_DAYS) {
       warn('last_update', `last_update.date (${dateStr}) is ${age} days old; consider bumping it to a recent date.`);
     }
   }
