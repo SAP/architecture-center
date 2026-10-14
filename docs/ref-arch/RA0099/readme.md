@@ -12,7 +12,7 @@ tags:
 draft: false
 unlisted: false
 last_update:
-  author: test-author2
+  author: test-author
   date: 2025-10-14
 ---
 
