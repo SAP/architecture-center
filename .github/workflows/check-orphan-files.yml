@@ -56,28 +56,59 @@ jobs:
           mapfile -d '' -t MARKDOWN_FILES < <(find . -type f \( -name "*.md" -o -name "*.mdx" \) -print0)
 
           found_unused=0
+          found_warn=0
           { echo "### Orphan files check"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
 
           for file in "${SCAN_FILES[@]}"; do
             [ -z "$file" ] && continue
             basename_file=$(basename "$file")
-            referenced=false
+
+            # References to an RA-local asset live in that RA's own directory, so
+            # scope the match there: a same-named asset in a different RA must not
+            # mask a genuine orphan. Non-RA / shared assets fall back to repo-wide.
+            scope=""
+            if [[ "$file" =~ ^(docs/ref-arch/RA[0-9]{4})/ ]]; then
+              scope="${BASH_REMATCH[1]}/"
+            fi
+
+            found_scoped=false
+            found_global=false
             for md in "${MARKDOWN_FILES[@]}"; do
-              if grep -qF -- "$basename_file" "$md"; then
-                referenced=true
+              grep -qF -- "$basename_file" "$md" || continue
+              found_global=true
+              md_rel="${md#./}"
+              if [ -z "$scope" ] || [[ "$md_rel" == "$scope"* ]]; then
+                found_scoped=true
                 break
               fi
             done
-            if [ "$referenced" = false ]; then
-              echo "- $file" >> "$GITHUB_STEP_SUMMARY"
+
+            if [ "$found_scoped" = true ]; then
+              continue
+            fi
+
+            if [ "$found_global" = true ]; then
+              # Matched only OUTSIDE the asset's own RA directory: likely a shared
+              # asset, or a same-named file masking a real orphan. Warn (don't fail)
+              # so a genuinely shared asset never blocks the PR.
+              echo "- ⚠️ \`${file}\` — referenced only outside its RA directory (shared asset, or possible orphan masked by a same-named file)" >> "$GITHUB_STEP_SUMMARY"
+              [ -n "$GITHUB_ACTIONS" ] && \
+                echo "::warning file=${file},title=Orphan files::Referenced only outside its own RA directory — verify this asset is actually used."
+              found_warn=1
+            else
+              echo "- ❌ \`${file}\`" >> "$GITHUB_STEP_SUMMARY"
               [ -n "$GITHUB_ACTIONS" ] && \
                 echo "::error file=${file},title=Orphan files::Asset is not referenced in any Markdown file"
               found_unused=1
             fi
           done
 
-          if [ "$found_unused" -eq 0 ]; then
-            echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$found_unused" -ne 0 ]; then
+            { echo ""; echo "❌ Unreferenced asset(s) found — remove them or reference them before merging."; } >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$found_warn" -ne 0 ]; then
+            { echo ""; echo "⚠️ Some assets matched only outside their RA directory — review the warnings above."; } >> "$GITHUB_STEP_SUMMARY"
           else
-            exit 1
+            echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
           fi
+
+          [ "$found_unused" -eq 0 ] || exit 1
