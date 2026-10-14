@@ -52,21 +52,41 @@ jobs:
           # Space-separated file list for lychee positional args.
           echo "files=$(tr '\n' ' ' < "$RUNNER_TEMP/changed.txt" | sed 's/ $//')" >> "$GITHUB_OUTPUT"
 
+      - name: Install lychee
+        if: steps.scope.outputs.skip != 'true'
+        uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
+        with:
+          tool: lychee@0.14.3
+
       - name: Check external links
         id: lychee
         if: steps.scope.outputs.skip != 'true'
-        uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
-        with:
-          args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress ${{ steps.scope.outputs.files }}
-          output: ./lychee/out.md
-          fail: true
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Append lychee report to summary
-        if: always() && steps.lychee.outcome != 'skipped'
-        shell: bash
         run: |
-          if [ -f ./lychee/out.md ]; then
-            { echo "### External links check"; echo ""; cat ./lychee/out.md; } >> "$GITHUB_STEP_SUMMARY"
+          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          rc=0
+          # --format github emits ::error annotations to stdout; sed injects title=.
+          lychee --cache-exclude-status '403,429,500..502' --no-progress --format github \
+            "${FILES[@]}" \
+            | sed 's/^::error \([^:]*\)::/::error \1,title=External links::/' \
+            | tee "$RUNNER_TEMP/lychee.txt" || rc=$?
+          if [ "$rc" -ne 0 ]; then
+            {
+              echo "### External links check"
+              echo ""
+              echo "❌ Broken links found (also shown inline on the Files tab):"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/lychee.txt"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### External links check"
+              echo ""
+              echo "✅ All external links are valid."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
+          exit "$rc"
