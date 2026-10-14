@@ -45,8 +45,8 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### Spelling check"
@@ -56,7 +56,7 @@ jobs:
             echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
             exit 0
           fi
-          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
           rc=0
           cspell --no-color --no-progress --relative --config ./cspell.json "${FILES[@]}" \
             > "$RUNNER_TEMP/cspell.txt" 2>&1 || rc=$?

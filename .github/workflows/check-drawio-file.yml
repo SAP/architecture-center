@@ -35,8 +35,8 @@ jobs:
         # `|| true` is required: grep exits 1 when no .drawio changed, which would
         # otherwise fail the step under bash's default -eo pipefail.
         run: |
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" \
-            | grep -E '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" \
+            | grep -zE '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-drawio.txt" ]; then
             {
               echo "### drawio file size check"
@@ -60,7 +60,7 @@ jobs:
           found=0
           summary_lines=()
 
-          while IFS= read -r file; do
+          while IFS= read -r -d '' file; do
             [ -f "$file" ] || continue
             SIZE=$(wc -c < "$file")
             if [ "$SIZE" -gt "$MAX_BYTES" ]; then
@@ -101,7 +101,7 @@ jobs:
           found=0
           summary_lines=()
 
-          while IFS= read -r file; do
+          while IFS= read -r -d '' file; do
             [ -f "$file" ] || continue
             MATCHES=$(grep -F 'image=http' "$file" || true)
             if [ -n "$MATCHES" ]; then

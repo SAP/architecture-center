@@ -43,8 +43,8 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only docs Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### SEO front matter check"
@@ -54,5 +54,5 @@ jobs:
             echo "✅ No changed Markdown under docs/ — nothing to check."
             exit 0
           fi
-          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
           node src/_scripts/_check-seo-frontmatter.js "${FILES[@]}"

@@ -39,8 +39,8 @@ jobs:
           # Changed-files scope: only changed readme.md fail the check. The script
           # still reads EVERY readme to validate global id/slug uniqueness, then
           # reports only collisions/errors that involve a changed file.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
-            | grep -E '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
+            | grep -zE '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### Reference architecture ID check"
@@ -50,5 +50,5 @@ jobs:
             echo "✅ No changed ref-arch readme.md — nothing to check."
             exit 0
           fi
-          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
           zsh src/_scripts/_check-ids.zsh "${FILES[@]}"

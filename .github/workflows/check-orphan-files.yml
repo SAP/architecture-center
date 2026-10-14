@@ -39,8 +39,8 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only assets added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
-            | grep -E '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
+            | grep -zE '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-assets.txt" ]; then
             {
               echo "### Orphan files check"
@@ -50,7 +50,7 @@ jobs:
             echo "✅ No new or modified assets in this PR — nothing to check."
             exit 0
           fi
-          mapfile -t SCAN_FILES < "$RUNNER_TEMP/changed-assets.txt"
+          mapfile -d '' -t SCAN_FILES < "$RUNNER_TEMP/changed-assets.txt"
 
           # All Markdown files are needed to check whether each asset is referenced.
           mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
