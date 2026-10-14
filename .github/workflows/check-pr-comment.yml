@@ -141,8 +141,12 @@ jobs:
                 if (cr.status !== 'completed') body = '⏳ Running…';
                 else if (cr.conclusion === 'success') body = '✅ No broken external links.';
                 else if (fs.existsSync(p)) {
-                  const raw = fs.readFileSync(p, 'utf8').trim().replace(/`/g, "'").slice(0, 3000);
-                  body = '```\n' + raw + '\n```';
+                  // Untrusted (lychee) report: HTML-escape and wrap in <pre> so no
+                  // Markdown/HTML construct in a crafted path or URL can alter the
+                  // comment structure (safer than a ``` fence, which can be escaped).
+                  const raw = fs.readFileSync(p, 'utf8').trim().slice(0, 3000)
+                    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                  body = '<pre>\n' + raw + '\n</pre>';
                   totalErrors++;
                 } else body = `❌ Broken links found — see the [check run](${cr.html_url}).`;
               } else {
