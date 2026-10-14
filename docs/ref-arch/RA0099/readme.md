@@ -9,8 +9,8 @@ keywords:
   - test
 tags:
   - integration
-draft: false
-unlisted: false
+draft: true
+unlisted: faldse
 last_update:
   author: test-author
   date: 2025-10-14
