@@ -35,7 +35,7 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 pagination_prev: north-star-arch/ai-native-northstar-arch/architecting-for-the-quantum-era/id-nsa-11
-pagination_next: north-star-arch/ai-native-northstar-arch/acknowledgement/id-nsa-13
+pagination_next: north-star-arch/ai-native-northstar-arch/frequently-asked-questions/id-nsa-faq
 contributors:
 discussion:
 last_update:
