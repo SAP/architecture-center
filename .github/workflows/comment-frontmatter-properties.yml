@@ -1,0 +1,66 @@
+name: Comment Front Matter Properties
+
+# Companion to "Check Front Matter Properties". That check runs on
+# `pull_request`, where a fork's GITHUB_TOKEN is read-only and cannot comment.
+# This workflow runs in the base-repo context on `workflow_run`, so it has a
+# write token and can post the sticky comment on fork PRs too. It only ever
+# reads a prepared comment body from the trusted artifact — it never checks out
+# or executes PR code — so it is not exposed to the pwn-request attack class.
+
+on:
+  workflow_run:
+    workflows: ['Check Front Matter Properties']
+    types: [completed]
+
+permissions: {}
+
+jobs:
+  comment:
+    name: Post sticky comment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    # PR-triggered runs only. Runs whether the check passed or failed, so the
+    # explanatory comment is posted exactly when the check fails.
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
+    permissions:
+      actions: read # download the artifact from the triggering run
+      pull-requests: write # create/update the PR comment
+    steps:
+      - name: Download comment artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: frontmatter-comment
+          path: artifact
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upsert sticky comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          MARKER: '<!-- frontmatter-properties-check -->'
+        run: |
+          set -euo pipefail
+          PR="$(tr -dc '0-9' < artifact/pr.txt)"
+          HAS="$(tr -dc '0-9' < artifact/has-findings.txt)"
+          if [ -z "$PR" ]; then
+            echo "No PR number in artifact — nothing to do."
+            exit 0
+          fi
+
+          # jq -Rs reads the whole file as a single JSON string → safe payload.
+          jq -Rs '{body: .}' artifact/body.md > payload.json
+
+          # Find an existing sticky comment by its hidden marker.
+          CID="$(gh api --paginate "repos/$GH_REPO/issues/$PR/comments" \
+            --jq ".[] | select(.body | contains(\"$MARKER\")) | .id" | head -n1 || true)"
+
+          if [ -n "$CID" ]; then
+            gh api --method PATCH "repos/$GH_REPO/issues/comments/$CID" --input payload.json > /dev/null
+            echo "Updated sticky comment $CID on PR #$PR."
+          elif [ "$HAS" = "1" ]; then
+            gh api --method POST "repos/$GH_REPO/issues/$PR/comments" --input payload.json > /dev/null
+            echo "Created sticky comment on PR #$PR."
+          else
+            echo "No errors and no existing comment — nothing to post."
+          fi
