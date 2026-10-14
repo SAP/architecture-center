@@ -41,14 +41,17 @@ jobs:
           # reports only collisions/errors that involve a changed file.
           git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
             | grep -zE '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+            zsh src/_scripts/_check-ids.zsh "${FILES[@]}"
+          elif ! git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- src/_scripts/_check-ids.zsh; then
+            echo "ℹ️ Reference-ID checker changed with no readme changes — scanning full corpus."
+            zsh src/_scripts/_check-ids.zsh
+          else
             {
               echo "### Reference architecture ID check"
               echo ""
               echo "✅ No changed ref-arch readme.md — nothing to check."
             } >> "$GITHUB_STEP_SUMMARY"
             echo "✅ No changed ref-arch readme.md — nothing to check."
-            exit 0
           fi
-          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
-          zsh src/_scripts/_check-ids.zsh "${FILES[@]}"
