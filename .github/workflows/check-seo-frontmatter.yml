@@ -46,6 +46,11 @@ jobs:
           git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
             | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### SEO front matter check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "✅ No changed Markdown under docs/ — nothing to check."
             exit 0
           fi

@@ -119,7 +119,7 @@ function main() {
   }
 
   const summary = [
-    '## SEO front matter check',
+    '### SEO front matter check',
     '',
     'Recommended lengths:',
     '',
