@@ -19,12 +19,22 @@ for arg in "$@"; do changed[$arg]=1; report_all=0; done
 
 errors=()
 error_files=()    # parallel to errors: the repo-relative file each error belongs to
+error_lines=()    # parallel to errors: frontmatter line of each error ("" when none)
+typeset -A seen_idline  # id -> line of its id: field in the first-seen file
 count=0
 
-# Record an error together with its file so CI can emit a located ::error annotation.
-add_error() { errors+=("$1"); error_files+=("$2"); }
+# Record an error with its file and (optional) frontmatter line so CI can emit a
+# located ::error annotation that pins inline on the PR diff.
+add_error() { errors+=("$1"); error_files+=("$2"); error_lines+=("$3"); }
 # True when the given file should fail the check (local mode always reports).
 should_report() { (( report_all )) || [[ -n "${changed[$1]}" ]]; }
+# 1-based line of a frontmatter field inside the first --- ... --- block ("" if absent).
+field_line() {
+  awk -v field="$2" '
+    /^---[[:space:]]*$/ { if (++fence == 2) exit; next }
+    fence == 1 && $0 ~ "^" field ":[[:space:]]*" { print NR; exit }
+  ' "$1"
+}
 
 for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
   rel="${file#$REPO_ROOT/}"
@@ -61,27 +71,31 @@ for file in "$REF_ARCH_DIR"/**/readme.md(.N); do
   ' "$file")
 
   if [[ -z "$id" ]]; then
-    should_report "$rel" && add_error "MISSING id     $rel" "$rel"
+    should_report "$rel" && add_error "MISSING id     $rel" "$rel" ""
     continue
   fi
 
+  id_line=$(field_line "$file" id)
+  slug_line=$(field_line "$file" slug)
+
   if [[ ! "$id" =~ '^[a-z0-9]{6}$' ]]; then
-    should_report "$rel" && add_error "INVALID id \"$id\"  ->  $rel" "$rel"
+    should_report "$rel" && add_error "INVALID id \"$id\"  ->  $rel" "$rel" "$id_line"
   fi
 
   if [[ "$slug" != "/ref-arch/$id" ]]; then
-    should_report "$rel" && add_error "SLUG MISMATCH  slug \"$slug\" != \"/ref-arch/$id\"  ->  $rel" "$rel"
+    should_report "$rel" && add_error "SLUG MISMATCH  slug \"$slug\" != \"/ref-arch/$id\"  ->  $rel" "$rel" "$slug_line"
   fi
 
   if [[ -n "${seen[$id]}" ]]; then
     # Duplicate id. Report when EITHER colliding file was changed; attribute the
     # annotation to the changed file so it surfaces on the PR that introduced it.
     if should_report "$rel" || should_report "${seen[$id]}"; then
-      if should_report "$rel"; then culprit="$rel"; else culprit="${seen[$id]}"; fi
-      add_error "DUPLICATE id \"$id\"  ->  $rel  (first seen in ${seen[$id]})" "$culprit"
+      if should_report "$rel"; then culprit="$rel"; culprit_line="$id_line"; else culprit="${seen[$id]}"; culprit_line="${seen_idline[$id]}"; fi
+      add_error "DUPLICATE id \"$id\"  ->  $rel  (first seen in ${seen[$id]})" "$culprit" "$culprit_line"
     fi
   else
     seen[$id]="$rel"
+    seen_idline[$id]="$id_line"
   fi
 done
 
@@ -102,11 +116,13 @@ else
     echo "  $err"
   done
 
-  # In CI, surface each error as an inline PR annotation (file-level; the script
-  # tracks no line number) plus a job summary.
+  # In CI, surface each error as an inline PR annotation (pinned to the offending
+  # frontmatter line when known; file-level for MISSING id) plus a job summary.
   if [[ -n "$GITHUB_ACTIONS" ]]; then
     for (( i = 1; i <= ${#errors}; i++ )); do
-      echo "::error file=${error_files[$i]},title=Reference architecture IDs::${errors[$i]}"
+      lineattr=""
+      [[ -n "${error_lines[$i]}" ]] && lineattr=",line=${error_lines[$i]}"
+      echo "::error file=${error_files[$i]}${lineattr},title=Reference architecture IDs::${errors[$i]}"
     done
     if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
       {
