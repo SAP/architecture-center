@@ -1,5 +1,5 @@
 name: PR Check Comment
-# Aggregates the 8 content checks' findings into ONE sticky PR comment, grouped by
+# Aggregates the content checks' findings into ONE sticky PR comment, grouped by
 # check. Runs via workflow_run (base-repo context) so it can comment on fork PRs
 # without exposing a writable token to PR code: it NEVER checks out PR content and
 # only reads data (check-run annotations + one artifact). Rebuilds the whole comment
@@ -10,6 +10,7 @@ on:
     workflows:
       - Check Internal Links
       - Check SEO Front Matter
+      - Check Front Matter Properties
       - Check Reference Architecture IDs
       - Check drawio Files
       - Check Orphan Files
@@ -95,7 +96,8 @@ jobs:
             // in the PR comment (they annotate inline on the Files tab instead).
             const CHECKS = [
               'Check Internal Links',
-              'Check SEO Front Matter', 'Check Reference Architecture IDs',
+              'Check SEO Front Matter', 'Check Front Matter Properties',
+              'Check Reference Architecture IDs',
               'Check drawio Files', 'Check Orphan Files', 'Check External Links',
             ];
             const MAX_BULLETS = 20;

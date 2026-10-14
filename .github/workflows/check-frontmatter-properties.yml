@@ -37,25 +37,12 @@ jobs:
       - name: Stamp today's date
         run: echo "TODAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
-      # Annotations + job summary + the sticky-comment artifact.
+      # Annotations + job summary. Findings surface in the aggregated PR comment
+      # (check-pr-comment.yml) via this check's error annotations.
       # Exits non-zero when any issue is found, so this check FAILS the PR.
       - name: Check front matter properties
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          COMMENT_DIR: ${{ runner.temp }}/fm-comment
         run: node src/_scripts/_check-frontmatter-properties.js
-
-      # Hand the comment body to the privileged workflow_run workflow, which can
-      # post to fork PRs (this read-only job cannot). Runs even when the check
-      # above failed, so the explanatory comment is still posted.
-      - name: Upload comment artifact
-        if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: frontmatter-comment
-          path: ${{ runner.temp }}/fm-comment
-          if-no-files-found: error
-          retention-days: 1
