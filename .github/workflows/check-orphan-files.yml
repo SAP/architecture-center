@@ -53,7 +53,7 @@ jobs:
           mapfile -d '' -t SCAN_FILES < "$RUNNER_TEMP/changed-assets.txt"
 
           # All Markdown files are needed to check whether each asset is referenced.
-          mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
+          mapfile -d '' -t MARKDOWN_FILES < <(find . -type f \( -name "*.md" -o -name "*.mdx" \) -print0)
 
           found_unused=0
           { echo "### Orphan files check"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
