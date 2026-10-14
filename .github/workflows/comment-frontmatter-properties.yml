@@ -52,8 +52,7 @@ jobs:
           # bot comment at any PR. Match the PR whose head commit is this run's
           # head_sha and whose base is this repo (so a fork branch that happens to
           # share the SHA cannot be mistargeted).
-          PR="$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls" \
-                 --jq "[.[] | select(.base.repo.full_name == \"$GH_REPO\")][0].number // empty")"
+          PR="$(jq -r '.workflow_run.pull_requests[0].number // empty' "$GITHUB_EVENT_PATH")"
           if [ -z "$PR" ]; then
             echo "No open PR in $GH_REPO for head $HEAD_SHA — nothing to do."
             exit 0
