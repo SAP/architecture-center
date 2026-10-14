@@ -29,6 +29,7 @@ jobs:
           fetch-depth: 0 # full history needed to diff *.drawio against the PR base
 
       - name: List changed drawio files
+        id: list
         shell: bash
         # Compute the changed-*.drawio set ONCE; both checks below read this file.
         # `|| true` is required: grep exits 1 when no .drawio changed, which would
@@ -36,12 +37,24 @@ jobs:
         run: |
           git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" \
             | grep -E '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed-drawio.txt" ]; then
+            {
+              echo "### drawio file check"
+              echo ""
+              echo "✅ No changed drawio files in this PR — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Check drawio file sizes
+        if: steps.list.outputs.skip != 'true'
         shell: bash
         run: |
           MAX_BYTES=$(( 1024 * 1024 ))
-          FOUND=0
+          found=0
+          summary_lines=()
 
           while IFS= read -r file; do
             [ -f "$file" ] || continue
@@ -50,11 +63,26 @@ jobs:
               SIZE_KB=$(( SIZE / 1024 ))
               echo "❌ ${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
               [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio size::${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
-              FOUND=1
+              summary_lines+=("- ❌ \`${file}\` — ${SIZE_KB} KB (limit: 1024 KB)")
+              found=1
             fi
           done < "$RUNNER_TEMP/changed-drawio.txt"
 
-          if [ "$FOUND" -eq 1 ]; then
+          {
+            echo "### drawio file size check"
+            echo ""
+            if [ "$found" -eq 0 ]; then
+              echo "✅ All drawio files are within the 1024 KB size limit."
+            else
+              echo "❌ Oversized file(s) found:"
+              echo ""
+              printf '%s\n' "${summary_lines[@]}"
+              echo ""
+              echo "Please reduce the size of the flagged file(s) before merging."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$found" -eq 1 ]; then
             echo ""
             echo "Please reduce the size of the flagged file(s) before merging."
             exit 1
@@ -63,10 +91,11 @@ jobs:
           echo "✅ All drawio files are within the 1024 KB size limit."
 
       - name: Check drawio files for external image references
-        if: always()
+        if: always() && steps.list.outputs.skip != 'true'
         shell: bash
         run: |
-          FOUND=0
+          found=0
+          summary_lines=()
 
           while IFS= read -r file; do
             [ -f "$file" ] || continue
@@ -75,11 +104,26 @@ jobs:
               echo "❌ ${file} contains external image references (image=http)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
               [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio external image::${file} contains an external image reference (image=http). Embed the image directly."
-              FOUND=1
+              summary_lines+=("- ❌ \`${file}\` — contains external image reference(s)")
+              found=1
             fi
           done < "$RUNNER_TEMP/changed-drawio.txt"
 
-          if [ "$FOUND" -eq 1 ]; then
+          {
+            echo "### drawio external image references check"
+            echo ""
+            if [ "$found" -eq 0 ]; then
+              echo "✅ No external image references found in drawio files."
+            else
+              echo "❌ External image reference(s) found:"
+              echo ""
+              printf '%s\n' "${summary_lines[@]}"
+              echo ""
+              echo "Replace all external image URLs with embedded (base64) images in the flagged file(s)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$found" -eq 1 ]; then
             echo ""
             echo "Replace all external image URLs with embedded (base64) images in the flagged file(s)."
             exit 1
