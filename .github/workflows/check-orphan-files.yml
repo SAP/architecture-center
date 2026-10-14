@@ -71,7 +71,7 @@ jobs:
             if [ "$referenced" = false ]; then
               echo "- $file" >> "$GITHUB_STEP_SUMMARY"
               [ -n "$GITHUB_ACTIONS" ] && \
-                echo "::error file=${file}::Asset is not referenced in any Markdown file"
+                echo "::error file=${file},title=Orphan files::Asset is not referenced in any Markdown file"
               found_unused=1
             fi
           done
