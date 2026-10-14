@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2641.4",
+    "version": "v3.2642.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -139,6 +139,6 @@
         ]
     },
     "engines": {
-        "node": ">=20.0"
+        "node": ">=22.0"
     }
 }

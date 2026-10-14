@@ -28,6 +28,7 @@ tags:
   - aws
   - azure
   - gcp
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -36,10 +37,11 @@ draft: false
 unlisted: false
 contributors:
   - bzarske
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: bzarske
-  date: 2026-09-28
+  author: rameshvaranganti
+  date: 2026-10-09
 ---
 
 DevOps is a key enabler for achieving high-level agility and quality in development projects – including SAP enterprise environments.
@@ -65,6 +67,17 @@ To enable your development teams to apply DevOps for their projects on SAP BTP u
 4. **Operate**: SAP Cloud ALM provides a central observability platform for all SAP products, including SAP BTP, in conjunction with several local SAP-BTP-specific observability capabilities. To operate your apps on SAP BTP, use the unified monitoring, alerting, and analytics offerings of SAP Cloud ALM, based on telemetry data exposed by SAP BTP (and other SAP solutions), to reduce the mean time to detect issues. SAP uses OpenTelemetry as a unified and open instrumentation approach for SAP BTP use cases, allowing you to instrument custom apps for central observability. To resolve issues, navigate from SAP Cloud ALM to local expert tools on SAP BTP for use-case-specific root cause analysis or remediation. For example, from an error message in Exception Monitoring of SAP Cloud ALM, you can directly jump to the SAP Cloud Logging service to perform a detailed analysis. The SAP BTP service stores and visualizes log files, metrics, and traces from apps running in different SAP BTP environments. For corrective actions on SAP BTP, events in SAP Cloud ALM can automatically trigger corresponding commands on SAP Automation Pilot. This service offers a low-code/no-code automation engine with catalogs of automated actions around SAP BTP, enabling you to compile commands for automating recurring DevOps-related tasks and remediating alerts from custom SAP BTP applications. This reduces operational efforts and increases the resilience of your business scenarios by enhancing automation. To simplify the setup of your SAP BTP accounts, consider using the Terraform provider for SAP BTP.
 
 To foster and ease separation of concerns (e.g., for security reasons), we recommend running services like SAP Cloud Transport Management in their own subaccount alongside other shared services. For more information on which SAP BTP services can be run centrally, see the [SAP BTP Administrator's Guide](https://help.sap.com/docs/btp/btp-admin-guide/sharing-btp-services).
+
+## Applying DevOps to Integration Suite Content
+
+The Cloud Foundry application workflow above needs artifact-specific steps for integration flows, API artifacts, and MCP servers:
+
+- Version the deployable content and its dependencies; manage environment-specific configuration and credentials separately.
+- Test contracts, mappings, authorization failures, duplicate delivery, and backend outages before promotion.
+- Promote a tested artifact version through the supported transport mechanism for its type and runtime. Verify deployment status and run a smoke test in the target environment.
+- Define rollback to a known version, including configuration dependencies and reconciliation of messages processed during the change.
+
+Automation must respect the APIs it invokes. SAP's July 2026 update sets the tenant limit for public Design Time Artifacts APIs to **15 requests per second**. Apply bounded retries and backoff for throttling; this limit is distinct from runtime message throughput. See [Cloud Integration release information](https://help.sap.com/docs/cloud-integration/sap-cloud-integration/what-s-new-for-cloud-integration).
 
 ## Characteristics
 
