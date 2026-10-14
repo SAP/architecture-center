@@ -2,18 +2,31 @@
 id: RA0099
 slug: /ref-arch/ra0099
 sidebar_position: 999
-title: Test RA
-description: Short.
+title: Too short
+description: "description"
 keywords:
   - sap
-  - test
+  - business ai platform
+sidebar_label: SOmething goes there
+image: img/ac-soc-med.png
 tags:
-  - integration
+  - azure
+  - aws
+  - gcp
+hide_table_of_contents: faalse
+hide_title: falsee
+toc_min_heading_level: 4
+toc_max_heading_level: 6
 draft: true
-unlisted: faldse
+unlisted: fallse
+contributors:
+  - johndoe
+  - Cat66
+  - someone
+discussion: 
 last_update:
-  author: test-author
-  date: 2025-10-14
+  author: somebot
+  date: 2025-05-14
 ---
 
 This is teh test reference architecture for validation of teh content-check workflows.
