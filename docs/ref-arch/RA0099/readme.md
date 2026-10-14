@@ -29,7 +29,7 @@ last_update:
   date: 2025-05-14
 ---
 
-This is teh test reference architecture for validation of teh content-check workflows.
+This is teh test refference architecture for validation of teh content-check workflows.
 
 ## Architecture
 
