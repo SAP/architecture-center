@@ -1,0 +1,67 @@
+name: Check External Links
+# Archetype: CHANGED-FILES — only changed Markdown files are checked for broken links (needs fetch-depth: 0).
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '.github/workflows/check-ext-links.yml'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-ext-links:
+    name: Check External Links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      - name: Compute scope
+        id: scope
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          # Space-separated file list for lychee positional args.
+          echo "files=$(tr '\n' ' ' < "$RUNNER_TEMP/changed.txt" | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+
+      - name: Check external links
+        id: lychee
+        if: steps.scope.outputs.skip != 'true'
+        uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
+        with:
+          args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress ${{ steps.scope.outputs.files }}
+          output: ./lychee/out.md
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Append lychee report to summary
+        if: always() && steps.lychee.outcome != 'skipped'
+        shell: bash
+        run: |
+          if [ -f ./lychee/out.md ]; then
+            cat ./lychee/out.md >> "$GITHUB_STEP_SUMMARY"
+          fi
