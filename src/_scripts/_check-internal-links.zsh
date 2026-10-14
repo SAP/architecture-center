@@ -88,9 +88,13 @@ fi
 # In CI, surface each hit as an inline PR annotation (Files tab) plus a job summary.
 # Hits are "path:lineno:url"; split on the first two colons (the URL keeps its own).
 if [[ -n "$GITHUB_ACTIONS" ]]; then
+  # Escape untrusted text for the GitHub Actions command channel so a crafted
+  # filename or URL can't forge/corrupt annotations (data vs. property escaping).
+  esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; print -rn -- "$s"; }
+  esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; print -rn -- "$s"; }
   for h in "${hits[@]}"; do
     rel="${h%%:*}"; rest="${h#*:}"; lineno="${rest%%:*}"; url="${rest#*:}"
-    echo "::error file=${rel},line=${lineno},title=Internal link::Internal-only SAP link (breaks for external visitors): ${url}"
+    echo "::error file=$(esc_prop "${rel}"),line=${lineno},title=Internal link::$(esc_data "Internal-only SAP link (breaks for external visitors): ${url}")"
   done
   if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
     {

@@ -8,6 +8,11 @@
 REPO_ROOT="${0:A:h}/../.."
 REF_ARCH_DIR="$REPO_ROOT/docs/ref-arch"
 
+# Escape untrusted text for the GitHub Actions command channel so a crafted
+# filename or message can't forge/corrupt annotations (data vs. property escaping).
+esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; print -rn -- "$s"; }
+esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; print -rn -- "$s"; }
+
 # Args: optional repo-relative readme paths the PR changed. When given (CI changed-
 # files mode) only errors on those files fail the check — but EVERY readme is still
 # read so id/slug uniqueness (a global invariant) is validated against the whole set.
@@ -122,7 +127,7 @@ else
     for (( i = 1; i <= ${#errors}; i++ )); do
       lineattr=""
       [[ -n "${error_lines[$i]}" ]] && lineattr=",line=${error_lines[$i]}"
-      echo "::error file=${error_files[$i]}${lineattr},title=Reference architecture IDs::${errors[$i]}"
+      echo "::error file=$(esc_prop "${error_files[$i]}")${lineattr},title=Reference architecture IDs::$(esc_data "${errors[$i]}")"
     done
     if [[ -n "$GITHUB_STEP_SUMMARY" ]]; then
       {

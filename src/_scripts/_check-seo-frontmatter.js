@@ -40,12 +40,16 @@ function annotate(level, file, line, message) {
   // attach the annotation to the file, but the plain workflow log only shows the
   // message — so without this the log line has no idea which page is at fault.
   const loc = line ? `${file}:${line}` : file;
-  const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
+  const msg = `${loc} — ${message}`;
   if (inActions) {
+    // Escape per the GitHub Actions command protocol so a crafted filename or
+    // message can't forge/corrupt the annotation (data vs. property escaping).
+    const escData = (s) => String(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    const escProp = (s) => escData(s).replace(/,/g, '%2C').replace(/:/g, '%3A');
     const lineAttr = line ? `,line=${line}` : '';
-    console.log(`::${level} file=${file}${lineAttr},title=SEO front matter::${msg}`);
+    console.log(`::${level} file=${escProp(file)}${lineAttr},title=SEO front matter::${escData(msg)}`);
   } else {
-    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${msg}`);
+    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${msg.replace(/\n/g, ' ')}`);
   }
 }
 
