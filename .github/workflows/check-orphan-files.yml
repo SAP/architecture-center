@@ -59,6 +59,11 @@ jobs:
           found_warn=0
           { echo "### Orphan files check"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
 
+          # Escape untrusted filenames for the Actions command channel so a crafted
+          # path (newline, %, comma, colon) can't forge or corrupt annotations.
+          esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+          esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+
           for file in "${SCAN_FILES[@]}"; do
             [ -z "$file" ] && continue
             basename_file=$(basename "$file")
@@ -93,12 +98,12 @@ jobs:
               # so a genuinely shared asset never blocks the PR.
               echo "- ⚠️ \`${file}\` — referenced only outside its RA directory (shared asset, or possible orphan masked by a same-named file)" >> "$GITHUB_STEP_SUMMARY"
               [ -n "$GITHUB_ACTIONS" ] && \
-                echo "::warning file=${file},title=Orphan files::Referenced only outside its own RA directory — verify this asset is actually used."
+                echo "::warning file=$(esc_prop "$file"),title=Orphan files::Referenced only outside its own RA directory — verify this asset is actually used."
               found_warn=1
             else
               echo "- ❌ \`${file}\`" >> "$GITHUB_STEP_SUMMARY"
               [ -n "$GITHUB_ACTIONS" ] && \
-                echo "::error file=${file},title=Orphan files::Asset is not referenced in any Markdown file"
+                echo "::error file=$(esc_prop "$file"),title=Orphan files::Asset is not referenced in any Markdown file"
               found_unused=1
             fi
           done

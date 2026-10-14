@@ -60,13 +60,18 @@ jobs:
           found=0
           summary_lines=()
 
+          # Escape untrusted filenames for the Actions command channel so a crafted
+          # path (newline, %, comma, colon) can't forge or corrupt annotations.
+          esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+          esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+
           while IFS= read -r -d '' file; do
             [ -f "$file" ] || continue
             SIZE=$(wc -c < "$file")
             if [ "$SIZE" -gt "$MAX_BYTES" ]; then
               SIZE_KB=$(( SIZE / 1024 ))
               echo "❌ ${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
-              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio size::${file} is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
+              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=$(esc_prop "$file"),title=drawio size::$(esc_data "$file") is too large (${SIZE_KB} KB). Maximum allowed size is 1024 KB."
               summary_lines+=("- ❌ \`${file}\` — ${SIZE_KB} KB (limit: 1024 KB)")
               found=1
             fi
@@ -101,13 +106,18 @@ jobs:
           found=0
           summary_lines=()
 
+          # Escape untrusted filenames for the Actions command channel so a crafted
+          # path (newline, %, comma, colon) can't forge or corrupt annotations.
+          esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+          esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+
           while IFS= read -r -d '' file; do
             [ -f "$file" ] || continue
             MATCHES=$(grep -F 'image=http' "$file" || true)
             if [ -n "$MATCHES" ]; then
               echo "❌ ${file} contains external image references (image=http)."
               echo "   External images are not allowed in drawio files. Please embed the image directly."
-              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=${file},title=drawio external image::${file} contains an external image reference (image=http). Embed the image directly."
+              [ -n "$GITHUB_ACTIONS" ] && echo "::error file=$(esc_prop "$file"),title=drawio external image::$(esc_data "$file") contains an external image reference (image=http). Embed the image directly."
               summary_lines+=("- ❌ \`${file}\` — contains external image reference(s)")
               found=1
             fi
