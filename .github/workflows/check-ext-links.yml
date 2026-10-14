@@ -62,6 +62,7 @@ jobs:
         with:
           args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
+          jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
