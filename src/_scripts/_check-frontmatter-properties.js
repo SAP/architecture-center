@@ -23,9 +23,11 @@
  *     9. last_update.author      — missing, or different from the PR author
  *
  * Scope:
- *   - Only files changed in the PR, filtered to docs/**\/*.{md,mdx}.
+ *   - Only reference-architecture pages: changed files under docs/ref-arch/RA####/
+ *     (four-digit RA folders), filtered to *.{md,mdx}.
  *   - docs/ref-arch/RA0000/** is excluded (deliberate demo/template page).
- *   - news/** is out of scope (different front matter scheme).
+ *   - Other docs/ pages (e.g. docs/ref-arch/readme.md, docs/community/**) and
+ *     news/** are out of scope (not authored RAs / different front matter scheme).
  *
  * Environment (provided by the workflow; all optional so the script runs
  * locally too):
@@ -224,6 +226,7 @@ function writeCommentArtifact(body, hasFindings) {
 
 function main() {
   const files = resolveFiles()
+    .filter((f) => /^docs\/ref-arch\/RA\d{4}\//.test(f))
     .filter((f) => !f.startsWith(RA0000_PREFIX))
     .sort();
 
