@@ -21,7 +21,7 @@ permissions: {}
 
 concurrency:
   # Serialize per PR source so overlapping check completions don't corrupt the comment.
-  group: pr-check-comment-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  group: ${{ format('pr-check-comment-{0}-{1}', github.event.workflow_run.head_repository.full_name, github.event.workflow_run.head_branch) }}
   cancel-in-progress: false
 
 jobs:
