@@ -54,7 +54,7 @@ jobs:
               p.head && p.head.sha === headSha &&
               p.head.ref === headBranch &&
               p.head.repo && p.head.repo.full_name === headRepo
-            ) || prs.find(p => p.state === 'open');
+            );
             core.setOutput('pr', match ? String(match.number) : '');
 
             // Latest "Check External Links" run for this commit (its findings live in
