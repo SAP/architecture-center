@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only assets added/modified vs the PR base.
-          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
             | grep -E '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-assets.txt" ]; then
             {

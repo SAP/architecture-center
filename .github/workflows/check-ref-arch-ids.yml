@@ -39,7 +39,7 @@ jobs:
           # Changed-files scope: only changed readme.md fail the check. The script
           # still reads EVERY readme to validate global id/slug uniqueness, then
           # reports only collisions/errors that involve a changed file.
-          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
             | grep -E '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {

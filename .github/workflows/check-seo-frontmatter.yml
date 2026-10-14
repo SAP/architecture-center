@@ -43,7 +43,7 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only docs Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
             | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {

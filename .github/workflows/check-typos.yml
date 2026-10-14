@@ -43,9 +43,16 @@ jobs:
         shell: bash
         run: |
           # Changed-files scope: only Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
             | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
+          elif ! git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- _typos.toml; then
+            # _typos.toml changed but no Markdown did: scan the whole corpus so the
+            # new typo config is actually exercised and its impact is visible.
+            echo "ℹ️ _typos.toml changed with no Markdown changes — scanning full corpus."
+            FILES=(docs news)
+          else
             {
               echo "### Typo check"
               echo ""
@@ -54,7 +61,6 @@ jobs:
             echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
             exit 0
           fi
-          mapfile -t FILES < "$RUNNER_TEMP/changed.txt"
           rc=0
           typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
           # Emit named inline annotations (title= not supported by problem matchers).

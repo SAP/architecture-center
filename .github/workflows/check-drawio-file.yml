@@ -35,7 +35,7 @@ jobs:
         # `|| true` is required: grep exits 1 when no .drawio changed, which would
         # otherwise fail the step under bash's default -eo pipefail.
         run: |
-          git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" \
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" \
             | grep -E '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-drawio.txt" ]; then
             {
