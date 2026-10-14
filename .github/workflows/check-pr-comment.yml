@@ -8,8 +8,6 @@ name: PR Check Comment
 on:
   workflow_run:
     workflows:
-      - Check Typos
-      - Check Spelling
       - Check Internal Links
       - Check SEO Front Matter
       - Check Reference Architecture IDs
@@ -93,8 +91,10 @@ jobs:
             const prNumber = Number(process.env.PR);
             const headSha = process.env.HEAD_SHA;
 
+            // Typos and Spelling are intentionally excluded — they are not surfaced
+            // in the PR comment (they annotate inline on the Files tab instead).
             const CHECKS = [
-              'Check Typos', 'Check Spelling', 'Check Internal Links',
+              'Check Internal Links',
               'Check SEO Front Matter', 'Check Reference Architecture IDs',
               'Check drawio Files', 'Check Orphan Files', 'Check External Links',
             ];
