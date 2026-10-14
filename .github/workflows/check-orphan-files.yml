@@ -42,6 +42,11 @@ jobs:
           git diff --name-only --diff-filter=AM "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
             | grep -E '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
           if [ ! -s "$RUNNER_TEMP/changed-assets.txt" ]; then
+            {
+              echo "### Orphan files check"
+              echo ""
+              echo "✅ No new or modified assets in this PR — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "✅ No new or modified assets in this PR — nothing to check."
             exit 0
           fi
@@ -51,7 +56,7 @@ jobs:
           mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
 
           found_unused=0
-          { echo "## Unreferenced Files Report"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
+          { echo "### Orphan files check"; echo ""; } >> "$GITHUB_STEP_SUMMARY"
 
           for file in "${SCAN_FILES[@]}"; do
             [ -z "$file" ] && continue
