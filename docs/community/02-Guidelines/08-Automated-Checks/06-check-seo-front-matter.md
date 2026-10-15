@@ -26,7 +26,7 @@ last_update:
   date: 2026-10-15
 ---
 
-Search engines truncate a page title or description that is too long, and gain nothing from one that is too short. This check measures the length of the `title` and `description` fields in your [front matter](../04-front-matter.md) on every published page under `docs/`, so your pages look their best in search results.
+Search engines truncate a page title or description that is too long, and gain nothing from one that is too short. This check measures the length of the `title` and `description` fields in your [front matter](../04-front-matter.md) on each published `docs/` page your pull request changes, so your pages look their best in search results.
 
 ## What this check does
 
@@ -72,7 +72,7 @@ The message tells you the current character count and the range it should fall i
 
 ### A title that is too long
 
-A 82-character title fails with "way too long" because it exceeds the hard maximum of 65:
+An 82-character title fails with "way too long" because it exceeds the hard maximum of 65:
 
 ```yaml
 # Fails: 82 characters
