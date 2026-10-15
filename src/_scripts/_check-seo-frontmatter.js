@@ -139,11 +139,18 @@ function main() {
     '',
     `Result: **${errors}** error(s), **${warnings}** warning(s).`,
     '',
-  ].join('\n');
+  ];
 
-  console.log('\n' + summary);
+  if (errors > 0 || warnings > 0) {
+    summary.push('');
+    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/community/automated-checks/seo-front-matter');
+  }
+
+  const summaryText = summary.join('\n');
+
+  console.log('\n' + summaryText);
   if (process.env.GITHUB_STEP_SUMMARY) {
-    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryText + '\n');
   }
 
   if (errors > 0) {
