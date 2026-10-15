@@ -79,6 +79,8 @@ jobs:
               echo '```'
               cat "$RUNNER_TEMP/typos.txt"
               echo '```'
+              echo ""
+              echo "📖 How to fix (correct the typo, or allow a valid term in _typos.toml): https://architecture.learning.sap.com/community/automated-checks/typos"
             } >> "$GITHUB_STEP_SUMMARY"
           else
             {
