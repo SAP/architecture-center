@@ -73,7 +73,7 @@ jobs:
         if: steps.scope.outputs.skip != 'true'
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          args: --cache-exclude-status '403, 429, 500..502' --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          args: --max-concurrency 8 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
