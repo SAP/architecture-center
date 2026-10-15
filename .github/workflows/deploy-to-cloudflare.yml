@@ -8,6 +8,11 @@ on:
 
 permissions: {}
 
+concurrency:
+  # Serialise production deploys; never cancel an in-flight deploy to the live site.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build Site

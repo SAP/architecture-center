@@ -158,7 +158,10 @@ jobs:
           node /tmp/audit-to-sarif.js
 
       - name: Upload npm audit SARIF
-        if: always() && hashFiles('npm-audit.sarif') != ''
+        # Fork PRs get a read-only token, so SARIF upload would 403. Upload only on
+        # same-repo events (push/schedule/dispatch, or a same-repo PR); forks still
+        # get the npm-audit text output and the job summary.
+        if: always() && hashFiles('npm-audit.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: npm-audit.sarif
