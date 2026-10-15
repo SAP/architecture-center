@@ -42,15 +42,22 @@ fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4), "utf8");
 // cannot be used, and a bare `npm install` is an unpinned dependency-fetch that
 // OpenSSF Scorecard flags (Pinned-Dependencies). Only the version fields change at
 // release time; the dependency tree is already locked by prior PRs, so we patch the
-// two version fields directly and offline.
+// two version fields in place. The file's existing indentation and trailing newline
+// are preserved so the release diff stays limited to the version lines.
 const lockPath = path.join(process.cwd(), "package-lock.json");
 if (fs.existsSync(lockPath)) {
-  const lock = JSON.parse(fs.readFileSync(lockPath, "utf8"));
+  const raw = fs.readFileSync(lockPath, "utf8");
+  const lock = JSON.parse(raw);
   lock.version = newVersion;
   if (lock.packages && lock.packages[""]) {
     lock.packages[""].version = newVersion;
   }
-  fs.writeFileSync(lockPath, JSON.stringify(lock, null, 2) + "\n", "utf8");
+  // Reuse the lockfile's own indentation (npm matches package.json, e.g. 4 spaces)
+  // instead of hard-coding one, to avoid reformatting the whole file.
+  const indentMatch = raw.match(/\n([ \t]+)"/);
+  const indent = indentMatch ? indentMatch[1] : 2;
+  const trailingNewline = raw.endsWith("\n") ? "\n" : "";
+  fs.writeFileSync(lockPath, JSON.stringify(lock, null, indent) + trailingNewline, "utf8");
 }
 
 console.log(newVersion);
