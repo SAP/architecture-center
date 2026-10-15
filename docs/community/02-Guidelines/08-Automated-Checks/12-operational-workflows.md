@@ -28,7 +28,7 @@ last_update:
 
 Most pages in this section describe the **content checks** that run on your pull request and give you line-by-line feedback. This page is different: it tours the **operational workflows** that build the site, publish it, and keep the supply chain healthy.
 
-Unlike the content checks, these workflows run mostly in the background. As a contributor you rarely interact with them directly. They do their work after your change is merged, or on a schedule. They become relevant to you in one case: when your change touches **dependencies** (`package.json`, the lockfile) or the **workflow files** themselves. If that is you, read on. If you are only editing or adding reference-architecture content, you can safely skim.
+Unlike the content checks, these workflows run mostly in the background. As a contributor you rarely interact with them directly. The build and deployment workflows run after your change is merged or on a schedule, while the security scans run on a schedule and, for CodeQL and the dependency and workflow audits, on your pull request before merge. They become most relevant to you when your change touches **dependencies** (`package.json`, the lockfile) or the **workflow files** themselves. If that is you, read on. If you are only editing or adding reference-architecture content, you can safely skim.
 
 :::info Where these live
 All of these workflows are defined in the [`.github/workflows/`](https://github.com/SAP/architecture-center/tree/main/.github/workflows) directory of the repository. The descriptions below reflect what those files actually do.
@@ -46,7 +46,7 @@ Three workflows build the site; two of them also publish it.
 
 ### Build for GitHub Pages
 
-Whenever a change lands on `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`) and a production build (`npm run build`) on Node.js 24. If the build succeeds, it uploads the compiled site as a Pages artifact. This is the fast sanity check that the site still compiles after a merge, which is why a broken internal link (Docusaurus fails the build on those by default) or malformed front matter can fail it.
+Whenever a change lands on `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`) and a production build (`npm run build`) on Node.js 24. If the build succeeds, it uploads the compiled site as a Pages artifact. This workflow only verifies that the site still compiles after a merge; it does not publish anything (publishing is handled by the deploy workflows). That is why a broken internal link (Docusaurus fails the build on those by default) or malformed front matter can fail it.
 
 ### Deploy to Cloudflare
 
@@ -91,7 +91,7 @@ The `scorecard.yml` workflow runs the [OpenSSF Scorecard](https://github.com/oss
 The `security-audit.yml` workflow is the one most likely to touch your pull request, but only if your change modifies `package.json`, `package-lock.json`, or anything under `.github/workflows/`. It also runs weekly and can be started manually. It bundles several checks:
 
 - **Audit npm scripts**: inspects `package.json` for dangerous lifecycle hooks (such as `preinstall`, `postinstall`, `prepare`) and suspicious command patterns, and flags scripts that pull in and execute code.
-- **npm audit**: runs [`npm audit`](https://docs.npmjs.com/cli/commands/npm-audit) to surface known vulnerabilities in dependencies and uploads the results to the code-scanning dashboard.
+- **npm audit**: runs [`npm audit`](https://docs.npmjs.com/cli/commands/npm-audit) to surface known vulnerabilities in dependencies and uploads the results to the code-scanning dashboard. On a pull request from a fork the dashboard upload is skipped (the token is read-only), but the audit output and job summary still appear.
 - **Audit workflows**: lints every workflow with [actionlint](https://github.com/rhysd/actionlint) and checks for risky patterns, for example unpinned third-party actions or missing permission blocks.
 - **Dependency Review**: on pull requests, uses [GitHub's dependency-review action](https://github.com/actions/dependency-review-action) to block newly introduced dependencies that carry high-severity vulnerabilities or disallowed (strong copyleft) licenses.
 
