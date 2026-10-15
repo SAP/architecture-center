@@ -74,8 +74,12 @@ A warning is not a failure. If the asset is intentionally shared, you can leave 
 The findings show up in three places on your pull request:
 
 - **Inline annotations** on the **Files changed** tab, titled `Orphan files`, marked as an error or a warning on the affected asset.
-- A **Check Orphan Files** section in the sticky PR comment, aggregated with the other content checks.
+- A **Check Orphan Files** section in the sticky PR comment, aggregated with the other content checks. This section lists blocking **errors** only.
 - A **job summary** on the workflow run, listing each flagged asset with a clear status icon.
+
+:::note Warnings are not in the sticky comment
+A non-blocking **warning** (an asset referenced only outside its own RA folder) appears inline on the **Files changed** tab and in the job summary, but not in the sticky PR comment. A pull request with only warnings still shows this check as a pass.
+:::
 
 A clean run simply reports that no unreferenced files were found.
 
