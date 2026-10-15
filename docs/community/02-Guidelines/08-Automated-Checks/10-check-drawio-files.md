@@ -80,7 +80,7 @@ Draw.io can insert an external reference when you paste an image by URL, or drag
 
 Both checks are **blocking**: a failure keeps the pull request from being merged until it is resolved. Results show up in three places:
 
-1. **Inline annotations** on the **Files changed** tab, titled `drawio size` and `drawio external image`, pinned to the offending file.
+1. **Annotations** attached to the offending file, titled `drawio size` and `drawio external image`. They carry no line number, so they appear on the **Checks** tab and at the top of the file on the **Files changed** tab, rather than against a specific line.
 2. A **"Check drawio Files" section** in the sticky summary comment the PR check bot posts on your PR.
 3. A **job summary** on the workflow run, listing each flagged file with its measured size or the external-reference finding.
 
