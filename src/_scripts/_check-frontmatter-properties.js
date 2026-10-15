@@ -269,11 +269,18 @@ function main() {
     '',
     `Checked **${checked}** changed page(s). Result: **${errors}** error(s).`,
     '',
-  ].join('\n');
+  ];
 
-  console.log('\n' + summary);
+  if (errors > 0) {
+    summary.push('');
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/community/automated-checks/front-matter-properties');
+  }
+
+  const summaryText = summary.join('\n');
+
+  console.log('\n' + summaryText);
   if (process.env.GITHUB_STEP_SUMMARY) {
-    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryText + '\n');
   }
 
   // Keep the final line on stdout (same stream as the annotations/summary) and
