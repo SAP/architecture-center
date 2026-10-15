@@ -58,6 +58,7 @@ A few deliberate details about the sticky comment:
 - **[Grammar](04-check-grammar.md) is not in it either.** Grammar suggestions appear on the **Checks** tab.
 - **It is idempotent.** The comment rebuilds its entire body every time a check finishes, so it always reflects your latest commit. Look for the footer line noting the commit it was updated for.
 - **It works on fork pull requests.** The comment is assembled in the base repository's context and never checks out your PR's code, so it can post results even for contributions from a fork, without ever running your changes with a writable token.
+- **It shows blocking errors only.** A non-blocking warning (for example an SEO length outside the recommended range, or an asset referenced only outside its RA folder) appears inline on the **Files changed** tab and in the job summary, not in this comment. A check that reports only warnings still shows as a pass here.
 
 :::info
 If a check does not appear in the sticky comment at all, that usually means its paths did not match your changes, so it never ran. That is normal and expected, not a failure.
