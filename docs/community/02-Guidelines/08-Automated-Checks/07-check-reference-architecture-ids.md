@@ -110,8 +110,8 @@ Here is what each error is telling you to do:
 - **`SLUG MISMATCH`**: set the `slug` to `/ref-arch/<id>`, reusing the exact `id`. If your `id` is `a06a95`, the `slug` is `/ref-arch/a06a95`.
 - **`DUPLICATE id`**: this usually means an `id` was copied from another page. Regenerate the page with the tooling, or give it a different, unused `id` (and update its `slug` to match).
 
-:::tip Let the tooling generate the id for you
-The easiest way to never hit these errors is to not type the `id` by hand. Our no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor and the create-ref-arch-skeleton tooling both generate a valid, unique six-character `id` and a matching `slug` for you when you scaffold a new reference architecture.
+:::tip Let Quick Start generate the id for you
+The easiest way to never hit these errors is to not type the `id` by hand. Our no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor generates the `id` and `slug` for you when you scaffold a new reference architecture. If you start from the create-ref-arch-skeleton template instead, it leaves placeholder values that the Architecture Center team finalises during review, so do not edit them by hand to force this check green.
 :::
 
 ## Related checks
