@@ -123,6 +123,10 @@ extend-exclude = [
   "*.svg",
   "*.drawio",
   "docs/ref-arch/RA0000/",
+  "docs/community/02-Guidelines/08-Automated-Checks/01-check-spelling.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/02-dictionaries.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/03-check-typos.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/13-pr-checks-errors-and-warnings.md",
 ]
 ```
 
@@ -133,6 +137,7 @@ extend-exclude = [
 | `*.svg` | Vector graphics markup |
 | `*.drawio` | Draw.io diagram source (see the [Draw.io Files](10-check-drawio-files.md) check and the [diagramming guide](../06-diagrams.md)) |
 | `docs/ref-arch/RA0000/` | The new-RA template, which holds Latin lorem-ipsum placeholder text |
+| The Automated Checks pages that show example misspellings (including this one) | They must display real misspellings such as `recieve` and `teh` as examples. `typos` has no per-line ignore, so the whole file is excluded here. cspell still scans these pages, with a scoped `cspell:ignore` for just the example words |
 
 ## How to fix a reported typo
 
