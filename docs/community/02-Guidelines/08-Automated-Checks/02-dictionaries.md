@@ -92,7 +92,7 @@ Each dictionary has a clear theme. Picking the right one keeps the shared vocabu
 | Dictionary | File | What belongs here | Example terms | Rough size |
 | --- | --- | --- | --- | --- |
 | **SAP** | `.cspell/sap.txt` | SAP acronyms, product names, and SAP-specific terms | `BTP`, `HANA`, `ABAP`, `Fiori`, `Kyma` | ~77 terms |
-| **Industry** | `.cspell/industry.txt` | General cloud, architecture, and AI acronyms and terms (not SAP- or vendor-specific) | `OAuth`, `OIDC`, `gRPC` | ~172 terms |
+| **Industry** | `.cspell/industry.txt` | General cloud, architecture, and AI acronyms and terms (not SAP- or vendor-specific) | `OAuth`, `OIDC`, `gRPC` | ~177 terms |
 | **Partners** | `.cspell/partners.txt` | Partner and competitor names, plus their products and technologies | `AWS`, `Azure`, `Snowflake`, `Kafka` | ~96 terms |
 | **People** | `.cspell/people.txt` | Contributor names and GitHub handles that appear in prose and bylines | author names and handles | ~120 terms |
 
