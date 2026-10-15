@@ -15,7 +15,7 @@ keywords:
   - identity access management
   - agent-to-agent protocol
   - policy enforcement points
-  - sap ai agent hub
+  - sap leanix agent hub
   - sap cloud alm
   - ai agent authentication
   - business ai platform
