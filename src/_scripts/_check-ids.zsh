@@ -136,6 +136,8 @@ else
         echo "❌ Found ${#errors} error(s) across $count files:"
         echo ""
         for err in "${errors[@]}"; do echo "- ${err}"; done
+        echo ""
+        echo "📖 How to fix (fix the id or slug, or let Quick Start generate them): https://architecture.learning.sap.com/community/automated-checks/reference-architecture-ids"
       } >> "$GITHUB_STEP_SUMMARY"
     fi
   fi
