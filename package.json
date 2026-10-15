@@ -144,5 +144,10 @@
     },
     "engines": {
         "node": ">=22.0"
+    },
+    "allowScripts": {
+        "core-js@3.50.0": true,
+        "fsevents@2.3.3": true,
+        "unrs-resolver@1.12.2": true
     }
 }
