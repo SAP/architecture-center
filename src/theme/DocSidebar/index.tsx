@@ -285,9 +285,24 @@ function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]
       // Check if the category originally had children (before domain filtering)
       const hadChildrenBeforeDomainFiltering = (category.items || []).length > 0;
 
-      // Exclude non-archived categories only if they originally had children
       if (!isCategoryArchived && hadChildrenBeforeDomainFiltering) {
-        return null;
+        // Check if original children were archived (indicating we're in archive view context)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const hadArchivedChildren = (category.items || []).some((child: any) => {
+          const childDocId = getItemDocId(child, docIdToTags);
+          return childDocId && isDocArchived(childDocId, docIdToTags);
+        });
+
+        if (hadArchivedChildren) {
+          // Archive view: exclude non-archived parent with no archived children in this domain
+          return null;
+        } else {
+          // Normal view: keep only if category itself belongs to this domain
+          const categoryBelongsToDomain = itemBelongsToDomain(category, domainId, docIdToTags);
+          if (!categoryBelongsToDomain) {
+            return null;
+          }
+        }
       }
     }
 
@@ -485,7 +500,7 @@ function buildDomainCategories(
 }
 
 // ============================================================================
-// Desktop Version
+// Shared Filter Navigation Logic
 // ============================================================================
 
 const PARTNER_OPTIONS = [
@@ -498,48 +513,147 @@ const PARTNER_OPTIONS = [
   { value: 'ibm', label: 'IBM' }
 ];
 
-function DocSidebarDesktop(props) {
-  const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
-  const sidebar = useDocsSidebar();
-  const shouldShowFilters = sidebar?.name === 'refarchSidebar';
+interface FilterState {
+  partners: string[];
+  showArchived: boolean;
+  showCommunityContent: boolean;
+}
+
+
+// Ensures all active filters are preserved when changing any single filter.
+function syncUrlParams(
+  currentParams: URLSearchParams,
+  state: FilterState,
+  updates: Partial<{
+    partners: string[] | null;
+    archive: boolean | null;
+    communityContent: boolean | null;
+  }>
+): URLSearchParams {
+  const params = new URLSearchParams(currentParams);
+
+  // Handle partners
+  if (updates.partners !== undefined) {
+    if (updates.partners && updates.partners.length > 0) {
+      params.set('partners', updates.partners.join(','));
+    } else {
+      params.delete('partners');
+    }
+  } else if (state.partners.length > 0 && !params.get('partners')) {
+    params.set('partners', state.partners.join(','));
+  }
+
+  // Handle archive
+  if (updates.archive !== undefined) {
+    if (updates.archive) {
+      params.set('archive', 'true');
+    } else {
+      params.delete('archive');
+    }
+  } else if (state.showArchived && !params.get('archive')) {
+    params.set('archive', 'true');
+  }
+
+  // Handle communityContent
+  if (updates.communityContent !== undefined) {
+    if (updates.communityContent) {
+      params.set('communityContent', 'true');
+    } else {
+      params.delete('communityContent');
+    }
+  } else if (state.showCommunityContent && !params.get('communityContent')) {
+    params.set('communityContent', 'true');
+  }
+
+  // Clean up legacy param
+  params.delete('techDomains');
+
+  return params;
+}
+
+// Computes filtered sidebar results for a given filter configuration (if current document will exist after filter changes).
+function computeFilteredResults(
+  sidebar: any[],
+  tagsDocId: Record<string, string[]>,
+  config: {
+    showArchived: boolean;
+    partners: string[];
+    showCommunityContent: boolean;
+  }
+): Record<string, any[]> {
+  const archivedFiltered = filterArchivedItems(sidebar, tagsDocId, config.showArchived);
+  const grouped = groupSidebarByDomain(archivedFiltered, tagsDocId);
+  const partnerFiltered = filterGroupedByPartner(grouped.grouped, config.partners, tagsDocId).filtered;
+  const communityFiltered = filterGroupedByCommunityContent(partnerFiltered, config.showCommunityContent, tagsDocId).filtered;
+  return communityFiltered;
+}
+
+// Determines navigation behavior after filter change.
+function determineNavigation(
+  pathname: string,
+  params: URLSearchParams,
+  filteredResults: Record<string, any[]>,
+  tagsDocId: Record<string, string[]>,
+  refArchBase: string
+): { navigate: boolean; url: string } {
+  const willDocExist = docExistsInFilteredResults(pathname, filteredResults);
+  const resultCount = countUniqueDocsInItems(Object.values(filteredResults).flat(), tagsDocId);
+
+  if (resultCount === 0 || !willDocExist) {
+    // Navigate to base with params
+    const paramStr = params.toString();
+    return {
+      navigate: true,
+      url: paramStr ? `${refArchBase}?${paramStr}` : refArchBase
+    };
+  }
+
+  // Stay on current document
+  const paramStr = params.toString();
+  return {
+    navigate: false,
+    url: paramStr ? `${pathname}?${paramStr}` : pathname
+  };
+}
+
+// Custom hook provides all filter navigation handlers, shared between Desktop and Mobile sidebar components.
+function useFilterNavigation(
+  sidebar: any[],
+  tagsDocId: Record<string, string[]>
+) {
   const location = useLocation();
   const history = useHistory();
   const refArchBase = useBaseUrl('/docs/ref-arch');
-  const {
-    navbar: { hideOnScroll },
-    docs: { sidebar: { hideable } },
-  } = useThemeConfig();
 
   const partners = useSidebarFilterStore(state => state.partners);
   const setPartners = useSidebarFilterStore(state => state.setPartners);
-  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
-  const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const showArchived = useSidebarFilterStore(state => state.showArchived);
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
   const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
+  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
+  const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Filter out archived items first (before domain grouping)
+  const currentState: FilterState = { partners, showArchived, showCommunityContent };
+
+  // Memoized filtered results for current state
   const nonArchivedSidebar = useMemo(
-    () => filterArchivedItems(props.sidebar, tagsDocId, showArchived),
-    [props.sidebar, tagsDocId, showArchived]
+    () => filterArchivedItems(sidebar, tagsDocId, showArchived),
+    [sidebar, tagsDocId, showArchived]
   );
 
-  // Group sidebar items by domain
   const grouped = useMemo(
     () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
     [nonArchivedSidebar, tagsDocId]
   );
 
-  // Filter by selected partners
   const { filtered: partnerFiltered } = useMemo(
     () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
     [grouped.grouped, partners, tagsDocId]
   );
 
-  // Filter by community content
   const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
     [partnerFiltered, showCommunityContent, tagsDocId]
@@ -550,38 +664,31 @@ function DocSidebarDesktop(props) {
     [partners]
   );
 
-  if (!shouldShowFilters) {
-    return <DocSidebar {...props} />;
-  }
+  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
   const handlePartnersChange = (selected: { value: string; label: string }[]) => {
     const selectedKeys = selected.map(opt => opt.value);
     setPartners(selectedKeys);
 
-    const params = new URLSearchParams(location.search);
-    if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
-    else params.delete('partners');
-    params.delete('techDomains');
+    const params = syncUrlParams(
+      new URLSearchParams(location.search),
+      currentState,
+      { partners: selectedKeys.length > 0 ? selectedKeys : null }
+    );
 
-    // Preserve community content and archive filters in URL params
-    if (showCommunityContent && !params.get('communityContent')) {
-      params.set('communityContent', 'true');
-    }
-    if (showArchived && !params.get('archive')) {
-      params.set('archive', 'true');
-    }
+    const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
+      showArchived,
+      partners: selectedKeys,
+      showCommunityContent
+    });
 
-    // Check if current document will still be in filtered results with new partners
-    const newPartnerFiltered = filterGroupedByPartner(grouped.grouped, selectedKeys, tagsDocId).filtered;
-    const newFiltered = filterGroupedByCommunityContent(newPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-    const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-    const newResultCount = countUniqueDocsInItems(Object.values(newFiltered).flat(), tagsDocId);
+    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
 
-    if (newResultCount === 0 || !willDocExist) {
-      // Navigate to base ref-arch with the new filters
-      history.replace(`${refArchBase}?${params.toString()}`);
+    if (nav.navigate) {
+      history.replace(nav.url);
     } else {
-      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+      window.history.replaceState({}, '', nav.url);
     }
   };
 
@@ -589,11 +696,15 @@ function DocSidebarDesktop(props) {
     resetFilters();
 
     // Check if current document exists in the default view (no filters)
-    const defaultGrouped = groupSidebarByDomain(filterArchivedItems(props.sidebar, tagsDocId, false), tagsDocId);
-    const willDocExist = docExistsInFilteredResults(location.pathname, defaultGrouped.grouped);
+    const defaultFiltered = computeFilteredResults(sidebar, tagsDocId, {
+      showArchived: false,
+      partners: [],
+      showCommunityContent: false
+    });
+
+    const willDocExist = docExistsInFilteredResults(location.pathname, defaultFiltered);
 
     if (willDocExist) {
-      // Stay on current document, just clear URL params
       window.history.replaceState({}, '', location.pathname);
     } else {
       history.replace(refArchBase);
@@ -606,115 +717,110 @@ function DocSidebarDesktop(props) {
   };
 
   const handleArchiveChange = (value: boolean) => {
-    const params = new URLSearchParams(location.search);
+    setShowArchived(value);
 
-    // Ensure partners from store are included in URL params
-    if (partners.length > 0 && !params.get('partners')) {
-      params.set('partners', partners.join(','));
-    }
+    const params = syncUrlParams(
+      new URLSearchParams(location.search),
+      currentState,
+      { archive: value || null }
+    );
 
-    // Preserve community content filter in URL params
-    if (showCommunityContent && !params.get('communityContent')) {
-      params.set('communityContent', 'true');
-    }
+    const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
+      showArchived: value,
+      partners,
+      showCommunityContent
+    });
 
-    if (value) {
-      setShowArchived(true);
-      params.set('archive', 'true');
+    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
 
-      // Check if current document will exist in the archived view
-      const archivedSidebar = filterArchivedItems(props.sidebar, tagsDocId, true);
-      const archivedGrouped = groupSidebarByDomain(archivedSidebar, tagsDocId);
-      const archivedPartnerFiltered = filterGroupedByPartner(archivedGrouped.grouped, partners, tagsDocId).filtered;
-      const archivedFiltered = filterGroupedByCommunityContent(archivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, archivedFiltered);
-
-      if (willDocExist) {
-        // Stay on current document, just update URL
-        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-      } else {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      }
+    if (nav.navigate) {
+      history.replace(nav.url);
     } else {
-      setShowArchived(false);
-      params.delete('archive');
-
-      // Check if current document will exist in the non-archived view
-      const nonArchivedSidebar = filterArchivedItems(props.sidebar, tagsDocId, false);
-      const nonArchivedGrouped = groupSidebarByDomain(nonArchivedSidebar, tagsDocId);
-      const nonArchivedPartnerFiltered = filterGroupedByPartner(nonArchivedGrouped.grouped, partners, tagsDocId).filtered;
-      const nonArchivedFiltered = filterGroupedByCommunityContent(nonArchivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, nonArchivedFiltered);
-
-      if (willDocExist) {
-        // Stay on current document
-        if (params.toString()) {
-          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-        } else {
-          window.history.replaceState({}, '', location.pathname);
-        }
-      } else if (params.toString()) {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      } else {
-        handleBackToAllDocuments();
-      }
+      window.history.replaceState({}, '', nav.url);
     }
   };
 
   const handleCommunityContentChange = (value: boolean) => {
-    const params = new URLSearchParams(location.search);
+    setShowCommunityContent(value);
 
-    // Ensure partners from store are included in URL params
-    if (partners.length > 0 && !params.get('partners')) {
-      params.set('partners', partners.join(','));
-    }
+    const params = syncUrlParams(
+      new URLSearchParams(location.search),
+      currentState,
+      { communityContent: value || null }
+    );
 
-    // Preserve archive filter in URL params
-    if (showArchived && !params.get('archive')) {
-      params.set('archive', 'true');
-    }
+    const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
+      showArchived,
+      partners,
+      showCommunityContent: value
+    });
 
-    if (value) {
-      setShowCommunityContent(true);
-      params.set('communityContent', 'true');
+    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
 
-      // Check if current document will still be in filtered results
-      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, true, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-
-      if (willDocExist) {
-        // Stay on current document, just update URL
-        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-      } else {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      }
+    if (nav.navigate) {
+      history.replace(nav.url);
     } else {
-      setShowCommunityContent(false);
-      params.delete('communityContent');
-
-      // Check if current document exists in the new filtered results (without community content filter)
-      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, false, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-
-      if (willDocExist) {
-        // Stay on current document
-        if (params.toString()) {
-          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-        } else {
-          window.history.replaceState({}, '', location.pathname);
-        }
-      } else if (params.toString()) {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      } else {
-        handleBackToAllDocuments();
-      }
+      window.history.replaceState({}, '', nav.url);
     }
   };
 
-  // Count unique docs from the filtered results (respects both archived and partner filters)
-  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
+  return {
+    // State
+    partners,
+    showArchived,
+    showCommunityContent,
+    searchTerm,
+    expandedDomains,
+    selectedPartnerOptions,
+    filteredGrouped,
+    resultCount,
+    domainCategories,
 
-  const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
+    // Handlers
+    handlePartnersChange,
+    handleArchiveChange,
+    handleCommunityContentChange,
+    handleResetFilters,
+    handleBackToAllDocuments,
+    setSearchTerm,
+
+    // Computed
+    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent
+  };
+}
+
+// ============================================================================
+// Desktop Version
+// ============================================================================
+
+function DocSidebarDesktop(props) {
+  const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
+  const sidebar = useDocsSidebar();
+  const shouldShowFilters = sidebar?.name === 'refarchSidebar';
+  const location = useLocation();
+  const {
+    navbar: { hideOnScroll },
+    docs: { sidebar: { hideable } },
+  } = useThemeConfig();
+
+  const {
+    selectedPartnerOptions,
+    resultCount,
+    domainCategories,
+    searchTerm,
+    showArchived,
+    showCommunityContent,
+    isResetEnabled,
+    handlePartnersChange,
+    handleArchiveChange,
+    handleCommunityContentChange,
+    handleResetFilters,
+    setSearchTerm
+  } = useFilterNavigation(props.sidebar, tagsDocId);
+
+  if (!shouldShowFilters) {
+    return <DocSidebar {...props} />;
+  }
 
   return (
     <div className={clsx(
@@ -727,7 +833,7 @@ function DocSidebarDesktop(props) {
           selectedPartners={selectedPartnerOptions}
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
-          isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent}
+          isResetEnabled={isResetEnabled}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           resultCount={resultCount}
@@ -763,205 +869,21 @@ function DocSidebarDesktop(props) {
 
 function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin'].default?.docIdToTags;
-  const location = useLocation();
-  const partners = useSidebarFilterStore(state => state.partners);
-  const setPartners = useSidebarFilterStore(state => state.setPartners);
-  const resetFilters = useSidebarFilterStore(state => state.resetFilters);
-  const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
-  const showArchived = useSidebarFilterStore(state => state.showArchived);
-  const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
-  const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
-  const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
-  const history = useHistory();
-  const refArchBase = useBaseUrl('/docs/ref-arch');
 
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const selectedPartnerOptions = PARTNER_OPTIONS.filter(opt => partners.includes(opt.value));
-
-  // Filter out archived items first (before domain grouping)
-  const nonArchivedSidebar = useMemo(
-    () => filterArchivedItems(sidebar, tagsDocId, showArchived),
-    [sidebar, tagsDocId, showArchived]
-  );
-
-  const grouped = useMemo(
-    () => groupSidebarByDomain(nonArchivedSidebar, tagsDocId),
-    [nonArchivedSidebar, tagsDocId]
-  );
-
-  // Filter by selected partners
-  const { filtered: partnerFiltered } = useMemo(
-    () => filterGroupedByPartner(grouped.grouped, partners, tagsDocId),
-    [grouped.grouped, partners, tagsDocId]
-  );
-
-  // Filter by community content
-  const { filtered: filteredGrouped } = useMemo(
-    () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
-    [partnerFiltered, showCommunityContent, tagsDocId]
-  );
-
-  const handlePartnersChange = (selected: { value: string; label: string }[]) => {
-    const selectedKeys = selected.map(opt => opt.value);
-    setPartners(selectedKeys);
-
-    const params = new URLSearchParams(location.search);
-    if (selectedKeys.length) params.set('partners', selectedKeys.join(','));
-    else params.delete('partners');
-    params.delete('techDomains');
-
-    // Preserve community content and archive filters in URL params
-    if (showCommunityContent && !params.get('communityContent')) {
-      params.set('communityContent', 'true');
-    }
-    if (showArchived && !params.get('archive')) {
-      params.set('archive', 'true');
-    }
-
-    // Check if current document will still be in filtered results with new partners
-    const newPartnerFiltered = filterGroupedByPartner(grouped.grouped, selectedKeys, tagsDocId).filtered;
-    const newFiltered = filterGroupedByCommunityContent(newPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-    const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-    const newResultCount = countUniqueDocsInItems(Object.values(newFiltered).flat(), tagsDocId);
-
-    if (newResultCount === 0 || !willDocExist) {
-      history.replace(`${refArchBase}?${params.toString()}`);
-    } else {
-      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-    }
-  };
-
-  const handleResetFilters = () => {
-    resetFilters();
-
-    // Check if current document exists in the default view (no filters)
-    const defaultGrouped = groupSidebarByDomain(filterArchivedItems(sidebar, tagsDocId, false), tagsDocId);
-    const willDocExist = docExistsInFilteredResults(location.pathname, defaultGrouped.grouped);
-
-    if (willDocExist) {
-      // Stay on current document, just clear URL params
-      window.history.replaceState({}, '', location.pathname);
-    } else {
-      history.replace(refArchBase);
-    }
-  };
-
-  const handleBackToAllDocuments = () => {
-    resetFilters();
-    history.replace(refArchBase);
-  };
-
-  const handleArchiveChange = (value: boolean) => {
-    const params = new URLSearchParams(location.search);
-
-    // Ensure partners from store are included in URL params
-    if (partners.length > 0 && !params.get('partners')) {
-      params.set('partners', partners.join(','));
-    }
-
-    // Preserve community content filter in URL params
-    if (showCommunityContent && !params.get('communityContent')) {
-      params.set('communityContent', 'true');
-    }
-
-    if (value) {
-      setShowArchived(true);
-      params.set('archive', 'true');
-
-      // Check if current document will exist in the archived view
-      const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
-      const archivedGrouped = groupSidebarByDomain(archivedSidebar, tagsDocId);
-      const archivedPartnerFiltered = filterGroupedByPartner(archivedGrouped.grouped, partners, tagsDocId).filtered;
-      const archivedFiltered = filterGroupedByCommunityContent(archivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, archivedFiltered);
-
-      if (willDocExist) {
-        // Stay on current document, just update URL
-        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-      } else {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      }
-    } else {
-      setShowArchived(false);
-      params.delete('archive');
-
-      // Check if current document will exist in the non-archived view
-      const nonArchivedSidebar = filterArchivedItems(sidebar, tagsDocId, false);
-      const nonArchivedGrouped = groupSidebarByDomain(nonArchivedSidebar, tagsDocId);
-      const nonArchivedPartnerFiltered = filterGroupedByPartner(nonArchivedGrouped.grouped, partners, tagsDocId).filtered;
-      const nonArchivedFiltered = filterGroupedByCommunityContent(nonArchivedPartnerFiltered, showCommunityContent, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, nonArchivedFiltered);
-
-      if (willDocExist) {
-        // Stay on current document
-        if (params.toString()) {
-          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-        } else {
-          window.history.replaceState({}, '', location.pathname);
-        }
-      } else if (params.toString()) {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      } else {
-        handleBackToAllDocuments();
-      }
-    }
-  };
-
-  const handleCommunityContentChange = (value: boolean) => {
-    const params = new URLSearchParams(location.search);
-
-    // Ensure partners from store are included in URL params
-    if (partners.length > 0 && !params.get('partners')) {
-      params.set('partners', partners.join(','));
-    }
-
-    // Preserve archive filter in URL params
-    if (showArchived && !params.get('archive')) {
-      params.set('archive', 'true');
-    }
-
-    if (value) {
-      setShowCommunityContent(true);
-      params.set('communityContent', 'true');
-
-      // Check if current document will still be in filtered results
-      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, true, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-
-      if (willDocExist) {
-        // Stay on current document, just update URL
-        window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-      } else {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      }
-    } else {
-      setShowCommunityContent(false);
-      params.delete('communityContent');
-
-      // Check if current document exists in the new filtered results (without community content filter)
-      const newFiltered = filterGroupedByCommunityContent(partnerFiltered, false, tagsDocId).filtered;
-      const willDocExist = docExistsInFilteredResults(location.pathname, newFiltered);
-
-      if (willDocExist) {
-        // Stay on current document
-        if (params.toString()) {
-          window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
-        } else {
-          window.history.replaceState({}, '', location.pathname);
-        }
-      } else if (params.toString()) {
-        history.replace(`${refArchBase}?${params.toString()}`);
-      } else {
-        handleBackToAllDocuments();
-      }
-    }
-  };
-
-  // Count unique docs from the filtered results (respects both archived and partner filters)
-  const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
-
-  const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
+  const {
+    selectedPartnerOptions,
+    resultCount,
+    domainCategories,
+    searchTerm,
+    showArchived,
+    showCommunityContent,
+    isResetEnabled,
+    handlePartnersChange,
+    handleArchiveChange,
+    handleCommunityContentChange,
+    handleResetFilters,
+    setSearchTerm
+  } = useFilterNavigation(sidebar, tagsDocId);
 
   return (
     <>
@@ -970,7 +892,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         selectedPartners={selectedPartnerOptions}
         onPartnersChange={handlePartnersChange}
         resetFilters={handleResetFilters}
-        isResetEnabled={partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent}
+        isResetEnabled={isResetEnabled}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
         resultCount={resultCount}
