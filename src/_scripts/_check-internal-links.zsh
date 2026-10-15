@@ -106,6 +106,8 @@ if [[ -n "$GITHUB_ACTIONS" ]]; then
       echo "❌ Found ${#hits} internal-only SAP link(s) that break for external visitors:"
       echo ""
       for h in "${hits[@]}"; do echo "- \`$(esc_sum "$h")\`"; done
+      echo ""
+      echo "📖 How to fix (replace the internal-only link with a public one): https://architecture.learning.sap.com/community/automated-checks/internal-links"
     } >> "$GITHUB_STEP_SUMMARY"
   fi
 fi
