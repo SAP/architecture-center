@@ -156,7 +156,7 @@ jobs:
                 const errs = ann.filter(a => a.annotation_level === 'failure');
                 if (!errs.length) {
                   body = cr.status !== 'completed' ? '⏳ Running…'
-                    : (cr.conclusion === 'success' ? '✅ No issues.' : `${icon(cr)} ${esc(cr.conclusion || 'see check run')}`);
+                    : (cr.conclusion === 'success' ? '✅ No issues.' : `${icon(cr)} ${esc(cr.conclusion || 'see check run')}. See the [check run](${cr.html_url}).`);
                 } else {
                   totalErrors += errs.length;
                   const bullets = errs.slice(0, MAX_BULLETS).map(a => {
