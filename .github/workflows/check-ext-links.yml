@@ -87,6 +87,12 @@ jobs:
           if [ -f ./lychee/out.md ]; then
             { echo "### External links check"; echo ""; cat ./lychee/out.md; } >> "$GITHUB_STEP_SUMMARY"
           fi
+          if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
+            {
+              echo ""
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/community/automated-checks/external-links"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       # External links report to the job summary (not annotations), so expose it as
       # an artifact for the PR-comment aggregator (check-pr-comment.yml) to pick up.
