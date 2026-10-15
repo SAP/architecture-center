@@ -37,4 +37,20 @@ pkg.version = newVersion;
 
 fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4), "utf8");
 
+// Keep package-lock.json in sync WITHOUT running `npm install`.
+// This repo uses a non-semver version scheme (e.g. "v3.2642.1"), so `npm version`
+// cannot be used, and a bare `npm install` is an unpinned dependency-fetch that
+// OpenSSF Scorecard flags (Pinned-Dependencies). Only the version fields change at
+// release time; the dependency tree is already locked by prior PRs, so we patch the
+// two version fields directly and offline.
+const lockPath = path.join(process.cwd(), "package-lock.json");
+if (fs.existsSync(lockPath)) {
+  const lock = JSON.parse(fs.readFileSync(lockPath, "utf8"));
+  lock.version = newVersion;
+  if (lock.packages && lock.packages[""]) {
+    lock.packages[""].version = newVersion;
+  }
+  fs.writeFileSync(lockPath, JSON.stringify(lock, null, 2) + "\n", "utf8");
+}
+
 console.log(newVersion);
