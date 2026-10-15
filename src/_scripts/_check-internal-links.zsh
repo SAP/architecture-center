@@ -92,6 +92,9 @@ if [[ -n "$GITHUB_ACTIONS" ]]; then
   # filename or URL can't forge/corrupt annotations (data vs. property escaping).
   esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; print -rn -- "$s"; }
   esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; print -rn -- "$s"; }
+  # Neutralise backticks/newlines in a PR-controlled path before it goes into a
+  # Markdown inline-code span in the job summary, so it cannot break out of it.
+  esc_sum() { printf '%s' "$1" | tr '`\n\r' '   '; }
   for h in "${hits[@]}"; do
     rel="${h%%:*}"; rest="${h#*:}"; lineno="${rest%%:*}"; url="${rest#*:}"
     echo "::error file=$(esc_prop "${rel}"),line=${lineno},title=Internal link::$(esc_data "Internal-only SAP link (breaks for external visitors): ${url}")"
@@ -102,7 +105,7 @@ if [[ -n "$GITHUB_ACTIONS" ]]; then
       echo ""
       echo "❌ Found ${#hits} internal-only SAP link(s) that break for external visitors:"
       echo ""
-      for h in "${hits[@]}"; do echo "- \`${h}\`"; done
+      for h in "${hits[@]}"; do echo "- \`$(esc_sum "$h")\`"; done
     } >> "$GITHUB_STEP_SUMMARY"
   fi
 fi
