@@ -109,7 +109,7 @@ Follow your team's internal onboarding guide before you start.
 ```
 
 :::warning Even "example" internal URLs are flagged
-This page is scanned by this very check. It matches **any** host ending in `*.tools.sap`, `*.int.sap`, `*.sap.corp`, or `sap.sharepoint.com`, whether the host is real or an invented example, and even inside a code block or inline code, because the scan reads the raw text. Labelling a host as a "placeholder" does **not** exempt it. In examples, use a host that does **not** end in one of those patterns at all, as the before/after above does.
+This page is scanned by this very check. It matches **any** host ending in `*.tools.sap`, `*.int.sap`, `*.sap.corp`, or `sap.sharepoint.com` **when it appears as a link** (with `https://`, `http://`, or a protocol-relative `//`), whether the host is real or an invented example, and even inside a code block or inline code, because the scan reads the raw text. A bare mention of such a hostname in prose, with no scheme or `//`, is not flagged. Labelling a host as a "placeholder" does **not** exempt it. In examples, use a host that does **not** end in one of those patterns at all, as the before/after above does.
 :::
 
 ## Related checks
