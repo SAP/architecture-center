@@ -33,11 +33,13 @@
  * locally too):
  *   PR_AUTHOR   GitHub login of the pull request author
  *   PR_NUMBER   pull request number (written to the comment artifact)
- *   BASE_SHA    base commit of the PR (merge-base diff source)
- *   HEAD_SHA    head commit of the PR
  *   TODAY       run date as YYYY-MM-DD (keeps the script free of new Date())
  *   COMMENT_DIR when set, write the sticky-comment artifact here: body.md,
  *               pr.txt, has-findings.txt (consumed by the comment workflow).
+ *
+ * The set of files to check is passed as CLI arguments by the workflow (the
+ * changed docs Markdown); with no arguments and outside CI the script scans
+ * every docs page so it stays runnable locally.
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
@@ -47,7 +49,6 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const matter = require('gray-matter');
-const { execFileSync } = require('child_process');
 
 const DOCS_GLOB = 'docs/**/*.{md,mdx}';
 const repoRoot = path.join(__dirname, '../..');
@@ -55,8 +56,6 @@ const inActions = Boolean(process.env.GITHUB_ACTIONS);
 
 const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
 const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
-const BASE_SHA = (process.env.BASE_SHA || '').trim();
-const HEAD_SHA = (process.env.HEAD_SHA || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
 const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
@@ -66,12 +65,16 @@ function annotate(file, line, message) {
   // attach the annotation to the file, but the plain workflow log only shows the
   // message — so without this the log line has no idea which page is at fault.
   const loc = line ? `${file}:${line}` : file;
-  const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
+  const msg = `${loc} — ${message}`;
   if (inActions) {
+    // Escape per the GitHub Actions command protocol so a crafted filename or
+    // message can't forge/corrupt the annotation (data vs. property escaping).
+    const escData = (s) => String(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    const escProp = (s) => escData(s).replace(/,/g, '%2C').replace(/:/g, '%3A');
     const lineAttr = line ? `,line=${line}` : '';
-    console.log(`::error file=${file}${lineAttr},title=Front matter properties::${msg}`);
+    console.log(`::error file=${escProp(file)}${lineAttr},title=Front matter properties::${escData(msg)}`);
   } else {
-    console.log(`  error: ${msg}`);
+    console.log(`  error: ${msg.replace(/\n/g, ' ')}`);
   }
 }
 
@@ -99,23 +102,18 @@ function daysBetween(dateStr, todayStr) {
 
 /**
  * Resolve the set of files to check.
- * In CI (BASE_SHA/HEAD_SHA present) → the PR's changed files via git diff.
- * Locally → every docs page, so the script is runnable for debugging.
+ * In CI the workflow passes the PR's changed docs Markdown as CLI arguments
+ * (computed with the same `git diff` incantation as the sibling checks); an
+ * empty argument list therefore means "nothing changed", so nothing is checked.
+ * Locally (no GITHUB_ACTIONS and no arguments) every docs page is scanned so the
+ * script stays runnable for debugging.
  */
 function resolveFiles() {
-  if (BASE_SHA && HEAD_SHA) {
-    const out = execFileSync(
-      'git',
-      ['diff', '--name-only', '--diff-filter=d', `${BASE_SHA}...${HEAD_SHA}`],
-      { cwd: repoRoot, encoding: 'utf8' },
-    );
-    return out
-      .split('\n')
-      .map((f) => f.trim())
-      .filter(Boolean)
-      .filter((f) => /^docs\/.*\.(md|mdx)$/.test(f));
+  const argvFiles = process.argv.slice(2).filter((f) => /^docs\/.*\.(md|mdx)$/.test(f));
+  if (inActions || process.argv.length > 2) {
+    return argvFiles;
   }
-  console.log('No BASE_SHA/HEAD_SHA set — scanning all docs pages (local mode).');
+  console.log('No file arguments — scanning all docs pages (local mode).');
   if (!PR_AUTHOR || !TODAY) {
     console.log('Note: PR_AUTHOR/TODAY unset — author and date checks are skipped locally.\n');
   }
@@ -175,7 +173,7 @@ function checkFile(rel, raw, data) {
     } else if (age < 0) {
       warn('last_update', `last_update.date (${dateStr}) is in the future; expected today or an earlier date.`);
     } else if (age > STALE_DAYS) {
-      warn('last_update', `last_update.date (${dateStr}) is ${age} days old; consider bumping it to a recent date.`);
+      warn('last_update', `last_update.date (${dateStr}) exceeds the ${STALE_DAYS}-day freshness window; set it to a recent date. This fails the check.`);
     }
   }
 
@@ -271,11 +269,18 @@ function main() {
     '',
     `Checked **${checked}** changed page(s). Result: **${errors}** error(s).`,
     '',
-  ].join('\n');
+  ];
 
-  console.log('\n' + summary);
+  if (errors > 0) {
+    summary.push('');
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/community/automated-checks/front-matter-properties');
+  }
+
+  const summaryText = summary.join('\n');
+
+  console.log('\n' + summaryText);
   if (process.env.GITHUB_STEP_SUMMARY) {
-    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryText + '\n');
   }
 
   // Keep the final line on stdout (same stream as the annotations/summary) and

@@ -8,6 +8,11 @@ on:
 
 permissions: {}
 
+concurrency:
+  # Serialise production deploys; never cancel an in-flight deploy to the live site.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build Site
@@ -25,6 +30,7 @@ jobs:
           # fetch complete history for step "export drawios" to safely determine
           # date of last update to drawio files via git log
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
