@@ -86,7 +86,7 @@ Where you see the findings depends on how you opened the PR:
 | Your situation | Where suggestions show up |
 | --- | --- |
 | Branch on the main repository (core contributors) | Annotations on the **Checks** tab, inline on your changed lines (`github-pr-check`) |
-| Pull request from a **fork** | GitHub issues a read-only token, so annotations cannot be posted, and the suggestions appear in the **Actions run log** instead |
+| Pull request from a **fork** | GitHub issues a read-only token, so the Checks-tab annotations cannot be posted. Open the grammar step's **Actions run log** to see the raw output, and a maintainer can relay any grammar suggestions on the pull request if needed |
 
 If you contributed through a fork (the recommended path for most community members) and do not see inline annotations, that is expected. Open the workflow run from the **Actions** tab and read the grammar step's log to see the same suggestions.
 
