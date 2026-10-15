@@ -51,7 +51,7 @@ The check is **incremental**: it only looks at Markdown that was **added or modi
 | Also triggers on | Changes to `cspell.json`, `.cspell/**`, or the workflow file itself |
 | Runtime | Node.js 24, cspell 9.1.0 |
 
-In short: if your pull request changes a Markdown page under `docs/` or `news/`, or touches the spelling configuration, this check runs against just those changed files.
+In short: if your pull request changes a Markdown page under `docs/` or `news/`, or touches the spelling configuration, this check runs against just those changed files. A pull request that changes only the spelling configuration, with no Markdown, has nothing to re-check and passes automatically; the configuration simply takes effect the next time a page that relies on it changes.
 
 ## When it blocks your PR
 
