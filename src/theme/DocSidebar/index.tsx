@@ -20,6 +20,8 @@ import {
   findDocIdFromPath,
   docExistsInArchivedView,
   findDocByPath,
+  computeFilteredResults,
+  findDomainsContainingPath,
 } from './filterUtils';
 import { useFilterNavigation, PARTNER_OPTIONS } from './useFilterNavigation';
 
@@ -292,18 +294,36 @@ export default function DocSidebarWrapper(props) {
       return;
     }
 
-    if (docId && tagsDocId[docId]) {
-      const docTags = tagsDocId[docId] || [];
-      const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
+    // Compute expanded domains based on where document appears in filtered results to ensure consistency with filter handlers
+    if (docId) {
+      const currentShowArchivedState = useSidebarFilterStore.getState().showArchived;
+      const currentPartnersState = useSidebarFilterStore.getState().partners;
+      const currentCommunityState = useSidebarFilterStore.getState().showCommunityContent;
 
-      const matchingDomains = domainIds.filter(domainId => {
-        if (docTags.includes(domainId)) return true;
-        const domainTags = categoryIdToTags[domainId] || [];
-        return domainTags.some(tag => docTags.includes(tag));
+      const filteredResults = computeFilteredResults(props.sidebar, tagsDocId, {
+        showArchived: currentShowArchivedState,
+        partners: currentPartnersState,
+        showCommunityContent: currentCommunityState
       });
 
-      if (matchingDomains.length > 0) {
-        setExpandedDomains(matchingDomains);
+      const domainsWithDoc = findDomainsContainingPath(location.pathname, filteredResults);
+
+      if (domainsWithDoc.length > 0) {
+        setExpandedDomains(domainsWithDoc);
+      } else if (tagsDocId[docId]) {
+        // Fallback to tag-based matching only if document not found in filtered results
+        const docTags = tagsDocId[docId] || [];
+        const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
+
+        const matchingDomains = domainIds.filter(domainId => {
+          if (docTags.includes(domainId)) return true;
+          const domainTags = categoryIdToTags[domainId] || [];
+          return domainTags.some(tag => docTags.includes(tag));
+        });
+
+        if (matchingDomains.length > 0) {
+          setExpandedDomains(matchingDomains);
+        }
       }
     }
   }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, shouldShowFilters, tagsDocId, props.sidebar]);

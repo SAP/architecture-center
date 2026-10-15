@@ -10,6 +10,35 @@ export interface FilterState {
   showCommunityContent: boolean;
 }
 
+export interface SidebarDocItem {
+  type: 'doc';
+  id?: string;
+  docId?: string;
+  href?: string;
+  label?: string;
+}
+
+export interface SidebarLinkItem {
+  type: 'link';
+  id?: string;
+  docId?: string;
+  href?: string;
+  label?: string;
+}
+
+export interface SidebarCategoryItem {
+  type: 'category';
+  label?: string;
+  href?: string;
+  items?: SidebarItem[];
+  link?: { id?: string };
+  collapsible?: boolean;
+  collapsed?: boolean;
+  customProps?: Record<string, unknown>;
+}
+
+export type SidebarItem = SidebarDocItem | SidebarLinkItem | SidebarCategoryItem;
+
 // =============================================================================
 // Constants
 // =============================================================================
@@ -99,7 +128,7 @@ export function findDocIdFromPath(pathname: string, tagsDocId: Record<string, st
 // =============================================================================
 
 // Get document ID from a sidebar item (doc, link, or category)
-export function getItemDocId(item: any, docIdToTags?: Record<string, string[]>): string | null {
+export function getItemDocId(item: SidebarItem, docIdToTags?: Record<string, string[]>): string | null {
   if (item.type === 'doc' || item.type === 'link') {
     return item.docId || item.id || null;
   }
@@ -124,7 +153,7 @@ export function getItemDocId(item: any, docIdToTags?: Record<string, string[]>):
 }
 
 // Check if item belongs to a domain
-export function itemBelongsToDomain(item: any, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+export function itemBelongsToDomain(item: SidebarItem, domainId: string, docIdToTags: Record<string, string[]>): boolean {
   const docId = getItemDocId(item, docIdToTags);
   if (!docId) return false;
 
@@ -136,7 +165,7 @@ export function itemBelongsToDomain(item: any, domainId: string, docIdToTags: Re
 }
 
 // Check if category or any descendant belongs to domain
-export function categoryOrDescendantBelongsToDomain(category: any, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+export function categoryOrDescendantBelongsToDomain(category: SidebarCategoryItem, domainId: string, docIdToTags: Record<string, string[]>): boolean {
   // Check category itself
   if (itemBelongsToDomain(category, domainId, docIdToTags)) return true;
 
@@ -159,7 +188,7 @@ export function categoryOrDescendantBelongsToDomain(category: any, domainId: str
 // =============================================================================
 
 // Count total docs in items (for domain category badge)
-export function countTotalDocsInItems(items: any[]): number {
+export function countTotalDocsInItems(items: SidebarItem[]): number {
   let count = 0;
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
@@ -174,7 +203,7 @@ export function countTotalDocsInItems(items: any[]): number {
 }
 
 // Count unique documents across all items (documents can appear in multiple domains)
-export function countUniqueDocsInItems(items: any[], docIdToTags: Record<string, string[]>, seenIds?: Set<string>): number {
+export function countUniqueDocsInItems(items: SidebarItem[], docIdToTags: Record<string, string[]>, seenIds?: Set<string>): number {
   const seen = seenIds || new Set<string>();
 
   for (const item of items) {
@@ -202,8 +231,8 @@ export function countUniqueDocsInItems(items: any[], docIdToTags: Record<string,
 // Sidebar Filtering Functions
 // =============================================================================
 
-export function filterArchivedItems(items: any[], docIdToTags: Record<string, string[]>, showArchived: boolean): any[] {
-  const filterItem = (item: any): any | null => {
+export function filterArchivedItems(items: SidebarItem[], docIdToTags: Record<string, string[]>, showArchived: boolean): SidebarItem[] {
+  const filterItem = (item: SidebarItem): SidebarItem | null => {
     if (item.type === 'doc' || item.type === 'link') {
       const docId = item.docId || item.id;
       const isArchived = docId && isDocArchived(docId, docIdToTags);
@@ -221,28 +250,28 @@ export function filterArchivedItems(items: any[], docIdToTags: Record<string, st
       const categoryDocId = getItemDocId(item, docIdToTags);
       const isCategoryArchived = categoryDocId && isDocArchived(categoryDocId, docIdToTags);
 
-      // Only include or exclude archived categories
-      if (showArchived && !isCategoryArchived) {
-        // Category itself is not archived, but check children for archived items
-      } else if (!showArchived && isCategoryArchived) {
-        return null; // Filter out archived categories
+      // In non-archived view, immediately exclude archived categories
+      if (!showArchived && isCategoryArchived) {
+        return null;
       }
 
-      // Recursively filter children
+      // Recursively filter children (handles both views)
       const filteredItems = (item.items || [])
         .map(filterItem)
-        .filter(Boolean);
+        .filter((i): i is SidebarItem => i !== null);
 
-      // Keep category only if it has matching children
-      if (filteredItems.length === 0 && !showArchived) {
-        // For non-archived view, keep category if it has a non-archived link
-        if (!item.link?.id && !item.href) {
-          return null;
-        }
-      } else if (filteredItems.length === 0 && showArchived) {
-        // For archived view, only keep if category itself is archived
-        if (!isCategoryArchived) {
-          return null;
+      // Determine if category should be kept based on filtered children
+      if (filteredItems.length === 0) {
+        if (showArchived) {
+          // In archived view with no archived children: only keep if category itself is archived
+          if (!isCategoryArchived) {
+            return null;
+          }
+        } else {
+          // In non-archived view with no children: only keep if category has its own link
+          if (!item.link?.id && !item.href) {
+            return null;
+          }
         }
       }
 
@@ -252,7 +281,7 @@ export function filterArchivedItems(items: any[], docIdToTags: Record<string, st
     return item;
   };
 
-  return items.map(filterItem).filter(Boolean);
+  return items.map(filterItem).filter((i): i is SidebarItem => i !== null);
 }
 
 // Get all matching document IDs for given partner tags directly from docIdToTags
@@ -274,15 +303,15 @@ export function getMatchingDocIds(docIdToTags: Record<string, string[]>, partner
 // Domain Grouping
 // =============================================================================
 
-export function groupSidebarByDomain(items: any[], docIdToTags: Record<string, string[]>) {
+export function groupSidebarByDomain(items: SidebarItem[], docIdToTags: Record<string, string[]>) {
   const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
-  const grouped: Record<string, any[]> = {};
+  const grouped: Record<string, SidebarItem[]> = {};
 
   domainIds.forEach(id => { grouped[id] = []; });
 
   // Recursively filter category for domain - Returns null if category should be excluded
-  const filterCategoryForDomain = (category: any, domainId: string): any | null => {
-    const filteredItems = [];
+  const filterCategoryForDomain = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
+    const filteredItems: SidebarItem[] = [];
 
     for (const child of category.items || []) {
       if (child.type === 'doc' || child.type === 'link') {
@@ -309,8 +338,7 @@ export function groupSidebarByDomain(items: any[], docIdToTags: Record<string, s
 
       if (!isCategoryArchived && hadChildrenBeforeDomainFiltering) {
         // Check if original children were archived (indicating we're in archive view context)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const hadArchivedChildren = (category.items || []).some((child: any) => {
+        const hadArchivedChildren = (category.items || []).some((child: SidebarItem) => {
           const childDocId = getItemDocId(child, docIdToTags);
           return childDocId && isDocArchived(childDocId, docIdToTags);
         });
@@ -358,10 +386,10 @@ export function groupSidebarByDomain(items: any[], docIdToTags: Record<string, s
 
 // Filter by partner tags
 export function filterGroupedByPartner(
-  grouped: Record<string, any[]>,
+  grouped: Record<string, SidebarItem[]>,
   selectedPartners: string[],
   docIdToTags: Record<string, string[]>
-): { filtered: Record<string, any[]>; matchingDocIds: Set<string> } {
+): { filtered: Record<string, SidebarItem[]>; matchingDocIds: Set<string> } {
   // Expand partner IDs to include related tags
   const expand = (ids: string[]) =>
     Array.from(new Set(ids.flatMap(id => [id, ...(categoryIdToTags[id] ?? [])])));
@@ -376,8 +404,8 @@ export function filterGroupedByPartner(
   const matchingDocIds = getMatchingDocIds(docIdToTags, partnerTags);
 
   // Recursively filter category to only include matching items
-  const filterCategory = (category: any, domainId: string): any | null => {
-    const filteredItems = [];
+  const filterCategory = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
+    const filteredItems: SidebarItem[] = [];
 
     for (const child of category.items || []) {
       if (child.type === 'doc' || child.type === 'link') {
@@ -413,7 +441,7 @@ export function filterGroupedByPartner(
   };
 
   // Filter each domain's items
-  const filtered: Record<string, any[]> = {};
+  const filtered: Record<string, SidebarItem[]> = {};
 
   Object.entries(grouped).forEach(([domainId, items]) => {
     filtered[domainId] = [];
@@ -438,10 +466,10 @@ export function filterGroupedByPartner(
 
 // Filter by community content tag
 export function filterGroupedByCommunityContent(
-  grouped: Record<string, any[]>,
+  grouped: Record<string, SidebarItem[]>,
   showCommunityContent: boolean,
   docIdToTags: Record<string, string[]>
-): { filtered: Record<string, any[]>; matchingDocIds: Set<string> } {
+): { filtered: Record<string, SidebarItem[]>; matchingDocIds: Set<string> } {
   // If not filtering for community content, return all items
   if (!showCommunityContent) {
     return { filtered: grouped, matchingDocIds: new Set() };
@@ -451,8 +479,8 @@ export function filterGroupedByCommunityContent(
   const matchingDocIds = getMatchingDocIds(docIdToTags, ['community-contrib']);
 
   // Recursively filter category to only include matching items
-  const filterCategory = (category: any, domainId: string): any | null => {
-    const filteredItems = [];
+  const filterCategory = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
+    const filteredItems: SidebarItem[] = [];
 
     for (const child of category.items || []) {
       if (child.type === 'doc' || child.type === 'link') {
@@ -482,7 +510,7 @@ export function filterGroupedByCommunityContent(
     return null;
   };
 
-  const filtered: Record<string, any[]> = {};
+  const filtered: Record<string, SidebarItem[]> = {};
 
   Object.entries(grouped).forEach(([domainId, items]) => {
     filtered[domainId] = [];
@@ -510,15 +538,15 @@ export function filterGroupedByCommunityContent(
 // =============================================================================
 
 export function buildDomainCategories(
-  filteredGrouped: Record<string, any[]>,
+  filteredGrouped: Record<string, SidebarItem[]>,
   expandedDomains: string[]
-) {
+): SidebarCategoryItem[] {
   return DOMAIN_DEFINITIONS.map(domain => {
     const domainItems = filteredGrouped[domain.id] || [];
     const docCount = countTotalDocsInItems(domainItems);
 
     return {
-      type: 'category',
+      type: 'category' as const,
       label: `${domain.label} (${docCount})`,
       items: domainItems,
       collapsible: true,
@@ -589,14 +617,14 @@ export function syncUrlParams(
 
 // Computes filtered sidebar results for a given filter configuration
 export function computeFilteredResults(
-  sidebar: any[],
+  sidebar: SidebarItem[],
   tagsDocId: Record<string, string[]>,
   config: {
     showArchived: boolean;
     partners: string[];
     showCommunityContent: boolean;
   }
-): Record<string, any[]> {
+): Record<string, SidebarItem[]> {
   const archivedFiltered = filterArchivedItems(sidebar, tagsDocId, config.showArchived);
   const grouped = groupSidebarByDomain(archivedFiltered, tagsDocId);
   const partnerFiltered = filterGroupedByPartner(grouped.grouped, config.partners, tagsDocId).filtered;
@@ -609,10 +637,10 @@ export function computeFilteredResults(
 // =============================================================================
 
 // Find if any item (doc, link, or category) matches the pathname
-export function findItemByPath(items: any[], pathname: string): boolean {
+export function findItemByPath(items: SidebarItem[], pathname: string): boolean {
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
-      if (item.href === pathname || pathname.startsWith(item.href)) {
+      if (item.href === pathname || (item.href && pathname.startsWith(item.href))) {
         return true;
       }
     } else if (item.type === 'category') {
@@ -630,7 +658,7 @@ export function findItemByPath(items: any[], pathname: string): boolean {
 // Check if a document exists in the filtered results
 export function docExistsInFilteredResults(
   pathname: string,
-  filteredGrouped: Record<string, any[]>
+  filteredGrouped: Record<string, SidebarItem[]>
 ): boolean {
   const allFilteredItems = Object.values(filteredGrouped).flat();
   return findItemByPath(allFilteredItems, pathname);
@@ -640,7 +668,7 @@ export function docExistsInFilteredResults(
 export function determineNavigation(
   pathname: string,
   params: URLSearchParams,
-  filteredResults: Record<string, any[]>,
+  filteredResults: Record<string, SidebarItem[]>,
   tagsDocId: Record<string, string[]>,
   refArchBase: string
 ): { navigate: boolean; url: string } {
@@ -664,11 +692,11 @@ export function determineNavigation(
   };
 }
 
-export function findDocByPath(items: any[], pathname: string): string | null {
+export function findDocByPath(items: SidebarItem[], pathname: string): string | null {
   for (const item of items) {
     if (item.type === 'doc' || item.type === 'link') {
-      if (item.href === pathname || pathname.startsWith(item.href)) {
-        return item.docId || item.id;
+      if (item.href === pathname || (item.href && pathname.startsWith(item.href))) {
+        return item.docId || item.id || null;
       }
     } else if (item.type === 'category' && item.items) {
       const found = findDocByPath(item.items, pathname);
@@ -682,7 +710,7 @@ export function findDocByPath(items: any[], pathname: string): string | null {
 export function docExistsInArchivedView(
   docId: string,
   pathname: string,
-  sidebar: any[],
+  sidebar: SidebarItem[],
   tagsDocId: Record<string, string[]>
 ): boolean {
   if (isDocArchived(docId, tagsDocId)) {
@@ -692,4 +720,20 @@ export function docExistsInArchivedView(
   const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
   const foundInArchived = findItemByPath(archivedSidebar, pathname);
   return foundInArchived;
+}
+
+// Find which domains contain a document in the filtered/grouped results
+export function findDomainsContainingPath(
+  pathname: string,
+  filteredGrouped: Record<string, SidebarItem[]>
+): string[] {
+  const matchingDomains: string[] = [];
+
+  for (const [domainId, items] of Object.entries(filteredGrouped)) {
+    if (findItemByPath(items, pathname)) {
+      matchingDomains.push(domainId);
+    }
+  }
+
+  return matchingDomains;
 }

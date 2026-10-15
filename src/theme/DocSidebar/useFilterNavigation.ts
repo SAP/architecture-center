@@ -4,6 +4,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import {
   FilterState,
+  SidebarItem,
   PARTNER_OPTIONS,
   filterArchivedItems,
   groupSidebarByDomain,
@@ -15,6 +16,7 @@ import {
   computeFilteredResults,
   determineNavigation,
   docExistsInFilteredResults,
+  findDomainsContainingPath,
 } from './filterUtils';
 
 export { PARTNER_OPTIONS };
@@ -24,7 +26,7 @@ export { PARTNER_OPTIONS };
  * Shared between Desktop and Mobile sidebar components.
  */
 export function useFilterNavigation(
-  sidebar: any[],
+  sidebar: SidebarItem[],
   tagsDocId: Record<string, string[]>
 ) {
   const location = useLocation();
@@ -39,6 +41,7 @@ export function useFilterNavigation(
   const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
+  const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -73,6 +76,23 @@ export function useFilterNavigation(
   const resultCount = countUniqueDocsInItems(Object.values(filteredGrouped).flat(), tagsDocId);
   const domainCategories = buildDomainCategories(filteredGrouped, expandedDomains);
 
+  // Update expanded domains based on which domains contain the current document
+  const updateExpandedDomainsForPath = (filtered: Record<string, SidebarItem[]>) => {
+    const domainsWithDoc = findDomainsContainingPath(location.pathname, filtered);
+    if (domainsWithDoc.length > 0) {
+      setExpandedDomains(domainsWithDoc);
+    }
+  };
+
+  // Apply navigation after filter change
+  const applyNavigation = (nav: { navigate: boolean; url: string }) => {
+    if (nav.navigate) {
+      history.replace(nav.url);
+    } else {
+      window.history.replaceState({}, '', nav.url);
+    }
+  };
+
   const handlePartnersChange = (selected: { value: string; label: string }[]) => {
     const selectedKeys = selected.map(opt => opt.value);
     setPartners(selectedKeys);
@@ -89,28 +109,21 @@ export function useFilterNavigation(
       showCommunityContent
     });
 
-    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
-
-    if (nav.navigate) {
-      history.replace(nav.url);
-    } else {
-      window.history.replaceState({}, '', nav.url);
-    }
+    updateExpandedDomainsForPath(newFiltered);
+    applyNavigation(determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase));
   };
 
   const handleResetFilters = () => {
     resetFilters();
 
-    // Check if current document exists in the default view (no filters)
     const defaultFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived: false,
       partners: [],
       showCommunityContent: false
     });
 
-    const willDocExist = docExistsInFilteredResults(location.pathname, defaultFiltered);
-
-    if (willDocExist) {
+    if (docExistsInFilteredResults(location.pathname, defaultFiltered)) {
+      updateExpandedDomainsForPath(defaultFiltered);
       window.history.replaceState({}, '', location.pathname);
     } else {
       history.replace(refArchBase);
@@ -137,13 +150,8 @@ export function useFilterNavigation(
       showCommunityContent
     });
 
-    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
-
-    if (nav.navigate) {
-      history.replace(nav.url);
-    } else {
-      window.history.replaceState({}, '', nav.url);
-    }
+    updateExpandedDomainsForPath(newFiltered);
+    applyNavigation(determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase));
   };
 
   const handleCommunityContentChange = (value: boolean) => {
@@ -161,13 +169,8 @@ export function useFilterNavigation(
       showCommunityContent: value
     });
 
-    const nav = determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase);
-
-    if (nav.navigate) {
-      history.replace(nav.url);
-    } else {
-      window.history.replaceState({}, '', nav.url);
-    }
+    updateExpandedDomainsForPath(newFiltered);
+    applyNavigation(determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase));
   };
 
   return {
