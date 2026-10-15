@@ -51,7 +51,7 @@ The checks report their findings in three places, so you'll never have to go sea
 3. **One sticky pull request comment** titled **🔎 Content check results**: a single, continuously-updated comment that gathers the content findings grouped by check. It rebuilds itself every time a check finishes, so it always reflects your latest commit (look for the footer noting the commit it was updated for).
 
 :::note
-The sticky comment aggregates the blocking content checks (links, front matter, IDs, Draw.io, orphans). Spelling, typos, and grammar are deliberately **not** repeated in the comment: spelling and typos annotate inline on the **Files changed** tab, right next to the word in question, and grammar posts its advisory notes on the **Checks** tab.
+The sticky comment aggregates the content checks that can block a merge (internal links, external links, SEO front matter, front matter properties, reference architecture IDs, Draw.io files, orphan files), and it shows their blocking **errors** only. Spelling, typos, and grammar are deliberately **not** repeated in the comment: spelling and typos annotate inline on the **Files changed** tab, right next to the word in question, and grammar posts its advisory notes on the **Checks** tab. Non-blocking **warnings**, such as an SEO length just outside the recommended range, stay inline and in the job summary, not in this comment.
 :::
 
 For a full, example-driven walkthrough of what each surface looks like and how to resolve what you find, see [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
