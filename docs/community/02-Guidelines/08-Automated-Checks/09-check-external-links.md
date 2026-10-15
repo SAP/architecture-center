@@ -63,7 +63,7 @@ The check is configured to fail when a link is genuinely broken, so a dead URL w
 
 A couple of details worth knowing:
 
-- **Flaky statuses are handled leniently.** The statuses `403`, `429`, and `500`–`502` are explicitly excluded from caching. These are the "flaky" responses that often clear on their own, so the check is configured not to record them as hard failures.
+- **Transient failures are retried.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. If a flaky `403`, `429`, or `5xx` response persists and fails the check, re-running it (see below) normally resolves it. A link that is genuinely broken stays failed until you fix it.
 - **It fails closed on odd filenames.** As a safety measure, if a changed file path contains anything outside letters, digits, and the characters `. _ / -`, the check refuses to run and reports that instead. This is a security guard against unusual characters in paths from fork pull requests. In practice your file names will never trip this, so just name files normally.
 
 :::note
