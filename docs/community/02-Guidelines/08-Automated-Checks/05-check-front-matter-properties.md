@@ -36,7 +36,7 @@ The check runs on pull requests and inspects **only the RA pages you actually ch
 
 - It lives under a four-digit RA folder: `docs/ref-arch/RA####/` (for example `docs/ref-arch/RA0042/`).
 - Its filename ends in `.md` or `.mdx`.
-- It was added or modified in your pull request (deleted files are ignored).
+- It was added, modified, or renamed in your pull request (deleted files are ignored).
 
 Everything else is **out of scope**, including:
 
