@@ -64,7 +64,7 @@ SAP provides the **Agent Gateway** that enables external clients and application
 **Key Characteristics:**
 
 -   **External Endpoint:** Accessible via a SAP-managed domain
--   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
+-   **Protocol Support:** A2A 0.3 and 1.0
 -   **Authentication:** Secured through SAP Cloud Identity Services (IAS) App2App tokens with named user context
 -   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions
 
@@ -91,7 +91,7 @@ SAP Integration Suite provides the **A2A Connectivity** that enables external cl
 **Key Characteristics:**
 
 -   **External Endpoint:** Accessible via a Customer-managed domain
--   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
+-   **Protocol Support:** A2A 0.3 and 1.0
 -   **Authentication:** Secured through Customer configured Identity Services. 
 -   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions
 

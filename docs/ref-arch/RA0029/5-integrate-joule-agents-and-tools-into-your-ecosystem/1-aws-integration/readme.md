@@ -2,7 +2,7 @@
 id: b4d7e2
 slug: /ref-arch/b4d7e2
 sidebar_position: 1
-title: Amazon Quick with SAP Agent Gateway (A2A via AgentCore)
+title: Amazon Quick with SAP Agent Gateway
 description: >-
   Connect Amazon Quick to SAP Joule Agents, Assistants, and Custom Agents
   through AWS AgentCore and the SAP Agent Gateway, with end-to-end user
@@ -21,7 +21,7 @@ keywords:
   - principal propagation
   - on-behalf-of token exchange
   - business ai platform
-sidebar_label: Amazon Quick / AWS AgentCore (A2A)
+sidebar_label: Amazon Quick / AWS AgentCore
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -45,32 +45,23 @@ last_update:
 Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state that highlights the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular, the [Agent Gateway](../../1-a2a-and-mcp/readme.md#architecture) is not yet GA. The pattern outlined here shows how the integration between AWS and SAP can be done today and will evolve as those capabilities are released.
 :::
 
-[Amazon Quick](https://aws.amazon.com/quicksight/q/) gives users a natural-language chat interface inside AWS. This page describes the **inbound** direction — an Amazon Quick agent **consuming** SAP agents — using the **Agent2Agent (A2A) protocol**, with the actual A2A leg handled by **AWS AgentCore**.
+[Amazon Quick](https://aws.amazon.com/quicksight/q/) gives users a natural-language chat interface inside AWS. This page describes the **inbound** direction — an Amazon Quick agent **consuming** SAP agents, with the actual agent delegation handled by **AWS AgentCore**.
 
-Amazon Quick does not natively speak A2A. **MCP serves as the connector layer**: Quick reaches AgentCore via an MCP connector, and from AgentCore the actual A2A communication with the SAP Agent Gateway takes place. The SAP side, running on the SAP-managed **Business AI Platform (BAIP)**, exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end — from the user's Cognito session all the way to the SAP agent — without any additional sign-in step.
+The integration uses **AWS AgentCore as the bridge**: Quick reaches AgentCore via a connector, and AgentCore handles the communication with the SAP Agent Gateway. The SAP side, running on **SAP Business AI Platform**, exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end — from the user's Cognito session all the way to the SAP agent — without any additional sign-in step.
 
-A2A and MCP are complementary: use **A2A** (this page) when an AWS agent needs to *delegate a task to a specialized SAP agent*, and **MCP** when it needs to *consume SAP capabilities as tools* — see [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md). In practice, a user working in Amazon Quick can hand an SAP-specific task to a Joule Agent, Assistant, or Custom Agent and receive the answer in the flow of work. Because every delegation runs under the signed-in user's identity, the SAP authorizations already in place continue to govern what the agent can do, with full end-to-end traceability.
+A user working in Amazon Quick can hand an SAP-specific task to a Joule Agent, Assistant, or Custom Agent and receive the answer in the flow of work. Because every delegation runs under the signed-in user's identity, the SAP authorizations already in place continue to govern what the agent can do, with full end-to-end traceability.
 
 ## Architecture
 
 ![drawio](./drawio/architecture.drawio)
 
-:::note
-The diagram above currently shows the generic external-consumption architecture for this section. A dedicated AWS (Amazon Quick ↔ SAP, AgentCore token chain) diagram will replace it.
-:::
+## Core Components
 
-### Architecture at a Glance
-
-| Layer | Component | Role |
-| --- | --- | --- |
-| Front end (AWS) | **Amazon Quick** | The chat interface; hosts the MCP connector and its Cognito OAuth session |
-| MCP connector | **AWS AgentCore Gateway + Runtime** | The MCP front door and compute layer; validates the Cognito token, mints the WorkloadAccessToken, runs the MCP server, and orchestrates the SAP call |
-| Identity bridge | **AWS AgentCore Identity** | Performs the on-behalf-of (OBO) token exchange — exchanges the WorkloadAccessToken for an SAP IAS token scoped to the Agent Gateway, without any user interaction |
-| Identity | **Amazon Cognito &rarr; SAP Cloud Identity Services (IAS)** | Cognito authenticates the user and issues the ID token; IAS resolves the user by email and issues the gateway-scoped token |
-| Entry point | **SAP Agent Gateway** | The single inbound hub for agent traffic; speaks **A2A** and routes to the SAP-managed runtimes |
-| Target | **SAP Joule Agents, Assistants, and Custom Agents (Joule Studio)** | The SAP agents the delegated task runs against, deployed in the SAP-managed runtimes |
-
-The two environments are separated by a **network boundary**. The Agent Gateway is the only path across it: externally it speaks A2A with AgentCore; internally it connects to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
+- **Amazon Quick**: The chat interface inside AWS. Hosts the connector and its Cognito OAuth session. Sends a Cognito ID token as the Bearer credential on every message to AgentCore Gateway.
+- **AWS AgentCore Gateway + Runtime**: The managed front door and compute layer. Validates the incoming Cognito token, mints the WorkloadAccessToken, runs the model (via Amazon Bedrock) to select the right SAP agent, and orchestrates the call to SAP.
+- **AWS AgentCore Identity**: The identity bridge between AWS and SAP. Performs the on-behalf-of (OBO) token exchange — exchanges the WorkloadAccessToken for a SAP IAS token scoped to the Agent Gateway, without any user interaction.
+- **Amazon Cognito → SAP Cloud Identity Services**: The identity chain. Cognito authenticates the user and issues the ID token; SAP Cloud Identity Services resolves the user by email and issues the gateway-scoped token.
+- **SAP Agent Gateway**: The single inbound hub for agent traffic on the SAP side. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
 
 ## Identity and principal propagation
 
@@ -78,7 +69,7 @@ Secure, user-context-aware access is the key design principle — the signed-in 
 
 The chain has three tokens, each issued by a different authority and used for a different hop:
 
-- **Cognito ID token** — the user authenticates to the MCP connector in Quick via Cognito (OAuth 2.0 authorization code + PKCE). The resulting ID token carries the user's email and is the Bearer credential Quick sends to AgentCore Gateway on every message. Quick silently refreshes it using a cached refresh token, so this login happens only once per connector session.
+- **Cognito ID token** — the user authenticates via Cognito (OAuth 2.0 authorization code + PKCE) when the connector is first used. The resulting ID token carries the user's email and is the Bearer credential Quick sends to AgentCore Gateway on every message. Quick silently refreshes it using a cached refresh token, so this login happens only once per connector session.
 - **WorkloadAccessToken (WAT)** — once the Cognito ID token passes the Gateway's validation, the AgentCore Runtime hosting layer mints a WAT from it. The WAT binds the Runtime's own workload identity together with the user identity from the ID token, and is injected as a request header before the application code runs.
 - **SAP IAS access token** — when the Runtime needs to call a SAP agent, it passes the WAT to **AgentCore Identity**, which performs the on-behalf-of (OBO) exchange with SAP IAS. SAP IAS resolves the user by email — the same email present in the Cognito ID token — and issues a token scoped to the Agent Gateway with that user's email as its `sub`. No user interaction; no separate SAP login.
 
