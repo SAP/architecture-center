@@ -45,13 +45,23 @@ jobs:
       # (check-pr-comment.yml) via this check's error annotations.
       # Exits non-zero when any issue is found, so this check FAILS the PR.
       - name: Check front matter properties
+        shell: bash
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           COMMENT_DIR: ${{ runner.temp }}/fm-comment
-        run: node src/_scripts/_check-frontmatter-properties.js
+        run: |
+          # Changed-files scope computed with the same hardened incantation as the
+          # sibling checks (-z + core.quotePath=false), then passed to the script as
+          # arguments. The script still writes its comment artifact when the list is
+          # empty, so the upload step below always has a file.
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          FILES=()
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          fi
+          node src/_scripts/_check-frontmatter-properties.js "${FILES[@]}"
 
       # NOTE: kept until the consolidation lands on the default branch. The sticky
       # commenter (comment-frontmatter-properties.yml) still runs from `dev` on
