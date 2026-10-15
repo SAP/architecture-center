@@ -17,6 +17,7 @@
         "write-translations": "docusaurus write-translations",
         "write-heading-ids": "docusaurus write-heading-ids",
         "generate-news": "node src/_scripts/_generate-latest-news.js",
+        "gen:headers": "node src/_scripts/_generate-vercel-headers.js",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
