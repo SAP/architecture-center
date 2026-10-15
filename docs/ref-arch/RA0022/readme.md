@@ -58,7 +58,7 @@ The reference architecture diagram illustrates the runtime perspective for API-m
   
 3. **Managed API Use Case**: API requests are forwarded to a data source acting as an API provider. This use case is suited for scenarios requiring simple transformations and protocol adaptations supported by API Management.  
   
-4. **Business Data Graph Use Case**: The Graph capability of API Management exposes business data as a semantically connected graph. It simplifies consumption across multiple data sources via a unified API.  
+4. **Business Data Graph Use Case**: The API Composition capability (formerly Graph) of API Management exposes business data as a semantically connected graph. It simplifies consumption across multiple data sources via a unified API.  
   
 5. **Cloud Integration Use Case**: For advanced mediation and transformation requirements, Cloud Integration capability is used to handle scenarios beyond the scope of API Management.  
   
@@ -78,23 +78,11 @@ An architecture for API-managed integration is characterized by:
 - **Visibility and Analytical Insights**: Centrally collect and analyze API metrics, with options for monetizing API consumption.  
 - **Interoperability**: Perform transformations and mediations to enable seamless interoperability between API providers and consumers, including simplified consumption via data graphs.  
   
-## API-Centric Integration on Integration Cell
+## API Composition and Authentication Choices
 
-API-centric integration brings the API contract, security policies, traffic management, and mediation or transformation logic into one API artifact. This extends the proxy-based pattern described above. See [API-Centric Integration](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/api-centric-integration).
+**API Composition** is the current name of the former Graph capability. It exposes a semantically connected Business Data Graph through a unified API. Distinguish this capability from integration logic composed inside an API-centric artifact. See [API Composition release information](https://help.sap.com/docs/api-composition/isuite-api-composition/what-s-new-for-api-composition).
 
-Choose the runtime explicitly: **Integration Cell** is a managed cloud runtime; **Edge Integration Cell** runs in a customer-managed private landscape. They are distinct deployment options. Check the supported capabilities for the selected runtime in the [API Management documentation](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/api-management).
-
-The implementation journey is:
-
-1. Activate the required API Management capability and Integration Cell runtime, and assign the required roles.
-2. Create an API artifact, define its contract and backend connection, and configure the required policies and integration logic.
-3. Deploy the artifact and verify its status and behavior.
-4. Group the API into an API Product and publish it through Developer Hub.
-5. Create a developer application, subscribe it to the product, and test consumption with the configured application credentials.
-
-For the complete walkthrough, see [Part 1: Build and Deploy](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-on-sap-integration-suite-part-1-build-and-deploy/ba-p/14438357) and [Part 2: API Governance with Developer Hub](https://community.sap.com/t5/technology-blog-posts-by-sap/api-centric-integration-on-sap-integration-suite-part-2-api-governance-with/ba-p/14438473).
-
-An API deployed on Integration Cell can also be a source for an MCP Server artifact. See [MCP server creation and governance](../RA0029/1-a2a-and-mcp/readme.md#creating-mcp-server-artifacts-on-integration-cell) for exposing selected operations to AI clients.
+For APIs authenticated by an external OAuth/OIDC provider, define the trusted issuer, intended audiences, and authorization requirements for the target runtime and policy. The external OAuth Authentication Policy supports optional or multiple audience values; optional configuration does not remove the need to decide which consumers should be accepted. Test rejected tokens and insufficient permissions as well as successful calls. See [API Management authentication updates](https://help.sap.com/docs/sap-api-management/sap-api-management/what-s-new-for-sap-api-management).
 
 ## Examples in an SAP Context  
   
