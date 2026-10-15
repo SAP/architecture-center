@@ -113,8 +113,10 @@ jobs:
 
           if [ "$found_unused" -ne 0 ]; then
             { echo ""; echo "❌ Unreferenced asset(s) found — remove them or reference them before merging."; } >> "$GITHUB_STEP_SUMMARY"
+            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           elif [ "$found_warn" -ne 0 ]; then
             { echo ""; echo "⚠️ Some assets matched only outside their RA directory — review the warnings above."; } >> "$GITHUB_STEP_SUMMARY"
+            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           else
             echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
           fi
