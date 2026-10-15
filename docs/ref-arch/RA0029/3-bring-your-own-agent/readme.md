@@ -55,7 +55,7 @@ The architecture consists of several integrated layers:
 
 ### Development & Orchestration Layer
 
--   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports both Python and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
+-   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports Python, Java and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
 -   **SAP Cloud Application Programming Model (CAP):** Framework that structures agent use case logic, data management and service integration. CAP provides domain modeling, service exposure and seamless connectivity to SAP and non-SAP systems.
 -   **SAP Integration Suite:** SAP Integration Suite serves as the enterprise iPaaS layer, delivering security mediation, traffic management, and centralized governance across agent and system interactions. It supports the orchestration of multiple heterogeneous systems while enabling structural customizations through message mediation and payload transformation capabilities. A rich library of pre-built connectors accelerates integration
 with third-party systems, reducing onboarding effort and time-to-value. Through API composition and structural simplification, SAP Integration Suite provides seamless, unified connectivity across both SAP and non-SAP landscapes.

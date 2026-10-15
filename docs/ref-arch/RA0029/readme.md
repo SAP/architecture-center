@@ -17,7 +17,8 @@ keywords:
   - a2a protocol
   - mcp
   - sap cloud sdk for ai
-  - sap leanix ai agent hub
+  - sap ai agent hub
+  - sap leanix
   - sap integration suite
 sidebar_label: Agentic AI & AI Agents
 image: img/ac-soc-med.png
@@ -62,7 +63,7 @@ The core architecture for AI agents at SAP is built on the [SAP Business AI Plat
 
 ![drawio](./drawio/architecture.drawio)
 
-The architecture centers on the **SAP Business AI Platform** — SAP-managed, encompassing Joule Work and its agent runtime — and the **SAP Autonomous Suite**, where agents execute across all lines of business. Custom agents can be built in Joule Studio and deployed to the SAP-managed runtime or developed and deployed to a customer-managed BTP subaccount. 3rd-party AI systems connect via open standards (A2A, MCP). Cross-cutting concerns such as trust, authentication and agent governance are handled by **SAP Cloud Identity Services** and **SAP LeanIX AI Agent Hub**.
+The architecture centers on the **SAP Business AI Platform** — SAP-managed, encompassing Joule Work and its agent runtime — and the **SAP Autonomous Suite**, where agents execute across all lines of business. Custom agents can be built in Joule Studio and deployed to the SAP-managed runtime or developed and deployed to a customer-managed BTP subaccount. 3rd-party AI systems connect via open standards (A2A, MCP). Cross-cutting concerns such as trust, authentication and agent governance are handled by **SAP Cloud Identity Services** and **SAP AI Agent Hub** by **SAP LeanIX**.
 
 ### SAP Business AI Platform
 
@@ -84,7 +85,7 @@ The [**SAP Business Transformation Management**](https://www.sap.com/products/bu
 
 - [**SAP Signavio — Agent Behavior Mining**](./9-agent-behavior-mining/readme.md): Observability and continuous improvement of AI agents — providing behavioral tracing, process conformance analysis, performance benchmarking and business impact measurement across the agent landscape.
 
-- [**SAP LeanIX AI Agent Hub**](../RA0034/readme.md) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing.
+- [**SAP AI Agent Hub**](../RA0034/readme.md) by SAP LeanIX is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing. SAP AI Agent Hub is also available as a standalone product for customers without SAP LeanIX.
 
 - [**SAP Cloud ALM**](https://support.sap.com/en/alm/sap-cloud-alm.html) provides businesses with a robust and scalable solution for managing their entire solution landscape in the cloud. It enables faster adoption of innovation and more efficient operations through streamlined processes, increased transparency, observability capabilities, and improved collaboration
 
