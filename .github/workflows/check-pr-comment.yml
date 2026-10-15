@@ -102,6 +102,19 @@ jobs:
             ];
             const MAX_BULLETS = 20;
 
+            // Where to send a contributor to understand and resolve each check.
+            // Points at the Automated Checks guide in the Community of Practice.
+            const DOCS_BASE = 'https://architecture.learning.sap.com/community/automated-checks';
+            const DOCS = {
+              'Check Internal Links': 'internal-links',
+              'Check SEO Front Matter': 'seo-front-matter',
+              'Check Front Matter Properties': 'front-matter-properties',
+              'Check Reference Architecture IDs': 'reference-architecture-ids',
+              'Check drawio Files': 'drawio-files',
+              'Check Orphan Files': 'orphan-files',
+              'Check External Links': 'external-links',
+            };
+
             // Neutralize untrusted text: HTML-escape and strip HTML-comment markers so
             // attacker-named files / messages can't break the sticky-comment structure.
             // Untrusted text (filenames, messages) is inserted into a Markdown comment.
@@ -167,14 +180,20 @@ jobs:
                   body = bullets.join('\n');
                 }
               }
-              sections.push(`<!-- check:${name} -->\n### ${icon(cr)} ${esc(name)}\n\n${body}\n<!-- /check:${name} -->`);
+              // When the check is not clean, point the contributor at its guide so
+              // they can understand and fix the finding.
+              const slug = DOCS[name];
+              const failing = cr.status === 'completed' && cr.conclusion !== 'success';
+              const help = slug && failing ? `\n\n📖 [How to fix this](${DOCS_BASE}/${slug})` : '';
+              sections.push(`<!-- check:${name} -->\n### ${icon(cr)} ${esc(name)}\n\n${body}${help}\n<!-- /check:${name} -->`);
             }
 
             const marker = '<!-- pr-check-summary -->';
             const header = `${marker}\n## 🔎 Content check results\n\n` +
               (sections.length
-                ? (totalErrors ? `Found issues in the checks below — details grouped by check.` : `All content checks that ran are clean. ✅`)
-                : `_No content checks ran for this PR._`);
+                ? (totalErrors ? `Found issues in the checks below. Each section links to how to fix it.` : `All content checks that ran are clean. ✅`)
+                : `_No content checks ran for this PR._`) +
+              `\n\n<sub>📖 New to these checks? See the [Automated Checks guide](${DOCS_BASE}) in the Community of Practice.</sub>`;
             const footer = `\n\n<sub>Updated ${new Date().toISOString()} for commit ${headSha.slice(0, 7)}. Fills in as checks finish.</sub>`;
             const commentBody = `${header}\n\n${sections.join('\n\n')}${footer}`;
 
