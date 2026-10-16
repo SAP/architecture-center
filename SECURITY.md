@@ -61,10 +61,11 @@ SAP Architecture Center is a **static content website** built with [Docusaurus](
 
 ### Known, accepted build-time advisories
 
-`npm audit` reports advisories in **transitive, build-time-only** dependencies of Docusaurus (e.g. webpack/CSS-minification/globbing/content-parsing tooling). These packages run only while the site is being built on trusted CI; they are **not shipped into the visitor's browser bundle** and are not reachable by site visitors. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json`. The following currently have **no fixed version available** and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
+`npm audit` reports advisories in **transitive, build-time-only** dependencies of Docusaurus (e.g. webpack/CSS-minification/globbing/content-parsing tooling). These packages run only while the site is being built on trusted CI; they are **not shipped into the visitor's browser bundle** and are not reachable by site visitors. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json` (for example `webpack-dev-middleware` is pinned to `^7.4.6` to clear GHSA-g84c-rxfj-3j2c). The following currently have **no compatible fixed version** and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
 
 - `braces` (stack-exhaustion DoS; latest published version is still affected) — reachable only via build-time glob patterns the project controls.
 - `sprintf-js` (DoS via `argparse` 1.x under `js-yaml` 3.x; the fix requires a breaking `argparse` 2.x upgrade that would break content parsing).
+- `katex` (low-severity prototype-pollution trust-bypass; a fix exists in `0.18.2+`, but `mermaid` depends on `katex@^0.16`, so forcing the newer major would risk breaking diagram math rendering for a low-severity issue). Reached only through Mermaid diagrams rendered at build time.
 
 ### Checks that are not applicable
 
