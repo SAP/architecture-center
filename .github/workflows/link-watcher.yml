@@ -40,13 +40,16 @@ jobs:
           while IFS= read -r f; do
             total=$((total + 1))
             # A page is archived when its frontmatter `tags:` block contains
-            # `- archive`. The awk below only inspects the leading frontmatter
-            # (the first `---` ... `---` block) so a stray "- archive" in the
-            # body text cannot cause a page to be skipped by mistake.
+            # `- archive`. The awk below inspects only the leading frontmatter
+            # (the first `---` ... `---` block) AND only the `tags:` block within
+            # it, so neither body text nor an unrelated frontmatter list that
+            # happens to contain `- archive` can cause a page to be skipped.
             if awk '
                   NR==1 { if ($0=="---") next; else exit 1 }   # no frontmatter -> keep the file
                   /^---[[:space:]]*$/ { exit 1 }               # end of frontmatter, tag not found -> keep
-                  /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }  # archive tag -> skip
+                  /^tags:[[:space:]]*$/ { in_tags=1; next }    # enter the tags: block
+                  /^[^[:space:]][^:]*:[[:space:]]*/ { in_tags=0 }  # any other top-level key leaves it
+                  in_tags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }  # archive tag -> skip
                 ' "$f"; then
               archived=$((archived + 1))
               continue
