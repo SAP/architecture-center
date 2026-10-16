@@ -42,6 +42,7 @@
         "http-cache-semantics": "^4.3.0",
         "qs": "^6.16.1",
         "postcss-selector-parser": "^7.1.6",
+        "webpack-dev-middleware": "^7.4.6",
         "sockjs": {
             "uuid": "^11.1.1"
         }
