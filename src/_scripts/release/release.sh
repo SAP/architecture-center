@@ -39,13 +39,11 @@ fi
 echo "Pulling latest changes..."
 git pull
 
-# 3. Update the version in package.json via the Node script
+# 3. Update the version in package.json via the Node script.
+#    The script also syncs the version field in package-lock.json offline, so no
+#    `npm install` is needed here (avoids an unpinned dependency fetch at release time).
 new_version=$(node "$SCRIPT_DIR/update-version.js")
 echo "Version updated to: $new_version"
-
-# 4. Run npm install (to update package-lock.json)
-echo "Running npm install..."
-npm install
 
 # 5. Stage the relevant files
 git add package.json package-lock.json

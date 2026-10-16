@@ -132,3 +132,6 @@ Celikyilmaz
 Paranjape
 Bevilacqua
 Petroni
+
+# GitHub's canonical example account (used in documentation examples)
+octocat
