@@ -213,8 +213,6 @@ export default function DocSidebarWrapper(props) {
     // Handle partners filter with context-aware logic
     if (partnersParam) {
       setPartners(partnersParam.split(','));
-    } else if (archivedParam === 'true' || communityContentParam === 'true') {
-      // When archive or community content mode is active, preserve partners in store
     } else if (docId && tagsDocId[docId]) {
       // Preserve partners during sidebar nav only if they're still relevant
       const currentPartners = useSidebarFilterStore.getState().partners;
@@ -276,7 +274,7 @@ export default function DocSidebarWrapper(props) {
 
         if (isCommunityDoc) {
           // Keep filter active and sync URL
-          const urlParams = new URLSearchParams(location.search);
+          const urlParams = new URLSearchParams(window.location.search);
           if (!urlParams.get('communityContent')) {
             urlParams.set('communityContent', 'true');
             window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
