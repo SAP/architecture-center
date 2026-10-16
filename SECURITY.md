@@ -74,6 +74,14 @@ The following OpenSSF Scorecard checks do not apply to a static content website 
 - **Fuzzing** — there is no runtime input-parsing, network, or binary attack surface to fuzz.
 - **Packaging / Signed-Releases** — nothing is published to a registry and no release artifacts are cut; delivery is static-asset deployment over HTTPS with integrity provided by the hosting platforms.
 
+### Branch-Protection posture
+
+All CI validation (CodeQL, link/content checks, build) runs on **pull requests into `dev`**, the default branch. `dev` is fully protected: required reviews, code-owner review, required CodeQL status checks, up-to-date-before-merge, linear history, no force-pushes, and administrator enforcement.
+
+`main` is a **promotion target** for content that has *already* been validated on `dev` — a release is a `dev -> main` pull request, nothing new is introduced there. It is review-protected (required approvals, code-owner, dismiss-stale, no force-pushes), but it intentionally has **no required status checks**, because re-running the same checks on commits already validated on `dev` would be redundant.
+
+As a result, OpenSSF Scorecard's **Branch-Protection** check does not reach its maximum: its tiered scoring expects a required status check on every protected branch, including release branches. The missing status check on `main` is **by design, not an unmitigated risk** — the branch where code is actually validated (`dev`) is hardened to the check's top tier.
+
 ### Confidential reporting
 
 Security issues must be reported through the SAP channels described above (or, as an alternative, via GitHub private vulnerability reporting on this repository). Please do not open public issues or pull requests for security vulnerabilities.
