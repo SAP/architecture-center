@@ -2,9 +2,9 @@
 id: a2c0f1
 slug: /ref-arch/a2c0f1
 sidebar_position: 3
-title: Microsoft Copilot Studio with SAP Agent Gateway
+title: Microsoft Copilot Studio with Agent Gateway
 description: >-
-  Connect a Microsoft Copilot Studio agent to SAP Joule Agents, Assistants, and
+  Connect a Microsoft Copilot Studio agent to Joule Agents, Assistants, and
   Custom Agents through the Agent Gateway, with Microsoft Entra ID ↔ SAP Cloud
   Identity Services federation and per-user identity propagation.
 keywords:
@@ -54,10 +54,10 @@ A Copilot Studio agent in Teams or Microsoft 365 can hand an SAP-specific task �
 
 ## Core Components
 
-- **Microsoft Copilot Studio**: The orchestrator / reasoner on the Microsoft side; sends tasks to the SAP Agent Gateway.
-- **Power Platform custom connector**: The bridge between Copilot Studio and the SAP Agent Gateway. Performs the token exchange against SAP Cloud Identity Services and forwards the call.
+- **Microsoft Copilot Studio**: The orchestrator / reasoner on the Microsoft side; sends tasks to the Agent Gateway.
+- **Power Platform custom connector**: The bridge between Copilot Studio and the Agent Gateway. Performs the token exchange against SAP Cloud Identity Services and forwards the call.
 - **Microsoft Entra ID ↔ SAP Cloud Identity Services**: Bidirectional OIDC federation. Entra ID authenticates the user and acts as the corporate identity provider; SAP Cloud Identity Services brokers that identity into SAP so it propagates to the target agent.
-- **SAP Agent Gateway**: The single inbound/outbound hub for agent traffic. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
+- **Agent Gateway**: The single inbound/outbound hub for agent traffic. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
 
 ## Identity and principal propagation
 
@@ -69,7 +69,7 @@ Secure, user-context-aware access is the centerpiece of this architecture — th
 
 ## Integration approach
 
-A **Power Platform custom connector** serves as the bridge: it performs the token exchange against **SAP Cloud Identity Services** and forwards the call to the SAP Agent Gateway. The result is real **principal propagation** — the gateway token carries the actual signed-in user, so the target agent's RBAC is enforced per user.
+A **Power Platform custom connector** serves as the bridge: it performs the token exchange against **SAP Cloud Identity Services** and forwards the call to the Agent Gateway. The result is real **principal propagation** — the gateway token carries the actual signed-in user, so the target agent's RBAC is enforced per user.
 
 :::tip Hands-on deep dive
 Step-by-step setup — custom connector, token exchange, SAP Cloud Identity Services configuration, and Copilot Studio wiring — lives in the external cookbook: **Microsoft Agent Interoperability Recipe** in the SAP-internal `OCTO/aioli` repository ([`agent-interoperability-cookbook/microsoft-agent-interoperability-recipe.md`](https://github.tools.sap/OCTO/aioli/blob/microsoft-cookbook-niklas/agent-interoperability-cookbook/microsoft-agent-interoperability-recipe.md)). _SAP-internal; currently a draft on a feature branch, pending merge._

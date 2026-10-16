@@ -2,9 +2,9 @@
 id: c9a3f8
 slug: /ref-arch/c9a3f8
 sidebar_position: 2
-title: Gemini Enterprise with SAP Agent Gateway
+title: Gemini Enterprise with Agent Gateway
 description: >-
-  Connect a Google Gemini Enterprise or GCP Agent Platform agent to SAP Joule
+  Connect a Google Gemini Enterprise or GCP Agent Platform agent to Joule
   Agents, Assistants, and Custom Agents through the Agent Gateway, using a proxy
   agent on Google Agent Runtime and three-legged OAuth with SAP Cloud Identity
   Services.
@@ -53,7 +53,7 @@ A user working in Gemini Enterprise can hand an SAP-specific task to a Joule Age
 
 ![drawio](./drawio/architecture.drawio)
 
-The integration uses a **proxy agent on Google Agent Runtime (Vertex AI Agent Engine) as the bridge**: Gemini Enterprise delegates tasks to the proxy, which handles the cross-provider authentication with SAP and relays the call to the SAP Agent Gateway.
+The integration uses a **proxy agent on Google Agent Runtime (Vertex AI Agent Engine) as the bridge**: Gemini Enterprise delegates tasks to the proxy, which handles the cross-provider authentication with SAP and relays the call to the Agent Gateway.
 
 The proxy agent has a single job: take the end-user token that Gemini Enterprise forwards, exchange it at **SAP Cloud Identity Services (IAS)** for a token scoped to the Agent Gateway, and relay the call to the SAP agent. Because the proxy is itself a Gemini Enterprise agent, it can surface the SAP sign-in prompt in the Gemini Enterprise chat UI, which is what makes the **three-legged OAuth / front-channel** flow possible.
 
@@ -62,7 +62,7 @@ The proxy agent has a single job: take the end-user token that Gemini Enterprise
 - **Gemini Enterprise / GCP Agent Platform**: The orchestrator the user interacts with. Forwards the end-user token and renders the SAP sign-in prompt.
 - **Proxy Agent (Google Agent Runtime / Vertex AI Agent Engine)**: Transparent proxy that exchanges the user token at SAP IAS for an Agent-Gateway-scoped token and relays the call downstream.
 - **SAP Cloud Identity Services**: Authenticates the user via the three-legged OAuth / front-channel flow and mints the downstream-scoped token; brokers the identity into SAP.
-- **SAP Agent Gateway**: The single inbound hub for agent traffic on the SAP side. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
+- **Agent Gateway**: The single inbound hub for agent traffic on the SAP side. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
 
 ## Identity and principal propagation
 
@@ -88,7 +88,7 @@ Step-by-step setup — service-account signer, SAP IAS trust and redirect config
 ## Related Resources
 
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) — the parent reference architecture for external consumption of SAP agents
-- [Microsoft Copilot Studio with SAP Agent Gateway](../3-microsoft-azure-integration/readme.md) — the equivalent pattern for Microsoft Copilot Studio
+- [Microsoft Copilot Studio with Agent Gateway](../3-microsoft-azure-integration/readme.md) — the equivalent pattern for Microsoft Copilot Studio
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) — Agent Gateway, authentication, and A2A protocol details
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
 - [SAP Help — Assigning the Agent Gateway Consumer System to Formations](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/a0465991ba964736a781c275ddd852db.html)
