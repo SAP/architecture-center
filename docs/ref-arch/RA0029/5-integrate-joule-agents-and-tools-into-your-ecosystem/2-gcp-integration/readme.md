@@ -5,8 +5,8 @@ sidebar_position: 2
 title: Gemini Enterprise with Agent Gateway
 description: >-
   Connect a Google Gemini Enterprise or GCP Agent Platform agent to Joule
-  Agents, Assistants, and Custom Agents through the Agent Gateway, using a proxy
-  agent on Google Agent Runtime and three-legged OAuth with SAP Cloud Identity
+  Agents, Assistants, and Custom Agents running on SAP Business AI Platform through the Agent Gateway, using a proxy
+  agent on Google Agent Runtime and three-legged OAuth flow with SAP Cloud Identity
   Services.
 keywords:
   - sap
@@ -45,9 +45,9 @@ last_update:
 Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state that highlights the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular, the [Agent Gateway](../../1-a2a-and-mcp/readme.md#architecture) is not yet GA. The pattern outlined here shows how the integration between Google Gemini Enterprise and SAP can be done today and will evolve as those capabilities are released.
 :::
 
-[Google Gemini Enterprise](https://cloud.google.com/gemini/docs) and the **GCP Agent Platform** let organizations build and orchestrate AI agents across Google Cloud and the Google Workspace surface. This page describes the **inbound** direction — a Gemini Enterprise agent **consuming** SAP agents. The SAP side, running on **SAP Business AI Platform**, exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end through **SAP Cloud Identity Services**, so every delegated task runs in the context of the signed-in business user and respects existing SAP authorizations.
+[Google Gemini Enterprise](https://cloud.google.com/gemini/docs) and the **GCP Agent Platform** let organizations build and orchestrate AI agents across Google Cloud and the Google Workspace surface. This page describes the **inbound** direction — a Gemini Enterprise agent **consuming** agents running on SAP Business AI Platform. The SAP side, running on **SAP Business AI Platform**, exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end through **SAP Cloud Identity Services**, so every delegated task runs in the context of the signed-in business user and respects existing SAP authorizations.
 
-A user working in Gemini Enterprise can hand an SAP-specific task to a Joule Agent, Assistant, or Custom Agent and receive the answer in the flow of work. Because every delegation runs under the signed-in user's identity, the SAP authorizations already in place continue to govern what the agent can do, with full end-to-end traceability.
+A user working in Gemini Enterprise can hand an SAP-specific task to a Joule Agent, Assistant, or Custom Agent and receives the answer in the flow of work. Because every delegation runs under the signed-in user's identity, the SAP authorizations already in place in the downstream system continue to govern what the agent can do, with full end-to-end traceability.
 
 ## Architecture
 
@@ -55,7 +55,7 @@ A user working in Gemini Enterprise can hand an SAP-specific task to a Joule Age
 
 The integration uses a **proxy agent on Google Agent Runtime (Vertex AI Agent Engine) as the bridge**: Gemini Enterprise delegates tasks to the proxy, which handles the cross-provider authentication with SAP and relays the call to the Agent Gateway.
 
-The proxy agent has a single job: take the end-user token that Gemini Enterprise forwards, exchange it at **SAP Cloud Identity Services (IAS)** for a token scoped to the Agent Gateway, and relay the call to the SAP agent. Because the proxy is itself a Gemini Enterprise agent, it can surface the SAP sign-in prompt in the Gemini Enterprise chat UI, which is what makes the **three-legged OAuth / front-channel** flow possible.
+The proxy agent has a single job: take the end-user token that Gemini Enterprise forwards, exchange it at **SAP Cloud Identity Services (IAS)** for a token scoped to the Agent Gateway, and relay the call to the agent running on SAP Business AI Platform. Because the proxy is itself a Gemini Enterprise agent, it can surface the SAP sign-in prompt in the Gemini Enterprise chat UI, which is what makes the **three-legged OAuth / front-channel** flow possible.
 
 ## Core Components
 
@@ -66,7 +66,7 @@ The proxy agent has a single job: take the end-user token that Gemini Enterprise
 
 ## Identity and principal propagation
 
-Secure, user-context-aware access is the centerpiece of this architecture — the goal is **no shared secrets and no over-privileged service accounts**, so each SAP agent invocation executes with the permissions of the individual signed-in user.
+Secure, user-context-aware access is the centerpiece of this architecture — the goal is **no shared secrets and no over-privileged service accounts**, so each agent running on SAP Business AI Platform invocation executes with the permissions of the individual signed-in user.
 
 - The flow is **three-legged OAuth**: Gemini Enterprise authenticates the end user against **SAP Cloud Identity Services** over the **front channel** (a browser redirect / in-product sign-in prompt, rendered through the proxy agent), and forwards the resulting user token.
 - The Agent Gateway only accepts a token minted specifically for the **agent-gateway resource** (`urn:sap:identity:application:provider:name:agent-gateway`) — a plain OAuth bearer token does not carry the audience the gateway requires. The proxy agent performs this **token exchange** at SAP IAS.
@@ -75,7 +75,7 @@ Secure, user-context-aware access is the centerpiece of this architecture — th
 
 ## Integration approach
 
-Reaching an SAP agent behind the Agent Gateway from Gemini Enterprise comes down to three pieces of setup:
+Reaching an agent running on SAP Business AI Platform behind the Agent Gateway from Gemini Enterprise comes down to three pieces of setup:
 
 1. **A Google Cloud service account** that signs the SAP IAS client assertion — SAP IAS is configured to trust this service account as a JWT issuer, so no client secret has to live in the Google runtime.
 2. **An SAP IAS application** configured with the Gemini Enterprise redirect URIs and a trust relationship to the Google service account, so it can run the three-legged OAuth flow and mint the Agent-Gateway-scoped token.
@@ -88,6 +88,7 @@ Step-by-step setup — service-account signer, SAP IAS trust and redirect config
 ## Related Resources
 
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) — the parent reference architecture for external consumption of SAP agents
+- [Amazon Quick with Agent Gateway](../1-aws-integration/readme.md) — the equivalent pattern for Amazon Quick
 - [Microsoft Copilot Studio with Agent Gateway](../3-microsoft-azure-integration/readme.md) — the equivalent pattern for Microsoft Copilot Studio
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) — Agent Gateway, authentication, and A2A protocol details
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
