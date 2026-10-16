@@ -338,6 +338,11 @@
     color: white;
 }
 
+[data-theme='dark'] .filterToggleButton.active .filterBadge {
+    background: white;
+    color: var(--ifm-color-primary-dark);
+}
+
 [data-theme='dark'] .activeFiltersBar,
 [data-theme='dark'] .filterPanel,
 [data-theme='dark'] .resultCount {
