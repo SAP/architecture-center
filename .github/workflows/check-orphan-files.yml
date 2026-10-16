@@ -67,6 +67,18 @@ jobs:
           # a Markdown inline-code span in the job summary, so it cannot break out.
           esc_sum() { printf '%s' "$1" | tr '`\n\r' '   '; }
 
+          # Owning directory of a Markdown file: the nearest ancestor (starting from
+          # its own directory) that holds a readme.md, bounded to the RA#### tree.
+          # Used so a reference from a deeper nested sub-architecture does not count
+          # toward an asset owned by a shallower one.
+          owner_of() {
+            local d; d=$(dirname "$1")
+            while [[ "$d" == docs/ref-arch/RA[0-9][0-9][0-9][0-9]/* && ! -f "$d/readme.md" ]]; do
+              d=$(dirname "$d")
+            done
+            printf '%s/' "$d"
+          }
+
           for file in "${SCAN_FILES[@]}"; do
             [ -z "$file" ] && continue
             basename_file=$(basename "$file")
@@ -98,7 +110,14 @@ jobs:
               grep -qF -- "$basename_file" "$md" || continue
               found_global=true
               md_rel="${md#./}"
-              if [ -z "$scope" ] || [[ "$md_rel" == "$scope"* ]]; then
+              if [ -z "$scope" ]; then
+                found_scoped=true
+                break
+              fi
+              # Count the reference only if it lives in the asset's scope AND is
+              # owned by that same scope — not by a deeper nested sub-architecture
+              # whose own same-named asset would otherwise mask this orphan.
+              if [[ "$md_rel" == "$scope"* ]] && [ "$(owner_of "$md_rel")" = "$scope" ]; then
                 found_scoped=true
                 break
               fi
@@ -109,12 +128,12 @@ jobs:
             fi
 
             if [ "$found_global" = true ]; then
-              # Matched only OUTSIDE the asset's own RA directory: likely a shared
-              # asset, or a same-named file masking a real orphan. Warn (don't fail)
-              # so a genuinely shared asset never blocks the PR.
-              echo "- ⚠️ \`$(esc_sum "$file")\`: referenced only outside its RA directory (shared asset, or possible orphan masked by a same-named file)" >> "$GITHUB_STEP_SUMMARY"
+              # Matched only OUTSIDE the asset's owning sub-architecture: likely a
+              # shared asset, or a same-named file masking a real orphan. Warn (don't
+              # fail) so a genuinely shared asset never blocks the PR.
+              echo "- ⚠️ \`$(esc_sum "$file")\`: referenced only outside its owning sub-architecture (shared asset, or possible orphan masked by a same-named file)" >> "$GITHUB_STEP_SUMMARY"
               [ -n "$GITHUB_ACTIONS" ] && \
-                echo "::warning file=$(esc_prop "$file"),title=Orphan files::Referenced only outside its own RA directory — verify this asset is actually used."
+                echo "::warning file=$(esc_prop "$file"),title=Orphan files::Referenced only outside its owning sub-architecture — verify this asset is actually used."
               found_warn=1
             else
               echo "- ❌ \`$(esc_sum "$file")\`" >> "$GITHUB_STEP_SUMMARY"
@@ -128,7 +147,7 @@ jobs:
             { echo ""; echo "❌ Unreferenced asset(s) found — remove them or reference them before merging."; } >> "$GITHUB_STEP_SUMMARY"
             { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           elif [ "$found_warn" -ne 0 ]; then
-            { echo ""; echo "⚠️ Some assets matched only outside their RA directory — review the warnings above."; } >> "$GITHUB_STEP_SUMMARY"
+            { echo ""; echo "⚠️ Some assets matched only outside their owning sub-architecture — review the warnings above."; } >> "$GITHUB_STEP_SUMMARY"
             { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           else
             echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
