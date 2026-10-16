@@ -1,27 +1,81 @@
 name: Periodic Link Checker
 
+# Validates the links in the published documentation on a schedule, so broken
+# or dead URLs are caught independently of any pull request.
 on:
+  # Run once a day at 00:00 UTC.
   schedule:
     - cron: "0 0 * * *"
+  # Allow a manual run from the Actions tab.
   workflow_dispatch:
 
+# Least privilege: the job only reads the repository. No write scopes are
+# granted, and the GITHUB_TOKEN passed to lychee below is therefore read-only.
 permissions:
   contents: read
 
 jobs:
   link-checker:
     runs-on: ubuntu-latest
+    # Cap the run so a hanging link check cannot occupy a runner for hours.
     timeout-minutes: 15
     steps:
       - name: "Checkout source code"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          # This job never pushes, so do not leave the token in .git/config.
           persist-credentials: false
+
+      # Build the exact set of files to scan: every Markdown page under docs/,
+      # excluding any page that is archived. Archived pages are no longer
+      # maintained, so their links are not worth failing the build over.
+      - name: "Select non-archived Markdown under docs/"
+        id: select
+        shell: bash
+        run: |
+          set -euo pipefail
+          inputs=()
+          while IFS= read -r f; do
+            # A page is archived when its frontmatter `tags:` block contains
+            # `- archive`. The awk below only inspects the leading frontmatter
+            # (the first `---` ... `---` block) so a stray "- archive" in the
+            # body text cannot cause a page to be skipped by mistake.
+            if awk '
+                  NR==1 { if ($0=="---") next; else exit 1 }   # no frontmatter -> keep the file
+                  /^---[[:space:]]*$/ { exit 1 }               # end of frontmatter, tag not found -> keep
+                  /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }  # archive tag -> skip
+                ' "$f"; then
+              continue
+            fi
+            # Defense-in-depth: refuse any path with characters that could break
+            # the lychee argument list (all current repo paths are plain).
+            if [[ "$f" =~ [^A-Za-z0-9._/-] ]]; then
+              echo "::error::Unsafe path for link scan: $f"
+              exit 1
+            fi
+            inputs+=("$f")
+          done < <(find docs -type f -name '*.md' | sort)
+
+          # Fail loudly if the list is empty: that means the selection logic
+          # broke, not that every link is healthy.
+          if [[ ${#inputs[@]} -eq 0 ]]; then
+            echo "::error::No non-archived Markdown files found under docs/ - aborting."
+            exit 1
+          fi
+
+          echo "Scanning ${#inputs[@]} non-archived Markdown file(s) under docs/."
+          # Hand the file list to the lychee step below as a step output.
+          echo "inputs=${inputs[*]}" >> "$GITHUB_OUTPUT"
+
+      # Check every link found in the selected files. `fail: true` makes the
+      # job (and the workflow) red when any link is broken. The token raises
+      # GitHub's API rate limit when checking github.com links.
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
           fail: true
-          args: --verbose --no-progress --exclude-loopback .
+          # --exclude-loopback skips localhost/127.0.0.1 links.
+          args: --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
