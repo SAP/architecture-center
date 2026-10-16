@@ -65,7 +65,7 @@ export default function DrawioEditorPlugin() {
     // Only trust messages from the drawio editor iframe origin. Without this
     // guard any frame in the page could post a crafted {event:'save',xml:...}
     // and have attacker-supplied diagram XML uploaded under the logged-in token.
-    if (event.origin !== DRAWIO_ORIGIN) return;
+    if (event.origin !== DRAWIO_ORIGIN || event.source !== iframeRef.current?.contentWindow) return;
     if (!event.data || typeof event.data !== 'string') return;
 
     try {
