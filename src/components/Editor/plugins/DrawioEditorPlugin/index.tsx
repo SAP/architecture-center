@@ -7,6 +7,7 @@ import { getApiService } from '@site/src/services/api';
 import { DrawioNode } from '../../core/types';
 
 const DRAWIO_EDITOR_URL = 'https://embed.diagrams.net/?embed=1&proto=json&spin=1';
+const DRAWIO_ORIGIN = 'https://embed.diagrams.net';
 
 export default function DrawioEditorPlugin() {
   const { core } = useEditor();
@@ -61,6 +62,10 @@ export default function DrawioEditorPlugin() {
   }, [token, expressBackendUrl, getActiveDocument, core]);
 
   const handleMessage = useCallback((event: MessageEvent) => {
+    // Only trust messages from the drawio editor iframe origin. Without this
+    // guard any frame in the page could post a crafted {event:'save',xml:...}
+    // and have attacker-supplied diagram XML uploaded under the logged-in token.
+    if (event.origin !== DRAWIO_ORIGIN) return;
     if (!event.data || typeof event.data !== 'string') return;
 
     try {
@@ -75,7 +80,7 @@ export default function DrawioEditorPlugin() {
               action: 'load',
               xml: node.diagramXML,
               autosave: 0
-            }), '*');
+            }), DRAWIO_ORIGIN);
           }
         }
       } else if (msg.event === 'save' || msg.event === 'exit') {
@@ -163,7 +168,7 @@ export default function DrawioEditorPlugin() {
         action: 'export',
         format: 'xml',
         spin: 'Saving...'
-      }), '*');
+      }), DRAWIO_ORIGIN);
     };
 
     header.appendChild(title);
