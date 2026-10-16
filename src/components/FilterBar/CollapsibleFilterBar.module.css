@@ -272,12 +272,14 @@
 .filterChip.selected {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     color: white;
 }
 
 .filterChip.selected:hover {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     opacity: 0.9;
 }
 
@@ -386,12 +388,14 @@
 [data-theme='dark'] .filterChip.selected {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     color: white;
 }
 
 [data-theme='dark'] .filterChip.selected:hover {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     opacity: 0.9;
 }
 
