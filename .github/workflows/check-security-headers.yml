@@ -1,0 +1,43 @@
+name: Check Security Headers
+
+# Ensures the committed vercel.json (Vercel) stays in sync with the single source
+# of truth in src/plugins/security-headers/csp-config.js, which also generates the
+# Cloudflare _headers file at build time. This prevents the two deployment targets
+# from drifting into different Content-Security-Policy / header values.
+
+on:
+    pull_request:
+        branches: [dev, main]
+        paths:
+            - 'vercel.json'
+            - 'src/plugins/security-headers/**'
+            - 'src/_scripts/_generate-vercel-headers.js'
+
+permissions: {}
+
+jobs:
+    check-headers:
+        name: Verify vercel.json matches csp-config.js
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        permissions:
+            contents: read
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+              with:
+                  persist-credentials: false
+
+            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+              with:
+                  node-version: 'lts/*'
+
+            - name: Regenerate vercel.json from the single source of truth
+              run: node src/_scripts/_generate-vercel-headers.js
+
+            - name: Fail if vercel.json is out of sync
+              run: |
+                  if ! git diff --exit-code vercel.json; then
+                      echo "::error::vercel.json is out of sync with src/plugins/security-headers/csp-config.js."
+                      echo "Run 'npm run gen:headers' and commit the updated vercel.json."
+                      exit 1
+                  fi

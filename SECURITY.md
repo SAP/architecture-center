@@ -1,0 +1,78 @@
+<!-- START SAP SECURITY.MD V0.0.1 BLOCK -->
+<!-- Please do not remove the version header, this is needed for automatic updates of the SECURITY.md -->
+# SAP Open Source Security Policy
+
+SAP takes the security of our software products and services seriously, which includes all source code repositories managed through our GitHub organizations, including our primary [SAP](https://github.com/SAP), [SAP-docs](https://github.com/SAP-docs) organizations as well as [our other GitHub organizations and projects](https://opensource.sap.com).
+
+If you believe you have found a security vulnerability in any SAP-owned repository, please report it to us as described below.
+
+## Reporting Security Issues
+
+**Please do not report security vulnerabilities through public GitHub issues.**
+
+Instead, please report them via the SAP Trust Center at [https://www.sap.com/about/trust-center/security/incident-management.html](https://www.sap.com/about/trust-center/security/incident-management.html).
+
+If you prefer to submit via email, please send an email to [secure@sap.com](mailto:secure@sap.com). If possible, encrypt your message with our PGP key; please download it from the [SAP Trust Center](https://www.sap.com/keyblock).
+
+Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:
+
+  - The repository name or URL
+  - Type of issue (buffer overflow, SQL injection, cross-site scripting, etc.)
+  - Full paths of the source file(s) related to the manifestation of the issue
+  - The location of the affected source code (tag/branch/commit or direct URL)
+  - Any particular configuration required to reproduce the issue
+  - Step-by-step instructions to reproduce the issue
+  - Proof-of-concept or exploit code (if possible)
+  - Impact of the issue, including how an attacker might exploit the issue
+
+This information will help us triage your report more quickly.
+
+## Preferred Languages
+
+We prefer all communications to be in English.
+
+## Disclosure Guidelines
+
+We like to ask you to follow the [Disclosure Guidelines for SAP Security Advisories](https://www.sap.com/documents/2022/02/9ccd9ca0-167e-0010-bca6-c68f7e60039b.html).
+
+## SAP Internal Response Process
+
+As an SAP employee, please check our internal open source security response process ([url.sap/isgc2y](https://url.sap/isgc2y)) for further details on how to handle security incidents.
+
+<!-- END SAP SECURITY.MD V0.0.1 BLOCK -->
+
+---
+
+## Project Security Posture
+
+This section is specific to **SAP Architecture Center** and is not part of the auto-synced SAP block above.
+
+### What this project is
+
+SAP Architecture Center is a **static content website** built with [Docusaurus](https://docusaurus.io/). It is compiled to static HTML/CSS/JS and deployed to Cloudflare Pages and Vercel. It is **not** a published package, library, binary, or service: `package.json` sets `"private": true`, nothing is published to a package registry, and no versioned release artifacts are produced for download.
+
+### Supply-chain and build hardening
+
+- All GitHub Actions are pinned to full commit SHAs, and every workflow declares least-privilege `permissions`.
+- Dependencies are locked via a committed `package-lock.json`; CI installs with `npm ci` for reproducible builds.
+- Static Application Security Testing runs on every change via **CodeQL** (`.github/workflows/codeql.yml`).
+- A dedicated **Security Audit** workflow (`.github/workflows/security-audit.yml`) runs `npm audit`, scans for dangerous npm lifecycle scripts, lints workflows with `actionlint`, and performs dependency review on pull requests.
+- Supply-chain posture is tracked publicly via the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/SAP/architecture-center).
+
+### Known, accepted build-time advisories
+
+`npm audit` reports advisories in **transitive, build-time-only** dependencies of Docusaurus (e.g. webpack/CSS-minification/globbing/content-parsing tooling). These packages run only while the site is being built on trusted CI; they are **not shipped into the visitor's browser bundle** and are not reachable by site visitors. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json`. The following currently have **no fixed version available** and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
+
+- `braces` (stack-exhaustion DoS; latest published version is still affected) — reachable only via build-time glob patterns the project controls.
+- `sprintf-js` (DoS via `argparse` 1.x under `js-yaml` 3.x; the fix requires a breaking `argparse` 2.x upgrade that would break content parsing).
+
+### Checks that are not applicable
+
+The following OpenSSF Scorecard checks do not apply to a static content website and are intentionally not pursued:
+
+- **Fuzzing** — there is no runtime input-parsing, network, or binary attack surface to fuzz.
+- **Packaging / Signed-Releases** — nothing is published to a registry and no release artifacts are cut; delivery is static-asset deployment over HTTPS with integrity provided by the hosting platforms.
+
+### Confidential reporting
+
+Security issues must be reported through the SAP channels described above (or, as an alternative, via GitHub private vulnerability reporting on this repository). Please do not open public issues or pull requests for security vulnerabilities.
