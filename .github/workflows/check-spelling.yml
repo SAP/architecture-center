@@ -12,6 +12,7 @@ on:
       - 'cspell.json'
       - '.cspell/**'
       - '.github/workflows/check-spelling.yml'
+      - '.github/workflows/cspell/**'
 
 permissions: {}
 
@@ -39,7 +40,18 @@ jobs:
           node-version: '24'
 
       - name: Install cspell
-        run: npm install -g --ignore-scripts cspell@9.1.0
+        shell: bash
+        run: |
+          # Hash-pinned install from an isolated lockfile. OpenSSF Scorecard's
+          # Pinned-Dependencies check only treats `npm ci` against a committed
+          # lockfile as pinned (a bare `npm install pkg@version` is flagged).
+          # cspell is kept in its own lockfile under .github/workflows/cspell/
+          # so it stays out of the main dependency tree (build/deploy are not
+          # affected and only cspell is installed here). --ignore-scripts skips
+          # dependency lifecycle scripts.
+          npm ci --ignore-scripts --prefix .github/workflows/cspell
+          # Expose the locally installed cspell binary to subsequent steps.
+          echo "${GITHUB_WORKSPACE}/.github/workflows/cspell/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Check spelling of changed Markdown files
         shell: bash
