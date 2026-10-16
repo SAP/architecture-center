@@ -12,6 +12,12 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Read the package.json "version" field as checked in at a given git ref
+# (e.g. origin/main). Used to confirm the release phases run in the right order.
+pkg_version_at() {
+  git show "$1:package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version"
+}
+
 # ----------------------------------------------------------------------------
 # Release flow — two phases.
 #
@@ -60,6 +66,15 @@ git pull
 case "$MODE" in
   bump)
     # --- Phase 1: version bump on a branch + PR into dev --------------------
+
+    # The release commit must contain only the version bump, so refuse to start
+    # if these files already carry local changes — they would otherwise be swept
+    # into the commit, and destroyed by the discard-on-abort path below.
+    if ! git diff --quiet -- package.json package-lock.json ||
+       ! git diff --cached --quiet -- package.json package-lock.json; then
+      echo "Error: package.json and package-lock.json must be clean before starting a release."
+      exit 1
+    fi
 
     # Update the version in package.json via the Node script. The script also
     # syncs the version field in package-lock.json offline, so no `npm install`
@@ -111,6 +126,16 @@ case "$MODE" in
     # Run this only after the version-bump PR has been merged into dev.
 
     new_version=$(node -p "require('./package.json').version")
+
+    # Guard: refuse to publish if dev has no version bump relative to main — that
+    # means the phase-1 version-bump PR has not been merged into dev yet.
+    git fetch origin main
+    main_version=$(pkg_version_at origin/main)
+    if [ "$new_version" = "$main_version" ]; then
+      echo "Error: dev ($new_version) has no version bump relative to main. Merge the version-bump PR into dev first."
+      exit 1
+    fi
+
     commit_msg="Release $new_version"
     echo "Current version on dev: $new_version"
 
@@ -131,6 +156,14 @@ case "$MODE" in
     echo ""
     read -r -p "Create GitHub release and tag $new_version now? [y/N] " confirm
     if [[ "$confirm" =~ ^[Yy]$ ]]; then
+      # The tag points at the current main tip, so main must already carry this
+      # version — i.e. the dev -> main PR must be merged before tagging.
+      git fetch origin main
+      main_version=$(pkg_version_at origin/main)
+      if [ "$main_version" != "$new_version" ]; then
+        echo "Error: main is still at $main_version; merge the release PR before creating $new_version."
+        exit 1
+      fi
       echo "Creating GitHub release $new_version..."
       gh release create "$new_version" --repo "SAP/architecture-center" --generate-notes --target main
       echo "GitHub release created successfully."
