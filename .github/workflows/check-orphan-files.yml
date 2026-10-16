@@ -73,10 +73,23 @@ jobs:
 
             # References to an RA-local asset live in that RA's own directory, so
             # scope the match there: a same-named asset in a different RA must not
-            # mask a genuine orphan. Non-RA / shared assets fall back to repo-wide.
+            # mask a genuine orphan. Nested sub-architectures under one RA#### often
+            # reuse identical asset names (e.g. drawio/architecture.drawio), so scope
+            # to the OWNING sub-architecture — the nearest ancestor with a readme.md —
+            # rather than the whole RA####. Non-RA / shared assets fall back to
+            # repo-wide.
             scope=""
             if [[ "$file" =~ ^(docs/ref-arch/RA[0-9]{4})/ ]]; then
-              scope="${BASH_REMATCH[1]}/"
+              ra_root="${BASH_REMATCH[1]}"
+              scope_dir=$(dirname "$file")
+              while [[ "$scope_dir" == "$ra_root"/* && ! -f "$scope_dir/readme.md" ]]; do
+                scope_dir=$(dirname "$scope_dir")
+              done
+              if [ -f "$scope_dir/readme.md" ]; then
+                scope="$scope_dir/"
+              else
+                scope="$ra_root/"
+              fi
             fi
 
             found_scoped=false

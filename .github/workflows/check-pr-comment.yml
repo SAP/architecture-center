@@ -59,13 +59,20 @@ jobs:
             core.setOutput('pr', match ? String(match.number) : '');
 
             // Latest "Check External Links" run for this commit (its findings live in
-            // an artifact, not annotations).
+            // an artifact, not annotations). Validate the run's head branch and
+            // repository too: a fork PR can reuse the same public commit SHA, so
+            // matching on SHA + workflow name alone would let it smuggle in another
+            // run's artifact for this (privileged) comment step.
             const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
               owner: context.repo.owner, repo: context.repo.repo,
               event: 'pull_request', head_sha: headSha, per_page: 100,
             });
             const ext = runs
-              .filter(r => r.name === 'Check External Links')
+              .filter(r =>
+                r.name === 'Check External Links' &&
+                r.head_branch === headBranch &&
+                r.head_repository?.full_name === headRepo
+              )
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
             core.setOutput('extlinks_run_id', ext ? String(ext.id) : '');
             core.setOutput('head_sha', headSha);
