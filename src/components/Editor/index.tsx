@@ -54,6 +54,10 @@ interface TransformedDocument {
   id: string;
   editorState: string;
   parentId: string | null;
+  type?: 'ref-arch' | 'article';
+  newAuthor?: { name: string; title: string; linkedin: string; username: string };
+  keywords?: string[];
+  spotlightImage?: { data: string; filename: string };
   children: TransformedDocument[];
   metadata: {
     title: string;
@@ -69,6 +73,7 @@ const transformTreeForBackend = (doc: Document): TransformedDocument => {
     id: doc.id,
     editorState: doc.editorState ? convertToLexicalFormat(doc.editorState) : '',
     parentId: doc.parentId,
+    ...(doc.type === 'article' ? { type: doc.type, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
     children: doc.children ? doc.children.map(transformTreeForBackend) : [],
     metadata: {
       title: doc.title,
@@ -651,15 +656,17 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <div className={styles.editorSpacer} />
-                  <ContributorsDisplay
-                    contributors={[
-                      ...(activeDocument?.authors || []),
-                      ...(activeDocument?.contributors || []).filter(
-                        c => !(activeDocument?.authors || []).includes(c)
-                      )
-                    ]}
-                    readOnly={true}
-                  />
+                  {activeDocument?.type !== 'article' && (
+                    <ContributorsDisplay
+                      contributors={[
+                        ...(activeDocument?.authors || []),
+                        ...(activeDocument?.contributors || []).filter(
+                          c => !(activeDocument?.authors || []).includes(c)
+                        )
+                      ]}
+                      readOnly={true}
+                    />
+                  )}
                 </div>
               </div>
             </div>

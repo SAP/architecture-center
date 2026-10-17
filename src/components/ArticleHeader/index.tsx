@@ -182,14 +182,22 @@ export default function ArticleHeader({ readOnly = false, onEditMeta }: ArticleH
                 </div>
             )}
             {/* <p className={styles.description}>{activeDocument.description || 'No description provided.'}</p> */}
-            <div className={styles.tagsContainer}>
-                {activeDocument.tags.length > 0 &&
-                    activeDocument.tags.map((tagKey) => (
+            {activeDocument.tags.length > 0 && (
+                <div className={styles.tagsContainer}>
+                    {activeDocument.tags.map((tagKey) => (
                         <span key={tagKey} className={styles.tag}>
                             {tagKeyToLabelMap.get(tagKey) || tagKey}
                         </span>
                     ))}
-            </div>
+                </div>
+            )}
+            {activeDocument.type === 'article' && activeDocument.keywords && activeDocument.keywords.length > 0 && (
+                <div className={styles.tagsContainer}>
+                    {activeDocument.keywords.map((kw) => (
+                        <span key={kw} className={styles.tag}>{kw}</span>
+                    ))}
+                </div>
+            )}
             <p className={styles.updateInfo}>
                 Last updated on <strong>{formatDate(displayTimestamp)}</strong> by{' '}
                 <strong>{activeDocument.authors.length > 0 ? activeDocument.authors.join(', ') : 'Unknown'}</strong>
