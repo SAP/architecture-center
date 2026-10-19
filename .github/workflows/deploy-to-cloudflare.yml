@@ -8,6 +8,11 @@ on:
 
 permissions: {}
 
+concurrency:
+  # Serialise production deploys; never cancel an in-flight deploy to the live site.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build:
     name: Build Site
@@ -25,6 +30,7 @@ jobs:
           # fetch complete history for step "export drawios" to safely determine
           # date of last update to drawio files via git log
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
@@ -61,6 +67,8 @@ jobs:
         with:
           name: build
           path: build
+          # disable compression to decrease upload time of larger artifacts
+          compression-level: 0
 
   deploy:
     name: Deploy Site
@@ -70,8 +78,9 @@ jobs:
     environment: cloudflare
     steps:
       - name: Download Build Artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
         with:
+          name: build
           path: build
 
       - name: Deploy to Cloudflare (Pages)

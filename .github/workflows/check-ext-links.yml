@@ -1,0 +1,106 @@
+name: Check External Links
+# Archetype: CHANGED-FILES — only changed Markdown files are checked for broken links (needs fetch-depth: 0).
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '.github/workflows/check-ext-links.yml'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-ext-links:
+    name: Check External Links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      - name: Compute scope
+        id: scope
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### External links check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          # Harden against filename-based injection: lychee-action eval's its args,
+          # so any shell metacharacter in a changed path (a fork PR controls path
+          # names) could be re-parsed. Fail closed if a path contains anything
+          # outside a safe set. Paths here are always under docs/ or news/.
+          if LC_ALL=C grep -qE '[^A-Za-z0-9._/-]' "$RUNNER_TEMP/changed.txt"; then
+            echo "::error title=External links::A changed path contains unexpected characters; refusing to run the link check."
+            {
+              echo "### External links check"
+              echo ""
+              echo "❌ A changed path contains unexpected characters; refusing to run (see annotations)."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          # Space-separated file list for lychee positional args.
+          echo "files=$(tr '\n' ' ' < "$RUNNER_TEMP/changed.txt" | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+
+      # External-link breakage is network-dependent (rate limits, transient 5xx) and
+      # often not anchored to a changed line, so — unlike the deterministic local checks —
+      # this one reports in the job summary rather than as inline per-line annotations.
+      - name: Check external links
+        id: lychee
+        if: steps.scope.outputs.skip != 'true'
+        uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
+        with:
+          args: --max-concurrency 8 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          output: ./lychee/out.md
+          jobSummary: false # we append the report ourselves (below) under a consistent heading
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Append lychee report to summary
+        if: always() && steps.lychee.outcome != 'skipped'
+        shell: bash
+        run: |
+          if [ -f ./lychee/out.md ]; then
+            { echo "### External links check"; echo ""; cat ./lychee/out.md; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
+            {
+              echo ""
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/community/automated-checks/external-links"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # External links report to the job summary (not annotations), so expose it as
+      # an artifact for the PR-comment aggregator (check-pr-comment.yml) to pick up.
+      - name: Upload findings for PR comment
+        if: always() && steps.scope.outputs.skip != 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: pr-findings-ext-links
+          path: ./lychee/out.md
+          if-no-files-found: ignore
+          retention-days: 1

@@ -1,4 +1,5 @@
 name: Check Typos
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is checked (needs fetch-depth: 0).
 
 on:
   pull_request:
@@ -13,6 +14,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-typos:
     name: Check Typos
@@ -25,9 +30,63 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
-      - name: Check for typos in docs/ and news/
-        uses: crate-ci/typos@00f422f3b19c57bc6338715ebfe3316d38768461 # v1.50.3
+      # Install the typos binary (pinned) so we can run it with --format brief
+      # and emit named inline annotations manually (problem matchers cannot set title=).
+      - name: Install typos
+        uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
         with:
-          files: ./docs ./news
-          config: ./_typos.toml
+          tool: typos@1.50.3
+
+      - name: Check for typos in changed docs/ and news/
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          else
+            {
+              echo "### Typo check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            exit 0
+          fi
+          rc=0
+          typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
+          # Emit named inline annotations (title= not supported by problem matchers).
+          if [ -n "$GITHUB_ACTIONS" ]; then
+            # Escape untrusted captures (filename, message) for the Actions command
+            # channel so a crafted path can't inject/forge annotation properties.
+            esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+            esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+            while IFS= read -r line; do
+              if [[ "$line" =~ ^([^:]+):([0-9]+):([0-9]+):\ error:\ (.+)$ ]]; then
+                echo "::error file=$(esc_prop "${BASH_REMATCH[1]}"),line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Typos::$(esc_data "${BASH_REMATCH[4]}")"
+              fi
+            done < "$RUNNER_TEMP/typos.txt"
+          fi
+          if [ "$rc" -ne 0 ]; then
+            {
+              echo "### Typo check"
+              echo ""
+              echo "❌ Typos found (also shown inline on the Files tab):"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/typos.txt"
+              echo '```'
+              echo ""
+              echo "📖 How to fix (correct the typo, or allow a valid term in _typos.toml): https://architecture.learning.sap.com/community/automated-checks/typos"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Typo check"
+              echo ""
+              echo "✅ No typos found."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$rc"
