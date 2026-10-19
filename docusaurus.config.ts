@@ -34,11 +34,9 @@ const config: Config = {
         },
     },
     customFields: {
-        validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
-            '/architecture-validator': 'btp',
             '/quick-start': 'github',
         },
     },
@@ -267,6 +265,18 @@ const config: Config = {
                             type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=snowflake">Snowflake</a>`,
                         },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
+                            type: 'html',
+                            value: '<strong>Other Viewpoints</strong>',
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archive=true">Archived Documents</a>`,
+                        },
                     ],
                 },
                 {
@@ -304,10 +314,6 @@ const config: Config = {
                         {
                             type: 'html',
                             value: '<hr style="margin: 0.3rem 0;">',
-                        },
-                        {
-                            label: 'Launch the Architecture Validator',
-                            to: '/architecture-validator',
                         },
                         {
                             label: 'Launch Quick Start',

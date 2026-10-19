@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2640.3",
+    "version": "v3.2642.2",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -9,11 +9,15 @@
         "build": "npm run generate-news && docusaurus build",
         "swizzle": "docusaurus swizzle",
         "deploy": "docusaurus deploy",
+        "deploy:cloudflare:dev": "zsh src/_scripts/_deploy-cloudflare.zsh --env DEV",
+        "deploy:cloudflare:test": "zsh src/_scripts/_deploy-cloudflare.zsh --env TEST",
+        "deploy:cloudflare:prod": "zsh src/_scripts/_deploy-cloudflare.zsh --env PROD",
         "clear": "docusaurus clear",
         "serve": "docusaurus serve",
         "write-translations": "docusaurus write-translations",
         "write-heading-ids": "docusaurus write-heading-ids",
         "generate-news": "node src/_scripts/_generate-latest-news.js",
+        "gen:headers": "node src/_scripts/_generate-vercel-headers.js",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
@@ -34,6 +38,11 @@
         "langium": "^4.2.2",
         "webpack": "~5.105.0",
         "webpackbar": "^7.0.0",
+        "tinypool": "^2.1.2",
+        "http-cache-semantics": "^4.3.0",
+        "qs": "^6.16.1",
+        "postcss-selector-parser": "^7.1.6",
+        "webpack-dev-middleware": "^7.4.6",
         "sockjs": {
             "uuid": "^11.1.1"
         }
@@ -74,7 +83,6 @@
         "lexical": "^0.41.0",
         "lucide-react": "^0.542.0",
         "mammoth": "^1.12.1",
-        "open-ask-ai": "^0.7.3",
         "pako": "^2.2.0",
         "particles.js": "^2.0.0",
         "path-to-regexp": "^8.4.2",
@@ -136,6 +144,11 @@
         ]
     },
     "engines": {
-        "node": ">=20.0"
+        "node": ">=22.0"
+    },
+    "allowScripts": {
+        "core-js@3.50.0": true,
+        "fsevents@2.3.3": true,
+        "unrs-resolver@1.12.2": true
     }
 }

@@ -3,18 +3,21 @@ id: b27373
 slug: /ref-arch/b27373
 sidebar_position: 50
 title: Explore your Hyperscaler data with SAP Business Data Cloud
-description: >-
-  Explore how SAP Business Data Cloud (BDC) acts as the business-centric
-  integration layer for enterprises looking to harmonize SAP and non-SAP data
-  across platforms like Snowflake, Azure, GCP, AWS, and Databricks.
+description: "See how SAP Business Data Cloud harmonizes SAP and non-SAP data across Snowflake, Azure, GCP, AWS, and Databricks for multi-cloud analytics."
 keywords:
   - sap
-  - datasphere
-  - federated architecture
-  - business-driven decisions
-  - cloud hyperscaler data
+  - sap business data cloud
+  - sap datasphere
+  - business data fabric
   - bdc connect
-  - zero copy
+  - delta sharing
+  - zero-copy data integration
+  - hyperscaler data integration
+  - multi-cloud analytics
+  - data federation
+  - replication flows
+  - data products
+  - business ai platform
 sidebar_label: Explore your Hyperscaler data with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
@@ -82,7 +85,7 @@ The reference architecture diagram above shows how the data from different hyper
      <ul>
        <li><b>BDC Connect / Delta Sharing integration[<i>NEW</i>]: </b> Using the Delta Share protocol via the BDC Connect component, data from the Object Store layer of SAP Business Data cloud can be shared instantly with external hyperscaler partner landscapes such as Databricks, Google BigQuery [<i>Currently</i>, while other partner integrations available soon].  The SAP BDC Connect component also enables sharing of data products from these external sources into SAP Business Data Cloud catalog. This makes it bi-directional dataproduct sharing on a zero copy federated principle, along with added advantage of secured and governed access[<i><b>recommended</b></i>]</li>
        <li><b>Data Federation - SAP Datasphere : </b>Data from external (non-SAP) sources such as Google BigQuery, Amazon Athena can be connected directly with SAP Datasphere layer of SAP Business Data Cloud as well, while sources such as Amazon Redshift, Microsoft Fabric, and Databricks Delta Lake leverages Smart Data Integration (SDI) and the Data Provisioning (DP) Agent for the connectivity, which hosts the necessary adapters and drivers, acting as the proxy layer, enabling secure and efficient connections to hyperscaler sources. These connections allow federated access in real-time using virtual or remote tables within SAP Datasphere, ensuring real-time access of non-SAP sources.</li>
-      <li><b>Replication Flows - SAP Datasphere : </b>Data from SAP sources are replicated out to the external hyperscalaer stores such as Google BigQuery, Amazon S3, and Azure Data Lake Storage Gen2 via SAP Datasphere through its Replication Flow feature.</li>
+      <li><b>Replication Flows - SAP Datasphere : </b>Data from SAP sources are replicated out to the external hyperscaler stores such as Google BigQuery, Amazon S3, and Azure Data Lake Storage Gen2 via SAP Datasphere through its Replication Flow feature.</li>
       <li><b>Data Flows - SAP Datasphere : </b>Data from a cost-efficient hyperscaler object stores like Google Cloud Storage or Amazon S3 can be imported into SAP Datasphere via Data Flows . With this approach the data can be transformed during the transfer and persisted "physically" in SAP Datasphere.</li>
      </ul>
 

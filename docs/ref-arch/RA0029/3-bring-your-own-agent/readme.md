@@ -2,25 +2,23 @@
 id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
-title: Bring Your Own Agent
-description: >-
-  Build and deploy custom pro-code AI agents to your own SAP BTP subaccount
-  using SAP Cloud SDK for AI with frameworks like LangGraph, AG2 and CrewAI —
-  and connect them to Joule via the A2A protocol.
+title: "Custom Pro-Code AI Agents on SAP BTP"
+description: "Build and deploy custom pro-code AI agents on SAP BTP with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
 keywords:
   - sap
-  - ai agents
-  - bring your own agent
-  - pro-code
+  - custom agent
+  - pro-code ai agents
+  - sap cloud sdk for ai
+  - generative ai hub
+  - sap integration suite
+  - sap hana cloud
+  - cap
   - a2a
   - mcp
-  - sap cloud sdk for ai
-  - cap
-  - generative ai hub
   - langgraph
   - crewai
-  - smolagents
-sidebar_label: Bring Your Own Agent
+  - business ai platform
+sidebar_label: Custom Pro-Code AI Agents on SAP BTP
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -42,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-25
+  date: 2026-10-14
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
@@ -57,7 +55,7 @@ The architecture consists of several integrated layers:
 
 ### Development & Orchestration Layer
 
--   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports both Python and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
+-   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports Python, Java and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
 -   **SAP Cloud Application Programming Model (CAP):** Framework that structures agent use case logic, data management and service integration. CAP provides domain modeling, service exposure and seamless connectivity to SAP and non-SAP systems.
 -   **SAP Integration Suite:** SAP Integration Suite serves as the enterprise iPaaS layer, delivering security mediation, traffic management, and centralized governance across agent and system interactions. It supports the orchestration of multiple heterogeneous systems while enabling structural customizations through message mediation and payload transformation capabilities. A rich library of pre-built connectors accelerates integration
 with third-party systems, reducing onboarding effort and time-to-value. Through API composition and structural simplification, SAP Integration Suite provides seamless, unified connectivity across both SAP and non-SAP landscapes.

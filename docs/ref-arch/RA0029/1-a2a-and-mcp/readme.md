@@ -2,7 +2,7 @@
 id: 76ec36
 slug: /ref-arch/76ec36
 sidebar_position: 1
-title: A2A and MCP for Interoperability
+title: A2A and MCP for AI Agent Interoperability on SAP BTP
 description: >-
   Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a
   decoupled, interoperable and scalable AI agent ecosystem on SAP BTP.
@@ -11,10 +11,16 @@ keywords:
   - ai agents
   - a2a
   - mcp
-  - interoperability
-  - Agent2Agent
+  - agent2agent
   - model context protocol
+  - multi-agent collaboration
+  - interoperability
   - sap integration suite
+  - joule
+  - agent gateway
+  - mcp gateway
+  - sap knowledge graph
+  - business ai platform
 sidebar_label: A2A and MCP for Interoperability
 image: img/ac-soc-med.png
 tags:
@@ -35,10 +41,11 @@ contributors:
   - kay-schmitteckert
   - hterminasyan
   - Dhawal-Joshi
+  - rameshvaranganti
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-27
+  date: 2026-10-14
 ---
 
 :::info Disclaimer
@@ -115,6 +122,31 @@ This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP 
 -   **Governance and Observability:** Comprehensive monitoring, tracing and analytics provide visibility into how agents consume tools, supporting compliance and adoption governance
 -   **Developer and Ecosystem Enablement:** Tools and workflows to manage the full MCP tool lifecycle, from creation and documentation enrichment to discovery and consumption by agents
 
+### Creating MCP Server Artifacts on Integration Cell
+
+The MCP Gateway overview above is complemented by an **MCP Server artifact** that can be modeled and deployed in SAP Integration Suite. SAP documents three creation paths:
+
+| Source | Integration approach |
+|--------|----------------------|
+| API artifact | Expose selected operations from an API already deployed on Integration Cell. |
+| HTTP endpoint with an OpenAPI specification | Model tools over an existing HTTP service using its API definition. |
+| RFC-based backend | Expose selected RFC operations as tools. |
+
+See [Creating an MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/creating-mcp-server) for the supported configuration of each path.
+
+Check the tenant's service plan, runtime activation, roles, and backend connectivity before implementation. MCP feature availability depends on the service plan. Select the operations to expose and review tool names, descriptions, and input schemas for the intended business task. Configure and test authentication, authorization, and traffic policies before allowing agent access.
+
+Deploy the server, publish it through the product and Developer Hub workflow, and configure an MCP-compatible client to discover and invoke the exposed tools. Monitor errors, latency, and tool usage through [API and MCP analytics](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/analyze-apis-and-mcp-servers). Customers remain responsible for backend permissions, tool selection, and the configured policies.
+
+**Integration Cell** in these walkthroughs refers to the managed cloud runtime. Do not infer equivalent MCP feature support on **Edge Integration Cell** without checking the applicable runtime documentation.
+
+For implementation examples and background, see:
+
+- [MCP concepts: From APIs to AI-Ready Interfaces](https://community.sap.com/t5/technology-blog-posts-by-sap/model-context-protocol-mcp-from-apis-to-ai-ready-interfaces/ba-p/14433238)
+- [Build an MCP Server from an API artifact](https://community.sap.com/t5/integration-blog-posts/mcp-servers-on-sap-integration-suite-build-your-first-mcp-server-from-an/ba-p/14441034)
+- [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
+- [API-centric design, deployment, and Developer Hub governance](../../RA0022/readme.md#api-centric-integration-on-integration-cell)
+
 ## Agent2Agent (A2A) connectivity via Integration Suite
 
 SAP Integration Suite provides agent-to-agent interaction capabilities to address multi-party integration scenarios spanning SAP and non-SAP agentic platforms. In hybrid landscape deployments, Integration Suite is positioned in front of the Agent Gateway to fulfill cross-cutting concerns including security mediation, traffic management, guaranteed delivery, monitoring, event-driven publish-subscribe messaging, and broader quality of service requirements.
@@ -125,8 +157,8 @@ SAP Integration Suite provides agent-to-agent interaction capabilities to addres
 -   **Enterprise-Grade Traffic Management:** Load balancing, intelligent routing, and mediation capabilities ensure reliable and performant A2A interactions, supporting complex multi-party integration scenarios between SAP and non-SAP agentic platform.
 -   **Payload Transformation and Protocol Mediation:** Built-in transformation and translation capabilities allow seamless interoperability between heterogeneous SAP and non-SAP agentic platforms, bridging differences in data formats, protocols, and message structures.
 -   **Governance, Observability and Reporting:** Comprehensive monitoring, analytics, and reporting provide deep visibility into agent usage, performance trends, and inter-agent traffic flows, supporting compliance, operational governance, and adoption tracking.
--   **Guaranteed Delivery with Configurable Quality of Service (QoS):** Integration Suite ensures reliable agent-to-agent message delivery through a tiered QoS model — At-Least-Once (ALO) guarantees message persistence and delivery resilience across failures; Exactly-Once (EO) eliminates duplicate processing while maintaining end-to-end reliability; and Exactly-Once-In-Order (EOIO) further preserves transactional integrity and business process consistency through message sequencing. Together, these tiers ensure inter-agent communication meets enterprise-grade reliability and ordering requirements across the A2A integration landscape.
--   **Event-Driven Inter-Agent Collaboration:** Native support for event-driven patterns with Quality-of-Service guarantees — including guaranteed delivery, pub-sub mechanisms, and reliable messaging — enables asynchronous and resilient agent-to-agent communication beyond simple request-response interactions.
+-   **Quality of Service Depends on the Integration Path:** Choose persistence, retry, acknowledgment, duplicate-handling, and ordering mechanisms for the adapters and protocols actually used. Exactly-once business processing requires appropriate receiver behavior; ordered processing also depends on sender sequencing and queue configuration. The A2A protocol alone does not establish these guarantees. See [delivery semantics and recovery](../../RA0021/readme.md#delivery-semantics-and-recovery).
+-   **Event-Driven Inter-Agent Collaboration:** Event-driven messaging can decouple agent interactions. Specify and test the delivery and recovery guarantees of the chosen broker, adapters, and receiving application.
   
 ## Bring Your Own Agent (Outbound)
 

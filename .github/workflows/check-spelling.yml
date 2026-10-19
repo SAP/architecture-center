@@ -1,0 +1,108 @@
+name: Check Spelling
+# Archetype: CHANGED-FILES — only Markdown changed vs the PR base (incremental_files_only) so legacy gaps don't block PRs; needs fetch-depth: 0.
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - 'cspell.json'
+      - '.cspell/**'
+      - '.github/workflows/check-spelling.yml'
+      - '.github/workflows/cspell/**'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-spelling:
+    name: Check Spelling
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Install cspell
+        shell: bash
+        run: |
+          # Hash-pinned install from an isolated lockfile. OpenSSF Scorecard's
+          # Pinned-Dependencies check only treats `npm ci` against a committed
+          # lockfile as pinned (a bare `npm install pkg@version` is flagged).
+          # cspell is kept in its own lockfile under .github/workflows/cspell/
+          # so it stays out of the main dependency tree (build/deploy are not
+          # affected and only cspell is installed here). --ignore-scripts skips
+          # dependency lifecycle scripts.
+          npm ci --ignore-scripts --prefix .github/workflows/cspell
+          # Expose the locally installed cspell binary to subsequent steps.
+          echo "${GITHUB_WORKSPACE}/.github/workflows/cspell/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Check spelling of changed Markdown files
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          else
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            exit 0
+          fi
+          rc=0
+          cspell --no-color --no-progress --relative --config ./cspell.json "${FILES[@]}" \
+            > "$RUNNER_TEMP/cspell.txt" 2>&1 || rc=$?
+          # Emit named inline annotations.
+          # cspell brief format: file:line:col - Unknown word (word)
+          if [ -n "$GITHUB_ACTIONS" ]; then
+            # Escape untrusted captures (filename, message) for the Actions command
+            # channel so a crafted path can't inject/forge annotation properties.
+            esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+            esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+            while IFS= read -r line; do
+              if [[ "$line" =~ ^([^:]+):([0-9]+):([0-9]+)\ -\ (.+)$ ]]; then
+                echo "::error file=$(esc_prop "${BASH_REMATCH[1]}"),line=${BASH_REMATCH[2]},col=${BASH_REMATCH[3]},title=Spelling::$(esc_data "${BASH_REMATCH[4]}")"
+              fi
+            done < "$RUNNER_TEMP/cspell.txt"
+          fi
+          if [ "$rc" -ne 0 ]; then
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "❌ Spelling errors found (also shown inline on the Files tab):"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/cspell.txt"
+              echo '```'
+              echo ""
+              echo "📖 How to fix (correct the word, or add a real term to a dictionary): https://architecture.learning.sap.com/community/automated-checks/spelling"
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Spelling check"
+              echo ""
+              echo "✅ No spelling errors found."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$rc"

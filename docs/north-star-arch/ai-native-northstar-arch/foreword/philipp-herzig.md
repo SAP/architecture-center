@@ -4,30 +4,21 @@ sidebar_position: 1
 slug: /ai-native-north-star-architecture/foreword/philipp-herzig
 sidebar_custom_props:
     category_index: []
-title: Philipp Herzig
-description: >-
-    Enterprise AI shifts from AI-first to AI-native: SAP's architecture unlocks five decades of business context to build a system of context where agents reason across the full landscape, processes learn from every interaction, and software evolves from SaaS to Outcome as a Service.
+title: Philipp Herzig on the AI-native North Star architecture
+description: "SAP CTO Philipp Herzig on the AI-native North Star architecture: moving from AI-first to AI-native toward one system of context for the Autonomous Enterprise."
 keywords:
-    - AI-native architecture
+    - sap
+    - philipp herzig
+    - ai-native north star architecture
     - system of context
     - autonomous enterprise
-    - agentic AI
-    - SAP Joule
-    - SAP Business AI Platform
-    - SAP Business Data Cloud
-    - SAP BTP
-    - Outcome as a Service
-    - enterprise AI
-    - AI agents
-    - deterministic path
-    - cognitive core
-    - AI governance
-    - responsible AI
-    - North Star Architecture
-    - NSA
-    - AI Golden Path
-    - digital transformation
-    - enterprise context
+    - agentic ai
+    - outcome as a service
+    - business context
+    - enterprise ai
+    - ai governance
+    - nsa
+    - business ai platform
 sidebar_label: Philipp Herzig (SAP)
 image: img/ac-soc-med.png
 tags:

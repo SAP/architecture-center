@@ -2,23 +2,21 @@
 id: 458ff4
 slug: /ref-arch/458ff4
 sidebar_position: 320
-title: Decentralized Identity Verification
-description: >-
-  Decentralized Identity Verification (DIV) is a multi-tenant SAP BTP service
-  that enables enterprise applications to use Self-Sovereign Identity (SSI) for
-  secure, privacy-preserving inter-company communications.
+title: Decentralized Identity Verification on SAP BTP
+description: "Decentralized Identity Verification is an SAP BTP service for issuing and verifying W3C Verifiable Credentials and DIDs using Self-Sovereign Identity."
 keywords:
   - sap
-  - integration
-  - security
-  - ref-arch
-  - decentralized identity
-  - verifiable credentials
+  - decentralized identity verification
   - self-sovereign identity
-  - SSI
-  - DID
-  - BTP
+  - verifiable credentials
+  - decentralized identifiers
   - trust network
+  - catena-x
+  - gaia-x
+  - data sovereignty
+  - digital business wallet
+  - sap cloud identity services
+  - business ai platform
 sidebar_label: Decentralized Identity Verification
 image: img/logo.svg
 tags:
@@ -81,7 +79,7 @@ last_update:
 
 The [Decentralized Identity Verification](https://www.sap.com/products/technology-platform/decentralized-identity-verification.html) service for SAP BTP enables enterprise applications to leverage **Self-Sovereign Identity (SSI)** for secure, privacy-preserving inter-company communications. DIV provides a comprehensive platform to issue, sign, verify, and manage **Verifiable Credentials (VCs)** and **Decentralized Identifiers (DIDs)** — the foundational building blocks of decentralized trust networks. It provides you with a user-friendly administration application and a service instance for API integration tasks.
 
-DIV was development in the context of the data sovereignty requirements of [Catena-X](https://catena-x.net/en/) and [Gaia-X](https://www.data-infrastructure.eu/GAIAX/Navigation/EN/Home/home.html). The basis for DIV was created by ICN and brought to the first release by a joint development project of [ICN](https://sap.sharepoint.com/teams/ICNBerlinPotsdam) and BTP-Foundation.
+DIV was development in the context of the data sovereignty requirements of [Catena-X](https://catena-x.net/en/) and [Gaia-X](https://www.data-infrastructure.eu/GAIAX/Navigation/EN/Home/home.html). The basis for DIV was created by ICN and brought to the first release by a joint development project of ICN and BTP-Foundation.
 
 Decentralized Identity Verification consists of three main pillars:
 

@@ -7,8 +7,9 @@ description: Integrate Microsoft Copilot and SAP Joule
 keywords:
   - sap
   - joule
-  - ai
-  - microsoft
+  - microsoft copilot
+  - ai copilot integration
+  - business ai platform
 sidebar_label: Integrate Joule and Microsoft Copilot
 image: img/ac-soc-med.png
 tags:
