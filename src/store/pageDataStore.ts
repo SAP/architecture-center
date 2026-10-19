@@ -134,8 +134,6 @@ if (typeof window !== 'undefined') {
     window.addEventListener('beforeunload', flushPendingWrites);
 }
 
-// Separate, direct localStorage cache for document types.
-
 const findDocumentById = (docs: Document[], id: string | null): Document | null => {
     if (!id) return null;
     for (const doc of docs) {
