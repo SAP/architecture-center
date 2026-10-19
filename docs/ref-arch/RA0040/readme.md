@@ -38,9 +38,11 @@ contributors:
   - andreas-roth
   - D056202
 last_update:
-  author: D056202
-  date: 2026-09-23
+  author: fabianleh
+  date: 2026-10-19
 ---
+
+# Training-Free Predictive Analytics over a Semantic Lakehouse
 
 Predictive analytics in enterprise settings has traditionally required per-use-case training pipelines: feature engineering, feature stores, training runs, model registries, and retraining loops. Tabular foundation models give us a training-free approach and remove the need to copy data, run per-tenant training runs, and host a large number of small models. Deleting the training stage does not remove work, it relocates it. The work moves left, out of a model-training-and-serving pipeline and into the assembly, governance, and semantic correctness of the table handed to the model per inference request. The lakehouse that owns that table is promoted from a convenience layer to the critical path.
 
