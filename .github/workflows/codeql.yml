@@ -56,8 +56,12 @@ jobs:
     # Add any setup steps before running the `github/codeql-action/init` action.
     # This includes steps like installing compilers or runtimes (`actions/setup-node`
     # or others). This is typically only required for manual builds.
-    # - name: Setup runtime (example)
-    #   uses: actions/setup-example@v1
+    # Node.js must be on PATH for CodeQL's TypeScript extractor; the self-hosted
+    # runners don't provide it by default, so install it here.
+    - name: Setup Node.js
+      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+      with:
+        node-version: '24'
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
