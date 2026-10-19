@@ -158,6 +158,7 @@ export default function ArticleFormDialog({
                         value={initialData?.description || ''}
                         onInput={(e: InputEvent) => onDataChange({ description: e.target.value })}
                         placeholder="Add a short description (max 300 characters)..."
+                        maxlength={300}
                     />
                 </FormItem>
 
