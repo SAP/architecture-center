@@ -1,0 +1,37 @@
+name: Check SEO Front Matter
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'src/_scripts/_check-seo-frontmatter.js'
+      - '.github/workflows/check-seo-frontmatter.yml'
+
+permissions: {}
+
+jobs:
+  check-seo-frontmatter:
+    name: Check SEO Front Matter
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check title and description lengths
+        run: node src/_scripts/_check-seo-frontmatter.js

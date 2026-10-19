@@ -9,14 +9,22 @@ description: >-
 keywords:
   - sap
   - cline
-  - ai core
-  - generative ai
-  - autonomous coding
+  - sap ai core
+  - vibe coding
+  - autonomous coding agent
+  - context engineering
+  - generative ai hub
+  - foundation models
+  - prompt-driven development
+  - model context protocol
+  - test-driven development
+  - business ai platform
 sidebar_label: Vibe Coding with Cline and SAP AI Core
 image: img/logo.svg
 tags:
   - genai
   - appdev
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

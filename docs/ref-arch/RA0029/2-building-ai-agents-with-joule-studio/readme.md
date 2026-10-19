@@ -2,21 +2,21 @@
 id: 219c07
 slug: /ref-arch/219c07
 sidebar_position: 2
-title: Building AI Agents with Joule Studio
-description: >-
-  Build, deploy and connect AI agents using Joule Studio — SAP's AI-native
-  development environment. Covers both the browser-based Low-Code Flow and the
-  CLI-driven Pro-Code Flow, both powered by Intent-Based Development (IBD).
+title: Building AI Agents with SAP Joule Studio on SAP BTP
+description: "Build, deploy and connect AI agents with Joule Studio, SAP's AI-native environment, using the browser-based Low-Code Flow or CLI-driven Pro-Code Flow."
 keywords:
   - sap
   - ai agents
   - joule studio
+  - joule
   - intent-based development
-  - ibd
   - low-code
   - pro-code
-  - managed runtime
-  - joule work
+  - sap knowledge graph
+  - sap leanix
+  - generative ai hub
+  - sap-managed runtime
+  - business ai platform
 sidebar_label: Building AI Agents with Joule Studio
 image: img/ac-soc-med.png
 tags:
