@@ -1,4 +1,4 @@
-import React, { useState, useEffect, JSX, useCallback } from 'react';
+import React, { useState, useEffect, JSX, useCallback, useRef } from 'react';
 import Layout from '@theme/Layout';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
@@ -43,6 +43,7 @@ function AuthenticatedQuickStartView() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isArticleFormOpen, setIsArticleFormOpen] = useState(false);
     const [isArticleEditMode, setIsArticleEditMode] = useState(false);
+    const [sapOnlyDialogOpen, setSapOnlyDialogOpen] = useState(false);
     const [articleFormData, setArticleFormData] = useState<PageMetadata>({ title: '', tags: [], authors: [], contributors: [] });
     const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
@@ -53,9 +54,10 @@ function AuthenticatedQuickStartView() {
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
     const { users, token } = useAuth();
-    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const { expressBackendUrl, backendUrl } = siteConfig.customFields as { expressBackendUrl: string; backendUrl: string };
     const [initialized, setInitialized] = useState(false);
-    const isSapAuthenticated = users.github?.isSapEmployee === true;
+    const isSapAuthenticated = users.github?.isSapEmployee === true || users.btp !== null;
+    const pendingActionHandledRef = useRef(false);
 
     // Initialize backend config and fetch documents
     useEffect(() => {
@@ -72,7 +74,9 @@ function AuthenticatedQuickStartView() {
     useEffect(() => {
         if (!initialized) return;
         if (documents.length === 0) {
-            setIsContentTypeOpen(true);
+            if (!pendingActionHandledRef.current) {
+                setIsContentTypeOpen(true);
+            }
             return;
         }
         if (activeDocumentId === null) {
@@ -81,6 +85,30 @@ function AuthenticatedQuickStartView() {
             if (firstDoc) openDocument(firstDoc.id);
         }
     }, [initialized, documents, activeDocumentId, openDocument]);
+
+    // On return from BTP SSO: resume the pending "open article" action
+    useEffect(() => {
+        const pending = sessionStorage.getItem('pendingAction');
+        if (!pending) return;
+        sessionStorage.removeItem('pendingAction');
+        if (pending === 'openArticle') {
+            pendingActionHandledRef.current = true;
+            if (isSapAuthenticated) {
+                setArticleFormData({ title: '', tags: [], authors: [], contributors: [] });
+                setIsArticleEditMode(false);
+                setIsArticleFormOpen(true);
+            } else {
+                setSapOnlyDialogOpen(true);
+            }
+        }
+    }, []);
+
+    // Redirect a GitHub-only user through BTP SSO, then resume on return
+    const handleSapLogin = useCallback(() => {
+        sessionStorage.setItem('pendingAction', 'openArticle');
+        const originUri = encodeURIComponent(`${window.location.origin}${window.location.pathname}`);
+        window.location.href = `${backendUrl}/user/login?origin_uri=${originUri}&provider=btp`;
+    }, [backendUrl]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -252,7 +280,15 @@ function AuthenticatedQuickStartView() {
                 onSelect={handleContentTypeSelect}
                 onCancel={handleContentTypeCancel}
                 isArticleLocked={!isSapAuthenticated}
+                onRequestSapLogin={handleSapLogin}
             />
+            <Dialog
+                open={sapOnlyDialogOpen}
+                headerText="SAP account required"
+                footer={<Button design="Emphasized" onClick={() => setSapOnlyDialogOpen(false)}>OK</Button>}
+            >
+                <Text>Creating an article requires signing in with your SAP account. Please try again using your SAP credentials.</Text>
+            </Dialog>
             <ArticleFormDialog
                 open={isArticleFormOpen}
                 initialData={articleFormData}
