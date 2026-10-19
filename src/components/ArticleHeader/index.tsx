@@ -191,7 +191,7 @@ export default function ArticleHeader({ readOnly = false, onEditMeta }: ArticleH
                     ))}
                 </div>
             )}
-            {activeDocument.type === 'article' && activeDocument.keywords && activeDocument.keywords.length > 0 && (
+            {activeDocument.isArticle && activeDocument.keywords && activeDocument.keywords.length > 0 && (
                 <div className={styles.tagsContainer}>
                     {activeDocument.keywords.map((kw) => (
                         <span key={kw} className={styles.tag}>{kw}</span>

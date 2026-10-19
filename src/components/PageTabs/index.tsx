@@ -24,7 +24,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     useEffect(() => {
         if (!activeDocumentId) return;
         const activeDoc = documents.find((d) => d.id === activeDocumentId);
-        if (activeDoc?.type === 'article') {
+        if (activeDoc?.isArticle) {
             _articleExpanded = true;
             setArticleExpanded(true);
         } else {
@@ -39,7 +39,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
 
     const renderDocumentTree = (doc: Document, isSharedSection: boolean = false) => {
         const children = documents.filter((child) => child.parentId === doc.id);
-        const canAddSubPage = onAddNew && !doc.isReadOnly && doc.type !== 'article';
+        const canAddSubPage = onAddNew && !doc.isReadOnly && !doc.isArticle;
 
         return (
             <div key={doc.id}>
@@ -80,9 +80,9 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     };
 
     const rootDocs = documents.filter((d) => d.parentId === null);
-    const myRaDocs = rootDocs.filter((d) => !d.isReadOnly && d.type !== 'article');
+    const myRaDocs = rootDocs.filter((d) => !d.isReadOnly && !d.isArticle);
     const sharedRaDocs = rootDocs.filter((d) => d.isReadOnly);
-    const myArticleDocs = rootDocs.filter((d) => !d.isReadOnly && d.type === 'article');
+    const myArticleDocs = rootDocs.filter((d) => !d.isReadOnly && d.isArticle);
 
     const hasRaDocs = myRaDocs.length > 0 || sharedRaDocs.length > 0;
     const hasArticleDocs = myArticleDocs.length > 0;

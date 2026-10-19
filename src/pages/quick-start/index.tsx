@@ -47,7 +47,7 @@ function AuthenticatedQuickStartView() {
     const [isEditMode, setIsEditMode] = useState(false);
     const [newDocData, setNewDocData] = useState<PageMetadata>(initialPageData);
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
-    const { documents, addDocument, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument, openDocument } = usePageDataStore();
+    const { documents, addDocument, addArticle, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument, openDocument } = usePageDataStore();
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
@@ -94,7 +94,7 @@ function AuthenticatedQuickStartView() {
         if (parentId !== null) {
             setIsSubPageCreation(true);
             const parentDoc = documents.find((d) => d.id === parentId);
-            if (parentDoc?.type === 'article') {
+            if (parentDoc?.isArticle) {
                 setArticleFormData({ title: '', tags: [], authors: [], contributors: [] });
                 setIsArticleFormOpen(true);
             } else {
@@ -175,21 +175,21 @@ function AuthenticatedQuickStartView() {
                 });
             }
         } else {
-            addDocument({
+            addArticle({
                 title: articleFormData.title,
                 description: articleFormData.description || '',
-                tags: articleFormData.tags || [],
+                tags: [],
                 keywords: articleFormData.keywords || [],
                 spotlightImage: articleFormData.spotlightImage,
                 authors: users.github ? [users.github.username] : [],
-                contributors: articleFormData.contributors || [],
+                contributors: [],
                 ...(newAuthor ? { newAuthor } : {}),
-            }, currentParentId, 'article');
+            });
         }
         setIsArticleFormOpen(false);
         setIsArticleEditMode(false);
         setIsSubPageCreation(false);
-    }, [articleFormData, users.github, addDocument, currentParentId, isArticleEditMode, getActiveDocument, updateDocument]);
+    }, [articleFormData, users.github, addDocument, addArticle, currentParentId, isArticleEditMode, getActiveDocument, updateDocument]);
 
     const handleArticleCancel = useCallback(() => {
         setIsArticleFormOpen(false);
@@ -204,7 +204,7 @@ function AuthenticatedQuickStartView() {
         const activeDoc = getActiveDocument();
         if (!activeDoc) return;
 
-        if (activeDoc.type === 'article') {
+        if (activeDoc.isArticle) {
             setArticleFormData({
                 title: activeDoc.title,
                 tags: activeDoc.tags,

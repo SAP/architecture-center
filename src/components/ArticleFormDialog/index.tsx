@@ -197,7 +197,7 @@ export default function ArticleFormDialog({
                     <Input
                         value={linkedin}
                         onInput={(e: InputEvent) => setLinkedin(e.target.value)}
-                        placeholder="e.g. john-doe"
+                        placeholder="e.g. your-linkedin-handle"
                     />
                 </FormItem>
 

@@ -54,7 +54,7 @@ interface TransformedDocument {
   id: string;
   editorState: string;
   parentId: string | null;
-  type?: 'ref-arch' | 'article';
+  isArticle?: boolean;
   newAuthor?: { name: string; title: string; linkedin: string; username: string };
   keywords?: string[];
   spotlightImage?: { data: string; filename: string };
@@ -73,7 +73,7 @@ const transformTreeForBackend = (doc: Document): TransformedDocument => {
     id: doc.id,
     editorState: doc.editorState ? convertToLexicalFormat(doc.editorState) : '',
     parentId: doc.parentId,
-    ...(doc.type === 'article' ? { type: doc.type, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
+    ...(doc.isArticle ? { isArticle: true, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
     children: doc.children ? doc.children.map(transformTreeForBackend) : [],
     metadata: {
       title: doc.title,
@@ -656,7 +656,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <div className={styles.editorSpacer} />
-                  {activeDocument?.type !== 'article' && (
+                  {!activeDocument?.isArticle && (
                     <ContributorsDisplay
                       contributors={[
                         ...(activeDocument?.authors || []),
