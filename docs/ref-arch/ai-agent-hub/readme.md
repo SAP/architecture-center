@@ -35,7 +35,7 @@ contributors:
 discussion:
 last_update:
   author: fabianleh
-  date: 2026-10-01
+  date: 2026-10-19
 ---
 
 As AI agents proliferate across enterprise systems — spanning SAP, third-party cloud platforms, and custom deployments — organizations need a systematic way to discover, verify, observe, and govern their entire agent estate. **SAP AI Agent Hub** is the enterprise command center for AI governance: a single platform that brings enterprise architecture discipline to AI agent management, built on SAP LeanIX.
@@ -52,7 +52,7 @@ The hub addresses a fundamental challenge: while building and deploying individu
 
 2. An **Agent Manager** — typically an enterprise architect or IT governance lead — uses the hub to discover agents, map them to enterprise architecture, verify and activate them, monitor usage and resource access, adjust permissions, and decommission agents at end of life.
 
-3. Agent telemetry from SAP and third-party agent runtimes flows into **SAP Signavio** for behavioral process analysis and into SAP Cloud ALM for operational monitoring.
+3. Agent telemetry from SAP and third-party agent runtimes flows into **SAP Signavio** for behavioral process analysis and into **SAP Cloud ALM** for operational monitoring.
 4. **SAP SuccessFactors** provides the organizational dimension, mapping agents to business units and roles.
 
 4. **SAP Cloud Identity Services** manages agent identities and acts as the authority for access control. Registering an agent in the hub triggers provisioning flows that create the corresponding agent identity record and align it with enterprise access policies. See [Agent Identity](../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
