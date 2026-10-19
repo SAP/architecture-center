@@ -17,8 +17,8 @@ if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Get all markdown files from blog directory
-const files = fs.readdirSync(blogDir)
+// Get all markdown files from blog directory (the folder may be empty or absent)
+const files = (fs.existsSync(blogDir) ? fs.readdirSync(blogDir) : [])
     .filter(file => file.endsWith('.md'))
     .map(file => {
         const filePath = path.join(blogDir, file);

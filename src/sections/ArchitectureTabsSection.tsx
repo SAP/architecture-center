@@ -39,11 +39,11 @@ export default function ArchitectureTabsSection(): JSX.Element {
             authProviders: Record<string, 'btp' | 'github'>;
         };
 
-        // Get the latest article
+        // Get the latest article (may be undefined if there are no news posts)
         const latestArticle = latestNewsData[0];
 
         // Create the latest article tab with formatted subtitle (title + description)
-        const latestArticleTab = {
+        const latestArticleTab = latestArticle && {
             title: 'Under the Spotlight: In Focus',
             tabLabel: 'Spotlight',
             subtitle: (
@@ -78,8 +78,8 @@ export default function ArchitectureTabsSection(): JSX.Element {
             };
         });
 
-        // Prepend latest article as the first tab
-        return [...existingCards, latestArticleTab];
+        // Prepend latest article as the first tab (only when news posts exist)
+        return latestArticleTab ? [...existingCards, latestArticleTab] : existingCards;
     };
 
     const visibleCards = getVisibleNavigationCards();
