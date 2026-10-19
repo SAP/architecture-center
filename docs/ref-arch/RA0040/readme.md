@@ -35,8 +35,8 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - andreas-roth
-  - D056202
+  - andrroth
+  - modood-alvi
 last_update:
   author: fabianleh
   date: 2026-10-19
