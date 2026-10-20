@@ -73,7 +73,12 @@ jobs:
         if: steps.scope.outputs.skip != 'true'
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          args: --max-concurrency 8 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          # --accept 200..=299,403: treat 403 as reachable. A 403 almost always
+          # means the target sits behind an authentication/login wall, not that
+          # the link is broken, so it is not worth reporting. Only genuine
+          # breakage (e.g. 404) fails the check. The 2xx success range must be
+          # restated because --accept overrides lychee's default.
+          args: --max-concurrency 4 --accept 200..=299,403 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
@@ -85,12 +90,18 @@ jobs:
         shell: bash
         run: |
           if [ -f ./lychee/out.md ]; then
-            { echo "### External links check"; echo ""; cat ./lychee/out.md; } >> "$GITHUB_STEP_SUMMARY"
+            {
+              echo "### External links check"
+              echo ""
+              cat ./lychee/out.md
+              echo ""
+              echo "> ℹ️ Only genuine breakage such as \`404 Not Found\` is reported. A \`403\` response is treated as reachable and is **not** flagged, because it almost always means the target requires authentication (a login wall) rather than that the link is broken."
+            } >> "$GITHUB_STEP_SUMMARY"
           fi
           if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
             {
               echo ""
-              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/community/automated-checks/external-links"
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/docs/community/automated-checks/external-links"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
