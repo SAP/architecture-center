@@ -18,9 +18,9 @@ import {
   DOMAIN_DEFINITIONS,
   categoryIdToTags,
   isDocArchived,
-  isDocRecentlyUpdated,
   findDocIdFromPath,
   docExistsInArchivedView,
+  docExistsInCommunityView,
   docExistsInRecentlyUpdatedView,
   findDocByPath,
   computeFilteredResults,
@@ -218,6 +218,18 @@ export default function DocSidebarWrapper(props) {
     [props.sidebar, tagsDocId]
   );
 
+  // Likewise precompute the community-content view once, so navigation does not
+  // re-filter the whole tree on every route change.
+  const communityView = useMemo(
+    () => computeFilteredResults(props.sidebar, tagsDocId, {
+      showArchived: false,
+      partners: [],
+      showCommunityContent: true,
+      showRecentlyUpdated: false,
+    }),
+    [props.sidebar, tagsDocId]
+  );
+
   useEffect(() => {
     if (!location.pathname.startsWith(docsBase)) return;
     if (!shouldShowFilters) return;
@@ -292,25 +304,25 @@ export default function DocSidebarWrapper(props) {
 
     if (communityContentParam === 'true') {
       setShowCommunityContent(true);
-    } else if (docId && tagsDocId[docId]) {
-      // Preserve community content filter during sidebar nav if doc has the tag
-      if (currentShowCommunityContent) {
-        const docTags = tagsDocId[docId]?.tags || [];
-        const isCommunityDoc = docTags.includes('community-contrib');
-
-        if (isCommunityDoc) {
-          // Keep filter active and sync URL
-          const urlParams = new URLSearchParams(window.location.search);
-          if (!urlParams.get('communityContent')) {
-            urlParams.set('communityContent', 'true');
-            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
-          }
-        } else {
-          setShowCommunityContent(false);
+    } else if (currentShowCommunityContent) {
+      // Preserve the community-content filter across sidebar navigation whenever the
+      // target still belongs to the community view: either it is community content itself,
+      // or it is a parent node whose children are. Not gated on tagsDocId membership — a
+      // parent without the community-contrib tag of its own is absent from that map, which
+      // previously fell through to an unconditional reset and dropped the filter.
+      const keepCommunity = docExistsInCommunityView(
+        docId ?? '', location.pathname, props.sidebar, tagsDocId, communityView
+      );
+      if (keepCommunity) {
+        // Keep filter active and sync URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.get('communityContent')) {
+          urlParams.set('communityContent', 'true');
+          window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
         }
+      } else {
+        setShowCommunityContent(false);
       }
-    } else {
-      setShowCommunityContent(false);
     }
 
     // Handle recently updated filter
@@ -318,28 +330,26 @@ export default function DocSidebarWrapper(props) {
 
     if (recentParam === 'true') {
       setShowRecentlyUpdated(true);
-    } else if (docId && tagsDocId[docId]) {
-      // Preserve recently updated filter during sidebar nav only if doc is recently updated
-      if (currentShowRecentlyUpdated) {
-        const isRecentDoc = isDocRecentlyUpdated(docId, tagsDocId);
-
-        if (isRecentDoc) {
-          // Keep filter active and sync URL
-          const urlParams = new URLSearchParams(window.location.search);
-          if (!urlParams.get('recent')) {
-            urlParams.set('recent', 'true');
-            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
-          }
-        } else {
-          // Check if document exists in recently updated view (as a parent category with recent children)
-          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId, recentlyUpdatedView);
-          if (!existsInRecentlyUpdated) {
-            setShowRecentlyUpdated(false);
-          }
+    } else if (currentShowRecentlyUpdated) {
+      // Preserve the recently-updated filter across sidebar navigation whenever the
+      // target still belongs to the recent view: either it is recent itself, or it is a
+      // parent node whose children are recent. This must NOT be gated on the doc being in
+      // tagsDocId — a parent whose own readme has no last_update.date (and no tags) is
+      // absent from that map, which previously fell through to an unconditional reset and
+      // dropped the filter when you clicked such a parent node.
+      const keepRecent = docExistsInRecentlyUpdatedView(
+        docId ?? '', location.pathname, props.sidebar, tagsDocId, recentlyUpdatedView
+      );
+      if (keepRecent) {
+        // Keep filter active and sync URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.get('recent')) {
+          urlParams.set('recent', 'true');
+          window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
         }
+      } else {
+        setShowRecentlyUpdated(false);
       }
-    } else {
-      setShowRecentlyUpdated(false);
     }
 
     if (expandedParam) {
@@ -381,7 +391,7 @@ export default function DocSidebarWrapper(props) {
         }
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, recentlyUpdatedView]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, recentlyUpdatedView, communityView]);
 
   useEffect(() => {
     return history.listen(loc => {
