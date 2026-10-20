@@ -65,7 +65,7 @@ What the user feels is **Time to First Audio (TTFA)**, the gap between the end o
 
 In one of our use cases, measured TTFA is about 2 seconds without a tool call and 3 seconds or more when a tool call is involved. The breakdown below shows where the time goes. STT compute is only about 300 ms, so improving it by 20% saves roughly 60 ms. That is negligible next to a tool call that typically runs a second or longer, or an LLM first-token latency of 0.9 to 1.7 seconds. The clearest wins come from cutting tool-call round-trip time and routing simpler turns to a lower-latency LLM.
 
-<img src={require('./img/2026-10-20/voice-agent-latency-breakdown.png').default} alt="Voice Agent Latency Breakdown" width="100%" />
+![Voice Agent Latency Breakdown](./img/2026-10-20/voice-agent-latency-breakdown.png)
 
 Two levers matter most:
 
