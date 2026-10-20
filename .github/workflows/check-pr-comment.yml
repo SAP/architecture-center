@@ -111,7 +111,7 @@ jobs:
 
             // Where to send a contributor to understand and resolve each check.
             // Points at the Automated Checks guide in the Community of Practice.
-            const DOCS_BASE = 'https://architecture.learning.sap.com/community/automated-checks';
+            const DOCS_BASE = 'https://architecture.learning.sap.com/docs/community/automated-checks';
             const DOCS = {
               'Check Internal Links': 'internal-links',
               'Check SEO Front Matter': 'seo-front-matter',

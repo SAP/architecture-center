@@ -90,7 +90,7 @@ jobs:
           if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
             {
               echo ""
-              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/community/automated-checks/external-links"
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/docs/community/automated-checks/external-links"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
