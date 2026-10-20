@@ -273,7 +273,7 @@ function main() {
 
   if (errors > 0) {
     summary.push('');
-    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/community/automated-checks/front-matter-properties');
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter-properties');
   }
 
   const summaryText = summary.join('\n');
