@@ -96,7 +96,7 @@ jobs:
               cat "$RUNNER_TEMP/cspell.txt"
               echo '```'
               echo ""
-              echo "📖 How to fix (correct the word, or add a real term to a dictionary): https://architecture.learning.sap.com/community/automated-checks/spelling"
+              echo "📖 How to fix (correct the word, or add a real term to a dictionary): https://architecture.learning.sap.com/docs/community/automated-checks/spelling"
             } >> "$GITHUB_STEP_SUMMARY"
           else
             {
