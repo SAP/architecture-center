@@ -20,14 +20,14 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: false
+draft: true
 unlisted: false
 contributors:
   - marvinkl
   - fabianleh
 last_update:
   author: marvinkl
-  date: 2026-10-08
+  date: 2026-10-19
 ---
 
 # SAP-Managed Joule
@@ -45,13 +45,13 @@ This reference architecture describes the structure and components of SAP-Manage
 
 The architecture of SAP-Managed Joule consists of two parts: the **SAP Business AI Platform**, a fully SAP-managed, multi-tenant foundation provisioned and operated by SAP, and **Joule**, SAP's portfolio-wide AI solution that delivers intent-driven, end-to-end business process automation across SAP and non-SAP systems. Together they provide everything needed to build and run the Autonomous Enterprise, from the engagement layer and development environment to governed connectivity, grounded data, and enterprise-wide observability.
 
-![SAP-Managed Joule Simplified Architecture](./drawio/sap_managed_architecture-SAP-Managed-Simplified.drawio.png)
+![SAP-Managed Joule Simplified Architecture](./drawio/sap_managed_diagram_simplified.png)
 
 The simplified solution diagram illustrates the end-to-end setup. Provisioning and activation are managed entirely through **SAP for Me**, which triggers automated setup of all required components regardless of where they run. Customers keep control by defining and building their system landscape based on their needs. Once the setup is done, users access Joule Work through web, desktop, or mobile clients. The diagram shows the web client where Joule Work consists of three parts: Conversations to ask questions, surface insights, and complete business transactions; Joule Studio for agent and application development; and Spaces to dynamically generate workspaces for simple and complex problem-solving. More information on each component can be found in the sub-section for Joule Work.
 
 Backend SAP solutions such as SAP S/4HANA Cloud Public Edition, SAP SuccessFactors solutions, and SAP Ariba solutions are connected to Joule through SAP-managed integrations; the Agent Gateway handles all runtime connectivity with centralized authentication, principal propagation, and policy enforcement. SAP Cloud Identity Services serves as the identity backbone, federating authentication across the full enterprise landscape.
 
-![SAP-Managed Joule Full Architecture](./drawio/sap_managed_architecture-SAP-Managed.drawio.png)
+![SAP-Managed Joule Full Architecture](./drawio/sap_managed_diagram.png)
 
 The detailed architecture diagram reveals the full set of SAP Business AI Platform components that come together to deliver the Joule Work experience. Beyond the core connectivity layer provided by the Agent Gateway, the governance layer becomes visible: the **SAP LeanIX AI Agent Hub** for centralized agent governance, versioning, and observability across the AI landscape, and **SAP Signavio Agent Mining** for behavioral tracing and process conformance across agent workflows. The data and AI services tier includes **Business Data Tools** for live business data retrieval and processing, as well as **Document AI Services** for document understanding and processing. Together, these components provide customers with a secure, reliable, and scalable foundation to build and run the Autonomous Enterprise. For the complete component breakdown, see the [SAP Business AI Platform](#sap-business-ai-platform) section below.
 
@@ -67,10 +67,11 @@ This operational model delivers three practical benefits: a shorter time to valu
 
 **Joule Work** is a dynamic AI workspace that, based on people's intent, surfaces the right insights, automates routine work, and coordinates AI agents across the enterprise. It is available as a web application, a desktop client, and a mobile app.
 
-Joule Work surfaces three interface modes:
+Joule Work surfaces four interface modes:
 
 - **Conversations**: a conversational AI interface that enables users to ask questions, surface insights, and complete business transactions. The Joule Orchestrator routes stated intent to the appropriate assistant or agent and returns the result.
 - **Spaces**: dynamic, AI-generated workspaces for simple and complex problem-solving. Intent-driven and powered by ready-to-use SAP agents spanning the full suite, Spaces allow users to track and continue multi-step tasks across sessions.
+- **Jobs**: allows users to automate routine tasks, ensuring that repetitive processes are handled autonomously while keeping critical decisions within their control.
 - **Develop**: a pro-code and low-code environment for building custom AI agents, apps, and automations that run across SAP and third-party systems, powered by **Joule Studio**. Joule Studio is SAP's AI-native development environment, grounded in SAP business context and deployed to the SAP-managed runtime. It replaces the Joule Studio classic edition available through SAP Build.
 
 Joule Work coordinates work through **Joule Assistants** and **Joule Agents**. Joule Assistants are aligned to business roles and processes, coordinating agents to turn isolated tasks into connected workflows with proper oversight and governance. Joule Agents use business process expertise to reliably execute well-defined multi-step tasks across SAP and third-party systems, connecting the relevant data, tools, and applications across the enterprise. Orchestration operates in two modes: the **Joule Orchestrator** is the current Joule capabilities-based engine that handles more deterministic intent routing and capability invocation, designed for well-defined, guided scenarios; the **Agentic Thinking mode (Agent Harness)** is a multi-step reasoning engine for complex agentic tasks it plans and executes across multiple steps, loads skills and tools dynamically, and manages the full agentic workflow lifecycle including human-in-the-loop checkpoints.
@@ -89,17 +90,25 @@ Key capabilities of the Agent Gateway:
 - **MCP protocol support** — exposes and consumes tool capabilities using the Model Context Protocol (MCP).
 - **Security enforcement** — applies the intersection of user permissions and agent permissions at every call, preventing privilege escalation.
 
+#### Desktop Gateway
+
+The **Desktop Gateway** is the connectivity component that enables the Joule Work Desktop client to access SAP backends. It acts as the bridge between the desktop client and the Agent Gateway, ensuring that all backend calls from the desktop surface are routed through the platform's centralized connectivity and security layer, consistent with how other Joule Work clients communicate with backend systems.
+
 #### Business Content Service
 
 The Business Content Service is an embedded headless kernel that provides Joule with role- and navigation-aware business context. BCS is the authoritative source for launchpad configuration, role assignments, and application navigation data, replacing the prior dependency on SAP Build Workzone as the host surface for this context. It enables the Joule Orchestrator to surface contextually relevant actions and applications based on the authenticated user's roles and permissions, without requiring a Workzone subscription.
 
 #### Business Data Tools
 
-The SAP Business AI Platform exposes specialized data-retrieval tools that the Joule Orchestrator invokes at runtime to ground agent responses in live business data. These tools are registered with the Agent Gateway and called transparently during intent processing, end users do not interact with them directly. Tools include the **SAP Knowledge Graph** to retrieve contextually relevant business information based on user intent.
+The SAP Business AI Platform exposes specialized data-retrieval tools that the Joule Orchestrator invokes at runtime to ground agent responses in live business data. These tools to e.g. access BDC Data Products or generate SQL are registered with the Agent Gateway and called transparently during intent processing; end users do not interact with them directly.
+
+#### SAP Knowledge Graph
+
+The **SAP Knowledge Graph** is a dedicated platform component that retrieves contextually relevant business information based on user intent. It models relationships across SAP business objects, master data, and process knowledge, enabling the Joule Orchestrator to surface insights that go beyond flat data retrieval. The Knowledge Graph is invoked at runtime as part of the grounding layer, alongside the other Business Data Tools.
 
 #### Document AI Services
 
-**Document AI Services** extend the SAP Business AI Platform with the ability to process, understand, and index business documents. This enables Joule to ground agent responses in unstructured content such as customer-uploaded documents, contracts, and business forms, alongside structured SAP data, broadening the scope of business knowledge available to the Joule Orchestrator at runtime.
+**Document AI Services** extend the SAP Business AI Platform with the ability to process, understand, and index business documents. The service covers two primary capabilities: **Document Management**, which handles the storage and lifecycle of business documents within the platform, and **Document Grounding**, which makes document content available to the Joule Orchestrator at runtime so that agent responses can be grounded in unstructured content such as customer-uploaded documents, contracts, and business forms alongside structured SAP data.
 
 #### Task Center
 
