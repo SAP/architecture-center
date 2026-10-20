@@ -55,17 +55,19 @@ SAP Architecture Center is a **static content website** built with [Docusaurus](
 
 - All GitHub Actions are pinned to full commit SHAs, and every workflow declares least-privilege `permissions`.
 - Dependencies are locked via a committed `package-lock.json`; CI installs with `npm ci` for reproducible builds.
+- Automated vulnerability bumps are delivered through repository-level **Dependabot security updates** (enabled in repo settings); there is intentionally no committed `dependabot.yml`, as the version-update PR noise it generated was not worth the churn for a static site.
 - Static Application Security Testing runs on every change via **CodeQL** (`.github/workflows/codeql.yml`).
 - A dedicated **Security Audit** workflow (`.github/workflows/security-audit.yml`) runs `npm audit`, scans for dangerous npm lifecycle scripts, lints workflows with `actionlint`, and performs dependency review on pull requests.
 - Supply-chain posture is tracked publicly via the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/SAP/architecture-center).
 
 ### Known, accepted dependency advisories
 
-`npm audit` reports advisories in **transitive dependencies** of Docusaurus. The affected webpack/CSS-minification/globbing/content-parsing tooling runs only while the site is being built on trusted CI; it is **not shipped into the visitor's browser bundle** and is not reachable by site visitors. `katex` is the exception — it reaches the browser via Mermaid's client-side renderer, but it only ever processes **project-controlled diagram content** (never visitor input), so its trust-bypass advisory is not exercisable in practice. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json` (for example `webpack-dev-middleware` is pinned to `^7.4.6` to clear GHSA-g84c-rxfj-3j2c). The following currently have **no compatible fixed version** and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
+`npm audit` reports advisories in **transitive dependencies** of Docusaurus. The affected webpack/CSS-minification/globbing/content-parsing tooling runs only while the site is being built on trusted CI; it is **not shipped into the visitor's browser bundle** and is not reachable by site visitors. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json` — for example `webpack-dev-middleware` is pinned to `^7.4.6` to clear GHSA-g84c-rxfj-3j2c, and `katex` is pinned to `^0.18.2` to clear GHSA-238p-pmpm-9mq7 (the prototype-pollution trust-bypass). `katex` reaches the browser via Mermaid's client-side renderer but only ever processes **project-controlled diagram content**, never visitor input; the override is pinned below `0.19` to avoid KaTeX 0.19's strict-mode breaking change and is verified against the pinned Mermaid at build time.
 
-- `braces` (stack-exhaustion DoS; latest published version is still affected) — reachable only via build-time glob patterns the project controls.
-- `sprintf-js` (DoS via `argparse` 1.x under `js-yaml` 3.x; the fix requires a breaking `argparse` 2.x upgrade that would break content parsing).
-- `katex` (low-severity prototype-pollution trust-bypass; a fix exists in `0.18.2+`, but `mermaid` depends on `katex@^0.16`, so forcing the newer major would risk breaking diagram math rendering for a low-severity issue). Runs client-side via Mermaid, but only on in-repo diagram content, so the renderer never processes untrusted LaTeX.
+The following currently have **no fixed version** at any published release and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
+
+- `braces` (stack-exhaustion DoS; the latest published version is still affected) — reachable only via build-time glob patterns the project controls, never shipped to visitors.
+- `sprintf-js` (unbounded-precision DoS; no published version is unaffected, so an `overrides` pin cannot clear it) — reached only via build-time front-matter/`.docx` parsing (`argparse` 1.x under `js-yaml` 3.x), never shipped to visitors.
 
 ### Checks that are not applicable
 
