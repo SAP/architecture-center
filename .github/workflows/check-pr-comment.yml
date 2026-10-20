@@ -192,7 +192,12 @@ jobs:
               const slug = DOCS[name];
               const failing = cr.status === 'completed' && cr.conclusion !== 'success';
               const help = slug && failing ? `\n\n📖 [How to fix this](${DOCS_BASE}/${slug})` : '';
-              sections.push(`<!-- check:${name} -->\n### ${icon(cr)} ${esc(name)}\n\n${body}${help}\n<!-- /check:${name} -->`);
+              // Don't prefix a passing check's heading with the green check — only
+              // non-passing checks (failure / running / neutral) get an icon so
+              // problems stand out. The body still states the clean result.
+              const passed = cr.status === 'completed' && cr.conclusion === 'success';
+              const headingPrefix = passed ? '' : `${icon(cr)} `;
+              sections.push(`<!-- check:${name} -->\n### ${headingPrefix}${esc(name)}\n\n${body}${help}\n<!-- /check:${name} -->`);
             }
 
             const marker = '<!-- pr-check-summary -->';
