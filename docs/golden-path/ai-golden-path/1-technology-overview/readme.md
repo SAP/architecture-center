@@ -210,7 +210,7 @@ flowchart TD
 
     R3("✅ RECOMMENDATION: Traditional Automation<br>- RPA (Robotic Process Automation)<br>- Rule-based systems<br>- Scripts/macros<br>⚠️ AI PROBABLY NOT SUITABLE")
 
-    R4("✅ RESULT: Specialized AI is needed<br>➡️ Continue with GRAPH 2.a:<br>GenAI Readiness Assessment")
+    R4("✅ RESULT: Specialized AI is needed<br>➡️ Continue with GRAPH 2.a:<br>Specialized AI Assessment")
 
     R5("✅ RESULT: Generative AI is needed<br>➡️ Continue with GRAPH 2.b:<br>GenAI Readiness Assessment")
 
