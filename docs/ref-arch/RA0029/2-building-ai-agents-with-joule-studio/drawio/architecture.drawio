@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
   <diagram name="Architecture" id="r2MQU6Hb9wk0h4gadDVC">
-    <mxGraphModel dx="1548" dy="-151" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="258" dy="-733" grid="1" gridSize="2" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -206,17 +206,14 @@
         <mxCell id="TagFKioNpwnZbmlTmsth-13" value="MCP Builder" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=#5d36ff;fillColor=#f1ecff;strokeWidth=1.5;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=24;absoluteArcSize=1;points=[[0,0,0,0,0],[0,0.25,0,0,0],[0,0.5,0,0,0],[0,0.75,0,0,0],[0,1,0,0,0],[0.25,0,0,0,0],[0.25,1,0,0,0],[0.5,0,0,0,0],[0.5,1,0,0,0],[0.75,0,0,0,0],[0.75,1,0,0,0],[1,0,0,0,0],[1,0.25,0,0,0],[1,0.5,0,0,0],[1,0.75,0,0,0],[1,1,0,0,0]];" parent="1" vertex="1">
           <mxGeometry x="465.5" y="1754" width="140" height="21" as="geometry" />
         </mxCell>
-        <mxCell id="B9JCZWOAtngcGcBqPd8r-6" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;color: rgb(0, 42, 134); background-color: transparent;&quot;&gt;&lt;font style=&quot;line-height: 100%;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Joule Work&lt;br&gt;&lt;/b&gt;&lt;i style=&quot;&quot;&gt;&lt;font&gt;powered by Joule&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="1" vertex="1">
-          <mxGeometry x="506" y="1631" width="112" height="38" as="geometry" />
+        <mxCell id="B9JCZWOAtngcGcBqPd8r-6" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;color: rgb(0, 42, 134); background-color: transparent;&quot;&gt;&lt;font style=&quot;line-height: 100%;&quot;&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Joule Work&lt;/b&gt;&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;" parent="1" vertex="1">
+          <mxGeometry x="506" y="1636" width="106" height="28" as="geometry" />
         </mxCell>
         <mxCell id="B9JCZWOAtngcGcBqPd8r-9" value="&lt;span style=&quot;font-family: monospace; font-size: 0px; font-weight: 400; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22Joule%22%20style%3D%22image%3Bimage%3Dimg%2Flib%2Fsap%2FSAP_Logo.svg%3BeditableCssRules%3D.*%3Bpart%3D1%3BverticalLabelPosition%3Dmiddle%3BlabelBackgroundColor%3Dnone%3BverticalAlign%3Dmiddle%3BimageAspect%3D0%3BlabelPosition%3Dright%3Balign%3Dleft%3BfontSize%3D16%3BfontStyle%3D1%3BspacingLeft%3D0%3BfontColor%3D%23002A86%3Bspacing%3D0%3BstrokeColor%3Ddefault%3BfontFamily%3DHelvetica%3BfillColor%3Ddefault%3Baspect%3Dfixed%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22282%22%20y%3D%221265%22%20width%3D%2244.79%22%20height%3D%2223%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;span style=&quot;font-family: monospace; font-size: 0px; font-weight: 400; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22Joule%22%20style%3D%22image%3Bimage%3Dimg%2Flib%2Fsap%2FSAP_Logo.svg%3BeditableCssRules%3D.*%3Bpart%3D1%3BverticalLabelPosition%3Dmiddle%3BlabelBackgroundColor%3Dnone%3BverticalAlign%3Dmiddle%3BimageAspect%3D0%3BlabelPosition%3Dright%3Balign%3Dleft%3BfontSize%3D16%3BfontStyle%3D1%3BspacingLeft%3D0%3BfontColor%3D%23002A86%3Bspacing%3D0%3BstrokeColor%3Ddefault%3BfontFamily%3DHelvetica%3BfillColor%3Ddefault%3Baspect%3Dfixed%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22282%22%20y%3D%221265%22%20width%3D%2244.79%22%20height%3D%2223%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;fontStyle=1;verticalAlign=middle;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=1.5;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=24;absoluteArcSize=1;horizontal=1;gradientColor=none;gradientDirection=south;" parent="1" vertex="1">
           <mxGeometry x="444" y="1516" width="377" height="89" as="geometry" />
         </mxCell>
         <mxCell id="B9JCZWOAtngcGcBqPd8r-11" value="Business Transformation Management" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;strokeColor=default;fontFamily=Helvetica;fillColor=default;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="455.13" y="1525" width="44.79" height="23" as="geometry" />
-        </mxCell>
-        <mxCell id="B9JCZWOAtngcGcBqPd8r-24" value="" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;strokeColor=default;fontFamily=Helvetica;fillColor=default;aspect=fixed;" parent="1" vertex="1">
-          <mxGeometry x="446" y="1480" width="44.79" height="23" as="geometry" />
         </mxCell>
         <mxCell id="fqJ3m-EEg76958EnmQc--291" value="&lt;font style=&quot;color: rgb(71, 94, 117);&quot;&gt;Network&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="1101" y="1422.0012621359224" width="70" height="30" as="geometry" />
@@ -392,9 +389,6 @@
             <mxPoint x="-1" y="21" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ggbnv4F_IHRN1PR2uU5N-5" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="495.65" y="1477" width="182" height="28" as="geometry" />
-        </mxCell>
         <mxCell id="Ggbnv4F_IHRN1PR2uU5N-6" value="&amp;nbsp; &amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" connectable="0" vertex="1">
           <mxGeometry x="1138" y="1896.74" as="geometry">
             <mxPoint x="-1" y="21" as="offset" />
@@ -533,6 +527,15 @@
         </mxCell>
         <mxCell id="mxlj_N5t3iCL1Clgr05s-3" value="&lt;p style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font&gt;SAP Cloud ALM&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;span style=&quot;font-size: 10px; font-weight: 400;&quot;&gt;&lt;i&gt;AI Observability, Eval&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070f2;strokeWidth=1.5;fillColor=#FFFFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Arial;container=0;recursiveResize=0;collapsible=0;fontColor=default;arcSize=24;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;absoluteArcSize=1;horizontal=1;" vertex="1" parent="1">
           <mxGeometry x="695.78" y="1558" width="110" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="2" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="446" y="1478" width="231.64999999999998" height="40.5" as="geometry" />
+        </mxCell>
+        <mxCell id="B9JCZWOAtngcGcBqPd8r-24" value="" style="image;image=img/lib/sap/SAP_Logo.svg;editableCssRules=.*;part=1;verticalLabelPosition=middle;labelBackgroundColor=none;verticalAlign=middle;imageAspect=0;labelPosition=right;align=left;fontSize=16;fontStyle=1;spacingLeft=0;fontColor=#002A86;spacing=0;strokeColor=default;fontFamily=Helvetica;fillColor=default;aspect=fixed;" parent="2" vertex="1">
+          <mxGeometry y="2" width="44.79" height="23" as="geometry" />
+        </mxCell>
+        <mxCell id="Ggbnv4F_IHRN1PR2uU5N-5" value="&lt;div style=&quot;line-height: 100%;&quot;&gt;&lt;div&gt;&lt;i style=&quot;forced-color-adjust: none; color: rgb(0, 42, 134); font-family: Helvetica; font-size: 12px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-size: 16px; font-style: normal; font-weight: 700; line-height: 100%;&quot;&gt;Business AI Platform&lt;/span&gt;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+          <mxGeometry x="49.64999999999998" width="182" height="40.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
