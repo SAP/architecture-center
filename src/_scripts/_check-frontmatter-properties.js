@@ -22,6 +22,11 @@
  *     8. last_update.date        — missing, or older than a week before today
  *     9. last_update.author      — missing, or different from the PR author
  *
+ *   Admin exemption: for the maintainer logins in AUTHOR_IDENTITY_EXEMPT, the two
+ *   author-IDENTITY rules are skipped — "PR author not in the contributors list" (7)
+ *   and "last_update.author differs from the PR author" (9) — so admins can make
+ *   quick cross-page fixes without being blocked. All other rules still apply.
+ *
  * Scope:
  *   - Only reference-architecture pages: changed files under docs/ref-arch/RA####/
  *     (four-digit RA folders), filtered to *.{md,mdx}.
@@ -58,6 +63,16 @@ const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
 const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
 const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
+
+// Admins who routinely make small fixes across other people's RA pages. They are
+// exempt from the two author-IDENTITY rules only — (7) "PR author not in the
+// contributors list" and (9) "last_update.author differs from the PR author" — so a
+// quick cross-page fix is not blocked by crediting/ownership that belongs to the
+// original author. Every other rule (missing/empty contributors, missing or stale
+// last_update.date, missing last_update.author, the default-value fields) still
+// applies to them. GitHub logins are case-insensitive, so compare in lower case.
+const AUTHOR_IDENTITY_EXEMPT = new Set(['cernus76', 'navyakhurana', 'julian-schambeck']);
+const authorIdentityExempt = AUTHOR_IDENTITY_EXEMPT.has(PR_AUTHOR.toLowerCase());
 
 /** Emit a GitHub Actions error annotation (falls back to a plain line locally). */
 function annotate(file, line, message) {
@@ -155,7 +170,7 @@ function checkFile(rel, raw, data) {
   const contributors = Array.isArray(data.contributors) ? data.contributors : [];
   if (contributors.length === 0) {
     warn('contributors', 'contributors list is missing or empty.');
-  } else if (!contributors.some((c) => sameLogin(c, PR_AUTHOR))) {
+  } else if (!authorIdentityExempt && !contributors.some((c) => sameLogin(c, PR_AUTHOR))) {
     warn('contributors', `PR author \`${PR_AUTHOR}\` is not in the contributors list.`);
   }
 
@@ -181,7 +196,7 @@ function checkFile(rel, raw, data) {
   const lastAuthor = lastUpdate.author;
   if (lastAuthor == null || String(lastAuthor).trim() === '') {
     warn('last_update', 'last_update.author is missing.');
-  } else if (!sameLogin(lastAuthor, PR_AUTHOR)) {
+  } else if (!authorIdentityExempt && !sameLogin(lastAuthor, PR_AUTHOR)) {
     warn('last_update', `last_update.author \`${lastAuthor}\` differs from the PR author \`${PR_AUTHOR}\`.`);
   }
 
