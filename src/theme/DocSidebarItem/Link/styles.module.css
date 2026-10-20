@@ -17,3 +17,23 @@
 .menuExternalLink {
   composes: linkLabel;
 }
+
+/* Flex row keeping the recency star on the same line as the (clamped) label:
+   .menu__link is not display:flex, so a bare inline star before the -webkit-box
+   label would otherwise push the label onto the next line. */
+.labelRow {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+/* "Recently added or updated" star shown before a recent RA doc's label.
+   Rendered in a solid color: the first color of --gradient-primary (its blue start). */
+.recentStar {
+  margin-right: 0.3rem;
+  flex-shrink: 0;
+  font-size: 0.9em;
+  line-height: 1;
+  color: #465be5;
+}

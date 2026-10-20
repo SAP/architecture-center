@@ -5,14 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, {type ReactNode} from 'react';
+import React, {type ReactNode, useState, useEffect} from 'react';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {isActiveSidebarItem} from '@docusaurus/plugin-content-docs/client';
 import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
+import useGlobalData from '@docusaurus/useGlobalData';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import type {Props} from '@theme/DocSidebarItem/Link';
+import {
+  type DocIdToTagsMap,
+  findDocIdFromPath,
+  isDocRecentlyUpdated,
+} from '@site/src/theme/DocSidebar/filterUtils';
 
 import styles from './styles.module.css';
 
@@ -34,6 +40,25 @@ export default function DocSidebarItemLink({
   const {href, label, className, autoAddBaseUrl} = item;
   const isActive = isActiveSidebarItem(item, activePath);
   const isInternalLink = isInternalUrl(href);
+
+  // "Recently added or updated" marker for reference-architecture doc links, mirroring
+  // the page-level indicator and the sidebar recency filter. Deferred to the client
+  // because the cutoff depends on new Date() (now), which would otherwise cause an
+  // SSR/hydration mismatch for docs near the 3-month boundary.
+  const tagsDocId = useGlobalData()['docusaurus-tags-plugin']?.default
+    ?.docIdToTags as DocIdToTagsMap | undefined;
+  const docId = (item as {docId?: string}).docId
+    ?? (tagsDocId ? findDocIdFromPath(href, tagsDocId) : null);
+  const [isRecent, setIsRecent] = useState(false);
+  useEffect(() => {
+    setIsRecent(
+      isInternalLink
+      && !!href?.includes('/ref-arch/')
+      && !!tagsDocId
+      && !!docId
+      && isDocRecentlyUpdated(docId, tagsDocId),
+    );
+  }, [isInternalLink, href, tagsDocId, docId]);
 
   return (
     <li
@@ -60,7 +85,17 @@ export default function DocSidebarItemLink({
           onClick: onItemClick ? () => onItemClick(item) : undefined,
         })}
         {...props}>
-        <LinkLabel label={label} />
+        <span className={styles.labelRow}>
+          {isRecent && (
+            <span
+              className={styles.recentStar}
+              title="Recently added or updated"
+              aria-label="Recently added or updated">
+              ✦
+            </span>
+          )}
+          <LinkLabel label={label} />
+        </span>
         {!isInternalLink && <IconExternalLink />}
       </Link>
     </li>
