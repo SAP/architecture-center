@@ -92,7 +92,7 @@ jobs:
               echo ""
               echo "Please reduce the size of the flagged file(s) before merging."
               echo ""
-              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/community/automated-checks/drawio-files"
+              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/drawio-files"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -143,7 +143,7 @@ jobs:
               echo ""
               echo "Replace all external image URLs with embedded (base64) images in the flagged file(s)."
               echo ""
-              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/community/automated-checks/drawio-files"
+              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/drawio-files"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 

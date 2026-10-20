@@ -143,7 +143,7 @@ function main() {
 
   if (errors > 0 || warnings > 0) {
     summary.push('');
-    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/community/automated-checks/seo-front-matter');
+    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/docs/community/automated-checks/seo-front-matter');
   }
 
   const summaryText = summary.join('\n');
