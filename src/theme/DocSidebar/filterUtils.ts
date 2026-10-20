@@ -78,7 +78,7 @@ export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
 // UTC-midnight dates parsed from `YYYY-MM-DD` front matter, and the day is clamped
 // to the target month's length so subtracting from, say, the 31st does not roll the
 // boundary into the following month.
-function getRecentCutoffDate(): Date {
+export function getRecentCutoffDate(): Date {
   const now = new Date();
   const year = now.getUTCFullYear();
   const month = now.getUTCMonth();
@@ -805,6 +805,39 @@ export function docExistsInRecentlyUpdatedView(
     partners: [],
     showCommunityContent: false,
     showRecentlyUpdated: true
+  });
+
+  // Check if path exists in any domain's filtered items
+  for (const items of Object.values(filteredResults)) {
+    if (findItemByPath(items, pathname)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Check if a document exists in the community-content sidebar view (as a parent category as well).
+// `precomputedView` lets the caller pass an already-filtered community tree so this does not
+// re-filter the whole sidebar on every navigation; it falls back to computing one if omitted.
+export function docExistsInCommunityView(
+  docId: string,
+  pathname: string,
+  sidebar: SidebarItem[],
+  tagsDocId: DocIdToTagsMap,
+  precomputedView?: Record<string, SidebarItem[]>
+): boolean {
+  // If the doc itself is community content, it's directly in the view
+  if (getDocTags(docId, tagsDocId).includes('community-contrib')) {
+    return true;
+  }
+
+  // Check if the document appears in the filtered view (e.g., as a parent category)
+  const filteredResults = precomputedView ?? computeFilteredResults(sidebar, tagsDocId, {
+    showArchived: false,
+    partners: [],
+    showCommunityContent: true,
+    showRecentlyUpdated: false
   });
 
   // Check if path exists in any domain's filtered items
