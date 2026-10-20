@@ -4,11 +4,20 @@ import tagsMap from '@site/src/constant/tagsMapping.json';
 // Types
 // =============================================================================
 
+export interface DocMetadata {
+  tags: string[];
+  lastUpdateDate: string | null;
+}
+
 export interface FilterState {
   partners: string[];
   showArchived: boolean;
   showCommunityContent: boolean;
+  showRecentlyUpdated: boolean;
 }
+
+// Type alias for the docIdToTags map
+export type DocIdToTagsMap = Record<string, DocMetadata>;
 
 export interface SidebarDocItem {
   type: 'doc';
@@ -61,6 +70,16 @@ export const PARTNER_OPTIONS = [
   { value: 'ibm', label: 'IBM' }
 ];
 
+export const RECENT_MONTHS = 3;
+export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
+
+// Helper to get cutoff date for "recently updated" filter
+function getRecentCutoffDate(): Date {
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - RECENT_MONTHS);
+  return cutoff;
+}
+
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
   if (!cat) return acc;
@@ -79,7 +98,7 @@ export function extractHexId(path: string): string | null {
   return match ? match[1] : null;
 }
 
-export function findDocIdByHexId(hexId: string, docIdToTags: Record<string, string[]>): string | null {
+export function findDocIdByHexId(hexId: string, docIdToTags: DocIdToTagsMap): string | null {
   for (const docId of Object.keys(docIdToTags)) {
     if (docId.endsWith(hexId) || docId.endsWith(`/${hexId}`)) {
       return docId;
@@ -88,29 +107,55 @@ export function findDocIdByHexId(hexId: string, docIdToTags: Record<string, stri
   return null;
 }
 
-export function getDocTags(docId: string, docIdToTags: Record<string, string[]>): string[] {
+export function getDocTags(docId: string, docIdToTags: DocIdToTagsMap): string[] {
   if (!docId || !docIdToTags) return [];
 
   if (docIdToTags[docId]) {
-    return docIdToTags[docId];
+    return docIdToTags[docId].tags;
   }
 
   const hexId = extractHexId(docId);
   if (hexId) {
     const fullDocId = findDocIdByHexId(hexId, docIdToTags);
     if (fullDocId) {
-      return docIdToTags[fullDocId];
+      return docIdToTags[fullDocId].tags;
     }
   }
 
   return [];
 }
 
-export function isDocArchived(docId: string, docIdToTags: Record<string, string[]>): boolean {
+export function getDocLastUpdateDate(docId: string, docIdToTags: DocIdToTagsMap): string | null {
+  if (!docId || !docIdToTags) return null;
+
+  if (docIdToTags[docId]) {
+    return docIdToTags[docId].lastUpdateDate;
+  }
+
+  const hexId = extractHexId(docId);
+  if (hexId) {
+    const fullDocId = findDocIdByHexId(hexId, docIdToTags);
+    if (fullDocId) {
+      return docIdToTags[fullDocId].lastUpdateDate;
+    }
+  }
+
+  return null;
+}
+
+export function isDocArchived(docId: string, docIdToTags: DocIdToTagsMap): boolean {
   return getDocTags(docId, docIdToTags).includes('archive');
 }
 
-export function findDocIdFromPath(pathname: string, tagsDocId: Record<string, string[]>): string | null {
+export function isDocRecentlyUpdated(docId: string, docIdToTags: DocIdToTagsMap): boolean {
+  const lastUpdateDate = getDocLastUpdateDate(docId, docIdToTags);
+  if (!lastUpdateDate) return false;
+
+  const docDate = new Date(lastUpdateDate);
+  return docDate >= getRecentCutoffDate();
+}
+
+export function findDocIdFromPath(pathname: string, tagsDocId: DocIdToTagsMap): string | null {
   if (!tagsDocId || !pathname) return null;
 
   const normalizedPath = pathname.replace(/\/$/, '');
@@ -128,7 +173,7 @@ export function findDocIdFromPath(pathname: string, tagsDocId: Record<string, st
 // =============================================================================
 
 // Get document ID from a sidebar item (doc, link, or category)
-export function getItemDocId(item: SidebarItem, docIdToTags?: Record<string, string[]>): string | null {
+export function getItemDocId(item: SidebarItem, docIdToTags?: DocIdToTagsMap): string | null {
   if (item.type === 'doc' || item.type === 'link') {
     return item.docId || item.id || null;
   }
@@ -153,11 +198,11 @@ export function getItemDocId(item: SidebarItem, docIdToTags?: Record<string, str
 }
 
 // Check if item belongs to a domain
-export function itemBelongsToDomain(item: SidebarItem, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+export function itemBelongsToDomain(item: SidebarItem, domainId: string, docIdToTags: DocIdToTagsMap): boolean {
   const docId = getItemDocId(item, docIdToTags);
   if (!docId) return false;
 
-  const tags = docIdToTags?.[docId] || [];
+  const tags = docIdToTags?.[docId]?.tags || [];
   if (tags.includes(domainId)) return true;
 
   const domainTags = categoryIdToTags[domainId] || [];
@@ -165,7 +210,7 @@ export function itemBelongsToDomain(item: SidebarItem, domainId: string, docIdTo
 }
 
 // Check if category or any descendant belongs to domain
-export function categoryOrDescendantBelongsToDomain(category: SidebarCategoryItem, domainId: string, docIdToTags: Record<string, string[]>): boolean {
+export function categoryOrDescendantBelongsToDomain(category: SidebarCategoryItem, domainId: string, docIdToTags: DocIdToTagsMap): boolean {
   // Check category itself
   if (itemBelongsToDomain(category, domainId, docIdToTags)) return true;
 
@@ -203,7 +248,7 @@ export function countTotalDocsInItems(items: SidebarItem[]): number {
 }
 
 // Count unique documents across all items (documents can appear in multiple domains)
-export function countUniqueDocsInItems(items: SidebarItem[], docIdToTags: Record<string, string[]>, seenIds?: Set<string>): number {
+export function countUniqueDocsInItems(items: SidebarItem[], docIdToTags: DocIdToTagsMap, seenIds?: Set<string>): number {
   const seen = seenIds || new Set<string>();
 
   for (const item of items) {
@@ -231,7 +276,7 @@ export function countUniqueDocsInItems(items: SidebarItem[], docIdToTags: Record
 // Sidebar Filtering Functions
 // =============================================================================
 
-export function filterArchivedItems(items: SidebarItem[], docIdToTags: Record<string, string[]>, showArchived: boolean): SidebarItem[] {
+export function filterArchivedItems(items: SidebarItem[], docIdToTags: DocIdToTagsMap, showArchived: boolean): SidebarItem[] {
   const filterItem = (item: SidebarItem): SidebarItem | null => {
     if (item.type === 'doc' || item.type === 'link') {
       const docId = item.docId || item.id;
@@ -285,14 +330,36 @@ export function filterArchivedItems(items: SidebarItem[], docIdToTags: Record<st
 }
 
 // Get all matching document IDs for given partner tags directly from docIdToTags
-export function getMatchingDocIds(docIdToTags: Record<string, string[]>, partnerTags: string[]): Set<string> {
+export function getMatchingDocIds(docIdToTags: DocIdToTagsMap, partnerTags: string[]): Set<string> {
   const matchingIds = new Set<string>();
 
   if (!docIdToTags || !partnerTags.length) return matchingIds;
 
-  for (const [docId, tags] of Object.entries(docIdToTags)) {
+  for (const [docId, metadata] of Object.entries(docIdToTags)) {
+    const tags = metadata?.tags;
     if (tags && partnerTags.some(tag => tags.includes(tag))) {
       matchingIds.add(docId);
+    }
+  }
+
+  return matchingIds;
+}
+
+// Get all document IDs that were updated within the recent period
+export function getRecentlyUpdatedDocIds(docIdToTags: DocIdToTagsMap): Set<string> {
+  const matchingIds = new Set<string>();
+
+  if (!docIdToTags) return matchingIds;
+
+  const cutoff = getRecentCutoffDate();
+
+  for (const [docId, metadata] of Object.entries(docIdToTags)) {
+    const lastUpdateDate = metadata?.lastUpdateDate;
+    if (lastUpdateDate) {
+      const docDate = new Date(lastUpdateDate);
+      if (docDate >= cutoff) {
+        matchingIds.add(docId);
+      }
     }
   }
 
@@ -303,7 +370,7 @@ export function getMatchingDocIds(docIdToTags: Record<string, string[]>, partner
 // Domain Grouping
 // =============================================================================
 
-export function groupSidebarByDomain(items: SidebarItem[], docIdToTags: Record<string, string[]>) {
+export function groupSidebarByDomain(items: SidebarItem[], docIdToTags: DocIdToTagsMap) {
   const domainIds = DOMAIN_DEFINITIONS.map(d => d.id);
   const grouped: Record<string, SidebarItem[]> = {};
 
@@ -384,11 +451,72 @@ export function groupSidebarByDomain(items: SidebarItem[], docIdToTags: Record<s
 // Partner & Community Content Filtering
 // =============================================================================
 
+// Generic helper to filter grouped items by a set of matching document IDs
+function filterGroupedByMatchingDocIds(
+  grouped: Record<string, SidebarItem[]>,
+  matchingDocIds: Set<string>,
+  docIdToTags: DocIdToTagsMap
+): Record<string, SidebarItem[]> {
+  // Recursively filter category to only include matching items
+  const filterCategory = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
+    const filteredItems: SidebarItem[] = [];
+
+    for (const child of category.items || []) {
+      if (child.type === 'doc' || child.type === 'link') {
+        const childId = getItemDocId(child, docIdToTags);
+        if (childId && matchingDocIds.has(childId)) {
+          filteredItems.push(child);
+        }
+      } else if (child.type === 'category') {
+        const filteredChild = filterCategory(child, domainId);
+        if (filteredChild) {
+          filteredItems.push(filteredChild);
+        }
+      }
+    }
+
+    const categoryDocId = getItemDocId(category, docIdToTags);
+    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
+
+    if (filteredItems.length > 0) {
+      return { ...category, items: filteredItems };
+    }
+
+    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+      return { ...category, items: [] };
+    }
+
+    return null;
+  };
+
+  const filtered: Record<string, SidebarItem[]> = {};
+
+  Object.entries(grouped).forEach(([domainId, items]) => {
+    filtered[domainId] = [];
+
+    for (const item of items) {
+      if (item.type === 'doc' || item.type === 'link') {
+        const itemId = getItemDocId(item, docIdToTags);
+        if (itemId && matchingDocIds.has(itemId)) {
+          filtered[domainId].push(item);
+        }
+      } else if (item.type === 'category') {
+        const filteredCategory = filterCategory(item, domainId);
+        if (filteredCategory) {
+          filtered[domainId].push(filteredCategory);
+        }
+      }
+    }
+  });
+
+  return filtered;
+}
+
 // Filter by partner tags
 export function filterGroupedByPartner(
   grouped: Record<string, SidebarItem[]>,
   selectedPartners: string[],
-  docIdToTags: Record<string, string[]>
+  docIdToTags: DocIdToTagsMap
 ): { filtered: Record<string, SidebarItem[]>; matchingDocIds: Set<string> } {
   // Expand partner IDs to include related tags
   const expand = (ids: string[]) =>
@@ -402,64 +530,7 @@ export function filterGroupedByPartner(
 
   // Get all document IDs that match the partner tags
   const matchingDocIds = getMatchingDocIds(docIdToTags, partnerTags);
-
-  // Recursively filter category to only include matching items
-  const filterCategory = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
-    const filteredItems: SidebarItem[] = [];
-
-    for (const child of category.items || []) {
-      if (child.type === 'doc' || child.type === 'link') {
-        const childId = getItemDocId(child, docIdToTags);
-        if (childId && matchingDocIds.has(childId)) {
-          filteredItems.push(child);
-        }
-      } else if (child.type === 'category') {
-        // Recursively filter child category
-        const filteredChild = filterCategory(child, domainId);
-        if (filteredChild) {
-          filteredItems.push(filteredChild);
-        }
-      }
-    }
-
-    // Check if the category itself matches the partner filter
-    const categoryDocId = getItemDocId(category, docIdToTags);
-    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
-
-    // If category has matching children, include it
-    if (filteredItems.length > 0) {
-      return { ...category, items: filteredItems };
-    }
-
-    // If category has no matching children, only include it if it actually belongs to this domain
-    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
-      return { ...category, items: [] };
-    }
-
-    // Category doesn't belong in this domain after filtering
-    return null;
-  };
-
-  // Filter each domain's items
-  const filtered: Record<string, SidebarItem[]> = {};
-
-  Object.entries(grouped).forEach(([domainId, items]) => {
-    filtered[domainId] = [];
-
-    for (const item of items) {
-      if (item.type === 'doc' || item.type === 'link') {
-        const itemId = getItemDocId(item, docIdToTags);
-        if (itemId && matchingDocIds.has(itemId)) {
-          filtered[domainId].push(item);
-        }
-      } else if (item.type === 'category') {
-        const filteredCategory = filterCategory(item, domainId);
-        if (filteredCategory) {
-          filtered[domainId].push(filteredCategory);
-        }
-      }
-    }
-  });
+  const filtered = filterGroupedByMatchingDocIds(grouped, matchingDocIds, docIdToTags);
 
   return { filtered, matchingDocIds };
 }
@@ -468,7 +539,7 @@ export function filterGroupedByPartner(
 export function filterGroupedByCommunityContent(
   grouped: Record<string, SidebarItem[]>,
   showCommunityContent: boolean,
-  docIdToTags: Record<string, string[]>
+  docIdToTags: DocIdToTagsMap
 ): { filtered: Record<string, SidebarItem[]>; matchingDocIds: Set<string> } {
   // If not filtering for community content, return all items
   if (!showCommunityContent) {
@@ -477,58 +548,25 @@ export function filterGroupedByCommunityContent(
 
   // Get all document IDs that have the community-contrib tag
   const matchingDocIds = getMatchingDocIds(docIdToTags, ['community-contrib']);
+  const filtered = filterGroupedByMatchingDocIds(grouped, matchingDocIds, docIdToTags);
 
-  // Recursively filter category to only include matching items
-  const filterCategory = (category: SidebarCategoryItem, domainId: string): SidebarCategoryItem | null => {
-    const filteredItems: SidebarItem[] = [];
+  return { filtered, matchingDocIds };
+}
 
-    for (const child of category.items || []) {
-      if (child.type === 'doc' || child.type === 'link') {
-        const childId = getItemDocId(child, docIdToTags);
-        if (childId && matchingDocIds.has(childId)) {
-          filteredItems.push(child);
-        }
-      } else if (child.type === 'category') {
-        const filteredChild = filterCategory(child, domainId);
-        if (filteredChild) {
-          filteredItems.push(filteredChild);
-        }
-      }
-    }
+// Filter by recently updated (last 3 months)
+export function filterGroupedByRecentlyUpdated(
+  grouped: Record<string, SidebarItem[]>,
+  showRecentlyUpdated: boolean,
+  docIdToTags: DocIdToTagsMap
+): { filtered: Record<string, SidebarItem[]>; matchingDocIds: Set<string> } {
+  // If not filtering for recently updated, return all items
+  if (!showRecentlyUpdated) {
+    return { filtered: grouped, matchingDocIds: new Set() };
+  }
 
-    const categoryDocId = getItemDocId(category, docIdToTags);
-    const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
-
-    if (filteredItems.length > 0) {
-      return { ...category, items: filteredItems };
-    }
-
-    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
-      return { ...category, items: [] };
-    }
-
-    return null;
-  };
-
-  const filtered: Record<string, SidebarItem[]> = {};
-
-  Object.entries(grouped).forEach(([domainId, items]) => {
-    filtered[domainId] = [];
-
-    for (const item of items) {
-      if (item.type === 'doc' || item.type === 'link') {
-        const itemId = getItemDocId(item, docIdToTags);
-        if (itemId && matchingDocIds.has(itemId)) {
-          filtered[domainId].push(item);
-        }
-      } else if (item.type === 'category') {
-        const filteredCategory = filterCategory(item, domainId);
-        if (filteredCategory) {
-          filtered[domainId].push(filteredCategory);
-        }
-      }
-    }
-  });
+  // Get all document IDs that were recently updated
+  const matchingDocIds = getRecentlyUpdatedDocIds(docIdToTags);
+  const filtered = filterGroupedByMatchingDocIds(grouped, matchingDocIds, docIdToTags);
 
   return { filtered, matchingDocIds };
 }
@@ -568,6 +606,7 @@ export function syncUrlParams(
     partners: string[] | null;
     archive: boolean | null;
     communityContent: boolean | null;
+    recentlyUpdated: boolean | null;
   }>
 ): URLSearchParams {
   const params = new URLSearchParams(currentParams);
@@ -605,6 +644,17 @@ export function syncUrlParams(
     params.set('communityContent', 'true');
   }
 
+  // Handle recentlyUpdated
+  if (updates.recentlyUpdated !== undefined) {
+    if (updates.recentlyUpdated) {
+      params.set('recent', 'true');
+    } else {
+      params.delete('recent');
+    }
+  } else if (state.showRecentlyUpdated && !params.get('recent')) {
+    params.set('recent', 'true');
+  }
+
   // Clean up legacy param
   params.delete('techDomains');
 
@@ -618,18 +668,20 @@ export function syncUrlParams(
 // Computes filtered sidebar results for a given filter configuration
 export function computeFilteredResults(
   sidebar: SidebarItem[],
-  tagsDocId: Record<string, string[]>,
+  tagsDocId: DocIdToTagsMap,
   config: {
     showArchived: boolean;
     partners: string[];
     showCommunityContent: boolean;
+    showRecentlyUpdated: boolean;
   }
 ): Record<string, SidebarItem[]> {
   const archivedFiltered = filterArchivedItems(sidebar, tagsDocId, config.showArchived);
   const grouped = groupSidebarByDomain(archivedFiltered, tagsDocId);
   const partnerFiltered = filterGroupedByPartner(grouped.grouped, config.partners, tagsDocId).filtered;
   const communityFiltered = filterGroupedByCommunityContent(partnerFiltered, config.showCommunityContent, tagsDocId).filtered;
-  return communityFiltered;
+  const recentlyUpdatedFiltered = filterGroupedByRecentlyUpdated(communityFiltered, config.showRecentlyUpdated, tagsDocId).filtered;
+  return recentlyUpdatedFiltered;
 }
 
 // =============================================================================
@@ -669,7 +721,7 @@ export function determineNavigation(
   pathname: string,
   params: URLSearchParams,
   filteredResults: Record<string, SidebarItem[]>,
-  tagsDocId: Record<string, string[]>,
+  tagsDocId: DocIdToTagsMap,
   refArchBase: string
 ): { navigate: boolean; url: string } {
   const willDocExist = docExistsInFilteredResults(pathname, filteredResults);
@@ -711,7 +763,7 @@ export function docExistsInArchivedView(
   docId: string,
   pathname: string,
   sidebar: SidebarItem[],
-  tagsDocId: Record<string, string[]>
+  tagsDocId: DocIdToTagsMap
 ): boolean {
   if (isDocArchived(docId, tagsDocId)) {
     return true;
@@ -720,6 +772,36 @@ export function docExistsInArchivedView(
   const archivedSidebar = filterArchivedItems(sidebar, tagsDocId, true);
   const foundInArchived = findItemByPath(archivedSidebar, pathname);
   return foundInArchived;
+}
+
+// Check if a document exists in the recently updated sidebar view (as a parent category as well)
+export function docExistsInRecentlyUpdatedView(
+  docId: string,
+  pathname: string,
+  sidebar: SidebarItem[],
+  tagsDocId: DocIdToTagsMap
+): boolean {
+  // If the doc itself is recently updated, it's directly in the view
+  if (isDocRecentlyUpdated(docId, tagsDocId)) {
+    return true;
+  }
+
+  // Check if the document appears in the filtered view (e.g., as a parent category)
+  const filteredResults = computeFilteredResults(sidebar, tagsDocId, {
+    showArchived: false,
+    partners: [],
+    showCommunityContent: false,
+    showRecentlyUpdated: true
+  });
+
+  // Check if path exists in any domain's filtered items
+  for (const items of Object.values(filteredResults)) {
+    if (findItemByPath(items, pathname)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 // Find which domains contain a document in the filtered/grouped results
