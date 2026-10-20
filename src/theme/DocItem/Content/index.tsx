@@ -14,8 +14,11 @@ import type { Props } from '@theme/DocItem/Content';
 import TagsListInline from '@theme/TagsListInline';
 import EditMetaRow from '@theme/EditMetaRow';
 
+import { getRecentCutoffDate } from '@site/src/theme/DocSidebar/filterUtils';
+
 import ArchiveMessage from './archive-msg.md';
 import OldMessage from './old-msg.md';
+import styles from './styles.module.css';
 
 function useSyntheticTitle(): string | null {
     const { metadata, frontMatter, contentTitle } = useDoc();
@@ -61,10 +64,36 @@ function useIsOlderThanOneYear(): boolean {
     return isOld;
 }
 
+// Mirrors the sidebar's "recently updated" filter: a reference-architecture page whose
+// last_update.date falls within the recent window (see getRecentCutoffDate). Scoped to
+// /ref-arch/ pages so it matches that filter and does not badge other sections. Deferred
+// to the client because the cutoff depends on new Date() (now) and would otherwise cause
+// a hydration mismatch near the boundary.
+function useIsRecentlyUpdated(): boolean {
+    const { frontMatter, metadata } = useDoc();
+    const rawDate = frontMatter.last_update?.date;
+    const permalink = metadata.permalink;
+    const [isRecent, setIsRecent] = useState(false);
+    useEffect(() => {
+        if (!rawDate || !permalink?.includes('/ref-arch/')) {
+            setIsRecent(false);
+            return;
+        }
+        const updated = new Date(rawDate);
+        if (Number.isNaN(updated.getTime())) {
+            setIsRecent(false);
+            return;
+        }
+        setIsRecent(updated >= getRecentCutoffDate());
+    }, [rawDate, permalink]);
+    return isRecent;
+}
+
 export default function DocItemContent({ children }: Props): ReactNode {
     const syntheticTitle = useSyntheticTitle();
     const isArchived = useIsArchived();
     const isOld = useIsOlderThanOneYear();
+    const isRecent = useIsRecentlyUpdated();
     const { metadata } = useDoc();
     const { editUrl, lastUpdatedAt, lastUpdatedBy, tags } = metadata;
     const canDisplayTagsRow = tags.length > 0;
@@ -76,7 +105,14 @@ export default function DocItemContent({ children }: Props): ReactNode {
                 {syntheticTitle && (
                     <header>
                         <br></br>
-                        <Heading as="h1">{syntheticTitle}</Heading>
+                        <Heading as="h1">
+                            {syntheticTitle}
+                            {isRecent && (
+                                <sup className={styles.recentBadge} aria-label="Recently updated">
+                                    RECENT
+                                </sup>
+                            )}
+                        </Heading>
                     </header>
                 )}
                 {canDisplayTagsRow && (
