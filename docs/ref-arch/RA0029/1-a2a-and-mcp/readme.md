@@ -145,7 +145,7 @@ For implementation examples and background, see:
 - [MCP concepts: From APIs to AI-Ready Interfaces](https://community.sap.com/t5/technology-blog-posts-by-sap/model-context-protocol-mcp-from-apis-to-ai-ready-interfaces/ba-p/14433238)
 - [Build an MCP Server from an API artifact](https://community.sap.com/t5/integration-blog-posts/mcp-servers-on-sap-integration-suite-build-your-first-mcp-server-from-an/ba-p/14441034)
 - [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
-- [API-centric design, deployment, and Developer Hub governance](../../RA0022/readme.md)
+- [API Managed Integration with SAP Integration Suite](../../RA0022/readme.md)
 
 ## Agent2Agent (A2A) connectivity via Integration Suite
 
