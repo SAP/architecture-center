@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import DocSidebar from '@theme-original/DocSidebar';
 import DocSidebarItems from '@theme-original/DocSidebarItems';
@@ -205,6 +205,19 @@ export default function DocSidebarWrapper(props) {
   const location = useLocation();
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin']?.default?.docIdToTags as DocIdToTagsMap;
 
+  // The "recently updated" sidebar view depends only on the (runtime-stable) sidebar
+  // structure and build-time dates, so compute it once instead of re-filtering the
+  // whole tree on every navigation.
+  const recentlyUpdatedView = useMemo(
+    () => computeFilteredResults(props.sidebar, tagsDocId, {
+      showArchived: false,
+      partners: [],
+      showCommunityContent: false,
+      showRecentlyUpdated: true,
+    }),
+    [props.sidebar, tagsDocId]
+  );
+
   useEffect(() => {
     if (!location.pathname.startsWith(docsBase)) return;
     if (!shouldShowFilters) return;
@@ -319,7 +332,7 @@ export default function DocSidebarWrapper(props) {
           }
         } else {
           // Check if document exists in recently updated view (as a parent category with recent children)
-          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId);
+          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId, recentlyUpdatedView);
           if (!existsInRecentlyUpdated) {
             setShowRecentlyUpdated(false);
           }
@@ -368,7 +381,7 @@ export default function DocSidebarWrapper(props) {
         }
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, recentlyUpdatedView]);
 
   useEffect(() => {
     return history.listen(loc => {
