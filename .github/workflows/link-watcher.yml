@@ -84,6 +84,7 @@ jobs:
             echo ""
             echo "- **Scope:** Markdown (\`*.md\`) files under \`docs/\`. Content outside \`docs/\` (e.g. \`news/\`, \`README.md\`) is intentionally **not** checked."
             echo "- **Archived pages excluded:** any \`docs/\` page whose frontmatter \`tags:\` block contains \`- archive\` is skipped, because archived reference architectures are no longer maintained."
+            echo "- **\`403\` responses are not reported:** a \`403\` almost always means the target requires authentication, not that the link is broken, so only genuine breakage such as \`404 Not Found\` is flagged."
             echo ""
             echo "| Markdown under docs/ | Archived (skipped) | Scanned |"
             echo "| ---: | ---: | ---: |"
@@ -99,7 +100,11 @@ jobs:
         with:
           fail: true
           # --exclude-loopback skips localhost/127.0.0.1 links.
-          args: --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
+          # --accept 200..=299,403 treats 403 as reachable: a 403 almost always
+          # means the target requires authentication, not that the link is
+          # broken, so only genuine breakage (e.g. 404) is reported. The 2xx
+          # success range must be restated because --accept overrides the default.
+          args: --max-concurrency 2 --accept 200..=299,403 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
