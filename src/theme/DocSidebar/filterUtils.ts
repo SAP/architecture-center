@@ -73,11 +73,21 @@ export const PARTNER_OPTIONS = [
 export const RECENT_MONTHS = 3;
 export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
 
-// Helper to get cutoff date for "recently updated" filter
+// Cutoff for the "recently updated" window: midnight UTC, RECENT_MONTHS calendar
+// months before today (UTC). Computed entirely in UTC so it lines up with the
+// UTC-midnight dates parsed from `YYYY-MM-DD` front matter, and the day is clamped
+// to the target month's length so subtracting from, say, the 31st does not roll the
+// boundary into the following month.
 function getRecentCutoffDate(): Date {
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth() - RECENT_MONTHS);
-  return cutoff;
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = now.getUTCMonth();
+  const day = now.getUTCDate();
+
+  const targetMonth = month - RECENT_MONTHS;
+  // Day 0 of the month after the target month is the target month's last day.
+  const lastDayOfTargetMonth = new Date(Date.UTC(year, targetMonth + 1, 0)).getUTCDate();
+  return new Date(Date.UTC(year, targetMonth, Math.min(day, lastDayOfTargetMonth)));
 }
 
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
@@ -774,12 +784,15 @@ export function docExistsInArchivedView(
   return foundInArchived;
 }
 
-// Check if a document exists in the recently updated sidebar view (as a parent category as well)
+// Check if a document exists in the recently updated sidebar view (as a parent category as well).
+// `precomputedView` lets the caller pass an already-filtered recently-updated tree so this does
+// not re-filter the whole sidebar on every navigation; it falls back to computing one if omitted.
 export function docExistsInRecentlyUpdatedView(
   docId: string,
   pathname: string,
   sidebar: SidebarItem[],
-  tagsDocId: DocIdToTagsMap
+  tagsDocId: DocIdToTagsMap,
+  precomputedView?: Record<string, SidebarItem[]>
 ): boolean {
   // If the doc itself is recently updated, it's directly in the view
   if (isDocRecentlyUpdated(docId, tagsDocId)) {
@@ -787,7 +800,7 @@ export function docExistsInRecentlyUpdatedView(
   }
 
   // Check if the document appears in the filtered view (e.g., as a parent category)
-  const filteredResults = computeFilteredResults(sidebar, tagsDocId, {
+  const filteredResults = precomputedView ?? computeFilteredResults(sidebar, tagsDocId, {
     showArchived: false,
     partners: [],
     showCommunityContent: false,
