@@ -1,7 +1,11 @@
 const { readdirSync, readFileSync, writeFileSync } = require('node:fs');
 const { normalize: normalizePath } = require('path');
 
-const GITHUB_API = 'https://api.github.com';
+// On a GitHub Actions runner GITHUB_API_URL is auto-set to the host's API
+// (e.g. https://github.tools.sap/api/v3 on the internal instance), where the
+// GITHUB_TOKEN authenticates and the contributor accounts exist. Fall back to
+// public github.com only when run outside Actions without that var set.
+const GITHUB_API = process.env.GITHUB_API_URL || 'https://api.github.com';
 const { GITHUB_TOKEN } = process.env;
 
 // Validate required environment variables

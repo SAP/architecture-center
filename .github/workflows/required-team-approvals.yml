@@ -183,11 +183,28 @@ jobs:
               const files = await github.paginate(github.rest.pulls.listFiles, {
                 owner, repo, pull_number: prNumber, per_page: 100,
               });
-              const touchesReviewerPaths = files.some(f =>
-                reviewerPaths.some(p =>
-                  p.endsWith('/') ? f.filename.startsWith(p) : f.filename === p
-                )
-              );
+              const touchesReviewerPaths = (() => {
+                for (const p of reviewerPaths) {
+                  // Only two shapes are interpreted precisely: a trailing-slash
+                  // directory prefix, and a wildcard-free path (matched as an
+                  // exact file OR a directory prefix, per CODEOWNERS semantics).
+                  // Anything else (globs like *.md, /docs/**/*.drawio) cannot be
+                  // evaluated confidently here, so FAIL CLOSED: demand reviewer
+                  // approval rather than silently waive it, and warn.
+                  if (/[*?[\]!]/.test(p)) {
+                    core.warning(
+                      `CODEOWNERS reviewer pattern '${p}' uses a glob this check ` +
+                      `cannot evaluate; conservatively requiring reviewer approval.`
+                    );
+                    return true;
+                  }
+                  const matches = p.endsWith('/')
+                    ? (f) => f.filename === p.slice(0, -1) || f.filename.startsWith(p)
+                    : (f) => f.filename === p || f.filename.startsWith(p + '/');
+                  if (files.some(matches)) return true;
+                }
+                return false;
+              })();
 
               // 5. Evaluate the policy.
               const missing = [];

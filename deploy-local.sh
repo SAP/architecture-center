@@ -15,6 +15,7 @@ npm ci
 
 echo "==> Fetching contributors details"
 GITHUB_TOKEN=$(gh auth token --hostname github.tools.sap) \
+  GITHUB_API_URL=https://github.tools.sap/api/v3 \
   node src/_scripts/_fetch-contributors-details.js
 
 echo "==> Exporting drawios to SVGs (using local draw.io app, cache enabled)"

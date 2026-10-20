@@ -27,7 +27,8 @@ jobs:
 
                   FILE_DIRS=("assets" "diagrams" "docs")  # update as needed
                   FILE_EXTENSIONS=("*.png" "*.jpg" "*.jpeg" "*.svg" "*.drawio" "*.docx")  # update as needed
-                  MARKDOWN_FILES=$(find . -name "*.md")
+                  # Null-delimited so markdown paths containing spaces/globs survive.
+                  mapfile -d '' -t MARKDOWN_FILES < <(find . -name "*.md" -print0)
 
                   FOUND_UNUSED=0
 
@@ -38,8 +39,10 @@ jobs:
                           [ -z "$file" ] && continue
                           basename=$(basename "$file")
                           referenced=false
-                          for md in $MARKDOWN_FILES; do
-                            if grep -q "$basename" "$md"; then
+                          for md in "${MARKDOWN_FILES[@]}"; do
+                            # -F: treat basename as a literal, not a regex (dots etc.);
+                            # --: guard names that start with a dash.
+                            if grep -Fq -- "$basename" "$md"; then
                               referenced=true
                               break
                             fi

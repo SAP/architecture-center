@@ -15,14 +15,6 @@ jobs:
       contents: read
       pages: read
     environment: github-pages
-    env:
-      VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
-      BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
-      EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
-      VALIDATOR_RULES_API_URL: ${{ secrets.VALIDATOR_RULES_API_URL }}
-      VALIDATOR_OAUTH_AUTH_URL: ${{ secrets.VALIDATOR_OAUTH_AUTH_URL }}
-      VALIDATOR_OAUTH_CLIENT_ID: ${{ secrets.VALIDATOR_OAUTH_CLIENT_ID }}
-      VALIDATOR_OAUTH_CLIENT_SECRET: ${{ secrets.VALIDATOR_OAUTH_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -73,6 +65,15 @@ jobs:
 
       - name: Build Website
         run: npm run build
+        # Scoped to this step only: npm ci lifecycle scripts and the drawio
+        # export must not see these. Only the three the Docusaurus build
+        # actually reads (docusaurus.config.ts) are passed; the VALIDATOR_OAUTH_*
+        # / VALIDATOR_RULES_API_URL secrets are consumed solely by
+        # _generate-validator-rules.js, which this workflow never runs.
+        env:
+          VALIDATOR_API_URL: ${{ secrets.VALIDATOR_API_URL }}
+          BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+          EXPRESS_BACKEND_URL: ${{ secrets.EXPRESS_BACKEND_URL }}
 
       - name: Update drawio links with hashed URLs
         run: node src/_scripts/_update-drawio-links.js

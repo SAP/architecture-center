@@ -131,11 +131,19 @@ jobs:
         shell: bash
         run: |
           [ -f package-lock.json ] || { echo "No package-lock.json, skipping SARIF."; exit 0; }
-          npm audit --json > npm-audit.json 2>&1 || true
+          npm audit --json > npm-audit.json 2>audit.err || true
           cat > /tmp/audit-to-sarif.js << 'JSEOF'
           const fs = require('fs');
           let audit;
-          try { audit = JSON.parse(fs.readFileSync('npm-audit.json', 'utf8')); } catch (e) { audit = { vulnerabilities: {} }; }
+          try { audit = JSON.parse(fs.readFileSync('npm-audit.json', 'utf8')); }
+          catch (e) {
+            // Do NOT fall back to an empty result set: an empty SARIF uploaded
+            // under the npm-audit category would clear existing code-scanning
+            // findings and make the dashboard look clean. Fail before writing
+            // the SARIF so the upload step is skipped and the failure is visible.
+            console.log('::error::npm audit JSON could not be parsed; refusing to publish an empty SARIF that would clear existing code-scanning findings. ' + e.message);
+            process.exit(1);
+          }
           const vulns = Object.entries(audit.vulnerabilities || {});
           const levelMap = { critical: 'error', high: 'error', moderate: 'warning', low: 'note', info: 'note' };
           const sarif = {
@@ -207,7 +215,7 @@ jobs:
           persist-credentials: false
 
       - name: Lint workflows with actionlint
-        uses: reviewdog/action-actionlint@d63ba7532e0942965320cd8d73cbae4c7b3c5283 # v1
+        uses: reviewdog/action-actionlint@d63ba7532e0942965320cd8d73cbae4c7b3c5283 # v1.73.1
         with:
           reporter: github-check
           filter_mode: nofilter
@@ -245,7 +253,30 @@ jobs:
             # display) and concurrency 'group:'. Only interpolation in run: content
             # is dangerous. Note 'group:' commonly carries github.event.pull_request.number,
             # an integer used by the concurrency system, so it must not be flagged.
-            if grep -vE '^\s+([A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{|(name|group):\s)' "$workflow" | \
+            # Pre-filter removes safe usage patterns before the injection grep.
+            # A plain regex can't express YAML block structure, so an awk pass
+            # does it while staying aware of run:/script: scalar blocks: scan
+            # every line inside such a block (its body is a shell/JS sink), skip
+            # the UI/concurrency keys name:/group:, and exempt an env:/with:/if:
+            # assignment (value merely CONTAINS an expression — the safe form)
+            # ONLY when it is not inside a sink block.
+            if awk '
+                 function indent(s) { match(s, /^ */); return RLENGTH }
+                 {
+                   if (in_block) {
+                     if ($0 ~ /[^ ]/ && indent($0) <= block_indent) { in_block = 0 }
+                     else { print; next }
+                   }
+                   if ($0 ~ /^[[:space:]]+-?[[:space:]]*(run|script):/) {
+                     print
+                     if ($0 ~ /:[[:space:]]*[|>][+-]?[0-9]*[[:space:]]*(#.*)?$/) { in_block = 1; block_indent = indent($0) }
+                     next
+                   }
+                   if ($0 ~ /^[[:space:]]+(name|group):[[:space:]]/) next
+                   if ($0 ~ /^[[:space:]]+[A-Za-z_][A-Za-z0-9_-]*:[[:space:]]+.*\$\{\{/) next
+                   print
+                 }
+               ' "$workflow" | \
                grep -qE '\$\{\{[^}]*(github\.(head_ref|actor)\b|github\.event\.(issue|pull_request|comment|review|discussion|label|sender|workflow_run)\.)'; then
               echo "🚨 CRITICAL: $workflow may be vulnerable to script injection via untrusted event data!"
               echo "   Dangerous context var used directly in run: block content (head_ref, actor, event.pull_request.*, event.workflow_run.head_branch, etc.)"
@@ -255,7 +286,9 @@ jobs:
 
             # Check for unpinned third-party actions — flag anything not pinned to exactly 40 hex chars.
             # Escalate to CRITICAL when the same workflow also passes GITHUB_TOKEN (supply-chain + token theft).
-            if grep -E "^\s+uses: [a-zA-Z0-9_-]+/[a-zA-Z0-9_./-]+@" "$workflow" \
+            # The `-?` makes the YAML list dash optional so both the standalone
+            # (`uses: ...`) and inline list (`- uses: ...`) step forms are checked.
+            if grep -E "^\s*-?\s*uses: [a-zA-Z0-9_-]+/[a-zA-Z0-9_./-]+@" "$workflow" \
                | grep -qvE "@[a-f0-9]{40}(\s|$)"; then
               if grep -qE '(GITHUB_TOKEN|github\.token)' "$workflow"; then
                 echo "🚨 CRITICAL: $workflow passes GITHUB_TOKEN to an unpinned third-party action!"
@@ -282,7 +315,24 @@ jobs:
             fi
 
             # Check for secrets interpolated directly in run: steps (may leak to debug logs)
-            if grep -vE '^\s+([A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{|(name|group):\s)' "$workflow" | \
+            # Same block-aware pre-filter rationale as the script-injection check above.
+            if awk '
+                 function indent(s) { match(s, /^ */); return RLENGTH }
+                 {
+                   if (in_block) {
+                     if ($0 ~ /[^ ]/ && indent($0) <= block_indent) { in_block = 0 }
+                     else { print; next }
+                   }
+                   if ($0 ~ /^[[:space:]]+-?[[:space:]]*(run|script):/) {
+                     print
+                     if ($0 ~ /:[[:space:]]*[|>][+-]?[0-9]*[[:space:]]*(#.*)?$/) { in_block = 1; block_indent = indent($0) }
+                     next
+                   }
+                   if ($0 ~ /^[[:space:]]+(name|group):[[:space:]]/) next
+                   if ($0 ~ /^[[:space:]]+[A-Za-z_][A-Za-z0-9_-]*:[[:space:]]+.*\$\{\{/) next
+                   print
+                 }
+               ' "$workflow" | \
                grep -qE '\$\{\{\s*secrets\.'; then
               echo "⚠️  WARNING: $workflow may interpolate a secret directly in a run: step. Gate through env: instead."
             fi

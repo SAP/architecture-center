@@ -1,4 +1,4 @@
-name: Build for GitHub Pages
+name: Build Check
 
 permissions: {}
 
@@ -14,7 +14,6 @@ jobs:
         timeout-minutes: 30
         permissions:
             contents: read
-            pages: write
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
               with:
@@ -29,8 +28,3 @@ jobs:
               run: npm ci
             - name: Build website
               run: npm run build
-
-            - name: Upload Build Artifact
-              uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c # v2 (last GHES-compatible major; v3+ bundles @actions/artifact v2, unsupported on GHES)
-              with:
-                  path: build
