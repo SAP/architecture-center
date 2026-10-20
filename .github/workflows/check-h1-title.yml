@@ -54,19 +54,47 @@ jobs:
           # Find level-1 ATX headings ("# ...") in the body. The awk pass:
           #   - skips the leading front matter block (--- ... ---), so YAML `#` comments
           #     are ignored;
-          #   - skips fenced code blocks (``` or ~~~), so a shell `# comment` is ignored;
-          #   - matches only a single leading `#` followed by a space or end-of-line
-          #     (so `##`, `#!/bin/bash`, and `#tag` are NOT matched).
+          #   - tracks fenced code blocks by their opening fence character and length, and
+          #     only leaves code mode on a matching closing fence (so a `~~~` line inside a
+          #     ```-fenced sample, or a shell `# comment`, is never mistaken for a heading);
+          #   - matches a single leading `#` with up to three spaces of CommonMark
+          #     indentation, followed by a space or end-of-line (so `##`, `#!/bin/bash`,
+          #     `#tag`, and 4-space-indented code are NOT matched).
           : > "$RUNNER_TEMP/h1.txt"
           for f in "${FILES[@]}"; do
             awk '
-              BEGIN { infm = 0; incode = 0 }
+              BEGIN { infm = 0; incode = 0; fence_char = ""; fence_len = 0 }
               NR == 1 && $0 ~ /^---[[:space:]]*$/ { infm = 1; next }
               infm && $0 ~ /^---[[:space:]]*$/ { infm = 0; next }
               infm { next }
-              $0 ~ /^[[:space:]]*(```|~~~)/ { incode = !incode; next }
-              incode { next }
-              /^#([[:space:]].*)?$/ { printf "%s:%d:%s\n", FILENAME, FNR, $0 }
+              # Inside a code block: only a fence of the same character, at least as long
+              # as the opener, with nothing but spaces after it, closes the block.
+              incode {
+                line = $0
+                sub(/^[[:space:]]*/, "", line)
+                n = 0
+                while (substr(line, n + 1, 1) == fence_char) n++
+                rest = substr(line, n + 1)
+                if (n >= fence_len && rest ~ /^[[:space:]]*$/) incode = 0
+                next
+              }
+              # Opening fence: remember its character and run length.
+              $0 ~ /^[[:space:]]*(```|~~~)/ {
+                line = $0
+                sub(/^[[:space:]]*/, "", line)
+                fence_char = substr(line, 1, 1)
+                n = 0
+                while (substr(line, n + 1, 1) == fence_char) n++
+                fence_len = n
+                incode = 1
+                next
+              }
+              # Level-1 ATX heading, allowing 0-3 spaces of indentation (4+ is code).
+              {
+                t = $0
+                sub(/^ ? ? ?/, "", t)
+                if (t ~ /^#([[:space:]].*)?$/) printf "%s:%d:%s\n", FILENAME, FNR, $0
+              }
             ' "$f" >> "$RUNNER_TEMP/h1.txt"
           done
 
