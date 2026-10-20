@@ -92,6 +92,14 @@ AutoML
 MLOps
 xhigh
 
+# Speech / voice AI (terms & latency metrics)
+RNNT
+Endpointing
+SSML
+TTFA
+TTFT
+TTFB
+
 # Data & analytics
 dataframe
 dataframes
