@@ -11,28 +11,24 @@ import LastUpdated from '@theme/LastUpdated';
 import { useDoc } from '@docusaurus/plugin-content-docs/client';
 import styles from './styles.module.css';
 import ShareSite from '../../components/ShareSite';
-import { getRecentCutoffDate } from '../DocSidebar/filterUtils';
+import { isWithinRecentWindow } from '../DocSidebar/filterUtils';
 
 // Mirrors the sidebar's "recently updated" filter: a reference-architecture page whose
-// last_update.date falls within the recent window (see getRecentCutoffDate). Scoped to
-// /ref-arch/ pages so it matches that filter. Deferred to the client because the cutoff
-// depends on new Date() (now), which would otherwise cause a hydration mismatch.
+// last_update.date falls within the recent window (see isWithinRecentWindow — on/after the
+// cutoff and not in the future). Scoped to /ref-arch/ pages so it matches that filter.
+// Deferred to the client because the window depends on new Date() (now), which would
+// otherwise cause a hydration mismatch.
 function useIsRecentlyUpdated() {
     const { frontMatter, metadata } = useDoc();
     const rawDate = frontMatter.last_update?.date;
     const permalink = metadata.permalink;
     const [isRecent, setIsRecent] = useState(false);
     useEffect(() => {
-        if (!rawDate || !permalink?.includes('/ref-arch/')) {
+        if (!permalink?.includes('/ref-arch/')) {
             setIsRecent(false);
             return;
         }
-        const updated = new Date(rawDate);
-        if (Number.isNaN(updated.getTime())) {
-            setIsRecent(false);
-            return;
-        }
-        setIsRecent(updated >= getRecentCutoffDate());
+        setIsRecent(isWithinRecentWindow(rawDate ?? null));
     }, [rawDate, permalink]);
     return isRecent;
 }

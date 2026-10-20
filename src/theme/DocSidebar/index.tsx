@@ -205,29 +205,37 @@ export default function DocSidebarWrapper(props) {
   const location = useLocation();
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin']?.default?.docIdToTags as DocIdToTagsMap;
 
-  // The "recently updated" sidebar view depends only on the (runtime-stable) sidebar
-  // structure and build-time dates, so compute it once instead of re-filtering the
-  // whole tree on every navigation.
+  // Current filter state, so the preservation views below can honor the other active
+  // filters instead of assuming them off (otherwise, e.g., Recent + Archived would
+  // silently drop Recent when navigating to a parent whose recent children are archived).
+  const partners = useSidebarFilterStore(state => state.partners);
+  const showArchived = useSidebarFilterStore(state => state.showArchived);
+  const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
+  const showRecentlyUpdated = useSidebarFilterStore(state => state.showRecentlyUpdated);
+
+  // Membership view for preserving the "recently updated" filter: force Recent on, but
+  // keep the OTHER currently-active filters, so a doc that only belongs because of, say,
+  // archived recent children is still found. Recomputed only when those inputs change.
   const recentlyUpdatedView = useMemo(
     () => computeFilteredResults(props.sidebar, tagsDocId, {
-      showArchived: false,
-      partners: [],
-      showCommunityContent: false,
+      showArchived,
+      partners,
+      showCommunityContent,
       showRecentlyUpdated: true,
     }),
-    [props.sidebar, tagsDocId]
+    [props.sidebar, tagsDocId, showArchived, partners, showCommunityContent]
   );
 
-  // Likewise precompute the community-content view once, so navigation does not
-  // re-filter the whole tree on every route change.
+  // Membership view for preserving the community-content filter: force Community on, keep
+  // the other currently-active filters.
   const communityView = useMemo(
     () => computeFilteredResults(props.sidebar, tagsDocId, {
-      showArchived: false,
-      partners: [],
+      showArchived,
+      partners,
       showCommunityContent: true,
-      showRecentlyUpdated: false,
+      showRecentlyUpdated,
     }),
-    [props.sidebar, tagsDocId]
+    [props.sidebar, tagsDocId, showArchived, partners, showRecentlyUpdated]
   );
 
   useEffect(() => {

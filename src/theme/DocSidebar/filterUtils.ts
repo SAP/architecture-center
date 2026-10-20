@@ -157,12 +157,21 @@ export function isDocArchived(docId: string, docIdToTags: DocIdToTagsMap): boole
   return getDocTags(docId, docIdToTags).includes('archive');
 }
 
-export function isDocRecentlyUpdated(docId: string, docIdToTags: DocIdToTagsMap): boolean {
-  const lastUpdateDate = getDocLastUpdateDate(docId, docIdToTags);
+// True when a `YYYY-MM-DD` date is inside the recent window: on or after the cutoff AND
+// not in the future. (A `YYYY-MM-DD` string parses to UTC midnight, so compare against
+// today's UTC midnight.) Shared by the badge (isDocRecentlyUpdated) and the filter
+// (getRecentlyUpdatedDocIds) so a future date cannot slip into one but not the other.
+export function isWithinRecentWindow(lastUpdateDate: string | null): boolean {
   if (!lastUpdateDate) return false;
-
   const docDate = new Date(lastUpdateDate);
-  return docDate >= getRecentCutoffDate();
+  if (Number.isNaN(docDate.getTime())) return false;
+  const now = new Date();
+  const todayUtc = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  return docDate >= getRecentCutoffDate() && docDate <= todayUtc;
+}
+
+export function isDocRecentlyUpdated(docId: string, docIdToTags: DocIdToTagsMap): boolean {
+  return isWithinRecentWindow(getDocLastUpdateDate(docId, docIdToTags));
 }
 
 export function findDocIdFromPath(pathname: string, tagsDocId: DocIdToTagsMap): string | null {
@@ -361,15 +370,9 @@ export function getRecentlyUpdatedDocIds(docIdToTags: DocIdToTagsMap): Set<strin
 
   if (!docIdToTags) return matchingIds;
 
-  const cutoff = getRecentCutoffDate();
-
   for (const [docId, metadata] of Object.entries(docIdToTags)) {
-    const lastUpdateDate = metadata?.lastUpdateDate;
-    if (lastUpdateDate) {
-      const docDate = new Date(lastUpdateDate);
-      if (docDate >= cutoff) {
-        matchingIds.add(docId);
-      }
+    if (isWithinRecentWindow(metadata?.lastUpdateDate ?? null)) {
+      matchingIds.add(docId);
     }
   }
 
