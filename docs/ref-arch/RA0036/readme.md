@@ -1,7 +1,7 @@
 ---
 id: id-ra0036
 slug: /ref-arch/ra0036
-sidebar_position: 1
+sidebar_position: 30
 title: SAP-managed Joule
 description: A reference architecture for SAP-managed Joule, enabling AI-powered assistance across SAP solutions with minimal setup effort.
 sidebar_label: SAP-managed Joule

@@ -1,7 +1,7 @@
 ---
 id: 356shj
 slug: /ref-arch/356shj
-sidebar_position: 1
+sidebar_position: 50
 title: SAP-managed Task Center
 description: A reference architecture for SAP-managed Task Center, enabling a unified inbox for tasks across SAP solutions with minimal setup effort.
 sidebar_label: SAP-managed Task Center

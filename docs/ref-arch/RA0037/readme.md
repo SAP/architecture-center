@@ -1,7 +1,7 @@
 ---
 id: id-ra0037
 slug: /ref-arch/ra0037
-sidebar_position: 1
+sidebar_position: 60
 title: Multi-Tier Scenario for SAP Business AI Platform
 description: A reference architecture for a multi-tier scenario for SAP Business AI Platform, covering architecture layers, deployment patterns, and guidance for adoption.
 sidebar_label: Multi-Tier Scenario for SAP Business AI Platform

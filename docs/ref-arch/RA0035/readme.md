@@ -1,7 +1,7 @@
 ---
 id: id-ra0035
 slug: /ref-arch/ra0035
-sidebar_position: 1
+sidebar_position: 40
 title: Joule Work
 description: An overview of Joule Work, covering its architecture, capabilities, and guidance for adopting it within your SAP landscape.
 sidebar_label: Joule Work
