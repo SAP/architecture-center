@@ -74,8 +74,8 @@ export const addResData = [
         logoLight: 'img/landingPage/SAPLogo.svg',
     },
     {
-        title: 'Terraform on SAP BTP',
-        subtitle: 'Templates and guidance for provisioning and managing SAP BTP resources with Terraform.',
+        title: 'Terraform / OpenTofu',
+        subtitle: 'Templates & Guidance for provisioning and managing SAP Business AI Platform.',
         link: 'https://sap-docs.github.io/terraform-landingpage-for-btp/',
         logoLight: 'img/landingPage/SAPLogo.svg',
     },
