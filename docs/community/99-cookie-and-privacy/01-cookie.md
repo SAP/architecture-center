@@ -56,8 +56,6 @@ The difference between a first party cookie and a third party cookie relates to 
 
 ## What cookies does our hosting provider set?
 
-<!-- DRAFT pending privacy/legal confirmation of the Required Cookies classification and the exact cookie names before this section is published. -->
-
 Cloudflare, which hosts and delivers this site, may set strictly necessary security cookies on the domain of **[SAP Architecture Center](https://architecture.learning.sap.com/)**, such as `__cf_bm` (bot management) and `cf_clearance`. These cookies help protect the site against malicious traffic and ensure it loads correctly and securely. Because they are set on our own domain, they behave as first party cookies, and because they are strictly necessary for the security and delivery of the site, they are treated as Required Cookies. For more information, please refer to Cloudflare’s cookie policy: **[Cloudflare Cookie Policy](https://www.cloudflare.com/cookie-policy/)**.
 
 ## Analytics and Digital Marketing in the United States of America
