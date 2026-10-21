@@ -36,10 +36,11 @@ contributors:
   - fabianleh
   - bernhardthimmel
   - mar-hol
+  - AjayNayak01
 discussion: 
 last_update:
-  author: fabianleh
-  date: 2026-03-12
+  author: AjayNayak01
+  date: 2026-10-21
 ---
 
 Joule Studio Classic in SAP Build is a comprehensive platform for developing and enhancing AI capabilities with a user-friendly experience. It empowers both business users and technologists to become AI citizen developers. Utilizing intuitive low-code tools, Joule Studio Classic enables the creation of custom Joule Skills and AI Agents, expanding the functionalities of Joule Copilot and optimizing organization-specific automation.  
