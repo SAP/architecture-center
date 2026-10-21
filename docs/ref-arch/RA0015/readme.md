@@ -31,13 +31,12 @@ unlisted: false
 contributors:
   - avikSap
   - fabianleh
+  - cernus76
 discussion: 
 last_update:
-  author: avikSap
-  date: 2024-08-01
+  author: cernus76
+  date: 2026-10-21
 ---
-
-# Business-to-Government Integration Reference Architecture
 
 ## Overview
 In many countries or regions, organizations must comply with local requirements mandating the submission of electronic documents such as invoices, summaries, transport registrations, and statutory reports to external communication parties. Depending on the exchange model, these documents are transmitted through an authority, a regulated service provider, a regulated network, or directly to the business partner. The actual exchange of data may be fully electronic or require manual download or upload.
