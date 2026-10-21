@@ -15,6 +15,7 @@ keywords:
 sidebar_label: Intelligent content in SAP BDC
 image: img/ac-soc-med.png
 tags:
+  - archive
   - data
   - aws
   - azure

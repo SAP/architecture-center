@@ -16,6 +16,7 @@ keywords:
 sidebar_label: Implementing and Extending SAP-managed domain content in SAP BDC
 image: img/ac-soc-med.png
 tags:
+  - archive
   - data
   - aws
   - azure

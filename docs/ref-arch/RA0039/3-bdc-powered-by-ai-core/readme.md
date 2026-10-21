@@ -1,6 +1,6 @@
 ---
-id: 4f7406
-slug: /ref-arch/4f7406
+id: d2945f
+slug: /ref-arch/d2945f
 sidebar_position: 7
 title: SAP Business Data Cloud powered by SAP AI Core
 description: >-
@@ -21,7 +21,6 @@ sidebar_label: SAP Business Data Cloud powered by SAP AI Core
 image: img/ac-soc-med.png
 tags:
   - data
-  - genai
   - databricks
   - bdc
 hide_table_of_contents: false
@@ -115,7 +114,7 @@ This means AI-generated predictions (such as payment delay forecasts or risk sco
 
 **Why:** This pattern extends the value of AI investments by making predictions consumable across the broader SAP landscape. Applications that already use HANA Cloud can incorporate AI insights without architectural changes—enabling gradual AI adoption while maintaining existing data flows.
 
-For details on data product consumption options, see [Data Products in SAP Business Data Cloud](../1-data-products-in-sap-business-data-cloud/readme.md).
+For details on data product consumption options, see [Data Products in SAP Business Data Cloud](/ref-arch/09be8b).
 
 ## Business Problem: AI-Enhanced Predictive Insights
 

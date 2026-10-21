@@ -1,6 +1,6 @@
 ---
-id: 4ab8f2
-slug: /ref-arch/4ab8f2
+id: 09be8b
+slug: /ref-arch/09be8b
 sidebar_position: 1
 title: Data Products in SAP Business Data Cloud
 description: >-

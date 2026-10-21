@@ -41,3 +41,8 @@ CLAUDE.local.md
 
 build-cernus76
 
+
+# Large binary files
+*.pptx
+*.DS_Store
+~$*

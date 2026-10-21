@@ -14,6 +14,7 @@ keywords:
 sidebar_label: Transforming Enterprise Data Strategy with SAP Business Data Cloud
 image: img/ac-soc-med.png
 tags:
+  - archive
   - data
   - aws
   - azure

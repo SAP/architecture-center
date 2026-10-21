@@ -1,6 +1,6 @@
 ---
-id: '6550e4'
-slug: /ref-arch/6550e4
+id: 839418
+slug: /ref-arch/839418
 sidebar_position: 4
 title: Modernizing SAP BW with SAP Business Data Cloud
 description: >-

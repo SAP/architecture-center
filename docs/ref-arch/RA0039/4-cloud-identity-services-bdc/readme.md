@@ -1,6 +1,6 @@
 ---
-id: 2c8491
-slug: /ref-arch/2c8491
+id: 2be090
+slug: /ref-arch/2be090
 sidebar_position: 6
 title: Unifying Access Across SAP BDC with SAP Cloud Identity Services
 description: >-
