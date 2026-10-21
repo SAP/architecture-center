@@ -412,11 +412,11 @@ const config: Config = {
                     items: [
                         {
                             label: 'Privacy Statement',
-                            href: 'https://architecture.learning.sap.com/community/privacy',
+                            href: 'https://architecture.learning.sap.com/docs/community/privacy',
                         },
                         {
                             label: 'Cookie Statement',
-                            href: 'https://architecture.learning.sap.com/community/cookie',
+                            href: 'https://architecture.learning.sap.com/docs/community/cookie',
                         },
                         {
                             label: 'Terms of Use',
