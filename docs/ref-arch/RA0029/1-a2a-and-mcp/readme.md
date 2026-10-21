@@ -44,8 +44,8 @@ contributors:
   - rameshvaranganti
 discussion: 
 last_update:
-  author: kay-schmitteckert
-  date: 2026-10-14
+  author: rameshvaranganti
+  date: 2026-10-20
 ---
 
 :::info Disclaimer
@@ -131,8 +131,9 @@ The MCP Gateway overview above is complemented by an **MCP Server artifact** tha
 | API artifact | Expose selected operations from an API already deployed on Integration Cell. |
 | HTTP endpoint with an OpenAPI specification | Model tools over an existing HTTP service using its API definition. |
 | RFC-based backend | Expose selected RFC operations as tools. |
+| Remote or third-party MCP server | Connect an existing MCP server and govern it through the same gateway entry point. |
 
-See [Creating an MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/creating-mcp-server) for the supported configuration of each path.
+See [Creating an MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/creating-mcp-server) for the supported configuration of each path, and [Configure an MCP Server Created by Connecting to a Remote MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/govern-and-manage-mcp-server-created-by-connecting-to-remote-or-third-paty-mcp-servers) for the remote path.
 
 Check the tenant's service plan, runtime activation, roles, and backend connectivity before implementation. MCP feature availability depends on the service plan. Select the operations to expose and review tool names, descriptions, and input schemas for the intended business task. Configure and test authentication, authorization, and traffic policies before allowing agent access.
 
@@ -145,7 +146,9 @@ For implementation examples and background, see:
 - [MCP concepts: From APIs to AI-Ready Interfaces](https://community.sap.com/t5/technology-blog-posts-by-sap/model-context-protocol-mcp-from-apis-to-ai-ready-interfaces/ba-p/14433238)
 - [Build an MCP Server from an API artifact](https://community.sap.com/t5/integration-blog-posts/mcp-servers-on-sap-integration-suite-build-your-first-mcp-server-from-an/ba-p/14441034)
 - [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
-- [API-centric design, deployment, and Developer Hub governance](../../RA0022/readme.md#api-centric-integration-on-integration-cell)
+- [MCP Server overview (SAP Help Portal)](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/model-context-protocol-mcp)
+- [Build and Govern MCP Servers with SAP Integration Suite (SAP tutorial)](https://developers.sap.com/tutorials/btp-integration-suite-mcp-gateway/)
+- [API Managed Integration with SAP Integration Suite](../../RA0022/readme.md)
 
 ## Agent2Agent (A2A) connectivity via Integration Suite
 
