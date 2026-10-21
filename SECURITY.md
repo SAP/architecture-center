@@ -49,7 +49,7 @@ This section is specific to **SAP Architecture Center** and is not part of the a
 
 ### What this project is
 
-SAP Architecture Center is a **static content website** built with [Docusaurus](https://docusaurus.io/). It is compiled to static HTML/CSS/JS and deployed to Cloudflare Pages and Vercel. It is **not** a published package, library, binary, or service: `package.json` sets `"private": true`, nothing is published to a package registry, and no versioned release artifacts are produced for download.
+SAP Architecture Center is a **static content website** built with [Docusaurus](https://docusaurus.io/). It is compiled to static HTML/CSS/JS and deployed to Cloudflare Pages. It is **not** a published package, library, binary, or service: `package.json` sets `"private": true`, nothing is published to a package registry, and no versioned release artifacts are produced for download.
 
 ### Supply-chain and build hardening
 
