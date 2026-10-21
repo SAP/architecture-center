@@ -250,7 +250,7 @@ export const configRedirects = {
         // RA0013
         {
             from: '/docs/ref-arch/f5b6b597a6/1',
-            to: '/docs/ref-arch/4ab8f2',
+            to: '/docs/ref-arch/09be8b',
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/2',
@@ -262,7 +262,7 @@ export const configRedirects = {
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/4',
-            to: '/docs/ref-arch/6550e4',
+            to: '/docs/ref-arch/839418',
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/5',
@@ -270,11 +270,11 @@ export const configRedirects = {
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/6',
-            to: '/docs/ref-arch/2c8491',
+            to: '/docs/ref-arch/2be090',
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/7',
-            to: '/docs/ref-arch/4f7406',
+            to: '/docs/ref-arch/d2945f',
         },
         {
             from: '/docs/ref-arch/f5b6b597a6/8',
