@@ -79,9 +79,9 @@ From there, Process Data Management pipelines can transform and load the data fo
 
 The mining flow described in this section is intended for SAP AI agents built on Joule Studio 2.0.
 
-The key pre-requisites for this support model are that these agents are exposed through [SAP AI Agent Hub](/docs/ref-arch/ra0038) and emit the OpenTelemetry traces in the format expected by the AI Agent Mining connector. Support for agents outside this model, including agents built outside the SAP ecosystem, is a future direction.
+The key pre-requisites for this support model are that these agents are exposed through SAP AI Agent Hub and emit the OpenTelemetry traces in the format expected by the AI Agent Mining connector. Support for agents outside this model, including agents built outside the SAP ecosystem, is a future direction.
 
-Mining is configured at the **agent type level** per customer tenant, not at the level of individual running instances. Enabling or disabling mining for an agent type, which is done in [SAP AI Agent Hub](/docs/ref-arch/ra0038), applies uniformly to all instances of that agent type belonging to that tenant.
+Mining is configured at the **agent type level** per customer tenant, not at the level of individual running instances. Enabling or disabling mining for an agent type, which is done in SAP AI Agent Hub, applies uniformly to all instances of that agent type belonging to that tenant.
 
 ## Multi-Tenancy
 
@@ -104,5 +104,5 @@ This closes the loop on the **Agent Value Impact** pillar of SAP's [AI Agent Exc
 ## Services and Components
 
 -   [SAP Signavio Process Intelligence](https://help.sap.com/docs/signavio-process-intelligence?locale=en-US)
--   [SAP AI Agent Hub](/docs/ref-arch/ra0038)
+-   SAP AI Agent Hub
 -   [Joule Studio - AI First development environment](https://www.sap.com/products/artificial-intelligence/joule-studio.html)

@@ -167,7 +167,7 @@ No training job. No model-registry promotion. No feature-store offline/online sy
 
 ## Related Architectures
 
-- [Federated Machine Learning with SAP Datasphere](/ref-arch/17c8c5)
-- [Explore your Hyperscaler data with SAP Business Data Cloud](/ref-arch/b27373)
-- [Transforming Enterprise Data Strategy with SAP Business Data Cloud](/ref-arch/e1732d)
-- [Agentic AI & AI Agents](/ref-arch/ra0029)
+- [Federated Machine Learning with SAP Datasphere](/docs/ref-arch/17c8c5)
+- [Explore your Hyperscaler data with SAP Business Data Cloud](/docs/ref-arch/b27373)
+- [Transforming Enterprise Data Strategy with SAP Business Data Cloud](/docs/ref-arch/e1732d)
+- [Agentic AI & AI Agents](/docs/ref-arch/98efa0)

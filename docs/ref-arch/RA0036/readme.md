@@ -39,7 +39,7 @@ SAP-Managed Joule is a new provisioning and operational model for Joule Work, cr
 
 The shift to SAP-managed is more than a simplified setup; it delivers Joule together with the components of the **SAP Business AI Platform**, a comprehensive runtime with all the components required to create value from AI. Customers who provision SAP-Managed Joule get access to the most current Joule innovations, including **Joule Work** with its new engagement layer experience consisting of Conversations, Spaces, and the Develop interface, as well as the **SAP Autonomous Suite** of role- and process-aware AI assistants and agents spanning Finance, Spend, SCM, HCM, CX, and Industry AI.
 
-This reference architecture describes the structure and components of SAP-Managed Joule; how it is provisioned, what it contains, how it connects to SAP backend systems, and how identity and access management is handled. For building and deploying custom AI agents on top of this infrastructure, see [Agentic AI & AI Agents](/ref-arch/98efa0).
+This reference architecture describes the structure and components of SAP-Managed Joule; how it is provisioned, what it contains, how it connects to SAP backend systems, and how identity and access management is handled. For building and deploying custom AI agents on top of this infrastructure, see [Agentic AI & AI Agents](/docs/ref-arch/98efa0).
 
 ## Architecture
 

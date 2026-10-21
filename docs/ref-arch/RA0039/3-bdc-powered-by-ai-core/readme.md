@@ -114,7 +114,7 @@ This means AI-generated predictions (such as payment delay forecasts or risk sco
 
 **Why:** This pattern extends the value of AI investments by making predictions consumable across the broader SAP landscape. Applications that already use HANA Cloud can incorporate AI insights without architectural changes—enabling gradual AI adoption while maintaining existing data flows.
 
-For details on data product consumption options, see [Data Products in SAP Business Data Cloud](/ref-arch/09be8b).
+For details on data product consumption options, see [Data Products in SAP Business Data Cloud](/docs/ref-arch/09be8b).
 
 ## Business Problem: AI-Enhanced Predictive Insights
 

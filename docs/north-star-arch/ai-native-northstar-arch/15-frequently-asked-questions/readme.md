@@ -215,7 +215,7 @@ For repeatable, transactional, regulated, or training-intensive tasks, stable ap
 </p>
 
 <p className="faq-a">
-<strong>A:</strong> See also [Question](#question-7). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
+<strong>A:</strong> See also [Question](#dynamic-and-deterministic-ui). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
 The SAP Fiori design system remains part of SAP's [AI Golden Path](/docs/golden-path/ai-golden-path/2-build-and-deliver/3-genai-applications/readme.md) for application development, alongside CAP and ABAP Cloud. 
 </p>
 
