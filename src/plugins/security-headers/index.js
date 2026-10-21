@@ -1,44 +1,28 @@
 /**
- * Docusaurus plugin to add security headers
- * Implements CSP, X-Frame-Options, and other security headers
+ * Docusaurus plugin: emits the site's HTTP security headers.
  *
- * SECURITY CONFIGURATION:
- * ✅ X-Frame-Options: DENY - Prevents clickjacking attacks
- * ✅ X-Content-Type-Options: nosniff - Prevents MIME type sniffing
- * ✅ X-XSS-Protection: 0 - Disabled per modern best practices (CSP is better)
- * ✅ Strict-Transport-Security: Enforces HTTPS with preload
- * ✅ Permissions-Policy: Restricts browser features (geolocation, camera, etc.)
- * ✅ Referrer-Policy: Limits referrer information leakage
- * ⚠️  Content-Security-Policy: Includes 'unsafe-inline' (see below)
+ * The header VALUES live in ./csp-config.js (the single source of truth, also
+ * used to generate the committed vercel.json via `npm run gen:headers`). This
+ * plugin only writes the Cloudflare Pages `_headers` file at build time.
  *
- * CSP LIMITATIONS (Static Site Generator):
- * - 'unsafe-inline' is currently required for Docusaurus-generated inline styles/scripts
- * - To remove 'unsafe-inline':
- *   1. Implement CSP nonces via Server-Side Rendering (SSR)
- *   2. Configure Docusaurus to use external CSS/JS only
- *   3. Use strict-dynamic with hashes for all inline scripts
- * - This is a known trade-off for static site generators
- * - All other security headers are fully hardened
+ * SECURITY HEADERS (see csp-config.js for the authoritative definitions):
+ *  - Content-Security-Policy (includes 'unsafe-inline' — unavoidable for a static
+ *    Docusaurus/UI5 build without SSR nonces; all other directives are tight)
+ *  - Strict-Transport-Security (HSTS, preload)
+ *  - X-Frame-Options: DENY + frame-ancestors 'none' (clickjacking)
+ *  - X-Content-Type-Options: nosniff
+ *  - Cross-Origin-Opener-Policy, Referrer-Policy, Permissions-Policy
  *
- * FUTURE IMPROVEMENTS:
- * - Implement CSP nonces when moving to SSR
- * - Add CSP reporting endpoint: report-uri, report-to
- * - Consider CSP Level 3 features (strict-dynamic, trusted-types)
+ * NOTE: vercel.json is NOT written here. Vercel reads vercel.json from the repo
+ * root at build-config time (before this postBuild hook runs), so generating it
+ * here would never take effect. It is a committed file kept in sync via the
+ * `gen:headers` npm script and enforced by CI.
  */
+const { renderHeadersFile } = require('./csp-config');
 
 module.exports = function (_context, _options) {
     return {
         name: 'docusaurus-plugin-security-headers',
-
-        configureWebpack(_config, isServer, _utils) {
-            if (!isServer) {
-                return {};
-            }
-            
-            return {
-                plugins: [],
-            };
-        },
 
         injectHtmlTags() {
             return {
@@ -69,70 +53,13 @@ module.exports = function (_context, _options) {
         },
 
         postBuild({ outDir }) {
-            // Create _headers file for Netlify/Cloudflare Pages
+            // Create the _headers file consumed by Cloudflare Pages (and Netlify).
             const fs = require('fs');
             const path = require('path');
-            
-            // frame-src: allow kaltura cdn from which RA0005/readme.md loads and embeds video
-            const headersContent = `/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  X-XSS-Protection: 0
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: cdn.jsdelivr.net/npm/@sap-theming/; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self' cdnapisec.kaltura.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
-`;
 
             const headersPath = path.join(outDir, '_headers');
-            fs.writeFileSync(headersPath, headersContent, 'utf8');
-      ``      
-            console.log('✅ Security headers file generated at:', headersPath);
-
-            // Also create vercel.json for Vercel deployment
-            const vercelConfig = {
-                headers: [
-                    {
-                        source: '/(.*)',
-                        headers: [
-                            {
-                                key: 'X-Frame-Options',
-                                value: 'DENY',
-                            },
-                            {
-                                key: 'X-Content-Type-Options',
-                                value: 'nosniff',
-                            },
-                            {
-                                key: 'X-XSS-Protection',
-                                value: '0',
-                            },
-                            {
-                                key: 'Referrer-Policy',
-                                value: 'strict-origin-when-cross-origin',
-                            },
-                            {
-                                key: 'Permissions-Policy',
-                                value: 'geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=()',
-                            },
-                            {
-                                key: 'Strict-Transport-Security',
-                                value: 'max-age=31536000; includeSubDomains; preload',
-                            },
-                            {
-                                key: 'Content-Security-Policy',
-                                value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: cdn.jsdelivr.net/npm/@sap-theming/; connect-src 'self' https://www.google-analytics.com https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com https://cloudflareinsights.com; frame-src 'self' cdnapisec.kaltura.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
-                            },
-                        ],
-                    },
-                ],
-            };
-
-            const vercelPath = path.join(outDir, '../vercel.json');
-            if (!fs.existsSync(vercelPath)) {
-                fs.writeFileSync(vercelPath, JSON.stringify(vercelConfig, null, 2), 'utf8');
-                console.log('✅ Vercel security headers file generated');
-            }
+            fs.writeFileSync(headersPath, renderHeadersFile(), 'utf8');
+            console.log('✅ Security headers (_headers) generated at:', headersPath);
         },
     };
 };
