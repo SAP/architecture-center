@@ -40,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-09-09
+  date: 2026-10-21
 ---
 
 SAP’s partnership with Databricks, a leader in unified data and AI platforms, helps streamline data access and enables businesses to harness SAP data for AI and machine learning use cases. This integration is delivered through SAP Databricks, a fully embedded OEM component of Databricks within the SAP Business Data Cloud.
