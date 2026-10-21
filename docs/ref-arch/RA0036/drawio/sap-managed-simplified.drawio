@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
   <diagram name="SAP-Managed Simplified" id="vFps4o0BwqZvFvZK2YDy">
-    <mxGraphModel dx="1454" dy="987" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="1018" dy="693" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -342,17 +342,11 @@
             <mxPoint x="687" y="449" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="c7GAHAGxwm2i60pAegn_-84" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=27;strokeColor=#07838f;fillColor=#dafdf5;fontColor=#266f3a;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;" value="&lt;p style=&quot;line-height: 114%;&quot;&gt;&lt;font style=&quot;color: rgb(7, 131, 143); font-size: 10px;&quot;&gt;&lt;b style=&quot;&quot;&gt;MCP / OD&lt;/b&gt;&lt;/font&gt;&lt;b style=&quot;color: light-dark(rgb(7, 131, 143), rgb(61, 168, 178)); font-size: 10px; background-color: transparent;&quot;&gt;ata / REST&lt;/b&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="30" width="65" x="655" y="393" as="geometry" />
-        </mxCell>
         <mxCell id="c7GAHAGxwm2i60pAegn_-97" edge="1" parent="1" style="endArrow=blockThin;html=1;rounded=0;strokeColor=#07838f;strokeWidth=1.5;exitX=1;exitY=0.75;exitDx=0;exitDy=0;exitPerimeter=0;endFill=1;endSize=4;startSize=4;entryX=1;entryY=0.75;entryDx=0;entryDy=0;entryPerimeter=0;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <mxPoint x="665" y="376" as="sourcePoint" />
             <mxPoint x="572" y="375.75" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="c7GAHAGxwm2i60pAegn_-83" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=27;strokeColor=#07838f;fillColor=#dafdf5;fontColor=#266f3a;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;" value="&lt;p style=&quot;line-height: 114%;&quot;&gt;&lt;font style=&quot;color: rgb(7, 131, 143); font-size: 10px;&quot;&gt;&lt;b style=&quot;&quot;&gt;MCP / OD&lt;/b&gt;&lt;/font&gt;&lt;b style=&quot;color: light-dark(rgb(7, 131, 143), rgb(61, 168, 178)); font-size: 10px; background-color: transparent;&quot;&gt;ata / REST&lt;/b&gt;&lt;/p&gt;" vertex="1">
-          <mxGeometry height="30" width="65" x="592" y="361.5" as="geometry" />
         </mxCell>
         <mxCell id="c7GAHAGxwm2i60pAegn_-100" edge="1" parent="1" source="c7GAHAGxwm2i60pAegn_-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=18;strokeColor=#475E75;fontFamily=Helvetica;fontColor=default;targetPerimeterSpacing=15;endSize=4;startSize=4;endArrow=blockThin;endFill=1;strokeWidth=1.5;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="c7GAHAGxwm2i60pAegn_-13">
           <mxGeometry relative="1" as="geometry">
@@ -366,6 +360,12 @@
         </mxCell>
         <mxCell id="c7GAHAGxwm2i60pAegn_-11" parent="1" style="shape=mxgraph.sap.icon;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeWidth=1;strokeColor=#D5DADD;fillColor=#EDEFF0;gradientColor=#FCFCFC;gradientDirection=west;aspect=fixed;SAPIcon=SAP_Cloud_Identity_Service;fontStyle=1;fontSize=8;" value="SAP Cloud&#xa;Identity Services" vertex="1">
           <mxGeometry height="32" width="32" x="230" y="469.5" as="geometry" />
+        </mxCell>
+        <mxCell id="wIIG-Z3-c_6mqH2kpIYU-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#07838f;fillColor=#dafdf5;fontColor=#266f3a;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;" value="&lt;p style=&quot;line-height: 114%;&quot;&gt;&lt;font style=&quot;color: rgb(7, 131, 143);&quot; size=&quot;1&quot;&gt;&lt;b style=&quot;&quot;&gt;MCP&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="16" width="42" x="603" y="368" as="geometry" />
+        </mxCell>
+        <mxCell id="wIIG-Z3-c_6mqH2kpIYU-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#07838f;fillColor=#dafdf5;fontColor=#266f3a;strokeWidth=1.5;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;" value="&lt;p style=&quot;line-height: 114%;&quot;&gt;&lt;font style=&quot;color: rgb(7, 131, 143);&quot; size=&quot;1&quot;&gt;&lt;b style=&quot;&quot;&gt;MCP&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="16" width="42" x="667" y="403" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
