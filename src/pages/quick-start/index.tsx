@@ -153,10 +153,11 @@ function AuthenticatedQuickStartView() {
     }, [users.github]);
 
     const handleContentTypeCancel = useCallback(() => {
-        setIsContentTypeOpen(false);
         if (documents.length === 0) {
             history.push(baseUrl);
+            return;
         }
+        setIsContentTypeOpen(false);
     }, [history, baseUrl, documents.length]);
 
     const handleCreate = () => {
@@ -285,7 +286,12 @@ function AuthenticatedQuickStartView() {
             <Dialog
                 open={sapOnlyDialogOpen}
                 headerText="SAP account required"
-                footer={<Button design="Emphasized" onClick={() => setSapOnlyDialogOpen(false)}>OK</Button>}
+                footer={<Button design="Emphasized" onClick={() => {
+                    setSapOnlyDialogOpen(false);
+                    if (documents.length === 0) {
+                        setIsContentTypeOpen(true);
+                    }
+                }}>OK</Button>}
             >
                 <Text>Creating an article requires signing in with your SAP account. Please try again using your SAP credentials.</Text>
             </Dialog>
@@ -308,7 +314,7 @@ function AuthenticatedQuickStartView() {
             <main
                 className={styles.pageContainer}
                 style={
-                    isContentTypeOpen || (!isSubPageCreation && ((isArticleFormOpen && !isArticleEditMode) || (isModalOpen && !isEditMode)))
+                    isContentTypeOpen || sapOnlyDialogOpen || (!isSubPageCreation && ((isArticleFormOpen && !isArticleEditMode) || (isModalOpen && !isEditMode)))
                         ? { display: 'none' }
                         : undefined
                 }
