@@ -45,13 +45,13 @@ This reference architecture describes the structure and components of SAP-Manage
 
 The architecture of SAP-Managed Joule consists of two parts: the **SAP Business AI Platform**, a fully SAP-managed, multi-tenant foundation provisioned and operated by SAP, and **Joule**, SAP's portfolio-wide AI solution that delivers intent-driven, end-to-end business process automation across SAP and non-SAP systems. Together they provide everything needed to build and run the Autonomous Enterprise, from the engagement layer and development environment to governed connectivity, grounded data, and enterprise-wide observability.
 
-![SAP-Managed Joule Simplified Architecture](./drawio/sap_managed_diagram_simplified.png)
+![SAP-Managed Joule Simplified Architecture](./drawio/sap-managed-simplified.drawio)
 
 The simplified solution diagram illustrates the end-to-end setup. Provisioning and activation are managed entirely through **SAP for Me**, which triggers automated setup of all required components regardless of where they run. Customers keep control by defining and building their system landscape based on their needs. Once the setup is done, users access Joule Work through web, desktop, or mobile clients. The diagram shows the web client where Joule Work consists of three parts: Conversations to ask questions, surface insights, and complete business transactions; Joule Studio for agent and application development; and Spaces to dynamically generate workspaces for simple and complex problem-solving. More information on each component can be found in the sub-section for Joule Work.
 
 Backend SAP solutions such as SAP S/4HANA Cloud Public Edition, SAP SuccessFactors solutions, and SAP Ariba solutions are connected to Joule through SAP-managed integrations; the Agent Gateway handles all runtime connectivity with centralized authentication, principal propagation, and policy enforcement. SAP Cloud Identity Services serves as the identity backbone, federating authentication across the full enterprise landscape.
 
-![SAP-Managed Joule Full Architecture](./drawio/sap_managed_diagram.png)
+![SAP-Managed Joule Full Architecture](./drawio/sap-managed.drawio)
 
 The detailed architecture diagram reveals the full set of SAP Business AI Platform components that come together to deliver the Joule Work experience. Beyond the core connectivity layer provided by the Agent Gateway, the governance layer becomes visible: the **SAP LeanIX AI Agent Hub** for centralized agent governance, versioning, and observability across the AI landscape, and **SAP Signavio Agent Mining** for behavioral tracing and process conformance across agent workflows. The data and AI services tier includes **Business Data Tools** for live business data retrieval and processing, as well as **Document AI Services** for document understanding and processing. Together, these components provide customers with a secure, reliable, and scalable foundation to build and run the Autonomous Enterprise. For the complete component breakdown, see the [SAP Business AI Platform](#sap-business-ai-platform) section below.
 
