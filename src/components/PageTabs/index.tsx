@@ -81,7 +81,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
 
     const rootDocs = documents.filter((d) => d.parentId === null);
     const myRaDocs = rootDocs.filter((d) => !d.isReadOnly && !d.isArticle);
-    const sharedRaDocs = rootDocs.filter((d) => d.isReadOnly);
+    const sharedRaDocs = rootDocs.filter((d) => d.isReadOnly && !d.isArticle);
     const myArticleDocs = rootDocs.filter((d) => !d.isReadOnly && d.isArticle);
 
     const hasRaDocs = myRaDocs.length > 0 || sharedRaDocs.length > 0;
