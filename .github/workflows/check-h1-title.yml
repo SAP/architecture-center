@@ -1,0 +1,135 @@
+name: Check H1 Title
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is checked (needs fetch-depth: 0).
+#
+# Enforces the house convention that a page title comes from the front matter `title:`
+# field, NOT from a level-1 Markdown heading. A Markdown body must therefore not contain
+# a `#` (H1) heading; body headings start at `##`. A stray `#` H1 produces a duplicate
+# page title and breaks the document outline.
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - '.github/workflows/check-h1-title.yml'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-h1-title:
+    name: Check H1 Title
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      - name: Check for H1 headings in changed docs
+        shell: bash
+        run: |
+          # Changed-files scope: only Markdown added/modified vs the PR base.
+          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
+            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### H1 title check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ — nothing to check."
+            exit 0
+          fi
+          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+
+          # Find level-1 ATX headings ("# ...") in the body. The awk pass:
+          #   - skips the leading front matter block (--- ... ---), so YAML `#` comments
+          #     are ignored;
+          #   - tracks fenced code blocks by their opening fence character and length, and
+          #     only leaves code mode on a matching closing fence (so a `~~~` line inside a
+          #     ```-fenced sample, or a shell `# comment`, is never mistaken for a heading);
+          #   - matches a single leading `#` with up to three spaces of CommonMark
+          #     indentation, followed by a space or end-of-line (so `##`, `#!/bin/bash`,
+          #     `#tag`, and 4-space-indented code are NOT matched).
+          : > "$RUNNER_TEMP/h1.txt"
+          for f in "${FILES[@]}"; do
+            awk '
+              BEGIN { infm = 0; incode = 0; fence_char = ""; fence_len = 0 }
+              NR == 1 && $0 ~ /^---[[:space:]]*$/ { infm = 1; next }
+              infm && $0 ~ /^---[[:space:]]*$/ { infm = 0; next }
+              infm { next }
+              # Inside a code block: only a fence of the same character, at least as long
+              # as the opener, with nothing but spaces after it, closes the block.
+              incode {
+                line = $0
+                sub(/^[[:space:]]*/, "", line)
+                n = 0
+                while (substr(line, n + 1, 1) == fence_char) n++
+                rest = substr(line, n + 1)
+                if (n >= fence_len && rest ~ /^[[:space:]]*$/) incode = 0
+                next
+              }
+              # Opening fence: remember its character and run length.
+              $0 ~ /^[[:space:]]*(```|~~~)/ {
+                line = $0
+                sub(/^[[:space:]]*/, "", line)
+                fence_char = substr(line, 1, 1)
+                n = 0
+                while (substr(line, n + 1, 1) == fence_char) n++
+                fence_len = n
+                incode = 1
+                next
+              }
+              # Level-1 ATX heading, allowing 0-3 spaces of indentation (4+ is code).
+              {
+                t = $0
+                sub(/^ ? ? ?/, "", t)
+                if (t ~ /^#([[:space:]].*)?$/) printf "%s:%d:%s\n", FILENAME, FNR, $0
+              }
+            ' "$f" >> "$RUNNER_TEMP/h1.txt"
+          done
+
+          if [ -s "$RUNNER_TEMP/h1.txt" ]; then
+            # Emit named inline annotations (title= is not supported by problem matchers).
+            if [ -n "${GITHUB_ACTIONS:-}" ]; then
+              # Escape untrusted captures (filename) for the Actions command channel so a
+              # crafted path can't inject/forge annotation properties.
+              esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
+              esc_prop() { local s; s=$(esc_data "$1"); s=${s//,/%2C}; s=${s//:/%3A}; printf '%s' "$s"; }
+              while IFS= read -r line; do
+                file=${line%%:*}
+                rest=${line#*:}
+                ln=${rest%%:*}
+                echo "::error file=$(esc_prop "$file"),line=${ln},title=H1 title::Remove this level-1 \`#\` heading. The page title comes from the front matter \`title:\` field; body headings must start at \`##\`."
+              done < "$RUNNER_TEMP/h1.txt"
+            fi
+            {
+              echo "### H1 title check"
+              echo ""
+              echo "❌ A level-1 \`#\` heading was found (also shown inline on the Files tab)."
+              echo ""
+              echo "The page title comes from the front matter \`title:\` field, so a Markdown body must not contain a \`#\` heading. Start body headings at \`##\`:"
+              echo ""
+              echo '```'
+              cat "$RUNNER_TEMP/h1.txt"
+              echo '```'
+              echo ""
+              echo "📖 How to fix (remove the \`#\` heading; set the title in front matter): https://architecture.learning.sap.com/docs/community/automated-checks/h1-title"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          {
+            echo "### H1 title check"
+            echo ""
+            echo "✅ No level-1 \`#\` headings found."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "✅ No level-1 \`#\` headings found."
