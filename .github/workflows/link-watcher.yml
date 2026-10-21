@@ -35,16 +35,23 @@ jobs:
         run: |
           set -euo pipefail
           inputs=()
+          total=0
+          archived=0
           while IFS= read -r f; do
+            total=$((total + 1))
             # A page is archived when its frontmatter `tags:` block contains
-            # `- archive`. The awk below only inspects the leading frontmatter
-            # (the first `---` ... `---` block) so a stray "- archive" in the
-            # body text cannot cause a page to be skipped by mistake.
+            # `- archive`. The awk below inspects only the leading frontmatter
+            # (the first `---` ... `---` block) AND only the `tags:` block within
+            # it, so neither body text nor an unrelated frontmatter list that
+            # happens to contain `- archive` can cause a page to be skipped.
             if awk '
                   NR==1 { if ($0=="---") next; else exit 1 }   # no frontmatter -> keep the file
                   /^---[[:space:]]*$/ { exit 1 }               # end of frontmatter, tag not found -> keep
-                  /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }  # archive tag -> skip
+                  /^tags:[[:space:]]*$/ { in_tags=1; next }    # enter the tags: block
+                  /^[^[:space:]][^:]*:[[:space:]]*/ { in_tags=0 }  # any other top-level key leaves it
+                  in_tags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }  # archive tag -> skip
                 ' "$f"; then
+              archived=$((archived + 1))
               continue
             fi
             # Defense-in-depth: refuse any path with characters that could break
@@ -67,6 +74,23 @@ jobs:
           # Hand the file list to the lychee step below as a step output.
           echo "inputs=${inputs[*]}" >> "$GITHUB_OUTPUT"
 
+          # Explain the scan scope in the GitHub run summary (the panel shown
+          # on the run page at github.com), so anyone reading the result knows
+          # exactly what was and was not checked.
+          {
+            echo "## Periodic Link Checker"
+            echo ""
+            echo "Validates links in the **actively maintained documentation only**."
+            echo ""
+            echo "- **Scope:** Markdown (\`*.md\`) files under \`docs/\`. Content outside \`docs/\` (e.g. \`news/\`, \`README.md\`) is intentionally **not** checked."
+            echo "- **Archived pages excluded:** any \`docs/\` page whose frontmatter \`tags:\` block contains \`- archive\` is skipped, because archived reference architectures are no longer maintained."
+            echo "- **\`403\` responses are not reported:** a \`403\` almost always means the target requires authentication, not that the link is broken, so only genuine breakage such as \`404 Not Found\` is flagged."
+            echo ""
+            echo "| Markdown under docs/ | Archived (skipped) | Scanned |"
+            echo "| ---: | ---: | ---: |"
+            echo "| ${total} | ${archived} | ${#inputs[@]} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       # Check every link found in the selected files. `fail: true` makes the
       # job (and the workflow) red when any link is broken. The token raises
       # GitHub's API rate limit when checking github.com links.
@@ -76,6 +100,27 @@ jobs:
         with:
           fail: true
           # --exclude-loopback skips localhost/127.0.0.1 links.
-          args: --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
+          # --accept 200..=299,403 treats 403 as reachable: a 403 almost always
+          # means the target requires authentication, not that the link is
+          # broken, so only genuine breakage (e.g. 404) is reported. The 2xx
+          # success range must be restated because --accept overrides the default.
+          args: --max-concurrency 2 --accept 200..=299,403 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+# ---------------------------------------------------------------------------
+# What this workflow checks (and what it does not)
+# ---------------------------------------------------------------------------
+# Scope: ONLY Markdown (*.md) files under the docs/ directory are scanned.
+# Content outside docs/ (for example news/, README.md, or other top-level
+# files) is intentionally NOT link-checked by this workflow.
+#
+# Archived pages are excluded: any docs/ page whose frontmatter `tags:` block
+# contains `- archive` is skipped, because archived reference architectures are
+# no longer maintained and their links should not fail the build.
+#
+# In short: this job validates the links on the live, actively maintained
+# documentation pages, and ignores everything that is archived or lives
+# outside docs/. The same explanation, with live file counts, is written to
+# the run summary on github.com by the "Select non-archived Markdown" step.
+# ---------------------------------------------------------------------------
