@@ -148,6 +148,7 @@ For implementation examples and background, see:
 - [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
 - [MCP Server overview (SAP Help Portal)](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/model-context-protocol-mcp)
 - [Build and Govern MCP Servers with SAP Integration Suite (SAP tutorial)](https://developers.sap.com/tutorials/btp-integration-suite-mcp-gateway/)
+- [API Managed Integration with SAP Integration Suite](../../RA0022/readme.md)
 
 ## Agent2Agent (A2A) connectivity via Integration Suite
 

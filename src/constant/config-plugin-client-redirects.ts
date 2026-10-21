@@ -372,11 +372,17 @@ export const configRedirects = {
         //     from: '/docs/ref-arch/06ff6062dc/4',
         //     to: '/docs/ref-arch/c6e18f',
         // },
-        // target page f5a3ef no longer exists (subpage 6 removed in the flat-slug migration #1127)
-        // {
-        //     from: '/docs/ref-arch/06ff6062dc/6',
-        //     to: '/docs/ref-arch/f5a3ef',
-        // },
+        {
+            from: '/docs/ref-arch/06ff6062dc/6',
+            to: '/docs/ref-arch/',
+        },
+        // page has been deleted ?!
+        // redirect to /docs/ref-arch/
+        // to avoid build issues
+        {
+            from: '/docs/ref-arch/f5a3ef',
+            to: '/docs/ref-arch/',
+        },
         {
             from: '/docs/ref-arch/06ff6062dc',
             to: '/docs/ref-arch/464deb',

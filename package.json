@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2642.2",
+    "version": "v3.2643.1",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -40,7 +40,7 @@
         "qs": "^6.16.1",
         "postcss-selector-parser": "^7.1.6",
         "webpack-dev-middleware": "^7.4.6",
-        "katex": "^0.18.2",
+        "katex": "0.18.2",
         "sockjs": {
             "uuid": "^11.1.1"
         }
