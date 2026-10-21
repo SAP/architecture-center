@@ -28,7 +28,7 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2025-05-13
+  date: 2026-10-13
 ---
 
 Authorizations are domain specific and still the aim is that they can be assigned to an identity centrally. 

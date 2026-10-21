@@ -55,7 +55,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-27
+  date: 2026-10-13
 ---
 
 :::info Disclaimer
@@ -122,11 +122,11 @@ External AI platforms, clients and tools connect to the SAP agent ecosystem via 
 
 -   **AI Agents & Clients:** Google Cloud, Microsoft Azure, AWS, IBM Cloud and other AI platforms and clients — either consuming Joule Agents via the Agent Gateway (A2A) or being orchestrated by Joule for SAP-specific tasks. Read more about [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md) and [Integrating AI Agents with Joule](./4-integrate-ai-agents-with-joule/readme.md).
 
+Inbound third-party A2A calls must present a token with an audience that the Agent Gateway accepts. Because a third-party runtime natively obtains a token scoped to the *agent*, a **token exchange at SAP Cloud Identity Services** re-targets the audience to the SAP side *before* the Agent Gateway is called, after which the subject is carried across every hop via principal propagation. Read more about [Third-Party A2A Integration & Token Exchange](./11-third-party-a2a-token-exchange/readme.md).
+
 ### Security & Agent Identity
 
-**SAP Cloud Identity Services** is the identity hub — managing authentication, authorization and identity federation across all connections. It acts as identity provider, proxy or broker and federates with third-party identity providers and identity management systems to establish trust across the full enterprise landscape.
-
-In an agentic architecture, agents act on behalf of users and systems, which means identity must extend beyond humans. SAP Cloud Identity Services supports two agent operation models: agents acting within a user's context (with agent-specific permission constraints) and autonomous agents operating independently with their own dedicated technical identity, tokens and audit trail. The effective permission at runtime is the intersection of user permissions and agent permissions — enforced by the Agent Gateway at every communication hop. Read more about [Agent Identity](./8-ai-agent-identity/readme.md).
+**SAP Cloud Identity Services** is the identity hub — managing authentication, authorization and identity federation across all connections, acting as identity provider, proxy or broker. In an agentic architecture, agents act on behalf of users and systems, so identity extends beyond humans: agents can act within a user's context (effective permission is the intersection of user and agent permissions) or operate autonomously with their own technical identity, token and audit trail. These checks are enforced by the Agent Gateway at every communication hop. Read more about [Agent Identity](./8-ai-agent-identity/readme.md) and the inbound [Third-Party A2A Integration & Token Exchange](./11-third-party-a2a-token-exchange/readme.md).
 
 ## Building and Connecting Agents
 
@@ -136,7 +136,7 @@ SAP supports two paths for building agents and multiple patterns for connecting 
 
 **Bring Your Own Agent:** Develop agents with full programmatic control using SAP Cloud SDK for AI (Python or TypeScript) and integrate popular frameworks (LangGraph, AG2, CrewAI, Smolagents). Deploy to the customer's BTP subaccount as a self-managed runtime and connect to Joule via the A2A protocol. Read more about [Bring Your Own Agent](./3-bring-your-own-agent/readme.md), [AI Agents for Structured Data](./6-ai-agents-for-structured-data/readme.md) and [Agentic Engineering for SAP Extensions](./7-agentic-engineering-for-sap-extensions/readme.md).
 
-**Inbound (Agent Gateway — A2A):** Third-party AI platforms and clients consume Joule Agents through the Agent Gateway via A2A. Google Vertex AI, Microsoft Copilot Studio, AWS Bedrock and others can delegate SAP-specific tasks to Joule Agents, with trust established via SAP Cloud Identity Services. Read more about [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md).
+**Inbound (Agent Gateway — A2A):** Third-party AI platforms and clients consume Joule Agents through the Agent Gateway via A2A. Google Vertex AI, Microsoft Copilot Studio, AWS Bedrock and others can delegate SAP-specific tasks to Joule Agents, with trust established via SAP Cloud Identity Services. The inbound token must be re-audienced to the SAP side via a token exchange at SAP Cloud Identity Services before the Agent Gateway accepts it. Read more about [Integrating Joule Agents into Your Ecosystem](./5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md) and [Third-Party A2A Integration & Token Exchange](./11-third-party-a2a-token-exchange/readme.md).
 
 **Outbound (Bring Your Own Agent — A2A):** Joule orchestrates external agents built with any A2A-compliant framework. Supports synchronous communication, asynchronous callbacks for long-running tasks and multi-turn conversations with context handling. Read more about [Integrating AI Agents with Joule](./4-integrate-ai-agents-with-joule/readme.md).
 

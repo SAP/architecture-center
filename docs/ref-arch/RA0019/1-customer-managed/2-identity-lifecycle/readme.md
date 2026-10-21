@@ -29,7 +29,7 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2025-05-13
+  date: 2026-10-13
 ---
 
 Every user has a user account in each system that provides services for the business scenarios that are relevant for that user. Users may be employees, consumers, or business partners, with corresponding authorization assignments.

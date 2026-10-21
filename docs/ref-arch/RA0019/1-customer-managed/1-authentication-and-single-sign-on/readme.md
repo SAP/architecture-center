@@ -28,7 +28,7 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2025-05-13
+  date: 2026-10-13
 ---
 
 The main actors in the model, aside from human interaction, are identity providers, service providers, and the SAP BTP-supported IAM services. As depicted in the figure, identity providers are systems that vouch for the identity of users requesting access to service provider systems by issuing a security token that eliminates repeated authentication. Service providers are systems providing business and technical services requisite for user tasks.

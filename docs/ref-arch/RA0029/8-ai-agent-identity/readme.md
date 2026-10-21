@@ -36,12 +36,14 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2026-05-12
+  date: 2026-10-13
 ---
 
 The **Agent Identity** is a foundational concept within the SAP AI Agent Governance framework. It represents the identity artifacts required to authenticate, authorize, and govern AI agents operating within an SAP landscape. Just as human users require identity records to access enterprise systems, AI agents—whether built on SAP technology or by third parties—require a dedicated identity that defines their boundaries, permissions, and allowed interactions.
 
 SAP Cloud Identity Services acts as the central identity hub for both human identities and agent identities. By storing agent identities alongside human identities in the Identity Directory, enterprises gain a unified governance model that leverages existing IAM infrastructure—including authentication, federation, identity provisioning, and authorization management—for the new class of autonomous AI actors.
+
+Agent Identity is the agentic continuation of the [SAP-Managed IAM Integration](../../RA0019/2-sap-managed/readme.md) model: the same SAP-operated integration that unifies human identity across SAP solutions is extended to govern AI agents.
 
 SAP Joule serves in this perspective as the **engagement layer** for human-to-agent interaction. Users interact with SAP Joule through application clients (mobile/desktop), and Joule orchestrates conversations with agents running on SAP technology. The authentication of both the user and the agents involved is managed through SAP Cloud Identity Services, ensuring that every interaction is identity-aware and governed.
 
@@ -119,3 +121,10 @@ The SAP Agent Gateway is a technical component wihtin the customer landscape but
 - **Cross-application agent orchestration**: A user asks SAP Joule to "reconcile last month's invoices." Joule's orchestrator identifies that this requires agents in both SAP S/4HANA (finance) and SAP Ariba (procurement). Each agent's identity is checked against its permitted scope before execution, and the Agent Gateway ensures the inter-agent communication adheres to defined policies in intersection with the user-access to finance/procurement.
 
 - **Agent lifecycle governance**: An enterprise architect uses [SAP AI Agent Hub](/docs/ref-arch/ra0038) to register a new AI agent, which triggers SAP4ME and the possibility to activate the "Autonomous Suite" Provisioning. This creates the corresponding agent identity in SAP Cloud Identity Services and registers the agent in the Unified Services with the related Agent Cards.
+
+## Related Readings
+
+- [SAP-Managed IAM Integration](../../RA0019/2-sap-managed/readme.md) — the SAP-operated IAM model for human identity that Agent Identity extends to AI agents.
+- [SAP Cloud Identity Services Centrally Leading](../../RA0019/2-sap-managed/3-sci-centrally-leading/readme.md) — the target IAM end-state in which SAP Cloud Identity Services is the central leading identity system.
+- [Joule Landscape Recommendation](../../RA0019/2-sap-managed/4-joule-landscape-recommendation/readme.md) — landscape setup for SAP Cloud Identity Services with the SAP Business AI Platform.
+- [SAP IAM integration with SAP Cloud Identity Services](../../RA0019/readme.md) — the overarching IAM reference architecture.
