@@ -51,6 +51,10 @@ This section is specific to **SAP Architecture Center** and is not part of the a
 
 SAP Architecture Center is a **static content website** built with [Docusaurus](https://docusaurus.io/). It is compiled to static HTML/CSS/JS and deployed to Cloudflare Pages and Vercel. It is **not** a published package, library, binary, or service: `package.json` sets `"private": true`, nothing is published to a package registry, and no versioned release artifacts are produced for download.
 
+### Supported Versions
+
+This project is a continuously deployed static website with no versioned releases or downloadable artifacts. Only the currently deployed production site is supported and patched; there are no back-versions to maintain. Security fixes are rolled forward into the live site through the normal `dev` to `main` promotion and deployment flow.
+
 ### Supply-chain and build hardening
 
 - All GitHub Actions are pinned to full commit SHAs, and every workflow declares least-privilege `permissions`.
@@ -64,7 +68,9 @@ SAP Architecture Center is a **static content website** built with [Docusaurus](
 
 `npm audit` reports advisories in **transitive dependencies** of Docusaurus. The affected webpack/CSS-minification/globbing/content-parsing tooling runs only while the site is being built on trusted CI; it is **not shipped into the visitor's browser bundle** and is not reachable by site visitors. Where a patched version exists that is compatible with the pinned Docusaurus release, it is applied via `overrides` in `package.json` — for example `webpack-dev-middleware` is pinned to `^7.4.6` to clear GHSA-g84c-rxfj-3j2c, and `katex` is pinned to `^0.18.2` to clear GHSA-238p-pmpm-9mq7 (the prototype-pollution trust-bypass). `katex` reaches the browser via Mermaid's client-side renderer but only ever processes **project-controlled diagram content**, never visitor input; the override is pinned below `0.19` to avoid KaTeX 0.19's strict-mode breaking change and is verified against the pinned Mermaid at build time.
 
-The following currently have **no fixed version** at any published release and are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
+Advisories that *do* have an upstream fix are remediated automatically through repository-level Dependabot security-update pull requests (and, where a transitive pin is needed, the `overrides` mechanism above). Those fixes are transient and are therefore not enumerated here, so a developer running `npm audit` may see additional advisories that already have a fix in flight. This section lists only advisories for which **no fixed version exists** at any published release:
+
+The following are accepted as low residual risk until an upstream fix ships (monitored by the Security Audit workflow):
 
 - `braces` (stack-exhaustion DoS; the latest published version is still affected) — reachable only via build-time glob patterns the project controls, never shipped to visitors.
 - `sprintf-js` (unbounded-precision DoS; no published version is unaffected, so an `overrides` pin cannot clear it) — reached only via build-time front-matter/`.docx` parsing (`argparse` 1.x under `js-yaml` 3.x), never shipped to visitors.
