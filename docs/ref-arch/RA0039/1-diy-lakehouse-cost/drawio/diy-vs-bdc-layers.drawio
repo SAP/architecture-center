@@ -1,0 +1,70 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="diy-vs-bdc-iceberg">
+    <mxGraphModel dx="2054" dy="1610" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1180" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="subtitle" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=11;fontColor=#556B82;fontFamily=Arial;fontStyle=2;" value="Both paths reach agent-ready data; the SAP path provides the layers the DIY path has to build and operate." vertex="1">
+          <mxGeometry height="18" width="860" x="152" y="167" as="geometry" />
+        </mxCell>
+        <mxCell id="tip-diy" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#C6D4E3;fillColor=#FFFFFF;arcSize=24;absoluteArcSize=1;strokeWidth=1.5;fontFamily=Arial;" value="&lt;b style=&quot;font-size: 12px; color: rgb(29, 45, 62);&quot;&gt;Working AI agents&lt;/b&gt;&lt;div style=&quot;font-size: 10px; color: rgb(85, 107, 130);&quot;&gt;Grounded only in the context you encode yourself&lt;/div&gt;" vertex="1">
+          <mxGeometry height="46" width="436" x="90" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="tip-bdc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;fillColor=#EAF2FD;arcSize=24;absoluteArcSize=1;strokeWidth=2;fontFamily=Arial;" value="&lt;b style=&quot;font-size: 12px; color: rgb(10, 76, 158);&quot;&gt;Better-equipped AI agents&lt;/b&gt;&lt;div style=&quot;font-size: 10px; color: rgb(26, 102, 192);&quot;&gt;SAP business context built in: analyze, predict, act&lt;/div&gt;" vertex="1">
+          <mxGeometry height="48" width="436" x="662" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="water-band" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#F6F9FC;opacity=40;" value="" vertex="1">
+          <mxGeometry height="492" width="1100" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="waterline" parent="1" style="line;strokeColor=#5B9BD5;strokeWidth=2;dashed=1;dashPattern=6 4;html=1;" value="" vertex="1">
+          <mxGeometry height="1.83" width="1006" x="92" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="waterline-label" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize=9;fontStyle=2;fontFamily=Arial;" value="&lt;font style=&quot;color:#5B9BD5;&quot;&gt;waterline: what you see&lt;/font&gt;" vertex="1">
+          <mxGeometry height="14" width="203" x="90" y="143" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-side-label" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#6A7A8C;arcSize=16;absoluteArcSize=1;fontSize=11;fontFamily=Arial;fontColor=#ffffff;" value="&lt;b style=&quot;color: rgb(255, 255, 255);&quot;&gt;DIY on an external lakehouse&lt;/b&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;You build, operate &amp;amp; govern all of this&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="93.65" width="434" x="90" y="-28.65" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-side-label" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#0063D9;arcSize=16;absoluteArcSize=1;fontSize=11;fontFamily=Arial;fontColor=#ffffff;" value="&lt;b style=&quot;color: rgb(255, 255, 255);&quot;&gt;SAP Business Data Cloud&lt;/b&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;Every layer comes managed&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="440" x="658" y="-29" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-l5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#C3CDD8;fillColor=#F4F6F9;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(42, 77, 116); font-size: 12px;&quot;&gt;&lt;b&gt;Agentic AI&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(58, 63, 68); font-size: 10px; line-height: 1.5;&quot;&gt;Design &amp;amp; wire each agent&amp;nbsp;• ground in your data&amp;nbsp;• govern access&amp;nbsp;• re-integrate as layers below change&lt;/p&gt;" vertex="1">
+          <mxGeometry height="78" width="440" x="90" y="206" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-l4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#C3CDD8;fillColor=#EBEFF4;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(42, 77, 116); font-size: 12px;&quot;&gt;&lt;b&gt;Ontology&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(58, 63, 68); font-size: 10px; line-height: 1.5;&quot;&gt;Hand-build from table metadata&amp;nbsp;• author in a modeling tool&amp;nbsp;• encode business meaning yourself&amp;nbsp;• re-sync on every schema change&lt;/p&gt;" vertex="1">
+          <mxGeometry height="78" width="440" x="90" y="284" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-l3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#C3CDD8;fillColor=#E3E8EF;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(42, 77, 116); font-size: 12px;&quot;&gt;&lt;b&gt;ML (Prediction &amp;amp; Anomaly Detection)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(58, 63, 68); font-size: 10px; line-height: 1.5;&quot;&gt;Feature engineering&amp;nbsp;• model selection&amp;nbsp;• cross-validation&amp;nbsp;• hyperparameter search&amp;nbsp;• threshold calibration&amp;nbsp;• model hosting &amp;amp; retraining&lt;/p&gt;" vertex="1">
+          <mxGeometry height="88" width="440" x="90" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-l2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#C3CDD8;fillColor=#DBE2EA;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(42, 77, 116); font-size: 12px;&quot;&gt;&lt;b&gt;MDM (Master Data Management)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(58, 63, 68); font-size: 10px; line-height: 1.5;&quot;&gt;Entity resolution&amp;nbsp;• survivorship rules&amp;nbsp;• match auditing &amp;amp; explainability&amp;nbsp;• data stewardship + human override&amp;nbsp;• match-on-ingest&amp;nbsp;• governed audit trail&lt;/p&gt;" vertex="1">
+          <mxGeometry height="92" width="440" x="90" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-l1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#C3CDD8;fillColor=#D2DAE4;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(42, 77, 116); font-size: 12px;&quot;&gt;&lt;b&gt;ETL (SAP + non-SAP sources)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(58, 63, 68); font-size: 10px; line-height: 1.5;&quot;&gt;Discover CDS views&amp;nbsp;• reconcile view-to-schema bindings&amp;nbsp;• absorb release churn on every S/4 upgrade&amp;nbsp;• build the semantic layer&amp;nbsp;• internationalized business labels&amp;nbsp;• key &amp;amp; unit-of-measure semantics&amp;nbsp;• field-level data-protection tagging&lt;/p&gt;" vertex="1">
+          <mxGeometry height="108" width="440" x="90" y="542" as="geometry" />
+        </mxCell>
+        <mxCell id="diy-depth" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=10;fontFamily=Arial;" value="&lt;font style=&quot;color: rgb(106, 122, 140);&quot;&gt;&lt;b&gt;Five layers you own&lt;/b&gt;: build + operate + maintain, indefinitely&lt;/font&gt;" vertex="1">
+          <mxGeometry height="24" width="440" x="90" y="656" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-l5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0063D9;fillColor=#5CA0F8;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin:0;color:#ffffff;font-size:12px;&quot;&gt;&lt;b&gt;Agentic AI&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:4px 0 0 0;color:#ffffff;font-size:10px;line-height:1.5;&quot;&gt;Joule &amp;amp; Genie agents consume governed data directly, no custom integration&lt;/p&gt;" vertex="1">
+          <mxGeometry height="78" width="440" x="658" y="206" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-l4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0063D9;fillColor=#4790F2;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin:0;color:#ffffff;font-size:12px;&quot;&gt;&lt;b&gt;Ontology&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin:4px 0 0 0;color:#ffffff;font-size:10px;line-height:1.5;&quot;&gt;SAP Business Knowledge Graph carries business meaning, curated in the Ontology Manager&lt;/p&gt;" vertex="1">
+          <mxGeometry height="78" width="440" x="658" y="284" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-l3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0063D9;fillColor=#3685EF;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(255, 255, 255); font-size: 12px;&quot;&gt;&lt;b&gt;ML (Prediction &amp;amp; Anomaly Detection)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(255, 255, 255); font-size: 10px; line-height: 1.5;&quot;&gt;Tabular foundation models, apply one rather than engineer a pipeline&lt;/p&gt;" vertex="1">
+          <mxGeometry height="88" width="440" x="658" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-l2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0063D9;fillColor=#2A79E3;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(255, 255, 255); font-size: 12px;&quot;&gt;&lt;b&gt;MDM (Master Data Management)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(255, 255, 255); font-size: 10px; line-height: 1.5;&quot;&gt;Managed capability (Reltio), configure it rather than construct it&lt;/p&gt;" vertex="1">
+          <mxGeometry height="92" width="440" x="658" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-l1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0063D9;fillColor=#1E6AD4;strokeWidth=1;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;spacingRight=10;" value="&lt;p style=&quot;margin: 0px; color: rgb(255, 255, 255); font-size: 12px;&quot;&gt;&lt;b&gt;ETL (SAP + non-SAP sources)&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;margin: 4px 0px 0px; color: rgb(255, 255, 255); font-size: 10px; line-height: 1.5;&quot;&gt;Governed Data Products with stable, versioned contracts; SAP absorbs the release churn&lt;/p&gt;" vertex="1">
+          <mxGeometry height="108" width="440" x="658" y="542" as="geometry" />
+        </mxCell>
+        <mxCell id="bdc-depth" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=10;fontFamily=Arial;" value="&lt;font style=&quot;color: rgb(0, 112, 242);&quot;&gt;&lt;b&gt;Subscribe &amp;amp; configure&lt;/b&gt;: SAP maintains all five&lt;/font&gt;" vertex="1">
+          <mxGeometry height="24" width="440" x="650" y="656" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -26,6 +26,7 @@ yarn-error.log*
 backend/.vscode
 
 *.drawio.bkp
+*.drawio.dtmp
 
 # Ignoring the mapping file
 src/constant/pageMapping.ts
