@@ -1,6 +1,6 @@
 ---
-id: id-ra0039-dremio-lakehouse-compute
-slug: /ref-arch/ra0039-dremio-lakehouse-compute
+id: f6e3a9
+slug: /ref-arch/f6e3a9
 sidebar_position: 4
 title: Dremio Lakehouse Compute in SAP BDC
 description: How SAP BDC uses Dremio as the lakehouse compute and acceleration engine, building Primary and Derived Data Products across the medallion tiers with reflections, open Iceberg table format, and zero-copy non-SAP access.
@@ -25,7 +25,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
   - seeobjectively
