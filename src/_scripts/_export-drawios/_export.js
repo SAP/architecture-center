@@ -57,6 +57,7 @@ function getRendererIdentity() {
 function getPipelineIdentity() {
     const sourceFiles = [
         __filename,
+        join(ROOT, 'package-lock.json'),
         require.resolve('./drawio-cache'),
         require.resolve('./drawio-fingerprint'),
         require.resolve('./export-batch'),
