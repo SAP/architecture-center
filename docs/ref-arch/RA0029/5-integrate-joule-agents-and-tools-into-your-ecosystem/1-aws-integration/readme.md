@@ -82,16 +82,14 @@ Amazon Quick does not natively speak A2A, so **MCP is the connector layer**: it 
 2. **An AWS AgentCore Runtime** hosting the MCP server — the Runtime validates the incoming token, mints the WAT, runs the model (via Amazon Bedrock) to select the right agent running on SAP Business AI Platform, calls AgentCore Identity for the OBO exchange, and then issues the **A2A** call (`message/send`) to the Agent Gateway with the gateway-scoped SAP IAS token.
 3. **An AgentCore Identity credential provider** pre-configured with the SAP IAS OAuth endpoints, the Agent Gateway resource URN, and a `private_key_jwt` key held in AWS KMS (with its public half published to a JWKS URL SAP IAS trusts) — AgentCore Identity performs the OBO exchange with SAP IAS on the Runtime's behalf, so the Runtime never calls SAP IAS directly and never builds the client assertion.
 
-:::tip Hands-on deep dive
-Step-by-step setup — Cognito user pool, AgentCore Gateway and Runtime configuration, AgentCore Identity credential provider, and the Amazon Quick MCP connector — lives in the external cookbook: **Propagating User Identity from Amazon Quick to SAP Using AWS AgentCore** in the SAP-internal `OCTO/aioli` repository. _SAP-internal; currently a draft, pending merge._
+:::tip Agent Interoperability Cookbook for Integrating Joule Agents into Amazon Quick
+Step-by-step setup — Cognito user pool, AgentCore Gateway and Runtime configuration, AgentCore Identity credential provider, and the Amazon Quick connector — lives in the cookbook: [**AWS Integration - Amazon Quick** in `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/aws-integration)).
 :::
 
 ## Related Resources
 
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) — the parent reference architecture for external consumption of SAP agents
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) — Agent Gateway, authentication, and A2A protocol details
-- [Gemini Enterprise with Agent Gateway](../2-gcp-integration/readme.md) — the equivalent pattern for Gemini Enterprise
-- [Microsoft Copilot Studio with Agent Gateway](../3-microsoft-azure-integration/readme.md) — the equivalent pattern for Microsoft Copilot Studio
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
 - [SAP Help — Assigning the Agent Gateway Consumer System to Formations](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/a0465991ba964736a781c275ddd852db.html)
 - [SAP Help — Invoking an SAP Agent Through IDP Trust and JWKS-Based Integration](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/e9da5158a18649168e040495b26c43bc.html)

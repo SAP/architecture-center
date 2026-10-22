@@ -80,15 +80,13 @@ Reaching an agent running on SAP Business AI Platform behind the Agent Gateway f
 2. **An SAP IAS application** configured with the Gemini Enterprise redirect URIs and a trust relationship to the Google service account, so it can run the three-legged OAuth flow and mint the Agent-Gateway-scoped token.
 3. **The proxy agent on Google Agent Runtime**, pointed at the downstream Agent Gateway A2A endpoint, that performs the token exchange and relays the call. It is then registered in Gemini Enterprise so users can delegate to it.
 
-:::tip Hands-on deep dive
-Step-by-step setup — service-account signer, SAP IAS trust and redirect configuration, proxy-agent deployment, and Gemini Enterprise registration — lives in the external cookbook: **Authenticate inbound connections from GCP Agents using 3-legged OAuth** in the SAP-internal `OCTO/aioli` repository. _SAP-internal; currently a draft, pending merge._
+:::tip Agent Interoperability Cookbook for Integrating Joule Agents into Google's Gemini Enterprise
+Step-by-step setup — service-account signer, SAP Cloud Identity Services trust and redirect configuration, proxy-agent deployment, and Gemini Enterprise registration — lives in the cookbook: [**GCP Integration - Gemini Enterprise** in `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/gcp-integration)).
 :::
 
 ## Related Resources
 
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) — the parent reference architecture for external consumption of SAP agents
-- [Amazon Quick with Agent Gateway](../1-aws-integration/readme.md) — the equivalent pattern for Amazon Quick
-- [Microsoft Copilot Studio with Agent Gateway](../3-microsoft-azure-integration/readme.md) — the equivalent pattern for Microsoft Copilot Studio
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) — Agent Gateway, authentication, and A2A protocol details
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
 - [SAP Help — Assigning the Agent Gateway Consumer System to Formations](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/a0465991ba964736a781c275ddd852db.html)
