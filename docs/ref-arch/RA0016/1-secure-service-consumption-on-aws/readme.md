@@ -1,6 +1,6 @@
 ---
-id: '544638'
-slug: /ref-arch/544638
+id: b5f2a9
+slug: /ref-arch/b5f2a9
 sidebar_position: 1
 title: Secure Service Consumption on AWS
 description: >-

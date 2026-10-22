@@ -1,6 +1,6 @@
 ---
-id: '968090'
-slug: /ref-arch/968090
+id: e7d4c5
+slug: /ref-arch/e7d4c5
 sidebar_position: 1
 title: Integration with Palantir
 description: >-

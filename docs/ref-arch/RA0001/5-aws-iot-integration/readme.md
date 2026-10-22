@@ -1,6 +1,6 @@
 ---
-id: '448754'
-slug: /ref-arch/448754
+id: f3a7b2
+slug: /ref-arch/f3a7b2
 sidebar_position: 1
 title: Build Events-to-Business Actions Scenarios with SAP BTP and AWS IoT SiteWise
 description: >-

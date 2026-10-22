@@ -1,6 +1,6 @@
 ---
-id: '519093'
-slug: /ref-arch/519093
+id: c4d1e8
+slug: /ref-arch/c4d1e8
 sidebar_position: 3
 title: Implementing and Extending SAP-managed domain content in SAP BDC
 description: >-

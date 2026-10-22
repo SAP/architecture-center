@@ -1,6 +1,6 @@
 ---
-id: '206025'
-slug: /ref-arch/206025
+id: d9c3e6
+slug: /ref-arch/d9c3e6
 sidebar_position: 3
 title: Authorization with SAP Cloud Identity Services
 description: >-

@@ -1,6 +1,6 @@
 ---
-id: '137800'
-slug: /ref-arch/137800
+id: a8f1b7
+slug: /ref-arch/a8f1b7
 sidebar_position: 10
 title: Third-Party MCP Access to SAP Solutions
 description: >-
