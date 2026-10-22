@@ -2,18 +2,20 @@
 id: e2f8a1
 slug: /ref-arch/e2f8a1
 sidebar_position: 30
-title: SAP-managed Joule
-description: A reference architecture for SAP-managed Joule, enabling AI-powered assistance across SAP solutions with minimal setup effort.
-sidebar_label: SAP-managed Joule
+title: Joule Work
+description: A reference architecture for Joule Work, SAP's AI-powered engagement layer delivered through the SAP-managed provisioning model, as part of the SAP Business AI Platform.
+sidebar_label: Joule Work
 keywords:
   - sap
   - joule
+  - joule-work
   - sap-managed
   - ai
   - genai
 image: img/ac-soc-med.png
 tags:
   - ref-arch
+  - joule-work
   - sap-managed
   - genai
 hide_table_of_contents: false
@@ -25,43 +27,49 @@ unlisted: false
 contributors:
   - marvinkl
   - fabianleh
+  - D073188
 last_update:
-  author: marvinkl
-  date: 2026-10-19
+  author: D073188
+  date: 2026-10-22
 ---
 
-# SAP-Managed Joule
+# Joule Work
 
 > **Note**
-> Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for Joule in an SAP-managed setup, coming together with the SAP Business AI Platform.
+> Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for Joule Work, coming together with the SAP Business AI Platform.
 
-SAP-Managed Joule is a new provisioning and operational model for Joule Work, creating SAP's new engagement layer experience. In the existing customer-managed model, customers are responsible for ensuring the availability of dependencies, subscribing to Joule in SAP BTP, configuring integrations with SAP solutions, and managing the cloud service after the initial setup. SAP-Managed Joule eliminates this complexity: SAP provisions and operates the full stack, and customers keep control of their landscape with a self-service experience in SAP for Me.
+**Joule Work** is SAP's AI-powered engagement layer — the product through which users interact with Joule Assistants and Joule Agents across the SAP portfolio and third-party applications. Joule Work is delivered exclusively through the **SAP-managed provisioning model**, where SAP provisions and operates the full underlying stack and customers manage their landscape through a self-service experience in SAP for Me.
 
-The shift to SAP-managed is more than a simplified setup; it delivers Joule together with the components of the **SAP Business AI Platform**, a comprehensive runtime with all the components required to create value from AI. Customers who provision SAP-Managed Joule get access to the most current Joule innovations, including **Joule Work** with its new engagement layer experience consisting of Conversations, Spaces, and the Develop interface, as well as the **SAP Autonomous Suite** of role- and process-aware AI assistants and agents spanning Finance, Spend, SCM, HCM, CX, and Industry AI.
+This contrasts with **Joule (customer-managed)**, the earlier model in which customers are responsible for subscribing to Joule in SAP BTP, configuring integrations with SAP solutions, and managing the cloud service lifecycle after initial setup. While Joule (customer-managed) remains supported, Joule Work — including Conversations, Spaces, Jobs, and the Develop interface powered by Joule Studio — is available exclusively in the SAP-managed model. Joule Work removes this setup burden: SAP provisions and operates the full stack, so customers reach value faster without infrastructure overhead.
 
-This reference architecture describes the structure and components of SAP-Managed Joule; how it is provisioned, what it contains, how it connects to SAP backend systems, and how identity and access management is handled. For building and deploying custom AI agents on top of this infrastructure, see [Agentic AI & AI Agents](/docs/ref-arch/98efa0).
+The shift to SAP-managed provisioning is more than a simplified setup; it delivers Joule Work together with the components of the **SAP Business AI Platform**, a comprehensive runtime with all the components required to create value from AI. Customers provisioning Joule Work get access to the most current Joule innovations, as well as the **SAP Autonomous Suite** of role- and process-aware AI assistants and agents spanning Finance, Spend, SCM, HCM, CX, and Industry AI.
+
+This reference architecture describes the structure and components of Joule Work as delivered through SAP-managed provisioning: how it is set up, what it contains, how it connects to SAP backend systems, and how identity and access management is handled. For building and deploying custom AI agents on top of this infrastructure, see [Agentic AI & AI Agents](/docs/ref-arch/98efa0).
 
 ## Architecture
 
-The architecture of SAP-Managed Joule consists of two parts: the **SAP Business AI Platform**, a fully SAP-managed, multi-tenant foundation provisioned and operated by SAP, and **Joule**, SAP's portfolio-wide AI solution that delivers intent-driven, end-to-end business process automation across SAP and non-SAP systems. Together they provide everything needed to build and run the Autonomous Enterprise, from the engagement layer and development environment to governed connectivity, grounded data, and enterprise-wide observability.
+The architecture of Joule Work consists of two parts: the **SAP Business AI Platform**, a fully SAP-managed, multi-tenant foundation provisioned and operated by SAP, and the **Joule AI solution layer** — SAP's portfolio-wide AI capability that delivers intent-driven, end-to-end business process automation across SAP and non-SAP systems. Together they provide everything needed to build and run the Autonomous Enterprise, from the engagement layer and development environment to governed connectivity, grounded data, and enterprise-wide observability.
 
-![SAP-Managed Joule Simplified Architecture](./drawio/sap-managed-simplified.drawio)
+![Joule Work Simplified Architecture](./drawio/sap-managed-simplified.drawio)
 
 The simplified solution diagram illustrates the end-to-end setup. Provisioning and activation are managed entirely through **SAP for Me**, which triggers automated setup of all required components regardless of where they run. Customers keep control by defining and building their system landscape based on their needs. Once the setup is done, users access Joule Work through web, desktop, or mobile clients. The diagram shows the web client where Joule Work consists of three parts: Conversations to ask questions, surface insights, and complete business transactions; Joule Studio for agent and application development; and Spaces to dynamically generate workspaces for simple and complex problem-solving. More information on each component can be found in the sub-section for Joule Work.
 
 Backend SAP solutions such as SAP S/4HANA Cloud Public Edition, SAP SuccessFactors solutions, and SAP Ariba solutions are connected to Joule through SAP-managed integrations; the Agent Gateway handles all runtime connectivity with centralized authentication, principal propagation, and policy enforcement. SAP Cloud Identity Services serves as the identity backbone, federating authentication across the full enterprise landscape.
 
-![SAP-Managed Joule Full Architecture](./drawio/sap-managed.drawio)
+![Joule Work Full Architecture](./drawio/sap-managed.drawio)
 
 The detailed architecture diagram reveals the full set of SAP Business AI Platform components that come together to deliver the Joule Work experience. Beyond the core connectivity layer provided by the Agent Gateway, the governance layer becomes visible: the **SAP LeanIX AI Agent Hub** for centralized agent governance, versioning, and observability across the AI landscape, and **SAP Signavio Agent Mining** for behavioral tracing and process conformance across agent workflows. The data and AI services tier includes **Business Data Tools** for live business data retrieval and processing, as well as **Document AI Services** for document understanding and processing. Together, these components provide customers with a secure, reliable, and scalable foundation to build and run the Autonomous Enterprise. For the complete component breakdown, see the [SAP Business AI Platform](#sap-business-ai-platform) section below.
 
-### SAP-Managed
+### SAP-Managed Provisioning
 
 SAP cloud solutions can be delivered under two operational models: **customer-managed** or **SAP-managed**. In the customer-managed model, the customer is responsible for technical provisioning, configuration, integration, and ongoing operations. For a BTP-based service like Joule, this includes subscribing in the BTP Cockpit, assigning roles, creating formations, and managing updates. In the SAP-managed model, SAP takes over that operational responsibility: provisioning, patching, security hardening, monitoring, and service continuity are handled by SAP, while customers retain full control over their landscape, business configuration and data.
 
 SAP-managed services are activated and maintained through **SAP for Me**, SAP's self-service customer portal. SAP creates and manages the required BTP infrastructure transparently in the background. Services are kept always current — updates and new capabilities are delivered continuously without upgrade projects, so customers always run the latest version of the solution.
 
 This operational model delivers three practical benefits: a shorter time to value with self-service steps in SAP for Me, a lower operational burden, and for Joule specifically, access to new capabilities that SAP introduces first, or in some cases exclusively, through the SAP-managed model.
+
+> **Transitioning from Joule (customer-managed)**
+> If you have an existing Joule (customer-managed) setup and want to adopt Joule Work, you must first disconnect your existing integrations before provisioning Joule Work. See [Transitioning from Customer-Managed Joule](../transitioning) for guidance.
 
 ### Joule Work
 
@@ -78,7 +86,7 @@ Joule Work coordinates work through **Joule Assistants** and **Joule Agents**. J
 
 ### SAP Business AI Platform
 
-The **SAP Business AI Platform** is SAP's enterprise AI foundation providing the infrastructure, data intelligence, and governance required to run trusted AI at enterprise scale. It is built on enterprise-grade security, governance, and data frameworks and is deeply integrated with SAP's business applications and process knowledge. When SAP-Managed Joule is provisioned, the platform is delivered as an integrated bundle; customers do not need to assemble or operate its components independently.
+The **SAP Business AI Platform** is SAP's enterprise AI foundation providing the infrastructure, data intelligence, and governance required to run trusted AI at enterprise scale. It is built on enterprise-grade security, governance, and data frameworks and is deeply integrated with SAP's business applications and process knowledge. When Joule Work is provisioned, the platform is delivered as an integrated bundle; customers do not need to assemble or operate its components independently.
 
 #### Agent Gateway
 
@@ -124,4 +132,4 @@ SAP Signavio provides observability and continuous improvement capabilities for 
 
 #### SAP LeanIX — AI Agent Hub
 
-The **SAP AI Agent Hub** (powered by SAP LeanIX) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs, and MCP servers across the enterprise. It maintains a structured, versioned registry of all AI assets grounded in their architecture and business context. 
+The **SAP AI Agent Hub** (powered by SAP LeanIX) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs, and MCP servers across the enterprise. It maintains a structured, versioned registry of all AI assets grounded in their architecture and business context.
