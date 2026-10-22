@@ -15,9 +15,8 @@ describe('Quick Start Content Security Policy', () => {
     });
 
     it('allows the Draw.io editor and renderer in only the required resource directives', () => {
-        expect(directives.get('frame-src')).toEqual(
-            expect.arrayContaining(['https://embed.diagrams.net', 'https://viewer.diagrams.net'])
-        );
+        expect(directives.get('frame-src')).toContain('https://embed.diagrams.net');
+        expect(directives.get('frame-src')).not.toContain('https://viewer.diagrams.net');
         expect(directives.get('script-src')).toContain('https://viewer.diagrams.net');
         expect(directives.get('script-src')).not.toContain('https://embed.diagrams.net');
         expect(directives.get('connect-src')).not.toContain('https://embed.diagrams.net');
