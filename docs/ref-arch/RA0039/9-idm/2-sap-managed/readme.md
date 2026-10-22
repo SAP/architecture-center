@@ -87,7 +87,7 @@ This separation of responsibilities means the customer keeps every control it ha
 
 ## Extending to AI Agents
 
-The SAP-managed model is the foundation for identity of autonomous AI actors. The [Agent Identity](/ref-arch/140bdb) reference architecture extends SAP-managed IAM to AI agents: SAP Cloud Identity Services stores agent identities alongside human identities, and the SAP Agent Gateway enforces policy at every communication hop. Agent Identity is best understood as the agentic continuation of this SAP-managed integration story.
+The SAP-managed model is the foundation for identity of autonomous AI actors. The [Agent Identity](/docs/ref-arch/140bdb) reference architecture extends SAP-managed IAM to AI agents: SAP Cloud Identity Services stores agent identities alongside human identities, and the SAP Agent Gateway enforces policy at every communication hop. Agent Identity is best understood as the agentic continuation of this SAP-managed integration story.
 
 ## Characteristics
 
@@ -104,5 +104,5 @@ The SAP-managed model is the foundation for identity of autonomous AI actors. Th
 
 ## Related
 
-- [Customer-Managed IAM Integration](/ref-arch/a7f3c1) — the complementary model where the customer operates the IAM integration.
-- [Agent Identity](/ref-arch/140bdb) — SAP-managed identity for AI agents.
+- [Customer-Managed IAM Integration](/docs/ref-arch/a7f3c1) — the complementary model where the customer operates the IAM integration.
+- [Agent Identity](/docs/ref-arch/140bdb) — SAP-managed identity for AI agents.

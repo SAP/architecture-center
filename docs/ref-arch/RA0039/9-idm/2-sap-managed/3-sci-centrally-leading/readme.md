@@ -79,4 +79,4 @@ The Global User ID introduced in Stage 1 and used for correlation in Stage 2 now
 
 - [Stage 2 — Unified Experience, Application IAM Leading](../2-unified-experience/readme.md) — the previous stage.
 - [Joule Landscape Recommendation](../4-joule-landscape-recommendation/readme.md) — the consolidated landscape realizing this end-state.
-- [Agent Identity](/ref-arch/140bdb) — centrally led identity extended to AI agents.
+- [Agent Identity](/docs/ref-arch/140bdb) — centrally led identity extended to AI agents.
