@@ -2,7 +2,7 @@
 id: b4d7e2
 slug: /ref-arch/b4d7e2
 sidebar_position: 1
-title: Amazon Quick with Agent Gateway
+title: Amazon Quick Integration with Joule Agents
 description: >-
   Connect Amazon Quick to Joule Agents, Assistants, and Custom Agents running on SAP Business AI Platform through AWS AgentCore and the Agent Gateway, with end-to-end user identity propagation across Cognito, AgentCore Identity, and SAP Cloud Identity Services.
 keywords:
@@ -54,10 +54,10 @@ A user working in Amazon Quick can hand an SAP-specific task to a Joule Agent, A
 
 ## Core Components
 
-- **Amazon Quick**: The chat interface inside AWS. Hosts the connector and its Cognito OAuth session. Sends a Cognito ID token as the Bearer credential on every message to AgentCore Gateway.
-- **AWS AgentCore Gateway + Runtime**: The managed front door and compute layer. Validates the incoming Cognito token, mints the WorkloadAccessToken, runs the model (via Amazon Bedrock) to select the right agent running on SAP Business AI Platform, and orchestrates the call to SAP Business AI Platform.
-- **AWS AgentCore Identity**: The identity bridge between AWS and SAP. Performs the on-behalf-of (OBO) token exchange — exchanges the WorkloadAccessToken for a SAP IAS token scoped to the Agent Gateway, without any user interaction.
-- **Amazon Cognito → SAP Cloud Identity Services**: The identity chain. Cognito authenticates the user and issues the ID token; SAP Cloud Identity Services resolves the user by a user identifier (email, in this setup) and issues the gateway-scoped token.
+- **Amazon Quick**: The chat interface inside AWS. Quick does not natively speak A2A, so it reaches AgentCore through an **MCP connector**. Hosts the connector and its Cognito OAuth session, and sends a Cognito access token as the Bearer credential on every message to AgentCore Gateway.
+- **AWS AgentCore Gateway + Runtime**: The managed MCP front door and compute layer. Validates the incoming Cognito token, mints the WorkloadAccessToken, runs the model (via Amazon Bedrock) to select the right agent running on SAP Business AI Platform, and orchestrates the A2A call to SAP Business AI Platform.
+- **AWS AgentCore Identity**: The identity bridge between AWS and SAP. Performs the on-behalf-of (OBO) token exchange — exchanges the WorkloadAccessToken for a SAP IAS token scoped to the Agent Gateway, authenticating itself to SAP IAS with a `private_key_jwt` client assertion, without any user interaction.
+- **Amazon Cognito → SAP Cloud Identity Services**: The identity chain. Cognito authenticates the user and issues the access token; SAP Cloud Identity Services resolves the user by a user identifier (email, in this setup) and issues the gateway-scoped token.
 - **Agent Gateway**: The single inbound hub for agent traffic on the SAP side. Routes to the SAP-managed runtimes where the Joule Agents, Assistants, and Custom Agents are deployed.
 
 ## Identity and principal propagation
@@ -66,19 +66,21 @@ Secure, user-context-aware access is the key design principle — the signed-in 
 
 The chain has three tokens, each issued by a different authority and used for a different hop:
 
-- **Cognito ID token** — the user authenticates via Cognito (OAuth 2.0 authorization code + PKCE) when the connector is first used. The resulting ID token carries the user's identifier (email, in this setup) and is the Bearer credential Quick sends to AgentCore Gateway on every message. Quick silently refreshes it using a cached refresh token, so this login happens only once per connector session.
-- **WorkloadAccessToken (WAT)** — once the Cognito ID token passes the Gateway's validation, the AgentCore Runtime hosting layer mints a WAT from it. The WAT binds the Runtime's own workload identity together with the user identity from the ID token, and is injected as a request header before the application code runs.
-- **SAP IAS access token** — when the Runtime needs to call a agent running on SAP Business AI Platform, it passes the WAT to **AgentCore Identity**, which performs the on-behalf-of (OBO) exchange with SAP IAS. SAP IAS resolves the user by the same identifier present in the Cognito ID token — email, in this setup — and issues a token scoped to the Agent Gateway with that identifier as its `sub`. No user interaction; no separate SAP login.
+- **Cognito access token** — the user authenticates via Cognito (OAuth 2.0 authorization code + PKCE) when the connector is first used. The resulting access token carries the user's identifier (email, in this setup) and is the Bearer credential Quick sends to AgentCore Gateway on every message. A Cognito access token does not include `email` by default, so a pre-token-generation Lambda on the app client adds it — it is the claim SAP IAS later uses to resolve the user. Quick silently refreshes the token using a cached refresh token, so this login happens only once per connector session.
+- **WorkloadAccessToken (WAT)** — once the Cognito access token passes the Gateway's validation, the AgentCore Runtime hosting layer mints a WAT from it. The WAT binds the Runtime's own workload identity together with the user identity from the access token, and is injected as a request header before the application code runs.
+- **SAP IAS access token** — when the Runtime needs to call an agent running on SAP Business AI Platform, it passes the WAT to **AgentCore Identity**, which performs the on-behalf-of (OBO) exchange with SAP IAS. SAP IAS resolves the user by the same identifier present in the Cognito access token — email, in this setup — and issues a token scoped to the Agent Gateway with that identifier as its `sub`. No user interaction; no separate SAP login.
+
+The OBO exchange carries **two independent proofs** that SAP IAS validates before it issues the gateway-scoped token: *who the user is*, from the WAT, and *who the client is*, from a **`private_key_jwt` client assertion** (RFC 7523). AgentCore Identity signs that assertion with a private key held in AWS KMS — the key never leaves AWS and no shared secret is exchanged — while the matching public key is published at a JWKS URL that SAP IAS trusts. Key rotation is a matter of publishing a new JWKS entry, with no secret to leak.
 
 Because the user's identifier threads through all three tokens, the Agent Gateway receives a token whose `sub` is the known SAP identity of the signed-in user. SAP applies its own authorization policies against that identity, just as if the user had authenticated directly at the SAP system.
 
 ## Integration approach
 
-Connecting Amazon Quick to the Agent Gateway comes down to three pieces of setup:
+Amazon Quick does not natively speak A2A, so **MCP is the connector layer**: it bridges Quick to AgentCore, and AgentCore then handles the **A2A** communication with the Agent Gateway. Connecting the two comes down to three pieces of setup:
 
-1. **An MCP connector in Amazon Quick** backed by a Cognito user pool — Quick opens a Cognito login popup on first use and silently refreshes the token on every subsequent conversation. The connector calls the AgentCore Gateway MCP endpoint with the Cognito ID token.
-2. **An AWS AgentCore Runtime** hosting the MCP server — the Runtime validates the incoming token, mints the WAT, runs the model (via Amazon Bedrock) to select the right agent running on SAP Business AI Platform, and calls AgentCore Identity for the OBO exchange.
-3. **An AgentCore Identity credential provider** pre-configured with the SAP IAS OAuth endpoints and the Agent Gateway resource URN — AgentCore Identity performs the OBO exchange with SAP IAS on the Runtime's behalf, so the Runtime never calls SAP IAS directly and never builds the client assertion.
+1. **An MCP connector in Amazon Quick** backed by a Cognito user pool — Quick opens a Cognito login popup on first use and silently refreshes the token on every subsequent conversation. The connector calls the AgentCore Gateway MCP endpoint with the Cognito access token.
+2. **An AWS AgentCore Runtime** hosting the MCP server — the Runtime validates the incoming token, mints the WAT, runs the model (via Amazon Bedrock) to select the right agent running on SAP Business AI Platform, calls AgentCore Identity for the OBO exchange, and then issues the **A2A** call (`message/send`) to the Agent Gateway with the gateway-scoped SAP IAS token.
+3. **An AgentCore Identity credential provider** pre-configured with the SAP IAS OAuth endpoints, the Agent Gateway resource URN, and a `private_key_jwt` key held in AWS KMS (with its public half published to a JWKS URL SAP IAS trusts) — AgentCore Identity performs the OBO exchange with SAP IAS on the Runtime's behalf, so the Runtime never calls SAP IAS directly and never builds the client assertion.
 
 :::tip Hands-on deep dive
 Step-by-step setup — Cognito user pool, AgentCore Gateway and Runtime configuration, AgentCore Identity credential provider, and the Amazon Quick MCP connector — lives in the external cookbook: **Propagating User Identity from Amazon Quick to SAP Using AWS AgentCore** in the SAP-internal `OCTO/aioli` repository. _SAP-internal; currently a draft, pending merge._

@@ -2,7 +2,7 @@
 id: a2c0f1
 slug: /ref-arch/a2c0f1
 sidebar_position: 3
-title: Microsoft Copilot Studio with Agent Gateway
+title: Microsoft Copilot Studio Integration with Joule Agents
 description: >-
   Connect a Microsoft Copilot Studio agent to Joule Agents, Assistants, and
   Custom Agents through the Agent Gateway, with Microsoft Entra ID ↔ SAP Cloud

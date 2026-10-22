@@ -2,7 +2,7 @@
 id: c9a3f8
 slug: /ref-arch/c9a3f8
 sidebar_position: 2
-title: Gemini Enterprise with Agent Gateway
+title: Gemini Enterprise Integration with Joule Agents
 description: >-
   Connect a Google Gemini Enterprise or GCP Agent Platform agent to Joule
   Agents, Assistants, and Custom Agents running on SAP Business AI Platform through the Agent Gateway, using a proxy
