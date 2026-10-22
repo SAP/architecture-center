@@ -35,7 +35,7 @@ Whenever you open or update a pull request that touches Markdown (`.md` or `.mdx
 The check only looks at the files in your diff, not the whole site. That keeps it fast and keeps the feedback focused on what you actually changed.
 
 :::info
-It also triggers when the workflow file itself (`.github/workflows/check-ext-links.yml`) changes, so maintainers can validate adjustments to the check safely.
+It also triggers when the workflow file itself (`.github/workflows/check-ext-links.yml`) or `.lycheeignore` changes. An ignore-file change scans all non-archived Markdown under `docs/` and `news/` so the new rules are exercised.
 :::
 
 ## Why it reports differently from the local checks

@@ -1,5 +1,6 @@
 name: Check External Links
-# Archetype: CHANGED-FILES — only changed Markdown files are checked for broken links (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — changed Markdown is checked normally; changing
+# .lycheeignore checks all active Markdown so the new ignore configuration is exercised.
 
 on:
   pull_request:
@@ -36,9 +37,31 @@ jobs:
         id: scope
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          BASE_DIFF="origin/${GITHUB_BASE_REF}...HEAD"
+          if git diff --name-only "$BASE_DIFF" -- .lycheeignore | grep -qxF '.lycheeignore'; then
+            # Ignore rules affect every link check, so exercise them against all
+            # actively maintained docs/news Markdown instead of reporting an empty pass.
+            : > "$RUNNER_TEMP/changed.txt"
+            while IFS= read -r file; do
+              # Match the periodic checker: pages tagged archive in their leading
+              # frontmatter are published history and are no longer maintained.
+              if awk '
+                    NR==1 { if ($0=="---") next; else exit 1 }
+                    /^---[[:space:]]*$/ { exit 1 }
+                    /^tags:[[:space:]]*$/ { in_tags=1; next }
+                    /^[^[:space:]][^:]*:[[:space:]]*/ { in_tags=0 }
+                    in_tags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }
+                  ' "$file"; then
+                continue
+              fi
+              printf '%s\n' "$file" >> "$RUNNER_TEMP/changed.txt"
+            done < <(find docs news -type f '(' -name '*.md' -o -name '*.mdx' ')' | LC_ALL=C sort)
+            echo "ℹ️ .lycheeignore changed — checking all active Markdown under docs/ and news/."
+          else
+            # Normal changed-files scope: Markdown added/modified vs the PR base.
+            git diff --name-only --diff-filter=AMR "$BASE_DIFF" -- docs news \
+              | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          fi
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### External links check"
