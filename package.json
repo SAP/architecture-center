@@ -19,6 +19,8 @@
         "generate-news": "node src/_scripts/_generate-latest-news.js",
         "gen:headers": "node src/_scripts/_generate-vercel-headers.js",
         "test": "jest",
+        "test:auth-contract": "node src/_scripts/_check-auth-bff-contract.mjs",
+        "test:auth-contract:self": "node --test src/_scripts/_check-auth-bff-contract.test.mjs",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
         "lint": "eslint .",
