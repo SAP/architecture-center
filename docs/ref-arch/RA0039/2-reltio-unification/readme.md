@@ -1,6 +1,6 @@
 ---
-id: id-ra0039-reltio-unification
-slug: /ref-arch/ra0039-reltio-unification
+id: b5c2d8
+slug: /ref-arch/b5c2d8
 sidebar_position: 3
 title: Entity Unification with Reltio in SAP BDC
 description: How SAP Business Data Cloud uses Reltio to resolve duplicate records from SAP and non-SAP sources into trusted, unified data products through AI-assisted match review, survivorship, and governed merge into a golden record.
@@ -26,7 +26,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
   - seeobjectively

@@ -1,6 +1,6 @@
 ---
-id: id-ra0041
-slug: /ref-arch/ra0041
+id: 3b7d4c
+slug: /ref-arch/3b7d4c
 sidebar_position: 1
 title: SAP Business AI Platform
 description: The SAP Business AI platform brings together deep process context, unified data, and enterprise-grade governance to ensure that AI solutions are reliable, compliant, and impactful.

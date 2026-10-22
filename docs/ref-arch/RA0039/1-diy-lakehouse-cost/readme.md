@@ -1,6 +1,6 @@
 ---
-id: id-ra0039-diy-lakehouse-cost
-slug: /ref-arch/ra0039-diy-lakehouse-cost
+id: 7a1e6f
+slug: /ref-arch/7a1e6f
 sidebar_position: 2
 title: True Cost of a DIY Lakehouse
 description: What it takes to prepare SAP and non-SAP data for AI on an external analytics stack, across ETL, master data management, machine learning, ontology, and agentic AI, compared with SAP Business Data Cloud.
@@ -28,7 +28,7 @@ hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
-draft: true
+draft: false
 unlisted: false
 contributors:
   - seeobjectively
