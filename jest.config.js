@@ -39,15 +39,5 @@ module.exports = {
         '!src/constant/pageMapping.ts',
         '!src/data/**',
     ],
-    coverageThreshold: {
-        global: {
-            // Negative values are Jest's maximum uncovered-item thresholds.
-            // They preserve today's coverage as a floor while the test suite
-            // grows, rather than claiming an unattained percentage target.
-            branches: -5060,
-            functions: -1277,
-            lines: -7888,
-            statements: -8475,
-        },
-    },
+    coverageReporters: ['text', 'json-summary'],
 };

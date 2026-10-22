@@ -1,280 +1,989 @@
 {
-    "version": 1,
-    "description": "Known TypeScript diagnostics grouped by source file and error code.",
+    "version": 2,
+    "description": "Known TypeScript diagnostics identified by source location, error code, and message.",
     "diagnostics": [
         {
             "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "code": "TS2322",
+            "line": 186,
+            "column": 25,
+            "code": "TS2339",
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
             "count": 1
         },
         {
             "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 186,
+            "column": 73,
             "code": "TS2339",
-            "count": 9
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 192,
+            "column": 25,
+            "code": "TS2339",
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 192,
+            "column": 75,
+            "code": "TS2339",
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 199,
+            "column": 29,
+            "code": "TS2339",
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 199,
+            "column": 115,
+            "code": "TS2339",
+            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 211,
+            "column": 33,
+            "code": "TS2322",
+            "message": "Type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | undefined' is not assignable to type 'string | undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 211,
+            "column": 61,
+            "code": "TS2339",
+            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 213,
+            "column": 55,
+            "code": "TS2339",
+            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "line": 214,
+            "column": 48,
+            "code": "TS2339",
+            "message": "Property 'slice' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
+            "count": 1
         },
         {
             "file": "src/components/ArticleHeader/index.tsx",
+            "line": 57,
+            "column": 28,
             "code": "TS2571",
+            "message": "Object is of type 'unknown'.",
             "count": 1
         },
         {
             "file": "src/components/CircularText/index.tsx",
+            "line": 17,
+            "column": 9,
             "code": "TS6133",
+            "message": "'circumference' is declared but its value is never read.",
             "count": 1
         },
         {
             "file": "src/components/ContributorsDisplay/index.tsx",
+            "line": 152,
+            "column": 25,
             "code": "TS2322",
-            "count": 3
+            "message": "Type '(event: React.ChangeEvent<HTMLInputElement> & { target: { value: string; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, never>) => void'.",
+            "count": 1
         },
         {
-            "file": "src/components/Discussion.tsx",
-            "code": "TS2307",
+            "file": "src/components/ContributorsDisplay/index.tsx",
+            "line": 153,
+            "column": 25,
+            "code": "TS2322",
+            "message": "Type '(event: { detail: { items: { text: string; }[]; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/ContributorsDisplay/index.tsx",
+            "line": 166,
+            "column": 55,
+            "code": "TS2322",
+            "message": "Type '{ size: \"XS\"; image: string; }' is not assignable to type 'IntrinsicAttributes & AvatarPropTypes & WithWebComponentPropTypes & RefAttributes<AvatarDomRef>'.",
             "count": 1
         },
         {
             "file": "src/components/Discussion.tsx",
+            "line": 3,
+            "column": 24,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/Admonition' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Discussion.tsx",
+            "line": 16,
+            "column": 39,
             "code": "TS2503",
+            "message": "Cannot find namespace 'JSX'.",
             "count": 1
         },
         {
             "file": "src/components/Editor/core/DOMReconciler.ts",
+            "line": 803,
+            "column": 11,
             "code": "TS6133",
+            "message": "'createLoadingPlaceholder' is declared but its value is never read.",
             "count": 1
         },
         {
             "file": "src/components/Editor/core/EditorCore.ts",
-            "code": "TS2322",
-            "count": 1
-        },
-        {
-            "file": "src/components/Editor/core/EditorCore.ts",
-            "code": "TS2345",
-            "count": 2
-        },
-        {
-            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 310,
+            "column": 12,
             "code": "TS2678",
-            "count": 3
+            "message": "Type '\"UPDATE_IMAGE\"' is not comparable to type 'CommandType'.",
+            "count": 1
         },
         {
             "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 318,
+            "column": 12,
+            "code": "TS2678",
+            "message": "Type '\"UPDATE_DRAWIO\"' is not comparable to type 'CommandType'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 322,
+            "column": 12,
+            "code": "TS2678",
+            "message": "Type '\"UPDATE_DRAWIO_BY_KEY\"' is not comparable to type 'CommandType'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 1366,
+            "column": 11,
+            "code": "TS6133",
+            "message": "'convertToHeading' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 1400,
+            "column": 11,
+            "code": "TS6133",
+            "message": "'convertToList' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 1470,
+            "column": 11,
+            "code": "TS6133",
+            "message": "'convertToQuote' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 2082,
+            "column": 13,
+            "code": "TS2322",
+            "message": "Type 'EditorNode | null | undefined' is not assignable to type 'EditorNode | undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 2145,
+            "column": 13,
+            "code": "TS6133",
+            "message": "'startTopBlock' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 2324,
+            "column": 7,
             "code": "TS2741",
-            "count": 3
+            "message": "Property 'isBackward' is missing in type '{ anchor: { key: string; offset: number; }; focus: { key: string; offset: number; }; isCollapsed: false; }' but required in type 'EditorSelection'.",
+            "count": 1
         },
         {
             "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 2893,
+            "column": 7,
+            "code": "TS2741",
+            "message": "Property 'isBackward' is missing in type '{ anchor: { key: string; offset: number; }; focus: { key: string; offset: number; }; isCollapsed: false; }' but required in type 'EditorSelection'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 2996,
+            "column": 7,
+            "code": "TS2741",
+            "message": "Property 'isBackward' is missing in type '{ anchor: { key: string; offset: number; }; focus: { key: string; offset: number; }; isCollapsed: false; }' but required in type 'EditorSelection'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 3166,
+            "column": 11,
             "code": "TS6133",
-            "count": 6
+            "message": "'lastInsertedImageKey' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 3167,
+            "column": 11,
+            "code": "TS6133",
+            "message": "'lastInsertedDrawioKey' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 4501,
+            "column": 11,
+            "code": "TS2345",
+            "message": "Argument of type 'ParagraphNode' is not assignable to parameter of type 'Record<string, unknown>'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "line": 4507,
+            "column": 11,
+            "code": "TS2345",
+            "message": "Argument of type 'TextNode' is not assignable to parameter of type 'Record<string, unknown>'.",
+            "count": 1
         },
         {
             "file": "src/components/Editor/index.tsx",
+            "line": 129,
+            "column": 7,
             "code": "TS6133",
-            "count": 4
+            "message": "'formatTimestamp' is declared but its value is never read.",
+            "count": 1
         },
         {
             "file": "src/components/Editor/index.tsx",
+            "line": 156,
+            "column": 30,
+            "code": "TS6133",
+            "message": "'lastSaveTimestamp' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/index.tsx",
+            "line": 156,
+            "column": 76,
+            "code": "TS6133",
+            "message": "'resetStore' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/index.tsx",
+            "line": 458,
+            "column": 13,
             "code": "TS7030",
+            "message": "Not all code paths return a value.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/index.tsx",
+            "line": 476,
+            "column": 9,
+            "code": "TS6133",
+            "message": "'handleContributorsUpdate' is declared but its value is never read.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/BlockHandlePlugin/index.tsx",
+            "line": 2,
+            "column": 30,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx",
+            "line": 38,
+            "column": 13,
+            "code": "TS6133",
+            "message": "'node' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx",
+            "line": 51,
+            "column": 9,
             "code": "TS2322",
-            "count": 2
+            "message": "Type '\"UPDATE_DRAWIO_BY_KEY\"' is not assignable to type 'CommandType'.",
+            "count": 1
         },
         {
             "file": "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx",
-            "code": "TS6133",
+            "line": 58,
+            "column": 9,
+            "code": "TS2322",
+            "message": "Type '\"UPDATE_DRAWIO_BY_KEY\"' is not assignable to type 'CommandType'.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx",
-            "code": "TS6133",
-            "count": 1
-        },
-        {
-            "file": "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx",
+            "line": 2,
+            "column": 30,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx",
+            "line": 124,
+            "column": 9,
+            "code": "TS6133",
+            "message": "'handleLinkSubmit' is declared but its value is never read.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/LinkPreviewPlugin/index.tsx",
+            "line": 2,
+            "column": 30,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/MediaLoadingPlugin/index.tsx",
+            "line": 2,
+            "column": 34,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom/client'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/client.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
-            "code": "TS2322",
-            "count": 2
-        },
-        {
-            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
-            "code": "TS6133",
-            "count": 2
-        },
-        {
-            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "line": 2,
+            "column": 30,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "line": 166,
+            "column": 10,
+            "code": "TS6133",
+            "message": "'isUploading' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "line": 233,
+            "column": 17,
+            "code": "TS6133",
+            "message": "'placeholderKey' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "line": 255,
+            "column": 13,
+            "code": "TS2322",
+            "message": "Type '\"UPDATE_IMAGE\"' is not assignable to type 'CommandType'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "line": 289,
+            "column": 13,
+            "code": "TS2322",
+            "message": "Type '\"UPDATE_DRAWIO\"' is not assignable to type 'CommandType'.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/TableMenuPlugin/index.tsx",
+            "line": 2,
+            "column": 30,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
             "file": "src/components/Editor/plugins/ToolbarPlugin/index.tsx",
+            "line": 329,
+            "column": 13,
             "code": "TS2322",
-            "count": 2
+            "message": "Type '\"UPDATE_IMAGE\"' is not assignable to type 'CommandType'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/ToolbarPlugin/index.tsx",
+            "line": 359,
+            "column": 13,
+            "code": "TS2322",
+            "message": "Type '\"UPDATE_DRAWIO\"' is not assignable to type 'CommandType'.",
+            "count": 1
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "code": "TS2322",
-            "count": 6
-        },
-        {
-            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 15,
+            "column": 5,
             "code": "TS6133",
+            "message": "'Avatar' is declared but its value is never read.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 66,
+            "column": 11,
+            "code": "TS2322",
+            "message": "Type 'unknown' is not assignable to type '{ tags?: TagsData | undefined; } | undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 314,
+            "column": 25,
+            "code": "TS2322",
+            "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 320,
+            "column": 25,
+            "code": "TS2322",
+            "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 331,
+            "column": 37,
+            "code": "TS2322",
+            "message": "Type '{ key: string | number; text: string; selected: boolean; image: string | undefined; }' is not assignable to type 'IntrinsicAttributes & MultiComboBoxItemPropTypes & WithWebComponentPropTypes & RefAttributes<MultiComboBoxItemDomRef>'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 339,
+            "column": 25,
+            "code": "TS2322",
+            "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "line": 342,
+            "column": 25,
+            "code": "TS2322",
+            "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
             "count": 1
         },
         {
             "file": "src/components/QuoteCard/QuoteCard.tsx",
+            "line": 3,
+            "column": 28,
             "code": "TS2307",
-            "count": 2
+            "message": "Cannot find module '../../../docs/north-star-arch/ai-native-northstar-arch/foreword/images/blue-quotes.png' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/components/QuoteCard/QuoteCard.tsx",
+            "line": 4,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '../../../docs/north-star-arch/ai-native-northstar-arch/foreword/images/grey-quotes.png' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/context/AuthContext.tsx",
+            "line": 185,
+            "column": 39,
             "code": "TS18048",
-            "count": 4
+            "message": "'authData.email' is possibly 'undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/context/AuthContext.tsx",
+            "line": 249,
+            "column": 37,
+            "code": "TS18048",
+            "message": "'siteConfig.customFields' is possibly 'undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/context/AuthContext.tsx",
+            "line": 266,
+            "column": 43,
+            "code": "TS18048",
+            "message": "'updatedAuthData.email' is possibly 'undefined'.",
+            "count": 1
+        },
+        {
+            "file": "src/context/AuthContext.tsx",
+            "line": 308,
+            "column": 25,
+            "code": "TS18048",
+            "message": "'siteConfig.customFields' is possibly 'undefined'.",
+            "count": 1
         },
         {
             "file": "src/hooks/useScrollActivatedTabs.ts",
+            "line": 108,
+            "column": 9,
             "code": "TS2322",
+            "message": "Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.",
             "count": 1
         },
         {
             "file": "src/pages/login/failure.tsx",
+            "line": 7,
+            "column": 17,
             "code": "TS2322",
+            "message": "Type '{ children: Element; title: string; }' is not assignable to type 'IntrinsicAttributes & Props'.",
             "count": 1
         },
         {
             "file": "src/pages/news-all.tsx",
+            "line": 49,
+            "column": 13,
             "code": "TS2322",
+            "message": "Type '{ children: Element; title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & Props'.",
             "count": 1
         },
         {
             "file": "src/sections/HeroSection.tsx",
+            "line": 41,
+            "column": 26,
             "code": "TS7016",
+            "message": "Could not find a declaration file for module 'particles.js'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/particles.js/particles.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
             "file": "src/sections/NewsSection.tsx",
+            "line": 24,
+            "column": 9,
             "code": "TS2322",
+            "message": "Type 'null' is not assignable to type 'Element'.",
             "count": 1
         },
         {
             "file": "src/sections/TechnologyDomainSection.tsx",
+            "line": 119,
+            "column": 21,
             "code": "TS7030",
+            "message": "Not all code paths return a value.",
             "count": 1
         },
         {
             "file": "src/theme/BlogPostPage/index.tsx",
+            "line": 8,
+            "column": 24,
             "code": "TS2307",
-            "count": 5
+            "message": "Cannot find module '@theme/BlogLayout' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/BlogPostPage/index.tsx",
+            "line": 9,
+            "column": 26,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/BlogPostItem' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/BlogPostPage/index.tsx",
+            "line": 10,
+            "column": 31,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/BlogPostPaginator' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/BlogPostPage/index.tsx",
+            "line": 13,
+            "column": 17,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/TOC' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/BlogPostPage/index.tsx",
+            "line": 14,
+            "column": 31,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/ContentVisibility' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocCardList/index.tsx",
+            "line": 11,
+            "column": 21,
             "code": "TS2307",
-            "count": 2
+            "message": "Cannot find module '@theme/DocCard' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocCardList/index.tsx",
+            "line": 12,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocCardList' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocCardList/index.tsx",
+            "line": 19,
+            "column": 52,
             "code": "TS2503",
+            "message": "Cannot find namespace 'JSX'.",
             "count": 1
         },
         {
             "file": "src/theme/DocItem/Content/index.tsx",
+            "line": 10,
+            "column": 21,
             "code": "TS2307",
-            "count": 5
+            "message": "Cannot find module '@theme/Heading' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Content/index.tsx",
+            "line": 11,
+            "column": 24,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/MDXContent' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Content/index.tsx",
+            "line": 12,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/Content' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Content/index.tsx",
+            "line": 14,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/TagsListInline' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Content/index.tsx",
+            "line": 15,
+            "column": 25,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/EditMetaRow' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 12,
+            "column": 30,
             "code": "TS2307",
-            "count": 9
+            "message": "Cannot find module '@theme/DocItem/Paginator' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 13,
+            "column": 30,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocVersionBanner' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 14,
+            "column": 29,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocVersionBadge' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 15,
+            "column": 27,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/Footer' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 16,
+            "column": 30,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/TOC/Mobile' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 17,
+            "column": 31,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/TOC/Desktop' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 18,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/Content' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 20,
+            "column": 31,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/ContentVisibility' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "line": 21,
+            "column": 26,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocItem/Layout' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocRoot/Layout/index.tsx",
+            "line": 4,
+            "column": 29,
             "code": "TS2307",
-            "count": 4
+            "message": "Cannot find module '@theme/BackToTopButton' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocRoot/Layout/index.tsx",
+            "line": 5,
+            "column": 34,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocRoot/Layout/Sidebar' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/index.tsx",
+            "line": 6,
+            "column": 31,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocRoot/Layout/Main' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/index.tsx",
+            "line": 8,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocRoot/Layout' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/index.tsx",
+            "line": 12,
+            "column": 61,
             "code": "TS2503",
+            "message": "Cannot find namespace 'JSX'.",
             "count": 1
         },
         {
             "file": "src/theme/DocRoot/Layout/Main/index.tsx",
+            "line": 4,
+            "column": 28,
             "code": "TS2307",
+            "message": "Cannot find module '@theme/DocRoot/Layout/Main' or its corresponding type declarations.",
             "count": 1
         },
         {
             "file": "src/theme/DocRoot/Layout/Main/index.tsx",
+            "line": 8,
+            "column": 89,
             "code": "TS2503",
+            "message": "Cannot find namespace 'JSX'.",
             "count": 1
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
+            "line": 8,
+            "column": 28,
             "code": "TS2307",
+            "message": "Cannot find module '@theme/DocSidebar/Desktop/CollapseButton' or its corresponding type declarations.",
             "count": 1
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "code": "TS2339",
-            "count": 3
-        },
-        {
-            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 35,
+            "column": 28,
             "code": "TS7006",
-            "count": 2
+            "message": "Parameter 'props' implicitly has an 'any' type.",
+            "count": 1
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
+            "line": 36,
+            "column": 72,
+            "code": "TS2339",
+            "message": "Property 'docIdToTags' does not exist on type '{}'.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 113,
+            "column": 38,
             "code": "TS7031",
-            "count": 5
+            "message": "Binding element 'sidebar' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 113,
+            "column": 47,
+            "code": "TS7031",
+            "message": "Binding element 'path' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 113,
+            "column": 53,
+            "code": "TS7031",
+            "message": "Binding element 'onItemClick' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 114,
+            "column": 72,
+            "code": "TS2339",
+            "message": "Property 'docIdToTags' does not exist on type '{}'.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 164,
+            "column": 42,
+            "code": "TS7031",
+            "message": "Binding element 'shouldShowFilters' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 180,
+            "column": 29,
+            "code": "TS7031",
+            "message": "Binding element 'shouldShowFilters' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 193,
+            "column": 43,
+            "code": "TS7006",
+            "message": "Parameter 'props' implicitly has an 'any' type.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "line": 206,
+            "column": 73,
+            "code": "TS2339",
+            "message": "Property 'docIdToTags' does not exist on type '{}'.",
+            "count": 1
         },
         {
             "file": "src/theme/DocSidebarItem/Category/index.tsx",
+            "line": 32,
+            "column": 29,
             "code": "TS2307",
-            "count": 3
+            "message": "Cannot find module '@theme/DocSidebarItems' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebarItem/Category/index.tsx",
+            "line": 33,
+            "column": 32,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocSidebarItem/Link' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebarItem/Category/index.tsx",
+            "line": 34,
+            "column": 26,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocSidebarItem/Category' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocSidebarItem/Link/index.tsx",
+            "line": 14,
+            "column": 30,
             "code": "TS2307",
-            "count": 2
+            "message": "Cannot find module '@theme/Icon/ExternalLink' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebarItem/Link/index.tsx",
+            "line": 15,
+            "column": 26,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/DocSidebarItem/Link' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/DocTagDocListPage/CustomDocTagDocListPage.tsx",
+            "line": 11,
+            "column": 21,
             "code": "TS2307",
-            "count": 2
+            "message": "Cannot find module '@theme/Heading' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocTagDocListPage/CustomDocTagDocListPage.tsx",
+            "line": 12,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/SearchMetadata' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/TagsListInline/index.tsx",
+            "line": 10,
+            "column": 17,
             "code": "TS2307",
-            "count": 2
+            "message": "Cannot find module '@theme/Tag' or its corresponding type declarations.",
+            "count": 1
         },
         {
             "file": "src/theme/TagsListInline/index.tsx",
+            "line": 11,
+            "column": 28,
+            "code": "TS2307",
+            "message": "Cannot find module '@theme/TagsListInline' or its corresponding type declarations.",
+            "count": 1
+        },
+        {
+            "file": "src/theme/TagsListInline/index.tsx",
+            "line": 19,
+            "column": 28,
             "code": "TS7006",
+            "message": "Parameter 'tag' implicitly has an 'any' type.",
             "count": 1
         }
     ]

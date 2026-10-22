@@ -9,18 +9,25 @@ function parseDiagnostics(output) {
     const diagnostics = [];
 
     for (const line of output.split(/\r?\n/)) {
-        const fileDiagnostic = line.match(/^(.+)\((\d+),(\d+)\): error TS(\d+):/);
+        const fileDiagnostic = line.match(/^(.+)\((\d+),(\d+)\): error TS(\d+): (.*)$/);
         if (fileDiagnostic) {
             diagnostics.push({
                 file: fileDiagnostic[1].replaceAll('\\', '/'),
+                line: Number(fileDiagnostic[2]),
+                column: Number(fileDiagnostic[3]),
                 code: `TS${fileDiagnostic[4]}`,
+                message: fileDiagnostic[5],
             });
             continue;
         }
 
-        const globalDiagnostic = line.match(/^error TS(\d+):/);
+        const globalDiagnostic = line.match(/^error TS(\d+): (.*)$/);
         if (globalDiagnostic) {
-            diagnostics.push({ file: '<global>', code: `TS${globalDiagnostic[1]}` });
+            diagnostics.push({
+                file: '<global>',
+                code: `TS${globalDiagnostic[1]}`,
+                message: globalDiagnostic[2],
+            });
         }
     }
 
@@ -31,22 +38,28 @@ function summarizeDiagnostics(diagnostics) {
     const counts = new Map();
 
     for (const diagnostic of diagnostics) {
-        const key = `${diagnostic.file}\0${diagnostic.code}`;
-        counts.set(key, (counts.get(key) || 0) + 1);
+        const key = diagnosticKey(diagnostic);
+        const existing = counts.get(key);
+        counts.set(key, existing ? { ...existing, count: existing.count + 1 } : { ...diagnostic, count: 1 });
     }
 
-    return [...counts.entries()]
-        .map(([key, count]) => {
-            const [file, code] = key.split('\0');
-            return { file, code, count };
-        })
-        .sort((left, right) => left.file.localeCompare(right.file) || left.code.localeCompare(right.code));
+    return [...counts.values()].sort(
+        (left, right) =>
+            left.file.localeCompare(right.file) ||
+            (left.line || 0) - (right.line || 0) ||
+            (left.column || 0) - (right.column || 0) ||
+            left.code.localeCompare(right.code) ||
+            left.message.localeCompare(right.message)
+    );
+}
+
+function diagnosticKey({ file, line, column, code, message }) {
+    return JSON.stringify([file, line || null, column || null, code, message]);
 }
 
 function compareDiagnostics(current, baseline) {
-    const key = ({ file, code }) => `${file}\0${code}`;
-    const currentByKey = new Map(current.map((entry) => [key(entry), entry]));
-    const baselineByKey = new Map(baseline.map((entry) => [key(entry), entry]));
+    const currentByKey = new Map(current.map((entry) => [diagnosticKey(entry), entry]));
+    const baselineByKey = new Map(baseline.map((entry) => [diagnosticKey(entry), entry]));
     const increased = [];
     const reduced = [];
 
@@ -68,13 +81,14 @@ function compareDiagnostics(current, baseline) {
     return { increased, reduced };
 }
 
-function formatDifference({ file, code, count, baseline }) {
-    return `  ${file} ${code}: ${count} current, ${baseline} baseline`;
+function formatDifference({ file, line, column, code, message, count, baseline }) {
+    const location = line && column ? `${file}(${line},${column})` : file;
+    return `  ${location} ${code}: ${message} (${count} current, ${baseline} baseline)`;
 }
 
 function loadBaseline() {
     const parsed = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
-    if (parsed.version !== 1 || !Array.isArray(parsed.diagnostics)) {
+    if (parsed.version !== 2 || !Array.isArray(parsed.diagnostics)) {
         throw new Error(`Unsupported TypeScript baseline format in ${path.relative(projectRoot, baselinePath)}`);
     }
     return parsed.diagnostics;
@@ -82,8 +96,8 @@ function loadBaseline() {
 
 function writeBaseline(diagnostics) {
     const baseline = {
-        version: 1,
-        description: 'Known TypeScript diagnostics grouped by source file and error code.',
+        version: 2,
+        description: 'Known TypeScript diagnostics identified by source location, error code, and message.',
         diagnostics,
     };
     fs.mkdirSync(path.dirname(baselinePath), { recursive: true });
