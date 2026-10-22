@@ -45,6 +45,22 @@ test('rejects an expired exception', () => {
     assert.equal(result.rejected[0].reason, 'allowlist expired 2027-01-31');
 });
 
+test('rejects an impossible allowlist expiry date', () => {
+    const invalidAllowlist = {
+        advisories: {
+            'GHSA-vfj7-8cjw-p6xm': {
+                expires: '2027-02-31',
+                reason: 'No upstream fix is available.',
+            },
+        },
+    };
+
+    assert.throws(
+        () => evaluateAudit(report(), invalidAllowlist, new Date('2027-02-01T00:00:00Z')),
+        /must have a valid expiry in YYYY-MM-DD format/
+    );
+});
+
 test('rejects registry and parser error responses', () => {
     assert.throws(
         () => validateAuditReport({ message: 'registry unavailable', error: { detail: 'timeout' } }),

@@ -47,8 +47,18 @@ function validateAllowlist(allowlist) {
 
     for (const [id, entry] of Object.entries(allowlist.advisories)) {
         if (!/^GHSA-[A-Za-z0-9_-]+$/.test(id)) throw new Error(`Invalid advisory ID in allowlist: ${id}`);
-        if (!entry || typeof entry !== 'object' || !/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(entry.expires || '')) {
-            throw new Error(`Allowlist entry ${id} must have an expiry in YYYY-MM-DD format.`);
+        const expiry = entry?.expires;
+        const expiryDate = typeof expiry === 'string' ? new Date(`${expiry}T00:00:00.000Z`) : null;
+        if (
+            !entry ||
+            typeof entry !== 'object' ||
+            Array.isArray(entry) ||
+            !/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(expiry || '') ||
+            !expiryDate ||
+            Number.isNaN(expiryDate.getTime()) ||
+            expiryDate.toISOString().slice(0, 10) !== expiry
+        ) {
+            throw new Error(`Allowlist entry ${id} must have a valid expiry in YYYY-MM-DD format.`);
         }
         if (!entry.reason || typeof entry.reason !== 'string') {
             throw new Error(`Allowlist entry ${id} must explain why it is temporarily accepted.`);
