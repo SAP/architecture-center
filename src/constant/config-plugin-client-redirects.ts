@@ -159,16 +159,6 @@ export const configRedirects = {
         },
         // page is in draft
         // {
-        //     from: '/docs/ref-arch/e5eb3b9b1d/4',
-        //     to: '/docs/ref-arch/d0e5c7',
-        // },
-        // page is in draft
-        // {
-        //     from: '/docs/ref-arch/e5eb3b9b1d/7',
-        //     to: '/docs/ref-arch/c9cdd2',
-        // },
-        // page is in draft
-        // {
         //     from: '/docs/ref-arch/e5eb3b9b1d/10',
         //     to: '/docs/ref-arch/35863c',
         // },
