@@ -1,0 +1,128 @@
+{
+  "src/components/CircularText/index.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/core/DOMReconciler.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 3
+    },
+    "no-console": {
+      "count": 3
+    }
+  },
+  "src/components/Editor/core/EditorCore.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 78
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 52
+    },
+    "no-console": {
+      "count": 47
+    }
+  },
+  "src/components/Editor/core/EditorState.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 4
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/components/Editor/core/Selection.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/index.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 4
+    },
+    "no-console": {
+      "count": 21
+    }
+  },
+  "src/components/Editor/plugins/BlockHandlePlugin/index.tsx": {
+    "no-console": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "no-console": {
+      "count": 1
+    },
+    "react-hooks/exhaustive-deps": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/plugins/LinkPreviewPlugin/index.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 3
+    }
+  },
+  "src/components/Editor/plugins/MediaLoadingPlugin/index.tsx": {
+    "react-hooks/exhaustive-deps": {
+      "count": 1
+    }
+  },
+  "src/components/Editor/plugins/SlashCommandPlugin/index.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 3
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    },
+    "no-console": {
+      "count": 6
+    }
+  },
+  "src/components/Editor/plugins/TableMenuPlugin/index.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 14
+    }
+  },
+  "src/components/Editor/utils/convertToLexical.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    }
+  },
+  "src/components/MetaFormDialog/index.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/services/api.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "no-console": {
+      "count": 1
+    }
+  },
+  "src/store/pageDataStore.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 5
+    },
+    "no-console": {
+      "count": 11
+    }
+  },
+  "src/theme/DocSidebarItem/Category/index.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 5
+    }
+  }
+}

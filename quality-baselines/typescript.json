@@ -1,0 +1,281 @@
+{
+    "version": 1,
+    "description": "Known TypeScript diagnostics grouped by source file and error code.",
+    "diagnostics": [
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
+            "code": "TS2339",
+            "count": 9
+        },
+        {
+            "file": "src/components/ArticleHeader/index.tsx",
+            "code": "TS2571",
+            "count": 1
+        },
+        {
+            "file": "src/components/CircularText/index.tsx",
+            "code": "TS6133",
+            "count": 1
+        },
+        {
+            "file": "src/components/ContributorsDisplay/index.tsx",
+            "code": "TS2322",
+            "count": 3
+        },
+        {
+            "file": "src/components/Discussion.tsx",
+            "code": "TS2307",
+            "count": 1
+        },
+        {
+            "file": "src/components/Discussion.tsx",
+            "code": "TS2503",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/DOMReconciler.ts",
+            "code": "TS6133",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "code": "TS2345",
+            "count": 2
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "code": "TS2678",
+            "count": 3
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "code": "TS2741",
+            "count": 3
+        },
+        {
+            "file": "src/components/Editor/core/EditorCore.ts",
+            "code": "TS6133",
+            "count": 6
+        },
+        {
+            "file": "src/components/Editor/index.tsx",
+            "code": "TS6133",
+            "count": 4
+        },
+        {
+            "file": "src/components/Editor/index.tsx",
+            "code": "TS7030",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/BlockHandlePlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx",
+            "code": "TS2322",
+            "count": 2
+        },
+        {
+            "file": "src/components/Editor/plugins/DrawioEditorPlugin/index.tsx",
+            "code": "TS6133",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx",
+            "code": "TS6133",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/FloatingToolbarPlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/LinkPreviewPlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/MediaLoadingPlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "code": "TS2322",
+            "count": 2
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "code": "TS6133",
+            "count": 2
+        },
+        {
+            "file": "src/components/Editor/plugins/SlashCommandPlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/TableMenuPlugin/index.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/components/Editor/plugins/ToolbarPlugin/index.tsx",
+            "code": "TS2322",
+            "count": 2
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "code": "TS2322",
+            "count": 6
+        },
+        {
+            "file": "src/components/MetaFormDialog/index.tsx",
+            "code": "TS6133",
+            "count": 1
+        },
+        {
+            "file": "src/components/QuoteCard/QuoteCard.tsx",
+            "code": "TS2307",
+            "count": 2
+        },
+        {
+            "file": "src/context/AuthContext.tsx",
+            "code": "TS18048",
+            "count": 4
+        },
+        {
+            "file": "src/hooks/useScrollActivatedTabs.ts",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/pages/login/failure.tsx",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/pages/news-all.tsx",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/sections/HeroSection.tsx",
+            "code": "TS7016",
+            "count": 1
+        },
+        {
+            "file": "src/sections/NewsSection.tsx",
+            "code": "TS2322",
+            "count": 1
+        },
+        {
+            "file": "src/sections/TechnologyDomainSection.tsx",
+            "code": "TS7030",
+            "count": 1
+        },
+        {
+            "file": "src/theme/BlogPostPage/index.tsx",
+            "code": "TS2307",
+            "count": 5
+        },
+        {
+            "file": "src/theme/DocCardList/index.tsx",
+            "code": "TS2307",
+            "count": 2
+        },
+        {
+            "file": "src/theme/DocCardList/index.tsx",
+            "code": "TS2503",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocItem/Content/index.tsx",
+            "code": "TS2307",
+            "count": 5
+        },
+        {
+            "file": "src/theme/DocItem/Layout/index.tsx",
+            "code": "TS2307",
+            "count": 9
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/index.tsx",
+            "code": "TS2307",
+            "count": 4
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/index.tsx",
+            "code": "TS2503",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/Main/index.tsx",
+            "code": "TS2307",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocRoot/Layout/Main/index.tsx",
+            "code": "TS2503",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "code": "TS2307",
+            "count": 1
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "code": "TS2339",
+            "count": 3
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "code": "TS7006",
+            "count": 2
+        },
+        {
+            "file": "src/theme/DocSidebar/index.tsx",
+            "code": "TS7031",
+            "count": 5
+        },
+        {
+            "file": "src/theme/DocSidebarItem/Category/index.tsx",
+            "code": "TS2307",
+            "count": 3
+        },
+        {
+            "file": "src/theme/DocSidebarItem/Link/index.tsx",
+            "code": "TS2307",
+            "count": 2
+        },
+        {
+            "file": "src/theme/DocTagDocListPage/CustomDocTagDocListPage.tsx",
+            "code": "TS2307",
+            "count": 2
+        },
+        {
+            "file": "src/theme/TagsListInline/index.tsx",
+            "code": "TS2307",
+            "count": 2
+        },
+        {
+            "file": "src/theme/TagsListInline/index.tsx",
+            "code": "TS7006",
+            "count": 1
+        }
+    ]
+}
