@@ -2,6 +2,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
+const MANIFEST_SCHEMA_VERSION = 2;
+
 /**
  * DrawioCache manages the caching of watermarked SVG artifacts to speed up build times.
  * It encapsulates file system operations related to caching, ensuring that cache misses or 
@@ -27,10 +29,23 @@ class DrawioCache {
     _initialize() {
         try {
             fs.mkdirSync(this._cacheDir, { recursive: true });
+            if (!fs.lstatSync(this._cacheDir).isDirectory()) {
+                throw new Error('Cache path is not a regular directory.');
+            }
             
             if (fs.existsSync(this._manifestPath)) {
+                if (!fs.lstatSync(this._manifestPath).isFile()) {
+                    throw new Error('Cache manifest is not a regular file.');
+                }
                 const manifestContent = fs.readFileSync(this._manifestPath, 'utf-8');
-                this._manifest = JSON.parse(manifestContent);
+                const storedManifest = JSON.parse(manifestContent);
+                if (
+                    storedManifest.schemaVersion === MANIFEST_SCHEMA_VERSION &&
+                    storedManifest.entries &&
+                    typeof storedManifest.entries === 'object'
+                ) {
+                    this._manifest = storedManifest.entries;
+                }
             }
         } catch (error) {
             console.warn(`[DrawioCache] Initialization failed, caching disabled for this run. Error: ${error.message}`);
@@ -42,17 +57,42 @@ class DrawioCache {
         return crypto.createHash('sha256').update(content).digest('hex');
     }
 
+    _isRegularFile(filePath) {
+        return fs.existsSync(filePath) && fs.lstatSync(filePath).isFile();
+    }
+
+    _writeFileAtomically(destinationPath, content) {
+        const temporaryPath = `${destinationPath}.${process.pid}.${crypto.randomUUID()}.tmp`;
+        try {
+            fs.writeFileSync(temporaryPath, content, { encoding: 'utf-8', flag: 'wx', mode: 0o600 });
+            fs.renameSync(temporaryPath, destinationPath);
+        } finally {
+            fs.rmSync(temporaryPath, { force: true });
+        }
+    }
+
     /**
      * Validates if a cached artifact exists and is up-to-date with the source file.
      * @param {string} sourceFilePath - The path to the original source file.
-     * @param {string} sourceHash - The SHA256 hash of the original source content.
+     * @param {string} fingerprint - A hash of every input that affects the rendered SVG.
      * @returns {boolean} True if a valid cache entry exists.
      */
-    isValid(sourceFilePath, sourceHash) {
+    isValid(sourceFilePath, fingerprint) {
         if (!this._isEnabled) return false;
-        
+
         const entry = this._manifest[sourceFilePath];
-        return Boolean(entry && entry.sourceHash === sourceHash && entry.lastUpdate);
+        if (!entry || entry.fingerprint !== fingerprint || !entry.artifactHash) return false;
+
+        const artifactPath = path.join(this._cacheDir, this._hash(sourceFilePath));
+        try {
+            return (
+                this._isRegularFile(artifactPath) &&
+                this._hash(fs.readFileSync(artifactPath)) === entry.artifactHash
+            );
+        } catch (error) {
+            console.warn(`[DrawioCache] Failed to validate artifact for ${sourceFilePath}: ${error.message}`);
+            return false;
+        }
     }
 
     /**
@@ -68,10 +108,16 @@ class DrawioCache {
         const artifactPath = path.join(this._cacheDir, artifactName);
 
         try {
-            if (fs.existsSync(artifactPath)) {
-                fs.copyFileSync(artifactPath, destinationPath);
-                return true;
+            const entry = this._manifest[sourceFilePath];
+            if (!entry?.artifactHash || !this._isRegularFile(artifactPath)) return false;
+            if (fs.existsSync(destinationPath) && !this._isRegularFile(destinationPath)) {
+                throw new Error('Draw.io cache restore destination is not a regular file.');
             }
+
+            const artifactContent = fs.readFileSync(artifactPath);
+            if (this._hash(artifactContent) !== entry.artifactHash) return false;
+            this._writeFileAtomically(destinationPath, artifactContent);
+            return true;
         } catch (error) {
             console.warn(`[DrawioCache] Failed to restore artifact for ${sourceFilePath}: ${error.message}`);
         }
@@ -82,21 +128,25 @@ class DrawioCache {
     /**
      * Stores a generated artifact in the cache and updates the manifest.
      * @param {string} sourceFilePath - The original source file path.
-     * @param {string} sourceHash - The SHA256 hash of the original source content.
+     * @param {string} fingerprint - A hash of every input that affects the rendered SVG.
      * @param {string} artifactContent - The content of the generated artifact to cache.
      */
-    store(sourceFilePath, sourceHash, artifactContent) {
+    store(sourceFilePath, fingerprint, artifactContent) {
         if (!this._isEnabled) return;
 
         const artifactName = this._hash(sourceFilePath);
         const artifactPath = path.join(this._cacheDir, artifactName);
 
         try {
-            fs.writeFileSync(artifactPath, artifactContent, 'utf-8');
-            
+            if (fs.existsSync(artifactPath) && !this._isRegularFile(artifactPath)) {
+                throw new Error('Cached artifact path is not a regular file.');
+            }
+            this._writeFileAtomically(artifactPath, artifactContent);
+
             this._manifest[sourceFilePath] = {
-                sourceHash,
-                lastUpdate: Date.now()
+                fingerprint,
+                artifactHash: this._hash(artifactContent),
+                lastUpdate: Date.now(),
             };
         } catch (error) {
             console.warn(`[DrawioCache] Failed to store artifact for ${sourceFilePath}: ${error.message}`);
@@ -110,7 +160,20 @@ class DrawioCache {
         if (!this._isEnabled) return;
         
         try {
-            fs.writeFileSync(this._manifestPath, JSON.stringify(this._manifest, null, 2), 'utf-8');
+            if (fs.existsSync(this._manifestPath) && !this._isRegularFile(this._manifestPath)) {
+                throw new Error('Cache manifest path is not a regular file.');
+            }
+            this._writeFileAtomically(
+                this._manifestPath,
+                JSON.stringify(
+                    {
+                        schemaVersion: MANIFEST_SCHEMA_VERSION,
+                        entries: this._manifest,
+                    },
+                    null,
+                    2
+                )
+            );
         } catch (error) {
             console.warn(`[DrawioCache] Failed to save manifest: ${error.message}`);
         }
