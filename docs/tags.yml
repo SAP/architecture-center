@@ -109,6 +109,10 @@ successfactors:
 sap-managed:
   label: "SAP-managed"
   description: "Setup (provisioning and integration) managed by SAP."
+
+joule-work:
+  label: "Joule Work"
+  description: "Joule Work is SAP's AI-powered engagement layer, delivered through the SAP-managed provisioning model, through which users interact with Joule Assistants and Joule Agents across the SAP portfolio and third-party applications."
 # --------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------------------------------------

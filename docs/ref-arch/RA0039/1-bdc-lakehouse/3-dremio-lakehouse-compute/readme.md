@@ -93,6 +93,6 @@ Dremio Reflections are query-acceleration structures that optimize analytics per
 ## Related Resources
 
 - [Dremio Key Concepts](https://docs.dremio.com/dremio-cloud/about/concepts)
-- [Data Products in SAP Business Data Cloud](/ref-arch/4ab8f2)
+- [Data Products in SAP Business Data Cloud](/docs/ref-arch/09be8b)
 - [SAP Business Data Cloud](https://www.sap.com/products/data-cloud.html)
 - [Apache Iceberg](https://iceberg.apache.org/)

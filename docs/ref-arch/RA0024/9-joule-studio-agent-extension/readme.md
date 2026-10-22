@@ -33,7 +33,7 @@ last_update:
 
 SAP delivers a growing catalog of standard AI agents across its Autonomous Suite — Finance, HCM, SCM, Spend, CX, and more. These agents are powerful out of the box, but every enterprise runs its processes a little differently. An **Agent Extension** lets you tailor an already-deployed SAP standard agent to your business context **without rebuilding it and without touching its source code**.
 
-Instead of forking an agent, you author an extension as a separate solution asset in [Joule Studio](/ref-arch/f5a3ef) that augments a base agent at runtime. The base agent stays unmodified and continues to receive SAP updates; your customizations are layered on top and resolved by the platform on every invocation.
+Instead of forking an agent, you author an extension as a separate solution asset in [Joule Studio](/docs/ref-arch/ff07b1) that augments a base agent at runtime. The base agent stays unmodified and continues to receive SAP updates; your customizations are layered on top and resolved by the platform on every invocation.
 
 An extension can add three kinds of capabilities, and the agent developer controls which of them are open for extension:
 

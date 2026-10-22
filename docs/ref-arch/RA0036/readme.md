@@ -69,7 +69,7 @@ SAP-managed services are activated and maintained through **SAP for Me**, SAP's 
 This operational model delivers three practical benefits: a shorter time to value with self-service steps in SAP for Me, a lower operational burden, and for Joule specifically, access to new capabilities that SAP introduces first, or in some cases exclusively, through the SAP-managed model.
 
 > **Transitioning from Joule (customer-managed)**
-> If you have an existing Joule (customer-managed) setup and want to adopt Joule Work, you must first disconnect your existing integrations before provisioning Joule Work. See [Transitioning from Customer-Managed Joule](../transitioning) for guidance.
+> If you have an existing Joule (customer-managed) setup and want to adopt Joule Work, you must first disconnect your existing integrations before provisioning Joule Work.
 
 ### Joule Work
 
