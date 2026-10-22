@@ -42,8 +42,8 @@ git -C "$WORKTREE_DIR" add -A
 git -C "$WORKTREE_DIR" commit --quiet -m "Deploy $(date -u '+%Y-%m-%d %H:%M') UTC"
 git -C "$WORKTREE_DIR" push "$REMOTE" gh-pages
 
-echo ""
-echo "Done. Site available at: https://pages.github.tools.sap/OCTO/architecture-center/"
-
 git -C "$REPO_DIR" restore .
 git -C "$REPO_DIR" clean -fd -- docs/ static/artifacts/
+
+echo ""
+echo "Done. Site available at: https://pages.github.tools.sap/OCTO/architecture-center/"
