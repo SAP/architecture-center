@@ -37,7 +37,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-09
+  date: 2026-10-22
 ---
 
 Tracking the carbon footprint of a product across complex supply chains requires multiple companies to exchange emissions data — a process that demands both data integrity and verified identity. SAP Decentralized Identity Verification (DIV) enables this by providing a **Self-Sovereign Identity (SSI) infrastructure** where supply chain partners can prove their identity and their membership in a trust network using **Verifiable Credentials (VCs)**, without relying on a central authority.

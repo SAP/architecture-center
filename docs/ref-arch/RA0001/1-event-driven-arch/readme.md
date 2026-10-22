@@ -39,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-10-18
+  date: 2026-10-22
 ---
 
 ## Event-Driven Architecture

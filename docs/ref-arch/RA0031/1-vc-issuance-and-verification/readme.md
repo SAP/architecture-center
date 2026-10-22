@@ -35,7 +35,7 @@ contributors:
 discussion: 
 last_update:
   author: thomas-t7
-  date: 2026-06-15
+  date: 2026-10-22
 ---
 
 The core capability of SAP Decentralized Identity Verification (DIV) is the **issuance and verification of W3C Verifiable Credentials (VCs)**. A credential issued by one company can be cryptographically verified by any other party without requiring a shared central authority — trust is anchored in the issuer's **Decentralized Identifier (DID)** that is publicly resolvable on a distributed ledger.
