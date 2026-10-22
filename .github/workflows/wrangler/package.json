@@ -1,0 +1,9 @@
+{
+  "name": "architecture-center-wrangler-tool",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Isolated, hash-pinned install of the Wrangler CLI for the Cloudflare deploy workflow. Kept out of the main dependency tree so build and local dev are unaffected.",
+  "dependencies": {
+    "wrangler": "4.151.3"
+  }
+}
