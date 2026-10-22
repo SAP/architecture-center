@@ -36,6 +36,21 @@ const tabs = [
     },
 ];
 
+const matchMediaMock = window.matchMedia as jest.Mock;
+
+beforeEach(() => {
+    matchMediaMock.mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+    }));
+});
+
 describe('ArchitectureTabs keyboard navigation', () => {
     it('uses an automatically activated horizontal tab list', () => {
         render(<ArchitectureTabs tabs={tabs} />);
@@ -88,5 +103,35 @@ describe('ArchitectureTabs keyboard navigation', () => {
         await user.keyboard('{Home}');
         expect(renderedTabs[0]).toHaveFocus();
         expect(renderedTabs[0]).toHaveAttribute('aria-selected', 'true');
+    });
+
+    it('uses vertical orientation and Up/Down navigation at the mobile breakpoint', async () => {
+        matchMediaMock.mockImplementation((query: string) => ({
+            matches: query === '(max-width: 700px)',
+            media: query,
+            onchange: null,
+            addListener: jest.fn(),
+            removeListener: jest.fn(),
+            addEventListener: jest.fn(),
+            removeEventListener: jest.fn(),
+            dispatchEvent: jest.fn(),
+        }));
+        const user = userEvent.setup();
+
+        render(<ArchitectureTabs tabs={tabs} />);
+
+        const tabList = screen.getByRole('tablist', { name: 'Architecture Center features' });
+        const renderedTabs = screen.getAllByRole('tab');
+        renderedTabs[0].focus();
+
+        expect(tabList).toHaveAttribute('aria-orientation', 'vertical');
+        await user.keyboard('{ArrowDown}');
+        expect(renderedTabs[1]).toHaveFocus();
+        expect(renderedTabs[1]).toHaveAttribute('aria-selected', 'true');
+
+        await user.keyboard('{ArrowUp}');
+        expect(renderedTabs[0]).toHaveFocus();
+        await user.keyboard('{ArrowLeft}');
+        expect(renderedTabs[0]).toHaveFocus();
     });
 });

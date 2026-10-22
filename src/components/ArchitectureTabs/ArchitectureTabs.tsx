@@ -33,6 +33,7 @@ export default function ArchitectureTabs({
 }: ArchitectureTabsProps): JSX.Element | null {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isVertical, setIsVertical] = useState(false);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const scrollTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -70,6 +71,15 @@ export default function ArchitectureTabs({
             }
         };
     }, [enableScrollActivation, scrollActiveIndex, activeIndex]);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 700px)');
+        const updateOrientation = () => setIsVertical(mediaQuery.matches);
+
+        updateOrientation();
+        mediaQuery.addEventListener('change', updateOrientation);
+        return () => mediaQuery.removeEventListener('change', updateOrientation);
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -177,9 +187,19 @@ export default function ArchitectureTabs({
 
         switch (event.key) {
             case 'ArrowLeft':
+                if (isVertical) return;
                 nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
                 break;
             case 'ArrowRight':
+                if (isVertical) return;
+                nextIndex = (currentIndex + 1) % tabs.length;
+                break;
+            case 'ArrowUp':
+                if (!isVertical) return;
+                nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                break;
+            case 'ArrowDown':
+                if (!isVertical) return;
                 nextIndex = (currentIndex + 1) % tabs.length;
                 break;
             case 'Home':
@@ -211,7 +231,7 @@ export default function ArchitectureTabs({
                     className={styles.tabList}
                     role="tablist"
                     aria-label="Architecture Center features"
-                    aria-orientation="horizontal"
+                    aria-orientation={isVertical ? 'vertical' : 'horizontal'}
                 >
                     <div
                         className={styles.slidingBackground}
