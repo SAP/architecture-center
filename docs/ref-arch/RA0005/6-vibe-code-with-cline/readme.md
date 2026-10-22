@@ -37,8 +37,8 @@ contributors:
   - AjitKP91
 discussion: 
 last_update:
-  author: mahesh0431
-  date: 2025-07-17
+  author: julian-schambeck
+  date: 2026-10-22
 ---
 
 Vibe coding flips traditional development into a streamlined **prompt-first** loop: you describe the feature, the AI writes the code, and you iterate. To transform this “vibe” into a reliable engineering practice, you must master **context engineering**—the art of supplying the model with exactly the right information (requirements, APIs, tests, style guides, enterprise knowledge) at call-time so it can respond deterministically and cost-effectively.
