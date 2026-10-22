@@ -374,7 +374,14 @@ export const configRedirects = {
         // },
         {
             from: '/docs/ref-arch/06ff6062dc/6',
-            to: '/docs/ref-arch/f5a3ef',
+            to: '/docs/ref-arch/',
+        },
+        // page has been deleted ?!
+        // redirect to /docs/ref-arch/
+        // to avoid build issues
+        {
+            from: '/docs/ref-arch/f5a3ef',
+            to: '/docs/ref-arch/',
         },
         {
             from: '/docs/ref-arch/06ff6062dc',

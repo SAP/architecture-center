@@ -40,12 +40,16 @@ function annotate(level, file, line, message) {
   // attach the annotation to the file, but the plain workflow log only shows the
   // message — so without this the log line has no idea which page is at fault.
   const loc = line ? `${file}:${line}` : file;
-  const msg = `${loc} — ${message}`.replace(/\n/g, ' ');
+  const msg = `${loc} — ${message}`;
   if (inActions) {
+    // Escape per the GitHub Actions command protocol so a crafted filename or
+    // message can't forge/corrupt the annotation (data vs. property escaping).
+    const escData = (s) => String(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    const escProp = (s) => escData(s).replace(/,/g, '%2C').replace(/:/g, '%3A');
     const lineAttr = line ? `,line=${line}` : '';
-    console.log(`::${level} file=${file}${lineAttr},title=SEO front matter::${msg}`);
+    console.log(`::${level} file=${escProp(file)}${lineAttr},title=SEO front matter::${escData(msg)}`);
   } else {
-    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${msg}`);
+    console.log(`  ${level === 'error' ? 'ERROR' : 'warn '}: ${msg.replace(/\n/g, ' ')}`);
   }
 }
 
@@ -78,7 +82,14 @@ function evaluate(field, value, limits) {
 }
 
 function main() {
-  const files = glob.sync(DOCS_GLOB, { cwd: repoRoot }).sort();
+  // Changed-files mode: when the workflow passes repo-relative paths as args, check
+  // only those (docs Markdown). With no args (local runs) fall back to the whole corpus.
+  const argvFiles = process.argv.slice(2);
+  const files = (
+    argvFiles.length
+      ? argvFiles.filter((f) => f.startsWith('docs/') && /\.(md|mdx)$/.test(f))
+      : glob.sync(DOCS_GLOB, { cwd: repoRoot })
+  ).sort();
   let errors = 0;
   let warnings = 0;
   let checked = 0;
@@ -112,7 +123,7 @@ function main() {
   }
 
   const summary = [
-    '## SEO front matter check',
+    '### SEO front matter check',
     '',
     'Recommended lengths:',
     '',
@@ -128,18 +139,25 @@ function main() {
     '',
     `Result: **${errors}** error(s), **${warnings}** warning(s).`,
     '',
-  ].join('\n');
+  ];
 
-  console.log('\n' + summary);
+  if (errors > 0 || warnings > 0) {
+    summary.push('');
+    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/docs/community/automated-checks/seo-front-matter');
+  }
+
+  const summaryText = summary.join('\n');
+
+  console.log('\n' + summaryText);
   if (process.env.GITHUB_STEP_SUMMARY) {
-    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary + '\n');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryText + '\n');
   }
 
   if (errors > 0) {
-    console.error(`\n✖ SEO front matter check failed with ${errors} error(s).`);
+    console.error(`\n❌ SEO front matter check failed with ${errors} error(s).`);
     process.exit(1);
   }
-  console.log('\n✔ SEO front matter check passed.');
+  console.log('\n✅ SEO front matter check passed.');
 }
 
 main();

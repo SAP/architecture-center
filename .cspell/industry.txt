@@ -92,6 +92,14 @@ AutoML
 MLOps
 xhigh
 
+# Speech / voice AI (terms & latency metrics)
+RNNT
+Endpointing
+SSML
+TTFA
+TTFT
+TTFB
+
 # Data & analytics
 dataframe
 dataframes
@@ -191,3 +199,14 @@ Messe
 
 # Named concepts (eponyms)
 Goodhart
+
+# Resilience & messaging QoS (kept in sync with _typos.toml extend-words)
+RTO
+ALO
+
+# CI / developer tooling (open-source tools and organizations)
+reviewdog
+LanguageTool
+actionlint
+lychee
+FSFE
