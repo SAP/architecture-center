@@ -311,7 +311,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -343,7 +343,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -359,7 +359,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -367,7 +367,7 @@
             "line": 2,
             "column": 34,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom/client'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/client.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom/client'. '<workspace>/node_modules/react-dom/client.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -375,7 +375,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -415,7 +415,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
             "count": 1
         },
         {
@@ -567,7 +567,7 @@
             "line": 41,
             "column": 26,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'particles.js'. '/Users/I057866/EXTERNAL-architecture-center/architecture-center/node_modules/particles.js/particles.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'particles.js'. '<workspace>/node_modules/particles.js/particles.js' implicitly has an 'any' type.",
             "count": 1
         },
         {

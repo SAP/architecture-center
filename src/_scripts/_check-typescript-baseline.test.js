@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 
 const {
     compareDiagnostics,
+    normalizeDiagnosticMessage,
     parseDiagnostics,
     summarizeDiagnostics,
 } = require('./_check-typescript-baseline');
@@ -20,6 +21,18 @@ test('parses file, Windows-path, and global TypeScript diagnostics', () => {
         { file: 'C:/repo/src/other.ts', line: 8, column: 1, code: 'TS6133', message: 'Unused.' },
         { file: '<global>', code: 'TS18003', message: 'No inputs were found.' },
     ]);
+});
+
+test('normalizes platform-specific dependency paths in diagnostic messages', () => {
+    const unixMessage =
+        "Could not find declarations. '/home/runner/work/project/node_modules/react-dom/index.js' has type any.";
+    const windowsMessage =
+        "Could not find declarations. 'C:\\work\\project\\node_modules\\react-dom\\index.js' has type any.";
+    const expected =
+        "Could not find declarations. '<workspace>/node_modules/react-dom/index.js' has type any.";
+
+    assert.equal(normalizeDiagnosticMessage(unixMessage), expected);
+    assert.equal(normalizeDiagnosticMessage(windowsMessage), expected);
 });
 
 test('groups only diagnostics with the same location, code, and message', () => {

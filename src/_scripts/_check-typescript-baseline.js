@@ -5,6 +5,12 @@ const { spawnSync } = require('child_process');
 const projectRoot = path.resolve(__dirname, '../..');
 const baselinePath = path.join(projectRoot, 'quality-baselines/typescript.json');
 
+function normalizeDiagnosticMessage(message) {
+    return message
+        .replaceAll('\\', '/')
+        .replace(/'((?:[A-Za-z]:)?\/[^']*\/node_modules\/)/g, `'<workspace>/node_modules/`);
+}
+
 function parseDiagnostics(output) {
     const diagnostics = [];
 
@@ -16,7 +22,7 @@ function parseDiagnostics(output) {
                 line: Number(fileDiagnostic[2]),
                 column: Number(fileDiagnostic[3]),
                 code: `TS${fileDiagnostic[4]}`,
-                message: fileDiagnostic[5],
+                message: normalizeDiagnosticMessage(fileDiagnostic[5]),
             });
             continue;
         }
@@ -26,7 +32,7 @@ function parseDiagnostics(output) {
             diagnostics.push({
                 file: '<global>',
                 code: `TS${globalDiagnostic[1]}`,
-                message: globalDiagnostic[2],
+                message: normalizeDiagnosticMessage(globalDiagnostic[2]),
             });
         }
     }
@@ -169,4 +175,4 @@ if (require.main === module) {
     }
 }
 
-module.exports = { compareDiagnostics, parseDiagnostics, summarizeDiagnostics };
+module.exports = { compareDiagnostics, normalizeDiagnosticMessage, parseDiagnostics, summarizeDiagnostics };
