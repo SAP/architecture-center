@@ -106,6 +106,10 @@ Do not set `Domain`. Store only a high-entropy opaque identifier in the cookie. 
 
 CSRF tokens are session-bound, random, and may be held in browser memory. They are not authentication credentials. The BFF must compare them in constant time and reject unsafe requests without a valid value.
 
+## Frontend identity changes
+
+Quick Start namespaces locally persisted editor state by the normalized GitHub username. When a refreshed session reports a different GitHub identity, the frontend cancels delayed writes, rehydrates only that identity's state, and withholds the editor until the new identity's authorized document collection loads successfully. Responses from requests started under a previous identity are discarded. The retired, unscoped `docusaurus-editor-content` storage entry is deleted because its owner cannot be established safely.
+
 ## Deployment dependency
 
 Before merging or deploying the frontend migration:
