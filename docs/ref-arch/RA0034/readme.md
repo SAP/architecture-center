@@ -26,8 +26,8 @@ unlisted: false
 contributors:
   - fabianleh
 last_update:
-  author: mvmanov
-  date: 2026-08-31
+  author: fabianleh
+  date: 2026-10-22
 ---
 
 ## What is SAP Task Center?
@@ -76,7 +76,7 @@ Users can interact with their tasks using everyday language:
 
 Historically, Task Center deployment and integration followed a **customer-managed approach**:
 
-- **Customer Provisioning**: Customers were responsible for provisioning their own SAP Task Center instances within their BTP subaccounts
+- **Customer Provisioning**: Customers were responsible for provisioning their own SAP Task Center instances within their subaccounts
 - **Customer-Managed Integrations**: Each customer needed to configure and maintain integrations between SAP Task Center and their task provider systems
 - **Configuration Burden**: Customers handled destination setup, authentication configuration, connectivity, and ongoing maintenance
 
@@ -87,7 +87,7 @@ SAP is now transitioning to a **fully SAP-managed model** that fundamentally cha
 #### SAP-Managed Provisioning
 
 - **Central SAP Instance**: A single, centrally managed SAP Task Center instance operated by SAP
-- **Zero Customer Setup**: No BTP provisioning, configuration, or maintenance required by customers
+- **Zero Customer Setup**: No provisioning, configuration, or maintenance required by customers
 - **Automatic Onboarding**: Customers gain access through entitlement without infrastructure management
 - **SAP-Operated Service**: SAP handles all platform operations, updates, scaling, and reliability
 - **Simplified Governance**: Unified security, compliance, and audit across all customers
