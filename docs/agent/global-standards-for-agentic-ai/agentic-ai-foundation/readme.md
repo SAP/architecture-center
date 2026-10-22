@@ -28,7 +28,7 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-05-18'
+  date: '2026-10-22'
 ---
 
 Founded in December 2025 under the neutral governance of the Linux Foundation, the [Agentic AI Foundation](https://github.com/aaif) (AAIF) manages core open source projects including the **Model Context Protocol (MCP)**, **goose**, and **AGENTS.md**. AGENTS.md is a markdown file, which provides context and instructions to help AI coding agents work with certain prerequisites, similar to a README for humans; [goose](https://github.com/aaif-goose/goose) is a local-first AI agent framework combining language models, extensible tools, and standardized MCP-based integration. [MCP](https://modelcontextprotocol.io/) is an open protocol that enables seamless integration between LLM applications and external data sources and tools.
