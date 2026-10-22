@@ -166,5 +166,5 @@ The deployed API is operationalized using *both* consumption patterns:
 
 ### Learning Resources
 
-- [Introducing SAP Business Data Cloud](https://learning.sap.com/learning-journeys/introducing-sap-business-data-cloud) - Learning journey
+- [Developing Detailed Knowledge of SAP Business Data Cloud](https://learning.sap.com/courses/developing-detailed-knowledge-of-sap-business-data-cloud) - SAP Learning course
 - [SAP AI Core Tutorial](https://developers.sap.com/tutorials/ai-core-genaihub-provisioning.html) - Set up Generative AI Hub
