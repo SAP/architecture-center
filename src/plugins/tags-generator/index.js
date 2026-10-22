@@ -26,8 +26,18 @@ module.exports = function (context, options) {
         defaultDocsInstance.loadedVersions.forEach((version) => {
           version.docs.forEach((doc) => {
             const tags = doc.frontMatter?.tags || [];
-            if (tags.length > 0) {
-              docIdToTags[doc.id] = tags;
+            // Normalize to a compact UTC calendar date (YYYY-MM-DD): YAML may give a
+            // Date object or a string, and keeping it date-only both trims the global
+            // bundle and lets the client parse it as UTC midnight consistently.
+            const rawDate = doc.frontMatter?.last_update?.date;
+            const lastUpdateDate = rawDate instanceof Date
+              ? rawDate.toISOString().slice(0, 10)
+              : (rawDate ? String(rawDate).slice(0, 10) : null);
+            if (tags.length > 0 || lastUpdateDate) {
+              docIdToTags[doc.id] = {
+                tags,
+                lastUpdateDate,
+              };
             }
           });
         });
