@@ -6,6 +6,9 @@ on:
     paths:
       - 'package.json'
       - 'package-lock.json'
+      - '.github/npm-audit-allowlist.json'
+      - '.github/scripts/check-npm-audit.js'
+      - '.github/scripts/check-npm-audit.test.js'
       - '.github/workflows/**'
   schedule:
     - cron: '17 4 * * 1'
@@ -126,36 +129,25 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Generate npm audit SARIF
+      - name: Test npm audit policy
+        shell: bash
+        run: node --test .github/scripts/check-npm-audit.test.js
+
+      - name: Run and enforce npm audit
+        id: npm-audit
         shell: bash
         run: |
-          [ -f package-lock.json ] || { echo "No package-lock.json, skipping SARIF."; exit 0; }
-          npm audit --json > npm-audit.json 2>&1 || true
-          cat > /tmp/audit-to-sarif.js << 'JSEOF'
-          const fs = require('fs');
-          let audit;
-          try { audit = JSON.parse(fs.readFileSync('npm-audit.json', 'utf8')); } catch (e) { audit = { vulnerabilities: {} }; }
-          const vulns = Object.entries(audit.vulnerabilities || {});
-          const levelMap = { critical: 'error', high: 'error', moderate: 'warning', low: 'note', info: 'note' };
-          const sarif = {
-            '$schema': 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
-            version: '2.1.0',
-            runs: [{
-              tool: { driver: { name: 'npm-audit', version: '1.0.0', informationUri: 'https://docs.npmjs.com/cli/audit',
-                rules: vulns.map(([id, v]) => ({ id, shortDescription: { text: v.severity + ' vulnerability in ' + id }, properties: { severity: v.severity } }))
-              }},
-              results: vulns.map(([id, v]) => ({
-                ruleId: id,
-                level: levelMap[v.severity] || 'warning',
-                message: { text: 'Vulnerable package: ' + id + ' (' + v.severity + ')' },
-                locations: [{ physicalLocation: { artifactLocation: { uri: 'package-lock.json', uriBaseId: '%SRCROOT%' }, region: { startLine: 1 } } }]
-              }))
-            }]
-          };
-          fs.writeFileSync('npm-audit.sarif', JSON.stringify(sarif, null, 2));
-          console.log('SARIF generated: ' + sarif.runs[0].results.length + ' finding(s).');
-          JSEOF
-          node /tmp/audit-to-sarif.js
+          [ -f package-lock.json ] || { echo "package-lock.json not found."; exit 1; }
+          npm audit --json > npm-audit.json || audit_status=$?
+          echo "npm audit exit status: ${audit_status:-0}"
+          if [ "${audit_status:-0}" -gt 1 ]; then
+            echo "npm audit failed before it could complete."
+            exit "${audit_status}"
+          fi
+          node .github/scripts/check-npm-audit.js \
+            npm-audit.json \
+            .github/npm-audit-allowlist.json \
+            npm-audit.sarif
 
       - name: Upload npm audit SARIF
         # Fork PRs get a read-only token, so SARIF upload would 403. Upload only on
@@ -166,19 +158,6 @@ jobs:
         with:
           sarif_file: npm-audit.sarif
           category: npm-audit
-
-      - name: Run npm audit
-        shell: bash
-        run: |
-          [ -f package-lock.json ] || { echo "package-lock.json not found, skipping npm audit."; exit 0; }
-          echo "🔍 Running npm audit for known vulnerabilities..."
-          npm audit --audit-level=high --omit=dev || \
-            echo "⚠️  HIGH severity vulnerabilities detected above (non-blocking). Review and schedule remediation."
-          npm audit --audit-level=moderate --omit=dev || \
-            echo "⚠️  MODERATE vulnerabilities detected above (non-blocking). Review and schedule remediation."
-          npm audit --audit-level=critical || \
-            echo "⚠️  CRITICAL dev-dependency vulnerability detected (non-blocking). Review immediately."
-          echo "✅ npm audit passed."
 
       - name: Write job summary
         if: always()

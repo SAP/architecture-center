@@ -88,10 +88,10 @@ The `scorecard.yml` workflow runs the [OpenSSF Scorecard](https://github.com/oss
 
 ### Security Audit
 
-The `security-audit.yml` workflow is the one most likely to touch your pull request, but only if your change modifies `package.json`, `package-lock.json`, or anything under `.github/workflows/`. It also runs weekly and can be started manually. It bundles several checks:
+The `security-audit.yml` workflow is the one most likely to touch your pull request, but only if your change modifies `package.json`, `package-lock.json`, its audit policy files, or anything under `.github/workflows/`. It also runs weekly and can be started manually. It bundles several checks:
 
 - **Audit npm scripts**: inspects `package.json` for dangerous lifecycle hooks (such as `preinstall`, `postinstall`, `prepare`) and suspicious command patterns, and flags scripts that pull in and execute code.
-- **npm audit**: runs [`npm audit`](https://docs.npmjs.com/cli/commands/npm-audit) to surface known vulnerabilities in dependencies and uploads the results to the code-scanning dashboard. On a pull request from a fork the dashboard upload is skipped (the token is read-only), but the audit output and job summary still appear.
+- **npm audit**: runs [`npm audit`](https://docs.npmjs.com/cli/commands/npm-audit), rejects registry or parser failures, and fails for new high or critical advisories. A known advisory can be accepted temporarily only through the checked-in allowlist with an expiry date. Valid results are uploaded to the code-scanning dashboard even when the policy step fails. On a pull request from a fork the dashboard upload is skipped (the token is read-only), but the audit output and job summary still appear.
 - **Audit workflows**: lints every workflow with [actionlint](https://github.com/rhysd/actionlint) and checks for risky patterns, for example unpinned third-party actions or missing permission blocks.
 - **Dependency Review**: on pull requests, uses [GitHub's dependency-review action](https://github.com/actions/dependency-review-action) to block newly introduced dependencies that carry high-severity vulnerabilities or disallowed (strong copyleft) licenses.
 
