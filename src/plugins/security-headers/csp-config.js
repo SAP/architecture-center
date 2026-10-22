@@ -48,12 +48,7 @@ const cspDirectives = [
     ],
     [
         'frame-src',
-        [
-            "'self'",
-            'https://embed.diagrams.net',
-            'https://viewer.diagrams.net',
-            'https://cdnapisec.kaltura.com',
-        ],
+        ["'self'", 'https://embed.diagrams.net', 'https://cdnapisec.kaltura.com'],
     ],
     ['worker-src', ["'self'", 'blob:']],
     ['frame-ancestors', ["'none'"]],
