@@ -77,7 +77,6 @@
         "front-matter": "^4.0.2",
         "glob": "^13.0.6",
         "gray-matter": "^4.0.3",
-        "jwt-decode": "^4.0.0",
         "lexical": "^0.41.0",
         "lucide-react": "^0.542.0",
         "mammoth": "^1.12.1",

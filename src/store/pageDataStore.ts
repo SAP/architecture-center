@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import type { Operation } from '@site/src/components/Editor/core/Operations';
+import { authenticatedFetch } from '@site/src/services/authSession';
 
 export interface PageMetadata {
     title: string;
@@ -37,7 +38,6 @@ interface PageDataState {
     isSyncing: boolean;
     syncError: string | null;
     backendUrl: string | null;
-    authToken: string | null;
     currentUsername: string | null;
 
     // Getters
@@ -55,7 +55,7 @@ interface PageDataState {
     resetStore: () => void;
 
     // Remote sync actions
-    setBackendConfig: (backendUrl: string, authToken: string, username: string) => void;
+    setBackendConfig: (backendUrl: string, username: string) => void;
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
@@ -152,7 +152,6 @@ export const usePageDataStore = create<PageDataState>()(
             isSyncing: false,
             syncError: null,
             backendUrl: null,
-            authToken: null,
             currentUsername: null,
 
             getDocuments: () => get().documents,
@@ -222,16 +221,16 @@ export const usePageDataStore = create<PageDataState>()(
                 });
             },
 
-            setBackendConfig: (backendUrl, authToken, username) => {
-                console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken, username });
-                set({ backendUrl, authToken, currentUsername: username });
+            setBackendConfig: (backendUrl, username) => {
+                console.log('[PageDataStore] Backend configured:', { backendUrl, username });
+                set({ backendUrl, currentUsername: username });
             },
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken, currentUsername, documents: localDocuments } = get();
-                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
-                if (!backendUrl || !authToken) {
+                const { backendUrl, currentUsername, documents: localDocuments } = get();
+                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, currentUsername });
+                if (!backendUrl) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
                     return;
                 }
@@ -240,13 +239,10 @@ export const usePageDataStore = create<PageDataState>()(
 
                 try {
                     console.log('[PageDataStore] Fetching documents from:', `${backendUrl}/quickstart/document-service/Documents`);
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
                         {
-                            headers: {
-                                'Authorization': `Bearer ${authToken}`,
-                                'Content-Type': 'application/json',
-                            },
+                            headers: { 'Content-Type': 'application/json' },
                         }
                     );
 
@@ -300,12 +296,11 @@ export const usePageDataStore = create<PageDataState>()(
                         console.log('[PageDataStore] Syncing', unsyncedDocs.length, 'locally modified documents to backend');
                         // Sync in background without blocking
                         unsyncedDocs.forEach(doc => {
-                            fetch(
+                            authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
                                 {
                                     method: 'PATCH',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -353,9 +348,9 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Sync a single document to remote (debounced auto-save)
             syncDocument: async (id: string) => {
-                const { backendUrl, authToken, documents } = get();
-                console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl, hasToken: !!authToken });
-                if (!backendUrl || !authToken) return;
+                const { backendUrl, documents } = get();
+                console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl });
+                if (!backendUrl) return;
 
                 const doc = findDocumentById(documents, id);
                 if (!doc) return;
@@ -372,12 +367,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                     try {
                         // 1. PATCH basic document fields (title, description, editorState)
-                        const patchResponse = await fetch(
+                        const patchResponse = await authenticatedFetch(
                             `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
                             {
                                 method: 'PATCH',
                                 headers: {
-                                    'Authorization': `Bearer ${authToken}`,
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({
@@ -394,12 +388,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                         // 2. Call setDocumentContributors action only if contributors changed
                         if (doc._contributorsDirty) {
-                            const contributorsResponse = await fetch(
+                            const contributorsResponse = await authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentContributors`,
                                 {
                                     method: 'POST',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -416,12 +409,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                         // 3. Call setDocumentTags action only if tags changed
                         if (doc._tagsDirty) {
-                            const tagsResponse = await fetch(
+                            const tagsResponse = await authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentTags`,
                                 {
                                     method: 'POST',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -457,8 +449,8 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Sync operations (delta sync) instead of full state
             syncOperations: async (documentId: string, operations: Operation[]): Promise<string | null> => {
-                const { backendUrl, authToken, syncDocument } = get();
-                if (!backendUrl || !authToken || operations.length === 0) return null;
+                const { backendUrl, syncDocument } = get();
+                if (!backendUrl || operations.length === 0) return null;
 
                 set({ isSyncing: true });
 
@@ -476,12 +468,11 @@ export const usePageDataStore = create<PageDataState>()(
                         payloadPreview: typeof op.payload === 'string' ? op.payload.substring(0, 200) : op.payload
                     })));
 
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/syncOperations`,
                         {
                             method: 'POST',
                             headers: {
-                                'Authorization': `Bearer ${authToken}`,
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
@@ -528,8 +519,8 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Create a new document on remote
             createRemoteDocument: async (metadata, parentId = null) => {
-                const { backendUrl, authToken, openDocumentIds } = get();
-                if (!backendUrl || !authToken) {
+                const { backendUrl, openDocumentIds } = get();
+                if (!backendUrl) {
                     // Fallback to local-only
                     const newDocument: Document = {
                         ...metadata,
@@ -554,12 +545,11 @@ export const usePageDataStore = create<PageDataState>()(
                 set({ isCreating: true, syncError: null });
 
                 try {
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/createNewDocument`,
                         {
                             method: 'POST',
                             headers: {
-                                'Authorization': `Bearer ${authToken}`,
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
@@ -620,7 +610,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Delete document from remote
             deleteRemoteDocument: async (id: string) => {
-                const { backendUrl, authToken, getRootDocumentId } = get();
+                const { backendUrl, getRootDocumentId } = get();
 
                 // Get root ID before deletion
                 const rootId = getRootDocumentId(id);
@@ -645,15 +635,12 @@ export const usePageDataStore = create<PageDataState>()(
                 });
 
                 // Then delete from remote if configured
-                if (backendUrl && authToken) {
+                if (backendUrl) {
                     try {
-                        const response = await fetch(
+                        const response = await authenticatedFetch(
                             `${backendUrl}/quickstart/document-service/Documents(${id})`,
                             {
                                 method: 'DELETE',
-                                headers: {
-                                    'Authorization': `Bearer ${authToken}`,
-                                },
                             }
                         );
 
@@ -674,7 +661,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Update document locally and optionally trigger sync
             updateDocument: (id, updates, skipRemoteSync = false) => {
-                const { syncDocument, backendUrl, authToken } = get();
+                const { syncDocument, backendUrl } = get();
 
                 // Track which fields are being updated for dirty flags
                 const contributorsDirty = 'contributors' in updates;
@@ -695,7 +682,7 @@ export const usePageDataStore = create<PageDataState>()(
 
                 // Auto-sync to remote if configured and not skipped
                 // Skip when delta sync (onSyncOperations) is handling remote sync
-                if (!skipRemoteSync && backendUrl && authToken) {
+                if (!skipRemoteSync && backendUrl) {
                     syncDocument(id);
                 }
             },

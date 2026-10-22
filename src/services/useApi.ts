@@ -7,15 +7,15 @@ import { getApiService } from './api';
  */
 export function useApi() {
   const { siteConfig } = useDocusaurusContext();
-  const expressBackendUrl = siteConfig.customFields?.expressBackendUrl as string;
+  const authenticatedApiPath = siteConfig.customFields?.authenticatedApiPath as string;
 
   const api = useMemo(() => {
-    if (!expressBackendUrl) {
-      console.warn('Express Backend URL not configured');
+    if (!authenticatedApiPath) {
+      console.warn('Authenticated API path not configured');
       return null;
     }
-    return getApiService(expressBackendUrl);
-  }, [expressBackendUrl]);
+    return getApiService(authenticatedApiPath);
+  }, [authenticatedApiPath]);
 
   return api;
 }

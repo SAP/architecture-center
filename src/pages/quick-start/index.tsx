@@ -10,6 +10,7 @@ import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
 import { BusyIndicator, Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
+import { getLoginUrl } from '@site/src/services/authSession';
 
 function EditorComponent({ onAddNew, onEditMeta }: { onAddNew: (parentId?: string | null) => void; onEditMeta?: () => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -44,20 +45,20 @@ function AuthenticatedQuickStartView() {
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users, token } = useAuth();
-    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+    const { users } = useAuth();
+    const { authenticatedApiPath } = siteConfig.customFields as { authenticatedApiPath: string };
     const [initialized, setInitialized] = useState(false);
 
     // Initialize backend config and fetch documents
     useEffect(() => {
-        if (expressBackendUrl && token && !initialized) {
+        if (authenticatedApiPath && users.github && !initialized) {
             const username = users.github?.username || '';
-            setBackendConfig(expressBackendUrl, token, username);
+            setBackendConfig(authenticatedApiPath, username);
             fetchDocuments().then(() => {
                 setInitialized(true);
             });
         }
-    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
+    }, [authenticatedApiPath, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -211,8 +212,8 @@ export default function QuickStart(): JSX.Element {
     const isMobile = useIsMobile();
 
     const isGithubAuthenticated = users.github !== null;
-    const { expressBackendUrl } = siteConfig.customFields as {
-        expressBackendUrl: string;
+    const { authApiPath } = siteConfig.customFields as {
+        authApiPath: string;
     };
 
     if (isMobile) {
@@ -237,8 +238,8 @@ export default function QuickStart(): JSX.Element {
     }
 
     if (!isGithubAuthenticated) {
-        const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
-        const loginUrl = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(originUri)}&provider=github`;
+        const returnTo = `${siteConfig.baseUrl}quick-start`;
+        const loginUrl = getLoginUrl(authApiPath, 'github', returnTo);
 
         return (
             <Layout>

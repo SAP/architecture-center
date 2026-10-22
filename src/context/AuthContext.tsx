@@ -1,41 +1,46 @@
-import React, { createContext, useState, useEffect, useContext, ReactNode, useRef } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import { authStorage } from '../utils/authStorage';
-import { useLocation, useHistory } from '@docusaurus/router';
+import React, {
+    createContext,
+    ReactNode,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import siteConfig from '@generated/docusaurus.config';
 import { logger } from '../utils/logger';
+import {
+    clearLegacyClientCredentials,
+    clearSessionClientState,
+    endSession,
+    getSession,
+    SESSION_INVALIDATED_EVENT,
+} from '../services/authSession';
+import type {
+    AuthProvider as AuthProviderName,
+    SessionSnapshot,
+    SessionUser,
+    SessionUsers,
+} from '../services/authSession';
 
-const GITHUB_SESSION_DURATION_HOURS = 2;
-
-interface GithubJwtPayload {
-    username: string;
-    email?: string;
-    avatar?: string;
-    githubAccessToken?: string;
-}
-
-interface AuthUser {
-    username: string;
-    email?: string;
-    avatar?: string;
-    provider: 'github' | 'btp';
-    githubAccessToken?: string;
-    expiresAt?: number; // Add expiresAt for BTP user, if applicable
-}
-interface DualAuthUsers {
-    github: AuthUser | null;
-    btp: AuthUser | null;
-}
 interface AuthContextType {
-    user: AuthUser | null;
-    users: DualAuthUsers;
+    user: SessionUser | null;
+    users: SessionUsers;
     loading: boolean;
-    logout: (provider?: 'github' | 'btp' | 'all') => void;
+    logout: (provider?: AuthProviderName | 'all') => Promise<void>;
     hasDualLogin: boolean;
-    token: string | null;
+    refreshSession: () => Promise<void>;
 }
 
+const EMPTY_USERS: SessionUsers = { github: null, btp: null };
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+function activeUser(snapshot: SessionSnapshot): SessionUser | null {
+    if (snapshot.activeProvider) {
+        const selectedUser = snapshot.users[snapshot.activeProvider];
+        if (selectedUser) return selectedUser;
+    }
+    return snapshot.users.github || snapshot.users.btp;
+}
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isClient, setIsClient] = useState(false);
@@ -44,17 +49,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setIsClient(true);
     }, []);
 
-    // During SSR or initial render, provide default values and render children
     if (!isClient) {
         return (
             <AuthContext.Provider
                 value={{
                     user: null,
-                    users: { github: null, btp: null },
+                    users: EMPTY_USERS,
                     loading: true,
-                    logout: () => {},
+                    logout: async () => {},
                     hasDualLogin: false,
-                    token: null,
+                    refreshSession: async () => {},
                 }}
             >
                 {children}
@@ -62,327 +66,84 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         );
     }
 
-    // On client, use the full auth logic
     return <AuthLogicProvider>{children}</AuthLogicProvider>;
 };
 
 const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<AuthUser | null>(null);
-    const [users, setUsers] = useState<DualAuthUsers>({ github: null, btp: null });
+    const [user, setUser] = useState<SessionUser | null>(null);
+    const [users, setUsers] = useState<SessionUsers>(EMPTY_USERS);
     const [loading, setLoading] = useState(true);
-    const [token, setToken] = useState<string | null>(null); // This token is specifically for GitHub
-    const location = useLocation();
-    const history = useHistory();
-    const btpLogoutTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timer ID for BTP
-    const githubLogoutTimerRef = useRef<NodeJS.Timeout | null>(null); // Ref to store the timer ID for GitHub
+    const authApiPath = siteConfig.customFields?.authApiPath as string;
+    const baseUrl = siteConfig.baseUrl || '/';
 
-    const clearAllLogoutTimers = () => {
-        if (btpLogoutTimerRef.current) {
-            clearTimeout(btpLogoutTimerRef.current);
-            btpLogoutTimerRef.current = null;
-        }
-        if (githubLogoutTimerRef.current) {
-            clearTimeout(githubLogoutTimerRef.current);
-            githubLogoutTimerRef.current = null;
-        }
-    };
+    const applySession = useCallback((snapshot: SessionSnapshot) => {
+        setUsers(snapshot.users);
+        setUser(activeUser(snapshot));
+    }, []);
 
-    const scheduleBtpTokenExpiryCheck = (expiresAt: number) => {
-        if (btpLogoutTimerRef.current) clearTimeout(btpLogoutTimerRef.current); // Clear any existing BTP timer
-
-        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-        const timeLeft = expiresAt - currentTime; // Time left in seconds
-
-        if (timeLeft <= 0) {
-            logger.info('BTP token already expired. Logging out BTP user.');
-            logout('btp');
-            return;
-        }
-
-        // Schedule logout slightly before actual expiry (e.g., 5 seconds before)
-        // Or directly at expiry if that's preferred
-        const delay = (timeLeft - 5) * 1000; // Convert to milliseconds, logout 5 seconds early
-        // Ensure delay is not negative or too small
-        const effectiveDelay = Math.max(1000, delay); // Minimum 1 second delay
-
-        btpLogoutTimerRef.current = setTimeout(() => {
-            logger.info('BTP token expired or nearing expiry. Initiating BTP logout.');
-            logout('btp');
-        }, effectiveDelay);
-    };
-
-    const scheduleGithubTokenExpiryCheck = (expiresAt: number) => {
-        if (githubLogoutTimerRef.current) clearTimeout(githubLogoutTimerRef.current);
-        const timeLeft = expiresAt - Date.now();
-        if (timeLeft <= 0) {
-            logout('github');
-            return;
-        }
-        githubLogoutTimerRef.current = setTimeout(() => logout('github'), timeLeft);
-    };
-
-    const checkAuthTokens = () => {
-        const newUsers: DualAuthUsers = { github: null, btp: null };
-        clearAllLogoutTimers(); // Clear timers whenever re-checking tokens
-
+    const refreshSession = useCallback(async () => {
         try {
-            const githubAuthDataString = localStorage.getItem('jwt_token');
-            if (githubAuthDataString) {
-                try {
-                    const githubAuthData = JSON.parse(githubAuthDataString);
-                    // Check if the token wrapper has an expiry and it's in the future
-                    if (githubAuthData.expiresAt && Date.now() < githubAuthData.expiresAt) {
-                        const decodedPayload = jwtDecode<GithubJwtPayload>(githubAuthData.token);
-                        newUsers.github = {
-                            username: decodedPayload.username,
-                            email: decodedPayload.email,
-                            avatar: decodedPayload.avatar,
-                            provider: 'github',
-                            githubAccessToken: decodedPayload.githubAccessToken,
-                            expiresAt: githubAuthData.expiresAt, // Store session expiry
-                        };
-                        setToken(githubAuthData.token);
-                        scheduleGithubTokenExpiryCheck(githubAuthData.expiresAt);
-                    } else {
-                        // If expired, remove it
-                        logger.info('GitHub session expired, removing token.');
-                        localStorage.removeItem('jwt_token');
-                        setToken(null);
-                    }
-                } catch {
-                    logger.error('Invalid GitHub JWT data found, removing it.');
-                    localStorage.removeItem('jwt_token');
-                    setToken(null);
-                }
-            } else {
-                setToken(null);
-            }
-
-            const authData = authStorage.load();
-            if (authData && authData.token) {
-                // Only check if token exists
-                try {
-                    const decodedBtpToken = jwtDecode<{ exp?: number; email?: string }>(authData.token);
-                    if (decodedBtpToken.exp) {
-                        const currentTime = Math.floor(Date.now() / 1000);
-                        if (decodedBtpToken.exp > currentTime) {
-                            // Token is still valid
-                            newUsers.btp = {
-                                username: (authData.email || decodedBtpToken.email || '').split('@')[0],
-                                email: authData.email || decodedBtpToken.email,
-                                provider: 'btp',
-                                expiresAt: decodedBtpToken.exp, // Store expiry for BTP user
-                            };
-                            scheduleBtpTokenExpiryCheck(decodedBtpToken.exp); // Schedule check
-                        } else {
-                            logger.info('BTP token found but is expired. Clearing BTP auth data.');
-                            authStorage.clear();
-                        }
-                    } else {
-                        // No expiry in token, treat as valid for now but might be a legacy token
-                        // Still create the user, but no auto-logout scheduling
-                        newUsers.btp = {
-                            username: authData.email.split('@')[0],
-                            email: authData.email,
-                            provider: 'btp',
-                        };
-                    }
-                } catch {
-                    logger.error('Invalid BTP token found in authStorage, removing it.');
-                    authStorage.clear();
-                }
-            }
-
-            setUsers(newUsers);
-            if (newUsers.github && newUsers.btp) {
-                setUser(newUsers.github);
-            } else if (newUsers.github) {
-                setUser(newUsers.github);
-            } else if (newUsers.btp) {
-                setUser(newUsers.btp);
-            } else {
-                setUser(null);
-            }
-        } catch {
-            logger.error('Error processing authentication tokens');
-            localStorage.removeItem('jwt_token');
-            authStorage.clear();
+            applySession(await getSession(authApiPath));
+        } catch (error) {
+            clearSessionClientState();
+            setUsers(EMPTY_USERS);
             setUser(null);
-            setUsers({ github: null, btp: null });
-            setToken(null);
-            clearAllLogoutTimers();
+            logger.warn('Unable to load the authentication session.', error);
         } finally {
             setLoading(false);
         }
-    };
+    }, [applySession, authApiPath]);
 
     useEffect(() => {
-        const initializeAuth = async () => {
-            const params = new URLSearchParams(location.search);
-            const githubTokenFromUrl = params.get('token');
-            const btpToken = params.get('t');
-            const logoutSuccess = params.get('logout');
-            const logoutProvider = params.get('provider');
+        // Remove secrets left by the retired browser-token flow. New logins never
+        // place credentials in URLs or Web Storage.
+        clearLegacyClientCredentials();
+        void refreshSession();
 
-            if (githubTokenFromUrl) {
-                // SECURITY: Immediately clear token from URL to prevent exposure in:
-                // - Browser history
-                // - Server logs
-                // - Referer headers
-                history.replace(window.location.pathname);
-
-                // Create a session expiry for the GitHub token
-                const expiresAt = Date.now() + GITHUB_SESSION_DURATION_HOURS * 60 * 60 * 1000;
-                const githubAuthData = { token: githubTokenFromUrl, expiresAt };
-                localStorage.setItem('jwt_token', JSON.stringify(githubAuthData));
-
-                // We will re-check tokens which will also schedule the expiry timer
-                checkAuthTokens();
-                // No immediate return or redirect, let the component re-render
-            } else if (btpToken) {
-                // SECURITY: Immediately clear token from URL to prevent exposure
-                history.replace({ ...location, search: '' });
-
-                // When BTP token is received, save it with expiry
-                authStorage.save({ token: btpToken });
-                try {
-                    const BTP_API = siteConfig.customFields.backendUrl as string;
-                    const userInfoUrl = new URL(`${BTP_API}/user/getUserInfo`);
-                    userInfoUrl.searchParams.append('isNewLogin', 'true');
-                    const responseUser = await fetch(userInfoUrl.toString(), {
-                        headers: { Authorization: `Bearer ${btpToken}` },
-                        mode: 'cors',
-                    });
-                    if (responseUser.ok) {
-                        const dataUser = await responseUser.json();
-                        // Update authStorage with email, which will also update/ensure expiry is set
-                        authStorage.update({ email: dataUser.email });
-
-                        // Reload auth data to get the potentially updated expiresAt
-                        const updatedAuthData = authStorage.load();
-                        if (updatedAuthData && updatedAuthData.token) {
-                            const decodedBtpToken = jwtDecode<{ exp?: number; email?: string }>(updatedAuthData.token);
-                            setUser({
-                                username: updatedAuthData.email.split('@')[0],
-                                email: updatedAuthData.email,
-                                provider: 'btp',
-                                expiresAt: decodedBtpToken.exp,
-                            });
-                            if (decodedBtpToken.exp) {
-                                scheduleBtpTokenExpiryCheck(decodedBtpToken.exp);
-                            }
-                        }
-                    } else {
-                        logger.error('Failed to fetch BTP user info');
-                        authStorage.clear();
-                    }
-                } catch {
-                    logger.error('Error fetching BTP user info');
-                    authStorage.clear();
-                }
-                window.dispatchEvent(new Event('storage'));
-            } else if (logoutSuccess === 'success' && logoutProvider) {
-                history.replace({ ...location, search: '' });
-                checkAuthTokens();
-            } else {
-                checkAuthTokens();
+        const refreshVisibleSession = () => {
+            if (document.visibilityState === 'visible') {
+                void refreshSession();
             }
-            setLoading(false);
         };
-        initializeAuth();
-        const handleStorageChange = () => {
-            checkAuthTokens();
-        };
-        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('focus', refreshVisibleSession);
+        window.addEventListener(SESSION_INVALIDATED_EVENT, refreshVisibleSession);
+        document.addEventListener('visibilitychange', refreshVisibleSession);
         return () => {
-            window.removeEventListener('storage', handleStorageChange);
-            clearAllLogoutTimers(); // Clear timers on unmount
+            window.removeEventListener('focus', refreshVisibleSession);
+            window.removeEventListener(SESSION_INVALIDATED_EVENT, refreshVisibleSession);
+            document.removeEventListener('visibilitychange', refreshVisibleSession);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location, history]);
+    }, [refreshSession]);
 
-    // Get baseUrl from site config
-    const baseUrl = siteConfig.baseUrl || '/';
+    const logout = useCallback(async (provider: AuthProviderName | 'all' = 'all') => {
+        setLoading(true);
+        const returnTo = window.location.origin + baseUrl;
 
-    const logout = (provider?: 'github' | 'btp' | 'all') => {
-        const BTP_API = siteConfig.customFields.backendUrl as string;
-        clearAllLogoutTimers();
+        try {
+            const result = await endSession(authApiPath, provider, returnTo);
+            applySession(result);
 
-        if (!provider || provider === 'all') {
-            // Clear both storage systems locally first
-            localStorage.removeItem('jwt_token');
-            authStorage.clear();
-            setUser(null);
-            setUsers({ github: null, btp: null });
-
-            // Always redirect to base URL regardless of authentication type
-            const baseRedirectUrl = window.location.origin + baseUrl;
-            if (users.btp) {
-                const logoutUrl = new URL(`${BTP_API}/user/logout`);
-                logoutUrl.searchParams.append('provider', 'btp');
-                logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
-                window.location.href = logoutUrl.toString();
-            } else {
-                window.location.href = baseRedirectUrl;
+            if (result.redirectTo) {
+                window.location.assign(result.redirectTo);
+                return;
             }
-        } else if (provider === 'github') {
-            // Clear only GitHub authentication locally
-            localStorage.removeItem('jwt_token');
-            setToken(null);
-            const newUsers = { ...users, github: null };
-            setUsers(newUsers);
-            const baseRedirectUrl = window.location.origin + baseUrl;
-            if (newUsers.btp) {
-                setUser(newUsers.btp);
-                // Re-schedule BTP timer if BTP user is still logged in
-                if (newUsers.btp.expiresAt) {
-                    scheduleBtpTokenExpiryCheck(newUsers.btp.expiresAt);
-                }
-            } else {
-                setUser(null);
+            if (provider === 'all' || (!result.users.github && !result.users.btp)) {
+                window.location.assign(baseUrl);
+                return;
             }
-            // Trigger storage event to sync other tabs without a full page reload
-            window.location.href = baseRedirectUrl;
-            window.dispatchEvent(new Event('storage'));
-        } else if (provider === 'btp') {
-            const authData = authStorage.load();
-            const btpToken = authData?.token;
-            authStorage.clear();
-            const newUsers = { ...users, btp: null };
-            setUsers(newUsers);
-
-            // Always redirect to base URL for consistency
-            const baseRedirectUrl = window.location.origin + baseUrl;
-
-            if (btpToken) {
-                // NOTE: We don't pass the token in URL to avoid exposure in browser history/logs
-                // The backend should use session cookies for logout verification
-                const logoutUrl = new URL(`${BTP_API}/user/logout`);
-                logoutUrl.searchParams.append('origin_uri', baseRedirectUrl);
-
-                if (newUsers.github) {
-                    setUser(newUsers.github);
-                } else {
-                    setUser(null);
-                }
-                window.location.href = logoutUrl.toString();
-            } else {
-                logger.info('No BTP token found during BTP logout, clearing locally and redirecting to base URL.');
-                if (newUsers.github) {
-                    setUser(newUsers.github);
-                    // No need to schedule github timer, it's already running if valid
-                } else {
-                    setUser(null);
-                }
-                window.location.href = baseRedirectUrl;
-            }
+        } catch (error) {
+            logger.error('Unable to end the authentication session.', error);
+            await refreshSession();
+            return;
         }
-    };
 
-    const hasDualLogin = !!(users.github && users.btp);
+        setLoading(false);
+    }, [applySession, authApiPath, baseUrl, refreshSession]);
+
+    const hasDualLogin = users.github !== null && users.btp !== null;
 
     return (
-        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, token }}>
+        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, refreshSession }}>
             {children}
         </AuthContext.Provider>
     );
