@@ -44,3 +44,6 @@ git -C "$WORKTREE_DIR" push "$REMOTE" gh-pages
 
 echo ""
 echo "Done. Site available at: https://pages.github.tools.sap/OCTO/architecture-center/"
+
+git -C "$REPO_DIR" restore .
+git -C "$REPO_DIR" clean -fd -- docs/ static/artifacts/
