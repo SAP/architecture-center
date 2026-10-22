@@ -9,6 +9,8 @@ on:
       - 'src/_scripts/_export-drawios/**'
       - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/workflows/deploy-manual.yml'
+      - 'src/_scripts/_update-drawio-links.js'
+      - 'src/_scripts/_update-drawio-links.test.js'
       - '.github/workflows/check-drawio-file.yml'
 
 permissions: {}
@@ -30,6 +32,15 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0 # full history needed to diff *.drawio against the PR base
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Test Draw.io artifact pipeline
+        run: |
+          node --check src/_scripts/_export-drawios/_export.js
+          node --test src/_scripts/_export-drawios/*.test.js src/_scripts/_update-drawio-links.test.js
 
       - name: Verify hardened Draw.io exporter
         shell: bash
