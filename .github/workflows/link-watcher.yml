@@ -84,7 +84,7 @@ jobs:
             echo ""
             echo "- **Scope:** Markdown (\`*.md\`) files under \`docs/\`. Content outside \`docs/\` (e.g. \`news/\`, \`README.md\`) is intentionally **not** checked."
             echo "- **Archived pages excluded:** any \`docs/\` page whose frontmatter \`tags:\` block contains \`- archive\` is skipped, because archived reference architectures are no longer maintained."
-            echo "- **\`403\` and \`429\` responses are not reported:** they indicate an access restriction or rate limit rather than a broken link, so only genuine breakage such as \`404 Not Found\` is flagged."
+            echo "- **\`403\`, \`429\`, and LinkedIn's \`999\` responses are not reported:** they indicate an access restriction or rate limit rather than a broken link, so only genuine breakage such as \`404 Not Found\` is flagged."
             echo ""
             echo "| Markdown under docs/ | Archived (skipped) | Scanned |"
             echo "| ---: | ---: | ---: |"
@@ -100,10 +100,10 @@ jobs:
         with:
           fail: true
           # --exclude-loopback skips localhost/127.0.0.1 links.
-          # --accept treats authentication walls and rate limits as reachable;
-          # neither response means the published target is gone. The 2xx success
-          # range must be restated because --accept overrides the default.
-          args: --max-concurrency 2 --accept 200..=299,403,429 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
+          # --accept treats authentication walls, rate limits, and LinkedIn's
+          # nonstandard 999 bot block as reachable; these responses do not mean
+          # the target is gone. The 2xx range must also be restated.
+          args: --max-concurrency 2 --accept 200..=299,403,429,999 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
