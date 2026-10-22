@@ -63,37 +63,57 @@ jobs:
           : > "$RUNNER_TEMP/h1.txt"
           for f in "${FILES[@]}"; do
             awk '
-              BEGIN { infm = 0; incode = 0; fence_char = ""; fence_len = 0 }
+              BEGIN { infm = 0; incode = 0; fence_char = ""; fence_len = 0; para = 0 }
               NR == 1 && $0 ~ /^---[[:space:]]*$/ { infm = 1; next }
               infm && $0 ~ /^---[[:space:]]*$/ { infm = 0; next }
               infm { next }
               # Inside a code block: only a fence of the same character, at least as long
-              # as the opener, with nothing but spaces after it, closes the block.
+              # as the opener, with nothing but spaces after it, closes the block. A closing
+              # fence may carry 0-3 spaces of indentation; 4+ is ordinary indented code.
               incode {
                 line = $0
-                sub(/^[[:space:]]*/, "", line)
+                sub(/^ ? ? ?/, "", line)
                 n = 0
                 while (substr(line, n + 1, 1) == fence_char) n++
                 rest = substr(line, n + 1)
                 if (n >= fence_len && rest ~ /^[[:space:]]*$/) incode = 0
+                para = 0
                 next
               }
-              # Opening fence: remember its character and run length.
-              $0 ~ /^[[:space:]]*(```|~~~)/ {
+              # Opening fence (0-3 spaces of indentation; 4+ is indented code, not a fence):
+              # remember its character and run length.
+              $0 ~ /^ ? ? ?(```|~~~)/ {
                 line = $0
-                sub(/^[[:space:]]*/, "", line)
+                sub(/^ ? ? ?/, "", line)
                 fence_char = substr(line, 1, 1)
                 n = 0
                 while (substr(line, n + 1, 1) == fence_char) n++
                 fence_len = n
                 incode = 1
+                para = 0
                 next
               }
-              # Level-1 ATX heading, allowing 0-3 spaces of indentation (4+ is code).
+              # Level-1 headings, allowing 0-3 spaces of indentation (4+ is code):
+              #   - ATX `#` headings, and
+              #   - Setext headings (a paragraph line directly underlined by a run of `=`).
               {
                 t = $0
                 sub(/^ ? ? ?/, "", t)
-                if (t ~ /^#([[:space:]].*)?$/) printf "%s:%d:%s\n", FILENAME, FNR, $0
+                # Setext `=` underline reports the paragraph line it underlines as the H1.
+                if (para && t ~ /^=+[[:space:]]*$/) {
+                  printf "%s:%d:%s\n", FILENAME, para_nr, para_raw
+                  para = 0
+                  next
+                }
+                if (t ~ /^#([[:space:]].*)?$/) {
+                  printf "%s:%d:%s\n", FILENAME, FNR, $0
+                  para = 0
+                  next
+                }
+                # Remember the current paragraph line so a following `=` run can underline it;
+                # a blank line ends the paragraph.
+                if ($0 ~ /^[[:space:]]*$/) para = 0
+                else { para = 1; para_nr = FNR; para_raw = $0 }
               }
             ' "$f" >> "$RUNNER_TEMP/h1.txt"
           done
