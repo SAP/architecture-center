@@ -269,7 +269,10 @@ export default function DocSidebarWrapper(props) {
           const urlParams = new URLSearchParams(location.search);
           if (!urlParams.get('partners')) {
             urlParams.set('partners', currentPartners.join(','));
-            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+            // Route through the router (not window.history.replaceState) so location.search
+            // reflects the preserved param too; otherwise a later effect run reads a stale
+            // search missing `partners` and drops the filter. Guard above makes this idempotent.
+            history.replace(`${location.pathname}?${urlParams.toString()}`);
           }
         } else {
           setPartners([]);
@@ -315,11 +318,12 @@ export default function DocSidebarWrapper(props) {
         docId ?? '', location.pathname, props.sidebar, tagsDocId, communityView
       );
       if (keepCommunity) {
-        // Keep filter active and sync URL
-        const urlParams = new URLSearchParams(window.location.search);
+        // Keep filter active and sync URL. Route through the router so location.search stays
+        // consistent with the address bar; the guard above keeps this idempotent.
+        const urlParams = new URLSearchParams(location.search);
         if (!urlParams.get('communityContent')) {
           urlParams.set('communityContent', 'true');
-          window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          history.replace(`${location.pathname}?${urlParams.toString()}`);
         }
       } else {
         setShowCommunityContent(false);
@@ -370,7 +374,7 @@ export default function DocSidebarWrapper(props) {
         }
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, communityView]);
+  }, [location.pathname, location.search, docsBase, history, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, communityView]);
 
   useEffect(() => {
     return history.listen(loc => {
