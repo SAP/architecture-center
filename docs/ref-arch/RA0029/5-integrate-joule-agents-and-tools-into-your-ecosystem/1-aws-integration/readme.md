@@ -89,7 +89,7 @@ Amazon Quick does not natively speak A2A, so **MCP is the connector layer**: it 
 3. **An AgentCore Identity credential provider** pre-configured with the SAP IAS OAuth endpoints, the Agent Gateway resource URN, and a `private_key_jwt` key held in AWS KMS (with its public half published to a JWKS URL SAP IAS trusts) — AgentCore Identity performs the OBO exchange with SAP IAS on the Runtime's behalf, so the Runtime never calls SAP IAS directly and never builds the client assertion.
 
 :::tip Agent Interoperability Cookbook for Integrating Joule Agents into Amazon Quick
-Step-by-step setup — Cognito user pool, AgentCore Runtime configuration, AgentCore Identity credential provider, and the Amazon Quick connector — lives in the cookbook: [**AWS Integration - Amazon Quick** in `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/01-aws-integration)).
+Step-by-step setup — Cognito user pool, AgentCore Runtime configuration, AgentCore Identity credential provider, and the Amazon Quick connector — lives in the cookbook: [**AWS Integration - Amazon Quick** in _SAP-samples/agent-interoperability_](https://github.com/SAP-samples/agent-interoperability/tree/main/01-aws-integration).
 :::
 
 ## Related Resources
