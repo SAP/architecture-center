@@ -50,6 +50,10 @@ export function useFilterNavigation(
   const [searchTerm, setSearchTerm] = useState('');
 
   const currentState: FilterState = { partners, showArchived, showCommunityContent, showRecentlyUpdated };
+  const sidebarFilterQuery = useMemo(
+    () => syncUrlParams(new URLSearchParams(), currentState, {}).toString(),
+    [partners, showArchived, showCommunityContent, showRecentlyUpdated]
+  );
 
   // Memoized filtered results for current state
   const nonArchivedSidebar = useMemo(
@@ -218,6 +222,7 @@ export function useFilterNavigation(
     filteredGrouped,
     resultCount,
     domainCategories,
+    sidebarFilterQuery,
 
     // Handlers
     handlePartnersChange,
