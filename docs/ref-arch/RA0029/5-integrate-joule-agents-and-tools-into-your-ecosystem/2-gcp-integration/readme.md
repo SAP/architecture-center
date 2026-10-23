@@ -21,7 +21,7 @@ keywords:
   - sap cloud identity services
   - identity propagation
   - business ai platform
-sidebar_label: Google Gemini Enterprise
+sidebar_label: Gemini Enterprise Integration with Joule Agents
 image: img/ac-soc-med.png
 tags:
   - agents

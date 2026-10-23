@@ -18,7 +18,7 @@ keywords:
   - principal propagation
   - on-behalf-of token exchange
   - business ai platform
-sidebar_label: Amazon Quick / AWS AgentCore
+sidebar_label: Amazon Quick Integration with Joule Agents
 image: img/ac-soc-med.png
 tags:
   - agents

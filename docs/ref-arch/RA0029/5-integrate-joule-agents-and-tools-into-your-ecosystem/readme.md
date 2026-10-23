@@ -2,7 +2,7 @@
 id: fe0d1d
 slug: /ref-arch/fe0d1d
 sidebar_position: 5
-title: Integrating Joule Agents into Your Ecosystem
+title: Integrating Joule Agents into Your Ecosystem (Inbound A2A)
 description: >-
   Learn how to expose Joule agents for consumption by third-party applications
   and external systems using the Agent Gateway with the A2A protocol.
@@ -18,7 +18,7 @@ keywords:
   - sap cloud identity services
   - third-party ai platforms
   - business ai platform
-sidebar_label: Integrating Joule Agents into Your Ecosystem
+sidebar_label: Integrating Joule Agents into Your Ecosystem (Inbound A2A)
 image: img/ac-soc-med.png
 tags:
   - agents
