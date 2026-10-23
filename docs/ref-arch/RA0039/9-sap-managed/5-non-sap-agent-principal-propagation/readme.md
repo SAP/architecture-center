@@ -1,6 +1,6 @@
 ---
-id: a7f3c2
-slug: /ref-arch/a7f3c2
+id: 07cfe4
+slug: /ref-arch/07cfe4
 sidebar_position: 5
 title: Non-SAP Agent Principal Propagation
 description: >-
@@ -28,7 +28,7 @@ hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
-unlisted: false
+unlisted: true
 contributors:
   - sapgunnar
 discussion: 

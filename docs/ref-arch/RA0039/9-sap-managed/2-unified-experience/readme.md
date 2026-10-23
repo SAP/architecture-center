@@ -1,6 +1,6 @@
 ---
-id: 38522c
-slug: /ref-arch/38522c
+id: c39aee
+slug: /ref-arch/c39aee
 sidebar_position: 2
 title: Unified Experience, Application IAM Leading
 description: >-
@@ -14,10 +14,11 @@ keywords:
   - application iam
   - joule
   - SAP Cloud Identity Services
-sidebar_label: 2 - Unified Experience
+sidebar_label: Stage 2 - Unified Experience
 image: img/ac-soc-med.png
 tags:
   - security
+  - genai
   - sap-managed
 hide_table_of_contents: false
 hide_title: false
@@ -38,6 +39,14 @@ This is the second stage of the [SAP-managed integration](../readme.md) model. T
 The decisive characteristic of this stage is that, although the *experience* is unified, the **individual applications' IAM remains the leading authority** for identities and authorizations. SAP Cloud Identity Services unifies authentication and the engagement layer and correlates users through the Global User ID, but it does not yet act as the system of record for identity data. The source of truth is still distributed across the participating applications.
 
 ## Architecture
+
+### Component View
+
+The architecture diagram shows the Stage 2 setup, where the managed experience now spans multiple SAP applications as one unified experience. SAP Cloud Identity Services (Identity Authentication, Identity Provisioning, Identity Directory and Authorization Management) unifies authentication and correlates users via the Global User ID, while identity data stays led by the individual applications. In addition to the identity components, the diagram introduces the agentic layer: the Agent gateway brokers SAP and Non-SAP Agents and Applications through Agent2Agent, Agent2App and App2Agent interactions, with inbound, outbound and runtime policy checks enforced along those flows.
+
+![drawio](drawio/public-stage2-unified-experience-arch.drawio "Stage 2 — Unified Experience, Application IAM Leading")
+
+### Sequence
 
 ![drawio](drawio/public-stage2-unified-experience-sd.drawio)
 

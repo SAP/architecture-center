@@ -1,6 +1,6 @@
 ---
-id: 043899
-slug: /ref-arch/043899
+id: 36dc54
+slug: /ref-arch/36dc54
 sidebar_position: 3
 title: SAP Cloud Identity Services Centrally Leading
 description: >-
@@ -15,10 +15,11 @@ keywords:
   - authorization management
   - identity directory
   - SAP Cloud Identity Services
-sidebar_label: 3 - SCI Centrally Leading
+sidebar_label: Stage 3 - SCI Centrally Leading
 image: img/ac-soc-med.png
 tags:
   - security
+  - genai
   - sap-managed
 hide_table_of_contents: false
 hide_title: false
@@ -39,6 +40,18 @@ This is the target stage of the [SAP-managed integration](../readme.md) model. *
 This end-state is exemplified by the **ERP SaaS Suite**, where the suite's applications share one identity authority. It is also the direction of the consolidated landscape described in the [Joule Landscape Recommendation](../4-joule-landscape-recommendation/readme.md).
 
 ## Architecture
+
+### Component View
+
+The architecture diagram shows the Stage 3 end-state, where SAP Cloud Identity Services is the central leading system for identities and authorization assignment across the suite of SAP applications. The Identity Directory is the single source of truth for users and groups, Identity Provisioning distributes them to the connected applications, and Authorization Management holds the centrally assigned, domain-specific policies. The agentic layer (Agent gateway brokering SAP and Non-SAP Agents and Applications via Agent2Agent and Agent2App, with policy checks) and the governance components - Agent Hub by LeanIX, application and integration provisioning via SAP for Me, Agent Lifecycle Governance via SAP Cloud ALM — complete the picture.
+
+![drawio](drawio/public-sap-iam-suite-arch.drawio "SAP Cloud Identity Services centrally leading — component view with governance")
+
+The following variant provides a focused view of the same centrally led model — the **ERP SaaS Suite** of applications (for example S/4HANA Cloud Public Edition, SAP SuccessFactors, and SAP Sales & Service Cloud v2) sharing one identity authority — including a legend of the connection and interaction types used across the diagrams.
+
+![drawio](drawio/public-sap-iam-suite-arch2.drawio "SAP Cloud Identity Services centrally leading — ERP SaaS Suite")
+
+### Sequence
 
 ![drawio](drawio/public-sap-iam-suite-sd.drawio "Recommended usage of SAP Cloud Identity Services for SAP Joule")
 

@@ -1,6 +1,6 @@
 ---
-id: 67cf0b
-slug: /ref-arch/67cf0b
+id: b95ce4
+slug: /ref-arch/b95ce4
 sidebar_position: 4
 title: Joule Landscape Recommendation
 description: >-

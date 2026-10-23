@@ -67,4 +67,4 @@ Customer-managed IAM is organized around three pillars, each covered by its own 
 
 ## Related
 
-- [SAP-Managed IAM Integration](../2-sap-managed/readme.md) — the complementary model where SAP operates the IAM integration between SAP solutions.
+- [SAP-Managed IAM Integration](../../RA0039/9-sap-managed/readme.md) — the complementary model where SAP operates the IAM integration between SAP solutions.

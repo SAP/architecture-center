@@ -26,7 +26,7 @@ hide_title: false
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
-unlisted: false
+unlisted: true
 contributors:
   - sapgunnar
   - gunnar-kosche_sap
@@ -49,7 +49,7 @@ IAM for SAP can be realized in two complementary ways, and this reference archit
   - Identity Lifecycle
   - Authorization
 
-- **[SAP-Managed Integration](2-sap-managed/readme.md)** — SAP operates the IAM integration between SAP solutions as part of a managed experience (for example Joule and the SAP Business AI Platform). The customer still federates to SAP Cloud Identity Services, but the integration between the SAP solutions themselves is pre-wired and operated by SAP. This model is described as a progression of three maturity stages, from a line-of-business–scoped experience toward SAP Cloud Identity Services as the central leading system — as realized in the ERP SaaS Suite.
+- **[SAP-Managed Integration](../RA0039/9-sap-managed/readme.md)** — SAP operates the IAM integration between SAP solutions as part of a managed experience (for example Joule and the SAP Business AI Platform). The customer still federates to SAP Cloud Identity Services, but the integration between the SAP solutions themselves is pre-wired and operated by SAP. This model is described as a progression of three maturity stages, from a line-of-business–scoped experience toward SAP Cloud Identity Services as the central leading system — as realized in the ERP SaaS Suite.
 
 The two models are not mutually exclusive. Most landscapes combine them: customer-managed flows govern the heterogeneous enterprise edges (third-party IdPs, non-SAP targets, enterprise identity lifecycle), while SAP-managed flows connect SAP solutions to each other for unified experiences such as Joule and agentic AI.
 

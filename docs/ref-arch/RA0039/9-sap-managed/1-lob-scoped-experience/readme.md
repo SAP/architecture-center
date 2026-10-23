@@ -1,6 +1,6 @@
 ---
-id: c5a8f6
-slug: /ref-arch/c5a8f6
+id: 3b0f86
+slug: /ref-arch/3b0f86
 sidebar_position: 1
 title: Line-of-Business–Scoped Experience
 description: >-
@@ -19,9 +19,8 @@ sidebar_label: Stage 1 - LoB-Scoped Experience
 image: img/ac-soc-med.png
 tags:
   - security
-  - sap-managed
   - genai
-  - agents
+  - sap-managed
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

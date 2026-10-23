@@ -1,6 +1,6 @@
 ---
-id: d64e39
-slug: /ref-arch/d64e39
+id: d94f2a
+slug: /ref-arch/d94f2a
 sidebar_position: 2
 title: SAP-Managed IAM Integration
 description: >-
@@ -17,7 +17,7 @@ keywords:
   - erp saas suite
   - agent identity
   - SAP Cloud Identity Services
-sidebar_label: SAP-Managed Integration
+sidebar_label: SAP-Managed IAM Integration
 image: img/ac-soc-med.png
 tags:
   - security
@@ -104,5 +104,5 @@ The SAP-managed model is the foundation for identity of autonomous AI actors. Th
 
 ## Related
 
-- [Customer-Managed IAM Integration](/ref-arch/a7f3c1) — the complementary model where the customer operates the IAM integration.
+- [Customer-Managed IAM Integration](../../RA0019/1-customer-managed/readme.md) — the complementary model where the customer operates the IAM integration.
 - [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) — SAP-managed identity for AI agents.
