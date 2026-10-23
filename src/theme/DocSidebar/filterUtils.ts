@@ -782,7 +782,8 @@ export function docExistsInRecentlyUpdatedView(
   docId: string,
   pathname: string,
   sidebar: SidebarItem[],
-  tagsDocId: DocIdToTagsMap
+  tagsDocId: DocIdToTagsMap,
+  showArchived: boolean = false
 ): boolean {
   // If the doc itself is recently updated, it's directly in the view
   if (isDocRecentlyUpdated(docId, tagsDocId)) {
@@ -791,7 +792,7 @@ export function docExistsInRecentlyUpdatedView(
 
   // Check if the document appears in the filtered view (e.g., as a parent category)
   const filteredResults = computeFilteredResults(sidebar, tagsDocId, {
-    showArchived: false,
+    showArchived,
     partners: [],
     showCommunityContent: false,
     showRecentlyUpdated: true

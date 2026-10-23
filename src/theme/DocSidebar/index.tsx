@@ -319,7 +319,7 @@ export default function DocSidebarWrapper(props) {
           }
         } else {
           // Check if document exists in recently updated view (as a parent category with recent children)
-          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId);
+          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId, currentShowArchived);
           if (!existsInRecentlyUpdated) {
             setShowRecentlyUpdated(false);
           }
