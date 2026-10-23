@@ -13,7 +13,6 @@ keywords:
   - joule studio
   - ai copilot
   - a2a
-  - bring your own agent
   - pro-code agents
   - joule scenario
   - joule dialog function
@@ -40,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-27
+  date: 2026-10-14
 ---
 
 :::info Disclaimer

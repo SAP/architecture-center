@@ -1,0 +1,9 @@
+{
+  "name": "architecture-center-cspell-tool",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Isolated, hash-pinned install of the cspell CLI for the Check Spelling workflow. Kept out of the main dependency tree so build/deploy are unaffected.",
+  "dependencies": {
+    "cspell": "9.1.0"
+  }
+}
