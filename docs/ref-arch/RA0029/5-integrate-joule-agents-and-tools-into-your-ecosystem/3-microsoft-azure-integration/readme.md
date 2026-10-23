@@ -74,7 +74,7 @@ Secure, user-context-aware access is the centerpiece of this architecture - the 
 A **Power Platform custom connector** serves as the bridge: it performs the token exchange against **SAP Cloud Identity Services** and forwards the call to the Agent Gateway. The result is real **principal propagation** - the gateway token carries the actual signed-in user, so the target agent's RBAC is enforced per user.
 
 :::tip Agent Interoperability Cookbook for Microsoft Copilot
-Step-by-step setup - custom connector, token exchange, SAP Cloud Identity Services configuration, and Copilot Studio wiring - lives in the cookbook: **Microsoft Agent Interoperability Recipe** in the `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/microsoft-azure-integration)). _SAP-internal._
+Step-by-step setup - custom connector, token exchange, SAP Cloud Identity Services configuration, and Copilot Studio wiring - lives in the cookbook: **Microsoft Agent Interoperability Recipe** in the `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/03-microsoft-azure-integration)). _SAP-internal._
 :::
 
 ## Related Resources

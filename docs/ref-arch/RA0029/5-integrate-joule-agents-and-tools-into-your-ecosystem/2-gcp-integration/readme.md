@@ -81,7 +81,7 @@ Reaching an agent running on SAP Business AI Platform behind the Agent Gateway f
 3. **The proxy agent on Google Agent Runtime**, pointed at the downstream Agent Gateway A2A endpoint, that performs the token exchange and relays the call. It is then registered in Gemini Enterprise so users can delegate to it.
 
 :::tip Agent Interoperability Cookbook for Integrating Joule Agents into Google's Gemini Enterprise
-Step-by-step setup — service-account signer, SAP Cloud Identity Services trust and redirect configuration, proxy-agent deployment, and Gemini Enterprise registration — lives in the cookbook: [**GCP Integration - Gemini Enterprise** in `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/gcp-integration)).
+Step-by-step setup — service-account signer, SAP Cloud Identity Services trust and redirect configuration, proxy-agent deployment, and Gemini Enterprise registration — lives in the cookbook: [**GCP Integration - Gemini Enterprise** in `SAP-samples/agent-interoperability`](https://github.com/SAP-samples/agent-interoperability/tree/main/02-gcp-integration)).
 :::
 
 ## Related Resources
