@@ -13,7 +13,6 @@ import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import type {Props} from '@theme/DocSidebarItem/Link';
-import {appendSidebarFilterQuery, useSidebarFilterQuery} from '@theme/DocSidebar/filterQueryContext';
 
 import styles from './styles.module.css';
 
@@ -35,8 +34,6 @@ export default function DocSidebarItemLink({
   const {href, label, className, autoAddBaseUrl} = item;
   const isActive = isActiveSidebarItem(item, activePath);
   const isInternalLink = isInternalUrl(href);
-  const sidebarFilterQuery = useSidebarFilterQuery();
-  const navigationHref = isInternalLink ? appendSidebarFilterQuery(href, sidebarFilterQuery) : href;
 
   return (
     <li
@@ -57,7 +54,7 @@ export default function DocSidebarItemLink({
         )}
         autoAddBaseUrl={autoAddBaseUrl}
         aria-current={isActive ? 'page' : undefined}
-        to={navigationHref}
+        to={href}
         title={label}
         {...(isInternalLink && {
           onClick: onItemClick ? () => onItemClick(item) : undefined,
