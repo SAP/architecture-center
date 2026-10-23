@@ -47,7 +47,7 @@ Some capabilities described here — in particular agent-user / technical-user p
 
 When a **third-party agent runtime** (configured by the customer, running on a non-SAP platform) needs to call SAP business capabilities through the **SAP Agent Gateway (AGW)**, it must present an access token that the Agent Gateway will accept. The core difficulty is an **audience mismatch**: the token a third-party runtime can natively obtain identifies the *agent*, not the SAP target. This reference architecture describes how a **token exchange at SAP Cloud Identity Services** resolves that mismatch *before* the Agent Gateway is called, and how **principal propagation** carries the subject consistently across every hop.
 
-This is the inbound A2A counterpart to [Agent Identity](../8-ai-agent-identity/readme.md) and builds on the [SAP-Managed IAM Integration](../../RA0019/2-sap-managed/readme.md) model, where SAP Cloud Identity Services is the central identity and token-exchange authority.
+This is the inbound A2A counterpart to [Agent Identity](../8-ai-agent-identity/readme.md) and builds on the [SAP-Managed IAM Integration](../../RA0019/2-sap-managed/readme.md) model, where SAP Cloud Identity Services is the central identity and token-exchange authority. For the SAP-managed IAM view of the same scenario — including the front-channel and back-channel integration variants — see [Non-SAP Agent Principal Propagation](../../RA0019/2-sap-managed/5-non-sap-agent-principal-propagation/readme.md).
 
 ## Architecture
 
@@ -193,4 +193,5 @@ The token exchange supports the two agent operation models from [Agent Identity]
 - [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md) — the open-standard protocols underlying this integration.
 - [Integrating Joule Agents into Your Ecosystem](../5-integrate-joule-agents-and-tools-into-your-ecosystem/readme.md) — inbound A2A consumption of Joule Agents.
 - [SAP-Managed IAM Integration](../../RA0019/2-sap-managed/readme.md) — the SAP-operated identity model this builds on.
+- [Non-SAP Agent Principal Propagation](../../RA0019/2-sap-managed/5-non-sap-agent-principal-propagation/readme.md) — the SAP-managed IAM view of third-party agents calling SAP agents, with front-channel and back-channel variants.
 

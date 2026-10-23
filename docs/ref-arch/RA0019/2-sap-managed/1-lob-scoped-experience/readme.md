@@ -15,11 +15,13 @@ keywords:
   - global user id
   - joule
   - SAP Cloud Identity Services
-sidebar_label: 1 - LoB-Scoped Experience
+sidebar_label: Stage 1 - LoB-Scoped Experience
 image: img/ac-soc-med.png
 tags:
   - security
   - sap-managed
+  - genai
+  - agents
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -39,6 +41,14 @@ This is the first stage of the [SAP-managed integration](../readme.md) model. Th
 Each line-of-business application continues to keep its own users. What makes this stage *managed* rather than merely isolated is that every user is cached (hidden) in the Identity Directory of SAP Cloud Identity Services from the connected applications. This allows the SAP Business AI Platform to use SAP Cloud Identity Services as its Identity and Access Management interface and as a central user and role store for filtering agentic communication.
 
 ## Architecture
+
+### Component View
+
+The architecture diagram shows the Stage 1 setup: a single line-of-business application (for example SAP SuccessFactors or a Cloud/Private Cloud Solution from SAP) is integrated with SAP Cloud Identity Services in an SAP-managed way, alongside the customer-managed IAM integration. SAP Cloud Identity Services (Identity Authentication, Identity Provisioning, Identity Directory and Authorization Management) provides authentication and caches the application users, while SAP Joule WORK is consumed through the embedded clients of the connected application. The governance components (Agent Hub by LeanIX, application and integration provisioning via SAP for Me, Agent Lifecycle Governance via SAP Cloud ALM) complete the landscape picture.
+
+![drawio](drawio/public-stage1-lob-scoped-arch.drawio "Stage 1 — Line-of-Business–Scoped Experience")
+
+### Sequence
 
 ![drawio](drawio/public-stage1-lob-scoped-sd.drawio)
 
