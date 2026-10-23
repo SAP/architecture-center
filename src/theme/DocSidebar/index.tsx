@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import DocSidebar from '@theme-original/DocSidebar';
 import DocSidebarItems from '@theme-original/DocSidebarItems';
@@ -18,15 +18,15 @@ import {
   DOMAIN_DEFINITIONS,
   categoryIdToTags,
   isDocArchived,
+  isDocRecentlyUpdated,
   findDocIdFromPath,
   docExistsInArchivedView,
-  docExistsInCommunityView,
+  docExistsInRecentlyUpdatedView,
   findDocByPath,
   computeFilteredResults,
   findDomainsContainingPath,
 } from './filterUtils';
 import { useFilterNavigation, PARTNER_OPTIONS } from './useFilterNavigation';
-import { SidebarFilterQueryProvider } from './filterQueryContext';
 
 // ============================================================================
 // Desktop Version
@@ -46,7 +46,6 @@ function DocSidebarDesktop(props) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
-    sidebarFilterQuery,
     searchTerm,
     showArchived,
     showCommunityContent,
@@ -92,16 +91,14 @@ function DocSidebarDesktop(props) {
           styles.sidebar,
           hideOnScroll && styles.sidebarWithHideableNavbar
         )}>
-          <SidebarFilterQueryProvider value={sidebarFilterQuery}>
-            <nav className={`${styles.domainSidebar} thin-scrollbar`}>
-              <DocSidebarItems
-                items={domainCategories}
-                activePath={location.pathname}
-                level={0}
-                index={0}
-              />
-            </nav>
-          </SidebarFilterQueryProvider>
+          <nav className={`${styles.domainSidebar} thin-scrollbar`}>
+            <DocSidebarItems
+              items={domainCategories}
+              activePath={location.pathname}
+              level={0}
+              index={0}
+            />
+          </nav>
           {hideable && <CollapseButton onClick={props.onCollapse} />}
         </div>
       </div>
@@ -120,7 +117,6 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
-    sidebarFilterQuery,
     searchTerm,
     showArchived,
     showCommunityContent,
@@ -152,17 +148,15 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         showRecentlyUpdated={showRecentlyUpdated}
         onRecentlyUpdatedChange={handleRecentlyUpdatedChange}
       />
-      <SidebarFilterQueryProvider value={sidebarFilterQuery}>
-        <nav className={styles.domainSidebarMobile}>
-          <DocSidebarItems
-            items={domainCategories}
-            activePath={path}
-            onItemClick={onItemClick}
-            level={0}
-            index={0}
-          />
-        </nav>
-      </SidebarFilterQueryProvider>
+      <nav className={styles.domainSidebarMobile}>
+        <DocSidebarItems
+          items={domainCategories}
+          activePath={path}
+          onItemClick={onItemClick}
+          level={0}
+          index={0}
+        />
+      </nav>
     </>
   );
 }
@@ -210,26 +204,6 @@ export default function DocSidebarWrapper(props) {
   const docsBase = useBaseUrl('/docs');
   const location = useLocation();
   const tagsDocId = useGlobalData()['docusaurus-tags-plugin']?.default?.docIdToTags as DocIdToTagsMap;
-
-  // Current filter state, so the preservation views below can honor the other active
-  // filters instead of assuming them off (otherwise, e.g., Recent + Archived would
-  // silently drop Recent when navigating to a parent whose recent children are archived).
-  const partners = useSidebarFilterStore(state => state.partners);
-  const showArchived = useSidebarFilterStore(state => state.showArchived);
-  const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
-  const showRecentlyUpdated = useSidebarFilterStore(state => state.showRecentlyUpdated);
-
-  // Membership view for preserving the community-content filter: force Community on, keep
-  // the other currently-active filters.
-  const communityView = useMemo(
-    () => computeFilteredResults(props.sidebar, tagsDocId, {
-      showArchived,
-      partners,
-      showCommunityContent: true,
-      showRecentlyUpdated,
-    }),
-    [props.sidebar, tagsDocId, showArchived, partners, showRecentlyUpdated]
-  );
 
   useEffect(() => {
     if (!location.pathname.startsWith(docsBase)) return;
@@ -305,31 +279,55 @@ export default function DocSidebarWrapper(props) {
 
     if (communityContentParam === 'true') {
       setShowCommunityContent(true);
-    } else if (currentShowCommunityContent) {
-      // Preserve the community-content filter across sidebar navigation whenever the
-      // target still belongs to the community view: either it is community content itself,
-      // or it is a parent node whose children are. Not gated on tagsDocId membership — a
-      // parent without the community-contrib tag of its own is absent from that map, which
-      // previously fell through to an unconditional reset and dropped the filter.
-      const keepCommunity = docExistsInCommunityView(
-        docId ?? '', location.pathname, props.sidebar, tagsDocId, communityView
-      );
-      if (keepCommunity) {
-        // Keep filter active and sync URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.get('communityContent')) {
-          urlParams.set('communityContent', 'true');
-          window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+    } else if (docId && tagsDocId[docId]) {
+      // Preserve community content filter during sidebar nav if doc has the tag
+      if (currentShowCommunityContent) {
+        const docTags = tagsDocId[docId]?.tags || [];
+        const isCommunityDoc = docTags.includes('community-contrib');
+
+        if (isCommunityDoc) {
+          // Keep filter active and sync URL
+          const urlParams = new URLSearchParams(window.location.search);
+          if (!urlParams.get('communityContent')) {
+            urlParams.set('communityContent', 'true');
+            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          }
+        } else {
+          setShowCommunityContent(false);
         }
-      } else {
-        setShowCommunityContent(false);
       }
+    } else {
+      setShowCommunityContent(false);
     }
 
     // Handle recently updated filter
-    // Sidebar links carry active filters explicitly, so the URL is authoritative.
-    // An unfiltered browser or external navigation therefore clears stale store state.
-    setShowRecentlyUpdated(recentParam === 'true');
+    const currentShowRecentlyUpdated = useSidebarFilterStore.getState().showRecentlyUpdated;
+
+    if (recentParam === 'true') {
+      setShowRecentlyUpdated(true);
+    } else if (docId && tagsDocId[docId]) {
+      // Preserve recently updated filter during sidebar nav only if doc is recently updated
+      if (currentShowRecentlyUpdated) {
+        const isRecentDoc = isDocRecentlyUpdated(docId, tagsDocId);
+
+        if (isRecentDoc) {
+          // Keep filter active and sync URL
+          const urlParams = new URLSearchParams(window.location.search);
+          if (!urlParams.get('recent')) {
+            urlParams.set('recent', 'true');
+            window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
+          }
+        } else {
+          // Check if document exists in recently updated view (as a parent category with recent children)
+          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId);
+          if (!existsInRecentlyUpdated) {
+            setShowRecentlyUpdated(false);
+          }
+        }
+      }
+    } else {
+      setShowRecentlyUpdated(false);
+    }
 
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
@@ -370,7 +368,7 @@ export default function DocSidebarWrapper(props) {
         }
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, communityView]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar]);
 
   useEffect(() => {
     return history.listen(loc => {

@@ -18,25 +18,3 @@
         justify-content: end;
     }
 }
-
-/* "New or Recently updated" shown on its own line, directly under the
-   "Last updated on … by …" line, for recently-updated reference-architecture pages
-   (mirrors the sidebar filter). Regular body size, bold, with the site gradient. */
-.recentBadge {
-    display: block;
-    margin-top: 1rem;        /* blank-line gap above, separating it from the "Last updated" line */
-    font-size: 1rem;         /* normal size, like the regular body text */
-    font-weight: 700;        /* bold for visibility */
-    font-style: normal;      /* the .lastUpdated col is italic; keep this upright */
-    color: #cd00be; /* visible fallback so it is never fully transparent */
-}
-
-/* Gradient text only where background-clip: text is supported. */
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-    .recentBadge {
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-}

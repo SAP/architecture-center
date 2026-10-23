@@ -32,7 +32,6 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import DocSidebarItemLink from '@theme/DocSidebarItem/Link';
 import type {Props} from '@theme/DocSidebarItem/Category';
-import {appendSidebarFilterQuery, useSidebarFilterQuery} from '@theme/DocSidebar/filterQueryContext';
 
 import type {
   PropSidebarItemCategory,
@@ -199,10 +198,6 @@ function DocSidebarItemCategoryCollapsible({
     },
   } = useThemeConfig();
   const hrefWithSSRFallback = useCategoryHrefWithSSRFallback(item);
-  const sidebarFilterQuery = useSidebarFilterQuery();
-  const navigationHref = hrefWithSSRFallback
-    ? appendSidebarFilterQuery(hrefWithSSRFallback, sidebarFilterQuery)
-    : hrefWithSSRFallback;
 
   const isActive = isActiveSidebarItem(item, activePath);
   const isCurrentPage = isSamePath(href, activePath);
@@ -296,7 +291,7 @@ function DocSidebarItemCategoryCollapsible({
           aria-current={isCurrentPage ? 'page' : undefined}
           role={collapsible && !href ? 'button' : undefined}
           aria-expanded={collapsible && !href ? !collapsed : undefined}
-          href={collapsible ? navigationHref ?? '#' : navigationHref}
+          href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
           title={label}
           {...props}>
           <CategoryLinkLabel label={label} />
