@@ -21,12 +21,12 @@ import {
   findDocIdFromPath,
   docExistsInArchivedView,
   docExistsInCommunityView,
-  docExistsInRecentlyUpdatedView,
   findDocByPath,
   computeFilteredResults,
   findDomainsContainingPath,
 } from './filterUtils';
 import { useFilterNavigation, PARTNER_OPTIONS } from './useFilterNavigation';
+import { SidebarFilterQueryProvider } from './filterQueryContext';
 
 // ============================================================================
 // Desktop Version
@@ -46,6 +46,7 @@ function DocSidebarDesktop(props) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
+    sidebarFilterQuery,
     searchTerm,
     showArchived,
     showCommunityContent,
@@ -91,14 +92,16 @@ function DocSidebarDesktop(props) {
           styles.sidebar,
           hideOnScroll && styles.sidebarWithHideableNavbar
         )}>
-          <nav className={`${styles.domainSidebar} thin-scrollbar`}>
-            <DocSidebarItems
-              items={domainCategories}
-              activePath={location.pathname}
-              level={0}
-              index={0}
-            />
-          </nav>
+          <SidebarFilterQueryProvider value={sidebarFilterQuery}>
+            <nav className={`${styles.domainSidebar} thin-scrollbar`}>
+              <DocSidebarItems
+                items={domainCategories}
+                activePath={location.pathname}
+                level={0}
+                index={0}
+              />
+            </nav>
+          </SidebarFilterQueryProvider>
           {hideable && <CollapseButton onClick={props.onCollapse} />}
         </div>
       </div>
@@ -117,6 +120,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
+    sidebarFilterQuery,
     searchTerm,
     showArchived,
     showCommunityContent,
@@ -148,15 +152,17 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         showRecentlyUpdated={showRecentlyUpdated}
         onRecentlyUpdatedChange={handleRecentlyUpdatedChange}
       />
-      <nav className={styles.domainSidebarMobile}>
-        <DocSidebarItems
-          items={domainCategories}
-          activePath={path}
-          onItemClick={onItemClick}
-          level={0}
-          index={0}
-        />
-      </nav>
+      <SidebarFilterQueryProvider value={sidebarFilterQuery}>
+        <nav className={styles.domainSidebarMobile}>
+          <DocSidebarItems
+            items={domainCategories}
+            activePath={path}
+            onItemClick={onItemClick}
+            level={0}
+            index={0}
+          />
+        </nav>
+      </SidebarFilterQueryProvider>
     </>
   );
 }
@@ -212,19 +218,6 @@ export default function DocSidebarWrapper(props) {
   const showArchived = useSidebarFilterStore(state => state.showArchived);
   const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
   const showRecentlyUpdated = useSidebarFilterStore(state => state.showRecentlyUpdated);
-
-  // Membership view for preserving the "recently updated" filter: force Recent on, but
-  // keep the OTHER currently-active filters, so a doc that only belongs because of, say,
-  // archived recent children is still found. Recomputed only when those inputs change.
-  const recentlyUpdatedView = useMemo(
-    () => computeFilteredResults(props.sidebar, tagsDocId, {
-      showArchived,
-      partners,
-      showCommunityContent,
-      showRecentlyUpdated: true,
-    }),
-    [props.sidebar, tagsDocId, showArchived, partners, showCommunityContent]
-  );
 
   // Membership view for preserving the community-content filter: force Community on, keep
   // the other currently-active filters.
@@ -334,31 +327,9 @@ export default function DocSidebarWrapper(props) {
     }
 
     // Handle recently updated filter
-    const currentShowRecentlyUpdated = useSidebarFilterStore.getState().showRecentlyUpdated;
-
-    if (recentParam === 'true') {
-      setShowRecentlyUpdated(true);
-    } else if (currentShowRecentlyUpdated) {
-      // Preserve the recently-updated filter across sidebar navigation whenever the
-      // target still belongs to the recent view: either it is recent itself, or it is a
-      // parent node whose children are recent. This must NOT be gated on the doc being in
-      // tagsDocId — a parent whose own readme has no last_update.date (and no tags) is
-      // absent from that map, which previously fell through to an unconditional reset and
-      // dropped the filter when you clicked such a parent node.
-      const keepRecent = docExistsInRecentlyUpdatedView(
-        docId ?? '', location.pathname, props.sidebar, tagsDocId, recentlyUpdatedView
-      );
-      if (keepRecent) {
-        // Keep filter active and sync URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.get('recent')) {
-          urlParams.set('recent', 'true');
-          window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
-        }
-      } else {
-        setShowRecentlyUpdated(false);
-      }
-    }
+    // Sidebar links carry active filters explicitly, so the URL is authoritative.
+    // An unfiltered browser or external navigation therefore clears stale store state.
+    setShowRecentlyUpdated(recentParam === 'true');
 
     if (expandedParam) {
       setExpandedDomains(expandedParam.split(','));
@@ -399,7 +370,7 @@ export default function DocSidebarWrapper(props) {
         }
       }
     }
-  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, recentlyUpdatedView, communityView]);
+  }, [location.pathname, location.search, docsBase, setPartners, setExpandedDomains, setShowArchived, setShowCommunityContent, setShowRecentlyUpdated, shouldShowFilters, tagsDocId, props.sidebar, communityView]);
 
   useEffect(() => {
     return history.listen(loc => {
