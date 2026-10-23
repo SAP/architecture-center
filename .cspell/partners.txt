@@ -36,6 +36,7 @@ Workday
 
 # AI vendors & frameworks
 Nvidia
+Nemotron
 cuDF
 cuML
 OpenAI
@@ -55,6 +56,8 @@ Milvus
 MLflow
 CrewAI
 opencode
+LiveKit
+Silero
 
 # DevOps & tooling
 Terraform
@@ -111,3 +114,7 @@ MORI
 Forti
 FortiSIEM
 FortiSOAR
+
+# Azure services (kept in sync with _typos.toml extend-words)
+AKS
+ACI

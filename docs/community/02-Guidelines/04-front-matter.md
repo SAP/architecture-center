@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-08
+  date: 2026-10-20
 ---
 
 Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
@@ -130,7 +130,7 @@ This information is auto-assigned during the technical validation.
 
 * `title` defines the page name, the one which will be displayed in the browser tab.
 * `title` is used for the SEO (used as page title when indexed by the search engines) or when the page is shared on social media.
-* Additionally, `title` can also be displayed on your reference architecture page if it does not have any single `#` headings in it.
+* `title` is also what Docusaurus renders as the page heading, so the title comes from here, **not** from a heading in the body.
 * It should be clear and concise. 
 
 Example:
@@ -140,6 +140,10 @@ title: SAP Event-Driven Architecture Technology
 
 :::tip Best practice
 Your title should not be longer than **60** characters. 
+:::
+
+:::warning Do not use a `#` heading for the title
+Because the title is taken from the `title:` field above, your Markdown body must **not** contain a level-1 `#` heading, it would produce a second, duplicate page title. Start your body headings at `##` (level 2) and go deeper from there. This is enforced by the [H1 Title check](08-Automated-Checks/14-check-h1-title.md), which fails the pull request if a `#` heading is found.
 :::
 
 ***

@@ -203,6 +203,61 @@
     color: var(--ifm-font-color-base);
 }
 
+/* Recently Updated Link */
+.recentlyUpdatedSeparator {
+    color: var(--ifm-color-content-secondary);
+    opacity: 0.5;
+    margin: 0 4px;
+}
+
+.recentlyUpdatedLink {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ifm-link-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    outline: none;
+}
+
+.recentlyUpdatedLink:focus:not(:focus-visible) {
+    color: var(--ifm-link-color);
+    text-decoration: none;
+}
+
+.recentlyUpdatedLink.active:focus:not(:focus-visible) {
+    color: var(--ifm-color-primary-dark);
+    text-decoration: underline;
+}
+
+[data-theme='dark'] .recentlyUpdatedLink.active:focus:not(:focus-visible) {
+    color: var(--ifm-color-primary-lightest);
+    text-decoration: underline;
+}
+
+.recentlyUpdatedLink:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
+.recentlyUpdatedLink:hover {
+    color: var(--ifm-link-hover-color);
+    text-decoration: underline;
+}
+
+.recentlyUpdatedLink.active {
+    color: var(--ifm-color-primary-dark);
+    text-decoration: underline;
+}
+
+[data-theme='dark'] .recentlyUpdatedLink.active {
+    color: var(--ifm-color-primary-lightest);
+    text-decoration: underline;
+}
+
 /* Collapsible Filter Panel */
 .filterPanel {
     padding-top: 12px;
@@ -272,12 +327,14 @@
 .filterChip.selected {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     color: white;
 }
 
 .filterChip.selected:hover {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     opacity: 0.9;
 }
 
@@ -338,6 +395,11 @@
     color: white;
 }
 
+[data-theme='dark'] .filterToggleButton.active .filterBadge {
+    background: white;
+    color: var(--ifm-color-primary-dark);
+}
+
 [data-theme='dark'] .activeFiltersBar,
 [data-theme='dark'] .filterPanel,
 [data-theme='dark'] .resultCount {
@@ -381,12 +443,14 @@
 [data-theme='dark'] .filterChip.selected {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     color: white;
 }
 
 [data-theme='dark'] .filterChip.selected:hover {
     background: var(--gradient-premium);
     border-color: transparent;
+    background-clip: padding-box;
     opacity: 0.9;
 }
 

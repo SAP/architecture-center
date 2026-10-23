@@ -45,7 +45,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-09
+  date: 2026-10-20
 ---
 
 :::info Disclaimer
@@ -121,6 +121,34 @@ This is distinct from SAP's internal use of MCP, where Joule Agents consume SAP 
 -   **Enterprise-Grade Security:** Authentication and authorization based on OIDC, rate limiting, payload protection and traffic management ensure controlled access regardless of the underlying source
 -   **Governance and Observability:** Comprehensive monitoring, tracing and analytics provide visibility into how agents consume tools, supporting compliance and adoption governance
 -   **Developer and Ecosystem Enablement:** Tools and workflows to manage the full MCP tool lifecycle, from creation and documentation enrichment to discovery and consumption by agents
+
+### Creating MCP Server Artifacts on Integration Cell
+
+The MCP Gateway overview above is complemented by an **MCP Server artifact** that can be modeled and deployed in SAP Integration Suite. SAP documents three creation paths:
+
+| Source | Integration approach |
+|--------|----------------------|
+| API artifact | Expose selected operations from an API already deployed on Integration Cell. |
+| HTTP endpoint with an OpenAPI specification | Model tools over an existing HTTP service using its API definition. |
+| RFC-based backend | Expose selected RFC operations as tools. |
+| Remote or third-party MCP server | Connect an existing MCP server and govern it through the same gateway entry point. |
+
+See [Creating an MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/creating-mcp-server) for the supported configuration of each path, and [Configure an MCP Server Created by Connecting to a Remote MCP Server](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/govern-and-manage-mcp-server-created-by-connecting-to-remote-or-third-paty-mcp-servers) for the remote path.
+
+Check the tenant's service plan, runtime activation, roles, and backend connectivity before implementation. MCP feature availability depends on the service plan. Select the operations to expose and review tool names, descriptions, and input schemas for the intended business task. Configure and test authentication, authorization, and traffic policies before allowing agent access.
+
+Deploy the server, publish it through the product and Developer Hub workflow, and configure an MCP-compatible client to discover and invoke the exposed tools. Monitor errors, latency, and tool usage through [API and MCP analytics](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/analyze-apis-and-mcp-servers). Customers remain responsible for backend permissions, tool selection, and the configured policies.
+
+**Integration Cell** in these walkthroughs refers to the managed cloud runtime. Do not infer equivalent MCP feature support on **Edge Integration Cell** without checking the applicable runtime documentation.
+
+For implementation examples and background, see:
+
+- [MCP concepts: From APIs to AI-Ready Interfaces](https://community.sap.com/t5/technology-blog-posts-by-sap/model-context-protocol-mcp-from-apis-to-ai-ready-interfaces/ba-p/14433238)
+- [Build an MCP Server from an API artifact](https://community.sap.com/t5/integration-blog-posts/mcp-servers-on-sap-integration-suite-build-your-first-mcp-server-from-an/ba-p/14441034)
+- [SuccessFactors Global Benefits example using an OpenAPI-based MCP server](https://community.sap.com/t5/technology-blog-posts-by-sap/building-an-mcp-server-on-integration-cell-part-of-sap-integration-suite/ba-p/14496867)
+- [MCP Server overview (SAP Help Portal)](https://help.sap.com/docs/integration-suite/isuite-integrations-and-apis/model-context-protocol-mcp)
+- [Build and Govern MCP Servers with SAP Integration Suite (SAP tutorial)](https://developers.sap.com/tutorials/btp-integration-suite-mcp-gateway/)
+- [API Managed Integration with SAP Integration Suite](../../RA0022/readme.md)
 
 ## Agent2Agent (A2A) connectivity via Integration Suite
 
