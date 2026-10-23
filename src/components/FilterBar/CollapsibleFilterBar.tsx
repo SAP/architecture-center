@@ -4,6 +4,7 @@ import { FiFilter } from 'react-icons/fi';
 import { Icon, Popover } from '@ui5/webcomponents-react';
 import '@ui5/webcomponents-icons/dist/hint.js';
 import styles from './CollapsibleFilterBar.module.css';
+import { RECENT_FILTER_LABEL } from '@site/src/theme/DocSidebar/filterUtils';
 
 interface Option {
     value: string;
@@ -23,6 +24,8 @@ interface CollapsibleFilterBarProps {
     onCommunityContentChange?: (value: boolean) => void;
     showArchived?: boolean;
     onArchiveChange?: (value: boolean) => void;
+    showRecentlyUpdated?: boolean;
+    onRecentlyUpdatedChange?: (value: boolean) => void;
 }
 
 const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
@@ -38,6 +41,8 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     onCommunityContentChange,
     showArchived = false,
     onArchiveChange,
+    showRecentlyUpdated = false,
+    onRecentlyUpdatedChange,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [popoverOpen, setPopoverOpen] = useState(false);
@@ -68,8 +73,14 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
         }
     };
 
-    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0 || showCommunityContent || showArchived;
-    const activeFilterCount = selectedPartners.length + (showCommunityContent ? 1 : 0) + (showArchived ? 1 : 0);
+    const handleRecentlyUpdatedToggle = () => {
+        if (onRecentlyUpdatedChange) {
+            onRecentlyUpdatedChange(!showRecentlyUpdated);
+        }
+    };
+
+    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0 || showCommunityContent || showArchived || showRecentlyUpdated;
+    const activeFilterCount = selectedPartners.length + (showCommunityContent ? 1 : 0) + (showArchived ? 1 : 0) + (showRecentlyUpdated ? 1 : 0);
 
     return (
         <div className={styles.filterBarContainer}>
@@ -128,11 +139,20 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                                 <IoMdClose className={styles.chipCloseIcon} />
                             </button>
                         )}
+                        {showRecentlyUpdated && (
+                            <button
+                                onClick={handleRecentlyUpdatedToggle}
+                                className={styles.activeFilterChip}
+                            >
+                                {RECENT_FILTER_LABEL}
+                                <IoMdClose className={styles.chipCloseIcon} />
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
 
-            {/* Result Count */}
+            {/* Result Count with Recently Updated Link */}
             {resultCount !== undefined && (
                 <div className={styles.resultCount}>
                     {resultCount} unique {resultCount === 1 ? 'document' : 'documents'} found
@@ -152,9 +172,16 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                         className={styles.infoPopover}
                     >
                         <div className={styles.popoverContent}>
-                            Some documents appear in multiple domains
+                            Some documents may appear in multiple technology domains
                         </div>
                     </Popover>
+                    <span className={styles.recentlyUpdatedSeparator}>|</span>
+                    <button
+                        onClick={handleRecentlyUpdatedToggle}
+                        className={`${styles.recentlyUpdatedLink} ${showRecentlyUpdated ? styles.active : ''}`}
+                    >
+                        Show Recent
+                    </button>
                 </div>
             )}
 
