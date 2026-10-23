@@ -97,13 +97,14 @@ export function useFilterNavigation(
     }
   };
 
-  // Apply navigation after filter change
+  // Apply navigation after filter change.
+  // Always go through the router so React Router's `location` stays in sync with the real
+  // URL. Using window.history.replaceState for the stay-in-place case would update the
+  // address bar but leave `location.search` stale; the sidebar's URL-sync effect (which
+  // reruns whenever a derived store value changes) would then read the stale query and
+  // immediately re-apply a filter the user just cleared.
   const applyNavigation = (nav: { navigate: boolean; url: string }) => {
-    if (nav.navigate) {
-      history.replace(nav.url);
-    } else {
-      window.history.replaceState({}, '', nav.url);
-    }
+    history.replace(nav.url);
   };
 
   const handlePartnersChange = (selected: { value: string; label: string }[]) => {
@@ -139,7 +140,10 @@ export function useFilterNavigation(
 
     if (docExistsInFilteredResults(location.pathname, defaultFiltered)) {
       updateExpandedDomainsForPath(defaultFiltered);
-      window.history.replaceState({}, '', location.pathname);
+      // Route through the router (not window.history.replaceState) so location.search is
+      // cleared in React Router's eyes too; otherwise the URL-sync effect reads the stale
+      // query and re-applies the filters this just reset.
+      history.replace(location.pathname);
     } else {
       history.replace(refArchBase);
     }
