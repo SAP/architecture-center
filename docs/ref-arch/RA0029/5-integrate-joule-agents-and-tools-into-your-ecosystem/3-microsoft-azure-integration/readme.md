@@ -35,10 +35,12 @@ unlisted: false
 contributors:
   - kay-schmitteckert
   - niklas-dziwisch
+  - hobru
+  - mar-hol
 discussion: 
 last_update:
-  author: niklas-dziwisch
-  date: 2026-10-21
+  author: kay-schmitteckert
+  date: 2026-10-23
 ---
 
 :::info Disclaimer
