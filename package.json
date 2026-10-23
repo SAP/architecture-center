@@ -63,6 +63,7 @@
         "@mdx-js/react": "^3.1.1",
         "@mui/icons-material": "^7.3.11",
         "@mui/material": "^7.3.11",
+        "@types/three": "^0.186.0",
         "@types/uuid": "^10.0.0",
         "@ui5/webcomponents": "^2.7.0",
         "@ui5/webcomponents-fiori": "^2.25.0",
@@ -91,6 +92,7 @@
         "react-select": "^5.10.2",
         "react-slick": "^0.30.3",
         "slick-carousel": "^1.8.1",
+        "three": "^0.186.1",
         "unist-util-visit": "^5.1.0",
         "uuid": "^14.0.1",
         "zustand": "^5.0.15"
@@ -114,6 +116,7 @@
         "identity-obj-proxy": "^3.0.0",
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
+        "katex": "^0.18.2",
         "postcss": "^8.5.26",
         "qrcode": "^1.5.4",
         "ts-jest": "^29.4.12",
