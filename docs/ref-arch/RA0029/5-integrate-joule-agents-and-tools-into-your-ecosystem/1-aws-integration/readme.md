@@ -42,7 +42,7 @@ last_update:
 Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state that highlights the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular, the [Agent Gateway](../../1-a2a-and-mcp/readme.md#architecture) is not yet GA. The pattern outlined here shows how the integration between AWS and SAP can be done today and will evolve as those capabilities are released.
 :::
 
-[Amazon Quick](https://aws.amazon.com/quicksight/q/) gives users a natural-language chat interface inside AWS. This page describes the **inbound** direction — an Amazon Quick agent **consuming** agents running on SAP Business AI Platform, with the actual agent delegation handled by **AWS AgentCore**.
+[Amazon Quick](https://aws.amazon.com/quick/) gives users a natural-language chat interface inside AWS. This page describes the **inbound** direction — an Amazon Quick agent **consuming** agents running on SAP Business AI Platform, with the actual agent delegation handled by **AWS AgentCore**.
 
 The integration uses **AWS AgentCore as the bridge**: Quick reaches AgentCore via a connector, and AgentCore handles the communication with the Agent Gateway. The SAP side, running on **SAP Business AI Platform**, exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end — from the user's Cognito session all the way to the agent running on SAP Business AI Platform — without any additional sign-in step.
 
@@ -93,5 +93,5 @@ Step-by-step setup — Cognito user pool, AgentCore Gateway and Runtime configur
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
 - [SAP Help — Assigning the Agent Gateway Consumer System to Formations](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/a0465991ba964736a781c275ddd852db.html)
 - [SAP Help — Invoking an SAP Agent Through IDP Trust and JWKS-Based Integration](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/e9da5158a18649168e040495b26c43bc.html)
-- [Amazon QuickSight Q documentation](https://docs.aws.amazon.com/quicksight/latest/user/quicksight-q.html)
+- [Amazon Quick documentation](https://aws.amazon.com/quick/)
 - [AWS AgentCore documentation](https://docs.aws.amazon.com/bedrock-agentcore/)
