@@ -172,7 +172,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                         className={styles.infoPopover}
                     >
                         <div className={styles.popoverContent}>
-                            Some documents appear in multiple domains
+                            Some documents may appear in multiple technology domains
                         </div>
                     </Popover>
                     <span className={styles.recentlyUpdatedSeparator}>|</span>
@@ -180,7 +180,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                         onClick={handleRecentlyUpdatedToggle}
                         className={`${styles.recentlyUpdatedLink} ${showRecentlyUpdated ? styles.active : ''}`}
                     >
-                        Recently Updated
+                        Show Recent
                     </button>
                 </div>
             )}
