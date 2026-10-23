@@ -4,7 +4,7 @@ slug: /ref-arch/b4d7e2
 sidebar_position: 1
 title: Amazon Quick Integration with Joule Agents
 description: >-
-  Connect Amazon Quick to Joule Agents, Assistants, and Custom Agents running on SAP Business AI Platform through AWS AgentCore and the Agent Gateway, with end-to-end user identity propagation across Cognito, AgentCore Identity, and SAP Cloud Identity Services.
+  Connect Amazon Quick to Joule Agents via AWS AgentCore and the SAP Agent Gateway, with end-to-end user identity propagation across Cognito and SAP Cloud Identity Services.
 keywords:
   - sap
   - joule agents

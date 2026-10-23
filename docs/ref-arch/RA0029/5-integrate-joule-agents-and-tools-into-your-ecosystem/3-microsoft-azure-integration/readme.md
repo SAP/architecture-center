@@ -4,10 +4,7 @@ slug: /ref-arch/a2c0f1
 sidebar_position: 3
 title: Microsoft Copilot Integration with Joule Agents
 description: >-
-  Integrate Microsoft Copilot with Joule Agents, Assistants, and Custom Agents
-  through the Agent Gateway, using Microsoft Copilot Studio as the orchestration
-  layer, with Microsoft Entra ID ↔ SAP Cloud Identity Services federation and
-  per-user identity propagation.
+  Integrate Microsoft Copilot with Joule Agents through the SAP Agent Gateway, using Copilot Studio as the orchestration layer with Microsoft Entra ID and SAP Cloud Identity Services federation.
 keywords:
   - sap
   - joule agents
@@ -47,7 +44,7 @@ last_update:
 Some components and capabilities of this reference architecture are not yet generally available (GA) - the current architecture reflects a transitional state that highlights the relevant building blocks for an agentic architecture based on SAP Business AI Platform. In particular, the [Agent Gateway](../../1-a2a-and-mcp/readme.md#architecture) is not yet GA. The patterns outlined here show how the integration between Microsoft Copilot Studio and SAP can be done today and will evolve as those capabilities are released.
 :::
 
-**[Microsoft Copilot](https://www.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot)** is Microsoft's AI assistant embedded across Microsoft 365, Teams, and other Microsoft surfaces. [Microsoft Copilot Studio](https://www.microsoft.com/en-us/microsoft-365-copilot/microsoft-copilot-studio) is the low-code platform used to extend and customize Copilot with additional agents and actions. If you are new to it, start with the [Microsoft Copilot Studio documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/).
+**[Microsoft Copilot](https://www.microsoft.com/copilot)** is Microsoft's AI assistant embedded across Microsoft 365, Teams, and other Microsoft surfaces. [Microsoft Copilot Studio](https://www.microsoft.com/copilot/products/copilot-studio) is the low-code platform used to extend and customize Copilot with additional agents and actions. If you are new to it, start with the [Microsoft Copilot Studio documentation](https://learn.microsoft.com/microsoft-copilot-studio/).
 
 This page describes the **inbound** direction - **Microsoft Copilot**, extended via **Copilot Studio**, **consuming** agents running on SAP Business AI Platform. Copilot Studio acts as the orchestration layer that wires SAP capabilities into the Copilot experience; the SAP side exposes Joule Agents, Assistants, and Custom Agents (built with Joule Studio) through the **Agent Gateway**. Identity flows end-to-end through a trust relationship between **Microsoft Entra ID** and **SAP Cloud Identity Services**, so every delegated task runs in the context of the signed-in business user and respects existing SAP authorizations on the downstream systems.
 
