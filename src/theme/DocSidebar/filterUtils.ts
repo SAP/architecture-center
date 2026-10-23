@@ -74,10 +74,13 @@ export const RECENT_MONTHS = 3;
 export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
 
 // Helper to get cutoff date for "recently updated" filter
-function getRecentCutoffDate(): Date {
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth() - RECENT_MONTHS);
-  return cutoff;
+export function getRecentCutoffDate(): Date {
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const targetMonth = now.getUTCMonth() - RECENT_MONTHS;
+  const day = now.getUTCDate();
+  const lastDayOfTargetMonth = new Date(Date.UTC(year, targetMonth + 1, 0)).getUTCDate();
+  return new Date(Date.UTC(year, targetMonth, Math.min(day, lastDayOfTargetMonth)));
 }
 
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
