@@ -4,14 +4,12 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import {
   FilterState,
-  DocIdToTagsMap,
   SidebarItem,
   PARTNER_OPTIONS,
   filterArchivedItems,
   groupSidebarByDomain,
   filterGroupedByPartner,
   filterGroupedByCommunityContent,
-  filterGroupedByRecentlyUpdated,
   buildDomainCategories,
   countUniqueDocsInItems,
   syncUrlParams,
@@ -29,7 +27,7 @@ export { PARTNER_OPTIONS };
  */
 export function useFilterNavigation(
   sidebar: SidebarItem[],
-  tagsDocId: DocIdToTagsMap
+  tagsDocId: Record<string, string[]>
 ) {
   const location = useLocation();
   const history = useHistory();
@@ -41,19 +39,13 @@ export function useFilterNavigation(
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
   const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
-  const showRecentlyUpdated = useSidebarFilterStore(state => state.showRecentlyUpdated);
-  const setShowRecentlyUpdated = useSidebarFilterStore(state => state.setShowRecentlyUpdated);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const currentState: FilterState = { partners, showArchived, showCommunityContent, showRecentlyUpdated };
-  const sidebarFilterQuery = useMemo(
-    () => syncUrlParams(new URLSearchParams(), currentState, {}).toString(),
-    [partners, showArchived, showCommunityContent, showRecentlyUpdated]
-  );
+  const currentState: FilterState = { partners, showArchived, showCommunityContent };
 
   // Memoized filtered results for current state
   const nonArchivedSidebar = useMemo(
@@ -71,14 +63,9 @@ export function useFilterNavigation(
     [grouped.grouped, partners, tagsDocId]
   );
 
-  const { filtered: communityFiltered } = useMemo(
+  const { filtered: filteredGrouped } = useMemo(
     () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
     [partnerFiltered, showCommunityContent, tagsDocId]
-  );
-
-  const { filtered: filteredGrouped } = useMemo(
-    () => filterGroupedByRecentlyUpdated(communityFiltered, showRecentlyUpdated, tagsDocId),
-    [communityFiltered, showRecentlyUpdated, tagsDocId]
   );
 
   const selectedPartnerOptions = useMemo(
@@ -97,14 +84,13 @@ export function useFilterNavigation(
     }
   };
 
-  // Apply navigation after filter change.
-  // Always go through the router so React Router's `location` stays in sync with the real
-  // URL. Using window.history.replaceState for the stay-in-place case would update the
-  // address bar but leave `location.search` stale; the sidebar's URL-sync effect (which
-  // reruns whenever a derived store value changes) would then read the stale query and
-  // immediately re-apply a filter the user just cleared.
+  // Apply navigation after filter change
   const applyNavigation = (nav: { navigate: boolean; url: string }) => {
-    history.replace(nav.url);
+    if (nav.navigate) {
+      history.replace(nav.url);
+    } else {
+      window.history.replaceState({}, '', nav.url);
+    }
   };
 
   const handlePartnersChange = (selected: { value: string; label: string }[]) => {
@@ -120,8 +106,7 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived,
       partners: selectedKeys,
-      showCommunityContent,
-      showRecentlyUpdated
+      showCommunityContent
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -134,16 +119,12 @@ export function useFilterNavigation(
     const defaultFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived: false,
       partners: [],
-      showCommunityContent: false,
-      showRecentlyUpdated: false
+      showCommunityContent: false
     });
 
     if (docExistsInFilteredResults(location.pathname, defaultFiltered)) {
       updateExpandedDomainsForPath(defaultFiltered);
-      // Route through the router (not window.history.replaceState) so location.search is
-      // cleared in React Router's eyes too; otherwise the URL-sync effect reads the stale
-      // query and re-applies the filters this just reset.
-      history.replace(location.pathname);
+      window.history.replaceState({}, '', location.pathname);
     } else {
       history.replace(refArchBase);
     }
@@ -166,8 +147,7 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived: value,
       partners,
-      showCommunityContent,
-      showRecentlyUpdated
+      showCommunityContent
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -186,28 +166,7 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived,
       partners,
-      showCommunityContent: value,
-      showRecentlyUpdated
-    });
-
-    updateExpandedDomainsForPath(newFiltered);
-    applyNavigation(determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase));
-  };
-
-  const handleRecentlyUpdatedChange = (value: boolean) => {
-    setShowRecentlyUpdated(value);
-
-    const params = syncUrlParams(
-      new URLSearchParams(location.search),
-      currentState,
-      { recentlyUpdated: value || null }
-    );
-
-    const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
-      showArchived,
-      partners,
-      showCommunityContent,
-      showRecentlyUpdated: value
+      showCommunityContent: value
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -219,25 +178,22 @@ export function useFilterNavigation(
     partners,
     showArchived,
     showCommunityContent,
-    showRecentlyUpdated,
     searchTerm,
     expandedDomains,
     selectedPartnerOptions,
     filteredGrouped,
     resultCount,
     domainCategories,
-    sidebarFilterQuery,
 
     // Handlers
     handlePartnersChange,
     handleArchiveChange,
     handleCommunityContentChange,
-    handleRecentlyUpdatedChange,
     handleResetFilters,
     handleBackToAllDocuments,
     setSearchTerm,
 
     // Computed
-    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent || showRecentlyUpdated
+    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent
   };
 }
