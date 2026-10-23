@@ -55,7 +55,7 @@ The hub addresses a fundamental challenge: while building and deploying individu
 3. Agent telemetry from SAP and third-party agent runtimes flows into **SAP Signavio** for behavioral process analysis and into **SAP Cloud ALM** for operational monitoring.
 4. **SAP SuccessFactors** provides the organizational dimension, mapping agents to business units and roles.
 
-4. **SAP Cloud Identity Services** manages agent identities and acts as the authority for access control. Registering an agent in the hub triggers provisioning flows that create the corresponding agent identity record and align it with enterprise access policies. See [Agent Identity](../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
+4. **SAP Cloud Identity Services** manages agent identities and acts as the authority for access control. Registering an agent in the hub triggers provisioning flows that create the corresponding agent identity record and align it with enterprise access policies. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
 
 5. The **SAP Agent Gateway** forms the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in the hub. The gateway connects agents to MCP servers, SAP applications, Integration Suite adapters, and external systems.
 
@@ -123,7 +123,7 @@ Structured assessment and verification for agents and MCP servers. Verification 
 
 ### Identity & Access Control
 
-SAP Cloud Identity Services manages agent identities alongside human identities. The hub drives the full agent identity lifecycle: registering a new agent creates the corresponding identity record in SAP Cloud Identity Services, provisioning flows align role and permission assignments, and ongoing governance ensures agent access remains appropriate as capabilities and organizational requirements evolve. See [Agent Identity](../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
+SAP Cloud Identity Services manages agent identities alongside human identities. The hub drives the full agent identity lifecycle: registering a new agent creates the corresponding identity record in SAP Cloud Identity Services, provisioning flows align role and permission assignments, and ongoing governance ensures agent access remains appropriate as capabilities and organizational requirements evolve. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
 
 ### Agent Observability
 
@@ -131,7 +131,7 @@ Session telemetry from SAP-managed agents flows into SAP Cloud ALM, where dedica
 
 ### Agent Mining
 
-Signavio Process Intelligence ingests agent execution traces via a dedicated AI Agent Mining connector. Once mining is enabled for an agent type in the hub, telemetry is routed to the connector, which normalizes it into an event log structure for behavioral analysis. Signavio surfaces process conformance issues, cost drivers, and performance benchmarks. See [Agent Behavior Mining](../RA0029/9-agent-behavior-mining/readme.md) for the detailed mining architecture.
+Signavio Process Intelligence ingests agent execution traces via a dedicated AI Agent Mining connector. Once mining is enabled for an agent type in the hub, telemetry is routed to the connector, which normalizes it into an event log structure for behavioral analysis. Signavio surfaces process conformance issues, cost drivers, and performance benchmarks. See [Agent Behavior Mining](../../RA0029/9-agent-behavior-mining/readme.md) for the detailed mining architecture.
 
 ### Agent Org & Skills Mapping
 

@@ -1,7 +1,7 @@
 ---
 id: bc7811
 slug: /ref-arch/bc7811
-sidebar_position: 30
+sidebar_position: 3
 title: Joule Work
 description: A reference architecture for SAP-managed Joule, enabling AI-powered assistance across SAP solutions with minimal setup effort.
 sidebar_label: Joule Work

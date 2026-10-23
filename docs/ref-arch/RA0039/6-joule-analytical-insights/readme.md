@@ -15,7 +15,6 @@ sidebar_label: Analytical Insights in Joule
 image: img/ac-soc-med.png
 tags:
   - data
-  - genai
   - bdc
 hide_table_of_contents: false
 hide_title: false
