@@ -1,9 +1,13 @@
-name: Build for GitHub Pages
+name: Check Site Build
 
 permissions: {}
 
 on:
     push:
+        branches:
+            - main
+            - dev
+    pull_request:
         branches:
             - main
             - dev
