@@ -2,21 +2,21 @@
 id: 219c07
 slug: /ref-arch/219c07
 sidebar_position: 2
-title: Building AI Agents with Joule Studio
-description: >-
-  Build, deploy and connect AI agents using Joule Studio — SAP's AI-native
-  development environment. Covers both the browser-based Low-Code Flow and the
-  CLI-driven Pro-Code Flow, both powered by Intent-Based Development (IBD).
+title: Building AI Agents with SAP Joule Studio on SAP BTP
+description: "Build, deploy and connect AI agents with Joule Studio, SAP's AI-native environment, using the browser-based Low-Code Flow or CLI-driven Pro-Code Flow."
 keywords:
   - sap
   - ai agents
   - joule studio
+  - joule
   - intent-based development
-  - ibd
   - low-code
   - pro-code
-  - managed runtime
-  - joule work
+  - sap knowledge graph
+  - sap leanix
+  - generative ai hub
+  - sap-managed runtime
+  - business ai platform
 sidebar_label: Building AI Agents with Joule Studio
 image: img/ac-soc-med.png
 tags:
@@ -34,7 +34,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-25
+  date: 2026-10-14
 ---
 
 **Joule Studio** is SAP's AI-native development environment for building custom agents, apps, and workflows — grounded in SAP business context and deployed to the SAP-managed runtime as part of the SAP Business AI Platform.
@@ -98,4 +98,4 @@ Use Joule Studio (either flow) when:
 -   You want SAP business context, API discovery, and best practices built into the development process
 -   Speed of delivery and alignment with SAP's standard tooling are priorities
 
-For agents that require full programmatic control outside of Joule Studio — deployed to your own BTP subaccount and connected to Joule via A2A — see [Bring Your Own Agent](../3-bring-your-own-agent/readme.md).
+For agents that require full programmatic control outside of Joule Studio — deployed to your own BTP subaccount and connected to Joule via A2A — see [Custom Pro-Code AI Agents on SAP BTP](../3-bring-your-own-agent/readme.md).

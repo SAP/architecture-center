@@ -2,7 +2,7 @@
 id: ae6821
 slug: /ref-arch/ae6821
 sidebar_position: 4
-title: Integrating AI Agents with Joule
+title: Integrating Low-Code and Pro-Code AI Agents with Joule
 description: >-
   Learn the architectural patterns for integrating both low-code and pro-code AI
   agents with Joule, SAP's AI copilot, for a unified user experience.
@@ -10,11 +10,14 @@ keywords:
   - sap
   - ai agents
   - joule
-  - integration
   - joule studio
+  - ai copilot
   - a2a
-  - pro-code
-  - low-code
+  - pro-code agents
+  - joule scenario
+  - joule dialog function
+  - sap ai core
+  - business ai platform
 sidebar_label: Integrating AI Agents with Joule
 image: img/ac-soc-med.png
 tags:
@@ -36,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-27
+  date: 2026-10-14
 ---
 
 :::info Disclaimer

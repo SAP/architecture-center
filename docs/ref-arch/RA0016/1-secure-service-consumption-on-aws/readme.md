@@ -2,22 +2,26 @@
 id: '544638'
 slug: /ref-arch/544638
 sidebar_position: 1
-title: Secure Service Consumption on AWS
-description: >-
-  Securely access AWS services from external applications using robust identity
-  and access management strategies.
+title: Secure Service Consumption on AWS from SAP BTP
+description: "Securely access AWS services from SAP BTP using OIDC federation with SAP IAS or AWS IAM Roles Anywhere with X.509 certificates for short-lived credentials."
 keywords:
+  - sap
   - aws
-  - secure access
-  - iam
-  - oidc
-  - cloud applications
-  - architecture integration
+  - secure service consumption on aws
+  - sap identity authentication service
+  - oidc federation
+  - aws iam roles anywhere
+  - aws security token service
+  - x.509 certificate authentication
+  - short-lived credentials
+  - zero trust
+  - business ai platform
 sidebar_label: Secure Service Consumption on AWS
 image: img/ac-soc-med.png
 tags:
   - security
   - aws
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2

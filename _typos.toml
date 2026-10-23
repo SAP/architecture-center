@@ -17,12 +17,17 @@ locale = "en"
 
 [default.extend-words]
 # --- Regular dictionary words typos mis-corrects ---
+advices = "advices"       # "remittance advices" — valid accounting term
 
 # --- SAP acronyms / product names ---
 
 # --- Industry acronyms / terms ---
+rto = "rto"               # Recovery Time Objective
+alo = "alo"               # At-Least-Once (delivery QoS)
 
 # --- Partners / competitors ---
+aks = "aks"               # Azure Kubernetes Service
+aci = "aci"               # Azure Container Instance
 
 [default.extend-identifiers]
 # Identifier-like tokens (code symbols, names) typos should leave alone.
@@ -33,4 +38,12 @@ extend-exclude = [
   "*.lock",
   "*.svg",
   "*.drawio",
+  "docs/ref-arch/RA0000/",  # new-RA template: Latin lorem-ipsum placeholder text
+  # The spelling/typos/errors docs intentionally contain misspellings as examples
+  # (e.g. "recieve", "teh", "integreation"); typos has no line-level ignore, so the
+  # whole page is excluded here. cspell still scans them (with scoped cspell:ignore).
+  "docs/community/02-Guidelines/08-Automated-Checks/01-check-spelling.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/02-dictionaries.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/03-check-typos.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/13-pr-checks-errors-and-warnings.md",
 ]

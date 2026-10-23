@@ -1,12 +1,16 @@
 ---
 sidebar_position: 4
 slug: /community/front-matter
-title: Front Matter
-description: Learn how to use front matter in SAP Architecture Center submissions. This guide explains each front matter field to optimize SEO, improve navigation, and ensure consistency across reference architecture pages.
+title: Front Matter Fields for Reference Architectures
+description: "Learn how to use front matter in SAP Architecture Center pages. This guide explains each YAML field: title, description, slug, keywords, tags, and more."
 sidebar_label: Front Matter
 keywords:
  - sap
  - front matter
+ - yaml metadata
+ - seo
+ - reference architecture
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -19,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-08-25
+  date: 2026-10-20
 ---
 
 Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
@@ -32,12 +36,12 @@ Here is an example of what a page front matter looks like:
 id: a06a95
 slug: /ref-arch/a06a95
 sidebar_position: 1
-title: SAP XYZ Architecture Technology
+title: SAP Event-Driven Architecture Technology
 description: Please add a description (max 300 characters)
 keywords:
   - sap
 sidebar_label: SAP Event-Driven Architecture Technology
-image: img/logo.svg
+image: img/ac-soc-med.png
 tags:
   - ref-arch
 hide_table_of_contents: false
@@ -52,6 +56,7 @@ contributors:
 last_update:
   author: cernus76
   date: 2026-04-21
+discussion: github:195
 ---
 ```
 
@@ -124,8 +129,8 @@ This information is auto-assigned during the technical validation.
 ## `title`
 
 * `title` defines the page name, the one which will be displayed in the browser tab.
-* `title` is used for the SEO (used as page title when indexed by the search engines) or when the page is shared on social medias.
-* Additionally, `title` can also be displayed on your reference architecture page if it does not have any single `#` headings in it.
+* `title` is used for the SEO (used as page title when indexed by the search engines) or when the page is shared on social media.
+* `title` is also what Docusaurus renders as the page heading, so the title comes from here, **not** from a heading in the body.
 * It should be clear and concise. 
 
 Example:
@@ -137,11 +142,15 @@ title: SAP Event-Driven Architecture Technology
 Your title should not be longer than **60** characters. 
 :::
 
+:::warning Do not use a `#` heading for the title
+Because the title is taken from the `title:` field above, your Markdown body must **not** contain a level-1 `#` heading, it would produce a second, duplicate page title. Start your body headings at `##` (level 2) and go deeper from there. This is enforced by the [H1 Title check](08-Automated-Checks/14-check-h1-title.md), which fails the pull request if a `#` heading is found.
+:::
+
 ***
 
 ## `description`
 
-* `description` is used for the SEO (used as page description when indexed by the search engines) or when the page is shared on social medias.
+* `description` is used for the SEO (used as page description when indexed by the search engines) or when the page is shared on social media.
 
 Example:
 ```yaml
@@ -180,7 +189,7 @@ sidebar_label: SAP Event-Driven Architecture Technology
 ```
 
 :::tip Best practice
-Your title should not be longer than **50** characters. 
+Your sidebar label should not be longer than **50** characters. 
 :::
 
 ***
@@ -188,11 +197,11 @@ Your title should not be longer than **50** characters.
 ## `image`
 
 * `image` is the image which will be displayed when sharing the page. 
-* The default image is the SAP logo `image: img/logo.svg`
+* The default image is the SAP Architecture Center image `image: img/ac-soc-med.png`
 
 Example:
 ```yaml
-image: img/logo.svg
+image: img/ac-soc-med.png
 ```
 
 :::tip Best practice
@@ -227,7 +236,7 @@ ref-arch:
 ## `hide_table_of_contents`
 
 * `hide_table_of_contents` allows you to reclaim the space allocated to the Table Of Content (TOC) on the right hand side of the page. 
-* In some cases it makes sense to hide the TOC as there is no really use of it. 
+* In some cases it makes sense to hide the TOC as there is no real use for it. 
 * Default value is set to `false`.
 
 Example:
@@ -269,7 +278,7 @@ toc_min_heading_level: 2
 
 Example:
 ```yaml
-toc_min_heading_level: 4
+toc_max_heading_level: 4
 ```
 
 ***
@@ -277,7 +286,7 @@ toc_min_heading_level: 4
 ## `draft`
 
 * `draft` defines the status of your page. If it is in draft mode, it means the page is not ready yet.
-* The default value is `true`
+* The default value is `false`
 * If you set this to `true`, the page will not be part of the build and will not be deployed.
 * If you set this to `false`, the page will be part of the build and will be deployed.
 
@@ -294,7 +303,7 @@ Keep the value to `true` until you are done and ready to submit the page for rev
 
 ## `unlisted`
 
-* `unlisted` defines if your page is visible in the Architecture Center. If it is unlisted, it means the page is deployed and accessible but it not visible.
+* `unlisted` defines if your page is visible in the Architecture Center. If it is unlisted, it means the page is deployed and accessible but it is not visible.
 * The default value is `false`
 * If you set this to `true`, the page will be part of the build, will be deployed, but will not be visible in the sidebar. You need to access it directly via the defined `slug`.
 * If you set this to `false`, the page will be part of the build, will be deployed, and will be visible in the sidebar.
@@ -331,18 +340,47 @@ Check the generated admonition to make sure there are no typos in the GitHub use
 ## `last_update`
 
 * `last_update` defines the last update of the page (author + date).
-* The contributors are displayed at the bottom of the page.
+* The author and date are displayed at the bottom of the page.
 * The date should be **YYYY-MM-DD**.
 
 Example:
 ```yaml
 last_update:
   author: jmsrpp
-  date: 2025-01-01
+  date: 2026-04-21
 ```
 
 :::tip Best practice
 Enter only one author.
 :::
+
+***
+
+## `discussion`
+
+* `discussion` links the page to a related discussion thread.
+* If defined on a page with at least one `contributors` entry, a button is added at the bottom of the page to jump to the matching discussion.
+* Expected format: `github:<DISCUSSION-ID>` or `community:<DISCUSSION-PATH>`.
+* Leave it empty if the page has no associated discussion.
+
+Example:
+```yaml
+discussion: github:195
+```
+
+***
+
+## `sidebar_custom_props` (deprecated)
+
+* `sidebar_custom_props` (with a nested `category_index`) was previously used to list a page in an additional sidebar, such as the SAP ViewPoints.
+* This field is **deprecated and will be removed**. Do not add it to new pages.
+* You may still see it in older templates (for example `docs/ref-arch/RA0000/readme.md`); leave existing entries as-is unless you are intentionally cleaning them up.
+
+Example (deprecated, shown for reference only):
+```yaml
+sidebar_custom_props:
+  category_index:
+    - demo
+```
 
 ***

@@ -16,6 +16,7 @@ REST
 RESTful
 Webhook
 Webhooks
+CloudEvents
 
 # Data engineering
 OLTP
@@ -24,18 +25,23 @@ ETL
 ELT
 CDC
 DAG
+pushdown
 
 # Cloud & ops
 PaaS
 SaaS
 IaaS
 DBaaS
+iPaaS
 VPC
 VNet
 CDN
 GitOps
 DevOps
 SRE
+cicd
+appdev
+opensource
 observability
 idempotent
 idempotency
@@ -82,6 +88,17 @@ scikit
 pydantic
 pyspark
 shap
+AutoML
+MLOps
+xhigh
+
+# Speech / voice AI (terms & latency metrics)
+RNNT
+Endpointing
+SSML
+TTFA
+TTFT
+TTFB
 
 # Data & analytics
 dataframe
@@ -112,6 +129,7 @@ undeploying
 operationalized
 operationalizes
 operationalizing
+rearchitecting
 replayability
 inspectable
 versionable
@@ -175,3 +193,20 @@ PEPPOL
 EDIFACT
 FedML
 ondemand
+
+# Misc / foreign-language terms
+Messe
+
+# Named concepts (eponyms)
+Goodhart
+
+# Resilience & messaging QoS (kept in sync with _typos.toml extend-words)
+RTO
+ALO
+
+# CI / developer tooling (open-source tools and organizations)
+reviewdog
+LanguageTool
+actionlint
+lychee
+FSFE

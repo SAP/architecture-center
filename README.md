@@ -1,4 +1,4 @@
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center) [![Deploy main site to GitHub Pages](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/deploy-manual.yml) [![Periodic Link Checker](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/periodic-link-watcher.yml) [![CodeQL](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/architecture-center)](https://api.reuse.software/info/github.com/SAP/architecture-center) [![Deploy main site to Cloudflare](https://github.com/SAP/architecture-center/actions/workflows/deploy-to-cloudflare.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/deploy-to-cloudflare.yml) [![Periodic Link Checker](https://github.com/SAP/architecture-center/actions/workflows/link-watcher.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/link-watcher.yml) [![CodeQL](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/github-code-scanning/codeql) [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/SAP/architecture-center/badge)](https://scorecard.dev/viewer/?uri=github.com/SAP/architecture-center) [![Security Audit](https://github.com/SAP/architecture-center/actions/workflows/security-audit.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/security-audit.yml) [![Scorecard supply-chain security](https://github.com/SAP/architecture-center/actions/workflows/scorecard.yml/badge.svg)](https://github.com/SAP/architecture-center/actions/workflows/scorecard.yml)
 
 ![SAP Architecture Center](static/img/sap-architecture-center-logo-v21-450x345.webp)
 
@@ -67,14 +67,14 @@ npm run security:update       # Update packages and fix vulnerabilities
 
 **Note**: The security audit checks only production dependencies (excludes devDependencies) to focus on what gets deployed.
 
-For detailed contribution guidelines, refer to the [Community of Practice | Intro](docs/community/intro.md). 
+For detailed contribution guidelines, refer to the [Community of Practice | Intro](docs/community/intro.md).
 
 ## Support, Feedback, Contributing
 
 This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/architecture-center/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
 
 ## Security / Disclosure
-If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/architecture-center/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
+If you find any bug that may be a security problem, please follow the instructions in our [security policy](https://github.com/SAP/architecture-center/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
 
 ## Code of Conduct
 
@@ -82,4 +82,4 @@ We as members, contributors, and leaders pledge to make participation in our com
 
 ## Licensing
 
-Copyright 2025 SAP SE or an SAP affiliate company and architecture-center contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/architecture-center).
+Copyright 2026 SAP SE or an SAP affiliate company and architecture-center contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/architecture-center).
