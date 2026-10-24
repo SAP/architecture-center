@@ -1,0 +1,84 @@
+/* Rounded-rectangle sticker, absolutely positioned in the hero so it scrolls away with the page */
+.sticker {
+    position: absolute;
+    top: calc(-120px + 10vh);
+    left: 100px;
+    width: 220px;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transform: rotate(-15deg);
+    z-index: 2;
+    pointer-events: auto;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+    animation: stickerShake 2s ease-in-out infinite;
+}
+
+/* Brief wiggle around the resting -15deg, then still for the rest of the 2s cycle */
+@keyframes stickerShake {
+    0%   { transform: rotate(-15deg); }
+    2%   { transform: rotate(-9deg); }
+    4%   { transform: rotate(-21deg); }
+    6%   { transform: rotate(-11deg); }
+    8%   { transform: rotate(-19deg); }
+    10%  { transform: rotate(-13deg); }
+    12%, 100% { transform: rotate(-15deg); }
+}
+
+.sticker:hover {
+    animation: none;
+    transform: rotate(-15deg) scale(1.15);
+    text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sticker {
+        animation: none;
+    }
+}
+
+/* Gradient border ring with a transparent center (mask cuts out the interior) */
+.sticker::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 3px;
+    background: var(--gradient-premium);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+}
+
+.text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 18px;
+    background: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 600px) {
+    .sticker {
+        top: 16px;
+        left: 16px;
+        width: 172px;
+        height: 70px;
+    }
+
+    .text {
+        font-size: 0.92rem;
+        padding: 0 12px;
+    }
+}
