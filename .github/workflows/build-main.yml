@@ -33,7 +33,3 @@ jobs:
               env:
                 NODE_OPTIONS: --max-old-space-size=4096
 
-            - name: Upload Build Artifact
-              uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
-              with:
-                  path: build
