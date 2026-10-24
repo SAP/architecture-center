@@ -61,17 +61,19 @@ The hub addresses a fundamental challenge: while building and deploying individu
 
 ## Agent Lifecycle
 
-SAP AI Agent Hub manages AI agents across five interconnected lifecycle phases.
+SAP AI Agent Hub manages AI agents across five governance stages that an agent passes through from initial conception through eventual retirement.
 
-### Plan & Build
+### Define
 
-Create agents with the right architecture context from day one. Enterprise architects use the hub to plan new agent initiatives, evaluate fit against the existing technology landscape, and ensure new agents align with organizational strategy. SAP LeanIX provides the architecture inventory — existing applications, business capabilities, IT components, data objects, and processes — as the context layer for agent design and governance.
+Create agents with the right architecture context and governance foundations from the start. Enterprise architects use the hub to define the agent's goal, design its action space, and specify governance requirements — decisions made here determine the risk profile for everything that follows. SAP LeanIX provides the full architecture inventory — existing applications, business capabilities, IT components, data objects, and processes — as the design context that shapes what agents are built, on which technology, and for which purpose.
 
-Joule Studio integrates with the hub via the LeanIX MCP server, surfacing architectural context during agent creation so developers work with the right building blocks and business alignment from the start. Architecture decisions made in the hub inform and constrain what agents are built, on which technology, and for which purpose.
+Joule Studio integrates with the hub via the LeanIX MCP server, surfacing architectural context during agent creation so developers work with the right building blocks and business alignment from day one. Architecture decisions captured in the hub inform and constrain agent design before the first line of code is written.
 
-### Discover & Provision
+### Verify
 
-Build a rich, up-to-date inventory of all agents operating in the landscape. SAP AI Agent Hub automatically discovers agents across SAP and non-SAP environments through managed integrations:
+Before an agent reaches production, it enters the central inventory and must demonstrate it meets governance criteria. The verification stage covers risk assessment and classification, identity and credential provisioning, permission scoping and validation, and functional and resilience testing.
+
+SAP AI Agent Hub automatically discovers agents across SAP and non-SAP environments through managed integrations:
 
 - **SAP agents**: Standard agents delivered by SAP, custom agents built on Joule Studio, and extended partner-built agents
 - **Third-party agents**: Agents deployed on Microsoft Azure, Google Cloud, AWS, ServiceNow, and Databricks
@@ -79,29 +81,25 @@ Build a rich, up-to-date inventory of all agents operating in the landscape. SAP
 - **MCP servers**: Discovered via Integration Suite connectors and MCP Builder
 - **LLMs**: Discovered via SAP AI Core
 
-Discovered agents populate the agent registry with standardized fact sheets capturing identity, ownership, capabilities, technology stack, and governance status. The hub surfaces contextually relevant agent suggestions based on the customer's specific architecture landscape, helping teams identify the right agent for any task — or whether a new one needs to be built at all.
+Discovered agents populate the agent registry with standardized fact sheets capturing identity, ownership, capabilities, technology stack, and governance status. The hub surfaces contextually relevant agent suggestions to help teams identify the right agent for any task — or determine whether a new one needs to be built at all. Agents that have not passed the required verification checks remain in a pending state until cleared.
 
-Provisioning aligns agent access and permissions with enterprise standards through SAP Cloud Identity Services integration. Verification checkpoints guide agent rollout — agents that have not passed the required governance checks remain in a pending state until cleared.
+### Enforce
 
-### Observe & Analyze
+Once verified, the agent goes live with all governance controls active from the first interaction. Identity and access policies are applied, guardrails and action constraints take effect, consumption limits and model-routing rules are set, and the ability to suspend or revoke the agent is in place.
 
-Turn observable agent telemetry into actionable intelligence. SAP Cloud ALM receives session telemetry from SAP-managed agents and delivers dedicated agent dashboards with evaluation rates, error root causes, session volumes, and performance trends over time. Architects and operations teams can monitor real-time agent performance against defined KPIs, detect anomalies before they impact business operations, and generate insights that inform agent strategy and investment decisions.
+The SAP Agent Gateway is the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in the hub. Structured compliance records capture assessment results, architecture review outcomes, and EU AI Act risk classifications. Every registered agent has a clear owner and responsible party, and continuous architecture review ensures agents remain aligned with enterprise standards, business capabilities, and processes.
 
-### Secure & Govern
+### Monitor
 
-Ensure agents act within organizational guardrails, policies, and processes:
+Once operating in production, telemetry flows, performance is measured against defined criteria, and behavioral patterns are analyzed. SAP Cloud ALM receives session telemetry from SAP-managed agents and delivers dedicated agent dashboards covering evaluation rates, error root causes, session volumes, and performance trends over time. Operations teams can detect anomalies before they impact business operations and generate insights that inform agent strategy and investment decisions.
 
-- **Ownership and accountability**: Every registered agent has a clear owner and responsible party
-- **Architecture review**: Continuous verification that agents conform to enterprise architecture standards and alignment with business capabilities and processes
-- **Verification records**: Structured compliance records for each agent and MCP server, capturing assessment results and architecture review outcomes
-- **EU AI Act compliance**: Risk assessment meta model extensions and a purpose-built survey capability enable organizations to classify agents by risk category, complete required documentation, and manage ongoing compliance obligations
-- **Runtime enforcement**: The SAP Agent Gateway applies access control policies at runtime, ensuring agents only invoke permitted tools, APIs, and data sources
+The monitor stage also carries recurring governance obligations: periodic access reviews, compliance recertification, risk-tier reassessment, and alignment checks against evolving regulatory requirements and organizational strategy.
 
-### Optimize & Decommission
+### Optimize
 
-Maximize the impact of the agent estate while managing its complexity. Agent behavior mining through SAP Signavio Process Intelligence reveals how agents actually behave in production: how they navigate process steps, where they deviate, and what they cost to run. These insights surface optimization opportunities, identify redundant or underperforming agents, and provide the data-driven foundation for decommissioning decisions with minimal disruption.
+Based on outcome data, agents are either improved or retired. Improvement activities include goal recalibration, permission adjustment, and execution tuning. Retirement is a governed process: credentials are revoked, integrations are disabled, ownership is transferred, and audit records are preserved.
 
-SuccessFactors integration adds the organizational perspective: as agents take on tasks previously performed by people, the skills mapping capability helps organizations understand how roles and required competencies are shifting, and plan accordingly.
+Agent behavior mining through SAP Signavio Process Intelligence reveals how agents actually behave in production: how they navigate process steps, where they deviate, and what they cost to run. These insights surface optimization opportunities, identify redundant or underperforming agents, and provide the data-driven foundation for decommissioning decisions. SAP SuccessFactors integration adds the organizational perspective, helping organizations understand how roles and required competencies are shifting as agents take on tasks previously performed by people.
 
 ## Core Capabilities
 
