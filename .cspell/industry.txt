@@ -5,6 +5,7 @@
 # Protocols & APIs
 OAuth
 OIDC
+PKCE
 SAML
 SSO
 JWT
