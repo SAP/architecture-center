@@ -30,16 +30,17 @@ draft: false
 unlisted: false
 contributors:
   - seeobjectively
+  - s-krishnamoorthy
 last_update:
   author: seeobjectively
-  date: 2026-10-14
+  date: 2026-10-23
 ---
 
 ## Overview
 
-A single real-world entity rarely exists as a single record. The same customer can appear as a CRM contact, an e-commerce account, a mobile sign-up, and an ERP business partner. Each has its own identifier, spelling, partial attributes, and consent state. Analytics and AI built on top see several entities where there is one.
+A single real-world entity rarely exists as a single record in the data estate of a complex organization. The same customer can appear as a CRM contact, an e-commerce account, a mobile sign-up, and an ERP business partner. Each has its own identifier, spelling, partial attributes, and consent state. Analytics and AI built on top see several entities where there is one.
 
-Within the SAP Business Data Cloud (BDC) Lakehouse, Reltio is the managed master data management (MDM) capability that resolves these fragments into a single trusted golden record, then publishes it back into the lakehouse as a governed data product. This reference architecture describes the unification pattern (match, steward, survivorship, publication) and how it fits the medallion data flow across BDC, Reltio, and Dremio. The pattern is entity-type-agnostic: the same shape produces a unified Customer 360, Supplier 360, and other domains.
+Within the SAP Business Data Cloud (BDC) Lakehouse, Reltio is the managed master data management (MDM) capability that resolves these fragments into a single trusted golden record in real-time, then publishes it back into the lakehouse as a governed data product. This reference architecture describes the unification pattern (reference data management, data quality, match & merge, data governance, relationship management, entity 360, publication) and how it fits the medallion data flow across BDC, Reltio, and Dremio. The pattern is entity-type-agnostic: the same shape produces a unified Customer 360, Supplier 360, and other domains.
 
 ![drawio](drawio/reltio-unification.drawio "Master data unification with Reltio in SAP BDC")
 
@@ -48,7 +49,7 @@ Within the SAP Business Data Cloud (BDC) Lakehouse, Reltio is the managed master
 The unification layer sits in the silver tier of the BDC Federated Object Store (BDC FOS). It takes governed per-source data products as input and feeds the ontology, analytics, and Joule agents above it. Its components:
 
 - **Per-source data products (PDPs):** The governed inputs. SAP master data (S/4HANA, SuccessFactors, Ariba) is ingested as PDPs. Non-SAP data (Salesforce, Snowflake, BigQuery, object stores) is accessed "zero-copy" as Dremio-published custom PDPs via Apache Polaris and SQL-on-Files. Reltio consumes data products, not raw tables. This is the decoupling boundary that keeps source churn out of the MDM layer.
-- **Reltio (Master Data Management):** The match, steward, and survivorship engine that resolves entity identity across the PDPs and produces the Golden Master.
+- **Reltio (Master Data Management):** The real-time data unification engine that resolves entity identity and relationships across the PDPs and produces the Golden Master. Reltio also harmonizes reference data across sources as part of the real-time ingestion and acts as a data quality layer to identify data issues and perform actions such as address validation, phone and email pattern validation etc.
 - **Golden Master UDP:** The deduplicated, survivorship-resolved record. It is written back into the silver tier as a governed Unified Data Product (UDP), with a crosswalk preserving lineage to every contributing source.
 - **Dremio "360" DDP:** The gold-tier reflection. It reads the silver UDP via Iceberg/UniForm and joins the Golden Master into a unified 360° view across all domains.
 - **SAP Enterprise Catalog (Apache Polaris):** Discovery and open-table governance for the published data products.
@@ -57,43 +58,46 @@ The unification layer sits in the silver tier of the BDC Federated Object Store 
 
 Matching is deliberately multi-strategy, not a single similarity threshold. Reltio combines three methods:
 
-- **Deterministic rules:** exact or normalized key agreement.
+- **Rules based:** exact and fuzzy matching on any attribute of any entity.
 - **AI-powered matching:** ML similarity that produces a relevance score.
 - **Transitive matching:** if A matches B and B matches C, configured transitive rules can place A, B, and C in one match group even when A and C do not match directly.
 
-Each candidate match carries a method, a relevance score, and a confidence label. By default, matching runs in real time whenever a record is created or updated. Depending on configuration, qualifying matches can merge automatically while lower-confidence matches route to a steward. That split between automation and review is the primary throughput-versus-accuracy control.
+Each candidate match carries a method, a relevance score, and a confidence label. By default, matching runs in real time whenever a record is created or updated. Depending on configuration, qualifying matches can merge automatically while lower-confidence matches route to a steward or an AI agent for resolution. That split between automation and review is the primary throughput-versus-accuracy control.
 
 ### Survivorship and the golden record
 
-Survivorship is rule-driven and applied per attribute. Different attributes earn their surviving value (the operational value) from different sources under different rules, rather than one source winning the whole record. The rules are declarative configuration, not code, and all contributing values are retained for audit even though only the operational value is surfaced. Reltio ships a range of strategies that are mapped per attribute, for example:
+Survivorship is rule-driven and applied per attribute in real-time. Different attributes earn their surviving value (the operational value) from different sources under different rules, rather than one source winning the whole record. The rules are declarative configuration, not code, and all contributing values are retained for audit even though only the operational value is surfaced. Reltio ships a range of strategies that are mapped per attribute, for example:
 
 - **Last Update Date (recency):** the most recently updated value wins. This is the default strategy.
 - **Source priority:** the value from the highest-priority source system wins.
 - **Oldest / min / max value:** selection by creation date or by value.
+- **Frequency:** most frequently occurring value wins.
 - **Crosswalk-based:** the operational value follows the winning crosswalk of a primary attribute or the winning entity.
 
-Multiple survivorship groups can be defined per entity type, with one default and others selectable by user role.
+Numerous other survivorship strategies are available.
+
+Multiple survivorship groups can be defined per entity type, with one default and others selectable by user role. The view of the "golden record" is generated in real-time based on the user's role-based access and associated survivorship group.
 
 ### Crosswalk and lineage
 
-Every golden record keeps a crosswalk back to each contributing source record and its native identifier. The contributing records are linked, not destroyed. That gives the pattern three properties:
+Every record contains a crosswalk back to each contributing source system and its native identifier within that source. The contributing records are linked, not destroyed. That gives the pattern three properties:
 
 - **Traceability:** any surviving operational value traces to the source that won it, and all contributing values are retained.
-- **Reversibility:** a merge can be unmerged, restoring the contributing records as distinct entities, because their lineage and merge history are kept.
-- **Incremental processing:** matching and merging run in real time on each create or update, so a changed source record re-triggers matching for the affected entity rather than requiring a full batch reprocess.
+- **Reversibility:** a merge can be unmerged in real-time, restoring the contributing records as distinct entities along with their related entities, because their lineage and merge history are kept.
+- **Incremental processing:** matching and merging run in real-time on each create or update, so a changed source record re-triggers matching for the affected entity rather than requiring a full batch reprocess.
 
-The crosswalk also lets a consumer join the 360° product back to a specific source system's records when needed.
+The crosswalk also lets a consumer join the 360° product back to a specific source system's transactional data when needed.
 
 ### Stewardship
 
-Low-confidence matches and data-quality exceptions surface in a Match Review workspace, where a steward confirms or rejects each candidate side by side. Attribute-level validations (for example missing consent, missing privacy preferences, or missing required fields) travel with the record, so the steward sees completeness and compliance, not just string similarity. Automation handles the volume. Humans resolve the ambiguous tail. Every decision is auditable.
+Low-confidence matches and data-quality exceptions surface in a Match Review workspace, where a steward confirms or rejects each candidate side by side or in bulk. Attribute-level validations (for example missing consent, missing privacy preferences, or missing required fields) travel with the record, so the steward sees completeness and compliance, not just string similarity. Automation handles the volume. Humans and AI agents resolve the ambiguous tail. Every decision is auditable.
 
 ### Data flow across the medallion tiers
 
 The pattern moves master data from raw per-source extracts to a governed 360° product. The key subtlety: Reltio does not sit between the silver and gold tiers. It writes its output back into the silver tier, and the gold tier is a Dremio reflection over it.
 
-1. **Ingest → silver PDPs.** SAP sources are ingested as PDPs into the BDC FOS. Non-SAP sources are accessed zero-copy as Dremio custom PDPs. Both land on the same governed surface.
-2. **Reltio → Golden Master.** Reltio resolves identity across the silver PDPs and produces the Golden Master UDP, written back into the silver tier with its crosswalk.
+1. **Ingest → silver PDPs.** SAP sources are ingested as PDPs into the BDC FOS. Non-SAP sources are accessed via zero-copy as Dremio custom PDPs. Both land on the same governed surface.
+2. **Reltio → Golden Master.** Reltio resolves identity across the silver PDPs and produces the Golden Master UDP, written back into the silver tier with all source crosswalks and relationships.
 3. **Dremio → "360" DDP.** Dremio reads the silver UDP via Iceberg/UniForm, applies reflections (pre-computed, physically materialized accelerators), and joins the Golden Master into the gold-tier 360° Master Data DDP.
 4. **Expose to consumers.** The Golden Master UDP is readable as an open Iceberg table or through SQL. The 360° DDP is exposed through Dremio SQL; direct Iceberg access requires it to be explicitly materialized and published as an Iceberg data product.
 5. **HANA Cloud as a first-class consumer.** SQL-on-Files queries the UDP directly on the object store. Federation virtually joins the 360° DDP with HANA operational data for analytical and hybrid queries, without duplicating the lakehouse data.
