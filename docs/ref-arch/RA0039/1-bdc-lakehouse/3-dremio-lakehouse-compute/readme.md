@@ -38,7 +38,7 @@ last_update:
 ## Overview
 
 
-Dremio integrates with SAP Business Data Cloud (BDC) as a high-performance, federated SQL query engine that complements SAP HANA Cloud. It is the lakehouse compute and acceleration engine of the SAP BDC Lakehouse. Dremio provides a single pane of glass for data governance and access across its Iceberg-native open catalog, HDLFS, partner object stores, Iceberg catalogs, and relational databases. Its SQL engine enables direct federated queries on data across sources, enabling users to get insights from distributed data quickly without requiring unnecessary data movement or duplication and maintaining low cost. Reflections, Dremio’s acceleration technology, are used to precompute and physically organize data for fast query execution while leaving source data in place.
+Dremio integrates with SAP Business Data Cloud (BDC) as a high-performance, federated SQL query engine that complements SAP HANA Cloud. It is the lakehouse compute and acceleration engine of the SAP Lakehouse. Its Sonar SQL engine enables direct federated queries across HDLFS and partner object stores, with native Apache Iceberg access, allowing workloads to query distributed data without requiring unnecessary data movement or duplication. 
 
 Within the BDC architecture, running alongside SAP HANA Cloud in the BDC lakehouse runtime, Dremio extends the lakehouse query layer across SAP and non-SAP data, providing a scalable foundation for analytics and agentic AI workloads while complementing SAP HANA Cloud’s data processing, application services, and multi-model capabilities. Dremio’s federation capabilities support high-volume query workloads across heterogeneous data sources.  
 

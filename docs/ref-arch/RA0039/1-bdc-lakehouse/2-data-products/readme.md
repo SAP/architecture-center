@@ -48,7 +48,7 @@ In SAP, a Data Product is a dataset exposed for consumption outside the boundari
 - It is a **business dataset** and consists of one or more business object entities, related objects, analytical data etc
 - It is **consumable** via APIs or events. Supported API types are SQL (incl. SQL interface views), Event, REST, (oData)
 - It is **described** with metadata that is of high quality and provided via Open Resource Discovery (ORD), following ORD schema for Data Product
-- It is **discoverable** via the Data Product Directory, a service of UCL that aggregates metadata of all Data Products to make them discoverable in a landscape. Within the SAP BDC Lakehouse, Data Products are additionally governed and shared through the [SAP Enterprise Catalog powered by Apache Polaris](../6-enterprise-catalog/readme.md).
+- It is **discoverable** via the Data Product Directory, a service of UCL that aggregates metadata of all Data Products to make them discoverable in a landscape. Within the SAP Lakehouse, Data Products are additionally governed and shared through the [SAP Enterprise Catalog powered by Apache Polaris](../6-enterprise-catalog/readme.md).
 
 
 ### Key Characteristic of Data Product
@@ -82,7 +82,7 @@ In SAP, a Data Product is a dataset exposed for consumption outside the boundari
 
 ## Types of Data Products
 
-Within the [SAP BDC Lakehouse](../readme.md), data products span four governed categories, where each tier builds on the ones beneath it.
+Within the [SAP Lakehouse](../readme.md), data products span four governed categories, where each tier builds on the ones beneath it.
 
 -   **Primary Data Products (SAP):** Foundation Services produces these automatically from SAP Line of Business applications, written in UniForm and registered in Open Resource Discovery.
 -   **Primary Data Products (Non-SAP):** Dremio federation publishes non-SAP data in place, without duplication, as custom Primary Data Products.
@@ -122,7 +122,7 @@ The storage layer writes a single physical copy of data once and serves it to ma
 
 #### Sharing and Governance
 
--   **Apache Iceberg with Apache Polaris:** The primary sharing path in the SAP BDC Lakehouse. Data Products are read zero-copy in place by Iceberg-compatible engines through the Enterprise Catalog Iceberg REST interface, with Apache Polaris authorizing catalog, namespace and table access.
+-   **Apache Iceberg with Apache Polaris:** The primary sharing path in the SAP Lakehouse. Data Products are read zero-copy in place by Iceberg-compatible engines through the Enterprise Catalog Iceberg REST interface, with Apache Polaris authorizing catalog, namespace and table access.
 -   **Open Resource Discovery (ORD):** Enables decentralized discoverability of Data Products and their metadata across the landscape.
 
 #### Consumption

@@ -43,7 +43,7 @@ SAP Business AI Platform represents the North Star for enterprise-grade AI -  a 
 The SAP Business AI Platform is built on a core architectural principle -  enterprise data must be enriched with business semantics to become actionable intelligence. 
 Through a semantic layer that binds business meaning to data regardless of where it resides,  SAP Business AI Platform enables agents to reason, decide, and act across the full enterprise data estate with the same confidence and authorization controls that govern human users today.
 
-At the foundation lies **SAP Business Data Cloud (BDC)**, an open, Iceberg-native data lakehouse powered by the Dremio federation engine and Apache Arrow that spans the entire data consumption lifecycle: ingesting SAP and non-SAP data into governed Data Products, making them discoverable through a unified catalog, executing queries and enrichment through a high-performance engine, and elevating data into business meaning through a semantic and ontology layer. Every section below describes a dimension of the SAP BDC Lakehouse; together they form the complete platform picture.  
+At the foundation lies **SAP Business Data Cloud (BDC)**, an open, Iceberg-native data lakehouse powered by the Dremio federation engine and Apache Arrow that spans the entire data consumption lifecycle: ingesting SAP and non-SAP data into governed Data Products, making them discoverable through a unified catalog, executing queries and enrichment through a high-performance engine, and elevating data into business meaning through a semantic and ontology layer. Every section below describes a dimension of the SAP Lakehouse; together they form the complete platform picture.  
 
 
 

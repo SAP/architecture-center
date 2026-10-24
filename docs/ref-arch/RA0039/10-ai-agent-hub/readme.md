@@ -44,7 +44,7 @@ The hub addresses a fundamental challenge: while building and deploying individu
 
 ## Architecture
 
-![drawio](drawio/ai-agent-hub.drawio)
+![drawio](drawio/architecture.drawio)
 
 ## Flow
 

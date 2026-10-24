@@ -2,10 +2,10 @@
 id: 56442f
 slug: /ref-arch/56442f
 sidebar_position: 1
-title: SAP Business Data Cloud Lakehouse
+title: SAP Lakehouse
 description: >-
   Open Lakehouse foundation for governed SAP and non-SAP Data Products that support analytical and agentic consumption.
-sidebar_label: SAP BDC Lakehouse
+sidebar_label: SAP Lakehouse
 keywords:
   - sap
   - business data cloud
@@ -36,7 +36,7 @@ last_update:
   date: 2026-10-23
 ---
 
-SAP BDC Lakehouse is the unified platform for managing SAP and non-SAP data across multi-cloud, hybrid and on-premise environments. Enterprise data architectures for AI require continuous, context-rich understanding of data across systems and domains. This architecture describes the Lakehouse layer, where that foundation is built. SAP and non-SAP data is refined into trusted Data Products on open formats, enriched with master data, business semantics and business relationships, shared zero-copy with platforms such as Snowflake and BigQuery  through the Enterprise Catalog, and surfaced through Joule as agentic and analytical actions.
+SAP Lakehouse is the unified platform for managing SAP and non-SAP data across multi-cloud, hybrid and on-premise environments. Enterprise data architectures for AI require continuous, context-rich understanding of data across systems and domains. This architecture describes the Lakehouse layer, where that foundation is built. SAP and non-SAP data is refined into trusted Data Products on open formats, enriched with master data, business semantics and business relationships, shared zero-copy with platforms such as Snowflake, BigQuery and Databricks through the Enterprise Catalog, and surfaced through Joule as agentic and analytical actions.
 
 ## Architecture
 
