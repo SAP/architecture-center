@@ -69,6 +69,11 @@
     color: white;
 }
 
+.tabButton:focus-visible {
+    outline: 3px solid var(--ifm-color-primary);
+    outline-offset: 3px;
+}
+
 .tabButton.activeTab {
     color: white !important;
 }
