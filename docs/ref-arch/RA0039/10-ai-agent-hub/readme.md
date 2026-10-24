@@ -40,7 +40,7 @@ last_update:
 
 As AI agents proliferate across enterprise systems — spanning SAP, third-party cloud platforms, and custom deployments — organizations need a systematic way to discover, verify, observe, and govern their entire agent estate. **SAP AI Agent Hub** is the enterprise command center for AI governance: a single platform that brings enterprise architecture discipline to AI agent management, built on SAP LeanIX.
 
-The hub addresses a fundamental challenge: while building and deploying individual agents is increasingly straightforward, governing the resulting landscape at scale is not. SAP AI Agent Hub makes the agent estate visible, manageable, and compliant — from the initial planning of a new agent through to its eventual decommissioning.
+AI Agent Hub addresses a fundamental challenge: while building and deploying individual agents is increasingly straightforward, governing the resulting landscape at scale is not. SAP AI Agent Hub makes the agent estate visible, manageable, and compliant — from the initial planning of a new agent through to its eventual decommissioning.
 
 ## Architecture
 
@@ -48,16 +48,16 @@ The hub addresses a fundamental challenge: while building and deploying individu
 
 ## Flow
 
-1. **SAP AI Agent Hub** is the central governance platform for AI agents in the enterprise. Agent metadata from every source — SAP agents, custom agents, and third-party agents — flows into the hub's registry, which maintains a unified inventory across the entire agent estate. It also offers a MCP Server to surface architectural context from the hub into development environments, ensuring builders work with the right business and technical context from day one.
+1. **SAP AI Agent Hub** is the central governance platform for AI agents in the enterprise. Agent metadata from every source — SAP agents, custom agents, and third-party agents — flows into AI Agent Hub's registry, which maintains a unified inventory across the entire agent estate. It also offers an MCP server to surface architectural context from AI Agent Hub into development environments, ensuring builders work with the right business and technical context from day one.
 
-2. An **Agent Manager** — typically an enterprise architect or IT governance lead — uses the hub to discover agents, map them to enterprise architecture, verify and activate them, monitor usage and resource access, adjust permissions, and decommission agents at end of life.
+2. An **Agent Manager** — typically an enterprise architect or IT governance lead — uses AI Agent Hub to discover agents, map them to enterprise architecture, verify and activate them, monitor usage and resource access, adjust permissions, and decommission agents at end of life.
 
 3. Agent telemetry from SAP and third-party agent runtimes flows into **SAP Signavio** for behavioral process analysis and into **SAP Cloud ALM** for operational monitoring.
 4. **SAP SuccessFactors** provides the organizational dimension, mapping agents to business units and roles.
 
-4. **SAP Cloud Identity Services** manages agent identities and acts as the authority for access control. Registering an agent in the hub triggers provisioning flows that create the corresponding agent identity record and align it with enterprise access policies. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
+4. **SAP Cloud Identity Services** manages agent identities and acts as the authority for access control. Registering an agent in AI Agent Hub triggers provisioning flows that create the corresponding agent identity record and align it with enterprise access policies. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
 
-5. The **SAP Agent Gateway** forms the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in the hub. The gateway connects agents to MCP servers, SAP applications, Integration Suite adapters, and external systems.
+5. The **SAP Agent Gateway** forms the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in AI Agent Hub. The gateway connects agents to MCP servers, SAP applications, Integration Suite adapters, and external systems.
 
 ## Agent Lifecycle
 
@@ -65,9 +65,9 @@ SAP AI Agent Hub manages AI agents across five governance stages that an agent p
 
 ### Define
 
-Create agents with the right architecture context and governance foundations from the start. Enterprise architects use the hub to define the agent's goal, design its action space, and specify governance requirements — decisions made here determine the risk profile for everything that follows. SAP LeanIX provides the full architecture inventory — existing applications, business capabilities, IT components, data objects, and processes — as the design context that shapes what agents are built, on which technology, and for which purpose.
+Create agents with the right architecture context and governance foundations from the start. Enterprise architects use AI Agent Hub to define the agent's goal, design its action space, and specify governance requirements — decisions made here determine the risk profile for everything that follows. SAP LeanIX provides the full architecture inventory — existing applications, business capabilities, IT components, data objects, and processes — as the design context that shapes what agents are built, on which technology, and for which purpose.
 
-Joule Studio integrates with the hub via the LeanIX MCP server, surfacing architectural context during agent creation so developers work with the right building blocks and business alignment from day one. Architecture decisions captured in the hub inform and constrain agent design before the first line of code is written.
+Joule Studio integrates with AI Agent Hub via the LeanIX MCP server, surfacing architectural context during agent creation so developers work with the right building blocks and business alignment from day one. Architecture decisions captured in AI Agent Hub inform and constrain agent design before the first line of code is written.
 
 ### Verify
 
@@ -81,13 +81,13 @@ SAP AI Agent Hub automatically discovers agents across SAP and non-SAP environme
 - **MCP servers**: Discovered via Integration Suite connectors and MCP Builder
 - **LLMs**: Discovered via SAP AI Core
 
-Discovered agents populate the agent registry with standardized fact sheets capturing identity, ownership, capabilities, technology stack, and governance status. The hub surfaces contextually relevant agent suggestions to help teams identify the right agent for any task — or determine whether a new one needs to be built at all. Agents that have not passed the required verification checks remain in a pending state until cleared.
+Discovered agents populate the agent registry with standardized fact sheets capturing identity, ownership, capabilities, technology stack, and governance status. AI Agent Hub surfaces contextually relevant agent suggestions to help teams identify the right agent for any task — or determine whether a new one needs to be built at all. Agents that have not passed the required verification checks remain in a pending state until cleared.
 
 ### Enforce
 
 Once verified, the agent goes live with all governance controls active from the first interaction. Identity and access policies are applied, guardrails and action constraints take effect, consumption limits and model-routing rules are set, and the ability to suspend or revoke the agent is in place.
 
-The SAP Agent Gateway is the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in the hub. Structured compliance records capture assessment results, architecture review outcomes, and EU AI Act risk classifications. Every registered agent has a clear owner and responsible party, and continuous architecture review ensures agents remain aligned with enterprise standards, business capabilities, and processes.
+The SAP Agent Gateway is the runtime enforcement point: SAP and third-party agents route their requests through it, and the gateway applies the access control policies defined in AI Agent Hub. Structured compliance records capture assessment results, architecture review outcomes, and EU AI Act risk classifications. Every registered agent has a clear owner and responsible party, and continuous architecture review ensures agents remain aligned with enterprise standards, business capabilities, and processes.
 
 ### Monitor
 
@@ -113,7 +113,7 @@ The registry covers three categories of SAP-originated agents:
 - **Custom agents**: Agents built on Joule Studio by customers
 - **Extended agents**: Partner-built agents available through the SAP ecosystem
 
-The hub maintains a reference catalog with SAP-curated suggestions — recommending agents relevant to the customer's specific architecture landscape based on their existing context and the inventory of available agents.
+AI Agent Hub maintains a reference catalog with SAP-curated suggestions — recommending agents relevant to the customer's specific architecture landscape based on their existing context and the inventory of available agents.
 
 ### Agent Evals & Assessment
 
@@ -121,7 +121,7 @@ Structured assessment and verification for agents and MCP servers. Verification 
 
 ### Identity & Access Control
 
-SAP Cloud Identity Services manages agent identities alongside human identities. The hub drives the full agent identity lifecycle: registering a new agent creates the corresponding identity record in SAP Cloud Identity Services, provisioning flows align role and permission assignments, and ongoing governance ensures agent access remains appropriate as capabilities and organizational requirements evolve. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
+SAP Cloud Identity Services manages agent identities alongside human identities. AI Agent Hub drives the full agent identity lifecycle: registering a new agent creates the corresponding identity record in SAP Cloud Identity Services, provisioning flows align role and permission assignments, and ongoing governance ensures agent access remains appropriate as capabilities and organizational requirements evolve. See [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) for the detailed identity architecture.
 
 ### Agent Observability
 
@@ -129,7 +129,7 @@ Session telemetry from SAP-managed agents flows into SAP Cloud ALM, where dedica
 
 ### Agent Mining
 
-Signavio Process Intelligence ingests agent execution traces via a dedicated AI Agent Mining connector. Once mining is enabled for an agent type in the hub, telemetry is routed to the connector, which normalizes it into an event log structure for behavioral analysis. Signavio surfaces process conformance issues, cost drivers, and performance benchmarks. See [Agent Behavior Mining](../../RA0029/9-agent-behavior-mining/readme.md) for the detailed mining architecture.
+Signavio Process Intelligence ingests agent execution traces via a dedicated AI Agent Mining connector. Once mining is enabled for an agent type in AI Agent Hub, telemetry is routed to the connector, which normalizes it into an event log structure for behavioral analysis. Signavio surfaces process conformance issues, cost drivers, and performance benchmarks. See [Agent Behavior Mining](../../RA0029/9-agent-behavior-mining/readme.md) for the detailed mining architecture.
 
 ### Agent Org & Skills Mapping
 
