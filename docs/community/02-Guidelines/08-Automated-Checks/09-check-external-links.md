@@ -35,7 +35,7 @@ Whenever you open or update a pull request that touches Markdown (`.md` or `.mdx
 The check only looks at the files in your diff, not the whole site. That keeps it fast and keeps the feedback focused on what you actually changed.
 
 :::info
-It also triggers when the workflow file itself (`.github/workflows/check-ext-links.yml`) changes, so maintainers can validate adjustments to the check safely.
+It also triggers when the workflow file itself (`.github/workflows/check-ext-links.yml`) or the Lychee ignore file changes. An ignore-file change scans all non-archived Markdown under `docs/` and `news/` so the new rules are exercised.
 :::
 
 ## Why it reports differently from the local checks
@@ -45,7 +45,8 @@ Most checks in this suite (spelling, [typos](03-check-typos.md), [internal links
 External links are different. A link can fail for reasons that have nothing to do with your edit:
 
 - the remote server is briefly down (a transient `5xx` error),
-- the server is rate-limiting the check (a `429 Too Many Requests`),
+- the server is rate-limiting the check (a `429 Too Many Requests`, which the checker treats as reachable),
+- LinkedIn blocks automated requests with its nonstandard `999` response, which the checker treats as reachable,
 - the URL moved or was retired since you first copied it.
 
 Because that breakage is network-dependent and often *not* tied to a particular changed line, this check does **not** post per-line annotations. Instead it writes its results to two places:
@@ -63,8 +64,8 @@ The check is configured to fail when a link is genuinely broken, so a dead URL w
 
 A couple of details worth knowing:
 
-- **A `403 Forbidden` is not reported.** A `403` almost always means the target sits behind an authentication or login wall rather than that your link is broken, so the check treats it as reachable and never fails on it. Only a genuine breakage such as a `404 Not Found` can block the PR.
-- **Transient failures are retried.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. If a flaky `429` or `5xx` response persists and fails the check, re-running it (see below) normally resolves it. A link that is genuinely broken stays failed until you fix it.
+- **A `403 Forbidden`, `429 Too Many Requests`, or LinkedIn `999` response is not reported.** These responses mean the target enforced an access restriction or rate limit, so the check treats it as reachable. Only genuine breakage such as a `404 Not Found` can block the PR.
+- **Transient failures are retried.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. Rate-limited `429` responses are accepted because they confirm the server exists. If a flaky `5xx` response persists and fails the check, re-running it (see below) normally resolves it. A link that is genuinely broken stays failed until you fix it.
 - **It fails closed on odd filenames.** As a safety measure, if a changed file path contains anything outside letters, digits, and the characters `. _ / -`, the check refuses to run and reports that instead. This is a security guard against unusual characters in paths from fork pull requests. In practice your file names will never trip this, so just name files normally.
 
 :::note
@@ -74,7 +75,7 @@ If none of your changed Markdown lives under `docs/` or `news/`, the check has n
 ## How to fix a failure
 
 1. **Open the report.** Find the *Check External Links* section in the sticky PR comment (or the *External links check* heading in the job summary) and read which URL failed and with what status.
-2. **Decide if it is real or transient.** A `404 Not Found` means the page is genuinely gone, so you need to fix it. A `429` or a `5xx` usually means the server was busy or briefly unavailable. A `403` is not reported at all, since it almost always indicates a login wall rather than a broken link.
+2. **Decide if it is real or transient.** A `404 Not Found` means the page is genuinely gone, so you need to fix it. A `5xx` usually means the server was busy or briefly unavailable. `403`, `429`, and LinkedIn `999` responses are not reported because they indicate a login wall or rate limit rather than a broken link.
 3. **For a real break:** correct the typo in the URL, or replace it with the current canonical address of the resource. If the resource is gone for good, link to an equivalent source or remove the link.
 4. **For a transient failure:** simply re-run the check. Rate limits and short outages normally clear, and a re-run often turns the check green with no change on your side.
 

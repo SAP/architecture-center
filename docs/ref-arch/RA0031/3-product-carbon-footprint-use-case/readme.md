@@ -37,7 +37,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-09
+  date: 2026-10-22
 ---
 
 Tracking the carbon footprint of a product across complex supply chains requires multiple companies to exchange emissions data — a process that demands both data integrity and verified identity. SAP Decentralized Identity Verification (DIV) enables this by providing a **Self-Sovereign Identity (SSI) infrastructure** where supply chain partners can prove their identity and their membership in a trust network using **Verifiable Credentials (VCs)**, without relying on a central authority.
@@ -80,7 +80,7 @@ See [Data Space Integration setup](https://help.sap.com/docs/integration-suite/i
 ## Resources
 
 - [Catena-X – Identity & Trust (IATP)](https://github.com/eclipse-tractusx/identity-trust)
-- [Catena-X – IATP Verifiable Presentation Protocol](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/M1/verifiable.presentation.protocol.md)
+- [DCP – Verifiable Presentation Protocol](https://github.com/eclipse-dataspace-dcp/decentralized-claims-protocol/blob/main/specifications/verifiable.presentation.protocol.md)
 - [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/)
 - [W3C Decentralized Identifiers (DIDs)](https://www.w3.org/TR/did-core/)
 - [Eclipse Dataspace Connector (EDC)](https://eclipse-edc.github.io/docs/)
