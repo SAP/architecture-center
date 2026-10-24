@@ -35,7 +35,7 @@ contributors:
 discussion: 
 last_update:
   author: guilherme-segantini
-  date: 2026-10-22
+  date: 2026-10-23
 ---
 
 Data Products is the fundamental building block of SAP Business Data Cloud and it serves as a standardized and efficient way to share and consume data across applications and domains. They enable analytic scenarios, AI applications, and facilitate data integration while being optimized for intensive reads. Managed with a product mindset, they are supported by high-quality metadata and governed by decentralized ownership principles.
@@ -46,7 +46,7 @@ Customers currently face challenges when accessing and using data for various ta
 
 In SAP, a Data Product is a dataset exposed for consumption outside the boundaries of the producing application via APIs and described by high quality metadata that can be accessed through the Data Product Catalog.
 - It is a **business dataset** and consists of one or more business object entities, related objects, analytical data etc
-- It is **consumable** via APIs or events. Supported API types are SQL (incl. SQL interface views), Delta Sharing, Event, REST, (oData)
+- It is **consumable** via APIs or events. Supported API types are SQL (incl. SQL interface views), Event, REST, (oData)
 - It is **described** with metadata that is of high quality and provided via Open Resource Discovery (ORD), following ORD schema for Data Product
 - It is **discoverable** via the Data Product Directory, a service of UCL that aggregates metadata of all Data Products to make them discoverable in a landscape. Within the SAP BDC Lakehouse, Data Products are additionally governed and shared through the [SAP Enterprise Catalog powered by Apache Polaris](../6-enterprise-catalog/readme.md).
 
@@ -117,25 +117,23 @@ Data Products move through four stages on a single governed surface: production,
 
 The storage layer writes a single physical copy of data once and serves it to many engines. Apache Iceberg is the primary format for cross-engine interoperability.
 
--   **Open Table Format:** Data lands as Parquet and is compatible with Iceberg and Delta Lake tables. UniForm projects that single physical copy as Apache Iceberg, so Iceberg-compatible consumers read it natively without conversion or duplication.
+-   **Open Table Format:** Data lands as Parquet and is compatible with Apache Iceberg tables. UniForm projects that single physical copy as Apache Iceberg, so Iceberg-compatible consumers read it natively without conversion or duplication.
 -   **Medallion Architecture:** The BDC Federated Object Store organizes data across Bronze, Silver and Gold tiers, with processing handled by the Spark framework.
 
 #### Sharing and Governance
 
 -   **Apache Iceberg with Apache Polaris:** The primary sharing path in the SAP BDC Lakehouse. Data Products are read zero-copy in place by Iceberg-compatible engines through the Enterprise Catalog Iceberg REST interface, with Apache Polaris authorizing catalog, namespace and table access.
 -   **Open Resource Discovery (ORD):** Enables decentralized discoverability of Data Products and their metadata across the landscape.
--   **Delta Sharing:** A secondary, compatible protocol for the same UniForm tables, serving consumers that read the Delta Lake representation. It provides zero-copy access, central governance and support for tools such as Apache Spark and Python.
 
 #### Consumption
 
 Consumers reach Data Products through two entry points. Enterprise Discovery tells a consumer that a product exists and what it means. The Enterprise Catalog governs and serves the read.
 
 -   **Enterprise Catalog (Apache Polaris):** The Iceberg REST catalog authorizes catalog, namespace and table access and issues path-scoped credentials, so Iceberg-compatible engines read the governed Data Products zero-copy in place.
--   **Iceberg REST Engines:** External engines such as SAP Databricks, Snowflake, BigQuery and Microsoft Fabric read Data Products zero-copy in place through the Enterprise Catalog Iceberg REST interface for AI, machine learning and analytics workloads.
+-   **Iceberg REST Engines:** External engines such as Snowflake, BigQuery and Microsoft Fabric read Data Products zero-copy in place through the Enterprise Catalog Iceberg REST interface for AI, machine learning and analytics workloads.
 -   **Dremio:** Serves federated SQL over Arrow Flight SQL and ADBC for queries and joins across sources, and is the query path for BI tools such as Power BI, Tableau and Looker. Dremio reads the same governed Data Products through the Enterprise Catalog rather than sitting in front of it.
--   **SAP HANA Cloud:** Consumes Data Products via SQL-on-Files and Federation over the Apache Iceberg representation, and via the Delta Sharing protocol, enabling workloads such as CDS views, calculation views and CAP applications to leverage governed BDC data without replication.
+-   **SAP HANA Cloud:** Consumes Data Products via SQL-on-Files and Federation over the Apache Iceberg representation, enabling workloads such as CDS views, calculation views and CAP applications to leverage governed BDC data without replication.
 -   **SAP Analytics Cloud:** Consumes Data Products for visualization, reporting and planning scenarios.
--   **Delta Sharing Clients:** Any application supporting the Delta Sharing protocol consumes BDC Data Products for zero-copy access in external environments.
 
 #### Implementation
 
@@ -174,18 +172,16 @@ The customer onboarding sequence provisions and activates Data Products within t
    ```
 
    **Data Sharing View**:
-   This diagram illustrates how Data Products are shared through the primary path. The Data Provider manages Iceberg tables in the BDC Federated Object Store, which the Enterprise Catalog exposes through the Iceberg REST interface. Apache Polaris authorizes catalog, namespace and table access and issues path-scoped credentials for zero-copy reads. Delta Sharing remains available as a secondary path for consumers reading the Delta Lake representation.
+   This diagram illustrates how Data Products are shared through the primary path. The Data Provider manages Iceberg tables in the BDC Federated Object Store, which the Enterprise Catalog exposes through the Iceberg REST interface. Apache Polaris authorizes catalog, namespace and table access and issues path-scoped credentials for zero-copy reads.
 
    ```mermaid
    graph LR
     subgraph Data Provider
         DL["Iceberg Tables (UniForm)"] --> EC[Enterprise Catalog - Iceberg REST]
         AP[Apache Polaris Authorization] --> EC
-        DL -. secondary .-> DS[Delta Sharing Server]
     end
 
     EC -- Iceberg REST Interface --> AC[Iceberg-Compatible Engine]
-    DS -. Delta Sharing Protocol .-> AC
 
     subgraph Data Recipient
         AC
@@ -222,4 +218,4 @@ SAP Data Products also support customer extensions within any SAP Sources & loca
 
 ### Conclusion
 
-Data Products in SAP Business Data Cloud streamline data sharing, integration, and analytics across domains. Supported by high-quality metadata, Delta Sharing protocols, and decentralized ownership principles, they are optimized for intensive reads and managed with a product mindset. Foundation Services ensure seamless discoverability and consumption, empowering businesses to make data-driven decisions efficiently.
+Data Products in SAP Business Data Cloud streamline data sharing, integration, and analytics across domains. Supported by high-quality metadata and decentralized ownership principles, they are optimized for intensive reads and managed with a product mindset. Foundation Services ensure seamless discoverability and consumption, empowering businesses to make data-driven decisions efficiently.
