@@ -31,18 +31,18 @@ contributors:
   - seeobjectively
   - s-krishnamoorthy
 last_update:
-  author: s-krishnamoorthy
-  date: 2026-10-20
+  author: seeobjectively
+  date: 2026-10-23
 ---
 
 ## Overview
 
 
-Dremio integrates with SAP Business Data Cloud (BDC) as a high-performance, federated SQL query engine that complements SAP HANA Cloud. It is the lakehouse compute and acceleration engine of the SAP BDC Lakehouse. Its Sonar SQL engine enables direct federated queries across HDLFS and partner object stores, with native Apache Iceberg access, allowing workloads to query distributed data without requiring unnecessary data movement or duplication. 
+Dremio integrates with SAP Business Data Cloud (BDC) as a high-performance, federated SQL query engine that complements SAP HANA Cloud. It is the lakehouse compute and acceleration engine of the SAP BDC Lakehouse. Dremio provides a single pane of glass for data governance and access across its Iceberg-native open catalog, HDLFS, partner object stores, Iceberg catalogs, and relational databases. Its SQL engine enables direct federated queries on data across sources, enabling users to get insights from distributed data quickly without requiring unnecessary data movement or duplication and maintaining low cost. Reflections, Dremio’s acceleration technology, are used to precompute and physically organize data for fast query execution while leaving source data in place.
 
 Within the BDC architecture, running alongside SAP HANA Cloud in the BDC lakehouse runtime, Dremio extends the lakehouse query layer across SAP and non-SAP data, providing a scalable foundation for analytics and agentic AI workloads while complementing SAP HANA Cloud’s data processing, application services, and multi-model capabilities. Dremio’s federation capabilities support high-volume query workloads across heterogeneous data sources.  
 
-Within the data product lifecycle, Dremio consumes trusted Primary Data Products from the medallion pipeline and accesses eligible non-SAP data in place, then derives and accelerates consumable Data Products delivered through open Iceberg and SQL interfaces, avoiding proprietary lock-in.
+Within the data product lifecycle, Dremio consumes data products from the medallion pipeline and accesses eligible non-SAP data in place, then derives and accelerates consumable Data Products delivered through open Iceberg and SQL interfaces, avoiding proprietary lock-in.
 
 Dremio complements Reltio by consuming its Golden Master from the silver tier via Iceberg and transforming it into a gold-tier 360° Master Data Derived Data Product using reflections.
 
@@ -56,7 +56,7 @@ The lakehouse-compute stack is built from these components:
 - **Dremio:** The lakehouse compute and acceleration engine providing datalake SQL, distributed processing, and reflections, reading SAP Data Products from FOS and helping create Primary Data products from non-SAP data sources and Derived Data products from SAP and non-SAP data.
 - **BDC Federated Object Store (BDC FOS):** The SAP-managed medallion data lake holding the SAP standard Data products from SAP sources.
 - **Spark:** Applies change data into raw history and transforms it into standardized SAP Data Products.
-- **The Enterprise Catalog  - Apache Polaris based:** The unified catalog where every Primary and Derived Data Product is registered and exposed through Delta, Iceberg, and SQL ports for data discovery.
+- **The Enterprise Catalog  - powered by Apache Polaris:** The unified catalog where every Primary and Derived Data Product is registered and exposed through Delta, Iceberg, and SQL ports for data discovery.
 - **SAP HANA Cloud:** A first-class SQL based consumer that reads Data Products via SQL-on-Files and Federation.
 
 
@@ -79,15 +79,16 @@ The pipeline moves data through the medallion tiers from raw source changes to a
 
 ## Dremio Reflections
 
-Dremio Reflections are query-acceleration structures that optimize analytics performance by precomputing and storing data in formats designed for efficient query execution. They allow Dremio’s query optimizer to transparently rewrite queries to use the most appropriate Reflection, reducing the need to repeatedly scan, join, and aggregate underlying data while preserving access through familiar SQL interfaces. By accelerating queries over large-scale data in open formats such as Apache Iceberg, Reflections can improve query latency, concurrency, and resource efficiency without requiring users to change their queries or maintain separate, manually managed data pipelines.
+Dremio Reflections are query-acceleration structures that optimize analytics performance by precomputing and storing data in formats designed for efficient query execution. They allow Dremio’s query optimizer to transparently rewrite queries to use the most appropriate Reflection, reducing the need to repeatedly scan, join, and aggregate underlying data while preserving access through familiar SQL interfaces. By accelerating queries over large-scale data across distributed sources, Reflections can improve query latency, concurrency, and resource efficiency without requiring users to change their queries or maintain separate, manually managed data pipelines.
 
 
 ## Value for customers with Dremio compute engine
 
 - Iceberg based modern industry standard storage lowering their TCO
 - Switch from in-memory storage-based pricing to competitive SQL based compute usage-based pricing.
+- Easy self service experience to bring together SAP and non-SAP data without moving or copying data.
 - Customers embracing multi-cloud strategy can build unified logical semantic layer keeping their storage in place (Databricks, Snowflake, Amazon S3, Azure Storage, GCS & HDLFS) without vendor lock-in
-- Customer who have already moved their SAP data to hyperscaler storage can query the data for fraction of cost with Dremio.
+- Customers who have already moved their SAP data to hyperscaler storage can query the data for a fraction of the cost with Dremio.
 
 
 ## Related Resources
