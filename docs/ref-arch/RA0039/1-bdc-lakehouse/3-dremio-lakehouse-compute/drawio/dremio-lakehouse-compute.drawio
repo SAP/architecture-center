@@ -8,7 +8,7 @@
         <!-- Outer BDC Container -->
         <mxCell id="bdc-lakehouse" parent="1"
           style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1.5;arcSize=3;fillColor=#ffffff;fontFamily=Helvetica;align=left;verticalAlign=top;spacingLeft=16;spacingTop=14;fontSize=14;fontColor=#00185A;fontStyle=1;container=0;"
-          value="&lt;b&gt;SAP Business Data Cloud Lakehouse&lt;/b&gt;" vertex="1">
+          value="&lt;b&gt;SAP Lakehouse&lt;/b&gt;" vertex="1">
           <mxGeometry height="700" width="980" x="80" y="80" as="geometry" />
         </mxCell>
 
