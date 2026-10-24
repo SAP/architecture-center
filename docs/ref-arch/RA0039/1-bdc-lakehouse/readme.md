@@ -90,9 +90,9 @@ Governance is enforced at the catalog and query-engine layers. Apache Polaris pr
 
 ### Additional Resources
 
-- [Data Products in SAP Business Data Cloud](/ref-arch/09be8b)
-- [Dremio Lakehouse Compute in SAP BDC](/ref-arch/cc28e4)
-- [Entity Unification with Reltio in SAP BDC](/ref-arch/6bf1fa)
+- [Data Products in SAP Business Data Cloud](/docs/ref-arch/09be8b)
+- [Dremio Lakehouse Compute in SAP BDC](/docs/ref-arch/cc28e4)
+- [Entity Unification with Reltio in SAP BDC](/docs/ref-arch/6bf1fa)
 - [SAP Business Data Cloud](https://www.sap.com/products/data-cloud.html)
 - [SAP BDC Master Data Governance](https://www.sap.com/products/data-cloud/master-data-governance.html)
 - [SAP Knowledge Graph](https://www.sap.com/products/artificial-intelligence/knowledge-graph.html)
