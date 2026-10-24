@@ -31,10 +31,11 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
+  - I575770
 discussion: 
 last_update:
-  author: kay-schmitteckert
-  date: 2026-08-25
+  author: I575770
+  date: 2026-10-23
 ---
 
 **Joule Studio** is SAP's AI-native development environment for building custom agents, apps, and workflows — grounded in SAP business context and deployed to the SAP-managed runtime as part of the SAP Business AI Platform.
@@ -56,6 +57,22 @@ Both flows follow the same six phases and produce the same deployable artifact, 
 
 ![drawio](./drawio/architecture.drawio)
 
+## Assets You Can Build
+
+Joule Studio produces three kinds of deployable solution assets. All three follow the same IBD phases and deploy to the SAP-managed runtime.
+
+### Agents
+
+A custom AI agent tailored to your SAP landscape. You define the agent's instructions, tools (SAP APIs, MCP servers), and optional human-in-the-loop interactions. Once deployed, the agent registers automatically with Joule and is accessible to end users.
+
+### Agent Extensions
+
+An agent extension augments an existing SAP-delivered base agent without modifying it. You author it as a separate solution asset; your customizations are layered on top at runtime while the base agent stays unmodified and continues to receive SAP updates. Extensions can add **Instructions** — additional context injected into the agent's system prompt to steer its behavior toward your policies, tone, or domain knowledge.
+
+### MCP Servers
+
+A Model Context Protocol (MCP) server packages SAP API capabilities as tools that any agent can consume. Joule Studio can generate an MCP server from an existing SAP OData or REST API. The resulting MCP server deploys to the managed runtime and can be attached to any agent as a tool source.
+
 ## Low-Code Flow
 
 The **Low-Code Flow** uses the visual, browser-based Joule Studio builder — no local setup or coding agent required. You describe your intent in the Joule chat, and IBD guides the solution through requirements, specification, code generation, testing, and deployment, all within the browser.
@@ -65,13 +82,12 @@ This flow is ideal for business analysts, citizen developers, and professional d
 **What you can build:**
 
 -   **Agents** — custom AI agents tailored to your SAP landscape
--   **Agent Extensions** — custom skills, instructions, or data fields added to existing SAP agents
--   **n8n Workflows** — multi-step AI automations connecting SAP and other systems
+-   **Agent Extensions** — custom instructions added to existing SAP agents
 -   **Applications** — full-stack apps (CAP backend + React frontend) for viewing and managing data
 
 ### Key Components
 
--   **Joule Studio (browser-based):** Visual development environment for defining agent instructions, configuring tools, orchestrating workflows, and specifying human-in-the-loop interactions.
+-   **Joule Studio (browser-based):** Visual development environment for defining agent instructions, configuring tools, and specifying human-in-the-loop interactions.
 -   **SAP Knowledge Graph:** API discovery, fit-gap analysis, and Reference Business Architecture mapping — used during intent refinement to identify relevant SAP capabilities and APIs.
 -   **SAP LeanIX:** Provides your enterprise landscape context — applications, business capabilities, and organization structure — so IBD can ground the solution in your specific environment.
 -   **Generative AI Hub:** Foundation models, document grounding (RAG), prompt optimization, and orchestration capabilities including data masking, I/O filtering, and translation.
