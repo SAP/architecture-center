@@ -1,7 +1,7 @@
 /* Rounded-rectangle sticker, absolutely positioned in the hero so it scrolls away with the page */
 .sticker {
     position: absolute;
-    top: -120px;
+    top: calc(-120px + 10vh);
     left: 100px;
     width: 220px;
     height: 84px;
