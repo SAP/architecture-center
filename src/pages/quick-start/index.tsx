@@ -4,12 +4,17 @@ import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './index.module.css';
 import { useHistory } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { usePageDataStore, PageMetadata } from '@site/src/store/pageDataStore';
+import {
+    activatePageDataIdentity,
+    usePageDataStore,
+    PageMetadata,
+} from '@site/src/store/pageDataStore';
 import MetadataFormDialog from '@site/src/components/MetaFormDialog';
 import { useAuth } from '@site/src/context/AuthContext';
 import Header from '@site/src/components/CustomHeader/Header';
 import { BusyIndicator, Button, Card, Dialog, FlexBox, Icon, Text, Title } from '@ui5/webcomponents-react';
 import useIsMobile from '@site/src/hooks/useIsMobile';
+import { getLoginUrl } from '@site/src/services/authSession';
 
 function EditorComponent({ onAddNew, onEditMeta }: { onAddNew: (parentId?: string | null) => void; onEditMeta?: () => void }) {
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
@@ -44,20 +49,51 @@ function AuthenticatedQuickStartView() {
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users, token } = useAuth();
-    const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
-    const [initialized, setInitialized] = useState(false);
+    const { users } = useAuth();
+    const githubUsername = users.github?.username || '';
+    const { authenticatedApiPath } = siteConfig.customFields as { authenticatedApiPath: string };
+    const [initializedIdentity, setInitializedIdentity] = useState<string | null>(null);
+    const [initializationError, setInitializationError] = useState<string | null>(null);
+    const [initializationAttempt, setInitializationAttempt] = useState(0);
+    const initialized = initializedIdentity === githubUsername.toLowerCase();
 
-    // Initialize backend config and fetch documents
+    // Rehydrate only this GitHub identity's editor state, then replace it with
+    // the server-authorized document list before rendering the editor.
     useEffect(() => {
-        if (expressBackendUrl && token && !initialized) {
-            const username = users.github?.username || '';
-            setBackendConfig(expressBackendUrl, token, username);
-            fetchDocuments().then(() => {
-                setInitialized(true);
-            });
-        }
-    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
+        if (!authenticatedApiPath || !githubUsername) return;
+        let cancelled = false;
+
+        setInitializedIdentity(null);
+        setInitializationError(null);
+        void (async () => {
+            try {
+                const activated = await activatePageDataIdentity(githubUsername);
+                if (!activated || cancelled) return;
+
+                setBackendConfig(authenticatedApiPath, githubUsername);
+                const fetched = await fetchDocuments();
+                if (cancelled) return;
+
+                if (fetched) {
+                    setInitializedIdentity(githubUsername.toLowerCase());
+                    return;
+                }
+                setInitializationError(
+                    usePageDataStore.getState().syncError || 'Unable to load your Quick Start documents.'
+                );
+            } catch (error) {
+                if (!cancelled) {
+                    setInitializationError(
+                        error instanceof Error ? error.message : 'Unable to initialize Quick Start.'
+                    );
+                }
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [authenticatedApiPath, fetchDocuments, githubUsername, initializationAttempt, setBackendConfig]);
 
     const handleAddNew = useCallback((parentId: string | null = null) => {
         const newDocWithAuthor = {
@@ -116,7 +152,17 @@ function AuthenticatedQuickStartView() {
         setIsModalOpen(false);
     };
 
-    // Show initializing screen only on first load (fetching documents)
+    if (initializationError) {
+        return (
+            <div className={styles.initializingContainer}>
+                <Text>{initializationError}</Text>
+                <Button onClick={() => setInitializationAttempt((attempt) => attempt + 1)}>Retry</Button>
+            </div>
+        );
+    }
+
+    // Never expose a previous identity's editor state while the current
+    // identity is hydrating or fetching its authorized documents.
     if (isLoading || !initialized) {
         return (
             <div className={styles.initializingContainer}>
@@ -210,9 +256,9 @@ export default function QuickStart(): JSX.Element {
     const { users, loading } = useAuth();
     const isMobile = useIsMobile();
 
-    const isGithubAuthenticated = users.github !== null;
-    const { expressBackendUrl } = siteConfig.customFields as {
-        expressBackendUrl: string;
+    const githubUsername = users.github?.username;
+    const { authApiPath } = siteConfig.customFields as {
+        authApiPath: string;
     };
 
     if (isMobile) {
@@ -236,9 +282,9 @@ export default function QuickStart(): JSX.Element {
         );
     }
 
-    if (!isGithubAuthenticated) {
-        const originUri = `${window.location.origin}${siteConfig.baseUrl}quick-start`;
-        const loginUrl = `${expressBackendUrl}/user/login?origin_uri=${encodeURIComponent(originUri)}&provider=github`;
+    if (!githubUsername) {
+        const returnTo = `${siteConfig.baseUrl}quick-start`;
+        const loginUrl = getLoginUrl(authApiPath, 'github', returnTo);
 
         return (
             <Layout>
@@ -256,7 +302,7 @@ export default function QuickStart(): JSX.Element {
 
     return (
         <Layout>
-            <AuthenticatedQuickStartView />
+            <AuthenticatedQuickStartView key={githubUsername.toLowerCase()} />
         </Layout>
     );
 }

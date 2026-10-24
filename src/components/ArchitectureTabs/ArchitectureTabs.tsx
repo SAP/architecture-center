@@ -5,6 +5,7 @@ import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './ArchitectureTabs.module.css';
 import { useAuth } from '../../context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { getLoginUrl } from '@site/src/services/authSession';
 
 interface TabItem {
     title: string;
@@ -37,9 +38,8 @@ export default function ArchitectureTabs({
     const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
-    const { backendUrl, expressBackendUrl, authProviders } = siteConfig.customFields as {
-        backendUrl: string;
-        expressBackendUrl: string;
+    const { authApiPath, authProviders } = siteConfig.customFields as {
+        authApiPath: string;
         authProviders: Record<string, 'btp' | 'github'>;
     };
 
@@ -103,14 +103,7 @@ export default function ArchitectureTabs({
     const needsAuth = requiredProvider && !isLoggedInWithRequiredProvider;
 
     const handleLogin = (provider: 'btp' | 'github', destinationLink: string) => {
-        const baseUrl = window.location.origin;
-        const originUri = encodeURIComponent(baseUrl + destinationLink);
-
-        if (provider === 'github') {
-            window.location.href = `${expressBackendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
-        } else {
-            window.location.href = `${backendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
-        }
+        window.location.href = getLoginUrl(authApiPath, provider, destinationLink);
     };
 
     const handleButtonClick = (e: React.MouseEvent) => {

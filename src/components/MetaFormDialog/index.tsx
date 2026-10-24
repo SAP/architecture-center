@@ -20,6 +20,7 @@ import { useAuth } from '@site/src/context/AuthContext';
 import { usePluginData } from '@docusaurus/useGlobalData';
 import { logger } from '../../utils/logger';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { authenticatedFetch } from '@site/src/services/authSession';
 
 interface Tag {
     label: string;
@@ -55,7 +56,7 @@ export default React.memo(function MetadataFormDialog({
     isEditMode = false,
 }: MetadataFormDialogProps): JSX.Element {
     const { siteConfig } = useDocusaurusContext();
-    const { user, token } = useAuth();
+    const { user } = useAuth();
 
     const [contributorSearchQuery, setContributorSearchQuery] = useState('');
     const [tagSearchQuery, setTagSearchQuery] = useState('');
@@ -65,7 +66,7 @@ export default React.memo(function MetadataFormDialog({
 
     const pluginData: { tags?: TagsData } | undefined = usePluginData('docusaurus-tags');
     const globalTagsData = pluginData?.tags;
-    const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
+    const backendUrl = siteConfig.customFields?.authenticatedApiPath as string | undefined;
 
     const { availableTags, labelToKeyMap } = useMemo(() => {
         const tagsData = globalTagsData || {};
@@ -94,11 +95,8 @@ export default React.memo(function MetadataFormDialog({
         const signal = abortControllerRef.current.signal;
 
         try {
-            const apiUrl = `${backendUrl}/user/github/search-users?q=${contributorSearchQuery}`;
-            const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const apiUrl = `${backendUrl}/user/github/search-users?q=${encodeURIComponent(contributorSearchQuery)}`;
+            const response = await authenticatedFetch(apiUrl, {
                 cache: 'no-store',
                 signal,
             });
@@ -117,7 +115,7 @@ export default React.memo(function MetadataFormDialog({
             setIsSearching(false);
             abortControllerRef.current = null;
         }
-    }, [backendUrl, contributorSearchQuery, token, initialData.contributors]);
+    }, [backendUrl, contributorSearchQuery, initialData.contributors]);
 
     useEffect(() => {
         if (!backendUrl || contributorSearchQuery.trim().length < 3) {
@@ -160,10 +158,7 @@ export default React.memo(function MetadataFormDialog({
     const fetchSingleUserAvatar = async (login: string): Promise<string | null> => {
         try {
             const apiUrl = `${backendUrl}/github/user/${encodeURIComponent(login)}`;
-            const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+            const response = await authenticatedFetch(apiUrl, {
                 cache: 'no-store',
             });
             if (!response.ok) throw new Error('Failed to fetch user');

@@ -206,10 +206,10 @@ function AdmonitionDropDown() {
 
 export default function ToolbarPlugin() {
   const editor = useEditor();
-  const { token } = useAuth();
+  const { users } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
-  const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
+  const backendUrl = siteConfig.customFields?.authenticatedApiPath as string | undefined;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pendingFileType = useRef<'image' | 'drawio' | 'docx' | null>(null);
@@ -315,10 +315,10 @@ export default function ToolbarPlugin() {
           const dataUrl = await readFileAsDataURL(file);
           let assetId: string | undefined;
 
-          if (backendUrl && token && activeDocument?.id) {
+          if (backendUrl && users.github && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -345,10 +345,10 @@ export default function ToolbarPlugin() {
           const xml = await readFileAsText(file);
           let assetId: string | undefined;
 
-          if (backendUrl && token && activeDocument?.id) {
+          if (backendUrl && users.github && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);
@@ -383,7 +383,7 @@ export default function ToolbarPlugin() {
 
     e.target.value = '';
     pendingFileType.current = null;
-  }, [editor, backendUrl, token, getActiveDocument]);
+  }, [editor, backendUrl, users.github, getActiveDocument]);
 
   return (
     <>

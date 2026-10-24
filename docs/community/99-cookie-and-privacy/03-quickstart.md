@@ -23,17 +23,16 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-08
+  date: 2026-10-22
 ---
 
-The **Quick Start** tool uses GitHub OAuth for user authentication. This means that users are redirected to GitHub to log in and authorize the application. No passwords or direct authentication data are handled or stored by the **Quick Start** tool.
+The **Quick Start** tool uses GitHub OAuth for user authentication. Users are redirected to GitHub to log in and authorize the application. GitHub credentials and OAuth access tokens are kept by the server-side authentication service and are not sent to or stored by the browser.
 
 Personal Data Processed:
 - GitHub Username
 - Public Profile Information (e.g., name, profile picture, email if made public)
-- Repository Access Token (scoped access provided by the user to fork, commit, and create pull requests)
+- Repository Access Token (scoped access held by the server-side service to fork, commit, and create pull requests)
 
 This data is used solely to perform GitHub actions on behalf of the user such as forking repositories, committing changes, and creating pull requests.
 No personal data is shared with third parties or used for marketing, analytics, or advertising purposes.
-The **Quick Start** tool itself does not set or store any cookies.
-However, GitHub may set cookies during the OAuth login process (which is outside the **Quick Start** tool’s control).
+The **Quick Start** tool sets a strictly necessary, first-party session cookie after login. The cookie contains an opaque session identifier rather than an OAuth token. It is protected with the `Secure`, `HttpOnly`, and `SameSite=Lax` attributes and is deleted when the session ends. GitHub may also set cookies during the OAuth login process, which is outside the **Quick Start** tool’s control.
