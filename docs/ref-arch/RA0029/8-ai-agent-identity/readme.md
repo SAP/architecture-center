@@ -120,7 +120,7 @@ The SAP Agent Gateway is a technical component wihtin the customer landscape but
 
 - **Cross-application agent orchestration**: A user asks SAP Joule to "reconcile last month's invoices." Joule's orchestrator identifies that this requires agents in both SAP S/4HANA (finance) and SAP Ariba (procurement). Each agent's identity is checked against its permitted scope before execution, and the Agent Gateway ensures the inter-agent communication adheres to defined policies in intersection with the user-access to finance/procurement.
 
-- **Agent lifecycle governance**: An enterprise architect uses [SAP AI Agent Hub](/ref-arch/jfhsd9) to register a new AI agent, which triggers SAP for Me and the possibility to activate the "Autonomous Suite" Provisioning. This creates the corresponding agent identity in SAP Cloud Identity Services and registers the agent in the Unified Services with the related Agent Cards.
+- **Agent lifecycle governance**: An enterprise architect uses [SAP AI Agent Hub](/docs/ref-arch/jfhsd9) to register a new AI agent, which triggers SAP for Me and the possibility to activate the "Autonomous Suite" Provisioning. This creates the corresponding agent identity in SAP Cloud Identity Services and registers the agent in the Unified Services with the related Agent Cards.
 
 ## Related Readings
 

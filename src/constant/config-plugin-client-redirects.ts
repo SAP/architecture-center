@@ -420,7 +420,7 @@ export const configRedirects = {
         },
         {
             from: '/docs/ref-arch/ca1d2a3e/2',
-            to: '/docs/ref-arch/219c07',
+            to: '/docs/ref-arch/d2ba1e',
         },
         {
             from: '/docs/ref-arch/ca1d2a3e/3',
