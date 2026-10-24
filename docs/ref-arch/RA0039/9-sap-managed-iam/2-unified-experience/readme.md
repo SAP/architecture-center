@@ -2,7 +2,7 @@
 id: c39aee
 slug: /ref-arch/c39aee
 sidebar_position: 2
-title: Unified Experience, Application IAM Leading
+title: Unified architecture, Unified experience, Application IAM Leading
 description: >-
   Stage 2 of SAP-managed IAM — a unified cross-application experience where
   individual application IAM remains the leading authority for identities.
@@ -59,6 +59,10 @@ The architecture diagram shows the Stage 2 setup, where the managed experience n
 This stage builds directly on the consolidatable users of Stage 1: because the per-application users were already linked during the **consolodation** and got the Global User ID of the **user profile (identity)** which is written back into the connected applications. The **user profile (identity)** can now experience an unified Joule experience across the landscape. 
 It is recommended to reach this stage to properly govern Agent Identities and Human Identities. It allows the assignment of agent-policies properly.
 
+### Agent Identity
+
+With the agentic layer introduced at this stage, AI agents become first-class actors that must be identified, authenticated, and governed just like human users. The [Agent Identity](../../../RA0029/8-ai-agent-identity/readme.md) reference architecture describes how SAP Cloud Identity Services stores agent identities alongside human identities in the Identity Directory, giving enterprises a unified governance model across both. In that architecture the SAP Agent Gateway acts as the policy enforcement layer — brokering Agent2Agent and Agent2App interactions and validating agent identity and authorization at every hop — which is exactly the agentic layer shown in the Stage 2 component view above.
+
 ## Flow
 
 1. Multiple SAP applications are integrated with SAP Cloud Identity Services for a unified experience (for example a unified Joule WORK).
@@ -85,3 +89,4 @@ It is recommended to reach this stage to properly govern Agent Identities and Hu
 
 - [Stage 1 — Line-of-Business–Scoped Experience](../1-lob-scoped-experience/readme.md) — the previous stage.
 - [Stage 3 — SAP Cloud Identity Services Centrally Leading](../3-sci-centrally-leading/readme.md) — the next stage.
+- [Agent Identity](../../../RA0029/8-ai-agent-identity/readme.md) — how the agentic layer introduced here is governed, with agent identities stored alongside human identities and enforced by the SAP Agent Gateway.

@@ -66,10 +66,6 @@ The [Joule Landscape Recommendation](4-joule-landscape-recommendation/readme.md)
 
 Adopting the SAP-managed model does **not** require re-engineering an existing identity landscape. **Processes already running against SAP Cloud Identity Services continue to run unchanged.** The customer's own Identity Management (IDM) solution remains the system of record for its people — who employees are, how they join/move/leave, and which access they receive — and the SAP-managed provisioning coexists in the *same* SCI tenant alongside those processes without colliding with, overwriting, or disturbing the objects the customer's IDM already governs.
 
-:::tip Keep your existing processes
-Your IDM stays the source of truth for your people and their access. SAP operates only in a clearly fenced-off area it alone is responsible for — the access picture the SAP Business AI Platform needs so that Joule and agents only ever surface what each user is allowed to see. This is handled via detailed access of the technical-users for the SCIM API. Please check the [SAP Cloud Identity help pages](https://help.sap.com/sci) for more details how and under which conditions.
-:::
-
 ### User groups vs. application groups — the main concern
 
 A frequent question when SAP-managed provisioning is introduced is what happens to the groups a customer already maintains. The distinction between two kinds of groups in SAP Cloud Identity Services is central:
@@ -79,8 +75,8 @@ A frequent question when SAP-managed provisioning is introduced is what happens 
 
 The main concern — that an SAP-managed provisioning job writing into SCI would interfere with the customer's existing IDM-owned groups and processes — is addressed by an explicit **ownership boundary enforced at the Cloud Identity API (IdDS/SCIM) level**:
 
-- The **customer IDM technical user cannot manipulate SAP-managed (application) groups** in the stages where Cloud Identity is not leading.
-- The **SAP-managed provisioning technical user cannot manipulate IDM-owned groups**, and on user objects it may update **only** link/correlation attributes — never the customer's IDM-owned lifecycle attributes or group memberships.
+- The **customer IDM technical user shouldn't manipulate SAP-managed (application) groups** in the stages where Cloud Identity is not leading.
+- The **SAP-managed provisioning technical user will not manipulate IDM-owned groups**, and on user objects it may update **only** link/correlation attributes — never the customer's IDM-owned lifecycle attributes or group memberships.
 - For the stage with Cloud Identity as leading entity for the business application each **SAP-managed group is defined by the application** and all attributes except "members" are immutable for the external IDM — while **membership assignments remain mutable**, so the customer can add or remove members as the business requires in such a scenario.
 
 This separation of responsibilities means the customer keeps every control it has today, gains a clearly auditable split of ownership, and can go live without changing its side. Over time, the model opens up more choice — moving to the suite approach on a **per-application basis**, where the customer's IDM can progressively take over membership of the SAP-managed application groups, application by application.

@@ -2,7 +2,7 @@
 id: 3b0f86
 slug: /ref-arch/3b0f86
 sidebar_position: 1
-title: Line-of-Business–Scoped Experience
+title: Unified architecture with a Line-of-Business–Scoped Experience
 description: >-
   Stage 1 of SAP-managed IAM — a line-of-business–scoped managed experience with
   consolidatable users sharing a Global User ID in SAP Cloud Identity Services.

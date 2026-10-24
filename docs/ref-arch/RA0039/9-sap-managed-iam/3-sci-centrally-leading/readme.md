@@ -2,10 +2,10 @@
 id: 36dc54
 slug: /ref-arch/36dc54
 sidebar_position: 3
-title: SAP Cloud Identity Services Centrally Leading
+title: Unified architecture, Unified experience, SAP Cloud Identity Services Centrally Leading
 description: >-
   Stage 3 of SAP-managed IAM — SAP Cloud Identity Services as the central
-  leading system for identities and authorization, as realized in the ERP SaaS Suite.
+  leading system for identities and authorization, as realized in the Autonomous Suite.
 keywords:
   - sap
   - cloud identity
@@ -37,7 +37,11 @@ last_update:
 
 This is the target stage of the [SAP-managed integration](../readme.md) model. **SAP Cloud Identity Services becomes the central leading system** for identities and for authorization assignment across the SAP solutions. The applications no longer act as independent sources of truth; instead they consume identities and policy assignments from the Identity Directory.
 
-This end-state is exemplified by the **ERP SaaS Suite**, where the suite's applications share one identity authority. It is also the direction of the consolidated landscape described in the [Joule Landscape Recommendation](../4-joule-landscape-recommendation/readme.md).
+This end-state is exemplified by the **Autonomous Suite**, where the suite's applications share one identity authority. It is also the direction of the consolidated landscape described in the [Joule Landscape Recommendation](../4-joule-landscape-recommendation/readme.md).
+
+:::info Disclaimer
+The SAP-managed **Autonomous Suite** is currently in **Early Adopter Care (EAC)** and will become available soon. The available integrations starts start with **SAP S/4HANA Cloud Public Edition**, **SAP SuccessFactors**, and **SAP Sales Cloud v2**.
+:::
 
 ## Architecture
 
@@ -47,7 +51,7 @@ The architecture diagram shows the Stage 3 end-state, where SAP Cloud Identity S
 
 ![drawio](drawio/public-sap-iam-suite-arch.drawio "SAP Cloud Identity Services centrally leading — component view with governance")
 
-The following variant provides a focused view of the same centrally led model — the **ERP SaaS Suite** of applications (for example S/4HANA Cloud Public Edition, SAP SuccessFactors, and SAP Sales & Service Cloud v2) sharing one identity authority — including a legend of the connection and interaction types used across the diagrams.
+The following variant provides a focused view of the same centrally led model — the **Autonomous Suite** of applications (for example S/4HANA Cloud Public Edition, SAP SuccessFactors, and SAP Sales Cloud v2) sharing one identity authority — including a legend of the connection and interaction types used across the diagrams.
 
 ![drawio](drawio/public-sap-iam-suite-arch2.drawio "SAP Cloud Identity Services centrally leading — ERP SaaS Suite")
 

@@ -43,7 +43,7 @@ The **Agent Identity** is a foundational concept within the SAP AI Agent Governa
 
 SAP Cloud Identity Services acts as the central identity hub for both human identities and agent identities. By storing agent identities alongside human identities in the Identity Directory, enterprises gain a unified governance model that leverages existing IAM infrastructure—including authentication, federation, identity provisioning, and authorization management—for the new class of autonomous AI actors.
 
-Agent Identity is the agentic continuation of the [SAP-Managed IAM Integration](../../RA0039/9-sap-managed/readme.md) model: the same SAP-operated integration that unifies human identity across SAP solutions is extended to govern AI agents.
+Agent Identity is the agentic continuation of the [SAP-Managed IAM Integration](../../RA0039/9-sap-managed-iam/readme.md) model: the same SAP-operated integration that unifies human identity across SAP solutions is extended to govern AI agents.
 
 SAP Joule serves in this perspective as the **engagement layer** for human-to-agent interaction. Users interact with SAP Joule through application clients (mobile/desktop), and Joule orchestrates conversations with agents running on SAP technology. The authentication of both the user and the agents involved is managed through SAP Cloud Identity Services, ensuring that every interaction is identity-aware and governed.
 
@@ -124,8 +124,8 @@ The SAP Agent Gateway is a technical component wihtin the customer landscape but
 
 ## Related Readings
 
-- [SAP-Managed IAM Integration](../../RA0039/9-sap-managed/readme.md) — the SAP-operated IAM model for human identity that Agent Identity extends to AI agents.
-- [SAP Cloud Identity Services Centrally Leading](../../RA0039/9-sap-managed/3-sci-centrally-leading/readme.md) — the target IAM end-state in which SAP Cloud Identity Services is the central leading identity system.
-- [Non-SAP Agent Principal Propagation](../../RA0039/9-sap-managed/5-non-sap-agent-principal-propagation/readme.md) — how a third-party agent's principal is propagated to SAP agents under the SAP-managed model.
-- [Joule Landscape Recommendation](../../RA0039/9-sap-managed/4-joule-landscape-recommendation/readme.md) — landscape setup for SAP Cloud Identity Services with the SAP Business AI Platform.
+- [SAP-Managed IAM Integration](../../RA0039/9-sap-managed-iam/readme.md) — the SAP-operated IAM model for human identity that Agent Identity extends to AI agents.
+- [SAP Cloud Identity Services Centrally Leading](../../RA0039/9-sap-managed-iam/3-sci-centrally-leading/readme.md) — the target IAM end-state in which SAP Cloud Identity Services is the central leading identity system.
+- [Non-SAP Agent Principal Propagation](../../RA0039/9-sap-managed-iam/5-non-sap-agent-principal-propagation/readme.md) — how a third-party agent's principal is propagated to SAP agents under the SAP-managed model.
+- [Joule Landscape Recommendation](../../RA0039/9-sap-managed-iam/4-joule-landscape-recommendation/readme.md) — landscape setup for SAP Cloud Identity Services with the SAP Business AI Platform.
 - [SAP IAM integration with SAP Cloud Identity Services](../../RA0019/readme.md) — the overarching IAM reference architecture.
