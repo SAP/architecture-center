@@ -32,7 +32,7 @@ contributors:
   - fabianleh
   - s-krishnamoorthy
 last_update:
-  author: fabianleh
+  author: s-krishnamoorthy
   date: 2026-10-24
 ---
 ## SAP Business AI Platform
@@ -55,6 +55,9 @@ SAP structures the platform around three pillars:
 | **Contextualize & Reason** | Ground AI in trusted business data, semantics, and process knowledge |
 | **Govern** | Manage, audit, and control AI agents and assets at enterprise scale |
 
+
+![drawio](drawio/BAIP.drawio)
+
 ### Layer 1 — Build
 
 The development and execution foundation. Key components:
@@ -63,18 +66,17 @@ The development and execution foundation. Key components:
 - **SAP Integration Suite** — One solution to connect AI agents, applications, data, and business processes across SAP and non-SAP systems. Combines APIs, events, and integration flows; helps teams discover, build, reuse, and automate integrations faster with prebuilt adapters and guided development practices. Provides centralized governance, monitoring, anomaly detection, and event-driven connectivity for trusted agentic workflows.
 
 
-{/* TODO @I863312: review and update the section below */}
 ### Layer 2 — Contextualize & Reason (Business Data & Semantics)
 
 Becoming an Autonomous Enterprise requires agents that can understand and act on your full business context — not just your data. This layer closes that gap by unifying SAP and non-SAP business data, process logic, and semantics so every agent can reason and act reliably across the enterprise, while using the right intelligence for every task.
 
 **Universal business context**
 
-- **SAP Business Data Cloud** — Unifies SAP and third-party data alongside the context from business processes, policies, and logic that makes data meaningful. Includes intelligent compute for best-of-breed data and AI workloads and an open data catalog for enterprise-wide governance.
+- **SAP Business Data Cloud** — Unifies SAP and third-party data alongside the context from business processes, policies, and logic that makes data meaningful. Includes intelligent compute powered by SAP Dremio and SAP HANA Cloud for best-of-breed data and AI workloads, master data unification powered by SAP Reltio, and an open data catalog for enterprise-wide governance.
 
 **Process context**
 
-- **SAP Knowledge Graph** — Structures 7.3 million data fields and 452,000 tables into an explicit ontology — a machine-readable map of business entities, processes, and industry-specific rules. Agents reason across relationships rather than retrieve isolated records, producing accurate results instead of plausible guesses.
+- **SAP Knowledge Graph** — Structures 7.3 million data fields and 452,000 tables into an explicit ontology — a machine-readable map of business entities, processes, and industry-specific rules. Agents reason across relationships rather than retrieve isolated records, producing accurate results instead of plausible guesses. 
 - **SAP Integration Suite** — Sharpens context by connecting agents to live business events, APIs, and workflows across SAP and third-party applications. Event-driven integration gives agents current operational context rather than historical data.
 - **SAP Signavio** — Adds decision logic, exception rules, and operating procedures as reusable process atoms. Makes organizational knowledge — approval thresholds, escalation chains, compliance checkpoints — machine-readable so agents can check conformance and adapt behavior at runtime.
 
@@ -164,8 +166,6 @@ The development and execution foundation. Key components:
 - **[Joule Studio](/docs/ref-arch/d2ba1e)** — Embeds SAP business context (Knowledge Graph, Domain Models, Business Data Cloud, Signavio, LeanIX) directly into development to create reliable agentic solutions grounded in your systems and workflows. Brings Intent-Based Development to the tools developers already use — VS Code, Git, agentic IDEs, MCP toolchains, and open frameworks — and supports multi-agent orchestration and SAP/non-SAP connectivity through MCP, A2A, and embedded n8n. Delivers governed, production-ready solutions with native observability, access controls, and lifecycle management on the Joule Studio runtime.
 - **SAP Integration Suite** — One solution to connect AI agents, applications, data, and business processes across SAP and non-SAP systems. Combines APIs, events, and integration flows; helps teams discover, build, reuse, and automate integrations faster with prebuilt adapters and guided development practices. Provides centralized governance, monitoring, anomaly detection, and event-driven connectivity for trusted agentic workflows.
 
-
-{/* TODO @I863312: review and update the section below */}
 ### Layer 2 — Contextualize & Reason (Business Data & Semantics)
 
 Becoming an Autonomous Enterprise requires agents that can understand and act on your full business context — not just your data. This layer closes that gap by unifying SAP and non-SAP business data, process logic, and semantics so every agent can reason and act reliably across the enterprise, while using the right intelligence for every task.
