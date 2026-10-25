@@ -4,7 +4,7 @@ slug: /ref-arch/e15602
 sidebar_position: 5
 title: Ontology Manager
 description: >-
-  The ontology and knowledge graph layer on top of SAP BDC data products,
+  The ontology and knowledge graph layer on top of SAP data products,
   adding semantics and enabling agents to reason over governed enterprise data.
 sidebar_label: Ontology Manager
 keywords:
@@ -39,9 +39,9 @@ last_update:
 ---
 ### Ontology Manager
 
-Data Products bring governed, versioned enterprise data into the BDC Lakehouse. Dremio federates and computes across it. Reltio resolves identities into trusted golden records. Ontology Manager adds the semantic layer — formal definitions of business concepts, their relationships, constraint rules, and the mappings that connect them to the underlying SAP and non-SAP Data Products. Built on open W3C standards — RDF, OWL, SPARQL, and SHACL — this semantic layer is what elevates governed Data Products into a knowledge graph that Joule can reason over, not just query.
+Data Products bring governed, versioned enterprise data into the SAP Lakehouse. Dremio federates and computes across it. Reltio resolves identities into trusted golden records. Ontology Manager adds the semantic layer — formal definitions of business concepts, their relationships, constraint rules, and the mappings that connect them to the underlying SAP and non-SAP Data Products. Built on open W3C standards — RDF, OWL, SPARQL, and SHACL — this semantic layer is what elevates governed Data Products into a knowledge graph that Joule can reason over, not just query.
 
-With Ontology Manager in SAP BDC, Joule operates over a semantic knowledge layer comprising formal concept definitions, governed relationships, constraint rules, and ontology-to-data mappings across SAP and non-SAP Data Products in the BDC Lakehouse. This semantic grounding enables Joule to resolve queries with precision — identifying the relevant business concepts, traversing their relationships across the ontology, and retrieving data from the appropriate governed Data Products without requiring system-specific knowledge. Where reasoning leads to a decision, Business Actions provide the execution layer — allowing Joule to act on that decision directly, invoking workflows, APIs, or ML inferences in connected systems, with every action attributed to the end user's identity, governed by access controls, and fully auditable.
+With Ontology Manager in SAP BDC, Joule operates over a semantic knowledge layer comprising formal concept definitions, governed relationships, constraint rules, and ontology-to-data mappings across SAP and non-SAP Data Products in the SAP Lakehouse. This semantic grounding enables Joule to resolve queries with precision — identifying the relevant business concepts, traversing their relationships across the ontology, and retrieving data from the appropriate governed Data Products without requiring system-specific knowledge. Where reasoning leads to a decision, Business Actions provide the execution layer — allowing Joule to act on that decision directly, invoking workflows, APIs, or ML inferences in connected systems, with every action attributed to the end user's identity, governed by access controls, and fully auditable.
 
 ### Architecture
 
@@ -82,7 +82,7 @@ With Ontology Manager in SAP BDC, Joule operates over a semantic knowledge layer
 
 An ontology is a formal model of the concepts, relationships, and rules in a business domain. A Knowledge Graph applies that model to real data — concepts mapped to source tables, attributes to columns, relationships derived from business rules. It gives agents a governed, navigable view of enterprise data that is independent of the physical schema beneath it.
 
-Ontology Manager sits on top of BDC Data Products and turns tables and columns into a live business ontology. It delivers this in three steps:
+Ontology Manager sits on top of Data Products and turns tables and columns into a live business ontology. It delivers this in three steps:
 
 1. **Model** — turn SAP and non-SAP Data Products into a live ontology in minutes
 2. **Reason** — query the Knowledge Graph with SPARQL; OWL 2 QL reasoning expands queries across linked Data Products automatically, without agents needing to know the source schema
@@ -93,7 +93,7 @@ Ontology Manager sits on top of BDC Data Products and turns tables and columns i
 - **Joule understands your business, not just your data** — Ontology Manager gives Joule a formal model of business concepts, relationships, and rules across SAP and non-SAP Data Products. Joule resolves questions in business terms, not schema columns, and acts on the result with the end user's identity carried through every step.
 - **Reason over SAP and non-SAP Data Products** — Ontology Manager unifies SAP and non-SAP Data Products into a single semantic model. Agents query across source boundaries without needing to know the underlying schema of each system.
 - **Rapid time to value** — Ontology Manager infers concepts, relationships, and mappings from SAP and non-SAP Data Products automatically. A governed semantic layer is live in minutes rather than months of manual data modelling.
-- **Agents query live data, never a copy** — every agent query is translated to SQL at runtime and executed directly on BDC Data Products with filter pushdown. No ETL pipelines, no data replication, no staleness.
+- **Agents query live data, never a copy** — every agent query is translated to SQL at runtime and executed directly on Data Products with filter pushdown. No ETL pipelines, no data replication, no staleness.
 - **Every answer is governance-backed** — Ontology Manager enforces SHACL constraints at authoring time. By the time an agent queries, the data it reasons over has already been validated against the business rules the organisation defined.
 - **From insight to decision** — agents derive insights from semantic knowledge and live data queries across the ontology, then invoke Business Actions directly — triggering workflows, APIs, or ML models — with every action attributed to the end user's identity and fully auditable.
 
