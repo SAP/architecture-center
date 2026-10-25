@@ -40,13 +40,13 @@ last_update:
 
 A single real-world entity rarely exists as a single record in the data estate of a complex organization. The same customer can appear as a CRM contact, an e-commerce account, a mobile sign-up, and an ERP business partner. Each has its own identifier, spelling, partial attributes, and consent state. Analytics and AI built on top see several entities where there is one.
 
-Within the SAP Business Data Cloud (BDC) Lakehouse, Reltio is the managed master data management (MDM) capability that resolves these fragments into a single trusted golden record in real-time, then publishes it back into the lakehouse as a governed data product. This reference architecture describes the unification pattern (reference data management, data quality, match & merge, data governance, relationship management, entity 360, publication) and how it fits the medallion data flow across BDC, Reltio, and Dremio. The pattern is entity-type-agnostic: the same shape produces a unified Customer 360, Supplier 360, and other domains.
+Within the SAP Lakehouse, Reltio is the managed master data management (MDM) capability that resolves these fragments into a single trusted golden record in real-time, then publishes it back into the lakehouse as a governed data product. This reference architecture describes the unification pattern (reference data management, data quality, match & merge, data governance, relationship management, entity 360, publication) and how it fits the medallion data flow across BDC, Reltio, and Dremio. The pattern is entity-type-agnostic: the same shape produces a unified Customer 360, Supplier 360, and other domains.
 
 ![drawio](drawio/reltio-unification.drawio "Master data unification with Reltio in SAP BDC")
 
 ## Architecture Details
 
-The unification layer sits in the silver tier of the BDC Federated Object Store (BDC FOS). It takes governed per-source data products as input and feeds the ontology, analytics, and Joule agents above it. Its components:
+The unification layer sits in the silver tier of the Federated Object Store ( FOS). It takes governed per-source data products as input and feeds the ontology, analytics, and Joule agents above it - - directly connects Joule to the same silver-tier storage where Reltio writes Golden Masters. If Golden Master UDPs are in BDC object store, Joule consuming them there puts them in parity scope. Depict the SAP Lakehouse terminology to distinguish from BDC Lakehouse . Its components:
 
 - **Per-source data products (PDPs):** The governed inputs. SAP master data (S/4HANA, SuccessFactors, Ariba) is ingested as PDPs. Non-SAP data (Salesforce, Snowflake, BigQuery, object stores) is accessed "zero-copy" as Dremio-published custom PDPs via Apache Polaris and SQL-on-Files. Reltio consumes data products, not raw tables. This is the decoupling boundary that keeps source churn out of the MDM layer.
 - **Reltio (Master Data Management):** The real-time data unification engine that resolves entity identity and relationships across the PDPs and produces the Golden Master. Reltio also harmonizes reference data across sources as part of the real-time ingestion and acts as a data quality layer to identify data issues and perform actions such as address validation, phone and email pattern validation etc.
@@ -96,7 +96,7 @@ Low-confidence matches and data-quality exceptions surface in a Match Review wor
 
 The pattern moves master data from raw per-source extracts to a governed 360° product. The key subtlety: Reltio does not sit between the silver and gold tiers. It writes its output back into the silver tier, and the gold tier is a Dremio reflection over it.
 
-1. **Ingest → silver PDPs.** SAP sources are ingested as PDPs into the BDC FOS. Non-SAP sources are accessed via zero-copy as Dremio custom PDPs. Both land on the same governed surface.
+1. **Ingest → silver PDPs.** SAP sources are ingested as PDPs into the FOS. Non-SAP sources are accessed via zero-copy as Dremio custom PDPs. Both land on the same governed surface.
 2. **Reltio → Golden Master.** Reltio resolves identity across the silver PDPs and produces the Golden Master UDP, written back into the silver tier with all source crosswalks and relationships.
 3. **Dremio → "360" DDP.** Dremio reads the silver UDP via Iceberg/UniForm, applies reflections (pre-computed, physically materialized accelerators), and joins the Golden Master into the gold-tier 360° Master Data DDP.
 4. **Expose to consumers.** The Golden Master UDP is readable as an open Iceberg table or through SQL. The 360° DDP is exposed through Dremio SQL; direct Iceberg access requires it to be explicitly materialized and published as an Iceberg data product.
