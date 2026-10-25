@@ -1,20 +1,26 @@
 ---
 sidebar_position: 3
-title: GenAI Applications
+title: GenAI Applications on SAP BTP with CAP and AI Core
 description: >-
-  Build, deploy and run LLM and GenAI applications on SAP BTP using SAP AI Core, Generative
-  AI Hub and CAP.
+  Build, deploy and run LLM and GenAI applications on SAP BTP using SAP AI Core, the
+  Generative AI Hub, CAP, and RAG with HANA Cloud Vector Engine.
 keywords:
 - sap
-- genai
+- generative ai
 - llm
-- ai core
+- sap ai core
 - generative ai hub
 - cap
-- rag
+- retrieval augmented generation
+- hana vector engine
+- orchestration service
+- prompt engineering
+- sap cloud sdk for ai
+- business ai platform
 sidebar_label: GenAI Applications
 image: img/ac-soc-med.png
 tags:
+- ai-golden-path
 - genai
 - cap
 - appdev
@@ -26,8 +32,6 @@ draft: false
 last_update:
   author: SAP
 ---
-
-# How to build, deploy and run LLM/GenAI Applications
 
 ## What you will build
 

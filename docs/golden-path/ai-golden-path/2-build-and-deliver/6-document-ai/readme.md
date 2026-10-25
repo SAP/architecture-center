@@ -1,17 +1,23 @@
 ---
 sidebar_position: 6
-title: Document AI
+title: 'SAP Document AI: Intelligent Document Processing'
 description: >-
-  Build, deploy and run document processing solutions using SAP Document AI on SAP
-  BTP.
+  Build, deploy and run SAP Document AI on SAP BTP to extract structured data from
+  unstructured documents using machine learning.
 keywords:
 - sap
-- document ai
-- document processing
+- sap document ai
+- intelligent document processing
+- document information extraction
+- unstructured documents
 - machine learning
+- invoice processing
+- purchase order processing
+- business ai platform
 sidebar_label: Document AI
 image: img/ac-soc-med.png
 tags:
+- ai-golden-path
 - genai
 - appdev
 hide_table_of_contents: false
@@ -22,8 +28,6 @@ draft: false
 last_update:
   author: SAP
 ---
-
-# How to build, deploy and run with Document AI
 
 SAP Document AI is a cloud-based service that uses machine learning to extract structured data from unstructured documents. It can be used to automate data entry, improve document processing, and enhance business workflows.
 

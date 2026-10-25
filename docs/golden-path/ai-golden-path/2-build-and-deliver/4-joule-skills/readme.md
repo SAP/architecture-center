@@ -1,19 +1,26 @@
 ---
 sidebar_position: 4
-title: Joule Skills
+title: Joule Skills with Joule Studio on SAP BTP
 description: >-
-  Build, deploy and run custom Joule Skills using Joule Studio on SAP BTP for extending
-  SAP Joule capabilities.
+  Build, deploy and run custom Joule Skills with Joule Studio on SAP BTP, a low-code
+  way to extend SAP Joule across SAP S/4HANA, SuccessFactors and Ariba.
 keywords:
 - sap
 - joule
 - joule studio
 - joule skills
 - sap build
-- low-code
+- conversational ai
+- sap build process automation
+- odata
+- sap s/4hana
+- sap successfactors
+- sap ariba
+- business ai platform
 sidebar_label: Joule Skills
 image: img/ac-soc-med.png
 tags:
+- ai-golden-path
 - genai
 - agents
 - build
@@ -26,8 +33,6 @@ draft: false
 last_update:
   author: SAP
 ---
-
-# How to build, deploy and run Joule Scenarios
 
 ## What you will build
 
@@ -76,7 +81,7 @@ Joule Studio provides a visual, low-code environment for creating custom skills 
 ### Capabilities
 
 - **Multiple Skill Types**: Navigation, list/search, transactions (create/update/delete), decision-making, data access
-- **Workflow Integration**: Trigger SAP Build Process Automation workflows and automations from within sceanrios
+- **Workflow Integration**: Trigger SAP Build Process Automation workflows and automations from within scenarios
 - **System Connectivity**: Connect to SAP backends (SAP S/4HANA, SAP SuccessFactors, SAP Ariba) and third-party systems via OData APIs
 - **Conditional Logic**: Implement branching workflows with the Condition Editor
 - **Data Transformation**: Use Formula Editor for data manipulation and type conversions
@@ -106,7 +111,7 @@ Once deployed, Joule Scenarios can be invoked through natural language interacti
 
 ### Integration Points
 
-Sceanrios integrate with various SAP and non-SAP systems:
+Scenarios integrate with various SAP and non-SAP systems:
 
 - **SAP Backends**: SAP S/4HANA (cloud and on-premise), SAP SuccessFactors, SAP Ariba etc.
 - **SAP Build Components**: Process Automation workflows and automations

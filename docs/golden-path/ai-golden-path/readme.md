@@ -2,29 +2,27 @@
 id: id-aigp-1
 slug: /ai-golden-path
 sidebar_position: 1
-title: SAP AI Golden Path
+title: SAP's AI Golden Path for Building Enterprise AI
 description: >-
-  The SAP AI Golden Path provides recommendations, best practices and tutorials for
-  building AI applications across the SAP ecosystem, covering data products, ML, GenAI,
-  Joule Skills, predictive AI and agentic architectures.
+  SAP's AI Golden Path is your starting point for building enterprise AI across the
+  SAP ecosystem — with recommendations, best practices, and tutorials.
 keywords:
 - sap
-- ai
-- golden path
-- btp
-- genai
-- machine learning
+- ai golden path
+- enterprise ai
 - joule
-- agents
-- data products
-- rpt-1
-sidebar_label: SAP AI Golden Path
+- generative ai hub
+- sap ai core
+- sap hana cloud
+- sap business data cloud
+- agentic ai
+- ai reference architectures
+- ai development lifecycle
+- business ai platform
+sidebar_label: AI Golden Path
 image: img/ac-soc-med.png
 tags:
-- genai
-- agents
-- data
-- appdev
+- ai-golden-path
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,8 +31,6 @@ draft: false
 last_update:
   author: SAP
 ---
-
-# SAP's AI Golden Path
 
 The **SAP's AI Golden Path** is the starting point for developing AI applications across the SAP ecosystem. It contains **recommendations**, **best practices**, and **tutorials** to help you understand the AI technology stack, identify
 suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.

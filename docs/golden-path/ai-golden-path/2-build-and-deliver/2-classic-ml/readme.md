@@ -1,20 +1,26 @@
 ---
 sidebar_position: 2
-title: Classic ML Scenarios
+title: Classic Machine Learning on SAP BTP with HANA Cloud
 description: >-
-  Build, deploy and run machine learning use cases on SAP BTP using RPT-1, HANA Cloud
-  PAL/APL and SAP AI Core.
+  Build, deploy and run classic machine learning on SAP BTP using RPT-1 tabular AI,
+  HANA Cloud PAL/APL in-database ML, and SAP AI Core.
 keywords:
 - sap
 - machine learning
 - rpt-1
-- hana cloud
+- tabular foundation model
+- sap hana cloud
 - pal
 - apl
-- ai core
+- sap ai core
+- automl
+- in-database machine learning
+- hana vector engine
+- business ai platform
 sidebar_label: Classic ML Scenarios
 image: img/ac-soc-med.png
 tags:
+- ai-golden-path
 - genai
 - data
 - appdev
@@ -26,8 +32,6 @@ draft: false
 last_update:
   author: SAP
 ---
-
-# How to build, deploy and run ML cases
 
 ## What you will build
 
@@ -199,7 +203,6 @@ CALL _SYS_AFL.APL_APPLY_MODEL(
 **Resources:**
 
 - **[All-in-One Machine Learning in SAP HANA Cloud](https://community.sap.com/t5/technology-blog-posts-by-sap/new-machine-learning-features-in-sap-hana-cloud/ba-p/13671778)** – Comprehensive overview of ML capabilities and recent enhancements
-- **[AutoML with SAP HANA Automated Predictive Library (APL)](https://learning.sap.com/courses/hana_apl)** – Complete course on AutoML features
 - **[Developing AI Models with Python Machine Learning Client](https://learning.sap.com/courses/developing-ai-models-with-the-python-machine-learning-client-for-sap-hana-1)** – Hands-on training for hana-ml
 - **[Machine Learning with SAP S/4HANA](https://blog.sap-press.com/machine-learning-with-sap-s4hana)** – Guide to embedded ML architecture in S/4HANA
 - **[hana-ml-samples GitHub Repository](https://github.com/SAP-samples/hana-ml-samples)** – Official sample code and reference implementations
@@ -209,7 +212,7 @@ CALL _SYS_AFL.APL_APPLY_MODEL(
 - **[Developing Classification Models](https://learning.sap.com/courses/developing-classification-models-with-the-python-machine-learning-client-for-sap-hana)** – Binary and multi-class classification techniques
 - **[Developing Regression Models](https://learning.sap.com/courses/developing-regression-models-with-the-python-machine-learning-client-for-sap-hana)** – Linear, polynomial, and non-linear regression
 - **[Developing Time Series Models](https://learning.sap.com/courses/developing-time-series-models-with-the-python-machine-learning-client-for-sap-hana)** – Forecasting and trend analysis
-- **[Basic AutoML Tutorial](https://developers.sap.com/tutorials/hana-cloud-trial-basic-automl..html)** – Quick start guide for automated ML
+- **[Basic AutoML Tutorial](https://developers.sap.com/tutorials/hana-cloud-trial-basic-automl.html)** – Quick start guide for automated ML
 
 ### **Approach 3: Custom ML with SAP AI Core**
 
@@ -377,7 +380,7 @@ ORDER BY SIMILARITY DESC;
 **Getting Started Tutorials:**
 
 - AI Golden Path: How to build, deploy and run with SAP-RPT – Complete guide for SAP-RPT use cases
-- [Basic AutoML Tutorial](https://developers.sap.com/tutorials/hana-cloud-trial-basic-automl..html) – Quick start guide for automated ML with APL
+- [Basic AutoML Tutorial](https://developers.sap.com/tutorials/hana-cloud-trial-basic-automl.html) – Quick start guide for automated ML with APL
 - [Predictive AI with SAP AI Core](https://developers.sap.com/group.ai-core-get-started-basics.html) – Fundamentals and first workflows for AI Core
 - [Training and Deploying Custom AI Models](https://developers.sap.com/tutorials/ai-core-custom-llm.html) – Guide for custom model deployment on AI Core
 
@@ -385,7 +388,6 @@ ORDER BY SIMILARITY DESC;
 
 - [Learning How to Use SAP AI Core](https://learning.sap.com/learning-journeys/learning-how-to-use-the-sap-ai-core-service-on-sap-business-technology-platform) – Complete learning journey covering training and serving
 - [Developing AI Models with Python Machine Learning Client](https://learning.sap.com/courses/developing-ai-models-with-the-python-machine-learning-client-for-sap-hana-1) – Hands-on training for hana-ml
-- [AutoML with SAP HANA Automated Predictive Library (APL)](https://learning.sap.com/courses/hana_apl) – Complete course on AutoML features
 
 **Sample Code & References:**
 
