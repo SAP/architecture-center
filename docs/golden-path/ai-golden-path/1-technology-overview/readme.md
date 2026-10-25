@@ -91,7 +91,7 @@ Building AI-powered systems today involves a growing range of tools and paradigm
 * Recommending offers.
 
 **Why choose RPT:**
-It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically deliverying improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
+It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically delivering improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
 
 ### 2. Classic Machine Learning (ML)
 
