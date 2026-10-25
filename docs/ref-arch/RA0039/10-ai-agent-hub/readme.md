@@ -1,7 +1,7 @@
 ---
 id: jfhsd9
 slug: /ref-arch/jfhsd9
-sidebar_position: 50
+sidebar_position: 4
 title: SAP AI Agent Hub
 description: >-
   Govern and manage AI agents throughout their lifecycle with SAP AI Agent Hub — the enterprise command center for AI governance that brings architecture intelligence, multi-cloud discovery, observability, and compliance to your growing agent estate.

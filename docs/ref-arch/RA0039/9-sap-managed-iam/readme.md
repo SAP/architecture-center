@@ -1,7 +1,7 @@
 ---
 id: d94f2a
 slug: /ref-arch/d94f2a
-sidebar_position: 2
+sidebar_position: 4
 title: SAP-Managed IAM Integration
 description: >-
   SAP-operated IAM integration between SAP solutions for unified experiences

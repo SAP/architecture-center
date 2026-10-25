@@ -1,7 +1,7 @@
 ---
 id: ff07b1
 slug: /ref-arch/ff07b1
-sidebar_position: 4
+sidebar_position: 7
 title: Extend Joule with Joule Studio Classic in SAP Build
 description: >-
   Build custom Joule Skills and AI Agents with Joule Studio Classic in SAP Build to extend Joule and automate processes across SAP and non-SAP systems.
