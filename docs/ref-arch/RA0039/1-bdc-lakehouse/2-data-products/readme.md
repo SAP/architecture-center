@@ -2,7 +2,7 @@
 id: 09be8b
 slug: /ref-arch/09be8b
 sidebar_position: 1
-title: Data Products in SAP Business Data Cloud
+title: Data Products in SAP Lakehouse
 description: >-
   Standardize data sharing with SAP Data Products for efficient, high-quality
   metadata and seamless integration.
@@ -12,7 +12,7 @@ keywords:
   - business data cloud solutions
   - metadata quality
   - integration optimization
-sidebar_label: Data Products in SAP BDC
+sidebar_label: Data Products in SAP Lakehouse
 image: img/ac-soc-med.png
 tags:
   - data
@@ -118,7 +118,7 @@ Data Products move through four stages on a single governed surface: production,
 The storage layer writes a single physical copy of data once and serves it to many engines. Apache Iceberg is the primary format for cross-engine interoperability.
 
 -   **Open Table Format:** Data lands as Parquet and is compatible with Apache Iceberg tables. UniForm projects that single physical copy as Apache Iceberg, so Iceberg-compatible consumers read it natively without conversion or duplication.
--   **Medallion Architecture:** The BDC Federated Object Store organizes data across Bronze, Silver and Gold tiers, with processing handled by the Spark framework.
+-   **Medallion Architecture:** The federated object store organizes data across Bronze, Silver and Gold tiers, with processing handled by the Spark framework.
 
 #### Sharing and Governance
 
@@ -160,7 +160,7 @@ The customer onboarding sequence provisions and activates Data Products within t
     subgraph SAP_BDC[SAP Business Data Cloud]
         Catalog[Enterprise Catalog - Apache Polaris]
         DP_Def2[Data Product Definitions]
-        subgraph Lakehouse[BDC Federated Object Store]
+        subgraph Lakehouse[federated object store]
             Iceberg_Tables["Apache Iceberg Tables (UniForm)"]
         end
 
