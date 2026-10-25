@@ -142,21 +142,6 @@ No training job. No model-registry promotion. No feature-store offline/online sy
 
 - **Joule / Agent Gateway** — Orchestration and gateway layer through which agents and Joule Work invoke the prediction interface. Enforces authorization and routes calls to AI Core.
 
-## Open Design Questions and ToDos (to be removed before publication)
-
-- Does the prediction interface expose a synchronous per-entity call, a batch-scoring call, an inline PREDICT_AI view, or all three, and does that choice change where materialization must sit?
-- Is point-in-time correctness cheap to enforce against Iceberg snapshots at request time, or does it force a materialized path for most real SLAs? (This directly tests the "training-free removes the feature store" claim.)
-- What exactly does the Agent Gateway enforce that the semantic layer does not, and does putting it on the path add a governance choke point or a second one to keep in sync?
-- For relational FMs, how much governance can be expressed over a subgraph vs a flattened view without leaking relationships that policy forbids?
-- Where does monitoring for semantic drift live, given there is no training run to attach validation to, and how do Model Eval and Agent Eval cover it?
-- When context is served from the registry rather than assembled per request, who owns its freshness and point-in-time correctness, and does registration reintroduce a governed offline step through the back door?
-- What catalog capabilities are needed to register a predictive derived data product (permanent flow) so it is discoverable and reusable?
-- What is the minimal open contract (Iceberg + Polaris + Arrow) that guarantees engine portability and safe Premium API exposure, and what breaks it in practice?
-- What capabilities are available right now - predictive predicates in Dremio only available as preview and for RPT
-- Reference SAP Help documentation more precisely (Tabular Context Registry)
-- Cross-Reference AI Golden Path (preference to Tabular Foundation Models is already expressed there)
-- Where is the Model Eval MCP server deployed?
-
 ## Resources
 
 - [SAP Business Data Cloud documentation](https://www.sap.com/products/data-cloud.html)
