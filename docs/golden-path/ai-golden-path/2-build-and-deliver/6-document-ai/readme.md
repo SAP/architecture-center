@@ -2,8 +2,8 @@
 sidebar_position: 6
 title: 'SAP Document AI: Intelligent Document Processing'
 description: >-
-  Build, deploy and run SAP Document AI on SAP BTP to extract structured data from
-  unstructured documents using machine learning.
+  Build, deploy and run SAP Document AI on SAP Business AI Platform to extract structured
+  data from unstructured documents using machine learning.
 keywords:
 - sap
 - sap document ai

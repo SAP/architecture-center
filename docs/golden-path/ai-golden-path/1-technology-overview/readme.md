@@ -1,8 +1,8 @@
 ---
 sidebar_position: 2
-title: Technology Decision Tree for AI on SAP BTP
+title: Technology Decision Tree for SAP Business AI Platform
 description: >-
-  A structured decision framework for selecting the right AI approach on SAP BTP,
+  A decision framework for selecting the right approach on SAP Business AI Platform,
   covering relational foundation models, classic ML, LLMs and AI agents.
 keywords:
 - sap
