@@ -40,7 +40,7 @@ last_update:
 
 Dremio integrates with SAP Business Data Cloud (BDC) as a high-performance, federated SQL query engine that complements SAP HANA Cloud. It is the lakehouse compute and acceleration engine of the SAP Lakehouse. Its Sonar SQL engine enables direct federated queries across HDLFS and partner object stores, with native Apache Iceberg access, allowing workloads to query distributed data without requiring unnecessary data movement or duplication. 
 
-Within the BDC architecture, running alongside SAP HANA Cloud in the BDC lakehouse runtime, Dremio extends the lakehouse query layer across SAP and non-SAP data, providing a scalable foundation for analytics and agentic AI workloads while complementing SAP HANA Cloud’s data processing, application services, and multi-model capabilities. Dremio’s federation capabilities support high-volume query workloads across heterogeneous data sources.  
+Within the BDC architecture, running alongside SAP HANA Cloud in the SAP lakehouse runtime, Dremio extends the lakehouse query layer across SAP and non-SAP data, providing a scalable foundation for analytics and agentic AI workloads while complementing SAP HANA Cloud’s data processing, application services, and multi-model capabilities. Dremio’s federation capabilities support high-volume query workloads across heterogeneous data sources.  
 
 Within the data product lifecycle, Dremio consumes data products from the medallion pipeline and accesses eligible non-SAP data in place, then derives and accelerates consumable Data Products delivered through open Iceberg and SQL interfaces, avoiding proprietary lock-in.
 
@@ -54,7 +54,7 @@ Dremio complements Reltio by consuming its Golden Master from the silver tier vi
 The lakehouse-compute stack is built from these components:
 
 - **Dremio:** The lakehouse compute and acceleration engine providing datalake SQL, distributed processing, and reflections, reading SAP Data Products from FOS and helping create Primary Data products from non-SAP data sources and Derived Data products from SAP and non-SAP data.
-- **BDC Federated Object Store (BDC FOS):** The SAP-managed medallion data lake holding the SAP standard Data products from SAP sources.
+- **Federated Object Store (FOS):** The SAP-managed medallion data lake holding the SAP standard Data products from SAP sources.
 - **Spark:** Applies change data into raw history and transforms it into standardized SAP Data Products.
 - **The Enterprise Catalog  - powered by Apache Polaris:** The unified catalog where every Primary and Derived Data Product is registered and exposed through Delta, Iceberg, and SQL ports for data discovery.
 - **SAP HANA Cloud:** A first-class SQL based consumer that reads Data Products via SQL-on-Files and Federation.
@@ -62,9 +62,9 @@ The lakehouse-compute stack is built from these components:
 
 ## Data product pipeline flow
 
-The pipeline moves data through the medallion tiers from raw source changes to accelerated, openly consumable  Data Products. Spark handles ingestion and transformation, and Dremio handles acceleration and derivation; both operate on data stored in the BDC Federated Object Store, with the resulting Data Products registered through Open Resource Discovery.
+The pipeline moves data through the medallion tiers from raw source changes to accelerated, openly consumable  Data Products. Spark handles ingestion and transformation, and Dremio handles acceleration and derivation; both operate on data stored in the Federated Object Store, with the resulting Data Products registered through Open Resource Discovery.
 
-1. **Stream source changes.** Source changes stream into the lakehouse from SAP Business Applications through change data capture (CDC), using the Data Subscription API or the ABAP push framework. Raw change events land in the **staging** layer as the entry point to the BDC Federated Object Store.
+1. **Stream source changes.** Source changes stream into the lakehouse from SAP Business Applications through change data capture (CDC), using the Data Subscription API or the ABAP push framework. Raw change events land in the **staging** layer as the entry point to the Federated Object Store.
 
 2. **Consolidate into raw history.** Spark CDC processing applies and consolidates the change data, materializing a continuously maintained fine-grained snapshot into the **bronze** layer — the system-of-record raw history tier.
 
@@ -72,7 +72,7 @@ The pipeline moves data through the medallion tiers from raw source changes to a
 
 4. **Primary (non-SAP) Data Products** Non-SAP data does not travel the medallion ingestion path. Instead, Dremio reads it in place and joins it to the same governed surface. Dremio publishes this data as **Primary (non-SAP) Data Products**, so it is unified alongside SAP standard Data Products and can be combined, reflected, and consumed identically, with no copy made.
 
-5. **Accelerate and derive with Dremio.** Dremio reads the silver Primary Data Products through Iceberg, computes reflections, and helps create Derived Data Products into the **gold** layer , exposed through SQL and Iceberg ports. Reflections are pre-materialized, physically optimized query accelerators; because they are themselves stored in open Iceberg, acceleration does not cost openness.
+5. **Accelerate and derive with Dremio.** Dremio reads the silver Primary Data Products through Iceberg, computes reflections, and helps create Derived Data Products into the **gold** layer - If any of these gold-layer DDPs are AI-enriched, they need to be renamed and separated per guidance, exposed through SQL and Iceberg ports. Reflections are pre-materialized, physically optimized query accelerators; because they are themselves stored in open Iceberg, acceleration does not cost openness.
 
 6. **Consume across any engine.** Both silver Primary Data Products and gold Derived Data Products are readable through open Iceberg or SQL, including analytics engines, pipelines, agents, and applications. SAP HANA Cloud is a first-class consumer: SQL-on-Files queries Data Products directly on the object store, and Federation virtually joins them with operational HANA data, enabling transactional and analytical workloads without data duplication. Dremio directly powers SAP Joule answer NL based analytical queries, across customer's entire data estate semantically linked over ontology. 
 
