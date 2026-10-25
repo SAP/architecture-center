@@ -40,7 +40,7 @@ SAP Lakehouse is the unified platform for managing SAP and non-SAP data across m
 
 ## Architecture
 
-![drawio](./drawio/bdc_lakehouse.drawio)
+![drawio](./drawio/sap_lakehouse.drawio)
 
 :::info Disclaimer
 The architecture diagram is in progress and derives from the BAIP architecture diagram. This page is updated when the diagram is final.
