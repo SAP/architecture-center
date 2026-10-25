@@ -1,5 +1,6 @@
 name: Check External Links
-# Archetype: CHANGED-FILES — only changed Markdown files are checked for broken links (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — changed Markdown is checked normally; changing
+# .lycheeignore checks all active Markdown so the new ignore configuration is exercised.
 
 on:
   pull_request:
@@ -10,6 +11,7 @@ on:
       - 'news/**/*.md'
       - 'news/**/*.mdx'
       - '.github/workflows/check-ext-links.yml'
+      - '.lycheeignore'
 
 permissions: {}
 
@@ -35,9 +37,31 @@ jobs:
         id: scope
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          BASE_DIFF="origin/${GITHUB_BASE_REF}...HEAD"
+          if git diff --name-only "$BASE_DIFF" -- .lycheeignore | grep -qxF '.lycheeignore'; then
+            # Ignore rules affect every link check, so exercise them against all
+            # actively maintained docs/news Markdown instead of reporting an empty pass.
+            : > "$RUNNER_TEMP/changed.txt"
+            while IFS= read -r file; do
+              # Match the periodic checker: pages tagged archive in their leading
+              # frontmatter are published history and are no longer maintained.
+              if awk '
+                    NR==1 { if ($0=="---") next; else exit 1 }
+                    /^---[[:space:]]*$/ { exit 1 }
+                    /^tags:[[:space:]]*$/ { in_tags=1; next }
+                    /^[^[:space:]][^:]*:[[:space:]]*/ { in_tags=0 }
+                    in_tags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ { exit 0 }
+                  ' "$file"; then
+                continue
+              fi
+              printf '%s\n' "$file" >> "$RUNNER_TEMP/changed.txt"
+            done < <(find docs news -type f '(' -name '*.md' -o -name '*.mdx' ')' | LC_ALL=C sort)
+            echo "ℹ️ .lycheeignore changed — checking all active Markdown under docs/ and news/."
+          else
+            # Normal changed-files scope: Markdown added/modified vs the PR base.
+            git diff --name-only --diff-filter=AMR "$BASE_DIFF" -- docs news \
+              | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          fi
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### External links check"
@@ -73,12 +97,10 @@ jobs:
         if: steps.scope.outputs.skip != 'true'
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          # --accept 200..=299,403: treat 403 as reachable. A 403 almost always
-          # means the target sits behind an authentication/login wall, not that
-          # the link is broken, so it is not worth reporting. Only genuine
-          # breakage (e.g. 404) fails the check. The 2xx success range must be
-          # restated because --accept overrides lychee's default.
-          args: --max-concurrency 4 --accept 200..=299,403 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          # Treat authentication walls, rate limits, and LinkedIn's nonstandard
+          # 999 bot block as reachable; these responses do not mean the target is
+          # gone. The 2xx range must be restated because --accept overrides it.
+          args: --max-concurrency 4 --accept 200..=299,403,429,999 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
@@ -95,7 +117,7 @@ jobs:
               echo ""
               cat ./lychee/out.md
               echo ""
-              echo "> ℹ️ Only genuine breakage such as \`404 Not Found\` is reported. A \`403\` response is treated as reachable and is **not** flagged, because it almost always means the target requires authentication (a login wall) rather than that the link is broken."
+              echo "> ℹ️ Only genuine breakage such as \`404 Not Found\` is reported. \`403\`, \`429\`, and LinkedIn's \`999\` responses are treated as reachable because they indicate an access restriction or rate limit rather than a missing page."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
           if [ "${{ steps.lychee.outcome }}" = "failure" ]; then

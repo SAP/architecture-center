@@ -37,7 +37,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-22
 ---
 
 Warehouse automation is typically divided into physical and digital automation.
@@ -80,7 +80,7 @@ Inspection "missions" for robots can come from multiple SAP applications.
 These include the following:
 
 1. [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html)
-2. [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html)
+2. [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-and-asset-management.html)
 
 Observations during the inspection and inspection results can also be stored accordingly in these applications, for human reference and for further use by other digital agents.
 

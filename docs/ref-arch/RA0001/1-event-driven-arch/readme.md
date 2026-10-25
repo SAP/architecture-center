@@ -39,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-10-18
+  date: 2026-10-22
 ---
 
 ## Event-Driven Architecture
@@ -122,4 +122,4 @@ For more details, refer to [Comprehensive Real-Time Integration Using Event-Driv
 ## Event-Driven Architecture Use Cases
 
 Refer to generic uses cases to understand EDA and suitable business scenarios
-[Event-Driven Architecture Use Cases](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
+[Event-Driven Architecture Use Cases](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh)

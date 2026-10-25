@@ -60,7 +60,7 @@ The process then continues through to logistics execution with SAP Logistics Man
 
 **Top AI functions**
 
-- [Joule with SAP Logistics Management](https://www.sap.com/products/scm/joule-with-sap-logistics-management.html) uses natural language to help streamline warehouse and transportation operations.
+- [Joule with SAP Logistics Management](https://www.sap.com/products/scm/logistics-management.html) uses natural language to help streamline warehouse and transportation operations.
 - [Joule’s integrated AI agents](https://www.sap.com/products/artificial-intelligence/ai-agents.html?pttid=7756&campaigncode=crm-ya22-int-1517075&source=ppc-de-googleads-search-21156823187-179484269229-clouderpgrow_s4s-x-x-x&gclsrc=aw.ds&gad_source=1&gad_campaignid=21156823187&gbraid=0AAAAAoT3lP9jHA312OPvRkZmst5xspFg0&gclid=CjwKCAjwhqfPBhBWEiwAZo196jvN5AU7qPiu396zy2KzUZSydByyj0QW6IjqGBuYweSQ1KNjzG4zvhoChKgQAvD_BwE) can provide manufacturing information and support decision-making throughout the workflow.
 
 ### **Intelligent packaging use case**

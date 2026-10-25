@@ -39,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-22
 ---
 
 **Embodied AI** combines artificial intelligence with a physical form — such as robots — that can perceive and act in the real world.
@@ -88,7 +88,7 @@ The following table shows typical use cases across supply chain, logistics, and 
 | Use Case                    | Associated SAP Software |
 | :------------------------------ | :------------------------------ |
 | **Warehouse Pick & Place** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/2)) | [SAP Extended Warehouse Management (EWM)](https://www.sap.com/products/scm/extended-warehouse-management.html), [SAP Logistics Management (LGM)](https://www.sap.com/products/scm/logistics-management.html) |
-| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html) |
+| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-and-asset-management.html) |
 | **Health & Safety Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/4)) | [SAP S/4HANA for EHS workplace safety (EHS)](https://www.sap.com/products/scm/safety-management-software.html) |
 | **Quality Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/5)) | [SAP S/4HANA Manufacturing for planning and scheduling (S/4 PP)](https://www.sap.com/products/scm/manufacturing-for-planning-and-scheduling.html) |
 | **Material Handling & Assembly**  | [SAP Digital Manufacturing (DM)](https://www.sap.com/products/scm/digital-manufacturing.html) |
@@ -127,7 +127,7 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
   
   This can be one or multiple components depending on the use case.
   This includes **applications**, **assistants**, and **agents**.
-  For example, the [asset inspection](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3) use case is associated with [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html) and [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html).
+  For example, the [asset inspection](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3) use case is associated with [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html) and [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-and-asset-management.html).
   Agents across the supply chain, such as [those announced at Hannover Messe 2026](https://news.sap.com/2026/04/sap-at-hannover-messe-2026-agentic-ai-resilient-manufacturing/), can also benefit from autonomous execution by robots.
 
 - ### SAP Joule, AI Agents, and Joule Studio

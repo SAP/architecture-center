@@ -46,9 +46,9 @@ We've added several new top-level reference architectures to provide even more g
 We've also expanded existing reference architectures with new content, providing deeper insights and broader coverage on key topics:
 
 *   **Generative AI on SAP BTP**
-    *   **[Vibe Coding with Cline and SAP AI Core](https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/10)**  - Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.
-    *   **[Agent2Agent Interoperability](https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/8)** - Enable interoperability between AI agents with Agent2Agent protocol, fostering collaboration across enterprise landscapes.
-    *   **[Partner Models](https://architecture.learning.sap.com/docs/ref-arch/e5eb3b9b1d/9)** - Benefit from partner models like the IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.
+    *   **[Vibe Coding with Cline and SAP AI Core](/docs/ref-arch/35863c)**  - Learn how to set up and use Cline, an autonomous coding agent, with SAP AI Core to accelerate your development workflows.
+    *   **[Agent2Agent Interoperability](/docs/ref-arch/76ec36)** - Enable interoperability between AI agents with Agent2Agent protocol, fostering collaboration across enterprise landscapes.
+    *   **[Partner Models](/docs/ref-arch/39eb58#generative-ai-hub)** - Benefit from partner models like the IBM Granite foundation model for the increasing demand of generative AI features in business scenarios with emphasis on data security, IP Protection and enterprise-grade governance and compliance.
 
 ### Welcoming New Contributors
 

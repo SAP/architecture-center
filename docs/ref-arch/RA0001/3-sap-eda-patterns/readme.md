@@ -34,7 +34,7 @@ contributors:
 discussion: 
 last_update:
   author: anbazhagan-uma
-  date: 2025-10-24
+  date: 2026-10-22
 ---
 
 Event-driven architecture use cases are crucial because they highlight real-world applications of this technological strategy. Understanding specific use cases reveals how this architecture is crucial for services that require real-time operations, high responsiveness, and asynchronous communication. 
@@ -83,4 +83,4 @@ Below are some sample use case scenarios demonstrating the application of event-
 ![drawio](drawio/eda_eventhub.drawio)
 
 
-Note: Refer to additional use case patterns in [SAP Learning Journey -Discovering Event-Driven Integration with SAP Integration Suite,advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
+Note: Refer to additional use case patterns in [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh)
