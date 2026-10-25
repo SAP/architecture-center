@@ -56,7 +56,7 @@ SAP structures the platform around three pillars:
 | **Govern** | Manage, audit, and control AI agents and assets at enterprise scale |
 
 
-![drawio](drawio/BAIP.drawio)
+![drawio](drawio/architecture.drawio)
 
 ### Layer 1 — Build
 
@@ -221,7 +221,7 @@ Becoming an Autonomous Enterprise requires agents that can understand and act on
 - **SAP SuccessFactors** — Provides the organizational dimension, mapping agents to business units and roles; supports workforce planning as agents reshape job functions and required competencies.
 
 
-![drawio](drawio/BAIP.drawio)
+![drawio](drawio/architecture.drawio)
 
 ## Deployment Model
 
