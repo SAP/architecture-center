@@ -1,27 +1,24 @@
 ---
 sidebar_position: 2
-title: Technology Decision Tree for AI on SAP BTP
-description: "A structured decision framework for selecting the right AI approach on SAP BTP, covering relational foundation models, classic ML, LLMs and AI agents."
+title: Technology Decision Tree for AI
+description: >-
+  A structured decision framework for selecting the right AI approach on SAP BTP,
+  covering relational foundation models, classic ML, LLMs and AI agents.
 keywords:
-    - sap
-    - ai decision tree
-    - relational foundation models
-    - sap-rpt-1
-    - machine learning
-    - llm
-    - generative ai
-    - retrieval augmented generation
-    - ai agents
-    - agentic ai
-    - when to use ai
-    - business ai platform
+- sap
+- ai
+- decision tree
+- rpt-1
+- machine learning
+- llm
+- ai agents
+- technology assessment
 sidebar_label: Technology Decision Tree
 image: img/ac-soc-med.png
 tags:
-    - ai-golden-path
-    - genai
-    - agents
-    - appdev
+- genai
+- agents
+- appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,8 +26,9 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-04-23'
 ---
+
+# Technology Decision Tree for AI
 
 ## When to use AI
 
@@ -72,9 +70,9 @@ Be careful using AI when:
 
 ## Choosing the Right Approach
 
-Building AI-powered systems today involves a growing range of tools and paradigms. Each has its strengths, trade-offs, and ideal scenarios. Understanding when to use **classic machine learning (ML)**, **relational foundation models (e.g., `sap-rpt-1`)**, **large language models (LLMs)**, **agentic workflows**, or **AI agents** is therefore essential.
+Building AI-powered systems today involves a growing range of tools and paradigms. Each has its strengths, trade-offs, and ideal scenarios. Understanding when to use **classic machine learning (ML)**, **relational foundation models (e.g., `sap-rpt-1.6`)**, **large language models (LLMs)**, **agentic workflows**, or **AI agents** is therefore essential.
 
-### 1. Relational Foundation Models (e.g., `sap-rpt-1`)
+### 1. Relational Foundation Models (e.g., `sap-rpt-1.6`)
 
 **When to use:**
 
@@ -82,8 +80,8 @@ Building AI-powered systems today involves a growing range of tools and paradigm
 * You can formulate your problem as a task with **clearly defined output** (e.g., a label, score, numeric value).
 * You want high **predictive accuracy / prediction quality**.
 * You have historical data or another way of creating labeled reference examples.
-* Your problem can be expressed as a classification, regression or scoring problem (for the time being `sap-rpt-1` does not fully support time series forecasting or clustering, for example)
-* You have successfully tested that `sap-rpt-1` can deal with your task (conduct experiments via the [SAP-RPT-1 (External) Playground](https://rpt.cloud.sap/) for productive state)
+* Your problem can be expressed as a classification, regression or scoring problem (for the time being `sap-rpt` does not fully support time series forecasting or clustering, for example)
+* You have successfully tested that `sap-rpt` can deal with your task (conduct experiments via the [SAP-RPT (External) Playground](https://rpt.cloud.sap/) for productive state)
 
 **Examples:**
 
@@ -93,7 +91,7 @@ Building AI-powered systems today involves a growing range of tools and paradigm
 * Recommending offers.
 
 **Why choose RPT:**
-It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically delivering improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
+It offers instant predictive insights from structured business data through in-context learning that eliminates the need for costly and time-consuming model training while typically deliverying improved prediction quality compared to classic AI models, and increased flexibility, e.g., regarding changing data or data models.
 
 ### 2. Classic Machine Learning (ML)
 
@@ -103,7 +101,9 @@ It offers instant predictive insights from structured business data through in-c
 * You can formulate your problem as a task with **clearly defined output** (e.g., a label, score, numeric value).
 * You can **engineer features** and have historical data for training.
 * Interpretability, explainability, and performance tuning are important.
-* For **classification/regression**: It is recommended to first evaluate `sap-rpt-1` for classification/regression, as benchmarks show strong performance with lower engineering effort. Only move away if it cannot meet constraints (e.g. latency  &lt;200 ms, data locality, context limits, GPU availability). For **time series, anomaly detection, clustering**: use classic ML (e.g. HANA PAL) as the default.
+
+* For **classification/regression**: It is recommended to first evaluate `sap-rpt` for classification/regression, as benchmarks show strong performance with lower engineering effort. Only move away if it cannot meet constraints (e.g. latency  &lt;200 ms, data locality, context limits, GPU availability). For **time series, anomaly detection, clustering**: use classic ML (e.g. HANA PAL) as the default.
+
 * You can bear costs and complexity of lifecycle management of per-customer trained models, or you do not have per-customer trained model.
 * Processing needs to happen close to the data via in-database ML.
 
@@ -147,6 +147,7 @@ AI agents are autonomous systems that can make decisions, plan actions, execute 
 * You require **planning, tool use, or iterative refinement** rather than a single inference call.
 * The system must **act autonomously**, make decisions over time, and **integrate reasoning with external actions**.
 * You need **composable AI behaviors** that can be orchestrated (e.g., chaining LLM calls, calling APIs, using business rules).
+* You want to extend Joule's capabilities with **skills** — declarative behavior definitions that leverage the Agent Harness's isolated execution environment.
 * You require **persistent memory**, **replayability**, and **auditability**.
 * You need control and flexibility on the agent flow (e.g., pre/post-processing, error handling, reflection steps).
 * You require fine-grained control over memory and tool use.
@@ -154,15 +155,17 @@ AI agents are autonomous systems that can make decisions, plan actions, execute 
 **Examples:**
 
 * Coordinate tasks between humans, LLMs, and external systems.
+* Extend Joule with domain-specific skills for business process automation.
 * LLM chaining and multi-agent orchestration.
 * Constraint-driven, goal-oriented, and context-aware execution of tasks.
 * Running experiments, managing business processes, or controlling digital systems.
+* Proactive, event-driven automation triggered by system events or schedules.
 * Research automation, conversation management, and complex workflows.
 
 **Why choose AI Agents:**
-Use them when the problem requires **reasoning over time, calling external tools, or coordinating multiple AI and non-AI tasks**. Agents are ideal when the system must act autonomously, integrate reasoning with external actions, and maintain state across interactions.
+Use them when the problem requires **reasoning over time, calling external tools, or coordinating multiple AI and non-AI tasks**. For most conversational and request-driven scenarios, start with **skills** in the Agent Harness. For proactive, event-driven, or complex orchestration scenarios, use **code-based agents**. Both approaches integrate with Joule and leverage the same enterprise infrastructure.
 
-**Get started:** [Build AI Agents on SAP BTP](../2-build-and-deliver/7-build-ai-agents/readme.md)
+**Get started:** [Build AI Agents on SAP Business AI Platform](../2-build-and-deliver/7-build-ai-agents/readme.md)
 
 ## Technology Assessment Framework
 
@@ -176,7 +179,7 @@ Before investing in any AI solution, it's critical to establish whether your pro
 
 ```mermaid
 ---
-title: Graph 1 - Initial Assessment
+title: Graph 1 - Intial Assessment
 ---
 flowchart TD
     Start("Start: Problem/Use Case Identification")
@@ -217,12 +220,12 @@ flowchart TD
     R6("⚠️️ Reassess Requirements<br>Consider if automation<br>is actually needed")
 
     %% Styling
-    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
+    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
 
     class Start startNode
     class R1,R2,R3 recommendation
@@ -244,7 +247,7 @@ flowchart TD
     Start --> Q1{"Does your problem involve:<br>- Tabular/Relational Data?"}
     Q1 -->|Yes|Q2
     Q1 -->|No|CustomModel
-    Q2{"Can your task be done with<br>classification and/or<br>regression and your<br>data can be represented as a<br>single table?"}
+    Q2{"Can you task be done with<br>classification and/or<br>regressio and your<br>data can be represented as a<br>single table?"}
     Q2 -->|Yes|RPT
     RPT("⚡ RFM Indicator:<br>Case suitable for<br>relational foundation<br>model")
     RPT --> R1
@@ -255,17 +258,17 @@ flowchart TD
     CustomModel --> Q3
     Q3 -->|Yes|R2
     Q3 -->|No|W1
-    R1("✅ RECOMMENDATION:<br>SAP-RPT-1<br><br>Characteristics<br>- In-context learning<br>- Pretrained for structured data<br>- In-context learning<br>- Multi-column/row predictions")
+    R1("✅ RECOMMENDATION:<br>SAP-RPT<br><br>Characteristics<br>- In-context learning<br>- Pretrained for structured data<br>- In-context learning<br>- Multi-column/row predictions")
     W1("⚠️️ Reassess Requirements<br>No reusable in-context<br>learning approach available")
     R2("✅ RECOMMENDATION:<br>Train Task-specific Model<br><br>Consult <a href='https://scikit-learn.org/stable/machine_learning_map.html'>cheat sheet</a>"<br>to select the correct<br>method)
 
     %% Styling
-    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
+    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
 
     class Start startNode
     class R1,R2 recommendation
@@ -318,12 +321,12 @@ flowchart TD
     R2("✅ RESULT: Medium/High Agency<br>➡️ Continue with GRAPH 4:<br>Agentic AI Implementation")
 
     %% Styling
-    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
+    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
 
     class DataCheck,B,C,D,RulesEngine decision
     class Readiness warning
@@ -355,15 +358,15 @@ flowchart TD
     %% Results at bottom
     R1("✅ RECOMMENDATION:<br>Embedded AI<br>Characteristics:<br>- Single-step or fixed workflow<br>- No conversation needed<br>- Integrated into existing UI<br>- Predictable inputs/outputs<br>Implementation:<br>- Direct API integration<br>- Button/form-based triggers<br>- Background processing")
 
-    R2("✅ RECOMMENDATION:<br>Joule Skill<br>(Low Agency)<br>Characteristics:<br>- Conversational interface via Joule<br>- Structured workflow<br>- Predefined steps<br>- Natural language interaction<br>Implementation:<br>- Create as Joule Skill<br>- Define intents & entities<br>- Connect to backend GenAI")
+    R2("✅ RECOMMENDATION:<br>Joule Skill / Agent Harness Skill<br>(Low Agency)<br>Characteristics:<br>- Conversational interface via Joule<br>- Structured workflow<br>- Predefined steps<br>- Natural language interaction<br>Implementation:<br>- Create as Joule Skill or<br>  Agent Harness skill file<br>- Define intents & behavior<br>- Connect to backend GenAI")
 
     %% Styling
-    classDef decision fill:#f5f5f5,stroke:#757575,stroke-width:2px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
+    classDef decision fill:#FFF,stroke:#757575,stroke-width:0px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
 
     class StartG3 continueNext
     class ConvLow decision
@@ -373,18 +376,24 @@ flowchart TD
 
 ### Gen AI Agent Assessment - Graph 4
 
-AI agents represent the most sophisticated and autonomous category of generative AI solutions, capable of dynamic decision-making, multi-step reasoning, and adaptive behavior. Following the **unified target model**, all agents are now code-based, with two creation paths available: **Dev IDE (pro-code)** for maximum flexibility and control, or **Vibe (prompt-driven)** for a lower barrier to entry while still producing real, inspectable code. Both paths produce the same portable, versionable artifact deployed to the unified Agent Fabric runtime.
+AI agents represent the most sophisticated and autonomous category of generative AI solutions, capable of dynamic decision-making, multi-step reasoning, and adaptive behavior.
 
-Graph 4 navigates the complexity of implementing AI agents by first distinguishing between process agents (specialized for specific tasks with predictable patterns) and broad-scope agents (handling multiple domains with high variance). The assessment then considers whether conversational interaction is required, the complexity of custom logic needed, and your team's technical preferences. These factors guide you to the appropriate creation path while ensuring all agents benefit from the unified runtime's consistency in lifecycle management, observability, and governance.
+Graph 4 first evaluates whether skills within the Agent Harness can address the use case. If not, it navigates the code-based agent path by distinguishing between process agents (specialized for specific tasks) and broad-scope agents (handling multiple domains), then considers conversational requirements, custom logic complexity, and team preferences to recommend the appropriate creation path.
 
 ```mermaid
 ---
-title: Graph 4 - Medium/High Agency (Unified Agent Model)
+title: Graph 4 - Medium/High Agency (Skills-First Model)
 ---
 flowchart TD
     StartG4("➡️ FROM GRAPH 2.b:<br>Medium/High Agency")
 
-    StartG4 --> E{"Is your workflow dedicated to<br>a specific task and do the requests<br>have low variance?"}
+    StartG4 --> SkillCheck{"Can this use case be addressed<br>with skills within the<br>Agent Harness?<br>(Declarative behavior + tool access,<br>no custom orchestration needed)"}
+
+    SkillCheck -->|Yes|CheckSkills("⚡ Skills Indicator:<br>Declarative skill files<br>cover the use case")
+
+    CheckSkills --> R0
+
+    SkillCheck -->|No, custom orchestration needed|E{"Is your workflow dedicated to<br>a specific task and do the requests<br>have low variance?"}
 
     E -->|No, many tasks|CheckBroad("⚡ Broad Scope Agent Indicator:<br>- Multiple domains/functions<br>- High request variance<br>- Complex orchestration needs")
 
@@ -427,25 +436,27 @@ flowchart TD
     CheckProCode --> R3
 
     %% Results at bottom
-    R1("✅ RECOMMENDATION:<br>Joule Functions/Agents<br>for Agentic Orchestration<br><br>Characteristics:<br>- Multi-domain capability<br>- Conversational interface<br>- Agent coordination<br>- High flexibility")
+    R0("✅ RECOMMENDATION:<br>Skills-based Agent<br>(Agent Harness)<br><br>Characteristics:<br>- Declarative skill files<br>- Isolated sandbox execution<br>- No custom code required<br>- Joule-integrated<br>- Covers most agentic use cases<br>Implementation:<br>- Create skill files<br>- Register in Skill Hub<br>- Harness manages execution")
+
+    R1("✅ RECOMMENDATION:<br>Joule Agents / Agent Gateway<br>for Agentic Orchestration<br><br>Characteristics:<br>- Multi-domain capability<br>- Conversational interface<br>- Agent coordination via A2A<br>- High flexibility")
 
     R2("✅ RECOMMENDATION:<br>Vibe (Prompt-driven) Path<br>Code-based Agent<br><br>Characteristics:<br>- Natural language creation<br>- Real, inspectable code output<br>- Seamless IDE transition<br>- Unified Agent Fabric runtime")
 
-    R3("✅ RECOMMENDATION:<br>Dev IDE (Pro-code) Path<br>Code-based Agent<br><br>Characteristics:<br>- Full customization<br>- Maximum control<br>- IDE workflows (VSCode, etc.)<br>- Unified Agent Fabric runtime")
+    R3("✅ RECOMMENDATION:<br>Dev IDE (Pro-code) Path<br>Code-based Agent<br><br>Characteristics:<br>- Full customization<br>- Maximum control<br>- IDE workflows (VSCode, etc.)<br>- Suited for proactive/<br>  event-driven agents<br>- Unified Agent Fabric runtime")
 
     %% Styling
-    classDef decision fill:#fff,stroke:#757575,stroke-width:2px,font-size:14
-    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:2px
-    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:2px,stroke-dasharray: 3 3
-    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:2px
-    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:2px
-    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:2px
+    classDef decision fill:#fff,stroke:#757575,stroke-width:0px,font-size:14
+    classDef warning fill:#FFC933,stroke:#f44336,stroke-width:0px
+    classDef indicator fill:#B894FF,stroke:#d84315,stroke-width:0px,stroke-dasharray: 3 3
+    classDef continueNext fill:#89D1FF,stroke:#0288d1,stroke-width:0px
+    classDef startNode fill:#89D1FF,stroke:#0070F2,stroke-width:0px
+    classDef recommendation fill:#97DD40,stroke:#0070F2,stroke-width:0px
 
     class StartG4 continueNext
-    class E,ConvAgentic,Control,Skills,Disclaimer,PathChoice decision
+    class SkillCheck,E,ConvAgentic,Control,Skills,Disclaimer,PathChoice decision
     class G1,G2 startNode
-    class R1,R2,R3 recommendation
-    class CheckBroad,CheckSpecific,CheckCustom,CheckSimple,CheckProCode,CheckVibe,CheckOrchestration indicator
+    class R0,R1,R2,R3 recommendation
+    class CheckSkills,CheckBroad,CheckSpecific,CheckCustom,CheckSimple,CheckProCode,CheckVibe,CheckOrchestration indicator
 ```
 
 :::info References

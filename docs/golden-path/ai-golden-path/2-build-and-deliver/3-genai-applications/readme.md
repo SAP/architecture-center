@@ -1,27 +1,23 @@
 ---
 sidebar_position: 3
-title: GenAI Applications on SAP BTP with CAP and AI Core
-description: "Build, deploy and run LLM and GenAI applications on SAP BTP using SAP AI Core, the Generative AI Hub, CAP, and RAG with HANA Cloud Vector Engine."
+title: GenAI Applications
+description: >-
+  Build, deploy and run LLM and GenAI applications on SAP BTP using SAP AI Core, Generative
+  AI Hub and CAP.
 keywords:
-    - sap
-    - generative ai
-    - llm
-    - sap ai core
-    - generative ai hub
-    - cap
-    - retrieval augmented generation
-    - hana vector engine
-    - orchestration service
-    - prompt engineering
-    - sap cloud sdk for ai
-    - business ai platform
+- sap
+- genai
+- llm
+- ai core
+- generative ai hub
+- cap
+- rag
 sidebar_label: GenAI Applications
 image: img/ac-soc-med.png
 tags:
-    - ai-golden-path
-    - genai
-    - cap
-    - appdev
+- genai
+- cap
+- appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,28 +25,29 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-04-23'
 ---
+
+# How to build, deploy and run LLM/GenAI Applications
 
 ## What you will build
 
-With the advancements in Generative AI, the need for applications to integrate AI technologies, especially large language models (LLMs), to enhance business processes or build high-value use cases is increasing. This section provides the key resources required to develop, operate, and monitor such applications on SAP BTP (Business Technology Platform). 
+With the advancements in Generative AI, the need for applications to integrate AI technologies, especially large language models (LLMs), to enhance business processes or build high-value use cases is increasing. This section provides the key resources required to develop, operate, and monitor such applications on SAP Business AI Platform.
 
-A central capability in this context is [SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/what-is-sap-ai-core) a service within the SAP BTP designed to manage the execution and operation of AI assets. Within SAP AI Core, the Generative AI Hub offers streamlined access to a range of foundation models, enabling enterprises to build and scale LLM-powered applications more efficiently. The Generative AI Hub abstracts provider-specific differences and simplifies consumption across different model families.
+A central capability in this context is [SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/what-is-sap-ai-core) a service within the SAP Business AI Platform designed to manage the execution and operation of AI assets. Within SAP AI Core, the Generative AI Hub offers streamlined access to a range of foundation models, enabling enterprises to build and scale LLM-powered applications more efficiently. The Generative AI Hub abstracts provider-specific differences and simplifies consumption across different model families.
 
-By leveraging these services, teams can accelerate prototyping and deliver production-ready Generative AI solutions across diverse business scenarios. 
+By leveraging these services, teams can accelerate prototyping and deliver production-ready Generative AI solutions across diverse business scenarios.
 
 ## Prerequisites & setup
 
-*   **SAP BTP Account**: Ensure that the required entitlements are assigned for developing the application in the SAP BTP Cloud Foundry environment, such as SAP Cloud Identity Services, SAP HANA Cloud, and SAP AI Core. This list is only as an example, depending on the scope of your application, all relevant [services](https://discovery-center.cloud.sap/viewServices) must be properly entitled and configured.
-*   **Development Environment**: A local or cloud-based IDE is required, such as Visual Studio Code. For a cloud-based development environment, [SAP Business Application Studio](https://discovery-center.cloud.sap/serviceCatalog/business-application-studio?region=all), available on SAP BTP, is a recommended option.
-*  **[SAP Cloud Application Programming Model](https://cap.cloud.sap/docs/)**: CAP is a framework of languages, libraries, and tools for building enterprise-grade cloud applications on SAP BTP. The CAP framework must be installed and properly configured. This includes setting up the required runtime environment (Node.js or Java), installing the SAP CAP development tools, and preparing the project structure for deployment to the SAP BTP Cloud Foundry environment.
+*   **SAP Business AI Platform Account**: Ensure that the required entitlements are assigned for developing the application in the SAP Business AI Platform Cloud Foundry environment, such as SAP Cloud Identity Services, SAP HANA Cloud, and SAP AI Core. This list is only as an example, depending on the scope of your application, all relevant [services](https://discovery-center.cloud.sap/viewServices) must be properly entitled and configured.
+*   **Development Environment**: A local or cloud-based IDE is required, such as Visual Studio Code. For a cloud-based development environment, [SAP Business Application Studio](https://discovery-center.cloud.sap/serviceCatalog/business-application-studio?region=all), available on SAP Business AI Platform, is a recommended option.
+*  **[SAP Cloud Application Programming Model](https://cap.cloud.sap/docs/)**: CAP is a framework of languages, libraries, and tools for building enterprise-grade cloud applications on SAP Business AI Platform. The CAP framework must be installed and properly configured. This includes setting up the required runtime environment (Node.js or Java), installing the SAP CAP development tools, and preparing the project structure for deployment to the SAP Business AI Platform Cloud Foundry environment.
 *   **[SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)**: This is the official Software Development Kit (SDK) for Generative AI Hub and its Orchestration Service in SAP AI Core. SDKs are available for Java, JavaScript and Python.
 * **[CAP LLM Plugin](https://github.com/SAP-samples/cap-llm-plugin-samples/tree/main)**: helps developers create tailored Generative AI based CAP applications.
 
 ## Architecture at a glance
 
-To harness the power of Generative AI within applications on SAP Business Technology Platform (SAP BTP), the following Reference Architecture offers a robust and flexible framework. It is designed to support a variety of application scenarios, from lightweight APIs to full-stack web applications that augment and extend core business processes.
+To harness the power of Generative AI within applications on SAP Business AI Platform, the following Reference Architecture offers a robust and flexible framework. It is designed to support a variety of application scenarios, from lightweight APIs to full-stack web applications that augment and extend core business processes.
 
 At the center of this architecture is a CAP-based backend that manages application logic. Data is stored in SAP HANA Cloud, which also houses embeddings used for similarity search via its built-in Vector Engine. The Generative AI Hub acts as the central access point to a range of Foundation Models and Large Language Models (LLMs), enabling seamless integration with SAP AI Core. This setup supports advanced use cases such as Retrieval Augmented Generation (RAG), where proprietary content can be grounded using embeddings to provide more accurate and context-aware outputs.
 
@@ -58,38 +55,38 @@ This architecture is designed to be runtime-agnostic, supporting both Cloud Foun
 
 Key features include secure connectivity to SAP backends through Destinations, support for role-based access control, and efficient retrieval of vector data from HANA Cloud. It also enables invoking enterprise tools and workflows using the SAP Integration Suite and SAP Build Process Automation, streamlining business orchestration.
 
-This reference architecture serves as a reliable starting point for developers, providing patterns and templates that simplify the adoption of Generative AI. Whether you're implementing a chat-based assistant, similarity search with vector embeddings, or a RAG solution, the components provided by SAP BTP and AI Core make it faster and more efficient to deliver intelligent enterprise-grade applications.
+This reference architecture serves as a reliable starting point for developers, providing patterns and templates that simplify the adoption of Generative AI. Whether you're implementing a chat-based assistant, similarity search with vector embeddings, or a RAG solution, the components provided by SAP Business AI Platform and AI Core make it faster and more efficient to deliver intelligent enterprise-grade applications.
 
-![Generative AI on SAP BTP - Reference Architecture](./images/reference-architecture-generative-ai.png)
+![Generative AI on SAP Business AI Platform - Reference Architecture](./images/reference-architecture-generative-ai.png)
 
 ## Build
 
-This code sample [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://github.com/SAP-samples/btp-cap-genai-rag) presents an application on SAP Business Technology Platform (SAP BTP). This scenario presents a comprehensive solution for enhancing customer support within a travel agency, utilizing advanced email insights and automation. The system analyzes incoming emails using Large Language Models (LLMs) to offer core insights such as categorization, sentiment analysis and urgency assessment. It goes beyond basic analysis by extracting key facts and customizable fields like location, managed through a dedicated configuration page. Additionally, another [project](https://github.com/SAP-samples/btp-cap-genai-semantic-search) is a basic sample for a semantic search engine built on SAP Business Technology Platform (BTP). It uses the Cloud Application Programming (CAP) model and integrates Generative AI Hub and SAP HANA Cloud’s Vector Engine to offer scalable and powerful search capabilities on any kind of text data like product or material descriptions.
+This code sample [GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP Business AI Platform](https://github.com/SAP-samples/btp-cap-genai-rag) presents an application on SAP Business AI Platform. This scenario presents a comprehensive solution for enhancing customer support within a travel agency, utilizing advanced email insights and automation. The system analyzes incoming emails using Large Language Models (LLMs) to offer core insights such as categorization, sentiment analysis and urgency assessment. It goes beyond basic analysis by extracting key facts and customizable fields like location, managed through a dedicated configuration page. Additionally, another [project](https://github.com/SAP-samples/btp-cap-genai-semantic-search) is a basic sample for a semantic search engine built on SAP Business AI Platform. It uses the Cloud Application Programming (CAP) model and integrates Generative AI Hub and SAP HANA Cloud’s Vector Engine to offer scalable and powerful search capabilities on any kind of text data like product or material descriptions.
 
 Some of the key steps in the development process:
 
 ### 1. Project Setup
-Initialize a new project using CAP framework and then expand it to a full-stack application if you want a complete end-to-end application including [approuter](https://www.npmjs.com/package/@sap/approuter). Prepare and subscribe to all the necessary services on SAP BTP. This [estimator](https://discovery-center.cloud.sap/estimator/?commercialModel=btpea) helps in sizing and estimating the costs incurred for the necessary BTP services. 
+Initialize a new project using CAP framework and then expand it to a full-stack application if you want a complete end-to-end application including [approuter](https://www.npmjs.com/package/@sap/approuter). Prepare and subscribe to all the necessary services on SAP Business AI Platform. This [estimator](https://discovery-center.cloud.sap/estimator/?commercialModel=btpea) helps in sizing and estimating the costs incurred for the necessary Business AI Platform services.
 
 ### 2. Access to Generative AI models
-Once the SAP AI Core service with Extended plan is setup, different models are available for consumption individually or via orchestration.  Orchestration in SAP AI Core is a managed service that enables unified access, control, and execution of generative AI models through standardized APIs. Refer to [SAP Note 3437766](https://me.sap.com/notes/3437766) for an up-to-date overview of available models and their versions. There is also an [estimator](https://discovery-center.cloud.sap/ai-estimator-v1) available which helps in estimating the costs incurred for the necessary AI services. On top of this, there is also [SAP Document AI](https://discovery-center.cloud.sap/serviceCatalog/sap-document-ai?region=all) available on SAP BTP if there is a necessity to process documents in the scope of your application.
+Once the SAP AI Core service with Extended plan is setup, different models are available for consumption individually or via orchestration.  Orchestration in SAP AI Core is a managed service that enables unified access, control, and execution of generative AI models through standardized APIs. Refer to [SAP Note 3437766](https://me.sap.com/notes/3437766) for an up-to-date overview of available models and their versions. There is also an [estimator](https://discovery-center.cloud.sap/ai-estimator-v1) available which helps in estimating the costs incurred for the necessary AI services. On top of this, there is also [SAP Document AI](https://discovery-center.cloud.sap/serviceCatalog/sap-document-ai?region=all) available on SAP Business AI Platform if there is a necessity to process documents in the scope of your application.
 
 ### 3. Prompting
 Prompt engineering is a critical step in building reliable LLM-powered applications. It involves designing clear and structured prompts that guide the model to produce accurate, consistent, and business-relevant outputs. This includes defining system and user prompts, controlling parameters such as temperature and token limits, and enforcing structured responses (e.g., JSON schemas) when integrating outputs into downstream systems.
 
 ### 4. Integration with SAP Systems
-This typically involves connecting to systems such as SAP S/4HANA, SAP SuccessFactors, or other SAP solutions via secure APIs (e.g., OData or REST services), leveraging destinations configured in SAP BTP.
+This typically involves connecting to systems such as SAP S/4HANA, SAP SuccessFactors, or other SAP solutions via secure APIs (e.g., OData or REST services), leveraging destinations configured in SAP Business AI Platform.
 
 ### 5. Logging & Observability
 Logging and observability are critical to operating LLM-powered applications reliably in production. All interactions with generative models—including prompts, responses, token usage, response times, and error messages—should be logged in a controlled and secure manner. This enables traceability, troubleshooting, and auditability, while ensuring that sensitive data is handled according to enterprise compliance policies through masking or filtering.
 
 ## Deploy
 
-Deploying the application to SAP BTP involves packaging and releasing the solution into the target runtime environment, such as Cloud Foundry through Multi-Target Application (MTA) model. This includes binding the application to required services like SAP AI Core, SAP HANA Cloud, and SAP Cloud Identity Services, as well as configuring environment variables and service credentials securely. A structured deployment strategy should define separate landscapes (e.g., Development, Test, Production) to ensure controlled releases and proper validation before going live. [CI/CD](https://help.sap.com/docs/btp/sap-business-technology-platform/continuous-integration-and-delivery-ci-cd) pipelines can automate build, test, and deployment steps, enabling consistent release of the application. 
+Deploying the application to SAP Business AI Platform involves packaging and releasing the solution into the target runtime environment, such as Cloud Foundry through Multi-Target Application (MTA) model. This includes binding the application to required services like SAP AI Core, SAP HANA Cloud, and SAP Cloud Identity Services, as well as configuring environment variables and service credentials securely. A structured deployment strategy should define separate landscapes (e.g., Development, Test, Production) to ensure controlled releases and proper validation before going live. [CI/CD](https://help.sap.com/docs/btp/sap-business-technology-platform/continuous-integration-and-delivery-ci-cd) pipelines can automate build, test, and deployment steps, enabling consistent release of the application.
 
 ## Run
 
-In the Run phase of an SAP BTP application consuming SAP AI Core and the Generative AI Hub, particular attention must be given to model depreciation and operational stability. [Prompt registry](https://help.sap.com/docs/sap-ai-core/generative-ai/prompt-registry) described in the best practices section below will thoroughly help you in this regard. Teams should continuously monitor model availability, version updates, and deprecation notices to ensure that production applications are not impacted by retired or upgraded foundation models. A clear versioning and fallback strategy—combined with regression testing when switching model versions—helps maintain consistent output quality.
+In the Run phase of an SAP Business AI Platform application consuming SAP AI Core and the Generative AI Hub, particular attention must be given to model depreciation and operational stability. [Prompt registry](https://help.sap.com/docs/sap-ai-core/generative-ai/prompt-registry) described in the best practices section below will thoroughly help you in this regard. Teams should continuously monitor model availability, version updates, and deprecation notices to ensure that production applications are not impacted by retired or upgraded foundation models. A clear versioning and fallback strategy—combined with regression testing when switching model versions—helps maintain consistent output quality.
 
 ## Best Practices
 
@@ -103,11 +100,11 @@ In the Run phase of an SAP BTP application consuming SAP AI Core and the Generat
 
 ### Tutorials
 
-The following tutorials and repositories provide a helpful starting point for developing applications and consuming the SAP AI Core service on SAP BTP:
+The following tutorials and repositories provide a helpful starting point for developing applications and consuming the SAP AI Core service on SAP Business AI Platform:
 
 * [Navigating Large Language Models fundamentals and techniques for your use case](https://learning.sap.com/courses/navigating-large-language-models-fundamentals-and-techniques-for-your-use-case)
-* [Tutorial: GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP BTP](https://github.com/SAP-samples/btp-cap-genai-rag?tab=readme-ov-file#getting-started) & [DC Mission](https://discovery-center.cloud.sap/missiondetail/4371/) with Quick Account Setup
-* This [repo](https://github.com/SAP-samples/btp-genai-starter-kit) gives users of the SAP Business Technology Platform (BTP) a quick way to learn how to use generative AI with BTP services.
+* [Tutorial: GenAI Mail Insights - Develop a CAP-based application using GenAI and RAG on SAP Business AI Platform](https://github.com/SAP-samples/btp-cap-genai-rag?tab=readme-ov-file#getting-started) & [DC Mission](https://discovery-center.cloud.sap/missiondetail/4371/) with Quick Account Setup
+* This [repo](https://github.com/SAP-samples/btp-genai-starter-kit) gives users of the SAP Business AI Platform a quick way to learn how to use generative AI with Business AI Platform services.
 * [SAP HANA Cloud with Vector Engine and GenAI Hub](https://github.com/SAP-samples/sap-genai-hub-with-sap-hana-cloud-vector-engine)
 * [Examples for Generative AI Hub SDK (Python)](https://help.sap.com/doc/generative-ai-hub-sdk/CLOUD/en-US/examples.html)
 
@@ -137,6 +134,5 @@ The benchmark engineering toolset includes:
 :::info References
 - [SAP Architecture Center](https://architecture.learning.sap.com/)
 - [SAP Discovery Center](https://discovery-center.cloud.sap/)
-- [SAP BTP AI Best Practices](https://btp-ai-bp.docs.sap/)
+- [SAP Business AI Platform AI Best Practices](https://btp-ai-bp.docs.sap/)
 :::
-
