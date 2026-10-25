@@ -32,8 +32,8 @@ contributors:
   - fabianleh
   - s-krishnamoorthy
 last_update:
-  author: s-krishnamoorthy
-  date: 2026-10-24
+  author: fabianleh
+  date: 2026-10-25
 ---
 ## SAP Business AI Platform
 
@@ -233,15 +233,13 @@ Underlying the entire platform is a **hyperscaler-agnostic** infrastructure. SAP
 
 Interoperability is a first-class concern: third-party AI systems and non-SAP agents connect via open standards (A2A protocol, MCP, REST/OData), making SAP Business AI Platform a composable foundation for heterogeneous enterprise AI landscapes.
 
-## 9. References
+## Resources
 
-| Resource | URL |
-|---|---|
-| SAP Business AI Platform | https://www.sap.com/products/ai-platform.html |
-| Agentic AI Reference Architecture | https://architecture.learning.sap.com/docs/ref-arch/98efa0 |
-| SAP AI Core Documentation | https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/what-is-sap-ai-core |
-| SAP AI Golden Path | https://architecture.learning.sap.com/docs/ai-golden-path |
-| Securing SAP Business AI Architectures | https://community.sap.com/t5/technology-blog-posts-by-sap/securing-sap-business-ai-architectures-trust-boundaries-and-secure-data/ba-p/14295118 |
+- [SAP Business AI Platform](https://www.sap.com/products/ai-platform.html)
+- [Agentic AI Reference Architecture](https://architecture.learning.sap.com/docs/ref-arch/98efa0)
+- [SAP AI Core Documentation](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/what-is-sap-ai-core)
+- [SAP AI Golden Path](https://architecture.learning.sap.com/docs/ai-golden-path)
+- [Securing SAP Business AI Architectures](https://community.sap.com/t5/technology-blog-posts-by-sap/securing-sap-business-ai-architectures-trust-boundaries-and-secure-data/ba-p/14295118)
 
 
 
