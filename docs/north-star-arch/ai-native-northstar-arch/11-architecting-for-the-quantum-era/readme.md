@@ -58,7 +58,7 @@ QPUs can be used for both training and inference. It starts with selecting the c
 <div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 <a href="https://www.youtube.com/watch?v=_GyU1gSp0ZE" target="_blank" rel="noopener noreferrer">
-<img src={require('./images/quantum.png').default} alt="quantum" className="no-zoom" />
+<em>![quantum](./images/quantum.png)</em>
 </a>
 
 </div>
