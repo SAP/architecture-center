@@ -37,7 +37,7 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 <div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
@@ -65,32 +65,32 @@ This requires a fundamental shift in how we design and deliver the user experien
 
 <p style={{ textAlign: 'left' }}>
 
-The **design layer** functions as a dynamic design service, translating the core design language into a toolkit for generative AI experiences. It establishes guardrails and provides AI with a library of semantically described, next-generation UI components, empowering it to compose experiences that are not only consistent, reliable, and compliant but feel native to the company’s brand.
+The **Design Layer** is the Compositional Design System — the foundational layer that enables the capabilities of the other experience layers. It is built from two parts: (1) an agent and services — including intent analysis, planning, component selection, generation, and rendering — and (2) a catalogue of assets. The catalogue contains composites: flexible, scalable components made up of primitives, such as buttons, text, boxes, and circles. The catalogue further includes design knowledge: guidance on how composites can be modified and in what contexts they should be used, alongside general design knowledge encoding the enterprise qualities SAP delivers at scale — accessibility, product standards, globalisation, and compliance — together with institutional design best practices built throughout the system.
 
-The **intelligence layer** extends these interfaces with adaptive and conversational capabilities, embedding context-aware AI, voice support, and multimodal interaction while maintaining privacy boundaries, transparency, user control, and agency.
+The **Intelligence Layer** makes experiences context-aware and trustworthy. It powers conversation, voice, and multimodal interaction — letting users express intent naturally across any modality. It also defines how users stay in control: through transparency, agency, and privacy boundaries that make AI assistance feel safe and predictable rather than opaque.
 
-The **Joule Work** component brings these generative experiences together into a unified entry point
-that interprets intent across natural language, voice, and multimodal inputs to personalize user days, automate routine work within defined guardrails, or turn business intent into agentic solutions.
+**Joule Work** unifies these layers into a single entry point that interprets user intent, surfaces the right insights, automates routine work, and coordinates AI agents and workflows across the enterprise — enabling people to focus on the decisions that move the business forward, within guardrails they control.
 
 </p>
 
 <div style={{ clear: 'both' }}></div>
 
-These experiences are structured into five experience modes, each serving a particular intent and purpose for users:
-- **Discover** for a personalized overview that learns over time
-- **Conversations** to ask, search, act, and get insights
-- **Spaces** as dynamic work environments for productivity assembled on the fly
-- **Jobs** for making agentic work traceable for the business user, automating routine tasks within defined guardrails and escalating to humans only for key decisions.
-- **Develop** for turning business intents into agentic solutions.
+Joule Work extends across multiple modalities — desktop, web, mobile, CarPlay, and more — with transparency and privacy by design. Voice AI makes applications as natural as having a conversation. Physical AI also extends Joule into robotics and smart glasses.
+
+Joule Work structures these experiences into five experience modes, each serving a particular intent and purpose for users:
+
+**Conversations** is where users express intent and explore outcomes through continuous dialogue across SAP.
+- **Discover** surfaces AI-prioritized tasks, alerts, and opportunities from across connected systems so users can act directly, continue in a Conversation, or open a Space.
+- **Spaces** are dynamic workspaces assembled on the fly, bringing together the right data, tools, and context for a specific goal.
+- **Jobs** for making agentic work traceable for the business user, automating routine tasks within defined guardrails and escalating to humans for key decisions or missing information.
+- **Develop** gives builders the tools to create and deploy agentic solutions using Joule Studio's AI-first development environment, connecting them to SAP's business context, data, and interfaces to build solutions grounded in real business processes.
 
 ![Experience Modes](images/experience-modes.png)
 
-Joule Work is delivered as a service managed by SAP. This enables continuous improvement of the experience, delivering innovation without additional effort for customers. Embedded insights from the SAP Analytics Cloud solution bring real-time visibility. Integration with SAP Signavio, SAP LeanIX, and WalkMe solutions adds process transparency and guided adoption. 
+Joule Work is delivered as a service managed by SAP. This enables continuous improvement of the experience, delivering innovation without additional effort for customers. Embedded insights from the SAP Analytics Cloud solution bring real-time visibility.
 
-Looking ahead, **voice AI** brings voice interaction to SAP applications, embedded as a core service across mobile and desktop, to make using enterprise software as natural as having a conversation while also preserving transparency, user control, and privacy by design.
+When results carry semantic information — measures, dimensions, and visualization hints — the design layer determines how to present them. The same semantic specification renders through native components on web, desktop, and mobile. Together, these capabilities create experiences that explain what happened and why it matters, then recommend the next action, helping users move smoothly from data to decision.
 
-By embedding semantic meaning directly into UI components, our design layer enables dynamic experience composition at runtime, responding intelligently to user intent and business context. This approach moves beyond static dashboards that demand manual interpretation. Instead, it delivers cohesive, AI-enhanced experiences that proactively explain what happened and why it matters while recommending the next logical action. Applications are transformed from passive tool containers into intelligent guides that actively understand user goals. The result is that users move smoothly from data to decision, guided by a system that serves as both interpreter and advisor.
+This NorthStar applies to agentic and AI-native interaction patterns. It complements, not replaces, SAP application experiences.
 
-With **physical AI**, Joule moves beyond the screen, bringing business logic from SAP into robotics and smart glasses to enhance the physical world.
-
-While the experience layer allows users to articulate their needs, translating those intentions into tangible business outcomes demands a sophisticated orchestration of applications, intelligent agents, and interconnected business logic, the foundation of the process layer.
+While the experience layer allows users to articulate their needs, translating those intentions into tangible business outcomes demands a sophisticated orchestration of applications, intelligent agents, and interconnected business logic, which is the role of the process layer.
