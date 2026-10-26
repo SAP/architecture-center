@@ -40,6 +40,8 @@ last_update:
 
 The AI-native North Star architecture prepares SAP for quantum computing, where superposition and entanglement enable major acceleration in optimization, simulation, and machine learning. As we approach the early fault-tolerant quantum era over the coming months, preparing now helps ensure that SAP can adopt quantum capabilities once enterprise-grade hardware matures in the near future.
 
+import quantumImg from './images/quantum.png';
+
 ### How the AI-native North Star architecture integrates quantum computing
 
 Quantum computing extends classical and AI-native systems by adding computational richness and depth for specialized problem classes. AI contributes cognitive reasoning, while quantum systems contribute amplitude- and phase-based computation, creating a continuum of intelligent and probabilistic processing that shapes the next phase of enterprise architecture.
@@ -58,7 +60,7 @@ QPUs can be used for both training and inference. It starts with selecting the c
 <div className="nsa-float-image" style={{ float: 'right', marginLeft: '20px', width: '30%', maxWidth: '320px' }}>
 
 <a href="https://www.youtube.com/watch?v=_GyU1gSp0ZE" target="_blank" rel="noopener noreferrer">
-<img src={require('./images/quantum.png').default} alt="quantum" className="no-zoom" />
+<img src={quantumImg} alt="quantum" className="no-zoom" />
 </a>
 
 </div>
