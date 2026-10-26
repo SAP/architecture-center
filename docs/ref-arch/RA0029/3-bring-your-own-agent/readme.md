@@ -40,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-10-14
+  date: 2026-10-26
 ---
 
 For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, a customer-managed subaccount on Business AI Platform provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
