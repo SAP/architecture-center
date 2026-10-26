@@ -4,9 +4,7 @@ slug: /ref-arch/d94f2a
 sidebar_position: 4
 title: SAP-Managed IAM Integration
 description: >-
-  SAP-operated IAM integration between SAP solutions for unified experiences
-  such as Joule and the SAP Business AI Platform, described as three maturity
-  stages toward SAP Cloud Identity Services as the central leading system.
+  SAP-operated IAM integration between SAP solutions — three maturity stages toward SAP Cloud Identity Services as the central leading system, enabling Joule and the SAP Business AI Platform.
 keywords:
   - sap
   - cloud identity

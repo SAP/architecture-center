@@ -4,9 +4,7 @@ slug: /ref-arch/f4a2c8
 sidebar_position: 11
 title: Third-Party A2A Integration & Token Exchange
 description: >-
-  How a third-party agent integrates with SAP via A2A — including the token
-  exchange at SAP Cloud Identity Services that produces a correctly-scoped token
-  before the Agent Gateway is called, and principal propagation across hops.
+  Third-party agent integration with SAP via A2A — token exchange at SAP Cloud Identity Services for a correctly-scoped token before the Agent Gateway is called, and principal propagation across hops.
 keywords:
   - sap
   - a2a
