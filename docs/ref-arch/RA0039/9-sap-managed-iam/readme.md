@@ -100,5 +100,5 @@ The SAP-managed model is the foundation for identity of autonomous AI actors. Th
 
 ## Related
 
-- [Customer-Managed IAM Integration](../../RA0019/1-customer-managed/readme.md) — the complementary model where the customer operates the IAM integration.
+- [Customer-Managed IAM Integration](../../RA0019/readme.md) — the complementary model where the customer operates the IAM integration.
 - [Agent Identity](../../RA0029/8-ai-agent-identity/readme.md) — SAP-managed identity for AI agents.
