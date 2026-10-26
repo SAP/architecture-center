@@ -7,7 +7,7 @@
                 <mxCell id="D_mPaLfSAj1xe7zrpITt-38" value="SAP Datasphere" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1;strokeColor=#66B2FF;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;fontColor=#00185A;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="244" y="-91" width="280" height="229" as="geometry"/>
                 </mxCell>
-                <mxCell id="D_mPaLfSAj1xe7zrpITt-36" value="SAP Analytics Claud" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1;strokeColor=#66B2FF;align=left;fontColor=#00185A;fontStyle=1;verticalAlign=top;spacingTop=5;spacingLeft=10;" parent="1" vertex="1">
+                <mxCell id="D_mPaLfSAj1xe7zrpITt-36" value="SAP Analytics Cloud" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1;strokeColor=#66B2FF;align=left;fontColor=#00185A;fontStyle=1;verticalAlign=top;spacingTop=5;spacingLeft=10;" parent="1" vertex="1">
                     <mxGeometry x="-59" y="-172" width="588" height="66" as="geometry"/>
                 </mxCell>
                 <mxCell id="D_mPaLfSAj1xe7zrpITt-37" value="SAP BDC Cockpit/&lt;div&gt;SAP Datasphere&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=24;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1;strokeColor=#66B2FF;align=left;verticalAlign=top;fontColor=#00185A;fontStyle=1;spacingTop=5;spacingLeft=10;" parent="1" vertex="1">
