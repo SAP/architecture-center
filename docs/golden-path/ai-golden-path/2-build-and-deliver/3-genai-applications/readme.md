@@ -61,7 +61,7 @@ Key features include secure connectivity to SAP backends through Destinations, s
 
 This reference architecture serves as a reliable starting point for developers, providing patterns and templates that simplify the adoption of Generative AI. Whether you're implementing a chat-based assistant, similarity search with vector embeddings, or a RAG solution, the components provided by SAP Business AI Platform and AI Core make it faster and more efficient to deliver intelligent enterprise-grade applications.
 
-![Generative AI on SAP Business AI Platform - Reference Architecture](./images/reference-architecture-generative-ai.png)
+![Generative AI on SAP Business AI Platform - Reference Architecture](https://architecture.learning.sap.com/reference-architecture-generative-ai-147cbbd9c09b8aa2.svg)
 
 ## Build
 

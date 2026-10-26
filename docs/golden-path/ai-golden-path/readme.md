@@ -63,7 +63,7 @@ and scaling AI use cases.
 
 ### Understand Available Technology
 
-![Architecture Overview](./images/overview_architecture.svg)
+![Architecture Overview](./images/ArchitectureOverview-ExtGoldenPath.svg)
 
 The first step toward building an AI application is understanding the **technology stack** available within SAP. This
 includes:
