@@ -19,6 +19,7 @@ Hyperscalers
 Kyma
 Gardener
 Steampunk
+Dynpro
 
 # Data & analytics
 Datasphere
@@ -54,6 +55,7 @@ AAIF
 AICore
 AFLPAL
 JustAsk
+BAIP
 
 # Technical / platform terms
 subaccount
@@ -64,6 +66,7 @@ BTPEA
 CPEA
 designtime
 SAPGUI
+PFCG
 SQLDBC
 BAPI
 IDoc
@@ -72,8 +75,11 @@ matnr
 infotypes
 businesspartner
 rolename
+techuser
+gtid
 HANAML
 HDLFS
+HDLF
 EOIO
 CMIR
 CMIRs
