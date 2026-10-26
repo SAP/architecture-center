@@ -182,7 +182,7 @@ The token exchange supports the two agent operation models from [Agent Identity]
 ## Services and Components
 
 - [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all)
-- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence/ai-platform.html)
+- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html)
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all)
 
 ## Related Readings

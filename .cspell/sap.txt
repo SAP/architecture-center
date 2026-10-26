@@ -77,7 +77,6 @@ businesspartner
 rolename
 techuser
 gtid
-consolidatable
 HANAML
 HDLFS
 HDLF

@@ -146,7 +146,7 @@ curl -XPOST -H "Content-Type: application/x-www-form-urlencoded" \
 
 - [SAP Cloud Identity Services - Identity Authentication](https://discovery-center.cloud.sap/serviceCatalog/identity-authentication?region=all)
 - [SAP Cloud Identity Services - Identity Directory](https://api.sap.com/api/IdDS_SCIM/overview)
-- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence/ai-platform.html)
+- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html)
 
 ## Related
 

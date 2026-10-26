@@ -38,7 +38,7 @@ last_update:
 
 In the **SAP-managed integration** model, SAP operates the IAM integration *between SAP solutions* as part of a managed experience. The customer continues to federate its users to [SAP Cloud Identity Services](https://www.sap.com/documents/2024/04/84ada3ed-b87e-0010-bca6-c68f7e60039b.html), but the trust, provisioning, and authorization wiring that connects the SAP solutions to each other is pre-configured and operated by SAP.
 
-This model is what makes cross-application SAP experiences possible — [SAP Task Center](https://pages.community.sap.com/topics/task-center), [SAP Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html), and the agentic capabilities of the [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence/ai-platform.html). These experiences require a trusted, consistently available, single identity interface in the landscape with a known set of features. Without SAP Cloud Identity Services as that interface, they could not be offered.
+This model is what makes cross-application SAP experiences possible — [SAP Task Center](https://pages.community.sap.com/topics/task-center), [SAP Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html), and the agentic capabilities of the [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html). These experiences require a trusted, consistently available, single identity interface in the landscape with a known set of features. Without SAP Cloud Identity Services as that interface, they could not be offered.
 
 ## Architecture
 
@@ -93,7 +93,7 @@ The SAP-managed model is the foundation for identity of autonomous AI actors. Th
 ## Services and Components
 
 - [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all)
-- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence/ai-platform.html)
+- [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html)
 - [Joule](https://help.sap.com/docs/joule/integrating-joule-with-sap/introduction?version=CLOUD)
 
 ## Related
