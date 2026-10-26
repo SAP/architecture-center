@@ -74,11 +74,11 @@ The Copilot Studio agent connects to the gateway over **MCP using the Streamable
 
 ## Configuration and architecture overview
 
-The integration involves three coordinated configuration steps — one on Business AI Platform, one in your identity provider(s), and one in Copilot Studio.
+The integration involves three coordinated configuration steps — one on SAP Business AI Platform, one in your identity provider(s), and one in Copilot Studio.
 
 ### Prerequisites
 
-- A customer-managed subaccount on Business AI Platform with **SAP Integration Suite** and the **MCP Gateway** capability enabled.
+- A customer-managed subaccount on SAP Business AI Platform with **SAP Integration Suite** and the **MCP Gateway** capability enabled.
 - The SAP APIs you want to expose available as OData/REST services or integration flows.
 - A Microsoft Copilot Studio environment with agent-creation permissions.
 - Administrative access to **Microsoft Entra ID** and **SAP Cloud Identity Services** to configure trust and app registrations.

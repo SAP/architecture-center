@@ -108,6 +108,6 @@ By supporting both of these patterns, SAP provides a comprehensive framework tha
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
-- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on SAP Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
 - [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on Cloud Foundry - all from Claude Code.
 - [Joule A2A: Connect Code Based Agents into Joule](https://community.sap.com/t5/technology-blog-posts-by-sap/joule-a2a-connect-code-based-agents-into-joule/ba-p/14329279): Shows how to integrate a custom Python LangGraph ReAct AI agent into Joule using pro-code extensibility and A2A integration.

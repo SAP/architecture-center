@@ -2,10 +2,10 @@
 id: 76ec36
 slug: /ref-arch/76ec36
 sidebar_position: 1
-title: A2A and MCP for AI Agent Interoperability on Business AI Platform
+title: A2A and MCP for AI Agent Interoperability on SAP Business AI Platform
 description: >-
   Learn how the Agent2Agent (A2A) and Model Context Protocol (MCP) enable a
-  decoupled, interoperable and scalable AI agent ecosystem on Business AI Platform.
+  decoupled, interoperable and scalable AI agent ecosystem on SAP Business AI Platform.
 keywords:
   - sap
   - ai agents
@@ -212,5 +212,5 @@ SAP's roadmap includes continuous enhancements to both protocols, with significa
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
-- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on SAP Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
 - [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on Cloud Foundry - all from Claude Code.

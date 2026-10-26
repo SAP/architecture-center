@@ -2,7 +2,7 @@
 id: 219c07
 slug: /ref-arch/219c07
 sidebar_position: 2
-title: Building AI Agents with SAP Joule Studio on Business AI Platform
+title: Building AI Agents with SAP Joule Studio on SAP Business AI Platform
 description: "Build, deploy and connect AI agents with Joule Studio, SAP's AI-native environment, using the browser-based Low-Code Flow or CLI-driven Pro-Code Flow."
 keywords:
   - sap
@@ -98,4 +98,4 @@ Use Joule Studio (either flow) when:
 -   You want SAP business context, API discovery, and best practices built into the development process
 -   Speed of delivery and alignment with SAP's standard tooling are priorities
 
-For agents that require full programmatic control outside of Joule Studio — deployed to your own customer-managed subaccount on Business AI Platform and connected to Joule via A2A — see [Custom Pro-Code AI Agents on a Customer-Managed Subaccount](../3-bring-your-own-agent/readme.md).
+For agents that require full programmatic control outside of Joule Studio — deployed to your own customer-managed subaccount on SAP Business AI Platform and connected to Joule via A2A — see [Custom Pro-Code AI Agents on a Customer-Managed Subaccount](../3-bring-your-own-agent/readme.md).
