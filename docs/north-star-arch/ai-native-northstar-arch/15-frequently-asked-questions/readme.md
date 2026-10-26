@@ -34,7 +34,7 @@ contributors:
 discussion:
 last_update:
     author: AdiPleyer
-    date: 2026-10-21
+    date: 2026-10-26
 ---
 
 import './faq.css';

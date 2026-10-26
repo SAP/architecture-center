@@ -39,12 +39,12 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-pagination_next: north-star-arch/ai-native-northstar-arch/foreword/id-nsa-foreword-1
+pagination_next: north-star-arch/ai-native-northstar-arch/executive-summary/id-nsa-1
 contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-26
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -57,11 +57,9 @@ As the enterprise software market enters a defining platform shift, one as signi
  
 This AI-native North Star Architecture paper outlines SAP's target reference architecture and strategic vision for that future. It is not a specification document, product roadmap, or commitment to deliver specific capabilities, products, or timelines. Rather, it articulates SAP's strategic direction for an AI-native, self-evolving enterprise foundation, illustrating how AI agents, applications, business processes, data, contextual intelligence, and platform capabilities will converge to define the next generation of enterprise systems.
  
-The paper features forewords by Philipp Herzig, Anirban Majumdar, Stefan Nogly, Thomas Henzler, and Geoff Scott.
-
 The paper is available on the [SAP Architecture Center](/) site and will evolve alongside the rapid pace of AI innovation. Quarterly updates are planned to incorporate new insights, architectural decisions, and ecosystem developments. A downloadable PDF version is also available.
 
-<a href='https://d.dam.sap.com/a/7TLSUpY/ai-native-north-star-architecture-public-q2-2026.pdf?rc=10&inline=true' download>
+<a href='https://d.dam.sap.com/s/i/a/ZXYoFqn/Internal_AI-NSA_Q32026_PDF_ReleaseVersion_2.pdf?rc=10&inline=true&doi=SAP1360724' download>
 <Button design="Emphasized" style={{borderRadius: '24px'}}>Download PDF</Button>
 </a>
 

@@ -4,7 +4,7 @@ sidebar_position: 11
 slug: /ai-native-north-star-architecture/architecting-for-the-quantum-era
 sidebar_custom_props:
     category_index: []
-title: Architecting for the Quantum Era
+title: Future Pillar- Architecting for the Quantum Era
 description: >-
     SAP's AI-native North Star architecture prepares for the quantum era through three principles: quantum co-processors handle specialized optimization and simulation workloads, cloud-native APIs abstract vendor differences, and scoped analytical use keeps transactional systems deterministic — enabling incremental quantum adoption without rearchitecting.
 keywords:
@@ -26,7 +26,7 @@ keywords:
     - NSA
     - enterprise AI
     - AI-native architecture
-sidebar_label: 11. Architecting for the Quantum Era
+sidebar_label: 11. Future Pillar- Architecting for the Quantum Era
 image: img/ac-soc-med.png
 tags:
     - ai-native-north-star
@@ -42,19 +42,25 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-26
 ---
 
-The AI-native North Star architecture prepares SAP for quantum computing, where superposition and entanglement enable major acceleration in optimization, simulation, and probabilistic inference. Although Noisy Intermediate-Scale Quantum (NISQ) devices remain limited by noise and weak error correction, preparing now helps ensure that SAP can adopt quantum capabilities once enterprise-grade hardware matures.
+The AI Native North Star prepares SAP for quantum computing, where superposition and entanglement enable major acceleration in optimization, simulation, and probabilistic inference. Although [NISQ](https://thequantuminsider.com/2023/03/13/what-is-nisq-quantum-computing/) devices remain limited by noise and weak error correction, preparing now ensures SAP can adopt quantum capabilities once enterprise-grade hardware matures.
 
 ### How the AI-native North Star architecture integrates Quantum Computing
 
 Quantum computing extends classical and AI-native systems by adding probabilistic depth for specialized problem classes. AI contributes cognitive reasoning, while quantum systems contribute amplitude-based computation, creating a continuum of intelligent and probabilistic processing that shapes the next phase of enterprise architecture.
  
-Architectural principles for quantum integration include: 
-- **Quantum processing unit (QPU)**: QPUs operate as mathematical coprocessors that applications invoke for complex optimization or simulation tasks and return classical outputs that flow back into deterministic workflows.
-- **Cloud-native integration**: QPUs are accessed as secure cloud services through standardized APIs that abstract vendor differences and support scalable and interoperable consumption.
+**Architectural principles for quantum integration:**
+
+- **Quantum processing unit (QPU)**: QPUs operate as mathematical co-processors that applications invoke for complex optimization or simulation tasks and return classical outputs that flow back into deterministic workflows.
+
+- **Cloud-native integration**: QPUs are accessed as secure cloud services through standardized APIs that abstract vendor differences and support scalable and interoperable consumption. To enable the Quantum Era already today, all use cases that leverage mathematical optimization are advised to leverage the BTP Service for Mathematical Optimization, which provides seamless quantum-enabling.
+
 - **Scope for analytical and compute-only use**: Quantum execution stays within planning, forecasting, and optimization because the no-cloning theorem prevents reliable replication of quantum states needed for transactional operations.
+
+**Example: Quantum Machine Learning**
+QPUs can be used for both Training and Inference. It starts with selecting the correct quantum model which is trained on QPU. The trained parameters are then stored classically on SAP BTP.  For the inference, the QML model with trained parameters is loaded in the form of quantum circuit on the QPU and executed.
 
 ### The path forward: A quantum-ready enterprise
 
@@ -68,7 +74,7 @@ Architectural principles for quantum integration include:
 
 <p style={{ textAlign: 'left' }}>
 
-By applying these principles, the AI-native North Star architecture establishes a hybrid model where classical determinism, AI-enhanced cognition, and quantum probability work together within a trusted enterprise foundation. This approach supports postquantum cryptography and prepares SAP for a secure and governed quantum-enabled future.
+By applying these principles, the AI Native North Star establishes a hybrid model where classical determinism, AI-driven cognition, and quantum probability work together within a trusted enterprise foundation. This approach supports post-quantum cryptography and prepares SAP for a secure and governed quantum-enabled future.
 
 </p>
 

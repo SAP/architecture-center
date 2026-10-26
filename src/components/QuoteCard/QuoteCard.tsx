@@ -1,7 +1,7 @@
 import React, { type ReactNode } from 'react';
 import styles from './QuoteCard.module.css';
-import blueQuotesIcon from '../../../docs/north-star-arch/ai-native-northstar-arch/foreword/images/blue-quotes.png';
-import greyQuotesIcon from '../../../docs/north-star-arch/ai-native-northstar-arch/foreword/images/grey-quotes.png';
+import blueQuotesIcon from './blue-quotes.png';
+import greyQuotesIcon from './grey-quotes.png';
 
 interface QuoteCardProps {
     quote: ReactNode;

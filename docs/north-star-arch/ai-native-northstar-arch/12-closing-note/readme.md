@@ -40,10 +40,11 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-26
 ---
 
-**Each revolution in technology begins with a shift in imagination.** The AI-native enterprise is that shift: a cybernetic system where software, data, and people continuously learn through feedback. It is not a feature but an architecture of intelligence where each interaction becomes a learning signal and intelligence compounds across the enterprise.
+**Each revolution in technology begins with a shift in imagination.** 
+The AI-native enterprise is the next shift: a cybernetic system where software, data, and people evolve together through continuous feedback and self-correction. It is neither a product nor a feature, but an architecture of intelligence that turns every layer into a source of cognition and every interaction into a learning signal. The experience learns from behavior, the process adapts in real time, the Foundation reasons over context, and the Ecosystem grows through shared intelligence.
 
 This demands a new engineering paradigm:
 
@@ -58,7 +59,8 @@ What unifies these efforts is a single commitment: building systems that learn r
 In the agentic era, SAP customers hold a unique advantage that no model can replicate: decades of process knowledge, deeply integrated systems, governed data, and trusted decision frameworks. These compound into a new kind of enterprise intelligence that is reliable, transparent, sustainable, and deeply human.
 
 Technology leaders have built trillion-dollar platforms by compounding behavioral traces. The enterprise equivalent is now emerging: compounding **context, decisions, and feedback loops**.
-At SAP, this becomes the foundation of the **Autonomous Enterprise**, where systems that learn help ensure that each interaction strengthens intelligence and that outcomes, not features, define value. 
+
+At SAP, this becomes the foundation of the **Autonomous Enterprise**, where systems that learn help ensure that each interaction strengthens intelligence and that outcomes, not features, define value.
 
 **We encourage you to explore this shift, reflect on it, and share your perspectives as this vision continues to evolve.**
 
