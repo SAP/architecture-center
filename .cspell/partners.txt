@@ -76,6 +76,7 @@ GitLab
 Okta
 
 # Products & services referenced in content
+AgentCore
 SiteWise
 OneLake
 ArcGIS
