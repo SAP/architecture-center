@@ -37,8 +37,8 @@ contributors:
   - Dhawal-Joshi
 discussion: 
 last_update:
-  author: hterminasyan
-  date: 2026-06-08
+  author: kay-schmitteckert
+  date: 2026-10-26
 ---
 
 [**Model Context Protocol (MCP)**](https://modelcontextprotocol.io/) is an open standard that defines how AI models and agents can discover, understand and interact with external tools and their surrounding context. It acts as a universal adapter, allowing agents to consume tools, from simple functions to complex APIs, without needing to know their underlying implementation details.

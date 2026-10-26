@@ -37,8 +37,8 @@ contributors:
   - hobru
 discussion: 
 last_update:
-  author: hobru
-  date: 2026-06-18
+  author: kay-schmitteckert
+  date: 2026-10-26
 ---
 
 :::info Disclaimer
