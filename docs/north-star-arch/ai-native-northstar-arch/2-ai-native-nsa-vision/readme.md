@@ -5,7 +5,7 @@ slug: /ai-native-north-star-architecture/vision
 sidebar_custom_props:
     category_index: []
 title: AI-native North Star architecture - Vision
-description: "The vision for SAP's AI-native North Star architecture: four layers — User Experience, Process, Foundation, and Platform — forming a system of context."
+description: "The vision for SAP's AI-native North Star architecture: four layers - User Experience, Process, Foundation, and Platform - forming a system of context."
 keywords:
     - ai-native north star architecture
     - system of context
@@ -54,8 +54,6 @@ The four layers are as follows:
 - The **process layer** evolves from predefined to agentic. The business logic, rules, and data that applications have traditionally embodied become capabilities that agents plan and execute across SAP, partner, and third-party systems, with every call routed through a governed gateway. A unified design-time environment supports building both applications and agents from business intent to production.
 - The **foundation layer** evolves from a system of record to a system of context. SAP Business Data Cloud provides governed data, SAP Knowledge Graph links it to business meaning, and decision traces record why past decisions were made. That connected context is what turns data into enterprise intelligence: agents can reason about why things happen, not only what happened.
 - The **platform layer** evolves from hosting applications to running SAP-managed enterprise agents integrated across the customer landscape. The platform provides runtime, sandbox, observability, and governance to build and operate reliable enterprise agents on top of stateless AI models. Agent lifecycle, identity, routing, and integration are built into the platform.
-
-Within this architecture, data informs decisions, decisions improve processes, and better processes generate richer data, establishing a continuous data flywheel.
 
 <div className="nsa-float-image" style={{ width: '35%', maxWidth: '300px', margin: '0 auto' }}>
 ![Data Flywheel](images/data-flywheel.png)

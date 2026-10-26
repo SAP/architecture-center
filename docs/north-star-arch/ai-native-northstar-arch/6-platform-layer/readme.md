@@ -40,7 +40,7 @@ last_update:
     date: 2026-10-23
 ---
 
-The platform layer is where applications, agents, and workflows run. SAP Business AI Platform, which includes SAP Business Technology Platform, provides composable services across data management, application development, integration, and security. Workloads are defined declaratively. Infrastructure, dependencies, and deployment targets are captured as configuration rather than code, so the interface stays stable while the platform evolves underneath. An AI Golden Path for application development—built on SAP Cloud Application Programming Model, the ABAP Cloud development model (ABAP RESTful application programming model), and the SAP Fiori design system—delivers consistent data models, harmonized APIs, and unified lifecycle management.
+The platform layer is where applications, agents, and workflows run. SAP Business AI Platform, which includes SAP Business Technology Platform, provides composable services across data management, application development, integration, and security. Workloads are defined declaratively. Infrastructure, dependencies, and deployment targets are captured as configuration rather than code, so the interface stays stable while the platform evolves underneath. An AI Golden Path for application development - built on SAP Cloud Application Programming Model, the ABAP Cloud development model (ABAP RESTful application programming model), and the SAP Fiori design system - delivers consistent data models, harmonized APIs, and unified lifecycle management.
 
 With proven scalability supporting millions of tenants globally, the platform delivers the reliability, performance, sustainability, and security required for enterprise-scale AI.
 
@@ -52,7 +52,7 @@ With proven scalability supporting millions of tenants globally, the platform de
 
 <p style={{ textAlign: 'left' }}>
 
-The shift from AI-first to AI-native expands the platform beyond building and running applications and providing integration. It now supports both deterministic applications and adaptive agents on the same multi-cloud foundation, managing the full lifecycle of agents, specifically their operational aspects, such as deployment, runtime, security, compliance, and observability. SAP Business AI Platform's multi-cloud capabilities allow deployment of the same agent to multiple providers, and even to Sovereign and private cloud environments, with the platform ensuring consistent enterprise qualities such as reliability, scalability, and compliance across infrastructures.
+The shift from AI-first to AI-native expands the platform beyond building and running applications and providing integration. It now supports both deterministic applications and adaptive agents on the same multi-cloud foundation, managing the full lifecycle of agents, specifically their operational aspects, such as deployment, runtime, security, compliance, and observability. SAP Business AI Platform's multi-cloud capabilities allow deployment of the same agent to multiple providers, and even to sovereign and private cloud environments, with the platform ensuring consistent enterprise qualities such as reliability, scalability, and compliance across infrastructures.
 
 </p>
 

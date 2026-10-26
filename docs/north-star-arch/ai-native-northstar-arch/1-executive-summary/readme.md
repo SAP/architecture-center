@@ -55,13 +55,13 @@ The opportunity is massive. AI is on track to add trillions of dollars to global
 </p>
 <div style={{ clear: 'both' }}></div>
 
-The implication is clear: in enterprise AI, context is **the decisive advantage**. Frontier models continue to grow more capable, but model capability alone is becoming commoditized, since every vendor can access the same leading models. What varies is the context over which those models reason. With the right context, software goes beyond predefined paths and reasons toward **outcomes**, application boundaries dissolve, and the enterprise learns. With five decades of business processes, domain knowledge, and industry expertise behind it, SAP has the deepest business context in enterprise software. Just as the harness around a model has become the deciding factor in what AI agents achieve, SAP’s business context — structured in a knowledge graph and ontology, and the platform around it — acts as a business harness: the same model, grounded in that context, delivers outcomes the model alone cannot.
+The implication is clear: in enterprise AI, context is **the decisive advantage**. Frontier models continue to grow more capable, but model capability alone is becoming commoditized, since every vendor can access the same leading models. What varies is the context over which those models reason. With the right context, software goes beyond predefined paths and reasons toward **outcomes**, application boundaries dissolve, and the enterprise learns. With five decades of business processes, domain knowledge, and industry expertise behind it, SAP has the deepest business context in enterprise software. Just as the harness around a model has become the deciding factor in what AI agents achieve, SAP’s business context structured in a knowledge graph and ontology, and the platform around it acts as a business harness: the same model, grounded in that context, delivers outcomes the model alone cannot.
 
 Research on systems that learn from experience has shown that they can discover strategies no human expert would have designed, and those strategies often become the winning move. Enterprise AI, grounded in SAP’s business context, operating across the full enterprise landscape, and acting on business intent, will uncover new paths to outcomes that no predefined playbook contains.
 
 ## From AI-first to AI-native
 
-SAP's deep business context creates a unique foundation for reimagining enterprise architecture for the AI-native era.
+SAP's deep business context creates a unique foundation for reimagining enterprise architecture for the AI-native era. The question is which architecture can unlock it.
 
 In an AI-first world, an AI feature in an ERP system can summarize an invoice or suggest a journal entry. But it operates within the boundaries of a single application. It cannot see that the same supplier has open disputes in service management, delayed shipments in logistics, and a renegotiated contract in procurement.
 

@@ -38,15 +38,16 @@ last_update:
     date: 2026-10-23
 ---
 
-The AI-native North Star architecture prepares SAP for quantum computing, where superposition and entanglement enable major acceleration in optimization, simulation, and machine learning. As we are approaching the early Fault-Tolerant Quantum Era over the coming months, preparing now helps ensure that SAP can adopt quantum capabilities once enterprise-grade hardware matures in the nearer future.
+The AI-native North Star architecture prepares SAP for quantum computing, where superposition and entanglement enable major acceleration in optimization, simulation, and machine learning. As we approach the early fault-tolerant quantum era over the coming months, preparing now helps ensure that SAP can adopt quantum capabilities once enterprise-grade hardware matures in the near future.
 
-### How the AI-native North Star architecture integrates Quantum Computing
+### How the AI-native North Star architecture integrates quantum computing
 
 Quantum computing extends classical and AI-native systems by adding computational richness and depth for specialized problem classes. AI contributes cognitive reasoning, while quantum systems contribute amplitude- and phase-based computation, creating a continuum of intelligent and probabilistic processing that shapes the next phase of enterprise architecture.
  
 Architectural principles for quantum integration include: 
 - **Quantum processing unit (QPU)**: QPUs operate as mathematical coprocessors that applications invoke for complex computational decision tasks and return classical outputs that flow back into deterministic workflows.
-- **Cloud-native integration**: QPUs are accessed as secure cloud services through standardized APIs that abstract vendor differences and support scalable and interoperable consumption. To enable for the Quantum Era already today, all use cases that leverage mathematical optimization are advised to leverage the BTP Service for Mathematical Optimization, which provides a seamless quantum-enabling path.
+- **Cloud-native integration**: QPUs are accessed as secure cloud services through standardized APIs that abstract vendor differences and support scalable and interoperable consumption. Applications that use mathematical optimization can prepare today by using the SAP BTP service for mathematical optimization, which offers a path to quantum-enabled optimization.
+- **Scope for analytical and compute-only use**: Quantum execution stays within planning, forecasting, and optimization because the no-cloning theorem prevents reliable replication of quantum states needed for transactional operations.
 
 #### Example: Quantum Machine Learning
 

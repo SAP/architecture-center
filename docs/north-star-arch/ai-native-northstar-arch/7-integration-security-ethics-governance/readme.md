@@ -45,17 +45,19 @@ last_update:
 Autonomous agents operate within enterprise-grade boundaries for governance, identity, and interoperability. Integration remains the biggest challenge in enterprise AI, and governance and compliance are not yet fully solved across industries. SAP is focusing on building architectural foundations that make these challenges tractable.
 
 
+## Integration
+
 **AI enables integration**: Agents dynamically determine intent, select the right APIs, and orchestrate calls across systems. They learn from usage to improve quality over time, and they reduce environmental impact by removing redundant integration logic and minimizing avoidable system-to-system data transfers.
 
 **Integration enables AI**: Existing APIs, events, and data across SAP and third-party software systems become tools that agents can discover and use through open standards, without requiring new development artifacts. Two open protocols make this possible. The Model Context Protocol provides tool integration, enabling agents to discover and invoke capabilities across systems. The Agent2Agent protocol supports multiagent coordination, enabling agents built by different teams, partners, and customers to collaborate within governed boundaries. SAP participates in the open standards ecosystem to ensure agents interoperate across the enterprise landscape, not just within SAP.
 
-Thus, Integration shifts from **connector driven to intelligence driven**.
+Thus, integration shifts from **connector-driven to intelligence-driven**.
 
 ## SAP-Managed Integration
 
 SAP's strategy is to deliver a pre-integrated, AI-native Autonomous Suite in which applications, AI agents, and assistants operate as a cohesive solution. SAP-managed provisioning, functional and technical integration, and lifecycle management enable agents to execute end-to-end business processes across applications, accelerating customer time to value and differentiating SAP from point-solution providers. Preconfigured integrations and shared business context enable agents to coordinate actions across the suite, while centralized governance, observability, automated safeguards, and SAP-managed operations support reliable, secure, and accountable execution. This reduces customer complexity and allows enterprises to focus on business outcomes rather than assembling and operating the underlying technology.
 
-Agent traffic flows through a governed gateway that acts as the trusted bridge between agents, tools, and backend systems. It ensures that agents operate within defined boundaries and are only accessible when explicitly authorized for collaboration — whether across systems, applications, or organizational domains. The gateway handles the platform-level concerns that every agent integration needs: security, access control, identity, and observability. It provides a unified catalog of available tools, enforces who can use what, and routes decisions that require human approval before proceeding. Backend systems are always accessed through official, governed APIs.
+Agent traffic flows through a governed gateway that acts as the trusted bridge between agents, tools, and backend systems. It ensures that agents operate within defined boundaries and are only accessible when explicitly authorized for collaboration - whether across systems, applications, or organizational domains. The gateway handles the platform-level concerns that every agent integration needs: security, access control, identity, and observability. It provides a unified catalog of available tools, enforces who can use what, and routes decisions that require human approval before proceeding. Backend systems are always accessed through official, governed APIs.
 
 ## Security and agent identity
 
@@ -66,7 +68,7 @@ In the AI-native model, **agents are first-class principals**: they authenticate
 The **three-tier AI defense architecture** from SAP addresses agentic threats through a progressive approach:
 
 - **Foundation tier**: Zero-trust authentication, traffic inspection, prompt-injection detection, behavioral analytics, and cryptographically verifiable agent credentials. Entities are validated, and actions are recorded.
-- **Supervision tier**: Deterministic control agents that monitor, sanitize, and authorize other AI agents. These supervisory agents enforce input validation, output filtering, and anomaly detection—with human oversight for high-risk decisions.
+- **Supervision tier**: Deterministic control agents that monitor, sanitize, and authorize other AI agents. These supervisory agents enforce input validation, output filtering, and anomaly detection - with human oversight for high-risk decisions.
 - **Automation tier**: Specialized AI agents that scale security operations through continuous audits, risk assessment, and policy enforcement. Identity management agents handle provisioning and contextual authorization. This layer embeds secure development practices into AI-assisted workflows, helping ensure AI-generated code is validated and compliant before release.
 
 AI is also an ally: intelligent agents audit systems, perform authorization checks, detect vulnerabilities, and enforce compliance early in development. This embeds a **shift-left approach** that prevents risks rather than reacting to them.

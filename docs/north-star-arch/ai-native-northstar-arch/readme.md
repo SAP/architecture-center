@@ -35,7 +35,7 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
