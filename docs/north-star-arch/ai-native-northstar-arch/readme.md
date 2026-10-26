@@ -52,7 +52,7 @@ The document is introduced by forewords from Philipp Herzig, Anirban Majumdar, S
 
 The paper is available on the [SAP Architecture Center](/) site and will evolve alongside the rapid pace of AI innovation, with quarterly updates planned to incorporate new insights, architectural decisions, and ecosystem developments. A downloadable PDF version is also available.
 
-<a href='https://d.dam.sap.com/a/7TLSUpY/ai-native-north-star-architecture-public-q2-2026.pdf?rc=10&inline=true&doi=SAP1317091' download>
+<a href='https://d.dam.sap.com/a/REcXcUJ/AI-Native-North-Star-Architecture_External-Q3-2026.pdf?rc=10&inline=true&doi=SAP1360594' download>
 <Button design="Emphasized" style={{borderRadius: '24px'}}>Download PDF</Button>
 </a>
 
