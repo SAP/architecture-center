@@ -26,7 +26,6 @@ extend-ignore-re = [
 [default.extend-words]
 # --- Regular dictionary words typos mis-corrects ---
 advices = "advices"       # "remittance advices" — valid accounting term
-ba = "ba"                 # SAP Community URL path segment (/ba-p/)
 
 # --- SAP acronyms / product names ---
 
