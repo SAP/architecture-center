@@ -27,6 +27,8 @@ Tableau
 PowerBI
 Looker
 Qlik
+Dremio
+Reltio
 
 # Enterprise software
 Oracle
@@ -76,6 +78,7 @@ GitLab
 Okta
 
 # Products & services referenced in content
+AgentCore
 SiteWise
 OneLake
 ArcGIS

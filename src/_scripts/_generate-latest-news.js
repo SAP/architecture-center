@@ -56,7 +56,10 @@ const latestPosts = files
         formattedDate: new Date(post.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
-            day: 'numeric'
+            day: 'numeric',
+            // post.date is a plain YYYY-MM-DD string, which Date parses as UTC midnight.
+            // Format it in UTC too, otherwise it shows the previous day west of UTC.
+            timeZone: 'UTC'
         })
     }));
 
