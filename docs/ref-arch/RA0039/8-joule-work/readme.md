@@ -17,7 +17,7 @@ tags:
   - sap-managed
   - genai
 hide_table_of_contents: false
-hide_title: false
+hide_title: true
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
