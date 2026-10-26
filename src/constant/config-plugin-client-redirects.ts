@@ -236,43 +236,6 @@ export const configRedirects = {
             from: '/docs/ref-arch/d9b25daf96',
             to: '/docs/ref-arch/8aceea',
         },
-        // RA0013
-        {
-            from: '/docs/ref-arch/f5b6b597a6/1',
-            to: '/docs/ref-arch/4ab8f2',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/2',
-            to: '/docs/ref-arch/a71aa9',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/3',
-            to: '/docs/ref-arch/519093',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/4',
-            to: '/docs/ref-arch/6550e4',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/5',
-            to: '/docs/ref-arch/12d55f',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/6',
-            to: '/docs/ref-arch/2c8491',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/7',
-            to: '/docs/ref-arch/4f7406',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6/8',
-            to: '/docs/ref-arch/9efadc',
-        },
-        {
-            from: '/docs/ref-arch/f5b6b597a6',
-            to: '/docs/ref-arch/e1732d',
-        },
         // RA0014
         {
             from: '/docs/ref-arch/0ec83f98fe',
