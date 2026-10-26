@@ -31,8 +31,8 @@ contributors:
   - seeobjectively
   - s-krishnamoorthy
 last_update:
-  author: seeobjectively
-  date: 2026-10-23
+  author: s-krishnamoorthy
+  date: 2026-10-26
 ---
 
 ## Overview
@@ -72,7 +72,7 @@ The pipeline moves data through the medallion tiers from raw source changes to a
 
 4. **Primary (non-SAP) Data Products** Non-SAP data does not travel the medallion ingestion path. Instead, Dremio reads it in place and joins it to the same governed surface. Dremio publishes this data as **Primary (non-SAP) Data Products**, so it is unified alongside SAP standard Data Products and can be combined, reflected, and consumed identically, with no copy made.
 
-5. **Accelerate and derive with Dremio.** Dremio reads the silver Primary Data Products through Iceberg, computes reflections, and helps create Derived Data Products into the **gold** layer - If any of these gold-layer DDPs are AI-enriched, they need to be renamed and separated per guidance, exposed through SQL and Iceberg ports. Reflections are pre-materialized, physically optimized query accelerators; because they are themselves stored in open Iceberg, acceleration does not cost openness.
+5. **Accelerate and derive with Dremio.** Dremio reads the silver Primary Data Products through Iceberg, computes reflections, and helps create Derived Data Products into the **gold** layer. Reflections are pre-materialized, physically optimized query accelerators; because they are themselves stored in open Iceberg, acceleration does not cost openness.
 
 6. **Consume across any engine.** Both silver Primary Data Products and gold Derived Data Products are readable through open Iceberg or SQL, including analytics engines, pipelines, agents, and applications. SAP HANA Cloud is a first-class consumer: SQL-on-Files queries Data Products directly on the object store, and Federation virtually joins them with operational HANA data, enabling transactional and analytical workloads without data duplication. Dremio directly powers SAP Joule answer NL based analytical queries, across customer's entire data estate semantically linked over ontology. 
 

@@ -172,7 +172,7 @@ The customer onboarding sequence provisions and activates Data Products within t
    ```
 
    **Data Sharing View**:
-   This diagram illustrates how Data Products are shared through the primary path. The Data Provider manages Iceberg tables in the BDC Federated Object Store, which the Enterprise Catalog exposes through the Iceberg REST interface. Apache Polaris authorizes catalog, namespace and table access and issues path-scoped credentials for zero-copy reads.
+   This diagram illustrates how Data Products are shared through the primary path. The Data Provider manages Iceberg tables in the federated Object store, which the Enterprise Catalog exposes through the Iceberg REST interface. Apache Polaris authorizes catalog, namespace and table access and issues path-scoped credentials for zero-copy reads.
 
    ```mermaid
    graph LR
