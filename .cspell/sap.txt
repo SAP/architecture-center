@@ -72,7 +72,6 @@ matnr
 infotypes
 businesspartner
 rolename
-consolidatable
 techuser
 gtid
 HANAML
