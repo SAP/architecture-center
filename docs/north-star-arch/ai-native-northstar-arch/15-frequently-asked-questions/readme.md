@@ -137,7 +137,7 @@ Finally, our [AI Golden Path](../../../golden-path/ai-golden-path/readme.md) off
 
 <p className="faq-a">
 <strong>A:</strong> There may be a conceptual similarity, both can present generated or context-specific work environments. However, the distinguishing objective of SAP Spaces is enterprise integration: they are intended to operate within a governed business environment and connect authenticated users, authorized data, business semantics, enterprise applications, tools, agents, and process actions.<br/>
-A Space is therefore not merely a generated interface or document. Unlike a free-form design file, Spaces are composed from a governed catalog of semantically described UI building blocks, constrained by layered design rules to stay on-brand, accessible, and consistent.
+A Space is therefore not merely a generated interface or document. Unlike a free-form design file, Spaces are composed of a governed catalog of semantically described UI building blocks, constrained by layered design rules to stay on-brand, accessible, and consistent.
 </p>
 
 <p className="faq-q"><strong>Personalized Transparent Sharing</strong></p>
@@ -556,8 +556,8 @@ For runtime observability, OpenTelemetry-based monitoring of agents and applicat
 
 <p className="faq-a">
 <strong>A:</strong> The expected deployment model is deployment to an automatically provisioned SAP Business AI Platform environment and its unified agent runtime.<br/>
-Both creation paths, pro-code development with an agent SDK as well as prompt-driven development through Joule Studio, produce the same canonical, code-based artifact and deploy to the same runtime. This supports portability, version control, auditability, and a consistent operational model.<br/>
-The differentiation between the platforms in this question is referring to a transition time where customer may have both in place.
+Both creation paths, pro-code development with an agent SDK and prompt-driven development through Joule Studio, produce the same canonical, code-based artifact and deploy to the same runtime. This supports portability, version control, auditability, and a consistent operational model.<br/>
+The differentiation between the platforms in this question is referring to a transition time when customers may have both in place.
 </p>
 
 
