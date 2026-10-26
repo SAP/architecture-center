@@ -56,7 +56,7 @@ The architecture diagram shows the Stage 2 setup, where the managed experience n
 - Identity data and authorizations are still **led by the applications**: each application remains the authority for its own users and roles.
 - SAP Cloud Identity Services provides the connective tissue — authentication, federation, and cross-application correlation via the Global User ID established.
 
-This stage builds directly on the consolidatable users of Stage 1: because the per-application users were already linked during the **consolodation** and got the Global User ID of the **user profile (identity)** which is written back into the connected applications. The **user profile (identity)** can now experience an unified Joule experience across the landscape. 
+This stage builds directly on the consolidatable users of Stage 1: because the per-application users were already linked during the **consolidation** and got the Global User ID of the **user profile (identity)** which is written back into the connected applications. The **user profile (identity)** can now experience an unified Joule experience across the landscape. 
 It is recommended to reach this stage to properly govern Agent Identities and Human Identities. It allows the assignment of agent-policies properly.
 
 ### Agent Identity
