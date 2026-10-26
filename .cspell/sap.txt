@@ -55,6 +55,7 @@ AAIF
 AICore
 AFLPAL
 JustAsk
+BAIP
 
 # Technical / platform terms
 subaccount
@@ -74,8 +75,11 @@ matnr
 infotypes
 businesspartner
 rolename
+techuser
+gtid
 HANAML
 HDLFS
+HDLF
 EOIO
 CMIR
 CMIRs
