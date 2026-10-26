@@ -1,98 +1,91 @@
-# SAP acronyms, product names, and specific terms.
-# One term per line. Lines starting with "#" are comments. Case-insensitive.
-# Add new SAP-specific words here so cspell stops flagging them.
-
-# Platform & core
-SAP
-BTP
-HANA
-HANADB
-ABAP
-SAPUI5
-UI5
-Fiori
-OData
-NetWeaver
-ECC
-Hyperscaler
-Hyperscalers
-Kyma
-Gardener
-Steampunk
-
-# Data & analytics
-Datasphere
-SAC
-BW
-BW4HANA
-S4HANA
-
-# Application development
-CAP
-CDS
-RAP
-Launchpad
-Workzone
-
-# Line-of-business & acquisitions
-Ariba
-Concur
-SuccessFactors
-BizX
-Signavio
-LeanIX
-Hybris
-Spartacus
-WalkMe
-ByDesign
-Crossboarding
 
 # AI
-Joule
-Leonardo
-AAIF
-AICore
-AFLPAL
-JustAsk
-
-# Technical / platform terms
-subaccount
-subaccounts
-approuter
-XSUAA
-BTPEA
-CPEA
-designtime
-SAPGUI
-SQLDBC
-BAPI
-IDoc
-IDocs
-matnr
-infotypes
-businesspartner
-rolename
-HANAML
-HDLFS
-EOIO
-CMIR
-CMIRs
-MTXS
-IATP
-icmtotal
-WMMBXY
-
+# Add new SAP-specific words here so cspell stops flagging them.
+# Application development
+# Data & analytics
 # Line-of-business
-Fieldglass
-
+# Line-of-business & acquisitions
+# One term per line. Lines starting with "#" are comments. Case-insensitive.
+# Organizations & teams
+# Platform & core
 # Programs & ecosystem
+# SAP acronyms, product names, and specific terms.
+# Technical / platform terms
+AAIF
+ABAP
+AFLPAL
+AICore
+ASUG
+Ariba
+BAPI
+BTP
+BTPEA
+BW
+BW4HANA
 BYOA
 BYOW
-gardenlets
+BizX
+ByDesign
+CAP
+CDS
+CMIR
+CMIRs
+CPEA
+Concur
+Crossboarding
 DSAG
-ASUG
-northstar
-SusaaS
-
-# Organizations & teams
+Datasphere
+ECC
+EOIO
+Fieldglass
+Fiori
+Gardener
+HANA
+HANADB
+HANAML
+HDLFS
+Hybris
+Hyperscaler
+Hyperscalers
+IATP
+IDoc
+IDocs
+Joule
+JustAsk
+Kyma
+Launchpad
+LeanIX
+Leonardo
+MTXS
+NetWeaver
 OCTO
+OData
+RAP
+S4HANA
+SAC
+SAP
+SAPGUI
+SAPUI5
+SQLDBC
+Signavio
+Spartacus
+Steampunk
+SuccessFactors
+SusaaS
+UI5
+WMMBXY
+WalkMe
+Workzone
+XSUAA
+approuter
+businesspartner
+consolidatable
+designtime
+gardenlets
+icmtotal
+infotypes
+matnr
+northstar
+rolename
+subaccount
+subaccounts
