@@ -80,6 +80,7 @@ XSUAA
 approuter
 businesspartner
 consolidatable
+consolodation
 designtime
 gardenlets
 icmtotal
