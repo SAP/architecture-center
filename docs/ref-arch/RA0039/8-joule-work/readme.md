@@ -31,7 +31,7 @@ last_update:
   date: 2026-10-22
 ---
 
-# Joule Work
+## Joule Work
 
 > **Note**
 > Some components and capabilities of this reference architecture are not yet generally available (GA) — the current architecture reflects a transitional state highlighting the relevant building blocks for Joule Work, coming together with the SAP Business AI Platform.
