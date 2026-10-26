@@ -19,6 +19,7 @@ Hyperscalers
 Kyma
 Gardener
 Steampunk
+Dynpro
 
 # Data & analytics
 Datasphere
@@ -64,6 +65,7 @@ BTPEA
 CPEA
 designtime
 SAPGUI
+PFCG
 SQLDBC
 BAPI
 IDoc
