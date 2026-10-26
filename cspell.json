@@ -8,7 +8,7 @@
     { "name": "people", "path": ".cspell/people.txt", "addWords": true }
   ],
   "dictionaries": ["sap", "industry", "partners", "people"],
-  "words": ["RAXXXX", "claudeignore", "Conv", "Ashburn", "gingershot", "misrecognized", "deprioritized"],
+  "words": ["RAXXXX", "claudeignore", "Conv", "Ashburn", "gingershot", "misrecognized", "XPOST", "audienced", "consolidatable", "deprioritized"],
   "ignoreRegExpList": [
     "Urls",
     "Email",
@@ -17,9 +17,14 @@
     "FrontMatterContributors",
     "FrontMatterAuthor",
     "FrontMatterId",
-    "FrontMatterSlug"
+    "FrontMatterSlug",
+    "MarkdownUrl"
   ],
   "patterns": [
+    {
+      "name": "MarkdownUrl",
+      "pattern": "/\\(https?:\\/\\/[^)]+\\)/g"
+    },
     {
       "name": "FrontMatterTags",
       "pattern": "/^tags:[^\\n]*\\n(?:[ \\t]+-[^\\n]*\\n)*/gm"

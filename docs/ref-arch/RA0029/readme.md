@@ -55,11 +55,11 @@ AI agents represent a new paradigm in enterprise software — combining large la
 
 SAP's approach centers on **Joule** as the unified AI engagement layer: **Joule Work** is where users express intent and AI orchestrates outcomes across systems; **Joule Assistants** coordinate agents across business functions; and **Joule Agents** handle the specific, multi-step tasks that drive real process automation. Custom agents built by customers, partners or SAP line-of-business teams connect to this ecosystem via open standards — A2A for agent-to-agent collaboration and MCP for tool connectivity — enabling a composable, interoperable agent landscape that extends into any third-party AI platform.
 
-This reference architecture is a comprehensive guide to developing, deploying and managing AI agents in the SAP ecosystem, powered by the [SAP Business AI Platform](https://www.sap.com/products/ai-platform.html). It covers architectural patterns, components and best practices for building agents — from building agents in Joule Studio on a managed runtime to bringing your own agent built with SAP Cloud SDK for AI — and for integrating them with Joule and the broader enterprise landscape.
+This reference architecture is a comprehensive guide to developing, deploying and managing AI agents in the SAP ecosystem, powered by the [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html). It covers architectural patterns, components and best practices for building agents — from building agents in Joule Studio on a managed runtime to bringing your own agent built with SAP Cloud SDK for AI — and for integrating them with Joule and the broader enterprise landscape.
 
 ## Architecture
 
-The core architecture for AI agents at SAP is built on the [SAP Business AI Platform](https://www.sap.com/products/ai-platform.html) — an enterprise AI foundation combining deep process context, trusted data and enterprise-grade governance.
+The core architecture for AI agents at SAP is built on the [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html) — an enterprise AI foundation combining deep process context, trusted data and enterprise-grade governance.
 
 ![drawio](./drawio/architecture.drawio)
 
@@ -85,7 +85,7 @@ The [**SAP Business Transformation Management**](https://www.sap.com/products/bu
 
 - [**SAP Signavio — Agent Behavior Mining**](./9-agent-behavior-mining/readme.md): Observability and continuous improvement of AI agents — providing behavioral tracing, process conformance analysis, performance benchmarking and business impact measurement across the agent landscape.
 
-- [**SAP AI Agent Hub**](../RA0034/readme.md) by SAP LeanIX is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing. SAP AI Agent Hub is also available as a standalone product for customers without SAP LeanIX.
+- [**SAP AI Agent Hub**](../RA0039/10-ai-agent-hub/readme.md) by SAP LeanIX is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs and MCP servers across the enterprise. It maintains a structured registry of all AI assets — regardless of origin — grounded in their architecture and business context. Key capabilities include evaluation and verification workflows (only verified MCP servers can be called in production), identity and access control for agents and MCP servers, and AI observability with session health and tool call tracing. SAP AI Agent Hub is also available as a standalone product for customers without SAP LeanIX.
 
 - [**SAP Cloud ALM**](https://support.sap.com/en/alm/sap-cloud-alm.html) provides businesses with a robust and scalable solution for managing their entire solution landscape in the cloud. It enables faster adoption of innovation and more efficient operations through streamlined processes, increased transparency, observability capabilities, and improved collaboration
 
@@ -137,7 +137,7 @@ SAP supports two paths for building agents and multiple patterns for connecting 
 
 ## Services and Components
 
--   [SAP Business AI Platform](https://www.sap.com/products/ai-platform.html)
+-   [SAP Business AI Platform](https://www.sap.com/products/artificial-intelligence.html)
 -   [Joule Work](https://www.sap.com/products/artificial-intelligence/joule-work.html)
 -   [Joule Studio](https://www.sap.com/products/artificial-intelligence/joule-studio.html)
 -   [SAP Autonomous Suite](https://www.sap.com/products/business-applications.html)

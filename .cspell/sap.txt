@@ -74,6 +74,8 @@ matnr
 infotypes
 businesspartner
 rolename
+techuser
+gtid
 HANAML
 HDLFS
 EOIO
