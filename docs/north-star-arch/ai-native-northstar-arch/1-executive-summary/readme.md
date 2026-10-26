@@ -61,7 +61,7 @@ Research on systems that learn from experience has shown that they can discover 
 
 ## From AI-first to AI-native
 
-SAP's deep business context creates a unique foundation for reimagining enterprise architecture for the AI-native era. The question is which architecture can unlock it.
+SAP’s deep business context creates a unique foundation for reimagining enterprise architecture for the AI-native era.
 
 In an AI-first world, an AI feature in an ERP system can summarize an invoice or suggest a journal entry. But it operates within the boundaries of a single application. It cannot see that the same supplier has open disputes in service management, delayed shipments in logistics, and a renegotiated contract in procurement.
 
