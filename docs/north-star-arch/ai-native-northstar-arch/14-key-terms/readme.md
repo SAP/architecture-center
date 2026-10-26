@@ -1,6 +1,6 @@
 ---
 id: id-nsa-14
-sidebar_position: 14
+sidebar_position: 15
 sidebar_custom_props:
     category_index: []
 title: Key Terms - AI-native North Star Architecture
