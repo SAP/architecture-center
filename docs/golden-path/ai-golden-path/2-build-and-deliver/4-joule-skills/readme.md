@@ -1,28 +1,30 @@
 ---
 sidebar_position: 4
-title: Joule Skills with Joule Studio on SAP BTP
-description: "Build, deploy and run custom Joule Skills with Joule Studio on SAP BTP, a low-code way to extend SAP Joule across SAP S/4HANA, SuccessFactors and Ariba."
+title: Joule Skills with Joule Studio on SAP Business AI Platform
+description: >-
+  Build, deploy and run custom Joule Skills with Joule Studio on SAP Business AI Platform,
+  a low-code way to extend SAP Joule across enterprise applications.
 keywords:
-    - sap
-    - joule
-    - joule studio
-    - joule skills
-    - sap build
-    - conversational ai
-    - sap build process automation
-    - odata
-    - sap s/4hana
-    - sap successfactors
-    - sap ariba
-    - business ai platform
+- sap
+- joule
+- joule studio
+- joule skills
+- sap build
+- conversational ai
+- sap build process automation
+- odata
+- sap s/4hana
+- sap successfactors
+- sap ariba
+- business ai platform
 sidebar_label: Joule Skills
 image: img/ac-soc-med.png
 tags:
-    - ai-golden-path
-    - genai
-    - agents
-    - build
-    - appdev
+- ai-golden-path
+- genai
+- agents
+- build
+- appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -30,28 +32,27 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-04-23'
 ---
 
 ## What you will build
 
-Joule Skills enable developers to extend SAP Joule's capabilities by connecting to SAP and non-SAP systems through a low-code/no-code development environment. Built within **Joule Studio** as part of SAP Build, these custom skills allow organizations to create intelligent conversational AI interfaces for business processes across their enterprise landscape.
+Joule Scenarios enable developers to extend SAP Joule's capabilities by connecting to SAP and non-SAP systems through a low-code/no-code development environment. Built within **Joule Studio** as part of SAP Build, these custom skills allow organizations to create intelligent conversational AI interfaces for business processes across their enterprise landscape.
 
 By following this guide, you will learn how to:
 
-- Create custom Joule Skills using Joule Studio's low-code interface
-- Deploy Joule Skills to both testing and production environments
+- Create custom Joule Scenarios using Joule Studio's low-code interface
+- Deploy Joule Scenarios to both testing and production environments
 - Integrate with SAP backends including SAP S/4HANA, SAP SuccessFactors, and SAP Ariba
 
 ## Prerequisites & setup
 
-Before building Joule Skills, ensure your environment meets these requirements:
+Before building Joule Scenarios, ensure your environment meets these requirements:
 
-- **SAP BTP Account**: Enterprise account (CPEA, BTPEA, or subscription) with SAP Build entitlement
-- **SAP Build Developer License**: Required for building, testing, and deploying custom Joule Skills
-- **Joule Entitlement**: Needed to deploy skills to production environments
+- **SAP Business AI Platform Account**: Enterprise account (CPEA, BTPEA, or subscription) with SAP Build entitlement
+- **SAP Build Developer License**: Required for building, testing, and deploying custom Joule Scenarios
+- **Joule Entitlement**: Needed to deploy scenarios to production environments
 - **Identity & Access Management**: Proper role assignments for Joule Studio access
-- **System Connectivity**: Configure destinations in SAP BTP Cockpit for backend system access
+- **System Connectivity**: Configure destinations in SAP Business AI Platform Cockpit for backend system access
 
 **Setup Resources:**
 
@@ -67,11 +68,11 @@ This reference architecture outlines how Joule Studio can be leveraged to integr
 
 ## Build
 
-Joule Studio provides a visual, low-code environment for creating custom skills that connect to business data and orchestrate workflows across systems. Follow [Build Your First Joule Skill in Joule Studio (Developer Tutorial)](https://developers.sap.com/group.joule-studio-first-skill.html) to set up your environment, create and deploy custom Joule Skills.
+Joule Studio provides a visual, low-code environment for creating custom skills that connect to business data and orchestrate workflows across systems. Follow [Build Your First Joule Skill in Joule Studio (Developer Tutorial)](https://developers.sap.com/group.joule-studio-first-skill.html) to set up your environment, create and deploy custom Joule Scenarios.
 
 ### Development Workflow
 
-1. **Create Project**: Access Joule Studio from SAP Build lobby and create a new Joule Skill project
+1. **Create Project**: Access Joule Studio from SAP Build lobby and create a new Joule Scenario project
 2. **Design Skill Logic**: Define input/output parameters, add actions (API calls), configure conditional logic, and create response templates
 3. **Configure Destinations**: Set up Action Projects to wrap OData APIs and connect to SAP/non-SAP systems
 4. **Map Data**: Use the skill editor to map data between systems, apply formulas, and orchestrate multi-step workflows
@@ -80,15 +81,15 @@ Joule Studio provides a visual, low-code environment for creating custom skills 
 ### Capabilities
 
 - **Multiple Skill Types**: Navigation, list/search, transactions (create/update/delete), decision-making, data access
-- **Workflow Integration**: Trigger SAP Build Process Automation workflows and automations from within skills
+- **Workflow Integration**: Trigger SAP Build Process Automation workflows and automations from within scenarios
 - **System Connectivity**: Connect to SAP backends (SAP S/4HANA, SAP SuccessFactors, SAP Ariba) and third-party systems via OData APIs
 - **Conditional Logic**: Implement branching workflows with the Condition Editor
 - **Data Transformation**: Use Formula Editor for data manipulation and type conversions
-- **Reusable Components**: Call other Joule Skills or leverage existing SAP Build automation artifacts
+- **Reusable Components**: Call other Joule Scenarios or leverage existing SAP Build automation artifacts
 
 ## Deploy
 
-Joule Skills can be deployed to two different environments depending on your use case:
+Joule Scenarios can be deployed to two different environments depending on your use case:
 
 ### Standalone Environment (Testing)
 
@@ -99,18 +100,18 @@ Joule Skills can be deployed to two different environments depending on your use
 
 ### Shared Environment (Production)
 
-- Deploys skills to unified Joule across all LOB solutions
+- Deploys scenarios to unified Joule across all LOB solutions
 - Accessible from SAP Build Work Zone, SAP S/4HANA, SAP SuccessFactors, and other Joule-enabled applications
 - Requires deployment time in production tenants
-- Skills appear alongside standard SAP-delivered Joule capabilities
+- Scenarios appear alongside standard SAP-delivered Joule capabilities
 
 ## Run
 
-Once deployed, Joule Skills can be invoked through natural language interactions across SAP Joule-enabled applications.
+Once deployed, Joule Scenarios can be invoked through natural language interactions across SAP Joule-enabled applications.
 
 ### Integration Points
 
-Skills integrate with various SAP and non-SAP systems:
+Scenarios integrate with various SAP and non-SAP systems:
 
 - **SAP Backends**: SAP S/4HANA (cloud and on-premise), SAP SuccessFactors, SAP Ariba etc.
 - **SAP Build Components**: Process Automation workflows and automations
@@ -118,7 +119,7 @@ Skills integrate with various SAP and non-SAP systems:
 
 ### Runtime Configuration
 
-- **[Use SAP Joule with On-Premise SAP S/4HANA](https://www.mindsetconsulting.com/can-i-use-joule-with-an-s-4hana-system-on-premise/)** – Guide for connecting Joule Skills to on-premise systems via Cloud Connector
+- **[Use SAP Joule with On-Premise SAP S/4HANA](https://www.mindsetconsulting.com/can-i-use-joule-with-an-s-4hana-system-on-premise/)** – Guide for connecting Joule Scenarios to on-premise systems via Cloud Connector
 
 ## Best Practices
 
@@ -126,7 +127,7 @@ Skills integrate with various SAP and non-SAP systems:
 |--------|-----------|
 | Leverage existing SAP Build automations and workflows | Rebuild existing functionality from scratch |
 | Implement proper error handling and user-friendly error messages | Leave API errors unhandled or expose technical error messages to users |
-| Test skills in standalone environment before production deployment | Deploy directly to production without thorough testing |
+| Test scenarios in standalone environment before production deployment | Deploy directly to production without thorough testing |
 
 ### Confirmation Steps for Data Modifications (AI Ethics Pre-requisite)
 
@@ -190,6 +191,5 @@ Use cases:
 - [SAP Architecture Center](https://architecture.learning.sap.com/)
 - [Joule Studio](https://help.sap.com/docs/Joule_Studio?locale=en-US)
 - [Guidelines for Capability Development](https://help.sap.com/docs/joule/joule-development-guide-4b327297dce247fcb88a5f5bfeea97a1/guidelines-for-capability-development?locale=en-US)
-- [Build Your First Joule Skill in Joule Studio](https://developers.sap.com/group.joule-studio-first-skill.html)
+- [Build Your First Joule Scenario in Joule Studio](https://developers.sap.com/group.joule-studio-first-skill.html)
 :::
-

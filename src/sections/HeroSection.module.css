@@ -36,14 +36,22 @@
     width: 100%;
 }
 
-.particlesContainer {
+/* Dark gradient background sits behind the fixed canvas */
+.background {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, #06061c 0%, #100525 55%, #180420 100%);
+}
+
+/* Three.js canvas, faded into the lower third of the viewport */
+.canvasWrapper {
+    position: fixed;
+    inset: 0;
     z-index: 0;
-    pointer-events: auto;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 65%, black 82%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 65%, black 82%, black 100%);
 }
 
 /* --- MODERN HERO BANNER --- */
@@ -53,7 +61,7 @@
     width: 100%;
     max-width: 1440px;
     margin: 32px auto 80px auto;
-    padding: 0 24px;
+    padding: 10vh 24px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
