@@ -22,6 +22,10 @@
  *     8. last_update.date        — missing, or older than a week before today
  *     9. last_update.author      — missing, or different from the PR author
  *
+ *   Admin exemption: for the maintainer logins in AUTHORSHIP_CHECK_EXEMPT, checks
+ *   7–9 are skipped completely so admins can make quick cross-page fixes without
+ *   changing the page's authorship metadata. Checks 1–6 still apply.
+ *
  * Scope:
  *   - Only reference-architecture pages: changed files under docs/ref-arch/RA####/
  *     (four-digit RA folders), filtered to *.{md,mdx}.
@@ -58,6 +62,17 @@ const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
 const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
 const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
+
+// Admins who routinely make small fixes across other people's RA pages are exempt
+// from all three authorship checks (7–9). The default-value checks (1–6) still
+// apply. GitHub logins are case-insensitive, so store and compare lower-case values.
+const AUTHORSHIP_CHECK_EXEMPT = new Set([
+  'cernus76',
+  'navyakhurana',
+  'julian-schambeck',
+  'fabianleh',
+]);
+const authorshipCheckExempt = AUTHORSHIP_CHECK_EXEMPT.has(PR_AUTHOR.toLowerCase());
 
 /** Emit a GitHub Actions error annotation (falls back to a plain line locally). */
 function annotate(file, line, message) {
@@ -151,6 +166,7 @@ function checkFile(rel, raw, data) {
 
   // 7-9: authorship fields — need PR context; skipped when it is unavailable.
   if (!PR_AUTHOR) return findings;
+  if (authorshipCheckExempt) return findings;
 
   const contributors = Array.isArray(data.contributors) ? data.contributors : [];
   if (contributors.length === 0) {
@@ -273,7 +289,7 @@ function main() {
 
   if (errors > 0) {
     summary.push('');
-    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/community/automated-checks/front-matter-properties');
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter-properties');
   }
 
   const summaryText = summary.join('\n');

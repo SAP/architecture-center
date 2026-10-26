@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2642.2",
+    "version": "v3.2643.3",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -28,9 +28,6 @@
         "security:check": "npm run security:audit && npm outdated",
         "security:update": "npm update && npm audit fix"
     },
-    "resolutions": {
-        "path-to-regexp": "^8.1.0"
-    },
     "overrides": {
         "rimraf": "^4.0.0",
         "mermaid": "^11.9.0",
@@ -43,6 +40,7 @@
         "qs": "^6.16.1",
         "postcss-selector-parser": "^7.1.6",
         "webpack-dev-middleware": "^7.4.6",
+        "katex": "0.18.2",
         "sockjs": {
             "uuid": "^11.1.1"
         }
@@ -116,7 +114,6 @@
         "identity-obj-proxy": "^3.0.0",
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
-        "npm-force-resolutions": "^0.0.10",
         "postcss": "^8.5.26",
         "qrcode": "^1.5.4",
         "ts-jest": "^29.4.12",

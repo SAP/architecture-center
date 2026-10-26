@@ -83,6 +83,10 @@ These three fields credit the author and track freshness. Because an RA page sho
 The date rule has a 7-day freshness window. A `last_update.date` more than a week before the day the check runs is flagged, and a date in the future is flagged too. When you edit a page, set the date to the day you make the change.
 :::
 
+:::note Maintainer exemption
+The repository maintainers `cernus76`, `navyakhurana`, `julian-schambeck`, and `fabianleh` are exempt from all three Group B authorship checks. This lets them make quick fixes on pages they did not author without changing authorship credit or update metadata. All six Group A default-value checks still apply to them.
+:::
+
 ## Where you will see the results
 
 When the check finds a problem, it reports in three places:
