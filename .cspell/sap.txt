@@ -1,95 +1,105 @@
-
-# AI
-# Add new SAP-specific words here so cspell stops flagging them.
-# Application development
-# Data & analytics
-# Line-of-business
-# Line-of-business & acquisitions
-# One term per line. Lines starting with "#" are comments. Case-insensitive.
-# Organizations & teams
-# Platform & core
-# Programs & ecosystem
 # SAP acronyms, product names, and specific terms.
-# Technical / platform terms
-AAIF
-ABAP
-AFLPAL
-AICore
-ASUG
-Ariba
-BAIP
-BAPI
+# One term per line. Lines starting with "#" are comments. Case-insensitive.
+# Add new SAP-specific words here so cspell stops flagging them.
+
+# Platform & core
+SAP
 BTP
-BTPEA
-BW
-BW4HANA
-BYOA
-BYOW
-BizX
-ByDesign
-CAP
-CDS
-CMIR
-CMIRs
-CPEA
-Concur
-Crossboarding
-DSAG
-Datasphere
-ECC
-EOIO
-Fieldglass
-Fiori
-Gardener
 HANA
 HANADB
-HANAML
-HDLF
-HDLFS
-Hybris
+ABAP
+SAPUI5
+UI5
+Fiori
+OData
+NetWeaver
+ECC
 Hyperscaler
 Hyperscalers
-IATP
-IDoc
-IDocs
-Joule
-JustAsk
 Kyma
-Launchpad
-LeanIX
-Leonardo
-MTXS
-NetWeaver
-OCTO
-OData
-RAP
-S4HANA
-SAC
-SAP
-SAPGUI
-SAPUI5
-SQLDBC
-Signavio
-Spartacus
+Gardener
 Steampunk
-SuccessFactors
-SusaaS
-UI5
-WMMBXY
-WalkMe
+Dynpro
+
+# Data & analytics
+Datasphere
+SAC
+BW
+BW4HANA
+S4HANA
+
+# Application development
+CAP
+CDS
+RAP
+Launchpad
 Workzone
-XSUAA
-approuter
-businesspartner
-consolidatable
-designtime
-gardenlets
-gtid
-icmtotal
-infotypes
-matnr
-northstar
-rolename
+
+# Line-of-business & acquisitions
+Ariba
+Concur
+SuccessFactors
+BizX
+Signavio
+LeanIX
+Hybris
+Spartacus
+WalkMe
+ByDesign
+Crossboarding
+
+# AI
+Joule
+Leonardo
+AAIF
+AICore
+AFLPAL
+JustAsk
+BAIP
+
+# Technical / platform terms
 subaccount
 subaccounts
+approuter
+XSUAA
+BTPEA
+CPEA
+designtime
+SAPGUI
+PFCG
+SQLDBC
+BAPI
+IDoc
+IDocs
+matnr
+infotypes
+businesspartner
+rolename
 techuser
+gtid
+consolidatable
+HANAML
+HDLFS
+HDLF
+EOIO
+CMIR
+CMIRs
+MTXS
+IATP
+icmtotal
+WMMBXY
+
+# Line-of-business
+Fieldglass
+
+# Programs & ecosystem
+BYOA
+BYOW
+gardenlets
+DSAG
+ASUG
+northstar
+SusaaS
+
+# Organizations & teams
+OCTO

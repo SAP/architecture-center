@@ -8,7 +8,7 @@
     { "name": "people", "path": ".cspell/people.txt", "addWords": true }
   ],
   "dictionaries": ["sap", "industry", "partners", "people"],
-  "words": ["RAXXXX", "claudeignore", "Conv", "Ashburn", "gingershot", "misrecognized", "XPOST", "audienced"],
+  "words": ["RAXXXX", "claudeignore", "Conv", "Ashburn", "gingershot", "misrecognized", "XPOST", "audienced", "deprioritized"],
   "ignoreRegExpList": [
     "Urls",
     "Email",

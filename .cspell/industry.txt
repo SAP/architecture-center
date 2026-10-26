@@ -50,6 +50,7 @@ multitenant
 multitenancy
 multicloud
 multidomain
+hyperscale
 serverless
 microservice
 microservices

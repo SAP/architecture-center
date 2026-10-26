@@ -79,10 +79,12 @@ Step-by-step setup - custom connector, token exchange, SAP Cloud Identity Servic
 
 ## Related Resources
 
+- [Agent Interoperability Cookbook - Microsoft Integration (Copilot Studio)](https://github.com/SAP-samples/agent-interoperability/tree/main/03-microsoft-azure-integration) - hands-on, step-by-step implementation of this scenario
+- [Agent Interoperability Cookbook](https://github.com/SAP-samples/agent-interoperability) - the full collection of interoperability recipes across AWS, Google, and Microsoft
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) - the parent reference architecture for external consumption of SAP agents
 - [Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite](../../10-third-party-mcp-access/1-copilot-studio-with-mcp/readme.md) - the MCP / tool-consumption counterpart
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) - Agent Gateway, authentication, and A2A protocol details
 - [Microsoft Copilot Studio documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/)
 - [Microsoft Copilot Studio - Connect an agent to another agent (A2A)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-agent-to-agent)
 - [SAP Help - Invoking an SAP Agent Through IDP Trust and JWKS-Based Integration](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/e9da5158a18649168e040495b26c43bc.html)
-- [Identity and Access Management with Microsoft Entra and SAP BTP - SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)
+- [Identity and Access Management with Microsoft Entra and Business AI Platform - SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)
