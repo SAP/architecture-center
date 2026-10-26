@@ -79,6 +79,8 @@ Step-by-step setup - custom connector, token exchange, SAP Cloud Identity Servic
 
 ## Related Resources
 
+- [Agent Interoperability Cookbook - Microsoft Integration (Copilot Studio)](https://github.com/SAP-samples/agent-interoperability/tree/main/03-microsoft-azure-integration) - hands-on, step-by-step implementation of this scenario
+- [Agent Interoperability Cookbook](https://github.com/SAP-samples/agent-interoperability) - the full collection of interoperability recipes across AWS, Google, and Microsoft
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) - the parent reference architecture for external consumption of SAP agents
 - [Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite](../../10-third-party-mcp-access/1-copilot-studio-with-mcp/readme.md) - the MCP / tool-consumption counterpart
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) - Agent Gateway, authentication, and A2A protocol details
