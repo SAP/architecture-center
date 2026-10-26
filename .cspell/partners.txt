@@ -29,6 +29,8 @@ Looker
 Qlik
 Dremio
 Reltio
+Trino
+ontop
 
 # Enterprise software
 Oracle
