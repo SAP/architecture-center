@@ -2,8 +2,8 @@
 id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
-title: "Custom Pro-Code AI Agents on SAP BTP"
-description: "Build and deploy custom pro-code AI agents on SAP BTP with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
+title: "Custom Pro-Code AI Agents on a Customer-Managed Subaccount"
+description: "Build and deploy custom pro-code AI agents on a customer-managed subaccount on Business AI Platform with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
 keywords:
   - sap
   - custom agent
@@ -18,7 +18,7 @@ keywords:
   - langgraph
   - crewai
   - business ai platform
-sidebar_label: Custom Pro-Code AI Agents on SAP BTP
+sidebar_label: Custom Pro-Code AI Agents on a Customer-Managed Subaccount
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -43,11 +43,11 @@ last_update:
   date: 2026-10-14
 ---
 
-For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, SAP BTP provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
+For complex, mission-critical use cases that require deep customization, fine-tuned workflows, or integration with non-standard enterprise systems, a customer-managed subaccount on Business AI Platform provides a comprehensive pro-code development stack. Pro-code AI agents offer developers full control over every aspect of the agent's behavior, from reasoning logic to system integration, while leveraging SAP's enterprise-grade AI infrastructure.
 
 ## Architecture
 
-Pro-code agents on SAP BTP are built using the **SAP Cloud SDK for AI**, which provides seamless integration with SAP's Generative AI Hub, foundation models and enterprise services. The **SAP Cloud Application Programming Model (CAP)** serves as the orchestration framework for structuring agent use case logic, data management and service integration.
+Pro-code agents on a customer-managed subaccount on Business AI Platform are built using the **SAP Cloud SDK for AI**, which provides seamless integration with SAP's Generative AI Hub, foundation models and enterprise services. The **SAP Cloud Application Programming Model (CAP)** serves as the orchestration framework for structuring agent use case logic, data management and service integration.
 
 ![drawio](./drawio/reference-architecture-generative-ai-pro-code.drawio)
 
@@ -55,7 +55,7 @@ The architecture consists of several integrated layers:
 
 ### Development & Orchestration Layer
 
--   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on SAP BTP. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports Python, Java and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
+-   **SAP Cloud SDK for AI:** The primary SDK for building pro-code agents on a customer-managed subaccount on Business AI Platform. Provides type-safe abstractions for interacting with Generative AI Hub, foundation models and AI-specific services. Supports Python, Java and TypeScript/JavaScript development and integrates with popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents and others.
 -   **SAP Cloud Application Programming Model (CAP):** Framework that structures agent use case logic, data management and service integration. CAP provides domain modeling, service exposure and seamless connectivity to SAP and non-SAP systems.
 -   **SAP Integration Suite:** SAP Integration Suite serves as the enterprise iPaaS layer, delivering security mediation, traffic management, and centralized governance across agent and system interactions. It supports the orchestration of multiple heterogeneous systems while enabling structural customizations through message mediation and payload transformation capabilities. A rich library of pre-built connectors accelerates integration
 with third-party systems, reducing onboarding effort and time-to-value. Through API composition and structural simplification, SAP Integration Suite provides seamless, unified connectivity across both SAP and non-SAP landscapes.
@@ -94,7 +94,7 @@ with third-party systems, reducing onboarding effort and time-to-value. Through 
 2.  **Foundation Model Access:** The agent leverages Generative AI Hub's harmonized orchestration service layer to access foundation models through a unified API, utilizing prompt templates, grounding data and safety controls (data masking, I/O filtering).
 3.  **Data & Knowledge Integration:** Agents query SAP HANA Cloud's Vector Engine for semantic search and leverage Knowledge Graph for domain-specific reasoning over SAP business objects.
 4.  **Service Integration:** Through CAP's built-in connectivity, agents access SAP and non-SAP systems using SAP Destination Service and SAP Connectivity Service, ensuring secure and governed integrations.
-5.  **Deployment:** Applications are deployed to SAP BTP (Cloud Foundry or Kyma runtime) using CI/CD pipelines, with automated testing and rollout strategies.
+5.  **Deployment:** Applications are deployed to a customer-managed subaccount on Business AI Platform (Cloud Foundry or Kyma runtime) using CI/CD pipelines, with automated testing and rollout strategies.
 6.  **A2A Exposure:** Once deployed, the agent exposes an A2A server endpoint, making it discoverable and consumable by Joule and other A2A-compliant clients.
 
 ## When to Use Pro-Code Agents
@@ -133,5 +133,5 @@ Pro-code agents enable advanced scenarios that require deep technical customizat
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
-- [Reference Implementation for A2A-Compliant Pro-Code Agents on SAP BTP with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
-- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on BTP Cloud Foundry - all from Claude Code.
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on Cloud Foundry - all from Claude Code.

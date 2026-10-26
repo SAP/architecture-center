@@ -85,4 +85,4 @@ Step-by-step setup - custom connector, token exchange, SAP Cloud Identity Servic
 - [Microsoft Copilot Studio documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/)
 - [Microsoft Copilot Studio - Connect an agent to another agent (A2A)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-agent-agent-to-agent)
 - [SAP Help - Invoking an SAP Agent Through IDP Trust and JWKS-Based Integration](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/85abb1b3c5734138826f02d079b04975/e9da5158a18649168e040495b26c43bc.html)
-- [Identity and Access Management with Microsoft Entra and SAP BTP - SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)
+- [Identity and Access Management with Microsoft Entra and Business AI Platform - SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)

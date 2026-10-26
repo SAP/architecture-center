@@ -2,8 +2,8 @@
 id: 0821c4
 slug: /ref-arch/0821c4
 sidebar_position: 8
-title: Agentic Engineering for SAP BTP Extensions
-description: "Agentic engineering for SAP BTP extensions: context engineering, SAP MCP server grounding, multi-agent orchestration and governed AI model access."
+title: Agentic Engineering for SAP Extensions on Business AI Platform
+description: "Agentic engineering for SAP extensions on Business AI Platform: context engineering, SAP MCP server grounding, multi-agent orchestration and governed AI model access."
 keywords:
   - sap
   - agentic engineering
@@ -42,7 +42,7 @@ last_update:
 
 AI coding agents generate code rapidly, but ungrounded generation compounds costs across quality, security, rework and time to value. Without authoritative sources these agents produce code based on incorrect APIs, deprecated patterns and insecure dependencies. Agentic engineering with context engineering addresses this by connecting coding agents to an infrastructure of SAP knowledge sources, automated quality pipelines and governed model access. Generated code is produced rapidly with quality appropriate for enterprise deployment.
 
-This reference architecture defines the system that enables agentic engineering to accelerate BTP extensions while preserving the clean S/4HANA core. Context engineering is central: developers and agents co-create specifications before code generation begins, agents follow authoritative SAP knowledge sources, code is produced in parallel across isolated worktrees, and LiteLLM with SAP Generative AI Hub provides the enterprise foundation for model access.
+This reference architecture defines the system that enables agentic engineering to accelerate extensions on Business AI Platform while preserving the clean S/4HANA core. Context engineering is central: developers and agents co-create specifications before code generation begins, agents follow authoritative SAP knowledge sources, code is produced in parallel across isolated worktrees, and LiteLLM with SAP Generative AI Hub provides the enterprise foundation for model access.
 
 ## Architecture
 
@@ -56,12 +56,12 @@ The architecture comprises several components with the agent harness as the cent
 -   **SAP MCP Servers:** Expose authoritative knowledge for the agent on SAP CAP, Fiori and UI5 patterns that improves code quality by enhancing the context for agent at code generation and validation time.
 -   **Skill Registry:** Governs reusable agent behaviors with version pinning, approval workflows and cross-team distribution.
 -   **Model Proxy:** Routes LLM requests (e.g. LiteLLM) through SAP AI Core and SAP Generative AI Hub for strength-based routing, compliance filtering and model normalization.
--   **SAP BTP Services:** Quality enforcement through SAP Continuous Integration and Delivery, persistence through SAP HANA Cloud, connectivity through SAP Destination Service, and runtime for CAP-based extensions.
+-   **Business AI Platform Services:** Quality enforcement through SAP Continuous Integration and Delivery, persistence through SAP HANA Cloud, connectivity through SAP Destination Service, and runtime for CAP-based extensions.
 
 ## Development Flow
 
 :::note[Introducing Alex]
-Alex is a senior CAP developer building S/4HANA side-by-side extensions on SAP BTP. His team has adopted agentic engineering to accelerate delivery while maintaining quality. Alex expects high quality code for SAP that uses current CAP and Fiori APIs, parallel execution across backend and frontend concerns, deterministic quality gates that catch regressions before review, and governed model access through SAP Generative AI Hub. He focuses on the specifications, architecture decisions and acceptance criteria rather than on fixing hallucinated annotations or tracking deprecated APIs.
+Alex is a senior CAP developer building S/4HANA side-by-side extensions on Business AI Platform. His team has adopted agentic engineering to accelerate delivery while maintaining quality. Alex expects high quality code for SAP that uses current CAP and Fiori APIs, parallel execution across backend and frontend concerns, deterministic quality gates that catch regressions before review, and governed model access through SAP Generative AI Hub. He focuses on the specifications, architecture decisions and acceptance criteria rather than on fixing hallucinated annotations or tracking deprecated APIs.
 :::
 
 1. **Grounding:** The developer loads skills from the governed registry, installs  SAP MCP servers locally, and co-creates with the agent a markdown specification capturing requirements, test cases, acceptance criteria and non-functional constraints.
@@ -89,17 +89,17 @@ Connecting coding agents to SAP MCP servers for CAP, Fiori and UI5 reduces archi
 
 ## Key Outcomes
 
--   **Faster Time to Value:** Parallel code production across specialized agents compresses delivery timelines from weeks to days for standard BTP extensions.
+-   **Faster Time to Value:** Parallel code production across specialized agents compresses delivery timelines from weeks to days for standard extensions on Business AI Platform.
 -   **Higher Code Quality:** Grounding through SAP MCP servers eliminates hallucinated APIs, deprecated syntax and incorrect annotation patterns at generation time rather than at review time.
 -   **Reduced Rework:** SAP-grounded specifications co-created before generation ensure alignment between requirements and implementation, catching misunderstandings before code exists.
 -   **Governed Model Access:** A single proxy endpoint enforces enterprise compliance, content filtering and audit logging across all foundation model interactions.
 -   **Compounding Returns:** Every fix, edge case and workaround feeds back into the knowledge infrastructure, making each subsequent generation more accurate than the last.
 
 :::note[User Journey: Alex]
-With this architecture, Alex's team delivers BTP extensions for S/4HANA faster with agentic engineering. He focuses on architecture and acceptance criteria while agents handle grounded code production, and the quality pipeline ensures nothing reaches main without passing every gate.
+With this architecture, Alex's team delivers extensions on Business AI Platform for S/4HANA faster with agentic engineering. He focuses on architecture and acceptance criteria while agents handle grounded code production, and the quality pipeline ensures nothing reaches main without passing every gate.
 :::
 
-Agentic engineering transforms how development teams build BTP extensions. By connecting coding agents to authoritative SAP knowledge through context engineering, enforcing quality through deterministic pipelines, and governing model access through SAP Generative AI Hub, organizations accelerate delivery while improving code quality. The architecture scales from a single developer with one coding agent to enterprise teams with federated governance, and the knowledge infrastructure compounds value with every session.
+Agentic engineering transforms how development teams build extensions on Business AI Platform. By connecting coding agents to authoritative SAP knowledge through context engineering, enforcing quality through deterministic pipelines, and governing model access through SAP Generative AI Hub, organizations accelerate delivery while improving code quality. The architecture scales from a single developer with one coding agent to enterprise teams with federated governance, and the knowledge infrastructure compounds value with every session.
 
 ## Resources
 
@@ -112,6 +112,4 @@ Agentic engineering transforms how development teams build BTP extensions. By co
 - [SAP Cloud Application Programming Model](https://cap.cloud.sap/docs/)
 - [SAP HANA Cloud](https://discovery-center.cloud.sap/serviceCatalog/sap-hana-cloud)
 - [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite)
-- [SAP Business Technology Platform](https://www.sap.com/products/technology-platform.html)
-- [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/)
 - [SAP Cloud SDK for AI](https://help.sap.com/docs/sap-ai-core)

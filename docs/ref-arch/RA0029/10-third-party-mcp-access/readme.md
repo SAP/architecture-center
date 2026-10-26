@@ -2,7 +2,7 @@
 id: '137800'
 slug: /ref-arch/137800
 sidebar_position: 10
-title: Third-Party MCP Server Access to SAP Solutions on BTP
+title: Third-Party MCP Server Access to SAP Solutions on Business AI Platform
 description: "Access SAP solutions via third-party MCP servers: governance guardrails, OWASP MCP Top 10 risks, and SAP's managed MCP via Integration Suite and Joule Studio."
 keywords:
   - sap
@@ -47,7 +47,7 @@ MCP is a **connectivity protocol** and the protocol itself standardizes how agen
 
 While MCP has gained traction as a tool connectivity standard, the protocol specification is still maturing, with security, identity and governance requirements for enterprise deployments not yet fully addressed. SAP is a Gold member of the [Agentic AI Foundation (AAIF)](https://aaif.io/) under the Linux Foundation and co-chairs the Agent Identity and Security workstream, which is actively working to close these gaps. These gaps span authentication and authorization, credential lifecycle, audit and observability, and governance of server proliferation, as documented in detail by the [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/).
 
-Customers and partners building custom MCP servers or using third-party MCP servers to connect agent platforms to SAP APIs **should be aware of these open concerns and the controls required to address them**, covered in detail below. SAP addresses them through the MCP Gateway on SAP Integration Suite and, for agents built on SAP BTP, through SAP-provided MCP servers via Joule Studio. For multi-agent interoperability scenarios, [A2A via the Agent Gateway](../1-a2a-and-mcp/readme.md) is the recommended approach.
+Customers and partners building custom MCP servers or using third-party MCP servers to connect agent platforms to SAP APIs **should be aware of these open concerns and the controls required to address them**, covered in detail below. SAP addresses them through the MCP Gateway on SAP Integration Suite and, for agents built on a customer-managed subaccount on Business AI Platform, through SAP-provided MCP servers via Joule Studio. For multi-agent interoperability scenarios, [A2A via the Agent Gateway](../1-a2a-and-mcp/readme.md) is the recommended approach.
 
 :::warning Customer Responsibility
 
@@ -69,19 +69,19 @@ Two patterns describe how third-party MCP servers reach SAP solutions. Both carr
 
 ### Pattern 1: External MCP Server on a Third-Party Platform
 
-An MCP server is operated by a third party (vendor-supplied, open source, or SaaS-hosted) and calls SAP APIs from outside the SAP BTP boundary.
+An MCP server is operated by a third party (vendor-supplied, open source, or SaaS-hosted) and calls SAP APIs from outside the Business AI Platform boundary.
 
 This pattern places full operational and security responsibility, including the platform, runtime, dependencies and credentials, on the customer or partner deploying it.
 
-### Pattern 2: Custom MCP Server on SAP BTP
+### Pattern 2: Custom MCP Server on a Customer-Managed Subaccount
 
-A customer or partner builds and operates a custom MCP server, deploying it on SAP BTP (Cloud Foundry, Kyma, or a containerized workload).
+A customer or partner builds and operates a custom MCP server, deploying it on a customer-managed subaccount on Business AI Platform (Cloud Foundry, Kyma, or a containerized workload).
 
-This pattern places full operational and security responsibility, including the application code, SAP BTP configuration, credential lifecycle and security hardening, on the customer or partner deploying it. Hosting on SAP BTP reduces infrastructure risk but does not automatically provide governance tooling.
+This pattern places full operational and security responsibility, including the application code, Business AI Platform configuration, credential lifecycle and security hardening, on the customer or partner deploying it. Hosting on a customer-managed subaccount on Business AI Platform reduces infrastructure risk but does not automatically provide governance tooling.
 
 ## Cross-Cutting Concerns for Both Patterns
 
-The concerns below are not just implementation details; they reflect structural gaps in the MCP protocol itself that every operator must address independently. Whether the MCP server is external or SAP BTP-hosted, all of the following must be in place.
+The concerns below are not just implementation details; they reflect structural gaps in the MCP protocol itself that every operator must address independently. Whether the MCP server is external or hosted on a customer-managed subaccount on Business AI Platform, all of the following must be in place.
 
 ### Security
 
@@ -96,7 +96,7 @@ The concerns below are not just implementation details; they reflect structural 
 
 - **Input Validation:** Validate and sanitize all tool call parameters before they reach SAP APIs. Treat every input as untrusted.
 - **Transport Security:** Enforce TLS 1.2+ on all connections. Do not expose MCP endpoints over plain HTTP.
-- **Secrets Management:** Store SAP API keys, OAuth client secrets and certificates in a dedicated secrets store (e.g., SAP Credential Store on SAP BTP, HashiCorp Vault). Rotate regularly.
+- **Secrets Management:** Store SAP API keys, OAuth client secrets and certificates in a dedicated secrets store (e.g., SAP Credential Store on Business AI Platform, HashiCorp Vault). Rotate regularly.
 - **OWASP MCP Top 10 Risks:** Follow [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) for specific risks and mitigations relevant to MCP deployments.
 
 ### Scalability and Reliability
@@ -167,7 +167,7 @@ See [Agent & Tool Interoperability](../1-a2a-and-mcp/readme.md) for the full arc
 | Governed tool access via MCP for specific integration scenarios | **MCP Gateway in SAP Integration Suite** |
 | Exposing a mix of SAP and non-SAP APIs as a unified MCP tool catalog | **MCP Gateway in SAP Integration Suite** |
 | Building SAP-centric agents with Joule Studio | **SAP-provided MCP servers via Joule Studio** |
-| Custom MCP server with full code control, hosted on BTP | Pattern 2 with full governance checklist applied |
+| Custom MCP server with full code control, hosted on a customer-managed subaccount on Business AI Platform | Pattern 2 with full governance checklist applied |
 | External MCP Server on a Third-Party Platform or Third-Party iPaaS | Pattern 1 with full governance checklist applied |
 
 :::note Security Controls Are a Living Concern
