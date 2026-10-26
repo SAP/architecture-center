@@ -27,6 +27,8 @@ Tableau
 PowerBI
 Looker
 Qlik
+Dremio
+Reltio
 
 # Enterprise software
 Oracle
