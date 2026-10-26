@@ -49,6 +49,7 @@ idempotency
 multitenant
 multitenancy
 multicloud
+multidomain
 hyperscale
 serverless
 microservice
@@ -109,11 +110,15 @@ dataproduct
 dataspace
 dataspaces
 lakehouse
+datalake
 geospatial
 geodatabase
 geodatabases
 triplestore
 sparql
+shacl
+obda
+adbc
 nvarchar
 stddev
 writeback

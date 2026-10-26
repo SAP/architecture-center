@@ -55,6 +55,7 @@ AAIF
 AICore
 AFLPAL
 JustAsk
+BAIP
 
 # Technical / platform terms
 subaccount
@@ -78,6 +79,7 @@ techuser
 gtid
 HANAML
 HDLFS
+HDLF
 EOIO
 CMIR
 CMIRs
