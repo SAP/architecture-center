@@ -11,17 +11,17 @@ const DRAWIO_ORIGIN = 'https://embed.diagrams.net';
 
 export default function DrawioEditorPlugin() {
   const { core } = useEditor();
-  const { token } = useAuth();
+  const { users } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
-  const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+  const { authenticatedApiPath } = siteConfig.customFields as { authenticatedApiPath: string };
 
   const editingNodeKeyRef = useRef<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const uploadEditedDiagram = useCallback(async (nodeKey: string, xml: string) => {
-    if (!token || !expressBackendUrl) {
-      console.warn('[DrawioEditor] Cannot upload - missing token or backend URL');
+    if (!users.github || !authenticatedApiPath) {
+      console.warn('[DrawioEditor] Cannot upload without an authenticated session or API path');
       return;
     }
 
@@ -32,7 +32,7 @@ export default function DrawioEditorPlugin() {
     }
 
     try {
-      const api = getApiService(expressBackendUrl);
+      const api = getApiService(authenticatedApiPath);
 
       // Get the current node to check if it has an existing assetId
       const node = core?.getState().nodeMap.get(nodeKey) as DrawioNode;
@@ -42,7 +42,7 @@ export default function DrawioEditorPlugin() {
       const file = new File([blob], 'diagram.drawio', { type: 'application/xml' });
 
       // Upload the edited diagram as a new asset
-      const asset = await api.uploadAsset(token, activeDocument.id, file);
+      const asset = await api.uploadAsset(activeDocument.id, file);
 
       console.log('[DrawioEditor] Uploaded edited diagram, new assetId:', asset.ID);
 
@@ -59,12 +59,12 @@ export default function DrawioEditorPlugin() {
         payload: { key: nodeKey, diagramXML: xml }
       });
     }
-  }, [token, expressBackendUrl, getActiveDocument, core]);
+  }, [users.github, authenticatedApiPath, getActiveDocument, core]);
 
   const handleMessage = useCallback((event: MessageEvent) => {
     // Only trust messages from the drawio editor iframe origin. Without this
     // guard any frame in the page could post a crafted {event:'save',xml:...}
-    // and have attacker-supplied diagram XML uploaded under the logged-in token.
+    // and have attacker-supplied diagram XML uploaded under the active session.
     if (event.origin !== DRAWIO_ORIGIN || event.source !== iframeRef.current?.contentWindow) return;
     if (!event.data || typeof event.data !== 'string') return;
 

@@ -2,9 +2,10 @@
 module.exports = function useDocusaurusContext() {
     return {
         siteConfig: {
+            baseUrl: '/',
             customFields: {
-                backendUrl: 'https://backend.example.com',
-                expressBackendUrl: 'https://express.example.com',
+                authApiPath: '/api/auth',
+                authenticatedApiPath: '/api/backend',
                 authProviders: {},
             },
         },

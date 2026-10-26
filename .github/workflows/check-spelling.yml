@@ -71,7 +71,10 @@ jobs:
             exit 0
           fi
           rc=0
-          cspell --no-color --no-progress --relative --config ./cspell.json "${FILES[@]}" \
+          # A changed-file set can contain only paths intentionally excluded by
+          # cspell.json (for example, reviewed legal/privacy text). Treat that
+          # as an empty successful scope instead of cspell's no-files error.
+          cspell --no-must-find-files --no-color --no-progress --relative --config ./cspell.json "${FILES[@]}" \
             > "$RUNNER_TEMP/cspell.txt" 2>&1 || rc=$?
           # Emit named inline annotations.
           # cspell brief format: file:line:col - Unknown word (word)

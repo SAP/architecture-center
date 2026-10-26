@@ -8,6 +8,17 @@ require('dotenv').config();
 
 const baseUrl = '/';
 
+function sameOriginApiPath(name: string, fallback: string): string {
+    const value = process.env[name] || fallback;
+    if (!value.startsWith('/') || value.startsWith('//') || value.includes('\\') || /[?#]/.test(value)) {
+        throw new Error(`${name} must be a root-relative, same-origin URL path.`);
+    }
+    return value.replace(/\/$/, '');
+}
+
+const authApiPath = sameOriginApiPath('AUTH_API_PATH', '/api/auth');
+const authenticatedApiPath = sameOriginApiPath('AUTHENTICATED_API_PATH', '/api/backend');
+
 const config: Config = {
     title: 'SAP Architecture Center',
     tagline:
@@ -34,8 +45,10 @@ const config: Config = {
         },
     },
     customFields: {
-        backendUrl: process.env.BACKEND_API_URL,
-        expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
+        // Authenticated traffic stays on the site origin. A Cloudflare Worker/BFF
+        // must implement these paths before this change is deployed.
+        authApiPath,
+        authenticatedApiPath,
         authProviders: {
             '/quick-start': 'github',
         },

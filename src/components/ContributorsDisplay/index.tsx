@@ -4,7 +4,7 @@ import '@ui5/webcomponents-icons/dist/information.js';
 import '@ui5/webcomponents-icons/dist/edit.js';
 import styles from './index.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { useAuth } from '@site/src/context/AuthContext';
+import { authenticatedFetch } from '@site/src/services/authSession';
 
 interface GitHubUser {
     login: string;
@@ -23,8 +23,7 @@ interface ContributorsDisplayProps {
 
 const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors, onContributorsChange, readOnly = false }) => {
     const { siteConfig } = useDocusaurusContext();
-    const { token } = useAuth();
-    const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
+    const backendUrl = siteConfig.customFields?.authenticatedApiPath as string | undefined;
 
     const [isEditing, setIsEditing] = useState(false);
     const [editingContributors, setEditingContributors] = useState<string[]>([]);
@@ -40,9 +39,8 @@ const ContributorsDisplay: React.FC<ContributorsDisplayProps> = ({ contributors,
         const signal = abortControllerRef.current.signal;
 
         try {
-            const apiUrl = `${backendUrl}/user/github/search-users?q=${query}`;
-            const response = await fetch(apiUrl, {
-                headers: { Authorization: `Bearer ${token}` },
+            const apiUrl = `${backendUrl}/user/github/search-users?q=${encodeURIComponent(query)}`;
+            const response = await authenticatedFetch(apiUrl, {
                 cache: 'no-store',
                 signal,
             });
