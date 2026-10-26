@@ -17,9 +17,14 @@
     "FrontMatterContributors",
     "FrontMatterAuthor",
     "FrontMatterId",
-    "FrontMatterSlug"
+    "FrontMatterSlug",
+    "MarkdownUrl"
   ],
   "patterns": [
+    {
+      "name": "MarkdownUrl",
+      "pattern": "/\\(https?:\\/\\/[^)]+\\)/g"
+    },
     {
       "name": "FrontMatterTags",
       "pattern": "/^tags:[^\\n]*\\n(?:[ \\t]+-[^\\n]*\\n)*/gm"
