@@ -2,7 +2,7 @@
 id: 0821c4
 slug: /ref-arch/0821c4
 sidebar_position: 8
-title: Agentic Engineering for SAP Extensions on SAP Business AI Platform
+title: Agentic Engineering for SAP Extensions
 description: "Agentic engineering for SAP extensions on SAP Business AI Platform: context engineering, SAP MCP server grounding, multi-agent orchestration and governed AI model access."
 keywords:
   - sap

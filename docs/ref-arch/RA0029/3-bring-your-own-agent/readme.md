@@ -3,7 +3,7 @@ id: 7b6426
 slug: /ref-arch/7b6426
 sidebar_position: 3
 title: "Custom Pro-Code AI Agents on a Customer-Managed Subaccount"
-description: "Build and deploy custom pro-code AI agents on a customer-managed subaccount on SAP Business AI Platform with SAP Cloud SDK for AI and frameworks like LangGraph, AG2 and CrewAI, connected to Joule via A2A."
+description: "Build and deploy custom pro-code AI agents on a customer-managed subaccount on SAP Business AI Platform with SAP Cloud SDK for AI and frameworks like LangGraph or CrewAI, connected to Joule via A2A."
 keywords:
   - sap
   - custom agent
