@@ -34,10 +34,11 @@ unlisted: false
 contributors:
   - guilherme-segantini
   - mponce
+  - kay-schmitteckert
 discussion: 
 last_update:
-  author: guilherme-segantini
-  date: 2026-05-08
+  author: kay-schmitteckert
+  date: 2026-10-26
 ---
 
 AI coding agents generate code rapidly, but ungrounded generation compounds costs across quality, security, rework and time to value. Without authoritative sources these agents produce code based on incorrect APIs, deprecated patterns and insecure dependencies. Agentic engineering with context engineering addresses this by connecting coding agents to an infrastructure of SAP knowledge sources, automated quality pipelines and governed model access. Generated code is produced rapidly with quality appropriate for enterprise deployment.

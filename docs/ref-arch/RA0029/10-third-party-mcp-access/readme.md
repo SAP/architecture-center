@@ -35,6 +35,7 @@ contributors:
   - hterminasyan
   - mgnther
   - Dhawal-Joshi
+  - kay-schmitteckert
 discussion: 
 last_update:
   author: kay-schmitteckert
