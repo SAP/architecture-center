@@ -94,6 +94,8 @@ Step-by-step setup — Cognito user pool, AgentCore Runtime configuration, Agent
 
 ## Related Resources
 
+- [Agent Interoperability Cookbook — AWS Integration (Amazon Quick)](https://github.com/SAP-samples/agent-interoperability/tree/main/01-aws-integration) — hands-on, step-by-step implementation of this scenario
+- [Agent Interoperability Cookbook](https://github.com/SAP-samples/agent-interoperability) — hands-on recipes for connecting AI agents from non-SAP platforms to SAP Joule Agents
 - [Integrating Joule Agents into Your Ecosystem](../readme.md) — the parent reference architecture for external consumption of SAP agents
 - [A2A and MCP for Interoperability](../../1-a2a-and-mcp/readme.md) — Agent Gateway, authentication, and A2A protocol details
 - [Third-Party MCP Access](../../10-third-party-mcp-access/readme.md) — the complementary MCP / tool-consumption path for third-party agents
