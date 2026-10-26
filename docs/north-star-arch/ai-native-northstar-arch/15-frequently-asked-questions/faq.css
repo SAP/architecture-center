@@ -1,12 +1,11 @@
 /*
- * MDX wraps block content inside HTML elements in an extra <p> tag.
- * Margin rules on the outer <p class="faq-q/faq-a"> therefore have no effect.
- * The child selectors (> p) target that MDX-generated inner <p> directly.
+ * MDX wraps block content inside .faq-q / .faq-a in an inner <p>.
+ * The outer <div> has no default margin; we only need to collapse
+ * the inner <p>'s margins so the Q/A pair sits tight.
  */
 .faq-q {
     padding-left: 1.4em;
     text-indent: -1.4em;
-    margin-bottom: 0 !important;
 }
 
 .faq-q > p {
@@ -16,7 +15,6 @@
 .faq-a {
     padding-left: 1.4em;
     text-indent: -1.4em;
-    margin-top: 0 !important;
 }
 
 .faq-a > p:first-child {
