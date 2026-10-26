@@ -69,9 +69,22 @@
     -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 1024px) {
+    .sticker {
+        top: calc(-200px + 10vh);
+        left: 50px;
+        width: 190px;
+        height: 76px;
+    }
+
+    .text {
+        font-size: 1rem;
+    }
+}
+
 @media (max-width: 600px) {
     .sticker {
-        top: 16px;
+        top: calc(-220px + 10vh);
         left: 16px;
         width: 172px;
         height: 70px;
