@@ -49,6 +49,7 @@ idempotency
 multitenant
 multitenancy
 multicloud
+hyperscale
 serverless
 microservice
 microservices
