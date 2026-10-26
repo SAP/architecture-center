@@ -4,9 +4,7 @@ slug: /ref-arch/07cfe4
 sidebar_position: 5
 title: Non-SAP Agent Principal Propagation
 description: >-
-  SAP-managed IAM for non-SAP AI agents — how a third-party agent's principal
-  (the acting user or agent identity) is securely propagated to SAP solutions
-  through SAP Cloud Identity Services and the SAP Agent Gateway.
+  How a third-party agent's user principal is securely propagated to SAP solutions via SAP Cloud Identity Services and the Agent Gateway, using OAuth 2.0 token exchange.
 keywords:
   - sap
   - cloud identity

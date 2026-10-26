@@ -2,7 +2,7 @@
 id: 36dc54
 slug: /ref-arch/36dc54
 sidebar_position: 3
-title: Unified architecture, Unified experience, SAP Cloud Identity Services Centrally Leading
+title: SAP Cloud Identity Services Centrally Leading
 description: >-
   Stage 3 of SAP-managed IAM — SAP Cloud Identity Services as the central
   leading system for identities and authorization, as realized in the Autonomous Suite.
