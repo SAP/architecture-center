@@ -17,6 +17,7 @@ AFLPAL
 AICore
 ASUG
 Ariba
+BAIP
 BAPI
 BTP
 BTPEA
@@ -43,6 +44,7 @@ Gardener
 HANA
 HANADB
 HANAML
+HDLF
 HDLFS
 Hybris
 Hyperscaler
@@ -80,9 +82,9 @@ XSUAA
 approuter
 businesspartner
 consolidatable
-consolodation
 designtime
 gardenlets
+gtid
 icmtotal
 infotypes
 matnr
@@ -90,3 +92,4 @@ northstar
 rolename
 subaccount
 subaccounts
+techuser
