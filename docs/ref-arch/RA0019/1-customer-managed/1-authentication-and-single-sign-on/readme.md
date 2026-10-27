@@ -3,23 +3,19 @@ id: 3ec73b
 slug: /ref-arch/3ec73b
 sidebar_position: 1
 title: Authentication with SAP Cloud Identity Services
-description: "Authentication and single sign-on flows for SAP SaaS using SAP Cloud Identity Services - Identity Authentication, including SAML, OIDC, and SAP GUI SSO."
+description: >-
+  This reference architecture describes the authentication flows for SAP SaaS
+  via the SAP Cloud Identity Services - Identity Authentication.
 keywords:
   - sap
-  - sap cloud identity services - identity authentication
-  - authentication and single sign-on
-  - saml and oidc federation
-  - identity provider broker
-  - third-party identity provider integration
-  - sap gui single sign-on
-  - x.509 certificate authentication
-  - sap saas authentication
-  - business ai platform
+  - identity authentication
+  - cloud identity lifecycle
+  - erp security solutions
+  - access management
 sidebar_label: Authentication and Single Sign On
 image: img/ac-soc-med.png
 tags:
   - security
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -32,7 +28,7 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2025-05-13
+  date: 2026-10-27
 ---
 
 The main actors in the model, aside from human interaction, are identity providers, service providers, and the SAP BTP-supported IAM services. As depicted in the figure, identity providers are systems that vouch for the identity of users requesting access to service provider systems by issuing a security token that eliminates repeated authentication. Service providers are systems providing business and technical services requisite for user tasks.
