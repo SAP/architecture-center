@@ -38,7 +38,7 @@ last_update:
   date: 2026-10-26
 ---
 
-Physical AI for health & safety inspection provide continuous, objective safety monitoring embedded into daily operations.
+Physical AI for health & safety inspection provides continuous, objective safety monitoring embedded into daily operations.
 
 :::info Want to Try Physical AI?
 [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
