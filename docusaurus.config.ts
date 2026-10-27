@@ -45,6 +45,7 @@ const config: Config = {
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
+        './src/plugins/docs-feed-generator',
         './src/plugins/tags-generator',
         './src/plugins/tags-plugin',
         './src/plugins/security-headers',
