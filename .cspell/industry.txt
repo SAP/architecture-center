@@ -15,6 +15,7 @@ gRPC
 GraphQL
 REST
 RESTful
+OData
 Webhook
 Webhooks
 CloudEvents
@@ -51,6 +52,8 @@ multitenancy
 multicloud
 multidomain
 hyperscale
+Hyperscaler
+Hyperscalers
 serverless
 microservice
 microservices
@@ -85,15 +88,10 @@ interpretability
 generalizability
 evals
 chunker
-litellm
-smolagents
 scikit
-pydantic
-pyspark
 shap
 AutoML
 MLOps
-xhigh
 
 # Speech / voice AI (terms & latency metrics)
 RNNT
@@ -126,6 +124,7 @@ writebacks
 decisioning
 
 # Architecture & ops
+designtime
 multitier
 failovers
 hadr
@@ -171,12 +170,12 @@ skillsets
 toolsets
 workstream
 workstreams
+Crossboarding
 unsubscription
 abac
 adls
 itsm
 siem
-cuda
 
 # Data protection & compliance (regulations)
 anonymization
@@ -200,9 +199,6 @@ PEPPOL
 EDIFACT
 FedML
 ondemand
-
-# Misc / foreign-language terms
-Messe
 
 # Named concepts (eponyms)
 Goodhart
