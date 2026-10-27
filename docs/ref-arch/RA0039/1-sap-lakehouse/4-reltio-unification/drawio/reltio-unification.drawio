@@ -1,0 +1,107 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="reltio-unification-blocks" name="Master Data Unification with Reltio in SAP BDC">
+    <mxGraphModel dx="1253" dy="771" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="860" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c-src" parent="1" style="rounded=1;arcSize=14;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#F5F6F7;fontFamily=Helvetica;fontSize=12;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=center;spacingTop=8;" value="Source systems" vertex="1">
+          <mxGeometry height="396" width="200" x="40" y="146" as="geometry" />
+        </mxCell>
+        <mxCell id="src-sap" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;SAP&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;S/4HANA, SuccessFactors, Ariba&lt;/span&gt;" vertex="1">
+          <mxGeometry height="76" width="160" x="60" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="src-nonsap" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Non-SAP Data&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;Azure (ADLS, SQL Server), AWS (S3, Redshift), GCS, &amp;hellip;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="92" width="160" x="60" y="282" as="geometry" />
+        </mxCell>
+        <mxCell id="src-thirdparty" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Third-party sources&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;Dun &amp;amp; Bradstreet, reference &amp;amp; enrichment data&lt;/span&gt;" vertex="1">
+          <mxGeometry height="76" width="160" x="60" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="c-bdc" parent="1" style="rounded=1;arcSize=10;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=2;fillColor=#F3F8FE;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=left;spacingTop=8;spacingLeft=14;" value="SAP Business Data Cloud" vertex="1">
+          <mxGeometry height="560" width="720" x="320" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="z-silver" parent="1" style="rounded=1;arcSize=12;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#EBF8FF;fontFamily=Helvetica;fontSize=12;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=left;spacingTop=8;spacingLeft=12;dashed=0;" value="Silver tier — governed data products (BDC FOS)" vertex="1">
+          <mxGeometry height="500" width="440" x="340" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="sv-pdp-sap" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;SAP master-data PDPs&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;S/4, SFSF, Ariba &amp;mdash; SAP-ingested&lt;/span&gt;" vertex="1">
+          <mxGeometry height="76" width="192" x="360" y="162" as="geometry" />
+        </mxCell>
+        <mxCell id="sv-pdp-nonsap" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Non-SAP custom PDPs&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;Dremio-published, zero-copy&lt;/span&gt;" vertex="1">
+          <mxGeometry height="76" width="192" x="568" y="162" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-box" parent="1" style="rounded=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#DCEEFF;fontFamily=Helvetica;fontSize=11;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=center;spacingTop=6;" value="Reltio Analytical Edition - Master Data Management" vertex="1">
+          <mxGeometry height="210" width="400" x="360" y="258" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-refdata" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Reference data&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;harmonization&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="118" x="374" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-quality" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Data quality&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;validation &amp;middot; cleansing&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="118" x="501" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-match" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Match &amp;amp; merge&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;rules &amp;middot; AI &amp;middot; transitive&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="118" x="628" y="294" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-governance" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Data governance&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;stewardship &amp;middot; survivorship&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="181" x="374" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="mdm-rel360" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Relationships &amp;amp; entity 360&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;crosswalk &amp;middot; lineage&lt;/span&gt;" vertex="1">
+          <mxGeometry height="50" width="182" x="565" y="356" as="geometry" />
+        </mxCell>
+        <mxCell id="sv-golden" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=2;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Golden Master UDP&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;deduplicated, survivorship-resolved entities with relationships &amp;mdash; crosswalks keep lineage to every contributing source&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="400" x="360" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="e-sap-mdm" edge="1" parent="1" source="sv-pdp-sap" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#0070F2;strokeWidth=1.25;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="mdm-box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="456" y="250" />
+              <mxPoint x="560" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-nonsap-mdm" edge="1" parent="1" source="sv-pdp-nonsap" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#0070F2;strokeWidth=1.25;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="mdm-box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="664" y="250" />
+              <mxPoint x="560" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-mdm-golden" edge="1" parent="1" source="mdm-box" style="edgeStyle=none;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#0070F2;strokeWidth=1.25;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="sv-golden">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="z-gold" parent="1" style="rounded=1;arcSize=12;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#EBF8FF;fontFamily=Helvetica;fontSize=12;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=left;spacingTop=8;spacingLeft=12;" value="Gold tier" vertex="1">
+          <mxGeometry height="500" width="220" x="800" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="gold-ddp" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=2;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Dremio &quot;360&quot; DDP&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;reflection joining the Golden Master across all domains (Iceberg / UniForm)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="820" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="gold-catalog" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#0070F2;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;SAP Enterprise Catalog&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:10px;color:#595959;&quot;&gt;Apache Polaris&lt;br&gt;discovery &amp;amp; open-table governance&lt;/span&gt;" vertex="1">
+          <mxGeometry height="90" width="180" x="820" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c-consume" parent="1" style="rounded=1;arcSize=12;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#F5F6F7;fontFamily=Helvetica;fontSize=12;fontStyle=1;fontColor=#00185A;verticalAlign=top;align=center;spacingTop=8;" value="Consumption — read as data product (open Iceberg table or SQL)" vertex="1">
+          <mxGeometry height="110" width="720" x="320" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="con-hana" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;HANA Cloud&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;SQL-on-Files + Federation&lt;br&gt;(no data duplication)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="56" width="214" x="340" y="738" as="geometry" />
+        </mxCell>
+        <mxCell id="con-joule" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Joule agents&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;analytical &amp;amp; agentic&lt;/span&gt;" vertex="1">
+          <mxGeometry height="56" width="214" x="572" y="738" as="geometry" />
+        </mxCell>
+        <mxCell id="con-bi" parent="1" style="rounded=1;arcSize=24;absoluteArcSize=1;strokeColor=#475E75;strokeWidth=1.5;fillColor=#FFFFFF;fontFamily=Helvetica;fontSize=10;fontColor=#00185A;whiteSpace=wrap;html=1;verticalAlign=middle;align=center;" value="&lt;b&gt;Analytics &amp;amp; BI engines&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#595959;&quot;&gt;Iceberg-native / SQL read&lt;/span&gt;" vertex="1">
+          <mxGeometry height="56" width="214" x="804" y="738" as="geometry" />
+        </mxCell>
+        <mxCell id="e-src-silver" edge="1" parent="1" source="c-src" style="edgeStyle=none;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#475E75;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.004;entryY=0.47;entryDx=0;entryDy=0;entryPerimeter=0;" target="c-bdc" value="ingest">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-golden-gold" edge="1" parent="1" source="sv-golden" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#475E75;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gold-ddp" value="materialized into&amp;nbsp;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-ddp-cat" edge="1" parent="1" source="gold-ddp" style="edgeStyle=none;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#475E75;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gold-catalog" value="catalogued">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-bdc-consume" edge="1" parent="1" source="c-bdc" style="edgeStyle=none;html=1;endArrow=block;endFill=1;startArrow=none;strokeColor=#475E75;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="c-consume" value="Iceberg table / SQL">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

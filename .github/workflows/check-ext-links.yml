@@ -38,6 +38,28 @@ jobs:
           # Changed-files scope: only Markdown added/modified vs the PR base.
           git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
             | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          # Drop pages tagged "archive" in their front matter: archived RAs are kept
+          # for reference and their external links are no longer maintained, so a 404
+          # on an archived page must not fail the check. Scans the YAML front matter's
+          # tags block only (block-list style, as used across the repo).
+          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
+            : > "$RUNNER_TEMP/scoped.txt"
+            while IFS= read -r file; do
+              if awk '
+                    NR==1 && /^---[[:space:]]*$/ {fm=1; next}
+                    fm && /^---[[:space:]]*$/ {exit (found?0:1)}
+                    fm && /^tags:/ {intags=1; next}
+                    fm && intags && /^[A-Za-z_]/ {intags=0}
+                    fm && intags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ {found=1}
+                    END {exit (found?0:1)}
+                  ' "$file"; then
+                echo "Excluding archived page from link check: $file"
+              else
+                printf '%s\n' "$file" >> "$RUNNER_TEMP/scoped.txt"
+              fi
+            done < "$RUNNER_TEMP/changed.txt"
+            mv "$RUNNER_TEMP/scoped.txt" "$RUNNER_TEMP/changed.txt"
+          fi
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### External links check"
