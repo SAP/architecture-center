@@ -92,6 +92,10 @@ const config: Config = {
                     blogSidebarCount: 0,
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
+                    feedOptions: {
+                        type: ['rss', 'atom'],
+                        title: 'SAP Architecture Center News',
+                    },
                 },
                 docs: {
                     path: 'docs',
