@@ -43,6 +43,7 @@ Nvidia
 Nemotron
 cuDF
 cuML
+cuda
 OpenAI
 Anthropic
 Claude
@@ -62,6 +63,10 @@ CrewAI
 opencode
 LiveKit
 Silero
+litellm
+smolagents
+pydantic
+pyspark
 
 # DevOps & tooling
 Terraform
