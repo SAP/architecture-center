@@ -3,10 +3,7 @@ id: 7f21ac
 slug: /ref-arch/7f21ac
 sidebar_position: 2
 title: SAP-Managed IAM Integration
-description: >-
-  SAP-operated IAM integration between SAP solutions, delivered as part of the
-  SAP Business AI Platform. Entry point from the Identity Access Management
-  structure to the SAP-managed model described under the SAP Business AI Platform.
+description: SAP-operated IAM integration between SAP solutions, delivered as part of the SAP Business AI Platform — entry point to the SAP-managed model covered in the AI Platform reference architectures.
 keywords:
   - sap
   - cloud identity
