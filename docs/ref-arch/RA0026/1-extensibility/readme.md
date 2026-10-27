@@ -76,7 +76,7 @@ Physical AI can also be triggered on-demand via **human triggers**, meaning an i
 
 ### Custom Fleet Connectors
 
-The consumer of the Physical AI on BTP service also plays a critical role in extensibility.
+The consumer of the Physical AI service also plays a critical role in extensibility.
 
 Custom **fleet connectors** can be deployed in order to hook up to various third-party systems, configured as destinations using the [SAP Destination Service](https://discovery-center.cloud.sap/serviceCatalog/destination-service).
 
