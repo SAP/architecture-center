@@ -11,11 +11,8 @@ ABAP
 SAPUI5
 UI5
 Fiori
-OData
 NetWeaver
 ECC
-Hyperscaler
-Hyperscalers
 Kyma
 Gardener
 Steampunk
@@ -46,7 +43,6 @@ Hybris
 Spartacus
 WalkMe
 ByDesign
-Crossboarding
 
 # AI
 Joule
@@ -64,7 +60,6 @@ approuter
 XSUAA
 BTPEA
 CPEA
-designtime
 SAPGUI
 PFCG
 SQLDBC
