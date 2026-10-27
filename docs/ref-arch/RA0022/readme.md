@@ -107,7 +107,7 @@ When adding agents as API consumers, apply the following principles:
 API Composition (formerly Graph) and SAP Knowledge Graph serve different purposes and should not be confused:
 
 - **API Composition** exposes a semantically connected Business Data Graph through a unified API at runtime. As an API, it can be governed and exposed to agents like any other API in this architecture.
-- **SAP Knowledge Graph** provides the ontology and semantic layer over SAP data products that grounds Joule and AI agents in business meaning. See [Ontology and Knowledge Graph](../RA0039/1-sap-lakehouse/5-ontology-kg/readme.md).
+- **SAP Knowledge Graph** provides the ontology and semantic layer over SAP data products that grounds Joule and AI agents in business meaning.
 
 ## Examples in an SAP Context  
   
