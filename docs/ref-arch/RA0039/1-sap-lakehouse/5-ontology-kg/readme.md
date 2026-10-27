@@ -32,9 +32,8 @@ draft: false
 unlisted: false
 contributors:
   - I769068
-  - I550585
 last_update:
-  author: I550585
+  author: guilherme-segantini
   date: 2026-10-22
 ---
 ### Ontology Manager
