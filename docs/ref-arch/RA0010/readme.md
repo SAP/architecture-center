@@ -141,12 +141,11 @@ These use cases showcase the broad applicability and impact of SAP Build Work Zo
     - [SAP Build Work Zone, advanced edition (SAP Help Portal)](https://help.sap.com/docs/build-work-zone-advanced-edition?locale=en-US)
 
 - SAP Learning Journeys
-    - [Compose and Automate with SAP Build the No-Code Way (SAP Learning)](https://learning.sap.com/learning-journeys/compose-and-automate-with-sap-build-the-no-code-way)
     - [Implementing and Administering SAP Build Work Zone (SAP Learning)](https://learning.sap.com/learning-journeys/implement-and-administer-sap-build-work-zone)
 
 - SAP Community Topic Pages
+    - [SAP Build (SAP Community)](https://pages.community.sap.com/topics/build)
     - [SAP Build Work Zone (SAP Community)](https://pages.community.sap.com/topics/work-zone)
-    - [SAP Build Work Zone FAQ (SAP Community)](https://pages.community.sap.com/topics/work-zone/faq)
 
 - SAP Samples
     - [GitHub (SAP samples)](https://github.com/SAP-samples/build-workzone-integration/tree/main): This repository serves as a template for SAP Build Work Zone integration samples, providing a structured starting point for developers.
