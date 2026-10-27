@@ -31,7 +31,7 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - I769068
+  - guilherme-segantini
 last_update:
   author: guilherme-segantini
   date: 2026-10-22
