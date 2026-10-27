@@ -31,9 +31,10 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - guilherme-segantini
+  - I769068
+  - I550585
 last_update:
-  author: guilherme-segantini
+  author: I550585
   date: 2026-10-22
 ---
 ### Ontology Manager
