@@ -317,7 +317,7 @@ export const configRedirects = {
         },
         {
             from: '/docs/ref-arch/20c6b29b1e/3',
-            to: '/docs/ref-arch/206025',
+            to: '/docs/ref-arch/d9c3e6',
         },
         {
             from: '/docs/ref-arch/20c6b29b1e',
