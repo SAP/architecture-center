@@ -1,25 +1,21 @@
 ---
-id: '206025'
-slug: /ref-arch/206025
+id: d9c3e6
+slug: /ref-arch/d9c3e6
 sidebar_position: 3
 title: Authorization with SAP Cloud Identity Services
-description: "Centralize authorization assignment for SAP SaaS with SAP Cloud Identity Services, using the Identity Directory, AMS policies, and SCIM2 group provisioning."
+description: >-
+  Centralize identity lifecycle management with SAP Cloud Identity Services for
+  secure authorization across SAP SaaS solutions.
 keywords:
   - sap
-  - sap authorization management service (ams)
-  - authorization design
-  - sap cloud identity services - identity directory
-  - role collections and xsuaa
-  - scim2 group provisioning
+  - authorization management
+  - identity lifecycle
+  - cloud erp security
   - identity provisioning
-  - centralized authorization assignment
-  - least privilege
-  - business ai platform
 sidebar_label: Authorization Design
 image: img/ac-soc-med.png
 tags:
   - security
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -32,7 +28,7 @@ contributors:
 discussion: 
 last_update:
   author: sapgunnar
-  date: 2025-05-13
+  date: 2026-10-27
 ---
 
 Authorizations are domain specific and still the aim is that they can be assigned to an identity centrally. 
@@ -45,7 +41,7 @@ Traditionally authorizations are defined in the application and are not centrall
 SAP uses for the authorization assignments in an identity lifecycle the Identity Directory. Identity Directory is a SCIM compliant user and group store. Identity Directory acts as customer facade for the identity lifecycle and the central point for the authorization assignments. The Cloud Identity Services also act as trusted anchor for the SAP applications for several security features like the authentication and the authorization assignments, but also the federation with 3rd party solutions.
 
 Many systems e.g. SAP NetWeaver ABAP have a long history of defining authorizations combined in template roles in the system with detailed restrictions and derivations of those template roles.
-In the SAP Business Technology Platform (BTP) the authorizations are also specified in the application. SAP BTP applications based on the SAP BTP Authorization and Trust Management (XS UAA) e.g. via [SAP Cloud Application Programming Model CAP](https://cap.cloud.sap/docs/get-started/in-a-nutshell) the developer defines the app-roles within the application. In the XS UAA which is visible to you as user-management in each BTP subaccount, each customer administrator can create and maintain Role Collections. Role Collections can group multiple app-roles. Role Collections can be assigned to users, while app-roles cannot.
+In the SAP Business Technology Platform (BTP) the authorizations are also specified in the application. SAP BTP applications based on the SAP BTP Authorization and Trust Management (XS UAA) e.g. via SAP Cloud Application Programming Model (CAP) the developer defines the app-roles within the application. In the XS UAA which is visible to you as user-management in each BTP subaccount, each customer administrator can create and maintain Role Collections. Role Collections can group multiple app-roles. Role Collections can be assigned to users, while app-roles cannot.
 
 In the context of new applications, the [SAP Cloud Identity Services - Identity Directory](https://api.sap.com/api/IdDS_SCIM/overview) functions as the user and group store. This advanced service accommodates the [SAP Authorization Management Service (AMS)](https://help.sap.com/docs/identity-authentication/identity-authentication/configuring-authorization-policies?locale=en-US)(AMS)-defined policies, which are stored and assigned to users in the Identity Directory. The AMS allows the definition of policies by the app-developer but a central derivation and assignment to users in the Identity Directory.
 
@@ -100,7 +96,6 @@ This setup has the following characteristics:
     - [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity?version=Cloud&locale=en-US)
       
 - [More details about the SAP Identity Management End-of-Maintenance (SAP Community blog posts)](https://community.sap.com/t5/technology-blogs-by-sap/preparing-for-sap-identity-management-s-end-of-maintenance-in-2027/ba-p/13596101)
-- [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/docs/get-started/in-a-nutshell)
 - [SCIM2 protocol](https://www.rfc-editor.org/rfc/rfc7644)
 - [SCIM2 schemas](https://www.rfc-editor.org/rfc/rfc7643)
 
