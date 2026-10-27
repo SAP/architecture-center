@@ -25,10 +25,10 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - guilherme-segantini
+  - I769068
 last_update:
-  author: guilherme-segantini
-  date: 2026-10-27
+  author: I769068
+  date: 2026-10-07
 ---
 
 Coming soon.
