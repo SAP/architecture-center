@@ -65,8 +65,9 @@ module.exports = function (context) {
           const fm = meta.frontMatter || {};
           const tags = Array.isArray(fm.tags) ? fm.tags : [];
 
-          // Reference architectures only.
-          if (!normalizePath(source).includes('/docs/ref-arch/')) continue;
+          // Reference architectures only (the RA#### directories, not the
+          // ref-arch catalogue landing page itself).
+          if (!/\/docs\/ref-arch\/RA\d{4}\//.test(normalizePath(source))) continue;
           // Need a last_update.date to place the item on the timeline.
           if (!fm.last_update || !fm.last_update.date) continue;
           // Exclusions: drafts, unlisted, archived, and the RA0000 demo page.
