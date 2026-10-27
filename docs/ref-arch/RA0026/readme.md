@@ -85,10 +85,17 @@ Since [SAP first announced exploring physical AI in 2025](https://news.sap.com/2
 
 Physical AI is well-suited for tasks involving some degree of **unpredictability**.
 This unpredictability can be in the task itself or in the task environment.
-A use case can correspond to one or multiple SAP applications.
-The following table shows typical use cases across supply chain, logistics, and manufacturing.
+A use case can correspond to one or multiple SAP assistants.
 
-| Use Case                    | Associated SAP Software |
+**Relevant Assistants**
+
+- [Asset Operations Assistant](https://www.sap.com/use-cases/joule-assistant/asset-and-service-management-ai)
+- [Logistics Assistant](https://www.sap.com/use-cases/joule-assistant/logistics-ai)
+- [Manufacturing Assistant](https://www.sap.com/use-cases/joule-assistant/manufacturing-ai)
+
+The following table shows typical use cases across supply chain, logistics, and manufacturing and the SAP solution portfolio that these assistants leverage.
+
+| Use Case                    | Associated SAP Solutions |
 | :------------------------------ | :------------------------------ |
 | **Warehouse Pick & Place** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/2)) | [SAP Extended Warehouse Management (EWM)](https://www.sap.com/products/scm/extended-warehouse-management.html), [SAP Logistics Management (LGM)](https://www.sap.com/products/scm/logistics-management.html) |
 | **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-management.html) |
@@ -98,7 +105,6 @@ The following table shows typical use cases across supply chain, logistics, and 
 
 Further use case areas include in retail and service environments.
 An advantage of native SAP integration is that Physical AI Agents can multi-task, for example reporting safety incidents via [SAP EHS](https://www.sap.com/products/scm/safety-management-software.html) while doing a warehouse operations task from [SAP EWM](https://www.sap.com/products/scm/extended-warehouse-management.html).
-
 
 :::info
 Physical AI does **not** replace traditional robotics and manufacturing automation such as Autonomous Mobile Robots (AMRs), which are a good fit for predictable, repetitive tasks.
