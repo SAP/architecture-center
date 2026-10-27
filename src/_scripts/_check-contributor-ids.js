@@ -66,6 +66,27 @@ function frontMatterLine(raw, key) {
   return undefined;
 }
 
+/**
+ * 1-based line of a nested key under a top-level parent (e.g. `author` under
+ * `last_update:`), so the annotation lands on the offending line rather than the
+ * parent key. Falls back to the parent's line, then undefined.
+ */
+function nestedFrontMatterLine(raw, parent, child) {
+  const lines = raw.split('\n');
+  let parentLine = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (new RegExp(`^${parent}:`).test(lines[i])) { parentLine = i; break; }
+  }
+  if (parentLine === -1) return undefined;
+  const childRe = new RegExp(`^\\s+${child}:`);
+  for (let j = parentLine + 1; j < lines.length; j++) {
+    // Stop at the next top-level key or the front matter fence (both column 0).
+    if (/^\S/.test(lines[j])) break;
+    if (childRe.test(lines[j])) return j + 1;
+  }
+  return parentLine + 1;
+}
+
 /** Best-effort line of a specific `- value` contributor entry, else the contributors: line. */
 function contributorLine(raw, value) {
   const lines = raw.split('\n');
@@ -112,7 +133,7 @@ function checkFile(rel, raw, data) {
     const v = String(lastUpdate.author).trim();
     if (USER_ID_RE.test(v)) {
       flag(
-        frontMatterLine(raw, 'last_update'),
+        nestedFrontMatterLine(raw, 'last_update', 'author'),
         `last_update.author \`${v}\` looks like an SAP internal user ID (I/D/C-number). Credit the author by their GitHub username instead.`
       );
     }

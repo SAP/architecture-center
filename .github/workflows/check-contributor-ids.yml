@@ -50,8 +50,15 @@ jobs:
         run: |
           # Changed-files scope: only Markdown added/modified vs the PR base (same
           # hardened incantation as the sibling checks: -z + core.quotePath=false).
+          # Write the diff first so a git error (e.g. a missing base ref) fails the
+          # step rather than being swallowed into an empty, passing scan; then ignore
+          # only grep's expected "no matches" status (1) when nothing matched.
           git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+            > "$RUNNER_TEMP/changed-all.txt"
+          grep -zE '\.(md|mdx)$' "$RUNNER_TEMP/changed-all.txt" > "$RUNNER_TEMP/changed.txt" || {
+            status=$?
+            if [ "$status" -ne 1 ]; then exit "$status"; fi
+          }
           FILES=()
           if [ -s "$RUNNER_TEMP/changed.txt" ]; then
             mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
