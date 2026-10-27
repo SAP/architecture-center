@@ -38,7 +38,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-10-23
+  date: 2026-10-27
 ---
 
 :::info Disclaimer
@@ -52,7 +52,7 @@ A user working in Gemini Enterprise can hand an SAP-specific task to a Joule Age
 
 ![drawio](./drawio/architecture.drawio)
 
-Gemini Enterprise cannot connect directly to an SAP agent through SAP Agent Gateway because it does not support cross-provider A2A authentication with an in-product sign-in prompt. The integration therefore uses a **proxy agent on Google Agent Runtime (Vertex AI Agent Engine) as the bridge**: Gemini Enterprise delegates tasks to the proxy, which handles the cross-provider authentication with SAP and relays the call to the Agent Gateway.
+Gemini Enterprise does support cross-provider three-legged authentication (3LO) with an in-chat sign-in prompt against **SAP Cloud Identity Services (IAS)**. What neither Gemini Enterprise nor SAP offers out of the box is a token exchange that re-scopes the resulting end-user token to the SAP Agent Gateway. That second hop is why a **bridge agent** is needed. The bridge agent sits between Gemini Enterprise and the downstream A2A agent: it takes the end-user token forwarded by Gemini Enterprise and runs a `jwt-bearer` token exchange against SAP Cloud Identity Services — authenticating itself with a client assertion signed via Google's `signJwt` API using a dedicated signer service account — to obtain a token scoped to the downstream, then relays the call over A2A.
 
 The proxy agent has a single job: take the end-user token that Gemini Enterprise forwards, exchange it at **SAP Cloud Identity Services (IAS)** for a token scoped to the Agent Gateway, and relay the call to the agent running on SAP Business AI Platform. Because the proxy is itself a Gemini Enterprise agent, it initiates the three-legged OAuth flow and can surface the SAP sign-in prompt in the Gemini Enterprise chat UI, which is what makes the **three-legged OAuth / front-channel** flow possible.
 
