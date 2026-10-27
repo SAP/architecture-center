@@ -2,8 +2,8 @@
 id: 9ca181
 slug: /ref-arch/9ca181
 sidebar_position: 1
-title: Health & Safety Inspection with Embodied AI Agents
-description: "Discover how Embodied AI delivers continuous health and safety inspection, embedding objective safety monitoring into daily operations with SAP S/4HANA for EHS."
+title: Health & Safety Inspection with Physical AI Agents
+description: "Discover how Physical AI delivers continuous health and safety inspection, embedding objective safety monitoring into daily operations with SAP S/4HANA for EHS."
 keywords:
   - sap
   - embodied ai agents
@@ -35,12 +35,12 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
-Embodied AI agents for health & safety inspection provide continuous, objective safety monitoring embedded into daily operations.
+Physical AI for health & safety inspection provides continuous, objective safety monitoring embedded into daily operations.
 
-:::info Want to Try Embodied AI?
+:::info Want to Try Physical AI?
 [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
 :::
 
