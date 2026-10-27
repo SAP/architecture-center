@@ -41,10 +41,10 @@ Each one lists the fifty most recently updated reference architectures, newest f
 
 Copy any of the links above and paste it into the "add feed" or "new subscription" field of your feed reader. Popular readers include NetNewsWire, Feedly, Inoreader, and Thunderbird, among many others. Nothing stops you adding both the news and the reference architecture feeds, so you can follow whichever parts of the site matter to you. From then on, new content turns up in your reader soon after we publish it, and you no longer have to visit the site to find out what is new.
 
-If you work with code, the same two URLs are easy to consume from a script, a scheduled job, or a chat tool. You fetch the XML, parse it, and do whatever you like with the result, from a simple notification to a fuller integration. Because these are open, well-documented standards, you are not tied to any particular tool or library.
+If you work with code, these feed URLs are easy to consume from a script, a scheduled job, or a chat tool. You fetch the XML, parse it, and do whatever you like with the result, from a simple notification to a fuller integration. Because these are open, well-documented standards, you are not tied to any particular tool or library.
 
 ## Why we think feeds are worth it
 
-Feeds hand control back to the reader. There is no algorithm deciding what you see, nothing landing in an already crowded inbox, and no sign-up to regret later. You subscribe once, you can unsubscribe at any time, and in the meantime the news finds you. That openness fits the spirit of the project rather well, given that everything here is built in the open on GitHub.
+Feeds hand control back to the reader. There is no algorithm deciding what you see, nothing landing in an already crowded inbox, and no sign-up to regret later. You subscribe once, you can unsubscribe at any time, and in the meantime the news finds you. That openness fits the spirit of the project rather well, given that everything here is built in the open on [GitHub](https://github.com/SAP/architecture-center).
 
 Give it a try with your reader of choice. We hope it makes keeping up with the Architecture Center that little bit easier. Until next time.
