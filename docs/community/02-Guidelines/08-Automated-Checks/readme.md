@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-27
 ---
 
 When you open a pull request against the SAP Architecture Center repository, a set of automated **checks** runs automatically. These are [GitHub Actions](https://docs.github.com/en/actions) workflows that read your changes and give you fast, friendly feedback, before a human maintainer ever looks at your contribution.
@@ -51,7 +51,7 @@ The checks report their findings in three places, so you'll never have to go sea
 3. **One sticky pull request comment** titled **🔎 Content check results**: a single, continuously-updated comment that gathers the content findings grouped by check. It rebuilds itself every time a check finishes, so it always reflects your latest commit (look for the footer noting the commit it was updated for).
 
 :::note
-The sticky comment aggregates the content checks that can block a merge (internal links, external links, SEO front matter, front matter properties, reference architecture IDs, Draw.io files, orphan files), and it shows their blocking **errors** only. Spelling, typos, grammar, and the H1 title check are deliberately **not** repeated in the comment: spelling, typos, and the H1 title check annotate inline on the **Files changed** tab, right next to the line in question, and grammar posts its advisory notes on the **Checks** tab. Non-blocking **warnings**, such as an SEO length just outside the recommended range, stay inline and in the job summary, not in this comment.
+The sticky comment aggregates the content checks that can block a merge (internal links, external links, SEO front matter, front matter properties, contributor IDs, reference architecture IDs, Draw.io files, orphan files), and it shows their blocking **errors** only. Spelling, typos, grammar, and the H1 title check are deliberately **not** repeated in the comment: spelling, typos, and the H1 title check annotate inline on the **Files changed** tab, right next to the line in question, and grammar posts its advisory notes on the **Checks** tab. Non-blocking **warnings**, such as an SEO length just outside the recommended range, stay inline and in the job summary, not in this comment.
 :::
 
 For a full, example-driven walkthrough of what each surface looks like and how to resolve what you find, see [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
@@ -66,6 +66,7 @@ The table below indexes every content check. "Blocking?" tells you whether a fai
 | Typos | Common typos and misspellings, caught by the fast [typos](https://github.com/crate-ci/typos) checker. | Yes | [Typos](03-check-typos.md) |
 | Grammar | Prose style and grammar, via [LanguageTool](https://languagetool.org). Advisory only. | No | [Grammar](04-check-grammar.md) |
 | Front Matter Properties | Changed reference architecture pages credit their author, carry a fresh date, and keep the house-style default fields. | Yes | [Front Matter Properties](05-check-front-matter-properties.md) |
+| Contributor IDs | The `author` and `contributors` fields credit people by their GitHub username, not an SAP internal user ID (an I-, D-, or C-number). | Yes | [Contributor IDs](15-check-contributor-ids.md) |
 | H1 Title | Pages take their title from the front matter, so Markdown bodies must not contain a level-1 `#` heading. | Yes | [H1 Title](14-check-h1-title.md) |
 | SEO Front Matter | The `title` and `description` lengths sit in the search-engine-friendly range. | Yes* | [SEO Front Matter](06-check-seo-front-matter.md) |
 | Reference Architecture IDs | Each reference architecture carries a valid, unique six-character `id` and a matching `slug`. | Yes | [Reference Architecture IDs](07-check-reference-architecture-ids.md) |
