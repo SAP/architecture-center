@@ -80,7 +80,7 @@ See [Data Space Integration setup](https://help.sap.com/docs/integration-suite/i
 ## Resources
 
 - [Catena-X – Identity & Trust (IATP)](https://github.com/eclipse-tractusx/identity-trust)
-- [Catena-X – IATP Verifiable Presentation Protocol](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/M1/verifiable.presentation.protocol.md)
+- [Catena-X – IATP Verifiable Presentation Protocol](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/verifiable.presentation.protocol.md)
 - [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/)
 - [W3C Decentralized Identifiers (DIDs)](https://www.w3.org/TR/did-core/)
 - [Eclipse Dataspace Connector (EDC)](https://eclipse-edc.github.io/docs/)
