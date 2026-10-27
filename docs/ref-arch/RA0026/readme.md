@@ -91,7 +91,7 @@ The following table shows typical use cases across supply chain, logistics, and 
 | Use Case                    | Associated SAP Software |
 | :------------------------------ | :------------------------------ |
 | **Warehouse Pick & Place** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/2)) | [SAP Extended Warehouse Management (EWM)](https://www.sap.com/products/scm/extended-warehouse-management.html), [SAP Logistics Management (LGM)](https://www.sap.com/products/scm/logistics-management.html) |
-| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html) |
+| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-management.html) |
 | **Health & Safety Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/4)) | [SAP S/4HANA for EHS workplace safety (EHS)](https://www.sap.com/products/scm/safety-management-software.html) |
 | **Quality Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/5)) | [SAP S/4HANA Manufacturing for planning and scheduling (S/4 PP)](https://www.sap.com/products/scm/manufacturing-for-planning-and-scheduling.html) |
 | **Material Handling & Assembly**  | [SAP Digital Manufacturing (DM)](https://www.sap.com/products/scm/digital-manufacturing.html) |
@@ -159,6 +159,7 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
 
 ## Examples in an SAP Context
 
+- [SAP Unveils Physical AI and Extends the Autonomous Enterprise into the Real World](https://news.sap.com/2026/10/sap-unveils-physical-ai-extends-autonomous-enterprise-real-world-sap-teched/)
 - [SAP Expands Physical AI Partnerships and Demonstrates Success of New Robotics Pilots](https://news.sap.com/2025/11/sap-physical-ai-partnerships-new-robotics-pilots/)
 - [BITZER Helps SAP Pioneer Project Embodied AI](https://news.sap.com/2026/01/bitzer-sap-pioneer-project-embodied-ai/)
 - [Martur Fompak wins Innovation Award](https://www.sap.com/discover/sap-innovation-awards/index.html?pdf-asset=b8f5f23c-437f-0010-bca6-c68f7e60039b&page=1)
