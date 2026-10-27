@@ -36,7 +36,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
 Quality inspection as an activity occurs across various business processes.

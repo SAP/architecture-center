@@ -40,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
 Warehouse automation is typically divided into physical and digital automation.

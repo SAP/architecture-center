@@ -35,7 +35,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
 Physical AI for health & safety inspection provide continuous, objective safety monitoring embedded into daily operations.

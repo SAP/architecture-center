@@ -40,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
 **Physical AI** is a broad category that includes all forms of intelligence in the physical world, including vision systems, digital twins, industrial equipment, sensors, and robotic hardware.
