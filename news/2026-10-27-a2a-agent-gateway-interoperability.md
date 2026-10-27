@@ -32,7 +32,7 @@ The release brings together three core capabilities:
 
 - **Governed enterprise access**: Customers control which agents each external client may invoke. The Agent Gateway validates incoming requests, applies configured access restrictions, routes interactions, and supports auditability, without exposing SAP business systems directly.
 
-**ARD helps clients discover which capabilities are available; AgentCards describe those capabilities and how to reach them; A2A enables the actual agent interaction.** Discovery does not itself grant permission to invoke an agent.
+**ARD helps clients discover which agents are available; AgentCards describe those capabilities and how to reach them; A2A enables the actual agent interaction.** Discovery does not itself grant permission to invoke an agent.
 
 ![High-level inbound A2A interoperability](img/2026-10-27/agent-gateway-overview.png)
 
