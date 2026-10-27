@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-27
 **Branch:** ra0039-remove-ontology-kg
-**PR:** (pending)
+**PR:** [#145](https://github.tools.sap/OCTO/architecture-center/pull/145)
 
 ## Summary
 
