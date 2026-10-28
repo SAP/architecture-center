@@ -95,7 +95,7 @@ LCP is a key web performance metric that measures when the largest content eleme
 -   **Reuse CSS custom properties** for common patterns, e.g. spacing (`var(--spacing-md)`), shadows (`var(--shadow-card)`), and border radius (`var(--border-radius-lg)`), instead of redefining values per component.
 -   **Avoid inline styles completely**; use CSS modules or CSS custom properties instead.
 -   **Keep media queries together** at the end of each file to simplify responsive maintenance.
--   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. [BEM](https://getbem.com/introduction/) is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
+-   **Name classes descriptively** and use Block Element Modifier (BEM) or similar conventions for clarity. BEM is a naming convention for classes in HTML and CSS that helps keep CSS more maintainable and scalable.
 -   **Test changes across breakpoints** to ensure responsive behavior.
 
 ### ⚠️ CSS Modules Limitation: Media Query Variables
@@ -307,6 +307,5 @@ To change the spacing between tags in a card, edit the `gap` property in the `.t
 -   [Docusaurus: Styling and Layout](https://docusaurus.io/docs/styling-layout)
 -   [React Styling Best Practices](https://medium.com/@elightwalk/what-are-the-best-practices-for-styling-in-react-e9816e7912d4)
 -   [CSS Approaches Overview](https://yaron-galperin.medium.com/css-matters-an-overview-of-different-css-approaches-66a8656886ca)
--   [BEM Introduction](https://getbem.com/introduction/)
 -   [WebP Image Format](https://developers.google.com/speed/webp)
 -   [Squoosh Image Converter](https://squoosh.app/)

@@ -27,6 +27,10 @@ Tableau
 PowerBI
 Looker
 Qlik
+Dremio
+Reltio
+Trino
+ontop
 
 # Enterprise software
 Oracle
@@ -39,6 +43,7 @@ Nvidia
 Nemotron
 cuDF
 cuML
+cuda
 OpenAI
 Anthropic
 Claude
@@ -58,6 +63,10 @@ CrewAI
 opencode
 LiveKit
 Silero
+litellm
+smolagents
+pydantic
+pyspark
 
 # DevOps & tooling
 Terraform
@@ -76,6 +85,7 @@ GitLab
 Okta
 
 # Products & services referenced in content
+AgentCore
 SiteWise
 OneLake
 ArcGIS
