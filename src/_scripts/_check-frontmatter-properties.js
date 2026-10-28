@@ -161,15 +161,15 @@ function checkFile(rel, raw, data) {
   if ('toc_max_heading_level' in data && data.toc_max_heading_level !== 4) {
     warn('toc_max_heading_level', `toc_max_heading_level is \`${data.toc_max_heading_level}\`; the default is 4.`);
   }
-  // 5-6: draft / unlisted — maintainers in AUTHORSHIP_CHECK_EXEMPT may set these
-  // (e.g. to unlist or hold back a page), so these two are skipped for them.
-  if (!authorshipCheckExempt) {
-    if ('draft' in data && data.draft !== false) {
-      warn('draft', `draft is \`${data.draft}\`; expected false (a draft page is not deployed).`);
-    }
-    if ('unlisted' in data && data.unlisted !== false) {
-      warn('unlisted', `unlisted is \`${data.unlisted}\`; expected false (an unlisted page is hidden from navigation).`);
-    }
+  // 5-6: draft / unlisted — expected false. Maintainers in AUTHORSHIP_CHECK_EXEMPT
+  // may set them to boolean `true` (e.g. to unlist or hold back a page), but any
+  // other non-false value (a typo, a string, a non-boolean) is still flagged,
+  // even for them, so a malformed value never slips through unnoticed.
+  if ('draft' in data && data.draft !== false && !(authorshipCheckExempt && data.draft === true)) {
+    warn('draft', `draft is \`${data.draft}\`; expected false (a draft page is not deployed).`);
+  }
+  if ('unlisted' in data && data.unlisted !== false && !(authorshipCheckExempt && data.unlisted === true)) {
+    warn('unlisted', `unlisted is \`${data.unlisted}\`; expected false (an unlisted page is hidden from navigation).`);
   }
 
   // 7-9: authorship fields — need PR context; skipped when it is unavailable.
