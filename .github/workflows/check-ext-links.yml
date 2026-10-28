@@ -15,7 +15,6 @@ permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-ext-links:
@@ -95,15 +94,25 @@ jobs:
         if: steps.scope.outputs.skip != 'true'
         uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
         with:
-          # --accept 200..=299,403: treat 403 as reachable. A 403 almost always
-          # means the target sits behind an authentication/login wall, not that
-          # the link is broken, so it is not worth reporting. Only genuine
-          # breakage (e.g. 404) fails the check. The 2xx success range must be
-          # restated because --accept overrides lychee's default.
-          args: --max-concurrency 4 --accept 200..=299,403 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          # --accept 100..=403,405..=409,411..=999 accepts every HTTP status code
+          # EXCEPT 404 (Not Found) and 410 (Gone), so only a definitively dead
+          # link blocks the PR. Lychee turns any non-accepted status code into an
+          # error, so a narrow accept list would fail on transient or ambiguous
+          # responses (403 auth walls, 429 rate limiting, 5xx outages, redirects,
+          # bot-protection codes) even though the link was reachable. Non-HTTP
+          # failures (a refused connection, DNS, TLS, timeout, malformed-URL, or
+          # redirect errors) are not HTTP status codes, so they are unaffected by
+          # --accept and still fail. Kept in sync with the periodic checker in
+          # link-watcher.yml.
+          args: --max-concurrency 4 --accept 100..=403,405..=409,411..=999 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
+          # A changed Markdown file can legitimately contain no external links
+          # (only internal links, or plain prose). lychee then finds nothing to
+          # check, which is not a configuration error, so do not fail the job on
+          # an empty link set.
+          failIfEmpty: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -117,7 +126,7 @@ jobs:
               echo ""
               cat ./lychee/out.md
               echo ""
-              echo "> ℹ️ Only genuine breakage such as \`404 Not Found\` is reported. A \`403\` response is treated as reachable and is **not** flagged, because it almost always means the target requires authentication (a login wall) rather than that the link is broken."
+              echo "> ℹ️ Among HTTP responses, only a \`404 Not Found\` or a \`410 Gone\` is reported. A link that cannot be reached at all (a refused connection, an unresolved DNS name, a TLS error, a timeout, a malformed URL, or too many redirects) also fails, because \`--accept\` only governs HTTP status codes. Every other HTTP response, including \`403\`, \`429\`, and \`5xx\`, is treated as reachable and is **not** flagged, so transient or ambiguous results do not block the PR."
             } >> "$GITHUB_STEP_SUMMARY"
           fi
           if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
