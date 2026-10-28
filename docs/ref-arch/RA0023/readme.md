@@ -28,7 +28,6 @@ tags:
   - aws
   - azure
   - gcp
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-09
+  date: 2026-10-27
 ---
 
 DevOps is a key enabler for achieving high-level agility and quality in development projects – including SAP enterprise environments.
