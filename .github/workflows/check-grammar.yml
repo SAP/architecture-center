@@ -2,7 +2,7 @@ name: Check Grammar
 
 # Grammar / prose linting for docs and news, complementing the cspell spell check.
 # Runs LanguageTool (bundled inside the reviewdog action's Docker image — no external
-# API calls) and posts findings as annotations on the Checks tab for changed lines.
+# API calls) and posts findings as inline review comments on changed lines of the PR.
 #
 # Rollout notes:
 # - Non-blocking by design: the action never passes reviewdog's -fail-on-error flag
@@ -20,10 +20,10 @@ name: Check Grammar
 # - Tuning loop: when a rule produces false positives on a real PR, append its id to
 #   `disabled_rules` below (comma-separated, no spaces).
 # - Scope: LanguageTool scans every tracked docs/news .md each run; reviewdog restricts
-#   the Checks annotations to lines changed in the PR.
-# - Fork PRs: GitHub issues a read-only token, so the Checks annotations can't be
-#   posted on external fork PRs — the suggestions appear in the Actions run log instead.
-#   Core-branch PRs get the Checks-tab annotations.
+#   the review comments to lines changed in the PR.
+# - Fork PRs: GitHub issues a read-only token, so review comments cannot be posted on
+#   external fork PRs; the suggestions appear in the Actions run log instead.
+#   Core-branch PRs get the inline review comments.
 
 on:
   pull_request:
@@ -45,7 +45,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
-      checks: write # reviewdog posts findings to the Checks tab (github-pr-check)
+      pull-requests: write # reviewdog posts findings as inline PR review comments (github-pr-review)
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -57,7 +57,7 @@ jobs:
         uses: reviewdog/action-languagetool@afd06e9b0f782c9562c92efffb66a49c09b2b4f4 # v1.23.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-check
+          reporter: github-pr-review
           level: warning
           patterns: docs/**/*.md news/**/*.md
           language: en-US
