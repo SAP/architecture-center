@@ -22,9 +22,11 @@
  *     8. last_update.date        — missing, or older than a week before today
  *     9. last_update.author      — missing, or different from the PR author
  *
- *   Admin exemption: for the maintainer logins in AUTHORSHIP_CHECK_EXEMPT, checks
- *   7–9 are skipped completely so admins can make quick cross-page fixes without
- *   changing the page's authorship metadata. Checks 1–6 still apply.
+ *   Admin exemption: for the maintainer logins in AUTHORSHIP_CHECK_EXEMPT, the
+ *   authorship checks (7–9) and the draft/unlisted checks (5–6) are skipped, so
+ *   admins can unlist or hold back a page, and make quick cross-page fixes,
+ *   without tripping the check or rewriting its authorship metadata. Checks 1–4
+ *   still apply to everyone.
  *
  * Scope:
  *   - Only reference-architecture pages: changed files under docs/ref-arch/RA####/
@@ -64,8 +66,9 @@ const TODAY = (process.env.TODAY || '').trim();
 const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
 // Admins who routinely make small fixes across other people's RA pages are exempt
-// from all three authorship checks (7–9). The default-value checks (1–6) still
-// apply. GitHub logins are case-insensitive, so store and compare lower-case values.
+// from the authorship checks (7–9), and may also set `draft`/`unlisted` to true
+// (checks 5–6 are skipped for them); the remaining default-value checks (1–4)
+// still apply. GitHub logins are case-insensitive, so store and compare lower-case.
 const AUTHORSHIP_CHECK_EXEMPT = new Set([
   'cernus76',
   'navyakhurana',
@@ -140,8 +143,9 @@ function resolveFiles() {
 function checkFile(rel, raw, data) {
   const findings = [];
   const warn = (key, message) => {
-    annotate(rel, frontMatterLine(raw, key), message);
-    findings.push(message);
+    const line = frontMatterLine(raw, key);
+    annotate(rel, line, message);
+    findings.push({ line, message });
   };
 
   // 1-6: default-value fields — flag only an explicit non-conforming value.
@@ -157,11 +161,15 @@ function checkFile(rel, raw, data) {
   if ('toc_max_heading_level' in data && data.toc_max_heading_level !== 4) {
     warn('toc_max_heading_level', `toc_max_heading_level is \`${data.toc_max_heading_level}\`; the default is 4.`);
   }
-  if ('draft' in data && data.draft !== false) {
-    warn('draft', `draft is \`${data.draft}\`; expected false (a draft page is not deployed).`);
-  }
-  if ('unlisted' in data && data.unlisted !== false) {
-    warn('unlisted', `unlisted is \`${data.unlisted}\`; expected false (an unlisted page is hidden from navigation).`);
+  // 5-6: draft / unlisted — maintainers in AUTHORSHIP_CHECK_EXEMPT may set these
+  // (e.g. to unlist or hold back a page), so these two are skipped for them.
+  if (!authorshipCheckExempt) {
+    if ('draft' in data && data.draft !== false) {
+      warn('draft', `draft is \`${data.draft}\`; expected false (a draft page is not deployed).`);
+    }
+    if ('unlisted' in data && data.unlisted !== false) {
+      warn('unlisted', `unlisted is \`${data.unlisted}\`; expected false (an unlisted page is hidden from navigation).`);
+    }
   }
 
   // 7-9: authorship fields — need PR context; skipped when it is unavailable.
@@ -204,6 +212,11 @@ function checkFile(rel, raw, data) {
   return findings;
 }
 
+/** Render a finding as "line N — message" (or just the message when no line). */
+function formatFinding(f) {
+  return f.line ? `line ${f.line} — ${f.message}` : f.message;
+}
+
 /** Build the sticky PR comment body (markdown) from the per-file findings. */
 function buildCommentBody(findingsByFile, checked) {
   const total = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
@@ -222,7 +235,7 @@ function buildCommentBody(findingsByFile, checked) {
   const shown = findingsByFile.slice(0, MAX_FILES);
   for (const { file, findings } of shown) {
     lines.push(`**\`${file}\`**`);
-    for (const m of findings) lines.push(`- ${m}`);
+    for (const f of findings) lines.push(`- ${formatFinding(f)}`);
     lines.push('');
   }
   if (findingsByFile.length > MAX_FILES) {
@@ -260,7 +273,7 @@ function main() {
       ({ data } = matter(raw));
     } catch (e) {
       annotate(rel, 1, `Could not parse front matter: ${e.message}`);
-      findingsByFile.push({ file: rel, findings: [`Could not parse front matter: ${e.message}`] });
+      findingsByFile.push({ file: rel, findings: [{ line: 1, message: `Could not parse front matter: ${e.message}` }] });
       checked++;
       continue;
     }
@@ -288,7 +301,15 @@ function main() {
   ];
 
   if (errors > 0) {
+    // List every finding with its file and line, so the summary alone shows
+    // exactly what failed and where, without digging into the annotations.
+    summary.push('### Errors');
     summary.push('');
+    for (const { file, findings } of findingsByFile) {
+      summary.push(`**\`${file}\`**`);
+      for (const f of findings) summary.push(`- ${formatFinding(f)}`);
+      summary.push('');
+    }
     summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter-properties');
   }
 

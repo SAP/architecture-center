@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 The **Front Matter Properties** check reads the front matter block at the top of every reference architecture (RA) page you touched in a pull request and makes sure it follows house style, and that it credits you and carries a fresh date. It is a **blocking** check: if a page drifts from the rules below, the check fails and the merge is held until you fix it.
@@ -62,8 +62,8 @@ These six fields have sensible Docusaurus defaults. The check only complains whe
 | `hide_title` | `false` | The page title renders from front matter. |
 | `toc_min_heading_level` | `2` | Matches the site default. |
 | `toc_max_heading_level` | `4` | Matches the site default. |
-| `draft` | `false` | A `draft` page is not deployed. |
-| `unlisted` | `false` | An `unlisted` page is hidden from navigation. |
+| `draft` | `false` | A `draft` page is not deployed. Maintainers may override (see exemption below). |
+| `unlisted` | `false` | An `unlisted` page is hidden from navigation. Maintainers may override (see exemption below). |
 
 :::tip
 The simplest way to stay green here is to copy the field values straight from the [front matter guide](../04-front-matter.md) and not change them.
@@ -84,7 +84,7 @@ The date rule has a 7-day freshness window. A `last_update.date` more than a wee
 :::
 
 :::note Maintainer exemption
-The repository maintainers `cernus76`, `navyakhurana`, `julian-schambeck`, and `fabianleh` are exempt from all three Group B authorship checks. This lets them make quick fixes on pages they did not author without changing authorship credit or update metadata. All six Group A default-value checks still apply to them.
+The repository maintainers `cernus76`, `navyakhurana`, `julian-schambeck`, and `fabianleh` are exempt from the three Group B authorship checks, and may also set `draft` or `unlisted` to `true` (those two Group A checks are skipped for them). This lets them unlist or hold back a page, and make quick fixes on pages they did not author, without changing authorship credit or update metadata. The other four Group A default-value checks still apply to them.
 :::
 
 ## Where you will see the results
