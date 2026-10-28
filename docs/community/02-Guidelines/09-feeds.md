@@ -60,7 +60,7 @@ With `type: ['rss', 'atom']` set, Docusaurus writes `rss.xml` and `atom.xml` und
 
 Docusaurus only generates feeds for the blog. It has **no** feed support for ordinary documentation pages, and the reference architectures are ordinary docs. To serve the readers who rely on feeds to keep up with the catalogue, we built this ourselves.
 
-The feeds are produced by a custom plugin at [`src/plugins/docs-feed-generator`](https://github.com/SAP/architecture-center/tree/main/src/plugins/docs-feed-generator), registered in the `plugins` array of `docusaurus.config.ts`. It uses the [`feed`](https://www.npmjs.com/package/feed) package to build valid RSS and Atom documents.
+The feeds are produced by a custom plugin at `src/plugins/docs-feed-generator`, registered in the `plugins` array of `docusaurus.config.ts`. It uses the [`feed`](https://www.npmjs.com/package/feed) package to build valid RSS and Atom documents.
 
 ### How It Works
 
