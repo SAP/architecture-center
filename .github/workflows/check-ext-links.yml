@@ -108,6 +108,11 @@ jobs:
           output: ./lychee/out.md
           jobSummary: false # we append the report ourselves (below) under a consistent heading
           fail: true
+          # A changed Markdown file can legitimately contain no external links
+          # (only internal links, or plain prose). lychee then finds nothing to
+          # check, which is not a configuration error, so do not fail the job on
+          # an empty link set.
+          failIfEmpty: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
