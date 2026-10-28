@@ -84,7 +84,7 @@ The date rule has a 7-day freshness window. A `last_update.date` more than a wee
 :::
 
 :::note Maintainer exemption
-A small set of repository maintainers is exempt from the two **author-identity** rules only: *"the pull request author is not in the `contributors` list"* and *"`last_update.author` differs from the pull request author"*. This lets them make quick fixes on pages they did not author without being blocked by crediting that belongs to the original author. Every other rule still applies to them, including a missing or empty `contributors` list, a missing, invalid, or stale `last_update.date`, a missing `last_update.author`, and all of the Group A default-value fields.
+The repository maintainers `cernus76`, `navyakhurana`, `julian-schambeck`, and `fabianleh` are exempt from all three Group B authorship checks. This lets them make quick fixes on pages they did not author without changing authorship credit or update metadata. All six Group A default-value checks still apply to them.
 :::
 
 ## Where you will see the results

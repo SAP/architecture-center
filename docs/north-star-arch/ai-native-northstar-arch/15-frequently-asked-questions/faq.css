@@ -1,0 +1,22 @@
+/*
+ * MDX wraps block content inside .faq-q / .faq-a in an inner <p>.
+ * The outer <div> has no default margin; we only need to collapse
+ * the inner <p>'s margins so the Q/A pair sits tight.
+ */
+.faq-q {
+    padding-left: 1.4em;
+    text-indent: -1.4em;
+}
+
+.faq-q > p {
+    margin-bottom: 0 !important;
+}
+
+.faq-a {
+    padding-left: 1.4em;
+    text-indent: -1.4em;
+}
+
+.faq-a > p:first-child {
+    margin-top: 0 !important;
+}

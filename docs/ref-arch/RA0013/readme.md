@@ -27,6 +27,7 @@ tags:
   - gcp
   - databricks
   - snowflake
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,10 +42,11 @@ contributors:
   - peterfendt
   - sundar-sap
   - alphageek7443
+  - cernus76
 discussion: 
 last_update:
-  author: anbazhagan-uma
-  date: 2026-05-12
+  author: cernus76
+  date: 2026-10-21
 ---
 
 SAP Business Data Cloud (SAP BDC) is a modern solution and part of a comprehensive strategy for enterprise data designed to address complex enterprise data management challenges. By integrating SAP's application ecosystem with advanced data capabilities, SAP BDC provides a unified platform for managing SAP and non-SAP data, enabling streamlined analytics, governance, and AI-driven insights.

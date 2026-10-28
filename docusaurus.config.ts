@@ -17,7 +17,7 @@ const config: Config = {
     url: 'https://architecture.learning.sap.com',
     baseUrl: baseUrl,
 
-    // GitHub pages deployment config.
+    // Repo and GitHub Pages fork-preview settings (production hosting is on Cloudflare Pages).
     organizationName: 'SAP', //GitHub org
     projectName: 'architecture-center', // repo name
     deploymentBranch: 'site',
@@ -410,11 +410,11 @@ const config: Config = {
                     items: [
                         {
                             label: 'Privacy Statement',
-                            href: 'https://architecture.learning.sap.com/community/privacy',
+                            href: 'https://architecture.learning.sap.com/docs/community/privacy',
                         },
                         {
                             label: 'Cookie Statement',
-                            href: 'https://architecture.learning.sap.com/community/cookie',
+                            href: 'https://architecture.learning.sap.com/docs/community/cookie',
                         },
                         {
                             label: 'Terms of Use',
@@ -427,7 +427,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a> and hosted on <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a>.`,
         },
         prism: {
             theme: lightCodeTheme,

@@ -26,8 +26,12 @@ module.exports = function (context, options) {
         defaultDocsInstance.loadedVersions.forEach((version) => {
           version.docs.forEach((doc) => {
             const tags = doc.frontMatter?.tags || [];
-            if (tags.length > 0) {
-              docIdToTags[doc.id] = tags;
+            const lastUpdateDate = doc.frontMatter?.last_update?.date || null;
+            if (tags.length > 0 || lastUpdateDate) {
+              docIdToTags[doc.id] = {
+                tags,
+                lastUpdateDate,
+              };
             }
           });
         });
