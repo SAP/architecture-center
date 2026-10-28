@@ -243,7 +243,7 @@ export default function SlashCommandPlugin() {
           if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -277,7 +277,7 @@ export default function SlashCommandPlugin() {
           if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);

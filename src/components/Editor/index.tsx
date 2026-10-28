@@ -196,6 +196,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     }
 
     const api = getApiService(expressBackendUrl);
+    const isArticle = getActiveDocument()?.isArticle ?? false;
 
     const assetPromises: Promise<void>[] = [];
 
@@ -205,7 +206,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
         if (imageNode.assetId && !imageNode.src) {
           assetPromises.push(
-            api.getAssetWithContent(token, imageNode.assetId)
+            api.getAssetWithContent(token, imageNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Image asset fetched:', {
                   assetId: imageNode.assetId,
@@ -240,7 +241,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
-            api.getAssetWithContent(token, drawioNode.assetId)
+            api.getAssetWithContent(token, drawioNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Drawio asset fetched:', {
                   assetId: drawioNode.assetId,

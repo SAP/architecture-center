@@ -42,7 +42,7 @@ export default function DrawioEditorPlugin() {
       const file = new File([blob], 'diagram.drawio', { type: 'application/xml' });
 
       // Upload the edited diagram as a new asset
-      const asset = await api.uploadAsset(token, activeDocument.id, file);
+      const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
 
       console.log('[DrawioEditor] Uploaded edited diagram, new assetId:', asset.ID);
 

@@ -207,17 +207,21 @@ class ApiService {
    */
   async uploadAsset(
     token: string,
-    documentId: string,
-    file: File
+    parentId: string,
+    file: File,
+    isArticle: boolean = false
   ): Promise<DocumentAsset> {
     // Read file as base64
     const content = await this.fileToBase64(file);
 
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets`, {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
+    const parentKey = isArticle ? { article_ID: parentId } : { document_ID: parentId };
+
+    const response = await fetch(`${this.documentServiceUrl}/${entity}`, {
       method: 'POST',
       headers: this.getAuthHeaders(token),
       body: JSON.stringify({
-        document_ID: documentId,
+        ...parentKey,
         mediaType: file.type,
         filename: file.name,
         content,
@@ -236,9 +240,10 @@ class ApiService {
    * Get asset with content
    * Try multiple approaches since CAP handles LargeBinary differently
    */
-  async getAssetWithContent(token: string, assetId: string): Promise<DocumentAsset & { content: string }> {
+  async getAssetWithContent(token: string, assetId: string, isArticle: boolean = false): Promise<DocumentAsset & { content: string }> {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
     // First try to get content directly in JSON response
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
+    const response = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})`, {
       headers: this.getAuthHeaders(token),
     });
 
@@ -261,7 +266,7 @@ class ApiService {
     }
 
     // Otherwise try the /content endpoint
-    const contentResponse = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+    const contentResponse = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})/content`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -279,8 +284,9 @@ class ApiService {
   /**
    * Get asset metadata
    */
-  async getAsset(token: string, assetId: string): Promise<DocumentAsset> {
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
+  async getAsset(token: string, assetId: string, isArticle: boolean = false): Promise<DocumentAsset> {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
+    const response = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})`, {
       headers: this.getAuthHeaders(token),
     });
 
@@ -295,12 +301,13 @@ class ApiService {
    * Get asset content (binary data as base64)
    * CAP/OData serves LargeBinary via /content endpoint
    */
-  async getAssetContent(token: string, assetId: string): Promise<{ content: string; mediaType: string }> {
+  async getAssetContent(token: string, assetId: string, isArticle: boolean = false): Promise<{ content: string; mediaType: string }> {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
     // First get metadata for mediaType
-    const metadata = await this.getAsset(token, assetId);
+    const metadata = await this.getAsset(token, assetId, isArticle);
 
     // Then fetch the binary content via content endpoint
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+    const response = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})/content`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -323,8 +330,9 @@ class ApiService {
   /**
    * Get asset content as text (for XML/text files like drawio)
    */
-  async getAssetContentAsText(token: string, assetId: string): Promise<string> {
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})/content`, {
+  async getAssetContentAsText(token: string, assetId: string, isArticle: boolean = false): Promise<string> {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
+    const response = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})/content`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -354,8 +362,9 @@ class ApiService {
   /**
    * Delete an asset
    */
-  async deleteAsset(token: string, assetId: string): Promise<void> {
-    const response = await fetch(`${this.documentServiceUrl}/DocumentAssets(${assetId})`, {
+  async deleteAsset(token: string, assetId: string, isArticle: boolean = false): Promise<void> {
+    const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
+    const response = await fetch(`${this.documentServiceUrl}/${entity}(${assetId})`, {
       method: 'DELETE',
       headers: this.getAuthHeaders(token),
     });
