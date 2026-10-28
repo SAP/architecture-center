@@ -31,7 +31,6 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 contributors:
-  - gpuntoancona
   - anbazhagan-uma
 discussion: 
 last_update:
