@@ -66,14 +66,16 @@ const invalidUsernames = [];
                     .filter(([hd, v]) => hds.includes(hd.toLowerCase()))
                     .forEach(([hd, v]) => log(hd + ': ' + v));
             }
-        } else {
+        } else if (resp.status === 404) {
             invalidUsernames.push(name);
+        } else {
+            console.warn(`Request for ${name} failed with status ${resp.status} ${resp.statusText}`);
         }
     }
 
     if (invalidUsernames.length > 0) {
         const count = invalidUsernames.length;
-        const message = `Can't resolve ${count} GitHub username(s) in the specified contributors`;
+        const message = `Identified ${count} invalid GitHub username(s) in the specified contributors`;
         if (process.env.GITHUB_ACTIONS) {
             log(`::warning title=Invalid GitHub usernames::${message}`);
         } else {
