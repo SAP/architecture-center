@@ -44,6 +44,7 @@ const cspDirectives = [
             'https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com',
             'https://sap-architecture-center-quickstart-cap-port-ij290co9-pr61a3cf31.cfapps.eu10-005.hana.ondemand.com',
             'https://cloudflareinsights.com',
+            'https://viewer.diagrams.net',
         ],
     ],
     [
