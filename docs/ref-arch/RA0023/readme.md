@@ -28,7 +28,6 @@ tags:
   - aws
   - azure
   - gcp
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -41,7 +40,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-09
+  date: 2026-10-28
 ---
 
 DevOps is a key enabler for achieving high-level agility and quality in development projects – including SAP enterprise environments.
@@ -123,7 +122,7 @@ Flexibility options complement the opinionated low-entry-barrier approach outlin
 -   [Blog post on DevOps with SAP BTP | SAP Community](https://community.sap.com/t5/technology-blogs-by-sap/devops-with-sap-btp/ba-p/13686887)
 -   [DevOps Topic Page | SAP Community](https://pages.community.sap.com/topics/devops)
 -   [DevOps with SAP BTP | SAP Help Portal](https://help.sap.com/docs/DEVOPS_OVERVIEW)
--   [Discovering DevOps with SAP BTP | Learning journey in SAP Learning](https://learning.sap.com/learning-journeys/discovering-devops-with-sap-btp)
+-   [Exploring DevOps with SAP BTP | Course in SAP Learning](https://learning.sap.com/courses/exploring-devops-with-sap-btp)
 -   [SAP BTP Administrator's Guide | SAP Help Portal](https://help.sap.com/docs/btp/btp-admin-guide/btp-admin-guide)
 -   [SAP Cloud ALM for Implementation | SAP Support Portal](https://support.sap.com/en/alm/sap-cloud-alm/implementation.html)
 -   [SAP Cloud ALM for Operations | SAP Support Portal](https://support.sap.com/en/alm/sap-cloud-alm/operations.html)
