@@ -63,8 +63,9 @@ The check is configured to fail only when a link is definitively dead, so that k
 
 A few details worth knowing:
 
-- **Only `404` and `410` block the PR.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so the check fails on those. It also fails when a server does not respond at all (a connection error or a timeout), since an unreachable host is a real problem.
-- **Ambiguous responses are treated as reachable.** A `403 Forbidden` (usually an authentication or login wall), a `429 Too Many Requests`, a `5xx` server error, a redirect, or any other unrecognised status is **not** flagged. These almost never mean your link is broken, so they no longer fail the check.
+- **Among HTTP responses, only `404` and `410` block the PR.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so the check fails on those. Every other HTTP status is treated as reachable (see the next point).
+- **A link that cannot be reached at all still fails.** `--accept` only governs HTTP status codes, so a failure that happens before a usable HTTP response, a refused connection, a DNS name that does not resolve, a TLS or certificate error, a timeout, a malformed URL, or too many redirects, also fails the check. An unreachable link is a real problem.
+- **Ambiguous HTTP responses are treated as reachable.** A `403 Forbidden` (usually an authentication or login wall), a `429 Too Many Requests`, a `5xx` server error, or any other unrecognised status code is **not** flagged. These almost never mean your link is broken, so they no longer fail the check.
 - **Transient blips clear on a re-run.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. If a host was only momentarily unreachable, re-running the check (see below) normally turns it green. A link that is genuinely broken stays failed until you fix it.
 - **It fails closed on odd filenames.** As a safety measure, if a changed file path contains anything outside letters, digits, and the characters `. _ / -`, the check refuses to run and reports that instead. This is a security guard against unusual characters in paths from fork pull requests. In practice your file names will never trip this, so just name files normally.
 
@@ -75,7 +76,7 @@ If none of your changed Markdown lives under `docs/` or `news/`, the check has n
 ## How to fix a failure
 
 1. **Open the report.** Find the *Check External Links* section in the sticky PR comment (or the *External links check* heading in the job summary) and read which URL failed and with what status.
-2. **Decide if it is real or transient.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so you need to fix it. An unreachable host (a connection error or a timeout) may be a real outage or a brief blip. A `403`, `429`, or `5xx` is no longer reported at all, since those almost never mean your link is broken.
+2. **Decide if it is real or transient.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so you need to fix it. A link that cannot be reached at all (a refused connection, an unresolved DNS name, a TLS error, a timeout, a malformed URL, or too many redirects) may be a real outage or a brief blip. A `403`, `429`, or `5xx` is no longer reported at all, since those almost never mean your link is broken.
 3. **For a real break:** correct the typo in the URL, or replace it with the current canonical address of the resource. If the resource is gone for good, link to an equivalent source or remove the link.
 4. **For an unreachable host:** if it was only briefly down, simply re-run the check. Short outages normally clear, and a re-run often turns the check green with no change on your side.
 

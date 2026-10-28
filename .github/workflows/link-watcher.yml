@@ -84,7 +84,7 @@ jobs:
             echo ""
             echo "- **Scope:** Markdown (\`*.md\`) files under \`docs/\`. Content outside \`docs/\` (e.g. \`news/\`, \`README.md\`) is intentionally **not** checked."
             echo "- **Archived pages excluded:** any \`docs/\` page whose frontmatter \`tags:\` block contains \`- archive\` is skipped, because archived reference architectures are no longer maintained."
-            echo "- **Only genuine breakage fails the run:** a \`404 Not Found\`, a \`410 Gone\`, or a server that does not respond at all (connection error or timeout), is reported. Every other response, including \`403\`, \`429\`, \`5xx\`, redirects, and unrecognised status codes, is treated as reachable, so transient or ambiguous results do not turn the scheduled run red."
+            echo "- **Only genuine breakage fails the run:** among HTTP responses, only a \`404 Not Found\` or a \`410 Gone\` is reported. A link that cannot be reached at all (a refused connection, an unresolved DNS name, a TLS error, a timeout, a malformed URL, or too many redirects) also fails, because \`--accept\` only governs HTTP status codes. Every other HTTP response, including \`403\`, \`429\`, \`5xx\`, and unrecognised status codes, is treated as reachable, so transient or ambiguous results do not turn the scheduled run red."
             echo ""
             echo "| Markdown under docs/ | Archived (skipped) | Scanned |"
             echo "| ---: | ---: | ---: |"
@@ -106,9 +106,10 @@ jobs:
           # into an error, so a narrow accept list made transient or ambiguous
           # responses (403 auth walls, 429 rate limiting, 5xx outages, redirects,
           # bot-protection codes) fail the scheduled run even though the link was
-          # reachable. Connection errors, no-response, and timeouts are NOT HTTP
-          # status codes, so they are unaffected by --accept and still fail: a
-          # server that does not respond at all is a real problem worth flagging.
+          # reachable. Non-HTTP failures (a refused connection, DNS, TLS, timeout,
+          # malformed-URL, or redirect errors) are not HTTP status codes, so they
+          # are unaffected by --accept and still fail: a link that cannot be
+          # reached at all is a real problem worth flagging.
           args: --max-concurrency 2 --accept 100..=403,405..=409,411..=999 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
