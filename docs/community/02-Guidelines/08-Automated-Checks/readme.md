@@ -58,22 +58,33 @@ For a full, example-driven walkthrough of what each surface looks like and how t
 
 ## The content checks at a glance
 
-The table below indexes every content check. "Blocking?" tells you whether a failure must be resolved before the pull request can merge. Follow the **Learn more** link for the detail page on each check.
+The content checks fall into two groups, mirroring how this documentation is organised: checks that read the **front matter** at the top of a page, and checks that read the **document body**, meaning the prose, links, and diagrams. The two tables below index every check. "Blocking?" tells you whether a failure must be resolved before the pull request can merge. Follow the **Learn more** link for the detail page on each check.
+
+### Front Matter Checks
+
+These checks validate the metadata block at the top of each page.
 
 | Check | What it verifies | Blocking? | Learn more |
 | --- | --- | --- | --- |
-| Spelling | Every word in your Markdown is spelled correctly, using [cspell](https://cspell.org) plus the project's custom dictionaries. | Yes | [Spelling](01-check-spelling.md) |
-| Typos | Common typos and misspellings, caught by the fast [typos](https://github.com/crate-ci/typos) checker. | Yes | [Typos](03-check-typos.md) |
-| Grammar | Prose style and grammar, via [LanguageTool](https://languagetool.org). Advisory only. | No | [Grammar](04-check-grammar.md) |
-| Front Matter Properties | Changed reference architecture pages credit their author, carry a fresh date, and keep the house-style default fields. | Yes | [Front Matter Properties](05-check-front-matter-properties.md) |
-| Contributor IDs | The `author` and `contributors` fields credit people by their GitHub username, not an SAP internal user ID (an I-, D-, or C-number). | Yes | [Contributor IDs](15-check-contributor-ids.md) |
-| H1 Title | Pages take their title from the front matter, so Markdown bodies must not contain a level-1 `#` heading. | Yes | [H1 Title](14-check-h1-title.md) |
-| SEO Front Matter | The `title` and `description` lengths sit in the search-engine-friendly range. | Yes* | [SEO Front Matter](06-check-seo-front-matter.md) |
-| Reference Architecture IDs | Each reference architecture carries a valid, unique six-character `id` and a matching `slug`. | Yes | [Reference Architecture IDs](07-check-reference-architecture-ids.md) |
-| Internal Links | No links point to SAP-internal-only hosts that would break for public visitors. | Yes | [Internal Links](08-check-internal-links.md) |
-| External Links | Links pointing to the public web are reachable, checked with [lychee](https://github.com/lycheeverse/lychee). | Yes | [External Links](09-check-external-links.md) |
-| Draw.io Files | Diagram files stay under 1 MB and embed their images (no external references). | Yes | [Draw.io Files](10-check-drawio-files.md) |
-| Orphan Files | Images, diagrams, and other assets you add are actually referenced somewhere. | Yes* | [Orphan Files](11-check-orphan-files.md) |
+| Front Matter Properties | Changed reference architecture pages credit their author, carry a fresh date, and keep the house-style default fields. | Yes | [Front Matter Properties](01-Front-Matter/01-check-front-matter-properties.md) |
+| SEO Front Matter | The `title` and `description` lengths sit in the search-engine-friendly range. | Yes* | [SEO Front Matter](01-Front-Matter/02-check-seo-front-matter.md) |
+| Reference Architecture IDs | Each reference architecture carries a valid, unique six-character `id` and a matching `slug`. | Yes | [Reference Architecture IDs](01-Front-Matter/03-check-reference-architecture-ids.md) |
+| Contributor IDs | The `author` and `contributors` fields credit people by their GitHub username, not an SAP internal user ID (an I-, D-, or C-number). | Yes | [Contributor IDs](01-Front-Matter/04-check-contributor-ids.md) |
+| H1 Title | Pages take their title from the front matter, so Markdown bodies must not contain a level-1 `#` heading. | Yes | [H1 Title](01-Front-Matter/05-check-h1-title.md) |
+
+### Document Body Checks
+
+These checks read the prose, links, and diagrams in the body of each page.
+
+| Check | What it verifies | Blocking? | Learn more |
+| --- | --- | --- | --- |
+| Spelling | Every word in your Markdown is spelled correctly, using [cspell](https://cspell.org) plus the project's custom dictionaries. | Yes | [Spelling](02-Document-Body/01-check-spelling.md) |
+| Typos | Common typos and misspellings, caught by the fast [typos](https://github.com/crate-ci/typos) checker. | Yes | [Typos](02-Document-Body/03-check-typos.md) |
+| Grammar | Prose style and grammar, via [LanguageTool](https://languagetool.org). Advisory only. | No | [Grammar](02-Document-Body/04-check-grammar.md) |
+| Internal Links | No links point to SAP-internal-only hosts that would break for public visitors. | Yes | [Internal Links](02-Document-Body/05-check-internal-links.md) |
+| External Links | Links pointing to the public web are reachable, checked with [lychee](https://github.com/lycheeverse/lychee). | Yes | [External Links](02-Document-Body/06-check-external-links.md) |
+| Draw.io Files | Diagram files stay under 1 MB and embed their images (no external references). | Yes | [Draw.io Files](02-Document-Body/07-check-drawio-files.md) |
+| Orphan Files | Images, diagrams, and other assets you add are actually referenced somewhere. | Yes* | [Orphan Files](02-Document-Body/08-check-orphan-files.md) |
 
 :::tip
 Grammar is the only check that **never** blocks a merge. Treat its notes as a friendly proofreader's second opinion. A couple of checks marked **Yes\*** can also emit *non-blocking warnings* alongside their blocking errors: SEO Front Matter warns when a length is merely outside the recommended range, and Orphan Files warns when an asset is referenced only outside its own reference architecture folder. See each check's page for the detail.
@@ -93,7 +104,7 @@ people     : contributor and author names
 If the Spelling check flags a word that is genuinely correct, the fix is usually to add it to the right dictionary rather than to change your text. The dictionaries are plain text files, one word per line, so updating them is easy.
 
 :::tip
-See [Custom Dictionaries](02-dictionaries.md) for exactly which file to edit, how the four dictionaries are organised, and how to add a new term.
+See [Custom Dictionaries](02-Document-Body/02-dictionaries.md) for exactly which file to edit, how the four dictionaries are organised, and how to add a new term.
 :::
 
 ## Operational workflows

@@ -13,9 +13,13 @@ on:
       - Check Front Matter Properties
       - Check Contributor IDs
       - Check Reference Architecture IDs
+      - Check H1 Title
       - Check drawio Files
       - Check Orphan Files
       - Check External Links
+      - Check Spelling
+      - Check Typos
+      - Check Grammar
     types: [completed]
 
 permissions: {}
@@ -104,14 +108,15 @@ jobs:
             const prNumber = Number(process.env.PR);
             const headSha = process.env.HEAD_SHA;
 
-            // Typos and Spelling are intentionally excluded — they are not surfaced
-            // in the PR comment (they annotate inline on the Files tab instead).
+            // All content checks surfaced as sections in the one sticky comment.
             const CHECKS = [
               'Check Internal Links',
               'Check SEO Front Matter', 'Check Front Matter Properties',
               'Check Contributor IDs',
               'Check Reference Architecture IDs',
+              'Check H1 Title',
               'Check drawio Files', 'Check Orphan Files', 'Check External Links',
+              'Check Spelling', 'Check Typos', 'Check Grammar',
             ];
             const MAX_BULLETS = 20;
 
@@ -119,14 +124,18 @@ jobs:
             // Points at the Automated Checks guide in the Community of Practice.
             const DOCS_BASE = 'https://architecture.learning.sap.com/docs/community/automated-checks';
             const DOCS = {
-              'Check Internal Links': 'internal-links',
-              'Check SEO Front Matter': 'seo-front-matter',
-              'Check Front Matter Properties': 'front-matter-properties',
-              'Check Contributor IDs': 'contributor-ids',
-              'Check Reference Architecture IDs': 'reference-architecture-ids',
-              'Check drawio Files': 'drawio-files',
-              'Check Orphan Files': 'orphan-files',
-              'Check External Links': 'external-links',
+              'Check Internal Links': 'document-body/internal-links',
+              'Check SEO Front Matter': 'front-matter/seo',
+              'Check Front Matter Properties': 'front-matter/properties',
+              'Check Contributor IDs': 'front-matter/contributor-ids',
+              'Check Reference Architecture IDs': 'front-matter/reference-architecture-ids',
+              'Check H1 Title': 'front-matter/h1-title',
+              'Check drawio Files': 'document-body/drawio-files',
+              'Check Orphan Files': 'document-body/orphan-files',
+              'Check External Links': 'document-body/external-links',
+              'Check Spelling': 'document-body/spelling',
+              'Check Typos': 'document-body/typos',
+              'Check Grammar': 'document-body/grammar',
             };
 
             // Neutralize untrusted text: HTML-escape and strip HTML-comment markers so
@@ -155,15 +164,42 @@ jobs:
             const icon = (cr) => cr.status !== 'completed' ? '⏳'
               : (cr.conclusion === 'success' ? '✅' : (cr.conclusion === 'failure' ? '❌' : 'ℹ️'));
 
+            // Grammar's findings don't live on a check run named after the check:
+            // the Check Grammar workflow_run produces a reviewdog check run named
+            // "LanguageTool". Resolve it from the ref's check runs, falling back to a
+            // run literally named "Check Grammar". Grammar is non-blocking, so it is
+            // rendered as informational (ℹ️) and never counts toward totalErrors.
+            const grammarRun = runs.find((cr) => cr.name === 'LanguageTool')
+              || runs.find((cr) => cr.name === 'Check Grammar');
+
             const sections = [];
             let totalErrors = 0;
             for (const name of CHECKS) {
-              const cr = latest[name];
+              const cr = name === 'Check Grammar' ? grammarRun : latest[name];
               if (!cr) continue; // check didn't run (paths didn't match) — omit.
-              if (cr.status === 'completed' && cr.conclusion !== 'success') totalErrors++;
+              if (name !== 'Check Grammar' && cr.status === 'completed' && cr.conclusion !== 'success') totalErrors++;
               let body;
 
-              if (name === 'Check External Links') {
+              if (name === 'Check Grammar') {
+                // Non-blocking: read failure annotations from the LanguageTool run and
+                // present them as informational suggestions — never as a blocking ❌.
+                if (cr.status !== 'completed') body = '⏳ Running…';
+                else {
+                  const ann = await github.paginate(github.rest.checks.listAnnotations, {
+                    owner: context.repo.owner, repo: context.repo.repo, check_run_id: cr.id, per_page: 100,
+                  });
+                  const errs = ann.filter(a => a.annotation_level === 'failure');
+                  if (!errs.length) body = '✅ No grammar suggestions.';
+                  else {
+                    const bullets = errs.slice(0, MAX_BULLETS).map(a => {
+                      const loc = a.path + (a.start_line > 0 ? `:${a.start_line}` : '');
+                      return `- \`${escCode(loc)}\` — ${esc(a.message)}`;
+                    });
+                    if (errs.length > MAX_BULLETS) bullets.push(`- …and ${errs.length - MAX_BULLETS} more`);
+                    body = `ℹ️ ${errs.length} grammar suggestion${errs.length === 1 ? '' : 's'} (non-blocking):\n` + bullets.join('\n');
+                  }
+                }
+              } else if (name === 'Check External Links') {
                 const p = 'ext-links-findings/out.md';
                 if (cr.status !== 'completed') body = '⏳ Running…';
                 else if (cr.conclusion === 'success') body = '✅ No broken external links.';
@@ -203,7 +239,10 @@ jobs:
               // non-passing checks (failure / running / neutral) get an icon so
               // problems stand out. The body still states the clean result.
               const passed = cr.status === 'completed' && cr.conclusion === 'success';
-              const headingPrefix = passed ? '' : `${icon(cr)} `;
+              // Grammar is non-blocking: when it has findings, flag the heading as
+              // informational (ℹ️) rather than the failure ❌ icon() would pick.
+              const crIcon = (name === 'Check Grammar' && cr.status === 'completed' && !passed) ? 'ℹ️' : icon(cr);
+              const headingPrefix = passed ? '' : `${crIcon} `;
               sections.push(`<!-- check:${name} -->\n### ${headingPrefix}${esc(name)}\n\n${body}${help}\n<!-- /check:${name} -->`);
             }
 

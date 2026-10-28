@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /community/automated-checks/spelling
+slug: /community/automated-checks/document-body/spelling
 title: Spelling Check with cspell for Docs and News Pages
 description: "How the cspell spelling check scans changed Markdown on your pull request, what it flags as unknown words, and how custom dictionaries keep it quiet."
 sidebar_label: Spelling
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 <!-- cspell:ignore Kubernets -->
@@ -130,8 +130,8 @@ Think of spelling as the first line of defence for individual words, with [Typos
 
 ## Related pages
 
-- [Automated Checks overview](readme.md): how all the checks fit together
+- [Automated Checks overview](../readme.md): how all the checks fit together
 - [Custom Dictionaries](02-dictionaries.md): where to add legitimate terms
-- [Front Matter guide](../04-front-matter.md): the metadata block at the top of every page
-- [Contribution process](../01-contribution.md): the full journey from idea to merged PR
-- [Quick Start](../02-GetStarted/01-get-started-quickstart.md): our no-code editor for new reference architectures
+- [Front Matter guide](../../04-front-matter.md): the metadata block at the top of every page
+- [Contribution process](../../01-contribution.md): the full journey from idea to merged PR
+- [Quick Start](../../02-GetStarted/01-get-started-quickstart.md): our no-code editor for new reference architectures
