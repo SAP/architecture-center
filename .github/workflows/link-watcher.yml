@@ -84,7 +84,7 @@ jobs:
             echo ""
             echo "- **Scope:** Markdown (\`*.md\`) files under \`docs/\`. Content outside \`docs/\` (e.g. \`news/\`, \`README.md\`) is intentionally **not** checked."
             echo "- **Archived pages excluded:** any \`docs/\` page whose frontmatter \`tags:\` block contains \`- archive\` is skipped, because archived reference architectures are no longer maintained."
-            echo "- **\`403\` responses are not reported:** a \`403\` almost always means the target requires authentication, not that the link is broken, so only genuine breakage such as \`404 Not Found\` is flagged."
+            echo "- **Only genuine breakage fails the run:** among HTTP responses, only a \`404 Not Found\` or a \`410 Gone\` is reported. A link that cannot be reached at all (a refused connection, an unresolved DNS name, a TLS error, a timeout, a malformed URL, or too many redirects) also fails, because \`--accept\` only governs HTTP status codes. Every other HTTP response, including \`403\`, \`429\`, \`5xx\`, and unrecognised status codes, is treated as reachable, so transient or ambiguous results do not turn the scheduled run red."
             echo ""
             echo "| Markdown under docs/ | Archived (skipped) | Scanned |"
             echo "| ---: | ---: | ---: |"
@@ -100,11 +100,17 @@ jobs:
         with:
           fail: true
           # --exclude-loopback skips localhost/127.0.0.1 links.
-          # --accept 200..=299,403 treats 403 as reachable: a 403 almost always
-          # means the target requires authentication, not that the link is
-          # broken, so only genuine breakage (e.g. 404) is reported. The 2xx
-          # success range must be restated because --accept overrides the default.
-          args: --max-concurrency 2 --accept 200..=299,403 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
+          # --accept 100..=403,405..=409,411..=999 accepts every HTTP status code
+          # EXCEPT 404 (Not Found) and 410 (Gone), so only a definitively dead
+          # link is treated as broken. Lychee turns any non-accepted status code
+          # into an error, so a narrow accept list made transient or ambiguous
+          # responses (403 auth walls, 429 rate limiting, 5xx outages, redirects,
+          # bot-protection codes) fail the scheduled run even though the link was
+          # reachable. Non-HTTP failures (a refused connection, DNS, TLS, timeout,
+          # malformed-URL, or redirect errors) are not HTTP status codes, so they
+          # are unaffected by --accept and still fail: a link that cannot be
+          # reached at all is a real problem worth flagging.
+          args: --max-concurrency 2 --accept 100..=403,405..=409,411..=999 --verbose --no-progress --exclude-loopback ${{ steps.select.outputs.inputs }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
