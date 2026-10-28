@@ -1,17 +1,17 @@
 const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } = require('node:fs');
 const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join } = require('node:path');
-const { userInfo, homedir } = require('node:os');
+const { homedir } = require('node:os');
 const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
 const DrawioCache = require('./drawio-cache');
+const { exportDrawioWithDocker } = require('./docker-export');
 
 const log = console.log;
 
 // DOCKER=1 -> run drawio cli via docker
 const { DOCKER = 0 } = process.env;
-const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS === 'true' ? true : false;
 // searching in different directories, depending on OS
 const isMac = process.platform === 'darwin';
 const DRAWIO_CLI_BINARY = isMac
@@ -79,26 +79,20 @@ function exportAllDrawios() {
             log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`);
         } else { // -> Cache miss
             try {
-                let cmd = DRAWIO_CLI_BINARY;
-                let args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output'];
+                let stdout;
                 if (DOCKER) {
-                    const relativeOut = out.slice(ROOT.length + 1);
-                    const relativeInput = input.slice(ROOT.length + 1);
-                    cmd = 'docker';
-                    args = ['run', '-w', '/data', '-v', `${ROOT}:/data`, 'rlespinasse/drawio-desktop-headless'].concat(args);
-                    args.push(relativeOut, relativeInput);
+                    stdout = exportDrawioWithDocker({
+                        inputPath: input,
+                        outputPath: out,
+                        allowedFilesRoot: join(ROOT, 'docs'),
+                        repositoryRoot: ROOT,
+                    });
                 } else {
-                    args.push(out, input);
+                    const args = ['--export', '--embed-svg-images', '--svg-theme', 'light', '--output', out, input];
+                    stdout = execFileSync(DRAWIO_CLI_BINARY, args, { encoding: 'utf8', timeout: 600000 });
                 }
 
-                const stdout = execFileSync(cmd, args, { encoding: 'utf8', timeout: 600000 });
                 log('Export', prettyPaths(stdout));
-
-                if (GITHUB_ACTIONS) {
-                    const user = userInfo().username;
-                    const group = execFileSync('id', ['-gn'], { encoding: 'utf8' }).trim();
-                    execFileSync('sudo', ['chown', '-R', `${user}:${group}`, dir]);
-                }
             } catch (e) {
                 const msg = prettyPaths(`Export failed ${input} -> ${out}`);
                 console.error(`\n[ERROR] ${msg}. Reason: ${e.stderr || e.message}\n`);

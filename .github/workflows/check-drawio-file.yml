@@ -6,6 +6,9 @@ on:
     branches: [dev, main]
     paths:
       - '**.drawio'
+      - 'src/_scripts/_export-drawios/**'
+      - '.github/workflows/deploy-to-cloudflare.yml'
+      - '.github/workflows/deploy-manual.yml'
       - '.github/workflows/check-drawio-file.yml'
 
 permissions: {}
@@ -17,7 +20,7 @@ jobs:
   check-drawio-file:
     name: Check drawio Files
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -26,6 +29,18 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0 # full history needed to diff *.drawio against the PR base
+
+      - name: Verify hardened Draw.io exporter
+        shell: bash
+        run: |
+          if git diff --quiet "origin/${GITHUB_BASE_REF}...HEAD" -- \
+              src/_scripts/_export-drawios \
+              .github/workflows/deploy-to-cloudflare.yml \
+              .github/workflows/deploy-manual.yml; then
+            node --test src/_scripts/_export-drawios/docker-export.test.js
+          else
+            DRAWIO_DOCKER_SMOKE=1 node --test src/_scripts/_export-drawios/docker-export.test.js
+          fi
 
       - name: List changed drawio files
         id: list
