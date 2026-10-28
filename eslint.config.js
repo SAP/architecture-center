@@ -7,6 +7,7 @@ module.exports = [
     {
         ignores: [
             'build/**',
+            'coverage/**',
             'node_modules/**',
             '.docusaurus/**',
             'static/**',
@@ -75,7 +76,7 @@ module.exports = [
 
             // TypeScript rules
             '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-            '@typescript-eslint/no-explicit-any': 'warn',
+            '@typescript-eslint/no-explicit-any': 'error',
             '@typescript-eslint/no-require-imports': 'off',
 
             // React rules
@@ -85,7 +86,7 @@ module.exports = [
 
             // React Hooks rules
             'react-hooks/rules-of-hooks': 'error',
-            'react-hooks/exhaustive-deps': 'warn',
+            'react-hooks/exhaustive-deps': 'error',
         },
         settings: {
             react: {
