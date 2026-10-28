@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 When you add or edit a page, the links that point *out* to the wider web should still lead somewhere. The external link check verifies exactly that: it runs [lychee](https://github.com/lycheeverse/lychee) against the Markdown you changed and flags any outbound link that no longer resolves.
@@ -42,13 +42,13 @@ It also triggers when the workflow file itself (`.github/workflows/check-ext-lin
 
 Most checks in this suite (spelling, [typos](03-check-typos.md), [internal links](08-check-internal-links.md), [front matter](05-check-front-matter-properties.md)) are deterministic. They look at your text, find a problem on a specific line, and leave an inline annotation right there in the diff.
 
-External links are different. A link can fail for reasons that have nothing to do with your edit:
+External links are different. Their status depends on the network, not just your edit:
 
 - the remote server is briefly down (a transient `5xx` error),
 - the server is rate-limiting the check (a `429 Too Many Requests`),
 - the URL moved or was retired since you first copied it.
 
-Because that breakage is network-dependent and often *not* tied to a particular changed line, this check does **not** post per-line annotations. Instead it writes its results to two places:
+Because that behaviour is network-dependent and often *not* tied to a particular changed line, this check does **not** post per-line annotations. Instead it writes its results to two places:
 
 | Where | What you see |
 | --- | --- |
@@ -59,12 +59,13 @@ So if you are looking for an external-link problem, look at the PR comment and t
 
 ## When it blocks your PR
 
-The check is configured to fail when a link is genuinely broken, so a dead URL will stop the PR from going green until it is fixed.
+The check is configured to fail only when a link is definitively dead, so that kind of URL will stop the PR from going green until it is fixed.
 
-A couple of details worth knowing:
+A few details worth knowing:
 
-- **A `403 Forbidden` is not reported.** A `403` almost always means the target sits behind an authentication or login wall rather than that your link is broken, so the check treats it as reachable and never fails on it. Only a genuine breakage such as a `404 Not Found` can block the PR.
-- **Transient failures are retried.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. If a flaky `429` or `5xx` response persists and fails the check, re-running it (see below) normally resolves it. A link that is genuinely broken stays failed until you fix it.
+- **Only `404` and `410` block the PR.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so the check fails on those. It also fails when a server does not respond at all (a connection error or a timeout), since an unreachable host is a real problem.
+- **Ambiguous responses are treated as reachable.** A `403 Forbidden` (usually an authentication or login wall), a `429 Too Many Requests`, a `5xx` server error, a redirect, or any other unrecognised status is **not** flagged. These almost never mean your link is broken, so they no longer fail the check.
+- **Transient blips clear on a re-run.** `lychee` retries a failing link before giving up, so a brief network blip usually clears on its own. If a host was only momentarily unreachable, re-running the check (see below) normally turns it green. A link that is genuinely broken stays failed until you fix it.
 - **It fails closed on odd filenames.** As a safety measure, if a changed file path contains anything outside letters, digits, and the characters `. _ / -`, the check refuses to run and reports that instead. This is a security guard against unusual characters in paths from fork pull requests. In practice your file names will never trip this, so just name files normally.
 
 :::note
@@ -74,9 +75,9 @@ If none of your changed Markdown lives under `docs/` or `news/`, the check has n
 ## How to fix a failure
 
 1. **Open the report.** Find the *Check External Links* section in the sticky PR comment (or the *External links check* heading in the job summary) and read which URL failed and with what status.
-2. **Decide if it is real or transient.** A `404 Not Found` means the page is genuinely gone, so you need to fix it. A `429` or a `5xx` usually means the server was busy or briefly unavailable. A `403` is not reported at all, since it almost always indicates a login wall rather than a broken link.
+2. **Decide if it is real or transient.** A `404 Not Found` or a `410 Gone` means the page is genuinely gone, so you need to fix it. An unreachable host (a connection error or a timeout) may be a real outage or a brief blip. A `403`, `429`, or `5xx` is no longer reported at all, since those almost never mean your link is broken.
 3. **For a real break:** correct the typo in the URL, or replace it with the current canonical address of the resource. If the resource is gone for good, link to an equivalent source or remove the link.
-4. **For a transient failure:** simply re-run the check. Rate limits and short outages normally clear, and a re-run often turns the check green with no change on your side.
+4. **For an unreachable host:** if it was only briefly down, simply re-run the check. Short outages normally clear, and a re-run often turns the check green with no change on your side.
 
 :::info Re-running the check
 You can re-run a failed check from the PR's **Checks** tab on GitHub. See [GitHub's docs on re-running workflows](https://docs.github.com/en/actions/managing-workflow-runs/re-running-workflows-and-jobs) for the exact steps.
