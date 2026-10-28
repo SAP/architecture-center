@@ -37,6 +37,7 @@ usernames = [...usernames];
 log(`There are ${usernames.length} unique contributors\nFetching contributors details now...`);
 
 const contributorsDetails = {};
+const invalidUsernames = [];
 (async () => {
     for (const name of usernames) {
         const resp = await fetch(`${GITHUB_API}/users/${name}`, {
@@ -65,7 +66,20 @@ const contributorsDetails = {};
                     .filter(([hd, v]) => hds.includes(hd.toLowerCase()))
                     .forEach(([hd, v]) => log(hd + ': ' + v));
             }
+        } else {
+            invalidUsernames.push(name);
         }
+    }
+
+    if (invalidUsernames.length > 0) {
+        const count = invalidUsernames.length;
+        const message = `Can't resolve ${count} GitHub username(s) in the specified contributors`;
+        if (process.env.GITHUB_ACTIONS) {
+            log(`::warning title=Invalid GitHub usernames::${message}`);
+        } else {
+            console.warn(message);
+        }
+        invalidUsernames.forEach((name) => log(`  - ${name}`));
     }
 
     writeFileSync(OUT, JSON.stringify(contributorsDetails, null, 4));
