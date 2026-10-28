@@ -7,44 +7,46 @@ authors: [cernus76]
 date: 2026-11-02
 ---
 
-Most people read a website when they happen to remember it. That works, but it puts all the effort on you to keep checking back for something new. There is a quieter option that many readers overlook: you can subscribe to the SAP Architecture Center and let new content come to you. We have supported this for the news since the section first went live, and there are now feeds for the reference architectures as well, so it felt worth a short write-up.
+Most of us only check a website when we happen to think of it. It works, but the effort's all on you: you keep coming back just to see if anything's new. There's a quieter way. You can subscribe to the SAP Architecture Center and let the new content come to you instead. We've had this going for the news for a while, and now the reference architectures have feeds too, so here's a quick run-through of how it all works.
 
 <!-- truncate -->
 
 ## Two feeds, the same news
 
-The news section publishes two machine-readable feeds that refresh automatically whenever we post a new article:
+The news section runs on Docusaurus, the framework this whole site is built with, and feeds come baked right in. We didn't have to do anything clever: flip the option on and you get two machine-readable feeds that refresh themselves the moment we post something new.
 
 - RSS: `https://architecture.learning.sap.com/news/rss.xml`
 - Atom: `https://architecture.learning.sap.com/news/atom.xml`
 
-Both carry exactly the same content: the latest articles with their titles, publication dates, authors, a short summary, and the full text. You do not need an account, and there is nothing to install. A feed is simply a plain file that your reader fetches on a schedule and then shows you whatever has changed since the last time it looked.
+They carry the same thing: the latest articles, each with its title, publication date, authors, a short summary, and the full text. No account, nothing to install. A feed is really just a plain file sitting at a fixed address. Your reader checks it on a schedule and shows you whatever's turned up since it last looked.
 
 ## RSS or Atom, which one?
 
-The honest answer is that it rarely matters, because almost every feed reader understands both. If you just want something that works, pick either link and move on.
+Honestly, it rarely matters, because nearly every feed reader speaks both. If you just want something that works, grab a link and get on with your day.
 
-If you are curious about the difference, here it is in plain terms. RSS, short for Really Simple Syndication, is the older and more widely recognised of the two formats, and it is the one most people have heard of. Atom came later and was designed to be a bit stricter and more precise, particularly around dates, authorship, and how article content is encoded. Neither is better for the reader in any way you would notice. The articles you receive are identical whichever one you choose.
+If you like to know the why, here it is in plain terms. RSS, short for Really Simple Syndication, is the older and better-known of the two, and the name most people recognise. Atom came along later, built to be a bit stricter and more precise about things like dates, authorship, and how article content is encoded. For you as a reader, neither has an edge you'd ever notice. The articles land the same way whichever you pick.
 
-So the practical approach is to try whatever your reader suggests first. If that feed ever gives you trouble, switch to the other one and it will almost certainly sort itself out.
+So let your reader guide you. Start with whatever it suggests, and if that feed ever acts up, switch to the other one. That almost always sorts it.
 
 ## Feeds for the reference architectures too
 
-The news feeds have been around for a while. What is new is that the reference architectures now have their own pair of feeds as well:
+Here's the catch. Docusaurus hands you feeds for the blog, but it has nothing for ordinary documentation pages, and our reference architectures are exactly that. So if you're one of the people who lives in a feed reader and wants to know the moment an architecture lands or changes, you were out of luck.
+
+That's the gap we closed. We built a feed for the reference architectures ourselves, so they now have their own pair:
 
 - RSS: `https://architecture.learning.sap.com/docs/rss.xml`
 - Atom: `https://architecture.learning.sap.com/docs/atom.xml`
 
-Each one lists the fifty most recently updated reference architectures, newest first. For every entry you get the title, the short description, and the opening of the page, so you can tell at a glance whether it is worth a closer look before clicking through. The feeds rebuild themselves whenever we publish a new architecture or revise an existing one, which makes them a handy way to keep an eye on what is changing without working through the whole catalogue by hand.
+Each one lists the fifty reference architectures we've touched most recently, newest first. Every entry gives you the title, the short description, and the opening of the page, enough to tell whether it's worth a closer look before you click through. The feeds rebuild whenever we publish a new architecture or revise an existing one, so they're an easy way to keep an eye on what's changing without combing through the whole catalogue by hand.
 
 ## How to subscribe
 
-Copy any of the links above and paste it into the "add feed" or "new subscription" field of your feed reader. Popular readers include NetNewsWire, Feedly, Inoreader, and Thunderbird, among many others. Nothing stops you adding both the news and the reference architecture feeds, so you can follow whichever parts of the site matter to you. From then on, new content turns up in your reader soon after we publish it, and you no longer have to visit the site to find out what is new.
+Copy any of the links above and paste it into the "add feed" or "new subscription" box in your reader. NetNewsWire, Feedly, Inoreader, and Thunderbird are all popular picks, and there are plenty more. Add both the news and the reference architecture feeds if you like, or just the parts of the site you care about. From then on, new content shows up in your reader shortly after we publish it, and you don't have to drop by the site to find out what you missed.
 
-If you work with code, these feed URLs are easy to consume from a script, a scheduled job, or a chat tool. You fetch the XML, parse it, and do whatever you like with the result, from a simple notification to a fuller integration. Because these are open, well-documented standards, you are not tied to any particular tool or library.
+If you're handy with code, these URLs are easy to pull into a script, a scheduled job, or a chat tool. You fetch the XML, parse it, and do whatever you want with the result, from a quick notification to something more involved. They're open, well-documented standards, so you're never locked into one particular tool or library.
 
-## Why we think feeds are worth it
+## Why feeds are worth it
 
-Feeds hand control back to the reader. There is no algorithm deciding what you see, nothing landing in an already crowded inbox, and no sign-up to regret later. You subscribe once, you can unsubscribe at any time, and in the meantime the news finds you. That openness fits the spirit of the project rather well, given that everything here is built in the open on [GitHub](https://github.com/SAP/architecture-center).
+Feeds put you back in charge. No algorithm deciding what you see, nothing piling up in an already crowded inbox, no sign-up you'll regret six months from now. You subscribe once, you can leave whenever you want, and in the meantime the news quietly finds you. That openness fits a project like this one, where everything is built in the open on [GitHub](https://github.com/SAP/architecture-center).
 
-Give it a try with your reader of choice. We hope it makes keeping up with the Architecture Center that little bit easier. Until next time.
+Give it a go with whichever reader you prefer. We hope it makes keeping up with the Architecture Center that bit easier.
