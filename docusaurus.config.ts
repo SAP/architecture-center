@@ -302,6 +302,14 @@ const config: Config = {
                             to: '/news-all',
                         },
                         {
+                            label: 'Explore the Reference Architectures',
+                            to: '/ref-arch-updates',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
                             label: 'Discover the AI-native North Star architecture',
                             to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
@@ -327,10 +335,6 @@ const config: Config = {
                         {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Access the Community of Practice',
