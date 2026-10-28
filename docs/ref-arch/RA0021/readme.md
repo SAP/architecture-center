@@ -37,7 +37,7 @@ contributors:
 discussion: 
 last_update:
   author: rameshvaranganti
-  date: 2026-10-27
+  date: 2026-10-28
 ---
 
 With the help of application-to-application (App2App) integration, you can exchange transactional data along internal company processes by connecting involved business applications in a (near-) real-time fashion. Messages are used for exchanging transactional data, which trigger the execution of the next process step in a connected business solution. Transactional data refers to data about ongoing business activities such as physical goods movement or sales order documents.
