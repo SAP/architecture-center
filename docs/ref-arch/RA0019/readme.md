@@ -29,7 +29,6 @@ draft: false
 unlisted: false
 contributors:
   - sapgunnar
-  - gunnar-kosche_sap
 discussion: 
 last_update:
   author: sapgunnar
