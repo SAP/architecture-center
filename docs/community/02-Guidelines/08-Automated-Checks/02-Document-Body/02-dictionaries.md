@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /community/automated-checks/dictionaries
+slug: /community/automated-checks/document-body/dictionaries
 title: Custom Spelling Dictionaries in the Architecture Center
 description: "Learn how the sap, industry, partners, and people dictionaries teach cspell your terms, when to add a word, and how they differ from the typos word list."
 sidebar_label: Custom Dictionaries
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 <!-- cspell:ignore recieve occured teh -->
@@ -45,8 +45,8 @@ Editing a dictionary means adding one word to a plain text file. There is no cod
 
 Spelling in the Architecture Center is guarded by two independent tools that do opposite things. Understanding the division of labour tells you exactly where a given word belongs.
 
-- **cspell is proactive.** It is the *taxonomy of valid words*. cspell flags anything it does not recognise, so the custom dictionaries exist to list every specialised term we consider correct. This is the layer you extend most often. See [Spelling](./01-check-spelling.md).
-- **typos is reactive.** It does **not** flag a word just for being unfamiliar. It only fires when a word closely resembles a known misspelling (for example `teh` for `the`). Because of that, SAP, industry, and partner names almost never trip it. See [Typos](./03-check-typos.md).
+- **cspell is proactive.** It is the *taxonomy of valid words*. cspell flags anything it does not recognise, so the custom dictionaries exist to list every specialised term we consider correct. This is the layer you extend most often. See [Spelling](01-check-spelling.md).
+- **typos is reactive.** It does **not** flag a word just for being unfamiliar. It only fires when a word closely resembles a known misspelling (for example `teh` for `the`). Because of that, SAP, industry, and partner names almost never trip it. See [Typos](03-check-typos.md).
 
 The practical consequence: when a valid term gets flagged, **which** check flagged it tells you **which** file to edit. cspell flagging an unknown word means it belongs in a `.cspell` dictionary. typos "correcting" a real word means it belongs in the typos word list.
 
@@ -155,10 +155,10 @@ One more thing worth remembering: the team page (`docs/community/10-the-team.md`
 
 ## Related checks
 
-- [Overview](./readme.md): all automated checks at a glance
-- [Spelling](./01-check-spelling.md): the cspell check these dictionaries feed
-- [Typos](./03-check-typos.md): the reactive misspelling check
-- [Grammar](./04-check-grammar.md): the companion language check
-- [Errors & Warnings](./13-pr-checks-errors-and-warnings.md): what to expect when a check fails on your pull request
+- [Overview](../readme.md): all automated checks at a glance
+- [Spelling](01-check-spelling.md): the cspell check these dictionaries feed
+- [Typos](03-check-typos.md): the reactive misspelling check
+- [Grammar](04-check-grammar.md): the companion language check
+- [Errors & Warnings](../13-pr-checks-errors-and-warnings.md): what to expect when a check fails on your pull request
 
-If you are still finding your feet, start with the [community intro](../../intro.md) and the [contribution process](../01-contribution.md). Contributing a brand-new reference architecture? Use the no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor.
+If you are still finding your feet, start with the [community intro](../../../intro.md) and the [contribution process](../../01-contribution.md). Contributing a brand-new reference architecture? Use the no-code [Quick Start](../../02-GetStarted/01-get-started-quickstart.md) editor.
