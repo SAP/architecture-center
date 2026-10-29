@@ -19,7 +19,6 @@ on:
       - Check External Links
       - Check Spelling
       - Check Typos
-      - Check Grammar
     types: [completed]
 
 permissions: {}
@@ -116,7 +115,7 @@ jobs:
               'Check Reference Architecture IDs',
               'Check H1 Title',
               'Check drawio Files', 'Check Orphan Files', 'Check External Links',
-              'Check Spelling', 'Check Typos', 'Check Grammar',
+              'Check Spelling', 'Check Typos',
             ];
             const MAX_BULLETS = 20;
 
@@ -135,7 +134,6 @@ jobs:
               'Check External Links': 'document-body/external-links',
               'Check Spelling': 'document-body/spelling',
               'Check Typos': 'document-body/typos',
-              'Check Grammar': 'document-body/grammar',
             };
 
             // Neutralize untrusted text: HTML-escape and strip HTML-comment markers so
@@ -164,46 +162,15 @@ jobs:
             const icon = (cr) => cr.status !== 'completed' ? '⏳'
               : (cr.conclusion === 'success' ? '✅' : (cr.conclusion === 'failure' ? '❌' : 'ℹ️'));
 
-            // Grammar's findings don't live on a check run named after the check:
-            // the Check Grammar workflow_run produces a reviewdog check run named
-            // "LanguageTool". Pick the newest run across both names (by started_at,
-            // like every other section) so a stale earlier "LanguageTool" run can't
-            // override a newer "Check Grammar" re-run. Grammar is non-blocking, so it
-            // is rendered as informational (ℹ️) and never counts toward totalErrors.
-            const grammarRun = runs
-              .filter((cr) => cr.name === 'LanguageTool' || cr.name === 'Check Grammar')
-              .sort((a, b) => new Date(b.started_at || 0) - new Date(a.started_at || 0))[0];
-
             const sections = [];
             let totalErrors = 0;
             for (const name of CHECKS) {
-              const cr = name === 'Check Grammar' ? grammarRun : latest[name];
+              const cr = latest[name];
               if (!cr) continue; // check didn't run (paths didn't match) — omit.
-              if (name !== 'Check Grammar' && cr.status === 'completed' && cr.conclusion !== 'success') totalErrors++;
+              if (cr.status === 'completed' && cr.conclusion !== 'success') totalErrors++;
               let body;
 
-              if (name === 'Check Grammar') {
-                // Non-blocking: read LanguageTool's annotations and present them as
-                // informational suggestions — never as a blocking ❌. reviewdog runs
-                // with level:warning, so the annotations arrive as 'warning' (not
-                // 'failure'); accept both so the section is not permanently green.
-                if (cr.status !== 'completed') body = '⏳ Running…';
-                else {
-                  const ann = await github.paginate(github.rest.checks.listAnnotations, {
-                    owner: context.repo.owner, repo: context.repo.repo, check_run_id: cr.id, per_page: 100,
-                  });
-                  const errs = ann.filter(a => a.annotation_level === 'failure' || a.annotation_level === 'warning');
-                  if (!errs.length) body = '✅ No grammar suggestions.';
-                  else {
-                    const bullets = errs.slice(0, MAX_BULLETS).map(a => {
-                      const loc = a.path + (a.start_line > 0 ? `:${a.start_line}` : '');
-                      return `- \`${escCode(loc)}\` — ${esc(a.message)}`;
-                    });
-                    if (errs.length > MAX_BULLETS) bullets.push(`- …and ${errs.length - MAX_BULLETS} more`);
-                    body = `ℹ️ ${errs.length} grammar suggestion${errs.length === 1 ? '' : 's'} (non-blocking):\n` + bullets.join('\n');
-                  }
-                }
-              } else if (name === 'Check External Links') {
+              if (name === 'Check External Links') {
                 const p = 'ext-links-findings/out.md';
                 if (cr.status !== 'completed') body = '⏳ Running…';
                 else if (cr.conclusion === 'success') body = '✅ No broken external links.';
@@ -243,10 +210,7 @@ jobs:
               // non-passing checks (failure / running / neutral) get an icon so
               // problems stand out. The body still states the clean result.
               const passed = cr.status === 'completed' && cr.conclusion === 'success';
-              // Grammar is non-blocking: when it has findings, flag the heading as
-              // informational (ℹ️) rather than the failure ❌ icon() would pick.
-              const crIcon = (name === 'Check Grammar' && cr.status === 'completed' && !passed) ? 'ℹ️' : icon(cr);
-              const headingPrefix = passed ? '' : `${crIcon} `;
+              const headingPrefix = passed ? '' : `${icon(cr)} `;
               sections.push(`<!-- check:${name} -->\n### ${headingPrefix}${esc(name)}\n\n${body}${help}\n<!-- /check:${name} -->`);
             }
 
