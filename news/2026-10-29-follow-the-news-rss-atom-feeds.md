@@ -13,7 +13,7 @@ Most of us only check a website when we happen to think of it. It works, but the
 
 ## Two feeds, the same news
 
-The news section runs on Docusaurus, the framework this whole site is built with, and feeds come baked right in. We didn't have to do anything clever: flip the option on and you get two machine-readable feeds that refresh themselves the moment we post something new.
+The news section runs on Docusaurus, the framework this whole site is built with, and feeds come baked right in. We didn't have to do anything clever: flip the option on, and you get two machine-readable feeds that refresh themselves the moment we post something new.
 
 - RSS: `https://architecture.learning.sap.com/news/rss.xml`
 - Atom: `https://architecture.learning.sap.com/news/atom.xml`
