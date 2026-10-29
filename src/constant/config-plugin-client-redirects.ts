@@ -516,5 +516,58 @@ export const configRedirects = {
             from: '/docs/ref-arch/6972e8',
             to: '/docs/ref-arch/a22904',
         },
+        // Automated-checks docs moved to front-matter/ and document-body/ sub-slugs
+        {
+            from: '/docs/community/automated-checks/front-matter-properties',
+            to: '/docs/community/automated-checks/front-matter/properties',
+        },
+        {
+            from: '/docs/community/automated-checks/seo-front-matter',
+            to: '/docs/community/automated-checks/front-matter/seo',
+        },
+        {
+            from: '/docs/community/automated-checks/reference-architecture-ids',
+            to: '/docs/community/automated-checks/front-matter/reference-architecture-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/contributor-ids',
+            to: '/docs/community/automated-checks/front-matter/contributor-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/h1-title',
+            to: '/docs/community/automated-checks/front-matter/h1-title',
+        },
+        {
+            from: '/docs/community/automated-checks/spelling',
+            to: '/docs/community/automated-checks/document-body/spelling',
+        },
+        {
+            from: '/docs/community/automated-checks/dictionaries',
+            to: '/docs/community/automated-checks/document-body/dictionaries',
+        },
+        {
+            from: '/docs/community/automated-checks/typos',
+            to: '/docs/community/automated-checks/document-body/typos',
+        },
+        {
+            from: '/docs/community/automated-checks/grammar',
+            to: '/docs/community/automated-checks/document-body/grammar',
+        },
+        {
+            from: '/docs/community/automated-checks/internal-links',
+            to: '/docs/community/automated-checks/document-body/internal-links',
+        },
+        {
+            from: '/docs/community/automated-checks/external-links',
+            to: '/docs/community/automated-checks/document-body/external-links',
+        },
+        {
+            from: '/docs/community/automated-checks/drawio-files',
+            to: '/docs/community/automated-checks/document-body/drawio-files',
+        },
+        {
+            from: '/docs/community/automated-checks/orphan-files',
+            to: '/docs/community/automated-checks/document-body/orphan-files',
+        },
     ],
 };
