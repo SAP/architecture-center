@@ -50,8 +50,8 @@ extend-exclude = [
   # The spelling/typos/errors docs intentionally contain misspellings as examples
   # (e.g. "recieve", "teh", "integreation"); typos has no line-level ignore, so the
   # whole page is excluded here. cspell still scans them (with scoped cspell:ignore).
-  "docs/community/02-Guidelines/08-Automated-Checks/01-check-spelling.md",
-  "docs/community/02-Guidelines/08-Automated-Checks/02-dictionaries.md",
-  "docs/community/02-Guidelines/08-Automated-Checks/03-check-typos.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/02-Document-Body/01-check-spelling.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/02-Document-Body/02-dictionaries.md",
+  "docs/community/02-Guidelines/08-Automated-Checks/02-Document-Body/03-check-typos.md",
   "docs/community/02-Guidelines/08-Automated-Checks/13-pr-checks-errors-and-warnings.md",
 ]
