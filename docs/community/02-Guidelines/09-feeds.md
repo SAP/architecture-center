@@ -36,7 +36,7 @@ The site publishes machine-readable feeds in both RSS and Atom so readers can fo
 | Content | Feeds | How it is produced |
 | --- | --- | --- |
 | News (the blog) | `/news/rss.xml`, `/news/atom.xml` | Built into Docusaurus |
-| Reference architectures | `/docs/rss.xml`, `/docs/atom.xml` | Custom plugin in this repository |
+| Reference architectures | `/docs/ref-arch/rss.xml`, `/docs/ref-arch/atom.xml` | Custom plugin in this repository |
 
 ## News Feeds (Built In)
 
@@ -74,7 +74,7 @@ The plugin runs in the `postBuild` phase, after Docusaurus has resolved every pe
 2. Sorts the surviving pages by `last_update.date`, newest first.
 3. Takes the **50** most recently updated entries.
 4. Builds each feed item from the page title, description, a plain-text excerpt (the first 500 characters of the body), the permalink, and the update date.
-5. Writes `rss.xml` and `atom.xml` into the `docs` output directory.
+5. Writes `rss.xml` and `atom.xml` into the `docs/ref-arch` output directory.
 
 Because this happens during `npm run build`, the feeds are only regenerated when the site is rebuilt and redeployed, not live on every content change.
 

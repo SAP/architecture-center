@@ -109,8 +109,8 @@ module.exports = function (context) {
         copyright: `Copyright © ${updated.getFullYear()} ${siteConfig.organizationName}`,
         updated,
         feedLinks: {
-          rss: `${docsBaseUrl}/rss.xml`,
-          atom: `${docsBaseUrl}/atom.xml`,
+          rss: `${docsBaseUrl}/ref-arch/rss.xml`,
+          atom: `${docsBaseUrl}/ref-arch/atom.xml`,
         },
       });
 
@@ -125,13 +125,15 @@ module.exports = function (context) {
         });
       }
 
-      const docsOutDir = path.join(outDir, 'docs');
+      // Write the feeds alongside the reference-architecture catalogue so they
+      // are served at /docs/ref-arch/rss.xml and /docs/ref-arch/atom.xml.
+      const docsOutDir = path.join(outDir, 'docs', 'ref-arch');
       fs.mkdirSync(docsOutDir, { recursive: true });
       fs.writeFileSync(path.join(docsOutDir, 'rss.xml'), feed.rss2(), 'utf8');
       fs.writeFileSync(path.join(docsOutDir, 'atom.xml'), feed.atom1(), 'utf8');
 
       console.log(
-        `✅ Successfully generated docs feeds (rss.xml, atom.xml) with ${items.length} reference architectures.`,
+        `✅ Successfully generated ref-arch feeds (ref-arch/rss.xml, ref-arch/atom.xml) with ${items.length} reference architectures.`,
       );
     },
   };
