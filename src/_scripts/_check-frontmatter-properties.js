@@ -38,10 +38,7 @@
  * Environment (provided by the workflow; all optional so the script runs
  * locally too):
  *   PR_AUTHOR   GitHub login of the pull request author
- *   PR_NUMBER   pull request number (written to the comment artifact)
  *   TODAY       run date as YYYY-MM-DD (keeps the script free of new Date())
- *   COMMENT_DIR when set, write the sticky-comment artifact here: body.md,
- *               pr.txt, has-findings.txt (consumed by the comment workflow).
  *
  * The set of files to check is passed as CLI arguments by the workflow (the
  * changed docs Markdown); with no arguments and outside CI the script scans
@@ -49,7 +46,6 @@
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
-const COMMENT_MARKER = '<!-- frontmatter-properties-check -->';
 
 const fs = require('fs');
 const path = require('path');
@@ -61,9 +57,7 @@ const repoRoot = path.join(__dirname, '../..');
 const inActions = Boolean(process.env.GITHUB_ACTIONS);
 
 const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
-const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
-const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
 // Admins who routinely make small fixes across other people's RA pages are exempt
 // from the authorship checks (7–9), and may also set `draft`/`unlisted` to true
@@ -217,44 +211,6 @@ function formatFinding(f) {
   return f.line ? `line ${f.line} — ${f.message}` : f.message;
 }
 
-/** Build the sticky PR comment body (markdown) from the per-file findings. */
-function buildCommentBody(findingsByFile, checked) {
-  const total = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
-  const lines = [COMMENT_MARKER, ''];
-  if (total === 0) {
-    lines.push('### ✅ Front matter properties');
-    lines.push('');
-    lines.push(`No front matter property issues on the ${checked} changed page(s). Thanks!`);
-    return lines.join('\n');
-  }
-  lines.push('### ❌ Front matter properties');
-  lines.push('');
-  lines.push(`Found **${total}** error(s) across **${findingsByFile.length}** page(s). This check **fails until these are fixed.**`);
-  lines.push('');
-  const MAX_FILES = 50; // keep the comment well under GitHub's 65 KB limit
-  const shown = findingsByFile.slice(0, MAX_FILES);
-  for (const { file, findings } of shown) {
-    lines.push(`**\`${file}\`**`);
-    for (const f of findings) lines.push(`- ${formatFinding(f)}`);
-    lines.push('');
-  }
-  if (findingsByFile.length > MAX_FILES) {
-    lines.push(`_…and ${findingsByFile.length - MAX_FILES} more page(s) with errors — see the job log / annotations for the full list._`);
-    lines.push('');
-  }
-  lines.push('<sub>Reference: the front matter guide in `docs/ref-arch/RA0000/readme.md`.</sub>');
-  return lines.join('\n');
-}
-
-/** Write the comment artifact (body + PR number + status) for the comment workflow. */
-function writeCommentArtifact(body, hasFindings) {
-  if (!COMMENT_DIR) return;
-  fs.mkdirSync(COMMENT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(COMMENT_DIR, 'body.md'), body + '\n');
-  fs.writeFileSync(path.join(COMMENT_DIR, 'pr.txt'), `${PR_NUMBER}\n`);
-  fs.writeFileSync(path.join(COMMENT_DIR, 'has-findings.txt'), `${hasFindings ? 1 : 0}\n`);
-}
-
 function main() {
   const files = resolveFiles()
     .filter((f) => /^docs\/ref-arch\/RA\d{4}\//.test(f))
@@ -284,9 +240,6 @@ function main() {
 
   const errors = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
 
-  const body = buildCommentBody(findingsByFile, checked);
-  writeCommentArtifact(body, errors > 0);
-
   const summary = [
     '## Front matter properties check',
     '',
@@ -310,7 +263,7 @@ function main() {
       for (const f of findings) summary.push(`- ${formatFinding(f)}`);
       summary.push('');
     }
-    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter-properties');
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/properties');
   }
 
   const summaryText = summary.join('\n');

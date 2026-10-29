@@ -1,6 +1,6 @@
 ---
-sidebar_position: 11
-slug: /community/automated-checks/orphan-files
+sidebar_position: 8
+slug: /community/automated-checks/document-body/orphan-files
 title: Orphan Files Check for Unreferenced Assets
 description: "How the orphan files check verifies that every image or diagram you add is actually referenced by a Markdown page, and when it warns instead of failing."
 sidebar_label: Orphan Files
@@ -23,12 +23,12 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 When you add an image or a diagram to the SAP Architecture Center, it should actually be used somewhere. The **Orphan Files** check makes sure of that: it confirms every asset you add is referenced by at least one Markdown page, so unused files do not quietly pile up in the repository.
 
-This page explains what the check looks at, how it decides between an error and a warning, where you see the results, and how to fix anything it flags. For the full picture of how the checks fit together, see the [Automated Checks overview](readme.md).
+This page explains what the check looks at, how it decides between an error and a warning, where you see the results, and how to fix anything it flags. For the full picture of how the checks fit together, see the [Automated Checks overview](../readme.md).
 
 ## What this check looks at
 
@@ -124,9 +124,9 @@ If you only reference `hero.png` from a page in a **different** RA folder, you w
 
 ## Related pages
 
-- [Automated Checks overview](readme.md): how all the checks fit together
-- [Draw.io Files](10-check-drawio-files.md): validation for `.drawio` diagrams
-- [Internal Links](08-check-internal-links.md): checking links between pages
-- [Errors & Warnings](13-pr-checks-errors-and-warnings.md): what to expect when a check flags your PR
-- [Diagramming guide](../06-diagrams.md): how to add diagrams and images to a page
-- [Quick Start](../02-GetStarted/01-get-started-quickstart.md): the no-code editor for new reference architectures
+- [Automated Checks overview](../readme.md): how all the checks fit together
+- [Draw.io Files](07-check-drawio-files.md): validation for `.drawio` diagrams
+- [Internal Links](05-check-internal-links.md): checking links between pages
+- [Errors & Warnings](../13-pr-checks-errors-and-warnings.md): what to expect when a check flags your PR
+- [Diagramming guide](../../06-diagrams.md): how to add diagrams and images to a page
+- [Quick Start](../../02-GetStarted/01-get-started-quickstart.md): the no-code editor for new reference architectures

@@ -1,5 +1,6 @@
 name: Check Contributor IDs
-# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is checked (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the base (on a PR) or
+# vs the previous commit (on a push to dev) is checked (needs fetch-depth: 0).
 #
 # Fails when a changed docs page credits an SAP internal user ID (an I-, D-, or C-number
 # such as I057866) as its last_update.author or in its contributors list. Contributors
@@ -7,11 +8,20 @@ name: Check Contributor IDs
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
       - 'src/_scripts/_check-contributor-ids.js'
+      - '.github/actions/changed-files/action.yml'
+      - '.github/workflows/check-contributor-ids.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'src/_scripts/_check-contributor-ids.js'
+      - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-contributor-ids.yml'
 
 permissions: {}
@@ -30,7 +40,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          fetch-depth: 0 # need the base commit to diff the PR's changed files
+          fetch-depth: 0 # need history to diff the PR base / previous commit
           persist-credentials: false
 
       - name: Setup Node.js
@@ -42,24 +52,21 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts # fork PR controls the lockfile; don't run dependency lifecycle scripts
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs
+          filter-regex: '\.(md|mdx)$'
+
       # Emits GitHub error annotations on the offending front matter line and a job
       # summary. Exits non-zero when any internal user ID is found, so the check FAILS.
       - name: Check contributor IDs
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base (same
-          # hardened incantation as the sibling checks: -z + core.quotePath=false).
-          # Write the diff first so a git error (e.g. a missing base ref) fails the
-          # step rather than being swallowed into an empty, passing scan; then ignore
-          # only grep's expected "no matches" status (1) when nothing matched.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            > "$RUNNER_TEMP/changed-all.txt"
-          grep -zE '\.(md|mdx)$' "$RUNNER_TEMP/changed-all.txt" > "$RUNNER_TEMP/changed.txt" || {
-            status=$?
-            if [ "$status" -ne 1 ]; then exit "$status"; fi
-          }
           FILES=()
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
           fi
           node src/_scripts/_check-contributor-ids.js "${FILES[@]}"
