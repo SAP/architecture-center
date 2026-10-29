@@ -74,7 +74,11 @@ jobs:
             exit 0
           fi
           rc=0
-          typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
+          # --force-exclude so _typos.toml's extend-exclude applies even though we
+          # pass the changed files explicitly (without it, typos checks named paths
+          # regardless of exclude, which re-flags the intentional example
+          # misspellings in the excluded Automated Checks docs).
+          typos --format brief --config ./_typos.toml --force-exclude "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
           # Emit named inline annotations (title= not supported by problem matchers).
           if [ -n "$GITHUB_ACTIONS" ]; then
             # Escape untrusted captures (filename, message) for the Actions command
