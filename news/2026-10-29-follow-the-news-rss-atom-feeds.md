@@ -4,7 +4,7 @@ description: The SAP Architecture Center publishes RSS and Atom feeds for both t
 keywords: ["rss", "atom", "feed", "news", "reference architectures", "architecture center", "sap", "subscribe", "syndication", "opensource"]
 hide_table_of_contents: false
 authors: [cernus76]
-date: 2026-11-02
+date: 2026-10-29
 ---
 
 Most of us only check a website when we happen to think of it. It works, but the effort's all on you: you keep coming back just to see if anything's new. There's a quieter way. You can subscribe to the SAP Architecture Center and let the new content come to you instead. We've had this going for the news for a while, and now the reference architectures have feeds too, so here's a quick run-through of how it all works.

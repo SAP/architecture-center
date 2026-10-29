@@ -26,7 +26,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-28
+  date: 2026-10-29
 ---
 
 The site publishes machine-readable feeds in both RSS and Atom so readers can follow new content from a feed reader instead of checking back by hand. There are two separate feed systems, and they are built in very different ways. This page explains both, and how the content you contribute ends up in them.
