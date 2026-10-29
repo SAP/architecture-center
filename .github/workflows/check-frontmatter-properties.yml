@@ -63,7 +63,7 @@ jobs:
       - name: Check front matter properties
         shell: bash
         env:
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login || github.actor }}
         run: |
           FILES=()
           if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
