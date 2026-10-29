@@ -46,7 +46,7 @@ Three workflows build the site; two of them also publish it.
 
 ### Build for GitHub Pages
 
-On every push and pull request to `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`), the unit tests (`npm test`), and a production build (`npm run build`) on Node.js 24. If everything succeeds, it uploads the compiled site as a Pages artifact. The workflow only verifies that the site still builds; it does not publish anything (publishing is handled by the deploy workflows). Because it runs on the pull request too, a broken internal link (Docusaurus fails the build on those by default), malformed front matter, or a failing test fails the check **before** merge.
+On every push and pull request to `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`), the unit tests (`npm test`), and a production build (`npm run build`) on Node.js 24. If everything succeeds, it uploads the compiled site as a Pages artifact. The workflow only verifies that the site still builds; it does not publish anything (publishing is handled by the deployment workflows). Because it runs on the pull request too, a broken internal link (Docusaurus fails the build on those by default), malformed front matter, or a failing test fails the check **before** merge.
 
 ### Deploy to Cloudflare
 
