@@ -1,6 +1,6 @@
 ---
-sidebar_position: 9
-slug: /community/automated-checks/external-links
+sidebar_position: 6
+slug: /community/automated-checks/document-body/external-links
 title: External Link Check for Broken Links with Lychee
 description: "How the external link check uses lychee to verify that outbound links in your changed pages still resolve, and why network issues are reported, not inlined."
 sidebar_label: External Links
@@ -40,7 +40,7 @@ It also triggers when the workflow file itself (`.github/workflows/check-ext-lin
 
 ## Why it reports differently from the local checks
 
-Most checks in this suite (spelling, [typos](03-check-typos.md), [internal links](08-check-internal-links.md), [front matter](05-check-front-matter-properties.md)) are deterministic. They look at your text, find a problem on a specific line, and leave an inline annotation right there in the diff.
+Most checks in this suite (spelling, [typos](03-check-typos.md), [internal links](05-check-internal-links.md), [front matter](../01-Front-Matter/01-check-front-matter-properties.md)) are deterministic. They look at your text, find a problem on a specific line, and leave an inline annotation right there in the diff.
 
 External links are different. Their status depends on the network, not just your edit:
 
@@ -96,8 +96,8 @@ If you ever need to show an internal, non-public URL as an *example* in your pro
 
 ## Related pages
 
-- [Automated Checks overview](readme.md): how the whole suite fits together
-- [Internal Links](08-check-internal-links.md): the sibling check for links *within* the site
-- [Errors & Warnings](13-pr-checks-errors-and-warnings.md): what to expect when a check reports a problem on your PR
-- [Operational Workflows](12-operational-workflows.md): the behind-the-scenes automation
-- [Contribution process](../01-contribution.md) and [Quick Start](../02-GetStarted/01-get-started-quickstart.md): if you are new, start here
+- [Automated Checks overview](../readme.md): how the whole suite fits together
+- [Internal Links](05-check-internal-links.md): the sibling check for links *within* the site
+- [Errors & Warnings](../13-pr-checks-errors-and-warnings.md): what to expect when a check reports a problem on your PR
+- [Operational Workflows](../12-operational-workflows.md): the behind-the-scenes automation
+- [Contribution process](../../01-contribution.md) and [Quick Start](../../02-GetStarted/01-get-started-quickstart.md): if you are new, start here

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-slug: /community/automated-checks/spelling
+slug: /community/automated-checks/document-body/spelling
 title: Spelling Check with cspell for Docs and News Pages
 description: "How the cspell spelling check scans changed Markdown on your pull request, what it flags as unknown words, and how custom dictionaries keep it quiet."
 sidebar_label: Spelling
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 <!-- cspell:ignore Kubernets -->
@@ -45,7 +45,7 @@ The check is **incremental**: it only looks at Markdown that was **added or modi
 
 | Aspect | Value |
 | --- | --- |
-| Trigger | Pull requests targeting `dev` or `main` |
+| Trigger | Pull requests and pushes to `dev` |
 | Scope | Files added, modified, or renamed vs. the PR base |
 | File types | `.md` and `.mdx` under `docs/` and `news/` |
 | Also triggers on | Changes to `cspell.json`, `.cspell/**`, or the workflow file itself |
@@ -73,8 +73,8 @@ The findings show up in two places:
 
 - **The job summary.** The check run also lists every finding in its summary, wrapped in a code block, so you can scan them all in one place.
 
-:::note No sticky comment
-Spelling findings are intentionally **not** posted into the single sticky pull request comment that aggregates other checks. Keeping dozens of word-level notes out of that comment keeps it readable. The inline annotations and the job summary are where you review spelling.
+:::note In the sticky comment
+A **Check Spelling** section is included in the single sticky pull request comment that aggregates the content checks. It lists each unknown word as a `path:line` location (capped, with an "and N more" line when a page has many). You can also review spelling as inline annotations on the **Files changed** tab, right next to the word in question, and in the job summary.
 :::
 
 ## How to fix a finding
@@ -130,8 +130,8 @@ Think of spelling as the first line of defence for individual words, with [Typos
 
 ## Related pages
 
-- [Automated Checks overview](readme.md): how all the checks fit together
+- [Automated Checks overview](../readme.md): how all the checks fit together
 - [Custom Dictionaries](02-dictionaries.md): where to add legitimate terms
-- [Front Matter guide](../04-front-matter.md): the metadata block at the top of every page
-- [Contribution process](../01-contribution.md): the full journey from idea to merged PR
-- [Quick Start](../02-GetStarted/01-get-started-quickstart.md): our no-code editor for new reference architectures
+- [Front Matter guide](../../04-front-matter.md): the metadata block at the top of every page
+- [Contribution process](../../01-contribution.md): the full journey from idea to merged PR
+- [Quick Start](../../02-GetStarted/01-get-started-quickstart.md): our no-code editor for new reference architectures
