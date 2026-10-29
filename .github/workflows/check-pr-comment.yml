@@ -166,14 +166,13 @@ jobs:
 
             // Grammar's findings don't live on a check run named after the check:
             // the Check Grammar workflow_run produces a reviewdog check run named
-            // "LanguageTool". Resolve the latest such run (by started_at, like every
-            // other section), falling back to a run literally named "Check Grammar".
-            // Grammar is non-blocking, so it is rendered as informational (ℹ️) and
-            // never counts toward totalErrors.
-            const latestNamed = (nm) => runs
-              .filter((cr) => cr.name === nm)
+            // "LanguageTool". Pick the newest run across both names (by started_at,
+            // like every other section) so a stale earlier "LanguageTool" run can't
+            // override a newer "Check Grammar" re-run. Grammar is non-blocking, so it
+            // is rendered as informational (ℹ️) and never counts toward totalErrors.
+            const grammarRun = runs
+              .filter((cr) => cr.name === 'LanguageTool' || cr.name === 'Check Grammar')
               .sort((a, b) => new Date(b.started_at || 0) - new Date(a.started_at || 0))[0];
-            const grammarRun = latestNamed('LanguageTool') || latestNamed('Check Grammar');
 
             const sections = [];
             let totalErrors = 0;
