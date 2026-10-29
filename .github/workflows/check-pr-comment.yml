@@ -166,11 +166,14 @@ jobs:
 
             // Grammar's findings don't live on a check run named after the check:
             // the Check Grammar workflow_run produces a reviewdog check run named
-            // "LanguageTool". Resolve it from the ref's check runs, falling back to a
-            // run literally named "Check Grammar". Grammar is non-blocking, so it is
-            // rendered as informational (ℹ️) and never counts toward totalErrors.
-            const grammarRun = runs.find((cr) => cr.name === 'LanguageTool')
-              || runs.find((cr) => cr.name === 'Check Grammar');
+            // "LanguageTool". Resolve the latest such run (by started_at, like every
+            // other section), falling back to a run literally named "Check Grammar".
+            // Grammar is non-blocking, so it is rendered as informational (ℹ️) and
+            // never counts toward totalErrors.
+            const latestNamed = (nm) => runs
+              .filter((cr) => cr.name === nm)
+              .sort((a, b) => new Date(b.started_at || 0) - new Date(a.started_at || 0))[0];
+            const grammarRun = latestNamed('LanguageTool') || latestNamed('Check Grammar');
 
             const sections = [];
             let totalErrors = 0;
@@ -181,14 +184,16 @@ jobs:
               let body;
 
               if (name === 'Check Grammar') {
-                // Non-blocking: read failure annotations from the LanguageTool run and
-                // present them as informational suggestions — never as a blocking ❌.
+                // Non-blocking: read LanguageTool's annotations and present them as
+                // informational suggestions — never as a blocking ❌. reviewdog runs
+                // with level:warning, so the annotations arrive as 'warning' (not
+                // 'failure'); accept both so the section is not permanently green.
                 if (cr.status !== 'completed') body = '⏳ Running…';
                 else {
                   const ann = await github.paginate(github.rest.checks.listAnnotations, {
                     owner: context.repo.owner, repo: context.repo.repo, check_run_id: cr.id, per_page: 100,
                   });
-                  const errs = ann.filter(a => a.annotation_level === 'failure');
+                  const errs = ann.filter(a => a.annotation_level === 'failure' || a.annotation_level === 'warning');
                   if (!errs.length) body = '✅ No grammar suggestions.';
                   else {
                     const bullets = errs.slice(0, MAX_BULLETS).map(a => {
