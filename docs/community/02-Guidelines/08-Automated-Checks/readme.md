@@ -51,14 +51,14 @@ The checks report their findings in three places, so you'll never have to go sea
 3. **One sticky pull request comment** titled **🔎 Content check results**: a single, continuously-updated comment that gathers the content findings grouped by check. It rebuilds itself every time a check finishes, so it always reflects your latest commit (look for the footer noting the commit it was updated for).
 
 :::note
-The sticky comment aggregates the content checks that can block a merge (internal links, external links, SEO front matter, front matter properties, contributor IDs, reference architecture IDs, Draw.io files, orphan files), and it shows their blocking **errors** only. Spelling, typos, grammar, and the H1 title check are deliberately **not** repeated in the comment: spelling, typos, and the H1 title check annotate inline on the **Files changed** tab, right next to the line in question, and grammar posts its advisory notes on the **Checks** tab. Non-blocking **warnings**, such as an SEO length just outside the recommended range, stay inline and in the job summary, not in this comment.
+The sticky comment aggregates all of the content checks, each as its own section, and it shows their blocking **errors**. Spelling, typos, and the H1 title check are included alongside the link, front matter, Draw.io, and orphan-file checks. Grammar is included too, but as an advisory, non-blocking note (ℹ️) rather than a blocking error. Other non-blocking **warnings**, such as an SEO length just outside the recommended range, stay inline on the **Files changed** tab and in the job summary, not in this comment.
 :::
 
 For a full, example-driven walkthrough of what each surface looks like and how to resolve what you find, see [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
 
 ## The content checks at a glance
 
-The content checks fall into two groups, mirroring how this documentation is organised: checks that read the **front matter** at the top of a page, and checks that read the **document body**, meaning the prose, links, and diagrams. The two tables below index every check. "Blocking?" tells you whether a failure must be resolved before the pull request can merge. Follow the **Learn more** link for the detail page on each check.
+The content checks fall into two groups, mirroring how this documentation is organised: checks that read the **front matter** at the top of a page, and checks that read the **document body**, meaning the prose, links, and diagrams. The two tables below index every content check. "Blocking?" tells you whether a failure must be resolved before the pull request can merge. Follow the **Learn more** link for the detail page on each check.
 
 ### Front Matter Checks
 
@@ -116,7 +116,7 @@ See [Operational Workflows](12-operational-workflows.md) for a tour of what runs
 ## Which checks run on my pull request?
 
 :::tip
-Most checks are **path-filtered**: they only run when files relevant to them change. Edit a Markdown page and you'll see the spelling, typo, link, and front matter checks; touch a `.drawio` diagram and the Draw.io check runs. The checks run on pull requests targeting the `dev` (and `main`) branches, so you only ever see the checks that actually apply to your change, with no distractions.
+Most checks are **path-filtered**: they only run when files relevant to them change. Edit a Markdown page and you'll see the spelling, typo, link, and front matter checks; touch a `.drawio` diagram and the Draw.io check runs. The checks run on pull requests targeting the `dev` branch, and on pushes to `dev`, so you only ever see the checks that actually apply to your change, with no distractions.
 :::
 
 This keeps feedback focused: a small text fix won't trigger diagram validation, and a diagram-only change won't run the grammar linter. When you're ready to start resolving findings, go to [Errors & Warnings](13-pr-checks-errors-and-warnings.md) for concrete examples.

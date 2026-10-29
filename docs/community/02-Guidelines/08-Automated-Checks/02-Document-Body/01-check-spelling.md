@@ -45,7 +45,7 @@ The check is **incremental**: it only looks at Markdown that was **added or modi
 
 | Aspect | Value |
 | --- | --- |
-| Trigger | Pull requests targeting `dev` or `main` |
+| Trigger | Pull requests and pushes to `dev` |
 | Scope | Files added, modified, or renamed vs. the PR base |
 | File types | `.md` and `.mdx` under `docs/` and `news/` |
 | Also triggers on | Changes to `cspell.json`, `.cspell/**`, or the workflow file itself |
@@ -73,8 +73,8 @@ The findings show up in two places:
 
 - **The job summary.** The check run also lists every finding in its summary, wrapped in a code block, so you can scan them all in one place.
 
-:::note No sticky comment
-Spelling findings are intentionally **not** posted into the single sticky pull request comment that aggregates other checks. Keeping dozens of word-level notes out of that comment keeps it readable. The inline annotations and the job summary are where you review spelling.
+:::note In the sticky comment
+A **Check Spelling** section is included in the single sticky pull request comment that aggregates the content checks. It lists each unknown word as a `path:line` location (capped, with an "and N more" line when a page has many). You can also review spelling as inline annotations on the **Files changed** tab, right next to the word in question, and in the job summary.
 :::
 
 ## How to fix a finding

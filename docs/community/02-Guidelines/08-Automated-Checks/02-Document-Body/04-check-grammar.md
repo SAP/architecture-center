@@ -48,7 +48,7 @@ The check runs on pull requests that target the `dev` branch and that touch Mark
 | Aspect | Value |
 | --- | --- |
 | File types | `.md` files under `docs/` and `news/` |
-| Trigger | Pull requests targeting `dev` |
+| Trigger | Pull requests and pushes to `dev` |
 | Language | `en-US` only |
 | `.mdx` files | **Intentionally excluded** for now |
 
@@ -87,6 +87,8 @@ Where you see the findings depends on how you opened the PR:
 | --- | --- |
 | Branch on the main repository (core contributors) | Annotations on the **Checks** tab, inline on your changed lines (`github-pr-check`) |
 | Pull request from a **fork** | GitHub issues a read-only token, so the Checks-tab annotations cannot be posted. Open the grammar step's **Actions run log** to see the raw output, and a maintainer can relay any grammar suggestions on the pull request if needed |
+
+On a branch of the main repository, the grammar findings are also summarised in a **Check Grammar** section of the sticky **🔎 Content check results** pull request comment. Because grammar is advisory, that section is **non-blocking**: it is shown as an informational note (ℹ️) and never fails the check or counts toward the error total.
 
 If you contributed through a fork (the recommended path for most community members) and do not see inline annotations, that is expected. Open the workflow run from the **Actions** tab and read the grammar step's log to see the same suggestions.
 

@@ -71,8 +71,8 @@ If Typos finds something, it does three things:
 2. **Adds inline annotations** on the **Files changed** tab of your PR, right on the offending line. These annotations carry the title **"Typos"**.
 3. **Writes a job summary** listing every typo it found.
 
-:::note Not in the PR comment
-Unlike some other checks, Typos does **not** post into the sticky summary comment on your PR. Look for its findings as inline annotations on the **Files changed** tab, or open the check's job summary.
+:::note In the PR comment
+A **Check Typos** section is included in the sticky summary comment on your PR, listing each finding as a `path:line` location. You can also review the findings as inline annotations on the **Files changed** tab, or open the check's job summary.
 :::
 
 ## Configuration (`_typos.toml`)

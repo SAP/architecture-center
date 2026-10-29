@@ -62,7 +62,7 @@ It also triggers when the workflow file itself (`.github/workflows/check-h1-titl
 
 ## Where you will see the results
 
-Like the spelling and typo checks, this check reports **inline on the Files changed tab**, pinned to the offending `#` line, and writes a short summary to the check's **job summary**. (It is not repeated in the sticky pull request comment.)
+Like the spelling and typo checks, this check reports **inline on the Files changed tab**, pinned to the offending `#` line, and writes a short summary to the check's **job summary**. It also appears as a **Check H1 Title** section in the sticky pull request comment.
 
 ## How to fix it
 

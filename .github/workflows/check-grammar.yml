@@ -106,4 +106,3 @@ jobs:
             echo ""
             echo "📖 Community guidelines: https://architecture.learning.sap.com/docs/community/automated-checks/document-body/grammar"
           } >> "$GITHUB_STEP_SUMMARY"
-          echo "📖 Community guidelines: https://architecture.learning.sap.com/docs/community/automated-checks/document-body/grammar"
