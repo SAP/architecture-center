@@ -1,8 +1,8 @@
 /**
- * Generates src/data/ref-arch-updates.json: every reference-architecture
- * document, most recently updated first, carrying the title, description,
- * last-updated date, and link. Consumed by the /ref-arch-updates page
- * (paginated, 6 per page).
+ * Generates src/data/ref-arch-updates.json: the most recently updated
+ * reference-architecture documents (capped at MAX_ITEMS, newest first),
+ * carrying the title, description, last-updated date, and link. Consumed by
+ * the /ref-arch-updates page (paginated, 6 per page).
  *
  * Runs before `start` and `build` (see package.json), like generate-news. It
  * mirrors the filtering/exclusion logic of the feed plugin
@@ -19,6 +19,10 @@ const glob = require('glob');
 const repoRoot = path.join(__dirname, '../..');
 const docsDir = path.join(repoRoot, 'docs');
 const outputPath = path.join(repoRoot, 'src/data/ref-arch-updates.json');
+
+// Keep in sync with MAX_ITEMS in src/plugins/docs-feed-generator/index.js so the
+// page shows the same set of reference architectures the RSS/Atom feeds carry.
+const MAX_ITEMS = 50;
 
 // Normalize to forward slashes so path checks and globs work on every platform.
 function normalizePath(filePath) {
@@ -74,6 +78,7 @@ for (const abs of files) {
 
 const latest = entries
     .sort((a, b) => b.sortKey - a.sortKey) // newest first
+    .slice(0, MAX_ITEMS) // match the feed: only the most recent MAX_ITEMS
     .map(({ sortKey, ...entry }) => ({
         ...entry,
         formattedDate: new Date(entry.date).toLocaleDateString('en-US', {
