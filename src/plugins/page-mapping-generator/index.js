@@ -13,12 +13,22 @@ const TAG_MAPPING = {
 
 // Helper function to normalize paths for cross-platform compatibility
 function normalizePath(filePath) {
-  return filePath.split(path.sep).join('/');
+  return filePath.replace(/\\/g, '/');
 }
 
 // Helper function to create glob patterns that work on all platforms
 function createGlobPattern(...pathSegments) {
   return pathSegments.join('/');
+}
+
+function createDocumentId(relativeFilePath, docFileId) {
+  const pathParts = normalizePath(relativeFilePath).split('/').filter(Boolean);
+  const rootFolder = pathParts[0];
+  const nestedFolders = pathParts
+    .slice(1, -1)
+    .map(folder => folder.replace(/^\d+-/, ''));
+
+  return ['ref-arch', rootFolder, ...nestedFolders, docFileId].join('/');
 }
 
 module.exports = function (context, options) {
@@ -66,21 +76,9 @@ module.exports = function (context, options) {
               
               // Normalize path separators for consistent processing
               const normalizedRelativePath = normalizePath(relativePath);
-              const pathParts = normalizedRelativePath.split('/');
-
-              let docId;
-              const rootFolder = pathParts[0];
               const docTitle = frontMatter.title;
               const docFileId = frontMatter.id;
-
-              // Build document ID with consistent forward slashes
-              if (pathParts.length > 2) {
-                const subFolder = pathParts[1];
-                const cleanedSubFolder = subFolder.replace(/^\d+-/, '');
-                docId = `ref-arch/${rootFolder}/${cleanedSubFolder}/${docFileId}`;
-              } else {
-                docId = `ref-arch/${rootFolder}/${docFileId}`;
-              }
+              const docId = createDocumentId(normalizedRelativePath, docFileId);
 
               // Map documents to their corresponding tags
               for (const [primaryId, associatedTags] of Object.entries(TAG_MAPPING)) {
@@ -128,3 +126,5 @@ export const pageMapping: Record<string, MappedDoc[]> = ${JSON.stringify(pageMap
     },
   };
 };
+
+module.exports.createDocumentId = createDocumentId;
