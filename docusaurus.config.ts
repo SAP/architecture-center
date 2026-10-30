@@ -95,6 +95,7 @@ const config: Config = {
                     feedOptions: {
                         type: ['rss', 'atom'],
                         title: 'SAP Architecture Center News',
+                        limit: 48,
                     },
                 },
                 docs: {
