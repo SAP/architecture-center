@@ -54,6 +54,10 @@ interface TransformedDocument {
   id: string;
   editorState: string;
   parentId: string | null;
+  isArticle?: boolean;
+  newAuthor?: { name: string; title: string; linkedin: string; username: string };
+  keywords?: string[];
+  spotlightImage?: { data: string; filename: string };
   children: TransformedDocument[];
   metadata: {
     title: string;
@@ -69,6 +73,7 @@ const transformTreeForBackend = (doc: Document): TransformedDocument => {
     id: doc.id,
     editorState: doc.editorState ? convertToLexicalFormat(doc.editorState) : '',
     parentId: doc.parentId,
+    ...(doc.isArticle ? { isArticle: true, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
     children: doc.children ? doc.children.map(transformTreeForBackend) : [],
     metadata: {
       title: doc.title,
@@ -191,6 +196,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     }
 
     const api = getApiService(expressBackendUrl);
+    const isArticle = getActiveDocument()?.isArticle ?? false;
 
     const assetPromises: Promise<void>[] = [];
 
@@ -200,7 +206,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
         if (imageNode.assetId && !imageNode.src) {
           assetPromises.push(
-            api.getAssetWithContent(token, imageNode.assetId)
+            api.getAssetWithContent(token, imageNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Image asset fetched:', {
                   assetId: imageNode.assetId,
@@ -235,7 +241,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
-            api.getAssetWithContent(token, drawioNode.assetId)
+            api.getAssetWithContent(token, drawioNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Drawio asset fetched:', {
                   assetId: drawioNode.assetId,
@@ -651,15 +657,17 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <div className={styles.editorSpacer} />
-                  <ContributorsDisplay
-                    contributors={[
-                      ...(activeDocument?.authors || []),
-                      ...(activeDocument?.contributors || []).filter(
-                        c => !(activeDocument?.authors || []).includes(c)
-                      )
-                    ]}
-                    readOnly={true}
-                  />
+                  {!activeDocument?.isArticle && (
+                    <ContributorsDisplay
+                      contributors={[
+                        ...(activeDocument?.authors || []),
+                        ...(activeDocument?.contributors || []).filter(
+                          c => !(activeDocument?.authors || []).includes(c)
+                        )
+                      ]}
+                      readOnly={true}
+                    />
+                  )}
                 </div>
               </div>
             </div>
