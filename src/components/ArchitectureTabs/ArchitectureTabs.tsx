@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect, JSX, ReactNode } from 'react';
+import React, { useState, useRef, useEffect, useId, JSX, ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import '@ui5/webcomponents-icons/dist/AllIcons';
+import { Icon } from '@ui5/webcomponents-react';
 import styles from './ArchitectureTabs.module.css';
 import { useAuth } from '../../context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -32,8 +33,12 @@ export default function ArchitectureTabs({
 }: ArchitectureTabsProps): JSX.Element | null {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isVertical, setIsVertical] = useState(false);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+    const scrollTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const tabTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const tabGroupId = `architecture-tabs-${useId().replace(/:/g, '')}`;
     const { users } = useAuth();
     const { siteConfig } = useDocusaurusContext();
 
@@ -51,18 +56,38 @@ export default function ArchitectureTabs({
     // Sync internal state when scroll-controlled index changes
     useEffect(() => {
         if (enableScrollActivation && scrollActiveIndex !== undefined && scrollActiveIndex !== activeIndex) {
-            // Trigger fade out
             setIsTransitioning(true);
-
-            // Quick fade out, then update, then fade in
-            setTimeout(() => {
+            scrollTransitionTimeoutRef.current = setTimeout(() => {
                 setActiveIndex(scrollActiveIndex);
-                setTimeout(() => {
-                    setIsTransitioning(false);
-                }, 25); // Minimal delay before fade in
-            }, 150); // Faster fade out (was 200ms)
+                setIsTransitioning(false);
+                scrollTransitionTimeoutRef.current = null;
+            }, 150);
         }
+
+        return () => {
+            if (scrollTransitionTimeoutRef.current) {
+                clearTimeout(scrollTransitionTimeoutRef.current);
+                scrollTransitionTimeoutRef.current = null;
+            }
+        };
     }, [enableScrollActivation, scrollActiveIndex, activeIndex]);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 700px)');
+        const updateOrientation = () => setIsVertical(mediaQuery.matches);
+
+        updateOrientation();
+        mediaQuery.addEventListener('change', updateOrientation);
+        return () => mediaQuery.removeEventListener('change', updateOrientation);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            if (tabTransitionTimeoutRef.current) {
+                clearTimeout(tabTransitionTimeoutRef.current);
+            }
+        };
+    }, []);
 
     // Move useEffect BEFORE any conditional returns (React hooks rule)
     useEffect(() => {
@@ -124,30 +149,93 @@ export default function ArchitectureTabs({
         return provider === 'btp' ? 'SAP' : 'GitHub';
     };
 
-    const handleTabChange = (newIndex: number) => {
-        if (newIndex === effectiveActiveIndex || isTransitioning) return;
+    const handleTabChange = (newIndex: number, activateImmediately = false) => {
+        if (newIndex === effectiveActiveIndex || (!activateImmediately && isTransitioning)) return;
 
         // Notify parent that user manually selected a tab
         if (onManualTabChange) {
             onManualTabChange();
         }
 
-        setIsTransitioning(true);
-        setTimeout(() => {
+        // Keyboard selection follows focus immediately, as expected for an
+        // automatically activated tab list. Pointer selection keeps the
+        // existing visual transition.
+        if (activateImmediately) {
+            if (tabTransitionTimeoutRef.current) {
+                clearTimeout(tabTransitionTimeoutRef.current);
+                tabTransitionTimeoutRef.current = null;
+            }
+            if (scrollTransitionTimeoutRef.current) {
+                clearTimeout(scrollTransitionTimeoutRef.current);
+                scrollTransitionTimeoutRef.current = null;
+            }
+            setIsTransitioning(false);
             setActiveIndex(newIndex);
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 50);
+            return;
+        }
+
+        setIsTransitioning(true);
+        tabTransitionTimeoutRef.current = setTimeout(() => {
+            setActiveIndex(newIndex);
+            setIsTransitioning(false);
+            tabTransitionTimeoutRef.current = null;
         }, 200);
     };
+
+    const handleTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+        let nextIndex: number | undefined;
+
+        switch (event.key) {
+            case 'ArrowLeft':
+                if (isVertical) return;
+                nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                break;
+            case 'ArrowRight':
+                if (isVertical) return;
+                nextIndex = (currentIndex + 1) % tabs.length;
+                break;
+            case 'ArrowUp':
+                if (!isVertical) return;
+                nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                break;
+            case 'ArrowDown':
+                if (!isVertical) return;
+                nextIndex = (currentIndex + 1) % tabs.length;
+                break;
+            case 'Home':
+                nextIndex = 0;
+                break;
+            case 'End':
+                nextIndex = tabs.length - 1;
+                break;
+            default:
+                return;
+        }
+
+        event.preventDefault();
+        tabRefs.current[nextIndex]?.focus();
+        handleTabChange(nextIndex, true);
+    };
+
+    const subtitleTitle = typeof subtitle === 'string' && subtitle.length > 310 ? subtitle : undefined;
+    const renderedSubtitle =
+        typeof subtitle === 'string' && subtitle.length > 310
+            ? `${subtitle.slice(0, 310).trimEnd()}…`
+            : subtitle;
 
     return (
         <div className={styles.tabsContainer}>
             {/* Tab Header/Buttons */}
             <div className={styles.tabListWrapper}>
-                <div className={styles.tabList} role="tablist">
+                <div
+                    className={styles.tabList}
+                    role="tablist"
+                    aria-label="Architecture Center features"
+                    aria-orientation={isVertical ? 'vertical' : 'horizontal'}
+                >
                     <div
                         className={styles.slidingBackground}
+                        aria-hidden="true"
                         style={{
                             transform: `translateX(${indicatorStyle.left}px)`,
                             width: `${indicatorStyle.width}px`,
@@ -158,14 +246,18 @@ export default function ArchitectureTabs({
                         return (
                             <button
                                 key={index}
-                                ref={(el) => { tabRefs.current[index] = el; }}
+                                type="button"
+                                ref={(el) => {
+                                    tabRefs.current[index] = el;
+                                }}
                                 role="tab"
                                 aria-selected={isActive}
-                                aria-controls={`panel-${index}`}
-                                id={`tab-${index}`}
+                                aria-controls={`${tabGroupId}-panel`}
+                                id={`${tabGroupId}-tab-${index}`}
                                 tabIndex={isActive ? 0 : -1}
                                 className={`${styles.tabButton} ${isActive ? styles.activeTab : ''}`}
                                 onClick={() => handleTabChange(index)}
+                                onKeyDown={(event) => handleTabKeyDown(event, index)}
                             >
                                 {tab.tabLabel || tab.title}
                             </button>
@@ -178,25 +270,28 @@ export default function ArchitectureTabs({
             <div
                 className={`${styles.tabPanel} ${isTransitioning ? styles.fadeOut : ''}`}
                 role="tabpanel"
-                id={`panel-${effectiveActiveIndex}`}
-                aria-labelledby={`tab-${effectiveActiveIndex}`}
+                id={`${tabGroupId}-panel`}
+                aria-labelledby={`${tabGroupId}-tab-${effectiveActiveIndex}`}
             >
                 {needsAuth && requiredProvider && (
                     <div className={styles.loginBadge}>
-                        <ui5-icon name="locked" class={styles.lockIcon}></ui5-icon>
+                        <Icon name="locked" className={styles.lockIcon} />
                         Requires {getProviderDisplayName(requiredProvider)} Login
                     </div>
                 )}
                 {!needsAuth && requiredProvider && isLoggedInWithRequiredProvider && (
                     <div className={styles.authenticatedBadge}>
-                        <ui5-icon name="unlocked" class={styles.lockIcon}></ui5-icon>
+                        <Icon name="unlocked" className={styles.lockIcon} />
                         Authenticated with {getProviderDisplayName(requiredProvider)}
                     </div>
                 )}
                 <div className={styles.contentLayout}>
                     <div className={styles.topRow}>
                         <div className={styles.iconContainer}>
-                            <ui5-icon class={styles.icon} name={icon?.replace('sap-icon://', '') || 'initiative'}></ui5-icon>
+                            <Icon
+                                className={styles.icon}
+                                name={icon?.replace('sap-icon://', '') || 'initiative'}
+                            />
                         </div>
                         <div className={styles.titleWrapper}>
                             <h3 className={styles.title}>{title}</h3>
@@ -208,15 +303,14 @@ export default function ArchitectureTabs({
                         <div className={styles.leftContent}>
                             <p
                                 className={styles.subtitle}
-                                title={subtitle && subtitle.length > 310 ? subtitle : undefined}
+                                title={subtitleTitle}
                             >
-                                {subtitle && subtitle.length > 310
-                                    ? subtitle.slice(0, 310).trimEnd() + '…'
-                                    : subtitle}
+                                {renderedSubtitle}
                             </p>
                             <div className={styles.actionWrapper}>
                                 {needsAuth && requiredProvider ? (
                                     <button
+                                        type="button"
                                         className={styles.actionButton}
                                         onClick={handleButtonClick}
                                     >
