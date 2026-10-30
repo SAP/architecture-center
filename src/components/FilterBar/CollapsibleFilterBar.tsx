@@ -17,8 +17,6 @@ interface CollapsibleFilterBarProps {
     onPartnersChange: (values: Option[]) => void;
     resetFilters: () => void;
     isResetEnabled: boolean;
-    searchTerm: string;
-    onSearchChange: (value: string) => void;
     resultCount?: number;
     showCommunityContent?: boolean;
     onCommunityContentChange?: (value: boolean) => void;
@@ -34,8 +32,6 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
     onPartnersChange,
     resetFilters,
     isResetEnabled,
-    searchTerm,
-    onSearchChange: _onSearchChange,
     resultCount,
     showCommunityContent = false,
     onCommunityContentChange,
@@ -79,7 +75,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
         }
     };
 
-    const hasActiveFilters = selectedPartners.length > 0 || searchTerm.length > 0 || showCommunityContent || showArchived || showRecentlyUpdated;
+    const hasActiveFilters = selectedPartners.length > 0 || showCommunityContent || showArchived || showRecentlyUpdated;
     const activeFilterCount = selectedPartners.length + (showCommunityContent ? 1 : 0) + (showArchived ? 1 : 0) + (showRecentlyUpdated ? 1 : 0);
 
     return (
