@@ -5,7 +5,9 @@ const glob = require('glob');
 const { Feed } = require('feed');
 
 // How many of the most recently updated reference architectures to list.
-const MAX_ITEMS = 50;
+// Keep in sync with MAX_ITEMS in src/_scripts/_generate-ref-arch-updates.js so
+// the feed and the /ref-arch-updates page show the same set.
+const MAX_ITEMS = 48;
 // Length of the plain-text body excerpt included with each item.
 const EXCERPT_LENGTH = 500;
 
@@ -74,16 +76,23 @@ module.exports = function (context) {
           if (fm.draft === true || fm.unlisted === true) continue;
           if (tags.includes('archive') || tags.includes('demo')) continue;
           if (meta.id === 'id-ra0000' || normalizePath(source).includes('/RA0000/')) continue;
+          // Need a front-matter slug for a stable link (matches the exclusion the
+          // /ref-arch-updates page generator applies, keeping the two sets identical).
+          if (!fm.slug) continue;
 
           const sourcePath = path.join(siteDir, source.replace(/^@site\//, ''));
           const { content } = matter(fs.readFileSync(sourcePath, 'utf8'));
-
+          // Guard against an unparseable last_update.date: an Invalid Date would
+          // not throw here but would crash feed.atom1()/rss2() below (outside this
+          // try/catch) via toISOString(), aborting the whole build.
+          const date = new Date(fm.last_update.date);
+          if (Number.isNaN(date.getTime())) continue;
           entries.push({
             title: meta.title,
             description: meta.description || '',
             excerpt: buildExcerpt(content),
             link: `${siteUrl}${meta.permalink}`,
-            date: new Date(fm.last_update.date),
+            date,
           });
         } catch (err) {
           // Skip anything we can't read or whose shape changed across versions,
@@ -94,7 +103,9 @@ module.exports = function (context) {
         }
       }
 
-      entries.sort((a, b) => b.date - a.date);
+      // Newest first; break date ties by link so the cut at MAX_ITEMS is stable
+      // and matches the /ref-arch-updates page's identical tiebreak.
+      entries.sort((a, b) => (b.date - a.date) || a.link.localeCompare(b.link));
       const items = entries.slice(0, MAX_ITEMS);
 
       const updated = items.length ? items[0].date : new Date();
