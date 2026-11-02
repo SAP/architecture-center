@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "08:30"
+      timezone: "Europe/Berlin"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-major"
+    groups:
+      security-patches:
+        applies-to: security-updates
+        patterns: ["*"]
+        update-types: ["patch"]
+      version-patches:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
