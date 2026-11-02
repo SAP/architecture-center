@@ -41,14 +41,17 @@
     /* Remove height constraint - let page scroll naturally */
 }
 
-/* Apply scroll-snap to the whole page when homepage is displayed */
+/* Apply scroll-snap to the whole page when homepage is displayed.
+   Uses `proximity` (not `mandatory`) so the page can rest at the very top on
+   load, keeping the announcement bar visible; it still snaps between sections
+   once the user scrolls. */
 :global(html:has(.homepage-main)) {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
 
 :global(body:has(.homepage-main)) {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-x: hidden;
 }
