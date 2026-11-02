@@ -1,4 +1,10 @@
 import tagsMap from '@site/src/constant/tagsMapping.json';
+import {
+  RECENT_MONTHS,
+  RECENT_FILTER_LABEL,
+  getRecentCutoffDate,
+  isDateRecent,
+} from '@site/src/utils/dateUtils';
 
 // =============================================================================
 // Types
@@ -70,18 +76,7 @@ export const PARTNER_OPTIONS = [
   { value: 'ibm', label: 'IBM' }
 ];
 
-export const RECENT_MONTHS = 3;
-export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
-
-// Helper to get cutoff date for "recently updated" filter
-export function getRecentCutoffDate(): Date {
-  const now = new Date();
-  const year = now.getUTCFullYear();
-  const targetMonth = now.getUTCMonth() - RECENT_MONTHS;
-  const day = now.getUTCDate();
-  const lastDayOfTargetMonth = new Date(Date.UTC(year, targetMonth + 1, 0)).getUTCDate();
-  return new Date(Date.UTC(year, targetMonth, Math.min(day, lastDayOfTargetMonth)));
-}
+export { RECENT_MONTHS, RECENT_FILTER_LABEL, getRecentCutoffDate } from '@site/src/utils/dateUtils';
 
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -152,10 +147,7 @@ export function isDocArchived(docId: string, docIdToTags: DocIdToTagsMap): boole
 
 export function isDocRecentlyUpdated(docId: string, docIdToTags: DocIdToTagsMap): boolean {
   const lastUpdateDate = getDocLastUpdateDate(docId, docIdToTags);
-  if (!lastUpdateDate) return false;
-
-  const docDate = new Date(lastUpdateDate);
-  return docDate >= getRecentCutoffDate();
+  return isDateRecent(lastUpdateDate);
 }
 
 export function findDocIdFromPath(pathname: string, tagsDocId: DocIdToTagsMap): string | null {
