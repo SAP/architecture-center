@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "08:30"
+      timezone: "Europe/Berlin"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-major"
+    groups:
+      security-patches:
+        applies-to: security-updates
+        patterns: ["*"]
+        update-types: ["patch"]
+      version-updates:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["patch"]
