@@ -1,7 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    directories:
+      - "/"
+      - "/.github/workflows/wrangler"
+      - "/.github/workflows/cspell"
     schedule:
       interval: "daily"
       time: "08:30"
