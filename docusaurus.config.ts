@@ -193,7 +193,7 @@ const config: Config = {
         //nouncementBar: {
         //  id: 'teched-2026-survey',
         //  content:
-        //      '<b>Hey! We made a 5-question <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">survey</a> for you. Your feedback is really important.</b>',
+        //    '<b>Help shape the SAP Architecture Center. Take our 5-question <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">survey</a> and tell us what you need.</b>',
         //  backgroundColor: '#0053CB',
         //  textColor: '#FFFFFF',
         //  isCloseable: true,
