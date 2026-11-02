@@ -77,9 +77,9 @@ export default function HeroSection(): JSX.Element {
             const w = window.innerWidth;
             const h = window.innerHeight;
             // Scale counts with area to keep the previous dot density
-            // (35 per 260px tile, 28 per 420px tile).
-            const countA = Math.round((35 * (w * h)) / (260 * 260));
-            const countB = Math.round((28 * (w * h)) / (420 * 420));
+            // (17.5 per 260px tile, 14 per 420px tile).
+            const countA = Math.round((17.5 * (w * h)) / (260 * 260));
+            const countB = Math.round((14 * (w * h)) / (420 * 420));
             const dotsA = buildDotTile(Math.random, { width: w, height: h, count: countA, oMin: 0.05, oMax: 0.22 });
             const dotsB = buildDotTile(Math.random, { width: w, height: h, count: countB, oMin: 0.1, oMax: 0.4 });
             el.style.setProperty('--dots-a', dotsA);
