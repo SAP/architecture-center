@@ -228,8 +228,9 @@
 }
 
 /* Soft dark scrim behind the hero text so it stays legible when a bright,
-   similarly-coloured blob drifts behind the title. */
-.heroContent::before {
+   similarly-coloured blob drifts behind the title. Dark mode only — in light
+   mode it reads as an out-of-place dark smudge and isn't needed. */
+[data-theme='dark'] .heroContent::before {
     content: '';
     position: absolute;
     inset: -16% -8%;
@@ -248,9 +249,19 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* drop-shadow (not text-shadow) renders on gradient-clipped text */
-    filter: drop-shadow(0 2px 12px rgba(4, 2, 18, 0.6));
     margin: 0;
+}
+
+/* Dark drop-shadow only in dark mode (lifts the title off bright blobs);
+   omitted in light mode where it would look like a dark smudge. */
+[data-theme='dark'] .heroTitle {
+    filter: drop-shadow(0 2px 12px rgba(4, 2, 18, 0.6));
+}
+
+/* Light mode: a soft white halo instead, so the title stays legible when a
+   colored blob drifts behind it (invisible over the plain light background). */
+[data-theme='light'] .heroTitle {
+    filter: drop-shadow(0 0 9px rgba(255, 255, 255, 0.9));
 }
 
 .cursor {
@@ -272,6 +283,12 @@
     color: var(--ifm-color-content-secondary);
     margin: 0;
     max-width: 800px;
+}
+
+/* Light mode: gentle white halo so the subtitle stays legible when a colored
+   blob drifts behind it (dark mode relies on the shared scrim instead). */
+[data-theme='light'] .heroSubtitle {
+    filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.85));
 }
 
 .heroActions {

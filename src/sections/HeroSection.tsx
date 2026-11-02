@@ -9,6 +9,7 @@ interface TileSpec {
     count: number;
     oMin: number;
     oMax: number;
+    color: string;
 }
 
 // Three discrete dot sizes (radius in tile px) and their share of the total.
@@ -40,7 +41,7 @@ function gradientColor(t: number): string {
 // tiling needed for parallax has no visible seam. Each dot gets one of three
 // sizes per DOT_SIZES, a random position, and a random opacity.
 function buildDotTile(rng: () => number, spec: TileSpec): string {
-    const { width, height, count, oMin, oMax } = spec;
+    const { width, height, count, oMin, oMax, color } = spec;
     const radii: number[] = [];
     for (const s of DOT_SIZES) {
         for (let i = 0; i < Math.round(count * s.share); i++) radii.push(s.r);
@@ -48,7 +49,7 @@ function buildDotTile(rng: () => number, spec: TileSpec): string {
     const margin = 3; // >= largest radius, for seamless edge wrapping
     let circles = '';
     const add = (x: number, y: number, r: number, o: string) => {
-        circles += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="#fff" opacity="${o}"/>`;
+        circles += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${color}" opacity="${o}"/>`;
     };
     for (const r of radii) {
         const x = rng() * width;
@@ -82,12 +83,16 @@ export default function HeroSection(): JSX.Element {
         const generate = () => {
             const w = window.innerWidth;
             const h = window.innerHeight;
+            // White dots read on the dark theme; on the light theme they vanish,
+            // so use a dark dot colour there.
+            const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+            const dotColor = dark ? '#ffffff' : '#2a2e4d';
             // Scale counts with area to keep the previous dot density
             // (17.5 per 260px tile, 14 per 420px tile).
             const countA = Math.round((17.5 * (w * h)) / (260 * 260));
             const countB = Math.round((14 * (w * h)) / (420 * 420));
-            const dotsA = buildDotTile(Math.random, { width: w, height: h, count: countA, oMin: 0.05, oMax: 0.22 });
-            const dotsB = buildDotTile(Math.random, { width: w, height: h, count: countB, oMin: 0.1, oMax: 0.4 });
+            const dotsA = buildDotTile(Math.random, { width: w, height: h, count: countA, oMin: 0.05, oMax: 0.22, color: dotColor });
+            const dotsB = buildDotTile(Math.random, { width: w, height: h, count: countB, oMin: 0.1, oMax: 0.4, color: dotColor });
             el.style.setProperty('--dots-a', dotsA);
             el.style.setProperty('--dots-b', dotsB);
             el.style.setProperty('--dots-a-size', `${w}px ${h}px`);
@@ -100,8 +105,12 @@ export default function HeroSection(): JSX.Element {
             timer = setTimeout(generate, 200);
         };
         window.addEventListener('resize', onResize);
+        // Regenerate with the right dot colour when the light/dark theme toggles.
+        const themeObserver = new MutationObserver(generate);
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         return () => {
             window.removeEventListener('resize', onResize);
+            themeObserver.disconnect();
             clearTimeout(timer);
         };
     }, []);
