@@ -17,6 +17,10 @@
  *   - static.cloudflareinsights.com / cloudflareinsights.com -> Cloudflare Web Analytics
  *   - cdn.jsdelivr.net/npm/@sap-theming/ -> SAP Fiori/UI5 web-component theming fonts
  *   - architecture-center-auth.cfapps.eu10-005.hana.ondemand.com -> Quick Start auth app
+ *   - sap-architecture-center-quickstart-cap-port-ij290co9-pr61a3cf31.cfapps.eu10-005.hana.ondemand.com
+ *       -> Quick Start document and collaboration API
+ *   - embed.diagrams.net -> embedded Draw.io editor
+ *   - viewer.diagrams.net -> embedded Draw.io diagram renderer
  *   - cdnapisec.kaltura.com -> Kaltura video player embedded in RA0005
  * Google Analytics / Tag Manager origins were removed: no analytics plugin is
  * configured in docusaurus.config.ts, so nothing loads them.
@@ -26,7 +30,10 @@
 // (e.g. upgrade-insecure-requests).
 const cspDirectives = [
     ['default-src', ["'self'"]],
-    ['script-src', ["'self'", "'unsafe-inline'", 'https://static.cloudflareinsights.com']],
+    [
+        'script-src',
+        ["'self'", "'unsafe-inline'", 'https://static.cloudflareinsights.com', 'https://viewer.diagrams.net'],
+    ],
     ['style-src', ["'self'", "'unsafe-inline'"]],
     ['img-src', ["'self'", 'data:', 'blob:', 'https:']],
     ['font-src', ["'self'", 'data:', 'https://cdn.jsdelivr.net/npm/@sap-theming/']],
@@ -35,10 +42,15 @@ const cspDirectives = [
         [
             "'self'",
             'https://architecture-center-auth.cfapps.eu10-005.hana.ondemand.com',
+            'https://sap-architecture-center-quickstart-cap-port-ij290co9-pr61a3cf31.cfapps.eu10-005.hana.ondemand.com',
             'https://cloudflareinsights.com',
+            'https://viewer.diagrams.net',
         ],
     ],
-    ['frame-src', ["'self'", 'https://cdnapisec.kaltura.com']],
+    [
+        'frame-src',
+        ["'self'", 'https://embed.diagrams.net', 'https://cdnapisec.kaltura.com'],
+    ],
     ['worker-src', ["'self'", 'blob:']],
     ['frame-ancestors', ["'none'"]],
     ['object-src', ["'none'"]],

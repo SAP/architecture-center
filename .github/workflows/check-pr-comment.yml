@@ -13,9 +13,12 @@ on:
       - Check Front Matter Properties
       - Check Contributor IDs
       - Check Reference Architecture IDs
+      - Check H1 Title
       - Check drawio Files
       - Check Orphan Files
       - Check External Links
+      - Check Spelling
+      - Check Typos
     types: [completed]
 
 permissions: {}
@@ -104,14 +107,15 @@ jobs:
             const prNumber = Number(process.env.PR);
             const headSha = process.env.HEAD_SHA;
 
-            // Typos and Spelling are intentionally excluded — they are not surfaced
-            // in the PR comment (they annotate inline on the Files tab instead).
+            // All content checks surfaced as sections in the one sticky comment.
             const CHECKS = [
               'Check Internal Links',
               'Check SEO Front Matter', 'Check Front Matter Properties',
               'Check Contributor IDs',
               'Check Reference Architecture IDs',
+              'Check H1 Title',
               'Check drawio Files', 'Check Orphan Files', 'Check External Links',
+              'Check Spelling', 'Check Typos',
             ];
             const MAX_BULLETS = 20;
 
@@ -119,14 +123,17 @@ jobs:
             // Points at the Automated Checks guide in the Community of Practice.
             const DOCS_BASE = 'https://architecture.learning.sap.com/docs/community/automated-checks';
             const DOCS = {
-              'Check Internal Links': 'internal-links',
-              'Check SEO Front Matter': 'seo-front-matter',
-              'Check Front Matter Properties': 'front-matter-properties',
-              'Check Contributor IDs': 'contributor-ids',
-              'Check Reference Architecture IDs': 'reference-architecture-ids',
-              'Check drawio Files': 'drawio-files',
-              'Check Orphan Files': 'orphan-files',
-              'Check External Links': 'external-links',
+              'Check Internal Links': 'document-body/internal-links',
+              'Check SEO Front Matter': 'front-matter/seo',
+              'Check Front Matter Properties': 'front-matter/properties',
+              'Check Contributor IDs': 'front-matter/contributor-ids',
+              'Check Reference Architecture IDs': 'front-matter/reference-architecture-ids',
+              'Check H1 Title': 'front-matter/h1-title',
+              'Check drawio Files': 'document-body/drawio-files',
+              'Check Orphan Files': 'document-body/orphan-files',
+              'Check External Links': 'document-body/external-links',
+              'Check Spelling': 'document-body/spelling',
+              'Check Typos': 'document-body/typos',
             };
 
             // Neutralize untrusted text: HTML-escape and strip HTML-comment markers so

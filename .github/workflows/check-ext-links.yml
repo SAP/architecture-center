@@ -3,13 +3,23 @@ name: Check External Links
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
       - 'news/**/*.md'
       - 'news/**/*.mdx'
       - '.github/workflows/check-ext-links.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '.github/workflows/check-ext-links.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
@@ -30,35 +40,41 @@ jobs:
           persist-credentials: false
           fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs news
+          filter-regex: '\.(md|mdx)$'
+
       - name: Compute scope
         id: scope
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git diff --name-only --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -E '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
           # Drop pages tagged "archive" in their front matter: archived RAs are kept
           # for reference and their external links are no longer maintained, so a 404
           # on an archived page must not fail the check. Scans the YAML front matter's
           # tags block only (block-list style, as used across the repo).
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            : > "$RUNNER_TEMP/scoped.txt"
-            while IFS= read -r file; do
-              if awk '
-                    NR==1 && /^---[[:space:]]*$/ {fm=1; next}
-                    fm && /^---[[:space:]]*$/ {exit (found?0:1)}
-                    fm && /^tags:/ {intags=1; next}
-                    fm && intags && /^[A-Za-z_]/ {intags=0}
-                    fm && intags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ {found=1}
-                    END {exit (found?0:1)}
-                  ' "$file"; then
-                echo "Excluding archived page from link check: $file"
-              else
-                printf '%s\n' "$file" >> "$RUNNER_TEMP/scoped.txt"
-              fi
-            done < "$RUNNER_TEMP/changed.txt"
-            mv "$RUNNER_TEMP/scoped.txt" "$RUNNER_TEMP/changed.txt"
-          fi
+          : > "$RUNNER_TEMP/changed.txt"
+          for file in "${FILES[@]}"; do
+            if awk '
+                  NR==1 && /^---[[:space:]]*$/ {fm=1; next}
+                  fm && /^---[[:space:]]*$/ {exit (found?0:1)}
+                  fm && /^tags:/ {intags=1; next}
+                  fm && intags && /^[A-Za-z_]/ {intags=0}
+                  fm && intags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ {found=1}
+                  END {exit (found?0:1)}
+                ' "$file"; then
+              echo "Excluding archived page from link check: $file"
+            else
+              printf '%s\n' "$file" >> "$RUNNER_TEMP/changed.txt"
+            fi
+          done
           if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
             {
               echo "### External links check"
@@ -132,7 +148,7 @@ jobs:
           if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
             {
               echo ""
-              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/docs/community/automated-checks/external-links"
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/external-links"
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 

@@ -1,0 +1,74 @@
+name: Changed content files
+description: >-
+  Lists the content files changed by the current pull request (vs its base) or
+  push to dev (vs the previous commit). Centralizes the changed-files logic so
+  every content check scopes to the same set the same way, on both event types.
+
+inputs:
+  pathspec:
+    description: Space-separated git pathspec(s) to limit the diff, e.g. "docs" or "docs news".
+    required: false
+    default: docs
+  filter-regex:
+    description: Extended-regex of file names to keep (applied with NUL-safe `grep -zE`).
+    required: false
+    default: '\.(md|mdx)$'
+
+outputs:
+  files-file:
+    description: Absolute path to a NUL-delimited file listing the matched changed paths (empty if none).
+    value: ${{ steps.compute.outputs.files-file }}
+  any:
+    description: "'true' when at least one file matched, otherwise 'false'."
+    value: ${{ steps.compute.outputs.any }}
+
+runs:
+  using: composite
+  steps:
+    - id: compute
+      shell: bash
+      env:
+        EVENT_NAME: ${{ github.event_name }}
+        BASE_REF: ${{ github.base_ref }}
+        PUSH_BEFORE: ${{ github.event.before }}
+        HEAD_SHA: ${{ github.sha }}
+        PATHSPEC: ${{ inputs.pathspec }}
+        FILTER_REGEX: ${{ inputs.filter-regex }}
+      run: |
+        set -euo pipefail
+        all="$RUNNER_TEMP/changed-all.txt"
+        matched="$RUNNER_TEMP/changed.txt"
+
+        # Pick the diff range by event. On a pull_request, diff the PR branch
+        # against its base; on a push (to dev), diff against the commit before
+        # the push, falling back to HEAD~1 for a first push or force-push where
+        # `before` is the all-zero SHA.
+        if [ "$EVENT_NAME" = "pull_request" ]; then
+          range="origin/${BASE_REF}...HEAD"
+        elif [ -z "$PUSH_BEFORE" ] || [ "$PUSH_BEFORE" = "0000000000000000000000000000000000000000" ]; then
+          range="HEAD~1..HEAD"
+        else
+          range="${PUSH_BEFORE}..${HEAD_SHA}"
+        fi
+
+        # Write the diff first so a git error (e.g. a missing base ref) fails the
+        # step rather than being swallowed into an empty, passing scan. -z +
+        # core.quotePath=false keep unusual paths intact. PATHSPEC is intentionally
+        # unquoted so it can carry multiple pathspecs.
+        # shellcheck disable=SC2086
+        git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "$range" -- $PATHSPEC > "$all"
+
+        # Keep only the names matching the filter; ignore grep's "no matches"
+        # status (1) but surface any real error.
+        if grep -zE "$FILTER_REGEX" "$all" > "$matched"; then :; else
+          status=$?
+          [ "$status" -eq 1 ] || exit "$status"
+          : > "$matched"
+        fi
+
+        echo "files-file=$matched" >> "$GITHUB_OUTPUT"
+        if [ -s "$matched" ]; then
+          echo "any=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "any=false" >> "$GITHUB_OUTPUT"
+        fi

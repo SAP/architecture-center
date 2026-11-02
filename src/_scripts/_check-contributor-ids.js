@@ -203,7 +203,7 @@ function main() {
       for (const m of findings) summary.push(`- ${m}`);
       summary.push('');
     }
-    summary.push('📖 How to fix (replace the ID with the GitHub username): https://architecture.learning.sap.com/docs/community/automated-checks/contributor-ids');
+    summary.push('📖 How to fix (replace the ID with the GitHub username): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/contributor-ids');
   }
   const summaryText = summary.join('\n');
 

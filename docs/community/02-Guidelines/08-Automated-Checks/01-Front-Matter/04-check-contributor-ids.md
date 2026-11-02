@@ -1,6 +1,6 @@
 ---
-sidebar_position: 15
-slug: /community/automated-checks/contributor-ids
+sidebar_position: 4
+slug: /community/automated-checks/front-matter/contributor-ids
 title: Contributor IDs Check for Author and Contributor Fields
 description: "How the contributor IDs check keeps SAP internal user IDs (I-, D-, and C-numbers) out of the author and contributors front matter, and why it can block a merge."
 sidebar_label: Contributor IDs
@@ -23,12 +23,12 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-27
+  date: 2026-10-28
 ---
 
 The **Contributor IDs** check reads the front matter of every documentation page you change in a pull request and makes sure nobody is credited by an **SAP internal user ID**. People must be credited by their public **GitHub username** instead. It is a **blocking** check: if a page lists an internal user ID as its author or a contributor, the check fails and the merge is held until you fix it.
 
-If you are new to front matter, read the [front matter guide](../04-front-matter.md) first. This page explains the automated rule that sits on top of it.
+If you are new to front matter, read the [front matter guide](../../04-front-matter.md) first. This page explains the automated rule that sits on top of it.
 
 ## Why this check exists
 
@@ -95,4 +95,4 @@ Not sure what your own GitHub username is? It is the name in your profile URL, `
 - **The Checks tab**, under **Check Contributor IDs**, with a job summary listing every finding.
 - **The sticky 🔎 Content check results comment**, which gathers this check's findings alongside the other blocking content checks.
 
-For a full walkthrough of where findings appear and how to resolve them, see [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
+For a full walkthrough of where findings appear and how to resolve them, see [Errors & Warnings](../13-pr-checks-errors-and-warnings.md).

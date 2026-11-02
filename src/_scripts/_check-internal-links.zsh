@@ -107,7 +107,7 @@ if [[ -n "$GITHUB_ACTIONS" ]]; then
       echo ""
       for h in "${hits[@]}"; do echo "- \`$(esc_sum "$h")\`"; done
       echo ""
-      echo "📖 How to fix (replace the internal-only link with a public one): https://architecture.learning.sap.com/docs/community/automated-checks/internal-links"
+      echo "📖 How to fix (replace the internal-only link with a public one): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/internal-links"
     } >> "$GITHUB_STEP_SUMMARY"
   fi
 fi
