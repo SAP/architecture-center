@@ -30,6 +30,8 @@
         "security:update": "npm update && npm audit fix"
     },
     "overrides": {
+        "glob": "^14.0.3",
+        "minimatch": "^11.0.4",
         "rimraf": "^4.0.0",
         "mermaid": "^11.9.0",
         "serialize-javascript": "^7.0.4",
@@ -78,7 +80,7 @@
         "dotenv": "^17.4.2",
         "feed": "^4.2.2",
         "front-matter": "^4.0.2",
-        "glob": "^13.0.6",
+        "glob": "^14.0.3",
         "gray-matter": "^4.0.3",
         "jwt-decode": "^4.0.0",
         "lexical": "^0.41.0",
@@ -114,7 +116,7 @@
         "eslint": "^9.39.5",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
-        "glob": "^13.0.6",
+        "glob": "^14.0.3",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
