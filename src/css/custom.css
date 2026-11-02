@@ -1731,6 +1731,10 @@ html[data-theme='dark'] .homepage-main {
 /* Full-page scroll - hide navbar shadow and adjust layout */
 .homepage-main {
     position: relative;
+    /* Own stacking context so the hero's fixed aurora background (z-index -1)
+       paints above this element's gradient but behind all section content,
+       keeping the effect visible across the whole page while scrolling. */
+    isolation: isolate;
 }
 
 /* Footer should snap as part of the last section */
