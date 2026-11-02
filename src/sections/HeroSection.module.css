@@ -98,7 +98,9 @@
     height: 100%;
     border-radius: 50%;
     background: var(--blob-color);
-    filter: blur(80px);
+    /* Blur strength knob — change here, or override --blob-blur per blob. */
+    --blob-blur: 120px;
+    filter: blur(var(--blob-blur));
     opacity: var(--blob-opacity, 0.32);
     will-change: transform;
     transform: translate(var(--push-x, 0px), var(--push-y, 0px));

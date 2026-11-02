@@ -22,6 +22,12 @@ const DOT_SIZES = [
 const GRADIENT_START = [70, 91, 229];
 const GRADIENT_END = [205, 0, 190];
 
+// Blob colour zones as fractions of the gradient (relative weights — they do
+// not have to sum to 1, they're normalised). One blob is sampled from the first
+// `low` zone, one from the last `high` zone, and the middle blob is the average
+// of those two. e.g. { low: 0.3, mid: 0.4, high: 0.3 } → 30% / 40% / 30%.
+const BLOB_COLOR_ZONES = { low: 0.3, mid: 0.4, high: 0.3 };
+
 // Sample a colour from the site gradient at position t (0 = start, 1 = end).
 function gradientColor(t: number): string {
     const mix = GRADIENT_START.map((s, i) => Math.round(s + t * (GRADIENT_END[i] - s)));
@@ -107,15 +113,18 @@ export default function HeroSection(): JSX.Element {
         const el = backgroundRef.current;
         if (!el) return;
         const blobs = Array.from(el.querySelectorAll<HTMLElement>('[data-blob]'));
-        // Gradient positions (0..1) for the blobs. Force the extremes to span at
-        // least 50% of the gradient: one in the low quarter, one in the high
-        // quarter (span >= 0.5). The third sits at their midpoint — since the
-        // gradient is linear, that yields the average of the two extreme
-        // colours. Shuffle so the roles aren't tied to specific blobs.
+        // Gradient positions (0..1) for the blobs, using the configurable
+        // BLOB_COLOR_ZONES: one blob sampled from the first zone, one from the
+        // last zone, and the third at their midpoint (= average colour, since
+        // the gradient is linear). Shuffle so the roles aren't tied to blobs.
         const ts = blobs.map(() => Math.random());
         if (ts.length >= 2) {
-            const lowT = Math.random() * 0.25; // 0 .. 0.25
-            const highT = 0.75 + Math.random() * 0.25; // 0.75 .. 1
+            const { low, mid, high } = BLOB_COLOR_ZONES;
+            const total = low + mid + high;
+            const lowEnd = low / total; // end of the first zone
+            const highStart = (low + mid) / total; // start of the last zone
+            const lowT = Math.random() * lowEnd;
+            const highT = highStart + Math.random() * (1 - highStart);
             ts[0] = lowT;
             ts[1] = highT;
             if (ts.length >= 3) ts[2] = (lowT + highT) / 2; // middle = average colour
