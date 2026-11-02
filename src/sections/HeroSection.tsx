@@ -107,11 +107,35 @@ export default function HeroSection(): JSX.Element {
         const el = backgroundRef.current;
         if (!el) return;
         const blobs = Array.from(el.querySelectorAll<HTMLElement>('[data-blob]'));
-        for (const blob of blobs) {
-            blob.style.top = `${(Math.random() * 85 - 15).toFixed(1)}%`; // -15% .. 70%
-            blob.style.left = `${(Math.random() * 85 - 15).toFixed(1)}%`;
-            blob.style.setProperty('--blob-color', gradientColor(Math.random()));
+        // Gradient positions (0..1) for the blobs. Force the extremes to span at
+        // least 50% of the gradient: one in the low quarter, one in the high
+        // quarter (span >= 0.5). The third sits at their midpoint — since the
+        // gradient is linear, that yields the average of the two extreme
+        // colours. Shuffle so the roles aren't tied to specific blobs.
+        const ts = blobs.map(() => Math.random());
+        if (ts.length >= 2) {
+            const lowT = Math.random() * 0.25; // 0 .. 0.25
+            const highT = 0.75 + Math.random() * 0.25; // 0.75 .. 1
+            ts[0] = lowT;
+            ts[1] = highT;
+            if (ts.length >= 3) ts[2] = (lowT + highT) / 2; // middle = average colour
+            for (let i = ts.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [ts[i], ts[j]] = [ts[j], ts[i]];
+            }
         }
+        blobs.forEach((blob, i) => {
+            // Place each blob by its CENTRE within a safe range so it stays on
+            // screen. Blob is 38.4vmax, so half-size is 19.2vmax; centre kept in
+            // 28..72vw/vh which, with the bounded drift, never leaves the view.
+            const cx = (28 + Math.random() * 44).toFixed(1);
+            const cy = (28 + Math.random() * 44).toFixed(1);
+            blob.style.left = `calc(${cx}vw - 19.2vmax)`;
+            blob.style.top = `calc(${cy}vh - 19.2vmax)`;
+            blob.style.setProperty('--blob-color', gradientColor(ts[i]));
+            // Random opacity within +/-30% of the 0.32 base (~0.22 .. 0.42).
+            blob.style.setProperty('--blob-opacity', (0.32 * (0.7 + Math.random() * 0.6)).toFixed(3));
+        });
         const id = requestAnimationFrame(() => {
             for (const blob of blobs) blob.style.opacity = '1';
         });

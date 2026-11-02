@@ -99,7 +99,7 @@
     border-radius: 50%;
     background: var(--blob-color);
     filter: blur(80px);
-    opacity: 0.32;
+    opacity: var(--blob-opacity, 0.32);
     will-change: transform;
     transform: translate(var(--push-x, 0px), var(--push-y, 0px));
     transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -134,20 +134,21 @@
     animation-delay: -16s;
 }
 
-/* Each path is a closed loop (0% == 100%) so the blob roams the full viewport
-   and returns smoothly. Together they sweep top, middle and bottom. */
+/* Each path is a closed loop (0% == 100%) so the blob gently roams and returns.
+   Amplitudes are kept small (<= ~16vw/vh) so that, combined with the centred
+   start positions set in JS, the blob's centre never leaves the viewport. */
 @keyframes driftA {
     0% {
         transform: translate(0, 0) scale(1);
     }
     25% {
-        transform: translate(70vw, 15vh) scale(1.2);
+        transform: translate(15vw, 8vh) scale(1.12);
     }
     50% {
-        transform: translate(45vw, 80vh) scale(0.9);
+        transform: translate(6vw, 16vh) scale(0.95);
     }
     75% {
-        transform: translate(5vw, 45vh) scale(1.1);
+        transform: translate(-12vw, 9vh) scale(1.08);
     }
     100% {
         transform: translate(0, 0) scale(1);
@@ -159,13 +160,13 @@
         transform: translate(0, 0) scale(1);
     }
     25% {
-        transform: translate(-55vw, 35vh) scale(0.9);
+        transform: translate(-15vw, 11vh) scale(0.95);
     }
     50% {
-        transform: translate(10vw, 70vh) scale(1.25);
+        transform: translate(8vw, -13vh) scale(1.15);
     }
     75% {
-        transform: translate(-30vw, 5vh) scale(1);
+        transform: translate(-9vw, -6vh) scale(1);
     }
     100% {
         transform: translate(0, 0) scale(1);
@@ -177,13 +178,13 @@
         transform: translate(0, 0) scale(1);
     }
     25% {
-        transform: translate(45vw, -55vh) scale(1.15);
+        transform: translate(13vw, -12vh) scale(1.1);
     }
     50% {
-        transform: translate(60vw, 10vh) scale(0.95);
+        transform: translate(-8vw, 10vh) scale(0.95);
     }
     75% {
-        transform: translate(-15vw, -40vh) scale(1.2);
+        transform: translate(12vw, 14vh) scale(1.12);
     }
     100% {
         transform: translate(0, 0) scale(1);
