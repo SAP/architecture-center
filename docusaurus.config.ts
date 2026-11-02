@@ -166,7 +166,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
+                content: 'sap, business ai platform, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -190,14 +190,14 @@ const config: Config = {
         },
 
         // Announcement Bar
-        // announcementBar: {
-        //     id: 'internal-prototype',
-        //     content:
-        //         '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
-        //     backgroundColor: '#0053CB',
-        //     textColor: '#FFFFFF',
-        //     isCloseable: true,
-        // },
+        //nouncementBar: {
+        //  id: 'teched-2026-survey',
+        //  content:
+        //    '<b>Help shape the SAP Architecture Center. Take our 5-question <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">survey</a> and tell us what you need.</b>',
+        //  backgroundColor: '#0053CB',
+        //  textColor: '#FFFFFF',
+        //  isCloseable: true,
+        //
         navbar: {
             title: 'Architecture Center',
             hideOnScroll: false,
