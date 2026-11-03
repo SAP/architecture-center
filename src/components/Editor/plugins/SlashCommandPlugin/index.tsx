@@ -154,7 +154,7 @@ function CommandMenu({
 
 export default function SlashCommandPlugin() {
   const editor = useEditor();
-  const { token } = useAuth();
+  const { token, btpToken } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
   const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
@@ -243,7 +243,7 @@ export default function SlashCommandPlugin() {
           if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
+              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle, btpToken);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -277,7 +277,7 @@ export default function SlashCommandPlugin() {
           if (backendUrl && token && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
+              const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle, btpToken);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);

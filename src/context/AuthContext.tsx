@@ -35,6 +35,7 @@ interface AuthContextType {
     logout: (provider?: 'github' | 'btp' | 'all') => void;
     hasDualLogin: boolean;
     token: string | null;
+    btpToken: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                     logout: () => {},
                     hasDualLogin: false,
                     token: null,
+                    btpToken: null,
                 }}
             >
                 {children}
@@ -385,7 +387,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     const hasDualLogin = !!(users.github && users.btp);
 
     return (
-        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, token }}>
+        <AuthContext.Provider value={{ user, users, loading, logout, hasDualLogin, token, btpToken: users.btp?.token ?? null }}>
             {children}
         </AuthContext.Provider>
     );

@@ -53,7 +53,7 @@ function AuthenticatedQuickStartView() {
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
-    const { users, token } = useAuth();
+    const { users, token, btpToken } = useAuth();
     const { expressBackendUrl, backendUrl } = siteConfig.customFields as { expressBackendUrl: string; backendUrl: string };
     const [initialized, setInitialized] = useState(false);
     const isSapAuthenticated = users.github?.isSapEmployee === true || users.btp !== null;
@@ -63,7 +63,7 @@ function AuthenticatedQuickStartView() {
     useEffect(() => {
         if (expressBackendUrl && token && !initialized) {
             const username = users.github?.username || '';
-            setBackendConfig(expressBackendUrl, token, username);
+            setBackendConfig(expressBackendUrl, token, username, btpToken);
             fetchDocuments().then(() => {
                 setInitialized(true);
             });

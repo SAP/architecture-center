@@ -11,7 +11,7 @@ const DRAWIO_ORIGIN = 'https://embed.diagrams.net';
 
 export default function DrawioEditorPlugin() {
   const { core } = useEditor();
-  const { token } = useAuth();
+  const { token, btpToken } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
   const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
@@ -42,7 +42,7 @@ export default function DrawioEditorPlugin() {
       const file = new File([blob], 'diagram.drawio', { type: 'application/xml' });
 
       // Upload the edited diagram as a new asset
-      const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle);
+      const asset = await api.uploadAsset(token, activeDocument.id, file, activeDocument.isArticle, btpToken);
 
       console.log('[DrawioEditor] Uploaded edited diagram, new assetId:', asset.ID);
 

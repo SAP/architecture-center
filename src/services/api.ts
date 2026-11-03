@@ -73,10 +73,11 @@ class ApiService {
     this.baseUrl = baseUrl;
   }
 
-  private getAuthHeaders(token: string): HeadersInit {
+  private getAuthHeaders(token: string, btpToken?: string | null): HeadersInit {
     return {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
+      ...(btpToken ? { 'x-sap-token': btpToken } : {}),
     };
   }
 
@@ -209,9 +210,9 @@ class ApiService {
     token: string,
     parentId: string,
     file: File,
-    isArticle: boolean = false
+    isArticle: boolean = false,
+    btpToken?: string | null
   ): Promise<DocumentAsset> {
-    // Read file as base64
     const content = await this.fileToBase64(file);
 
     const entity = isArticle ? 'ArticleAssets' : 'DocumentAssets';
@@ -219,7 +220,7 @@ class ApiService {
 
     const response = await fetch(`${this.documentServiceUrl}/${entity}`, {
       method: 'POST',
-      headers: this.getAuthHeaders(token),
+      headers: this.getAuthHeaders(token, btpToken),
       body: JSON.stringify({
         ...parentKey,
         mediaType: file.type,
