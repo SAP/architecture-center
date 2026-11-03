@@ -15,9 +15,15 @@ export default function ThreeWave(): React.JSX.Element {
 
         let rafId: number;
         let renderer: import('three').WebGLRenderer;
+        let disposed = false;
+        let cleanup: (() => void) | null = null;
 
         (async () => {
             const THREE = await import('three');
+            // The effect may have been cleaned up while this dynamic import was
+            // still pending (fast SPA unmount / StrictMode); if so, abort before
+            // creating any resources.
+            if (disposed) return;
 
             /* ── Renderer ─────────────────────────────────── */
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -139,8 +145,8 @@ export default function ThreeWave(): React.JSX.Element {
 
             tick();
 
-            /* ── Cleanup ref ──────────────────────────────── */
-            (mount as any).__threeCleanup = () => {
+            /* ── Cleanup closure ──────────────────────────── */
+            cleanup = () => {
                 cancelAnimationFrame(rafId);
                 window.removeEventListener('mousemove', onMouseMove);
                 window.removeEventListener('resize', onResize);
@@ -156,8 +162,9 @@ export default function ThreeWave(): React.JSX.Element {
         })();
 
         return () => {
+            disposed = true;
             cancelAnimationFrame(rafId);
-            (mount as any).__threeCleanup?.();
+            cleanup?.();
         };
     }, []);
 
