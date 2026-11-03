@@ -158,9 +158,9 @@ interface PublishStatus {
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
-  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
+  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations, syncArticleOperations } =
     usePageDataStore();
-  const { token, user } = useAuth();
+  const { token, user, btpToken } = useAuth();
   const { colorMode } = useColorMode();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -389,7 +389,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         // Only use delta sync if backend has valid state structure and not during initial full sync
         if (doc && canUseDeltaSync && !fullSyncInProgress) {
           console.log('[Editor] Delta sync - operations:', ops.length, ops);
-          syncOperations(doc.id, ops).then((lastOpId) => {
+          const syncFn = doc.isArticle
+            ? syncArticleOperations(doc.id, ops)
+            : syncOperations(doc.id, ops);
+          syncFn.then((lastOpId) => {
             if (lastOpId) {
               core.markSynced(lastOpId);
               console.log('[Editor] Operations synced, lastOpId:', lastOpId);
@@ -457,7 +460,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       unsubscribe();
       core.destroy();
     };
-  }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
+  }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations, syncArticleOperations]);
 
   // Reload assets when token becomes available (after initial mount)
   // This handles the case where auth loads after the editor mounts
@@ -519,7 +522,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       setPublishStatus((prev) => ({ ...prev, stage: 'forking' }));
       const response = await fetch(`${expressBackendUrl}/api/publish`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...(btpToken ? { 'x-sap-token': btpToken } : {}) },
         body: JSON.stringify(payloadForPublish),
       });
       const result = await response.json();
