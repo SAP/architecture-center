@@ -1,10 +1,12 @@
 ---
-id: 5hj89h
-slug: /ref-arch/5hj89h
+id: '478582'
+slug: /ref-arch/478582
 sidebar_position: 1
 title: SAP Business AI Platform
-description: The SAP Business AI platform brings together deep process context, unified data, and enterprise-grade governance to ensure that AI solutions are reliable, compliant, and impactful.
-sidebar_label: SAP Business AI Platform
+description: >-
+  The SAP Business AI platform brings together deep process context, unified
+  data, and enterprise-grade governance to ensure that AI solutions are
+  reliable, compliant, and impactful.
 keywords:
   - sap
   - business data cloud
@@ -17,6 +19,7 @@ keywords:
   - ontology
   - joule
   - catalog
+sidebar_label: SAP Business AI Platform
 image: img/ac-soc-med.png
 tags:
   - ref-arch
@@ -31,10 +34,12 @@ unlisted: false
 contributors:
   - fabianleh
   - s-krishnamoorthy
+discussion: 
 last_update:
   author: fabianleh
   date: 2026-10-25
 ---
+
 ## SAP Business AI Platform
 
 The **SAP Business AI Platform** is SAP's enterprise AI foundation providing the infrastructure, data intelligence, and governance required to run trusted AI at enterprise scale. Built on enterprise-grade security, governance, and data frameworks, it is deeply integrated with SAP's business applications and process knowledge. When Joule Work is provisioned, the platform is delivered as an integrated bundle — customers do not need to assemble or operate its components independently.
