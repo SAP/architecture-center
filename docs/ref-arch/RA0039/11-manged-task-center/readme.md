@@ -1,15 +1,17 @@
 ---
-id: 356shj
-slug: /ref-arch/356shj
+id: 40dbf0
+slug: /ref-arch/40dbf0
 sidebar_position: 6
 title: SAP-managed Task Center
-description: A reference architecture for SAP-managed Task Center, enabling a unified inbox for tasks across SAP solutions with minimal setup effort.
-sidebar_label: SAP-managed Task Center
+description: >-
+  A reference architecture for SAP-managed Task Center, enabling a unified inbox
+  for tasks across SAP solutions with minimal setup effort.
 keywords:
   - sap
   - task center
   - sap-managed
   - workflow
+sidebar_label: SAP-managed Task Center
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -25,6 +27,7 @@ draft: false
 unlisted: false
 contributors:
   - fabianleh
+discussion: 
 last_update:
   author: fabianleh
   date: 2026-10-22
