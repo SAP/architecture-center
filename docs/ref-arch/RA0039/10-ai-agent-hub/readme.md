@@ -1,10 +1,11 @@
 ---
-id: jfhsd9
-slug: /ref-arch/jfhsd9
+id: 11ffe9
+slug: /ref-arch/11ffe9
 sidebar_position: 4
 title: SAP AI Agent Hub
 description: >-
-  Govern AI agents across their lifecycle with SAP AI Agent Hub, the enterprise command center for agent discovery, observability, and compliance.
+  Govern AI agents across their lifecycle with SAP AI Agent Hub, the enterprise
+  command center for agent discovery, observability, and compliance.
 keywords:
   - sap
   - leanix
@@ -32,7 +33,7 @@ unlisted: false
 contributors:
   - perbernhardt
   - fabianleh
-discussion:
+discussion: 
 last_update:
   author: fabianleh
   date: 2026-10-19
