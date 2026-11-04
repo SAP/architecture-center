@@ -1,12 +1,12 @@
 ---
-id: a45y7d
-slug: /ref-arch/a45y7d
+id: 33b887
+slug: /ref-arch/33b887
 sidebar_position: 400
 title: Training-Free Predictive Analytics over a Semantic Lakehouse
 description: >-
-  Deliver predictions from tabular foundation models without training runs,
-  by promoting the governed semantic layer to the critical path of every
-  inference request.
+  Deliver predictions from tabular foundation models without training runs, by
+  promoting the governed semantic layer to the critical path of every inference
+  request.
 keywords:
   - sap
   - predictive analytics
@@ -37,6 +37,7 @@ unlisted: false
 contributors:
   - andrroth
   - modood-alvi
+discussion: 
 last_update:
   author: fabianleh
   date: 2026-10-19
