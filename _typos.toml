@@ -15,6 +15,14 @@
 # single variant). typos only supports one locale value; "en" is variant-neutral.
 locale = "en"
 
+# Ignore the `id:` and `slug:` front-matter lines. Their values are random short
+# identifiers (e.g. `d2ba1e`) that typos tokenizes into fragments like `ba` and
+# mis-flags as typos. cspell ignores these same lines (FrontMatterId/FrontMatterSlug).
+extend-ignore-re = [
+  "(?m)^id:.*$",
+  "(?m)^slug:.*$",
+]
+
 [default.extend-words]
 # --- Regular dictionary words typos mis-corrects ---
 advices = "advices"       # "remittance advices" — valid accounting term

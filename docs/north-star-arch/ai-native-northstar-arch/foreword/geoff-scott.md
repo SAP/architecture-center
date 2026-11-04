@@ -36,7 +36,7 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 import QuoteCard from '@site/src/components/QuoteCard/QuoteCard';
@@ -44,7 +44,7 @@ import QuoteCard from '@site/src/components/QuoteCard/QuoteCard';
 <QuoteCard
     variant="partner"
     quote={<>
-        <p>The pace of change in enterprise AI is something none of us have lived through before. New concepts, new architectures, and new vocabularies are arriving faster than most of us can read about them — agentic systems, the Model Context Protocol, system of context, harness engineering. By the time we settle on a definition, the conversation has moved on. In moments like these, customers need clarity from the platforms they have built their businesses on. This guide is exactly that, and ASUG commends SAP for the rigor and transparency that went into pulling it together for our community. The road ahead asks something of all of us. As customers, our responsibility is to read this guide carefully, reflect on what it means for our businesses, react with informed questions and feedback, and grow alongside SAP as the architecture matures. We are all in this together — learning, building, connecting, influencing, occasionally getting it wrong, and getting better as we go. This is a brave new world, and it asks both bravery and skill of all of us — qualities our community has in abundance. ASUG is here to help our members translate what they read, engage where it matters, and shape what comes next in true partnership with SAP. The era ahead will be defined not by who has the most polished architecture diagram, but by who builds the muscle to learn and act together. Let's get started.</p>
+        <p>The pace of change in enterprise AI is something none of us have lived through before. New concepts, new architectures, and new vocabularies are arriving faster than most of us can read about them - agentic systems, the Model Context Protocol, system of context, harness engineering. By the time we settle on a definition, the conversation has moved on. In moments like these, customers need clarity from the platforms they have built their businesses on. This guide is exactly that, and ASUG commends SAP for the rigor and transparency that went into pulling it together for our community. The road ahead asks something of all of us. As customers, our responsibility is to read this guide carefully, reflect on what it means for our businesses, react with informed questions and feedback, and grow alongside SAP as the architecture matures. We are all in this together - learning, building, connecting, influencing, occasionally getting it wrong, and getting better as we go. This is a brave new world, and it asks both bravery and skill of all of us - qualities our community has in abundance. ASUG is here to help our members translate what they read, engage where it matters, and shape what comes next in true partnership with SAP. The era ahead will be defined not by who has the most polished architecture diagram, but by who builds the muscle to learn and act together. Let's get started.</p>
     </>}
     name="Geoff Scott"
     title={<>CEO & Chief Community Champion<br/>ASUG (Americas' SAP User Group)</>}

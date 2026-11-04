@@ -57,7 +57,7 @@ We encourage you to explore the new platform, discover reference architectures r
 
 ## Get Involved
 
-The SAP Architecture Center is open source and welcomes contributions from architects, developers, and SAP professionals worldwide. Visit our [Community of Practice](https://architecture.learning.sap.com/community/intro) page to learn how you can:
+The SAP Architecture Center is open source and welcomes contributions from architects, developers, and SAP professionals worldwide. Visit our [Community of Practice](https://architecture.learning.sap.com/docs/community/intro) page to learn how you can:
 
 - Contribute new reference architectures
 - Enhance existing documentation

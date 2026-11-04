@@ -2,8 +2,8 @@
 id: 90f40f
 slug: /ref-arch/90f40f
 sidebar_position: 1
-title: Quality Inspection with Embodied AI and Robotics
-description: "Discover how Embodied AI automates quality inspection across warehouse and manufacturing, using SAP Digital Manufacturing, S/4HANA, and EWM."
+title: Quality Inspection with Physical AI and Robotics
+description: "Discover how Physical AI automates quality inspection across warehouse and manufacturing, using SAP Digital Manufacturing, S/4HANA, and EWM."
 keywords:
   - sap
   - embodied ai agents
@@ -36,13 +36,13 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
 Quality inspection as an activity occurs across various business processes.
 Examples include as part of warehouse pick & place operations, or as part of manufacturing and production processes.
 
-:::info Want to Try Embodied AI?
+:::info Want to Try Physical AI?
 [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
 :::
 
@@ -66,4 +66,4 @@ Associated SAP applications:
 - [What is embedded AI?](https://www.sap.com/resources/embedded-ai-explained)
 - [SAP Open Source Report 2025](https://d.dam.sap.com/a/CRdeMdL/SAP_Open_Source_Report_2025.pdf?rc=10&inline=true&doi=SAP1270985)
 - [Demo: Physical AI | Business Processes & Robots | SAP TechEd 2025](https://www.youtube.com/watch?v=4ZzpFQZOh_I)
-- :loudspeaker: Want to try out Embodied AI? [Contact SAP](https://url.sap/embodied-ai) for your options.
+- :loudspeaker: Want to try out Physical AI? [Contact SAP](https://url.sap/embodied-ai) for your options.

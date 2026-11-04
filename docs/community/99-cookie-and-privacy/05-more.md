@@ -1,11 +1,12 @@
 ---
 sidebar_position: 5
 slug: /community/more-github-sap
-title: GitHub and SAP Cookie and Privacy Policies
-description: "Links to GitHub and SAP policies on cookies and privacy, including their cookie notices, privacy statements, and account privacy settings."
-sidebar_label: More information on GitHub and SAP
+title: Cloudflare, GitHub and SAP Cookie and Privacy Policies
+description: "Links to Cloudflare, GitHub and SAP policies on cookies and privacy, including their cookie notices, privacy statements, and account privacy settings."
+sidebar_label: More information on Cloudflare, GitHub and SAP
 keywords:
  - sap
+ - cloudflare
  - github
  - cookie
  - privacy
@@ -23,12 +24,22 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-08
+  date: 2026-10-21
 ---
 
-Below is specific information concerning GitHub’s and SAP’s policies related to cookies and privacy.
+Below is specific information concerning Cloudflare’s, GitHub’s and SAP’s policies related to cookies and privacy.
+
+## Cloudflare information
+
+Cloudflare is the hosting provider for this site.
+
+- **[Cloudflare Cookie Policy](https://www.cloudflare.com/cookie-policy/)**
+- **[Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/)**
 
 ## GitHub information
+
+GitHub hosts the source repository and provides the OAuth login used by Quick Start.
+
 - **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**
 - **[GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)**
 - **[GitHub Account](https://github.com/login)**

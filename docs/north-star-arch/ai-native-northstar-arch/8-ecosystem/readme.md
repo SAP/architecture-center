@@ -4,8 +4,8 @@ sidebar_position: 8
 slug: /ai-native-north-star-architecture/ecosystem
 sidebar_custom_props:
     category_index: []
-title: "SAP AI Agent Hub: The Enterprise Agent Marketplace"
-description: "The SAP AI Agent Hub is the enterprise marketplace for discovering, publishing, and composing agents, tools, and extensions across a shared trust framework."
+title: "Ecosystem: The marketplace for agents, tools, and extensions"
+description: "Trust makes collaboration possible: a marketplace where agents, data products, and tools are registered, versioned, shared, and composed into solutions across organizational boundaries."
 keywords:
     - sap
     - sap ai agent hub
@@ -38,7 +38,7 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 Trust makes collaboration possible. With identity, open protocols, and clear authorization boundaries in place, agents, data products, and tools can be registered, versioned, and shared across organizational boundaries. The SAP AI Agent Hub solution serves as an enterprise hub for discovering and managing agents, a marketplace where intelligent components are published, evaluated, and composed into solutions.
@@ -50,8 +50,10 @@ Agent mining discovers agents that already exist across the enterprise, giving o
 
 The ecosystem builds on three foundations. APIs and metadata, described through Open Resource Discovery (ORD), make each SAP capability discoverable and composable. Data products, governed through SAP Business Data Cloud, provide curated datasets that agents and applications can consume through standardized interfaces. SAP Knowledge Graph adds semantic grounding, enabling agents to reason across these resources rather than simply query them.
 
- On top of this foundation, developers, partners, and customers cocreate agents, models, and extensions that expand enterprise intelligence. Partners build domain-specific agents such as a logistics optimization agent, a regulatory compliance agent, and a demand forecasting agent and publish them to the marketplace with standardized metadata, quality metrics, and trust ratings. Customers extend agents built by SAP with their own business rules, custom data sources, and industry-specific knowledge.
+Being callable is not the same as being usable by an agent. Interfaces need to explain what each operation does, what its inputs and outputs mean in business terms, and which permissions are required. APIs and tools organized around business tasks help agents choose the right action. These descriptions should cover customer extensions as well as SAP capabilities.
 
-Each agent in the marketplace follows the same governance model: identity management, authorization boundaries, observability, audit trails, ethics, and sustainability. Whether an agent is built by SAP, a partner, or a customer, it operates under the same trust framework.
+On top of these foundations, developers, partners, and customers cocreate agents, models, and extensions that expand enterprise intelligence. Partners build domain-specific agents such as a logistics optimization agent, a regulatory compliance agent, and a demand forecasting agent and publish them to the marketplace with standardized metadata, quality metrics, and trust ratings. Customers extend agents built by SAP with their own business rules, custom data sources, and industry-specific knowledge.
+
+Each agent in the marketplace follows the same governance model: identity management, authorization boundaries, observability, audit trails, ethics, and sustainability. Whether an agent is built by SAP, a partner, or a customer, it operates under the same trust framework. Each agent's verification status is recorded in its metadata, and organizations can choose to block agents marked as unverified.
 
 The result is a network effect: more agents create more capabilities, more capabilities attract more builders, and the ecosystem compounds in value, mirroring the platform dynamics that defined the consumer era and now apply to enterprise intelligence.

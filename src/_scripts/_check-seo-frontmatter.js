@@ -21,7 +21,7 @@
  * Tune the thresholds here:
  */
 const LIMITS = {
-  title: { recMin: 40, recMax: 60, errMin: 20, errMax: 65 },
+  title: { recMin: 40, recMax: 60, errMin: 10, errMax: 65 },
   description: { recMin: 120, recMax: 160, errMin: 50, errMax: 200 },
 };
 

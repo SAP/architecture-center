@@ -35,7 +35,7 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 import QuoteCard from '@site/src/components/QuoteCard/QuoteCard';
@@ -44,7 +44,7 @@ import SapLogo from './images/sap-logo.svg';
 <QuoteCard
     quote={<>
         <p>AI in the enterprise was never about a model, a feature, or an agent. It is about building the foundation that brings together your business data, your processes, and the AI tools that consume them. AI-first gives you isolated helpers inside applications; AI-native paves the way for the Autonomous Enterprise: one system of context that understands disputes in service, delays in logistics, and contract changes in procurement all at once, and can act on them with full governance and accountability.</p>
-        <p>Our AI-native North Star architecture outlines this vision in alignment with our user groups, so that every interaction feeds intelligence, every correction becomes a learning signal, and outcomes — not features — become the new delivery model for our customers. This North Star is not static; it evolves with every insight and experience. This document describes our AI-native North Star architecture and the path toward the Autonomous Enterprise, and <b>I invite you to explore it, reflect on it, and share your perspectives as SAP and our customers continue to refine this vision together.</b></p>
+        <p>Our AI-native North Star architecture outlines this vision in alignment with our user groups, so that every interaction feeds intelligence, every correction becomes a learning signal, and outcomes - not features - become the new delivery model for our customers. This North Star is not static; it evolves with every insight and experience. This document describes our AI-native North Star architecture and the path toward the Autonomous Enterprise, and <b>I invite you to explore it, reflect on it, and share your perspectives as SAP and our customers continue to refine this vision together.</b></p>
     </>}
     name="Philipp Herzig"
     title={<>Chief Technology Officer,<br/>Member of the Extended Board,<br/>SAP SE</>}

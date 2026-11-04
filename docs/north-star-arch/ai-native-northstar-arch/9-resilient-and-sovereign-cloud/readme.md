@@ -39,10 +39,10 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
-## Multitier deployment – public, private and sovereign cloud
+## Multitier deployment - public, private and sovereign cloud
 
 The system of context, the ecosystem, and the agents that operate within them are only as valuable as the infrastructure they run on. An AI-native enterprise runs on an intelligent, resilient cloud that delivers reliable, scalable performance worldwide. The cloud strategy at SAP balances latency, sustainability, compliance, and cost through a multitier deployment model:
 - **Public cloud** provides shared, multitenant infrastructure at economies of scale. 
@@ -54,7 +54,7 @@ The system of context, the ecosystem, and the agents that operate within them ar
 
 Cloud solutions are designed to be ethical, secure, reliable, scalable, sustainable, and cost-optimized, with **high availability** supported by standardized resilience patterns, near-zero downtime maintenance, and disaster recovery across regions. **Portability** across infrastructure environments reduces vendor lock-in and enables workload relocation across platforms and countries. **Elasticity** allows applications and agents to scale automatically with demand, containerized for fast startup and fine-grained horizontal scaling, reducing environmental impact by avoiding idle resource consumption.
 
-**AI-enabled operations** provide automated anomaly detection, predictive issue resolution, and self-healing workflows—moving from reactive incident management to proactive, intelligent operations and reducing operational expenses and energy waste. Standardized **observability** based on OpenTelemetry covers agents and applications comprehensively, capturing not only operational health but also what agents do, how they reason, where they act, and whom they call. This data serves a dual purpose: it keeps operations reliable and becomes a feedback signal for continuous agent improvement, adding to the context that informs future reasoning and decisioning. The SAP Cloud ALM solution extends from application-centric to AI-aware operations, supporting customers with the tools and insights needed to operate AI scenarios reliably at scale.
+**AI-enabled operations** provide automated anomaly detection, predictive issue resolution, and self-healing workflows - moving from reactive incident management to proactive, intelligent operations and reducing operational expenses and energy waste. Standardized **observability** based on OpenTelemetry covers agents and applications comprehensively, capturing not only operational health but also metering and compliance with audit logs for what agents do, how they reason, where they act, and whom they call. This data serves a dual purpose: it keeps operations reliable and becomes a feedback signal for continuous agent improvement, adding to the context that informs future reasoning and decisioning. The SAP Cloud ALM solution extends from application-centric to AI-aware operations, supporting customers with the tools and insights needed to operate AI scenarios reliably at scale.
 
 SAP advances sustainable cloud operations through a multilayered infrastructure strategy that reduces the environmental impact of data centers, in line with the [global environmental policy](https://www.sap.com/documents/2016/01/425d2a67-577c-0010-82c7-eda71af511fa.html). This includes running 100% of SAP-owned data centers on renewable energy, optimizing workloads, and collaborating closely with cloud infrastructure suppliers to help ensure their services and hardware align with the sustainability strategy at SAP. 
 

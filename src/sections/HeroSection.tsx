@@ -1,19 +1,11 @@
-import React, { JSX, useRef, useEffect, useState } from 'react';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import React, { JSX, useEffect, useState } from 'react';
 import Link from '@docusaurus/Link';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import '@ui5/webcomponents-icons/dist/AllIcons';
 import styles from './HeroSection.module.css';
-import { logger } from '@site/src/utils/logger';
-
-declare global {
-    interface Window {
-        particlesJS: (id: string, config: object) => void;
-    }
-}
+import AnniversarySticker from '../components/AnniversarySticker/AnniversarySticker';
 
 export default function HeroSection(): JSX.Element {
-    const particlesConfigUrl = useBaseUrl('/particlesjs-config.json');
-    const particlesInitialized = useRef(false);
     const [displayedText, setDisplayedText] = useState('');
     const [typingDone, setTypingDone] = useState(false);
     const fullText = 'SAP Architecture Center';
@@ -32,29 +24,18 @@ export default function HeroSection(): JSX.Element {
         return () => clearInterval(interval);
     }, []);
 
-    // Initialize particles.js
-    useEffect(() => {
-        if (particlesInitialized.current) return;
-
-        const loadParticles = async () => {
-            // Dynamically import particles.js (client-side only)
-            await import('particles.js');
-
-            // Fetch config and initialize
-            const response = await fetch(particlesConfigUrl);
-            const config = await response.json();
-            window.particlesJS('particles-js', config);
-            particlesInitialized.current = true;
-        };
-
-        loadParticles().catch((error) => {
-            logger.error('Failed to load particles.js', error);
-        });
-    }, [particlesConfigUrl]);
-
     return (
         <div className={styles.heroWrapper}>
-            <div id="particles-js" className={styles.particlesContainer}></div>
+            <AnniversarySticker />
+            <div className={styles.background} />
+            <div className={styles.canvasWrapper}>
+                <BrowserOnly>
+                    {() => {
+                        const ThreeWave = require('../components/ThreeWave/ThreeWave').default;
+                        return <ThreeWave />;
+                    }}
+                </BrowserOnly>
+            </div>
             <div className={styles.heroContainer}>
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>

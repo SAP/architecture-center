@@ -2,8 +2,8 @@
 id: bd733b
 slug: /ref-arch/bd733b
 sidebar_position: 1
-title: Asset Inspection with Embodied AI and Robotics
-description: "Learn how Embodied AI and robotics automate asset management, performing autonomous asset and site inspections with SAP APM and Field Service Management."
+title: Asset Inspection with Physical AI and Robotics
+description: "Learn how Physical AI and robotics automate asset management, performing autonomous asset and site inspections with SAP APM and Field Service Management."
 keywords:
   - sap
   - embodied ai agents
@@ -37,23 +37,17 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
-Warehouse automation is typically divided into physical and digital automation.
-Existing warehouse automation physical devices like Autonomous Mobile Robots (AMRs) can automate movement of items.
-In the digital world, warehouse AI agents can create and manage transfer orders, but can't physically pick items.
-
-Embodied AI agents for warehouse pick & place cases combine these approaches: AI agents with physical bodies are able to complete warehouse tasks end-to-end.
-
-:::info Want to Try Embodied AI?
+:::info Want to Try Physical AI?
 [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
 :::
 
 
 ## Key Capabilities
 
-Embodied AI for asset inspections addresses the following **challenges**:
+Physical AI for asset inspections addresses the following **challenges**:
 
 1. **Unplanned Downtime Costs**: reactive maintenance leads to equipment failure and production losses
 2. **Diagnostic Inaccuracy**: technicians often arrive at assets without the context, leading to low fix rates
@@ -86,9 +80,9 @@ Observations during the inspection and inspection results can also be stored acc
 
 Note that it's not only about a source system for tasks - these applications also contain valuable context, guardrails, and other capabilities that can be applied during the inspection.
 
-### Embodied AI Agents
+### Physical AI
 
-Embodied AI agents for autonomous inspections have three main skills:
+Physical AI  for autonomous inspections covers three main skills:
 
 1. **Asset Localization**: understanding which physical world assets correspond to which business objects
 2. **Context-Aware Visual Inspection**: this includes the navigation and perception skills required to compare observations against context data and expected status
@@ -103,5 +97,5 @@ Embodied AI agents for autonomous inspections have three main skills:
 
 ## Resources
 
-- [SAP Extended Warehouse Management (EWM)](https://www.sap.com)
-- [SAP Logistics Goods Management (LGM)](https://www.sap.com)
+- [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html)
+- [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-management.html)

@@ -23,7 +23,6 @@ tags:
   - eic
   - integration
   - appdev
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,10 +32,11 @@ unlisted: false
 contributors:
   - madankumarpichamuthu
   - adarshnarayanhegde
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adarshnarayanhegde
-  date: 2026-04-13
+  author: rameshvaranganti
+  date: 2026-10-28
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Azure to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines Azure-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.

@@ -1,27 +1,29 @@
 ---
 sidebar_position: 7
-title: Build Low-Code and Pro-Code AI Agents on SAP BTP
-description: "Build, integrate and orchestrate AI agents on SAP BTP using Joule Studio, the SAP Cloud SDK for AI, and the open A2A and MCP protocols."
+title: Build AI Agents on SAP Business AI Platform
+description: >-
+  Build, integrate and orchestrate AI agents on SAP Business AI Platform using Joule
+  Studio, the SAP Cloud SDK for AI, and the open A2A and MCP protocols.
 keywords:
-    - sap
-    - ai agents
-    - agentic ai
-    - joule
-    - joule studio
-    - sap cloud sdk for ai
-    - a2a
-    - model context protocol
-    - generative ai hub
-    - sap ai core
-    - low-code ai agents
-    - business ai platform
+- sap
+- ai agents
+- agentic ai
+- joule
+- joule studio
+- sap cloud sdk for ai
+- a2a
+- model context protocol
+- generative ai hub
+- sap ai core
+- low-code ai agents
+- business ai platform
 sidebar_label: Build AI Agents
 image: img/ac-soc-med.png
 tags:
-    - ai-golden-path
-    - genai
-    - agents
-    - appdev
+- ai-golden-path
+- genai
+- agents
+- appdev
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -29,16 +31,15 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-04-23'
 ---
 
 AI agents are autonomous software components that use large language models (LLMs) to reason, plan and take actions on behalf of users. They go beyond simple chatbots by dynamically selecting tools, retrieving context and orchestrating multi-step workflows to accomplish complex business tasks.
 
-SAP provides a comprehensive platform for building, deploying and running AI agents on SAP Business Technology Platform (BTP). Powered by the [SAP AI Foundation](https://www.sap.com/products/artificial-intelligence/ai-foundation-os.html), it delivers the services, models and infrastructure for intelligent agent development — from foundation model access and orchestration to enterprise data integration and secure connectivity. This guide focuses on **how** to build agents and **how** to connect them — covering the development approaches, integration patterns and interoperability standards that make up SAP's agentic AI strategy.
+SAP provides a comprehensive platform for building, deploying and running AI agents on SAP Business AI Platform by delivering the services, models and infrastructure for intelligent agent development — from foundation model access and orchestration to enterprise data integration and secure connectivity. This guide focuses on **how** to build agents and **how** to connect them — covering the development approaches, integration patterns and interoperability standards that make up SAP's agentic AI strategy.
 
 ## How to Build Agents
 
-SAP supports two complementary development approaches for building AI agents, each optimized for different skill sets and complexity requirements. Both produce agents that integrate with Joule — SAP's central AI copilot — and leverage the same underlying AI infrastructure on SAP BTP.
+SAP supports multiple development approaches for building AI agents, each optimized for different skill sets and complexity requirements. All approaches produce agents that integrate with Joule — SAP's central AI copilot — and leverage the same underlying AI infrastructure on SAP Business AI Platform.
 
 ### Low-Code Agents with Joule Studio
 
@@ -66,11 +67,11 @@ For many enterprise use cases, the fastest path to a production-ready agent is t
 
 ### Pro-Code Agents with SAP Cloud SDK for AI
 
-For complex, mission-critical use cases requiring deep customization, SAP BTP provides a full pro-code development stack. Pro-code agents give developers complete control over reasoning logic, state management and system integration while leveraging SAP's enterprise-grade AI infrastructure.
+For complex, mission-critical use cases requiring deep customization, SAP Business AI Platform provides a full pro-code development stack. Pro-code agents give developers complete control over reasoning logic, state management and system integration while leveraging SAP's enterprise-grade AI infrastructure.
 
 **What the pro-code stack provides:**
 
-- **[SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)**: The primary SDK for building AI applications on SAP BTP, providing type-safe abstractions for the Generative AI Hub, foundation models and orchestration services in Java, Python and TypeScript/JavaScript. Integrates with popular agent frameworks via LangChain and other adapters.
+- **[SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)**: The primary SDK for building AI applications on SAP Business AI Platform, providing type-safe abstractions for the Generative AI Hub, foundation models and orchestration services in Java, Python and TypeScript/JavaScript. Integrates with popular agent frameworks via LangChain and other adapters.
 - **Agent framework flexibility**: Integrate popular agent frameworks like LangGraph, AG2 (AutoGen), CrewAI, Smolagents, Google ADK, Pydantic AI and others
 - **Backend flexibility**: Use any backend framework (e.g., Python with Flask/FastAPI, Node.js, Java Spring Boot) or leverage the [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap/) for Java and JavaScript/TypeScript with built-in enterprise patterns for data management and service integration.
 - **AI Foundation**: The [Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core) in SAP AI Core provides foundation model access across multiple providers ([Availability of Generative AI Models](https://me.sap.com/notes/3437766)) with enterprise features including prompt registry and prompt optimization. Its orchestration service offers a harmonized API that combines content generation with grounding, templating, data masking, content filtering and translation in a single pipeline call. SAP HANA Cloud's Vector Engine enables Retrieval Augmented Generation (RAG) patterns through similarity search, while its Knowledge Graph Engine provides semantically connected enterprise data for advanced reasoning.
@@ -86,7 +87,7 @@ For complex, mission-critical use cases requiring deep customization, SAP BTP pr
 
 **Resources:**
 
-- **[SAP Architecture Center: Pro-Code AI Agents on SAP BTP](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/3)**
+- **[SAP Architecture Center: Pro-Code AI Agents on SAP Business AI Platform](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/3)**
 
 ### Choosing Your Approach
 
@@ -96,7 +97,7 @@ For complex, mission-critical use cases requiring deep customization, SAP BTP pr
 | **Development speed** | Rapid — visual configuration | Flexible — full coding required |
 | **Orchestration control** | Configuration-driven | Full programmatic control |
 | **Framework choice** | Managed by Joule Studio | LangGraph, AG2, CrewAI, Smolagents, Google ADK, Pydantic AI and more |
-| **Runtime** | Managed on SAP AI Core | SAP BTP (Cloud Foundry or Kyma) |
+| **Runtime** | Managed on SAP AI Core | SAP Business AI Platform (Cloud Foundry or Kyma) |
 | **Joule integration** | Automatic registration | Manual via A2A protocol |
 | **Best for** | Standard business process automation | Complex workflows, custom integrations, specialized AI scenarios |
 
@@ -138,13 +139,14 @@ Both patterns ensure that end users interact with all agents — whether low-cod
 
 ### Inbound: Expose Joule Agents to Your Ecosystem
 
-SAP agents are not limited to consumption within the SAP landscape. Through the **Agent Gateway**, Joule Agents can be exposed for consumption by third-party applications and external agentic systems via the A2A protocol.
-
-**What the Agent Gateway provides:**
-
 :::info Agent Gateway Availability
 The Agent Gateway is not yet generally available (GA). Current architecture supports unidirectional (outbound) communication. Key components enabling full bidirectional capabilities are expected to be released soon.
 :::
+
+
+SAP agents are not limited to consumption within the SAP landscape. Through the **Agent Gateway**, Joule Agents can be exposed for consumption by third-party applications and external agentic systems via the A2A protocol.
+
+**What the Agent Gateway provides:**
 
 - A publicly accessible A2A endpoint managed by SAP
 - A2A 0.3.0 specification support with HTTP+JSON transport
@@ -173,15 +175,14 @@ The Agent Gateway is not yet generally available (GA). Current architecture supp
 | [SAP Integration Suite](https://discovery-center.cloud.sap/serviceCatalog/integration-suite?region=all) | Enterprise integration and API management |
 | [SAP Cloud Identity Services](https://discovery-center.cloud.sap/serviceCatalog/cloud-identity-services?region=all) | Authentication, authorization and identity federation |
 
-## Resources
-
+:::info References
 **Reference Architectures:**
 
 - [Agentic AI & AI Agents — Overview](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e)
 - [A2A and MCP for Interoperability](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/1)
 - [Low-Code AI Agents with Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/2)
 - [Extend Joule with Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc/3)
-- [Pro-Code AI Agents on SAP BTP](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/3)
+- [Pro-Code AI Agents on SAP Business AI Platform](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/3)
 - [Integrating AI Agents with Joule](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/4)
 - [Integrating Joule Agents into Your Ecosystem](https://architecture.learning.sap.com/docs/ref-arch/ca1d2a3e/5)
 
@@ -191,3 +192,4 @@ The Agent Gateway is not yet generally available (GA). Current architecture supp
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
 - [Joule Development Guide](https://help.sap.com/docs/joule/joule-development-guide-ba88d1ec6a1b442098863d577c19b0c0/development)
 - [SAP AI Foundation](https://www.sap.com/products/artificial-intelligence/ai-foundation-os.html)
+:::

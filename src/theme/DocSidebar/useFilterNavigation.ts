@@ -4,12 +4,14 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
 import {
   FilterState,
+  DocIdToTagsMap,
   SidebarItem,
   PARTNER_OPTIONS,
   filterArchivedItems,
   groupSidebarByDomain,
   filterGroupedByPartner,
   filterGroupedByCommunityContent,
+  filterGroupedByRecentlyUpdated,
   buildDomainCategories,
   countUniqueDocsInItems,
   syncUrlParams,
@@ -27,7 +29,7 @@ export { PARTNER_OPTIONS };
  */
 export function useFilterNavigation(
   sidebar: SidebarItem[],
-  tagsDocId: Record<string, string[]>
+  tagsDocId: DocIdToTagsMap
 ) {
   const location = useLocation();
   const history = useHistory();
@@ -39,13 +41,15 @@ export function useFilterNavigation(
   const setShowArchived = useSidebarFilterStore(state => state.setShowArchived);
   const showCommunityContent = useSidebarFilterStore(state => state.showCommunityContent);
   const setShowCommunityContent = useSidebarFilterStore(state => state.setShowCommunityContent);
+  const showRecentlyUpdated = useSidebarFilterStore(state => state.showRecentlyUpdated);
+  const setShowRecentlyUpdated = useSidebarFilterStore(state => state.setShowRecentlyUpdated);
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const currentState: FilterState = { partners, showArchived, showCommunityContent };
+  const currentState: FilterState = { partners, showArchived, showCommunityContent, showRecentlyUpdated };
 
   // Memoized filtered results for current state
   const nonArchivedSidebar = useMemo(
@@ -63,9 +67,14 @@ export function useFilterNavigation(
     [grouped.grouped, partners, tagsDocId]
   );
 
-  const { filtered: filteredGrouped } = useMemo(
+  const { filtered: communityFiltered } = useMemo(
     () => filterGroupedByCommunityContent(partnerFiltered, showCommunityContent, tagsDocId),
     [partnerFiltered, showCommunityContent, tagsDocId]
+  );
+
+  const { filtered: filteredGrouped } = useMemo(
+    () => filterGroupedByRecentlyUpdated(communityFiltered, showRecentlyUpdated, tagsDocId),
+    [communityFiltered, showRecentlyUpdated, tagsDocId]
   );
 
   const selectedPartnerOptions = useMemo(
@@ -106,7 +115,8 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived,
       partners: selectedKeys,
-      showCommunityContent
+      showCommunityContent,
+      showRecentlyUpdated
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -119,7 +129,8 @@ export function useFilterNavigation(
     const defaultFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived: false,
       partners: [],
-      showCommunityContent: false
+      showCommunityContent: false,
+      showRecentlyUpdated: false
     });
 
     if (docExistsInFilteredResults(location.pathname, defaultFiltered)) {
@@ -147,7 +158,8 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived: value,
       partners,
-      showCommunityContent
+      showCommunityContent,
+      showRecentlyUpdated
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -166,7 +178,28 @@ export function useFilterNavigation(
     const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
       showArchived,
       partners,
-      showCommunityContent: value
+      showCommunityContent: value,
+      showRecentlyUpdated
+    });
+
+    updateExpandedDomainsForPath(newFiltered);
+    applyNavigation(determineNavigation(location.pathname, params, newFiltered, tagsDocId, refArchBase));
+  };
+
+  const handleRecentlyUpdatedChange = (value: boolean) => {
+    setShowRecentlyUpdated(value);
+
+    const params = syncUrlParams(
+      new URLSearchParams(location.search),
+      currentState,
+      { recentlyUpdated: value || null }
+    );
+
+    const newFiltered = computeFilteredResults(sidebar, tagsDocId, {
+      showArchived,
+      partners,
+      showCommunityContent,
+      showRecentlyUpdated: value
     });
 
     updateExpandedDomainsForPath(newFiltered);
@@ -178,6 +211,7 @@ export function useFilterNavigation(
     partners,
     showArchived,
     showCommunityContent,
+    showRecentlyUpdated,
     searchTerm,
     expandedDomains,
     selectedPartnerOptions,
@@ -189,11 +223,12 @@ export function useFilterNavigation(
     handlePartnersChange,
     handleArchiveChange,
     handleCommunityContentChange,
+    handleRecentlyUpdatedChange,
     handleResetFilters,
     handleBackToAllDocuments,
     setSearchTerm,
 
     // Computed
-    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent
+    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent || showRecentlyUpdated
   };
 }

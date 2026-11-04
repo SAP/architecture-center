@@ -2,10 +2,10 @@
 id: ae6821
 slug: /ref-arch/ae6821
 sidebar_position: 4
-title: Integrating Low-Code and Pro-Code AI Agents with Joule
+title: Integrating AI Agents with Joule (Outbound A2A)
 description: >-
-  Learn the architectural patterns for integrating both low-code and pro-code AI
-  agents with Joule, SAP's AI copilot, for a unified user experience.
+  Learn the architectural patterns for integrating AI
+  agents via A2A with Joule for a unified user experience.
 keywords:
   - sap
   - ai agents
@@ -18,7 +18,7 @@ keywords:
   - joule dialog function
   - sap ai core
   - business ai platform
-sidebar_label: Integrating AI Agents with Joule
+sidebar_label: Integrating AI Agents with Joule (Outbound A2A)
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -39,7 +39,7 @@ contributors:
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-10-14
+  date: 2026-10-26
 ---
 
 :::info Disclaimer
@@ -108,6 +108,6 @@ By supporting both of these patterns, SAP provides a comprehensive framework tha
 
 ## Examples
 Take a look at the following examples that build upon or implement elements of the Reference Architecture:
-- [Reference Implementation for A2A-Compliant Pro-Code Agents on SAP BTP with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
-- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on BTP Cloud Foundry - all from Claude Code.
+- [Reference Implementation for A2A-Compliant Pro-Code Agents on a Customer-Managed Subaccount on SAP Business AI Platform with Joule Integration](https://github.com/SAP-samples/btp-joule-a2a-pro-code-agent): Modular reference implementation covering a full-fledged agentic scenario end to end including Joule Integration via the A2A Protocol.
+- [SAP A2A Agent Toolkit Plugin](https://github.com/SAP-samples/joule-a2a-agent-toolkit/): Build, deploy, and connect AI agents to SAP Joule via the A2A (Agent-to-Agent) protocol on Cloud Foundry - all from Claude Code.
 - [Joule A2A: Connect Code Based Agents into Joule](https://community.sap.com/t5/technology-blog-posts-by-sap/joule-a2a-connect-code-based-agents-into-joule/ba-p/14329279): Shows how to integrate a custom Python LangGraph ReAct AI agent into Joule using pro-code extensibility and A2A integration.

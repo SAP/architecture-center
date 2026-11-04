@@ -1,4 +1,4 @@
-name: Deploy main site to GitHub Pages
+name: Deploy preview site to GitHub Pages
 
 on:
   # for local PR builds esp. builds in forked repositories

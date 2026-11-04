@@ -2,12 +2,13 @@
 id: 0f87e5
 slug: /ref-arch/0f87e5
 sidebar_position: 270
-title: Embodied AI Agents & Robotics for SAP Business AI
-description: Embodied AI combines agentic AI with cognitive robots to automate physical-world tasks within the business process, enabling end-to-end automation.
+title: Physical AI, Embodied AI & Robotics for SAP Business AI
+description: Physical AI combines agentic AI with cognitive robots to automate physical-world tasks within the business process, enabling end-to-end automation.
 keywords:
   - sap
   - joule
-  - embodied ai agents
+  - physical ai agents
+  - embodied ai
   - physical ai
   - robotics
   - agentic ai
@@ -18,7 +19,7 @@ keywords:
   - sap business ai
   - end-to-end automation
   - business ai platform
-sidebar_label: Embodied AI Agents & Robotics
+sidebar_label: Physical AI Agents & Robotics
 image: img/ac-soc-med.png
 tags:
   - genai
@@ -39,12 +40,14 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
-**Embodied AI** combines artificial intelligence with a physical form — such as robots — that can perceive and act in the real world.
-**Embodied AI Agents** take the next step: extending the impact of [SAP Business AI](https://www.sap.com/products/artificial-intelligence.html) into physical operations by [combining business-aware AI agents with robots for autonomous task execution](https://news.sap.com/tags/embodied-ai/).
-This empowers organizations to adapt more quickly to dynamic operational environments.
+**Physical AI** is a broad category that includes all forms of intelligence in the physical world, including vision systems, digital twins, industrial equipment, sensors, and robotic hardware.
+**Embodied AI** is a subset of physical AI which combines intelligence and reasoning with a physical body, such as a robot, that can both perceive its environment and execute physical tasks through that body. Examples of physical bodies include cameras, drones, industrial robots, quadruped robots, mobile robots, and humanoid robots.
+These types of intelligent systems receive input signals from the digital world (e.g., via business software) and the physical world (e.g., via sensors) that are transformed into contextualized observations and actions.  
+
+For SAP, Physical AI extends the capabilities of the Autonomous Enterprise into the physical world: automating physical tasks across the portfolio (e.g., asset inspection, warehouse operations, assembly) while feeding task outcomes and observations back into enterprise software for closed loop decision-making and planning.  
 
 :::tip Physical AI vs. Embodied AI vs. Embedded AI
 **Physical AI** refers to all forms of artificial intelligence focused on the physical world, including specialized models for perception, navigation, manipulation, and more. [**Embodied AI**](https://news.sap.com/tags/embodied-ai/) leverages physical AI combined with AI agents. [**Embedded AI**](https://www.sap.com/resources/embedded-ai-explained) focuses on digital systems, enabling smarter decisions inside business applications.
@@ -52,11 +55,11 @@ This empowers organizations to adapt more quickly to dynamic operational environ
 
 ## Key Capabilities
 
-Embodied AI enables end-to-end automation of tasks across the physical and digital world.
-SAP embeds Embodied AI into the business process, unlike standalone automation approaches, seamlessly incorporating this technology with enterprise software systems.
-Embodied AI is one of SAP's [six disruptions](https://www.asug.com/insights/six-disruptions-to-guide-the-next-generation-of-enterprise-software) that will transform how industries operate.
+Physical AI enables end-to-end automation of tasks across the physical and digital world.
+SAP embeds physical AI into the business process, unlike standalone automation approaches, seamlessly incorporating this technology with enterprise software systems.
+Physical AI is one of SAP's [six disruptions](https://www.asug.com/insights/six-disruptions-to-guide-the-next-generation-of-enterprise-software) that will transform how industries operate.
 
-Embodied AI Agents can be equipped to perform tasks such as:
+Physical AI Agents can be equipped to perform tasks such as:
 
 - Sense and interpret physical environment in real time
 - Adapt dynamically to errors, delays, or environmental changes
@@ -66,7 +69,7 @@ This results in business benefits including decreased manual effort, increased h
 
 ## Foundational Building Blocks
 
-These building blocks form the foundation of Embodied AI:
+These building blocks form the foundation of Physical AI:
 
 1. **Native Integration into SAP**: this brings business context, data, and processes into physical execution while also ensuring that connected systems are kept updated with the latest real world observations.
 2. **Agentic AI**: agentic reasoning and decision-making capabilities can handle the complex, unpredictable nature of the physical world.
@@ -74,31 +77,36 @@ These building blocks form the foundation of Embodied AI:
 4. **Physical AI Models**: this includes **vision-language models** (VLMs), **vision-language-action models** (VLAs), **robotic world models**, and **robotics foundation models** (RFMs); **vertical training** refers to the process of teaching models how to perform specialized tasks in specific bodies, which can be used to customize for customer-specific tasks.
 
 :::tip What Robots Does SAP Support?
-Embodied AI at SAP is **vendor agnostic**, including robots of all forms.
+Physical AI at SAP is **vendor agnostic**, including robots of all forms.
 Since [SAP first announced exploring physical AI in 2025](https://news.sap.com/2025/06/neura-robotics-sap-nvidia-future-of-physical-ai/), it has been [expanding its partner ecosystem](https://news.sap.com/2025/11/sap-physical-ai-partnerships-new-robotics-pilots/).
 :::
 
 ## Use Cases
 
-Embodied AI is well-suited for tasks involving some degree of **unpredictability**.
+Physical AI is well-suited for tasks involving some degree of **unpredictability**.
 This unpredictability can be in the task itself or in the task environment.
-A use case can correspond to one or multiple SAP applications.
-The following table shows typical use cases across supply chain, logistics, and manufacturing.
+A use case can correspond to one or multiple SAP assistants.
 
-| Use Case                    | Associated SAP Software |
+**Relevant Assistants**
+
+- [Asset Operations Assistant](https://www.sap.com/use-cases/joule-assistant/asset-and-service-management-ai)
+- [Logistics Assistant](https://www.sap.com/use-cases/joule-assistant/logistics-ai)
+- [Manufacturing Assistant](https://www.sap.com/use-cases/joule-assistant/manufacturing-ai)
+
+The following table shows typical use cases across supply chain, logistics, and manufacturing and the SAP solution portfolio that these assistants leverage.
+
+| Use Case                    | Associated SAP Solutions |
 | :------------------------------ | :------------------------------ |
 | **Warehouse Pick & Place** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/2)) | [SAP Extended Warehouse Management (EWM)](https://www.sap.com/products/scm/extended-warehouse-management.html), [SAP Logistics Management (LGM)](https://www.sap.com/products/scm/logistics-management.html) |
-| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html) |
+| **Asset Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/3)) | [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html), [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-management.html) |
 | **Health & Safety Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/4)) | [SAP S/4HANA for EHS workplace safety (EHS)](https://www.sap.com/products/scm/safety-management-software.html) |
 | **Quality Inspection** ([ref](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/5)) | [SAP S/4HANA Manufacturing for planning and scheduling (S/4 PP)](https://www.sap.com/products/scm/manufacturing-for-planning-and-scheduling.html) |
 | **Material Handling & Assembly**  | [SAP Digital Manufacturing (DM)](https://www.sap.com/products/scm/digital-manufacturing.html) |
 
 Further use case areas include in retail and service environments.
-An advantage of native SAP integration is that Embodied AI Agents can multi-task, for example reporting safety incidents via [SAP EHS](https://www.sap.com/products/scm/safety-management-software.html) while doing a warehouse operations task from [SAP EWM](https://www.sap.com/products/scm/extended-warehouse-management.html).
-
-
+An advantage of native SAP integration is that Physical AI Agents can multi-task, for example reporting safety incidents via [SAP EHS](https://www.sap.com/products/scm/safety-management-software.html) while doing a warehouse operations task from [SAP EWM](https://www.sap.com/products/scm/extended-warehouse-management.html).
 :::info
-Embodied AI does **not** replace traditional robotics and manufacturing automation such as Autonomous Mobile Robots (AMRs), which are a good fit for predictable, repetitive tasks.
+Physical AI does **not** replace traditional robotics and manufacturing automation such as Autonomous Mobile Robots (AMRs), which are a good fit for predictable, repetitive tasks.
 Instead, it complements these to be able to automate what was "not-automatable" and achieve end-to-end autonomous enterprise.
 :::
 
@@ -106,13 +114,13 @@ Instead, it complements these to be able to automate what was "not-automatable" 
 ## Architecture
 
 SAP brings applications, agents, and data together to contextualize, reason, and act in the physical world.
-The Embodied AI architecture is designed for [extensibility](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/1) and forms the backbone of delivering all Embodied AI use cases.
+The Physical AI architecture is designed for [extensibility](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/1) and forms the backbone of delivering all Physical AI use cases.
 
 ![drawio](drawio/reference-architecture-overview.drawio)
 
 ## Key Components
 
-The Embodied AI architecture involves the following components.
+The Physical AI architecture involves the following components.
 
 :::tip Curious about Extensibility?
 Check out the [reference architecture](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e/1) to discover how partner technologies and custom agents can be incorporated into the system landscape.
@@ -121,7 +129,7 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
 - ### SAP Business Technology Platform (BTP)
 
   [BTP](https://learning.sap.com/products/business-technology-platform) is SAP's comprehensive platform for building, deploying and running applications and AI agents. On BTP, [SAP AI Foundation](https://www.sap.com/products/artificial-intelligence/ai-foundation-os.html) delivers services, models and infrastructure for intelligent agent development — from foundation model access and orchestration to enterprise data integration and secure connectivity.
-  [BTP-based event-driven architectures](https://architecture.learning.sap.com/docs/ref-arch/fbdc46aaae) can be used to trigger Embodied AI capabilities.
+  [BTP-based event-driven architectures](https://architecture.learning.sap.com/docs/ref-arch/fbdc46aaae) can be used to trigger Physical AI capabilities.
 
 - ### Applications and Agents
   
@@ -132,8 +140,8 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
 
 - ### SAP Joule, AI Agents, and Joule Studio
 
-  [Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html) provides a conversational interface into [AI agents](https://www.sap.com/products/artificial-intelligence/ai-agents.html) and Embodied AI capabilities.
-  Custom AI agents can be created via [Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc/3) and connected in multi-agent systems together with Embodied AI Agents.
+  [Joule](https://www.sap.com/products/artificial-intelligence/ai-assistant.html) provides a conversational interface into [AI agents](https://www.sap.com/products/artificial-intelligence/ai-agents.html) and Physical AI capabilities.
+  Custom AI agents can be created via [Joule Studio](https://architecture.learning.sap.com/docs/ref-arch/06ff6062dc/3) and connected in multi-agent systems together with Physical AI Agents.
 
 - ### Partner Technologies
 
@@ -141,13 +149,15 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
   Partners are responsible for aspects including physical movements, sensory functions, and hardware.
   In contrast, SAP's focus is on the business significance of observations and determining the appropriate business-driven response.
 
-- ### Embodied AI on BTP
+- ### Physical AI
 
-  This is a **reuse service** responsible for bridging the physical and digital world, based on BTP and [IAS](https://pages.community.sap.com/topics/cloud-identity-services/).
+  These are new platform capabilities on the SAP Business AI Platform.
+  They bridge the digital to physical world.
+  These capabilities include the **Physical AI Service**. This is a **reuse service** responsible for bridging the physical and digital world, based on BTP and [IAS](https://pages.community.sap.com/topics/cloud-identity-services/).
   It acts as a **vendor-agnostic** intelligent gateway between SAP business applications, business AI agents, and partner technologies — bringing together all of the above components.
 
-  :::info Embodied AI Availability
-  The Embodied AI on BTP service is currently only indirectly available within SAP-managed BTP accounts.
+  :::info Physical AI Availability
+  Physical AI is available as an Industry AI offering.
   Are you a customer or partner interested in trying it out? [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
   :::
 
@@ -166,7 +176,8 @@ Check out the [reference architecture](https://architecture.learning.sap.com/doc
 
 ## Resources
 
+- [SAP Unveils Physical AI and Extends the Autonomous Enterprise into the Real World](https://news.sap.com/2026/10/sap-unveils-physical-ai-extends-autonomous-enterprise-real-world-sap-teched/)
 - [What is embedded AI?](https://www.sap.com/resources/embedded-ai-explained)
 - [SAP Open Source Report 2025](https://d.dam.sap.com/a/CRdeMdL/SAP_Open_Source_Report_2025.pdf?rc=10&inline=true&doi=SAP1270985)
 - [Demo: Physical AI | Business Processes & Robots | SAP TechEd 2025](https://www.youtube.com/watch?v=4ZzpFQZOh_I)
-- :loudspeaker: Want to try out Embodied AI? [Contact SAP](https://url.sap/embodied-ai) for your options.
+- :loudspeaker: Want to try out Physical AI? [Contact SAP](https://url.sap/embodied-ai) for your options.
