@@ -32,8 +32,8 @@ pagination_next: north-star-arch/ai-native-northstar-arch/acknowledgement/id-nsa
 contributors:
 discussion:
 last_update:
-    author: SAP
-    date: 2026-10-26
+    author: AdiPleyer
+    date: 2026-11-04
 ---
 
 import './faq.css';
@@ -214,7 +214,7 @@ For repeatable, transactional, regulated, or training-intensive tasks, stable ap
 </div>
 
 <div className="faq-a">
-<strong>A:</strong> See also [Question](#dynamic-and-deterministic-ui). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
+<strong>A:</strong> See also [Question on Dynamic and Deterministic UI](#question-7). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
 The SAP Fiori design system remains part of SAP's [AI Golden Path](/docs/golden-path/ai-golden-path/2-build-and-deliver/3-genai-applications/readme.md) for application development, alongside CAP and ABAP Cloud. 
 </div>
 
@@ -266,7 +266,7 @@ See also the Reference Architecture on [Agentic AI & AI Agents](../../../ref-arc
 
 <div className="faq-a">
 <strong>A:</strong> Document upload for document grounding is possible and can support question answering based on uploaded documents. <br/>
-A full end-to-end process, should not depend solely on free-form LLM generation. It should rather involve extraction, validation, matching against business data and an integrated and governed workflow. For this, the agent should use dedicated document-processing tools and APIs to apply business rules, authorization checks, master-data validation, and other controls before creating a business document in the system of record. Document understanding can also be provided as a reusable skill that agents can call.
+A full end-to-end process should not depend solely on free-form LLM generation. It should rather involve extraction, validation, matching against business data and an integrated and governed workflow. For this, the agent should use dedicated document-processing tools and APIs to apply business rules, authorization checks, master-data validation, and other controls before creating a business document in the system of record. Document understanding can also be provided as a reusable skill that agents can call.
 </div>
 
 
@@ -324,7 +324,7 @@ See Pro-Code AI Agents on SAP Business AI Platform: [Bring Your Own Agent](/docs
 </div>
 
 <div className="faq-a">
-<strong>A:</strong> Agent builders can select the LLM according to their preferences or needs with respect to cost, efficiency and also sovereignty.<br/>
+<strong>A:</strong> Agent builders can select the LLM according to their preferences or needs with respect to cost, efficiency, and also sovereignty.<br/>
 See the [Availability of Generative AI Models](https://me.sap.com/notes/3437766) and more on [Sovereignty](../9-resilient-and-sovereign-cloud/readme.md)
 </div>
 
@@ -391,7 +391,7 @@ For a complete list of models, including LLMs and SAP-RPT, available through the
 
 <div className="faq-a">
 <strong>A:</strong> SAP-RPT-1 has a specific role as a model for structured, relational business data. It is trained on enterprise data such as financial ledgers, transaction records, and supply-chain tables, enabling predictions without requiring customer-specific model training. It complements the large language models and other machine-learning approaches.<br/>
-Self-hosting is not the intended productive deployment model. Although certain SAP-RPT models may be technically available through public channels such as [Hugging Face](https://huggingface.co/SAP/sap-rpt-1-oss), this is for experimental purpose only and not approved for productive customer use. For productive enterprise scenarios, customers should use the SAP-hosted and governed models available through SAP AI Core and the generative AI hub.<br/>
+Self-hosting is not the intended productive deployment model. Although certain SAP-RPT models may be technically available through public channels such as [Hugging Face](https://huggingface.co/SAP/sap-rpt-1-oss), this is for experimental purposes only and not approved for productive customer use. For productive enterprise scenarios, customers should use the SAP-hosted and governed models available through SAP AI Core and the generative AI hub.<br/>
 See also the [SAP-RPT Playground](https://rpt.cloud.sap/)
 </div>
 
@@ -403,7 +403,7 @@ See also the [SAP-RPT Playground](https://rpt.cloud.sap/)
 </div>
 
 <div className="faq-a">
-<strong>A:</strong> For a prediction or classification scenario, the context data defines the set of possible output values, the model cannot “invent” values. For regression, the target is a continuous numeric range, predicted values are calculated by regression and do not need to be exactly present as part of the context data.
+<strong>A:</strong> For a prediction or classification scenario, the context data defines the set of possible output values; the model cannot “invent” values. For regression, the target is a continuous numeric range; predicted values are calculated by regression and do not need to be exactly present as part of the context data.
 </div>
 
 ### Knowledge Graph
