@@ -7,11 +7,11 @@ authors: [AdiPleyer]
 date: 2026-11-04
 ---
 
-With the recent update of the AI Native North Star Architecture, we are also publishing a collection of [Frequently Asked Questions](../docs/north-star-arch/ai-native-northstar-arch/15-frequently-asked-questions/readme.md).
+With the recent update of the AI Native North Star Architecture, we are also publishing a collection of [Frequently Asked Questions](/docs/ai-native-north-star-architecture/frequently-asked-questions).
 
 <!-- truncate -->
 
-The questions and answers were collected through multiple rounds of exchange with SAP customers and DSAG members on the [AI Native North Star Architecture](../docs/north-star-arch/ai-native-northstar-arch/readme.md). They cover a wide range of topics, including:
+The questions and answers were collected through multiple rounds of exchange with SAP customers and DSAG members on the [AI Native North Star Architecture](/docs/ai-native-north-star-architecture). They cover a wide range of topics, including:
 
 - Joule Work, Spaces, and the Generative UI concept
 - Agent authorization, identity propagation, and auditability
