@@ -18,28 +18,3 @@
         justify-content: end;
     }
 }
-
-/* "Recently added or updated" badge shown on its own line, directly under the
-   "Last updated on … by …" line, for recently-updated reference-architecture pages */
-.recentBadge {
-    display: block;
-    /* Shrink the box to the text so the clipped gradient spans the whole badge
-       instead of running across the full line width (which left the short text
-       sampling only the blue start of the gradient). */
-    width: -moz-fit-content;
-    width: fit-content;
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: 700;
-    font-style: normal;
-    color: #cd00be;
-}
-
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-    .recentBadge {
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-}
