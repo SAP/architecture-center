@@ -32,7 +32,7 @@ pagination_next: north-star-arch/ai-native-northstar-arch/acknowledgement/id-nsa
 contributors:
 discussion:
 last_update:
-    author: AdiPleyer
+    author: SAP
     date: 2026-11-04
 ---
 
