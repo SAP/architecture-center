@@ -31,6 +31,7 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
+  date: 2026-10-26
 ---
 
 AI agents are autonomous software components that use large language models (LLMs) to reason, plan and take actions on behalf of users. They go beyond simple chatbots by dynamically selecting tools, retrieving context and orchestrating multi-step workflows to accomplish complex business tasks.
