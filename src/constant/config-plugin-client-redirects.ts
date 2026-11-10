@@ -516,6 +516,11 @@ export const configRedirects = {
             from: '/docs/ref-arch/6972e8',
             to: '/docs/ref-arch/a22904',
         },
+        // now points to the new RA0039 with the SAP AI Agent Hub
+        {
+            from: '/docs/ref-arch/jkg4j2',
+            to: '/docs/ref-arch/jfhsd9',
+        },
         // Automated-checks docs moved to front-matter/ and document-body/ sub-slugs
         {
             from: '/docs/community/automated-checks/front-matter-properties',

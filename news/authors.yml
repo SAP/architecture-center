@@ -91,3 +91,13 @@ pvn-pavankumar:
         github: pvnpavankumar
         linkedin: pavankumarpvn
         x: _pvn_pavan
+
+AdiPleyer:
+    name: Adi Pleyer
+    title: Development Manager, Office of the CTO, SAP​
+    url: https://github.com/AdiPleyer
+    image_url: https://github.com/AdiPleyer.png
+    page: true
+    socials:
+        github: AdiPleyer
+        linkedin: adi-pleyer-5844923
