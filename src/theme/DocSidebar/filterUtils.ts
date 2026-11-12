@@ -1,7 +1,5 @@
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import {
-  RECENT_MONTHS,
-  RECENT_FILTER_LABEL,
   getRecentCutoffDate,
   isDateRecent,
 } from '@site/src/utils/dateUtils';
@@ -315,7 +313,16 @@ export function filterArchivedItems(items: SidebarItem[], docIdToTags: DocIdToTa
         }
       }
 
-      return { ...item, items: filteredItems };
+      // Mark as container-only if category is kept ONLY because it has matching children
+      const isContainerOnly = showArchived && !isCategoryArchived && filteredItems.length > 0;
+
+      return {
+        ...item,
+        items: filteredItems,
+        customProps: isContainerOnly
+          ? { ...item.customProps, isContainerOnly: true }
+          : item.customProps
+      };
     }
 
     return item;
@@ -477,7 +484,9 @@ function filterGroupedByMatchingDocIds(
       return { ...category, items: filteredItems };
     }
 
-    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+    // Don't show as leaf if category was marked as container-only by a previous filter
+    const isContainerOnly = category.customProps?.isContainerOnly === true;
+    if (categoryMatches && !isContainerOnly && itemBelongsToDomain(category, domainId, docIdToTags)) {
       return { ...category, items: [] };
     }
 
