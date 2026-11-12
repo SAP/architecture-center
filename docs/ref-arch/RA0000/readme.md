@@ -25,7 +25,7 @@ sidebar_custom_props:
 title: This is the demo page [RA0000]
 
 # DESCRIPTION: A maximum of 300 characters will be displayed in the cards. For social medias, the best practice is 110 characters max Keep it short & concise. 
-description: This page is used for demo purpose. It includes latest components developed and tested by the team. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+description: This page is used for demo purpose. It includes latest components developed and tested by the team. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
 
 # SIDEBAR_LABEL: 50 characters max (best practice). Keep it short & concise. 
 sidebar_label: Demo page [RA0000]
@@ -35,6 +35,7 @@ keywords:
   - sap
   - cloud
   - demo
+  - business ai platform
 
 # IMAGE: Default is SAP Architecture Center logo.
 image: img/ac-soc-med.png
@@ -75,7 +76,7 @@ contributors:
 
 # LAST_UPDATE: Choose the author & the date of the last important update. Please use the international format YYYY-MM-DD for the date to avoid problems. It will appear at the bottom of the page.
 last_update:
-  date: 2025-05-15
+  date: 2026-12-31
   author: cernus76
 
 ############################################################

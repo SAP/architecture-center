@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" agent="SAP Architecture Center" version="27.0.5">
+  <diagram name="3rd-Party A2A Token Exchange" id="third-party-a2a-token-exchange">
+    <mxGraphModel dx="1400" dy="820" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1280" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Third-Party A2A Integration — Token Exchange at SAP Cloud Identity before the Agent Gateway" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=17;fontStyle=1;fontColor=#223548;" parent="1" vertex="1">
+          <mxGeometry x="20" y="16" width="1240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime" value="Third-Party Agent Runtime&#10;(non-SAP platform)&#10;token: aud = Agent" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;fontColor=#223548;fontSize=12;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="40" y="200" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sci" value="SAP Cloud Identity Services&#10;OAuth token exchange&#10;(jwt-bearer + resource)&#10;aud: Agent → Target&#10;sub / sap_user_type preserved" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=2;fontColor=#223548;fontSize=12;fontStyle=1;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="340" y="190" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="agw" value="SAP Agent Gateway (AGW)&#10;validates token&#10;principal propagation per hop&#10;enforces access@agent" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#D6ECFF;strokeWidth=2;fontColor=#223548;fontSize=12;fontStyle=1;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="660" y="190" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="agent" value="SAP Agent / Target&#10;System (API, A2A, MCP)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;fontColor=#223548;fontSize=12;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="980" y="200" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="idp" value="Corporate IdP&#10;(optional, e.g. Entra ID)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;dashed=1;dashPattern=4 4;fontColor=#223548;fontSize=11;verticalAlign=middle;" parent="1" vertex="1">
+          <mxGeometry x="40" y="80" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="step1" value="1. exchange token&#10;(resource = Target)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=blockThin;endFill=1;fontSize=11;fontColor=#223548;" parent="1" source="runtime" target="sci" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="2. call AGW&#10;(aud = AGW)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=blockThin;endFill=1;fontSize=11;fontColor=#223548;" parent="1" source="sci" target="agw" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="3. principal propagation&#10;(token exchange per hop)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=blockThin;endFill=1;fontSize=11;fontColor=#223548;" parent="1" source="agw" target="agent" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="stepIdp" value="federated login (optional)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#475E75;strokeWidth=1.5;dashed=1;dashPattern=4 4;endArrow=blockThin;endFill=1;fontSize=10;fontColor=#475E75;" parent="1" source="idp" target="runtime" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="The agent-audience token (aud = Agent) is re-targeted to the SAP side (aud = Target) by a token exchange at SAP Cloud Identity Services before the Agent Gateway is called. The subject (sub, sap_id_type, sap_user_type) stays stable across every hop." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontStyle=2;fontColor=#475E75;" parent="1" vertex="1">
+          <mxGeometry x="40" y="380" width="1160" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -2,15 +2,20 @@
 id: 04c9a0
 slug: /ref-arch/04c9a0
 sidebar_position: 3
-title: Edge Integration Cell on GCP
-description: >-
-  Deploy SAP Integration Suite - Edge Integration Cell on GCP for secure hybrid
-  integration, leveraging scalable infrastructure and best practices.
+title: SAP Integration Suite Edge Integration Cell on GCP
+description: "Deploy SAP Integration Suite - Edge Integration Cell on GCP using Google Kubernetes Engine, Cloud SQL, and multi-AZ setup for secure hybrid integration."
 keywords:
   - sap
-  - gcp edge integration
-  - integration suite
-  - real-time connectivity
+  - gcp
+  - edge integration cell
+  - sap integration suite
+  - google kubernetes engine
+  - hybrid integration
+  - high availability
+  - cloud sql for postgresql
+  - multi-az deployment
+  - edge integration cell on gcp
+  - business ai platform
 sidebar_label: Edge Integration Cell on GCP
 image: img/ac-soc-med.png
 tags:
@@ -27,10 +32,11 @@ unlisted: false
 contributors:
   - AFK-Python
   - adarshnarayanhegde
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adarshnarayanhegde
-  date: 2026-04-13
+  author: rameshvaranganti
+  date: 2026-10-28
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Google Cloud Platform (GCP) to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines GCP-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.

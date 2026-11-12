@@ -10,6 +10,17 @@
     overflow: visible;
 }
 
+/* Don't snap the first section to the top. Otherwise scroll-snap pulls it flush
+   with the viewport top and scrolls the announcement bar (which sits above it)
+   out of view. Leaving the first section un-snapped lets the page rest at the
+   very top with the bar visible; sections below still snap normally.
+   Also shrink it to the visible height (viewport minus navbar) so its bottom
+   scroll arrow stays on screen now that it isn't snapped to the top. */
+.fullPageSection:first-of-type {
+    scroll-snap-align: none;
+    min-height: calc(100vh - var(--ifm-navbar-height, 60px));
+}
+
 /* Last section - combined with footer to fill viewport */
 .lastSection {
     min-height: calc(100vh - 290px) !important;
@@ -29,7 +40,7 @@
 
 .arrowContainer {
     position: absolute;
-    bottom: 80px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -38,16 +49,28 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .fullPageSection {
-        min-height: auto;
+        min-height: fit-content;
+        padding: 40px 0 120px 0;
         scroll-snap-align: none;
     }
 
-    .arrowContainer {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .fullPageSection:first-of-type {
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    .lastSection {
+        min-height: fit-content !important;
+        padding: 40px 0 60px 0;
+    }
+
+    /* On mobile, keep only the first section's scroll arrow; hide the rest. */
+    .fullPageSection:not(:first-of-type) .arrowContainer {
+        display: none;
+    }
+
+    /* Raise the first section's arrow a bit on mobile. */
+    .fullPageSection:first-of-type .arrowContainer {
+        bottom: 70px;
     }
 }

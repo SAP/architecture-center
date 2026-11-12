@@ -2,15 +2,20 @@
 id: 0ae6b4
 slug: /ref-arch/0ae6b4
 sidebar_position: 2
-title: Edge Integration Cell on Azure
-description: >-
-  Deploy SAP Integration Suite - Edge Integration Cell on Azure for hybrid
-  integration, leveraging secure infrastructure.
+title: SAP Integration Suite Edge Integration Cell on Azure
+description: "Deploy SAP Integration Suite - Edge Integration Cell on Azure using Azure Kubernetes Service, PostgreSQL, and multi-AZ setup for secure hybrid integration."
 keywords:
+  - sap
   - azure
-  - edge integration
+  - edge integration cell
   - sap integration suite
-  - real-time architecture
+  - azure kubernetes service
+  - hybrid integration
+  - high availability
+  - azure database for postgresql
+  - multi-az deployment
+  - edge integration cell on azure
+  - business ai platform
 sidebar_label: Edge Integration Cell on Azure
 image: img/ac-soc-med.png
 tags:
@@ -27,10 +32,11 @@ unlisted: false
 contributors:
   - madankumarpichamuthu
   - adarshnarayanhegde
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adarshnarayanhegde
-  date: 2026-04-13
+  author: rameshvaranganti
+  date: 2026-10-28
 ---
 
 SAP Integration Suite – Edge Integration Cell (EIC) can be deployed on Azure to leverage its scalable infrastructure while maintaining secure and controlled execution in a customer-managed environment. This architecture combines Azure-native services with EIC’s hybrid capabilities, ensuring a seamless integration experience.
@@ -48,7 +54,7 @@ Deploying EIC on Azure requires a secure, scalable, and resilient infrastructure
 
 ### 1. VNet, SubNet and Networking
 
-To ensure a **secure and private execution environment**, create a **[Virtuan Network (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal)** with **multi-AZ redundancy** for high availability (HA).
+To ensure a **secure and private execution environment**, create a **[Virtual Network (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal)** with **multi-AZ redundancy** for high availability (HA).
 
 - **Multi-AZ Deployment**:
   - Distribute your **EIC components** across **three Azure Availability Zones (AZs)** to ensure high availability. This setup helps maintain continuous service in case one AZ goes down, as the workload automatically fails over to another AZ.

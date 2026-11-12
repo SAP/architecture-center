@@ -3,19 +3,20 @@ id: 70c37e
 slug: /ref-arch/70c37e
 sidebar_position: 1
 title: DIV – Verifiable Credential Issuance and Verification
-description: >-
-  This reference architecture describes how SAP Decentralized Identity
-  Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials and
-  Verifiable Presentations on SAP BTP.
+description: "How SAP Decentralized Identity Verification (DIV) issues, signs, and verifies W3C Verifiable Credentials and Verifiable Presentations on SAP BTP."
 keywords:
   - sap
+  - sap decentralized identity verification
   - decentralized identity
   - verifiable credentials
-  - SSI
-  - DID
+  - verifiable presentations
+  - ssi
+  - did
   - credential issuance
   - credential verification
-  - IATP
+  - iatp
+  - catena-x
+  - business ai platform
 sidebar_label: VC Issuance and Verification
 image: img/ac-soc-med.png
 tags:
@@ -71,7 +72,7 @@ Here you also have the possibility to enhance the check for example to check als
 
 ### 2. Identification & Verification
 
-The car manufacturer would like to sign a contract agreement and afterwards retrieve data from the supplier. Therefor the car manufacture must send a verifiable presentation (VP) which proofs its membership and its identity. A verifiable presentation can be seen as a signed envelope which contains all necessary credential (like the membership credential) for a certain interaction. This signed envelop is send to the gear box supplier for authentication and authorization checks.
+The car manufacturer would like to sign a contract agreement and afterwards retrieve data from the supplier. Therefore the car manufacturer must send a verifiable presentation (VP) which proves its membership and its identity. A verifiable presentation can be seen as a signed envelope which contains all necessary credentials (like the membership credential) for a certain interaction. This signed envelope is sent to the gearbox supplier for authentication and authorization checks.
 
 The gearbox supplier gets the VP and verifies all the included data like the verifiable presentation and its containing verifiable credentials.
 After all checks are passed the car manufacturer can sign the contract agreement. Additionally, there was an access token issued which can be used to retrieve the data.
@@ -85,8 +86,8 @@ After all checks are passed the car manufacturer can sign the contract agreement
 
 - [W3C Verifiable Credentials Data Model](https://www.w3.org/TR/vc-data-model/)
 - [W3C Decentralized Identifiers (DIDs)](https://www.w3.org/TR/did-core/)
-- [IATP – Verifiable Presentation Protocol (Catena-X)](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/M1/verifiable.presentation.protocol.md)
-- [IATP – Credential Issuance Protocol (Catena-X)](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/M1/credential.issuance.protocol.md)
+- [IATP – Verifiable Presentation Protocol (Catena-X)](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/verifiable.presentation.protocol.md)
+- [IATP – Credential Issuance Protocol (Catena-X)](https://github.com/eclipse-tractusx/identity-trust/blob/main/specifications/credential.issuance.protocol.md)
 - [did-jwt-vc – DIF JavaScript Library](https://github.com/decentralized-identity/did-jwt-vc)
 - [DIF Universal Resolver](https://blog.identity.foundation/a-universal-resolver-for-self-sovereign-identifiers-2/)
 

@@ -2,16 +2,22 @@
 id: 12d55f
 slug: /ref-arch/12d55f
 sidebar_position: 5
-title: SAP Databricks in SAP BDC
-description: >-
-  Leverage SAP Databricks for AI and analytics, integrating SAP data with
-  Databricks for real-time insights and simplified data access.
+title: SAP and Databricks Integration in SAP Business Data Cloud
+description: "Leverage SAP Databricks for AI and analytics, integrating SAP data with Databricks for real-time insights and simplified data access."
 keywords:
   - sap
-  - databricks
+  - sap databricks
   - sap business data cloud
-  - real-time ai
-  - advanced analytics
+  - delta sharing
+  - unity catalog
+  - apache spark
+  - mlflow
+  - zero-copy data sharing
+  - ai and machine learning
+  - data engineering
+  - data products
+  - bdc connect
+  - business ai platform
 sidebar_label: SAP Databricks in SAP BDC
 image: img/ac-soc-med.png
 tags:
@@ -21,6 +27,7 @@ tags:
   - gcp
   - databricks
   - bdc
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -34,10 +41,8 @@ contributors:
 discussion: 
 last_update:
   author: s-krishnamoorthy
-  date: 2025-09-09
+  date: 2026-10-21
 ---
-
-# SAP and Databricks Integration in SAP Business Data Cloud
 
 SAP’s partnership with Databricks, a leader in unified data and AI platforms, helps streamline data access and enables businesses to harness SAP data for AI and machine learning use cases. This integration is delivered through SAP Databricks, a fully embedded OEM component of Databricks within the SAP Business Data Cloud.
 

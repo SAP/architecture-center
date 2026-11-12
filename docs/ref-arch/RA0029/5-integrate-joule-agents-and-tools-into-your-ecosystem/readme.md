@@ -2,20 +2,23 @@
 id: fe0d1d
 slug: /ref-arch/fe0d1d
 sidebar_position: 5
-title: Integrating Joule Agents into Your Ecosystem
+title: Integrating Joule Agents into Your Ecosystem (Inbound A2A)
 description: >-
   Learn how to expose Joule agents for consumption by third-party applications
   and external systems using the Agent Gateway with the A2A protocol.
 keywords:
   - sap
-  - ai agents
-  - joule
-  - integration
-  - ecosystem
-  - a2a
+  - joule agents
   - agent gateway
-  - third-party
-sidebar_label: Integrating Joule Agents into Your Ecosystem
+  - a2a
+  - a2a connectivity
+  - sap integration suite
+  - agent interoperability
+  - api management
+  - sap cloud identity services
+  - third-party ai platforms
+  - business ai platform
+sidebar_label: Integrating Joule Agents into Your Ecosystem (Inbound A2A)
 image: img/ac-soc-med.png
 tags:
   - agents
@@ -33,10 +36,11 @@ draft: false
 unlisted: false
 contributors:
   - kay-schmitteckert
+  - Dhawal-Joshi
 discussion: 
 last_update:
   author: kay-schmitteckert
-  date: 2026-08-02
+  date: 2026-10-26
 ---
 
 :::info Disclaimer
@@ -45,7 +49,7 @@ Some components and capabilities of this reference architecture are not yet gene
 
 While a primary use case is integrating external agents *into* Joule, the architecture is designed to be bidirectional. Agents built within the SAP ecosystem can also be exposed for consumption by third-party applications and external agentic systems. This enables SAP to act as a central hub of enterprise intelligence that can be leveraged across a heterogeneous IT landscape.
 
-This outbound interoperability is achieved through the **Agent Gateway**, which exposes Joule Agents via the **Agent2Agent (A2A) protocol**.
+This outbound interoperability is achieved through the **Agent Gateway**, which exposes Joule Agents via the **Agent2Agent (A2A) protocol**. Third-party applications and external agentic systems can integrate with SAP ecosystem Agents either directly via Agent Gateway or via SAP Integration Suite
 
 ## Architecture
 
@@ -78,7 +82,20 @@ SAP provides the **Agent Gateway** that enables external clients and application
 3.  **Invocation:** The external application (acting as an A2A client) sends a request to the Agent Gateway endpoint, specifying the target Joule Scenario and providing the necessary input data
 4.  **Execution:** The Agent Gateway routes the request to the appropriate Joule Agent, which executes its logic and may invoke internal tools or integrate with SAP systems
 5.  **Response:** The agent returns a response via the A2A protocol. For long-running tasks, the agent can use asynchronous callbacks to notify the external application when processing is complete
-6.  **Security & Audit:** All interactions are secured through SAP BTP's identity and trust management services. Enterprise-grade security includes SAP Cloud Identity Services, role-based access control and comprehensive audit logging through SAP Cloud ALM
+6.  **Security & Audit:** All interactions are secured through Business AI Platform identity and trust management services. Enterprise-grade security includes SAP Cloud Identity Services, role-based access control and comprehensive audit logging through SAP Cloud ALM
+
+## SAP Integration Suite
+
+SAP Integration Suite provides the **A2A Connectivity** that enables external clients and applications to seamlessly consume Joule Agents and other 3rd party Agents through the A2A protocol. It offers enhanced A2A experience by introducing middleware capabilities with additional enterprise qualities there by supporting even multi-party integration scenarios between SAP and non-SAP agentic platforms. Agent to Agent interaction via SAP Integration Suite for all SAP ecosystem agents delegates calls to Agent Gateway to ensure common security and controlled access.
+
+**Key Characteristics:**
+
+-   **External Endpoint:** Accessible via a Customer-managed domain
+-   **Protocol Support:** A2A 0.3.0 specification with HTTP+JSON transport
+-   **Authentication:** Secured through Customer configured Identity Services. 
+-   **Asynchronous Processing:** Supports callback-based responses for long-running agent executions
+
+Customers who already have/want Integration Suite and have more enterprise specific requirements such as API management, customer controlled governance, guaranteed delivery, monitoring, pub-sub via events and any other QoS needs​ is recommended to continue to use SAP Integration Suite for their agentic scenarios.
 
 ## Use Cases for External Consumption
 
@@ -93,9 +110,9 @@ SAP provides the **Agent Gateway** that enables external clients and application
 -   Custom chatbots can delegate complex SAP tasks to specialized Joule Agents
 
 **Cross-System Orchestration:**
--   External orchestration platforms can coordinate multi-system workflows involving Joule Agents
+-   External orchestration platforms and SAP Integration Suite can coordinate multi-system workflows involving Joule Agents
 -   Integration platforms can expose Joule Agents as reusable services in broader automation scenarios
 
 For detailed implementation guidance on the Agent Gateway, authentication setup and A2A protocol specifications, see [A2A and MCP for Interoperability](../1-a2a-and-mcp/readme.md).
 
-By providing the Agent Gateway, SAP enables external systems to consume Joule Agents as part of their own workflows, positioning SAP as a central, interoperable component of the modern enterprise AI ecosystem.
+By providing the Agent Gateway and SAP Integration Suite, SAP enables external systems to consume Joule Agents as part of their own workflows, positioning SAP as a central, interoperable component of the modern enterprise AI ecosystem.

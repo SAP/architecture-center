@@ -2,22 +2,28 @@
 id: 9ce2bd
 slug: /ref-arch/9ce2bd
 sidebar_position: 2
-title: Integration with Azure data sources
-description: >-
-  Unify Azure data with SAP Datasphere for comprehensive analytics, leveraging
-  SAP's robust data fabric architecture.
+title: Azure data integration with SAP Datasphere
+description: "Integrate Microsoft Fabric OneLake and Synapse Real-Time Analytics with SAP Datasphere's data fabric for unified, real-time analytics in SAP Analytics Cloud."
 keywords:
   - sap
-  - microsoft azure
-  - datasphere integration
-  - data governance
-  - real-time analytics
+  - microsoft fabric
+  - microsoft onelake
+  - azure data lake storage
+  - sap datasphere
+  - fabric synapse real-time analytics
+  - data federation
+  - replication flows
+  - sap s/4hana
+  - sap analytics cloud
+  - data fabric architecture
+  - business ai platform
 sidebar_label: Integration with Azure data sources
 image: img/ac-soc-med.png
 tags:
   - azure
   - data
   - bdc
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -127,7 +133,7 @@ Non-SAP data from Azure Data Lake Storage can be **imported** into SAP Dataspher
 
 ### Replicating Data to OneLake 
 
-Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Microst Fabric's OneLake data platform by replicating it to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
+Data from SAP source systems such as S/4HANA and BW/4HANA can be **replicated** to Microsoft Fabric's OneLake data platform by replicating it to Azure Data Lake Storage Gen2 using SAP Datasphere's *Replication Flows*. This enables organizations to store and analyze SAP data alongside other enterprise data in a unified data lake.
 
 #### Steps to Replicate Data:
 

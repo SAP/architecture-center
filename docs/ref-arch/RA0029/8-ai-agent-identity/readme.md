@@ -2,24 +2,23 @@
 id: 140bdb
 slug: /ref-arch/140bdb
 sidebar_position: 7
-title: Agent Identity
-description: >-
-  The Agent Identity is the representation of the artifacts of an agent required
-  to follow proper Identity Access Management and especially Agent Governance
-  procedures. The Agent Identity allows enterprises to define and restrict how
-  and what an agent can do within certain boundaries. The Agent Identity concept
-  allows a generic way to manage agent access to limit unnecessary "chatty"
-  communication between agents by establishing several policy enforcement points
-  to fail early in the process.
+title: AI Agent Identity & Governance in SAP Landscapes
+description: "How SAP Cloud Identity Services and the SAP Agent Gateway authenticate, authorize and govern AI agent identities across the SAP landscape."
 keywords:
   - sap
-  - ai integration
-  - identity
   - agent identity
   - agent governance
-  - governance
-  - access
+  - agent lifecycle governance
+  - sap cloud identity services
+  - sap agent gateway
+  - sap joule
   - identity access management
+  - agent-to-agent protocol
+  - policy enforcement points
+  - sap leanix agent hub
+  - sap cloud alm
+  - ai agent authentication
+  - business ai platform
 sidebar_label: Agent Identity
 image: img/ac-soc-med.png
 tags:
@@ -91,7 +90,7 @@ SAP Joule is the brand which contains several SAP Business AI aspects like the c
 
 #### SAP Agent Gateway for A2A Communication
 
-The SAP Agent Gateway is a technical component wihtin the customer landscape but besides the A2A external endpoint transparent for the customer and fully SAP-managed. It provides the communication fabric for agent interactions:
+The SAP Agent Gateway is a technical component within the customer landscape but besides the A2A external endpoint transparent for the customer and fully SAP-managed. It provides the communication fabric for agent interactions:
 
 - **External (A2A interface for third parties)**: Third-party agents connect to the Agent Gateway using the A2A protocol. Before any interaction, the third-party agent must authenticate through SAP Cloud Identity Services. The gateway enforces policy checks to validate whether the external agent's identity is authorized to communicate with the target SAP agent.
 

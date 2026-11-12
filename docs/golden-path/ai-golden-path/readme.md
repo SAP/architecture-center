@@ -2,36 +2,27 @@
 id: id-aigp-1
 slug: /ai-golden-path
 sidebar_position: 1
-title: SAP's AI Golden Path
+title: SAP's AI Golden Path for Building Enterprise AI
 description: >-
-    The SAP's AI Golden Path is the starting point for developing AI applications across the SAP ecosystem. It contains recommendations, best practices, and tutorials to help you understand the AI technology stack, identify suitable tools and services, and design, deliver, and extend enterprise-grade AI solutions on SAP technology.
+  SAP's AI Golden Path is your starting point for building enterprise AI across the
+  SAP ecosystem — with recommendations, best practices, and tutorials.
 keywords:
-    - SAP Reference Architectures
-    - Architectures
-    - AI
-    - Artificial Intelligence
-    - reference architectures
-    - efficiency
-    - scalability
-    - interoperability
-    - standardization
-    - SAP BTP
-    - SAP Business Technology Platform
-    - digital transformation
-    - business processes
-    - best practices
-    - hybrid cloud
-    - multi-cloud
-    - governance
-    - Security
-    - compliance
-    - North Star Architecture
-    - NSA
-    - Golden Path
+- sap
+- ai golden path
+- enterprise ai
+- joule
+- generative ai hub
+- sap ai core
+- sap hana cloud
+- sap business data cloud
+- agentic ai
+- ai reference architectures
+- ai development lifecycle
+- business ai platform
 sidebar_label: AI Golden Path
 image: img/ac-soc-med.png
 tags:
-    - ai-golden-path
+- ai-golden-path
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -39,7 +30,7 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-04-23'
+  date: 2026-10-26
 ---
 
 The **SAP's AI Golden Path** is the starting point for developing AI applications across the SAP ecosystem. It contains **recommendations**, **best practices**, and **tutorials** to help you understand the AI technology stack, identify
@@ -62,9 +53,9 @@ and AI foundation services to agentic architectures and **Joule**.
 
 Before starting your AI development journey, you may want to familiarize yourself with the following documents:
 
-* **[SAP BTP Developer Guide](https://help.sap.com/docs/btp/btp-developers-guide/btp-developers-guide)**
-  Starting point for developing business applications on SAP Business Technology Platform (BTP). It contains recommendations and best practices for
-  development projects on SAP BTP.
+* **[SAP Business AI Platform Developer Guide](https://help.sap.com/docs/btp/btp-developers-guide/btp-developers-guide)**
+  Starting point for developing business applications on SAP Business AI Platform. It contains recommendations and best practices for
+  development projects on SAP Business AI Platform.
 
 ## How to Use This Guide
 
@@ -73,12 +64,12 @@ and scaling AI use cases.
 
 ### Understand Available Technology
 
-![Architecture Overview](./images/overview_architecture.svg)
+![Architecture Overview](./images/ArchitectureOverview-ExtGoldenPath.svg)
 
 The first step toward building an AI application is understanding the **technology stack** available within SAP. This
 includes:
 
-* **Agent Layer** — including content-based AI Agents built with **Joule Studio**, code-based AI Agents built with  open-source frameworks and SAP's **generative AI hub**, **Joule**, and **agent tools (MCP)**.
+* **Agent Layer** — including **skills** for the Agent Harness, content-based AI Agents built with **Joule Studio**, code-based AI Agents built with  open-source frameworks and SAP's **generative AI hub**, **Joule**, and **agent tools (MCP)**.
 * **AI Layer** — powered by **AI Core** (including **generative AI hub**), and **SAP HANA Cloud** (including Vector Engine, Knowledge Graph Engine, PAL, SparkML), enabling model training, orchestration, and interaction
   through generative and agentic interfaces.
 * **Data Layer** — powered by **SAP HANA Cloud**, **Business Data Cloud**, and partner
@@ -109,7 +100,7 @@ This guide mainly focuses on the **Design**, **Deliver**, and **Run & Scale** ph
 * **Explore, Discover** — Identify business challenges suitable for AI, evaluate feasibility, and define success
   metrics or evaluations (evals).
 * **Design** — Create an AI architecture and decide between ML, LLM, or agentic approaches.
-* **Deliver** — Set up the environment (SAP BTP, Joule, AI Core), develop and deploy AI applications, and integrate them
+* **Deliver** — Set up the environment (SAP Business AI Platform, Joule, AI Core), develop and deploy AI applications, and integrate them
   into existing processes.
 * **Run & Scale** — Run the application to provide business value.
 * **Evaluate & Improve** — Measure accuracy, performance, and business outcomes; continuously enhance through structured

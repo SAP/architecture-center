@@ -2,20 +2,26 @@
 id: b3c3ac
 slug: /ref-arch/b3c3ac
 sidebar_position: 160
-title: Business to Government Integration
-description: >-
-  Streamline compliance with SAP's Business-to-Government Integration for secure
-  electronic document exchange.
+title: Business-to-Government Integration Reference Architecture
+description: "Business-to-Government (B2G) integration for secure electronic document exchange and statutory reporting via SAP Document and Reporting Compliance."
 keywords:
   - sap
-  - b2g compliance
-  - governance integration
-  - secure document exchange
-  - automated reporting
+  - business-to-government integration
+  - sap document and reporting compliance
+  - sap integration suite
+  - sap connectivity service
+  - peppol network
+  - electronic invoicing
+  - e-invoicing
+  - electronic document exchange
+  - statutory reporting
+  - tax authority integration
+  - business ai platform
 sidebar_label: Business to Government Integration
 image: img/ac-soc-med.png
 tags:
   - integration
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -25,13 +31,12 @@ unlisted: false
 contributors:
   - avikSap
   - fabianleh
+  - cernus76
 discussion: 
 last_update:
-  author: avikSap
-  date: 2024-08-01
+  author: cernus76
+  date: 2026-10-21
 ---
-
-# Business-to-Government Integration Reference Architecture
 
 ## Overview
 In many countries or regions, organizations must comply with local requirements mandating the submission of electronic documents such as invoices, summaries, transport registrations, and statutory reports to external communication parties. Depending on the exchange model, these documents are transmitted through an authority, a regulated service provider, a regulated network, or directly to the business partner. The actual exchange of data may be fully electronic or require manual download or upload.

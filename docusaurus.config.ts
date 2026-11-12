@@ -17,7 +17,7 @@ const config: Config = {
     url: 'https://architecture.learning.sap.com',
     baseUrl: baseUrl,
 
-    // GitHub pages deployment config.
+    // Repo and GitHub Pages fork-preview settings (production hosting is on Cloudflare Pages).
     organizationName: 'SAP', //GitHub org
     projectName: 'architecture-center', // repo name
     deploymentBranch: 'site',
@@ -34,11 +34,9 @@ const config: Config = {
         },
     },
     customFields: {
-        validatorApiUrl: process.env.VALIDATOR_API_URL,
         backendUrl: process.env.BACKEND_API_URL,
         expressBackendUrl: process.env.EXPRESS_BACKEND_URL,
         authProviders: {
-            '/architecture-validator': 'btp',
             '/quick-start': 'github',
         },
     },
@@ -47,6 +45,7 @@ const config: Config = {
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
+        './src/plugins/docs-feed-generator',
         './src/plugins/tags-generator',
         './src/plugins/tags-plugin',
         './src/plugins/security-headers',
@@ -93,6 +92,11 @@ const config: Config = {
                     blogSidebarCount: 0,
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
+                    feedOptions: {
+                        type: ['rss', 'atom'],
+                        title: 'SAP Architecture Center News',
+                        limit: 48,
+                    },
                 },
                 docs: {
                     path: 'docs',
@@ -162,7 +166,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
+                content: 'sap, business ai platform, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -186,14 +190,14 @@ const config: Config = {
         },
 
         // Announcement Bar
-        // announcementBar: {
-        //     id: 'internal-prototype',
-        //     content:
-        //         '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
-        //     backgroundColor: '#0053CB',
-        //     textColor: '#FFFFFF',
-        //     isCloseable: true,
-        // },
+        //nouncementBar: {
+        //  id: 'teched-2026-survey',
+        //  content:
+        //    '<b>Help shape the SAP Architecture Center. Take our 5-question <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">survey</a> and tell us what you need.</b>',
+        //  backgroundColor: '#0053CB',
+        //  textColor: '#FFFFFF',
+        //  isCloseable: true,
+        //
         navbar: {
             title: 'Architecture Center',
             hideOnScroll: false,
@@ -267,6 +271,22 @@ const config: Config = {
                             type: 'html',
                             value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?partners=snowflake">Snowflake</a>`,
                         },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
+                            type: 'html',
+                            value: '<strong>Other Viewpoints</strong>',
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?communityContent=true">Community Content</a>`,
+                        },
+                        {
+                            type: 'html',
+                            value: `<a class="dropdown__link" href="${baseUrl}docs/ref-arch?archive=true">Archived Documents</a>`,
+                        },
                     ],
                 },
                 {
@@ -281,6 +301,14 @@ const config: Config = {
                         {
                             label: 'Explore the News Articles',
                             to: '/news-all',
+                        },
+                        {
+                            label: 'Explore the Reference Architectures',
+                            to: '/ref-arch-updates',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Discover the AI-native North Star architecture',
@@ -306,16 +334,8 @@ const config: Config = {
                             value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
-                            label: 'Launch the Architecture Validator',
-                            to: '/architecture-validator',
-                        },
-                        {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Access the Community of Practice',
@@ -400,11 +420,11 @@ const config: Config = {
                     items: [
                         {
                             label: 'Privacy Statement',
-                            href: 'https://architecture.learning.sap.com/community/privacy',
+                            href: 'https://architecture.learning.sap.com/docs/community/privacy',
                         },
                         {
                             label: 'Cookie Statement',
-                            href: 'https://architecture.learning.sap.com/community/cookie',
+                            href: 'https://architecture.learning.sap.com/docs/community/cookie',
                         },
                         {
                             label: 'Terms of Use',
@@ -417,7 +437,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a> and hosted on <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.`,
+            copyright: `Copyright © ${new Date().getFullYear()}  SAP SE or SAP affiliate company and SAP Architecture Center contributors. Released under <a href="https://github.com/SAP/architecture-center#Apache-2.0-1-ov-file">Apache-2.0 License</a>.<br>This site is powered by <a href="https://docusaurus.io/" target="_blank" rel="noopener noreferrer">Docusaurus</a> and hosted on <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a>.`,
         },
         prism: {
             theme: lightCodeTheme,

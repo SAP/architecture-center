@@ -2,21 +2,20 @@
 id: 196eba
 slug: /ref-arch/196eba
 sidebar_position: 20
-title: Designing Event-Driven Applications
-description: >-
-  Guidance for developing applications based on Event-Driven Architecture (EDA)
-  patterns and Cloud Application Programming (CAP) framework. EDA is a required
-  architecture pattern for building loosely coupled, scalable, and resilient
-  applications that react to real-time business events across distributed
-  systems.
+title: Designing Event-Driven Applications on SAP BTP
+description: "Guidance for building event-driven applications with SAP BTP, using SAP Integration Suite, advanced event mesh, and SAP Cloud Application Event Hub."
 keywords:
   - sap
+  - event-driven architecture
   - event-driven applications
-  - eda patterns
-  - cap framework
+  - sap integration suite, advanced event mesh
+  - sap event mesh
+  - sap cloud application event hub
+  - sap integration suite
+  - sap s/4hana
+  - clean core
   - business event processing
-  - advanced event mesh
-  - event mesh
+  - business ai platform
 sidebar_label: Designing Event-Driven Applications
 image: img/ac-soc-med.png
 tags:
@@ -59,7 +58,7 @@ SAP Intelligent Enterprise EDA with SAP Cloud Application Event Hub: This enable
 
 EDA in hybrid, heterogeneous enterprise landscape with SAP Integration Suite Product Family: This comprises of two 'PaaS' offerings which allows the customer to provision dedicated event brokers with specified resources.
 
-Below architecture depicts the SAP EDA Stategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
+Below architecture depicts the SAP EDA Strategy and can be leveraged to build event-based integration scenarios between SAP and non-SAP Systems. 
 
 ![drawio](drawio/eda_enterprise.drawio)
 
@@ -149,4 +148,4 @@ For more information related to this reference architecture, you can check out t
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/btp-events-to-business-actions-framework)
 - [Blog Collection | SAP Integration Suite, advanced event mesh](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-integration-suite-advanced-event-mesh-blog-collection/ba-p/14111943)
 - [SAP Developers | Publish and Subscribe to Events in SAP Integration Suite, advanced event mesh](https://developers.sap.com/tutorials/pubsub-view-events.html#51cb3f1a-5861-4802-a4a1-2f154eb40e0b)
-- [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/describing-sap-s-event-driven-ecosystem_ebe634bf-a91d-4276-b538-a3f4026c0f61)
+- [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh)

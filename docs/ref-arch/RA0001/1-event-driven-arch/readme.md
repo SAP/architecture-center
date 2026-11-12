@@ -2,17 +2,21 @@
 id: 59c1f6
 slug: /ref-arch/59c1f6
 sidebar_position: 1
-title: Introduction and SAP's EDA Strategy
-description: >-
-  Explore event-driven architecture concepts and building blocks for scalable
-  SAP applications.
+title: Event-Driven Architecture and SAP's EDA Strategy
+description: "Explore event-driven architecture concepts, components, and SAP's EDA strategy with advanced event mesh and SAP Cloud Application Event Hub."
 keywords:
   - sap
-  - btp
   - event-driven architecture
-  - eda integration
-  - azure
-  - cloud application programming model
+  - eda strategy
+  - sap integration suite
+  - advanced event mesh
+  - event mesh capability
+  - sap cloud application event hub
+  - event broker
+  - sap s/4hana
+  - publish-subscribe
+  - real-time integration
+  - business ai platform
 sidebar_label: Introduction and SAP's EDA Strategy
 image: img/ac-soc-med.png
 tags:
@@ -101,7 +105,7 @@ For more details on SAP Cloud Application Event Hub, refer to [SAP Cloud Applica
 
 ### Enterprise EDA in hybrid, heterogeneous landscapes 
 
-In a large enterprise IT Landscape, there is presence of non-SAP applications as well, SAP Integration Suite family provides a event network capability for entperprise-wide flexible EDA implementation across SAP and non-SAP components.
+In a large enterprise IT Landscape, there is presence of non-SAP applications as well, SAP Integration Suite family provides an event network capability for enterprise-wide flexible EDA implementation across SAP and non-SAP components.
 For less advanced enterprises who are focusing on dedicated EDA scenarios across SAP and non-SAP, event mesh capability of SAP Integration Suite can be option to start and later expand to full-fledged AEM.
 
 ![drawio](drawio/eda_hybrid_enterprise.drawio)
@@ -117,5 +121,4 @@ For more details, refer to [Comprehensive Real-Time Integration Using Event-Driv
 
 ## Event-Driven Architecture Use Cases
 
-Refer to generic uses cases to understand EDA and suitable business scenarios
-[Event-Driven Architecture Use Cases](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
+Refer to the [Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh) learning journey for generic use cases to understand EDA and suitable business scenarios.

@@ -2,20 +2,23 @@
 id: d2e34e
 slug: /ref-arch/d2e34e
 sidebar_position: 1
-title: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
-description: >-
-  Learn how Microsoft Copilot Studio and other Microsoft MCP clients can be
-  connected using the MCP Gateway in SAP Integration Suite.
+title: Copilot Studio with MCP Gateway in SAP Integration Suite
+description: "Connect Microsoft Copilot Studio to SAP as an MCP client through the MCP Gateway in SAP Integration Suite, with single sign-on and identity propagation."
 keywords:
   - sap
   - ai agents
-  - a2a
   - mcp
-  - interoperability
-  - Agent2Agent
   - model context protocol
-  - copilot studio
-  - microsoft copilot
+  - mcp gateway
+  - sap integration suite
+  - microsoft copilot studio
+  - microsoft entra id
+  - sap cloud identity services
+  - single sign-on
+  - identity propagation
+  - sap s/4hana
+  - sap business data cloud
+  - business ai platform
 sidebar_label: Microsoft Copilot Studio and the MCP Gateway in SAP Integration Suite
 image: img/ac-soc-med.png
 tags:
@@ -34,8 +37,8 @@ contributors:
   - hobru
 discussion: 
 last_update:
-  author: hobru
-  date: 2026-06-18
+  author: kay-schmitteckert
+  date: 2026-10-26
 ---
 
 :::info Disclaimer
@@ -56,7 +59,7 @@ exposes SAP APIs, integration flows, and data sources as MCP-compliant tools. Id
 ![drawio](drawio/copilot-studio+mcp-gateway.drawio)
 
 This gives organizations the best of both ecosystems: the conversational reach and authoring experience of Copilot Studio on the front end, and the
-enterprise-grade security, governance, and semantic richness of SAP BTP on the back end.
+enterprise-grade security, governance, and semantic richness of Business AI Platform on the back end.
 
 ## Architecture at a Glance
 
@@ -64,18 +67,18 @@ enterprise-grade security, governance, and semantic richness of SAP BTP on the b
 | --- | --- | --- |
 | Front end (Microsoft Azure) | **Copilot Studio agent** | Authors topics/tools, orchestrates the conversation, calls MCP tools at runtime |
 | Identity | **Microsoft Entra ID &rlarr;&rarr; SAP Cloud Identity Services** | Federated trust; issues and exchanges tokens so the user identity propagates into SAP |
-| Governance (SAP BTP) | **MCP Gateway in SAP Integration Suite** | Exposes APIs/flows as MCP tools; enforces OIDC auth, rate limiting, payload protection, observability |
+| Governance (Business AI Platform) | **MCP Gateway in SAP Integration Suite** | Exposes APIs/flows as MCP tools; enforces OIDC auth, rate limiting, payload protection, observability |
 | Tools &amp; data | **SAP S/4HANA, SuccessFactors, Concur, Customer Experience, Business Data Cloud, custom MCP servers, third-party APIs** | The authoritative systems the tools act on |
 
 The Copilot Studio agent connects to the gateway over **MCP using the Streamable HTTP transport** and authenticates with **OAuth 2.0**. The gateway validates the token, applies governance policy, and routes the request to the underlying SAP or non-SAP system.
 
 ## Configuration and architecture overview
 
-The integration involves three coordinated configuration steps — one on SAP BTP, one in your identity provider(s), and one in Copilot Studio.
+The integration involves three coordinated configuration steps — one on SAP Business AI Platform, one in your identity provider(s), and one in Copilot Studio.
 
 ### Prerequisites
 
-- An SAP BTP subaccount with **SAP Integration Suite** and the **MCP Gateway**  capability enabled.
+- A customer-managed subaccount on SAP Business AI Platform with **SAP Integration Suite** and the **MCP Gateway** capability enabled.
 - The SAP APIs you want to expose available as OData/REST services or integration flows.
 - A Microsoft Copilot Studio environment with agent-creation permissions.
 - Administrative access to **Microsoft Entra ID** and **SAP Cloud Identity Services** to configure trust and app registrations.
@@ -174,4 +177,4 @@ For SAP Joule and Microsoft 365 Copilot integration context, see: [SAP with Micr
 - [Connect your agent to an existing MCP server — Microsoft Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent)
 - [Create a new MCP server — Microsoft Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-create-new-server)
 - [SAP with Microsoft: AI SAP Joule & Microsoft 365 Copilot Integration — Microsoft Learn](https://learn.microsoft.com/en-us/azure/sap/microsoft-ai/joule/joule-copilot-overview)
-- [Identity and Access Management with Microsoft Entra and SAP BTP — SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)
+- [Identity and Access Management with Microsoft Entra and Business AI Platform — SAP Community](https://community.sap.com/t5/technology-blog-posts-by-members/identity-and-access-management-with-microsoft-entra-part-i-managing-access/ba-p/13873276)

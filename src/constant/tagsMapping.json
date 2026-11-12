@@ -61,5 +61,8 @@
   },
   "successfactors": {
     "categoryid": "data"
+  },
+  "archived": {
+    "categoryid": "archived"
   }
 }

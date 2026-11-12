@@ -157,21 +157,10 @@ export const configRedirects = {
             from: '/docs/ref-arch/e5eb3b9b1d/3',
             to: '/docs/ref-arch/8063d2',
         },
-        // page is in draft
-        // {
-        //     from: '/docs/ref-arch/e5eb3b9b1d/4',
-        //     to: '/docs/ref-arch/d0e5c7',
-        // },
-        // page is in draft
-        // {
-        //     from: '/docs/ref-arch/e5eb3b9b1d/7',
-        //     to: '/docs/ref-arch/c9cdd2',
-        // },
-        // page is in draft
-        // {
-        //     from: '/docs/ref-arch/e5eb3b9b1d/10',
-        //     to: '/docs/ref-arch/35863c',
-        // },
+        {
+            from: '/docs/ref-arch/e5eb3b9b1d/10',
+            to: '/docs/ref-arch/35863c',
+        },
         {
             from: '/docs/ref-arch/e5eb3b9b1d',
             to: '/docs/ref-arch/39eb58',
@@ -327,8 +316,12 @@ export const configRedirects = {
             to: '/docs/ref-arch/0f59a3',
         },
         {
+            from: '/docs/ref-arch/206025',
+            to: '/docs/ref-arch/d9c3e6',
+        },
+        {
             from: '/docs/ref-arch/20c6b29b1e/3',
-            to: '/docs/ref-arch/206025',
+            to: '/docs/ref-arch/d9c3e6',
         },
         {
             from: '/docs/ref-arch/20c6b29b1e',
@@ -374,7 +367,14 @@ export const configRedirects = {
         // },
         {
             from: '/docs/ref-arch/06ff6062dc/6',
-            to: '/docs/ref-arch/f5a3ef',
+            to: '/docs/ref-arch/',
+        },
+        // page has been deleted ?!
+        // redirect to /docs/ref-arch/
+        // to avoid build issues
+        {
+            from: '/docs/ref-arch/f5a3ef',
+            to: '/docs/ref-arch/',
         },
         {
             from: '/docs/ref-arch/06ff6062dc',
@@ -515,6 +515,64 @@ export const configRedirects = {
         {
             from: '/docs/ref-arch/6972e8',
             to: '/docs/ref-arch/a22904',
+        },
+        // now points to the new RA0039 with the SAP AI Agent Hub
+        {
+            from: '/docs/ref-arch/jkg4j2',
+            to: '/docs/ref-arch/jfhsd9',
+        },
+        // Automated-checks docs moved to front-matter/ and document-body/ sub-slugs
+        {
+            from: '/docs/community/automated-checks/front-matter-properties',
+            to: '/docs/community/automated-checks/front-matter/properties',
+        },
+        {
+            from: '/docs/community/automated-checks/seo-front-matter',
+            to: '/docs/community/automated-checks/front-matter/seo',
+        },
+        {
+            from: '/docs/community/automated-checks/reference-architecture-ids',
+            to: '/docs/community/automated-checks/front-matter/reference-architecture-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/contributor-ids',
+            to: '/docs/community/automated-checks/front-matter/contributor-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/h1-title',
+            to: '/docs/community/automated-checks/front-matter/h1-title',
+        },
+        {
+            from: '/docs/community/automated-checks/spelling',
+            to: '/docs/community/automated-checks/document-body/spelling',
+        },
+        {
+            from: '/docs/community/automated-checks/dictionaries',
+            to: '/docs/community/automated-checks/document-body/dictionaries',
+        },
+        {
+            from: '/docs/community/automated-checks/typos',
+            to: '/docs/community/automated-checks/document-body/typos',
+        },
+        {
+            from: '/docs/community/automated-checks/grammar',
+            to: '/docs/community/automated-checks/document-body/grammar',
+        },
+        {
+            from: '/docs/community/automated-checks/internal-links',
+            to: '/docs/community/automated-checks/document-body/internal-links',
+        },
+        {
+            from: '/docs/community/automated-checks/external-links',
+            to: '/docs/community/automated-checks/document-body/external-links',
+        },
+        {
+            from: '/docs/community/automated-checks/drawio-files',
+            to: '/docs/community/automated-checks/document-body/drawio-files',
+        },
+        {
+            from: '/docs/community/automated-checks/orphan-files',
+            to: '/docs/community/automated-checks/document-body/orphan-files',
         },
     ],
 };

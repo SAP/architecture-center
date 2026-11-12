@@ -158,8 +158,11 @@ jobs:
           node /tmp/audit-to-sarif.js
 
       - name: Upload npm audit SARIF
-        if: always() && hashFiles('npm-audit.sarif') != ''
-        uses: github/codeql-action/upload-sarif@c4dd10e44af883a891fe31ced449bcb4a6728b9b # v3
+        # Fork PRs get a read-only token, so SARIF upload would 403. Upload only on
+        # same-repo events (push/schedule/dispatch, or a same-repo PR); forks still
+        # get the npm-audit text output and the job summary.
+        if: always() && hashFiles('npm-audit.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
         with:
           sarif_file: npm-audit.sarif
           category: npm-audit
@@ -241,7 +244,7 @@ jobs:
             # Pre-filter removes YAML key-value assignment lines (env:, if:, with: params)
             # which are safe usage patterns. Only direct interpolation in run: content is dangerous.
             if grep -vE '^\s+[A-Za-z_][A-Za-z0-9_-]*:\s+\$\{\{' "$workflow" | \
-               grep -qE '\$\{\{[^}]*(github\.(head_ref|actor)\b|github\.event\.(issue|pull_request|comment|review|discussion|label|sender|workflow_run)\.)'; then
+               grep -qE '\$\{\{[^}]*(github\.(head_ref|actor)\b|github\.event\.(issue|pull_request|comment|review|discussion|label|sender|workflow_run)\.|github\.event\.(head_commit|commits)\b)'; then
               echo "🚨 CRITICAL: $workflow may be vulnerable to script injection via untrusted event data!"
               echo "   Dangerous context var used directly in run: block content (head_ref, actor, event.pull_request.*, event.workflow_run.head_branch, etc.)"
               echo "   Use an intermediate env var instead: add 'env: { MY_VAR: <expr> }' before the run step and use \$MY_VAR in the script."

@@ -4,26 +4,23 @@ sidebar_position: 12
 slug: /ai-native-north-star-architecture/closing-note
 sidebar_custom_props:
     category_index: []
-title: Closing Note
-description: >-
-    The AI-native enterprise is a cybernetic system where software, data, and people evolve together through continuous feedback. For architects, the role shifts to agentic engineering — orchestrating agents through context, harness, and specification engineering — grounded in SAP's structural advantages of deep integration, process expertise, and enterprise trust.
+title: "Closing Note"
+description: "Closing note on the AI-native enterprise as a cybernetic system, where architects shift to agentic engineering built on SAP's integration and trust."
 keywords:
-    - AI-native enterprise
+    - ai-native enterprise
     - agentic engineering
     - context engineering
     - harness engineering
     - specification engineering
     - cybernetic system
-    - Bitter Lesson
     - system of context
-    - Golden Path
+    - ai golden path
+    - autonomous enterprise
     - enterprise intelligence
-    - AI governance
-    - responsible AI
     - feedback loops
-    - North Star Architecture
-    - SAP
-    - digital transformation
+    - ai-native north star architecture
+    - sap
+    - business ai platform
 sidebar_label: Closing Note
 image: img/ac-soc-med.png
 tags:
@@ -35,12 +32,12 @@ toc_max_heading_level: 4
 draft: false
 unlisted: false
 pagination_prev: north-star-arch/ai-native-northstar-arch/architecting-for-the-quantum-era/id-nsa-11
-pagination_next: north-star-arch/ai-native-northstar-arch/acknowledgement/id-nsa-13
+pagination_next: north-star-arch/ai-native-northstar-arch/frequently-asked-questions/id-nsa-15
 contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
 **Each revolution in technology begins with a shift in imagination.** The AI-native enterprise is that shift: a cybernetic system where software, data, and people continuously learn through feedback. It is not a feature but an architecture of intelligence where each interaction becomes a learning signal and intelligence compounds across the enterprise.

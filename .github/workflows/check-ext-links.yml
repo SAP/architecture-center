@@ -1,0 +1,164 @@
+name: Check External Links
+# Archetype: CHANGED-FILES — only changed Markdown files are checked for broken links (needs fetch-depth: 0).
+
+on:
+  pull_request:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '.github/workflows/check-ext-links.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '.github/workflows/check-ext-links.yml'
+      - '.github/actions/changed-files/action.yml'
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  check-ext-links:
+    name: Check External Links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs news
+          filter-regex: '\.(md|mdx)$'
+
+      - name: Compute scope
+        id: scope
+        shell: bash
+        run: |
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+          # Drop pages tagged "archive" in their front matter: archived RAs are kept
+          # for reference and their external links are no longer maintained, so a 404
+          # on an archived page must not fail the check. Scans the YAML front matter's
+          # tags block only (block-list style, as used across the repo).
+          : > "$RUNNER_TEMP/changed.txt"
+          for file in "${FILES[@]}"; do
+            if awk '
+                  NR==1 && /^---[[:space:]]*$/ {fm=1; next}
+                  fm && /^---[[:space:]]*$/ {exit (found?0:1)}
+                  fm && /^tags:/ {intags=1; next}
+                  fm && intags && /^[A-Za-z_]/ {intags=0}
+                  fm && intags && /^[[:space:]]*-[[:space:]]*archive[[:space:]]*$/ {found=1}
+                  END {exit (found?0:1)}
+                ' "$file"; then
+              echo "Excluding archived page from link check: $file"
+            else
+              printf '%s\n' "$file" >> "$RUNNER_TEMP/changed.txt"
+            fi
+          done
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+            {
+              echo "### External links check"
+              echo ""
+              echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "✅ No changed Markdown under docs/ or news/ — nothing to check."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          # Harden against filename-based injection: lychee-action eval's its args,
+          # so any shell metacharacter in a changed path (a fork PR controls path
+          # names) could be re-parsed. Fail closed if a path contains anything
+          # outside a safe set. Paths here are always under docs/ or news/.
+          if LC_ALL=C grep -qE '[^A-Za-z0-9._/-]' "$RUNNER_TEMP/changed.txt"; then
+            echo "::error title=External links::A changed path contains unexpected characters; refusing to run the link check."
+            {
+              echo "### External links check"
+              echo ""
+              echo "❌ A changed path contains unexpected characters; refusing to run (see annotations)."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          # Space-separated file list for lychee positional args.
+          echo "files=$(tr '\n' ' ' < "$RUNNER_TEMP/changed.txt" | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+
+      # External-link breakage is network-dependent (rate limits, transient 5xx) and
+      # often not anchored to a changed line, so — unlike the deterministic local checks —
+      # this one reports in the job summary rather than as inline per-line annotations.
+      - name: Check external links
+        id: lychee
+        if: steps.scope.outputs.skip != 'true'
+        uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
+        with:
+          # --accept 100..=403,405..=409,411..=999 accepts every HTTP status code
+          # EXCEPT 404 (Not Found) and 410 (Gone), so only a definitively dead
+          # link blocks the PR. Lychee turns any non-accepted status code into an
+          # error, so a narrow accept list would fail on transient or ambiguous
+          # responses (403 auth walls, 429 rate limiting, 5xx outages, redirects,
+          # bot-protection codes) even though the link was reachable. Non-HTTP
+          # failures (a refused connection, DNS, TLS, timeout, malformed-URL, or
+          # redirect errors) are not HTTP status codes, so they are unaffected by
+          # --accept and still fail. Kept in sync with the periodic checker in
+          # link-watcher.yml.
+          args: --max-concurrency 4 --accept 100..=403,405..=409,411..=999 --verbose --no-progress -- ${{ steps.scope.outputs.files }}
+          output: ./lychee/out.md
+          jobSummary: false # we append the report ourselves (below) under a consistent heading
+          fail: true
+          # A changed Markdown file can legitimately contain no external links
+          # (only internal links, or plain prose). lychee then finds nothing to
+          # check, which is not a configuration error, so do not fail the job on
+          # an empty link set.
+          failIfEmpty: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Append lychee report to summary
+        if: always() && steps.lychee.outcome != 'skipped'
+        shell: bash
+        run: |
+          if [ -f ./lychee/out.md ]; then
+            {
+              echo "### External links check"
+              echo ""
+              cat ./lychee/out.md
+              echo ""
+              echo "> ℹ️ Among HTTP responses, only a \`404 Not Found\` or a \`410 Gone\` is reported. A link that cannot be reached at all (a refused connection, an unresolved DNS name, a TLS error, a timeout, a malformed URL, or too many redirects) also fails, because \`--accept\` only governs HTTP status codes. Every other HTTP response, including \`403\`, \`429\`, and \`5xx\`, is treated as reachable and is **not** flagged, so transient or ambiguous results do not block the PR."
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "${{ steps.lychee.outcome }}" = "failure" ]; then
+            {
+              echo ""
+              echo "📖 How to fix (fix or replace the broken link): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/external-links"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # External links report to the job summary (not annotations), so expose it as
+      # an artifact for the PR-comment aggregator (check-pr-comment.yml) to pick up.
+      - name: Upload findings for PR comment
+        if: always() && steps.scope.outputs.skip != 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: pr-findings-ext-links
+          path: ./lychee/out.md
+          if-no-files-found: ignore
+          retention-days: 1

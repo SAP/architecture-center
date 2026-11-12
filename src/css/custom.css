@@ -368,6 +368,14 @@ svg[aria-roledescription="flowchart-v2"] span {
     line-height: 1rem;
 }
 
+.menu__list-item:not(.menu__list-item-collapsible) > .menu__link {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    max-height: calc(1rem * 2 * 1.2);   /* line-height * 2 lines * 1.2 for buffer */
+}
+
 /* Align domain category arrows with nested level arrows */
 /* Target domain-level links by the --sublist-caret modifier */
 a.menu__link--sublist-caret {
@@ -1298,6 +1306,15 @@ body[data-sidebar-id='refarchSidebar'] [class^='sidebar_'] {
         padding-top: 24px;
         padding-bottom: 24px;
     }
+
+    /* prevent horizontal overflow */
+    html[data-theme='light'] .docItemCol_VOVn,
+    html[data-theme='dark'] .docItemCol_VOVn {
+        padding: 16px;
+        margin: 0 8px;
+        width: calc(100% - 16px);
+        max-width: calc(100% - 16px);
+    }
 }
 
 /* Mobile */
@@ -1714,6 +1731,10 @@ html[data-theme='dark'] .homepage-main {
 /* Full-page scroll - hide navbar shadow and adjust layout */
 .homepage-main {
     position: relative;
+    /* Own stacking context so the hero's fixed aurora background (z-index -1)
+       paints above this element's gradient but behind all section content,
+       keeping the effect visible across the whole page while scrolling. */
+    isolation: isolate;
 }
 
 /* Footer should snap as part of the last section */

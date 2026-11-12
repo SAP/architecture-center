@@ -2,16 +2,21 @@
 id: b86487
 slug: /ref-arch/b86487
 sidebar_position: 190
-title: Integrate and Extend with SAP Build Process Automation
-description: >-
-  Automate processes with SAP Build Process Automation, integrating workflows
-  across SAP and non-SAP systems.
+title: Integrate and extend with SAP Build Process Automation
+description: "Automate and extend SAP and non-SAP processes with SAP Build Process Automation using low-code, no-code workflow management and robotic process automation."
 keywords:
   - sap
-  - build process automation
-  - workflow integration
+  - sap build process automation
   - robotic process automation
-  - no-code automation
+  - low-code no-code automation
+  - business process automation
+  - workflow management
+  - citizen developer
+  - process automation across sap and non-sap systems
+  - sap task center
+  - sap integration suite
+  - sap s/4hana
+  - business ai platform
 sidebar_label: Integrate and Extend with SAP Build Process Automation
 image: img/ac-soc-med.png
 tags:
@@ -20,6 +25,7 @@ tags:
   - aws
   - gcp
   - appdev
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -28,13 +34,12 @@ draft: false
 unlisted: false
 contributors:
   - fabianleh
+  - cernus76
 discussion: 
 last_update:
-  author: fabianleh
-  date: 2025-05-14
+  author: cernus76
+  date: 2026-10-21
 ---
-
-# Integrate and extend SAP and non-SAP solutions with SAP Build Process Automation
 
 SAP Build Process Automation is a citizen developer solution to adapt, improve, and innovate business processes with low-code and no-code workflow management and robotic process automation capabilities.
 

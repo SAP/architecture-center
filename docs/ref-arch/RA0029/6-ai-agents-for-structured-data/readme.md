@@ -2,16 +2,22 @@
 id: b6c158
 slug: /ref-arch/b6c158
 sidebar_position: 6
-title: Agents for Structured Data
-description: >-
-  Transform structured data analysis with AI-powered applications, enabling
-  real-time insights and operational efficiency.
+title: AI Agents for Structured Data on SAP Datasphere
+description: "Build AI agents that answer natural-language queries on SAP structured data, using SAP Datasphere federation and SAP HANA Cloud vector search and RAG."
 keywords:
   - sap
-  - ai integration
   - structured data agents
-  - natural language processing
-  - federated data insights
+  - sap datasphere
+  - sap hana cloud
+  - natural language query
+  - rag
+  - data federation
+  - vector engine
+  - business data fabric
+  - langgraph
+  - cap
+  - descriptive and prescriptive analytics
+  - business ai platform
 sidebar_label: Agents for Structured Data
 image: img/ac-soc-med.png
 tags:
@@ -20,6 +26,7 @@ tags:
   - aws
   - gcp
   - azure
+  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -44,7 +51,7 @@ Agents in this scenario can cater to two core use case ideas: _Descriptive_ and 
 ![drawio](./drawio/reference-architecture-generative-ai-intelligent-data-apps.drawio)
 
 The architecture illustrates how Agents in this scenario operate within the SAP Business Technology Platform (BTP) ecosystem, enabling seamless integration of the AI component and structured data sources. At the core, the [SAP Cloud Application Programming Model](../../RA0005/readme.md#sap-cloud-application-programming-model) (CAP)
-serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in the pro-code agent approach. The agent can also be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio/readme.md)) and integrated with data using the low-code approach. More information about these development approaches can be found here: [AI Agent Development Approaches](../readme.md#building-and-connecting-agents).
+serves as the orchestration layer, leveraging AI frameworks like LangChain and LangGraph to manage use case logic and data workflows in the pro-code agent approach. The agent can also be designed in Joule Studio's Agent Builder (see [Extend Joule with Joule Studio](../../RA0024/3-extend-joule-with-joule-studio-classic/readme.md)) and integrated with data using the low-code approach. More information about these development approaches can be found here: [AI Agent Development Approaches](../readme.md#building-and-connecting-agents).
 
 [SAP Datasphere](./readme.md#services--components) plays a pivotal role by integrating with diverse data sources, federating data from SAP Cloud Solutions, third-party applications, or on-premise solutions. This allows agents to efficiently query and process large, distributed datasets without centralized storage. Meanwhile, the [Vector Engine](../../RA0005/readme.md#vector-engine) of SAP HANA Cloud supports a parallel RAG flow, enhancing search capabilities for real-time, contextually aware data retrieval, making the system well-suited for data-enriched enterprise applications. _Data Federation_ ensures agility by enabling access to heterogeneous datasets without duplication, increasing efficiency.
 

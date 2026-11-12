@@ -4,29 +4,21 @@ sidebar_position: 10
 slug: /ai-native-north-star-architecture/customer-specific-development-services
 sidebar_custom_props:
     category_index: []
-title: Customer-Specific Development Services
-description: >-
-    SAP Development Services is the AI-native offering for customer-specific extensions that continuously learn and adapt in production. Using agentic engineering and accelerator-driven synthesis, it unifies discovery, design, build, and hardening into a continuous agent-orchestrated flow — delivering upgrade-safe solutions that compound value from day one.
+title: AI-Native Customer-Specific Development Services
+description: "SAP's AI-native customer-specific development services deliver upgrade-safe extensions that learn and adapt in production via agentic engineering."
 keywords:
-    - development services
+    - sap
+    - sap development services
     - customer-specific extensions
-    - AI-native engineering
+    - ai-native engineering
     - agentic engineering
     - accelerator-driven synthesis
     - upgrade-safe solutions
     - continuous learning
     - business transformation
     - customer innovation lifecycle
-    - AI-native tooling
-    - agent orchestration
-    - time to value
-    - SAP customization
-    - enterprise extensibility
-    - North Star Architecture
-    - NSA
-    - AI Golden Path
-    - production AI
-    - adaptive systems
+    - north star architecture
+    - business ai platform
 sidebar_label: 10. Customer-Specific Development Services
 image: img/ac-soc-med.png
 tags:
@@ -43,9 +35,9 @@ contributors:
 discussion:
 last_update:
     author: SAP
-    date: 2026-05-13
+    date: 2026-10-23
 ---
 
-[Customer-specific development services](https://www.sap.com/services-support/customer-specific-development-services.html) are AI-native offerings from SAP for customer-specific applications, reflecting the AI-native North Star architecture from SAP, where true value is created within each customer’s unique context. While standard SAP products are designed to scale across thousands of customers, these services address the enterprise reality that drives differentiated business value with customer-specific data, processes, constraints, and governance. They help maximize customer value and adoption of SAP software by delivering AI-native, customer-specific extensions that are living, upgrade-safe systems. These extensions continuously learn, adapt, and improve in production, providing true business transformation for customers. Customer-specific development services use AI-native, agentic engineering and accelerator driven synthesis to start every engagement from a high baseline of completion, structurally reducing cost and time-to-value across the customer innovation lifecycle. They do this by unifying AI-native tooling, discovery, design, build, and hardening into a continuous, agent orchestrated flow where solution assets evolve in real time and operational speed and efficiency are built in from day one.
+[Customer-specific development services](https://www.sap.com/services-support/customer-specific-development-services.html) are AI-native offerings from SAP for customer-specific applications, reflecting the AI-native North Star architecture from SAP, where true value is created within each customer’s unique context. While standard SAP products are designed to scale across thousands of customers, these services address the enterprise reality that drives differentiated business value with customer-specific data, processes, constraints, and governance. They help maximize customer value and adoption of SAP software by delivering AI-native, customer-specific extensions that are living, upgrade-safe systems. These extensions continuously learn, adapt, and improve in production, providing true business transformation for customers. Customer-specific development services use AI-native, agentic engineering and accelerator-driven synthesis to start every engagement from a high baseline of completion, structurally reducing cost and time-to-value across the customer innovation lifecycle. They do this by unifying AI-native tooling, discovery, design, build, and hardening into a continuous, agent-orchestrated flow where solution assets evolve in real time and operational speed and efficiency are built in from day one.
  
 The AI-native North Star architecture is built to run on today’s infrastructure and absorb new computational paradigms as they mature.

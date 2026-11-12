@@ -2,16 +2,23 @@
 id: 39eb58
 slug: /ref-arch/39eb58
 sidebar_position: 60
-title: Generative AI on SAP BTP
+title: Generative AI on SAP BTP with CAP and SAP AI Core
 description: >-
   Integrate Generative AI with SAP BTP using SAP HANA Cloud's Vector Engine for
   similarity search and advanced AI patterns.
 keywords:
   - sap
+  - generative ai
   - generative ai hub
+  - sap ai core
+  - sap hana cloud vector engine
+  - retrieval augmented generation
+  - sap cloud application programming model
+  - large language models
   - cloud foundry
-  - vector engine integration
-  - advanced ai solutions
+  - kyma
+  - knowledge graph engine
+  - business ai platform
 sidebar_label: Generative AI on SAP BTP
 image: img/ac-soc-med.png
 tags:
@@ -67,7 +74,7 @@ To achieve this, the Generative AI Hub offers secure and reliable access to Foun
 
 An important feature of the Generative AI Hub is [Orchestration](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/orchestration), which combines content generation via an [Harmonized API](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/harmonized-api) with essential functions often required in business AI scenarios. These functions include:
 
--   **Gounding**: Allows to integrate external, contextually relevant, domain-specific, or real-time data into AI processes. This data supplements the natural language processing capabilities of pre-trained models, which are trained on general material.
+-   **Grounding**: Allows to integrate external, contextually relevant, domain-specific, or real-time data into AI processes. This data supplements the natural language processing capabilities of pre-trained models, which are trained on general material.
 -   **Templating**: Allows you to compose prompts with placeholders filled during inference.
 -   **Translation**: Allows you to translate LLM text prompts into a chosen target language.
 -   **Data Masking**: Provides anonymization or pseudonymization of data before it's processed by a generative AI model. In cases of pseudonymization, masked data appearing in the model's
@@ -166,7 +173,6 @@ For more information related to this Reference Architecture in general you may c
 -   [Models and scenarios in the Generative AI Hub (SAP Help Portal)](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/models-and-scenarios-in-generative-ai-hub)
 -   [Availability of Generative AI Models across Regions and their Limitations](https://me.sap.com/notes/3437766)
 -   [SAP BTP Use Cases: Kick-Start Transformation with Pre-Built Business Content (SAP Community blog post)](https://news.sap.com/2023/05/sap-btp-use-cases-art-of-the-possible/)
--   [SAP Learning: Generative AI at SAP](https://learning.sap.com/courses/generative-ai-at-sap)
--   [SAP Learning: AI Ethics at SAP](https://learning.sap.com/courses/ai-ethics-at-sap)
+-   [SAP Business AI (SAP Community)](https://pages.community.sap.com/topics/business-ai)
 -   [SAP AI Ethics Handbook](https://news.sap.com/sea/files/2024/01/11/SAP-AI-Ethics-Handbook.pdf)
 -   [SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)

@@ -1,12 +1,16 @@
 ---
 sidebar_position: 1
 slug: /community/cookie
-title: Cookie Statement
-description: The SAP Architecture Center (this site) - Cookie Statement.
+title: Cookie Statement | SAP Architecture Center
+description: "How the SAP Architecture Center uses cookies and similar technologies, the types of first- and third-party cookies set, and how to manage or delete them."
 sidebar_label: Cookie Statement
 keywords:
  - sap
- - cookie
+ - cookie statement
+ - cookies
+ - privacy
+ - cloudflare pages
+ - business ai platform
 image: img/ac-soc-med.png
 tags:
   - community
@@ -19,24 +23,24 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2025-11-04
+  date: 2026-10-21
 ---
 
 ## Important information regarding the Privacy Statement
 
-:::info Hosting on GitHub Pages
+:::info Hosting on Cloudflare
 
-The **SAP Architecture Center** (this site), hosted on **[GitHub Pages](https://docs.github.com/en/pages)**. 
+The **SAP Architecture Center** (this site) is hosted on **[Cloudflare Pages](https://pages.cloudflare.com/)**.
 
-For information about cookies used by GitHub, please refer to GitHub’s cookie policy: **[GitHub Cookies](https://docs.github.com/en/site-policy/privacy-policies/github-cookies)**.
+For information about cookies used by Cloudflare, please refer to Cloudflare’s cookie policy: **[Cloudflare Cookie Policy](https://www.cloudflare.com/cookie-policy/)**.
 
 :::
 
 ## Cookie Statement
 
-This Cookie Statement was updated on **04-Nov-2025**.
+This Cookie Statement was updated on **21-Oct-2026**.
 
-This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](community/99-cookie-and-privacy/02-privacy.md)**.
+This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](02-privacy.md)**.
 
 ## What are Cookies and similar technologies?
 
@@ -49,6 +53,10 @@ SAP’s websites contain first party Cookies. First party cookies are cookies th
 ## What are third party Cookies?
 
 The difference between a first party cookie and a third party cookie relates to who places the cookie on your device. SAP sometimes allows third parties to place Cookies on your device. Third party cookies are placed on your device by a third party (i.e., not by SAP). While SAP allows third parties to access SAP’s website to place a third-party cookie on your device, SAP does not retain control over the information supplied by the cookies, nor does SAP retain access to this information. This information is controlled wholly by that third party according to the respective privacy policy of the third party. For more information about these Cookies, please click the “Cookie Preferences” link in the footer of the webpage.
+
+## What cookies does our hosting provider set?
+
+Cloudflare, which hosts and delivers this site, may set strictly necessary security cookies on the domain of **[SAP Architecture Center](https://architecture.learning.sap.com/)**, such as `__cf_bm` (bot management) and `cf_clearance`. These cookies help protect the site against malicious traffic and ensure it loads correctly and securely. Because they are set on our own domain, they behave as first party cookies, and because they are strictly necessary for the security and delivery of the site, they are treated as Required Cookies. For more information, please refer to Cloudflare’s cookie policy: **[Cloudflare Cookie Policy](https://www.cloudflare.com/cookie-policy/)**.
 
 ## Analytics and Digital Marketing in the United States of America
 In the United States SAP routinely works with third party analytics and digital marketing providers who facilitate and support SAP (and partner) marketing activities including targeted communications. These activities may involve the sharing of limited Personal Information (personal identifiers and contact information, your interests and interactions with SAP, professional/employment information) for those specific business purposes. In addition to the above, SAP may also share your personal data with other third parties, or for other business purposes, with your explicit consent. SAP endeavors to recognize common opt-out preference signals at a browser level, and frictionlessly exclude you from marketing cookies and associated tracking.
@@ -66,5 +74,5 @@ SAP differentiates between Required Cookies that are absolutely necessary to ena
 
 ## How can you manage and delete Cookies?
 
-SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Statement” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/community/cookie)**].
+SAP provides you with the option to adjust your preferences for Functional and Advertising Cookies when such cookies are placed on your device. In such a case, you can access preferences at any time by clicking on the “Cookie Statement” link in the footer of the **[SAP Architecture Center](https://architecture.learning.sap.com/docs/community/cookie)**.
 You can also block and delete cookies by changing your browser settings. To manage cookies using your browser settings, most browsers allow you to refuse or accept all cookies or only to accept certain types of cookies. The process for the management and deletion of cookies can be found in the help function integrated in your browser. If you wish to limit the use of cookies, you may not be able to use all the interactive functions.
