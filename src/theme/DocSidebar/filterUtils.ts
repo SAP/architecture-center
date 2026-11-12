@@ -76,6 +76,9 @@ export const PARTNER_OPTIONS = [
 
 export { RECENT_MONTHS, RECENT_FILTER_LABEL, getRecentCutoffDate } from '@site/src/utils/dateUtils';
 
+// Key for marking categories kept only as containers for matching children
+const CONTAINER_ONLY_KEY = 'isContainerOnly' as const;
+
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
   if (!cat) return acc;
@@ -320,7 +323,7 @@ export function filterArchivedItems(items: SidebarItem[], docIdToTags: DocIdToTa
         ...item,
         items: filteredItems,
         customProps: isContainerOnly
-          ? { ...item.customProps, isContainerOnly: true }
+          ? { ...item.customProps, [CONTAINER_ONLY_KEY]: true }
           : item.customProps
       };
     }
@@ -485,7 +488,7 @@ function filterGroupedByMatchingDocIds(
     }
 
     // Don't show as leaf if category was marked as container-only by a previous filter
-    const isContainerOnly = category.customProps?.isContainerOnly === true;
+    const isContainerOnly = category.customProps?.[CONTAINER_ONLY_KEY] === true;
     if (categoryMatches && !isContainerOnly && itemBelongsToDomain(category, domainId, docIdToTags)) {
       return { ...category, items: [] };
     }
