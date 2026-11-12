@@ -484,9 +484,16 @@ function filterGroupedByMatchingDocIds(
     const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
 
     if (filteredItems.length > 0) {
-      return { ...category, items: filteredItems };
+      return {
+        ...category,
+        items: filteredItems,
+        customProps: {
+          ...category.customProps,
+          [CONTAINER_ONLY_KEY]: category.customProps?.[CONTAINER_ONLY_KEY] === true || !categoryMatches
+        }
+      };
     }
-
+    
     // Don't show as leaf if category was marked as container-only by a previous filter
     const isContainerOnly = category.customProps?.[CONTAINER_ONLY_KEY] === true;
     if (categoryMatches && !isContainerOnly && itemBelongsToDomain(category, domainId, docIdToTags)) {
