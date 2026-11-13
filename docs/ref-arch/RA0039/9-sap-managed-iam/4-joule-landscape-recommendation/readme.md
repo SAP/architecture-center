@@ -109,7 +109,7 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 ### Terminology
 
 - **Multi-System**: Ability to connect multiple SAP applications of the same type to one instance of SAP Business AI Platform.
-- **Multi-Tier**: Separate stages of SAP Business AI Platform or separate stages of an LoB solution (such as Testa and Prod).
+- **Multi-Tier**: Separate stages of SAP Business AI Platform or separate stages of an LoB solution (such as Test and Prod).
 
 ### Characteristics
 
