@@ -1,7 +1,5 @@
 import tagsMap from '@site/src/constant/tagsMapping.json';
 import {
-  RECENT_MONTHS,
-  RECENT_FILTER_LABEL,
   getRecentCutoffDate,
   isDateRecent,
 } from '@site/src/utils/dateUtils';
@@ -77,6 +75,9 @@ export const PARTNER_OPTIONS = [
 ];
 
 export { RECENT_MONTHS, RECENT_FILTER_LABEL, getRecentCutoffDate } from '@site/src/utils/dateUtils';
+
+// Key for marking categories kept only as containers for matching children
+const CONTAINER_ONLY_KEY = 'isContainerOnly' as const;
 
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -315,7 +316,16 @@ export function filterArchivedItems(items: SidebarItem[], docIdToTags: DocIdToTa
         }
       }
 
-      return { ...item, items: filteredItems };
+      // Mark as container-only if category is kept ONLY because it has matching children
+      const isContainerOnly = showArchived && !isCategoryArchived && filteredItems.length > 0;
+
+      return {
+        ...item,
+        items: filteredItems,
+        customProps: isContainerOnly
+          ? { ...item.customProps, [CONTAINER_ONLY_KEY]: true }
+          : item.customProps
+      };
     }
 
     return item;
@@ -474,10 +484,19 @@ function filterGroupedByMatchingDocIds(
     const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
 
     if (filteredItems.length > 0) {
-      return { ...category, items: filteredItems };
+      return {
+        ...category,
+        items: filteredItems,
+        customProps: {
+          ...category.customProps,
+          [CONTAINER_ONLY_KEY]: category.customProps?.[CONTAINER_ONLY_KEY] === true || !categoryMatches
+        }
+      };
     }
-
-    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+    
+    // Don't show as leaf if category was marked as container-only by a previous filter
+    const isContainerOnly = category.customProps?.[CONTAINER_ONLY_KEY] === true;
+    if (categoryMatches && !isContainerOnly && itemBelongsToDomain(category, domainId, docIdToTags)) {
       return { ...category, items: [] };
     }
 
