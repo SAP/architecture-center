@@ -246,28 +246,34 @@ async function generateArtifacts() {
     topLevelRADirs.sort();
 
     for (const dirName of topLevelRADirs) {
-        let readmePath;
         let drawioFilePath; // This will be the path to the original .drawio file
         let svgThumbnailSourcePath; // This will be the path to the watermarked SVG
 
-        if (dirName === 'RA0007') {
-            readmePath = join(refArchRoot, dirName, 'readme.md');
-            drawioFilePath = join(refArchRoot, dirName, '5-mt-architecture', 'drawio', 'susaas-app-architecture.drawio');
-            svgThumbnailSourcePath = join(refArchRoot, dirName, '5-mt-architecture', 'images', 'susaas-app-architecture.svg');
-        } else if (dirName === 'RA0014') { // Explicitly handle RA0014
-            readmePath = join(refArchRoot, dirName, 'readme.md');
-            drawioFilePath = join(refArchRoot, dirName, 'drawio', 'measurement_landscape.drawio');
-            svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', 'measurement_landscape.svg');
-        } else if (dirName === 'RA0025') {
-            readmePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'readme.md');
-            drawioFilePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'drawio', 'sap_architecture_center_is_eic_post.drawio');
-            svgThumbnailSourcePath = join(refArchRoot, dirName, '1-sap-pi-po-to-integration-suite', 'images', 'sap_architecture_center_is_eic_post.svg');
-        } else if (dirName.includes('RA0004/') && dirName.includes('snowflake')) {
-            readmePath = join(refArchRoot, dirName, 'readme.md');
+        const readmePath = join(refArchRoot, dirName, 'readme.md');
+
+        if (!existsSync(readmePath)) {
+            log(`[WARNING] Skipping artifact generation for ${dirName}: Missing readme.md at ${readmePath}`);
+            continue;
+        }
+
+        const readmeContent = readFileSync(readmePath, 'utf8');
+        const { attributes } = fm(readmeContent);
+
+        // Skip archived/draft/unlisted/community-contrib RAs. RA0004 vendor sub-pages
+        // are exempted because people still rely on them being exposed.
+        const tags = Array.isArray(attributes.tags) ? attributes.tags : [];
+        const isArchived = tags.includes('archive');
+        const isCommunityContrib = tags.includes('community-contrib');
+        const isHidden = attributes.draft === true || attributes.unlisted === true;
+        if ((isArchived || isCommunityContrib || isHidden) && !dirName.includes('RA0004/')) {
+            log(`[SKIPPING] Artifact for ${dirName}: readme is archived/draft/unlisted/community-contrib.`);
+            continue;
+        }
+
+        if (dirName.includes('RA0004/') && dirName.includes('snowflake')) {
             drawioFilePath = join(refArchRoot, dirName, 'drawio', 'snowflake-solex-data-integration.drawio');
             svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', 'snowflake-solex-data-integration.svg');
         } else {
-            readmePath = join(refArchRoot, dirName, 'readme.md');
             const drawioDir = join(refArchRoot, dirName, 'drawio');
             if (!existsSync(drawioDir)) {
                 log(`[WARNING] Skipping artifact generation for ${dirName}: No 'drawio' directory found at ${drawioDir}`);
@@ -282,18 +288,12 @@ async function generateArtifacts() {
             svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', basename(drawioFile, '.drawio') + '.svg');
         }
 
-        if (!existsSync(readmePath)) {
-            log(`[WARNING] Skipping artifact generation for ${dirName}: Missing readme.md at ${readmePath}`);
-            continue;
-        }
         if (!existsSync(svgThumbnailSourcePath)) {
             log(`[WARNING] Skipping artifact generation for ${dirName}: Missing watermarked SVG at ${svgThumbnailSourcePath}`);
             continue;
         }
 
         try {
-            const readmeContent = readFileSync(readmePath, 'utf8');
-            const { attributes } = fm(readmeContent);
             let title = attributes.title;
 
             if (dirName.includes('RA0004/')) {

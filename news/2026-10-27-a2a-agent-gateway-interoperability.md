@@ -69,9 +69,25 @@ The architecture separates **design-time discovery, onboarding, and trust config
 
 ### Design time: Discover, establish trust, and authorize
 
-Through **ARD-based discovery in the Agent Gateway**, customers and developers can identify available SAP Agents and Assistants and access key metadata, including the agent identifier, type, version, and **AgentCard** URL. The AgentCard describes the agent's capabilities and skills and provides the A2A endpoint required to invoke it, so developers can select and connect to the appropriate integration target. For details on how SAP's Agent Gateway exposes these discovery endpoints, see [Discovering SAP Agents Using Agentic Resource Discovery Endpoints](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/4d8be6737cf24797bf753cbcc6e2288f/418a00aac347473e866cb7987119b9f9.html?locale=en-US).
+Through **ARD-based discovery in the Agent Gateway**, customers and developers can identify available SAP Agents and Assistants and access key metadata, including the agent identifier, type, version, and **AgentCard** URL. The AgentCard describes the agent's capabilities and skills and provides the A2A endpoint required to invoke it, so developers can select and connect to the appropriate integration target.
 
-A customer administrator then onboards the external AI client through **SAP for Me** as an **Agent Gateway Consumer**. **SAP Cloud Identity Services** supports the provisioning, identity, and trust setup. The customer explicitly defines which SAP Agents the client is allowed to invoke.
+For details on how SAP's Agent Gateway exposes these discovery endpoints, see [Discovering SAP Agents Using Agentic Resource Discovery Endpoints](https://help.sap.com/docs/CROSS_DOMAIN_AGENTS/4d8be6737cf24797bf753cbcc6e2288f/418a00aac347473e866cb7987119b9f9.html?locale=en-US).
+The discovery catalog is tenant-scoped and filtered by the customer's configured access control list (ACL). A technical token obtained through client credentials can be used to discover available agents, while invoking an SAP Agent requires a user token. This separates discovering an agent from performing a business operation on a user's behalf.
+
+A customer administrator first registers the external AI client through **SAP for Me** as an **Agent Gateway Consumer**. Registration establishes the consumer's presence in the customer landscape; it does not grant access to SAP Agents.
+Onboarding then uses **SAP-managed formations**, a declarative mechanism for configuring identity, trust, and authorization across the customer's landscape. Three formations are configured in sequence:
+
+Each formation depends on the previous one: identity must exist before trust can be established, and trust must exist before access can be granted. Customers can change the permitted SAP Agents by updating the access-control formation without repeating the full onboarding process.
+
+**Identity – Integration with SAP Cloud Identity Services**: Creates a single-tenant OpenID Connect (OIDC) Agent Identity for the registered consumer.
+
+**Trust – Integration with Agent Gateway for Third Party**: Establishes trust between the Agent Identity and the Agent Gateway.
+
+**Authorization – Integration with Agent Gateway Consumer**: Creates an access control list (ACL) specifying which SAP Agents the consumer is permitted to invoke, including supported SAP-delivered and Joule Studio agents.
+
+![Identity, trust, and access control for SAP-managed formations](img/2026-10-27/agent-gateway-formations.png)
+
+*Figure 4. Identity, trust, and access control govern which SAP Agents a third-party agent can invoke.*
 
 Developers configure the external platform's A2A connection and authentication flow using the discovered endpoint information. Once set up, the same trusted connection can serve subsequent business requests without repeating onboarding each time.
 
@@ -79,7 +95,11 @@ Developers configure the external platform's A2A connection and authentication f
 
 - **Initiate**: A signed-in user asks an external AI assistant to perform a business task. The external client obtains the required token through the established identity and trust configuration, including a user-bound token exchange where applicable.
 
-- **Validate and route**: The client sends an A2A request to the Agent Gateway. The gateway validates the caller and checks whether the client is authorized to access the requested SAP Agent.
+- **Validate and route**: The client sends an A2A request to the Agent Gateway. On every call, the gateway (a) validates the token and identifies the trusted Agent Identity, (b) resolves the associated customer tenant, and (c) checks the configured ACL to determine whether this consumer may invoke the requested SAP Agent. Only requests passing all three checks are routed to the agent; other requests are rejected.
+
+![Runtime Agent Gateway authorization checks](img/2026-10-27/agent-gateway-runtime-checks.png)
+
+*Figure 5. The Agent Gateway validates the token, resolves the customer tenant, and checks access permissions before routing an inbound A2A request.*
 
 - **Execute with user permissions**: The SAP Agent processes the task within the requesting user's applicable business authorizations. The external agent does not receive broader access to SAP data or systems.
 

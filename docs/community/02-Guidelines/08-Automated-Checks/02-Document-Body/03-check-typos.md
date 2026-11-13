@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-slug: /community/automated-checks/typos
+slug: /community/automated-checks/document-body/typos
 title: Typos Check for Common Misspellings in Markdown
 description: "How the typos check catches real misspellings in changed docs and news pages without flagging valid SAP product names, and how to allow a word it corrects."
 sidebar_label: Typos
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 <!-- cspell:ignore recieve teh occured -->
@@ -71,8 +71,8 @@ If Typos finds something, it does three things:
 2. **Adds inline annotations** on the **Files changed** tab of your PR, right on the offending line. These annotations carry the title **"Typos"**.
 3. **Writes a job summary** listing every typo it found.
 
-:::note Not in the PR comment
-Unlike some other checks, Typos does **not** post into the sticky summary comment on your PR. Look for its findings as inline annotations on the **Files changed** tab, or open the check's job summary.
+:::note In the PR comment
+A **Check Typos** section is included in the sticky summary comment on your PR, listing each finding as a `path:line` location. You can also review the findings as inline annotations on the **Files changed** tab, or open the check's job summary.
 :::
 
 ## Configuration (`_typos.toml`)
@@ -135,7 +135,7 @@ extend-exclude = [
 | `*.min.js` | Minified JavaScript, not prose |
 | `*.lock` | Dependency lock files |
 | `*.svg` | Vector graphics markup |
-| `*.drawio` | Draw.io diagram source (see the [Draw.io Files](10-check-drawio-files.md) check and the [diagramming guide](../06-diagrams.md)) |
+| `*.drawio` | Draw.io diagram source (see the [Draw.io Files](07-check-drawio-files.md) check and the [diagramming guide](../../06-diagrams.md)) |
 | `docs/ref-arch/RA0000/` | The new-RA template, which holds Latin lorem-ipsum placeholder text |
 | The Automated Checks pages that show example misspellings (including this one) | They must display real misspellings such as `recieve` and `teh` as examples. `typos` has no per-line ignore, so the whole file is excluded here. cspell still scans these pages, with a scoped `cspell:ignore` for just the example words |
 
@@ -170,6 +170,6 @@ Add a word to `_typos.toml` **only** when `typos` is actively wrongly correcting
 
 ## Where this fits
 
-Typos is one of several automated checks that run on your contribution. For the full picture, see the [Automated Checks overview](readme.md), and for what to do when a check reports a problem, read [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
+Typos is one of several automated checks that run on your contribution. For the full picture, see the [Automated Checks overview](../readme.md), and for what to do when a check reports a problem, read [Errors & Warnings](../13-pr-checks-errors-and-warnings.md).
 
-New to contributing? Start with the [community intro](../../intro.md), the [contribution process](../01-contribution.md), and, for new reference architectures, the no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor.
+New to contributing? Start with the [community intro](../../../intro.md), the [contribution process](../../01-contribution.md), and, for new reference architectures, the no-code [Quick Start](../../02-GetStarted/01-get-started-quickstart.md) editor.

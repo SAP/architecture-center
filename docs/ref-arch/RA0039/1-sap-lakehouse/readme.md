@@ -31,9 +31,10 @@ unlisted: false
 contributors:
   - guilherme-segantini
   - mponce
+  - s-krishnamoorthy
 last_update:
   author: guilherme-segantini
-  date: 2026-10-23
+  date: 2026-11-10
 ---
 
 SAP Lakehouse is the unified platform for managing SAP and non-SAP data across multi-cloud, hybrid and on-premise environments. Enterprise data architectures for AI require continuous, context-rich understanding of data across systems and domains. This architecture describes the Lakehouse layer, where that foundation is built. SAP and non-SAP data is refined into trusted Data Products on open formats, enriched with master data, business semantics and business relationships, shared zero-copy with platforms such as Snowflake, BigQuery and Databricks through the Enterprise Catalog, and surfaced through Joule as agentic and analytical actions.

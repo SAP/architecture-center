@@ -1,4 +1,8 @@
 import tagsMap from '@site/src/constant/tagsMapping.json';
+import {
+  getRecentCutoffDate,
+  isDateRecent,
+} from '@site/src/utils/dateUtils';
 
 // =============================================================================
 // Types
@@ -70,18 +74,10 @@ export const PARTNER_OPTIONS = [
   { value: 'ibm', label: 'IBM' }
 ];
 
-export const RECENT_MONTHS = 3;
-export const RECENT_FILTER_LABEL = `Last ${RECENT_MONTHS} Months`;
+export { RECENT_MONTHS, RECENT_FILTER_LABEL, getRecentCutoffDate } from '@site/src/utils/dateUtils';
 
-// Helper to get cutoff date for "recently updated" filter
-export function getRecentCutoffDate(): Date {
-  const now = new Date();
-  const year = now.getUTCFullYear();
-  const targetMonth = now.getUTCMonth() - RECENT_MONTHS;
-  const day = now.getUTCDate();
-  const lastDayOfTargetMonth = new Date(Date.UTC(year, targetMonth + 1, 0)).getUTCDate();
-  return new Date(Date.UTC(year, targetMonth, Math.min(day, lastDayOfTargetMonth)));
-}
+// Key for marking categories kept only as containers for matching children
+const CONTAINER_ONLY_KEY = 'isContainerOnly' as const;
 
 export const categoryIdToTags = Object.entries(tagsMap).reduce((acc, [tagKey, meta]) => {
   const cat = meta?.categoryid;
@@ -152,10 +148,7 @@ export function isDocArchived(docId: string, docIdToTags: DocIdToTagsMap): boole
 
 export function isDocRecentlyUpdated(docId: string, docIdToTags: DocIdToTagsMap): boolean {
   const lastUpdateDate = getDocLastUpdateDate(docId, docIdToTags);
-  if (!lastUpdateDate) return false;
-
-  const docDate = new Date(lastUpdateDate);
-  return docDate >= getRecentCutoffDate();
+  return isDateRecent(lastUpdateDate);
 }
 
 export function findDocIdFromPath(pathname: string, tagsDocId: DocIdToTagsMap): string | null {
@@ -323,7 +316,16 @@ export function filterArchivedItems(items: SidebarItem[], docIdToTags: DocIdToTa
         }
       }
 
-      return { ...item, items: filteredItems };
+      // Mark as container-only if category is kept ONLY because it has matching children
+      const isContainerOnly = showArchived && !isCategoryArchived && filteredItems.length > 0;
+
+      return {
+        ...item,
+        items: filteredItems,
+        customProps: isContainerOnly
+          ? { ...item.customProps, [CONTAINER_ONLY_KEY]: true }
+          : item.customProps
+      };
     }
 
     return item;
@@ -482,10 +484,19 @@ function filterGroupedByMatchingDocIds(
     const categoryMatches = categoryDocId && matchingDocIds.has(categoryDocId);
 
     if (filteredItems.length > 0) {
-      return { ...category, items: filteredItems };
+      return {
+        ...category,
+        items: filteredItems,
+        customProps: {
+          ...category.customProps,
+          [CONTAINER_ONLY_KEY]: category.customProps?.[CONTAINER_ONLY_KEY] === true || !categoryMatches
+        }
+      };
     }
-
-    if (categoryMatches && itemBelongsToDomain(category, domainId, docIdToTags)) {
+    
+    // Don't show as leaf if category was marked as container-only by a previous filter
+    const isContainerOnly = category.customProps?.[CONTAINER_ONLY_KEY] === true;
+    if (categoryMatches && !isContainerOnly && itemBelongsToDomain(category, domainId, docIdToTags)) {
       return { ...category, items: [] };
     }
 
