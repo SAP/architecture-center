@@ -54,6 +54,10 @@ interface TransformedDocument {
   id: string;
   editorState: string;
   parentId: string | null;
+  isArticle?: boolean;
+  newAuthor?: { name: string; title: string; linkedin: string; username: string };
+  keywords?: string[];
+  spotlightImage?: { data: string; filename: string };
   children: TransformedDocument[];
   metadata: {
     title: string;
@@ -69,6 +73,7 @@ const transformTreeForBackend = (doc: Document): TransformedDocument => {
     id: doc.id,
     editorState: doc.editorState ? convertToLexicalFormat(doc.editorState) : '',
     parentId: doc.parentId,
+    ...(doc.isArticle ? { isArticle: true, ...(doc.newAuthor ? { newAuthor: { ...doc.newAuthor, username: doc.authors?.[0] || '' } } : {}), ...(doc.keywords?.length ? { keywords: doc.keywords } : {}), ...(doc.spotlightImage ? { spotlightImage: doc.spotlightImage } : {}) } : {}),
     children: doc.children ? doc.children.map(transformTreeForBackend) : [],
     metadata: {
       title: doc.title,
@@ -153,9 +158,9 @@ interface PublishStatus {
 }
 
 const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
-  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
+  const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations, syncArticleOperations } =
     usePageDataStore();
-  const { token, user } = useAuth();
+  const { token, user, btpToken } = useAuth();
   const { colorMode } = useColorMode();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -191,6 +196,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     }
 
     const api = getApiService(expressBackendUrl);
+    const isArticle = getActiveDocument()?.isArticle ?? false;
 
     const assetPromises: Promise<void>[] = [];
 
@@ -200,7 +206,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
         if (imageNode.assetId && !imageNode.src) {
           assetPromises.push(
-            api.getAssetWithContent(token, imageNode.assetId)
+            api.getAssetWithContent(token, imageNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Image asset fetched:', {
                   assetId: imageNode.assetId,
@@ -235,7 +241,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
-            api.getAssetWithContent(token, drawioNode.assetId)
+            api.getAssetWithContent(token, drawioNode.assetId, isArticle)
               .then((asset) => {
                 console.log('[Editor] Drawio asset fetched:', {
                   assetId: drawioNode.assetId,
@@ -383,7 +389,10 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         // Only use delta sync if backend has valid state structure and not during initial full sync
         if (doc && canUseDeltaSync && !fullSyncInProgress) {
           console.log('[Editor] Delta sync - operations:', ops.length, ops);
-          syncOperations(doc.id, ops).then((lastOpId) => {
+          const syncFn = doc.isArticle
+            ? syncArticleOperations(doc.id, ops)
+            : syncOperations(doc.id, ops);
+          syncFn.then((lastOpId) => {
             if (lastOpId) {
               core.markSynced(lastOpId);
               console.log('[Editor] Operations synced, lastOpId:', lastOpId);
@@ -451,7 +460,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       unsubscribe();
       core.destroy();
     };
-  }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
+  }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations, syncArticleOperations]);
 
   // Reload assets when token becomes available (after initial mount)
   // This handles the case where auth loads after the editor mounts
@@ -513,7 +522,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       setPublishStatus((prev) => ({ ...prev, stage: 'forking' }));
       const response = await fetch(`${expressBackendUrl}/api/publish`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...(btpToken ? { 'x-sap-token': btpToken } : {}) },
         body: JSON.stringify(payloadForPublish),
       });
       const result = await response.json();
@@ -651,15 +660,17 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
                   )}
                   <EditorContent containerRef={containerRef} readOnly={isReadOnly} />
                   <div className={styles.editorSpacer} />
-                  <ContributorsDisplay
-                    contributors={[
-                      ...(activeDocument?.authors || []),
-                      ...(activeDocument?.contributors || []).filter(
-                        c => !(activeDocument?.authors || []).includes(c)
-                      )
-                    ]}
-                    readOnly={true}
-                  />
+                  {!activeDocument?.isArticle && (
+                    <ContributorsDisplay
+                      contributors={[
+                        ...(activeDocument?.authors || []),
+                        ...(activeDocument?.contributors || []).filter(
+                          c => !(activeDocument?.authors || []).includes(c)
+                        )
+                      ]}
+                      readOnly={true}
+                    />
+                  )}
                 </div>
               </div>
             </div>
