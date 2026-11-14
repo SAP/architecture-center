@@ -32,6 +32,13 @@
     transform: translateY(0);
 }
 
+.newRefArchButton:focus-visible,
+.documentButton:focus-visible,
+.addSubPageButton:focus-visible {
+    outline: 2px solid var(--ifm-color-primary);
+    outline-offset: 2px;
+}
+
 .documentsList {
     flex: 1;
     overflow-y: auto;
@@ -105,11 +112,8 @@
 .navItem {
     font-size: 14px;
     color: var(--ifm-font-color-base);
-    padding: 6px 10px;
     border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,6 +128,27 @@
     font-weight: 600;
     background: var(--gradient-premium);
     border-radius: 8px;
+}
+
+.navItem.active .documentButton:focus-visible,
+.navItem.active .addSubPageButton:focus-visible {
+    outline-color: white;
+}
+
+.documentButton {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-weight: inherit;
+    text-align: left;
 }
 
 .rootItem {
@@ -167,7 +192,9 @@
     border: none;
     color: inherit;
     cursor: pointer;
-    padding: 0;
+    padding: 4px;
+    margin-right: 6px;
+    border-radius: 4px;
     opacity: 0;
     transition: opacity 0.2s ease;
     flex-shrink: 0;
@@ -178,7 +205,8 @@
 }
 
 .navItem:hover .addSubPageButton,
-.navItem.active .addSubPageButton {
+.navItem.active .addSubPageButton,
+.navItem:focus-within .addSubPageButton {
     opacity: 1;
 }
 

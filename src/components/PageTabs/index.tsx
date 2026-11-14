@@ -11,45 +11,54 @@ interface PageTabsProps {
 const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     const { documents, activeDocumentId, openDocument } = usePageDataStore();
 
-    const handleActionClick = (e: React.MouseEvent | { stopPropagation: () => void }) => {
-        e.stopPropagation();
-    };
-
-    const renderDocumentTree = (doc: Document, isSharedSection: boolean = false) => {
+    const renderDocumentTree = (doc: Document) => {
         const children = documents.filter((child) => child.parentId === doc.id);
         const canAddSubPage = onAddNew && !doc.isReadOnly;
+        const documentTitle = doc.title || 'Untitled Page';
+        const isActive = doc.id === activeDocumentId;
 
         return (
             <div key={doc.id}>
                 <div
                     className={`${styles.navItem} ${!doc.parentId ? styles.rootItem : ''} ${
-                        doc.id === activeDocumentId ? styles.active : ''
+                        isActive ? styles.active : ''
                     } ${doc.isReadOnly ? styles.readOnlyItem : ''}`}
-                    onClick={() => openDocument(doc.id)}
                 >
-                    <span className={styles.itemTitle} title={doc.title || 'Untitled Page'}>
-                        {doc.title || 'Untitled Page'}
-                    </span>
+                    <button
+                        type="button"
+                        className={styles.documentButton}
+                        onClick={() => openDocument(doc.id)}
+                        aria-current={isActive ? 'page' : undefined}
+                        aria-label={`Open ${documentTitle}${doc.isReadOnly ? ' (view only)' : ''}`}
+                    >
+                        <span className={styles.itemTitle} title={documentTitle}>
+                            {documentTitle}
+                        </span>
+                        {doc.isReadOnly && !doc.parentId && (
+                            <Eye
+                                size={14}
+                                className={styles.viewOnlyIcon}
+                                aria-hidden="true"
+                                focusable="false"
+                            />
+                        )}
+                    </button>
                     {canAddSubPage && (
                         <button
+                            type="button"
                             className={styles.addSubPageButton}
-                            onClick={(e) => {
-                                handleActionClick(e);
-                                onAddNew(doc.id);
-                            }}
+                            onClick={() => onAddNew(doc.id)}
+                            aria-label={`Add sub-page to ${documentTitle}`}
                             title="Add sub-page"
                         >
-                            <Plus size={18} />
+                            <Plus size={18} aria-hidden="true" focusable="false" />
                         </button>
-                    )}
-                    {doc.isReadOnly && !doc.parentId && (
-                        <Eye size={14} className={styles.viewOnlyIcon} />
                     )}
                 </div>
                 {children.length > 0 && (
                     <ul className={styles.childrenList}>
                         {children.map((child) => (
-                            <li key={child.id}>{renderDocumentTree(child, isSharedSection)}</li>
+                            <li key={child.id}>{renderDocumentTree(child)}</li>
                         ))}
                     </ul>
                 )}
@@ -63,15 +72,16 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
     const sharedDocuments = rootDocuments.filter((doc) => doc.isReadOnly);
 
     return (
-        <div className={styles.navContainer}>
+        <nav className={styles.navContainer} aria-label="Reference Architecture documents">
             {onAddNew && (
                 <button
+                    type="button"
                     className={styles.newRefArchButton}
                     onClick={() => onAddNew(null)}
                     title="Create new Reference Architecture"
                 >
                     <span>New Ref Arch</span>
-                    <Plus size={18} />
+                    <Plus size={18} aria-hidden="true" focusable="false" />
                 </button>
             )}
             <div className={styles.documentsList}>
@@ -91,10 +101,15 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                         <div className={styles.sectionDivider} />
                         <div className={styles.sectionHeader}>
                             <span>Shared with me</span>
-                            <Eye size={14} className={styles.sectionIcon} />
+                            <Eye
+                                size={14}
+                                className={styles.sectionIcon}
+                                aria-hidden="true"
+                                focusable="false"
+                            />
                         </div>
                         <div className={styles.sharedSection}>
-                            {sharedDocuments.map((doc) => renderDocumentTree(doc, true))}
+                            {sharedDocuments.map((doc) => renderDocumentTree(doc))}
                         </div>
                     </>
                 )}
@@ -106,7 +121,7 @@ const PageTabs: React.FC<PageTabsProps> = ({ onAddNew }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </nav>
     );
 };
 
