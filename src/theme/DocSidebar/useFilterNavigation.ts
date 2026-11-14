@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useHistory, useLocation } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useSidebarFilterStore } from '@site/src/store/sidebar-store';
@@ -46,8 +46,6 @@ export function useFilterNavigation(
   const resetFilters = useSidebarFilterStore(state => state.resetFilters);
   const expandedDomains = useSidebarFilterStore(state => state.expandedDomains);
   const setExpandedDomains = useSidebarFilterStore(state => state.setExpandedDomains);
-
-  const [searchTerm, setSearchTerm] = useState('');
 
   const currentState: FilterState = { partners, showArchived, showCommunityContent, showRecentlyUpdated };
 
@@ -212,7 +210,6 @@ export function useFilterNavigation(
     showArchived,
     showCommunityContent,
     showRecentlyUpdated,
-    searchTerm,
     expandedDomains,
     selectedPartnerOptions,
     filteredGrouped,
@@ -226,9 +223,8 @@ export function useFilterNavigation(
     handleRecentlyUpdatedChange,
     handleResetFilters,
     handleBackToAllDocuments,
-    setSearchTerm,
 
     // Computed
-    isResetEnabled: partners.length > 0 || searchTerm.length > 0 || showArchived || showCommunityContent || showRecentlyUpdated
+    isResetEnabled: partners.length > 0 || showArchived || showCommunityContent || showRecentlyUpdated
   };
 }
