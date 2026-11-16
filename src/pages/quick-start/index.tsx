@@ -59,6 +59,13 @@ function AuthenticatedQuickStartView() {
     const isSapAuthenticated = users.github?.isSapEmployee === true || users.btp !== null;
     const pendingActionHandledRef = useRef(false);
 
+    // Keep backend config in sync — the BTP token resolves asynchronously after mount
+    useEffect(() => {
+        if (expressBackendUrl && token) {
+            setBackendConfig(expressBackendUrl, token, users.github?.username || '', btpToken);
+        }
+    }, [expressBackendUrl, token, btpToken, users.github, setBackendConfig]);
+
     // Initialize backend config and fetch documents
     useEffect(() => {
         if (expressBackendUrl && token && !initialized) {
