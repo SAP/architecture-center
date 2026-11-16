@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-slug: /community/automated-checks/grammar
+slug: /community/automated-checks/document-body/grammar
 title: Grammar and Prose Check with LanguageTool
 description: "How the non-blocking LanguageTool grammar check reviews prose in your changed docs and news pages, where its suggestions appear, and why it never fails a PR."
 sidebar_label: Grammar
@@ -23,10 +23,10 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
-When you open a pull request, a grammar and prose check reads the English text in your changed pages and offers gentle suggestions: a stray double word, a missing comma, an awkward construction. It is powered by [reviewdog](https://github.com/reviewdog/reviewdog) and [LanguageTool](https://dev.languagetool.org/), and it complements the [spell check](./01-check-spelling.md) rather than replacing it.
+When you open a pull request, a grammar and prose check reads the English text in your changed pages and offers gentle suggestions: a stray double word, a missing comma, an awkward construction. It is powered by [reviewdog](https://github.com/reviewdog/reviewdog) and [LanguageTool](https://dev.languagetool.org/), and it complements the [spell check](01-check-spelling.md) rather than replacing it.
 
 ## What this check does
 
@@ -34,11 +34,11 @@ LanguageTool is a mature open-source proofreading engine. In our setup it runs *
 
 Think of it as a friendly editor reading over your shoulder:
 
-- **Spelling** is handled elsewhere, by [cspell](./01-check-spelling.md) and its [custom dictionaries](./02-dictionaries.md).
+- **Spelling** is handled elsewhere, by [cspell](01-check-spelling.md) and its [custom dictionaries](02-dictionaries.md).
 - **Grammar and style** (word repetition, agreement, punctuation flow) is what this check looks at.
 
 :::info Two layers, one goal
-Spelling and grammar are deliberately split across two checks. That keeps SAP product names you have already allowed in the [custom dictionaries](./02-dictionaries.md) from being re-flagged here, and it keeps each check's output focused and easy to read.
+Spelling and grammar are deliberately split across two checks. That keeps SAP product names you have already allowed in the [custom dictionaries](02-dictionaries.md) from being re-flagged here, and it keeps each check's output focused and easy to read.
 :::
 
 ## Scope: what gets checked
@@ -48,7 +48,7 @@ The check runs on pull requests that target the `dev` branch and that touch Mark
 | Aspect | Value |
 | --- | --- |
 | File types | `.md` files under `docs/` and `news/` |
-| Trigger | Pull requests targeting `dev` |
+| Trigger | Pull requests and pushes to `dev` |
 | Language | `en-US` only |
 | `.mdx` files | **Intentionally excluded** for now |
 
@@ -85,10 +85,12 @@ Where you see the findings depends on how you opened the PR:
 
 | Your situation | Where suggestions show up |
 | --- | --- |
-| Branch on the main repository (core contributors) | Annotations on the **Checks** tab, inline on your changed lines (`github-pr-check`) |
-| Pull request from a **fork** | GitHub issues a read-only token, so the Checks-tab annotations cannot be posted. Open the grammar step's **Actions run log** to see the raw output, and a maintainer can relay any grammar suggestions on the pull request if needed |
+| Branch on the main repository (core contributors) | Inline **review comments** on your changed lines, on the **Files changed** tab (`github-pr-review`) |
+| Pull request from a **fork** | GitHub issues a read-only token, so the review comments cannot be posted. Open the grammar step's **Actions run log** to see the raw output, and a maintainer can relay any grammar suggestions on the pull request if needed |
 
-If you contributed through a fork (the recommended path for most community members) and do not see inline annotations, that is expected. Open the workflow run from the **Actions** tab and read the grammar step's log to see the same suggestions.
+Grammar is **advisory and non-blocking**, and it is **not** part of the sticky **🔎 Content check results** comment; its suggestions live only as the inline review comments above (or, for forks, in the Actions run log).
+
+If you contributed through a fork (the recommended path for most community members) and do not see inline review comments, that is expected. Open the workflow run from the **Actions** tab and read the grammar step's log to see the same suggestions.
 
 ## What it does *not* flag
 
@@ -96,7 +98,7 @@ To keep the signal clean, several categories and rules are switched off on purpo
 
 | Turned off | Why |
 | --- | --- |
-| `TYPOS` category | Spelling is owned by [cspell](./01-check-spelling.md) and the [custom dictionaries](./02-dictionaries.md); this avoids re-flagging allowed SAP terms. |
+| `TYPOS` category | Spelling is owned by [cspell](01-check-spelling.md) and the [custom dictionaries](02-dictionaries.md); this avoids re-flagging allowed SAP terms. |
 | `TYPOGRAPHY` category | Curly quotes, fancy dashes, and arrows are noisy against code and Markdown. |
 | A set of Markdown-noise rules | Rules like whitespace, underscores in words, and bracket pairing misfire on Markdown and code; they are disabled individually. |
 
@@ -120,8 +122,8 @@ Because the check only reads `.md` files, prose inside `.mdx` pages is not proof
 
 ## Related pages
 
-- [Automated Checks overview](./readme.md): how all the checks fit together
-- [Spelling check](./01-check-spelling.md) and [Custom Dictionaries](./02-dictionaries.md): the spelling side of prose review
-- [Typos check](./03-check-typos.md): a second, fast spelling pass
-- [Errors and warnings](./13-pr-checks-errors-and-warnings.md): what to do when a check reports something
-- [Contribution process](../01-contribution.md) and the [Quick Start editor](../02-GetStarted/01-get-started-quickstart.md): how to get your content in
+- [Automated Checks overview](../readme.md): how all the checks fit together
+- [Spelling check](01-check-spelling.md) and [Custom Dictionaries](02-dictionaries.md): the spelling side of prose review
+- [Typos check](03-check-typos.md): a second, fast spelling pass
+- [Errors and warnings](../13-pr-checks-errors-and-warnings.md): what to do when a check reports something
+- [Contribution process](../../01-contribution.md) and the [Quick Start editor](../../02-GetStarted/01-get-started-quickstart.md): how to get your content in

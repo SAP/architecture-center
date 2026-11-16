@@ -1,6 +1,6 @@
 ---
-sidebar_position: 10
-slug: /community/automated-checks/drawio-files
+sidebar_position: 7
+slug: /community/automated-checks/document-body/drawio-files
 title: Draw.io File Checks for Size and External Images
 description: "How the drawio check keeps diagram files under one megabyte and blocks external image references, so every diagram stays self-contained and loads reliably."
 sidebar_label: Draw.io Files
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 Diagrams are a core part of every reference architecture, and they ship as `.drawio` files committed right next to your Markdown. When your pull request adds or changes any `.drawio` file, this workflow runs two quick checks on just the files you touched, making sure each diagram is small enough to load fast and fully self-contained.
@@ -98,20 +98,20 @@ A green run means the diagrams you changed are within limits and self-contained.
 After you push the fix, the workflow re-runs automatically on the new commit. Once both checks pass, the "Check drawio Files" section turns green.
 
 :::tip Diagramming guide
-For the full conventions on creating and editing diagrams (naming, theming, light and dark variants, and export), see the [diagramming guide](../06-diagrams.md).
+For the full conventions on creating and editing diagrams (naming, theming, light and dark variants, and export), see the [diagramming guide](../../06-diagrams.md).
 :::
 
 ## Related checks
 
-This is one of several automated checks that run on your contributions. See the [Automated Checks overview](readme.md) for the full picture, and the companion pages:
+This is one of several automated checks that run on your contributions. See the [Automated Checks overview](../readme.md) for the full picture, and the companion pages:
 
 - [Spelling](01-check-spelling.md) and [Custom Dictionaries](02-dictionaries.md)
 - [Typos](03-check-typos.md) and [Grammar](04-check-grammar.md)
-- [Front Matter Properties](05-check-front-matter-properties.md) and [SEO Front Matter](06-check-seo-front-matter.md)
-- [Reference Architecture IDs](07-check-reference-architecture-ids.md)
-- [Internal Links](08-check-internal-links.md) and [External Links](09-check-external-links.md)
-- [Orphan Files](11-check-orphan-files.md)
-- [Operational Workflows](12-operational-workflows.md)
-- [What errors and warnings mean on your PR](13-pr-checks-errors-and-warnings.md)
+- [Front Matter Properties](../01-Front-Matter/01-check-front-matter-properties.md) and [SEO Front Matter](../01-Front-Matter/02-check-seo-front-matter.md)
+- [Reference Architecture IDs](../01-Front-Matter/03-check-reference-architecture-ids.md)
+- [Internal Links](05-check-internal-links.md) and [External Links](06-check-external-links.md)
+- [Orphan Files](08-check-orphan-files.md)
+- [Operational Workflows](../12-operational-workflows.md)
+- [What errors and warnings mean on your PR](../13-pr-checks-errors-and-warnings.md)
 
-New to contributing? Start with the [community intro](../../intro.md), the [contribution process](../01-contribution.md), and, for a new reference architecture, the no-code [Quick Start editor](../02-GetStarted/01-get-started-quickstart.md).
+New to contributing? Start with the [community intro](../../../intro.md), the [contribution process](../../01-contribution.md), and, for a new reference architecture, the no-code [Quick Start editor](../../02-GetStarted/01-get-started-quickstart.md).

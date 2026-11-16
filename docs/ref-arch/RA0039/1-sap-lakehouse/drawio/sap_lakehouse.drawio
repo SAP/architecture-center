@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="architecture" id="hu-NQ96zkO4CTAZbSU7_">
-        <mxGraphModel dx="954" dy="1045" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="374" dy="853" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -28,10 +28,10 @@
                 <mxCell id="VJ-rSY2uI87eURXkKVcx-290" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="&lt;font&gt;&lt;span&gt;S/4HANA PCE&lt;/span&gt;&lt;/font&gt;" vertex="1">
                     <mxGeometry height="40" width="100" x="92.04999999999973" y="444" as="geometry"/>
                 </mxCell>
-                <mxCell id="VJ-rSY2uI87eURXkKVcx-291" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="Aribe" vertex="1">
+                <mxCell id="VJ-rSY2uI87eURXkKVcx-291" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="Ariba" vertex="1">
                     <mxGeometry height="40" width="65" x="205" y="444" as="geometry"/>
                 </mxCell>
-                <mxCell id="VJ-rSY2uI87eURXkKVcx-292" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="HXM" vertex="1">
+                <mxCell id="VJ-rSY2uI87eURXkKVcx-292" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="HCM" vertex="1">
                     <mxGeometry height="40" width="65" x="283" y="444" as="geometry"/>
                 </mxCell>
                 <mxCell id="VJ-rSY2uI87eURXkKVcx-293" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#0070F2;strokeWidth=1;fillColor=#D1EFFF;align=center;verticalAlign=middle;fontSize=12;fontFamily=Helvetica;container=0;recursiveResize=0;collapsible=0;fontColor=light-dark(#00185A,#CCDDFF);arcSize=12;flipV=0;flipH=1;fontStyle=1;gradientColor=none;gradientDirection=south;" value="Concur" vertex="1">

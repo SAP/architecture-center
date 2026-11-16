@@ -1,6 +1,6 @@
 ---
-sidebar_position: 14
-slug: /community/automated-checks/h1-title
+sidebar_position: 5
+slug: /community/automated-checks/front-matter/h1-title
 title: H1 Title Check for Reference Architectures
 description: "Why Architecture Center pages must take their title from the front matter instead of a level-1 Markdown heading, and how the H1 title check enforces it."
 sidebar_label: H1 Title
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-20
+  date: 2026-10-28
 ---
 
 The **H1 Title** check makes sure the title of a page comes from the front matter `title:` field, not from a level-1 Markdown heading in the body. It is a **blocking** check: if a changed page contains a `#` heading, the check fails until it is removed.
@@ -38,7 +38,7 @@ title: SAP Event-Driven Architecture Technology
 ---
 ```
 
-Docusaurus renders that `title:` as the page's heading automatically, and also uses it for the browser tab, SEO, and social-media previews (see the [front matter guide](../04-front-matter.md#title)). If you *also* add a `#` heading in the body, the page ends up with **two titles**, a duplicated `<h1>` that hurts accessibility and SEO and breaks the document outline.
+Docusaurus renders that `title:` as the page's heading automatically, and also uses it for the browser tab, SEO, and social-media previews (see the [front matter guide](../../04-front-matter.md#title)). If you *also* add a `#` heading in the body, the page ends up with **two titles**, a duplicated `<h1>` that hurts accessibility and SEO and breaks the document outline.
 
 So the rule is simple:
 
@@ -62,7 +62,7 @@ It also triggers when the workflow file itself (`.github/workflows/check-h1-titl
 
 ## Where you will see the results
 
-Like the spelling and typo checks, this check reports **inline on the Files changed tab**, pinned to the offending `#` line, and writes a short summary to the check's **job summary**. (It is not repeated in the sticky pull request comment.)
+Like the spelling and typo checks, this check reports **inline on the Files changed tab**, pinned to the offending `#` line, and writes a short summary to the check's **job summary**. It also appears as a **Check H1 Title** section in the sticky pull request comment.
 
 ## How to fix it
 
@@ -74,12 +74,12 @@ Like the spelling and typo checks, this check reports **inline on the Files chan
 Push the fix to the same branch and the check runs again automatically.
 
 :::tip
-If you contribute through the no-code [Quick Start editor](../02-GetStarted/01-get-started-quickstart.md), it sets the title in the front matter for you, so you will not hit this check.
+If you contribute through the no-code [Quick Start editor](../../02-GetStarted/01-get-started-quickstart.md), it sets the title in the front matter for you, so you will not hit this check.
 :::
 
 ## Related pages
 
-- [Automated Checks overview](readme.md)
-- [Front matter guide](../04-front-matter.md): the `title:` field and every other front matter property
-- [Front Matter Properties](05-check-front-matter-properties.md): the sibling check for authorship and house-style fields
-- [Errors & Warnings](13-pr-checks-errors-and-warnings.md): what to expect when a check reports a problem on your PR
+- [Automated Checks overview](../readme.md)
+- [Front matter guide](../../04-front-matter.md): the `title:` field and every other front matter property
+- [Front Matter Properties](01-check-front-matter-properties.md): the sibling check for authorship and house-style fields
+- [Errors & Warnings](../13-pr-checks-errors-and-warnings.md): what to expect when a check reports a problem on your PR

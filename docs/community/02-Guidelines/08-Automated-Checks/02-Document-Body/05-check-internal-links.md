@@ -1,6 +1,6 @@
 ---
-sidebar_position: 8
-slug: /community/automated-checks/internal-links
+sidebar_position: 5
+slug: /community/automated-checks/document-body/internal-links
 title: Internal Link Check for SAP-Only Hosts in Content
 description: "How the internal link check finds SAP-internal-only URLs that break for public visitors, which host patterns it flags, and which customer-facing hosts are safe."
 sidebar_label: Internal Links
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 The SAP Architecture Center is a public site, open to everyone on the internet. A link that only works inside the SAP network or behind single sign-on (SSO) is a dead end for external readers. This check scans the Markdown you changed and flags any link that points to an SAP-internal-only host.
@@ -35,7 +35,7 @@ When your pull request (PR) touches Markdown under `docs/` or `news/`, this work
 The goal is simple: everything we publish should work for every visitor. An internal wiki page or an internal tooling link may be perfectly valid for you, but a customer, partner, or community member reading the public site will hit a login wall or a "server not found" error.
 
 :::info Where this fits
-This is one of several content checks that run on every PR. For the big picture and the full list, see the [Overview](readme.md) and [Operational Workflows](12-operational-workflows.md) pages. For how results are surfaced across all checks, see [Errors & Warnings](13-pr-checks-errors-and-warnings.md).
+This is one of several content checks that run on every PR. For the big picture and the full list, see the [Overview](../readme.md) and [Operational Workflows](../12-operational-workflows.md) pages. For how results are surfaced across all checks, see [Errors & Warnings](../13-pr-checks-errors-and-warnings.md).
 :::
 
 ## Host patterns that are flagged
@@ -114,8 +114,8 @@ This page is scanned by this very check. It matches **any** host ending in `*.to
 
 ## Related checks
 
-- [External Links](09-check-external-links.md): verifies that your *public* links actually resolve.
-- [Front Matter Properties](05-check-front-matter-properties.md) and [SEO Front Matter](06-check-seo-front-matter.md): validate the metadata at the top of each page.
-- [Overview](readme.md): the full map of automated checks.
+- [External Links](06-check-external-links.md): verifies that your *public* links actually resolve.
+- [Front Matter Properties](../01-Front-Matter/01-check-front-matter-properties.md) and [SEO Front Matter](../01-Front-Matter/02-check-seo-front-matter.md): validate the metadata at the top of each page.
+- [Overview](../readme.md): the full map of automated checks.
 
-Need a refresher on how contributions flow through the project, or on writing content without touching Markdown by hand? See the [contribution process](../01-contribution.md), the [Quick Start](../02-GetStarted/01-get-started-quickstart.md) no-code editor, and the [community intro](../../intro.md). For links that live inside diagrams, see the [diagramming guide](../06-diagrams.md).
+Need a refresher on how contributions flow through the project, or on writing content without touching Markdown by hand? See the [contribution process](../../01-contribution.md), the [Quick Start](../../02-GetStarted/01-get-started-quickstart.md) no-code editor, and the [community intro](../../../intro.md). For links that live inside diagrams, see the [diagramming guide](../../06-diagrams.md).

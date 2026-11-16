@@ -1,6 +1,6 @@
 ---
-sidebar_position: 7
-slug: /community/automated-checks/reference-architecture-ids
+sidebar_position: 3
+slug: /community/automated-checks/front-matter/reference-architecture-ids
 title: Reference Architecture ID and Slug Validation Check
 description: "How the ID check validates that every reference architecture has a unique six-character id and a matching slug, and what happens when two pages collide."
 sidebar_label: Reference Architecture IDs
@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
 Every reference architecture lives in a `readme.md` whose front matter carries two linked fields: an `id` and a `slug`. This check keeps those fields valid and makes sure no two reference architectures ever claim the same `id` across the whole site.
@@ -33,10 +33,10 @@ Every reference architecture lives in a `readme.md` whose front matter carries t
 The `id` is the stable, permanent identity of a reference architecture, and the `slug` is the public URL it is served from. The two must agree, and the `id` must be unique, otherwise two pages would compete for the same address and links would break. This check runs automatically on every pull request so that collisions are caught before they ever reach the live site.
 
 :::info The id and slug are generated for you
-You are not meant to invent these values yourself. The `id` and its matching `slug` are assigned by an external application: our no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor generates a valid `id` and the correct `slug` when you scaffold a new reference architecture. These initial values are temporary placeholders: the Architecture Center team finalises them while reviewing your contribution, so the `id` on the live site may differ from the one you first received. This check is not the generator. It is a safety net that verifies nobody has changed those values by hand or accidentally duplicated an `id` that another reference architecture already uses. In normal use, if you let the tooling create your pages, the check simply passes.
+You are not meant to invent these values yourself. The `id` and its matching `slug` are assigned by an external application: our no-code [Quick Start](../../02-GetStarted/01-get-started-quickstart.md) editor generates a valid `id` and the correct `slug` when you scaffold a new reference architecture. These initial values are temporary placeholders: the Architecture Center team finalises them while reviewing your contribution, so the `id` on the live site may differ from the one you first received. This check is not the generator. It is a safety net that verifies nobody has changed those values by hand or accidentally duplicated an `id` that another reference architecture already uses. In normal use, if you let the tooling create your pages, the check simply passes.
 :::
 
-If you want the bigger picture of how all the pull-request checks fit together, start with the [Automated Checks overview](readme.md).
+If you want the bigger picture of how all the pull-request checks fit together, start with the [Automated Checks overview](../readme.md).
 
 ## The rules
 
@@ -54,7 +54,7 @@ So if your `id` is `a06a95`, your `slug` must be `/ref-arch/a06a95`. Nothing mor
 The conceptual landing page at `docs/ref-arch/readme.md` (whose slug is just `/ref-arch`) and the `RA0000` demo page do **not** follow the `/ref-arch/<id>` convention, so the check leaves them alone.
 :::
 
-For the full meaning of `id`, `slug`, and the other front matter fields, see the [Front Matter guide](../04-front-matter.md).
+For the full meaning of `id`, `slug`, and the other front matter fields, see the [Front Matter guide](../../04-front-matter.md).
 
 ## What gets checked, and what can fail
 
@@ -111,13 +111,13 @@ Here is what each error is telling you to do:
 - **`DUPLICATE id`**: this usually means an `id` was copied from another page. Regenerate the page with the tooling, or give it a different, unused `id` (and update its `slug` to match).
 
 :::tip Let Quick Start generate the id for you
-The easiest way to never hit these errors is to not type the `id` by hand. Our no-code [Quick Start](../02-GetStarted/01-get-started-quickstart.md) editor generates the `id` and `slug` for you when you scaffold a new reference architecture. If you start from the create-ref-arch-skeleton template instead, it leaves placeholder values that the Architecture Center team finalises during review, so do not edit them by hand to force this check green.
+The easiest way to never hit these errors is to not type the `id` by hand. Our no-code [Quick Start](../../02-GetStarted/01-get-started-quickstart.md) editor generates the `id` and `slug` for you when you scaffold a new reference architecture. If you start from the create-ref-arch-skeleton template instead, it leaves placeholder values that the Architecture Center team finalises during review, so do not edit them by hand to force this check green.
 :::
 
 ## Related checks
 
-- [Front Matter Properties](05-check-front-matter-properties.md) validates the required front matter fields.
-- [SEO Front Matter](06-check-seo-front-matter.md) checks `title`, `description`, and other SEO fields.
-- [Internal Links](08-check-internal-links.md) verifies that links between pages resolve.
+- [Front Matter Properties](01-check-front-matter-properties.md) validates the required front matter fields.
+- [SEO Front Matter](02-check-seo-front-matter.md) checks `title`, `description`, and other SEO fields.
+- [Internal Links](../02-Document-Body/05-check-internal-links.md) verifies that links between pages resolve.
 
-New to contributing? See the [community intro](../../intro.md) and the [contribution process](../01-contribution.md).
+New to contributing? See the [community intro](../../../intro.md) and the [contribution process](../../01-contribution.md).

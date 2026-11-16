@@ -27,6 +27,7 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
+  date: 2026-10-26
 ---
 
 SAP Document AI is a cloud-based service that uses machine learning to extract structured data from unstructured documents. It can be used to automate data entry, improve document processing, and enhance business workflows.

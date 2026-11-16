@@ -1,6 +1,6 @@
 ---
-sidebar_position: 6
-slug: /community/automated-checks/seo-front-matter
+sidebar_position: 2
+slug: /community/automated-checks/front-matter/seo
 title: SEO Front Matter Check for Titles and Descriptions
 description: "How the SEO front matter check measures the length of each page title and description, which lengths only warn, and which lengths fail your pull request build."
 sidebar_label: SEO Front Matter
@@ -23,10 +23,10 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-15
+  date: 2026-10-28
 ---
 
-Search engines truncate a page title or description that is too long, and gain nothing from one that is too short. This check measures the length of the `title` and `description` fields in your [front matter](../04-front-matter.md) on each published `docs/` page your pull request changes, so your pages look their best in search results.
+Search engines truncate a page title or description that is too long, and gain nothing from one that is too short. This check measures the length of the `title` and `description` fields in your [front matter](../../04-front-matter.md) on each published `docs/` page your pull request changes, so your pages look their best in search results.
 
 ## What this check does
 
@@ -35,7 +35,7 @@ When you open a pull request, this check reads the `title` and `description` fro
 Pages marked `draft: true` or `unlisted: true` are skipped, because search engines do not index them, so their title and description lengths do not matter.
 
 :::info
-This is a length check only. It does not judge whether your wording is good, nor whether a field is missing from the schema. That is the job of the [Front Matter Properties](05-check-front-matter-properties.md) check. Here, an empty or absent `title` or `description` is reported as "missing or empty" and fails the build.
+This is a length check only. It does not judge whether your wording is good, nor whether a field is missing from the schema. That is the job of the [Front Matter Properties](01-check-front-matter-properties.md) check. Here, an empty or absent `title` or `description` is reported as "missing or empty" and fails the build.
 :::
 
 ## Length thresholds
@@ -110,7 +110,7 @@ Only the changed docs Markdown on your pull request is checked, that is the page
 
 ## Related pages
 
-- [Automated Checks overview](readme.md)
-- [Front Matter Properties check](05-check-front-matter-properties.md): validates which fields exist
-- [Front matter guide](../04-front-matter.md): what each field means
-- [Errors and warnings on your PR](13-pr-checks-errors-and-warnings.md): what to do when a check reports something
+- [Automated Checks overview](../readme.md)
+- [Front Matter Properties check](01-check-front-matter-properties.md): validates which fields exist
+- [Front matter guide](../../04-front-matter.md): what each field means
+- [Errors and warnings on your PR](../13-pr-checks-errors-and-warnings.md): what to do when a check reports something

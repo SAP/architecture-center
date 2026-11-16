@@ -1,0 +1,20 @@
+/* "Recently added or updated" badge styling */
+.recentBadge {
+    display: block;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-style: normal;
+    color: #cd00be;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .recentBadge {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}

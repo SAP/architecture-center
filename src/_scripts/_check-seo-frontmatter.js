@@ -82,12 +82,14 @@ function evaluate(field, value, limits) {
 }
 
 function main() {
-  // Changed-files mode: when the workflow passes repo-relative paths as args, check
-  // only those (docs Markdown). With no args (local runs) fall back to the whole corpus.
-  const argvFiles = process.argv.slice(2);
+  // Changed-files mode: the workflow passes the changed docs Markdown as args, so
+  // check only those. In CI an empty argument list therefore means "nothing
+  // changed", so nothing is checked. Locally (no GITHUB_ACTIONS and no args) fall
+  // back to the whole corpus so the script stays runnable for debugging.
+  const argvFiles = process.argv.slice(2).filter((f) => f.startsWith('docs/') && /\.(md|mdx)$/.test(f));
   const files = (
-    argvFiles.length
-      ? argvFiles.filter((f) => f.startsWith('docs/') && /\.(md|mdx)$/.test(f))
+    inActions || process.argv.length > 2
+      ? argvFiles
       : glob.sync(DOCS_GLOB, { cwd: repoRoot })
   ).sort();
   let errors = 0;
@@ -143,7 +145,7 @@ function main() {
 
   if (errors > 0 || warnings > 0) {
     summary.push('');
-    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/docs/community/automated-checks/seo-front-matter');
+    summary.push('📖 How to fix (adjust the title or description length): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/seo');
   }
 
   const summaryText = summary.join('\n');

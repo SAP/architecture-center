@@ -37,11 +37,11 @@ contributors:
   - NormanNuernberger
 discussion: 
 last_update:
-  author: fabianleh
-  date: 2026-08-06
+  author: NormanNuernberger
+  date: 2026-11-12
 ---
 
-Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided in two stages (Test and Production), while many other SAP systems in a typical landscape exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages are typically treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (two-staged), SAP is providing two different architectural diagrams for landscape recommendations - one for a staged landscape (SaaS) and one for a consolidated landscape.
+Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided by default in two stages (Test and Production), while other SAP systems in a typical landscape may exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages could be treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (separated stages), SAP is providing two different architectural diagrams for landscape recommendations - one for a staged landscape (SaaS) and one for a consolidated landscape.
 
 ## Staged Landscape Architecture
 
@@ -82,14 +82,14 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 The architecture approach shown in this section is not yet generally available (GA). However, the shown architecture will be the desired future architecture for the setup of the SAP Business AI Platform in the context of identity and access management.
 :::
 
-The architecture diagram depicts the recommended Joule setup for a consolidated Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape and a sandbox stage in addition.
-This architecture allows the isolation of dedicated landscape stages, such as sandbox or production stage, while combining other stages.
+The architecture diagram depicts the recommended Joule setup for a consolidated Joule landscape, illustrating how the various components are organized across the stages. In this example a 3-staged landscape. It allows the isolation of dedicated landscape stages, such as an isolated sandbox stage or an isolated production stage, while combining other stages.
 
 ![drawio](drawio/consolidated_BAIP_IAM_Architecture.drawio)
 
 The solution architecture consists of the following key elements:
 
-- **Three staged environments** (Development, Test and Production): Each stage is represented as a horizontal row in the diagram. All stages share the same instance of SAP Cloud Identity Services and the SAP Business AI Platform. The Test instances of SAP Cloud Identity Services and SAP Business AI Platform are connected to a separate Sandbox landscape. This separation ensures that changes can be developed and validated before affecting production workloads, while identities in non-productive systems can be managed like productive identities.
+- **Three staged environments** (Development, Test and Production): Each stage is represented as a horizontal row in the diagram. All stages share the same instance of SAP Cloud Identity Services. The Development and Test stage share one instance of the SAP Business AI Platform, while the production stage is connected to its dedicated instance of SAP Business AI Platform. The Test instances of SAP Cloud Identity Services and SAP Business AI Platform are connected to a separate Sandbox landscape. This separation ensures that changes can be developed and validated before affecting production workloads, while identities in non-productive systems can be managed like productive identities.
+Customers can decide which stages to combine, while an instance of SAP Business AI Platform can be connected to multiple stages of the SAP solutions and one instance of SAP Cloud Identity Services can be connected to multiple instances of the SAP solutions as well as multiple instances of the SAP Business AI Platform. It is not possible to connect one instance of Business AI Platform to multiple instances of SAP Cloud Identity Services.
 
 - **SAP Business AI Platform**: SAP Business AI Platform is an enterprise AI foundation that brings together AI, data, process context, and governance, so organizations can build, deploy, integrate, manage and scale AI capabilities into business processes and applications.
 The following services are hosted, SAP-managed, by the *SAP Business AI Platform*, separated by stage:
@@ -101,6 +101,11 @@ The following services are hosted, SAP-managed, by the *SAP Business AI Platform
 - **SAP Cloud Identity Services**: Test and Productive tenants of SAP Cloud Identity Services manage user authentication and authorization. The Test tenant serves a dedicated Sandbox stage only, while the Productive tenant serves all the other stages. Both integrate with the respective Corporate Identity Provider (Pre-Prod or Prod) for enterprise single sign-on.
 
 - **SAP Cloud Solutions per stage**: Each stage connects to the corresponding instances of SAP cloud applications such as SAP S/4HANA Cloud, SAP SuccessFactors, and other Joule-enabled solutions. This ensures that Joule skills and configurations are tested against non-productive data before being deployed to production.
+
+### Terminology
+
+- **Multi-System**: Ability to connect multiple SAP applications of the same type to one instance of SAP Business AI Platform.
+- **Multi-Tier**: Separate stages of SAP Business AI Platform or separate stages of an LoB solution (such as Testa and Prod).
 
 ### Characteristics
 

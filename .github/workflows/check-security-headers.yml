@@ -7,7 +7,13 @@ name: Check Security Headers
 
 on:
     pull_request:
-        branches: [dev, main]
+        branches: [dev]
+        paths:
+            - 'vercel.json'
+            - 'src/plugins/security-headers/**'
+            - 'src/_scripts/_generate-vercel-headers.js'
+    push:
+        branches: [dev]
         paths:
             - 'vercel.json'
             - 'src/plugins/security-headers/**'
