@@ -112,9 +112,9 @@ The SAP Business AI Platform exposes specialized data-retrieval tools that the J
 
 The **SAP Knowledge Graph** is a dedicated platform component that retrieves contextually relevant business information based on user intent. It models relationships across SAP business objects, master data, and process knowledge, enabling the Joule Orchestrator to surface insights that go beyond flat data retrieval. The Knowledge Graph is invoked at runtime as part of the grounding layer, alongside the other Business Data Tools.
 
-#### Document AI Services
+#### SAP Document AI 
 
-**Document AI Services** extend the SAP Business AI Platform with the ability to process, understand, and index business documents. The service covers two primary capabilities: **Document Management**, which handles the storage and lifecycle of business documents within the platform, and **Document Grounding**, which makes document content available to the Joule Orchestrator at runtime so that agent responses can be grounded in unstructured content such as customer-uploaded documents, contracts, and business forms alongside structured SAP data.
+**SAP Document AI ** extend the SAP Business AI Platform with the ability to manage, process, understand, and index business documents. The service covers two primary capabilities: **SAP Document AI**, which can be used for document extraction, classification, and processing, as well as  **Document Grounding**, which makes document content available to the Joule Orchestrator at runtime so that agent responses can be grounded in unstructured content such as customer-uploaded documents, contracts, and business forms alongside structured SAP data.
 
 #### Task Center
 
