@@ -59,23 +59,17 @@ function AuthenticatedQuickStartView() {
     const isSapAuthenticated = users.github?.isSapEmployee === true || users.btp !== null;
     const pendingActionHandledRef = useRef(false);
 
-    // Keep backend config in sync — the BTP token resolves asynchronously after mount
     useEffect(() => {
         if (expressBackendUrl && token) {
-            setBackendConfig(expressBackendUrl, token, users.github?.username || '', btpToken);
-        }
-    }, [expressBackendUrl, token, btpToken, users.github, setBackendConfig]);
-
-    // Initialize backend config and fetch documents
-    useEffect(() => {
-        if (expressBackendUrl && token && !initialized) {
             const username = users.github?.username || '';
             setBackendConfig(expressBackendUrl, token, username, btpToken);
-            fetchDocuments().then(() => {
-                setInitialized(true);
-            });
+            if (!initialized) {
+                fetchDocuments().then(() => {
+                    setInitialized(true);
+                });
+            }
         }
-    }, [expressBackendUrl, token, initialized, setBackendConfig, fetchDocuments, users.github]);
+    }, [expressBackendUrl, token, btpToken, initialized, setBackendConfig, fetchDocuments, users.github]);
 
     // After init: if no docs → show ContentTypeDialog; if docs exist but none active → open first
     useEffect(() => {
