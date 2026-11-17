@@ -1,6 +1,6 @@
 /// <reference types="@testing-library/jest-dom" />
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ArchitectureTabs from '../ArchitectureTabs';
 
@@ -133,5 +133,56 @@ describe('ArchitectureTabs keyboard navigation', () => {
         expect(renderedTabs[0]).toHaveFocus();
         await user.keyboard('{ArrowLeft}');
         expect(renderedTabs[0]).toHaveFocus();
+    });
+
+    it('does not leave the panel faded when a scroll transition is cancelled', () => {
+        jest.useFakeTimers();
+        try {
+            const { rerender } = render(
+                <ArchitectureTabs tabs={tabs} enableScrollActivation scrollActiveIndex={0} />
+            );
+            // Scroll moves to index 1 (starts the 150ms transition)...
+            rerender(<ArchitectureTabs tabs={tabs} enableScrollActivation scrollActiveIndex={1} />);
+            // ...then back to 0 within the window, cancelling that transition's timer.
+            act(() => {
+                jest.advanceTimersByTime(100);
+            });
+            rerender(<ArchitectureTabs tabs={tabs} enableScrollActivation scrollActiveIndex={0} />);
+            act(() => {
+                jest.advanceTimersByTime(300);
+            });
+            // isTransitioning must have been cleared: the panel is not stuck faded.
+            expect(screen.getByRole('tabpanel').className).not.toContain('fadeOut');
+        } finally {
+            jest.useRealTimers();
+        }
+    });
+
+    it('cancels a pending pointer transition when keyboard activation targets the active tab', () => {
+        jest.useFakeTimers();
+        try {
+            render(<ArchitectureTabs tabs={tabs} />);
+            const renderedTabs = screen.getAllByRole('tab');
+            // Click the second tab: schedules a 200ms transition to index 1.
+            act(() => {
+                fireEvent.click(renderedTabs[1]);
+            });
+            // Before that timer fires, press Home: focuses tab 0 and activates it
+            // immediately while index 0 is still the selected one.
+            renderedTabs[1].focus();
+            act(() => {
+                fireEvent.keyDown(renderedTabs[1], { key: 'Home' });
+            });
+            // Let any pending pointer timer fire.
+            act(() => {
+                jest.advanceTimersByTime(300);
+            });
+            // Selection must stay on the keyboard target (tab 0), not jump to the
+            // clicked tab 1 while focus sits on tab 0.
+            expect(renderedTabs[0]).toHaveAttribute('aria-selected', 'true');
+            expect(renderedTabs[0]).toHaveFocus();
+        } finally {
+            jest.useRealTimers();
+        }
     });
 });

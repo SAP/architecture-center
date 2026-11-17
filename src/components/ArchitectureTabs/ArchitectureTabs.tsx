@@ -62,6 +62,14 @@ export default function ArchitectureTabs({
                 setIsTransitioning(false);
                 scrollTransitionTimeoutRef.current = null;
             }, 150);
+        } else if (!tabTransitionTimeoutRef.current) {
+            // A scroll transition can be cancelled by this effect's cleanup before
+            // its timer fires (e.g. scrollActiveIndex 0->1->0 within 150ms); the
+            // re-run then schedules nothing because the indices match, which would
+            // otherwise leave isTransitioning stuck true (panel faded, clicks
+            // blocked). Clear it here, but only when no pointer transition is
+            // in flight (tabTransitionTimeoutRef), so a legitimate fade is kept.
+            setIsTransitioning(false);
         }
 
         return () => {
@@ -150,7 +158,11 @@ export default function ArchitectureTabs({
     };
 
     const handleTabChange = (newIndex: number, activateImmediately = false) => {
-        if (newIndex === effectiveActiveIndex || (!activateImmediately && isTransitioning)) return;
+        // Immediate (keyboard) activation must always reach the cancellation
+        // block below, even when the target already equals the active index:
+        // otherwise a pending pointer transition is left running and later
+        // selects a different tab than the one keyboard focus moved to.
+        if (!activateImmediately && (newIndex === effectiveActiveIndex || isTransitioning)) return;
 
         // Notify parent that user manually selected a tab
         if (onManualTabChange) {
