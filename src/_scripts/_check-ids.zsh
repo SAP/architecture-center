@@ -137,7 +137,7 @@ else
         echo ""
         for err in "${errors[@]}"; do echo "- ${err}"; done
         echo ""
-        echo "📖 How to fix (fix the id or slug, or let Quick Start generate them): https://architecture.learning.sap.com/docs/community/automated-checks/reference-architecture-ids"
+        echo "📖 How to fix (fix the id or slug, or let Quick Start generate them): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/reference-architecture-ids"
       } >> "$GITHUB_STEP_SUMMARY"
     fi
   fi

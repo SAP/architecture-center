@@ -1,5 +1,6 @@
 name: Check H1 Title
-# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is checked (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the base (on a PR) or
+# vs the previous commit (on a push to dev) is checked (needs fetch-depth: 0).
 #
 # Enforces the house convention that a page title comes from the front matter `title:`
 # field, NOT from a level-1 Markdown heading. A Markdown body must therefore not contain
@@ -8,17 +9,24 @@ name: Check H1 Title
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
+      - '.github/actions/changed-files/action.yml'
+      - '.github/workflows/check-h1-title.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-h1-title.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-h1-title:
@@ -32,15 +40,25 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+          fetch-depth: 0 # need history to diff the PR base / previous commit
+
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs
+          filter-regex: '\.(md|mdx)$'
 
       - name: Check for H1 headings in changed docs
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then
+          # Changed-files scope: only Markdown added/modified vs the base / previous commit.
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+          if [ "${#FILES[@]}" -eq 0 ]; then
             {
               echo "### H1 title check"
               echo ""
@@ -49,7 +67,6 @@ jobs:
             echo "✅ No changed Markdown under docs/ — nothing to check."
             exit 0
           fi
-          mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
 
           # Find level-1 ATX headings ("# ...") in the body. The awk pass:
           #   - skips the leading front matter block (--- ... ---), so YAML `#` comments
@@ -143,7 +160,7 @@ jobs:
               cat "$RUNNER_TEMP/h1.txt"
               echo '```'
               echo ""
-              echo "📖 How to fix (remove the \`#\` heading; set the title in front matter): https://architecture.learning.sap.com/docs/community/automated-checks/h1-title"
+              echo "📖 How to fix (remove the \`#\` heading; set the title in front matter): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/h1-title"
             } >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi

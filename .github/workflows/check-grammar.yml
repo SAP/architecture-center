@@ -2,7 +2,7 @@ name: Check Grammar
 
 # Grammar / prose linting for docs and news, complementing the cspell spell check.
 # Runs LanguageTool (bundled inside the reviewdog action's Docker image — no external
-# API calls) and posts findings as annotations on the Checks tab for changed lines.
+# API calls) and posts findings as inline review comments on the PR's changed lines.
 #
 # Rollout notes:
 # - Non-blocking by design: the action never passes reviewdog's -fail-on-error flag
@@ -20,10 +20,10 @@ name: Check Grammar
 # - Tuning loop: when a rule produces false positives on a real PR, append its id to
 #   `disabled_rules` below (comma-separated, no spaces).
 # - Scope: LanguageTool scans every tracked docs/news .md each run; reviewdog restricts
-#   the Checks annotations to lines changed in the PR.
-# - Fork PRs: GitHub issues a read-only token, so the Checks annotations can't be
-#   posted on external fork PRs — the suggestions appear in the Actions run log instead.
-#   Core-branch PRs get the Checks-tab annotations.
+#   the review comments to lines changed in the PR.
+# - Fork PRs: GitHub issues a read-only token, so review comments can't be posted on
+#   external fork PRs — the suggestions appear in the Actions run log instead.
+#   Core-branch PRs get the inline review comments.
 
 on:
   pull_request:
@@ -32,12 +32,19 @@ on:
       - 'docs/**/*.md'
       - 'news/**/*.md'
       - '.github/workflows/check-grammar.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'news/**/*.md'
+      - '.github/workflows/check-grammar.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-grammar:
@@ -46,19 +53,30 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
-      checks: write # reviewdog posts findings to the Checks tab (github-pr-check)
+      pull-requests: write # reviewdog posts findings as inline PR review comments (github-pr-review)
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          fetch-depth: 0 # need history to diff the PR base / previous commit
           persist-credentials: false
+
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      # reviewdog scans with its own patterns below; this keeps the changed-files
+      # contract uniform across checks and feeds the job summary.
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs news
+          filter-regex: '\.md$'
 
       - name: Grammar check Markdown files
         continue-on-error: true # keep the check non-blocking (fork read-only token, server hiccups)
         uses: reviewdog/action-languagetool@afd06e9b0f782c9562c92efffb66a49c09b2b4f4 # v1.23.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-check
+          reporter: github-pr-review
           level: warning
           patterns: docs/**/*.md news/**/*.md
           language: en-US
@@ -68,3 +86,23 @@ jobs:
           disabled_categories: TYPOS,TYPOGRAPHY
           # Markdown-noise rules. Append ids here as false positives show up during tuning.
           disabled_rules: WHITESPACE_RULE,EN_QUOTES,DASH_RULE,WORD_CONTAINS_UNDERSCORE,UPPERCASE_SENTENCE_START,ARROWS,COMMA_PARENTHESIS_WHITESPACE,UNLIKELY_OPENING_PUNCTUATION,SENTENCE_WHITESPACE,CURRENCY,EN_UNPAIRED_BRACKETS,PHRASE_REPETITION,PUNCTUATION_PARAGRAPH_END,METRIC_UNITS_EN_US,ENGLISH_WORD_REPEAT_BEGINNING_RULE
+
+      # reviewdog writes no job summary, so add one here. Non-blocking (if: always())
+      # and runs regardless of the grammar step's outcome.
+      - name: Job summary
+        if: always()
+        shell: bash
+        run: |
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+          {
+            echo "## Grammar check"
+            echo ""
+            echo "LanguageTool (en-US) scanned the changed docs/news Markdown for grammar and prose issues. Findings post as non-blocking inline review comments on the PR's changed lines; this check never fails the build."
+            echo ""
+            echo "Changed Markdown files in scope: ${#FILES[@]}"
+            echo ""
+            echo "📖 Community guidelines: https://architecture.learning.sap.com/docs/community/automated-checks/document-body/grammar"
+          } >> "$GITHUB_STEP_SUMMARY"

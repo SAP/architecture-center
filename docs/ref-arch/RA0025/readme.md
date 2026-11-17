@@ -23,7 +23,6 @@ tags:
   - community-contrib
   - integration
   - transition
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -32,10 +31,11 @@ draft: false
 unlisted: false
 contributors:
   - abklgithub
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: abklgithub
-  date: 2025-08-02
+  author: rameshvaranganti
+  date: 2026-10-28
 ---
 
 :::note External Contribution
