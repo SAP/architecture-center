@@ -13,12 +13,34 @@ const TAG_MAPPING = {
 
 // Helper function to normalize paths for cross-platform compatibility
 function normalizePath(filePath) {
-  return filePath.split(path.sep).join('/');
+  return filePath.replace(/\\/g, '/');
 }
 
 // Helper function to create glob patterns that work on all platforms
 function createGlobPattern(...pathSegments) {
   return pathSegments.join('/');
+}
+
+// Build the Docusaurus document id for a reference-architecture page so the
+// homepage tile mapping matches the id Docusaurus actually assigns.
+//
+// Docusaurus derives a doc id from its path relative to the docs root, stripping
+// a leading numeric ordering prefix (e.g. "10-") from each FOLDER segment
+// (numberPrefixParser), with frontMatter.id overriding the final segment. We
+// mirror that: keep every folder between the RA root and the file (the old code
+// kept only the first, which dropped the tiles for pages 2+ levels deep), strip
+// each nested folder's numeric prefix, and use docFileId (frontMatter.id) as the
+// last segment. The RA root folder (e.g. "RA0042") carries no numeric prefix by
+// convention, so it is left as-is. If the docs plugin ever customizes
+// numberPrefixParser, this stripping must be kept in sync.
+function createDocumentId(relativeFilePath, docFileId) {
+  const pathParts = normalizePath(relativeFilePath).split('/').filter(Boolean);
+  const rootFolder = pathParts[0];
+  const nestedFolders = pathParts
+    .slice(1, -1)
+    .map(folder => folder.replace(/^\d+-/, ''));
+
+  return ['ref-arch', rootFolder, ...nestedFolders, docFileId].join('/');
 }
 
 module.exports = function (context, options) {
@@ -66,21 +88,9 @@ module.exports = function (context, options) {
               
               // Normalize path separators for consistent processing
               const normalizedRelativePath = normalizePath(relativePath);
-              const pathParts = normalizedRelativePath.split('/');
-
-              let docId;
-              const rootFolder = pathParts[0];
               const docTitle = frontMatter.title;
               const docFileId = frontMatter.id;
-
-              // Build document ID with consistent forward slashes
-              if (pathParts.length > 2) {
-                const subFolder = pathParts[1];
-                const cleanedSubFolder = subFolder.replace(/^\d+-/, '');
-                docId = `ref-arch/${rootFolder}/${cleanedSubFolder}/${docFileId}`;
-              } else {
-                docId = `ref-arch/${rootFolder}/${docFileId}`;
-              }
+              const docId = createDocumentId(normalizedRelativePath, docFileId);
 
               // Map documents to their corresponding tags
               for (const [primaryId, associatedTags] of Object.entries(TAG_MAPPING)) {
@@ -128,3 +138,5 @@ export const pageMapping: Record<string, MappedDoc[]> = ${JSON.stringify(pageMap
     },
   };
 };
+
+module.exports.createDocumentId = createDocumentId;
