@@ -39,6 +39,8 @@ export default function HeroSectionParticles(): JSX.Element {
     // loop running (tracked on window.pJSDom), leaking one per theme toggle.
     useEffect(() => {
         let cancelled = false;
+        let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+        let removeResizeListener = () => {};
 
         const destroy = () => {
             if (!window.pJSDom || !window.pJSDom.length) return;
@@ -62,10 +64,33 @@ export default function HeroSectionParticles(): JSX.Element {
             const config = await response.json();
             if (cancelled) return;
 
-            // Clear any stale instance before (re)initialising, e.g. a dev
-            // StrictMode double-mount or a quick light→dark→light toggle.
-            destroy();
-            window.particlesJS('particles-js', config);
+            // Respect reduced-motion: the aurora variant disables its drift and
+            // parallax for this preference, so keep the light variant still too.
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                config.particles.move.enable = false;
+            }
+
+            // particles.js 2.0.0 installs its own window resize listener when
+            // interactivity.events.resize is on, and destroypJS() never removes
+            // it, so every theme toggle would leak one. Disable the library's
+            // resize handling and own a debounced re-init instead (cleaned up below).
+            config.interactivity.events.resize = false;
+
+            const initialize = () => {
+                if (cancelled) return;
+                // Clear any stale instance before (re)initialising, e.g. a dev
+                // StrictMode double-mount or a quick light→dark→light toggle.
+                destroy();
+                window.particlesJS('particles-js', config);
+            };
+            initialize();
+
+            const onResize = () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initialize, 200);
+            };
+            window.addEventListener('resize', onResize);
+            removeResizeListener = () => window.removeEventListener('resize', onResize);
         };
 
         loadParticles().catch((error) => {
@@ -74,6 +99,8 @@ export default function HeroSectionParticles(): JSX.Element {
 
         return () => {
             cancelled = true;
+            removeResizeListener();
+            clearTimeout(resizeTimer);
             destroy();
         };
     }, [particlesConfigUrl]);
