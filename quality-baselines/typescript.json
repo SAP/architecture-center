@@ -3,86 +3,6 @@
     "description": "Known TypeScript diagnostics identified by source location, error code, and message.",
     "diagnostics": [
         {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 186,
-            "column": 25,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 186,
-            "column": 73,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 192,
-            "column": 25,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 192,
-            "column": 75,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 199,
-            "column": 29,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 199,
-            "column": 115,
-            "code": "TS2339",
-            "message": "Property 'ui5-icon' does not exist on type 'JSX.IntrinsicElements'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 211,
-            "column": 33,
-            "code": "TS2322",
-            "message": "Type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | undefined' is not assignable to type 'string | undefined'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 211,
-            "column": 61,
-            "code": "TS2339",
-            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 213,
-            "column": 55,
-            "code": "TS2339",
-            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
-            "count": 1
-        },
-        {
-            "file": "src/components/ArchitectureTabs/ArchitectureTabs.tsx",
-            "line": 214,
-            "column": 48,
-            "code": "TS2339",
-            "message": "Property 'slice' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
-            "count": 1
-        },
-        {
             "file": "src/components/ArticleHeader/index.tsx",
             "line": 57,
             "column": 28,
@@ -100,7 +20,7 @@
         },
         {
             "file": "src/components/ContributorsDisplay/index.tsx",
-            "line": 152,
+            "line": 150,
             "column": 25,
             "code": "TS2322",
             "message": "Type '(event: React.ChangeEvent<HTMLInputElement> & { target: { value: string; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, never>) => void'.",
@@ -108,7 +28,7 @@
         },
         {
             "file": "src/components/ContributorsDisplay/index.tsx",
-            "line": 153,
+            "line": 151,
             "column": 25,
             "code": "TS2322",
             "message": "Type '(event: { detail: { items: { text: string; }[]; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
@@ -116,7 +36,7 @@
         },
         {
             "file": "src/components/ContributorsDisplay/index.tsx",
-            "line": 166,
+            "line": 164,
             "column": 55,
             "code": "TS2322",
             "message": "Type '{ size: \"XS\"; image: string; }' is not assignable to type 'IntrinsicAttributes & AvatarPropTypes & WithWebComponentPropTypes & RefAttributes<AvatarDomRef>'.",
@@ -268,7 +188,7 @@
         },
         {
             "file": "src/components/Editor/index.tsx",
-            "line": 129,
+            "line": 130,
             "column": 7,
             "code": "TS6133",
             "message": "'formatTimestamp' is declared but its value is never read.",
@@ -276,7 +196,7 @@
         },
         {
             "file": "src/components/Editor/index.tsx",
-            "line": 156,
+            "line": 157,
             "column": 30,
             "code": "TS6133",
             "message": "'lastSaveTimestamp' is declared but its value is never read.",
@@ -284,7 +204,7 @@
         },
         {
             "file": "src/components/Editor/index.tsx",
-            "line": 156,
+            "line": 157,
             "column": 76,
             "code": "TS6133",
             "message": "'resetStore' is declared but its value is never read.",
@@ -292,7 +212,7 @@
         },
         {
             "file": "src/components/Editor/index.tsx",
-            "line": 458,
+            "line": 459,
             "column": 13,
             "code": "TS7030",
             "message": "Not all code paths return a value.",
@@ -300,7 +220,7 @@
         },
         {
             "file": "src/components/Editor/index.tsx",
-            "line": 476,
+            "line": 477,
             "column": 9,
             "code": "TS6133",
             "message": "'handleContributorsUpdate' is declared but its value is never read.",
@@ -444,7 +364,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 66,
+            "line": 67,
             "column": 11,
             "code": "TS2322",
             "message": "Type 'unknown' is not assignable to type '{ tags?: TagsData | undefined; } | undefined'.",
@@ -452,7 +372,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 314,
+            "line": 309,
             "column": 25,
             "code": "TS2322",
             "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.",
@@ -460,7 +380,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 320,
+            "line": 315,
             "column": 25,
             "code": "TS2322",
             "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
@@ -468,7 +388,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 331,
+            "line": 326,
             "column": 37,
             "code": "TS2322",
             "message": "Type '{ key: string | number; text: string; selected: boolean; image: string | undefined; }' is not assignable to type 'IntrinsicAttributes & MultiComboBoxItemPropTypes & WithWebComponentPropTypes & RefAttributes<MultiComboBoxItemDomRef>'.",
@@ -476,7 +396,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 339,
+            "line": 334,
             "column": 25,
             "code": "TS2322",
             "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.",
@@ -484,7 +404,7 @@
         },
         {
             "file": "src/components/MetaFormDialog/index.tsx",
-            "line": 342,
+            "line": 337,
             "column": 25,
             "code": "TS2322",
             "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
@@ -504,38 +424,6 @@
             "column": 28,
             "code": "TS2307",
             "message": "Cannot find module '../../../docs/north-star-arch/ai-native-northstar-arch/foreword/images/grey-quotes.png' or its corresponding type declarations.",
-            "count": 1
-        },
-        {
-            "file": "src/context/AuthContext.tsx",
-            "line": 185,
-            "column": 39,
-            "code": "TS18048",
-            "message": "'authData.email' is possibly 'undefined'.",
-            "count": 1
-        },
-        {
-            "file": "src/context/AuthContext.tsx",
-            "line": 249,
-            "column": 37,
-            "code": "TS18048",
-            "message": "'siteConfig.customFields' is possibly 'undefined'.",
-            "count": 1
-        },
-        {
-            "file": "src/context/AuthContext.tsx",
-            "line": 266,
-            "column": 43,
-            "code": "TS18048",
-            "message": "'updatedAuthData.email' is possibly 'undefined'.",
-            "count": 1
-        },
-        {
-            "file": "src/context/AuthContext.tsx",
-            "line": 308,
-            "column": 25,
-            "code": "TS18048",
-            "message": "'siteConfig.customFields' is possibly 'undefined'.",
             "count": 1
         },
         {
@@ -844,7 +732,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 113,
+            "line": 109,
             "column": 38,
             "code": "TS7031",
             "message": "Binding element 'sidebar' implicitly has an 'any' type.",
@@ -852,7 +740,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 113,
+            "line": 109,
             "column": 47,
             "code": "TS7031",
             "message": "Binding element 'path' implicitly has an 'any' type.",
@@ -860,7 +748,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 113,
+            "line": 109,
             "column": 53,
             "code": "TS7031",
             "message": "Binding element 'onItemClick' implicitly has an 'any' type.",
@@ -868,7 +756,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 114,
+            "line": 110,
             "column": 72,
             "code": "TS2339",
             "message": "Property 'docIdToTags' does not exist on type '{}'.",
@@ -876,7 +764,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 164,
+            "line": 156,
             "column": 42,
             "code": "TS7031",
             "message": "Binding element 'shouldShowFilters' implicitly has an 'any' type.",
@@ -884,7 +772,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 180,
+            "line": 172,
             "column": 29,
             "code": "TS7031",
             "message": "Binding element 'shouldShowFilters' implicitly has an 'any' type.",
@@ -892,7 +780,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 193,
+            "line": 185,
             "column": 43,
             "code": "TS7006",
             "message": "Parameter 'props' implicitly has an 'any' type.",
@@ -900,7 +788,7 @@
         },
         {
             "file": "src/theme/DocSidebar/index.tsx",
-            "line": 206,
+            "line": 198,
             "column": 73,
             "code": "TS2339",
             "message": "Property 'docIdToTags' does not exist on type '{}'.",
