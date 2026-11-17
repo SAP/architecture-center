@@ -55,6 +55,11 @@ function getRendererIdentity() {
 }
 
 function getPipelineIdentity() {
+    // Only consumed by the cache fingerprint. Skip the I/O (and the hard
+    // dependency on package-lock.json, whose absence would otherwise abort a
+    // non-cache run with ENOENT) when caching is disabled, mirroring
+    // getRendererIdentity() above.
+    if (!cacheEnabled) return 'cache-disabled';
     const sourceFiles = [
         __filename,
         join(ROOT, 'package-lock.json'),
@@ -123,6 +128,15 @@ function getRenderContext(drawioPath) {
     }
     if (title.includes('#')) title = title.split('#')[0];
     const slug = attributes.slug;
+    // Same rationale as the title guard above: slug feeds qrLink and
+    // `slug.match(...)` below, so a missing slug would otherwise throw an opaque
+    // TypeError and abort the export (and, with caching on, bypass the per-file
+    // error aggregation since the fingerprint is computed before the try block).
+    if (typeof slug !== 'string' || slug.trim() === '') {
+        throw new Error(
+            `Draw.io export: "${readmePath}" is missing a "slug" front-matter field (required to render "${drawioPath}").`,
+        );
+    }
     const lastUpdateIso = execFileSync('git', ['log', '-1', '--format=%cI', '--', drawioPath], {
         encoding: 'utf8',
     }).trim();

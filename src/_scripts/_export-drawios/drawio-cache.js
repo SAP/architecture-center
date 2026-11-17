@@ -61,10 +61,10 @@ class DrawioCache {
         return fs.existsSync(filePath) && fs.lstatSync(filePath).isFile();
     }
 
-    _writeFileAtomically(destinationPath, content) {
+    _writeFileAtomically(destinationPath, content, mode = 0o600) {
         const temporaryPath = `${destinationPath}.${process.pid}.${crypto.randomUUID()}.tmp`;
         try {
-            fs.writeFileSync(temporaryPath, content, { encoding: 'utf-8', flag: 'wx', mode: 0o600 });
+            fs.writeFileSync(temporaryPath, content, { encoding: 'utf-8', flag: 'wx', mode });
             fs.renameSync(temporaryPath, destinationPath);
         } finally {
             fs.rmSync(temporaryPath, { force: true });
@@ -116,7 +116,10 @@ class DrawioCache {
 
             const artifactContent = fs.readFileSync(artifactPath);
             if (this._hash(artifactContent) !== entry.artifactHash) return false;
-            this._writeFileAtomically(destinationPath, artifactContent);
+            // Restored artifacts live in docs/ next to normally-exported SVGs,
+            // which get umask defaults (typically 0o644). Use 0o644 here too so a
+            // file's permissions don't depend on cache hit vs fresh export.
+            this._writeFileAtomically(destinationPath, artifactContent, 0o644);
             return true;
         } catch (error) {
             console.warn(`[DrawioCache] Failed to restore artifact for ${sourceFilePath}: ${error.message}`);
