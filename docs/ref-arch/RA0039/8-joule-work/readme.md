@@ -138,3 +138,7 @@ The **SAP AI Agent Hub** (powered by SAP LeanIX) is a vendor-agnostic command ce
 - [Joule Work documentation](https://help.sap.com/docs/joule-work/services/getting-started-with-joule-work)
 
 - [Joule Work product page](https://www.sap.com/products/joule-work.html)
+
+- [Joule Work playlist](https://www.youtube.com/playlist?list=PLRFmzdHJ8Y2A)
+
+- [Joule Work on SAP Learning](https://learning.sap.com/courses/using-joule-work)
