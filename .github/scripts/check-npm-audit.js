@@ -32,8 +32,8 @@ function validateAuditReport(audit) {
         const detail = audit.error?.detail || audit.error?.summary || audit.message;
         throw new Error(`npm audit did not return vulnerability data: ${detail || 'unknown registry error'}`);
     }
-    if (audit.auditReportVersion !== 2 || !audit.vulnerabilities || typeof audit.vulnerabilities !== 'object') {
-        throw new Error('npm audit response is missing an auditReportVersion 2 vulnerabilities object.');
+    if (!(audit.auditReportVersion >= 2) || !audit.vulnerabilities || typeof audit.vulnerabilities !== 'object') {
+        throw new Error('npm audit response is missing an auditReportVersion >= 2 vulnerabilities object.');
     }
 }
 

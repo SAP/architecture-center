@@ -68,3 +68,9 @@ test('rejects registry and parser error responses', () => {
     );
     assert.throws(() => validateAuditReport({ auditReportVersion: 2 }), /missing.*vulnerabilities object/);
 });
+
+test('accepts auditReportVersion >= 2 so a routine npm upgrade does not fail the gate', () => {
+    assert.doesNotThrow(() => validateAuditReport({ auditReportVersion: 2, vulnerabilities: {} }));
+    assert.doesNotThrow(() => validateAuditReport({ auditReportVersion: 3, vulnerabilities: {} }));
+    assert.throws(() => validateAuditReport({ auditReportVersion: 1, vulnerabilities: {} }), /auditReportVersion >= 2/);
+});
