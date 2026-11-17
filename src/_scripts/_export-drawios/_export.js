@@ -109,9 +109,18 @@ function getRenderContext(drawioPath) {
     if (cachedContext) return cachedContext;
 
     const sourceContent = readFileSync(drawioPath);
-    const readmeContent = readFileSync(getReadmePath(drawioPath), 'utf8');
+    const readmePath = getReadmePath(drawioPath);
+    const readmeContent = readFileSync(readmePath, 'utf8');
     const { attributes } = fm(readmeContent);
     let title = attributes.title;
+    // Fail with a diagnosable message rather than an opaque TypeError: with the
+    // hardened fail-hard pipeline, a readme missing its title front-matter would
+    // otherwise abort the whole export on `title.includes(...)`.
+    if (typeof title !== 'string' || title.trim() === '') {
+        throw new Error(
+            `Draw.io export: "${readmePath}" is missing a "title" front-matter field (required to render "${drawioPath}").`,
+        );
+    }
     if (title.includes('#')) title = title.split('#')[0];
     const slug = attributes.slug;
     const lastUpdateIso = execFileSync('git', ['log', '-1', '--format=%cI', '--', drawioPath], {
