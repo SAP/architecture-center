@@ -28,7 +28,7 @@ last_update:
 
 Most pages in this section describe the **content checks** that run on your pull request and give you line-by-line feedback. This page is different: it tours the **operational workflows** that build the site, publish it, and keep the supply chain healthy.
 
-Unlike the content checks, these workflows run mostly in the background. As a contributor you rarely interact with them directly. The build and deployment workflows run after your change is merged or on a schedule, while the security scans run on a schedule and, for CodeQL and the dependency and workflow audits, on your pull request before merge. They become most relevant to you when your change touches **dependencies** (`package.json`, the lockfile) or the **workflow files** themselves. If that is you, read on. If you are only editing or adding reference-architecture content, you can safely skim.
+Unlike the content checks, these workflows run mostly in the background. As a contributor you rarely interact with them directly. The build workflow runs on your pull request and again after merge; the deployment workflows run after your change is merged or on demand. The security scans run on a schedule and, for CodeQL and the dependency and workflow audits, on your pull request before merge. They become most relevant to you when your change touches **dependencies** (`package.json`, the lockfile) or the **workflow files** themselves. If that is you, read on. If you are only editing or adding reference-architecture content, you can safely skim.
 
 :::info Where these live
 All of these workflows are defined in the [`.github/workflows/`](https://github.com/SAP/architecture-center/tree/main/.github/workflows) directory of the repository. The descriptions below reflect what those files actually do.
@@ -40,13 +40,13 @@ Three workflows build the site; two of them also publish it.
 
 | Workflow | File | Trigger | What it does |
 | --- | --- | --- | --- |
-| Build for GitHub Pages | `build-main.yml` | Push to `main` or `dev` | Installs dependencies and builds the site, then uploads the result as a Pages artifact. |
+| Build for GitHub Pages | `build-main.yml` | Push or pull request to `main` or `dev` | Installs dependencies, runs the unit tests, and builds the site, then uploads the result as a Pages artifact. |
 | Deploy to Cloudflare | `deploy-to-cloudflare.yml` | Push to `main`, or manual run | The **production deployment**. Builds with backend configuration and exported diagrams, then publishes to Cloudflare Pages. |
 | Deploy to GitHub Pages | `deploy-manual.yml` | Manual run only | A manual build and publish to GitHub Pages, useful for fork builds and previews. |
 
 ### Build for GitHub Pages
 
-Whenever a change lands on `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`) and a production build (`npm run build`) on Node.js 24. If the build succeeds, it uploads the compiled site as a Pages artifact. This workflow only verifies that the site still compiles after a merge; it does not publish anything (publishing is handled by the deploy workflows). That is why a broken internal link (Docusaurus fails the build on those by default) or malformed front matter can fail it.
+On every push and pull request to `main` or `dev`, the `build-main.yml` workflow runs a clean install (`npm ci`), the unit tests (`npm test`), and a production build (`npm run build`) on Node.js 24. If everything succeeds, it uploads the compiled site as a Pages artifact. The workflow only verifies that the site still builds; it does not publish anything (publishing is handled by the deployment workflows). Because it runs on the pull request too, a broken internal link (Docusaurus fails the build on those by default), malformed front matter, or a failing test fails the check **before** merge.
 
 ### Deploy to Cloudflare
 

@@ -22,7 +22,7 @@ const outputPath = path.join(repoRoot, 'src/data/ref-arch-updates.json');
 
 // Keep in sync with MAX_ITEMS in src/plugins/docs-feed-generator/index.js so the
 // page shows the same set of reference architectures the RSS/Atom feeds carry.
-const MAX_ITEMS = 50;
+const MAX_ITEMS = 48;
 
 // Normalize to forward slashes so path checks and globs work on every platform.
 function normalizePath(filePath) {
@@ -77,7 +77,7 @@ for (const abs of files) {
 }
 
 const latest = entries
-    .sort((a, b) => b.sortKey - a.sortKey) // newest first
+    .sort((a, b) => (b.sortKey - a.sortKey) || a.permalink.localeCompare(b.permalink)) // newest first, stable tie-break
     .slice(0, MAX_ITEMS) // match the feed: only the most recent MAX_ITEMS
     .map(({ sortKey, ...entry }) => ({
         ...entry,

@@ -17,11 +17,18 @@ keywords:
   - ontology
   - joule
   - catalog
+  - Joule Studio
+  - sap-managed
 image: img/ac-soc-med.png
 tags:
   - ref-arch
+  - SAP Business AI Platform
   - bdc
   - data
+  - joule
+  - sap-managed
+  - Joule Studio
+  - Joule Work
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,7 +40,7 @@ contributors:
   - s-krishnamoorthy
 last_update:
   author: fabianleh
-  date: 2026-10-25
+  date: 2026-11-16
 ---
 ## SAP Business AI Platform
 

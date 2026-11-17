@@ -37,7 +37,7 @@ That's the gap we closed. We built a feed for the reference architectures oursel
 - RSS: `https://architecture.learning.sap.com/docs/ref-arch/rss.xml`
 - Atom: `https://architecture.learning.sap.com/docs/ref-arch/atom.xml`
 
-Each one lists the fifty reference architectures we've touched most recently, newest first. Every entry gives you the title, the short description, and the opening of the page, enough to tell whether it's worth a closer look before you click through. The feeds rebuild whenever we publish a new architecture or revise an existing one, so they're an easy way to keep an eye on what's changing without combing through the whole catalogue by hand.
+Each one lists the 48 reference architectures we've touched most recently, newest first. Every entry gives you the title, the short description, and the opening of the page, enough to tell whether it's worth a closer look before you click through. The feeds rebuild whenever we publish a new architecture or revise an existing one, so they're an easy way to keep an eye on what's changing without combing through the whole catalogue by hand.
 
 ## How to subscribe
 

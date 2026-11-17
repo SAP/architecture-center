@@ -20,5 +20,8 @@ describe('Quick Start Content Security Policy', () => {
         expect(directives.get('script-src')).toContain('https://viewer.diagrams.net');
         expect(directives.get('script-src')).not.toContain('https://embed.diagrams.net');
         expect(directives.get('connect-src')).not.toContain('https://embed.diagrams.net');
+        // viewer.diagrams.net is loaded as a script AND fetches diagram data at
+        // runtime, so it is intentionally allowed in both script-src and connect-src.
+        expect(directives.get('connect-src')).toContain('https://viewer.diagrams.net');
     });
 });

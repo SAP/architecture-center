@@ -50,18 +50,19 @@ blog: {
     feedOptions: {
         type: ['rss', 'atom'],
         title: 'SAP Architecture Center News',
+        limit: 48,
     },
 },
 ```
 
-With `type: ['rss', 'atom']` set, Docusaurus writes `rss.xml` and `atom.xml` under the `news` route at build time and lists every published article. As a contributor you do not have to do anything: publish a news article in the normal way and it appears in the feed automatically.
+With `type: ['rss', 'atom']` set, Docusaurus writes `rss.xml` and `atom.xml` under the `news` route at build time and lists the 48 most recently published articles (the `limit: 48` in `feedOptions`, kept the same as the reference-architecture feeds below). As a contributor you do not have to do anything: publish a news article in the normal way and it appears in the feed automatically.
 
 ## Reference Architecture Feeds (Custom Plugin)
 
 Docusaurus only generates feeds for the blog. It has **no** feed support for ordinary documentation pages, and the reference architectures are ordinary docs. To serve the readers who rely on feeds to keep up with the catalogue, we built this ourselves.
 
 :::tip Prefer to browse?
-If you would rather read the recent updates in your browser than in a feed reader, the [Recently Updated Reference Architectures](/ref-arch-updates) page shows the latest reference architectures as a web page, with the same information the feeds carry.
+If you would rather read the recent updates in your browser than in a feed reader, the [Recently Updated Reference Architectures](/ref-arch-updates) page shows the latest reference architectures as a web page, with the same updates the feeds carry.
 :::
 
 The feeds are produced by a custom plugin at `src/plugins/docs-feed-generator`, registered in the `plugins` array of `docusaurus.config.ts`. It uses the [`feed`](https://www.npmjs.com/package/feed) package to build valid RSS and Atom documents.
@@ -72,7 +73,7 @@ The plugin runs in the `postBuild` phase, after Docusaurus has resolved every pe
 
 1. Reads the resolved doc metadata and keeps only pages under a `docs/ref-arch/RA####/` directory.
 2. Sorts the surviving pages by `last_update.date`, newest first.
-3. Takes the **50** most recently updated entries.
+3. Takes the **48** most recently updated entries.
 4. Builds each feed item from the page title, description, a plain-text excerpt (the first 500 characters of the body), the permalink, and the update date.
 5. Writes `rss.xml` and `atom.xml` into the `docs/ref-arch` output directory.
 
