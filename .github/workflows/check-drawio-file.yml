@@ -8,6 +8,8 @@ on:
     paths:
       - '**.drawio'
       - 'src/_scripts/_export-drawios/**'
+      - 'src/_scripts/_update-drawio-links.js'
+      - 'src/_scripts/_update-drawio-links.test.js'
       - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
@@ -16,6 +18,8 @@ on:
     paths:
       - '**.drawio'
       - 'src/_scripts/_export-drawios/**'
+      - 'src/_scripts/_update-drawio-links.js'
+      - 'src/_scripts/_update-drawio-links.test.js'
       - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
@@ -46,6 +50,15 @@ jobs:
         with:
           pathspec: '.'
           filter-regex: '\.drawio$'
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Test Draw.io artifact pipeline
+        run: |
+          node --check src/_scripts/_export-drawios/_export.js
+          node --test src/_scripts/_export-drawios/*.test.js src/_scripts/_update-drawio-links.test.js
 
       - name: Verify hardened Draw.io exporter
         shell: bash
