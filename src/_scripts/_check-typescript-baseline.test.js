@@ -8,16 +8,22 @@ const {
     summarizeDiagnostics,
 } = require('./_check-typescript-baseline');
 
-test('parses file, Windows-path, and global TypeScript diagnostics', () => {
+test('parses file, Windows-path, and global diagnostics and captures continuation lines', () => {
     const output = [
         'src/example.ts(4,2): error TS2322: Type mismatch.',
-        '  This continuation is ignored.',
+        '  This continuation is part of the diagnostic.',
         'C:\\repo\\src\\other.ts(8,1): error TS6133: Unused.',
         'error TS18003: No inputs were found.',
     ].join('\n');
 
     assert.deepEqual(parseDiagnostics(output), [
-        { file: 'src/example.ts', line: 4, column: 2, code: 'TS2322', message: 'Type mismatch.' },
+        {
+            file: 'src/example.ts',
+            line: 4,
+            column: 2,
+            code: 'TS2322',
+            message: 'Type mismatch.\n  This continuation is part of the diagnostic.',
+        },
         { file: 'C:/repo/src/other.ts', line: 8, column: 1, code: 'TS6133', message: 'Unused.' },
         { file: '<global>', code: 'TS18003', message: 'No inputs were found.' },
     ]);

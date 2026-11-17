@@ -15,7 +15,7 @@
             "line": 211,
             "column": 33,
             "code": "TS2322",
-            "message": "Type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | undefined' is not assignable to type 'string | undefined'.",
+            "message": "Type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<...> | undefined' is not assignable to type 'string | undefined'.\n  Type 'number' is not assignable to type 'string'.",
             "count": 1
         },
         {
@@ -23,7 +23,7 @@
             "line": 211,
             "column": 61,
             "code": "TS2339",
-            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
+            "message": "Property 'length' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.\n  Property 'length' does not exist on type 'number'.",
             "count": 2
         },
         {
@@ -31,7 +31,7 @@
             "line": 214,
             "column": 48,
             "code": "TS2339",
-            "message": "Property 'slice' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.",
+            "message": "Property 'slice' does not exist on type 'string | number | bigint | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...>'.\n  Property 'slice' does not exist on type 'number'.",
             "count": 1
         },
         {
@@ -55,7 +55,7 @@
             "line": 152,
             "column": 25,
             "code": "TS2322",
-            "message": "Type '(event: React.ChangeEvent<HTMLInputElement> & { target: { value: string; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, never>) => void'.",
+            "message": "Type '(event: React.ChangeEvent<HTMLInputElement> & { target: { value: string; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, never>) => void'.\n  Types of parameters 'event' and 'event' are incompatible.\n    Type 'Ui5CustomEvent<MultiComboBoxDomRef, never>' is not assignable to type 'ChangeEvent<HTMLInputElement, Element> & { target: { value: string; }; }'.\n      Type 'Ui5CustomEvent<MultiComboBoxDomRef, never>' is missing the following properties from type 'ChangeEvent<HTMLInputElement, Element>': nativeEvent, isDefaultPrevented, isPropagationStopped, persist",
             "count": 1
         },
         {
@@ -63,7 +63,7 @@
             "line": 153,
             "column": 25,
             "code": "TS2322",
-            "message": "Type '(event: { detail: { items: { text: string; }[]; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
+            "message": "Type '(event: { detail: { items: { text: string; }[]; }; }) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.\n  Types of parameters 'event' and 'event' are incompatible.\n    Type 'Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>' is not assignable to type '{ detail: { items: { text: string; }[]; }; }'.\n      The types of 'detail.items' are incompatible between these types.\n        Type 'MultiComboBoxItem[]' is not assignable to type '{ text: string; }[]'.\n          Type 'MultiComboBoxItem' is not assignable to type '{ text: string; }'.\n            Types of property 'text' are incompatible.\n              Type 'string | undefined' is not assignable to type 'string'.\n                Type 'undefined' is not assignable to type 'string'.",
             "count": 1
         },
         {
@@ -71,7 +71,7 @@
             "line": 166,
             "column": 55,
             "code": "TS2322",
-            "message": "Type '{ size: \"XS\"; image: string; }' is not assignable to type 'IntrinsicAttributes & AvatarPropTypes & WithWebComponentPropTypes & RefAttributes<AvatarDomRef>'.",
+            "message": "Type '{ size: \"XS\"; image: string; }' is not assignable to type 'IntrinsicAttributes & AvatarPropTypes & WithWebComponentPropTypes & RefAttributes<AvatarDomRef>'.\n  Property 'image' does not exist on type 'IntrinsicAttributes & AvatarPropTypes & WithWebComponentPropTypes & RefAttributes<AvatarDomRef>'.",
             "count": 1
         },
         {
@@ -151,7 +151,7 @@
             "line": 2082,
             "column": 13,
             "code": "TS2322",
-            "message": "Type 'EditorNode | null | undefined' is not assignable to type 'EditorNode | undefined'.",
+            "message": "Type 'EditorNode | null | undefined' is not assignable to type 'EditorNode | undefined'.\n  Type 'null' is not assignable to type 'EditorNode | undefined'.",
             "count": 1
         },
         {
@@ -191,7 +191,7 @@
             "line": 4501,
             "column": 11,
             "code": "TS2345",
-            "message": "Argument of type 'ParagraphNode' is not assignable to parameter of type 'Record<string, unknown>'.",
+            "message": "Argument of type 'ParagraphNode' is not assignable to parameter of type 'Record<string, unknown>'.\n  Index signature for type 'string' is missing in type 'ParagraphNode'.",
             "count": 1
         },
         {
@@ -199,7 +199,7 @@
             "line": 4507,
             "column": 11,
             "code": "TS2345",
-            "message": "Argument of type 'TextNode' is not assignable to parameter of type 'Record<string, unknown>'.",
+            "message": "Argument of type 'TextNode' is not assignable to parameter of type 'Record<string, unknown>'.\n  Index signature for type 'string' is missing in type 'TextNode'.",
             "count": 1
         },
         {
@@ -247,7 +247,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`",
             "count": 1
         },
         {
@@ -271,7 +271,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`",
             "count": 1
         },
         {
@@ -287,7 +287,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`",
             "count": 1
         },
         {
@@ -295,7 +295,7 @@
             "line": 2,
             "column": 34,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom/client'. '<workspace>/node_modules/react-dom/client.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom/client'. '<workspace>/node_modules/react-dom/client.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom/client';`",
             "count": 1
         },
         {
@@ -303,7 +303,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`",
             "count": 1
         },
         {
@@ -343,7 +343,7 @@
             "line": 2,
             "column": 30,
             "code": "TS7016",
-            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.",
+            "message": "Could not find a declaration file for module 'react-dom'. '<workspace>/node_modules/react-dom/index.js' implicitly has an 'any' type.\n  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom';`",
             "count": 1
         },
         {
@@ -383,7 +383,7 @@
             "line": 314,
             "column": 25,
             "code": "TS2322",
-            "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.",
+            "message": "Type 'RefObject<HTMLElement | null>' is not assignable to type 'Ref<MultiComboBoxDomRef> | undefined'.\n  Type 'RefObject<HTMLElement | null>' is not assignable to type 'RefObject<MultiComboBoxDomRef | null>'.\n    Type 'HTMLElement | null' is not assignable to type 'MultiComboBoxDomRef | null'.\n      Type 'HTMLElement' is missing the following properties from type 'MultiComboBoxDomRef': accessibleName, accessibleNameRef, disabled, filter, and 29 more.",
             "count": 2
         },
         {
@@ -391,7 +391,7 @@
             "line": 320,
             "column": 25,
             "code": "TS2322",
-            "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.",
+            "message": "Type '(event: SelectionChangeEvent) => void' is not assignable to type '(event: Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>) => void'.\n  Types of parameters 'event' and 'event' are incompatible.\n    Type 'Ui5CustomEvent<MultiComboBoxDomRef, MultiComboBoxSelectionChangeEventDetail>' is not assignable to type 'SelectionChangeEvent'.\n      The types of 'detail.items' are incompatible between these types.\n        Type 'MultiComboBoxItem[]' is not assignable to type '{ text: string; }[]'.\n          Type 'MultiComboBoxItem' is not assignable to type '{ text: string; }'.\n            Types of property 'text' are incompatible.\n              Type 'string | undefined' is not assignable to type 'string'.\n                Type 'undefined' is not assignable to type 'string'.",
             "count": 2
         },
         {
@@ -399,7 +399,7 @@
             "line": 331,
             "column": 37,
             "code": "TS2322",
-            "message": "Type '{ key: string | number; text: string; selected: boolean; image: string | undefined; }' is not assignable to type 'IntrinsicAttributes & MultiComboBoxItemPropTypes & WithWebComponentPropTypes & RefAttributes<MultiComboBoxItemDomRef>'.",
+            "message": "Type '{ key: string | number; text: string; selected: boolean; image: string | undefined; }' is not assignable to type 'IntrinsicAttributes & MultiComboBoxItemPropTypes & WithWebComponentPropTypes & RefAttributes<MultiComboBoxItemDomRef>'.\n  Property 'image' does not exist on type 'IntrinsicAttributes & MultiComboBoxItemPropTypes & WithWebComponentPropTypes & RefAttributes<MultiComboBoxItemDomRef>'.",
             "count": 1
         },
         {
@@ -447,7 +447,7 @@
             "line": 108,
             "column": 9,
             "code": "TS2322",
-            "message": "Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.",
+            "message": "Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.\n  Type 'HTMLDivElement | null' is not assignable to type 'HTMLDivElement'.\n    Type 'null' is not assignable to type 'HTMLDivElement'.",
             "count": 1
         },
         {
@@ -455,7 +455,7 @@
             "line": 7,
             "column": 17,
             "code": "TS2322",
-            "message": "Type '{ children: Element; title: string; }' is not assignable to type 'IntrinsicAttributes & Props'.",
+            "message": "Type '{ children: Element; title: string; }' is not assignable to type 'IntrinsicAttributes & Props'.\n  Property 'title' does not exist on type 'IntrinsicAttributes & Props'.",
             "count": 1
         },
         {
@@ -463,7 +463,7 @@
             "line": 49,
             "column": 13,
             "code": "TS2322",
-            "message": "Type '{ children: Element; title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & Props'.",
+            "message": "Type '{ children: Element; title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & Props'.\n  Property 'title' does not exist on type 'IntrinsicAttributes & Props'.",
             "count": 1
         },
         {
@@ -471,7 +471,7 @@
             "line": 45,
             "column": 13,
             "code": "TS2322",
-            "message": "Type '{ children: Element; title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & Props'.",
+            "message": "Type '{ children: Element; title: string; description: string; }' is not assignable to type 'IntrinsicAttributes & Props'.\n  Property 'title' does not exist on type 'IntrinsicAttributes & Props'.",
             "count": 1
         },
         {

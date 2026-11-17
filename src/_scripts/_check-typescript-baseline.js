@@ -34,6 +34,16 @@ function parseDiagnostics(output) {
                 code: `TS${globalDiagnostic[1]}`,
                 message: normalizeDiagnosticMessage(globalDiagnostic[2]),
             });
+            continue;
+        }
+
+        // Append indented continuation lines (the nested "Types of property ..."
+        // detail of a structural error) to the current diagnostic's message.
+        // Because the fingerprint keys on message, not line/column, dropping this
+        // detail would let a new structural error with an identical first line
+        // pass as pre-existing debt.
+        if (/^\s+\S/.test(line) && diagnostics.length > 0) {
+            diagnostics[diagnostics.length - 1].message += `\n${normalizeDiagnosticMessage(line)}`;
         }
     }
 
