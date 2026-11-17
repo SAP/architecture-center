@@ -1,0 +1,8 @@
+{
+  "advisories": {
+    "GHSA-vfj7-8cjw-p6xm": {
+      "expires": "2027-01-31",
+      "reason": "No patched release is available in the Docusaurus dependency chain."
+    }
+  }
+}
