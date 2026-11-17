@@ -419,14 +419,6 @@
             "count": 1
         },
         {
-            "file": "src/components/ThreeWave/ThreeWave.tsx",
-            "line": 17,
-            "column": 30,
-            "code": "TS2307",
-            "message": "Cannot find module 'three' or its corresponding type declarations.",
-            "count": 3
-        },
-        {
             "file": "src/context/AuthContext.tsx",
             "line": 185,
             "column": 39,

@@ -155,16 +155,20 @@ function main() {
         process.stderr.write(output);
         console.error('TypeScript introduced diagnostics beyond the checked-in baseline:');
         console.error(comparison.increased.map(formatDifference).join('\n'));
+        console.error('Fix the new diagnostics, or justify and refresh the baseline with `npm run typecheck:baseline`.');
+        process.exitCode = 1;
+        return;
     }
 
     if (comparison.reduced.length > 0) {
-        console.error('The TypeScript baseline is stale because diagnostics were removed:');
-        console.error(comparison.reduced.map(formatDifference).join('\n'));
-        console.error('Run `npm run typecheck:baseline` and commit the reduced baseline.');
-    }
-
-    if (comparison.increased.length > 0 || comparison.reduced.length > 0) {
-        process.exitCode = 1;
+        // Diagnostics were removed since the baseline (debt fixed, or a dependency
+        // now resolves that did not when the baseline was generated). Do NOT fail
+        // the gate on this "good news" (mirrors the coverage gate): a baseline
+        // generated in a less-complete environment must not block an unrelated PR.
+        // Just advise a refresh so the baseline keeps ratcheting down.
+        console.warn('TypeScript baseline is looser than the current diagnostics (gate not failed):');
+        console.warn(comparison.reduced.map(formatDifference).join('\n'));
+        console.warn('Optionally run `npm run typecheck:baseline` to tighten the baseline.');
         return;
     }
 
