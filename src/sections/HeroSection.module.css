@@ -30,20 +30,176 @@
     border-radius: 50%;
 }
 
-/* --- HERO WRAPPER WITH PARTICLES --- */
+/* --- HERO WRAPPER WITH AURORA BLOBS --- */
 .heroWrapper {
     position: relative;
     width: 100%;
+    /* Fit the visible viewport below the navbar so the FullPageSection's bottom
+       scroll arrow stays on screen (the section no longer snaps to the top). */
+    min-height: calc(100vh - var(--ifm-navbar-height, 60px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Clip the blurred blobs to the hero area */
+    overflow: hidden;
 }
 
-.particlesContainer {
+/*
+ * Dark gradient background that holds the dot grid and the drifting blobs.
+ * It is FIXED to the viewport so the aurora stays visible while the page
+ * scrolls. It sits at z-index -1 within the `.homepage-main` stacking context
+ * (see `isolation: isolate` on .homepage-main in custom.css): that paints it
+ * ABOVE the opaque .homepage-main gradient but BEHIND every (transparent)
+ * section's content, so the effect shows through the whole page.
+ */
+.background {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: auto;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    /* Scroll offset (px, unitless) fed from JS; drives the dot parallax. */
+    --scroll-y: 0;
+    /*
+     * Transparent apart from two scattered dot tiles (--dots-a/--dots-b,
+     * generated in HeroSection.tsx) — no base colour, so the page's own
+     * `.homepage-main` vertical gradient shows through behind the dots and
+     * blobs. Each tile is sized to the viewport (--dots-*-size) so the field
+     * never repeats horizontally; it tiles seamlessly in Y and scrolls its
+     * background-position at a different fraction of --scroll-y for parallax.
+     */
+    background-image:
+        var(--dots-a, none),
+        var(--dots-b, none);
+    background-repeat: repeat, repeat;
+    background-size: var(--dots-a-size, 100% 100%), var(--dots-b-size, 100% 100%);
+    background-position:
+        0 calc(var(--scroll-y) * -0.16px),
+        0 calc(var(--scroll-y) * -0.32px);
+}
+
+/* Blurry, semi-transparent "aurora" blobs that drift across the whole page */
+.blob {
+    position: absolute;
+    width: 38.4vmax;
+    height: 38.4vmax;
+    pointer-events: none;
+    /* Start hidden; faded in from JS once the random start position is set so
+       the one-off reposition jump on load isn't visible. */
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    will-change: transform;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+/* Inner core carries the colour + blur and the mouse "run away" offset
+   (--push-x/--push-y, set from JS), composed on top of the drift animation
+   that runs on the parent .blob. */
+.blobCore {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--blob-color);
+    /* Blur strength knob — change here, or override --blob-blur per blob. */
+    --blob-blur: 120px;
+    filter: blur(var(--blob-blur));
+    opacity: var(--blob-opacity, 0.32);
+    will-change: transform;
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px));
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Blob colours sampled from the site gradient --gradient-primary
+   (linear-gradient(57.5deg, #465BE5 0%, #CD00BE 100%)):
+   start (0%), interpolated middle (50%), and end (100%). */
+.blob:nth-child(1) {
+    --blob-color: #465be5;
+    top: -5%;
+    left: -5%;
+    animation-name: driftA;
+    animation-duration: 26s;
+}
+
+.blob:nth-child(2) {
+    --blob-color: #8a2ed2;
+    top: 15%;
+    left: 55%;
+    animation-name: driftB;
+    animation-duration: 32s;
+    animation-delay: -8s;
+}
+
+.blob:nth-child(3) {
+    --blob-color: #cd00be;
+    top: 60%;
+    left: 20%;
+    animation-name: driftC;
+    animation-duration: 38s;
+    animation-delay: -16s;
+}
+
+/* Each path is a closed loop (0% == 100%) so the blob gently roams and returns.
+   Amplitudes are kept small (<= ~16vw/vh) so that, combined with the centred
+   start positions set in JS, the blob's centre never leaves the viewport. */
+@keyframes driftA {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(15vw, 8vh) scale(1.12);
+    }
+    50% {
+        transform: translate(6vw, 16vh) scale(0.95);
+    }
+    75% {
+        transform: translate(-12vw, 9vh) scale(1.08);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes driftB {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(-15vw, 11vh) scale(0.95);
+    }
+    50% {
+        transform: translate(8vw, -13vh) scale(1.15);
+    }
+    75% {
+        transform: translate(-9vw, -6vh) scale(1);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes driftC {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(13vw, -12vh) scale(1.1);
+    }
+    50% {
+        transform: translate(-8vw, 10vh) scale(0.95);
+    }
+    75% {
+        transform: translate(12vw, 14vh) scale(1.12);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+/* Respect users who prefer reduced motion: keep the blobs, stop the drift */
+@media (prefers-reduced-motion: reduce) {
+    .blob {
+        animation: none;
+    }
 }
 
 /* --- MODERN HERO BANNER --- */
@@ -52,19 +208,36 @@
     z-index: 1;
     width: 100%;
     max-width: 1440px;
-    margin: 32px auto 80px auto;
+    margin: 0 auto;
     padding: 0 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Nudge the centred hero block up a little from the exact middle,
+       then lower it back by 60px. */
+    transform: translateY(calc(-8vh + 60px));
 }
 
 .heroContent {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 24px;
+    align-items: center;
+    text-align: center;
+    gap: 19.2px;
+}
+
+/* Soft dark scrim behind the hero text so it stays legible when a bright,
+   similarly-coloured blob drifts behind the title. Dark mode only — in light
+   mode it reads as an out-of-place dark smudge and isn't needed. */
+[data-theme='dark'] .heroContent::before {
+    content: '';
+    position: absolute;
+    inset: -16% -8%;
+    z-index: -1;
+    background: radial-gradient(ellipse 72% 72% at 50% 50%, rgba(4, 2, 18, 0.62) 0%, rgba(4, 2, 18, 0.32) 45%, transparent 75%);
+    filter: blur(30px);
+    pointer-events: none;
 }
 
 .heroTitle {
@@ -77,6 +250,18 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
+}
+
+/* Dark drop-shadow only in dark mode (lifts the title off bright blobs);
+   omitted in light mode where it would look like a dark smudge. */
+[data-theme='dark'] .heroTitle {
+    filter: drop-shadow(0 2px 12px rgba(4, 2, 18, 0.6));
+}
+
+/* Light mode: a soft white halo instead, so the title stays legible when a
+   colored blob drifts behind it (invisible over the plain light background). */
+[data-theme='light'] .heroTitle {
+    filter: drop-shadow(0 0 9px rgba(255, 255, 255, 0.9));
 }
 
 .cursor {
@@ -100,11 +285,17 @@
     max-width: 800px;
 }
 
+/* Light mode: gentle white halo so the subtitle stays legible when a colored
+   blob drifts behind it (dark mode relies on the shared scrim instead). */
+[data-theme='light'] .heroSubtitle {
+    filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.85));
+}
+
 .heroActions {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-top: 16px;
+    margin-top: 12.8px;
     flex-wrap: wrap;
 }
 
@@ -287,54 +478,9 @@
     color: var(--ifm-color-primary-lightest);
 }
 
-/* Bouncing scroll arrow */
-.scrollArrowContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 40px 0 20px 0;
-}
-
-.scrollArrow {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.scrollArrow span {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border-bottom: 3px solid var(--ifm-color-primary);
-    border-right: 3px solid var(--ifm-color-primary);
-    transform: rotate(45deg);
-    margin: -8px;
-    animation: scrollBounce 2s infinite;
-}
-
-.scrollArrow span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-@keyframes scrollBounce {
-    0% {
-        opacity: 0;
-        transform: rotate(45deg) translate(-10px, -10px);
+/* Raise the hero block a further 20px on the mobile version. */
+@media (max-width: 768px) {
+    .heroContainer {
+        transform: translateY(calc(-8vh + 40px));
     }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: rotate(45deg) translate(10px, 10px);
-    }
-}
-
-[data-theme='dark'] .scrollArrow span {
-    border-color: var(--ifm-color-primary-lighter);
 }

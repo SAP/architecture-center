@@ -3,7 +3,7 @@ name: Check Typos
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
@@ -11,12 +11,22 @@ on:
       - 'news/**/*.mdx'
       - '_typos.toml'
       - '.github/workflows/check-typos.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - '_typos.toml'
+      - '.github/workflows/check-typos.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-typos:
@@ -39,15 +49,22 @@ jobs:
         with:
           tool: typos@1.50.3
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs news
+          filter-regex: '\.(md|mdx)$'
+
       - name: Check for typos in changed docs/ and news/
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
-          else
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+          if [ "${#FILES[@]}" -eq 0 ]; then
             {
               echo "### Typo check"
               echo ""
@@ -57,7 +74,11 @@ jobs:
             exit 0
           fi
           rc=0
-          typos --format brief --config ./_typos.toml "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
+          # --force-exclude so _typos.toml's extend-exclude applies even though we
+          # pass the changed files explicitly (without it, typos checks named paths
+          # regardless of exclude, which re-flags the intentional example
+          # misspellings in the excluded Automated Checks docs).
+          typos --format brief --config ./_typos.toml --force-exclude "${FILES[@]}" > "$RUNNER_TEMP/typos.txt" 2>&1 || rc=$?
           # Emit named inline annotations (title= not supported by problem matchers).
           if [ -n "$GITHUB_ACTIONS" ]; then
             # Escape untrusted captures (filename, message) for the Actions command
@@ -80,7 +101,7 @@ jobs:
               cat "$RUNNER_TEMP/typos.txt"
               echo '```'
               echo ""
-              echo "📖 How to fix (correct the typo, or allow a valid term in _typos.toml): https://architecture.learning.sap.com/docs/community/automated-checks/typos"
+              echo "📖 How to fix (correct the typo, or allow a valid term in _typos.toml): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/typos"
             } >> "$GITHUB_STEP_SUMMARY"
           else
             {

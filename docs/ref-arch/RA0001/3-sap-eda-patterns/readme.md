@@ -83,4 +83,4 @@ Below are some sample use case scenarios demonstrating the application of event-
 ![drawio](drawio/eda_eventhub.drawio)
 
 
-Note: Refer to additional use case patterns in [SAP Learning Journey -Discovering Event-Driven Integration with SAP Integration Suite,advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
+Note: Refer to additional use case patterns in the [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh).

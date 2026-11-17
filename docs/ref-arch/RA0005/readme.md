@@ -173,7 +173,6 @@ For more information related to this Reference Architecture in general you may c
 -   [Models and scenarios in the Generative AI Hub (SAP Help Portal)](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/models-and-scenarios-in-generative-ai-hub)
 -   [Availability of Generative AI Models across Regions and their Limitations](https://me.sap.com/notes/3437766)
 -   [SAP BTP Use Cases: Kick-Start Transformation with Pre-Built Business Content (SAP Community blog post)](https://news.sap.com/2023/05/sap-btp-use-cases-art-of-the-possible/)
--   [SAP Learning: Generative AI at SAP](https://learning.sap.com/courses/generative-ai-at-sap)
--   [SAP Learning: AI Ethics at SAP](https://learning.sap.com/courses/ai-ethics-at-sap)
+-   [SAP Business AI (SAP Community)](https://pages.community.sap.com/topics/business-ai)
 -   [SAP AI Ethics Handbook](https://news.sap.com/sea/files/2024/01/11/SAP-AI-Ethics-Handbook.pdf)
 -   [SAP Cloud SDK for AI](https://sap.github.io/ai-sdk/)
