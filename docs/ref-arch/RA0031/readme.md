@@ -35,7 +35,7 @@ contributors:
 discussion: 
 last_update:
   author: thomas-t7
-  date: 2026-06-15
+  date: 2026-10-22
 ---
 
 ## Self-Sovereign Identities

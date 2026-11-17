@@ -28,10 +28,10 @@ toc_max_heading_level: 4
 draft: false
 last_update:
   author: SAP
-  date: '2026-05-18'
+  date: '2026-10-22'
 ---
 
-Founded in December 2025 under the neutral governance of the Linux Foundation, the [Agentic AI Foundation](https://aaif.io/) (AAIF) manages core open source projects including the **Model Context Protocol (MCP)**, **goose**, and **AGENTS.md**. AGENTS.md is a markdown file, which provides context and instructions to help AI coding agents work with certain prerequisites, similar to a README for humans; [goose](https://aaif.io/projects/goose/) is a local-first AI agent framework combining language models, extensible tools, and standardized MCP-based integration. [MCP](https://aaif.io/projects/model-context-protocol/) is an open protocol that enables seamless integration between LLM applications and external data sources and tools.
+Founded in December 2025 under the neutral governance of the Linux Foundation, the [Agentic AI Foundation](https://github.com/aaif) (AAIF) manages core open source projects including the **Model Context Protocol (MCP)**, **goose**, and **AGENTS.md**. AGENTS.md is a markdown file, which provides context and instructions to help AI coding agents work with certain prerequisites, similar to a README for humans; [goose](https://github.com/aaif-goose/goose) is a local-first AI agent framework combining language models, extensible tools, and standardized MCP-based integration. [MCP](https://modelcontextprotocol.io/) is an open protocol that enables seamless integration between LLM applications and external data sources and tools.
 
 SAP is a Gold Member and is actively involved in multiple AAIF working groups.  
 
@@ -45,4 +45,4 @@ As of May 2026, the following working groups have been established to jointly de
 - Security & Privacy 
 - Workflows & Process Integration 
 
-SAP is fully committed to allocating our resources to serve as leaders and active contributors in the standardization efforts of these working groups, ensuring that our stakeholders play pivotal roles in driving progress and shaping industry standards. We plan to share the progress of the AAIF collaborative efforts with our customers and partners. 
+SAP is fully committed to allocating our resources to serve as leaders and active contributors in the standardization efforts of these working groups, ensuring that our stakeholders play pivotal roles in driving progress and shaping industry standards. We plan to share the progress of the AAIF collaborative efforts with our customers and partners.
