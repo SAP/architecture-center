@@ -89,6 +89,12 @@ function buildDockerArgs({
         'run',
         '--rm',
         '--read-only',
+        // No network: the export is a purely local .drawio -> SVG render and
+        // repo policy forbids external images in diagrams, so the container
+        // (which renders untrusted diagram XML via Chromium) needs no outbound
+        // access. Cuts SSRF / exfiltration surface. Must stay in sync with the
+        // isolation assertion in docker-export.test.js.
+        '--network=none',
         '--cap-drop=ALL',
         '--security-opt=no-new-privileges:true',
         '--pids-limit=256',

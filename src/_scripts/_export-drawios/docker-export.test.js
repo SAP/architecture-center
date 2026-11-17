@@ -39,6 +39,7 @@ test('pins and isolates the Draw.io container', () => {
         'rlespinasse/drawio-desktop-headless:v1.76.0@sha256:b7468f89320a6b4c6d8099da224c837a03abab4832701bb4b2355e0901f805fd'
     );
     assert.ok(args.includes('--read-only'));
+    assert.ok(args.includes('--network=none'));
     assert.ok(args.includes('--cap-drop=ALL'));
     assert.ok(args.includes('--security-opt=no-new-privileges:true'));
     assert.ok(args.includes('--user=1001:127'));
