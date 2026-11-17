@@ -1,19 +1,28 @@
 name: Check Reference Architecture IDs
-# Archetype: CHANGED-FILES — only changed readme.md fail, but ALL readmes are read to validate global id/slug uniqueness (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only changed readme.md (vs the PR base, or vs the
+# previous commit on a push to dev) fail, but ALL readmes are read to validate
+# global id/slug uniqueness (needs fetch-depth: 0).
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/ref-arch/**/readme.md'
       - 'src/_scripts/_check-ids.zsh'
       - '.github/workflows/check-ref-arch-ids.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/ref-arch/**/readme.md'
+      - 'src/_scripts/_check-ids.zsh'
+      - '.github/workflows/check-ref-arch-ids.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-ref-arch-ids:
@@ -27,11 +36,19 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # full history needed to diff changed readme.md against the PR base
+          fetch-depth: 0 # full history needed to diff changed readme.md against the PR base / previous commit
 
       - name: Install zsh
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y zsh
+
+      # Scope to the changed ref-arch readme.md on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs/ref-arch
+          filter-regex: '/readme\.md$'
 
       - name: Check reference architecture IDs and slugs
         shell: bash
@@ -39,10 +56,9 @@ jobs:
           # Changed-files scope: only changed readme.md fail the check. The script
           # still reads EVERY readme to validate global id/slug uniqueness, then
           # reports only collisions/errors that involve a changed file.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs/ref-arch \
-            | grep -zE '/readme\.md$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
             zsh src/_scripts/_check-ids.zsh "${FILES[@]}"
           else
             {

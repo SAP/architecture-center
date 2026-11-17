@@ -179,6 +179,7 @@ const CollapsibleFilterBar: React.FC<CollapsibleFilterBarProps> = ({
                     <button
                         onClick={handleRecentlyUpdatedToggle}
                         className={`${styles.recentlyUpdatedLink} ${showRecentlyUpdated ? styles.active : ''}`}
+                        aria-pressed={showRecentlyUpdated}
                     >
                         Show Recent
                     </button>

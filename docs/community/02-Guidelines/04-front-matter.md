@@ -143,7 +143,7 @@ Your title should not be longer than **60** characters.
 :::
 
 :::warning Do not use a `#` heading for the title
-Because the title is taken from the `title:` field above, your Markdown body must **not** contain a level-1 `#` heading, it would produce a second, duplicate page title. Start your body headings at `##` (level 2) and go deeper from there. This is enforced by the [H1 Title check](08-Automated-Checks/14-check-h1-title.md), which fails the pull request if a `#` heading is found.
+Because the title is taken from the `title:` field above, your Markdown body must **not** contain a level-1 `#` heading, it would produce a second, duplicate page title. Start your body headings at `##` (level 2) and go deeper from there. This is enforced by the [H1 Title check](08-Automated-Checks/01-Front-Matter/05-check-h1-title.md), which fails the pull request if a `#` heading is found.
 :::
 
 ***

@@ -2,18 +2,26 @@ name: Check Front Matter Properties
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
       - 'src/_scripts/_check-frontmatter-properties.js'
       - '.github/workflows/check-frontmatter-properties.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'src/_scripts/_check-frontmatter-properties.js'
+      - '.github/workflows/check-frontmatter-properties.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-frontmatter-properties:
@@ -41,38 +49,24 @@ jobs:
       - name: Stamp today's date
         run: echo "TODAY=$(date -u +%F)" >> "$GITHUB_ENV"
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs
+          filter-regex: '\.(md|mdx)$'
+
       # Annotations + job summary. Findings surface in the aggregated PR comment
       # (check-pr-comment.yml) via this check's error annotations.
       # Exits non-zero when any issue is found, so this check FAILS the PR.
       - name: Check front matter properties
         shell: bash
         env:
-          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          COMMENT_DIR: ${{ runner.temp }}/fm-comment
+          PR_AUTHOR: ${{ github.event.pull_request.user.login || github.actor }}
         run: |
-          # Changed-files scope computed with the same hardened incantation as the
-          # sibling checks (-z + core.quotePath=false), then passed to the script as
-          # arguments. The script still writes its comment artifact when the list is
-          # empty, so the upload step below always has a file.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
           FILES=()
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
           fi
           node src/_scripts/_check-frontmatter-properties.js "${FILES[@]}"
-
-      # NOTE: kept until the consolidation lands on the default branch. The sticky
-      # commenter (comment-frontmatter-properties.yml) still runs from `dev` on
-      # workflow_run and downloads this artifact; removing it here made that
-      # dev-side job fail. Once this PR merges (commenter deleted, findings folded
-      # into check-pr-comment.yml) this upload becomes unused and can be removed.
-      - name: Upload comment artifact
-        if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: frontmatter-comment
-          path: ${{ runner.temp }}/fm-comment
-          if-no-files-found: error
-          retention-days: 1

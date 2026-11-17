@@ -1,6 +1,6 @@
 ---
 id: id-nsa-13
-sidebar_position: 13
+sidebar_position: 14
 slug: /ai-native-north-star-architecture/acknowledgement
 sidebar_custom_props:
     category_index: []
@@ -23,7 +23,7 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 draft: false
 unlisted: false
-pagination_prev: north-star-arch/ai-native-northstar-arch/closing-note/id-nsa-12
+pagination_prev: north-star-arch/ai-native-northstar-arch/frequently-asked-questions/id-nsa-15
 pagination_next: north-star-arch/ai-native-northstar-arch/key-terms/id-nsa-14
 contributors:
 discussion:

@@ -36,15 +36,15 @@
 @keyframes scrollBounce {
     0% {
         opacity: 0;
-        transform: rotate(45deg) translate(30px, 30px);
+        transform: rotate(45deg) translate(-10px, -10px);
     }
     50% {
         opacity: 1;
-        transform: rotate(45deg) translate(45px, 45px);
+        transform: rotate(45deg) translate(0, 0);
     }
     100% {
         opacity: 0;
-        transform: rotate(45deg) translate(60px, 60px);
+        transform: rotate(45deg) translate(10px, 10px);
     }
 }
 
