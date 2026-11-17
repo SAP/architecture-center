@@ -1,9 +1,10 @@
 name: Check Internal Links
-# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base is scanned (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only Markdown added/modified vs the PR base (or vs the
+# previous commit on a push to dev) is scanned (needs fetch-depth: 0).
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
@@ -11,12 +12,22 @@ on:
       - 'news/**/*.mdx'
       - 'src/_scripts/_check-internal-links.zsh'
       - '.github/workflows/check-internal-links.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'news/**/*.md'
+      - 'news/**/*.mdx'
+      - 'src/_scripts/_check-internal-links.zsh'
+      - '.github/workflows/check-internal-links.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-internal-links:
@@ -30,20 +41,27 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base
+          fetch-depth: 0 # full history needed to diff changed Markdown against the PR base / previous commit
 
       - name: Install zsh
         shell: bash
         run: sudo apt-get update && sudo apt-get install -y zsh
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs news
+          filter-regex: '\.(md|mdx)$'
+
       - name: Check for SAP-internal-only links
         shell: bash
         run: |
-          # Changed-files scope: only Markdown added/modified vs the PR base.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs news \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
+          # Changed-files scope: only Markdown added/modified vs the PR base / previous commit.
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
             zsh src/_scripts/_check-internal-links.zsh "${FILES[@]}"
           else
             {

@@ -1,9 +1,13 @@
-name: Build for GitHub Pages
+name: Check Site Build
 
 permissions: {}
 
 on:
     push:
+        branches:
+            - main
+            - dev
+    pull_request:
         branches:
             - main
             - dev
@@ -26,6 +30,8 @@ jobs:
 
             - name: Install dependencies
               run: npm ci
+            - name: Run tests
+              run: npm test
             - name: Build website
               run: npm run build
 

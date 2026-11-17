@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="SAP Architecture Center">
+  <diagram name="SAP-Managed IAM Stages" id="sap-managed-iam-stages">
+    <mxGraphModel dx="1094" dy="790" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1180" pageHeight="520" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#223548;" value="SAP-Managed IAM Integration — Three Maturity Stages" vertex="1">
+          <mxGeometry height="40" width="1100" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=1.5;fontColor=#223548;fontSize=13;verticalAlign=middle;" value="Stage 1&lt;br&gt;Line-of-Business–Scoped Experience &lt;br&gt;for Joule WORK,&lt;br&gt;&lt;br&gt;&lt;div&gt;Application IAM Leading&lt;br&gt;&lt;br&gt;User-replicas per application cached for the Business AI Platform in Cloud Identity Services&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="320" x="60" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#D6ECFF;strokeWidth=1.5;fontColor=#223548;fontSize=13;verticalAlign=middle;" value="Stage 2&lt;br&gt;Unified Experience for Joule WORK including Agents,&lt;br&gt;&lt;br&gt;&lt;div&gt;Application IAM Leading&lt;br&gt;&lt;br&gt;Consolidated identities in Cloud Identity Services,&lt;br&gt;applications remain for human-access the system of record; Agent Identities get managed in Cloud Identity.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="320" x="430" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#B3DAFF;strokeWidth=2;fontColor=#223548;fontSize=13;fontStyle=1;verticalAlign=middle;" value="Stage 3&lt;br&gt;Unified Experience for Joule WORK&lt;br&gt;&lt;br&gt;SAP Cloud Identity Services&lt;br&gt;&lt;div&gt;centrally leading&lt;br&gt;&lt;br&gt;Cloud Identity is the central leading system&lt;br&gt;(the Autonomous Suite setup)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="320" x="800" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;fontStyle=2;fontColor=#475E75;" value="Increasing consolidation — SAP Cloud Identity Services takes on a more leading role" vertex="1">
+          <mxGeometry height="30" width="1060" x="60" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=2;endArrow=blockThin;endFill=1;" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=2;endArrow=blockThin;endFill=1;" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="progress" edge="1" parent="1" style="endArrow=blockThin;html=1;strokeColor=#188918;strokeWidth=2;fontColor=#188918;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="420" as="sourcePoint" />
+            <mxPoint x="1120" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
