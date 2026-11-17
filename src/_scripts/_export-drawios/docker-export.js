@@ -196,4 +196,5 @@ module.exports = {
     DRAWIO_IMAGE,
     buildDockerArgs,
     exportDrawioWithDocker,
+    validateOutputPath,
 };

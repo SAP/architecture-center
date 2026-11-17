@@ -6,7 +6,7 @@ const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
 const DrawioCache = require('./drawio-cache');
-const { DRAWIO_IMAGE, exportDrawioWithDocker } = require('./docker-export');
+const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
 
@@ -175,6 +175,16 @@ function getCacheFingerprint(drawioPath) {
     return cacheEnabled ? getRenderContext(drawioPath).fingerprint : null;
 }
 
+// Validate an output's resolved parent is within docs/ and the target is a
+// regular (non-symlink) file BEFORE deleting it, so a symlinked `images/` dir
+// cannot trick cleanup into removing a file outside the repo. Reuses the
+// exporter's own guard, and runs the check ahead of the delete (unlike the
+// DOCKER export path, which only validated inside exportOne, after cleanup).
+function safeCleanOutput(output) {
+    validateOutputPath(output, join(ROOT, 'docs'));
+    rmSync(output, { force: true });
+}
+
 // Export all drawios to svgs
 function exportAllDrawios() {
     const jobs = Object.entries(transforms).map(([input, output]) => ({ input, output }));
@@ -184,7 +194,7 @@ function exportAllDrawios() {
         jobs,
         isCached: ({ input }) => drawioCache.isValid(input, getCacheFingerprint(input)),
         beforeExport: ({ output }) => {
-            rmSync(output, { force: true });
+            safeCleanOutput(output);
         },
         exportOne: ({ input, output }) => {
             let stdout;
@@ -204,7 +214,7 @@ function exportAllDrawios() {
         onCacheHit: ({ input }) => log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`),
         onSuccess: (_job, stdout) => log('Export', prettyPaths(stdout)),
         onFailure: ({ input, output }, error) => {
-            rmSync(output, { force: true });
+            safeCleanOutput(output);
             const msg = prettyPaths(`Export failed ${input} -> ${output}`);
             console.error(`\n[ERROR] ${msg}. Reason: ${String(error.stderr || error.message)}\n`);
         },
@@ -363,11 +373,23 @@ async function generateArtifacts() {
                 log(`[WARNING] Skipping artifact generation for ${dirName}: No 'drawio' directory found at ${drawioDir}`);
                 continue;
             }
-            const drawioFile = readdirSync(drawioDir).find(file => file.endsWith('.drawio'));
-            if (!drawioFile) {
+            // Pick the .drawio the readme actually references, so the artifact's
+            // PLACEHOLDER link resolves to an emitted webpack asset. readdirSync
+            // order is not guaranteed, so an arbitrary pick could later abort the
+            // whole build in resolveDrawioLinks when the chosen file is not the
+            // one embedded in the page. Fall back to the first file (sorted, for
+            // determinism) when the readme references none.
+            const availableDrawios = readdirSync(drawioDir)
+                .filter((file) => file.endsWith('.drawio'))
+                .sort();
+            if (availableDrawios.length === 0) {
                 log(`[WARNING] Skipping artifact generation for ${dirName}: No .drawio file found in ${drawioDir}`);
                 continue;
             }
+            const referencedDrawio = [...readmeContent.matchAll(/(?:\.\/)?drawio\/([A-Za-z0-9_.-]+\.drawio)/g)]
+                .map((match) => match[1])
+                .find((name) => availableDrawios.includes(name));
+            const drawioFile = referencedDrawio || availableDrawios[0];
             drawioFilePath = join(drawioDir, drawioFile);
             svgThumbnailSourcePath = join(refArchRoot, dirName, 'images', basename(drawioFile, '.drawio') + '.svg');
         }
