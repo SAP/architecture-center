@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid';
 import { persist, createJSONStorage, StateStorage } from 'zustand/middleware';
 import type { Operation } from '@site/src/components/Editor/core/Operations';
+import { authenticatedFetch } from '@site/src/services/authSession';
 
 export interface PageMetadata {
     title: string;
@@ -37,7 +38,6 @@ interface PageDataState {
     isSyncing: boolean;
     syncError: string | null;
     backendUrl: string | null;
-    authToken: string | null;
     currentUsername: string | null;
 
     // Getters
@@ -55,8 +55,8 @@ interface PageDataState {
     resetStore: () => void;
 
     // Remote sync actions
-    setBackendConfig: (backendUrl: string, authToken: string, username: string) => void;
-    fetchDocuments: () => Promise<void>;
+    setBackendConfig: (backendUrl: string, username: string) => void;
+    fetchDocuments: () => Promise<boolean>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
     createRemoteDocument: (metadata: PageMetadata, parentId?: string | null) => Promise<Document | null>;
@@ -84,39 +84,74 @@ const safeLocalStorage: StateStorage = {
     },
 };
 
-// Throttled storage to reduce localStorage writes - writes at most every 2 seconds
-let pendingWrite: { key: string; value: string } | null = null;
+const PERSISTED_STORE_NAME = 'docusaurus-editor-content';
+
+function normalizeIdentity(username: string): string {
+    const identity = username.trim().toLowerCase();
+    if (!identity) throw new Error('A GitHub username is required for editor storage.');
+    return identity;
+}
+
+export function getPageDataStorageKey(username: string): string {
+    return `${PERSISTED_STORE_NAME}:${encodeURIComponent(normalizeIdentity(username))}`;
+}
+
+let activeStorageIdentity: string | null = null;
+let activeIdentityRevision = 0;
+
+// Throttled storage to reduce localStorage writes - writes at most every 2 seconds.
+// Keep one pending value per identity so switching accounts cannot overwrite a
+// different user's pending editor state.
+const pendingWrites = new Map<string, string>();
 let writeTimeout: NodeJS.Timeout | null = null;
 const STORAGE_THROTTLE_MS = 2000;
 
 const throttledLocalStorage: StateStorage = {
     getItem: (key) => safeLocalStorage.getItem(key),
     setItem: (key, value) => {
-        pendingWrite = { key, value };
+        pendingWrites.set(key, value);
 
         if (!writeTimeout) {
             writeTimeout = setTimeout(() => {
-                if (pendingWrite) {
-                    safeLocalStorage.setItem(pendingWrite.key, pendingWrite.value);
-                    pendingWrite = null;
+                for (const [pendingKey, pendingValue] of pendingWrites) {
+                    safeLocalStorage.setItem(pendingKey, pendingValue);
                 }
+                pendingWrites.clear();
                 writeTimeout = null;
             }, STORAGE_THROTTLE_MS);
         }
     },
-    removeItem: (key) => safeLocalStorage.removeItem(key),
+    removeItem: (key) => {
+        pendingWrites.delete(key);
+        return safeLocalStorage.removeItem(key);
+    },
 };
 
 // Flush pending writes immediately (call before page unload)
 const flushPendingWrites = () => {
-    if (pendingWrite) {
-        safeLocalStorage.setItem(pendingWrite.key, pendingWrite.value);
-        pendingWrite = null;
+    for (const [key, value] of pendingWrites) {
+        safeLocalStorage.setItem(key, value);
     }
+    pendingWrites.clear();
     if (writeTimeout) {
         clearTimeout(writeTimeout);
         writeTimeout = null;
     }
+};
+
+const identityLocalStorage: StateStorage = {
+    getItem: () => {
+        if (!activeStorageIdentity) return null;
+        return throttledLocalStorage.getItem(getPageDataStorageKey(activeStorageIdentity));
+    },
+    setItem: (_key, value) => {
+        if (!activeStorageIdentity) return;
+        return throttledLocalStorage.setItem(getPageDataStorageKey(activeStorageIdentity), value);
+    },
+    removeItem: () => {
+        if (!activeStorageIdentity) return;
+        return throttledLocalStorage.removeItem(getPageDataStorageKey(activeStorageIdentity));
+    },
 };
 
 // Add beforeunload handler to flush writes
@@ -140,6 +175,11 @@ const findDocumentById = (docs: Document[], id: string | null): Document | null 
 let syncTimeout: NodeJS.Timeout | null = null;
 const SYNC_DEBOUNCE_MS = 2000;
 
+function isCurrentIdentity(username: string): boolean {
+    const currentUsername = usePageDataStore.getState().currentUsername;
+    return currentUsername !== null && normalizeIdentity(currentUsername) === normalizeIdentity(username);
+}
+
 export const usePageDataStore = create<PageDataState>()(
     persist(
         (set, get) => ({
@@ -152,7 +192,6 @@ export const usePageDataStore = create<PageDataState>()(
             isSyncing: false,
             syncError: null,
             backendUrl: null,
-            authToken: null,
             currentUsername: null,
 
             getDocuments: () => get().documents,
@@ -222,31 +261,29 @@ export const usePageDataStore = create<PageDataState>()(
                 });
             },
 
-            setBackendConfig: (backendUrl, authToken, username) => {
-                console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken, username });
-                set({ backendUrl, authToken, currentUsername: username });
+            setBackendConfig: (backendUrl, username) => {
+                console.log('[PageDataStore] Backend configured:', { backendUrl, username });
+                set({ backendUrl, currentUsername: username });
             },
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken, currentUsername, documents: localDocuments } = get();
-                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
-                if (!backendUrl || !authToken) {
+                const { backendUrl, currentUsername, documents: localDocuments } = get();
+                console.log('[PageDataStore] fetchDocuments called:', { backendUrl, currentUsername });
+                if (!backendUrl || !currentUsername) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
-                    return;
+                    return false;
                 }
+                const requestUsername = currentUsername;
 
                 set({ isLoading: true, syncError: null });
 
                 try {
                     console.log('[PageDataStore] Fetching documents from:', `${backendUrl}/quickstart/document-service/Documents`);
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
                         {
-                            headers: {
-                                'Authorization': `Bearer ${authToken}`,
-                                'Content-Type': 'application/json',
-                            },
+                            headers: { 'Content-Type': 'application/json' },
                         }
                     );
 
@@ -255,6 +292,7 @@ export const usePageDataStore = create<PageDataState>()(
                     }
 
                     const data = await response.json();
+                    if (!isCurrentIdentity(requestUsername)) return false;
                     console.log('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
                     const remoteDocuments: Document[] = data.value.map((doc: any) => {
                         const authorUsername = doc.author?.username;
@@ -300,12 +338,11 @@ export const usePageDataStore = create<PageDataState>()(
                         console.log('[PageDataStore] Syncing', unsyncedDocs.length, 'locally modified documents to backend');
                         // Sync in background without blocking
                         unsyncedDocs.forEach(doc => {
-                            fetch(
+                            authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
                                 {
                                     method: 'PATCH',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -315,6 +352,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             ).then(() => {
+                                if (!isCurrentIdentity(requestUsername)) return;
                                 console.log('[PageDataStore] Synced local changes for:', doc.id);
                                 set(state => ({
                                     documents: state.documents.map(d =>
@@ -342,20 +380,25 @@ export const usePageDataStore = create<PageDataState>()(
                         isLoading: false,
                         lastSaveTimestamp: data.value?.[0]?.modifiedAt || data.value?.[0]?.createdAt || new Date().toISOString(),
                     });
+                    return true;
                 } catch (error) {
                     console.error('Error fetching documents:', error);
-                    set({
-                        isLoading: false,
-                        syncError: error instanceof Error ? error.message : 'Failed to fetch documents',
-                    });
+                    if (isCurrentIdentity(requestUsername)) {
+                        set({
+                            isLoading: false,
+                            syncError: error instanceof Error ? error.message : 'Failed to fetch documents',
+                        });
+                    }
+                    return false;
                 }
             },
 
             // Sync a single document to remote (debounced auto-save)
             syncDocument: async (id: string) => {
-                const { backendUrl, authToken, documents } = get();
-                console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl, hasToken: !!authToken });
-                if (!backendUrl || !authToken) return;
+                const { backendUrl, documents, currentUsername } = get();
+                console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl });
+                if (!backendUrl || !currentUsername) return;
+                const requestUsername = currentUsername;
 
                 const doc = findDocumentById(documents, id);
                 if (!doc) return;
@@ -367,17 +410,17 @@ export const usePageDataStore = create<PageDataState>()(
 
                 // Debounce the sync
                 syncTimeout = setTimeout(async () => {
+                    if (!isCurrentIdentity(requestUsername)) return;
                     console.log('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
 
                     try {
                         // 1. PATCH basic document fields (title, description, editorState)
-                        const patchResponse = await fetch(
+                        const patchResponse = await authenticatedFetch(
                             `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
                             {
                                 method: 'PATCH',
                                 headers: {
-                                    'Authorization': `Bearer ${authToken}`,
                                     'Content-Type': 'application/json',
                                 },
                                 body: JSON.stringify({
@@ -387,6 +430,7 @@ export const usePageDataStore = create<PageDataState>()(
                                 }),
                             }
                         );
+                        if (!isCurrentIdentity(requestUsername)) return;
 
                         if (!patchResponse.ok) {
                             throw new Error(`Failed to sync document: ${patchResponse.statusText}`);
@@ -394,12 +438,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                         // 2. Call setDocumentContributors action only if contributors changed
                         if (doc._contributorsDirty) {
-                            const contributorsResponse = await fetch(
+                            const contributorsResponse = await authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentContributors`,
                                 {
                                     method: 'POST',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -408,6 +451,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             );
+                            if (!isCurrentIdentity(requestUsername)) return;
 
                             if (!contributorsResponse.ok) {
                                 console.warn('Failed to sync contributors:', contributorsResponse.statusText);
@@ -416,12 +460,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                         // 3. Call setDocumentTags action only if tags changed
                         if (doc._tagsDirty) {
-                            const tagsResponse = await fetch(
+                            const tagsResponse = await authenticatedFetch(
                                 `${backendUrl}/quickstart/document-service/setDocumentTags`,
                                 {
                                     method: 'POST',
                                     headers: {
-                                        'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({
@@ -430,6 +473,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             );
+                            if (!isCurrentIdentity(requestUsername)) return;
 
                             if (!tagsResponse.ok) {
                                 console.warn('Failed to sync tags:', tagsResponse.statusText);
@@ -447,18 +491,21 @@ export const usePageDataStore = create<PageDataState>()(
                         }));
                     } catch (error) {
                         console.error('Error syncing document:', error);
-                        set({
-                            isSyncing: false,
-                            syncError: error instanceof Error ? error.message : 'Failed to sync',
-                        });
+                        if (isCurrentIdentity(requestUsername)) {
+                            set({
+                                isSyncing: false,
+                                syncError: error instanceof Error ? error.message : 'Failed to sync',
+                            });
+                        }
                     }
                 }, SYNC_DEBOUNCE_MS);
             },
 
             // Sync operations (delta sync) instead of full state
             syncOperations: async (documentId: string, operations: Operation[]): Promise<string | null> => {
-                const { backendUrl, authToken, syncDocument } = get();
-                if (!backendUrl || !authToken || operations.length === 0) return null;
+                const { backendUrl, currentUsername, syncDocument } = get();
+                if (!backendUrl || !currentUsername || operations.length === 0) return null;
+                const requestUsername = currentUsername;
 
                 set({ isSyncing: true });
 
@@ -476,12 +523,11 @@ export const usePageDataStore = create<PageDataState>()(
                         payloadPreview: typeof op.payload === 'string' ? op.payload.substring(0, 200) : op.payload
                     })));
 
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/syncOperations`,
                         {
                             method: 'POST',
                             headers: {
-                                'Authorization': `Bearer ${authToken}`,
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
@@ -490,6 +536,7 @@ export const usePageDataStore = create<PageDataState>()(
                             }),
                         }
                     );
+                    if (!isCurrentIdentity(requestUsername)) return null;
 
                     if (!response.ok) {
                         throw new Error('Operations sync failed');
@@ -518,6 +565,7 @@ export const usePageDataStore = create<PageDataState>()(
 
                     return result.lastOpId || null;
                 } catch (error) {
+                    if (!isCurrentIdentity(requestUsername)) return null;
                     console.warn('Operation sync failed, falling back to full state sync:', error);
                     // Fallback to full state sync
                     await syncDocument(documentId);
@@ -528,8 +576,8 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Create a new document on remote
             createRemoteDocument: async (metadata, parentId = null) => {
-                const { backendUrl, authToken, openDocumentIds } = get();
-                if (!backendUrl || !authToken) {
+                const { backendUrl, currentUsername, openDocumentIds } = get();
+                if (!backendUrl) {
                     // Fallback to local-only
                     const newDocument: Document = {
                         ...metadata,
@@ -550,16 +598,17 @@ export const usePageDataStore = create<PageDataState>()(
                     }));
                     return newDocument;
                 }
+                if (!currentUsername) return null;
+                const requestUsername = currentUsername;
 
                 set({ isCreating: true, syncError: null });
 
                 try {
-                    const response = await fetch(
+                    const response = await authenticatedFetch(
                         `${backendUrl}/quickstart/document-service/createNewDocument`,
                         {
                             method: 'POST',
                             headers: {
-                                'Authorization': `Bearer ${authToken}`,
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
@@ -579,6 +628,7 @@ export const usePageDataStore = create<PageDataState>()(
                     }
 
                     const remoteDoc = await response.json();
+                    if (!isCurrentIdentity(requestUsername)) return null;
 
                     const newDocument: Document = {
                         id: remoteDoc.ID,
@@ -610,17 +660,19 @@ export const usePageDataStore = create<PageDataState>()(
                     return newDocument;
                 } catch (error) {
                     console.error('Error creating document:', error);
-                    set({
-                        isCreating: false,
-                        syncError: error instanceof Error ? error.message : 'Failed to create document',
-                    });
+                    if (isCurrentIdentity(requestUsername)) {
+                        set({
+                            isCreating: false,
+                            syncError: error instanceof Error ? error.message : 'Failed to create document',
+                        });
+                    }
                     return null;
                 }
             },
 
             // Delete document from remote
             deleteRemoteDocument: async (id: string) => {
-                const { backendUrl, authToken, getRootDocumentId } = get();
+                const { backendUrl, getRootDocumentId } = get();
 
                 // Get root ID before deletion
                 const rootId = getRootDocumentId(id);
@@ -645,15 +697,12 @@ export const usePageDataStore = create<PageDataState>()(
                 });
 
                 // Then delete from remote if configured
-                if (backendUrl && authToken) {
+                if (backendUrl) {
                     try {
-                        const response = await fetch(
+                        const response = await authenticatedFetch(
                             `${backendUrl}/quickstart/document-service/Documents(${id})`,
                             {
                                 method: 'DELETE',
-                                headers: {
-                                    'Authorization': `Bearer ${authToken}`,
-                                },
                             }
                         );
 
@@ -674,7 +723,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Update document locally and optionally trigger sync
             updateDocument: (id, updates, skipRemoteSync = false) => {
-                const { syncDocument, backendUrl, authToken } = get();
+                const { syncDocument, backendUrl } = get();
 
                 // Track which fields are being updated for dirty flags
                 const contributorsDirty = 'contributors' in updates;
@@ -695,7 +744,7 @@ export const usePageDataStore = create<PageDataState>()(
 
                 // Auto-sync to remote if configured and not skipped
                 // Skip when delta sync (onSyncOperations) is handling remote sync
-                if (!skipRemoteSync && backendUrl && authToken) {
+                if (!skipRemoteSync && backendUrl) {
                     syncDocument(id);
                 }
             },
@@ -716,8 +765,23 @@ export const usePageDataStore = create<PageDataState>()(
             },
         }),
         {
-            name: 'docusaurus-editor-content',
-            storage: createJSONStorage(() => throttledLocalStorage),
+            name: PERSISTED_STORE_NAME,
+            storage: createJSONStorage(() => identityLocalStorage),
+            skipHydration: true,
+            merge: (persistedState, currentState) => ({
+                ...currentState,
+                documents: [],
+                lastSaveTimestamp: null,
+                activeDocumentId: null,
+                openDocumentIds: [],
+                ...(persistedState as Partial<PageDataState>),
+                isLoading: false,
+                isCreating: false,
+                isSyncing: false,
+                syncError: null,
+                backendUrl: null,
+                currentUsername: null,
+            }),
             onRehydrateStorage: () => (state) => {
                 if (state) {
                     // Set first document as active if none
@@ -737,3 +801,22 @@ export const usePageDataStore = create<PageDataState>()(
         }
     )
 );
+
+export async function activatePageDataIdentity(username: string): Promise<boolean> {
+    const identity = normalizeIdentity(username);
+    const revision = ++activeIdentityRevision;
+
+    // Preserve pending data under the old identity before changing the storage
+    // namespace, and prevent its delayed requests from running under a new session.
+    flushPendingWrites();
+    if (syncTimeout) {
+        clearTimeout(syncTimeout);
+        syncTimeout = null;
+    }
+
+    activeStorageIdentity = identity;
+    safeLocalStorage.removeItem(PERSISTED_STORE_NAME);
+    await usePageDataStore.persist.rehydrate();
+
+    return revision === activeIdentityRevision && activeStorageIdentity === identity;
+}

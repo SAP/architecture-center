@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-21
+  date: 2026-10-22
 ---
 
 ## Important information regarding the Privacy Statement
@@ -38,7 +38,7 @@ For information about cookies used by Cloudflare, please refer to Cloudflare’s
 
 ## Cookie Statement
 
-This Cookie Statement was updated on **21-Oct-2026**.
+This Cookie Statement was updated on **22-Oct-2026**.
 
 This Cookie Statement describes how SAP (hereinafter also “We”, “Our”) uses cookies and similar technologies to collect and store information when you visit **[SAP Architecture Center](https://architecture.learning.sap.com/)**. SAP’s Privacy Statement applies in addition to this Cookie Statement. SAP’s Privacy Statement informs you about the way SAP uses, stores and protects personal data collected. It also informs you of your data protection rights and how to exercise them. We recommend that you read SAP’s Privacy Statement: **[SAP Architecture Center Privacy Statement](02-privacy.md)**.
 
@@ -57,6 +57,10 @@ The difference between a first party cookie and a third party cookie relates to 
 ## What cookies does our hosting provider set?
 
 Cloudflare, which hosts and delivers this site, may set strictly necessary security cookies on the domain of **[SAP Architecture Center](https://architecture.learning.sap.com/)**, such as `__cf_bm` (bot management) and `cf_clearance`. These cookies help protect the site against malicious traffic and ensure it loads correctly and securely. Because they are set on our own domain, they behave as first party cookies, and because they are strictly necessary for the security and delivery of the site, they are treated as Required Cookies. For more information, please refer to Cloudflare’s cookie policy: **[Cloudflare Cookie Policy](https://www.cloudflare.com/cookie-policy/)**.
+
+## What authentication cookie does Quick Start set?
+
+When you sign in to **Quick Start**, the site sets the strictly necessary first-party cookie `__Host-ac_session`. It contains a random session identifier and does not contain an OAuth access token or profile data. The cookie is protected with the `Secure`, `HttpOnly`, and `SameSite=Lax` attributes, which means that browser scripts cannot read it and the browser restricts when it is sent. It is deleted when the session ends.
 
 ## Analytics and Digital Marketing in the United States of America
 In the United States SAP routinely works with third party analytics and digital marketing providers who facilitate and support SAP (and partner) marketing activities including targeted communications. These activities may involve the sharing of limited Personal Information (personal identifiers and contact information, your interests and interactions with SAP, professional/employment information) for those specific business purposes. In addition to the above, SAP may also share your personal data with other third parties, or for other business purposes, with your explicit consent. SAP endeavors to recognize common opt-out preference signals at a browser level, and frictionlessly exclude you from marketing cookies and associated tracking.

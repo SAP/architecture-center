@@ -154,10 +154,10 @@ function CommandMenu({
 
 export default function SlashCommandPlugin() {
   const editor = useEditor();
-  const { token } = useAuth();
+  const { users } = useAuth();
   const { getActiveDocument } = usePageDataStore();
   const { siteConfig } = useDocusaurusContext();
-  const backendUrl = siteConfig.customFields?.expressBackendUrl as string | undefined;
+  const backendUrl = siteConfig.customFields?.authenticatedApiPath as string | undefined;
 
   const [isOpen, setIsOpen] = useState(false);
   const [queryString, setQueryString] = useState('');
@@ -240,10 +240,10 @@ export default function SlashCommandPlugin() {
           let assetId: string | undefined;
 
           // Upload to backend if configured
-          if (backendUrl && token && activeDocument?.id) {
+          if (backendUrl && users.github && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline data URL:', uploadError);
@@ -274,10 +274,10 @@ export default function SlashCommandPlugin() {
           let assetId: string | undefined;
 
           // Upload to backend if configured
-          if (backendUrl && token && activeDocument?.id) {
+          if (backendUrl && users.github && activeDocument?.id) {
             try {
               const api = getApiService(backendUrl);
-              const asset = await api.uploadAsset(token, activeDocument.id, file);
+              const asset = await api.uploadAsset(activeDocument.id, file);
               assetId = asset.ID;
             } catch (uploadError) {
               console.warn('Asset upload failed, using inline XML:', uploadError);
@@ -318,7 +318,7 @@ export default function SlashCommandPlugin() {
     // Reset input
     e.target.value = '';
     pendingFileType.current = null;
-  }, [editor, backendUrl, token, getActiveDocument]);
+  }, [editor, backendUrl, users.github, getActiveDocument]);
 
   const allCommands: CommandOption[] = useMemo(
     () => [
