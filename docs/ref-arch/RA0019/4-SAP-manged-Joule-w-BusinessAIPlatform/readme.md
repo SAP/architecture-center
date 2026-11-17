@@ -2,7 +2,7 @@
 id: 4c80fa
 slug: /ref-arch/4c80fa
 sidebar_position: 5
-title: Joule Landscape Recommendation for SAP Business AI Platform
+title: Joule Landscape Recommendation
 description: "Recommended landscape setup for a unified Joule experience with SAP Business AI Platform and SAP Cloud Identity Services, in staged and consolidated models."
 keywords:
   - sap
@@ -24,7 +24,6 @@ tags:
   - sap-managed
   - genai
   - agents
-  - archive
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -37,8 +36,8 @@ contributors:
   - NormanNuernberger
 discussion: 
 last_update:
-  author: NormanNuernberger
-  date: 2026-11-12
+  author: fabianleh
+  date: 2026-11-17
 ---
 
 Setting up Joule Work in an existing SAP landscape requires an integration into SAP Cloud Identity Services. Joule and SAP Cloud Identity Services are provided by default in two stages (Test and Production), while other SAP systems in a typical landscape may exist in more than 2 stages, such as Sandbox, Development, Test, Pre-Prod and Production. Identities in such landscapes with more than 2 stages could be treated as productive also on non-productive systems. For example, a developer on a development system is a productive developer. To support such scenarios, as well as a strict SaaS approach (separated stages), SAP is providing two different architectural diagrams for landscape recommendations - one for a staged landscape (SaaS) and one for a consolidated landscape.
