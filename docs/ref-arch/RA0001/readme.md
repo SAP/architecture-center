@@ -148,4 +148,4 @@ For more information related to this reference architecture, you can check out t
 - [SAP Samples | GitHub ](https://github.com/SAP-samples/btp-events-to-business-actions-framework)
 - [Blog Collection | SAP Integration Suite, advanced event mesh](https://community.sap.com/t5/technology-blog-posts-by-sap/sap-integration-suite-advanced-event-mesh-blog-collection/ba-p/14111943)
 - [SAP Developers | Publish and Subscribe to Events in SAP Integration Suite, advanced event mesh](https://developers.sap.com/tutorials/pubsub-view-events.html#51cb3f1a-5861-4802-a4a1-2f154eb40e0b)
-- [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/describing-sap-s-event-driven-ecosystem_ebe634bf-a91d-4276-b538-a3f4026c0f61)
+- [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh)

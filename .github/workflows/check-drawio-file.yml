@@ -1,18 +1,25 @@
 name: Check drawio Files
-# Archetype: CHANGED-FILES — only *.drawio added/modified vs the PR base is checked (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only *.drawio added/modified vs the base (on a PR) or
+# vs the previous commit (on a push to dev) is checked (needs fetch-depth: 0).
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - '**.drawio'
+      - '.github/actions/changed-files/action.yml'
+      - '.github/workflows/check-drawio-file.yml'
+  push:
+    branches: [dev]
+    paths:
+      - '**.drawio'
+      - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-drawio-file:
@@ -26,18 +33,22 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # full history needed to diff *.drawio against the PR base
+          fetch-depth: 0 # need history to diff the PR base / previous commit
+
+      # Scope to the *.drawio changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: '.'
+          filter-regex: '\.drawio$'
 
       - name: List changed drawio files
         id: list
         shell: bash
-        # Compute the changed-*.drawio set ONCE; both checks below read this file.
-        # `|| true` is required: grep exits 1 when no .drawio changed, which would
-        # otherwise fail the step under bash's default -eo pipefail.
+        # Gate the checks below on whether any .drawio changed; both read the shared set.
         run: |
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" \
-            | grep -zE '\.drawio$' > "$RUNNER_TEMP/changed-drawio.txt" || true
-          if [ ! -s "$RUNNER_TEMP/changed-drawio.txt" ]; then
+          if [ "${{ steps.changed.outputs.any }}" != "true" ]; then
             {
               echo "### drawio file size check"
               echo ""
@@ -60,6 +71,11 @@ jobs:
           found=0
           summary_lines=()
 
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+
           # Escape untrusted filenames for the Actions command channel so a crafted
           # path (newline, %, comma, colon) can't forge or corrupt annotations.
           esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
@@ -68,7 +84,7 @@ jobs:
           # a Markdown inline-code span in the job summary, so it cannot break out.
           esc_sum() { printf '%s' "$1" | tr '`\n\r' '   '; }
 
-          while IFS= read -r -d '' file; do
+          for file in "${FILES[@]}"; do
             [ -f "$file" ] || continue
             SIZE=$(wc -c < "$file")
             if [ "$SIZE" -gt "$MAX_BYTES" ]; then
@@ -78,7 +94,7 @@ jobs:
               summary_lines+=("- ❌ \`$(esc_sum "$file")\`: ${SIZE_KB} KB (limit: 1024 KB)")
               found=1
             fi
-          done < "$RUNNER_TEMP/changed-drawio.txt"
+          done
 
           {
             echo "### drawio file size check"
@@ -92,7 +108,7 @@ jobs:
               echo ""
               echo "Please reduce the size of the flagged file(s) before merging."
               echo ""
-              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/drawio-files"
+              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/drawio-files"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -111,6 +127,11 @@ jobs:
           found=0
           summary_lines=()
 
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+
           # Escape untrusted filenames for the Actions command channel so a crafted
           # path (newline, %, comma, colon) can't forge or corrupt annotations.
           esc_data() { local s=$1; s=${s//'%'/%25}; s=${s//$'\r'/%0D}; s=${s//$'\n'/%0A}; printf '%s' "$s"; }
@@ -119,7 +140,7 @@ jobs:
           # a Markdown inline-code span in the job summary, so it cannot break out.
           esc_sum() { printf '%s' "$1" | tr '`\n\r' '   '; }
 
-          while IFS= read -r -d '' file; do
+          for file in "${FILES[@]}"; do
             [ -f "$file" ] || continue
             MATCHES=$(grep -E 'image=https?://' "$file" || true)
             if [ -n "$MATCHES" ]; then
@@ -129,7 +150,7 @@ jobs:
               summary_lines+=("- ❌ \`$(esc_sum "$file")\`: contains external image reference(s)")
               found=1
             fi
-          done < "$RUNNER_TEMP/changed-drawio.txt"
+          done
 
           {
             echo "### drawio external image references check"
@@ -143,7 +164,7 @@ jobs:
               echo ""
               echo "Replace all external image URLs with embedded (base64) images in the flagged file(s)."
               echo ""
-              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/drawio-files"
+              echo "📖 How to fix (reduce the file below 1 MB or embed the image): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/drawio-files"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 

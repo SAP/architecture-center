@@ -45,6 +45,7 @@ const config: Config = {
         [require.resolve('docusaurus-plugin-image-zoom'), {}],
         './src/plugins/init-ui5-theme',
         './src/plugins/page-mapping-generator',
+        './src/plugins/docs-feed-generator',
         './src/plugins/tags-generator',
         './src/plugins/tags-plugin',
         './src/plugins/security-headers',
@@ -91,6 +92,11 @@ const config: Config = {
                     blogSidebarCount: 0,
                     tags: '../docs/tags.yml',
                     authorsMapPath: 'authors.yml',
+                    feedOptions: {
+                        type: ['rss', 'atom'],
+                        title: 'SAP Architecture Center News',
+                        limit: 48,
+                    },
                 },
                 docs: {
                     path: 'docs',
@@ -160,7 +166,7 @@ const config: Config = {
         metadata: [
             {
                 name: 'keywords',
-                content: 'sap, btp, ai, agent, architecture, center, hyperscaler, reference',
+                content: 'sap, business ai platform, ai, agent, architecture, center, hyperscaler, reference',
             },
         ],
         zoom: {
@@ -184,14 +190,14 @@ const config: Config = {
         },
 
         // Announcement Bar
-        // announcementBar: {
-        //     id: 'internal-prototype',
-        //     content:
-        //         '<b>Thank you for visiting the SAP Architecture Center. Your <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">feedback</a> is important to us!</b>',
-        //     backgroundColor: '#0053CB',
-        //     textColor: '#FFFFFF',
-        //     isCloseable: true,
-        // },
+        //nouncementBar: {
+        //  id: 'teched-2026-survey',
+        //  content:
+        //    '<b>Help shape the SAP Architecture Center. Take our 5-question <a href="https://github.com/SAP/architecture-center/discussions" target="_blank">survey</a> and tell us what you need.</b>',
+        //  backgroundColor: '#0053CB',
+        //  textColor: '#FFFFFF',
+        //  isCloseable: true,
+        //
         navbar: {
             title: 'Architecture Center',
             hideOnScroll: false,
@@ -297,6 +303,14 @@ const config: Config = {
                             to: '/news-all',
                         },
                         {
+                            label: 'Explore the Reference Architectures',
+                            to: '/ref-arch-updates',
+                        },
+                        {
+                            type: 'html',
+                            value: '<hr style="margin: 0.3rem 0;">',
+                        },
+                        {
                             label: 'Discover the AI-native North Star architecture',
                             to: '/docs/ai-native-north-star-architecture',
                             sidebarid: 'northStarSidebar',
@@ -322,10 +336,6 @@ const config: Config = {
                         {
                             label: 'Launch Quick Start',
                             to: '/quick-start',
-                        },
-                        {
-                            type: 'html',
-                            value: '<hr style="margin: 0.3rem 0;">',
                         },
                         {
                             label: 'Access the Community of Practice',

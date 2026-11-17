@@ -1,0 +1,57 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="aL3KSQtmkKPHGQSJ0qOg">
+    <mxGraphModel dx="924" dy="625" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#0070F2;fillColor=#EBF8FF;strokeWidth=2;fontColor=#223548;fontSize=13;fontStyle=1;verticalAlign=middle;" value="SAP Cloud Identity Services — Identity Directory&lt;br&gt;Identity with application-group-assignments" vertex="1">
+          <mxGeometry height="100" width="760" x="96" y="244" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;fontColor=#223548;fontSize=13;verticalAlign=middle;" value="Application A&lt;br&gt;(own user store)" vertex="1">
+          <mxGeometry height="90" width="200" x="96" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;fontColor=#223548;fontSize=13;verticalAlign=middle;" value="Application B&lt;br&gt;(own user store)" vertex="1">
+          <mxGeometry height="90" width="200" x="376" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#475E75;fillColor=#F5F6F7;strokeWidth=1.5;fontColor=#223548;fontSize=13;verticalAlign=middle;" value="Application C&lt;br&gt;(own user store)" vertex="1">
+          <mxGeometry height="90" width="200" x="656" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-5" edge="1" parent="1" source="uYa6GIQ-l5Kt7i8YkgXo-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=none;endFill=0;startArrow=blockThin;startFill=1;fontSize=10;fontColor=#223548;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="196" y="344.70000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-6" edge="1" parent="1" source="uYa6GIQ-l5Kt7i8YkgXo-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=none;endFill=0;startArrow=blockThin;startFill=1;" target="uYa6GIQ-l5Kt7i8YkgXo-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-7" edge="1" parent="1" source="uYa6GIQ-l5Kt7i8YkgXo-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=none;endFill=0;startArrow=blockThin;startFill=1;entryX=0.869;entryY=1.002;entryDx=0;entryDy=0;entryPerimeter=0;" target="uYa6GIQ-l5Kt7i8YkgXo-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=16;absoluteArcSize=1;strokeColor=#7758FF;fillColor=light-dark(#F1ECFF,#FFFFFF);strokeWidth=2;fontColor=#223548;fontSize=13;fontStyle=1;verticalAlign=middle;" value="Joule WORK" vertex="1">
+          <mxGeometry height="53" width="760" x="96" y="133" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-9" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0070F2;strokeWidth=1.5;endArrow=blockThin;endFill=1;startArrow=none;startFill=0;fontSize=10;fontColor=#223548;entryX=0.132;entryY=0.993;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.131;exitY=-0.007;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="476" y="244" as="sourcePoint" />
+            <mxPoint x="476" y="186" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475e75;fillColor=#f5f6f7;strokeWidth=1.5;" value="&lt;font color=&quot;#475e75&quot; size=&quot;1&quot;&gt;&lt;b&gt;User A 1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="16" width="89" x="151.5" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475e75;fillColor=#f5f6f7;strokeWidth=1.5;" value="&lt;font color=&quot;#475e75&quot; size=&quot;1&quot;&gt;&lt;b&gt;User B 1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="16" width="89" x="431" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475e75;fillColor=#f5f6f7;strokeWidth=1.5;" value="&lt;font color=&quot;#475e75&quot; size=&quot;1&quot;&gt;&lt;b&gt;User C 1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="16" width="89" x="711.5" y="362" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-13" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;strokeColor=#475e75;fillColor=#f5f6f7;strokeWidth=1.5;" value="&lt;font color=&quot;#475e75&quot; size=&quot;1&quot;&gt;&lt;b&gt;Identity 1&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="16" width="89" x="430.5" y="207" as="geometry" />
+        </mxCell>
+        <mxCell id="uYa6GIQ-l5Kt7i8YkgXo-14" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#223548;" value="Stage 3 — Unified Experience, SAP Cloud Identity Services central management" vertex="1">
+          <mxGeometry height="40" width="920" x="16" y="43" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
