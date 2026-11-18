@@ -26,9 +26,10 @@ contributors:
   - marvinkl
   - miguelmezamartinez
   - fabianleh
+  - davbizer93
 last_update:
   author: fabianleh
-  date: 2026-10-22
+  date: 2026-11-18
 ---
 
 ## Joule Work
@@ -112,9 +113,9 @@ The SAP Business AI Platform exposes specialized data-retrieval tools that the J
 
 The **SAP Knowledge Graph** is a dedicated platform component that retrieves contextually relevant business information based on user intent. It models relationships across SAP business objects, master data, and process knowledge, enabling the Joule Orchestrator to surface insights that go beyond flat data retrieval. The Knowledge Graph is invoked at runtime as part of the grounding layer, alongside the other Business Data Tools.
 
-#### Document AI Services
+#### SAP Document AI 
 
-**Document AI Services** extend the SAP Business AI Platform with the ability to process, understand, and index business documents. The service covers two primary capabilities: **Document Management**, which handles the storage and lifecycle of business documents within the platform, and **Document Grounding**, which makes document content available to the Joule Orchestrator at runtime so that agent responses can be grounded in unstructured content such as customer-uploaded documents, contracts, and business forms alongside structured SAP data.
+**SAP Document AI ** extend the SAP Business AI Platform with the ability to manage, process, understand, and index business documents. The service covers two primary capabilities: **SAP Document AI**, which can be used for document extraction, classification, and processing, as well as  **Document Grounding**, which makes document content available to the Joule Orchestrator at runtime so that agent responses can be grounded in unstructured content such as customer-uploaded documents, contracts, and business forms alongside structured SAP data.
 
 #### Task Center
 
@@ -131,3 +132,13 @@ SAP Signavio provides observability and continuous improvement capabilities for 
 #### SAP LeanIX — AI Agent Hub
 
 The **SAP AI Agent Hub** (powered by SAP LeanIX) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs, and MCP servers across the enterprise. It maintains a structured, versioned registry of all AI assets grounded in their architecture and business context.
+
+### Related Resources
+
+- [Joule Work documentation](https://help.sap.com/docs/joule-work/services/getting-started-with-joule-work)
+
+- [Joule Work product page](https://www.sap.com/products/joule-work.html)
+
+- [Joule Work playlist](https://www.youtube.com/playlist?list=PLRFmzdHJ8Y2A)
+
+- [Joule Work on SAP Learning](https://learning.sap.com/courses/using-joule-work)

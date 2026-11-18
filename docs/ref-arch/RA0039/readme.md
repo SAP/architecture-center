@@ -16,12 +16,17 @@ keywords:
   - reltio
   - ontology
   - joule
+  - joule work
+  - joule studio
   - catalog
+  - sap-managed
+  - business ai platform
 image: img/ac-soc-med.png
 tags:
   - ref-arch
   - bdc
   - data
+  - sap-managed
 hide_table_of_contents: false
 hide_title: false
 toc_min_heading_level: 2
@@ -33,7 +38,7 @@ contributors:
   - s-krishnamoorthy
 last_update:
   author: fabianleh
-  date: 2026-10-25
+  date: 2026-11-16
 ---
 ## SAP Business AI Platform
 
