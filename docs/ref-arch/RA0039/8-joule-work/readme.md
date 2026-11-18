@@ -26,9 +26,10 @@ contributors:
   - marvinkl
   - miguelmezamartinez
   - fabianleh
+  - davbizer93
 last_update:
-  author: fabianleh
-  date: 2026-10-22
+  author: davbizer93
+  date: 2026-11-18
 ---
 
 ## Joule Work
