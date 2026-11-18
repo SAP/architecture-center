@@ -28,7 +28,7 @@ contributors:
   - fabianleh
   - davbizer93
 last_update:
-  author: davbizer93
+  author: fabianleh
   date: 2026-11-18
 ---
 
@@ -132,3 +132,13 @@ SAP Signavio provides observability and continuous improvement capabilities for 
 #### SAP LeanIX — AI Agent Hub
 
 The **SAP AI Agent Hub** (powered by SAP LeanIX) is a vendor-agnostic command center for the discovery and governance of AI agents, LLMs, and MCP servers across the enterprise. It maintains a structured, versioned registry of all AI assets grounded in their architecture and business context.
+
+### Related Resources
+
+- [Joule Work documentation](https://help.sap.com/docs/joule-work/services/getting-started-with-joule-work)
+
+- [Joule Work product page](https://www.sap.com/products/joule-work.html)
+
+- [Joule Work playlist](https://www.youtube.com/playlist?list=PLRFmzdHJ8Y2A)
+
+- [Joule Work on SAP Learning](https://learning.sap.com/courses/using-joule-work)
