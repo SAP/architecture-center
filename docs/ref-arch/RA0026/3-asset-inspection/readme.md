@@ -34,10 +34,11 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adelyafatykhova
-  date: 2026-10-26
+  author: rameshvaranganti
+  date: 2026-11-18
 ---
 
 :::info Want to Try Physical AI?
