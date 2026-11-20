@@ -34,10 +34,11 @@ contributors:
   - pra1veenk
   - anbazhagan-uma
   - eagle-dai
+  - rameshvaranganti
 discussion: 
 last_update:
-  author: adelyafatykhova
-  date: 2026-10-26
+  author: rameshvaranganti
+  date: 2026-11-18
 ---
 
 :::info Want to Try Physical AI?
@@ -74,7 +75,7 @@ Inspection "missions" for robots can come from multiple SAP applications.
 These include the following:
 
 1. [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html)
-2. [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-management.html)
+2. [SAP Field Service Management (FSM)](https://www.sap.com/products/scm/field-service-and-asset-management.html)
 
 Observations during the inspection and inspection results can also be stored accordingly in these applications, for human reference and for further use by other digital agents.
 
@@ -98,4 +99,4 @@ Physical AI  for autonomous inspections covers three main skills:
 ## Resources
 
 - [SAP Asset Performance Management (APM)](https://www.sap.com/products/scm/apm.html)
-- [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-management.html)
+- [SAP Field Service and Asset Management (FSA)](https://www.sap.com/products/scm/field-service-and-asset-management.html)
