@@ -9,6 +9,8 @@ export interface PageMetadata {
     authors: string[];
     contributors?: string[];
     description?: string;
+    keywords?: string[];
+    spotlightImage?: { data: string; filename: string };
 }
 
 export interface Document extends PageMetadata {
@@ -25,6 +27,12 @@ export interface Document extends PageMetadata {
     // Dirty flags to track what needs syncing
     _contributorsDirty?: boolean;
     _tagsDirty?: boolean;
+    // Content type — derived from which backend table the document came from
+    isArticle: boolean;
+    // Author profile for new authors not yet in authors.yml — used at publish time
+    newAuthor?: { name: string; title: string; linkedin: string };
+    keywords?: string[];
+    spotlightImage?: { data: string; filename: string };
 }
 
 interface PageDataState {
@@ -39,6 +47,7 @@ interface PageDataState {
     backendUrl: string | null;
     authToken: string | null;
     currentUsername: string | null;
+    sapToken: string | null;
 
     // Getters
     getDocuments: () => Document[];
@@ -47,6 +56,7 @@ interface PageDataState {
 
     // Local actions
     addDocument: (metadata: PageMetadata, parentId?: string | null) => void;
+    addArticle: (metadata: PageMetadata) => void;
     updateDocument: (id: string, updates: Partial<Document>, skipRemoteSync?: boolean) => void;
     setActiveDocumentId: (id: string | null) => void;
     openDocument: (id: string) => void;
@@ -55,11 +65,13 @@ interface PageDataState {
     resetStore: () => void;
 
     // Remote sync actions
-    setBackendConfig: (backendUrl: string, authToken: string, username: string) => void;
+    setBackendConfig: (backendUrl: string, authToken: string, username: string, btpToken?: string | null) => void;
     fetchDocuments: () => Promise<void>;
     syncDocument: (id: string) => Promise<void>;
     syncOperations: (documentId: string, operations: Operation[]) => Promise<string | null>;
+    syncArticleOperations: (articleId: string, operations: Operation[]) => Promise<string | null>;
     createRemoteDocument: (metadata: PageMetadata, parentId?: string | null) => Promise<Document | null>;
+    createRemoteArticle: (metadata: PageMetadata) => Promise<Document | null>;
     deleteRemoteDocument: (id: string) => Promise<void>;
 }
 
@@ -154,6 +166,7 @@ export const usePageDataStore = create<PageDataState>()(
             backendUrl: null,
             authToken: null,
             currentUsername: null,
+            sapToken: null,
 
             getDocuments: () => get().documents,
 
@@ -222,14 +235,14 @@ export const usePageDataStore = create<PageDataState>()(
                 });
             },
 
-            setBackendConfig: (backendUrl, authToken, username) => {
+            setBackendConfig: (backendUrl, authToken, username, btpToken) => {
                 console.log('[PageDataStore] Backend configured:', { backendUrl, hasToken: !!authToken, username });
-                set({ backendUrl, authToken, currentUsername: username });
+                set({ backendUrl, authToken, currentUsername: username, sapToken: btpToken ?? null });
             },
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken, currentUsername, documents: localDocuments } = get();
+                const { backendUrl, authToken, currentUsername } = get();
                 console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
                 if (!backendUrl || !authToken) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
@@ -239,27 +252,29 @@ export const usePageDataStore = create<PageDataState>()(
                 set({ isLoading: true, syncError: null });
 
                 try {
-                    console.log('[PageDataStore] Fetching documents from:', `${backendUrl}/quickstart/document-service/Documents`);
-                    const response = await fetch(
-                        `${backendUrl}/quickstart/document-service/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
-                        {
-                            headers: {
-                                'Authorization': `Bearer ${authToken}`,
-                                'Content-Type': 'application/json',
-                            },
-                        }
-                    );
+                    const [docsResponse, articlesResponse] = await Promise.all([
+                        fetch(
+                            `${backendUrl}/quickstart/document-service/Documents?$expand=author,contributors($expand=user),tags($expand=tag)`,
+                            { headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' } }
+                        ),
+                        fetch(
+                            `${backendUrl}/quickstart/document-service/Articles?$expand=author`,
+                            { headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' } }
+                        ),
+                    ]);
 
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch documents: ${response.statusText}`);
-                    }
+                    if (!docsResponse.ok) throw new Error(`Failed to fetch documents: ${docsResponse.statusText}`);
+                    if (!articlesResponse.ok) throw new Error(`Failed to fetch articles: ${articlesResponse.statusText}`);
 
-                    const data = await response.json();
-                    console.log('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
-                    const remoteDocuments: Document[] = data.value.map((doc: any) => {
+                    const docsData = await docsResponse.json();
+                    const articlesData = await articlesResponse.json();
+
+                    console.log('[PageDataStore] Fetched documents:', docsData.value?.length || 0, 'documents');
+                    console.log('[PageDataStore] Fetched articles:', articlesData.value?.length || 0, 'articles');
+
+                    const remoteDocuments: Document[] = docsData.value.map((doc: any) => {
                         const authorUsername = doc.author?.username;
                         const isAuthor = currentUsername && authorUsername === currentUsername;
-                        // Debug: check for /head corruption in editorState
                         if (doc.editorState && doc.editorState.includes('/head')) {
                             console.error('[PageDataStore] CORRUPTION DETECTED: /head found in editorState for document:', doc.ID, doc.editorState.substring(0, 500));
                         }
@@ -274,31 +289,72 @@ export const usePageDataStore = create<PageDataState>()(
                             authors: authorUsername ? [authorUsername] : [],
                             contributors: doc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
                             tags: doc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
+                            isArticle: false,
                             isReadOnly: !isAuthor,
                             updatedAt: doc.modifiedAt || doc.createdAt || null,
                         };
                     });
 
-                    // Merge local unsynced changes with remote data
+                    const remoteArticles: Document[] = articlesData.value.map((doc: any) => {
+                        const authorUsername = doc.author?.username;
+                        const isAuthor = currentUsername && authorUsername === currentUsername;
+                        return {
+                            id: doc.ID,
+                            _remoteId: doc.ID,
+                            _synced: true,
+                            title: doc.title,
+                            description: doc.description || '',
+                            parentId: null,
+                            editorState: doc.editorState || null,
+                            authors: authorUsername ? [authorUsername] : [],
+                            contributors: [],
+                            tags: [],
+                            isArticle: true,
+                            isReadOnly: !isAuthor,
+                            updatedAt: doc.modifiedAt || doc.createdAt || null,
+                            ...(doc.keywords ? { keywords: JSON.parse(doc.keywords) } : {}),
+                            ...(doc.spotlightImage ? { spotlightImage: JSON.parse(doc.spotlightImage) } : {}),
+                            ...(doc.newAuthor ? { newAuthor: JSON.parse(doc.newAuthor) } : {}),
+                        };
+                    });
+
+                    // Merge local unsynced changes with remote data for ref-arch docs
                     const mergedDocuments = remoteDocuments.map(remoteDoc => {
-                        const localDoc = localDocuments.find(d => d.id === remoteDoc.id);
-                        // If local doc has unsynced changes (editorState differs), prefer local
+                        const localDoc = get().documents.find(d => d.id === remoteDoc.id);
                         if (localDoc && !localDoc._synced && localDoc.editorState) {
                             console.log('[PageDataStore] Preserving local changes for document:', remoteDoc.id);
                             return {
                                 ...remoteDoc,
                                 editorState: localDoc.editorState,
-                                _synced: false, // Mark for sync
+                                _synced: false,
                             };
                         }
                         return remoteDoc;
                     });
 
+                    // Merge local unsynced changes for articles
+                    const mergedArticles = remoteArticles.map(remoteDoc => {
+                        const localDoc = get().documents.find(d => d.id === remoteDoc.id);
+                        if (localDoc && !localDoc._synced && localDoc.editorState) {
+                            console.log('[PageDataStore] Preserving local changes for article:', remoteDoc.id);
+                            return {
+                                ...remoteDoc,
+                                editorState: localDoc.editorState,
+                                _synced: false,
+                                ...(localDoc?.keywords?.length ? { keywords: localDoc.keywords } : {}),
+                                ...(localDoc?.spotlightImage ? { spotlightImage: localDoc.spotlightImage } : {}),
+                                ...(localDoc?.newAuthor ? { newAuthor: localDoc.newAuthor } : {}),
+                            };
+                        }
+                        return remoteDoc;
+                    });
+
+                    const allDocuments = [...mergedDocuments, ...mergedArticles];
+
                     // Also sync any preserved local changes to backend
                     const unsyncedDocs = mergedDocuments.filter(d => !d._synced);
                     if (unsyncedDocs.length > 0) {
                         console.log('[PageDataStore] Syncing', unsyncedDocs.length, 'locally modified documents to backend');
-                        // Sync in background without blocking
                         unsyncedDocs.forEach(doc => {
                             fetch(
                                 `${backendUrl}/quickstart/document-service/Documents(${doc.id})`,
@@ -327,20 +383,56 @@ export const usePageDataStore = create<PageDataState>()(
                         });
                     }
 
+                    const unsyncedArticles = mergedArticles.filter(d => !d._synced);
+                    if (unsyncedArticles.length > 0) {
+                        console.log('[PageDataStore] Syncing', unsyncedArticles.length, 'locally modified articles to backend');
+                        unsyncedArticles.forEach(doc => {
+                            fetch(
+                                `${backendUrl}/quickstart/document-service/Articles(${doc.id})`,
+                                {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`,
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        title: doc.title,
+                                        description: doc.description || null,
+                                        editorState: doc.editorState,
+                                        keywords: doc.keywords?.length ? JSON.stringify(doc.keywords) : null,
+                                        spotlightImage: doc.spotlightImage ? JSON.stringify(doc.spotlightImage) : null,
+                                        newAuthor: doc.newAuthor ? JSON.stringify(doc.newAuthor) : null,
+                                    }),
+                                }
+                            ).then(() => {
+                                console.log('[PageDataStore] Synced local changes for article:', doc.id);
+                                set(state => ({
+                                    documents: state.documents.map(d =>
+                                        d.id === doc.id ? { ...d, _synced: true } : d
+                                    )
+                                }));
+                            }).catch(err => {
+                                console.error('[PageDataStore] Failed to sync local article changes:', err);
+                            });
+                        });
+                    }
+
                     set({
-                        documents: mergedDocuments,
+                        documents: allDocuments,
                         activeDocumentId: (() => {
-                            // Prioritize "My Documents" (non-read-only) over "Shared with me" (read-only)
-                            const myDocs = mergedDocuments.filter(d => d.parentId === null && !d.isReadOnly);
+                            const prevActiveId = get().activeDocumentId;
+                            if (prevActiveId && allDocuments.find(d => d.id === prevActiveId)) {
+                                return prevActiveId;
+                            }
+                            const myDocs = allDocuments.filter(d => d.parentId === null && !d.isReadOnly);
                             if (myDocs.length > 0) return myDocs[0].id;
-                            // Fallback to shared documents if no owned documents
-                            const sharedDocs = mergedDocuments.filter(d => d.parentId === null && d.isReadOnly);
+                            const sharedDocs = allDocuments.filter(d => d.parentId === null && d.isReadOnly);
                             if (sharedDocs.length > 0) return sharedDocs[0].id;
-                            return mergedDocuments.length > 0 ? mergedDocuments[0].id : null;
+                            return allDocuments.length > 0 ? allDocuments[0].id : null;
                         })(),
-                        openDocumentIds: mergedDocuments.filter(d => d.parentId === null).slice(0, 1).map(d => d.id),
+                        openDocumentIds: allDocuments.filter(d => d.parentId === null).slice(0, 1).map(d => d.id),
                         isLoading: false,
-                        lastSaveTimestamp: data.value?.[0]?.modifiedAt || data.value?.[0]?.createdAt || new Date().toISOString(),
+                        lastSaveTimestamp: new Date().toISOString(),
                     });
                 } catch (error) {
                     console.error('Error fetching documents:', error);
@@ -353,7 +445,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Sync a single document to remote (debounced auto-save)
             syncDocument: async (id: string) => {
-                const { backendUrl, authToken, documents } = get();
+                const { backendUrl, authToken, sapToken, documents } = get();
                 console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl, hasToken: !!authToken });
                 if (!backendUrl || !authToken) return;
 
@@ -369,6 +461,51 @@ export const usePageDataStore = create<PageDataState>()(
                 syncTimeout = setTimeout(async () => {
                     console.log('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
+
+                    // Articles live in a separate backend table — sync them there
+                    if (doc.isArticle) {
+                        try {
+                            const patchResponse = await fetch(
+                                `${backendUrl}/quickstart/document-service/Articles(${doc.id})`,
+                                {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`,
+                                        'Content-Type': 'application/json',
+                                        ...(sapToken ? { 'x-sap-token': sapToken } : {}),
+                                    },
+                                    body: JSON.stringify({
+                                        title: doc.title,
+                                        description: doc.description || null,
+                                        editorState: doc.editorState,
+                                        keywords: doc.keywords?.length ? JSON.stringify(doc.keywords) : null,
+                                        spotlightImage: doc.spotlightImage ? JSON.stringify(doc.spotlightImage) : null,
+                                        newAuthor: doc.newAuthor ? JSON.stringify(doc.newAuthor) : null,
+                                    }),
+                                }
+                            );
+
+                            if (!patchResponse.ok) {
+                                throw new Error(`Failed to sync article: ${patchResponse.statusText}`);
+                            }
+
+                            set((state) => ({
+                                documents: state.documents.map((d) =>
+                                    d.id === id ? { ...d, _synced: true } : d
+                                ),
+                                isSyncing: false,
+                                lastSaveTimestamp: new Date().toISOString(),
+                                syncError: null,
+                            }));
+                        } catch (error) {
+                            console.error('Error syncing article:', error);
+                            set({
+                                isSyncing: false,
+                                syncError: error instanceof Error ? error.message : 'Failed to sync',
+                            });
+                        }
+                        return;
+                    }
 
                     try {
                         // 1. PATCH basic document fields (title, description, editorState)
@@ -526,19 +663,70 @@ export const usePageDataStore = create<PageDataState>()(
                 }
             },
 
+            syncArticleOperations: async (articleId: string, operations: Operation[]): Promise<string | null> => {
+                const { backendUrl, authToken, sapToken, syncDocument } = get();
+                if (!backendUrl || !authToken || operations.length === 0) return null;
+
+                set({ isSyncing: true });
+
+                try {
+                    const serializedOps = operations.map(op => ({
+                        ...op,
+                        payload: typeof op.payload === 'string' ? op.payload : JSON.stringify(op.payload),
+                    }));
+
+                    const response = await fetch(
+                        `${backendUrl}/quickstart/document-service/syncArticleOperations`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${authToken}`,
+                                'Content-Type': 'application/json',
+                                ...(sapToken ? { 'x-sap-token': sapToken } : {}),
+                            },
+                            body: JSON.stringify({
+                                articleId,
+                                operations: serializedOps,
+                            }),
+                        }
+                    );
+
+                    if (!response.ok) throw new Error('Article operations sync failed');
+
+                    const result = await response.json();
+
+                    if (result.appliedCount === 0 && operations.length > 0) {
+                        console.warn('[PageDataStore] No article operations applied, falling back to full sync');
+                        throw new Error('No operations applied - backend state may be invalid');
+                    }
+
+                    set({
+                        isSyncing: false,
+                        lastSaveTimestamp: new Date().toLocaleString(),
+                        syncError: null,
+                    });
+
+                    return result.lastOpId || null;
+                } catch (error) {
+                    console.warn('Article operation sync failed, falling back to full state sync:', error);
+                    await syncDocument(articleId);
+                    set({ isSyncing: false });
+                    return null;
+                }
+            },
+
             // Create a new document on remote
             createRemoteDocument: async (metadata, parentId = null) => {
                 const { backendUrl, authToken, openDocumentIds } = get();
                 if (!backendUrl || !authToken) {
-                    // Fallback to local-only
                     const newDocument: Document = {
                         ...metadata,
                         id: uuidv4(),
                         editorState: null,
                         parentId,
+                        isArticle: false,
                         _synced: false,
                     };
-                    // If it's a root document, add to open tabs
                     const newOpenIds = parentId === null
                         ? [...openDocumentIds, newDocument.id]
                         : openDocumentIds;
@@ -591,10 +779,10 @@ export const usePageDataStore = create<PageDataState>()(
                         authors: remoteDoc.author ? [remoteDoc.author.username] : metadata.authors,
                         contributors: remoteDoc.contributors?.map((c: any) => c.user?.username).filter(Boolean) || [],
                         tags: remoteDoc.tags?.map((t: any) => t.tag?.code).filter(Boolean) || [],
+                        isArticle: false,
                     };
 
                     set((state) => {
-                        // If it's a root document, add to open tabs
                         const newOpenIds = newDocument.parentId === null
                             ? [...state.openDocumentIds, newDocument.id]
                             : state.openDocumentIds;
@@ -618,12 +806,101 @@ export const usePageDataStore = create<PageDataState>()(
                 }
             },
 
+            // Create a new article on remote
+            createRemoteArticle: async (metadata) => {
+                const { backendUrl, authToken, sapToken, openDocumentIds } = get();
+                if (!backendUrl || !authToken) {
+                    const newArticle: Document = {
+                        ...metadata,
+                        id: uuidv4(),
+                        editorState: null,
+                        parentId: null,
+                        isArticle: true,
+                        _synced: false,
+                    };
+                    set((state) => ({
+                        documents: [...state.documents, newArticle],
+                        activeDocumentId: newArticle.id,
+                        openDocumentIds: [...openDocumentIds, newArticle.id],
+                        lastSaveTimestamp: new Date().toLocaleString(),
+                    }));
+                    return newArticle;
+                }
+
+                set({ isCreating: true, syncError: null });
+
+                try {
+                    const response = await fetch(
+                        `${backendUrl}/quickstart/document-service/createNewArticle`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${authToken}`,
+                                'Content-Type': 'application/json',
+                                ...(sapToken ? { 'x-sap-token': sapToken } : {}),
+                            },
+                            body: JSON.stringify({
+                                title: metadata.title,
+                                description: metadata.description || null,
+                                editorState: '',
+                                keywords: (metadata as any).keywords?.length ? JSON.stringify((metadata as any).keywords) : null,
+                                spotlightImage: (metadata as any).spotlightImage ? JSON.stringify((metadata as any).spotlightImage) : null,
+                                newAuthor: (metadata as any).newAuthor ? JSON.stringify((metadata as any).newAuthor) : null,
+                            }),
+                        }
+                    );
+
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.error?.message || `Failed to create article: ${response.statusText}`);
+                    }
+
+                    const remoteDoc = await response.json();
+
+                    const newArticle: Document = {
+                        id: remoteDoc.ID,
+                        _remoteId: remoteDoc.ID,
+                        _synced: true,
+                        title: remoteDoc.title,
+                        description: remoteDoc.description || '',
+                        parentId: null,
+                        editorState: remoteDoc.editorState || null,
+                        authors: remoteDoc.author ? [remoteDoc.author.username] : metadata.authors,
+                        contributors: [],
+                        tags: [],
+                        isArticle: true,
+                        ...((metadata as any).keywords?.length ? { keywords: (metadata as any).keywords } : {}),
+                        ...((metadata as any).spotlightImage ? { spotlightImage: (metadata as any).spotlightImage } : {}),
+                        ...((metadata as any).newAuthor ? { newAuthor: (metadata as any).newAuthor } : {}),
+                    };
+
+                    set((state) => ({
+                        documents: [...state.documents, newArticle],
+                        activeDocumentId: newArticle.id,
+                        openDocumentIds: [...state.openDocumentIds, newArticle.id],
+                        lastSaveTimestamp: new Date().toISOString(),
+                        isCreating: false,
+                    }));
+
+                    return newArticle;
+                } catch (error) {
+                    console.error('Error creating article:', error);
+                    set({
+                        isCreating: false,
+                        syncError: error instanceof Error ? error.message : 'Failed to create article',
+                    });
+                    return null;
+                }
+            },
+
             // Delete document from remote
             deleteRemoteDocument: async (id: string) => {
-                const { backendUrl, authToken, getRootDocumentId } = get();
+                const { backendUrl, authToken, sapToken, getRootDocumentId } = get();
 
-                // Get root ID before deletion
+                // Get root ID and isArticle before deletion (state is wiped in the set() below)
                 const rootId = getRootDocumentId(id);
+                const docToDelete = get().documents.find(d => d.id === id);
+                const isArticle = docToDelete?.isArticle ?? false;
 
                 // Always delete locally first
                 set((state) => {
@@ -634,7 +911,11 @@ export const usePageDataStore = create<PageDataState>()(
                         : state.openDocumentIds;
                     let newActiveId = state.activeDocumentId;
                     if (state.activeDocumentId === id) {
-                        newActiveId = newOpenIds.length > 0 ? newOpenIds[0] : (docsToKeep.length > 0 ? docsToKeep[0].id : null);
+                        // Find the type of the deleted document to avoid jumping editor types
+                        const deletedRootDoc = state.documents.find(d => d.id === (rootId || id));
+                        const deletedIsArticle = deletedRootDoc?.isArticle;
+                        const sameTypeRoots = docsToKeep.filter(d => d.parentId === null && d.isArticle === deletedIsArticle);
+                        newActiveId = sameTypeRoots.length > 0 ? sameTypeRoots[0].id : null;
                     }
                     return {
                         documents: docsToKeep,
@@ -647,21 +928,22 @@ export const usePageDataStore = create<PageDataState>()(
                 // Then delete from remote if configured
                 if (backendUrl && authToken) {
                     try {
-                        const response = await fetch(
-                            `${backendUrl}/quickstart/document-service/Documents(${id})`,
-                            {
-                                method: 'DELETE',
-                                headers: {
-                                    'Authorization': `Bearer ${authToken}`,
-                                },
-                            }
-                        );
+                        const endpoint = isArticle
+                            ? `${backendUrl}/quickstart/document-service/Articles(${id})`
+                            : `${backendUrl}/quickstart/document-service/Documents(${id})`;
+                        const response = await fetch(endpoint, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${authToken}`,
+                                ...(isArticle && sapToken ? { 'x-sap-token': sapToken } : {}),
+                            },
+                        });
 
                         if (!response.ok && response.status !== 404) {
-                            console.error('Failed to delete document from remote:', response.statusText);
+                            console.error('Failed to delete from remote:', response.statusText);
                         }
                     } catch (error) {
-                        console.error('Error deleting document from remote:', error);
+                        console.error('Error deleting from remote:', error);
                     }
                 }
             },
@@ -670,6 +952,11 @@ export const usePageDataStore = create<PageDataState>()(
             addDocument: (metadata, parentId = null) => {
                 const { createRemoteDocument } = get();
                 createRemoteDocument(metadata, parentId);
+            },
+
+            addArticle: (metadata) => {
+                const { createRemoteArticle } = get();
+                createRemoteArticle(metadata);
             },
 
             // Update document locally and optionally trigger sync
@@ -733,6 +1020,7 @@ export const usePageDataStore = create<PageDataState>()(
                 documents: state.documents,
                 lastSaveTimestamp: state.lastSaveTimestamp,
                 openDocumentIds: state.openDocumentIds,
+                activeDocumentId: state.activeDocumentId,
             }),
         }
     )
