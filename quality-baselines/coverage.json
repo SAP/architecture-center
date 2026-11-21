@@ -1,0 +1,10 @@
+{
+    "version": 1,
+    "description": "Maximum uncovered items from Jest coverage, updated whenever coverage improves.",
+    "uncovered": {
+        "branches": 5126,
+        "functions": 1304,
+        "lines": 8156,
+        "statements": 8769
+    }
+}
