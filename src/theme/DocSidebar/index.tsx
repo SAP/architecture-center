@@ -22,6 +22,7 @@ import {
   findDocIdFromPath,
   docExistsInArchivedView,
   docExistsInRecentlyUpdatedView,
+  docExistsInPartnerView,
   findDocByPath,
   computeFilteredResults,
   findDomainsContainingPath,
@@ -223,15 +224,12 @@ export default function DocSidebarWrapper(props) {
       const currentPartners = useSidebarFilterStore.getState().partners;
 
       if (currentPartners.length > 0) {
-        const docTags = tagsDocId[docId]?.tags || [];
+        // Check if document exists in partner-filtered view (including as container category)
+        const freshShowArchived = useSidebarFilterStore.getState().showArchived;
+        const existsInPartnerView = docExistsInPartnerView(location.pathname, props.sidebar, tagsDocId, currentPartners, freshShowArchived);
 
-        // Check if current document has ANY of the active partner tags
-        const hasMatchingPartner = currentPartners.some(partner =>
-          docTags.some((tag: string) => tag.toLowerCase().includes(partner.toLowerCase()))
-        );
-
-        // If document matches partners, keep them active and sync URL
-        if (hasMatchingPartner) {
+        if (existsInPartnerView) {
+          // Keep filter active and sync URL
           const urlParams = new URLSearchParams(location.search);
           if (!urlParams.get('partners')) {
             urlParams.set('partners', currentPartners.join(','));

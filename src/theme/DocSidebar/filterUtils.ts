@@ -819,6 +819,34 @@ export function docExistsInRecentlyUpdatedView(
   return false;
 }
 
+// Check if a document exists in the partner-filtered sidebar view (as a parent category as well)
+export function docExistsInPartnerView(
+  pathname: string,
+  sidebar: SidebarItem[],
+  tagsDocId: DocIdToTagsMap,
+  partners: string[],
+  showArchived: boolean = false
+): boolean {
+  if (!partners.length) return true;
+
+  // Check if the document appears in the filtered view (e.g., as a parent category)
+  const filteredResults = computeFilteredResults(sidebar, tagsDocId, {
+    showArchived,
+    partners,
+    showCommunityContent: false,
+    showRecentlyUpdated: false
+  });
+
+  // Check if path exists in any domain's filtered items
+  for (const items of Object.values(filteredResults)) {
+    if (findItemByPath(items, pathname)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // Find which domains contain a document in the filtered/grouped results
 export function findDomainsContainingPath(
   pathname: string,
