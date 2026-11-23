@@ -7,12 +7,20 @@ on:
     branches: [dev]
     paths:
       - '**.drawio'
+      - 'src/_scripts/_export-drawios/**'
+      - 'src/_scripts/_update-drawio-links.js'
+      - 'src/_scripts/_update-drawio-links.test.js'
+      - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
   push:
     branches: [dev]
     paths:
       - '**.drawio'
+      - 'src/_scripts/_export-drawios/**'
+      - 'src/_scripts/_update-drawio-links.js'
+      - 'src/_scripts/_update-drawio-links.test.js'
+      - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
 
@@ -25,7 +33,7 @@ jobs:
   check-drawio-file:
     name: Check drawio Files
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -42,6 +50,39 @@ jobs:
         with:
           pathspec: '.'
           filter-regex: '\.drawio$'
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Test Draw.io artifact pipeline
+        run: |
+          node --check src/_scripts/_export-drawios/_export.js
+          node --test src/_scripts/_export-drawios/*.test.js src/_scripts/_update-drawio-links.test.js
+
+      - name: Verify hardened Draw.io exporter
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          # Resolve a diff base that works for both pull_request (base ref set)
+          # and push to dev (base ref empty: use the pushed-from commit, else HEAD^).
+          if [ -n "${GITHUB_BASE_REF}" ]; then
+            RANGE="origin/${GITHUB_BASE_REF}...HEAD"
+          elif [ -n "${BEFORE_SHA}" ] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            RANGE="${BEFORE_SHA}...HEAD"
+          else
+            RANGE="HEAD^...HEAD"
+          fi
+          # Run the real Docker smoke test only when the exporter or deploy wiring
+          # changed; otherwise the lighter unit test suffices.
+          if git diff --quiet "${RANGE}" -- \
+              src/_scripts/_export-drawios \
+              .github/workflows/deploy-to-cloudflare.yml; then
+            node --test src/_scripts/_export-drawios/docker-export.test.js
+          else
+            DRAWIO_DOCKER_SMOKE=1 node --test src/_scripts/_export-drawios/docker-export.test.js
+          fi
 
       - name: List changed drawio files
         id: list
