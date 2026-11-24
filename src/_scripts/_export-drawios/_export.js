@@ -35,7 +35,9 @@ const cacheEnabled = Boolean(Number(CACHE_ENABLED));
 
 const drawioCache = new DrawioCache({
     isEnabled: cacheEnabled,
-    cacheDir: `${homedir()}/.cache/architecture-center/drawio-svgs`
+    // Allow redirecting the cache (e.g. to an isolated dir in the e2e fixture)
+    // so a test run never reads or pollutes the developer's real cache.
+    cacheDir: process.env.DRAWIO_CACHE_DIR || `${homedir()}/.cache/architecture-center/drawio-svgs`
 });
 const logoSvg = readFileSync(SAP_LOGO, 'utf8');
 const renderContexts = new Map();
