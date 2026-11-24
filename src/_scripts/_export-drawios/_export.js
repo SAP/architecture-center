@@ -9,6 +9,7 @@ const DrawioCache = require('./drawio-cache');
 const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
+const { xmlEscape, toThumbnailFileName } = require('./sanitize');
 
 const log = console.log;
 
@@ -55,17 +56,21 @@ function getRendererIdentity() {
 }
 
 function getPipelineIdentity() {
-    // Only consumed by the cache fingerprint. Skip the I/O (and the hard
-    // dependency on package-lock.json, whose absence would otherwise abort a
-    // non-cache run with ENOENT) when caching is disabled, mirroring
-    // getRendererIdentity() above.
+    // Only consumed by the cache fingerprint. Skip the hashing I/O when caching
+    // is disabled, mirroring getRendererIdentity() above.
+    //
+    // Deliberately NOT hashing package-lock.json: every release bumps its
+    // version field, which would needlessly bust the whole drawio cache. The
+    // dependencies that actually affect output are already fingerprinted at a
+    // finer grain (rendererIdentity for the drawio engine, qrCodeVersion for
+    // the QR library), and any pipeline change edits the source files below.
     if (!cacheEnabled) return 'cache-disabled';
     const sourceFiles = [
         __filename,
-        join(ROOT, 'package-lock.json'),
         require.resolve('./drawio-cache'),
         require.resolve('./drawio-fingerprint'),
         require.resolve('./export-batch'),
+        require.resolve('./sanitize'),
     ];
     const dockerExporterPath = join(__dirname, 'docker-export.js');
     if (existsSync(dockerExporterPath)) sourceFiles.push(dockerExporterPath);
@@ -275,7 +280,7 @@ async function watermarkAll() {
             const qrSize = 33 * 2.4 * scaleDown;
 
             const mark = `<text id="drawio-title" x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(27 * scaleDown)}">
-                            <![CDATA[${title}]]>
+                            ${xmlEscape(title)}
                         </text>
                         <g transform="translate(0, ${yShift})">
                         <text x="${textX}" y="${(logo.y + Math.round(logo.h * 0.5))}" font-family="Arial" font-weight="bold"
@@ -284,14 +289,14 @@ async function watermarkAll() {
                         </text>
                         <text x="${textX}" y="${logo.y + Math.round(logo.h * 0.9)}" font-family="Arial" font-style="italic"
                                 font-size="${Math.round(17 * scaleDown)}">
-                            Last update on ${lastUpdated}
+                            Last update on ${xmlEscape(lastUpdated)}
                         </text>
                         <g transform="translate(0, ${logo.y})">
                             <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
                         </g>
                         <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
                                 font-size="${Math.round(20 * scaleDown)}">
-                            ${smallSlug}
+                            ${xmlEscape(smallSlug)}
                         </text>
                         </g>
                         <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${2.4 * scaleDown})">
@@ -329,6 +334,9 @@ async function watermarkAll() {
 async function generateArtifacts() {
     const allArtifacts = [];
     const failures = [];
+    // Guards against two RAs whose titles normalize to the same thumbnail
+    // filename silently overwriting each other (and cross-wiring data.json).
+    const usedThumbnailNames = new Map();
     const refArchRoot = ROOT + '/docs/ref-arch';
     let topLevelRADirs = readdirSync(refArchRoot, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('RA') && dirent.name !== 'RA0000')
@@ -406,8 +414,24 @@ async function generateArtifacts() {
                 title = 'SAP Business Data Cloud: ' + title;
             }
 
-            const titleAsFileName = title.toLowerCase().replace(/[\s/]+/g, '-').replace(/:/g, '');
+            // Derive the thumbnail filename from the (untrusted) title. Collapse
+            // whitespace AND both path separators ("/" and Windows "\") so no
+            // separator survives — which also makes any ".." inert and keeps the
+            // name a single path segment on every platform.
+            const titleAsFileName = toThumbnailFileName(title);
+            if (usedThumbnailNames.has(titleAsFileName)) {
+                throw new Error(
+                    `Thumbnail filename collision: "${dirName}" and "${usedThumbnailNames.get(titleAsFileName)}" `
+                    + `both normalize to "${titleAsFileName}.svg". Give the reference architectures distinct titles.`
+                );
+            }
+            usedThumbnailNames.set(titleAsFileName, dirName);
             const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
+            // Reject a symlink/non-regular target and confirm the resolved path
+            // stays inside THUMBNAILS_DIR before writing: the filename is
+            // attacker-influenced, so a committed symlink here must not be
+            // followed into an arbitrary file.
+            validateOutputPath(thumbnailSvgPath, THUMBNAILS_DIR);
 
             // Copy the watermarked SVG to the thumbnails directory
             const watermarkedSvgContent = readFileSync(svgThumbnailSourcePath, 'utf8');

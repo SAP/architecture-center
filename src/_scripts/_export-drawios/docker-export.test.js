@@ -42,6 +42,10 @@ test('pins and isolates the Draw.io container', () => {
     assert.ok(args.includes('--network=none'));
     assert.ok(args.includes('--cap-drop=ALL'));
     assert.ok(args.includes('--security-opt=no-new-privileges:true'));
+    assert.ok(args.includes('--pids-limit=256'));
+    assert.ok(args.includes('--memory=2g'));
+    assert.ok(args.includes('--memory-swap=2g'));
+    assert.ok(args.includes('--cpus=2'));
     assert.ok(args.includes('--user=1001:127'));
     assert.ok(!args.includes('--privileged'));
     assert.ok(!args.some((value) => value.includes('/var/run/docker.sock')));
