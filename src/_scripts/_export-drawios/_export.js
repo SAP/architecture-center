@@ -1,4 +1,4 @@
-const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, rmSync } = require('node:fs');
+const { readdirSync, readFileSync, writeFileSync, existsSync, rmSync } = require('node:fs');
 const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join, relative, sep } = require('node:path');
 const { homedir } = require('node:os');
@@ -186,20 +186,23 @@ function getCacheFingerprint(drawioPath) {
     return cacheEnabled ? getRenderContext(drawioPath).fingerprint : null;
 }
 
-// Validate an output's resolved parent is within docs/ and the target is a
-// regular (non-symlink) file BEFORE deleting it, so a symlinked `images/` dir
-// cannot trick cleanup into removing a file outside the repo. Reuses the
-// exporter's own guard, and runs the check ahead of the delete (unlike the
-// DOCKER export path, which only validated inside exportOne, after cleanup).
+// Check directory ancestry against the trusted checkout before creating any
+// children, and reject symlink/non-regular destinations for both fresh exports
+// and cached restores. Cache hits must never bypass this guard.
+function prepareOutputPath(output) {
+    ensureOutputDirectory(dirname(output), ROOT);
+    return validateOutputPath(output, join(ROOT, 'docs'));
+}
+
 function safeCleanOutput(output) {
-    validateOutputPath(output, join(ROOT, 'docs'));
+    prepareOutputPath(output);
     rmSync(output, { force: true });
 }
 
 // Export all drawios to svgs
 function exportAllDrawios() {
     const jobs = Object.entries(transforms).map(([input, output]) => ({ input, output }));
-    jobs.forEach(({ output }) => mkdirSync(dirname(output), { recursive: true }));
+    jobs.forEach(({ output }) => prepareOutputPath(output));
 
     runExportBatch({
         jobs,
@@ -248,6 +251,7 @@ async function watermarkAll() {
         const cacheFingerprint = getCacheFingerprint(drawioPath);
 
         if (drawioCache.isValid(drawioPath, cacheFingerprint)) {
+            prepareOutputPath(svgPath);
             if (drawioCache.restore(drawioPath, svgPath)) {
                 log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
                 continue;

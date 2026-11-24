@@ -5,12 +5,14 @@ const {
     copyFileSync,
     cpSync,
     existsSync,
+    lstatSync,
     mkdirSync,
     mkdtempSync,
     readFileSync,
     readdirSync,
     realpathSync,
     rmSync,
+    symlinkSync,
     writeFileSync,
 } = require('node:fs');
 const { tmpdir } = require('node:os');
@@ -20,6 +22,8 @@ const { pathToFileURL } = require('node:url');
 // The normal unit-test glob needs no npm dependencies or running Docker daemon.
 // Opt in with npm run test:drawio:e2e after installing the project dependencies.
 const enabled = process.env.DRAWIO_EXPORT_E2E === '1';
+const subprocessTimeout = 120000;
+const failureTestTimeout = subprocessTimeout + 60000;
 const sourceRoot = resolve(__dirname, '../../..');
 const baseUrl = 'https://architecture.learning.sap.com';
 const initialDate = '2026-01-02T00:15:00+00:00';
@@ -157,10 +161,9 @@ function makeFixture(t, documents = architectures) {
             cwd: root,
             env: { ...env, ...extraEnv },
             encoding: 'utf8',
-            // Generous: the first run may cold-pull the ~1 GB renderer image before
-            // rendering. Keep below the per-test timeouts so a genuine hang still
-            // surfaces as a killed subprocess rather than a bare test timeout.
-            timeout: 300000,
+            // CI pre-pulls the renderer image. Leave time within the enclosing
+            // test for assertions and cleanup if this subprocess is interrupted.
+            timeout: subprocessTimeout,
             maxBuffer: 10 * 1024 * 1024,
         });
         rendererInterrupted ||= Boolean(result.error || result.signal);
@@ -226,6 +229,13 @@ function assertSuccessfulExport(fixture, documents, dates = {}) {
         });
         return svg;
     }));
+}
+
+function warmCacheBeforeUnsafeDestination(fixture) {
+    const first = fixture.export();
+    assert.equal(first.status, 0, first.output);
+    assert.ok(existsSync(join(fixture.cache, 'manifest.json')), 'Warm the private cache before changing the destination.');
+    rmSync(join(fixture.root, 'static', 'artifacts'), { recursive: true });
 }
 
 async function buildAndResolveLinks(fixture, documents) {
@@ -335,10 +345,89 @@ test('Draw.io export completes rendering, watermarking, assets, and cache invali
     assert.equal(updatedAssets[1].drawioLink, initialAssets[1].drawioLink, 'Unchanged source keeps its download URL.');
 });
 
+test('cached Draw.io export rejects an images directory symlink without overwriting external files', {
+    skip: !enabled,
+    timeout: 3 * subprocessTimeout,
+}, (t) => {
+    const fixture = makeFixture(t, [architectures[0]]);
+    warmCacheBeforeUnsafeDestination(fixture);
+    const outsideDirectory = join(dirname(fixture.root), 'outside-checkout');
+    mkdirSync(outsideDirectory);
+    const outsideSvg = join(outsideDirectory, 'architecture.svg');
+    const sentinel = '<svg>External content must stay untouched</svg>';
+    writeFileSync(outsideSvg, sentinel);
+    const imagesDirectory = dirname(fixture.svgPath('RA9001'));
+    rmSync(imagesDirectory, { recursive: true });
+    symlinkSync(outsideDirectory, imagesDirectory, 'dir');
+
+    const result = fixture.export();
+    assert.equal(result.status, 1, result.output);
+    assert.match(result.output, /non-symlink directory/);
+    assert.equal(readFileSync(outsideSvg, 'utf8'), sentinel, 'Reject the cache restore before overwriting the external SVG.');
+    assert.deepEqual(readdirSync(outsideDirectory), ['architecture.svg'], 'Do not create external temporary files.');
+    assert.ok(lstatSync(imagesDirectory).isSymbolicLink());
+    assert.equal(existsSync(fixture.indexPath), false, 'Do not publish artifacts after rejecting the destination.');
+});
+
+test('cached Draw.io export rejects a symlinked docs ancestor before creating an external images directory', {
+    skip: !enabled,
+    timeout: 3 * subprocessTimeout,
+}, (t) => {
+    const fixture = makeFixture(t, [architectures[0]]);
+    warmCacheBeforeUnsafeDestination(fixture);
+    const docsDirectory = join(fixture.root, 'docs');
+    const outsideDocs = join(dirname(fixture.root), 'outside-docs');
+    cpSync(docsDirectory, outsideDocs, { recursive: true });
+    const outsideImages = join(outsideDocs, 'ref-arch', 'RA9001', 'images');
+    rmSync(outsideImages, { recursive: true });
+    const sentinelPath = join(outsideDocs, 'sentinel.txt');
+    writeFileSync(sentinelPath, 'Preserve external files');
+    const originalFiles = readdirSync(outsideDocs, { recursive: true }).sort();
+    rmSync(docsDirectory, { recursive: true });
+    symlinkSync(outsideDocs, docsDirectory, 'dir');
+
+    const result = fixture.export();
+    assert.equal(result.status, 1, result.output);
+    assert.match(result.output, /non-symlink directory/);
+    assert.equal(existsSync(outsideImages), false, 'Validate ancestry before mkdir can create external children.');
+    assert.deepEqual(readdirSync(outsideDocs, { recursive: true }).sort(), originalFiles);
+    assert.equal(readFileSync(sentinelPath, 'utf8'), 'Preserve external files');
+    assert.ok(lstatSync(docsDirectory).isSymbolicLink());
+    assert.equal(existsSync(fixture.indexPath), false);
+});
+
+for (const targetExists of [false, true]) {
+    test('cached Draw.io export rejects a ' + (targetExists ? 'live' : 'dangling') + ' output-file symlink', {
+        skip: !enabled,
+        timeout: 3 * subprocessTimeout,
+    }, (t) => {
+        const fixture = makeFixture(t, [architectures[0]]);
+        warmCacheBeforeUnsafeDestination(fixture);
+        const outsideDirectory = join(dirname(fixture.root), 'outside-checkout');
+        mkdirSync(outsideDirectory);
+        const outsideSvg = join(outsideDirectory, 'architecture.svg');
+        const sentinel = '<svg>Preserve the external target</svg>';
+        if (targetExists) writeFileSync(outsideSvg, sentinel);
+        const originalFiles = readdirSync(outsideDirectory);
+        const svgPath = fixture.svgPath('RA9001');
+        rmSync(svgPath);
+        symlinkSync(outsideSvg, svgPath);
+
+        const result = fixture.export();
+        assert.equal(result.status, 1, result.output);
+        assert.match(result.output, /regular, non-symlink file/);
+        assert.equal(existsSync(outsideSvg), targetExists);
+        if (targetExists) assert.equal(readFileSync(outsideSvg, 'utf8'), sentinel);
+        assert.deepEqual(readdirSync(outsideDirectory), originalFiles);
+        assert.ok(lstatSync(svgPath).isSymbolicLink(), 'Leave the rejected destination untouched.');
+        assert.equal(existsSync(fixture.indexPath), false);
+    });
+}
+
 for (const missingField of ['title', 'slug']) {
     test('Draw.io export fails without artifact metadata when ' + missingField + ' is missing', {
         skip: !enabled,
-        timeout: 180000,
+        timeout: failureTestTimeout,
     }, (t) => {
         const fixture = makeFixture(t, [{ ...architectures[0], [missingField]: undefined }]);
         fixture.write('docs/ref-arch/RA9001/images/architecture.svg', '<svg>stale output</svg>');
@@ -352,7 +441,7 @@ for (const missingField of ['title', 'slug']) {
 
 test('Draw.io export fails without publishing artifacts for an invalid diagram', {
     skip: !enabled,
-    timeout: 180000,
+    timeout: failureTestTimeout,
 }, (t) => {
     const fixture = makeFixture(t, [architectures[0]]);
     fixture.write('docs/ref-arch/RA9001/drawio/architecture.drawio', 'This is not a Draw.io document.');
