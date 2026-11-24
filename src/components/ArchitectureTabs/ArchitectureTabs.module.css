@@ -69,6 +69,11 @@
     color: white;
 }
 
+.tabButton:focus-visible {
+    outline: 3px solid var(--ifm-color-primary);
+    outline-offset: 3px;
+}
+
 .tabButton.activeTab {
     color: white !important;
 }
@@ -324,6 +329,14 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--ifm-color-warning);
+}
+
+/* Light theme: the default warning orange is too pale to read on the light
+   panel, so use a darker burnt-orange and slightly stronger pill outline. */
+[data-theme='light'] .loginBadge {
+    color: #d9730d;
+    background: rgba(217, 115, 13, 0.08);
+    border-color: rgba(217, 115, 13, 0.35);
 }
 
 .authenticatedBadge {

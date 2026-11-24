@@ -195,7 +195,6 @@ In addition, agent permissions can be more restrictive than the user’s permiss
 
 <div className="faq-q"><strong>Deterministic UI Coexistence</strong></div>
 <!-- Question 7 August/September 2026-->
-<a id="question-7"></a>
 <div className="faq-q">
 <strong>Q:</strong> AI and Trust: From a business perspective, there is a need for a user interface alongside Joule Work that works entirely without AI. Business users must be able to verify what is stored in the underlying systems and ensure that information has not been distorted by AI. There are concerns that established SAP UI technologies, especially Fiori, may be deprioritized in favor of Joule Work.<br/>
 Consumer AI has produced many implausible or incorrect results. Regardless of whether the concern is objectively justified, enterprises fear that SAP AI could similarly create unreliable or hallucinated information, or that users could receive incorrect results because prompts were not precise enough. To build trust, a stable, deterministic UI is required alongside AI-driven interaction. If SAP advocates the coexistence of Fiori and Joule, this should be reflected clearly in the product strategy.
@@ -214,7 +213,7 @@ For repeatable, transactional, regulated, or training-intensive tasks, stable ap
 </div>
 
 <div className="faq-a">
-<strong>A:</strong> See also [Question on Dynamic and Deterministic UI](#question-7). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
+<strong>A:</strong> See also [Question on Dynamic and Deterministic UI](#dynamic-and-deterministic-ui). Joule Work should be understood as an experience and orchestration layer above applications, not as an automatic replacement for every existing application UI. The practical product roadmap and investment balance for each application area individually remain essential for customer confidence and adoption.
 The SAP Fiori design system remains part of SAP's [AI Golden Path](/docs/golden-path/ai-golden-path/2-build-and-deliver/3-genai-applications/readme.md) for application development, alongside CAP and ABAP Cloud. 
 </div>
 

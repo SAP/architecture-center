@@ -323,6 +323,12 @@ export const configRedirects = {
             from: '/docs/ref-arch/20c6b29b1e/3',
             to: '/docs/ref-arch/d9c3e6',
         },
+        // Joule landscape recommendation moved from RA0019/4-SAP-manged-Joule-w-BusinessAIPlatform
+        // to RA0039/9-sap-managed-iam/4-joule-landscape-recommendation
+        {
+            from: '/docs/ref-arch/4c80fa',
+            to: '/docs/ref-arch/b95ce4',
+        },
         {
             from: '/docs/ref-arch/20c6b29b1e',
             to: '/docs/ref-arch/89ab6b',
