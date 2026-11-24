@@ -371,6 +371,14 @@ async function generateArtifacts() {
 
         try {
             let title = attributes.title;
+            // Fail hard on a missing/empty title rather than letting
+            // toThumbnailFileName coerce it to the literal "undefined" (which
+            // would publish an "undefined.svg" thumbnail and a data.json entry
+            // with no name). Mirrors the title guard in getRenderContext; the
+            // throw is collected into `failures` and aborts the build.
+            if (typeof title !== 'string' || title.trim() === '') {
+                throw new Error(`Draw.io artifact: "${readmePath}" is missing a "title" front-matter field.`);
+            }
 
             if (dirName.includes('RA0004/')) {
                 title = 'SAP Business Data Cloud: ' + title;
