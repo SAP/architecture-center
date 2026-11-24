@@ -37,9 +37,22 @@ const UNSAFE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 export const SESSION_INVALIDATED_EVENT = 'architecture-center:session-invalidated';
 
 let csrfToken: string | null = null;
+let sessionRevision = 0;
+
+export class SupersededSessionRequestError extends Error {
+    constructor() {
+        super('The authentication session changed while this request was in flight.');
+        this.name = 'SupersededSessionRequestError';
+    }
+}
+
+function assertCurrentSession(revision: number): void {
+    if (revision !== sessionRevision) throw new SupersededSessionRequestError();
+}
 
 export function clearSessionClientState(): void {
     csrfToken = null;
+    sessionRevision += 1;
 }
 
 function browserOrigin(): string {
@@ -54,6 +67,14 @@ function sameOriginUrl(value: string | URL): URL {
     const url = new URL(value.toString(), origin);
     if (url.origin !== origin) {
         throw new Error('Authentication endpoints must be served from the site origin.');
+    }
+    if (url.username || url.password) {
+        throw new Error('Credentials must not be sent in authentication URLs.');
+    }
+    // Dropping the origin must not turn a same-origin path into a
+    // protocol-relative URL when it is used for browser navigation.
+    if (url.pathname.startsWith('//')) {
+        throw new Error('Authentication URLs must not contain a protocol-relative path.');
     }
     return url;
 }
@@ -150,7 +171,8 @@ function parseSessionSnapshot(value: unknown): SessionSnapshot {
     };
 }
 
-function rememberCsrfToken(snapshot: SessionSnapshot): SessionSnapshot {
+function rememberCsrfToken(snapshot: SessionSnapshot, revision: number): SessionSnapshot {
+    assertCurrentSession(revision);
     csrfToken = snapshot.csrfToken || null;
     return snapshot;
 }
@@ -199,6 +221,7 @@ export async function authenticatedFetch(
         throw new Error('Credentials must not be sent in authenticated request URLs.');
     }
     const method = (requestInit.method || 'GET').toUpperCase();
+    const requestRevision = sessionRevision;
     const headers = new Headers(requestInit.headers);
     headers.delete('Authorization');
     headers.delete('Cookie');
@@ -215,9 +238,10 @@ export async function authenticatedFetch(
         headers,
         credentials: 'same-origin',
         cache: 'no-store',
+        redirect: 'error',
     });
 
-    if (response.status === 401 && !suppressSessionInvalidation) {
+    if (response.status === 401 && !suppressSessionInvalidation && requestRevision === sessionRevision) {
         clearSessionClientState();
         window.dispatchEvent(new Event(SESSION_INVALIDATED_EVENT));
     }
@@ -226,20 +250,28 @@ export async function authenticatedFetch(
 }
 
 export async function getSession(authApiPath: string): Promise<SessionSnapshot> {
-    const response = await authenticatedFetch(`${authApiPath.replace(/\/$/, '')}/session`, {
-        cache: 'no-store',
-        headers: { Accept: 'application/json' },
-        suppressSessionInvalidation: true,
-    });
+    const revision = ++sessionRevision;
+    try {
+        const response = await authenticatedFetch(`${authApiPath.replace(/\/$/, '')}/session`, {
+            cache: 'no-store',
+            headers: { Accept: 'application/json' },
+            suppressSessionInvalidation: true,
+        });
+        assertCurrentSession(revision);
 
-    if (response.status === 401) {
-        return rememberCsrfToken({ users: { ...EMPTY_USERS } });
-    }
-    if (!response.ok) {
-        throw new Error(`Session check failed with status ${response.status}.`);
-    }
+        if (response.status === 401) {
+            return rememberCsrfToken({ users: { ...EMPTY_USERS } }, revision);
+        }
+        if (!response.ok) {
+            throw new Error(`Session check failed with status ${response.status}.`);
+        }
 
-    return rememberCsrfToken(parseSessionSnapshot(await response.json()));
+        return rememberCsrfToken(parseSessionSnapshot(await response.json()), revision);
+    } catch (error) {
+        assertCurrentSession(revision);
+        clearSessionClientState();
+        throw error;
+    }
 }
 
 export async function endSession(
@@ -247,7 +279,8 @@ export async function endSession(
     provider: AuthProvider | 'all',
     returnTo: string,
 ): Promise<LogoutResponse> {
-    const response = await authenticatedFetch(`${authApiPath.replace(/\/$/, '')}/logout`, {
+    const revision = ++sessionRevision;
+    const responsePromise = authenticatedFetch(`${authApiPath.replace(/\/$/, '')}/logout`, {
         method: 'POST',
         cache: 'no-store',
         headers: {
@@ -257,19 +290,30 @@ export async function endSession(
         body: JSON.stringify({ provider, returnTo: getSafeReturnPath(returnTo) }),
     });
 
-    if (!response.ok) {
-        throw new Error(`Logout failed with status ${response.status}.`);
-    }
+    // The outgoing logout already captured its CSRF header. Stop other
+    // mutations until the response establishes the remaining session.
+    csrfToken = null;
+    try {
+        const response = await responsePromise;
+        assertCurrentSession(revision);
+        if (!response.ok) {
+            throw new Error(`Logout failed with status ${response.status}.`);
+        }
 
-    const body = await response.json() as Record<string, unknown>;
-    const snapshot = rememberCsrfToken(parseSessionSnapshot(body));
-    const redirectTo = body.redirectTo;
-    if (redirectTo !== undefined && typeof redirectTo !== 'string') {
-        throw new Error('Invalid logout redirect in session response.');
-    }
+        const body = await response.json() as Record<string, unknown>;
+        const snapshot = parseSessionSnapshot(body);
+        const redirectTo = body.redirectTo;
+        if (redirectTo !== undefined && typeof redirectTo !== 'string') {
+            throw new Error('Invalid logout redirect in session response.');
+        }
 
-    return {
-        ...snapshot,
-        ...(redirectTo ? { redirectTo: getSafeReturnPath(redirectTo) } : {}),
-    };
+        return {
+            ...rememberCsrfToken(snapshot, revision),
+            ...(redirectTo ? { redirectTo: getSafeReturnPath(redirectTo) } : {}),
+        };
+    } catch (error) {
+        assertCurrentSession(revision);
+        clearSessionClientState();
+        throw error;
+    }
 }

@@ -118,13 +118,17 @@ Before merging or deploying the frontend migration:
 2. Configure both OAuth providers to use the same-origin BFF callback URLs.
 3. Update the CAP/Express and SAP authentication services to accept only BFF-originated credentials. Disable callbacks that place `token`, `t`, `access_token`, or `id_token` in redirects.
 4. Verify that CDN, Worker, and upstream logs redact OAuth codes, cookies, CSRF values, and provider tokens.
-5. Seed the non-production authorization fixtures required by `npm run test:auth-contract`, store their cookies and CSRF values as protected environment secrets, and run the contract workflow against the deployed BFF. The checks cover missing sessions, missing GitHub provider identity, resource ownership, contributor read-only access, publish scope, CSRF, and the default-deny path and method allowlist.
+5. Seed the non-production authorization fixtures required by `npm run test:auth-contract`, store their cookies and CSRF values as protected environment secrets, and run the deployed contract checker as described below. The checks cover missing sessions, missing GitHub provider identity, resource ownership, contributor read-only access, publish scope, missing and invalid CSRF tokens, foreign Origin and cross-site Fetch Metadata, and the default-deny path and method allowlist.
 6. Exercise login, session restore, partial logout, complete logout, expired sessions, invalid state, and invalid return paths.
 7. Deploy this frontend only after those checks pass.
 
 The manual **Validate authentication BFF contract** workflow reads its target origin and document IDs from GitHub environment variables and its opaque cookies and CSRF values from GitHub environment secrets. The script accepts only the repository-controlled Cloudflare `dev` and `test` origins. Adding or changing an origin requires a reviewed code change; an environment variable alone cannot redirect the fixture credentials.
 
 Store the variables and secrets in a GitHub environment named `auth-bff-contract`. Configure that environment to allow deployments only from the protected `dev` branch and require approval from its designated reviewers. The workflow also rejects every other ref and checks out the triggering `dev` commit by SHA. Environment deployment-branch protection remains the security boundary because code on another ref could remove a workflow-level condition.
+
+For the initial migration, this workflow is not available on protected `dev` before the frontend PR is merged. An authorized BFF maintainer must first review the exact PR commit, check out that trusted commit locally, and run `node src/_scripts/_check-auth-bff-contract.mjs` with the fixture variables supplied through their approved secret-management process. Record the tested commit, staging origin, and result in the PR without including credentials. Keep the `do not merge` label until the deployed contract checks and the remaining deployment prerequisites are verified. Do not relax the workflow's ref or environment protections to make a PR branch eligible for fixture secrets. Once the workflow is merged, use its protected `dev` dispatch for subsequent checks.
+
+Normal build CI runs `npm run test:auth-contract:self` with synthetic fixtures and an injected fetch implementation. These self-tests require no environment secrets and do not contact the deployed BFF; they verify the checker logic and do not satisfy the deployment prerequisites.
 
 Use dedicated, non-production fixtures with these properties:
 
@@ -133,7 +137,7 @@ Use dedicated, non-production fixtures with these properties:
 - The owner session has no access to `AUTH_CONTRACT_FORBIDDEN_DOCUMENT_ID`.
 - `AUTH_CONTRACT_FORBIDDEN_DOCUMENT_ID` belongs to another user and is also a valid parent, so the probe can verify that the owner cannot create a child beneath it.
 - `AUTH_CONTRACT_MISSING_RESOURCE_ID` does not exist and is used for safe provider-denial probes.
-- The no-publish session has a valid GitHub identity and credential without the required repository grants.
+- The no-publish session has a valid GitHub identity and credential without the required repository grants. The checker first verifies that this fixture can read `Tags`, so a missing GitHub identity cannot masquerade as a publish-capability denial.
 - The revoked session retains server-side session state whose GitHub credential has been revoked or expired.
 - The BTP session has a valid BTP identity and no GitHub identity or credential.
 

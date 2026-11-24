@@ -121,6 +121,8 @@ function githubProviderRoutes(missingId) {
 
 export function buildAuthorizationProbes(config) {
     const { documents, sessions } = config;
+    const invalidCsrfToken = (sessions.owner.csrfToken.startsWith('a') ? 'b' : 'a')
+        + sessions.owner.csrfToken.slice(1);
     const probes = [
         {
             name: 'missing session is unauthenticated',
@@ -186,6 +188,13 @@ export function buildAuthorizationProbes(config) {
             expectedStatus: 403,
         },
         {
+            name: 'no-publish fixture has valid GitHub access',
+            method: 'GET',
+            path: proxyPath('/quickstart/document-service/Tags'),
+            session: sessions.noPublish,
+            expectedStatus: 200,
+        },
+        {
             name: 'missing publish capability is forbidden',
             method: 'POST',
             path: proxyPath('/api/publish'),
@@ -206,6 +215,32 @@ export function buildAuthorizationProbes(config) {
             method: 'POST',
             path: proxyPath('/api/publish'),
             session: { ...sessions.owner, csrfToken: undefined },
+            body: {},
+            expectedStatus: 403,
+        },
+        {
+            name: 'invalid CSRF token is forbidden',
+            method: 'POST',
+            path: proxyPath('/api/publish'),
+            session: { ...sessions.owner, csrfToken: invalidCsrfToken },
+            body: {},
+            expectedStatus: 403,
+        },
+        {
+            name: 'foreign Origin is forbidden even with valid CSRF',
+            method: 'POST',
+            path: proxyPath('/api/publish'),
+            session: sessions.owner,
+            origin: 'https://cross-origin.example',
+            body: {},
+            expectedStatus: 403,
+        },
+        {
+            name: 'cross-site Fetch Metadata is forbidden even with valid CSRF',
+            method: 'POST',
+            path: proxyPath('/api/publish'),
+            session: sessions.owner,
+            fetchSite: 'cross-site',
             body: {},
             expectedStatus: 403,
         },
@@ -248,8 +283,8 @@ export function buildAuthorizationProbes(config) {
 function headersForProbe(config, probe) {
     const headers = {
         Accept: 'application/json',
-        Origin: config.baseUrl,
-        'Sec-Fetch-Site': 'same-origin',
+        Origin: probe.origin ?? config.baseUrl,
+        'Sec-Fetch-Site': probe.fetchSite ?? 'same-origin',
     };
     if (probe.session) {
         headers.Cookie = probe.session.cookie;

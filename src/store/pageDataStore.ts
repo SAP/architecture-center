@@ -175,9 +175,11 @@ const findDocumentById = (docs: Document[], id: string | null): Document | null 
 let syncTimeout: NodeJS.Timeout | null = null;
 const SYNC_DEBOUNCE_MS = 2000;
 
-function isCurrentIdentity(username: string): boolean {
+function isCurrentIdentity(username: string, revision: number): boolean {
     const currentUsername = usePageDataStore.getState().currentUsername;
-    return currentUsername !== null && normalizeIdentity(currentUsername) === normalizeIdentity(username);
+    return revision === activeIdentityRevision
+        && currentUsername !== null
+        && normalizeIdentity(currentUsername) === normalizeIdentity(username);
 }
 
 export const usePageDataStore = create<PageDataState>()(
@@ -275,6 +277,7 @@ export const usePageDataStore = create<PageDataState>()(
                     return false;
                 }
                 const requestUsername = currentUsername;
+                const requestRevision = activeIdentityRevision;
 
                 set({ isLoading: true, syncError: null });
 
@@ -292,7 +295,7 @@ export const usePageDataStore = create<PageDataState>()(
                     }
 
                     const data = await response.json();
-                    if (!isCurrentIdentity(requestUsername)) return false;
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return false;
                     console.log('[PageDataStore] Fetched documents:', data.value?.length || 0, 'documents');
                     const remoteDocuments: Document[] = data.value.map((doc: any) => {
                         const authorUsername = doc.author?.username;
@@ -352,7 +355,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             ).then(() => {
-                                if (!isCurrentIdentity(requestUsername)) return;
+                                if (!isCurrentIdentity(requestUsername, requestRevision)) return;
                                 console.log('[PageDataStore] Synced local changes for:', doc.id);
                                 set(state => ({
                                     documents: state.documents.map(d =>
@@ -383,7 +386,7 @@ export const usePageDataStore = create<PageDataState>()(
                     return true;
                 } catch (error) {
                     console.error('Error fetching documents:', error);
-                    if (isCurrentIdentity(requestUsername)) {
+                    if (isCurrentIdentity(requestUsername, requestRevision)) {
                         set({
                             isLoading: false,
                             syncError: error instanceof Error ? error.message : 'Failed to fetch documents',
@@ -399,6 +402,7 @@ export const usePageDataStore = create<PageDataState>()(
                 console.log('[PageDataStore] syncDocument called:', { id, hasBackend: !!backendUrl });
                 if (!backendUrl || !currentUsername) return;
                 const requestUsername = currentUsername;
+                const requestRevision = activeIdentityRevision;
 
                 const doc = findDocumentById(documents, id);
                 if (!doc) return;
@@ -410,7 +414,7 @@ export const usePageDataStore = create<PageDataState>()(
 
                 // Debounce the sync
                 syncTimeout = setTimeout(async () => {
-                    if (!isCurrentIdentity(requestUsername)) return;
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return;
                     console.log('[PageDataStore] Syncing document to backend:', doc.id);
                     set({ isSyncing: true });
 
@@ -430,7 +434,7 @@ export const usePageDataStore = create<PageDataState>()(
                                 }),
                             }
                         );
-                        if (!isCurrentIdentity(requestUsername)) return;
+                        if (!isCurrentIdentity(requestUsername, requestRevision)) return;
 
                         if (!patchResponse.ok) {
                             throw new Error(`Failed to sync document: ${patchResponse.statusText}`);
@@ -451,7 +455,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             );
-                            if (!isCurrentIdentity(requestUsername)) return;
+                            if (!isCurrentIdentity(requestUsername, requestRevision)) return;
 
                             if (!contributorsResponse.ok) {
                                 console.warn('Failed to sync contributors:', contributorsResponse.statusText);
@@ -473,7 +477,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     }),
                                 }
                             );
-                            if (!isCurrentIdentity(requestUsername)) return;
+                            if (!isCurrentIdentity(requestUsername, requestRevision)) return;
 
                             if (!tagsResponse.ok) {
                                 console.warn('Failed to sync tags:', tagsResponse.statusText);
@@ -491,7 +495,7 @@ export const usePageDataStore = create<PageDataState>()(
                         }));
                     } catch (error) {
                         console.error('Error syncing document:', error);
-                        if (isCurrentIdentity(requestUsername)) {
+                        if (isCurrentIdentity(requestUsername, requestRevision)) {
                             set({
                                 isSyncing: false,
                                 syncError: error instanceof Error ? error.message : 'Failed to sync',
@@ -506,6 +510,7 @@ export const usePageDataStore = create<PageDataState>()(
                 const { backendUrl, currentUsername, syncDocument } = get();
                 if (!backendUrl || !currentUsername || operations.length === 0) return null;
                 const requestUsername = currentUsername;
+                const requestRevision = activeIdentityRevision;
 
                 set({ isSyncing: true });
 
@@ -536,13 +541,14 @@ export const usePageDataStore = create<PageDataState>()(
                             }),
                         }
                     );
-                    if (!isCurrentIdentity(requestUsername)) return null;
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return null;
 
                     if (!response.ok) {
                         throw new Error('Operations sync failed');
                     }
 
                     const result = await response.json();
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return null;
 
                     // Check if operations were actually applied
                     // If appliedCount is 0, the backend state might be invalid - fall back to full sync
@@ -565,10 +571,11 @@ export const usePageDataStore = create<PageDataState>()(
 
                     return result.lastOpId || null;
                 } catch (error) {
-                    if (!isCurrentIdentity(requestUsername)) return null;
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return null;
                     console.warn('Operation sync failed, falling back to full state sync:', error);
                     // Fallback to full state sync
                     await syncDocument(documentId);
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return null;
                     set({ isSyncing: false });
                     return null;
                 }
@@ -600,6 +607,7 @@ export const usePageDataStore = create<PageDataState>()(
                 }
                 if (!currentUsername) return null;
                 const requestUsername = currentUsername;
+                const requestRevision = activeIdentityRevision;
 
                 set({ isCreating: true, syncError: null });
 
@@ -628,7 +636,7 @@ export const usePageDataStore = create<PageDataState>()(
                     }
 
                     const remoteDoc = await response.json();
-                    if (!isCurrentIdentity(requestUsername)) return null;
+                    if (!isCurrentIdentity(requestUsername, requestRevision)) return null;
 
                     const newDocument: Document = {
                         id: remoteDoc.ID,
@@ -660,7 +668,7 @@ export const usePageDataStore = create<PageDataState>()(
                     return newDocument;
                 } catch (error) {
                     console.error('Error creating document:', error);
-                    if (isCurrentIdentity(requestUsername)) {
+                    if (isCurrentIdentity(requestUsername, requestRevision)) {
                         set({
                             isCreating: false,
                             syncError: error instanceof Error ? error.message : 'Failed to create document',
@@ -819,4 +827,28 @@ export async function activatePageDataIdentity(username: string): Promise<boolea
     await usePageDataStore.persist.rehydrate();
 
     return revision === activeIdentityRevision && activeStorageIdentity === identity;
+}
+
+export function deactivatePageDataIdentity(): void {
+    // Save the departing identity's draft before detaching its storage, then
+    // invalidate both pending requests and debounced saves.
+    flushPendingWrites();
+    if (syncTimeout) {
+        clearTimeout(syncTimeout);
+        syncTimeout = null;
+    }
+    ++activeIdentityRevision;
+    activeStorageIdentity = null;
+    usePageDataStore.setState({
+        documents: [],
+        lastSaveTimestamp: null,
+        activeDocumentId: null,
+        openDocumentIds: [],
+        isLoading: false,
+        isCreating: false,
+        isSyncing: false,
+        syncError: null,
+        backendUrl: null,
+        currentUsername: null,
+    });
 }

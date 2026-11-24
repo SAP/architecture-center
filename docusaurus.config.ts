@@ -13,7 +13,12 @@ function sameOriginApiPath(name: string, fallback: string): string {
     if (!value.startsWith('/') || value.startsWith('//') || value.includes('\\') || /[?#]/.test(value)) {
         throw new Error(`${name} must be a root-relative, same-origin URL path.`);
     }
-    return value.replace(/\/$/, '');
+    const validationOrigin = 'https://architecture-center.invalid';
+    const url = new URL(value, validationOrigin);
+    if (url.origin !== validationOrigin || url.pathname.startsWith('//')) {
+        throw new Error(`${name} must be a root-relative, same-origin URL path.`);
+    }
+    return url.pathname.replace(/\/$/, '');
 }
 
 const authApiPath = sameOriginApiPath('AUTH_API_PATH', '/api/auth');

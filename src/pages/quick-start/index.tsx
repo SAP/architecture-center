@@ -6,6 +6,7 @@ import { useHistory } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {
     activatePageDataIdentity,
+    deactivatePageDataIdentity,
     usePageDataStore,
     PageMetadata,
 } from '@site/src/store/pageDataStore';
@@ -92,6 +93,7 @@ function AuthenticatedQuickStartView() {
 
         return () => {
             cancelled = true;
+            deactivatePageDataIdentity();
         };
     }, [authenticatedApiPath, fetchDocuments, githubUsername, initializationAttempt, setBackendConfig]);
 

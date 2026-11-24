@@ -32,6 +32,8 @@ jobs:
               run: npm ci
             - name: Run tests
               run: npm test
+            - name: Test authentication contract checker
+              run: npm run test:auth-contract:self
             - name: Build website
               run: npm run build
 

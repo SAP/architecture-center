@@ -33,10 +33,16 @@ function expectedContractResponse(urlValue, options) {
 
     if (!cookie) return { status: 401 };
     if (cookie.includes('btp-cookie') || cookie.includes('revoked-cookie')) return { status: 403 };
-    if (cookie.includes('no-publish-cookie')) return { status: 403 };
+    if (cookie.includes('no-publish-cookie')) {
+        return { status: options.method === 'GET' && url.pathname.endsWith('/Tags') ? 200 : 403 };
+    }
     if (url.searchParams.has('$filter')) return { status: 400 };
     if (options.method === 'HEAD' || url.pathname.endsWith('/not-allowlisted')) return { status: 404 };
-    if (url.pathname.endsWith('/api/publish') && !options.headers['X-CSRF-Token']) return { status: 403 };
+    if (url.pathname.endsWith('/api/publish')) {
+        if (options.headers['X-CSRF-Token'] !== csrf) return { status: 403 };
+        if (options.headers.Origin !== url.origin) return { status: 403 };
+        if (options.headers['Sec-Fetch-Site'] !== 'same-origin') return { status: 403 };
+    }
     if (url.pathname.includes('forbidden-document')) return { status: 403 };
     if (cookie.includes('contributor-cookie') && options.method === 'PATCH') return { status: 403 };
     if (
@@ -82,8 +88,8 @@ test('contract runner checks provider, scope, resource, CSRF, path, and method d
         logger: { log: (message) => messages.push(message) },
     });
 
-    assert.deepEqual(result, { passed: 31, total: 31 });
-    assert.equal(messages.length, 31);
+    assert.deepEqual(result, { passed: 35, total: 35 });
+    assert.equal(messages.length, 35);
     assert.ok(messages.every((message) => !message.includes('__Host-ac_session')));
 });
 
@@ -97,6 +103,86 @@ test('contract runner fails when provider authorization is missing', async () =>
             logger: { log: () => {} },
         }),
         /BTP-only session cannot call/,
+    );
+});
+
+test('publish scope probes fail if the no-publish fixture lacks GitHub access', async () => {
+    const config = contractConfig();
+    config.sessions.noPublish = config.sessions.btp;
+    await assert.rejects(
+        runAuthBffContract(config, {
+            fetchImpl: async (url, options) => expectedContractResponse(url, options),
+            logger: { log: () => {} },
+        }),
+        /no-publish fixture has valid GitHub access: expected 200, received 403/,
+    );
+});
+
+test('contract runner fails when an invalid CSRF token is accepted', async () => {
+    await assert.rejects(
+        runAuthBffContract(contractConfig(), {
+            fetchImpl: async (url, options) => {
+                const token = options.headers['X-CSRF-Token'];
+                if (options.headers.Cookie?.includes('owner-cookie') && token && token !== csrf) {
+                    assert.equal(token.length, csrf.length);
+                    return { status: 200 };
+                }
+                return expectedContractResponse(url, options);
+            },
+            logger: { log: () => {} },
+        }),
+        /invalid CSRF token is forbidden: expected 403, received 200/,
+    );
+});
+
+test('contract runner fails when foreign Origin is accepted with valid CSRF', async () => {
+    await assert.rejects(
+        runAuthBffContract(contractConfig(), {
+            fetchImpl: async (url, options) => {
+                if (options.headers.Origin !== new URL(url).origin) {
+                    assert.equal(new URL(url).origin, contractConfig().baseUrl);
+                    assert.equal(options.headers['X-CSRF-Token'], csrf);
+                    assert.equal(options.headers['Sec-Fetch-Site'], 'same-origin');
+                    return { status: 200 };
+                }
+                return expectedContractResponse(url, options);
+            },
+            logger: { log: () => {} },
+        }),
+        /foreign Origin is forbidden even with valid CSRF: expected 403, received 200/,
+    );
+});
+
+test('contract runner fails when cross-site Fetch Metadata is accepted with valid CSRF', async () => {
+    await assert.rejects(
+        runAuthBffContract(contractConfig(), {
+            fetchImpl: async (url, options) => {
+                if (options.headers['Sec-Fetch-Site'] === 'cross-site') {
+                    assert.equal(options.headers.Origin, new URL(url).origin);
+                    assert.equal(options.headers['X-CSRF-Token'], csrf);
+                    return { status: 200 };
+                }
+                return expectedContractResponse(url, options);
+            },
+            logger: { log: () => {} },
+        }),
+        /cross-site Fetch Metadata is forbidden even with valid CSRF: expected 403, received 200/,
+    );
+});
+
+test('contract requests keep fixture credentials on the target origin and reject redirects', async () => {
+    const target = contractConfig().baseUrl;
+    await assert.rejects(
+        runAuthBffContract(contractConfig(), {
+            fetchImpl: async (url, options) => {
+                assert.equal(new URL(url).origin, target);
+                assert.equal(options.redirect, 'manual');
+                assert.ok(options.signal instanceof AbortSignal);
+                return { status: 302 };
+            },
+            logger: { log: () => {} },
+        }),
+        /received 302/,
     );
 });
 
@@ -167,4 +253,14 @@ test('deployment configuration accepts only repository-allowlisted origins', () 
         ),
         /repository allowlisted origins/,
     );
+});
+
+test('deployment configuration rejects missing fixture values and invalid document IDs', () => {
+    const missingCookie = deploymentEnvironment('https://test.sap-architecture-center.pages.dev');
+    delete missingCookie.AUTH_CONTRACT_GITHUB_OWNER_COOKIE;
+    assert.throws(() => loadAuthContractConfig(missingCookie), /Missing auth contract environment variables/);
+
+    const invalidDocument = deploymentEnvironment('https://test.sap-architecture-center.pages.dev');
+    invalidDocument.AUTH_CONTRACT_FORBIDDEN_DOCUMENT_ID = '../other-resource';
+    assert.throws(() => loadAuthContractConfig(invalidDocument), /forbidden document ID has an invalid format/);
 });

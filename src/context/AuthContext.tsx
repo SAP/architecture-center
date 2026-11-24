@@ -4,9 +4,10 @@ import React, {
     useCallback,
     useContext,
     useEffect,
+    useRef,
     useState,
 } from 'react';
-import siteConfig from '@generated/docusaurus.config';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { logger } from '../utils/logger';
 import {
     clearLegacyClientCredentials,
@@ -14,6 +15,7 @@ import {
     endSession,
     getSession,
     SESSION_INVALIDATED_EVENT,
+    SupersededSessionRequestError,
 } from '../services/authSession';
 import type {
     AuthProvider as AuthProviderName,
@@ -70,9 +72,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
+    const { siteConfig } = useDocusaurusContext();
     const [user, setUser] = useState<SessionUser | null>(null);
     const [users, setUsers] = useState<SessionUsers>(EMPTY_USERS);
     const [loading, setLoading] = useState(true);
+    const requestRevision = useRef(0);
+    const logoutRevision = useRef<number | null>(null);
     const authApiPath = siteConfig.customFields?.authApiPath as string;
     const baseUrl = siteConfig.baseUrl || '/';
 
@@ -82,15 +87,20 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const refreshSession = useCallback(async () => {
+        if (logoutRevision.current !== null) return;
+        const revision = ++requestRevision.current;
         try {
-            applySession(await getSession(authApiPath));
+            const snapshot = await getSession(authApiPath);
+            if (revision !== requestRevision.current) return;
+            applySession(snapshot);
         } catch (error) {
+            if (revision !== requestRevision.current || error instanceof SupersededSessionRequestError) return;
             clearSessionClientState();
             setUsers(EMPTY_USERS);
             setUser(null);
             logger.warn('Unable to load the authentication session.', error);
         } finally {
-            setLoading(false);
+            if (revision === requestRevision.current) setLoading(false);
         }
     }, [applySession, authApiPath]);
 
@@ -105,39 +115,59 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                 void refreshSession();
             }
         };
+        const invalidateSession = () => {
+            requestRevision.current += 1;
+            logoutRevision.current = null;
+            setUsers(EMPTY_USERS);
+            setUser(null);
+            setLoading(true);
+            refreshVisibleSession();
+        };
         window.addEventListener('focus', refreshVisibleSession);
-        window.addEventListener(SESSION_INVALIDATED_EVENT, refreshVisibleSession);
+        window.addEventListener(SESSION_INVALIDATED_EVENT, invalidateSession);
         document.addEventListener('visibilitychange', refreshVisibleSession);
         return () => {
+            requestRevision.current += 1;
+            clearSessionClientState();
             window.removeEventListener('focus', refreshVisibleSession);
-            window.removeEventListener(SESSION_INVALIDATED_EVENT, refreshVisibleSession);
+            window.removeEventListener(SESSION_INVALIDATED_EVENT, invalidateSession);
             document.removeEventListener('visibilitychange', refreshVisibleSession);
         };
     }, [refreshSession]);
 
     const logout = useCallback(async (provider: AuthProviderName | 'all' = 'all') => {
+        if (logoutRevision.current !== null) return;
+        const revision = ++requestRevision.current;
+        logoutRevision.current = revision;
         setLoading(true);
         const returnTo = window.location.origin + baseUrl;
+        let redirecting = false;
 
         try {
             const result = await endSession(authApiPath, provider, returnTo);
+            if (revision !== requestRevision.current) return;
             applySession(result);
 
             if (result.redirectTo) {
+                redirecting = true;
                 window.location.assign(result.redirectTo);
                 return;
             }
             if (provider === 'all' || (!result.users.github && !result.users.btp)) {
+                redirecting = true;
                 window.location.assign(baseUrl);
                 return;
             }
         } catch (error) {
+            if (revision !== requestRevision.current || error instanceof SupersededSessionRequestError) return;
             logger.error('Unable to end the authentication session.', error);
+            logoutRevision.current = null;
             await refreshSession();
             return;
+        } finally {
+            if (logoutRevision.current === revision) logoutRevision.current = null;
+            if (revision === requestRevision.current && !redirecting) setLoading(false);
         }
-
-        setLoading(false);
     }, [applySession, authApiPath, baseUrl, refreshSession]);
 
     const hasDualLogin = users.github !== null && users.btp !== null;
