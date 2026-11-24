@@ -1,6 +1,5 @@
 const {
     copyFileSync,
-    existsSync,
     lstatSync,
     mkdirSync,
     mkdtempSync,
@@ -65,11 +64,16 @@ function validateOutputPath(outputPath, allowedFilesRoot) {
         throw new Error(`Draw.io output is outside the allowed files root: ${absoluteOutput}`);
     }
 
-    if (existsSync(absoluteOutput)) {
-        const outputStat = lstatSync(absoluteOutput);
-        if (outputStat.isSymbolicLink() || !outputStat.isFile()) {
-            throw new Error(`Draw.io output must be a regular, non-symlink file: ${absoluteOutput}`);
-        }
+    // lstat also sees dangling symlinks, which existsSync would treat as an
+    // absent destination and allow a later write to follow outside the root.
+    let outputStat;
+    try {
+        outputStat = lstatSync(absoluteOutput);
+    } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+    }
+    if (outputStat && !outputStat.isFile()) {
+        throw new Error(`Draw.io output must be a regular, non-symlink file: ${absoluteOutput}`);
     }
 
     return absoluteOutput;

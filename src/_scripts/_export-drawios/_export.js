@@ -9,7 +9,9 @@ const DrawioCache = require('./drawio-cache');
 const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
-const { xmlEscape, toThumbnailFileName } = require('./sanitize');
+const { toThumbnailFileName } = require('./sanitize');
+const { watermarkSvg } = require('./watermark');
+const { ensureOutputDirectory, writeArtifactFile } = require('./artifact-output');
 
 const log = console.log;
 
@@ -71,6 +73,8 @@ function getPipelineIdentity() {
         require.resolve('./drawio-fingerprint'),
         require.resolve('./export-batch'),
         require.resolve('./sanitize'),
+        require.resolve('./watermark'),
+        require.resolve('./artifact-output'),
     ];
     const dockerExporterPath = join(__dirname, 'docker-export.js');
     if (existsSync(dockerExporterPath)) sourceFiles.push(dockerExporterPath);
@@ -83,9 +87,9 @@ function getPipelineIdentity() {
 const rendererIdentity = getRendererIdentity();
 const pipelineIdentity = getPipelineIdentity();
 
-// Ensure artifacts directories exist
-if (!existsSync(ARTIFACTS_DIR)) mkdirSync(ARTIFACTS_DIR, { recursive: true });
-if (!existsSync(THUMBNAILS_DIR)) mkdirSync(THUMBNAILS_DIR, { recursive: true });
+// Create artifact directories only after checking their ancestry against the
+// trusted checkout; recursive mkdir could otherwise follow a committed symlink.
+ensureOutputDirectory(THUMBNAILS_DIR, ROOT);
 
 // --- Phase 1: Export and Watermark all Draw.io files ---
 
@@ -255,62 +259,14 @@ async function watermarkAll() {
 
         try {
             const { lastUpdated, qrLink, smallSlug, title } = getRenderContext(drawioPath);
-            let svg = readFileSync(svgPath, 'utf8');
-            const viewBoxMatch = svg.match(/viewBox="([^"]*)"/);
-            if (!viewBoxMatch) throw new Error('Exported SVG is missing a viewBox.');
-            const viewBox = viewBoxMatch[1].split(' ');
-            const height = parseInt(viewBox[3]);
-            const width = parseInt(viewBox[2]);
-            let scaleBox = width / 1500;
-            scaleBox = Math.max(1, scaleBox);
-            const pad = 20 * scaleBox;
-            viewBox[0] = -pad;
-            viewBox[1] = -pad;
-            viewBox[2] = width + pad * 2;
-            const logo = { h: 57, w: 116, mt: 36 };
-            let scaleDown = width / 1500;
-            scaleDown = Math.max(0.7, scaleDown);
-            logo.h = logo.h * scaleDown;
-            logo.w = logo.w * scaleDown;
-            const yShift = 56 * scaleBox;
-            viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
-            logo.y = viewBox[3] - pad * 2 - logo.h - yShift;
-            const textX = logo.w + pad;
-            const qrSvgContent = await generateQrSvg(qrLink);
-            const qrSize = 33 * 2.4 * scaleDown;
-
-            const mark = `<text id="drawio-title" x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(27 * scaleDown)}">
-                            ${xmlEscape(title)}
-                        </text>
-                        <g transform="translate(0, ${yShift})">
-                        <text x="${textX}" y="${(logo.y + Math.round(logo.h * 0.5))}" font-family="Arial" font-weight="bold"
-                                font-size="${Math.round(22 * scaleDown)}">
-                            Architecture Center
-                        </text>
-                        <text x="${textX}" y="${logo.y + Math.round(logo.h * 0.9)}" font-family="Arial" font-style="italic"
-                                font-size="${Math.round(17 * scaleDown)}">
-                            Last update on ${xmlEscape(lastUpdated)}
-                        </text>
-                        <g transform="translate(0, ${logo.y})">
-                            <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
-                        </g>
-                        <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
-                                font-size="${Math.round(20 * scaleDown)}">
-                            ${xmlEscape(smallSlug)}
-                        </text>
-                        </g>
-                        <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${2.4 * scaleDown})">
-                            ${qrSvgContent}
-                        </g>`;
-
-            const bg = `<rect x="${-pad}" y="${-pad}" width="${viewBox[2]}" height="${viewBox[3]}" fill="${SVG_BACKGROUND_COLOR}"/>`;
-            svg = svg
-                .replace(/<svg([^>]*)>/, '<svg$1>' + bg)
-                .replace('<g>', `<g transform="translate(0, ${yShift})">`)
-                .replace(/<\/svg>$/, mark + '</svg>')
-                .replace(/viewBox="([^"]*)"/, `viewBox="${viewBox.join(' ')}"`)
-                .replace(/height="([^"]*)"/, `height="${viewBox[3]}"`)
-                .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
+            const svg = watermarkSvg(readFileSync(svgPath, 'utf8'), {
+                title,
+                lastUpdated,
+                smallSlug,
+                logoSvg,
+                qrSvgContent: await generateQrSvg(qrLink),
+                backgroundColor: SVG_BACKGROUND_COLOR,
+            });
 
             writeFileSync(svgPath, svg);
             log(prettyPaths('Watermarked ' + svgPath, 0));
@@ -427,15 +383,10 @@ async function generateArtifacts() {
             }
             usedThumbnailNames.set(titleAsFileName, dirName);
             const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
-            // Reject a symlink/non-regular target and confirm the resolved path
-            // stays inside THUMBNAILS_DIR before writing: the filename is
-            // attacker-influenced, so a committed symlink here must not be
-            // followed into an arbitrary file.
-            validateOutputPath(thumbnailSvgPath, THUMBNAILS_DIR);
-
-            // Copy the watermarked SVG to the thumbnails directory
+            // Validate directory ancestry and the target, then atomically copy
+            // the SVG without following a destination symlink.
             const watermarkedSvgContent = readFileSync(svgThumbnailSourcePath, 'utf8');
-            writeFileSync(thumbnailSvgPath, watermarkedSvgContent);
+            writeArtifactFile(thumbnailSvgPath, watermarkedSvgContent, THUMBNAILS_DIR, ROOT);
             log(`Generated thumbnail: ${thumbnailSvgPath}`);
 
             allArtifacts.push({
@@ -459,7 +410,7 @@ async function generateArtifacts() {
         throw new AggregateError(failures, `Failed to generate ${failures.length} Draw.io artifact(s).`);
     }
 
-    writeFileSync(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2));
+    writeArtifactFile(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2), ARTIFACTS_DIR, ROOT);
     log('Successfully generated artifacts data.json.');
 }
 
