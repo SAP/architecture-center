@@ -316,8 +316,18 @@ export const configRedirects = {
             to: '/docs/ref-arch/0f59a3',
         },
         {
+            from: '/docs/ref-arch/206025',
+            to: '/docs/ref-arch/d9c3e6',
+        },
+        {
             from: '/docs/ref-arch/20c6b29b1e/3',
-            to: '/docs/ref-arch/206025',
+            to: '/docs/ref-arch/d9c3e6',
+        },
+        // Joule landscape recommendation moved from RA0019/4-SAP-manged-Joule-w-BusinessAIPlatform
+        // to RA0039/9-sap-managed-iam/4-joule-landscape-recommendation
+        {
+            from: '/docs/ref-arch/4c80fa',
+            to: '/docs/ref-arch/b95ce4',
         },
         {
             from: '/docs/ref-arch/20c6b29b1e',
@@ -511,6 +521,64 @@ export const configRedirects = {
         {
             from: '/docs/ref-arch/6972e8',
             to: '/docs/ref-arch/a22904',
+        },
+        // now points to the new RA0039 with the SAP AI Agent Hub
+        {
+            from: '/docs/ref-arch/jkg4j2',
+            to: '/docs/ref-arch/jfhsd9',
+        },
+        // Automated-checks docs moved to front-matter/ and document-body/ sub-slugs
+        {
+            from: '/docs/community/automated-checks/front-matter-properties',
+            to: '/docs/community/automated-checks/front-matter/properties',
+        },
+        {
+            from: '/docs/community/automated-checks/seo-front-matter',
+            to: '/docs/community/automated-checks/front-matter/seo',
+        },
+        {
+            from: '/docs/community/automated-checks/reference-architecture-ids',
+            to: '/docs/community/automated-checks/front-matter/reference-architecture-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/contributor-ids',
+            to: '/docs/community/automated-checks/front-matter/contributor-ids',
+        },
+        {
+            from: '/docs/community/automated-checks/h1-title',
+            to: '/docs/community/automated-checks/front-matter/h1-title',
+        },
+        {
+            from: '/docs/community/automated-checks/spelling',
+            to: '/docs/community/automated-checks/document-body/spelling',
+        },
+        {
+            from: '/docs/community/automated-checks/dictionaries',
+            to: '/docs/community/automated-checks/document-body/dictionaries',
+        },
+        {
+            from: '/docs/community/automated-checks/typos',
+            to: '/docs/community/automated-checks/document-body/typos',
+        },
+        {
+            from: '/docs/community/automated-checks/grammar',
+            to: '/docs/community/automated-checks/document-body/grammar',
+        },
+        {
+            from: '/docs/community/automated-checks/internal-links',
+            to: '/docs/community/automated-checks/document-body/internal-links',
+        },
+        {
+            from: '/docs/community/automated-checks/external-links',
+            to: '/docs/community/automated-checks/document-body/external-links',
+        },
+        {
+            from: '/docs/community/automated-checks/drawio-files',
+            to: '/docs/community/automated-checks/document-body/drawio-files',
+        },
+        {
+            from: '/docs/community/automated-checks/orphan-files',
+            to: '/docs/community/automated-checks/document-body/orphan-files',
         },
     ],
 };

@@ -3,7 +3,7 @@ id: 9673f9
 slug: /ref-arch/9673f9
 sidebar_position: 1
 title: 'Extensibility, Interoperability, and Partner Technologies'
-description: "SAP's Embodied AI architecture is built for extensibility and interoperability, letting partners extend it with custom connectors, hardware, and AI models."
+description: "SAP's Physical AI architecture is built for extensibility and interoperability, letting partners extend it with custom connectors, hardware, and AI models."
 keywords:
   - sap
   - embodied ai agents
@@ -42,11 +42,11 @@ contributors:
 discussion: 
 last_update:
   author: adelyafatykhova
-  date: 2026-05-12
+  date: 2026-10-26
 ---
 
-SAP's [Embodied AI architecture](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e) is designed with **extensibility** and **interoperability** in mind.
-These design principles are especially vital for delivering end-to-end Embodied AI due to the following factors:
+SAP's [Physical AI architecture](https://architecture.learning.sap.com/docs/ref-arch/083f2d968e) is designed with **extensibility** and **interoperability** in mind.
+These design principles are especially vital for delivering end-to-end Physical AI due to the following factors:
 
 1. SAP's vendor-agnostic ecosystem approach, leveraging partner technologies across hardware, software, and artificial intelligence capabilities
 2. Generalizability of the architecture for different use cases, including cross-suite use cases
@@ -59,7 +59,7 @@ At the same time, [open source](https://d.dam.sap.com/a/CRdeMdL/SAP_Open_Source_
 
 ## Architecture
 
-Within the **Embodied AI** architecture diagram, the specific components relevant to extensibility are highlighted.
+Within the **Physical AI** architecture diagram, the specific components relevant to extensibility are highlighted.
 
 ![drawio](drawio/reference-architecture-extensibility.drawio)
 
@@ -67,21 +67,21 @@ Within the **Embodied AI** architecture diagram, the specific components relevan
 
 ### Trigger
 
-To be suitable for various customer use cases, Embodied AI can be triggered via **system triggers**.
+To be suitable for various customer use cases, Physical AI can be triggered via **system triggers**.
 An example of a system trigger is a warehouse task created event.
 
-Embodied AI can also be triggered on-demand via **human triggers**, meaning an interaction between a business user.
+Physical AI can also be triggered on-demand via **human triggers**, meaning an interaction between a business user.
 
-**Digital AI agents** can work together with **embodied AI agents** to accomplish tasks within the business process that span both the physical and digital world.
+**Digital AI agents** can work together with the **Physical AI Execution Agents** to accomplish tasks within the business process that span both the physical and digital world.
 
 ### Custom Fleet Connectors
 
-The consumer of the Embodied AI on BTP service also plays a critical role in extensibility.
+The consumer of the Physical AI service also plays a critical role in extensibility.
 
 Custom **fleet connectors** can be deployed in order to hook up to various third-party systems, configured as destinations using the [SAP Destination Service](https://discovery-center.cloud.sap/serviceCatalog/destination-service).
 
-:::info Embodied AI Availability
-The Embodied AI on BTP service is currently only indirectly available within SAP-managed BTP accounts.
+:::info Physical AI Availability
+Physical AI is available as an Industry AI offering.
 Are you a customer or partner interested in trying it out? [Get in touch with SAP to discuss](https://url.sap/embodied-ai).
 :::
 
@@ -115,18 +115,18 @@ These models can be partner or SAP-built, and can be hosted on SAP or on third-p
 
 ### Interoperability and Communication Protocols
 
-Embodied AI Agents form multi-agent systems, using the [Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) just like digital AI agents.
+Physical AI Agents form multi-agent systems, using the [Agent2Agent (A2A) protocol](https://a2a-protocol.org/latest/) and the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) just like digital AI agents.
 
 Communication between SAP and robots is done through third-party connection platforms, known as **robot orchestration platforms** or alternatively, **fleet management software**.
 
-Such platforms can be exposed as MCP servers for Embodied AI Agents to leverage as tools via MCP, or even provide own platform-level agents for A2A-based integration.
+Such platforms can be exposed as MCP servers for Physical AI Agents to leverage as tools via MCP, or even provide own platform-level agents for A2A-based integration.
 
-This ensures interoperability with different systems and supports SAP's vendor-agnostic design for Embodied AI.
+This ensures interoperability with different systems and supports SAP's vendor-agnostic design for Physical AI.
 
 ## Flow
 
-Unlike traditional linear integration, the Embodied AI communication flow is bidirectional and includes richer contextual information.
-SAP AI agents act on tasks from applications to execute these via robots, enabled by the Embodied AI on BTP service, and sent through partner robot orchestration platforms.
+Unlike traditional linear integration, the Physical AI communication flow is bidirectional and includes richer contextual information.
+SAP AI agents act on tasks from applications to execute these via robots, enabled by SAP's Physical AI capabilities, and sent through partner robot orchestration platforms.
 
 SAP communicates **higher-level business directives**, packaged with context, for accomplishing a given task and responding to environment observations as they occur.
 Device integration and lower-level commands are the responsibility of the partner-provided platform and the physical device.
@@ -135,20 +135,20 @@ Device integration and lower-level commands are the responsibility of the partne
 
 ```mermaid
 ---
-title: Embodied AI Flow
+title: Physical AI Flow
 ---
 sequenceDiagram
     participant SAP as SAP System
     participant Agent as AI Agent
-    participant EmbodiedAgent as Embodied AI Agent
-    participant BTP as Embodied AI on BTP
+    participant EmbodiedAgent as Physical AI Execution Agent
+    participant BTP as Physical AI Service
     participant Platform as Partner Platform
     participant Robot as Robot
 
     SAP->>Agent: 1. Task created in SAP system
     Agent->>Agent: 2. AI agent picks up task
-    Agent->>EmbodiedAgent: 3. Delegates task to Embodied AI agent
-    EmbodiedAgent->>BTP: 4. Uses Embodied AI on BTP
+    Agent->>EmbodiedAgent: 3. Delegates task to Physical AI Execution Agent
+    EmbodiedAgent->>BTP: 4. Uses Physical AI Service
     BTP->>Platform: 5. Connects to partner platform
     Platform->>Robot: 6. Communicates task to robot
     
@@ -224,4 +224,4 @@ This is more common for tasks requiring manipulation (handling items), which hum
 - [SAP Destination Service](https://discovery-center.cloud.sap/serviceCatalog/destination-service)
 - [SAP Connectivity Service](https://discovery-center.cloud.sap/serviceCatalog/connectivity-service?region=all)
 - [SAP BTP Services on Discovery Center](https://discovery-center.cloud.sap/viewServices)
-- :loudspeaker: Want to try out Embodied AI? [Contact SAP](https://url.sap/embodied-ai) for your options.
+- :loudspeaker: Want to try out Physical AI? [Contact SAP](https://url.sap/embodied-ai) for your options.

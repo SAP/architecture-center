@@ -1,9 +1,10 @@
 name: Check Orphan Files
-# Archetype: CHANGED-FILES — only newly added assets are checked against all Markdown (needs fetch-depth: 0).
+# Archetype: CHANGED-FILES — only assets added/modified vs the base (on a PR) or
+# vs the previous commit (on a push to dev) are checked against all Markdown (needs fetch-depth: 0).
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'assets/**'
       - 'diagrams/**'
@@ -13,13 +14,26 @@ on:
       - 'docs/**/*.svg'
       - 'docs/**/*.drawio'
       - 'docs/**/*.docx'
+      - '.github/actions/changed-files/action.yml'
+      - '.github/workflows/check-orphan-files.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'assets/**'
+      - 'diagrams/**'
+      - 'docs/**/*.png'
+      - 'docs/**/*.jpg'
+      - 'docs/**/*.jpeg'
+      - 'docs/**/*.svg'
+      - 'docs/**/*.drawio'
+      - 'docs/**/*.docx'
+      - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-orphan-files.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-orphan-files:
@@ -33,15 +47,25 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-          fetch-depth: 0 # full history needed to diff changed assets against the PR base
+          fetch-depth: 0 # need history to diff the PR base / previous commit
+
+      # Scope to the assets changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: assets diagrams docs
+          filter-regex: '\.(png|jpg|jpeg|svg|drawio|docx)$'
 
       - name: Check for unreferenced files
         shell: bash
         run: |
-          # Changed-files scope: only assets added/modified vs the PR base.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- assets diagrams docs \
-            | grep -zE '\.(png|jpg|jpeg|svg|drawio|docx)$' > "$RUNNER_TEMP/changed-assets.txt" || true
-          if [ ! -s "$RUNNER_TEMP/changed-assets.txt" ]; then
+          # Changed-files scope: only assets added/modified vs the base / previous commit.
+          SCAN_FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t SCAN_FILES < "${{ steps.changed.outputs.files-file }}"
+          fi
+          if [ "${#SCAN_FILES[@]}" -eq 0 ]; then
             {
               echo "### Orphan files check"
               echo ""
@@ -50,7 +74,6 @@ jobs:
             echo "✅ No new or modified assets in this PR — nothing to check."
             exit 0
           fi
-          mapfile -d '' -t SCAN_FILES < "$RUNNER_TEMP/changed-assets.txt"
 
           # All Markdown files are needed to check whether each asset is referenced.
           mapfile -d '' -t MARKDOWN_FILES < <(find . -type f \( -name "*.md" -o -name "*.mdx" \) -print0)
@@ -145,10 +168,10 @@ jobs:
 
           if [ "$found_unused" -ne 0 ]; then
             { echo ""; echo "❌ Unreferenced asset(s) found — remove them or reference them before merging."; } >> "$GITHUB_STEP_SUMMARY"
-            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/docs/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
+            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           elif [ "$found_warn" -ne 0 ]; then
             { echo ""; echo "⚠️ Some assets matched only outside their owning sub-architecture — review the warnings above."; } >> "$GITHUB_STEP_SUMMARY"
-            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/docs/community/automated-checks/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
+            { echo ""; echo "📖 How to fix (reference the asset from a page or remove it): https://architecture.learning.sap.com/docs/community/automated-checks/document-body/orphan-files"; } >> "$GITHUB_STEP_SUMMARY"
           else
             echo "✅ No unreferenced files found!" >> "$GITHUB_STEP_SUMMARY"
           fi

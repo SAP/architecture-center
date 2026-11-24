@@ -22,9 +22,11 @@
  *     8. last_update.date        — missing, or older than a week before today
  *     9. last_update.author      — missing, or different from the PR author
  *
- *   Admin exemption: for the maintainer logins in AUTHORSHIP_CHECK_EXEMPT, checks
- *   7–9 are skipped completely so admins can make quick cross-page fixes without
- *   changing the page's authorship metadata. Checks 1–6 still apply.
+ *   Admin exemption: for the maintainer logins in AUTHORSHIP_CHECK_EXEMPT, the
+ *   authorship checks (7–9) and the draft/unlisted checks (5–6) are skipped, so
+ *   admins can unlist or hold back a page, and make quick cross-page fixes,
+ *   without tripping the check or rewriting its authorship metadata. Checks 1–4
+ *   still apply to everyone.
  *
  * Scope:
  *   - Only reference-architecture pages: changed files under docs/ref-arch/RA####/
@@ -36,10 +38,7 @@
  * Environment (provided by the workflow; all optional so the script runs
  * locally too):
  *   PR_AUTHOR   GitHub login of the pull request author
- *   PR_NUMBER   pull request number (written to the comment artifact)
  *   TODAY       run date as YYYY-MM-DD (keeps the script free of new Date())
- *   COMMENT_DIR when set, write the sticky-comment artifact here: body.md,
- *               pr.txt, has-findings.txt (consumed by the comment workflow).
  *
  * The set of files to check is passed as CLI arguments by the workflow (the
  * changed docs Markdown); with no arguments and outside CI the script scans
@@ -47,7 +46,6 @@
  */
 const STALE_DAYS = 7;
 const RA0000_PREFIX = 'docs/ref-arch/RA0000/';
-const COMMENT_MARKER = '<!-- frontmatter-properties-check -->';
 
 const fs = require('fs');
 const path = require('path');
@@ -59,13 +57,12 @@ const repoRoot = path.join(__dirname, '../..');
 const inActions = Boolean(process.env.GITHUB_ACTIONS);
 
 const PR_AUTHOR = (process.env.PR_AUTHOR || '').trim();
-const PR_NUMBER = (process.env.PR_NUMBER || '').trim();
 const TODAY = (process.env.TODAY || '').trim();
-const COMMENT_DIR = (process.env.COMMENT_DIR || '').trim();
 
 // Admins who routinely make small fixes across other people's RA pages are exempt
-// from all three authorship checks (7–9). The default-value checks (1–6) still
-// apply. GitHub logins are case-insensitive, so store and compare lower-case values.
+// from the authorship checks (7–9), and may also set `draft`/`unlisted` to true
+// (checks 5–6 are skipped for them); the remaining default-value checks (1–4)
+// still apply. GitHub logins are case-insensitive, so store and compare lower-case.
 const AUTHORSHIP_CHECK_EXEMPT = new Set([
   'cernus76',
   'navyakhurana',
@@ -140,8 +137,9 @@ function resolveFiles() {
 function checkFile(rel, raw, data) {
   const findings = [];
   const warn = (key, message) => {
-    annotate(rel, frontMatterLine(raw, key), message);
-    findings.push(message);
+    const line = frontMatterLine(raw, key);
+    annotate(rel, line, message);
+    findings.push({ line, message });
   };
 
   // 1-6: default-value fields — flag only an explicit non-conforming value.
@@ -157,10 +155,14 @@ function checkFile(rel, raw, data) {
   if ('toc_max_heading_level' in data && data.toc_max_heading_level !== 4) {
     warn('toc_max_heading_level', `toc_max_heading_level is \`${data.toc_max_heading_level}\`; the default is 4.`);
   }
-  if ('draft' in data && data.draft !== false) {
+  // 5-6: draft / unlisted — expected false. Maintainers in AUTHORSHIP_CHECK_EXEMPT
+  // may set them to boolean `true` (e.g. to unlist or hold back a page), but any
+  // other non-false value (a typo, a string, a non-boolean) is still flagged,
+  // even for them, so a malformed value never slips through unnoticed.
+  if ('draft' in data && data.draft !== false && !(authorshipCheckExempt && data.draft === true)) {
     warn('draft', `draft is \`${data.draft}\`; expected false (a draft page is not deployed).`);
   }
-  if ('unlisted' in data && data.unlisted !== false) {
+  if ('unlisted' in data && data.unlisted !== false && !(authorshipCheckExempt && data.unlisted === true)) {
     warn('unlisted', `unlisted is \`${data.unlisted}\`; expected false (an unlisted page is hidden from navigation).`);
   }
 
@@ -204,42 +206,9 @@ function checkFile(rel, raw, data) {
   return findings;
 }
 
-/** Build the sticky PR comment body (markdown) from the per-file findings. */
-function buildCommentBody(findingsByFile, checked) {
-  const total = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
-  const lines = [COMMENT_MARKER, ''];
-  if (total === 0) {
-    lines.push('### ✅ Front matter properties');
-    lines.push('');
-    lines.push(`No front matter property issues on the ${checked} changed page(s). Thanks!`);
-    return lines.join('\n');
-  }
-  lines.push('### ❌ Front matter properties');
-  lines.push('');
-  lines.push(`Found **${total}** error(s) across **${findingsByFile.length}** page(s). This check **fails until these are fixed.**`);
-  lines.push('');
-  const MAX_FILES = 50; // keep the comment well under GitHub's 65 KB limit
-  const shown = findingsByFile.slice(0, MAX_FILES);
-  for (const { file, findings } of shown) {
-    lines.push(`**\`${file}\`**`);
-    for (const m of findings) lines.push(`- ${m}`);
-    lines.push('');
-  }
-  if (findingsByFile.length > MAX_FILES) {
-    lines.push(`_…and ${findingsByFile.length - MAX_FILES} more page(s) with errors — see the job log / annotations for the full list._`);
-    lines.push('');
-  }
-  lines.push('<sub>Reference: the front matter guide in `docs/ref-arch/RA0000/readme.md`.</sub>');
-  return lines.join('\n');
-}
-
-/** Write the comment artifact (body + PR number + status) for the comment workflow. */
-function writeCommentArtifact(body, hasFindings) {
-  if (!COMMENT_DIR) return;
-  fs.mkdirSync(COMMENT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(COMMENT_DIR, 'body.md'), body + '\n');
-  fs.writeFileSync(path.join(COMMENT_DIR, 'pr.txt'), `${PR_NUMBER}\n`);
-  fs.writeFileSync(path.join(COMMENT_DIR, 'has-findings.txt'), `${hasFindings ? 1 : 0}\n`);
+/** Render a finding as "line N — message" (or just the message when no line). */
+function formatFinding(f) {
+  return f.line ? `line ${f.line} — ${f.message}` : f.message;
 }
 
 function main() {
@@ -260,7 +229,7 @@ function main() {
       ({ data } = matter(raw));
     } catch (e) {
       annotate(rel, 1, `Could not parse front matter: ${e.message}`);
-      findingsByFile.push({ file: rel, findings: [`Could not parse front matter: ${e.message}`] });
+      findingsByFile.push({ file: rel, findings: [{ line: 1, message: `Could not parse front matter: ${e.message}` }] });
       checked++;
       continue;
     }
@@ -270,9 +239,6 @@ function main() {
   }
 
   const errors = findingsByFile.reduce((n, f) => n + f.findings.length, 0);
-
-  const body = buildCommentBody(findingsByFile, checked);
-  writeCommentArtifact(body, errors > 0);
 
   const summary = [
     '## Front matter properties check',
@@ -288,8 +254,16 @@ function main() {
   ];
 
   if (errors > 0) {
+    // List every finding with its file and line, so the summary alone shows
+    // exactly what failed and where, without digging into the annotations.
+    summary.push('### Errors');
     summary.push('');
-    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter-properties');
+    for (const { file, findings } of findingsByFile) {
+      summary.push(`**\`${file}\`**`);
+      for (const f of findings) summary.push(`- ${formatFinding(f)}`);
+      summary.push('');
+    }
+    summary.push('📖 How to fix (add yourself to contributors and set a recent last_update.date): https://architecture.learning.sap.com/docs/community/automated-checks/front-matter/properties');
   }
 
   const summaryText = summary.join('\n');

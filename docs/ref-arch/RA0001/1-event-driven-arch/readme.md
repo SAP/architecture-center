@@ -121,5 +121,4 @@ For more details, refer to [Comprehensive Real-Time Integration Using Event-Driv
 
 ## Event-Driven Architecture Use Cases
 
-Refer to generic uses cases to understand EDA and suitable business scenarios
-[Event-Driven Architecture Use Cases](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh/presenting-event-driven-architecture-use-cases_babe31d3-d20d-4370-8f02-2f277f8033d5)
+Refer to the [Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh) learning journey for generic use cases to understand EDA and suitable business scenarios.

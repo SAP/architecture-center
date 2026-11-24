@@ -3,18 +3,26 @@ name: Check SEO Front Matter
 
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [dev]
     paths:
       - 'docs/**/*.md'
       - 'docs/**/*.mdx'
       - 'src/_scripts/_check-seo-frontmatter.js'
       - '.github/workflows/check-seo-frontmatter.yml'
+      - '.github/actions/changed-files/action.yml'
+  push:
+    branches: [dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'docs/**/*.mdx'
+      - 'src/_scripts/_check-seo-frontmatter.js'
+      - '.github/workflows/check-seo-frontmatter.yml'
+      - '.github/actions/changed-files/action.yml'
 
 permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   check-seo-frontmatter:
@@ -39,20 +47,19 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts # fork PR controls the lockfile; don't run dependency lifecycle scripts
 
+      # Scope to the Markdown changed on this PR / push to dev (shared logic).
+      - name: Collect changed files
+        id: changed
+        uses: ./.github/actions/changed-files
+        with:
+          pathspec: docs
+          filter-regex: '\.(md|mdx)$'
+
       - name: Check title and description lengths
         shell: bash
         run: |
-          # Changed-files scope: only docs Markdown added/modified vs the PR base.
-          git -c core.quotePath=false diff --name-only -z --diff-filter=AMR "origin/${GITHUB_BASE_REF}...HEAD" -- docs \
-            | grep -zE '\.(md|mdx)$' > "$RUNNER_TEMP/changed.txt" || true
-          if [ -s "$RUNNER_TEMP/changed.txt" ]; then
-            mapfile -d '' -t FILES < "$RUNNER_TEMP/changed.txt"
-            node src/_scripts/_check-seo-frontmatter.js "${FILES[@]}"
-          else
-            {
-              echo "### SEO front matter check"
-              echo ""
-              echo "✅ No changed Markdown under docs/ — nothing to check."
-            } >> "$GITHUB_STEP_SUMMARY"
-            echo "✅ No changed Markdown under docs/ — nothing to check."
+          FILES=()
+          if [ "${{ steps.changed.outputs.any }}" = "true" ]; then
+            mapfile -d '' -t FILES < "${{ steps.changed.outputs.files-file }}"
           fi
+          node src/_scripts/_check-seo-frontmatter.js "${FILES[@]}"
