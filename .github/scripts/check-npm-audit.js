@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 
 const BLOCKED_SEVERITIES = new Set(['high', 'critical']);
+const SEVERITY_PRIORITY = ['critical', 'high', 'moderate', 'low', 'info'];
 const SEVERITY_TO_SARIF_LEVEL = {
     critical: 'error',
     high: 'error',
@@ -24,16 +25,56 @@ function readJson(filePath, description) {
     }
 }
 
+function isRecord(value) {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function isSeverity(value) {
+    return typeof value === 'string' && Object.hasOwn(SEVERITY_TO_SARIF_LEVEL, value);
+}
+
 function validateAuditReport(audit) {
-    if (!audit || typeof audit !== 'object' || Array.isArray(audit)) {
+    if (!isRecord(audit)) {
         throw new Error('npm audit returned an invalid report.');
     }
     if (audit.error || audit.message) {
         const detail = audit.error?.detail || audit.error?.summary || audit.message;
         throw new Error(`npm audit did not return vulnerability data: ${detail || 'unknown registry error'}`);
     }
-    if (!(audit.auditReportVersion >= 2) || !audit.vulnerabilities || typeof audit.vulnerabilities !== 'object') {
+    if (!Number.isInteger(audit.auditReportVersion) || audit.auditReportVersion < 2 || !isRecord(audit.vulnerabilities)) {
         throw new Error('npm audit response is missing an auditReportVersion >= 2 vulnerabilities object.');
+    }
+
+    for (const [packageName, vulnerability] of Object.entries(audit.vulnerabilities)) {
+        if (!packageName.trim() || !isRecord(vulnerability)) {
+            throw new Error(`npm audit returned an invalid vulnerability entry for ${packageName}.`);
+        }
+        if (!isSeverity(vulnerability.severity)) {
+            throw new Error(`npm audit returned a missing or unknown severity for ${packageName}.`);
+        }
+        if (!Array.isArray(vulnerability.via)) {
+            throw new Error(`npm audit returned an invalid via array for ${packageName}.`);
+        }
+        for (const via of vulnerability.via) {
+            if (typeof via === 'string') {
+                if (!via.trim() || !Object.hasOwn(audit.vulnerabilities, via)) {
+                    throw new Error(`npm audit returned an unresolved package reference for ${packageName}: ${via}.`);
+                }
+                continue;
+            }
+            if (!isRecord(via) || !isSeverity(via.severity) || typeof via.url !== 'string') {
+                throw new Error(`npm audit returned an invalid advisory for ${packageName}.`);
+            }
+            let url;
+            try {
+                url = new URL(via.url);
+            } catch {
+                throw new Error(`npm audit returned an invalid advisory URL for ${packageName}.`);
+            }
+            if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+                throw new Error(`npm audit returned an invalid advisory URL for ${packageName}.`);
+            }
+        }
     }
 }
 
@@ -84,6 +125,16 @@ function resolveAdvisories(packageName, vulnerabilities, resolving = new Set()) 
     });
 }
 
+function effectiveSeverity(packageName, vulnerabilities) {
+    let severity = vulnerabilities[packageName].severity;
+    for (const advisory of resolveAdvisories(packageName, vulnerabilities)) {
+        if (SEVERITY_PRIORITY.indexOf(advisory.severity) < SEVERITY_PRIORITY.indexOf(severity)) {
+            severity = advisory.severity;
+        }
+    }
+    return severity;
+}
+
 function isExpired(expiry, now) {
     const expiresAt = Date.parse(`${expiry}T23:59:59.999Z`);
     if (Number.isNaN(expiresAt)) return true;
@@ -94,14 +145,17 @@ function evaluateAudit(audit, allowlist, now = new Date()) {
     validateAuditReport(audit);
     validateAllowlist(allowlist);
 
-    const blockedPackages = Object.entries(audit.vulnerabilities)
-        .filter(([, vulnerability]) => BLOCKED_SEVERITIES.has(vulnerability.severity));
+    const blockedPackages = [];
     const advisoryPackages = new Map();
     const unresolvedPackages = [];
 
-    for (const [packageName] of blockedPackages) {
+    for (const [packageName, vulnerability] of Object.entries(audit.vulnerabilities)) {
         const advisories = resolveAdvisories(packageName, audit.vulnerabilities)
             .filter((advisory) => BLOCKED_SEVERITIES.has(advisory.severity));
+        // Check advisory severity as well as the aggregate package label so an
+        // understated label cannot suppress an otherwise blocking finding.
+        if (!BLOCKED_SEVERITIES.has(vulnerability.severity) && advisories.length === 0) continue;
+        blockedPackages.push(packageName);
         if (advisories.length === 0) {
             unresolvedPackages.push(packageName);
             continue;
@@ -143,7 +197,10 @@ function evaluateAudit(audit, allowlist, now = new Date()) {
 
 function createSarif(audit) {
     validateAuditReport(audit);
-    const vulnerabilities = Object.entries(audit.vulnerabilities);
+    const vulnerabilities = Object.entries(audit.vulnerabilities).map(([name, vulnerability]) => [
+        name,
+        { ...vulnerability, severity: effectiveSeverity(name, audit.vulnerabilities) },
+    ]);
     return {
         $schema: 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
         version: '2.1.0',
