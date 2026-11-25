@@ -17,7 +17,7 @@ Run the clear command whenever Docusaurus gets confused during server start abou
 
 ## Key Directories
 
-- `docs/ref-arch/` - hierarchy of RAs and sub-pages (which are also RAs)
+- `docs/ref-arch/` - top-level RAs and their nested document pages; each `readme.md` has its own unique document ID
 - `news/` - news articles, independent from RAs
 - `docs/community/` - documentation on how to get started and contribute
 - `docs/ref-arch/readme.md` - primer on what RAs are conceptually
