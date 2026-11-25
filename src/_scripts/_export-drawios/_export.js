@@ -1,4 +1,4 @@
-const { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, rmSync } = require('node:fs');
+const { readdirSync, readFileSync, writeFileSync, existsSync, rmSync } = require('node:fs');
 const { execFileSync } = require('node:child_process');
 const { normalize: normalizePath, dirname, basename, join, relative, sep } = require('node:path');
 const { homedir } = require('node:os');
@@ -9,6 +9,9 @@ const DrawioCache = require('./drawio-cache');
 const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
+const { toThumbnailFileName } = require('./sanitize');
+const { watermarkSvg } = require('./watermark');
+const { ensureOutputDirectory, writeArtifactFile } = require('./artifact-output');
 
 const log = console.log;
 
@@ -32,7 +35,9 @@ const cacheEnabled = Boolean(Number(CACHE_ENABLED));
 
 const drawioCache = new DrawioCache({
     isEnabled: cacheEnabled,
-    cacheDir: `${homedir()}/.cache/architecture-center/drawio-svgs`
+    // Allow redirecting the cache (e.g. to an isolated dir in the e2e fixture)
+    // so a test run never reads or pollutes the developer's real cache.
+    cacheDir: process.env.DRAWIO_CACHE_DIR || `${homedir()}/.cache/architecture-center/drawio-svgs`
 });
 const logoSvg = readFileSync(SAP_LOGO, 'utf8');
 const renderContexts = new Map();
@@ -55,17 +60,23 @@ function getRendererIdentity() {
 }
 
 function getPipelineIdentity() {
-    // Only consumed by the cache fingerprint. Skip the I/O (and the hard
-    // dependency on package-lock.json, whose absence would otherwise abort a
-    // non-cache run with ENOENT) when caching is disabled, mirroring
-    // getRendererIdentity() above.
+    // Only consumed by the cache fingerprint. Skip the hashing I/O when caching
+    // is disabled, mirroring getRendererIdentity() above.
+    //
+    // Deliberately NOT hashing package-lock.json: every release bumps its
+    // version field, which would needlessly bust the whole drawio cache. The
+    // dependencies that actually affect output are already fingerprinted at a
+    // finer grain (rendererIdentity for the drawio engine, qrCodeVersion for
+    // the QR library), and any pipeline change edits the source files below.
     if (!cacheEnabled) return 'cache-disabled';
     const sourceFiles = [
         __filename,
-        join(ROOT, 'package-lock.json'),
         require.resolve('./drawio-cache'),
         require.resolve('./drawio-fingerprint'),
         require.resolve('./export-batch'),
+        require.resolve('./sanitize'),
+        require.resolve('./watermark'),
+        require.resolve('./artifact-output'),
     ];
     const dockerExporterPath = join(__dirname, 'docker-export.js');
     if (existsSync(dockerExporterPath)) sourceFiles.push(dockerExporterPath);
@@ -78,9 +89,9 @@ function getPipelineIdentity() {
 const rendererIdentity = getRendererIdentity();
 const pipelineIdentity = getPipelineIdentity();
 
-// Ensure artifacts directories exist
-if (!existsSync(ARTIFACTS_DIR)) mkdirSync(ARTIFACTS_DIR, { recursive: true });
-if (!existsSync(THUMBNAILS_DIR)) mkdirSync(THUMBNAILS_DIR, { recursive: true });
+// Create artifact directories only after checking their ancestry against the
+// trusted checkout; recursive mkdir could otherwise follow a committed symlink.
+ensureOutputDirectory(THUMBNAILS_DIR, ROOT);
 
 // --- Phase 1: Export and Watermark all Draw.io files ---
 
@@ -175,20 +186,23 @@ function getCacheFingerprint(drawioPath) {
     return cacheEnabled ? getRenderContext(drawioPath).fingerprint : null;
 }
 
-// Validate an output's resolved parent is within docs/ and the target is a
-// regular (non-symlink) file BEFORE deleting it, so a symlinked `images/` dir
-// cannot trick cleanup into removing a file outside the repo. Reuses the
-// exporter's own guard, and runs the check ahead of the delete (unlike the
-// DOCKER export path, which only validated inside exportOne, after cleanup).
+// Check directory ancestry against the trusted checkout before creating any
+// children, and reject symlink/non-regular destinations for both fresh exports
+// and cached restores. Cache hits must never bypass this guard.
+function prepareOutputPath(output) {
+    ensureOutputDirectory(dirname(output), ROOT);
+    return validateOutputPath(output, join(ROOT, 'docs'));
+}
+
 function safeCleanOutput(output) {
-    validateOutputPath(output, join(ROOT, 'docs'));
+    prepareOutputPath(output);
     rmSync(output, { force: true });
 }
 
 // Export all drawios to svgs
 function exportAllDrawios() {
     const jobs = Object.entries(transforms).map(([input, output]) => ({ input, output }));
-    jobs.forEach(({ output }) => mkdirSync(dirname(output), { recursive: true }));
+    jobs.forEach(({ output }) => prepareOutputPath(output));
 
     runExportBatch({
         jobs,
@@ -237,6 +251,7 @@ async function watermarkAll() {
         const cacheFingerprint = getCacheFingerprint(drawioPath);
 
         if (drawioCache.isValid(drawioPath, cacheFingerprint)) {
+            prepareOutputPath(svgPath);
             if (drawioCache.restore(drawioPath, svgPath)) {
                 log(`Using watermarked SVG from cache for ${prettyPaths(svgPath, 0)}`);
                 continue;
@@ -250,62 +265,14 @@ async function watermarkAll() {
 
         try {
             const { lastUpdated, qrLink, smallSlug, title } = getRenderContext(drawioPath);
-            let svg = readFileSync(svgPath, 'utf8');
-            const viewBoxMatch = svg.match(/viewBox="([^"]*)"/);
-            if (!viewBoxMatch) throw new Error('Exported SVG is missing a viewBox.');
-            const viewBox = viewBoxMatch[1].split(' ');
-            const height = parseInt(viewBox[3]);
-            const width = parseInt(viewBox[2]);
-            let scaleBox = width / 1500;
-            scaleBox = Math.max(1, scaleBox);
-            const pad = 20 * scaleBox;
-            viewBox[0] = -pad;
-            viewBox[1] = -pad;
-            viewBox[2] = width + pad * 2;
-            const logo = { h: 57, w: 116, mt: 36 };
-            let scaleDown = width / 1500;
-            scaleDown = Math.max(0.7, scaleDown);
-            logo.h = logo.h * scaleDown;
-            logo.w = logo.w * scaleDown;
-            const yShift = 56 * scaleBox;
-            viewBox[3] = height + pad * 2 + logo.mt + logo.h + yShift;
-            logo.y = viewBox[3] - pad * 2 - logo.h - yShift;
-            const textX = logo.w + pad;
-            const qrSvgContent = await generateQrSvg(qrLink);
-            const qrSize = 33 * 2.4 * scaleDown;
-
-            const mark = `<text id="drawio-title" x="0" y="${pad}" font-family="Arial" font-weight="bold" font-size="${Math.round(27 * scaleDown)}">
-                            <![CDATA[${title}]]>
-                        </text>
-                        <g transform="translate(0, ${yShift})">
-                        <text x="${textX}" y="${(logo.y + Math.round(logo.h * 0.5))}" font-family="Arial" font-weight="bold"
-                                font-size="${Math.round(22 * scaleDown)}">
-                            Architecture Center
-                        </text>
-                        <text x="${textX}" y="${logo.y + Math.round(logo.h * 0.9)}" font-family="Arial" font-style="italic"
-                                font-size="${Math.round(17 * scaleDown)}">
-                            Last update on ${lastUpdated}
-                        </text>
-                        <g transform="translate(0, ${logo.y})">
-                            <image width="${logo.w}" height="${logo.h}" href="data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}" />
-                        </g>
-                        <text x="${width / 2 - pad}" y="${logo.y + Math.round(logo.h * 0.75)}" font-family="Arial"
-                                font-size="${Math.round(20 * scaleDown)}">
-                            ${smallSlug}
-                        </text>
-                        </g>
-                        <g transform="translate(${width - qrSize}, ${viewBox[3] - pad * 2 - qrSize}) scale(${2.4 * scaleDown})">
-                            ${qrSvgContent}
-                        </g>`;
-
-            const bg = `<rect x="${-pad}" y="${-pad}" width="${viewBox[2]}" height="${viewBox[3]}" fill="${SVG_BACKGROUND_COLOR}"/>`;
-            svg = svg
-                .replace(/<svg([^>]*)>/, '<svg$1>' + bg)
-                .replace('<g>', `<g transform="translate(0, ${yShift})">`)
-                .replace(/<\/svg>$/, mark + '</svg>')
-                .replace(/viewBox="([^"]*)"/, `viewBox="${viewBox.join(' ')}"`)
-                .replace(/height="([^"]*)"/, `height="${viewBox[3]}"`)
-                .replace(/width="([^"]*)"/, `width="${viewBox[2]}"`);
+            const svg = watermarkSvg(readFileSync(svgPath, 'utf8'), {
+                title,
+                lastUpdated,
+                smallSlug,
+                logoSvg,
+                qrSvgContent: await generateQrSvg(qrLink),
+                backgroundColor: SVG_BACKGROUND_COLOR,
+            });
 
             writeFileSync(svgPath, svg);
             log(prettyPaths('Watermarked ' + svgPath, 0));
@@ -329,6 +296,9 @@ async function watermarkAll() {
 async function generateArtifacts() {
     const allArtifacts = [];
     const failures = [];
+    // Guards against two RAs whose titles normalize to the same thumbnail
+    // filename silently overwriting each other (and cross-wiring data.json).
+    const usedThumbnailNames = new Map();
     const refArchRoot = ROOT + '/docs/ref-arch';
     let topLevelRADirs = readdirSync(refArchRoot, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory() && dirent.name.startsWith('RA') && dirent.name !== 'RA0000')
@@ -401,17 +371,36 @@ async function generateArtifacts() {
 
         try {
             let title = attributes.title;
+            // Fail hard on a missing/empty title rather than letting
+            // toThumbnailFileName coerce it to the literal "undefined" (which
+            // would publish an "undefined.svg" thumbnail and a data.json entry
+            // with no name). Mirrors the title guard in getRenderContext; the
+            // throw is collected into `failures` and aborts the build.
+            if (typeof title !== 'string' || title.trim() === '') {
+                throw new Error(`Draw.io artifact: "${readmePath}" is missing a "title" front-matter field.`);
+            }
 
             if (dirName.includes('RA0004/')) {
                 title = 'SAP Business Data Cloud: ' + title;
             }
 
-            const titleAsFileName = title.toLowerCase().replace(/[\s/]+/g, '-').replace(/:/g, '');
+            // Derive the thumbnail filename from the (untrusted) title. Collapse
+            // whitespace AND both path separators ("/" and Windows "\") so no
+            // separator survives — which also makes any ".." inert and keeps the
+            // name a single path segment on every platform.
+            const titleAsFileName = toThumbnailFileName(title);
+            if (usedThumbnailNames.has(titleAsFileName)) {
+                throw new Error(
+                    `Thumbnail filename collision: "${dirName}" and "${usedThumbnailNames.get(titleAsFileName)}" `
+                    + `both normalize to "${titleAsFileName}.svg". Give the reference architectures distinct titles.`
+                );
+            }
+            usedThumbnailNames.set(titleAsFileName, dirName);
             const thumbnailSvgPath = join(THUMBNAILS_DIR, `${titleAsFileName}.svg`);
-
-            // Copy the watermarked SVG to the thumbnails directory
+            // Validate directory ancestry and the target, then atomically copy
+            // the SVG without following a destination symlink.
             const watermarkedSvgContent = readFileSync(svgThumbnailSourcePath, 'utf8');
-            writeFileSync(thumbnailSvgPath, watermarkedSvgContent);
+            writeArtifactFile(thumbnailSvgPath, watermarkedSvgContent, THUMBNAILS_DIR, ROOT);
             log(`Generated thumbnail: ${thumbnailSvgPath}`);
 
             allArtifacts.push({
@@ -435,7 +424,7 @@ async function generateArtifacts() {
         throw new AggregateError(failures, `Failed to generate ${failures.length} Draw.io artifact(s).`);
     }
 
-    writeFileSync(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2));
+    writeArtifactFile(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2), ARTIFACTS_DIR, ROOT);
     log('Successfully generated artifacts data.json.');
 }
 
