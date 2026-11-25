@@ -19,6 +19,7 @@ import MediaLoadingPlugin from './plugins/MediaLoadingPlugin';
 import DrawioEditorPlugin from './plugins/DrawioEditorPlugin';
 import { convertToLexicalFormat } from './utils/convertToLexical';
 import { getApiService } from '@site/src/services/api';
+import { authenticatedFetch } from '@site/src/services/authSession';
 import styles from './index.module.css';
 import PageTabs from '../PageTabs';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -155,14 +156,14 @@ interface PublishStatus {
 const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const { getActiveDocument, lastSaveTimestamp, deleteDocument, documents, resetStore, updateDocument, isSyncing, syncError, syncOperations } =
     usePageDataStore();
-  const { token, user } = useAuth();
+  const { users, user } = useAuth();
   const { colorMode } = useColorMode();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const activeDocument = getActiveDocument();
   const isReadOnly = activeDocument?.isReadOnly ?? false;
   const { siteConfig } = useDocusaurusContext();
-  const { expressBackendUrl } = siteConfig.customFields as { expressBackendUrl: string };
+  const { authenticatedApiPath } = siteConfig.customFields as { authenticatedApiPath: string };
   const editorColumnRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const coreRef = useRef<EditorCore | null>(null);
@@ -178,9 +179,9 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
   const [showSyncDialog, setShowSyncDialog] = useState(false);
   const [userForkUrl, setUserForkUrl] = useState('');
   const loadAssetsForState = useCallback(async (core: EditorCore) => {
-    console.log('[Editor] loadAssetsForState called', { hasToken: !!token, hasBackendUrl: !!expressBackendUrl });
-    if (!token || !expressBackendUrl) {
-      console.log('[Editor] Skipping asset load - missing token or backend URL');
+    console.log('[Editor] loadAssetsForState called', { hasSession: !!users.github, hasBackendUrl: !!authenticatedApiPath });
+    if (!users.github || !authenticatedApiPath) {
+      console.log('[Editor] Skipping asset load - missing session or API path');
       return;
     }
 
@@ -190,7 +191,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
       return;
     }
 
-    const api = getApiService(expressBackendUrl);
+    const api = getApiService(authenticatedApiPath);
 
     const assetPromises: Promise<void>[] = [];
 
@@ -200,7 +201,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         console.log('[Editor] Found image node:', { key, assetId: imageNode.assetId, hasSrc: !!imageNode.src });
         if (imageNode.assetId && !imageNode.src) {
           assetPromises.push(
-            api.getAssetWithContent(token, imageNode.assetId)
+            api.getAssetWithContent(imageNode.assetId)
               .then((asset) => {
                 console.log('[Editor] Image asset fetched:', {
                   assetId: imageNode.assetId,
@@ -235,7 +236,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
         });
         if (drawioNode.assetId && !drawioNode.diagramXML) {
           assetPromises.push(
-            api.getAssetWithContent(token, drawioNode.assetId)
+            api.getAssetWithContent(drawioNode.assetId)
               .then((asset) => {
                 console.log('[Editor] Drawio asset fetched:', {
                   assetId: drawioNode.assetId,
@@ -277,7 +278,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
 
     console.log('[Editor] Loading', assetPromises.length, 'assets');
     await Promise.all(assetPromises);
-  }, [token, expressBackendUrl]);
+  }, [users.github, authenticatedApiPath]);
 
   useEffect(() => {
     const activeDoc = getActiveDocument();
@@ -422,7 +423,7 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     updateContext();
     const unsubscribe = core.subscribe(updateContext);
 
-    // Load assets - will be skipped if token not available, but second useEffect handles that
+    // Load assets; the second effect retries after the session is available.
     loadAssetsForState(core);
 
     // Warn user if there are unsaved changes before leaving
@@ -453,20 +454,20 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     };
   }, [getActiveDocument, updateDocument, loadAssetsForState, syncOperations]);
 
-  // Reload assets when token becomes available (after initial mount)
+  // Reload assets when the GitHub session becomes available (after initial mount).
   // This handles the case where auth loads after the editor mounts
   useEffect(() => {
-    if (token && coreRef.current) {
+    if (users.github && coreRef.current) {
       // Small delay to ensure core is fully initialized and DOM is ready
       const timeoutId = setTimeout(() => {
         if (coreRef.current) {
-          console.log('[Editor] Token available, loading assets...');
+          console.log('[Editor] Session available, loading assets...');
           loadAssetsForState(coreRef.current);
         }
       }, 100);
       return () => clearTimeout(timeoutId);
     }
-  }, [token, loadAssetsForState]);
+  }, [users.github, loadAssetsForState]);
 
   const breadcrumbPath = useMemo(
     () => buildBreadcrumbPath(activeDocument?.id ?? null, documents),
@@ -504,16 +505,16 @@ const Editor: React.FC<EditorProps> = ({ onAddNew, onEditMeta }) => {
     const payloadForPublish = { document: JSON.stringify(documentObject) };
 
     try {
-      if (!token) {
+      if (!users.github) {
         alert('Authentication error: You are not logged in. Please log in again.');
         setIsLoading(false);
         return;
       }
 
       setPublishStatus((prev) => ({ ...prev, stage: 'forking' }));
-      const response = await fetch(`${expressBackendUrl}/api/publish`, {
+      const response = await authenticatedFetch(`${authenticatedApiPath}/api/publish`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadForPublish),
       });
       const result = await response.json();

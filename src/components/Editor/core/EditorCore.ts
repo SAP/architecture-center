@@ -76,6 +76,7 @@ export class EditorCore {
   private isRendering: boolean = false;
   private opLogger: OperationLogger | null = null;
   private compositionTimeout: NodeJS.Timeout | null = null;
+  private destroyed = false;
 
   constructor(config: EditorCoreConfig = {}) {
     this.config = config;
@@ -118,6 +119,7 @@ export class EditorCore {
 
   // Mount editor to DOM element
   mount(element: HTMLElement): void {
+    if (this.destroyed) return;
     this.container = element;
 
     // Set up contentEditable based on readOnly mode
@@ -147,6 +149,8 @@ export class EditorCore {
 
   // Unmount and clean up
   destroy(): void {
+    if (this.destroyed) return;
+    this.destroyed = true;
     if (this.compositionTimeout) {
       clearTimeout(this.compositionTimeout);
       this.compositionTimeout = null;
@@ -163,6 +167,8 @@ export class EditorCore {
       document.removeEventListener('selectionchange', this.handleSelectionChange);
     }
     this.opLogger?.clear();
+    this.opLogger = null;
+    this.container = null;
     this.listeners.clear();
   }
 
@@ -273,6 +279,7 @@ export class EditorCore {
 
   // Dispatch a command
   dispatchCommand(command: EditorCommand): void {
+    if (this.destroyed) return;
     switch (command.type) {
       case 'INSERT_TEXT':
         this.insertText((command.payload as { text: string }).text);
@@ -4641,7 +4648,7 @@ export class EditorCore {
   }
 
   private render(): void {
-    if (!this.container) return;
+    if (this.destroyed || !this.container) return;
 
     this.isRendering = true;
     try {

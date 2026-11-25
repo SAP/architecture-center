@@ -1,0 +1,43 @@
+name: Validate authentication BFF contract
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  contract:
+    name: Provider and resource authorization
+    if: github.repository == 'SAP/architecture-center' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: auth-bff-contract
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Check deployed BFF authorization contract
+        env:
+          AUTH_CONTRACT_BASE_URL: ${{ vars.AUTH_CONTRACT_BASE_URL }}
+          AUTH_CONTRACT_GITHUB_OWNER_COOKIE: ${{ secrets.AUTH_CONTRACT_GITHUB_OWNER_COOKIE }}
+          AUTH_CONTRACT_GITHUB_OWNER_CSRF: ${{ secrets.AUTH_CONTRACT_GITHUB_OWNER_CSRF }}
+          AUTH_CONTRACT_GITHUB_CONTRIBUTOR_COOKIE: ${{ secrets.AUTH_CONTRACT_GITHUB_CONTRIBUTOR_COOKIE }}
+          AUTH_CONTRACT_GITHUB_CONTRIBUTOR_CSRF: ${{ secrets.AUTH_CONTRACT_GITHUB_CONTRIBUTOR_CSRF }}
+          AUTH_CONTRACT_GITHUB_NO_PUBLISH_COOKIE: ${{ secrets.AUTH_CONTRACT_GITHUB_NO_PUBLISH_COOKIE }}
+          AUTH_CONTRACT_GITHUB_NO_PUBLISH_CSRF: ${{ secrets.AUTH_CONTRACT_GITHUB_NO_PUBLISH_CSRF }}
+          AUTH_CONTRACT_GITHUB_REVOKED_COOKIE: ${{ secrets.AUTH_CONTRACT_GITHUB_REVOKED_COOKIE }}
+          AUTH_CONTRACT_BTP_COOKIE: ${{ secrets.AUTH_CONTRACT_BTP_COOKIE }}
+          AUTH_CONTRACT_BTP_CSRF: ${{ secrets.AUTH_CONTRACT_BTP_CSRF }}
+          AUTH_CONTRACT_OWNER_DOCUMENT_ID: ${{ vars.AUTH_CONTRACT_OWNER_DOCUMENT_ID }}
+          AUTH_CONTRACT_CONTRIBUTOR_DOCUMENT_ID: ${{ vars.AUTH_CONTRACT_CONTRIBUTOR_DOCUMENT_ID }}
+          AUTH_CONTRACT_FORBIDDEN_DOCUMENT_ID: ${{ vars.AUTH_CONTRACT_FORBIDDEN_DOCUMENT_ID }}
+          AUTH_CONTRACT_MISSING_RESOURCE_ID: ${{ vars.AUTH_CONTRACT_MISSING_RESOURCE_ID }}
+        run: node src/_scripts/_check-auth-bff-contract.mjs

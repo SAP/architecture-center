@@ -7,13 +7,13 @@ import '@ui5/webcomponents-icons/dist/decline.js';
 import '@ui5/webcomponents-icons/dist/log.js';
 import styles from './UserDropdownNavbarItem.module.css';
 import Link from '@docusaurus/Link';
+import { getLoginUrl } from '@site/src/services/authSession';
 
 export default function UserDropdownNavbarItem() {
     const { user, users, loading, logout, hasDualLogin } = useAuth();
     const { siteConfig } = useDocusaurusContext();
-    const { backendUrl, expressBackendUrl } = siteConfig.customFields as {
-        backendUrl: string;
-        expressBackendUrl: string;
+    const { authApiPath } = siteConfig.customFields as {
+        authApiPath: string;
     };
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -32,20 +32,8 @@ export default function UserDropdownNavbarItem() {
 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-    // const handleLogin = (provider: 'btp' | 'github') => {
-    //     window.location.href = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
-    //         window.location.href
-    //     )}&provider=${provider}`;
-    // };
-
     const handleLogin = (provider: 'btp' | 'github') => {
-        const originUri = encodeURIComponent(window.location.href);
-
-        if (provider === 'github') {
-            window.location.href = `${expressBackendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
-        } else {
-            window.location.href = `${backendUrl}/user/login?origin_uri=${originUri}&provider=${provider}`;
-        }
+        window.location.href = getLoginUrl(authApiPath, provider, window.location.href);
     };
 
     if (!user) {

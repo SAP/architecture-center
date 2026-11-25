@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { useAuth } from '@site/src/context/AuthContext';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useLocation } from '@docusaurus/router';
+import { getLoginUrl } from '@site/src/services/authSession';
 
 function Redirecting({ provider }: { provider?: string }) {
     return (
@@ -16,8 +17,8 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
     const { siteConfig } = useDocusaurusContext();
     const location = useLocation();
 
-    const { backendUrl, authProviders } = siteConfig.customFields as {
-        backendUrl: string;
+    const { authApiPath, authProviders } = siteConfig.customFields as {
+        authApiPath: string;
         authProviders: Record<string, 'btp' | 'github'>;
     };
 
@@ -56,9 +57,7 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         if (requiredProvider) {
             if (typeof window !== 'undefined') {
                 const redirectPath = location.pathname + location.search;
-                const loginUrl = `${backendUrl}/user/login?origin_uri=${encodeURIComponent(
-                    redirectPath
-                )}&provider=${requiredProvider}`;
+                const loginUrl = getLoginUrl(authApiPath, requiredProvider, redirectPath);
                 window.location.href = loginUrl;
             }
             return <Redirecting provider={requiredProvider} />;
