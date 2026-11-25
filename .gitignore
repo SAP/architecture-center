@@ -27,8 +27,6 @@ backend/.vscode
 
 *.drawio.bkp
 
-# Ignoring the mapping file
-src/constant/pageMapping.ts
 **/dist
 
 # Local-only files
