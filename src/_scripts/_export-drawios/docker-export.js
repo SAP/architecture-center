@@ -37,6 +37,12 @@ const UNWANTED_OUTPUT_LINE_FRAGMENTS = [
     'Failed to connect to the bus',
     'Floss manager service not available',
     'InitializeSandbox() called with multiple threads',
+    // drawio's own Chromium console chatter while rendering a diagram, e.g.
+    // "...INFO:CONSOLE:1956] "mxCellCodec.beforeDecode: target X not found for
+    // cell Y", source: .../app.min.js". Emitted at INFO level for benign things
+    // like dangling edge references; the SVG still renders. Only INFO-level
+    // console lines are dropped, so a genuine ERROR:CONSOLE still surfaces.
+    'INFO:CONSOLE',
 ];
 
 // Build the contents of the mounted unwanted-lines.txt. The image's entrypoint

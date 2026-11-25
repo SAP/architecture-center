@@ -101,7 +101,7 @@ const files = readdirSync(ROOT + '/docs', { recursive: true }); // Scan all docs
 const drawios = files
     .filter((file) => file.match(/\.drawio$/))
     .filter((file) => !filterPath || file.startsWith(filterPath));
-log(`Found ${drawios.length} drawios to process\n`);
+log(`Found ${drawios.length} drawio files to process\n`);
 
 const transforms = {}; // Maps original drawio path to output SVG path
 for (const drawio of drawios) {
@@ -226,7 +226,11 @@ function exportAllDrawios() {
             return stdout;
         },
         onCacheHit: ({ input }) => log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`),
-        onSuccess: (_job, stdout) => log('Export', prettyPaths(stdout)),
+        // The container always reports the opaque mount paths ("/input.drawio ->
+        // /output/export.svg"), identical for every file, so log the real job
+        // paths instead to show which diagram was processed. prettyPaths(…, 0)
+        // strips the absolute "<repo>/docs/" prefix down to a repo-relative path.
+        onSuccess: ({ input, output }) => log('Export', prettyPaths(`${input} -> ${output}`, 0)),
         onFailure: ({ input, output }, error) => {
             safeCleanOutput(output);
             const msg = prettyPaths(`Export failed ${input} -> ${output}`);
@@ -234,7 +238,7 @@ function exportAllDrawios() {
         },
     });
 
-    log('\nAll Draw.io files exported successfully.');
+    log('\nAll drawio files exported successfully.\n');
 }
 
 // generate qrcode, only get inner part
@@ -425,7 +429,7 @@ async function generateArtifacts() {
     }
 
     writeArtifactFile(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2), ARTIFACTS_DIR, ROOT);
-    log('Successfully generated artifacts data.json.');
+    log('\nSuccessfully generated artifacts data.json.\n');
 }
 
 function prettyPaths(log, isInDocker = DOCKER) {

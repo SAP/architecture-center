@@ -220,6 +220,7 @@ test('seeds the container output filter so startup chatter is dropped but the ex
     assert.ok(matches('[22:1125/101357:ERROR:dbus/bus.cc:406] Failed to connect to the bus: ...'));
     assert.ok(matches('[22:1125/101358:WARNING:device/bluetooth/dbus/bluez_dbus_manager.cc:209] Floss manager service not available, cannot set Floss enable/disable.'));
     assert.ok(matches('[49:1125/101442:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.'));
+    assert.ok(matches('[21:1125/121253:INFO:CONSOLE:1956] "mxCellCodec.beforeDecode: target X not found for cell Y", source: file:///opt/drawio/resources/app.asar/drawio/src/main/webapp/js/app.min.js (1956)'));
     // ...while drawio's own success line is kept.
     assert.ok(!matches('/input.drawio -> /output/export.svg'));
 });
