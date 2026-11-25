@@ -12,7 +12,7 @@ const {
 } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { dirname, join, resolve } = require('node:path');
-const { DRAWIO_IMAGE, buildDockerArgs, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
+const { DRAWIO_IMAGE, buildDockerArgs, buildUnwantedLinesFile, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 
 function mountSource(args, target) {
     const mounts = args.filter((value) => value.startsWith('type=bind,'));
@@ -202,8 +202,61 @@ test('rejects a symlinked temporary SVG before copying it into the repository', 
     }
 });
 
+test('seeds the container output filter so startup chatter is dropped but the export line survives', () => {
+    const contents = buildUnwantedLinesFile();
+
+    // The image runs `grep -Fvf unwanted-lines.txt`: each non-empty line is a
+    // fixed-string pattern and a line of drawio output is removed if it contains
+    // any pattern. An empty pattern line matches everything, so it must never
+    // appear — it would blank the whole export log.
+    const patterns = contents.split('\n');
+    assert.ok(contents.endsWith('\n'), 'must end with a newline so the image can safely `cat >>` its own patterns');
+    assert.equal(patterns.pop(), '', 'the trailing newline is a line terminator, not an extra pattern');
+    assert.ok(patterns.length > 0);
+    assert.ok(!patterns.includes(''), 'no empty pattern line (it would match and drop every output line)');
+
+    const matches = (line) => patterns.some((pattern) => line.includes(pattern));
+    // Real noise lines from a hardened-container export are dropped...
+    assert.ok(matches('[22:1125/101357:ERROR:dbus/bus.cc:406] Failed to connect to the bus: ...'));
+    assert.ok(matches('[22:1125/101358:WARNING:device/bluetooth/dbus/bluez_dbus_manager.cc:209] Floss manager service not available, cannot set Floss enable/disable.'));
+    assert.ok(matches('[49:1125/101442:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.'));
+    // ...while drawio's own success line is kept.
+    assert.ok(!matches('/input.drawio -> /output/export.svg'));
+});
+
+test('writes the seeded output filter to the mounted state file', () => {
+    const repositoryRoot = mkdtempSync(join(tmpdir(), 'drawio-export-test-repository-'));
+    const docsRoot = join(repositoryRoot, 'docs');
+    const inputPath = join(docsRoot, 'drawio', 'diagram.drawio');
+    const outputPath = join(docsRoot, 'images', 'diagram.svg');
+    let stateFileContents;
+
+    mkdirSync(dirname(inputPath), { recursive: true });
+    mkdirSync(dirname(outputPath), { recursive: true });
+    writeFileSync(inputPath, '<mxfile />');
+
+    try {
+        exportDrawioWithDocker({
+            inputPath,
+            outputPath,
+            allowedFilesRoot: docsRoot,
+            repositoryRoot,
+            runDocker(command, args) {
+                const temporaryStateFile = mountSource(args, '/opt/drawio-desktop/unwanted-lines.txt');
+                stateFileContents = readFileSync(temporaryStateFile, 'utf8');
+                const temporaryOutputDir = mountSource(args, '/output');
+                writeFileSync(join(temporaryOutputDir, 'export.svg'), '<svg viewBox="0 0 1 1"></svg>');
+                return 'exported';
+            },
+        });
+
+        assert.equal(stateFileContents, buildUnwantedLinesFile());
+    } finally {
+        rmSync(repositoryRoot, { recursive: true, force: true });
+    }
+});
+
 test(
-    'exports a real diagram with the hardened container',
     { skip: process.env.DRAWIO_DOCKER_SMOKE !== '1', timeout: 600000 },
     () => {
         const repositoryRoot = resolve(__dirname, '../../..');

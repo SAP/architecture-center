@@ -23,6 +23,32 @@ const CONTAINER_STATE_FILE = '/opt/drawio-desktop/unwanted-lines.txt';
 const CONTAINER_PASSWD_FILE = '/etc/passwd';
 const MAX_EXPORTED_SVG_BYTES = 50 * 1024 * 1024;
 
+// Benign startup chatter the headless Chromium/Electron runtime prints on every
+// export: it cannot reach the (deliberately unavailable) D-Bus system bus, the
+// Bluetooth "Floss" manager, or launch its GPU sandbox cleanly under our
+// --cap-drop=ALL / non-root / read-only / tmpfs-/run hardening. None of it
+// affects the rendered SVG. The image pipes drawio's merged output through
+// `grep -Fvf /opt/drawio-desktop/unwanted-lines.txt`, dropping any line that
+// CONTAINS one of these fixed strings, so we seed that mounted file with the
+// noise fragments to keep the export log readable. Each fragment must be a
+// substring that appears ONLY in a noise line, never in drawio's own
+// "input -> output" success line (which shares no text with these).
+const UNWANTED_OUTPUT_LINE_FRAGMENTS = [
+    'Failed to connect to the bus',
+    'Floss manager service not available',
+    'InitializeSandbox() called with multiple threads',
+];
+
+// Build the contents of the mounted unwanted-lines.txt. The image's entrypoint
+// appends its own built-in patterns to this file with `cat >>`, so it MUST end
+// with a trailing newline or the first appended line would merge onto our last
+// fragment. A single trailing newline terminates the last line WITHOUT creating
+// an empty pattern line: an empty fixed-string is contained in every line, so
+// `grep -Fv` would blank the entire export log.
+function buildUnwantedLinesFile(fragments = UNWANTED_OUTPUT_LINE_FRAGMENTS) {
+    return fragments.length > 0 ? `${fragments.join('\n')}\n` : '';
+}
+
 function isPathWithin(root, candidate) {
     const relativePath = relative(root, candidate);
     return (
@@ -181,7 +207,7 @@ function exportDrawioWithDocker({
         const temporaryPasswdFile = join(realTemporaryRoot, 'passwd');
         const temporarySvg = join(temporaryOutputDir, 'export.svg');
         mkdirSync(temporaryOutputDir);
-        writeFileSync(temporaryStateFile, '');
+        writeFileSync(temporaryStateFile, buildUnwantedLinesFile());
         writeFileSync(
             temporaryPasswdFile,
             `drawio:x:${userId}:${groupId}:Draw.io Exporter:/tmp/drawio-home:/usr/sbin/nologin\n`
@@ -216,7 +242,9 @@ function exportDrawioWithDocker({
 
 module.exports = {
     DRAWIO_IMAGE,
+    UNWANTED_OUTPUT_LINE_FRAGMENTS,
     buildDockerArgs,
+    buildUnwantedLinesFile,
     exportDrawioWithDocker,
     validateOutputPath,
 };
