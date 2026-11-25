@@ -16,6 +16,9 @@ concurrency:
 jobs:
   build:
     name: Build Site
+    # workflow_dispatch can select any branch; production artifacts must come
+    # from the reviewed main branch, even without environment branch rules.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -72,6 +75,7 @@ jobs:
 
   deploy:
     name: Deploy Site
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: build

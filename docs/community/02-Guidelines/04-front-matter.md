@@ -23,7 +23,7 @@ unlisted: false
 contributors:
 last_update:
   author: cernus76
-  date: 2026-10-20
+  date: 2026-11-25
 ---
 
 Front Matter plays a crucial role in reference architectures. It defines key aspects such as SEO details, along with essential technical information like the slug (URL), sidebar position, and the date of the last update.
@@ -70,7 +70,8 @@ The front matter starts and ends with `---`.
 
 ## `id` 
 
-* Each page receives an `id`. 
+* Each document (`readme.md`) receives a unique `id`, including documents nested within a reference architecture.
+* A drawio download filename includes the unique ID of its corresponding document. For example, a diagram belonging to a nested document with `id: a06a95` is emitted as `<name>-a06a95-<hash>.drawio`.
 
 This `id` is structured as the following:
 

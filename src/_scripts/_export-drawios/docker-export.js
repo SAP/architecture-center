@@ -9,6 +9,7 @@ const {
     writeFileSync,
 } = require('node:fs');
 const { execFileSync } = require('node:child_process');
+const { randomUUID } = require('node:crypto');
 const { tmpdir } = require('node:os');
 const { dirname, isAbsolute, join, relative, resolve, sep } = require('node:path');
 
@@ -118,12 +119,14 @@ function buildDockerArgs({
     temporaryPasswdFile,
     userId,
     groupId,
+    containerName,
 }) {
     [inputPath, temporaryOutputDir, temporaryStateFile, temporaryPasswdFile].forEach(assertMountSafePath);
 
     return [
         'run',
         '--rm',
+        ...(containerName ? ['--name', containerName] : []),
         '--read-only',
         // No network: the export is a purely local .drawio -> SVG render and
         // repo policy forbids external images in diagrams, so the container
@@ -201,6 +204,7 @@ function exportDrawioWithDocker({
         throw new Error('Docker-based Draw.io export requires a Unix user and group ID.');
     }
     const temporaryRoot = mkdtempSync(join(tmpdir(), 'architecture-center-drawio-'));
+    const containerName = `architecture-center-drawio-${randomUUID()}`;
 
     try {
         const realTemporaryRoot = realpathSync(temporaryRoot);
@@ -226,17 +230,46 @@ function exportDrawioWithDocker({
             temporaryPasswdFile,
             userId,
             groupId,
+            containerName,
         });
         // stdin ignored; stdout captured (the "input -> output" line); stderr
         // piped, not inherited, so the container's benign Chromium/D-Bus chatter
         // stays off the terminal on success. On a non-zero exit, execFileSync
         // still populates error.stderr, so the caller's failure handler keeps
         // full diagnostics.
-        const stdout = runDocker('docker', args, {
-            encoding: 'utf8',
-            timeout: 600000,
-            stdio: ['ignore', 'pipe', 'pipe'],
-        });
+        let stdout;
+        try {
+            stdout = runDocker('docker', args, {
+                encoding: 'utf8',
+                timeout: 600000,
+                // Docker proxies SIGTERM to container PID 1 and may keep the
+                // client alive. SIGKILL guarantees control returns for cleanup.
+                killSignal: 'SIGKILL',
+                stdio: ['ignore', 'pipe', 'pipe'],
+            });
+        } catch (exportError) {
+            // Killing the Docker client on timeout does not stop the daemon's
+            // container. Remove only this invocation's renderer before deleting
+            // its bind mounts; --rm handles the normal successful path.
+            try {
+                runDocker('docker', ['rm', '--force', containerName], {
+                    encoding: 'utf8',
+                    timeout: 30000,
+                    killSignal: 'SIGKILL',
+                    stdio: ['ignore', 'pipe', 'pipe'],
+                });
+            } catch (cleanupError) {
+                // An ordinary nonzero export may already have been removed by
+                // --rm. Other failures must remain visible for manual cleanup.
+                if (!String(cleanupError.stderr || '').includes('No such container:')) {
+                    throw new AggregateError(
+                        [exportError, cleanupError],
+                        `Draw.io export failed (${exportError.message}); could not remove renderer ${containerName}: ${cleanupError.message}`
+                    );
+                }
+            }
+            throw exportError;
+        }
 
         validateTemporarySvg(temporarySvg);
         copyFileSync(temporarySvg, absoluteOutput);

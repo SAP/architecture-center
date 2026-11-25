@@ -114,10 +114,13 @@ for (const drawio of drawios) {
 }
 
 function getReadmePath(drawioPath) {
-    if (drawioPath.includes(`RA0007${sep}5-mt-architecture${sep}drawio${sep}`)) {
+    const readmePath = join(dirname(drawioPath), '..', 'readme.md');
+    // A nested document owns its title and QR URL as well as its download ID.
+    // Preserve the legacy parent fallback when its local readme is absent.
+    if (!existsSync(readmePath) && drawioPath.includes(`RA0007${sep}5-mt-architecture${sep}drawio${sep}`)) {
         return join(ROOT, 'docs', 'ref-arch', 'RA0007', 'readme.md');
     }
-    return join(dirname(drawioPath), '..', 'readme.md');
+    return readmePath;
 }
 
 function getRenderContext(drawioPath) {
@@ -412,7 +415,7 @@ async function generateArtifacts() {
                 name: title,
                 // Use a placeholder for drawioLink, to be updated in a post-build step
                 drawioLink: `PLACEHOLDER:${relative(ROOT, drawioFilePath).split(sep).join('/')}`,
-                thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${titleAsFileName}.svg`,
+                thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${encodeURIComponent(titleAsFileName + '.svg')}`,
                 acLink: `${BASE_URL}/docs${attributes.slug}`,
                 shortDescription: attributes.description,
             });
