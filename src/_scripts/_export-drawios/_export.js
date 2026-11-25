@@ -5,8 +5,9 @@ const { homedir } = require('node:os');
 const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
+const { normalizeDocumentFrontMatter } = require('../_drawio-asset-id');
 const DrawioCache = require('./drawio-cache');
-const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
+const { DRAWIO_IMAGE, exportDrawioWithDocker, getRendererDiagnostics, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
 const { toThumbnailFileName } = require('./sanitize');
@@ -130,7 +131,7 @@ function getRenderContext(drawioPath) {
     const sourceContent = readFileSync(drawioPath);
     const readmePath = getReadmePath(drawioPath);
     const readmeContent = readFileSync(readmePath, 'utf8');
-    const { attributes } = fm(readmeContent);
+    const attributes = normalizeDocumentFrontMatter(fm(readmeContent).attributes, readmeContent);
     let title = attributes.title;
     // Fail with a diagnosable message rather than an opaque TypeError: with the
     // hardened fail-hard pipeline, a readme missing its title front-matter would
@@ -202,6 +203,13 @@ function safeCleanOutput(output) {
     rmSync(output, { force: true });
 }
 
+function reportRendererDiagnostics(output, { input, output: destination }) {
+    for (const line of getRendererDiagnostics(output, { inputPath: input, outputPath: destination })) {
+        // Prefix every line so renderer text cannot become an Actions command.
+        console.error('[Draw.io] ' + prettyPaths(line, 0));
+    }
+}
+
 // Export all drawios to svgs
 function exportAllDrawios() {
     const jobs = Object.entries(transforms).map(([input, output]) => ({ input, output }));
@@ -233,11 +241,20 @@ function exportAllDrawios() {
         // /output/export.svg"), identical for every file, so log the real job
         // paths instead to show which diagram was processed. prettyPaths(…, 0)
         // strips the absolute "<repo>/docs/" prefix down to a repo-relative path.
-        onSuccess: ({ input, output }) => log('Export', prettyPaths(`${input} -> ${output}`, 0)),
+        onSuccess: (job, stdout) => {
+            log('Export', prettyPaths(`${job.input} -> ${job.output}`, 0));
+            reportRendererDiagnostics(stdout, job);
+        },
         onFailure: ({ input, output }, error) => {
             safeCleanOutput(output);
             const msg = prettyPaths(`Export failed ${input} -> ${output}`);
-            console.error(`\n[ERROR] ${msg}. Reason: ${String(error.stderr || error.message)}\n`);
+            const reason = String(error.message || error).replace(/[\r\n]+/g, ' ');
+            console.error(`\n[ERROR] ${msg}. Reason: ${reason}\n`);
+            const failures = error instanceof AggregateError ? error.errors : [error];
+            for (const failure of failures) {
+                reportRendererDiagnostics(failure.stdout, { input, output });
+                reportRendererDiagnostics(failure.stderr, { input, output });
+            }
         },
     });
 
@@ -328,7 +345,7 @@ async function generateArtifacts() {
         }
 
         const readmeContent = readFileSync(readmePath, 'utf8');
-        const { attributes } = fm(readmeContent);
+        const attributes = normalizeDocumentFrontMatter(fm(readmeContent).attributes, readmeContent);
 
         // Skip archived/draft/unlisted/community-contrib RAs. RA0004 vendor sub-pages
         // are exempted because people still rely on them being exposed.
@@ -437,7 +454,7 @@ async function generateArtifacts() {
 
 function prettyPaths(log, isInDocker = DOCKER) {
     const strip = isInDocker ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
-    return log.replaceAll(strip, '').replaceAll('\n', '');
+    return log.replaceAll(strip, '').replace(/[\r\n]/g, '');
 }
 
 // Main execution flow

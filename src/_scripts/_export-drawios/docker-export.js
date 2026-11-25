@@ -56,6 +56,15 @@ function buildUnwantedLinesFile(fragments = UNWANTED_OUTPUT_LINE_FRAGMENTS) {
     return fragments.length > 0 ? `${fragments.join('\n')}\n` : '';
 }
 
+function getRendererDiagnostics(output, { inputPath, outputPath } = {}) {
+    const successLine = inputPath && outputPath ? inputPath + ' -> ' + outputPath : null;
+    // The container already filters startup noise. Preserve its remaining
+    // diagnostics and remove only the success line logged using real job paths.
+    return String(output ?? '').split(/[\r\n]+/).map((line) => line.trim()).filter((line) => (
+        line && line !== '/input.drawio -> /output/export.svg' && line !== successLine
+    ));
+}
+
 function isPathWithin(root, candidate) {
     const relativePath = relative(root, candidate);
     return (
@@ -284,6 +293,7 @@ module.exports = {
     UNWANTED_OUTPUT_LINE_FRAGMENTS,
     buildDockerArgs,
     buildUnwantedLinesFile,
+    getRendererDiagnostics,
     exportDrawioWithDocker,
     validateOutputPath,
 };

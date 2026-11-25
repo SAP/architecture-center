@@ -13,7 +13,7 @@ const {
 } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { dirname, join, resolve } = require('node:path');
-const { DRAWIO_IMAGE, buildDockerArgs, buildUnwantedLinesFile, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
+const { DRAWIO_IMAGE, buildDockerArgs, buildUnwantedLinesFile, exportDrawioWithDocker, getRendererDiagnostics, validateOutputPath } = require('./docker-export');
 
 function mountSource(args, target) {
     const mounts = args.filter((value) => value.startsWith('type=bind,'));
@@ -224,6 +224,27 @@ test('seeds the container output filter so startup chatter is dropped but the ex
     assert.ok(matches('[21:1125/121253:INFO:CONSOLE:1956] "mxCellCodec.beforeDecode: target X not found for cell Y", source: file:///opt/drawio/resources/app.asar/drawio/src/main/webapp/js/app.min.js (1956)'));
     // ...while drawio's own success line is kept.
     assert.ok(!matches('/input.drawio -> /output/export.svg'));
+});
+
+test('preserves renderer diagnostics while replacing the opaque success line', () => {
+    const diagnostic = '[1:1125:ERROR:CONSOLE:1] "Renderer error"';
+    assert.deepEqual(getRendererDiagnostics('/input.drawio -> /output/export.svg\n' + diagnostic + '\r\n'), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics('/repo/source.drawio -> /repo/output.svg\n' + diagnostic, {
+        inputPath: '/repo/source.drawio', outputPath: '/repo/output.svg',
+    }), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics(Buffer.from(diagnostic)), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics(undefined), []);
+});
+
+test('splits every renderer diagnostic line before adding a safe log prefix', () => {
+    assert.deepEqual(getRendererDiagnostics('First error\r::error::untrusted command\nLast error'), [
+        'First error', '::error::untrusted command', 'Last error',
+    ]);
+});
+
+test('keeps genuine diagnostics even when they mention a startup-noise fragment', () => {
+    const diagnostic = '[1:1125:ERROR:CONSOLE:1] "Failed to connect to the bus in application code"';
+    assert.deepEqual(getRendererDiagnostics(diagnostic), [diagnostic]);
 });
 
 test('writes the seeded output filter to the mounted state file', () => {

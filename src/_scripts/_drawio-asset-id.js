@@ -24,16 +24,29 @@ function sanitizeId(id) {
 // or quoted scalar, with an optional comment. Read the lexical plain value so
 // numeric-looking IDs keep their leading zeroes. Do not parse other metadata,
 // YAML tags, aliases, or block scalars as filename identities.
-function parseReadmeId(readmePath) {
-    const lines = readFileSync(readmePath, 'utf8').replace(/^\uFEFF/, '').split(/\r?\n/);
+function parseDocumentId(content) {
+    const lines = content.replace(/^\uFEFF/, '').split(/\r?\n/);
     if (!/^---[ \t]*$/.test(lines[0])) return null;
     const end = lines.findIndex((line, index) => index > 0 && /^---[ \t]*$/.test(line));
     if (end === -1) throw new Error('Draw.io document readme has unterminated front matter.');
-    const fields = lines.slice(1, end).map((line) => line.match(/^(?:id|'id'|"id")[ \t]*:[ \t]*(.*)$/)).filter(Boolean);
+    const frontMatterLines = lines.slice(1, end);
+    const fields = frontMatterLines
+        .map((line, index) => ({ index, match: line.match(/^(?:id|'id'|"id")[ \t]*:[ \t]*(.*)$/) }))
+        .filter((field) => field.match);
     if (fields.length === 0) return null;
     if (fields.length > 1) throw new Error('Draw.io document readme has duplicate id fields.');
 
-    const value = fields[0][1];
+    const field = fields[0];
+    const nextLine = frontMatterLines.slice(field.index + 1)
+        .find((line) => !/^[ \t]*(?:#.*)?$/.test(line));
+    // YAML folds indented continuation lines into a plain scalar, including
+    // after blank lines or comments. Reject the entire value before reading it
+    // so the filename and metadata cannot use different document IDs.
+    if (nextLine && /^[ \t]/.test(nextLine)) {
+        throw new Error('Draw.io document id must be a single-line scalar.');
+    }
+
+    const value = field.match[1];
     let id;
     if (value.startsWith("'")) {
         const quoted = value.match(/^'((?:[^']|'')*)'[ \t]*(?:#.*)?$/);
@@ -53,6 +66,23 @@ function parseReadmeId(readmePath) {
         }
     }
     return sanitizeId(id);
+}
+
+// YAML loaders can interpret unquoted IDs as numbers (including octal or
+// scientific notation). Keep the exact validated spelling as a string in every
+// consumer instead of relying on a loader's numeric conversion rules.
+function normalizeDocumentFrontMatter(frontMatter, content) {
+    const id = parseDocumentId(content);
+    return id === null ? frontMatter : { ...frontMatter, id };
+}
+
+async function parseDocumentFrontMatter({ filePath, fileContent, defaultParseFrontMatter }) {
+    const parsed = await defaultParseFrontMatter({ filePath, fileContent });
+    if (!/(?:^|\/)docs\/ref-arch\//.test(filePath.replace(/\\/g, '/'))) return parsed;
+    return {
+        ...parsed,
+        frontMatter: normalizeDocumentFrontMatter(parsed.frontMatter, fileContent),
+    };
 }
 
 function isWithin(root, candidate) {
@@ -107,7 +137,7 @@ function resolveDocumentId(drawioPath, { repositoryRoot, onReadme } = {}) {
         if (!stat) continue;
         if (!stat.isFile()) throw new Error('Draw.io document readme must be a regular, non-symlink file: ' + readmePath);
         try {
-            return parseReadmeId(readmePath);
+            return parseDocumentId(readFileSync(readmePath, 'utf8'));
         } catch (error) {
             throw new Error('Invalid Draw.io document id in ' + readmePath + ': ' + error.message, { cause: error });
         }
@@ -115,4 +145,11 @@ function resolveDocumentId(drawioPath, { repositoryRoot, onReadme } = {}) {
     return null;
 }
 
-module.exports = { resolveDocumentId, sanitizeId, ID_MAX_LENGTH };
+module.exports = {
+    resolveDocumentId,
+    parseDocumentId,
+    normalizeDocumentFrontMatter,
+    parseDocumentFrontMatter,
+    sanitizeId,
+    ID_MAX_LENGTH,
+};

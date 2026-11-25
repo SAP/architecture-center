@@ -3,7 +3,13 @@ const assert = require('node:assert/strict');
 const { mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { dirname, join } = require('node:path');
-const { resolveDocumentId, sanitizeId, ID_MAX_LENGTH } = require('./_drawio-asset-id');
+const {
+    resolveDocumentId,
+    normalizeDocumentFrontMatter,
+    parseDocumentFrontMatter,
+    sanitizeId,
+    ID_MAX_LENGTH,
+} = require('./_drawio-asset-id');
 
 function fixture(t) {
     const temporaryRoot = realpathSync(mkdtempSync(join(tmpdir(), 'drawio-asset-id-test-')));
@@ -86,6 +92,69 @@ test('rejects duplicate ID fields and unterminated front matter with the readme 
     assert.throws(() => resolveDocumentId(source), (error) => error.message.includes(readmePath) && /duplicate/.test(error.message));
     readme('---\nid: one\n');
     assert.throws(() => resolveDocumentId(source), /unterminated front matter/);
+});
+
+for (const value of ['abcdef\n  ghi', 'abcdef\n\n  ghi', 'abcdef # note\n# comment\n  ghi', '\n  abcdef']) {
+    test('rejects multiline ID scalars instead of truncating their value: ' + JSON.stringify(value), (t) => {
+        const { diagram, readme } = fixture(t);
+        const source = diagram();
+        const path = readme('---\nid: ' + value + '\nslug: /ref-arch/abcdef\n---\n');
+        assert.throws(() => resolveDocumentId(source), (error) => error.message.includes(path) && /single-line scalar/.test(error.message));
+    });
+}
+
+test('comments and blank lines after a single-line ID do not change its value', (t) => {
+    const { diagram, readme } = fixture(t);
+    const source = diagram();
+    readme('---\nid: abcdef\n\n  # comment\n# another comment\nslug: /ref-arch/abcdef\n---\n');
+    assert.equal(resolveDocumentId(source), 'abcdef');
+});
+
+test('normalizes numeric IDs using their exact spelling without mutating other metadata', () => {
+    for (const parsedId of [668, 1234]) {
+        const original = { id: parsedId, slug: '/ref-arch/001234', title: 'Document', custom: { keep: true } };
+        const normalized = normalizeDocumentFrontMatter(original, '---\nid: 001234\n---\n');
+        assert.deepEqual(normalized, { ...original, id: '001234' });
+        assert.equal(original.id, parsedId);
+        assert.equal(normalized.custom, original.custom);
+    }
+    const withoutId = { title: 'Document' };
+    assert.equal(normalizeDocumentFrontMatter(withoutId, '---\ntitle: Document\n---\n'), withoutId);
+});
+
+for (const filePath of ['/checkout/docs/ref-arch/RA0001/readme.md', 'C:\\checkout\\docs\\ref-arch\\RA0001\\readme.md']) {
+    test('Docusaurus parsing preserves a document ID and the parsed body: ' + filePath, async () => {
+        const fileContent = '---\nid: 001234\n---\nBody';
+        const parsed = { frontMatter: { id: 1234, title: 'Document' }, content: 'Body' };
+        const result = await parseDocumentFrontMatter({
+            filePath,
+            fileContent,
+            defaultParseFrontMatter: async (params) => {
+                assert.deepEqual(params, { filePath, fileContent });
+                return parsed;
+            },
+        });
+        assert.deepEqual(result, { frontMatter: { id: '001234', title: 'Document' }, content: 'Body' });
+        assert.equal(parsed.frontMatter.id, 1234);
+    });
+}
+
+test('Docusaurus parsing rejects multiline document IDs', async () => {
+    await assert.rejects(parseDocumentFrontMatter({
+        filePath: '/checkout/docs/ref-arch/RA0001/readme.md',
+        fileContent: '---\nid: abcdef\n  ghi\n---\n',
+        defaultParseFrontMatter: async () => ({ frontMatter: { id: 'abcdef ghi' }, content: '' }),
+    }), /single-line scalar/);
+});
+
+test('Docusaurus parsing preserves metadata outside reference architecture documents', async () => {
+    const parsed = { frontMatter: { id: 'Community ID with spaces' }, content: 'Body' };
+    const result = await parseDocumentFrontMatter({
+        filePath: '/checkout/docs/community/readme.md',
+        fileContent: '---\nid: Community ID with spaces\n---\nBody',
+        defaultParseFrontMatter: async () => parsed,
+    });
+    assert.equal(result, parsed);
 });
 
 test('the closest child readme governs, with a parent fallback only when the child readme is missing', (t) => {

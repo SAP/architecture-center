@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { execFileSync, spawnSync } = require('node:child_process');
 const {
+    chmodSync,
     copyFileSync,
     cpSync,
     existsSync,
@@ -138,6 +139,10 @@ function makeFixture(t, documents = architectures) {
     copyFileSync(
         join(sourceRoot, 'src', '_scripts', '_drawio-asset-id.js'),
         join(root, 'src', '_scripts', '_drawio-asset-id.js'),
+    );
+    copyFileSync(
+        join(sourceRoot, 'src', '_scripts', '_generate-ref-arch-updates.js'),
+        join(root, 'src', '_scripts', '_generate-ref-arch-updates.js'),
     );
     copyFileSync(join(sourceRoot, 'package-lock.json'), join(root, 'package-lock.json'));
     mkdirSync(join(root, 'static', 'img'), { recursive: true });
@@ -355,6 +360,128 @@ test('Draw.io export completes rendering, watermarking, assets, and cache invali
     assert.notEqual(updatedAssets[0].drawioLink, initialAssets[0].drawioLink, 'Changed source gets a new download URL.');
     assert.equal(updatedAssets[1].drawioLink, initialAssets[1].drawioLink, 'Unchanged source keeps its download URL.');
 });
+
+function configureFixtureSite(fixture) {
+    symlinkSync(join(sourceRoot, 'node_modules'), join(fixture.root, 'node_modules'), 'dir');
+    fixture.write('package.json', JSON.stringify({ name: 'document-id-e2e', version: '1.0.0', private: true }));
+    fixture.write('src/pages/index.js', "import React from 'react';\n"
+        + 'export default function Home() { return <main>Document ID fixture</main>; }\n');
+    const configLoader = join(sourceRoot, 'node_modules/@docusaurus/core/lib/server/config.js');
+    const assetPlugin = join(sourceRoot, 'src/plugins/asset-types/index.js');
+    const preset = require.resolve('@docusaurus/preset-classic');
+    fixture.write('docusaurus.config.js', 'const { loadSiteConfig } = require(' + JSON.stringify(configLoader) + ');\n'
+        + 'module.exports = async () => {\n'
+        + 'const { siteConfig } = await loadSiteConfig({ siteDir: ' + JSON.stringify(sourceRoot) + ' });\n'
+        + 'return {\n'
+        + 'title: "Document ID E2E", url: ' + JSON.stringify(baseUrl) + ', baseUrl: "/",\n'
+        + 'markdown: { parseFrontMatter: siteConfig.markdown.parseFrontMatter },\n'
+        + 'plugins: [' + JSON.stringify(assetPlugin) + '],\n'
+        + 'presets: [[' + JSON.stringify(preset)
+        + ', { docs: { path: "docs", routeBasePath: "docs", sidebarPath: false }, blog: false, sitemap: false }]],\n'
+        + '};\n};\n');
+    const cli = join(sourceRoot, 'node_modules/@docusaurus/core/bin/docusaurus.mjs');
+    fixture.write('build-site.cjs', 'process.argv = [process.execPath, ' + JSON.stringify(cli) + ', "build"];\n'
+        + 'import(' + JSON.stringify(pathToFileURL(cli).href) + ').catch((error) => {\n'
+        + 'console.error(error); process.exitCode = 1;\n});\n');
+}
+
+test('an unquoted leading-zero document ID stays a string in export, site metadata, and downloads', {
+    skip: !enabled,
+    timeout: 600000,
+}, async (t) => {
+    const architecture = { ...architectures[0], id: '001234', slug: '/ref-arch/001234' };
+    const fixture = makeFixture(t, [architecture]);
+    const content = readme(architecture)
+        .replace('id: "001234"', 'id: 001234')
+        .replace('tags: []', 'tags: []\nlast_update:\n  author: drawio-e2e\n  date: 2026-01-02')
+        .replace('![](drawio/architecture.drawio)',
+            "import diagram from './drawio/architecture.drawio';\n\n<a href={diagram}>Download diagram</a>");
+    fixture.write('docs/ref-arch/' + architecture.directory + '/readme.md', content);
+    const exported = fixture.export();
+    assert.equal(exported.status, 0, exported.output);
+    await assertSuccessfulExport(fixture, [architecture]);
+    const updates = fixture.run('src/_scripts/_generate-ref-arch-updates.js');
+    assert.equal(updates.status, 0, updates.output);
+    const [update] = JSON.parse(readFileSync(join(fixture.root, 'src/data/ref-arch-updates.json'), 'utf8'));
+    assert.equal(update.id, architecture.id);
+
+    configureFixtureSite(fixture);
+    const built = fixture.run('build-site.cjs');
+    assert.equal(built.status, 0, built.output);
+    const metadataDirectory = join(fixture.root, '.docusaurus/docusaurus-plugin-content-docs/default');
+    const metadata = readdirSync(metadataDirectory).filter((file) => file.endsWith('.json'))
+        .map((file) => JSON.parse(readFileSync(join(metadataDirectory, file), 'utf8')))
+        .find((item) => item.source === '@site/docs/ref-arch/' + architecture.directory + '/readme.md');
+    assert.ok(metadata, 'The actual Docusaurus build must emit document metadata.');
+    assert.equal(metadata.frontMatter.id, architecture.id);
+    assert.equal(metadata.permalink, '/docs' + architecture.slug);
+
+    const rewritten = fixture.run('src/_scripts/_update-drawio-links.js');
+    assert.equal(rewritten.status, 0, rewritten.output);
+    const [artifact] = JSON.parse(readFileSync(join(fixture.root, 'build/artifacts/data.json'), 'utf8'));
+    assert.equal(artifact.id, architecture.id);
+    assert.match(artifact.drawioLink, /\/architecture-001234-[0-9a-f]{16}\.drawio$/);
+    const download = new URL(artifact.drawioLink).pathname.slice(1);
+    assert.deepEqual(readFileSync(join(fixture.root, 'build', download)), readFileSync(fixture.sourcePath(architecture.directory)));
+});
+
+test('a multiline document ID fails export and the actual Docusaurus build', {
+    skip: !enabled,
+    timeout: failureTestTimeout,
+}, (t) => {
+    const fixture = makeFixture(t, [architectures[0]]);
+    fixture.write('docs/ref-arch/RA9001/readme.md', readme(architectures[0]).replace('id: "a90001"', 'id: abcdef\n  ghi'));
+    const exported = fixture.export();
+    assert.equal(exported.status, 1, exported.output);
+    assert.match(exported.output, /single-line scalar/);
+    assert.equal(existsSync(fixture.indexPath), false, 'Invalid metadata must not publish artifacts.');
+    configureFixtureSite(fixture);
+    const built = fixture.run('build-site.cjs');
+    assert.equal(built.status, 1, built.output);
+    assert.match(built.output, /single-line scalar/);
+    assert.equal(existsSync(join(fixture.root, 'build')), false);
+});
+
+for (const { fails, cleanupFails } of [
+    { fails: false, cleanupFails: false },
+    { fails: true, cleanupFails: false },
+    { fails: true, cleanupFails: true },
+]) {
+    test('renderer diagnostics remain visible on ' + (fails ? 'failed' : 'successful')
+        + ' exports' + (cleanupFails ? ' with a cleanup failure' : ''), {
+        skip: !enabled,
+        timeout: failureTestTimeout,
+    }, (t) => {
+        const fixture = makeFixture(t, [architectures[0]]);
+        const renderer = fixture.write('bin/docker', '#!' + process.execPath + '\n'
+            + 'const fs = require("node:fs"); const path = require("node:path");\n'
+            + 'if (process.argv[2] === "rm") { '
+            + (cleanupFails ? 'process.stderr.write("renderer-cleanup-marker\\n"); process.exit(19);' : 'process.exit(0);')
+            + ' }\n'
+            + 'const mount = process.argv.find((arg) => arg.includes("target=/output"));\n'
+            + 'const directory = mount.match(/source=([^,]+)/)[1];\n'
+            + 'fs.writeFileSync(path.join(directory, "export.svg"), '
+            + JSON.stringify('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100"><g/></svg>') + ');\n'
+            + 'process.stdout.write("/input.drawio -> /output/export.svg\\n[1:1125:ERROR:CONSOLE:1] renderer-stdout-marker\\r::error::renderer-command-marker\\n");\n'
+            + (fails ? 'process.stderr.write("renderer-stderr-marker\\n"); process.exit(17);\n' : ''));
+        chmodSync(renderer, 0o755);
+        const result = fixture.export({ PATH: dirname(renderer) + delimiter + process.env.PATH });
+        assert.equal(result.status, fails ? 1 : 0, result.output);
+        assert.ok(result.output.includes('[Draw.io] [1:1125:ERROR:CONSOLE:1] renderer-stdout-marker'));
+        assert.ok(result.output.includes('[Draw.io] ::error::renderer-command-marker'));
+        assert.equal(result.output.split(/\r?\n/).some((line) => line.startsWith('::error::')), false);
+        if (fails) {
+            assert.ok(result.output.includes('[Draw.io] renderer-stderr-marker'));
+            if (cleanupFails) assert.ok(result.output.includes('[Draw.io] renderer-cleanup-marker'));
+            assert.equal(existsSync(fixture.indexPath), false);
+        } else {
+            assert.ok(result.output.includes('Export ref-arch/RA9001/drawio/architecture.drawio -> ref-arch/RA9001/images/architecture.svg'));
+            assert.equal(result.output.includes('/input.drawio -> /output/export.svg'), false);
+            assert.equal((result.output.match(/renderer-stdout-marker/g) || []).length, 1);
+            assert.equal(existsSync(fixture.indexPath), true);
+        }
+    });
+}
 
 test('byte-identical diagrams keep separate document download attribution through rendering and build', {
     skip: !enabled,
