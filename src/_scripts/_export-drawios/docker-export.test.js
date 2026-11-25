@@ -12,13 +12,52 @@ const {
 } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { dirname, join, resolve } = require('node:path');
-const { DRAWIO_IMAGE, buildDockerArgs, exportDrawioWithDocker } = require('./docker-export');
+const { DRAWIO_IMAGE, buildDockerArgs, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
 
 function mountSource(args, target) {
     const mounts = args.filter((value) => value.startsWith('type=bind,'));
     const mount = mounts.find((value) => value.includes(`target=${target}`));
     return mount?.match(/source=([^,]+)/)?.[1];
 }
+
+test('accepts a nonexistent regular output path without creating it', (t) => {
+    const allowedRoot = mkdtempSync(join(tmpdir(), 'drawio-output-path-test-'));
+    t.after(() => rmSync(allowedRoot, { recursive: true, force: true }));
+    const outputPath = join(allowedRoot, 'new.svg');
+
+    assert.equal(validateOutputPath(outputPath, allowedRoot), resolve(outputPath));
+    assert.equal(existsSync(outputPath), false);
+});
+
+for (const targetExists of [false, true]) {
+    test(`rejects a ${targetExists ? 'live' : 'dangling'} output symlink`, (t) => {
+        const fixtureRoot = mkdtempSync(join(tmpdir(), 'drawio-output-path-test-'));
+        t.after(() => rmSync(fixtureRoot, { recursive: true, force: true }));
+        const allowedRoot = join(fixtureRoot, 'allowed');
+        const outsideTarget = join(fixtureRoot, 'outside.svg');
+        mkdirSync(allowedRoot);
+        if (targetExists) writeFileSync(outsideTarget, 'preserved outside content');
+        const outputPath = join(allowedRoot, 'linked.svg');
+        symlinkSync(outsideTarget, outputPath);
+
+        assert.throws(() => validateOutputPath(outputPath, allowedRoot), /regular, non-symlink file/);
+        if (targetExists) {
+            assert.equal(readFileSync(outsideTarget, 'utf8'), 'preserved outside content');
+        } else {
+            assert.equal(existsSync(outsideTarget), false);
+        }
+    });
+}
+
+test('rejects a directory used as an output file', (t) => {
+    const allowedRoot = mkdtempSync(join(tmpdir(), 'drawio-output-path-test-'));
+    t.after(() => rmSync(allowedRoot, { recursive: true, force: true }));
+    const outputPath = join(allowedRoot, 'directory.svg');
+    mkdirSync(outputPath);
+
+    assert.throws(() => validateOutputPath(outputPath, allowedRoot), /regular, non-symlink file/);
+    assert.ok(existsSync(outputPath));
+});
 
 test('pins and isolates the Draw.io container', () => {
     const inputPath = '/repository/docs/diagram.drawio';
@@ -42,6 +81,10 @@ test('pins and isolates the Draw.io container', () => {
     assert.ok(args.includes('--network=none'));
     assert.ok(args.includes('--cap-drop=ALL'));
     assert.ok(args.includes('--security-opt=no-new-privileges:true'));
+    assert.ok(args.includes('--pids-limit=256'));
+    assert.ok(args.includes('--memory=2g'));
+    assert.ok(args.includes('--memory-swap=2g'));
+    assert.ok(args.includes('--cpus=2'));
     assert.ok(args.includes('--user=1001:127'));
     assert.ok(!args.includes('--privileged'));
     assert.ok(!args.some((value) => value.includes('/var/run/docker.sock')));

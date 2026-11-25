@@ -1,6 +1,5 @@
 const {
     copyFileSync,
-    existsSync,
     lstatSync,
     mkdirSync,
     mkdtempSync,
@@ -65,11 +64,16 @@ function validateOutputPath(outputPath, allowedFilesRoot) {
         throw new Error(`Draw.io output is outside the allowed files root: ${absoluteOutput}`);
     }
 
-    if (existsSync(absoluteOutput)) {
-        const outputStat = lstatSync(absoluteOutput);
-        if (outputStat.isSymbolicLink() || !outputStat.isFile()) {
-            throw new Error(`Draw.io output must be a regular, non-symlink file: ${absoluteOutput}`);
-        }
+    // lstat also sees dangling symlinks, which existsSync would treat as an
+    // absent destination and allow a later write to follow outside the root.
+    let outputStat;
+    try {
+        outputStat = lstatSync(absoluteOutput);
+    } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+    }
+    if (outputStat && !outputStat.isFile()) {
+        throw new Error(`Draw.io output must be a regular, non-symlink file: ${absoluteOutput}`);
     }
 
     return absoluteOutput;
@@ -98,6 +102,15 @@ function buildDockerArgs({
         '--cap-drop=ALL',
         '--security-opt=no-new-privileges:true',
         '--pids-limit=256',
+        // Bound the renderer's CPU and memory so a crafted diagram cannot
+        // exhaust the host. Chromium's anonymous heap is otherwise uncapped
+        // (shm-size/tmpfs only bound shared memory and disk). --memory-swap set
+        // equal to --memory disables swap, so OOM is contained to the container
+        // (that one export fails) instead of taking down the runner. Must stay
+        // in sync with the isolation assertion in docker-export.test.js.
+        '--memory=2g',
+        '--memory-swap=2g',
+        '--cpus=2',
         `--user=${userId}:${groupId}`,
         '--env',
         'HOME=/tmp/drawio-home',
@@ -182,7 +195,16 @@ function exportDrawioWithDocker({
             userId,
             groupId,
         });
-        const stdout = runDocker('docker', args, { encoding: 'utf8', timeout: 600000 });
+        // stdin ignored; stdout captured (the "input -> output" line); stderr
+        // piped, not inherited, so the container's benign Chromium/D-Bus chatter
+        // stays off the terminal on success. On a non-zero exit, execFileSync
+        // still populates error.stderr, so the caller's failure handler keeps
+        // full diagnostics.
+        const stdout = runDocker('docker', args, {
+            encoding: 'utf8',
+            timeout: 600000,
+            stdio: ['ignore', 'pipe', 'pipe'],
+        });
 
         validateTemporarySvg(temporarySvg);
         copyFileSync(temporarySvg, absoluteOutput);

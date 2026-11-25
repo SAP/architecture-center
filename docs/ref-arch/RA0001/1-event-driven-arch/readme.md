@@ -118,7 +118,3 @@ The **SAP Event Mesh capability of SAP Integration Suite** is an event broker wh
 In the design considerations section, we have detailed the differences between SAP Integration Suite,advanced event mesh and SAP Integration Suite, Event Mesh Capability. 
 
 For more details, refer to [Comprehensive Real-Time Integration Using Event-Driven Architecture](https://www.sap.com/documents/2024/10/f41de944-dc7e-0010-bca6-c68f7e60039b.html)
-
-## Event-Driven Architecture Use Cases
-
-Refer to the [Discovering Event-Driven Integration with SAP Integration Suite, Advanced Event Mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh) learning journey for generic use cases to understand EDA and suitable business scenarios.

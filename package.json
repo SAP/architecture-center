@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2648.1",
+    "version": "v3.2648.2",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -20,6 +20,7 @@
         "generate-ref-arch-updates": "node src/_scripts/_generate-ref-arch-updates.js",
         "gen:headers": "node src/_scripts/_generate-vercel-headers.js",
         "test": "jest",
+        "test:drawio:e2e": "DRAWIO_EXPORT_E2E=1 node --test src/_scripts/_export-drawios/export.e2e.test.js",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
         "lint": "eslint .",
@@ -120,6 +121,7 @@
         "identity-obj-proxy": "^3.0.0",
         "jest": "^30.4.2",
         "jest-environment-jsdom": "^30.4.1",
+        "jsdom": "^26.1.0",
         "postcss": "^8.5.32",
         "qrcode": "^1.5.4",
         "ts-jest": "^29.4.12",
