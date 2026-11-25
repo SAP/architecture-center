@@ -81,6 +81,3 @@ Below are some sample use case scenarios demonstrating the application of event-
 
 ### Use Case 3: Consume SAP events in SAP BTP Extension application. In this scenario, SAP Cloud Application Event hub receives the events from Order Management Foundation and transmits them to the subscribed SAP BTP Extension application.
 ![drawio](drawio/eda_eventhub.drawio)
-
-
-Note: Refer to additional use case patterns in the [SAP Learning Journey - Discovering Event-Driven Integration with SAP Integration Suite, advanced event mesh](https://learning.sap.com/learning-journeys/discovering-event-driven-integration-with-sap-integration-suite-advanced-event-mesh).
