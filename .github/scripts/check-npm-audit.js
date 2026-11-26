@@ -195,7 +195,14 @@ function evaluateAudit(audit, allowlist, now = new Date()) {
     };
 }
 
-function createSarif(audit) {
+function createSarif(audit, lockfilePath = 'package-lock.json') {
+    const segments = typeof lockfilePath === 'string' ? lockfilePath.split('/') : [];
+    if (
+        segments.pop() !== 'package-lock.json' ||
+        segments.some((part) => !/^[A-Za-z0-9._-]+$/.test(part) || part === '.' || part === '..')
+    ) {
+        throw new Error('SARIF lockfile path must be a repository-relative package-lock.json path.');
+    }
     validateAuditReport(audit);
     const vulnerabilities = Object.entries(audit.vulnerabilities).map(([name, vulnerability]) => [
         name,
@@ -222,7 +229,7 @@ function createSarif(audit) {
                 message: { text: `Vulnerable package: ${name} (${vulnerability.severity})` },
                 locations: [{
                     physicalLocation: {
-                        artifactLocation: { uri: 'package-lock.json', uriBaseId: '%SRCROOT%' },
+                        artifactLocation: { uri: lockfilePath, uriBaseId: '%SRCROOT%' },
                         region: { startLine: 1 },
                     },
                 }],
@@ -232,14 +239,14 @@ function createSarif(audit) {
 }
 
 function run(argv = process.argv.slice(2)) {
-    const [auditPath, allowlistPath, sarifPath] = argv;
+    const [auditPath, allowlistPath, sarifPath, lockfilePath] = argv;
     if (!auditPath || !allowlistPath || !sarifPath) {
-        throw new Error('Usage: node check-npm-audit.js <audit.json> <allowlist.json> <output.sarif>');
+        throw new Error('Usage: node check-npm-audit.js <audit.json> <allowlist.json> <output.sarif> [lockfile-path]');
     }
 
     const audit = readJson(auditPath, 'npm audit report');
     const allowlist = readJson(allowlistPath, 'npm audit allowlist');
-    const sarif = createSarif(audit);
+    const sarif = createSarif(audit, lockfilePath);
     fs.writeFileSync(sarifPath, JSON.stringify(sarif, null, 2));
 
     const evaluation = evaluateAudit(audit, allowlist);

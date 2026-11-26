@@ -137,7 +137,9 @@ npm ci --ignore-scripts --prefix "$WRANGLER_DIR"
 
 # Check authentication
 print_message "$BLUE" "\n→ Checking Cloudflare authentication..."
-if "$WRANGLER" whoami &> /dev/null; then
+# Plain-text whoami exits successfully even when unauthenticated. JSON mode
+# returns a nonzero status when no authenticated identity is available.
+if "$WRANGLER" whoami --json &> /dev/null; then
     print_message "$GREEN" "✓ Already authenticated with Cloudflare"
 else
     print_message "$YELLOW" "⚠ Not authenticated with Cloudflare"

@@ -175,6 +175,73 @@ jobs:
             echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
           } >> "$GITHUB_STEP_SUMMARY"
 
+  audit-isolated-toolchains:
+    name: Audit Isolated Toolchains (${{ matrix.toolchain }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    strategy:
+      # Report every isolated tree even when another audit fails.
+      fail-fast: false
+      matrix:
+        toolchain: [wrangler, cspell]
+    permissions:
+      contents: read
+      security-events: write
+    env:
+      TOOLCHAIN_DIRECTORY: .github/workflows/${{ matrix.toolchain }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+
+      - name: Run and enforce isolated npm audit
+        shell: bash
+        # Audit committed lockfiles directly; do not install packages or run lifecycle scripts.
+        run: |
+          [ -f "${TOOLCHAIN_DIRECTORY}/package-lock.json" ] || { echo "Toolchain package-lock.json not found."; exit 1; }
+          audit_status=0
+          npm audit --prefix "${TOOLCHAIN_DIRECTORY}" --json > npm-audit.json || audit_status=$?
+          echo "npm audit exit status: ${audit_status}"
+          if [ "${audit_status}" -gt 1 ]; then
+            echo "npm audit failed before it could complete."
+            exit "${audit_status}"
+          fi
+          node .github/scripts/check-npm-audit.js \
+            npm-audit.json \
+            .github/npm-audit-allowlist.json \
+            npm-audit.sarif \
+            "${TOOLCHAIN_DIRECTORY}/package-lock.json"
+
+      - name: Upload isolated npm audit SARIF
+        # Fork PRs still run and enforce the audit; their read-only tokens cannot upload SARIF.
+        if: always() && hashFiles('npm-audit.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4
+        with:
+          sarif_file: npm-audit.sarif
+          category: npm-audit-${{ matrix.toolchain }}
+
+      - name: Write job summary
+        if: always()
+        shell: bash
+        env:
+          JOB_STATUS: ${{ job.status }}
+          TOOLCHAIN_NAME: ${{ matrix.toolchain }}
+          GH_REF: ${{ github.ref }}
+        run: |
+          {
+            echo "### Isolated npm Audit: $TOOLCHAIN_NAME"
+            echo "**Result:** $JOB_STATUS  "
+            echo "**Date:** $(date -u '+%Y-%m-%d %H:%M UTC')  "
+            echo "**Ref:** \`$GH_REF\`  "
+            echo "**Run:** [$GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
   audit-workflows:
     name: Audit GitHub Workflows
     runs-on: ubuntu-24.04

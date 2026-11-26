@@ -8,6 +8,20 @@ const { delimiter, dirname, join, resolve } = require('node:path');
 const sourceRoot = resolve(__dirname, '../..');
 const hasZsh = spawnSync('zsh', ['--version']).status === 0;
 
+function productionDeployCommand() {
+    const lines = readFileSync(join(sourceRoot, '.github/workflows/deploy-to-cloudflare.yml'), 'utf8').split('\n');
+    const step = lines.indexOf('      - name: Deploy to Cloudflare (Pages)');
+    assert.notEqual(step, -1, 'Missing production deployment step');
+    const start = lines.indexOf('        run: |', step);
+    assert.ok(start > step, 'Production deployment must have a command block');
+    const command = [];
+    for (const line of lines.slice(start + 1)) {
+        if (line.trim() && !line.startsWith('          ')) break;
+        command.push(line.slice(10));
+    }
+    return command.join('\n');
+}
+
 function fixture(t) {
     const temporaryRoot = mkdtempSync(join(tmpdir(), 'cloudflare-deploy-offline-'));
     t.after(() => rmSync(temporaryRoot, { recursive: true, force: true }));
@@ -39,8 +53,18 @@ if (kind === 'npm') {
     fs.copyFileSync(process.argv[1], path.join(bin, 'wrangler'));
     fs.chmodSync(path.join(bin, 'wrangler'), 0o755);
 } else if (kind === 'wrangler') {
-    if (args[0] === '--version') console.log('4.151.3');
-    if (args[0] === 'whoami' && process.env.FAKE_UNAUTHENTICATED === '1') process.exit(1);
+    if (args[0] === '--version') {
+        const packageJson = JSON.parse(fs.readFileSync(path.join(process.env.FAKE_TOOLCHAIN, 'package.json'), 'utf8'));
+        console.log(packageJson.dependencies.wrangler);
+    }
+    if (args[0] === 'whoami' && process.env.FAKE_UNAUTHENTICATED === '1') {
+        if (args.includes('--json')) {
+            console.log(JSON.stringify({ loggedIn: false }));
+            process.exit(1);
+        }
+        console.log('You are not authenticated. Please run wrangler login.');
+    }
+    if (args[0] === 'login') process.exit(Number(process.env.FAKE_LOGIN_STATUS || 0));
     if (args[0] === 'pages') process.exit(Number(process.env.FAKE_DEPLOY_STATUS || 0));
 } else {
     process.exit(99);
@@ -48,6 +72,12 @@ if (kind === 'npm') {
 `;
     writeFileSync(join(bin, 'npm'), fakeTool, { mode: 0o755 });
     writeFileSync(join(bin, 'npx'), fakeTool, { mode: 0o755 });
+    writeFileSync(join(bin, 'wrangler'), fakeTool, { mode: 0o755 });
+    function calls() {
+        return existsSync(commands)
+            ? readFileSync(commands, 'utf8').trim().split('\n').map((line) => JSON.parse(line))
+            : [];
+    }
     return {
         root, toolchain, temporaryRoot,
         run(args, extraEnv = {}) {
@@ -63,10 +93,17 @@ if (kind === 'npm') {
                 },
             });
             assert.ifError(result.error);
-            const calls = existsSync(commands)
-                ? readFileSync(commands, 'utf8').trim().split('\n').map((line) => JSON.parse(line))
-                : [];
-            return { ...result, calls };
+            return { ...result, calls: calls() };
+        },
+        runProductionWorkflow(label) {
+            const env = { ...process.env, PATH: bin + delimiter + process.env.PATH, FAKE_COMMANDS: commands };
+            if (label === undefined) delete env.CLOUDFLARE_PRODUCTION_ENVIRONMENT_LABEL;
+            else env.CLOUDFLARE_PRODUCTION_ENVIRONMENT_LABEL = label;
+            const result = spawnSync('bash', ['--noprofile', '--norc', '-eo', 'pipefail', '-c', productionDeployCommand()], {
+                cwd: root, env, encoding: 'utf8', timeout: 10000,
+            });
+            assert.ifError(result.error);
+            return { ...result, calls: calls() };
         },
     };
 }
@@ -81,7 +118,7 @@ test('deploy passes hostile project names literally to locked Wrangler without e
     assert.deepEqual(result.calls, [
         { kind: 'npm', args: ['ci', '--ignore-scripts', '--prefix', f.toolchain] },
         { kind: 'wrangler', args: ['--version'] },
-        { kind: 'wrangler', args: ['whoami'] },
+        { kind: 'wrangler', args: ['whoami', '--json'] },
         { kind: 'wrangler', args: ['pages', 'deploy', join(f.root, 'build'), '--project-name=' + project, '--branch=test'] },
     ]);
 });
@@ -107,6 +144,21 @@ test('a locked installation failure prevents authentication and deployment', { s
     assert.deepEqual(result.calls.map((call) => call.kind), ['npm']);
 });
 
+test('an unauthenticated identity triggers login before local deployment', { skip: !hasZsh }, (t) => {
+    const result = fixture(t).run(['--env', 'TEST'], { FAKE_UNAUTHENTICATED: '1' });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.ok(!result.stdout.includes('Already authenticated'));
+    assert.deepEqual(result.calls.slice(2).map((call) => call.args[0]), ['whoami', 'login', 'pages']);
+    assert.deepEqual(result.calls[2].args, ['whoami', '--json']);
+});
+
+test('a failed login prevents deployment and propagates the authentication failure', { skip: !hasZsh }, (t) => {
+    const result = fixture(t).run(['--env', 'TEST'], { FAKE_UNAUTHENTICATED: '1', FAKE_LOGIN_STATUS: '19' });
+    assert.equal(result.status, 19);
+    assert.equal(result.calls.at(-1).args[0], 'login');
+    assert.ok(!result.calls.some((call) => call.args[0] === 'pages'));
+});
+
 test('deploy propagates Wrangler failure and targets the configured production branch', { skip: !hasZsh }, (t) => {
     const result = fixture(t).run(['--env', 'PROD'], { FAKE_DEPLOY_STATUS: '17' });
     assert.equal(result.status, 17);
@@ -124,4 +176,32 @@ test('production workflow jobs reject manual dispatches from other branches', ()
         const section = nextJob === -1 ? rest : rest.slice(0, nextJob);
         assert.equal(section.filter((line) => line === "    if: github.ref == 'refs/heads/main'").length, 1);
     }
+});
+
+for (const label of [undefined, '', ' ', '\t\n']) {
+    test('production workflow refuses an absent or blank branch label: ' + JSON.stringify(label), (t) => {
+        const result = fixture(t).runProductionWorkflow(label);
+        assert.notEqual(result.status, 0);
+        assert.match(result.stderr, /CLOUDFLARE_PRODUCTION_ENVIRONMENT_LABEL must be configured and nonempty/);
+        assert.deepEqual(result.calls, []);
+    });
+}
+
+test('production workflow passes the configured branch label to Pages literally', (t) => {
+    const f = fixture(t);
+    const result = f.runProductionWorkflow('prod');
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.deepEqual(result.calls, [{ kind: 'wrangler', args: [
+        'pages', 'deploy', './build', '--project-name', 'sap-architecture-center', '--branch', 'prod',
+    ] }]);
+});
+
+test('production workflow does not execute shell text inside the branch label', (t) => {
+    const f = fixture(t);
+    const sentinel = join(f.temporaryRoot, 'branch-shell-injection');
+    const label = 'prod"; touch "' + sentinel + '"; # $(touch ' + sentinel + ')';
+    const result = f.runProductionWorkflow(label);
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.equal(existsSync(sentinel), false);
+    assert.equal(result.calls.at(-1).args.at(-1), label);
 });
