@@ -102,7 +102,7 @@ const files = readdirSync(ROOT + '/docs', { recursive: true }); // Scan all docs
 const drawios = files
     .filter((file) => file.match(/\.drawio$/))
     .filter((file) => !filterPath || file.startsWith(filterPath));
-log(`Found ${drawios.length} drawio files to process\n`);
+log(`\nFound ${drawios.length} drawio files to process\n`);
 
 const transforms = {}; // Maps original drawio path to output SVG path
 for (const drawio of drawios) {
@@ -313,6 +313,8 @@ async function watermarkAll() {
     if (failures.length > 0) {
         throw new AggregateError(failures, `Failed to watermark ${failures.length} Draw.io file(s).`);
     }
+
+    log('\nAll drawio files watermarked successfully.\n');
 }
 
 // --- Phase 2: Generate Artifacts for Top-Level RAs ---
@@ -449,7 +451,7 @@ async function generateArtifacts() {
     }
 
     writeArtifactFile(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2), ARTIFACTS_DIR, ROOT);
-    log('\nSuccessfully generated artifacts data.json.\n');
+    log('\nSuccessfully generated artifacts & data.json.\n');
 }
 
 function prettyPaths(log, isInDocker = DOCKER) {
