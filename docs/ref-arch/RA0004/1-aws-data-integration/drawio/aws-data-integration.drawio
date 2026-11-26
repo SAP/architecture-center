@@ -187,11 +187,11 @@
         <mxCell id="O2gpX7lW4LcoA5WGffdx-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;absoluteArcSize=1;imageWidth=64;imageHeight=64;strokeWidth=1.5;labelBackgroundColor=none;fontStyle=0;fontSize=13;spacingTop=43;strokeColor=none;align=center;verticalAlign=middle;fontFamily=Helvetica;fontColor=#000000;fillColor=light-dark(#d2f0ff, #102937);gradientColor=none;gradientDirection=south;" value="" vertex="1">
           <mxGeometry height="56.5" width="159.25" x="1105.49" y="293.5" as="geometry" />
         </mxCell>
-        <mxCell id="O2gpX7lW4LcoA5WGffdx-17" parent="1" style="text;whiteSpace=wrap;html=1;spacing=0;verticalAlign=middle;fontStyle=1;fontSize=12;container=0;" value="Amazon Glue" vertex="1">
-          <mxGeometry height="29" width="91" x="1147.6999999999998" y="306.09000000000003" as="geometry" />
+        <mxCell id="O2gpX7lW4LcoA5WGffdx-17" parent="1" style="text;whiteSpace=wrap;html=1;spacing=0;verticalAlign=middle;fontStyle=1;fontSize=12;container=0;" value="AWS Glue" vertex="1">
+          <mxGeometry height="29" width="91" x="1153.6999999999998" y="306.09000000000003" as="geometry" />
         </mxCell>
         <mxCell id="O2gpX7lW4LcoA5WGffdx-20" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.glue;fillColor=#F58534;gradientColor=none;labelPerimeter=1;" value="" vertex="1">
-          <mxGeometry height="30" width="27.96" x="1112.74" y="306.09" as="geometry" />
+          <mxGeometry height="30" width="27.96" x="1113.74" y="306.09" as="geometry" />
         </mxCell>
         <mxCell id="O2gpX7lW4LcoA5WGffdx-22" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p style=&quot;caret-color: rgb(19, 62, 147); color: rgb(19, 62, 147); font-weight: 700; margin-top: 5.4pt; margin-bottom: 0pt; margin-left: 0in; direction: ltr; unicode-bidi: embed; vertical-align: baseline; word-break: normal;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Zero Copy&amp;nbsp;&lt;/font&gt;&lt;/p&gt;" vertex="1">
           <mxGeometry height="30" width="179.91" x="844.1" y="297" as="geometry" />
