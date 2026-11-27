@@ -23,6 +23,7 @@ interface AuthUser {
     githubAccessToken?: string;
     expiresAt?: number;
     isSapEmployee?: boolean;
+    token?: string;
 }
 interface DualAuthUsers {
     github: AuthUser | null;
@@ -177,6 +178,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                                 email: authData.email || decodedBtpToken.email,
                                 provider: 'btp',
                                 expiresAt: decodedBtpToken.exp, // Store expiry for BTP user
+                                token: authData.token,
                             };
                             scheduleBtpTokenExpiryCheck(decodedBtpToken.exp); // Schedule check
                         } else {
@@ -190,6 +192,7 @@ const AuthLogicProvider = ({ children }: { children: ReactNode }) => {
                             username: authData.email.split('@')[0],
                             email: authData.email,
                             provider: 'btp',
+                            token: authData.token,
                         };
                     }
                 } catch {
