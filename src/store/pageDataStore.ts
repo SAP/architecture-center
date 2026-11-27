@@ -242,7 +242,7 @@ export const usePageDataStore = create<PageDataState>()(
 
             // Fetch all documents from remote
             fetchDocuments: async () => {
-                const { backendUrl, authToken, currentUsername } = get();
+                const { backendUrl, authToken, currentUsername, sapToken } = get();
                 console.log('[PageDataStore] fetchDocuments called:', { backendUrl, hasToken: !!authToken, currentUsername });
                 if (!backendUrl || !authToken) {
                     console.warn('[PageDataStore] Backend not configured, skipping fetch');
@@ -394,6 +394,7 @@ export const usePageDataStore = create<PageDataState>()(
                                     headers: {
                                         'Authorization': `Bearer ${authToken}`,
                                         'Content-Type': 'application/json',
+                                        ...(sapToken ? { 'x-sap-token': sapToken } : {}),
                                     },
                                     body: JSON.stringify({
                                         title: doc.title,
