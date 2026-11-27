@@ -48,6 +48,7 @@ interface PageDataState {
     authToken: string | null;
     currentUsername: string | null;
     sapToken: string | null;
+    sessionExpired: boolean;
 
     // Getters
     getDocuments: () => Document[];
@@ -167,6 +168,7 @@ export const usePageDataStore = create<PageDataState>()(
             authToken: null,
             currentUsername: null,
             sapToken: null,
+            sessionExpired: false,
 
             getDocuments: () => get().documents,
 
@@ -692,6 +694,7 @@ export const usePageDataStore = create<PageDataState>()(
                         }
                     );
 
+                    if (response.status === 403) set({ sessionExpired: true });
                     if (!response.ok) throw new Error('Article operations sync failed');
 
                     const result = await response.json();
@@ -851,6 +854,7 @@ export const usePageDataStore = create<PageDataState>()(
                         }
                     );
 
+                    if (response.status === 403) set({ sessionExpired: true });
                     if (!response.ok) {
                         const errorData = await response.json().catch(() => ({}));
                         throw new Error(errorData.error?.message || `Failed to create article: ${response.statusText}`);
@@ -940,6 +944,7 @@ export const usePageDataStore = create<PageDataState>()(
                             },
                         });
 
+                        if (response.status === 403) set({ sessionExpired: true });
                         if (!response.ok && response.status !== 404) {
                             console.error('Failed to delete from remote:', response.statusText);
                         }

@@ -50,6 +50,7 @@ function AuthenticatedQuickStartView() {
     const [currentParentId, setCurrentParentId] = useState<string | null>(null);
     const { documents, addDocument, addArticle, setBackendConfig, fetchDocuments, isLoading, isCreating, getActiveDocument, updateDocument, openDocument } = usePageDataStore();
     const activeDocumentId = usePageDataStore((state) => state.activeDocumentId);
+    const sessionExpired = usePageDataStore((state) => state.sessionExpired);
     const history = useHistory();
     const { siteConfig } = useDocusaurusContext();
     const baseUrl = siteConfig.baseUrl;
@@ -295,6 +296,13 @@ function AuthenticatedQuickStartView() {
                 }}>OK</Button>}
             >
                 <Text>Creating an article requires signing in with your SAP account. Please try again using your SAP credentials.</Text>
+            </Dialog>
+            <Dialog
+                open={sessionExpired}
+                headerText="Session expired"
+                footer={<Button design="Emphasized" onClick={handleSapLogin}>Sign in with SAP</Button>}
+            >
+                <Text>Your SAP session has expired. Please sign in with SAP again to continue.</Text>
             </Dialog>
             <ArticleFormDialog
                 open={isArticleFormOpen}
