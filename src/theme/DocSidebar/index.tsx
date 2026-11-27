@@ -22,6 +22,7 @@ import {
   findDocIdFromPath,
   docExistsInArchivedView,
   docExistsInRecentlyUpdatedView,
+  docExistsInPartnerView,
   findDocByPath,
   computeFilteredResults,
   findDomainsContainingPath,
@@ -46,7 +47,6 @@ function DocSidebarDesktop(props) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
-    searchTerm,
     showArchived,
     showCommunityContent,
     showRecentlyUpdated,
@@ -55,8 +55,7 @@ function DocSidebarDesktop(props) {
     handleArchiveChange,
     handleCommunityContentChange,
     handleRecentlyUpdatedChange,
-    handleResetFilters,
-    setSearchTerm
+    handleResetFilters
   } = useFilterNavigation(props.sidebar, tagsDocId);
 
   if (!shouldShowFilters) {
@@ -75,8 +74,6 @@ function DocSidebarDesktop(props) {
           onPartnersChange={handlePartnersChange}
           resetFilters={handleResetFilters}
           isResetEnabled={isResetEnabled}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
           resultCount={resultCount}
           showCommunityContent={showCommunityContent}
           onCommunityContentChange={handleCommunityContentChange}
@@ -117,7 +114,6 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     selectedPartnerOptions,
     resultCount,
     domainCategories,
-    searchTerm,
     showArchived,
     showCommunityContent,
     showRecentlyUpdated,
@@ -126,8 +122,7 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
     handleArchiveChange,
     handleCommunityContentChange,
     handleRecentlyUpdatedChange,
-    handleResetFilters,
-    setSearchTerm
+    handleResetFilters
   } = useFilterNavigation(sidebar, tagsDocId);
 
   return (
@@ -138,8 +133,6 @@ function FilteredMobileSidebarView({ sidebar, path, onItemClick }) {
         onPartnersChange={handlePartnersChange}
         resetFilters={handleResetFilters}
         isResetEnabled={isResetEnabled}
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
         resultCount={resultCount}
         showCommunityContent={showCommunityContent}
         onCommunityContentChange={handleCommunityContentChange}
@@ -231,15 +224,12 @@ export default function DocSidebarWrapper(props) {
       const currentPartners = useSidebarFilterStore.getState().partners;
 
       if (currentPartners.length > 0) {
-        const docTags = tagsDocId[docId]?.tags || [];
+        // Check if document exists in partner-filtered view (including as container category)
+        const freshShowArchived = useSidebarFilterStore.getState().showArchived;
+        const existsInPartnerView = docExistsInPartnerView(location.pathname, props.sidebar, tagsDocId, currentPartners, freshShowArchived);
 
-        // Check if current document has ANY of the active partner tags
-        const hasMatchingPartner = currentPartners.some(partner =>
-          docTags.some((tag: string) => tag.toLowerCase().includes(partner.toLowerCase()))
-        );
-
-        // If document matches partners, keep them active and sync URL
-        if (hasMatchingPartner) {
+        if (existsInPartnerView) {
+          // Keep filter active and sync URL
           const urlParams = new URLSearchParams(location.search);
           if (!urlParams.get('partners')) {
             urlParams.set('partners', currentPartners.join(','));
@@ -318,8 +308,11 @@ export default function DocSidebarWrapper(props) {
             window.history.replaceState({}, '', `${location.pathname}?${urlParams.toString()}`);
           }
         } else {
-          // Check if document exists in recently updated view (as a parent category with recent children)
-          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId, currentShowArchived);
+          // Check if document exists in recently updated view (as a parent category with recent children).
+          // Read showArchived fresh: the archive branch above may have just called setShowArchived(true),
+          // so the `currentShowArchived` snapshot taken before that mutation would be stale here.
+          const freshShowArchived = useSidebarFilterStore.getState().showArchived;
+          const existsInRecentlyUpdated = docExistsInRecentlyUpdatedView(docId, location.pathname, props.sidebar, tagsDocId, freshShowArchived);
           if (!existsInRecentlyUpdated) {
             setShowRecentlyUpdated(false);
           }
