@@ -1,6 +1,7 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 import drawioResources from './src/plugins/drawio-resources/index.js';
+import documentIds from './src/_scripts/_drawio-asset-id.js';
 import { configRedirects } from './src/constant/config-plugin-client-redirects';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -27,6 +28,7 @@ const config: Config = {
     onDuplicateRoutes: 'throw',
     onBrokenAnchors: 'warn',
     markdown: {
+        parseFrontMatter: documentIds.parseDocumentFrontMatter,
         mermaid: true,
         hooks: {
             onBrokenMarkdownLinks: 'throw',

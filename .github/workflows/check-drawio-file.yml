@@ -13,6 +13,13 @@ on:
       - 'package-lock.json'
       - 'src/_scripts/_update-drawio-links.js'
       - 'src/_scripts/_update-drawio-links.test.js'
+      - 'src/_scripts/_drawio-asset-id.js'
+      - 'src/_scripts/_drawio-asset-id.test.js'
+      - 'docusaurus.config.ts'
+      - 'src/_scripts/_generate-ref-arch-updates.js'
+      - 'src/_scripts/_drawio-assets.test.js'
+      - 'src/_scripts/_deploy-cloudflare.zsh'
+      - 'src/_scripts/_deploy-cloudflare.test.js'
       - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
@@ -26,6 +33,13 @@ on:
       - 'package-lock.json'
       - 'src/_scripts/_update-drawio-links.js'
       - 'src/_scripts/_update-drawio-links.test.js'
+      - 'src/_scripts/_drawio-asset-id.js'
+      - 'src/_scripts/_drawio-asset-id.test.js'
+      - 'docusaurus.config.ts'
+      - 'src/_scripts/_generate-ref-arch-updates.js'
+      - 'src/_scripts/_drawio-assets.test.js'
+      - 'src/_scripts/_deploy-cloudflare.zsh'
+      - 'src/_scripts/_deploy-cloudflare.test.js'
       - '.github/workflows/deploy-to-cloudflare.yml'
       - '.github/actions/changed-files/action.yml'
       - '.github/workflows/check-drawio-file.yml'
@@ -61,10 +75,18 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Ensure Zsh is available for deployment regression tests
+        run: |
+          if ! command -v zsh >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends zsh
+          fi
+
       - name: Test Draw.io artifact pipeline
         run: |
           node --check src/_scripts/_export-drawios/_export.js
-          node --test src/_scripts/_export-drawios/*.test.js src/_scripts/_update-drawio-links.test.js
+          node --check src/_scripts/_drawio-asset-id.js
+          npm run test:drawio
 
       - name: Verify Draw.io exporter end to end
         shell: bash
@@ -85,6 +107,14 @@ jobs:
           if git diff --quiet "${RANGE}" -- \
               src/_scripts/_export-drawios \
               src/_scripts/_update-drawio-links.js \
+              src/_scripts/_update-drawio-links.test.js \
+              src/_scripts/_drawio-asset-id.js \
+              src/_scripts/_drawio-asset-id.test.js \
+              docusaurus.config.ts \
+              src/_scripts/_generate-ref-arch-updates.js \
+              src/_scripts/_drawio-assets.test.js \
+              src/_scripts/_deploy-cloudflare.zsh \
+              src/_scripts/_deploy-cloudflare.test.js \
               src/plugins/asset-types \
               package.json package-lock.json \
               .github/workflows/check-drawio-file.yml \

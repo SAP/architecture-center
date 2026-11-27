@@ -1,6 +1,9 @@
 const { createHash } = require('node:crypto');
-const { existsSync, lstatSync, readFileSync, readdirSync, realpathSync, writeFileSync } = require('node:fs');
-const { basename, extname, isAbsolute, join, relative, resolve, sep } = require('node:path');
+const { existsSync, lstatSync, readFileSync, readdirSync, realpathSync } = require('node:fs');
+const { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } = require('node:path');
+const { resolveDocumentId } = require('./_drawio-asset-id');
+const { ensureOutputDirectory, writeArtifactFile } = require('./_export-drawios/artifact-output');
+const { validateOutputPath } = require('./_export-drawios/docker-export');
 
 const log = console.log;
 const PLACEHOLDER_PREFIX = 'PLACEHOLDER:';
@@ -26,18 +29,52 @@ function emittedNameMatchesSource(emittedPath, sourcePath) {
     const extension = extname(sourceName);
     const stem = basename(sourceName, extension);
     const emittedName = basename(emittedPath);
-    const hash = emittedName.slice(stem.length + 1, -extension.length);
+    // Emitted assets are "<stem>-[<documentId>-]<hex-content-hash><ext>". The optional
+    // document id segment (added by the asset-types plugin so downloads are
+    // attributable in server logs) sits between the stem and the webpack content
+    // hash. The hash length is not pinned to 16 so a future bundler/hashFunction
+    // change does not silently break every download link.
+    const middle = emittedName.slice(stem.length + 1, -extension.length);
     return (
         emittedName === sourceName ||
-        (emittedName.startsWith(`${stem}-`) && emittedName.endsWith(extension) && /^[0-9a-f]{16}$/i.test(hash))
+        (emittedName.startsWith(`${stem}-`) &&
+            emittedName.endsWith(extension) &&
+            /^(?:[A-Za-z0-9._-]+-)?[0-9a-f]{8,}$/i.test(middle))
     );
+}
+
+// True when the emitted asset carries exactly this document id between the stem
+// and the hex content hash, i.e. "<stem>-<documentId>-<hash><ext>". Lets the resolver
+// pick the right asset when several share the same content (same hash) but
+// belong to different documents (distinct id segments).
+function emittedNameHasId(emittedPath, sourcePath, documentId) {
+    if (!documentId) return false;
+    const sourceName = basename(sourcePath);
+    const extension = extname(sourceName);
+    const stem = basename(sourceName, extension);
+    const emittedName = basename(emittedPath);
+    if (!emittedName.startsWith(`${stem}-`) || !emittedName.endsWith(extension)) return false;
+    const middle = emittedName.slice(stem.length + 1, -extension.length);
+    const prefix = `${documentId}-`;
+    return middle.startsWith(prefix) && /^[0-9a-f]{8,}$/i.test(middle.slice(prefix.length));
 }
 
 function buildDrawioIndex(buildDir) {
     const index = new Map();
-    const files = readdirSync(buildDir, { recursive: true })
-        .filter((file) => file.endsWith('.drawio'))
-        .sort();
+    if (!lstatSync(buildDir).isDirectory()) {
+        throw new Error('Draw.io build directory must be a regular, non-symlink directory.');
+    }
+    const files = [];
+    function visit(directory, prefix = '') {
+        for (const entry of readdirSync(directory, { withFileTypes: true })) {
+            const relativePath = join(prefix, entry.name);
+            // Do not follow directory symlinks when indexing public assets.
+            if (entry.isDirectory()) visit(join(directory, entry.name), relativePath);
+            else if (entry.isFile() && entry.name.endsWith('.drawio')) files.push(relativePath);
+        }
+    }
+    visit(buildDir);
+    files.sort();
 
     for (const relativePath of files) {
         const absolutePath = join(buildDir, relativePath);
@@ -58,8 +95,22 @@ function resolveSourcePath(rootDir, placeholder) {
         throw new Error(`Invalid Draw.io source placeholder: ${placeholder}`);
     }
 
-    const docsRoot = realpathSync(join(rootDir, 'docs'));
+    const checkoutRoot = realpathSync(rootDir);
+    const docsRoot = join(checkoutRoot, 'docs');
     const sourcePath = resolve(rootDir, sourceReference);
+    const canonicalSourcePath = resolve(checkoutRoot, relative(resolve(rootDir), sourcePath));
+    if (!isPathWithin(docsRoot, canonicalSourcePath)) {
+        throw new Error(`Draw.io source must be a regular file under docs/: ${sourceReference}`);
+    }
+    // Check every ancestor, including docs itself. A symlinked docs directory
+    // must not redefine the trusted boundary to a directory outside checkout.
+    let directory = checkoutRoot;
+    for (const component of relative(checkoutRoot, dirname(canonicalSourcePath)).split(sep)) {
+        directory = join(directory, component);
+        if (!lstatSync(directory).isDirectory()) {
+            throw new Error(`Draw.io source directory must be a regular, non-symlink directory: ${directory}`);
+        }
+    }
     if (!existsSync(sourcePath)) {
         throw new Error(`Draw.io source does not exist: ${sourceReference}`);
     }
@@ -88,7 +139,22 @@ function resolveDrawioLinks({ data, buildDir, rootDir, baseUrl }) {
             throw new Error(`Could not resolve emitted Draw.io asset for ${relative(rootDir, sourcePath)}.`);
         }
 
-        const emittedPath = candidates[0].replace(/\\/g, '/');
+        // Only accept this page's id or a legacy filename. Using another document's
+        // download would silently corrupt attribution for identical diagrams.
+        const documentId = resolveDocumentId(sourcePath);
+        const chosen = candidates.find((candidate) => emittedNameHasId(candidate, sourcePath, documentId))
+            || candidates.find((candidate) => {
+                const extension = extname(sourcePath);
+                const stem = basename(sourcePath, extension);
+                const name = basename(candidate);
+                return name === basename(sourcePath)
+                    || (name.startsWith(`${stem}-`) && name.endsWith(extension)
+                        && /^[0-9a-f]{8,}$/i.test(name.slice(stem.length + 1, -extension.length)));
+            });
+        if (!chosen) {
+            throw new Error(`Could not resolve emitted Draw.io asset with matching document id for ${relative(rootDir, sourcePath)}.`);
+        }
+        const emittedPath = chosen.split(sep).map(encodeURIComponent).join('/');
         return {
             ...item,
             drawioLink: `${baseUrl.replace(/\/$/, '')}/${emittedPath}`,
@@ -102,13 +168,16 @@ function updateDrawioLinks({
     rootDir = ROOT,
     baseUrl = BASE_URL,
 } = {}) {
+    ensureOutputDirectory(buildDir, rootDir);
+    ensureOutputDirectory(dirname(dataJsonPath), rootDir);
+    validateOutputPath(dataJsonPath, buildDir);
     if (!existsSync(dataJsonPath)) {
         throw new Error(`${dataJsonPath} not found. Build the site before updating Draw.io links.`);
     }
 
     const data = JSON.parse(readFileSync(dataJsonPath, 'utf8'));
     const updatedData = resolveDrawioLinks({ data, buildDir, rootDir, baseUrl });
-    writeFileSync(dataJsonPath, JSON.stringify(updatedData, null, 2));
+    writeArtifactFile(dataJsonPath, JSON.stringify(updatedData, null, 2), buildDir, rootDir);
     log('Successfully updated Draw.io links in data.json.');
     return updatedData;
 }

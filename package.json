@@ -1,6 +1,6 @@
 {
     "name": "sap-architecture-center",
-    "version": "v3.2648.2",
+    "version": "v3.2648.3",
     "private": true,
     "scripts": {
         "clean": "rm -rf build",
@@ -20,7 +20,8 @@
         "generate-ref-arch-updates": "node src/_scripts/_generate-ref-arch-updates.js",
         "gen:headers": "node src/_scripts/_generate-vercel-headers.js",
         "test": "jest",
-        "test:drawio:e2e": "DRAWIO_EXPORT_E2E=1 node --test src/_scripts/_export-drawios/export.e2e.test.js",
+        "test:drawio": "node --test src/_scripts/_export-drawios/*.test.js src/_scripts/_update-drawio-links.test.js src/_scripts/_drawio-asset-id.test.js src/_scripts/_drawio-assets.test.js src/_scripts/_deploy-cloudflare.test.js",
+        "test:drawio:e2e": "DRAWIO_EXPORT_E2E=1 node --test src/_scripts/_export-drawios/export.e2e.test.js src/_scripts/_drawio-assets.test.js",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
         "lint": "eslint .",

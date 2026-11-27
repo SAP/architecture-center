@@ -17,6 +17,8 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="${0:a:h}"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 BUILD_DIR="$PROJECT_ROOT/build"
+WRANGLER_DIR="$PROJECT_ROOT/.github/workflows/wrangler"
+WRANGLER="$WRANGLER_DIR/node_modules/.bin/wrangler"
 
 # Function to print colored messages
 print_message() {
@@ -28,42 +30,6 @@ print_message() {
 print_message "$BLUE" "╔═══════════════════════════════════════════════════════════╗"
 print_message "$BLUE" "║   Cloudflare Pages Deployment Script                      ║"
 print_message "$BLUE" "╚═══════════════════════════════════════════════════════════╝"
-
-# Check if build directory exists
-if [ ! -d "$BUILD_DIR" ]; then
-    print_message "$RED" "✗ Error: Build directory not found at $BUILD_DIR"
-    print_message "$YELLOW" "  Please run 'npm run build' first to create the build directory."
-    exit 1
-fi
-
-print_message "$GREEN" "✓ Build directory found: $BUILD_DIR"
-
-# Check if wrangler is available (via npx)
-print_message "$BLUE" "\n→ Checking Wrangler availability..."
-if ! command -v npx &> /dev/null; then
-    print_message "$RED" "✗ Error: npx not found. Please install Node.js and npm."
-    exit 1
-fi
-
-print_message "$GREEN" "✓ npx is available"
-
-# Check Wrangler version
-print_message "$BLUE" "\n→ Checking Wrangler version..."
-CURRENT_VERSION=$(npx --yes wrangler --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-LATEST_VERSION=$(npm view wrangler version 2>/dev/null)
-
-if [ -n "$CURRENT_VERSION" ] && [ -n "$LATEST_VERSION" ]; then
-    print_message "$BLUE" "  Current: $CURRENT_VERSION"
-    if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
-        print_message "$YELLOW" "  ⚠ New version available: $LATEST_VERSION"
-        print_message "$YELLOW" "  Consider updating with: npm install -g wrangler@latest"
-        print_message "$YELLOW" "  Or clear npx cache: rm -rf ~/.npm/_npx"
-    else
-        print_message "$GREEN" "  ✓ Using latest version"
-    fi
-else
-    print_message "$YELLOW" "  ⚠ Could not check for updates"
-fi
 
 # Parse command line arguments
 ENVIRONMENT=""
@@ -92,7 +58,7 @@ print_usage() {
     echo "Environments:"
     echo "  DEV    - Development environment (deploys to dev branch)"
     echo "  TEST   - Test/Staging environment (deploys to test branch)"
-    echo "  PROD   - Production environment (deploys to main branch)"
+    echo "  PROD   - Production environment (deploys to prod branch)"
     echo ""
     echo "Examples:"
     echo "  $0 --env DEV           # Deploy to development"
@@ -105,10 +71,18 @@ print_usage() {
 while [[ $# -gt 0 ]]; do
     case $1 in
         -e|--env)
+            if (( $# < 2 )) || [[ -z "$2" ]]; then
+                print_message "$RED" "✗ Error: $1 requires a value"
+                exit 1
+            fi
             ENVIRONMENT="${2:u}"  # Convert to uppercase
             shift 2
             ;;
         -p|--project)
+            if (( $# < 2 )) || [[ -z "$2" ]]; then
+                print_message "$RED" "✗ Error: $1 requires a value"
+                exit 1
+            fi
             PROJECT_NAME="$2"
             shift 2
             ;;
@@ -143,14 +117,34 @@ fi
 BRANCH="${ENV_BRANCHES[$ENVIRONMENT]}"
 ENV_COLOR="${ENV_COLORS[$ENVIRONMENT]}"
 
+if [ ! -d "$BUILD_DIR" ]; then
+    print_message "$RED" "✗ Error: Build directory not found at $BUILD_DIR"
+    print_message "$YELLOW" "  Please run 'npm run build' first to create the build directory."
+    exit 1
+fi
+
+if ! command -v npm &> /dev/null; then
+    print_message "$RED" "✗ Error: npm not found. Please install Node.js and npm."
+    exit 1
+fi
+
+# Use the same committed dependency tree as CI; never resolve an unpinned
+# package through npx while Cloudflare credentials are available. Reinstall
+# from the lockfile so an existing local install cannot silently drift.
+print_message "$BLUE" "\n→ Installing the locked Wrangler toolchain..."
+npm ci --ignore-scripts --prefix "$WRANGLER_DIR"
+"$WRANGLER" --version
+
 # Check authentication
 print_message "$BLUE" "\n→ Checking Cloudflare authentication..."
-if npx wrangler whoami &> /dev/null; then
+# Plain-text whoami exits successfully even when unauthenticated. JSON mode
+# returns a nonzero status when no authenticated identity is available.
+if "$WRANGLER" whoami --json &> /dev/null; then
     print_message "$GREEN" "✓ Already authenticated with Cloudflare"
 else
     print_message "$YELLOW" "⚠ Not authenticated with Cloudflare"
     print_message "$BLUE" "→ Starting authentication flow..."
-    npx wrangler login
+    "$WRANGLER" login
 fi
 
 # Display environment information
@@ -159,22 +153,23 @@ print_message "$ENV_COLOR" "║   Deploying to: $ENVIRONMENT Environment"
 print_message "$ENV_COLOR" "║   Branch: $BRANCH"
 print_message "$ENV_COLOR" "╚═══════════════════════════════════════════════════════════╝"
 
-# Build deployment command
-DEPLOY_CMD="npx wrangler pages deploy \"$BUILD_DIR\""
+# Keep each argument literal; contributor-controlled project names and checkout
+# paths must never be reinterpreted as shell commands.
+DEPLOY_ARGS=(pages deploy "$BUILD_DIR")
 
 if [ -n "$PROJECT_NAME" ]; then
-    DEPLOY_CMD="$DEPLOY_CMD --project-name=\"$PROJECT_NAME\""
+    DEPLOY_ARGS+=("--project-name=$PROJECT_NAME")
 fi
 
 if [ -n "$BRANCH" ]; then
-    DEPLOY_CMD="$DEPLOY_CMD --branch=\"$BRANCH\""
+    DEPLOY_ARGS+=("--branch=$BRANCH")
 fi
 
-print_message "$BLUE" "\n→ Executing: $DEPLOY_CMD"
+print_message "$BLUE" "\n→ Deploying the build with the locked Wrangler toolchain..."
 print_message "$BLUE" "════════════════════════════════════════════════════════════\n"
 
 # Execute deployment
-eval $DEPLOY_CMD
+"$WRANGLER" "${DEPLOY_ARGS[@]}"
 
 # Check if deployment was successful
 if [ $? -eq 0 ]; then
