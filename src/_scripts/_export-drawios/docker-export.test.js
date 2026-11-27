@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const { execFileSync } = require('node:child_process');
 const {
     copyFileSync,
     existsSync,
@@ -12,7 +13,7 @@ const {
 } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { dirname, join, resolve } = require('node:path');
-const { DRAWIO_IMAGE, buildDockerArgs, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
+const { DRAWIO_IMAGE, buildDockerArgs, buildUnwantedLinesFile, exportDrawioWithDocker, getRendererDiagnostics, validateOutputPath } = require('./docker-export');
 
 function mountSource(args, target) {
     const mounts = args.filter((value) => value.startsWith('type=bind,'));
@@ -199,6 +200,217 @@ test('rejects a symlinked temporary SVG before copying it into the repository', 
         assert.equal(existsSync(outputPath), false);
     } finally {
         rmSync(repositoryRoot, { recursive: true, force: true });
+    }
+});
+
+test('seeds the container output filter so startup chatter is dropped but the export line survives', () => {
+    const contents = buildUnwantedLinesFile();
+
+    // The image runs `grep -Fvf unwanted-lines.txt`: each non-empty line is a
+    // fixed-string pattern and a line of drawio output is removed if it contains
+    // any pattern. An empty pattern line matches everything, so it must never
+    // appear — it would blank the whole export log.
+    const patterns = contents.split('\n');
+    assert.ok(contents.endsWith('\n'), 'must end with a newline so the image can safely `cat >>` its own patterns');
+    assert.equal(patterns.pop(), '', 'the trailing newline is a line terminator, not an extra pattern');
+    assert.ok(patterns.length > 0);
+    assert.ok(!patterns.includes(''), 'no empty pattern line (it would match and drop every output line)');
+
+    const matches = (line) => patterns.some((pattern) => line.includes(pattern));
+    // Real noise lines from a hardened-container export are dropped...
+    assert.ok(matches('[22:1125/101357:ERROR:dbus/bus.cc:406] Failed to connect to the bus: ...'));
+    assert.ok(matches('[22:1125/101358:WARNING:device/bluetooth/dbus/bluez_dbus_manager.cc:209] Floss manager service not available, cannot set Floss enable/disable.'));
+    assert.ok(matches('[49:1125/101442:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.'));
+    assert.ok(matches('[21:1125/121253:INFO:CONSOLE:1956] "mxCellCodec.beforeDecode: target X not found for cell Y", source: file:///opt/drawio/resources/app.asar/drawio/src/main/webapp/js/app.min.js (1956)'));
+    // ...while drawio's own success line is kept.
+    assert.ok(!matches('/input.drawio -> /output/export.svg'));
+});
+
+test('preserves renderer diagnostics while replacing the opaque success line', () => {
+    const diagnostic = '[1:1125:ERROR:CONSOLE:1] "Renderer error"';
+    assert.deepEqual(getRendererDiagnostics('/input.drawio -> /output/export.svg\n' + diagnostic + '\r\n'), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics('/repo/source.drawio -> /repo/output.svg\n' + diagnostic, {
+        inputPath: '/repo/source.drawio', outputPath: '/repo/output.svg',
+    }), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics(Buffer.from(diagnostic)), [diagnostic]);
+    assert.deepEqual(getRendererDiagnostics(undefined), []);
+});
+
+test('splits every renderer diagnostic line before adding a safe log prefix', () => {
+    assert.deepEqual(getRendererDiagnostics('First error\r::error::untrusted command\nLast error'), [
+        'First error', '::error::untrusted command', 'Last error',
+    ]);
+});
+
+test('keeps genuine diagnostics even when they mention a startup-noise fragment', () => {
+    const diagnostic = '[1:1125:ERROR:CONSOLE:1] "Failed to connect to the bus in application code"';
+    assert.deepEqual(getRendererDiagnostics(diagnostic), [diagnostic]);
+});
+
+test('writes the seeded output filter to the mounted state file', () => {
+    const repositoryRoot = mkdtempSync(join(tmpdir(), 'drawio-export-test-repository-'));
+    const docsRoot = join(repositoryRoot, 'docs');
+    const inputPath = join(docsRoot, 'drawio', 'diagram.drawio');
+    const outputPath = join(docsRoot, 'images', 'diagram.svg');
+    let stateFileContents;
+
+    mkdirSync(dirname(inputPath), { recursive: true });
+    mkdirSync(dirname(outputPath), { recursive: true });
+    writeFileSync(inputPath, '<mxfile />');
+
+    try {
+        exportDrawioWithDocker({
+            inputPath,
+            outputPath,
+            allowedFilesRoot: docsRoot,
+            repositoryRoot,
+            runDocker(command, args) {
+                const temporaryStateFile = mountSource(args, '/opt/drawio-desktop/unwanted-lines.txt');
+                stateFileContents = readFileSync(temporaryStateFile, 'utf8');
+                const temporaryOutputDir = mountSource(args, '/output');
+                writeFileSync(join(temporaryOutputDir, 'export.svg'), '<svg viewBox="0 0 1 1"></svg>');
+                return 'exported';
+            },
+        });
+
+        assert.equal(stateFileContents, buildUnwantedLinesFile());
+    } finally {
+        rmSync(repositoryRoot, { recursive: true, force: true });
+    }
+});
+
+function makeFailedExportFixture(t) {
+    const repositoryRoot = mkdtempSync(join(tmpdir(), 'drawio-failed-export-test-'));
+    t.after(() => rmSync(repositoryRoot, { recursive: true, force: true }));
+    const docsRoot = join(repositoryRoot, 'docs');
+    mkdirSync(docsRoot);
+    const inputPath = join(docsRoot, 'diagram.drawio');
+    const outputPath = join(docsRoot, 'diagram.svg');
+    writeFileSync(inputPath, '<mxfile />');
+    writeFileSync(outputPath, 'Preserve the previous output.');
+    return { repositoryRoot, inputPath, outputPath, allowedFilesRoot: docsRoot };
+}
+
+test('removes a timed-out renderer before deleting its bind mounts', (t) => {
+    const fixture = makeFailedExportFixture(t);
+    const exportError = Object.assign(new Error('Docker client timed out'), { code: 'ETIMEDOUT' });
+    let containerName;
+    let temporaryOutputDir;
+    const commands = [];
+    assert.throws(() => exportDrawioWithDocker({
+        ...fixture,
+        runDocker(command, args, options) {
+            commands.push(args[0]);
+            assert.equal(command, 'docker');
+            assert.equal(options.killSignal, 'SIGKILL');
+            if (args[0] === 'run') {
+                containerName = args[args.indexOf('--name') + 1];
+                assert.match(containerName, /^architecture-center-drawio-[0-9a-f-]{36}$/);
+                temporaryOutputDir = mountSource(args, '/output');
+                throw exportError;
+            }
+            assert.deepEqual(args, ['rm', '--force', containerName]);
+            assert.equal(options.timeout, 30000);
+            assert.ok(existsSync(temporaryOutputDir), 'Stop the renderer while its mount directory still exists.');
+            return '';
+        },
+    }), (error) => error === exportError);
+    assert.deepEqual(commands, ['run', 'rm']);
+    assert.equal(existsSync(temporaryOutputDir), false);
+    assert.equal(readFileSync(fixture.outputPath, 'utf8'), 'Preserve the previous output.');
+});
+
+test('preserves the export failure when --rm already removed the container', (t) => {
+    const fixture = makeFailedExportFixture(t);
+    const exportError = new Error('Renderer failed');
+    assert.throws(() => exportDrawioWithDocker({
+        ...fixture,
+        runDocker(_command, args) {
+            if (args[0] === 'run') throw exportError;
+            throw Object.assign(new Error('Docker rm failed'), { stderr: 'Error response from daemon: No such container: removed' });
+        },
+    }), (error) => error === exportError);
+});
+
+test('reports a renderer cleanup failure alongside the original export failure', (t) => {
+    const fixture = makeFailedExportFixture(t);
+    const exportError = new Error('Docker client timed out');
+    const cleanupError = new Error('Docker daemon unreachable');
+    assert.throws(() => exportDrawioWithDocker({
+        ...fixture,
+        runDocker(_command, args) {
+            throw args[0] === 'run' ? exportError : cleanupError;
+        },
+    }), (error) => {
+        assert.ok(error instanceof AggregateError);
+        assert.deepEqual(error.errors, [exportError, cleanupError]);
+        assert.match(error.message, /could not remove renderer architecture-center-drawio-/);
+        return true;
+    });
+});
+
+test('a real Docker client timeout leaves no running renderer container', {
+    skip: process.env.DRAWIO_DOCKER_SMOKE !== '1',
+    timeout: 60000,
+}, (t) => {
+    const fixture = makeFailedExportFixture(t);
+    let containerName;
+    t.after(() => {
+        if (containerName) {
+            // Keep the smoke test itself safe if an assertion or cleanup fails.
+            try { execFileSync('docker', ['rm', '--force', containerName], { timeout: 30000, stdio: 'ignore' }); } catch {}
+        }
+    });
+    const startedAt = performance.now();
+    assert.throws(() => exportDrawioWithDocker({
+        ...fixture,
+        runDocker(command, args, options) {
+            if (args[0] !== 'run') return execFileSync(command, args, options);
+            containerName = args[args.indexOf('--name') + 1];
+            // Sleep in the same isolated image instead of relying on a crafted
+            // diagram to hang Chromium. Exercise the real client/daemon boundary.
+            const imageIndex = args.indexOf(DRAWIO_IMAGE);
+            const sleepArgs = [...args.slice(0, imageIndex), '--entrypoint', '/bin/sh', DRAWIO_IMAGE, '-c', 'sleep 120'];
+            return execFileSync(command, sleepArgs, { ...options, timeout: 5000 });
+        },
+    }), (error) => error.code === 'ETIMEDOUT');
+    assert.ok(performance.now() - startedAt < 45000, 'The Docker client must return promptly instead of waiting for the sleeping container.');
+    const containers = execFileSync('docker', ['ps', '--all', '--quiet', '--filter', `name=^/${containerName}$`], {
+        encoding: 'utf8', timeout: 30000,
+    });
+    assert.equal(containers.trim(), '', 'Force removal must terminate the daemon-side renderer.');
+    assert.equal(readFileSync(fixture.outputPath, 'utf8'), 'Preserve the previous output.');
+});
+
+test('real rendering removes active HTML and JavaScript links from diagram cells', {
+    skip: process.env.DRAWIO_DOCKER_SMOKE !== '1',
+    timeout: 600000,
+}, (t) => {
+    const fixture = makeFailedExportFixture(t);
+    const { xmlEscape } = require('./sanitize');
+    const label = '<b>Safe diagram label</b><img src="invalid" onerror="alert(1)">'
+        + '<script>alert(2)</script><svg onload="alert(3)"></svg>';
+    writeFileSync(fixture.inputPath, '<mxfile><diagram id="security-test" name="Page-1"><mxGraphModel><root>'
+        + '<mxCell id="0"/><mxCell id="1" parent="0"/>'
+        + '<UserObject id="unsafe" label="' + xmlEscape(label) + '" link="javascript:alert(4)">'
+        + '<mxCell style="whiteSpace=wrap;html=1;" vertex="1" parent="1">'
+        + '<mxGeometry x="20" y="20" width="200" height="80" as="geometry"/>'
+        + '</mxCell></UserObject></root></mxGraphModel></diagram></mxfile>');
+    exportDrawioWithDocker(fixture);
+    const { JSDOM } = require('jsdom');
+    const parsed = new JSDOM(readFileSync(fixture.outputPath, 'utf8'), { contentType: 'image/svg+xml' });
+    try {
+        const document = parsed.window.document;
+        assert.equal(document.querySelector('script'), null);
+        assert.ok(document.documentElement.textContent.includes('Safe diagram label'));
+        for (const element of document.querySelectorAll('*')) {
+            for (const attribute of element.attributes) {
+                assert.ok(!/^on/i.test(attribute.localName), `No event handler may survive: ${attribute.name}`);
+                assert.ok(!/javascript:/i.test(attribute.value), `No JavaScript URL may survive: ${attribute.name}`);
+            }
+        }
+    } finally {
+        parsed.window.close();
     }
 });
 

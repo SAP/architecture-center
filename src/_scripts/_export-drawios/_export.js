@@ -5,8 +5,9 @@ const { homedir } = require('node:os');
 const { createHash } = require('node:crypto');
 const QRCode = require('qrcode');
 const fm = require('front-matter'); // Added for front-matter parsing
+const { normalizeDocumentFrontMatter } = require('../_drawio-asset-id');
 const DrawioCache = require('./drawio-cache');
-const { DRAWIO_IMAGE, exportDrawioWithDocker, validateOutputPath } = require('./docker-export');
+const { DRAWIO_IMAGE, exportDrawioWithDocker, getRendererDiagnostics, validateOutputPath } = require('./docker-export');
 const { createDrawioFingerprint } = require('./drawio-fingerprint');
 const { runExportBatch } = require('./export-batch');
 const { toThumbnailFileName } = require('./sanitize');
@@ -101,7 +102,7 @@ const files = readdirSync(ROOT + '/docs', { recursive: true }); // Scan all docs
 const drawios = files
     .filter((file) => file.match(/\.drawio$/))
     .filter((file) => !filterPath || file.startsWith(filterPath));
-log(`Found ${drawios.length} drawios to process\n`);
+log(`\nFound ${drawios.length} drawio files to process\n`);
 
 const transforms = {}; // Maps original drawio path to output SVG path
 for (const drawio of drawios) {
@@ -114,10 +115,13 @@ for (const drawio of drawios) {
 }
 
 function getReadmePath(drawioPath) {
-    if (drawioPath.includes(`RA0007${sep}5-mt-architecture${sep}drawio${sep}`)) {
+    const readmePath = join(dirname(drawioPath), '..', 'readme.md');
+    // A nested document owns its title and QR URL as well as its download ID.
+    // Preserve the legacy parent fallback when its local readme is absent.
+    if (!existsSync(readmePath) && drawioPath.includes(`RA0007${sep}5-mt-architecture${sep}drawio${sep}`)) {
         return join(ROOT, 'docs', 'ref-arch', 'RA0007', 'readme.md');
     }
-    return join(dirname(drawioPath), '..', 'readme.md');
+    return readmePath;
 }
 
 function getRenderContext(drawioPath) {
@@ -127,7 +131,7 @@ function getRenderContext(drawioPath) {
     const sourceContent = readFileSync(drawioPath);
     const readmePath = getReadmePath(drawioPath);
     const readmeContent = readFileSync(readmePath, 'utf8');
-    const { attributes } = fm(readmeContent);
+    const attributes = normalizeDocumentFrontMatter(fm(readmeContent).attributes, readmeContent);
     let title = attributes.title;
     // Fail with a diagnosable message rather than an opaque TypeError: with the
     // hardened fail-hard pipeline, a readme missing its title front-matter would
@@ -199,6 +203,13 @@ function safeCleanOutput(output) {
     rmSync(output, { force: true });
 }
 
+function reportRendererDiagnostics(output, { input, output: destination }) {
+    for (const line of getRendererDiagnostics(output, { inputPath: input, outputPath: destination })) {
+        // Prefix every line so renderer text cannot become an Actions command.
+        console.error('[Draw.io] ' + prettyPaths(line, 0));
+    }
+}
+
 // Export all drawios to svgs
 function exportAllDrawios() {
     const jobs = Object.entries(transforms).map(([input, output]) => ({ input, output }));
@@ -226,15 +237,28 @@ function exportAllDrawios() {
             return stdout;
         },
         onCacheHit: ({ input }) => log(`Cache hit for ${prettyPaths(input, 0)}, nothing to do.`),
-        onSuccess: (_job, stdout) => log('Export', prettyPaths(stdout)),
+        // The container always reports the opaque mount paths ("/input.drawio ->
+        // /output/export.svg"), identical for every file, so log the real job
+        // paths instead to show which diagram was processed. prettyPaths(…, 0)
+        // strips the absolute "<repo>/docs/" prefix down to a repo-relative path.
+        onSuccess: (job, stdout) => {
+            log('Export', prettyPaths(`${job.input} -> ${job.output}`, 0));
+            reportRendererDiagnostics(stdout, job);
+        },
         onFailure: ({ input, output }, error) => {
             safeCleanOutput(output);
             const msg = prettyPaths(`Export failed ${input} -> ${output}`);
-            console.error(`\n[ERROR] ${msg}. Reason: ${String(error.stderr || error.message)}\n`);
+            const reason = String(error.message || error).replace(/[\r\n]+/g, ' ');
+            console.error(`\n[ERROR] ${msg}. Reason: ${reason}\n`);
+            const failures = error instanceof AggregateError ? error.errors : [error];
+            for (const failure of failures) {
+                reportRendererDiagnostics(failure.stdout, { input, output });
+                reportRendererDiagnostics(failure.stderr, { input, output });
+            }
         },
     });
 
-    log('\nAll Draw.io files exported successfully.');
+    log('\nAll drawio files exported successfully.\n');
 }
 
 // generate qrcode, only get inner part
@@ -289,6 +313,8 @@ async function watermarkAll() {
     if (failures.length > 0) {
         throw new AggregateError(failures, `Failed to watermark ${failures.length} Draw.io file(s).`);
     }
+
+    log('\nAll drawio files watermarked successfully.\n');
 }
 
 // --- Phase 2: Generate Artifacts for Top-Level RAs ---
@@ -321,7 +347,7 @@ async function generateArtifacts() {
         }
 
         const readmeContent = readFileSync(readmePath, 'utf8');
-        const { attributes } = fm(readmeContent);
+        const attributes = normalizeDocumentFrontMatter(fm(readmeContent).attributes, readmeContent);
 
         // Skip archived/draft/unlisted/community-contrib RAs. RA0004 vendor sub-pages
         // are exempted because people still rely on them being exposed.
@@ -408,7 +434,7 @@ async function generateArtifacts() {
                 name: title,
                 // Use a placeholder for drawioLink, to be updated in a post-build step
                 drawioLink: `PLACEHOLDER:${relative(ROOT, drawioFilePath).split(sep).join('/')}`,
-                thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${titleAsFileName}.svg`,
+                thumbnailLink: `${BASE_URL}/artifacts/thumbnails/${encodeURIComponent(titleAsFileName + '.svg')}`,
                 acLink: `${BASE_URL}/docs${attributes.slug}`,
                 shortDescription: attributes.description,
             });
@@ -425,12 +451,12 @@ async function generateArtifacts() {
     }
 
     writeArtifactFile(join(ARTIFACTS_DIR, 'data.json'), JSON.stringify(allArtifacts, null, 2), ARTIFACTS_DIR, ROOT);
-    log('Successfully generated artifacts data.json.');
+    log('\nSuccessfully generated artifacts & data.json.\n');
 }
 
 function prettyPaths(log, isInDocker = DOCKER) {
     const strip = isInDocker ? 'docs/' : ROOT + '/docs/'; // Adjusted strip path for full docs scan
-    return log.replaceAll(strip, '').replaceAll('\n', '');
+    return log.replaceAll(strip, '').replace(/[\r\n]/g, '');
 }
 
 // Main execution flow

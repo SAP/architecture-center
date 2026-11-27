@@ -14,6 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
+const { normalizeDocumentFrontMatter } = require('./_drawio-asset-id');
 const glob = require('glob');
 
 const repoRoot = path.join(__dirname, '../..');
@@ -43,7 +44,8 @@ for (const abs of files) {
         // Exclude the RA0000 demo/template page.
         if (rel.includes('/ref-arch/RA0000/')) continue;
 
-        const { data: fm } = matter(fs.readFileSync(abs, 'utf8'));
+        const content = fs.readFileSync(abs, 'utf8');
+        const fm = normalizeDocumentFrontMatter(matter(content).data, content);
         const tags = Array.isArray(fm.tags) ? fm.tags : [];
 
         // Same exclusions as the feed: need a date; skip drafts, unlisted,

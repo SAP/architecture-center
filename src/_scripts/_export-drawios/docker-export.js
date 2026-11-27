@@ -9,6 +9,7 @@ const {
     writeFileSync,
 } = require('node:fs');
 const { execFileSync } = require('node:child_process');
+const { randomUUID } = require('node:crypto');
 const { tmpdir } = require('node:os');
 const { dirname, isAbsolute, join, relative, resolve, sep } = require('node:path');
 
@@ -22,6 +23,47 @@ const CONTAINER_OUTPUT = `${CONTAINER_OUTPUT_DIR}/export.svg`;
 const CONTAINER_STATE_FILE = '/opt/drawio-desktop/unwanted-lines.txt';
 const CONTAINER_PASSWD_FILE = '/etc/passwd';
 const MAX_EXPORTED_SVG_BYTES = 50 * 1024 * 1024;
+
+// Benign startup chatter the headless Chromium/Electron runtime prints on every
+// export: it cannot reach the (deliberately unavailable) D-Bus system bus, the
+// Bluetooth "Floss" manager, or launch its GPU sandbox cleanly under our
+// --cap-drop=ALL / non-root / read-only / tmpfs-/run hardening. None of it
+// affects the rendered SVG. The image pipes drawio's merged output through
+// `grep -Fvf /opt/drawio-desktop/unwanted-lines.txt`, dropping any line that
+// CONTAINS one of these fixed strings, so we seed that mounted file with the
+// noise fragments to keep the export log readable. Each fragment must be a
+// substring that appears ONLY in a noise line, never in drawio's own
+// "input -> output" success line (which shares no text with these).
+const UNWANTED_OUTPUT_LINE_FRAGMENTS = [
+    'Failed to connect to the bus',
+    'Floss manager service not available',
+    'InitializeSandbox() called with multiple threads',
+    // drawio's own Chromium console chatter while rendering a diagram, e.g.
+    // "...INFO:CONSOLE:1956] "mxCellCodec.beforeDecode: target X not found for
+    // cell Y", source: .../app.min.js". Emitted at INFO level for benign things
+    // like dangling edge references; the SVG still renders. Only INFO-level
+    // console lines are dropped, so a genuine ERROR:CONSOLE still surfaces.
+    'INFO:CONSOLE',
+];
+
+// Build the contents of the mounted unwanted-lines.txt. The image's entrypoint
+// appends its own built-in patterns to this file with `cat >>`, so it MUST end
+// with a trailing newline or the first appended line would merge onto our last
+// fragment. A single trailing newline terminates the last line WITHOUT creating
+// an empty pattern line: an empty fixed-string is contained in every line, so
+// `grep -Fv` would blank the entire export log.
+function buildUnwantedLinesFile(fragments = UNWANTED_OUTPUT_LINE_FRAGMENTS) {
+    return fragments.length > 0 ? `${fragments.join('\n')}\n` : '';
+}
+
+function getRendererDiagnostics(output, { inputPath, outputPath } = {}) {
+    const successLine = inputPath && outputPath ? inputPath + ' -> ' + outputPath : null;
+    // The container already filters startup noise. Preserve its remaining
+    // diagnostics and remove only the success line logged using real job paths.
+    return String(output ?? '').split(/[\r\n]+/).map((line) => line.trim()).filter((line) => (
+        line && line !== '/input.drawio -> /output/export.svg' && line !== successLine
+    ));
+}
 
 function isPathWithin(root, candidate) {
     const relativePath = relative(root, candidate);
@@ -86,12 +128,14 @@ function buildDockerArgs({
     temporaryPasswdFile,
     userId,
     groupId,
+    containerName,
 }) {
     [inputPath, temporaryOutputDir, temporaryStateFile, temporaryPasswdFile].forEach(assertMountSafePath);
 
     return [
         'run',
         '--rm',
+        ...(containerName ? ['--name', containerName] : []),
         '--read-only',
         // No network: the export is a purely local .drawio -> SVG render and
         // repo policy forbids external images in diagrams, so the container
@@ -169,6 +213,7 @@ function exportDrawioWithDocker({
         throw new Error('Docker-based Draw.io export requires a Unix user and group ID.');
     }
     const temporaryRoot = mkdtempSync(join(tmpdir(), 'architecture-center-drawio-'));
+    const containerName = `architecture-center-drawio-${randomUUID()}`;
 
     try {
         const realTemporaryRoot = realpathSync(temporaryRoot);
@@ -181,7 +226,7 @@ function exportDrawioWithDocker({
         const temporaryPasswdFile = join(realTemporaryRoot, 'passwd');
         const temporarySvg = join(temporaryOutputDir, 'export.svg');
         mkdirSync(temporaryOutputDir);
-        writeFileSync(temporaryStateFile, '');
+        writeFileSync(temporaryStateFile, buildUnwantedLinesFile());
         writeFileSync(
             temporaryPasswdFile,
             `drawio:x:${userId}:${groupId}:Draw.io Exporter:/tmp/drawio-home:/usr/sbin/nologin\n`
@@ -194,17 +239,46 @@ function exportDrawioWithDocker({
             temporaryPasswdFile,
             userId,
             groupId,
+            containerName,
         });
         // stdin ignored; stdout captured (the "input -> output" line); stderr
         // piped, not inherited, so the container's benign Chromium/D-Bus chatter
         // stays off the terminal on success. On a non-zero exit, execFileSync
         // still populates error.stderr, so the caller's failure handler keeps
         // full diagnostics.
-        const stdout = runDocker('docker', args, {
-            encoding: 'utf8',
-            timeout: 600000,
-            stdio: ['ignore', 'pipe', 'pipe'],
-        });
+        let stdout;
+        try {
+            stdout = runDocker('docker', args, {
+                encoding: 'utf8',
+                timeout: 600000,
+                // Docker proxies SIGTERM to container PID 1 and may keep the
+                // client alive. SIGKILL guarantees control returns for cleanup.
+                killSignal: 'SIGKILL',
+                stdio: ['ignore', 'pipe', 'pipe'],
+            });
+        } catch (exportError) {
+            // Killing the Docker client on timeout does not stop the daemon's
+            // container. Remove only this invocation's renderer before deleting
+            // its bind mounts; --rm handles the normal successful path.
+            try {
+                runDocker('docker', ['rm', '--force', containerName], {
+                    encoding: 'utf8',
+                    timeout: 30000,
+                    killSignal: 'SIGKILL',
+                    stdio: ['ignore', 'pipe', 'pipe'],
+                });
+            } catch (cleanupError) {
+                // An ordinary nonzero export may already have been removed by
+                // --rm. Other failures must remain visible for manual cleanup.
+                if (!String(cleanupError.stderr || '').includes('No such container:')) {
+                    throw new AggregateError(
+                        [exportError, cleanupError],
+                        `Draw.io export failed (${exportError.message}); could not remove renderer ${containerName}: ${cleanupError.message}`
+                    );
+                }
+            }
+            throw exportError;
+        }
 
         validateTemporarySvg(temporarySvg);
         copyFileSync(temporarySvg, absoluteOutput);
@@ -216,7 +290,10 @@ function exportDrawioWithDocker({
 
 module.exports = {
     DRAWIO_IMAGE,
+    UNWANTED_OUTPUT_LINE_FRAGMENTS,
     buildDockerArgs,
+    buildUnwantedLinesFile,
+    getRendererDiagnostics,
     exportDrawioWithDocker,
     validateOutputPath,
 };

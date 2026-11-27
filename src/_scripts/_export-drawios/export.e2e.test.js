@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { execFileSync, spawnSync } = require('node:child_process');
 const {
+    chmodSync,
     copyFileSync,
     cpSync,
     existsSync,
@@ -28,19 +29,23 @@ const sourceRoot = resolve(__dirname, '../../..');
 const baseUrl = 'https://architecture.learning.sap.com';
 const initialDate = '2026-01-02T00:15:00+00:00';
 const updatedDate = '2026-01-03T00:15:00+00:00';
+// Each document's unique id determines its slug and download filename, while
+// directory records the top-level RA location in the checkout.
 const architectures = [
     {
-        id: 'RA9001',
+        directory: 'RA9001',
+        id: 'a90001',
         title: 'Export E2E Architecture',
-        slug: '/ref-arch/RA9001',
+        slug: '/ref-arch/a90001',
         label: 'Original source one',
         description: 'Primary export test fixture.',
         thumbnailName: 'export-e2e-architecture.svg',
     },
     {
-        id: 'RA9002',
+        directory: 'RA9002',
+        id: 'b90002',
         title: 'Second E2E Architecture',
-        slug: '/ref-arch/RA9002',
+        slug: '/ref-arch/b90002',
         label: 'Original source two',
         description: 'Independent export test fixture.',
         thumbnailName: 'second-e2e-architecture.svg',
@@ -131,12 +136,20 @@ function makeFixture(t, documents = architectures) {
         join(sourceRoot, 'src', '_scripts', '_update-drawio-links.js'),
         join(root, 'src', '_scripts', '_update-drawio-links.js'),
     );
+    copyFileSync(
+        join(sourceRoot, 'src', '_scripts', '_drawio-asset-id.js'),
+        join(root, 'src', '_scripts', '_drawio-asset-id.js'),
+    );
+    copyFileSync(
+        join(sourceRoot, 'src', '_scripts', '_generate-ref-arch-updates.js'),
+        join(root, 'src', '_scripts', '_generate-ref-arch-updates.js'),
+    );
     copyFileSync(join(sourceRoot, 'package-lock.json'), join(root, 'package-lock.json'));
     mkdirSync(join(root, 'static', 'img'), { recursive: true });
     copyFileSync(join(sourceRoot, 'static', 'img', 'logo.svg'), join(root, 'static', 'img', 'logo.svg'));
     for (const architecture of documents) {
-        write('docs/ref-arch/' + architecture.id + '/readme.md', readme(architecture));
-        write('docs/ref-arch/' + architecture.id + '/drawio/architecture.drawio', diagram(architecture.label));
+        write('docs/ref-arch/' + architecture.directory + '/readme.md', readme(architecture));
+        write('docs/ref-arch/' + architecture.directory + '/drawio/architecture.drawio', diagram(architecture.label));
     }
 
     function git(args, date = initialDate) {
@@ -179,8 +192,8 @@ function makeFixture(t, documents = architectures) {
         git,
         run,
         export: (extraEnv) => run('src/_scripts/_export-drawios/_export.js', extraEnv),
-        svgPath: (id) => join(root, 'docs', 'ref-arch', id, 'images', 'architecture.svg'),
-        sourcePath: (id) => join(root, 'docs', 'ref-arch', id, 'drawio', 'architecture.drawio'),
+        svgPath: (documentDirectory) => join(root, 'docs', 'ref-arch', documentDirectory, 'images', 'architecture.svg'),
+        sourcePath: (documentDirectory) => join(root, 'docs', 'ref-arch', documentDirectory, 'drawio', 'architecture.drawio'),
         indexPath: join(root, 'static', 'artifacts', 'data.json'),
     };
 }
@@ -192,7 +205,7 @@ function assertSuccessfulExport(fixture, documents, dates = {}) {
     const { JSDOM } = require('jsdom');
 
     return Promise.all(documents.map(async (architecture) => {
-        const svg = readFileSync(fixture.svgPath(architecture.id), 'utf8');
+        const svg = readFileSync(fixture.svgPath(architecture.directory), 'utf8');
         assert.match(svg, /<svg(?:\s|>)/);
         assert.equal((svg.match(/id="drawio-title"/g) || []).length, 1, 'Apply exactly one watermark.');
         const parsedSvg = new JSDOM(svg, { contentType: 'image/svg+xml' });
@@ -222,8 +235,8 @@ function assertSuccessfulExport(fixture, documents, dates = {}) {
         assert.deepEqual(data.find((item) => item.id === architecture.id), {
             id: architecture.id,
             name: architecture.title,
-            drawioLink: 'PLACEHOLDER:docs/ref-arch/' + architecture.id + '/drawio/architecture.drawio',
-            thumbnailLink: baseUrl + '/artifacts/thumbnails/' + thumbnailName,
+            drawioLink: 'PLACEHOLDER:docs/ref-arch/' + architecture.directory + '/drawio/architecture.drawio',
+            thumbnailLink: baseUrl + '/artifacts/thumbnails/' + encodeURIComponent(thumbnailName),
             acLink: baseUrl + '/docs' + architecture.slug,
             shortDescription: architecture.description,
         });
@@ -243,9 +256,9 @@ async function buildAndResolveLinks(fixture, documents) {
     const { default: assetTypes } = await import(pathToFileURL(join(sourceRoot, 'src', 'plugins', 'asset-types', 'index.js')).href);
     const entryPath = fixture.write('entry.cjs', 'module.exports = {\n'
         + documents.map((architecture) => JSON.stringify(architecture.id) + ': {\n'
-            + 'drawio: require(' + JSON.stringify('./docs/ref-arch/' + architecture.id + '/drawio/architecture.drawio') + '),\n'
-            + 'xml: require(' + JSON.stringify('./docs/ref-arch/' + architecture.id + '/drawio/architecture.drawio?source') + '),\n'
-            + 'svg: require(' + JSON.stringify('./docs/ref-arch/' + architecture.id + '/images/architecture.svg?resource') + ')\n'
+            + 'drawio: require(' + JSON.stringify('./docs/ref-arch/' + architecture.directory + '/drawio/architecture.drawio') + '),\n'
+            + 'xml: require(' + JSON.stringify('./docs/ref-arch/' + architecture.directory + '/drawio/architecture.drawio?source') + '),\n'
+            + 'svg: require(' + JSON.stringify('./docs/ref-arch/' + architecture.directory + '/images/architecture.svg?resource') + ')\n'
             + '}').join(',\n') + '\n};\n');
     const buildPath = join(fixture.root, 'build');
     const config = {
@@ -283,11 +296,14 @@ async function buildAndResolveLinks(fixture, documents) {
     const emitted = require(bundlePath);
     const emittedNames = new Set();
     for (const architecture of documents) {
-        assert.match(emitted[architecture.id].drawio, /^architecture-[0-9a-f]{16}\.drawio$/);
+        assert.match(
+            emitted[architecture.id].drawio,
+            new RegExp(`^architecture-${architecture.id}-[0-9a-f]{16}\\.drawio$`)
+        );
         emittedNames.add(emitted[architecture.id].drawio);
-        assert.equal(emitted[architecture.id].xml, readFileSync(fixture.sourcePath(architecture.id), 'utf8'));
+        assert.equal(emitted[architecture.id].xml, readFileSync(fixture.sourcePath(architecture.directory), 'utf8'));
         assert.equal(readFileSync(join(buildPath, emitted[architecture.id].drawio), 'utf8'), emitted[architecture.id].xml);
-        assert.equal(readFileSync(join(buildPath, emitted[architecture.id].svg), 'utf8'), readFileSync(fixture.svgPath(architecture.id), 'utf8'));
+        assert.equal(readFileSync(join(buildPath, emitted[architecture.id].svg), 'utf8'), readFileSync(fixture.svgPath(architecture.directory), 'utf8'));
         const artifact = resolvedData.find((item) => item.id === architecture.id);
         assert.equal(artifact.drawioLink, baseUrl + '/' + emitted[architecture.id].drawio);
         assert.ok(!artifact.drawioLink.includes('PLACEHOLDER:'));
@@ -307,7 +323,7 @@ test('Draw.io export completes rendering, watermarking, assets, and cache invali
     assert.ok(existsSync(join(fixture.cache, 'manifest.json')), 'Persist the private cache.');
     const initialAssets = await buildAndResolveLinks(fixture, architectures);
 
-    for (const architecture of architectures) rmSync(dirname(fixture.svgPath(architecture.id)), { recursive: true });
+    for (const architecture of architectures) rmSync(dirname(fixture.svgPath(architecture.directory)), { recursive: true });
     rmSync(join(fixture.root, 'static', 'artifacts'), { recursive: true });
     const restored = fixture.export();
     assert.equal(restored.status, 0, restored.output);
@@ -316,7 +332,7 @@ test('Draw.io export completes rendering, watermarking, assets, and cache invali
     assert.deepEqual(await assertSuccessfulExport(fixture, architectures), originalSvgs, 'Restore the exact cached SVGs.');
 
     const updated = [
-        { ...architectures[0], title: 'Updated E2E Architecture', slug: '/ref-arch/RA9001/updated',
+        { ...architectures[0], title: 'Updated E2E Architecture', slug: '/ref-arch/a90001/updated',
             thumbnailName: 'updated-e2e-architecture.svg' },
         architectures[1],
     ];
@@ -336,13 +352,196 @@ test('Draw.io export completes rendering, watermarking, assets, and cache invali
     const sourceChanged = fixture.export();
     assert.equal(sourceChanged.status, 0, sourceChanged.output);
     assert.equal((sourceChanged.output.match(/Cache hit for /g) || []).length, 1);
-    const sourceSvgs = await assertSuccessfulExport(fixture, updated, { RA9001: 'January 3, 2026' });
+    const sourceSvgs = await assertSuccessfulExport(fixture, updated, { [updated[0].id]: 'January 3, 2026' });
     assert.notEqual(sourceSvgs[0], metadataSvgs[0]);
     assert.ok(!sourceSvgs[0].includes('Original source one'));
     assert.equal(sourceSvgs[1], originalSvgs[1]);
     const updatedAssets = await buildAndResolveLinks(fixture, updated);
     assert.notEqual(updatedAssets[0].drawioLink, initialAssets[0].drawioLink, 'Changed source gets a new download URL.');
     assert.equal(updatedAssets[1].drawioLink, initialAssets[1].drawioLink, 'Unchanged source keeps its download URL.');
+});
+
+function configureFixtureSite(fixture) {
+    symlinkSync(join(sourceRoot, 'node_modules'), join(fixture.root, 'node_modules'), 'dir');
+    fixture.write('package.json', JSON.stringify({ name: 'document-id-e2e', version: '1.0.0', private: true }));
+    fixture.write('src/pages/index.js', "import React from 'react';\n"
+        + 'export default function Home() { return <main>Document ID fixture</main>; }\n');
+    const configLoader = join(sourceRoot, 'node_modules/@docusaurus/core/lib/server/config.js');
+    const assetPlugin = join(sourceRoot, 'src/plugins/asset-types/index.js');
+    const preset = require.resolve('@docusaurus/preset-classic');
+    fixture.write('docusaurus.config.js', 'const { loadSiteConfig } = require(' + JSON.stringify(configLoader) + ');\n'
+        + 'module.exports = async () => {\n'
+        + 'const { siteConfig } = await loadSiteConfig({ siteDir: ' + JSON.stringify(sourceRoot) + ' });\n'
+        + 'return {\n'
+        + 'title: "Document ID E2E", url: ' + JSON.stringify(baseUrl) + ', baseUrl: "/",\n'
+        + 'markdown: { parseFrontMatter: siteConfig.markdown.parseFrontMatter },\n'
+        + 'plugins: [' + JSON.stringify(assetPlugin) + '],\n'
+        + 'presets: [[' + JSON.stringify(preset)
+        + ', { docs: { path: "docs", routeBasePath: "docs", sidebarPath: false }, blog: false, sitemap: false }]],\n'
+        + '};\n};\n');
+    const cli = join(sourceRoot, 'node_modules/@docusaurus/core/bin/docusaurus.mjs');
+    fixture.write('build-site.cjs', 'process.argv = [process.execPath, ' + JSON.stringify(cli) + ', "build"];\n'
+        + 'import(' + JSON.stringify(pathToFileURL(cli).href) + ').catch((error) => {\n'
+        + 'console.error(error); process.exitCode = 1;\n});\n');
+}
+
+test('an unquoted leading-zero document ID stays a string in export, site metadata, and downloads', {
+    skip: !enabled,
+    timeout: 600000,
+}, async (t) => {
+    const architecture = { ...architectures[0], id: '001234', slug: '/ref-arch/001234' };
+    const fixture = makeFixture(t, [architecture]);
+    const content = readme(architecture)
+        .replace('id: "001234"', 'id: 001234')
+        .replace('tags: []', 'tags: []\nlast_update:\n  author: drawio-e2e\n  date: 2026-01-02')
+        .replace('![](drawio/architecture.drawio)',
+            "import diagram from './drawio/architecture.drawio';\n\n<a href={diagram}>Download diagram</a>");
+    fixture.write('docs/ref-arch/' + architecture.directory + '/readme.md', content);
+    const exported = fixture.export();
+    assert.equal(exported.status, 0, exported.output);
+    await assertSuccessfulExport(fixture, [architecture]);
+    const updates = fixture.run('src/_scripts/_generate-ref-arch-updates.js');
+    assert.equal(updates.status, 0, updates.output);
+    const [update] = JSON.parse(readFileSync(join(fixture.root, 'src/data/ref-arch-updates.json'), 'utf8'));
+    assert.equal(update.id, architecture.id);
+
+    configureFixtureSite(fixture);
+    const built = fixture.run('build-site.cjs');
+    assert.equal(built.status, 0, built.output);
+    const metadataDirectory = join(fixture.root, '.docusaurus/docusaurus-plugin-content-docs/default');
+    const metadata = readdirSync(metadataDirectory).filter((file) => file.endsWith('.json'))
+        .map((file) => JSON.parse(readFileSync(join(metadataDirectory, file), 'utf8')))
+        .find((item) => item.source === '@site/docs/ref-arch/' + architecture.directory + '/readme.md');
+    assert.ok(metadata, 'The actual Docusaurus build must emit document metadata.');
+    assert.equal(metadata.frontMatter.id, architecture.id);
+    assert.equal(metadata.permalink, '/docs' + architecture.slug);
+
+    const rewritten = fixture.run('src/_scripts/_update-drawio-links.js');
+    assert.equal(rewritten.status, 0, rewritten.output);
+    const [artifact] = JSON.parse(readFileSync(join(fixture.root, 'build/artifacts/data.json'), 'utf8'));
+    assert.equal(artifact.id, architecture.id);
+    assert.match(artifact.drawioLink, /\/architecture-001234-[0-9a-f]{16}\.drawio$/);
+    const download = new URL(artifact.drawioLink).pathname.slice(1);
+    assert.deepEqual(readFileSync(join(fixture.root, 'build', download)), readFileSync(fixture.sourcePath(architecture.directory)));
+});
+
+test('a multiline document ID fails export and the actual Docusaurus build', {
+    skip: !enabled,
+    timeout: failureTestTimeout,
+}, (t) => {
+    const fixture = makeFixture(t, [architectures[0]]);
+    fixture.write('docs/ref-arch/RA9001/readme.md', readme(architectures[0]).replace('id: "a90001"', 'id: abcdef\n  ghi'));
+    const exported = fixture.export();
+    assert.equal(exported.status, 1, exported.output);
+    assert.match(exported.output, /single-line scalar/);
+    assert.equal(existsSync(fixture.indexPath), false, 'Invalid metadata must not publish artifacts.');
+    configureFixtureSite(fixture);
+    const built = fixture.run('build-site.cjs');
+    assert.equal(built.status, 1, built.output);
+    assert.match(built.output, /single-line scalar/);
+    assert.equal(existsSync(join(fixture.root, 'build')), false);
+});
+
+for (const { fails, cleanupFails } of [
+    { fails: false, cleanupFails: false },
+    { fails: true, cleanupFails: false },
+    { fails: true, cleanupFails: true },
+]) {
+    test('renderer diagnostics remain visible on ' + (fails ? 'failed' : 'successful')
+        + ' exports' + (cleanupFails ? ' with a cleanup failure' : ''), {
+        skip: !enabled,
+        timeout: failureTestTimeout,
+    }, (t) => {
+        const fixture = makeFixture(t, [architectures[0]]);
+        const renderer = fixture.write('bin/docker', '#!' + process.execPath + '\n'
+            + 'const fs = require("node:fs"); const path = require("node:path");\n'
+            + 'if (process.argv[2] === "rm") { '
+            + (cleanupFails ? 'process.stderr.write("renderer-cleanup-marker\\n"); process.exit(19);' : 'process.exit(0);')
+            + ' }\n'
+            + 'const mount = process.argv.find((arg) => arg.includes("target=/output"));\n'
+            + 'const directory = mount.match(/source=([^,]+)/)[1];\n'
+            + 'fs.writeFileSync(path.join(directory, "export.svg"), '
+            + JSON.stringify('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100"><g/></svg>') + ');\n'
+            + 'process.stdout.write("/input.drawio -> /output/export.svg\\n[1:1125:ERROR:CONSOLE:1] renderer-stdout-marker\\r::error::renderer-command-marker\\n");\n'
+            + (fails ? 'process.stderr.write("renderer-stderr-marker\\n"); process.exit(17);\n' : ''));
+        chmodSync(renderer, 0o755);
+        const result = fixture.export({ PATH: dirname(renderer) + delimiter + process.env.PATH });
+        assert.equal(result.status, fails ? 1 : 0, result.output);
+        assert.ok(result.output.includes('[Draw.io] [1:1125:ERROR:CONSOLE:1] renderer-stdout-marker'));
+        assert.ok(result.output.includes('[Draw.io] ::error::renderer-command-marker'));
+        assert.equal(result.output.split(/\r?\n/).some((line) => line.startsWith('::error::')), false);
+        if (fails) {
+            assert.ok(result.output.includes('[Draw.io] renderer-stderr-marker'));
+            if (cleanupFails) assert.ok(result.output.includes('[Draw.io] renderer-cleanup-marker'));
+            assert.equal(existsSync(fixture.indexPath), false);
+        } else {
+            assert.ok(result.output.includes('Export ref-arch/RA9001/drawio/architecture.drawio -> ref-arch/RA9001/images/architecture.svg'));
+            assert.equal(result.output.includes('/input.drawio -> /output/export.svg'), false);
+            assert.equal((result.output.match(/renderer-stdout-marker/g) || []).length, 1);
+            assert.equal(existsSync(fixture.indexPath), true);
+        }
+    });
+}
+
+test('byte-identical diagrams keep separate document download attribution through rendering and build', {
+    skip: !enabled,
+    timeout: 600000,
+}, async (t) => {
+    const documents = architectures.map((architecture) => ({ ...architecture, label: 'Identical diagram source' }));
+    const fixture = makeFixture(t, documents);
+    assert.equal(readFileSync(fixture.sourcePath('RA9001'), 'utf8'), readFileSync(fixture.sourcePath('RA9002'), 'utf8'));
+    const result = fixture.export();
+    assert.equal(result.status, 0, result.output);
+    await assertSuccessfulExport(fixture, documents);
+    const assets = await buildAndResolveLinks(fixture, documents);
+    assert.notEqual(assets[0].drawioLink, assets[1].drawioLink, 'Identical bytes still have separate attributable downloads.');
+    assert.equal(
+        assets[0].drawioLink.match(/-([0-9a-f]{16})\.drawio$/)[1],
+        assets[1].drawioLink.match(/-([0-9a-f]{16})\.drawio$/)[1],
+        'The content hashes agree; the document unique IDs disambiguate the downloads.',
+    );
+});
+
+test('nested RA0007 diagram watermark uses the corresponding document title and QR URL', {
+    skip: !enabled,
+    timeout: failureTestTimeout,
+}, async (t) => {
+    const parent = { ...architectures[0], directory: 'RA0007', id: '5942d2',
+        slug: '/ref-arch/5942d2', title: 'Parent document title' };
+    const child = { ...architectures[0], directory: 'RA0007/5-mt-architecture', id: '29b7c8',
+        slug: '/ref-arch/29b7c8', title: 'Nested document title' };
+    const fixture = makeFixture(t, [child]);
+    fixture.write('docs/ref-arch/RA0007/readme.md', readme(parent));
+    const result = fixture.export();
+    assert.equal(result.status, 0, result.output);
+    const svg = readFileSync(fixture.svgPath(child.directory), 'utf8');
+    const { JSDOM } = require('jsdom');
+    const parsed = new JSDOM(svg, { contentType: 'image/svg+xml' });
+    try {
+        assert.equal(parsed.window.document.getElementById('drawio-title')?.textContent.trim(), child.title);
+    } finally {
+        parsed.window.close();
+    }
+    const qrSvg = await require('qrcode').toString(baseUrl + '/docs' + child.slug, { type: 'svg', margin: 0 });
+    assert.ok(svg.includes(qrSvg.replace(/<\/*svg[^>]*>/g, '')), 'The QR code must link to the nested document.');
+    assert.ok(svg.includes(child.id), 'The watermark must show the nested document ID.');
+});
+
+test('artifact thumbnail URLs encode query, fragment, and percent characters from readme titles', {
+    skip: !enabled,
+    timeout: failureTestTimeout,
+}, (t) => {
+    const architecture = { ...architectures[0], title: 'Diagram #1? 100%' };
+    const fixture = makeFixture(t, [architecture]);
+    const result = fixture.export();
+    assert.equal(result.status, 0, result.output);
+    const [artifact] = JSON.parse(readFileSync(fixture.indexPath, 'utf8'));
+    const url = new URL(artifact.thumbnailLink);
+    assert.equal(url.hash, '');
+    assert.equal(url.search, '');
+    assert.equal(url.pathname, '/artifacts/thumbnails/diagram-%231%3F-100%25.svg');
+    const thumbnail = join(fixture.root, 'static', decodeURIComponent(url.pathname));
+    assert.equal(readFileSync(thumbnail, 'utf8'), readFileSync(fixture.svgPath(architecture.directory), 'utf8'));
 });
 
 test('cached Draw.io export rejects an images directory symlink without overwriting external files', {
@@ -500,9 +699,9 @@ test('Draw.io export escapes hostile readme metadata instead of emitting active 
     // Both vectors are whitespace-free so the slug survives the `\S+` capture in
     // getRenderContext, and the title carries a `]]>` CDATA-breakout sequence.
     const hostile = {
-        id: 'RA9001',
+        ...architectures[0],
         title: 'Evil]]></text><script>alert(document.domain)</script><text><![CDATA[x',
-        slug: '/ref-arch/RA9001</text><script>alert(document.domain)</script><text>',
+        slug: '/ref-arch/a90001</text><script>alert(document.domain)</script><text>',
         label: 'Hostile fixture source',
         description: 'Attempts stored XSS via title and slug front-matter.',
     };
